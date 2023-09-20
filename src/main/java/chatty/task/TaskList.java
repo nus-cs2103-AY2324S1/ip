@@ -50,7 +50,7 @@ public class TaskList {
      */
     public Task deleteTask(int i) throws InvalidTaskNumberException {
         assert i > 0 && i <= this.listSize() : "Invalid task index: " + i;
-        if (i >= this.listSize() || i < 0) {
+        if (i > this.listSize() || i < 0) {
             throw new InvalidTaskNumberException();
         }
         return this.taskList.remove(i - 1);

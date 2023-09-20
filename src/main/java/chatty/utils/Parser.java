@@ -3,6 +3,8 @@ package chatty.utils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 import chatty.command.Command;
 import chatty.command.CommandNotFound;
@@ -13,6 +15,7 @@ import chatty.command.EventCommand;
 import chatty.command.ExitCommand;
 import chatty.command.FindCommand;
 import chatty.command.ListCommand;
+import chatty.command.SetAliasCommand;
 import chatty.command.ToDoCommand;
 import chatty.command.UndoneCommand;
 import chatty.exception.DetailsUnknownException;
@@ -23,8 +26,7 @@ import chatty.exception.InvalidTaskNumberException;
  * Responsible for parsing user input and generating appropriate commands for the chatbot.
  */
 public class Parser {
-
-
+    private static final Map<String, String> commandAlias = new HashMap<>();
     /**
      * Parse user input and return the specific command to execute.
      *
@@ -40,6 +42,9 @@ public class Parser {
         String[] parts = input.split(" ", 2);
         String commandWord = parts[0].toLowerCase();
         String commandArgs = parts.length > 1 ? parts[1] : "";
+        if (commandAlias.containsKey(commandWord)) {
+            commandWord = commandAlias.get(commandWord);
+        }
 
         switch (commandWord) {
         case "bye":
@@ -60,6 +65,8 @@ public class Parser {
             return parseEventCommand(commandArgs);
         case "find":
             return parseFindCommand(commandArgs);
+        case "set":
+            return parseSetAliasCommand(commandArgs);
         default:
             return new CommandNotFound();
         }
@@ -176,7 +183,32 @@ public class Parser {
         }
         return new FindCommand(args);
     }
+    /**
+     * Parses the "setAlias" command and returns a SetAliasCommand instance.
+     *
+     * @param args The arguments provided for the "setAlias" command.
+     * @return A SetAliasCommand instance with the specified alias and associated command.
+     * @throws IncompleteMessageException When the input for the "setAlias" command is incomplete.
+     */
+    private static Command parseSetAliasCommand(String args) throws IncompleteMessageException {
+        String[] parts = args.split(" ", 2);
+        if (parts.length != 2) {
+            throw new IncompleteMessageException("set");
+        }
+        String alias = parts[0];
+        String command = parts[1];
+        return new SetAliasCommand(alias, command);
+    }
 
+    /**
+     * Sets a custom alias for a command.
+     *
+     * @param alias The alias to set.
+     * @param command The command associated with the alias.
+     */
+    public static void setAlias(String alias, String command) {
+        commandAlias.put(alias, command.toLowerCase());
+    }
 
     /**
      * Format a LocalDate to a string representation.
@@ -184,7 +216,6 @@ public class Parser {
      * @param date The LocalDate to be formatted.
      * @return The formatted date in String representation.
      */
-
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         return date.format(formatter);

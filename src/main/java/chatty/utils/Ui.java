@@ -59,7 +59,7 @@ public class Ui {
     public String showList(TaskList taskList) {
         assert taskList.listSize() >= 0 : "Task list size should not be negative.";
         if (taskList.listSize() == 0) {
-            return "There is currently no chatty.task in your list.";
+            return "There is currently no task in your list.";
         } else {
             StringBuilder result = new StringBuilder("Here are the tasks in your list: \n");
             for (int i = 0; i < taskList.listSize(); i++) {
@@ -77,7 +77,7 @@ public class Ui {
      * @return The specified message
      */
     public String showDone(int i, TaskList taskList) {
-        return "Nice! I've marked this chatty.task as done: \n" + "         " + taskList.showTask(i);
+        return "Nice! I've marked this task as done: \n" + "         " + taskList.showTask(i);
     }
 
     /**
@@ -88,7 +88,7 @@ public class Ui {
      * @return The specified message
      */
     public String showUndone(int i, TaskList taskList) {
-        return "Ok, I've marked this chatty.task as not done: \n" + "           " + taskList.showTask(i);
+        return "Ok, I've marked this task as not done: \n" + "           " + taskList.showTask(i);
     }
 
 
@@ -102,7 +102,7 @@ public class Ui {
      */
     public String showDelete(int i, TaskList taskList) throws InvalidTaskNumberException {
         assert i >= 0 && i < taskList.listSize() : "Invalid task index: " + i;
-        return "Alright, I've removed this chatty.task from the list: \n"
+        return "Alright, I've removed this task from the list: \n"
                 + "           " + taskList.deleteTask(i) + "\n"
                 + "Now you have" + taskList.listSize() + " task(s) in your list.";
     }
@@ -115,7 +115,7 @@ public class Ui {
      * @return The specified message
      */
     public String showAdded(Task task, TaskList taskList) {
-        return "Got it. I've added this chatty.task into the list: \n"
+        return "Got it. I've added this task into the list: \n"
                 + "         " + task + "\n"
                 + "You now have " + taskList.listSize() + " task(s) in the list.";
     }
@@ -141,5 +141,8 @@ public class Ui {
         } else {
             return "Here are the list of task(s) matching your keyword: \n" + matchedTask;
         }
+    }
+    public String showSet(String alias, String command) {
+        return String.format("I have set %s as the alias for %s command", alias, command);
     }
 }
