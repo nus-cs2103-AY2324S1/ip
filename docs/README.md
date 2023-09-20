@@ -7,9 +7,19 @@ all the while retaining the advantages of a Graphical User Interface (GUI). It i
 commands in this guide in a step-by-step manner as the expected output assumes you have been following the commands
 sequentially.
 
+## Downloading TaskMate
+
+You may choose the release version of TaskMate from [this link](https://github.com/elhy1999/ip/releases). Please
+download the `taskmate.jar` file **into a clean folder**. Next, run the `.jar` file either by double-clicking on the
+application, or running `java -jar taskmate.jar` in your terminal.
+
+Note: A new `data/` folder will be created in the directory where you installed TaskMate. This folder contains your task
+data so that when you exit the application, your data is saved locally.
+
+
 ![TaskMate GUI](https://elhy1999.github.io/ip/Ui.png "TaskMate Gui")
 
-## Features 
+## Features
 
 ### Add Task
 
@@ -51,6 +61,26 @@ list of each command along with its corresponding syntax.
 When you close TaskMate using the `bye` command, TaskMate automatically saves your task data onto your computer so that
 when you boot TaskMate up again in the future, this data will be loaded and you will not need to retype all your tasks
 from scratch.
+
+### Graphical User Interface (GUI)
+
+TaskMate has a GUI which offers a more aesthetically pleasing experience. It is able to provide you with information
+about the name of each task, the index of each task, any dates associated to it (usually in brackets next to the task's
+name), the type of the task (i.e. todo, deadline, or event), as well as whether it has been completed. Take the
+following as an example:
+
+```
+1.[T][ ] learn HTML/CSS one day
+2.[D][ ] purchase anniversary gift (by: Sep 19 2023)
+3.[E][X] learning journey (from: Sep 23 2023 to: Sep 24 2023)
+```
+
+In the example above, we see the index of each task on the left. Next to the index, we see the task type in squared
+brackets (i.e. `[T]`, `[D]`, and `[E]` representing *todo*, *deadline*, and *event* respectively). Next to that, we see
+another set of squared brackets indicating if the task has been marked as completed or not (an `X` indicates that it
+has been completed). To the right of this indicator, we see the task name. For *deadline* and *event* tasks, there are
+also dates associated to each task, which are in round brackets to the right of the task name.
+
 
 ## Usage
 
