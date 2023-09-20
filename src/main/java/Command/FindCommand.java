@@ -22,7 +22,7 @@ public class FindCommand extends Command {
             }
         }
 
-        String message = ui.list(findList.getTaskArrayList(), true);
+        String message = ui.findList(findList.getTaskArrayList(), true);
         return message;
     }
 }

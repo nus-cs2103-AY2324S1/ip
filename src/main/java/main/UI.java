@@ -68,7 +68,7 @@ public class UI {
         return String.valueOf(sb);
     }
 
-    public String list(ArrayList<Task> taskArrayList, Boolean isMatchingList) {
+    public String findList(ArrayList<Task> taskArrayList, Boolean isMatchingList) {
         StringBuilder sb = new StringBuilder();
         sb.append(this.printDivider());
         if (taskArrayList.size() == 0) {
@@ -129,6 +129,16 @@ public class UI {
         StringBuilder sb = new StringBuilder();
         sb.append("\nOK, I've marked this task as not done yet:");
         sb.append("\n").append(task);
+        return String.valueOf(sb);
+    }
+
+    public static String showUpdatedDescription(int taskIndex, String oldDescription, String newDescription) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Updated the description of Task ").append(taskIndex);
+        sb.append(" from \"").append(oldDescription).append("\"");
+        sb.append("to \"").append(newDescription).append("\"");
+
         return String.valueOf(sb);
     }
 }

@@ -45,6 +45,12 @@ public class Task {
         return this.description;
     }
 
+    public String updateDescription(String updatedDescription) {
+        String oldDescription = this.description;
+        this.description = updatedDescription;
+        return oldDescription;
+    }
+
     /**
      * toString() method.
      * @return string text of the task in which the task will be displayed in the terminal.

@@ -143,6 +143,14 @@ public class TaskList {
         return UI.showUnmarked(currTask);
     }
 
+    public String updateTaskDescription(int taskIndex, String updatedDescription) {
+        Task currTask = this.taskList.get(taskIndex - 1);
+        // update description returns old description
+        String oldDescription = currTask.updateDescription(updatedDescription);
+
+        return UI.showUpdatedDescription(taskIndex, oldDescription, updatedDescription);
+    }
+
     /**
      * size() method.
      * @return number of tasks in the task list.
