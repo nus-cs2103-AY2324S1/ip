@@ -1,4 +1,4 @@
-# User Guide for RonaldoSaysDo
+# User Guide for Ronaldo
 
 ## Overview
 1. [Add a Todo task](#add-a-todo-task-todo)
