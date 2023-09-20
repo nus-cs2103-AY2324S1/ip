@@ -7,8 +7,13 @@ import duke.exception.DukeException;
 
 public class UnmarkCommand extends Command {
     int index;
-    public UnmarkCommand(int index) {
-        this.index = index;
+    public UnmarkCommand(String cmd) throws DukeException {
+        try {
+            int index = Integer.parseInt(cmd);
+            this.index = index-1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Specify your task number clearly. (eg. unmark 1)");
+        }
     }
 
     @Override

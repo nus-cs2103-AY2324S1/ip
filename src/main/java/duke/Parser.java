@@ -26,12 +26,14 @@ public class Parser {
                 return new AddToDoCommand(str.substring(5));
             }
         } else if (str.startsWith("event")) {
-            if (str.length() <= 6) {
-                throw new DukeException("So um, what exactly do you have? Add it as the description of the event.");
+            if (str.length() <= 15) {
+                throw new DukeException("So um, what exactly do you have?"
+                        + " I need a description and the /from /to dates, please.\n"
+                        + "(eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800)");
             }
-            if (!str.contains("/from") || !str.contains("/to")) {
+            if (!str.contains("/from ") || !str.contains("/to ")) {
                 throw new DukeException("When's the event? Write it explicitly. "
-                        + "eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800");
+                        + "(eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800)");
             }
             int indexFrom = str.lastIndexOf("/from");
             int indexTo = str.lastIndexOf("/to");
@@ -43,16 +45,16 @@ public class Parser {
                                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
             } catch (DateTimeParseException parseError) {
                 throw new DukeException("Enter a proper date in the YYYY-MM-DD format."
-                        + "eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800");
+                        + "(eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800)");
             }
         } else if (str.startsWith("deadline")) {
-            if (str.length() <= 9) {
-                throw new DukeException("So um, what exactly do you need to do?"
-                        + "Add it as the description of the deadline.");
+            if (str.length() <= 12) {
+                throw new DukeException("What are your task details? I need a description and a /by date, please.\n"
+                        + "(eg. Assignment /by 2023-12-12 1800)");
             }
-            if (!str.contains("/by")) {
+            if (!str.contains("/by ")) {
                 throw new DukeException("When's the deadline? Write it explicitly."
-                        + "eg. Assignment /by 2023-12-12 1800");
+                        + "(eg. Assignment /by 2023-12-12 1800)");
             }
             int indexBy = str.lastIndexOf("/by");
             try {
@@ -61,7 +63,7 @@ public class Parser {
                                 DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
             } catch (DateTimeParseException parseError) {
                 throw new DukeException("Enter a proper date in the YYYY-MM-DD format."
-                        + "eg. Assignment /by 2023-12-12 1800");
+                        + "(eg. Assignment /by 2023-12-12 1800)");
             }
         } else if (str.startsWith("mark")) {
             throw new DukeException("Specify the task number after the word 'mark', please. I can't read minds.");
@@ -90,14 +92,11 @@ public class Parser {
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.startsWith("mark") && command.length() > 5) {
-            int index = Integer.parseInt(command.substring(5));
-            return new MarkCommand(index-1);
+            return new MarkCommand(command.substring(5));
         } else if (command.startsWith("unmark") && command.length() > 7) {
-            int index = Integer.parseInt(command.substring(7));
-            return new UnmarkCommand(index-1);
+            return new UnmarkCommand(command.substring(7));
         } else if (command.startsWith("delete") && command.length() > 7) {
-            int index = Integer.parseInt(command.substring(7));
-            return new DeleteCommand(index-1);
+            return new DeleteCommand(command.substring(7));
         } else if (command.startsWith("find") && command.length() > 5) {
             return new FindCommand(command.substring(5));
         } else {

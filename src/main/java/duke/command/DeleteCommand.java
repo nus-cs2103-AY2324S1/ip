@@ -7,8 +7,13 @@ import duke.exception.DukeException;
 
 public class DeleteCommand extends Command {
     int index;
-    public DeleteCommand(int index) {
-        this.index = index;
+    public DeleteCommand(String cmd) throws DukeException {
+        try {
+            int index = Integer.parseInt(cmd);
+            this.index = index-1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Specify your task number clearly. (eg. delete 1)");
+        }
     }
 
     @Override

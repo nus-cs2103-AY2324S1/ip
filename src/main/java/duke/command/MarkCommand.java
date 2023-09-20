@@ -5,10 +5,17 @@ import duke.TaskList;
 import duke.Ui;
 import duke.exception.DukeException;
 
+import java.text.ParseException;
+
 public class MarkCommand extends Command {
     int index;
-    public MarkCommand(int index) {
-        this.index = index;
+    public MarkCommand(String cmd) throws DukeException {
+        try {
+            int idx = Integer.parseInt(cmd);
+            this.index = idx-1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("Specify your task number clearly. (eg. mark 1)");
+        }
     }
 
     @Override
