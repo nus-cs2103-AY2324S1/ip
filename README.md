@@ -24,7 +24,7 @@
 
     > Format: event {task name} /from {start} /to {end}
 
-    ` event Badminton /from 2023-11-23 10:00:00 /to 2023-11-23 12:00:00`
+    `event Badminton /from 2023-11-23 10:00:00 /to 2023-11-23 12:00:00`
 
 ### Deleting a task
 Delete a task at a specified index.
