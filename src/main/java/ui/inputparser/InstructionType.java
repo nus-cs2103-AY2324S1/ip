@@ -30,6 +30,7 @@ public enum InstructionType {
 
     private InstructionType(String alias, int numUnnamedArgs, int namedArgs, String[] argNames)
             throws ExceptionInInitializerError {
+
         this.alias = alias;
         this.numUnnamedArgs = numUnnamedArgs;
         this.numNamedArgs = namedArgs;
