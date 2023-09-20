@@ -12,18 +12,18 @@ Description of the feature.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` taskName
 
-Describe the action and its outcome.
+This adds a todo task to your list of tasks.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo Homework`
 
 Expected outcome:
 
-Description of the outcome.
+Got it! I've added this task:
+T[][] Homework
+Now you have 1 task in the list.
 
-```
-expected output
-```
+
