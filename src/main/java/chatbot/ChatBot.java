@@ -1,7 +1,5 @@
 package chatbot;
 
-import javafx.util.Pair;
-
 import chatbot.exceptions.ChatBotException;
 import chatbot.exceptions.DeadlineMissingFieldException;
 import chatbot.exceptions.DeleteMissingFieldException;
@@ -15,15 +13,16 @@ import chatbot.exceptions.MarkMissingFieldException;
 import chatbot.exceptions.PriorityMissingFieldException;
 import chatbot.exceptions.TodoMissingFieldException;
 import chatbot.tasks.Task;
+import javafx.util.Pair;
 
 /**
  * Main ChatBot class which instantiates a ChatBot object that coordinates other components.
  */
 public class ChatBot {
+    public static final String INIT_TASKLIST_SUCCESS_STRING = "Init TaskList Success";
     static final String NAME = "WX-78";
     static final String LOCAL_DIRECTORY_PATH = "./data";
     static final String LOCAL_FILE_PATH = LOCAL_DIRECTORY_PATH + "/chatbot.txt";
-    public static final String INIT_TASKLIST_SUCCESS_STRING = "Init TaskList Success";
     private Storage storage;
     private TaskList tasks;
     private boolean noLocalFileAccess = false; // Whether the data file cannot be accessed due to permission issue.

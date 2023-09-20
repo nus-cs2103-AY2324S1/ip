@@ -1,7 +1,5 @@
 package chatbot;
 
-import javafx.util.Pair;
-
 import chatbot.exceptions.DeadlineMissingFieldException;
 import chatbot.exceptions.DeleteMissingFieldException;
 import chatbot.exceptions.EventMissingFieldException;
@@ -14,6 +12,7 @@ import chatbot.tasks.DeadlineTask;
 import chatbot.tasks.EventTask;
 import chatbot.tasks.Task;
 import chatbot.tasks.ToDoTask;
+import javafx.util.Pair;
 
 /**
  * Class that contains static methods to help parse user commands.

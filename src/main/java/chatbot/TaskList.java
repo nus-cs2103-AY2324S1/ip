@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import chatbot.exceptions.InvalidTaskIndexException;
-import chatbot.exceptions.InvalidTaskStringException;
 import chatbot.tasks.Task;
 
 /**

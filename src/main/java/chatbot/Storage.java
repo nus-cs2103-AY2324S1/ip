@@ -70,7 +70,7 @@ public class Storage {
             throw new InvalidTaskStringException();
         }
     }
-    
+
     private static Task.Priority parseTaskPriority(String taskString) throws InvalidTaskStringException {
         switch (taskString.charAt(LOCAL_STORAGE_TASK_PRIORITY_INDEX)) {
         case 'H':

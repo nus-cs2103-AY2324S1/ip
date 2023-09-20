@@ -1,14 +1,13 @@
 package chatbot.gui;
 
+import chatbot.ChatBot;
+import chatbot.exceptions.ChatBotException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
-
-import chatbot.ChatBot;
-import chatbot.exceptions.ChatBotException;
 
 public class Gui {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
@@ -35,7 +34,7 @@ public class Gui {
         String initTaskListResponse = this.chatBot.initTaskList();
         if (initTaskListResponse != ChatBot.INIT_TASKLIST_SUCCESS_STRING) {
             addChatBotDialog(initTaskListResponse, true);
-        };
+        }
     }
 
     private void addUserDialog(String text) {
