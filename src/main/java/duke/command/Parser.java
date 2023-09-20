@@ -112,7 +112,7 @@ public class Parser {
     private static String generateTaskDeletedResponse(Task task, TaskList taskList) {
         StringBuilder response = new StringBuilder("Noted. I've removed this task:\n\t");
         response.append(task.toString()).append("\n");
-        response.append("Now you have ").append(taskList.getTasks().size()).append(" tasks in the list.");
+        response.append("Now you have ").append(taskList.getTasks().size()).append(" task(s) in the list.");
         return response.toString();
     }
 
@@ -199,7 +199,7 @@ public class Parser {
      * @throws DukeException Error message to indicate invalid todo command
      */
     private static String generateTodoResponse(String[] tokens, TaskList taskList) throws DukeException {
-        boolean isCommandEmpty = tokens.length < 2;
+        boolean isCommandEmpty = tokens.length < 2 || tokens[1].trim().equalsIgnoreCase("");
 
         if (isCommandEmpty) {
             throw new DukeException("The description of todo cannot be empty.");
@@ -230,7 +230,7 @@ public class Parser {
         boolean isDeadlineAbsent = parts.length < 2 || parts[1].trim().isEmpty();
         boolean isDescriptionAbsent = parts[0].trim().isEmpty();
 
-        if (isDescriptionAbsent || isDeadlineAbsent) {
+        if (isCommandEmpty|| isDescriptionAbsent || isDeadlineAbsent) {
             throw new DukeException("Please provide a task description and deadline.");
         }
 
@@ -308,7 +308,7 @@ public class Parser {
     private static String generateTaskAddedResponse(Task task, TaskList taskList) {
         StringBuilder response = new StringBuilder("Got it. I've added this task:\n\t");
         response.append(task.toString()).append("\n");
-        response.append("Now you have ").append(taskList.getTasks().size()).append(" tasks in the list.");
+        response.append("Now you have ").append(taskList.getTasks().size()).append(" task(s) in the list.");
         return response.toString();
     }
 
@@ -339,22 +339,26 @@ public class Parser {
         return response.toString();
     }
 
+    /**
+     * Generates the response for the help command
+     * @return string containing a guide of the commands
+     */
     private static String generateHelpResponse() {
-        String response = "I heard you needed some help! Here are your commands:\n"
-                + "'list' : Shows all existing tasks in your list.\n"
-                + "'todo [task]' : Adds a new todo Task to your list.\n\t(eg. todo homework)\n"
-                + "'deadline [task] /by [deadline in dd/MM/yyyy]' : Adds a new deadline to your list.\n\t"
-                + "(eg. submit homework /by 15/04/2023)\n"
-                + "'event [task] /from [start in dd/MM/yyyy] /to [end in dd/MM/yyyy]' : Adds a new event to your list.\n\t"
-                + "(eg. camp /from 22/03/2023 /to 25/03/2023)\n"
-                + "'mark [task number]' : Marks the specified task in the list.\n\t(eg. mark 2)\n"
-                + "'unmark [task number]' : Unmarks the specified task in the list.\n\t(eg. unmark 2)\n"
-                + "'delete [task number]' : Deletes the specified task from the list.\n\t(eg. delete 2)\n"
-                + "'find [keyword]' : Returns the tasks that contain the given keyword.\n\t(eg. find work)\n"
-                + "'bye' : Exit program.";
+        String helpResponse = "I heard you needed some help!\nHere are your commands:\n"
+                + "Viewing your tasks:\n\tlist\n\tfind {keyword}\n"
+                + "Adding new tasks:\n\t"
+                + "todo {task}\n\t"
+                + "deadline {task} /by {dd/MM/yyyy}\n\t"
+                + "event {task} /from {dd/MM/yyyy} /to {dd/MM/yyyy}\n"
+                + "Editing your task list:\n\t"
+                + "mark {task number}\n\t"
+                + "unmark {task number}\n\t"
+                + "delete {task number}\n"
+                + "Exit the program: bye";
 
-        return response;
+        return helpResponse;
     }
+
 
 
 }
