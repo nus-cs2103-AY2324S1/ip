@@ -97,15 +97,15 @@ Hello from
 >> **mark2** <br>
 >> **mark3** 
 >>> 2. [D][X] homework (by: 20 Sep 2023 12:34)<br>
->>> 3. [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023 15:00)
+>>> 3. [E][X] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023 15:00)
 >
 >> **unmark 1**
 >>> 1. [T][ ] laundry<br>
 >
 >> **list** <br> 
->> 1. [T][X] laundry<br>
+>> 1. [T][ ] laundry<br>
 >> 2. [D][X] homework (by: 20 Sep 2023 12:34)<br>
->> 3. [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023
+>> 3. [E][X] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023
 >
 > **Stats**
 >> Here are the task statistics: <br>
