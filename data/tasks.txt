@@ -1,12 +1,12 @@
-T|F|task
-T|F|bruh
+E|F|this|2029-01-01T00:00|2099-01-01T00:00
 D|T|deadline task|2023-04-29T00:00
 E|F|idk|2019-02-01T00:00|2023-02-01T00:00
 E|F|bruh|2020-10-01T00:00|2022-10-05T00:00
-E|F|this|2029-01-01T00:00|2099-01-01T00:00
-T|F|this
 D|F|event|2001-01-01T00:00
-T|F|bruh
 T|F|100
 T|F|100000
+T|F|bruh
+T|F|bruh
 T|T|naur
+T|F|task
+T|F|this

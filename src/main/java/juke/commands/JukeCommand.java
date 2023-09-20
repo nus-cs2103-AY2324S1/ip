@@ -174,7 +174,7 @@ public abstract class JukeCommand extends JukeObject {
             //@@author
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, newArgs)) {
-                throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                throw new JukeIllegalArgumentException("Oh no! The input cannot contain the character \"|\"!");
             }
 
             JukeTask jt = new JukeTodo(newArgs);
@@ -205,7 +205,7 @@ public abstract class JukeCommand extends JukeObject {
             String[] parsedArguments = Parser.parseByByString(newDeadlineArgs);
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, parsedArguments[0])) {
-                throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                throw new JukeIllegalArgumentException("Oh no! The input cannot contain the character \"|\"!");
             }
 
             JukeTask jt = new JukeDeadline(parsedArguments[0], DateTimeParser.parse(parsedArguments[1]));
@@ -238,7 +238,7 @@ public abstract class JukeCommand extends JukeObject {
             String[] parsedArguments = Parser.parseByFromToString(newEventArgs);
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, parsedArguments[0])) {
-                throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                throw new JukeIllegalArgumentException("Oh no! The input cannot contain the character \"|\"!");
             }
 
             LocalDateTime startTime = DateTimeParser.parse(parsedArguments[1]);

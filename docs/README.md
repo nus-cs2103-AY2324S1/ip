@@ -72,6 +72,9 @@ no deadlines, and are represented only by its completion status!
 
 `todo [task name]`
 
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
+
 #### Examples
 
 * `todo task`
@@ -108,6 +111,9 @@ Create a `Deadline` Task to track completable tasks with a deadline!
     * `YYYY`: 4 digit number representing the year
     * `HH`: 2 digit number representing the hour in 24 hours
     * `MM`: 2 digit number representing the minutes
+
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -151,6 +157,9 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
 
 > **ℹ️ Note**  
 > The date formats used in `event` follows closely to what `deadline` uses!
+
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -272,7 +281,7 @@ Task marked as done: <TASK>
 ```
 
 > **ℹ️ Note**  
-> The task indicator will turn from `[]` to `[✓]`
+> The task indicator will turn from `[ ]` to `[✓]`
 
 #### Possible Errors
 
@@ -334,6 +343,9 @@ find [QUERY]
 
 > **ℹ️ Note**  
 > The query can be any valid task name String (does not contain the illegal character `|`)!
+
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
