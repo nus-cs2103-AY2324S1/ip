@@ -12,9 +12,10 @@ import duke.ui.Ui;
 public class Parser {
 
     /**
-     * Select command to run.
+     * Selects a command to run.
      * @param rawInput The user's input.
      * @param taskList The list of tasks.
+     * @return The output of the command.
      */
     public static String parseCommand(String rawInput, TaskList taskList) {
         StringBuilder output = new StringBuilder();

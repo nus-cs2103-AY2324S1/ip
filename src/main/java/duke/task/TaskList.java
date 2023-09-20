@@ -65,9 +65,9 @@ public class TaskList {
         };
 
         /**
-         * Creates a deadline duke.task.
-         * @param details The details of the deadline duke.task.
-         * @return The deadline duke.task.
+         * Creates a deadline task.
+         * @param details The details of the deadline task.
+         * @return The deadline task.
          * @throws InvalidArgumentException If the deadline task's format is invalid.
          */
         public abstract Task createTask(String details) throws InvalidArgumentException;
@@ -156,7 +156,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a duke.task as done.
+     * Marks a task as done.
      * @param index The index of the task to be marked as done.
      * @return The mark as done message.
      * @throws IllegalTaskIndexException If the index is invalid.
@@ -178,7 +178,7 @@ public class TaskList {
     }
 
     /**
-     * Marks a duke.task as undone.
+     * Marks a task as undone.
      * @param index The index of the task to be marked as undone.
      * @return The mark as undone message.
      * @throws IllegalTaskIndexException If the index is invalid.
@@ -199,7 +199,7 @@ public class TaskList {
     }
 
     /**
-     * Delete a task from the list of tasks.
+     * Deletes a task from the list of tasks.
      * @param index The index of the task to be deleted.
      * @return The delete message.
      * @throws IllegalTaskIndexException If the index is invalid.
@@ -221,7 +221,7 @@ public class TaskList {
     }
 
     /**
-     * Delete all tasks from the list of tasks.
+     * Deletes all tasks from the list of tasks.
      */
     public void deleteAllTasks() {
         tasks.clear();
@@ -233,7 +233,7 @@ public class TaskList {
     }
 
     /**
-     * Find tasks with the given keyword.
+     * Finds tasks with the given keyword.
      * @param keyword The keyword to search for.
      */
     public String findTasks(String keyword) {
