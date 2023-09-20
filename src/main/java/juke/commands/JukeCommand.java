@@ -314,7 +314,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeSortListCommand} object
      */
     private static JukeSortListCommand sort(String[] args, TaskList taskList) {
-        if (args.length == 1  || args.length > 3) {
+        if (args.length == 1 || args.length > 3) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
                                                           "sort [a/asc/ascend/ascending | "
                                                                   + "d/desc/descend/descending] "
