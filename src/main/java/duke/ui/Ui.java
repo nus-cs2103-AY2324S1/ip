@@ -184,7 +184,10 @@ public class Ui {
      */
     public String displayList(List<Task> tasks) {
         assert tasks != null : "List of tasks should not be null";
-        String result = "";
+        if (tasks.size() == 0) {
+            return "You have no tasks in your list.";
+        }
+        String result = "Here is a list of all your tasks: \n";
         for (int i = 0; i < tasks.size(); i++) {
             result += (i + 1) + ". " + tasks.get(i) + "\n";
         }
