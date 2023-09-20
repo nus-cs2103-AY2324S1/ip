@@ -7,6 +7,19 @@ import Models.TaskArray;
  */
 public class HelpCommandHandler implements Command{
     private TaskArray tasks;
+    private String help = " Hello! I'm EGGBOT!\n\n" +
+            " >>> Adding of tasks:\n" +
+            " > ToDo task: 'todo [Task]'\n" +
+            " > Deadline task: 'deadline [Task /Deadline (dd-mm-yyyy hhmm)]'\n" +
+            " > Event task: 'event [Task /Start Date (dd-mm-yyyy hhmm)/End Date (dd-mm-yyyy hhmm)]'\n\n" +
+            " >>> Other commands:\n" +
+            " > To view tasks, type 'list' \n" +
+            " > To mark a task as 'done', type 'mark [index]' \n" +
+            " > To mark a task as 'undone', type 'unmark [index]' \n" +
+            " > To delete a task, type 'delete [index]' \n" +
+            " > To find a task, type 'find <a word in the task name>' \n" +
+            " > To view a list of commands, type 'help' \n" +
+            " > To exit, type 'bye' or 'exit'";
 
     /**
      * Constructor for HelpCommandHandler.
@@ -25,20 +38,6 @@ public class HelpCommandHandler implements Command{
      */
     @Override
     public String parseCommandContent(String commandContent) {
-        String help = " Hello! I'm EGGBOT!\n\n" +
-                " >>> Adding of tasks:\n" +
-                " > ToDo task: 'todo [Task]'\n" +
-                " > Deadline task: 'deadline [Task /Deadline (dd-mm-yyyy hhmm)]'\n" +
-                " > Event task: 'event [Task /Start Date (dd-mm-yyyy hhmm)/End Date (dd-mm-yyyy hhmm)]'\n\n" +
-                " >>> Other commands:\n" +
-                " > To view tasks, type 'list' \n" +
-                " > To mark a task as 'done', type 'mark [index]' \n" +
-                " > To mark a task as 'undone', type 'unmark [index]' \n" +
-                " > To delete a task, type 'delete [index]' \n" +
-                " > To find a task, type 'find <a word in the task name>' \n" +
-                " > To view a list of commands, type 'help' \n" +
-                " > To exit, type 'bye' or 'exit'";
-
         return (help);
     }
 }
