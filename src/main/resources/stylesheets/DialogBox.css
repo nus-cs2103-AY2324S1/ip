@@ -1,0 +1,6 @@
+.dialog {
+    -fx-padding: 12;
+    -fx-background-radius: 18;
+    -fx-background-color: #FFF3C8;
+    -fx-text-fill: black;
+}
