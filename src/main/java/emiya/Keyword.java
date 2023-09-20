@@ -1,5 +1,6 @@
 package emiya;
 
+import emiya.commands.ByeCommand;
 import emiya.commands.Command;
 import emiya.commands.DeadlineCommand;
 import emiya.commands.DeleteCommand;
@@ -20,7 +21,8 @@ public enum Keyword {
     EVENT("event", new EventCommand()), LIST("list", new ListCommand()),
     MARK("mark", new MarkCommand()), UNMARK("unmark", new UnmarkCommand()),
     DELETE("delete", new DeleteCommand()), FIND("find", new FindCommand()),
-    HELP("help", new HelpCommand()), UNKNOWN("unknown", new UnknownCommand());
+    BYE("bye", new ByeCommand()), HELP("help", new HelpCommand()),
+    UNKNOWN("unknown", new UnknownCommand());
 
     private final String type;
     private final Command command;
@@ -39,7 +41,7 @@ public enum Keyword {
      * @param value The input String containing the command.
      * @return The respective command of the input string.
      */
-    public static Keyword getCommand(String value) {
+    public static Keyword getCommandKeyword(String value) {
         for (Keyword kwd : Keyword.values()) {
             if (kwd.type.equals(value)) {
                 return kwd;

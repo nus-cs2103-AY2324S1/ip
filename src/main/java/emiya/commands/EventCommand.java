@@ -4,6 +4,7 @@ import emiya.emiyaexception.EmptyEventException;
 import emiya.emiyaexception.InvalidDateException;
 import emiya.emiyaexception.NoFromException;
 import emiya.emiyaexception.NoToException;
+import emiya.emiyaexception.UnknownCommandException;
 import emiya.emiyaexception.WrongDateTimeFormatException;
 import emiya.parser.Parser;
 import emiya.storage.Storage;
@@ -38,7 +39,8 @@ public class EventCommand implements Command {
      */
     public static String createEvent(String taskDetails, Parser parser, TaskList taskList, Storage storage,
                                       Ui ui, String fileName, String dirName) throws EmptyEventException,
-            NoFromException, NoToException, InvalidDateException, WrongDateTimeFormatException {
+            NoFromException, NoToException, InvalidDateException, WrongDateTimeFormatException,
+            UnknownCommandException {
         if (taskDetails.equals("")) {
             throw new EmptyEventException();
         }

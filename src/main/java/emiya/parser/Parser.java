@@ -65,11 +65,15 @@ public class Parser {
      * @return A String array that contains the input from the user parsed into sections
      *     that can be understood by the rest of the program.
      * @throws NoByException When the user does not use the keyword /by in his input.
+     * @throws UnknownCommandException An exception that is thrown when an unknown command is given by the user.
      */
-    public String[] parseForDeadline(String taskDetails) throws NoByException {
+    public String[] parseForDeadline(String taskDetails) throws NoByException, UnknownCommandException {
         String[] deadlineDetails = taskDetails.split(" /by ", 2);
-        if (deadlineDetails.length <= 1) {
+        if (!taskDetails.contains("/by")) {
             throw new NoByException();
+        }
+        if (deadlineDetails.length <= 1) {
+            throw new UnknownCommandException();
         }
         this.parsedInput = deadlineDetails;
         return deadlineDetails;
@@ -86,14 +90,20 @@ public class Parser {
      * @throws NoToException When the user does not use the keyword /to in his input.
      * @throws NoFromException When the user does not use the keyword /from in his input.
      */
-    public String[] parseForEvent(String taskDetails) throws NoToException, NoFromException {
+    public String[] parseForEvent(String taskDetails) throws NoToException, NoFromException, UnknownCommandException {
         String[] eventDetails = taskDetails.split(" /from ", 2);
-        if (eventDetails.length <= 1) {
+        if (!taskDetails.contains("/from")) {
             throw new NoFromException();
+        }
+        if (!taskDetails.contains("/to")) {
+            throw new NoToException();
+        }
+        if (eventDetails.length <= 1) {
+            throw new UnknownCommandException();
         }
         String[] eventDurationDetails = eventDetails[1].split(" /to ", 2);
         if (eventDurationDetails.length <= 1) {
-            throw new NoToException();
+            throw new UnknownCommandException();
         }
         this.parsedInput = new String[] {eventDetails[0], eventDurationDetails[0], eventDurationDetails[1]};
         return this.parsedInput;

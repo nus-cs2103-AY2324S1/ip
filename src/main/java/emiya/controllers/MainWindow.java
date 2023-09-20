@@ -2,6 +2,7 @@ package emiya.controllers;
 
 import emiya.Emiya;
 import emiya.Keyword;
+import emiya.commands.ByeCommand;
 import emiya.commands.DeadlineCommand;
 import emiya.commands.DeleteCommand;
 import emiya.commands.EventCommand;
@@ -72,7 +73,7 @@ public class MainWindow extends AnchorPane {
         try {
             String[] parsedInput = emiya.getParser().parseToRemoveUnknownCommands(input);
             String taskDetails = parsedInput[1];
-            Keyword typeOfTask = Keyword.getCommand(parsedInput[0]);
+            Keyword typeOfTask = Keyword.getCommandKeyword(parsedInput[0]);
 
             switch (typeOfTask) {
             case LIST:
@@ -107,6 +108,10 @@ public class MainWindow extends AnchorPane {
                 break;
             case HELP:
                 response = HelpCommand.help();
+                break;
+            case BYE:
+                response = "Goodbye!";
+                ByeCommand.exit();
                 break;
             default:
                 throw new UnknownCommandException();

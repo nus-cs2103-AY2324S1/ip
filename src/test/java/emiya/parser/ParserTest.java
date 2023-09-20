@@ -20,7 +20,8 @@ public class ParserTest {
     }
 
     @Test
-    public void parseForDeadline_correctlyFormattedInput_generateExpectedOutput() throws NoByException {
+    public void parseForDeadline_correctlyFormattedInput_generateExpectedOutput() throws NoByException,
+            UnknownCommandException {
         Parser parser = new Parser();
         String taskDetails = "finish homework /by 2023-09-01 1500";
         String[] expectedOutput = {"finish homework", "2023-09-01 1500"};
@@ -28,7 +29,8 @@ public class ParserTest {
     }
 
     @Test
-    public void parseForEvent_correctlyFormattedInput_generateExpectedOutput() throws NoToException, NoFromException {
+    public void parseForEvent_correctlyFormattedInput_generateExpectedOutput() throws NoToException, NoFromException,
+            UnknownCommandException {
         Parser parser = new Parser();
         String taskDetails = "attend meeting /from 2023-09-01 1500 /to 2023-09-01 1600";
         String[] expectedOutput = {"attend meeting", "2023-09-01 1500", "2023-09-01 1600"};
@@ -36,7 +38,8 @@ public class ParserTest {
     }
 
     @Test
-    public void parseForDate_correctlyFormattedInput_generateExpectedOutput() throws InvalidDateException, WrongDateTimeFormatException {
+    public void parseForDate_correctlyFormattedInput_generateExpectedOutput() throws InvalidDateException,
+            WrongDateTimeFormatException {
         Parser parser = new Parser();
         String input = "2023-09-01 1500";
         String[] expectedOutput = {"2023-09-01", "15", "00"};
@@ -62,30 +65,36 @@ public class ParserTest {
         try {
             parser.parseForDeadline(taskDetails);
             fail("Expected NoByException to be thrown");
+        } catch (UnknownCommandException e){
+            fail("Did not throw correct exception");
         } catch (NoByException e) {
             // Test passed
         }
     }
 
     @Test
-    public void parseForEvent_noFromInInput_exceptionThrown() throws NoToException {
+    public void parseForEvent_noFromInInput_exceptionThrown() throws NoToException, UnknownCommandException {
         Parser parser = new Parser();
         String taskDetails = "attend meeting 9am to 11am";
         try {
             parser.parseForEvent(taskDetails);
             fail("Expected NoFromException to be thrown");
+        } catch (NoToException e) {
+            fail("Wrong Exception thrown");
         } catch (NoFromException e) {
             // Test passed
         }
     }
 
     @Test
-    public void parseForEvent_noToInInput_exceptionThrown() throws NoFromException {
+    public void parseForEvent_noToInInput_exceptionThrown() throws NoFromException, UnknownCommandException {
         Parser parser = new Parser();
         String taskDetails = "attend meeting /from 9am 11am";
         try {
             parser.parseForEvent(taskDetails);
             fail("Expected NoToException to be thrown");
+        } catch (NoFromException e) {
+            fail("Wrong Exception thrown");
         } catch (NoToException e) {
             // Test passed
         }
