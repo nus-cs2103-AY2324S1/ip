@@ -12,8 +12,11 @@ public abstract class Command {
     protected String commandType;
     protected boolean isExit;
 
-
-    String getType() {
+    /**
+     * @return a String object representing the command type. Could be Deadline, Delete, Event, Exit, Find, Help, List,
+     *     Mark, Todo, Unmark, or Update
+     */
+    public String getType() {
         assert this.commandType != null;
         return this.commandType;
     }

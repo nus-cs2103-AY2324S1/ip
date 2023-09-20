@@ -13,7 +13,7 @@ import taskmate.tools.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * ExitCommand constructor that allows the user to stop the application and save the undeleted tasks to the
+     * Constructs a ExitCommand object that allows the user to stop the application and save the undeleted tasks to the
      * disk.
      * Note: This is the only command that has a value of `true` in the isExit instance attribute.
      */

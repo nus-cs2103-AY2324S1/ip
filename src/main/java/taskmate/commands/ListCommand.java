@@ -13,7 +13,7 @@ import taskmate.tools.Ui;
 public class ListCommand extends Command {
 
     /**
-     * ListCommand constructor creates a `list` command that provides information about each task.
+     * Constructs a ListCommand object that provides information about each task.
      */
     public ListCommand() {
         this.commandType = "List";

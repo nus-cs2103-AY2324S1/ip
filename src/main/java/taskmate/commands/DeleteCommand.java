@@ -15,7 +15,7 @@ public class DeleteCommand extends Command {
     private final int deleteIndex;
 
     /**
-     * DeleteCommand constructor that allows the developer to specify the index of the task to be removed.
+     * Constructs a DeleteCommand object that allows the developer to specify the index of the task to be removed.
      *
      * @param deleteIndex the index of the task to be removed from the task list. This index is 1-based, which means the
      *                    deleteIndex starts from 1 to the number of tasks available, rather than starting from 0.

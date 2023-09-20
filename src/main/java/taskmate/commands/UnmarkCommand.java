@@ -15,8 +15,8 @@ public class UnmarkCommand extends Command {
     private final int unmarkIndex;
 
     /**
-     * UnmarkCommand constructor that allows the developer to specify the index of the task to be marked as incomplete.
-     *
+     * Constructs a UnmarkCommand object that allows the developer to specify the index of the task to be marked as
+     * incomplete.
      * @param unmarkIndex the index of the task to be unmarked from the task list. This index is 1-based, which means
      *                    the unmarkIndex starts from 1 to the number of tasks available, rather than starting from 0.
      */
