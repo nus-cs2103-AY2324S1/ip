@@ -77,7 +77,7 @@ Nice! I've updated this task:
 Expected outcome:
 ```
 Nice! I've updated this task:
-[D][ ] homework (by: Dec 12 2023 2200)
+[D][ ] homework (by: Dec 12 2023 2359)
 
 ```
 `update 2 /event start date 2023-12-12 1900`
