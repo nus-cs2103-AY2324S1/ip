@@ -143,5 +143,6 @@ All data will be saved on the hard disk automatically as text file `[JAR file lo
 | mark| `mark INDEX` | `mark 1` |
 | unmark | `unmark INDEX` | `unmark 1` |
 | find | `find KEYWORD`| `find fetch` |
+| bye | `bye`| `bye` |
 
 
