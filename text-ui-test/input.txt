@@ -1,0 +1,10 @@
+todo complete lab 1
+todo test
+deadline finish task /by 2023-11-07
+event do stuff /from 2023-11-01 /to 2023-11-02
+mark 1
+mark 2
+mark 3
+unmark 1
+delete 2
+bye
