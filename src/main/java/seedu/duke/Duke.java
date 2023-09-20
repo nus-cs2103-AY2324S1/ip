@@ -65,7 +65,7 @@ public class Duke {
     }
 
     /**
-     * Run the chatbot named Lemon.
+     * Runs the chatbot named Lemon.
      */
     public void run() {
         ui.welcomeMessage();
@@ -88,8 +88,9 @@ public class Duke {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Creates a response based on user's input
+     * @param input String of user's input
+     * @return String representation of response for user's command.
      */
     public String getResponse(String input) {
         try {
