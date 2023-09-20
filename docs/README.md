@@ -1,7 +1,7 @@
 # User Guide
 
-**L** 😼 is a **desktop app for managing tasks, optimized for use via a Command Line Interface (CLI)** while still bringing delights by 
-a Graphical User Interface (GUI). Other than a traditional chat bot, L also **pops up meaningful quotations**.🧙
+**L** 😼 is a **desktop app for managing tasks, optimized for use via a Command Line Interface (CLI)** while still bringing delights through 
+a Graphical User Interface (GUI). Other than a traditional chatbot, L also **pops up meaningful quotations**.🧙
 
 ## Features 
 
@@ -15,7 +15,7 @@ Format: `todo TASK_DESCRIPTION`
 
 `event TASK_DESCRIPTION /from EVENT_START_TIME /to EVENT_END_TIME`  
 
-> **_NOTE:_** Deadline date cannot be before today.
+> **_⚠️ NOTE:_** Deadline date cannot be before today.
 
 Examples:
 * `todo watch movies`
@@ -43,7 +43,7 @@ Here are your tasks::
 "One thing at a time."
 ```
 
-### ☑️ Marking a task as done/undone: `mark`, `unmark`
+### ✔️ Marking a task as done/undone: `mark`, `unmark`
 
 Marks a task as done/undone in the task list.
 
@@ -102,7 +102,7 @@ Upcoming deadlines:
 "One thing at a time."
 ```
 
-### ⏏️ Exiting the program: `bye`
+### 🔚 Exiting the program: `bye`
 
 Exits the program.
 
@@ -114,11 +114,11 @@ Bye!
 "Beware the barrenness of a busy life."
 ```
 
-### 🤖 Reading the data
+### 🔏 Reading the data
 
-After starting the chat bot, L will automatically read previous data saved in  hard disk. If no such data is found, L 
+After starting the chatbot, L will automatically read previous data saved on the hard disk. If no such data is found, L 
 will start a new session.
-> **_❗️CAUTION:_** If data is changed into invalid format, L will not include those data in the chat session and task list.
+> **_❗CAUTION:_** If data is changed into invalid format, L will not include that data in the task list.
 
 ### 🔐 Saving the data
 
