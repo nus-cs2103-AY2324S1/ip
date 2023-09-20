@@ -2,22 +2,13 @@ package main;
 
 import java.io.IOException;
 
-import controllers.DialogBox;
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
 import javafx.application.Application;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.image.Image;
 
 /**
  * The `Corubi` class represents the main class for the Corubi chatbot application.
@@ -30,16 +21,6 @@ public class GigaChadBot extends Application {
     private static final Parser parser = new Parser();
     private static final Storage store = new Storage("./src/main/java/OUTPUT.txt", tasks);
 
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private VBox dialogContainer;
-    @FXML
-    private TextField userInput;
-    @FXML
-    private Button sendButton;
-    private final Image bot = new Image(this.getClass().getResourceAsStream("/images/chad.png"));
-
     /**
      * Getter method for the storage instance.
      *
@@ -49,8 +30,11 @@ public class GigaChadBot extends Application {
         return store;
     }
 
+    /**
+     * Start method to initialize the application.
+     */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
     }
 
     /**

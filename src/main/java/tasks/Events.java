@@ -10,8 +10,8 @@ import java.time.format.DateTimeParseException;
  * formatted representations of events.
  */
 public class Events extends Task {
-    private LocalDate from;
-    private LocalDate to;
+    private final LocalDate from;
+    private final LocalDate to;
 
     /**
      * Constructs an `Events` task.
@@ -42,19 +42,23 @@ public class Events extends Task {
 
     /**
      * Marks the `Events` task as done and provides feedback.
+     * 
+     * @return A string indicating the task is marked as done.
      */
     @Override
     public String markDone() {
         super.markDone();
-        return "Oki, I've marked this event task as done: \n" + this.toString();
+        return "Oki, I've marked this event task as done: \n" + this;
     }
 
     /**
      * Unmarks the `Events` task as done and provides feedback.
+     * 
+     * @return A string indicating the task is unmarked as done.
      */
     @Override
     public String unmarkDone() {
         super.unmarkDone();
-        return "Damn bro...unmarked this event task :( : \n" + this.toString();
+        return "Damn bro...unmarked this event task :( : \n" + this;
     }
 }

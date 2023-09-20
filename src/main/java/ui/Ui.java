@@ -9,14 +9,12 @@ import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 
 /**
  * The Ui class provides methods for interacting with the user.
  */
 public class Ui {
     private Parser parser;
-    private TaskList tasks;
     private Storage store;
 
     /**
@@ -31,7 +29,6 @@ public class Ui {
      */
     public String takeCommands(Storage storage, TaskList task, Parser parse, String command) throws IOException {
         parser = parse;
-        tasks = task;
         store = storage;
 
         ArrayList<String> commands = new ArrayList<>();
@@ -42,19 +39,19 @@ public class Ui {
             return command + " " + command + "...please come back soon :(";
         } else {
             if (command.equalsIgnoreCase("list")) {
-                return listCommand(tasks);
+                return listCommand(task);
             } else if (command.toLowerCase().contains("unmark")) {
-                return unmarkCommand(command, tasks, store);
+                return unmarkCommand(command, task, store);
             } else if (command.toLowerCase().contains("mark")) {
-                return markCommand(command, tasks, store);
+                return markCommand(command, task, store);
             } else if (command.toLowerCase().contains("delete")) {
-                return deleteCommand(command, tasks, store);
+                return deleteCommand(command, task, store);
             } else if (command.toLowerCase().contains("find ")) {
-                return findCommand(command, tasks);
+                return findCommand(command, task);
             } else if (command.toLowerCase().contains("archive")) {
-                return archiveCommand(command, tasks, store);
+                return archiveCommand(command, task, store);
             } else {
-                return processTask(command, tasks, parser, commands);
+                return processTask(command, task, parser, commands);
             }
         }
     }
@@ -75,7 +72,7 @@ public class Ui {
             Task index = tasks.retrieve(number - 1);
             store.archive(index);
             tasks.remove(index);
-            result.append("I have archived the following task:\n").append(index.toString()).append("\nYour list has ")
+            result.append("I have archived the following task:\n").append(index).append("\nYour list has ")
                     .append(tasks.size()).append(" items left\n\n");
         } catch (IndexOutOfBoundsException e) {
             result.append(number).append(" is too high! List size is only ").append(tasks.size()).append("\n");
@@ -91,9 +88,7 @@ public class Ui {
      * @return A string representing the task list.
      */
     private String listCommand(TaskList tasks) {
-        StringBuilder result = new StringBuilder();
-        result.append(tasks.printList()).append("\n");
-        return result.toString();
+        return tasks.printList() + "\n";
     }
 
     /**
@@ -172,10 +167,8 @@ public class Ui {
      * @return A response message.
      */
     private String findCommand(String input, TaskList tasks) {
-        StringBuilder result = new StringBuilder();
-        result.append("Here are the matching items in your list:\n").append("\n");
-        result.append(tasks.find(parser.find(input))).append("\n");
-        return result.toString();
+        return "Here are the matching items in your list:\n" + "\n" +
+                tasks.find(parser.find(input)) + "\n";
     }
 
     /**
@@ -209,7 +202,7 @@ public class Ui {
             try {
                 Task newTask = new Events(parser.taskName(input), parser.taskFrom(input), parser.taskTo(input), false);
                 tasks.add(newTask);
-                result.append("Okay! I have added the following task\n").append(newTask.toString()).append("\n");
+                result.append("Okay! I have added the following task\n").append(newTask).append("\n");
                 store.write(newTask);
             } catch (DateTimeParseException e) {
                 result.append("Please enter a valid date in the format yyyy-mm-dd\n");

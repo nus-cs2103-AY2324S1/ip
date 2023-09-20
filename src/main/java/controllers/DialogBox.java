@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 
 /**
  * An example of a custom control using FXML.
@@ -26,6 +25,13 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+
+    /**
+     * Constructs a dialog box.
+     * 
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     */
     public DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -51,10 +57,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Getter method for the dialog box.
+     * 
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     * @return The dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Getter method for the dialog box.
+     * 
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     * @return The dialog box.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

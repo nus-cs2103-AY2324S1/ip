@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="parser.ParserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-09-05T09:53:56" hostname="LAPTOP-NDUCD318" time="0.04">
+  <properties/>
+  <testcase name="testList()" classname="parser.ParserTest" time="0.04"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
