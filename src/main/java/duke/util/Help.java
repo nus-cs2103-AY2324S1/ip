@@ -89,7 +89,7 @@ public class Help {
      */
     public static String deleteHelp() {
         return "delete <task number>\n"
-                +"delete all\n"
+                + "delete all\n"
                 + "==================\n"
                 + "- Deletes the task.\n"
                 + "- The task number should be a positive integer.\n"
