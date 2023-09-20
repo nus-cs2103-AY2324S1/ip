@@ -26,6 +26,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setJarvis(jarvis);
+            stage.setTitle("Jarvis");
             stage.show();
 
             fxmlLoader.<MainWindow>getController().setGreetingMessage(jarvis.greet());
