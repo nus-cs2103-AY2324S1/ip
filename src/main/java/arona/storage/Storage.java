@@ -35,7 +35,6 @@ public class Storage {
         assert inFile.exists() : "Storage file does not exist";
     }
 
-
     /**
      * Loads tasks from the storage file and populates the given tasks list.
      *

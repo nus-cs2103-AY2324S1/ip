@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Arona arona = new Arona("./src/main/java/arona/data/arona.txt");
+    private Arona arona = new Arona();
 
     /**
      * The entry point for the JavaFX application.

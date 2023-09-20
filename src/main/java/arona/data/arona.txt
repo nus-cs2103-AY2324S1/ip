@@ -1,1 +1,3 @@
-D|0|t|2023-09-24
+T|0|review cs2105
+D|0|ip submission|2023-09-22
+E|0|meeting|from: mon 2pm|to: 4pm

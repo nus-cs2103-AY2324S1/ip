@@ -20,13 +20,11 @@ public class Arona {
     private Stack<Command> commandHistory = new Stack<>();
 
     /**
-     * Initializes a new instance of the Arona application with the specified file path for data storage.
-     *
-     * @param filePath The file path where task data is stored.
+     * Initializes a new instance of the Arona application.
      */
-    public Arona(String filePath) {
+    public Arona() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("./src/main/java/arona/data/arona.txt");
         tasks = new TaskList(storage);
     }
 
