@@ -1,10 +1,13 @@
 package duke.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
+
+import duke.DukeException;
 
 public class DeadlineTest {
 
@@ -31,5 +34,45 @@ public class DeadlineTest {
         assertEquals("[D][ ] Message (by: Dec 13 2023, 12:45:00)", d.toString());
         d.markAsDone();
         assertEquals("[D][X] Message (by: Dec 13 2023, 12:45:00)", d.toString());
+    }
+
+    @Test
+    public void testUpdate_validDate_success() {
+        try {
+            Deadline d = new Deadline("Message",
+                    LocalDateTime.parse("2023-10-10T12:00:00"));
+            d.update(UpdateType.DESCRIPTION, "New Deadline");
+            d.update(UpdateType.DATE1, "2023-10-09T12:34:56");
+            assertEquals("[D][ ] New Deadline (by: Oct 09 2023, 12:34:56)",
+                    d.toString());
+        } catch (DukeException e) {
+            fail("DukeException should not be thrown!");
+        }
+    }
+
+    @Test
+    public void testUpdate_invalidDate_dukeExceptionThrown() {
+        try {
+            Deadline d = new Deadline("Message",
+                    LocalDateTime.parse("2023-10-10T12:00:00"));
+            d.update(UpdateType.DESCRIPTION, "New Deadline");
+            d.update(UpdateType.DATE1, "this is not a date");
+            fail("DukeException should be thrown!");
+        } catch (DukeException e) {
+            assertEquals("Cannot parse date/time of new deadline!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdate_invalidUpdateDateType_dukeExceptionThrown() {
+        try {
+            Deadline d = new Deadline("Message",
+                    LocalDateTime.parse("2023-10-10T12:00:00"));
+            d.update(UpdateType.DESCRIPTION, "New Deadline");
+            d.update(UpdateType.DATE2, "2023-10-10T12:00:01");
+            fail("DukeException should be thrown!");
+        } catch (DukeException e) {
+            assertEquals("Cannot update: Deadlines have only one deadline date!", e.getMessage());
+        }
     }
 }

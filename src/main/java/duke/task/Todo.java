@@ -35,6 +35,7 @@ public class Todo extends Task {
             throw new DukeException("Cannot update: Todos do not have dates!");
             // exception thrown, no break statement needed
         default:
+            assert false : "Invalid update type!";
             throw new DukeException("Invalid update type!");
             // exception thrown, no break statement needed
         }

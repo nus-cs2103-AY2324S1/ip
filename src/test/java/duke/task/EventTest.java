@@ -96,6 +96,35 @@ public class EventTest {
     }
 
     @Test
+    public void testUpdate_invalidDate1_dukeExceptionThrown() {
+        try {
+            Event ev = new Event("Message",
+                    LocalDateTime.parse("2023-10-10T12:00:00"),
+                    LocalDateTime.parse("2023-10-11T13:30:45"));
+            ev.update(UpdateType.DESCRIPTION, "New Event");
+            ev.update(UpdateType.DATE1, "this is not a date");
+            fail("DukeException should be thrown!");
+        } catch (DukeException e) {
+            assertEquals("Cannot parse date/time of new event start date!", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUpdate_invalidDate2_dukeExceptionThrown() {
+        try {
+            Event ev = new Event("Message",
+                    LocalDateTime.parse("2023-10-10T12:00:00"),
+                    LocalDateTime.parse("2023-10-11T13:30:45"));
+            ev.update(UpdateType.DESCRIPTION, "New Event");
+            ev.update(UpdateType.DATE2, "this is not a date");
+            fail("DukeException should be thrown!");
+        } catch (DukeException e) {
+            assertEquals("Cannot parse date/time of new event end date!", e.getMessage());
+        }
+    }
+
+
+    @Test
     public void testUpdate_badOrder_dukeExceptionThrown() {
         try {
             Event ev = new Event("Message",
