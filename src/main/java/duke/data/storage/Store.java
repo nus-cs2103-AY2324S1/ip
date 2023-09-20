@@ -136,14 +136,8 @@ public class Store {
         tasks.unmark(index);
         write();
     }
-    /**
-     * Updates the description of a task.
-     * @param index The index of the task to be updated.
-     * @param description The new description of the task.
-     * @throws DukeException If index is invalid.
-     */
-    public void updateDescription(int index, String description) throws DukeException {
-        tasks.updateDescription(index, description);
+    public void setDescriptionAtIndex(int index, String description) throws DukeException {
+        tasks.setDescriptionAtIndex(index, description);
         write();
     }
     public int getTaskCount() {
