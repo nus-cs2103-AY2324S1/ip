@@ -48,7 +48,7 @@ application {
 
 shadowJar {
     archiveBaseName = "Rat"
-    archiveVersion = "1.0"
+    archiveVersion = "1.1"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
