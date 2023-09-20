@@ -20,10 +20,12 @@ public class ParserTest {
     protected Parser parser;
 
     public ParserTest() {
+        // creating a mock TaskList object and injecting it into a Parser object.
         taskListMock = mock(TaskList.class);
         parser = new Parser(taskListMock);
     }
 
+    // the following three test cases are testing the execute method in Parser.
     @Test
     public void execute_validInput_success() {
         try {
