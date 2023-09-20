@@ -12,7 +12,6 @@ import java.util.ArrayList;
  * Contains methods to add, delete, and list tasks.
  */
 public class TaskList {
-    private static final String HORLINE = "_____________________________________________________\n";
     private static ArrayList<Task> tasks;
 
     /**
@@ -37,7 +36,7 @@ public class TaskList {
         
         // short of defining a separate storage.delete method (with very similar code), the best way is to updateTask to null
         storage.updateTask(taskIndex, null);
-        return HORLINE + "Noted. I've removed this task:\n  " + temp + "\n" + "Now you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+        return "Noted. I've removed this task:\n  " + temp + "\n" + "Now you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
@@ -54,7 +53,7 @@ public class TaskList {
         String newTaskString = newTask.toFileString();
         tasks.add(newTask);
         storage.addTask(newTaskString);
-        return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+        return "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
@@ -72,7 +71,7 @@ public class TaskList {
         String newTaskString = newTask.toFileString();
         tasks.add(newTask);
         storage.addTask(newTaskString);
-        return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+        return "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
@@ -88,7 +87,7 @@ public class TaskList {
         String newTaskString = newTask.toFileString();
         tasks.add(newTask);
         storage.addTask(newTaskString);
-        return HORLINE + "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n" + HORLINE;
+        return "Got it. I've added this task:\n  " + newTask.toString() + "\nNow you have " + tasks.size() + " tasks in the list.\n";
     }
 
     /**
@@ -105,9 +104,9 @@ public class TaskList {
         } else {
             Task task = tasks.get(taskIndex);
             if (requestType.equals("mark") && task.getStatusIcon().equals("[X] ")) {
-                return HORLINE + "Task is currently marked. Did you mean to unmark the task?\n" + HORLINE;
+                return "Task is currently marked. Did you mean to unmark the task?\n";
             } else if (requestType.equals("unmark") && task.getStatusIcon().equals("[ ] ")) {
-                return HORLINE + "Task is currently unmarked. Did you mean to mark the task?\n" + HORLINE;
+                return "Task is currently unmarked. Did you mean to mark the task?\n";
             } else {
                 task.toggle();
                 String updatedTaskString = "";
@@ -120,11 +119,11 @@ public class TaskList {
                 }
                 storage.updateTask(taskIndex, updatedTaskString);
                 if (task.getStatusIcon().equals("[X] ")) {
-                    return HORLINE + "Nice! I've marked this task as done:\n"
-                         + "  [X] " + task.getDescription() + "\n" + HORLINE;
+                    return "Nice! I've marked this task as done:\n"
+                         + "  [X] " + task.getDescription() + "\n";
                 } else {
-                    return HORLINE + "OK, I've marked this task as not done yet:\n"
-                         + "  [ ] " + task.getDescription() + "\n" + HORLINE;
+                    return "OK, I've marked this task as not done yet:\n"
+                         + "  [ ] " + task.getDescription() + "\n";
                 }
             }
         }
@@ -148,9 +147,9 @@ public class TaskList {
             }
         }
         if (count == 0) {
-            return HORLINE + "No matching tasks found.\n" + HORLINE;
+            return "No matching tasks found.\n";
         } else {
-            return HORLINE + temp + HORLINE;
+            return temp;
         }
     }
 
@@ -161,11 +160,15 @@ public class TaskList {
      */
     String lst() {
         String temp = "Here are the tasks in your list:\n";
-        for(int i = 0; i < tasks.size(); i++) {
+        int len = tasks.size();
+        if (len == 0) {
+            return "There are currently no tasks in your list.";
+        }
+        for (int i = 0; i < len; i++) {
             Task tempTask = tasks.get(i);
             temp += String.valueOf(i + 1) + "." + tempTask.toString() + "\n";
-        }  
-        return HORLINE + temp + HORLINE;
+        }
+        return temp;
     }
 
     /**

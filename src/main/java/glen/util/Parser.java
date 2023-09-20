@@ -4,7 +4,6 @@ package glen.util;
  * Parser class that handles user input and calls the appropriate methods.
  */
 public class Parser {
-    private static final String HORLINE = "_____________________________________________________\n";
     private Storage storage;
     private TaskList tasks;
 
@@ -29,6 +28,8 @@ public class Parser {
         String low = input.toLowerCase();
         if (low.equals("list")) {
             return tasks.lst();
+        } else if (low.equals("hello")) {
+            return "Hello, I'm Glen!\nWhat can I do for you?\n";
         }
         
         int index = Math.max(0, low.indexOf(" "));
@@ -53,7 +54,7 @@ public class Parser {
         } else if (firstWord.equals("delete")) {
             return handleDelete(end);
         } else {
-            return HORLINE + "\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(\n" + HORLINE;
+            return "\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(\n";
         }
     }
 
@@ -74,7 +75,7 @@ public class Parser {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             return tasks.toggle(storage, firstWord, taskIndex);
         } else {
-            return HORLINE + "\u2639 OOPS!!! Please select a valid item to mark/unmark.\n" + HORLINE;
+            return "\u2639 OOPS!!! Please select a valid item to mark/unmark.\n";
         }
     }
 
@@ -93,7 +94,7 @@ public class Parser {
 
             return tasks.addDeadline(storage, string1, string2);
         } catch (Exception e) {
-            return HORLINE + "\u2639 OOPS!!! Your request needs to be formatted as:\ndeadline <task name> /by <time>\n" + HORLINE;
+            return "\u2639 OOPS!!! Your request needs to be formatted as:\ndeadline <task name> /by <time>\n";
         }
     }
 
@@ -114,7 +115,7 @@ public class Parser {
 
             return tasks.addEvent(storage, string1, string2, string3);
         } catch (Exception e) {
-            return HORLINE + "\u2639 OOPS!!! Your request needs to be formatted as:\nevent <event name> /from <start time> /to <end time>\n" + HORLINE;
+            return "\u2639 OOPS!!! Your request needs to be formatted as:\nevent <event name> /from <start time> /to <end time>\n";
         }
     }
 
@@ -128,7 +129,7 @@ public class Parser {
         String trimmed = end.trim();
 
         if (trimmed.equals("")) {
-            return HORLINE + "\u2639 OOPS!!! The description of a todo cannot be empty.\n" + HORLINE;
+            return "\u2639 OOPS!!! The description of a todo cannot be empty.\n";
         } else {
             return tasks.addTodo(storage, trimmed);
         }
@@ -141,6 +142,14 @@ public class Parser {
      * @return String of output to be printed.
      */
     private String handleDelete(String end) {
+        if (end.equals("all")) {
+            int len = tasks.size();
+            for (int i = 0; i < len; i++) {
+                tasks.del(storage, 0);
+            }
+            return "All tasks have been deleted.";
+        }
+
         int taskIndex = -1;
 
         try {
@@ -151,7 +160,7 @@ public class Parser {
         if (taskIndex >= 0 && taskIndex < tasks.size()) {
             return tasks.del(storage, taskIndex);
         } else {
-            return HORLINE + "\u2639 OOPS!!! Please select a valid item to delete.\n" + HORLINE;
+            return "\u2639 OOPS!!! Please select a valid item to delete.\n";
         }
     }
 }
