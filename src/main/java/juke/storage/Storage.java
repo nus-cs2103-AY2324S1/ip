@@ -75,7 +75,7 @@ public class Storage extends JukeObject {
 
     /**
      * Returns a list of saved task after the datafile is parsed by the {@code FileParser}.
-     * Code is inspired from https://jsparrow.github.io/rules/use-files-buffered-reader.html#code-changes
+     * Code is adapted from https://jsparrow.github.io/rules/use-files-buffered-reader.html#code-changes
      * and https://www.baeldung.com/java-buffered-reader.
      *
      * @return List of {@code JukeTasks} retrieved
@@ -99,9 +99,8 @@ public class Storage extends JukeObject {
 
     /**
      * Writes the list of tasks into the datafile.
-     * Code is inspired from https://jsparrow.github.io/rules/use-files-buffered-reader.html#code-changes
-     * and https://www.baeldung.com/java-buffered-reader.
-     *
+     * Code is adapted from https://jsparrow.github.io/rules/use-files-buffered-reader.html#code-changes and
+     * https://www.baeldung.com/java-write-to-file
      * @param tasks List of {@code JukeTasks} to write
      * @throws JukeStorageException If the file could not be opened or written to for any reason
      */

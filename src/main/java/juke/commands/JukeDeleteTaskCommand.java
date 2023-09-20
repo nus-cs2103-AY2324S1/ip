@@ -35,10 +35,11 @@ public class JukeDeleteTaskCommand extends JukeCommand {
      */
     @Override
     public Response execute(Response response) {
+        String taskInfo = this.taskList.getTaskInformation(this.task);
         this.taskList.deleteTask(this.task);
 
         return response
-                .with(Dialog.ofJuke("Task deleted: " + this.task))
-                .with(Dialog.ofJuke("Your current tasks:\n" + this.taskList));
+                .with(Dialog.ofJuke("Task deleted: " + taskInfo))
+                .with(Dialog.ofJuke(this.taskList.toString()));
     }
 }

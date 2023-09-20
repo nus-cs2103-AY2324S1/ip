@@ -39,6 +39,6 @@ public class JukeAddTaskCommand extends JukeCommand {
         this.taskList.addTask(this.task);
         return response
                 .with(Dialog.ofJuke("Task added: " + this.task))
-                .with(Dialog.ofJuke("Your current tasks:\n" + this.taskList));
+                .with(Dialog.ofJuke(this.taskList.toString()));
     }
 }
