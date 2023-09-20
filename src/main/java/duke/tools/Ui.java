@@ -107,10 +107,12 @@ public class Ui {
      *
      * @param task The marked task.
      */
-    public void showMarkMessage(Task task) {
-        System.out.println("Great job completing the task! I've marked it as done.");
-        System.out.println(INDENTATION + task);
+    public String generateMarkMessage(Task task) {
+        String str = "Great job completing the task! I've marked it as done." +
+                INDENTATION + task;
+        System.out.println(str);
         System.out.println(LINE);
+        return str;
     }
 
     /**
@@ -118,10 +120,12 @@ public class Ui {
      *
      * @param task The marked task.
      */
-    public void showUnmarkMessage(Task task) {
-        System.out.println("Oops... Did you mark it incorrectly?");
-        System.out.println(INDENTATION + task);
+    public String generateUnmarkMessage(Task task) {
+        String str = "Oops... Did you mark it incorrectly?" +
+                INDENTATION + task;
+        System.out.println(str);
         System.out.println(LINE);
+        return str;
     }
 
     /**
