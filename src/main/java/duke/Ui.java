@@ -53,6 +53,8 @@ public class Ui {
                 String description = String.join(" ", Arrays.copyOfRange(words, 2, words.length));
                 char number = completeDescription.charAt(0);
                 return tasks.updateTime(description, number);
+            } else if (words[0].equalsIgnoreCase("help")) {
+                return tasks.help();
             }
             else {
                 throw new InvalidCommandException();
