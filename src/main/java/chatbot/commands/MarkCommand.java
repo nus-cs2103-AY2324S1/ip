@@ -19,6 +19,7 @@ public class MarkCommand extends Command {
      * @param num Index of the task to be unmarked.
      */
     public MarkCommand(int num) {
+        assert num >= 0 : "Task index should not be negative.";
         this.num = num;
     }
 
