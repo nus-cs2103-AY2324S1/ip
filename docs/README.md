@@ -29,9 +29,7 @@ Alice Task Manager (Alice) is a **desktop app for managing tasks, optimized for 
 
 ## Features
 
-<div markdown="block" class="alert alert-info">
-
-**:information_source: Notes about the command format:**<br>
+**Notes about the command format:**
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo read book`.
@@ -46,7 +44,6 @@ Alice Task Manager (Alice) is a **desktop app for managing tasks, optimized for 
   e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</div>
 
 ### Listing all tasks : `list`
 
