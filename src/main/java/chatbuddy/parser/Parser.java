@@ -14,6 +14,7 @@ import chatbuddy.command.ExitCommand;
 import chatbuddy.command.FindCommand;
 import chatbuddy.command.ListCommand;
 import chatbuddy.command.MarkCommand;
+import chatbuddy.command.TagCommand;
 import chatbuddy.command.TodoCommand;
 import chatbuddy.command.UnmarkCommand;
 import chatbuddy.task.Deadline;
@@ -71,6 +72,9 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return new FindCommand(args);
+
+        case TagCommand.COMMAND_WORD:
+            return prepareTag(args);
 
         default:
             throw new ChatBuddyException("I'm sorry, but I don't know what that means :-(");
@@ -202,6 +206,29 @@ public class Parser {
     }
 
     /**
+     * Returns a TagCommand based on the arguments provided by the user.
+     *
+     * @param args The arguments provided by the user. This should be the task number of the task and the new tag.
+     * @return The TagCommand to execute.
+     * @throws ChatBuddyException If the task number is not a numerical number.
+     */
+    private static TagCommand prepareTag(String args) throws ChatBuddyException {
+        String[] argArray = args.split(" ", 2);
+        try {
+            int taskNum = Integer.parseInt(argArray[0]);
+
+            String tag = "";
+            if (argArray.length > 1) {
+                tag = argArray[1].trim();
+            }
+
+            return new TagCommand(taskNum, tag);
+        } catch (NumberFormatException e) {
+            throw new ChatBuddyException("Please input a valid task number in digits (e.g. 1).");
+        }
+    }
+
+    /**
      * Returns a LocalDate object parsed from the input string.
      *
      * @param dateString The string representing the date in the format dd/MM/yyyy.
@@ -245,15 +272,16 @@ public class Parser {
         String taskType = taskData[0];
         boolean isCompleted = taskData[1].equals("1");
         String taskDescription = taskData[2];
+        String tag = taskData.length <= 3 ? "" : taskData[3];
 
         // create task object
         Task task;
         if (taskType.equals("T")) {
             task = createToDo(taskDescription);
         } else if (taskType.equals("D")) {
-            task = createDeadline(taskDescription, taskData[3]);
+            task = createDeadline(taskDescription, taskData[4]);
         } else if (taskType.equals("E")) {
-            task = createEvent(taskDescription, taskData[3], taskData[4]);
+            task = createEvent(taskDescription, taskData[4], taskData[5]);
         } else {
             throw new ChatBuddyException("Error parsing data from file");
         }
@@ -262,6 +290,8 @@ public class Parser {
         if (isCompleted) {
             task.markAsDone();
         }
+
+        task.updateTag(tag);
 
         return task;
     }

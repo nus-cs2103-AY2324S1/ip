@@ -16,12 +16,13 @@ public class TaskListTest {
         ToDo taskOne = new ToDo("task1");
         ToDo taskTwo = new ToDo("task2");
         tasks.addTask(taskOne);
+        taskOne.updateTag("urgent");
         tasks.addTask(taskTwo);
         taskTwo.markAsDone();
 
         ArrayList<String> taskStrings = tasks.getTaskStringsToSave();
         assertEquals(2, taskStrings.size());
-        assertEquals("T | 0 | task1", taskStrings.get(0));
-        assertEquals("T | 1 | task2", taskStrings.get(1));
+        assertEquals("T | 0 | task1 | urgent", taskStrings.get(0));
+        assertEquals("T | 1 | task2 | ", taskStrings.get(1));
     }
 }
