@@ -55,17 +55,20 @@ public class Storage {
         File dataDir = new File(filePath).getParentFile();
         dataDir.mkdir(); // Create directory only if it doesnt already exist
 
-        File taskFile;
+        File taskFile = new File(filePath);
         try {
-            taskFile = new File(filePath);
-            if (!taskFile.createNewFile()) { // Create file only if it doesnt already exist
-                Scanner fileScanner = new Scanner(taskFile);
-                while (fileScanner.hasNextLine()) {
-                    Task t = Parser.parseFromFile(fileScanner.nextLine()); // should be handled by parser
-                    tasks.add(t);
-                }
-                fileScanner.close();
+            if (taskFile.createNewFile()) {
+                // File doesn't exist, so no tasks to load
+                return tasks;
             }
+
+            // File exists, so load tasks
+            Scanner fileScanner = new Scanner(taskFile);
+            while (fileScanner.hasNextLine()) {
+                Task t = Parser.parseFromFile(fileScanner.nextLine()); // should be handled by parser
+                tasks.add(t);
+            }
+            fileScanner.close();
         } catch (IOException e) {
             throw new DuckException("Error - unable to access task file.");
         }
@@ -101,13 +104,11 @@ public class Storage {
             Scanner fileScanner = new Scanner(new File(filePath));
             int lineCounter = 0;
             while (fileScanner.hasNextLine()) {
-                if (lineCounter == index) {
-                    fileScanner.nextLine();
-                    lineCounter++;
-                    continue;
+                String line = fileScanner.nextLine();
+                if (lineCounter != index) {
+                    history.add(line);
                 }
                 lineCounter++;
-                history.add(fileScanner.nextLine());
             }
 
             FileWriter writer = new FileWriter(filePath);
