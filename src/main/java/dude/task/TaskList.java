@@ -34,7 +34,7 @@ public class TaskList {
     }
 
     /**
-     * Add task to tasks list.
+     * Adds task to tasks list.
      *
      * @param task Task to add.
      */
@@ -43,7 +43,7 @@ public class TaskList {
     }
 
     /**
-     * Remove task from tasks list.
+     * Removes task from tasks list.
      *
      * @param index 1-based index of task to remove.
      * @return Removed task.
@@ -58,7 +58,7 @@ public class TaskList {
     }
 
     /**
-     * Get number of tasks.
+     * Gets number of tasks.
      *
      * @return Number of tasks.
      */
@@ -67,7 +67,7 @@ public class TaskList {
     }
 
     /**
-     * Get task from list.
+     * Gets task from list.
      *
      * @param index 1-based index of task to get.
      * @throws InvalidTaskIndexException If task number does not exist.

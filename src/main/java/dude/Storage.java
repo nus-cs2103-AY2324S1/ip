@@ -34,7 +34,7 @@ public class Storage {
     }
 
     /**
-     * Create new empty save file at SAVE_FILE_PATH if it does not already exist.
+     * Creates new empty save file at SAVE_FILE_PATH if it does not already exist.
      *
      * @throws SaveFileException If file cannot be created.
      */
