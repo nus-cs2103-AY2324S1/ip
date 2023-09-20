@@ -2,7 +2,6 @@ package duke;
 
 import duke.task.TaskList;
 import duke.task.TaskType;
-import duke.task.ToDo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,44 +15,42 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_reminder_success() throws DukeException{
-        assertEquals("Upcoming deadlines:\n" +
-                "\"One thing at a time.\"", new Parser(new TaskList()).parse("reminder"));
+    public void parse_reminder_success() throws DukeException {
+        assertEquals("Upcoming deadlines:\n"
+                + "\"One thing at a time.\"", new Parser(new TaskList()).parse("reminder"));
     }
 
     @Test
-    void parse_find_success() throws DukeException{
+    void parse_find_success() throws DukeException {
         TaskList tasks = new TaskList();
         tasks.addTask(TaskType.TODO, "keyword");
-        assertEquals("Here are the matching tasks in your list:\n"+
-        "1 [T][ ] keyword\n" + "\"One thing at a time.\"", new Parser(tasks).parse("find key"));
+        assertEquals("Here are the matching tasks in your list:\n"
+                + "1 [T][ ] keyword\n" + "\"One thing at a time.\"", new Parser(tasks).parse("find key"));
     }
 
     @Test
     void parse_mark_success() throws DukeException {
         TaskList tasks = new TaskList();
         tasks.addTask(TaskType.TODO, "keyword");
-        assertEquals("Here's your modified task:\n" +
-                "[T][X] keyword\n" +
-                "\"Keep moving forward.\"", new Parser(tasks).parse("mark 1"));
+        assertEquals("Here's your modified task:\n"
+                + "[T][X] keyword\n" + "\"Keep moving forward.\"", new Parser(tasks).parse("mark 1"));
     }
 
     @Test
     void parse_delete_success() throws DukeException {
         TaskList tasks = new TaskList();
         tasks.addTask(TaskType.TODO, "keyword");
-        assertEquals("I've successfully deleted this task:\n" +
-                "[T][ ] keyword\n" +
-                "Now you have 0 task in total.\n" +
-                "\"Ride the waves.\"", new Parser(tasks).parse("delete 1"));
+        assertEquals("I've successfully deleted this task:\n"
+                + "[T][ ] keyword\n"
+                + "Now you have 0 task in total.\n"
+                + "\"Ride the waves.\"", new Parser(tasks).parse("delete 1"));
     }
 
     @Test
     void parse_addTask_success() throws DukeException {
-        assertEquals("Task added:\n" +
-                "[T][ ] task\n" +
-                "Now you have 1 task in total.\n" +
-                "\"Be here now.\"", new Parser(new TaskList()).parse("todo task"));
+        assertEquals("Task added:\n"
+                + "[T][ ] task\n" + "Now you have 1 task in total.\n" + "\"Be here now.\"",
+                new Parser(new TaskList()).parse("todo task"));
     }
 
     @Test
@@ -63,7 +60,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_findFailed_exceptionThrown(){
+    public void parse_findFailed_exceptionThrown() {
         try {
             assertEquals("task found", new Parser(new TaskList()).parse("find sth"));
             fail();
@@ -73,7 +70,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_markInvalidIndex_exceptionThrown(){
+    public void parse_markInvalidIndex_exceptionThrown() {
         try {
             assertEquals("task marked", new Parser(new TaskList()).parse("mark 3"));
             fail();
@@ -83,7 +80,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_deleteInvalidIndex_exceptionThrown(){
+    public void parse_deleteInvalidIndex_exceptionThrown() {
         try {
             assertEquals("task deleted", new Parser(new TaskList()).parse("delete 3"));
             fail();
@@ -93,7 +90,7 @@ public class ParserTest {
     }
 
     @Test
-    public void parse_addInvalidTask_exceptionThrown(){
+    public void parse_addInvalidTask_exceptionThrown() {
         try {
             assertEquals("task added", new Parser(new TaskList()).parse("deadline by sometime"));
             fail();

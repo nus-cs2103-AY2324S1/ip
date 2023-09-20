@@ -1,6 +1,5 @@
 package duke.task;
 
-import duke.DukeException;
 import org.junit.jupiter.api.Test;
 
 import java.time.format.DateTimeParseException;
@@ -21,7 +20,8 @@ public class DeadlineTest {
             assertEquals("deadline added", new Deadline("deadline", "2024-02-40"));
             fail();
         } catch (Exception e) {
-            assertEquals("Text '2024-02-40' could not be parsed: Invalid value for DayOfMonth (valid values 1 - 28/31): 40", e.getMessage());
+            assertEquals("Text '2024-02-40' could not be parsed: "
+                    + "Invalid value for DayOfMonth (valid values 1 - 28/31): 40", e.getMessage());
         }
     }
 
