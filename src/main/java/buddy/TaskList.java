@@ -35,6 +35,7 @@ public class TaskList {
      * @return Returns the task with the specified index.
      */
     public Task getTask(int taskIndex) {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "taskIndex should be between 0 and (size of task list - 1)";
         return tasks.get(taskIndex);
     }
 
@@ -71,41 +72,31 @@ public class TaskList {
     public void deleteTask(int taskIndex) throws BuddyException {
         if (tasks.size() == 0 ) {
             System.out.println("There are no tasks in your list to delete.");
-        } else if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            tasks.remove(taskIndex);
-        } else {
+        }
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BuddyException("Invalid task index.");
         }
+        tasks.remove(taskIndex);
     }
 
     /**
      * Marks the specified task in the task list as done.
      * @param taskIndex The zero-based index of the task.
-     * @throws BuddyException If taskIndex is invalid.
+     * @throws AssertionError If taskIndex is invalid.
      */
-    public void markAsDone(int taskIndex) throws BuddyException {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            tasks.get(taskIndex).markTaskAsDone();
-            // System.out.println("Nice! I've marked this task as done:");
-            // System.out.println(tasks.get(taskIndex).toString());
-        } else {
-            throw new BuddyException("Invalid task index.");
-        }
+    public void markAsDone(int taskIndex) throws AssertionError {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "index should be between 1 and size of task list";
+        tasks.get(taskIndex).markTaskAsDone();
     }
 
     /**
      * Marks the specified task in the task list as not done.
      * @param taskIndex The zero-based index of the task.
-     * @throws BuddyException If taskIndex is invalid.
+     * @throws AssertionError If taskIndex is invalid.
      */
-    public void markAsNotDone(int taskIndex) throws BuddyException {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            tasks.get(taskIndex).markTaskAsUndone();
-            // System.out.println("OK, I've marked this task as not done yet:");
-            // System.out.println(tasks.get(taskIndex).toString());
-        } else {
-            throw new BuddyException("Invalid task index.");
-        }
+    public void markAsNotDone(int taskIndex) throws AssertionError {
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "index should be between 1 and size of task list";
+        tasks.get(taskIndex).markTaskAsUndone();
     }
 
     /**
