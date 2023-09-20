@@ -2,6 +2,7 @@
 
 ## Features
 1. Add / Delete task
+2. Update attributes of the specified task in the list
 2. Mark / Unmark task
 3. Mark / Unmark / Delete all tasks
 4. Find tasks with a matching keyword
@@ -12,6 +13,10 @@
 
 Allows users to add or delete tasks of type (ToDo, Deadline & Event)
 from the list of tasks.
+
+### Update task
+
+Update description or dates of the task at specified index from the list of tasks.
 
 ### Mark / Unmark task
 
@@ -51,6 +56,44 @@ Here are the commands for use:
 2. mark<index>: marks task at <index> in the list as done \n"
 3. mark all: marks all tasks in the list as done 
 ...
+
+```
+### `update` - Update attributes of a task in the list
+
+Users can specify the task and update attributes like description & start or end dates & times depending on the type of Task
+
+Example of usage:
+
+`update 1 /description go on a holiday`
+
+Expected outcome:
+```
+Nice! I've updated this task:
+[T][ ] go on a holiday
+
+```
+`update 1 /deadline 2023-12-12 2359`
+
+Expected outcome:
+```
+Nice! I've updated this task:
+[D][ ] homework (by: Dec 12 2023 2200)
+
+```
+`update 2 /event start date 2023-12-12 1900`
+
+Expected outcome:
+```
+Nice! I've updated this task:
+[E][ ] networking (from: Dec 12 2023 1900 to: Dec 12 2130)
+
+```
+`update 2 /event end date 2023-12-12 2100`
+
+Expected outcome:
+```
+Nice! I've updated this task:
+[E][ ] networking (from: Dec 12 2023 1900 to: Dec 12 2100)
 
 ```
 ### `list` - returns list of tasks
