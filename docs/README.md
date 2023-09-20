@@ -1,15 +1,12 @@
 # Monday ChatBot Guide
-***
 
 ## Table of Content
-***
 
 - Getting Started
 - Features
 - Usage
 
 ## Getting Started
-***
 
 1. Ensure you are using java 11.
 2. Download the latest jar file from releases.
@@ -17,7 +14,6 @@
 4. Run java -jar monday.jar to get started.
 
 ## Features
-***
 
 ### Tasks Management
 
