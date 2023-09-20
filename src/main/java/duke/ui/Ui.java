@@ -46,7 +46,7 @@ public class Ui {
      */
     public static String getDeleteTaskMessage(List<Task> tasks, int index) {
         StringBuilder output = new StringBuilder();
-        output.append("Noted. I've removed this duke.task:\n");
+        output.append("Noted. I've removed this task:\n");
         output.append(tasks.get(index - 1) + "\n");
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
         int remainingTasks = tasks.size() - 1;
@@ -61,7 +61,7 @@ public class Ui {
      */
     public static String getAddTaskMessage(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
-        output.append("Got it. I've added this duke.task:\n");
+        output.append("Got it. I've added this task:\n");
         output.append(tasks.get(tasks.size() - 1) + "\n");
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
         output.append("Now you have " + tasks.size() + " " + placeholder + " in the list.\n");

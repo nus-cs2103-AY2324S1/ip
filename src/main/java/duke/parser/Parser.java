@@ -5,7 +5,6 @@ import duke.exception.IllegalTaskIndexException;
 import duke.exception.InvalidArgumentException;
 import duke.exception.UnknownCommandException;
 import duke.task.TaskList;
-import duke.ui.Ui;
 
 /**
  * Parser class to parse user's input.
