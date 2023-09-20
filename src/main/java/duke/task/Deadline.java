@@ -28,6 +28,7 @@ public class Deadline extends Task {
         String d = name.substring(name.indexOf("/") + 4); // 2/12/2019 1800
         this.inputs = name.split("/");
         String[] dtime = d.split(" ");
+        System.out.println("inputs is" + this.inputs);
         if (this.inputs.length < 2) {
             throw new DukeException(" Deadline has no end date!");
         }
