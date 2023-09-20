@@ -1,8 +1,23 @@
 package pippi.task;
 
+/**
+ * The Event class represents a specific type of task
+ * that aside from description also includes specified
+ * start and end time
+ *
+ * @author Nathan
+ */
 public class Event extends Task {
     private String start;
     private String end;
+
+    /**
+     * Constructs an Event instance with a description, start and end period.
+     *
+     * @param desc The description of the Event
+     * @param start the start of the Event
+     * @param end the end of the Event
+     */
     public Event(String desc, String start, String end) {
         super(desc);
         this.start = start;

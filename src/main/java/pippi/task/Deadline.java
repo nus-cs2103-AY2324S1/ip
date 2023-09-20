@@ -4,9 +4,21 @@ import java.time.LocalDate;
 
 import pippi.parser.DateFormatter;
 
-
+/**
+ * The Deadline class represents a specific type of task
+ * that aside from description also includes specified
+ * due time
+ *
+ * @author Nathan
+ */
 public class Deadline extends Task {
     private LocalDate due;
+    /**
+     * Constructs a Deadline instance with a description and due period.
+     *
+     * @param desc The description of the Deadline
+     * @param due The due of the Deadline
+     */
     public Deadline(String desc, LocalDate due) {
         super(desc);
         this.due = due;

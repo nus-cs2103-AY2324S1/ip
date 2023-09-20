@@ -10,16 +10,25 @@ import pippi.task.Task;
 import pippi.task.ToDo;
 import pippi.ui.Ui;
 
+/**
+ * The Parser class is responsible for parsing user input and generating the reply.
+ *
+ * @author Nathan
+ */
 public class Parser {
-
-    public static String reply(String userMessage, ArrayList<Task> tasks) {
+    /**
+     * Parses the input to generate reply
+     *
+     * @param userInput The input provided by the user.
+     * @return A String of the reply message.
+     */
+    public static String reply(String userInput, ArrayList<Task> tasks) {
         String output;
-        String[] input = userMessage.split(" ", 2);
+        String[] input = userInput.split(" ", 2);
         String command = input[0];
         switch (command) {
         case "bye":
             output = Ui.wrapText("Bye. Hope to see you again soon!");
-            // Pippi.returnToPokeball();
             break;
         case "todo":
             if ((input.length < 2) || input[1].trim().isEmpty()) {
@@ -28,43 +37,38 @@ public class Parser {
             }
             ToDo td = new ToDo(input[1]);
             tasks.add(td);
-            Storage.update(tasks);
+            Storage.updateTask(tasks);
             output = Ui.wrapText("Got it. I've added this task:\n" + td.toString()
                         + "\nNow you have " + tasks.size() + " tasks in the list.");
             break;
         case "deadline":
             if (input.length < 2 || input[1].trim().isEmpty()) {
                 output = "Metronome!!! The description and due time of a deadline cannot be empty.";
-                // throw new PippiException(output);
                 break;
             }
             if (input[1].split("/by").length < 2) {
                 output = "Metronome!!! Due time or description is missing";
-                //throw new PippiException(output);
                 break;
             }
             String title = input[1].split("/by ")[0].trim();
             String due = input[1].split("/by ")[1].trim();
             if (!DateFormatter.isValidFormat(due)) {
                 output = "Please enter due in format yyyy-mm-dd";
-                // throw new PippiException(output);
                 break;
             }
-            Deadline dl = new Deadline(title, DateFormatter.convertToLocalDate(due));
+            Deadline dl = new Deadline(title, DateFormatter.convertStringToLocalDate(due));
             tasks.add(dl);
-            Storage.update(tasks);
+            Storage.updateTask(tasks);
             output = Ui.wrapText("Got it. I've added this task:\n" + dl.toString()
                         + "\nNow you have " + tasks.size() + " tasks in the list.");
             break;
         case "event":
             if (input.length < 2 || input[1].trim().isEmpty()) {
                 output = "Pound!!! The description and start, end time of an event cannot be empty.";
-                // throw new PippiException(output);
                 break;
             }
             if (input[1].split("/from").length < 2) {
                 output = "Pound!!! pippi.task.Event title or duration is missing";
-                // throw new PippiException(output);
                 break;
             }
             String evTitle = input[1].split("/from ")[0].trim();
@@ -72,7 +76,6 @@ public class Parser {
 
             if (duration.split("/to ").length < 2) {
                 output = "Pound!!! Start or end time is missing";
-                // throw new PippiException(output);
                 break;
             }
             String start = duration.split("/to ")[0];
@@ -80,7 +83,7 @@ public class Parser {
 
             Event event = new Event(evTitle, start, end);
             tasks.add(event);
-            Storage.update(tasks);
+            Storage.updateTask(tasks);
             output = Ui.wrapText("Got it. I've added this task:\n" + event.toString()
                         + "\nNow you have " + tasks.size() + " tasks in the list.");
             break;
@@ -98,7 +101,7 @@ public class Parser {
             tasks.get(idx).mark();
             output = Ui.wrapText("Nice I've marked this task as done:\n"
                         + tasks.get(idx).toString());
-            Storage.update(tasks);
+            Storage.updateTask(tasks);
             break;
         case "unmark":
             int id = Integer.parseInt(input[1]) - 1;
@@ -106,7 +109,7 @@ public class Parser {
             tasks.get(id).unmark();
             output = Ui.wrapText("OK, I've marked this task as not done yet:\n"
                         + tasks.get(id).toString());
-            Storage.update(tasks);
+            Storage.updateTask(tasks);
             break;
         case "find":
             String keyword = input[1].trim();
@@ -127,7 +130,7 @@ public class Parser {
                         + tasks.get(i).toString()
                         + "\nNow you have " + (tasks.size() - 1) + " tasks in the list.");
             tasks.remove(i);
-            Storage.update(tasks);
+            Storage.updateTask(tasks);
             break;
         default:
             output = Ui.wrapText("Amnesia!!! I'm sorry, but I don't know what that means");

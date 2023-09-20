@@ -1,9 +1,18 @@
 package pippi.task;
 
+/**
+ * The Task class represents the overarching task representation
+ *
+ * @author Nathan
+ */
 public class Task {
     private String description;
     private boolean isDone;
-
+    /**
+     * Constructs a Task instance with the specified task description.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -49,7 +58,7 @@ public class Task {
 
     public String toMemory() {
         return this.toString();
-    };
+    }
 
     /**
      * Returns the common representation of a task to the UI
