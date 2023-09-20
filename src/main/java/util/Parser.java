@@ -91,6 +91,8 @@ public class Parser {
             return storage.save(tasks, removeCommandWord(command));
         case "find":
             return tasks.find(removeCommandWord(command));
+        case "load":
+            return storage.load(tasks, removeCommandWord(command));
 
 
         default:

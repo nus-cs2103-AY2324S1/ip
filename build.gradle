@@ -7,12 +7,14 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     String javaFxVersion = '17.0.7'
+    implementation group: 'com.joestelmach', name: 'natty', version: '0.6'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -47,7 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("EpochMind")
+    mainClass.set("Launcher")
 }
 
 shadowJar {

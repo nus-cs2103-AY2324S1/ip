@@ -101,6 +101,7 @@ public class EpochMind extends Application {
                 DialogBox.getDukeDialog(dukeText, duke)
         );
         userInput.clear();
+        storage.save(tasks);
     }
 
     public String getResponse(String input) {
@@ -121,7 +122,6 @@ public class EpochMind extends Application {
             String command = sc.nextLine();
             parser.execute(command);
             Ui.displayLine();
-            storage.save(tasks);
         }
     }
 }
