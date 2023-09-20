@@ -14,21 +14,21 @@ import shiba.commands.ShibaCommand;
 import shiba.commands.TodoCommand;
 import shiba.commands.UnmarkCommand;
 import shiba.exceptions.ShibaException;
-import shiba.tasks.FilePersistentTaskList;
+import shiba.tasks.PersistentTaskList;
 import shiba.ui.Replier;
 
 /**
  * Parses user input and executes the corresponding commands.
  */
 public class CommandParser {
-    private final FilePersistentTaskList tasks;
+    private final PersistentTaskList tasks;
 
     /**
      * Creates a new CommandParser object.
      *
      * @param tasks TaskList object to be used by the parser.
      */
-    public CommandParser(FilePersistentTaskList tasks) {
+    public CommandParser(PersistentTaskList tasks) {
         this.tasks = tasks;
     }
 

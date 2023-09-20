@@ -2,7 +2,7 @@ package shiba.commands;
 
 import java.util.Random;
 
-import shiba.tasks.FilePersistentTaskList;
+import shiba.tasks.PersistentTaskList;
 import shiba.ui.Replier;
 
 /**
@@ -18,7 +18,7 @@ public class BellyRubCommand extends ShibaCommand {
      *
      * @param tasks Current state of task list
      */
-    public BellyRubCommand(FilePersistentTaskList tasks) {
+    public BellyRubCommand(PersistentTaskList tasks) {
         super(tasks);
     }
 
