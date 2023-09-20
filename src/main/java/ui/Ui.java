@@ -167,9 +167,8 @@ public class Ui {
      * @return A response message.
      */
     private String findCommand(String input, TaskList tasks) {
-        String result = "Here are the matching items in your list:\n" + "\n" +
+        return "Here are the matching items in your list:\n" + "\n" +
                 tasks.find(parser.find(input)) + "\n";
-        return result;
     }
 
     /**

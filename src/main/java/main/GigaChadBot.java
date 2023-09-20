@@ -2,17 +2,12 @@ package main;
 
 import java.io.IOException;
 
-import javafx.fxml.FXML;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
 
 import javafx.application.Application;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
