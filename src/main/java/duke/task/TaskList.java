@@ -27,6 +27,7 @@ public class TaskList {
 
     /**
      * Returns the list of tasks.
+     * @return Lists of tasks.
      */
     public ArrayList<Task> getList() {
         return this.tasks;
@@ -34,7 +35,7 @@ public class TaskList {
 
     /**
      * Prints the list of tasks.
-     * @return The list of tasks.
+     * @return The list of tasks in String format.
      */
     public String printTasks() {
         String output = "Here are the tasks in your list:\n";
