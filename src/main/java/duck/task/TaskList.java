@@ -126,6 +126,35 @@ public class TaskList {
     }
 
     /**
+     * Tags the task at a given index.
+     * 
+     * @param index Index of the task to be tagged.
+     * @param tag Tag to be added.
+     * @throws DuckException If the index is invalid.
+     */
+    public void tag(int index, String tag) throws DuckException {
+        try {
+            tasks.get(index).tag(tag);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DuckException("Error - invalid task number.");
+        }
+    }
+
+    /**
+     * Untags the task at a given index.
+     * 
+     * @param index Index of the task to be untagged.
+     * @throws DuckException If the index is invalid or when the task was not tagged.
+     */
+    public void untag(int index) throws DuckException {
+        try {
+            tasks.get(index).untag();
+        } catch (IndexOutOfBoundsException e) {
+            throw new DuckException("Error - invalid task number.");
+        }
+    }
+
+    /**
      * Converts the TaskList into a readable string represenation to be printed.
      * 
      * @return Readable string representation of the TaskList.

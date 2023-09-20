@@ -12,6 +12,8 @@ import duck.command.FindCommand;
 import duck.command.ListCommand;
 import duck.command.MarkCommand;
 import duck.command.UnmarkCommand;
+import duck.command.TagCommand;
+import duck.command.UntagCommand;
 
 import duck.task.DeadlineTask;
 import duck.task.EventTask;
@@ -61,6 +63,10 @@ public class Parser {
             return new AddCommand(parseEvent(data));
         case "FIND":
             return new FindCommand(data);
+        case "TAG" :
+            return parseTag(data);
+        case "UNTAG" :
+            return new UntagCommand(parseIndex(data));
         default:
             throw new DuckException("Im sorry, I don't know what that means.");
         }
@@ -77,7 +83,7 @@ public class Parser {
     private static Task parseTodo(String dataString) throws DuckException {
         try {
             String name = dataString.trim();
-            return new TodoTask(name, false);
+            return new TodoTask(name, false, "");
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("The description of a todo cannot be empty.");
         }
@@ -88,7 +94,7 @@ public class Parser {
             String[] splitData = dataString.split(" /by ", 2);
             String name = splitData[0].trim();
             LocalDate deadline = LocalDate.parse(splitData[1].trim(), INPUT_DATE_FORMAT);
-            return new DeadlineTask(name, false, deadline);
+            return new DeadlineTask(name, false, "", deadline);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("Invalid todo task.");
         } catch (DateTimeParseException e) {
@@ -105,13 +111,26 @@ public class Parser {
             splitData = splitData[1].split(" /to ", 2);
             LocalDate start = LocalDate.parse(splitData[0].trim(), INPUT_DATE_FORMAT);
             LocalDate end = LocalDate.parse(splitData[1].trim(), INPUT_DATE_FORMAT);
-            return new EventTask(name, false, start, end);
+            return new EventTask(name, false, "", start, end);
         } catch (StringIndexOutOfBoundsException e) {
             throw new DuckException("Invalid todo task.");
         } catch (DateTimeParseException e) {
             throw new DuckException("Please follow the dd/mm/yyyy format.");
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new DuckException("Please follow the /from and /to format.");
+        }
+    }
+
+    private static TagCommand parseTag(String dataString) throws DuckException {
+        try {
+            String[] splitData = dataString.split(":", 2);
+            int index = Integer.parseInt(splitData[0]);
+            String tag = splitData[1];
+            return new TagCommand(index, tag);
+        } catch (NumberFormatException e) {
+            throw new DuckException("Please enter a valid task number.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DuckException("Please follow the <index>:<tag> format.");
         }
     }
 
