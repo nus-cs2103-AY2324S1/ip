@@ -248,13 +248,13 @@ public class TaskList {
 
     public String help() {
         return "Here is a list of my commands:\n " +
-                "1. todo taskName. This adds a todo task to your list of tasks.\n" +
+                "1. todo taskDescription. This adds a todo task to your list of tasks.\n" +
                 "\tExample Usage:\n" +
                 "\ttodo Homework\n\n" +
-                "2. deadline taskName /by dd-mm-yy HH:MM. This adds a deadline task your list of tasks.\n" +
+                "2. deadline taskDescription /by dd-mm-yy HH:MM. This adds a deadline task your list of tasks.\n" +
                 "\tExample Usage:\n" +
                 "\tdeadline CS2103T assignment /by 21-09-2023 23:59\n\n" +
-                "3. event taskName /from dd-mm-yy HH:MM /to dd-mm-yy HH:MM. This adds an event to your list of tasks.\n" +
+                "3. event taskDescription /from dd-mm-yy HH:MM /to dd-mm-yy HH:MM. This adds an event to your list of tasks.\n" +
                 "\tExample Usage: \n" +
                 "\tevent CS2103T Team Meeting /from 21-09-2023 21:00 /to 21-09-2023 22:00\n\n" +
                 "4. list. This command displays the list of tasks you have.\n\n" +
@@ -267,10 +267,10 @@ public class TaskList {
                 "7. delete taskNumber. This command deletes the corresponding task from the list\n" +
                 "\tExample Usage:\n" +
                 "\tdelete 1\n\n" +
-                "8. find taskName. This command returns a list of task that matches the taskName given\n" +
+                "8. find taskDescription. This command returns a list of task that matches the taskName given\n" +
                 "\tExample Usage:\n" +
                 "\tfind CS2103T\n\n" +
-                "9.update taskNumber. This command updates the time of an event or deadline task.\n" +
+                "9.update taskNumber /by dd-mm-yy HH:MM. This command updates the time of an event or deadline task.\n" +
                 "\tExample Usage: \n" +
                 "\tupdate 2 /by 30-09-2023 23:59";
     }
