@@ -9,11 +9,18 @@ import catbot.task.TaskList;
 public interface TaskAssistantIo {
 
     /**
-     * Displays all Tasks in a TaskList.
+     * Displays all Tasks in a TaskList with numbering.
      *
      * @param taskList TaskList containing Tasks to print.
      */
     void displayTaskList(TaskList taskList);
+
+    /**
+     * Displays all Tasks in a TaskList without numbering.
+     *
+     * @param taskList TaskList containing Tasks to print.
+     */
+    void displayTaskListWithoutNumber(TaskList taskList);
 
     /**
      * Displays that a Task was added to a list.

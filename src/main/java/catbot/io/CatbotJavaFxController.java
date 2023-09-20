@@ -1,5 +1,8 @@
 package catbot.io;
 
+import java.util.Objects;
+import java.util.function.Consumer;
+
 import catbot.bot.CommandArgumentStruct;
 import catbot.internal.NamedParameterMap;
 import catbot.internal.Parser;
@@ -10,9 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.util.ArrayList;
-import java.util.function.Consumer;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -31,8 +31,10 @@ public class CatbotJavaFxController extends AnchorPane {
     private Consumer<CommandArgumentStruct> commandConsumer;
     private StringBuilder queuedAssistantOutput = new StringBuilder();
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/DaUser.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(
+            this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     @FXML
     public void initialize() {

@@ -115,21 +115,24 @@ public class CatBot implements Bot {
                         string -> runIfValidIndexElseIndicateError.accept(string,
                                 validIndex -> io.displayTaskDeleted(taskList.removeTask(validIndex))
                         )
-                );
+            );
 
         // User creating new tasks (with SlashPattern)
         BiConsumer<String, BiFunction<
                 NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap>,
                 Optional<Task>>>
                 createTaskIfValidElseWarn = (args, bifunction) -> slashPattern.ifParsableElseDefault(args,
-                namedParameterMap -> bifunction.apply(
-                        namedParameterMap,
-                        io::indicateArgumentInvalid
-                ).ifPresent(task -> {
-                    taskList.addTask(task);
-                    io.displayTaskAdded(taskList);
-                })
+                        namedParameterMap -> bifunction.apply(
+                                namedParameterMap,
+                                io::indicateArgumentInvalid
+                        ).ifPresent(task -> {
+                            taskList.addTask(task);
+                            io.displayTaskAdded(taskList);
+                        })
         );
+        slashPattern.ifParsableElseDefault(null, map -> {
+
+        });
 
         commands.addCommand("todo",
                         args -> createTaskIfValidElseWarn.accept(args, Todo::createIfValidElse)
@@ -144,8 +147,25 @@ public class CatBot implements Bot {
         // User filtering for tasks
         commands.addCommand("find",
                 args -> stringPattern.ifParsableElseDefault(args,
-                        str -> io.displayTaskList(taskList.findInDescriptions(str)))
+                        str -> io.displayTaskListWithoutNumber(taskList.findInDescriptions(str)))
         );
+
+        // User editing tasks (with more control)
+
+        BiConsumer<String, BiConsumer<Integer, NamedParameterMap>>
+                editTaskIfValidIndexElseIndicate = (string, biconsumer) -> slashPattern.ifParsableElseDefault(string,
+                        map -> runIfValidIndexElseIndicateError.accept(map.remove(""),
+                                integer -> biconsumer.accept(integer, map)
+                            )
+                    );
+
+        commands.addCommand("edit",
+                str -> editTaskIfValidIndexElseIndicate.accept(str, (index, map) -> {
+                    taskList.editTask(index, map);
+                    io.displayTaskModified(taskList, index);
+                })
+        );
+
 
     }
 
