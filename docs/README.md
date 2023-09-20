@@ -50,5 +50,5 @@ Here are the tasks in your list:
 1. [T][] Read Book
 2. [D][X] Finish CS2100 Assignment (by: 18-Sep-2023 1300)
 3. [D][X] Finish CS2103T ip (by: 22-Sep-2023)
-4. [E][] NUSBS Dharma Camp (from: 1 July 2024 to: 2 July 2024)
+4. [E][] NUSBS Dharma Camp (from: 1-Jul-2024 to: 2-Jul-2024)
 ```
