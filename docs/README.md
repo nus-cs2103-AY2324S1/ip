@@ -7,11 +7,11 @@ _**Bell Curve God**_ is a Personal Assistant Chatbot that helps you keep track o
 
 | [Create a new task](#create-a-new-task) | [Actions on existing task(s)](#modify-existing-tasks) | [Miscellaneous](#miscllaneous-commands) |
 | :---: | :---: | :---: |
-| [**`todo`**](#todo-description-create-a-task-without-specifying-any-time) | [**`list`**](#list-list-all-existing-tasks) | [**`help`**](help-see-how-to-use-the-commands) |
-| [**`deadline`**](#deadline-description-by-deadline-date-create-a-task-with-both-start-and-end-time) | [**`delete`**](#delete-index-delete-a-task) | [**`bye`**](#bye-exit-the-app) |
-| [**`event`**](#event-description-from-start-date-to-end-date-create-a-task-with-a-deadline) | [**`find`**](#find-keyword-look-for-a-task-containing-the-keyword) |  |
-|  | [**`mark`**](#mark-index-mark-a-task-as-done) |  |
-|  | [**`unmark`**](#unmark-index-mark-a-task-as-not-done-yet) |  |
+| [**`todo`**](#todo-description---create-a-task-without-specifying-any-time) | [**`list`**](#list---list-all-existing-tasks) | [**`help`**](#help---see-how-to-use-the-commands) |
+| [**`deadline`**](#deadline-description-by-deadline-date---create-a-task-with-both-start-and-end-time) | [**`delete`**](#delete-index---delete-a-task) | [**`bye`**](#bye---exit-the-app) |
+| [**`event`**](#event-description-from-start-date-to-end-date---create-a-task-with-a-deadline) | [**`find`**](#find-keyword---look-for-a-task-containing-the-keyword) |  |
+|  | [**`mark`**](#mark-index---mark-a-task-as-done) |  |
+|  | [**`unmark`**](#unmark-index---mark-a-task-as-not-done-yet) |  |
 
 </details>
 
@@ -207,10 +207,10 @@ You can list existing tasks, delete one or more of them, look for the ones with 
   e.g. todo read book
   ```
 
-  ### `bye` - Exit the app.
-  - Action: Exip the app and close the window. All task data will be stored locally at `./data/tasks.txt"`.
-  - Example of usage: `bye`
-  - Expected outcome:
-  ```
-  Bye. Hope to see you soon!
-  ```
+### `bye` - Exit the app.
+- Action: Exip the app and close the window. All task data will be stored locally at `./data/tasks.txt"`.
+- Example of usage: `bye`
+- Expected outcome:
+```
+Bye. Hope to see you soon!
+```
