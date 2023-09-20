@@ -54,13 +54,14 @@ Shows a message with the help and features instructions.
 
 Format: `help`
 
+<br/> 
+
 ### Adding a task: `todo`/`deadline`/`event`
 1. **Adding a todo task:** `todo TODO`
     
     Add a todo task of `TODO` to the tasks list.
  
     Format: `todo TODO`
-
 
 2. **Adding a deadline task:** `deadline DEADLINE /by DUE_DATE`
 
@@ -69,8 +70,7 @@ Format: `help`
     Format: `deadline DEADLINE /by DUE_DATE`
 
    > [!NOTE]: `DEADLINE` is strictly in the format `dd/MM/yyyy HH:mm`.
-
-
+   
 3. **Adding a event task:** `event EVENT /from START /to END`
 
     Add an event of `EVENT` starting at `START` and ending at `END`.
@@ -84,16 +84,21 @@ Examples:
 - `deadline Lecture quiz /by 11/11/2020 23:59`
 - `event Summer camp /from 06/06/2021 08:00 /to 08/06/2021 15:00`
 
+<br/> 
 
 ### Marking a task: `mark`/`unmark`
 Marks or unmarks a task in the tasks list at `INDEX`.
 
 Format: `mark INDEX`, `unmark INDEX`
 
+<br/> 
+
 ### Listing tasks: `list`
 Shows a list of all tasks in the tasks list.
 
 Format: `list`
+
+<br/> 
 
 ### Deleting a task: `delete`
 Deletes a task in the tasks list at `INDEX`.
@@ -104,15 +109,21 @@ Examples:
 - `list` followed by `delete 3` deletes the 3rd task 
 in the tasks list.
 
+<br/> 
+
 ### Setting a reminder: `remind`
 Sets a task in the tasks list at `INDEX` as a reminder.
 
 Format: `remind INDEX`
 
+<br/> 
+
 ### Listing reminders: `reminder`
 Shows a list of all reminders in the tasks list.
 
 Format: `remind`
+
+<br/> 
 
 ### Finding a task by keyword: `find`
 Finds the tasks with description matching the `KEYWORD`
@@ -122,6 +133,7 @@ Format: `find KEYWORD`
 Example:
 - `find CS2100` returns `CS2100 Quiz 5` and `CS2100 Lecture`
 
+___
 
 ## Command Summary
 | Action            | Format                                                                                |
