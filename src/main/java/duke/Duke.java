@@ -1,21 +1,27 @@
 package duke;
 
-import java.util.Scanner;
+import duke.command.AddTaskCommand;
+import duke.command.DeleteCommand;
+import duke.command.FindCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
 import duke.data.task.builder.DeadlineBuilder;
 import duke.data.task.builder.EventBuilder;
 import duke.data.task.builder.TodoBuilder;
-import duke.command.AddTaskCommand;
-import duke.command.DeleteCommand;
-import duke.command.FindCommand;
 import duke.exception.DukeException;
 import duke.ui.Invoker;
 
+/**
+ * The main class of the application that interacts with the user.
+ */
 public class Duke {
-    private Invoker invoker;
-
+    private static final String FINISH_MESSAGE = "Bye. Hope to see you again soon!";
+    private static final String WELCOME_MESSAGE = "Hello! I'm Doctor101\nWhat can I do for you?";
+    private final Invoker invoker;
+    /**
+     * Constructor for Duke.Initializes the invoker with commands.
+     */
     public Duke() {
         this.invoker = new Invoker();
         invoker.setCommand("list", new ListCommand());
@@ -27,48 +33,15 @@ public class Duke {
         invoker.setCommand("delete", new DeleteCommand());
         invoker.setCommand("find", new FindCommand());
     }
-
-    public static void main(String[] args) {
-        System.out.println("Hello! I'm Doctor101");
-        System.out.println("What can I do for you?");
-        System.out.println("____________________________________________________________");
-
-        Duke duke = new Duke();
-        duke.invoker.setCommand("list", new ListCommand());
-        duke.invoker.setCommand("mark", new MarkCommand());
-        duke.invoker.setCommand("unmark", new UnmarkCommand());
-        duke.invoker.setCommand("todo", new AddTaskCommand(new TodoBuilder()));
-        duke.invoker.setCommand("deadline", new AddTaskCommand(new DeadlineBuilder()));
-        duke.invoker.setCommand("event", new AddTaskCommand(new EventBuilder()));
-        duke.invoker.setCommand("delete", new DeleteCommand());
-        duke.invoker.setCommand("find", new FindCommand());
-
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-
-            if (input.equals("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
-                System.out.println("____________________________________________________________");
-                scanner.close();
-                return;
-            }
-            try {
-                duke.invoker.execute(input);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-            System.out.println("____________________________________________________________");
-        }
+    public static String getWelcomeMessage() {
+        return WELCOME_MESSAGE;
     }
-
-    public String getWelcomeMessage() {
-        return "Hello! I'm Doctor101\nWhat can I do for you?";
+    public static String getFinishMessage() {
+        return FINISH_MESSAGE;
     }
-
     public String getResponse(String input) {
         if (input.equals("bye")) {
-            return "Bye. Hope to see you again soon!";
+            return FINISH_MESSAGE;
         } else {
             try {
                 return invoker.execute(input);

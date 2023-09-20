@@ -1,17 +1,20 @@
 package duke.ui;
 
 import java.util.HashMap;
+
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 
+/**
+ * The typical invoker class in the command pattern. It stores a hashmap of commands and executes them.
+ */
 public class Invoker {
     private HashMap<String, Command> commands;
 
     public Invoker() {
         this.commands = new HashMap<String, Command>();
     }
-    
     /**
      * Adds a command to the invoker.
      * @param commandName Name of the command.
@@ -20,7 +23,6 @@ public class Invoker {
     public void setCommand(String commandName, Command command) {
         this.commands.put(commandName, command);
     }
-    
     /**
      * Executes a command.
      * @param input String input from user.

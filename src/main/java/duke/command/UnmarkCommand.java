@@ -6,11 +6,13 @@ import duke.data.storage.Store;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 
-   
+/**
+ * Represents a command that interpret the user input string and mark a task as not done.
+ */
 public class UnmarkCommand implements Command {
-     /**
+    /**
      * Marks a task as not done.
-     * @param input String input from user in the format "unmark <index>".
+     * @param input String input from user in the format "unmark {index}".
      * @throws DukeException If input is invalid.
      */
     @Override

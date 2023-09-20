@@ -5,11 +5,13 @@ import java.util.regex.Pattern;
 import duke.data.storage.Store;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
-
-public class MarkCommand implements Command{
+/**
+ * Represents a command that interpret the user input string and mark a task as done.
+ */
+public class MarkCommand implements Command {
     /**
      * Marks a task as done.
-     * @param input String input from user in the format "mark <index>".
+     * @param input String input from user in the format "mark {index}".
      * @throws DukeException If input is invalid.
      */
     @Override

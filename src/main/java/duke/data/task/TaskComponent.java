@@ -1,8 +1,12 @@
 package duke.data.task;
 
-import duke.exception.InvalidInputException;
 import java.time.LocalDate;
 
+import duke.exception.InvalidInputException;
+
+/**
+ * Some unit for storing and presenting information to compose a task.
+ */
 public abstract class TaskComponent {
 }
 

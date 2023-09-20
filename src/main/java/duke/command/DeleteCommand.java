@@ -10,13 +10,14 @@ import duke.exception.InvalidInputException;
 
 
 /**
- * Deletes a task from the task list.
- * @param input String input from user in the format "delete <index>".
- * @throws DukeException If input is invalid.
+ * Represents a command that interpret the user input string and delete a task from the task list.
  */
-
 public class DeleteCommand implements Command {
-
+    /**
+     * Deletes a task from the task list.
+     * @param input String input from user in the format "delete {index}".
+     * @throws DukeException If input is invalid.
+     */
     @Override
     public String execute(String input) throws DukeException {
         Pattern pattern = Pattern.compile("delete \\d+");
@@ -25,13 +26,12 @@ public class DeleteCommand implements Command {
         }
         int index = Integer.parseInt(input.split(" ")[1]);
         Store s = Store.getInstance();
-        
         if (s.hasTaskAtIndex(index)) {
             Task t = s.getTask(index);
             s.deleteTask(index);
             return "Noted. I've removed this task:\n" + t;
         } else {
             throw new InvalidInputException("index out of bounds");
-        } 
+        }
     }
 }
