@@ -21,17 +21,61 @@ Examples: `Sun` or `23/12/2023`
 ## Usage
 Just click on the jar file to get started!
 
-### `todo` - Tells nyan that the task after the command is a Todo Task
+### `todo` - Tells nyan that the task after the command is a Todo task
 Adds the task to your tasklist.
 
 Example of usage: 
 
 `todo buy bread`
 
-Expected outcome:
-
-Description of the outcome.
-
+Output:
 ```
-expected output
+Got it. I've added this task:
+  [T][] buy bread
+ Nyan you have 2 tasks in the list
+```
+
+### `deadline` - Tells nyan that the task after the command is a Deadline task
+Adds the task to your tasklist.
+
+Example of usage:
+
+`deadline eat bread /by Wed`
+
+Output:
+```
+Got it. I've added this task:
+  [D][] eat bread (by: Sep 19 2023, 23.59pm)
+ Nyan you have 3 tasks in the list
+```
+
+### `event` - Tells nyan that the task after the command is an Event task
+Adds the task to your tasklist.
+
+Example of usage:
+
+`event make bread /from Thu /to fri`
+
+Output:
+```
+Got it. I've added this task:
+  [E][] make bread (from: Sep 20 2023, 23.59pm, to: Sep 21 2023, 23.59pm)
+ Nyan you have 4 tasks in the list
+```
+
+### `list` - tells nyan to list out all your outstanding tasks
+
+Example of usage:
+
+`list`
+
+Output:
+```
+Here are the tasks in your list :3
+==========================================
+1. [T][] think of bread
+2. [T][] buy bread
+3. [D][] eat bread (by: Sep 19 2023, 23.59pm)
+4. [E][] make bread (from: Sep 20 2023, 23.59pm, to: Sep 21 2023, 23.59pm)
+==========================================
 ```
