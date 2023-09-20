@@ -16,6 +16,7 @@ public class Duke {
     private GuiResponse guiResponse;
 
     public Duke() {
+        ui = new Ui();
         parser = new Parser();
         storage = new Storage("./data/duke.txt");
         guiResponse = new GuiResponse();
