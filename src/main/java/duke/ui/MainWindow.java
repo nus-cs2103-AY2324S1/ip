@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -46,7 +47,11 @@ public class MainWindow extends AnchorPane {
                 showMessage(String.format("No stored tasks found from %s", Storage.DEFAULT_STORAGE_PATH),
                         "Starting from an empty task list.");
             } else {
-                showMessage(String.format("Tasks loaded from %s", Storage.DEFAULT_STORAGE_PATH));
+                showMessage(String.format(
+                        "%s task%s loaded from %s",
+                        tasksLoaded,
+                        tasksLoaded == 1 ? "" : "s",
+                        Storage.DEFAULT_STORAGE_PATH));
             }
         } catch (DukeStorageException e) {
             showMessage(String.format("Error loading tasks from %s", Storage.DEFAULT_STORAGE_PATH),

@@ -13,8 +13,8 @@ import javafx.application.Platform;
  * The main class for the Duke chatbot.
  */
 public class Duke {
-    private final Storage storage;
     private final Parser parser;
+    private Storage storage;
     private TaskList tasks;
 
     /**
@@ -24,6 +24,42 @@ public class Duke {
     public Duke() {
         storage = new Storage();
         parser = new Parser();
+    }
+
+    /**
+     * Returns the task list for Duke.
+     *
+     * @return a list of tasks
+     */
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    /**
+     * Sets a new task list for Duke.
+     *
+     * @param tasks the new task list to be set
+     */
+    public void setTaskList(TaskList tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
+     * Returns the storage object for Duke.
+     *
+     * @return the storage object
+     */
+    public Storage getStorage() {
+        return storage;
+    }
+
+    /**
+     * Sets a new storage for Duke.
+     *
+     * @param storage the new storage object to be set
+     */
+    public void setStorage(Storage storage) {
+        this.storage = storage;
     }
 
     /**
@@ -50,20 +86,20 @@ public class Duke {
      */
     public String[] getResponse(String input) {
         Command command = parser.parseCommand(input);
-        command.setData(tasks);
+        command.setDuke(this);
         String[] response = command.execute();
-
-        if (command.isBye()) {
-            Platform.exit();
-        }
 
         try {
             storage.save(tasks);
-            return response;
         } catch (IOException e) {
             String[] newResponse = Arrays.copyOf(response, response.length + 1);
             newResponse[newResponse.length - 1] = "Error saving tasks";
             return newResponse;
         }
+
+        if (command.isBye()) {
+            Platform.exit();
+        }
+        return response;
     }
 }

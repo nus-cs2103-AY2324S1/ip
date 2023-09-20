@@ -15,6 +15,7 @@ import duke.command.EventCommand;
 import duke.command.FindCommand;
 import duke.command.InvalidCommand;
 import duke.command.ListCommand;
+import duke.command.LoadCommand;
 import duke.command.MarkCommand;
 import duke.command.TodoCommand;
 import duke.command.UnmarkCommand;
@@ -114,6 +115,8 @@ public class Parser {
             return parseByeCommand(args);
         case FindCommand.COMMAND_WORD:
             return parseFindCommand(args);
+        case LoadCommand.COMMAND_WORD:
+            return parseLoadCommand(args);
         default:
             return new InvalidCommand(MESSAGE_INVALID_COMMAND);
         }
@@ -229,6 +232,19 @@ public class Parser {
             return new InvalidCommand(FindCommand.MESSAGE_EMPTY_KEYWORD, FindCommand.MESSAGE_USAGE);
         }
         return new FindCommand(args);
+    }
+
+    /**
+     * Parses a given argument string for the Load command.
+     *
+     * @param args argument string for the Load command
+     * @return the parsed LoadCommand object
+     */
+    private Command parseLoadCommand(String args) {
+        if (args.isEmpty()) {
+            return new InvalidCommand(LoadCommand.MESSAGE_EMPTY_FILE_PATH, LoadCommand.MESSAGE_USAGE);
+        }
+        return new LoadCommand(args);
     }
 
     /**

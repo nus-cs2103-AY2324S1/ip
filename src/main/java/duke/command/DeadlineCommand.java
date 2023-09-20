@@ -21,13 +21,13 @@ public class DeadlineCommand extends Command {
      */
     public String[] execute() {
         String[] response = new String[3];
-        this.tasks.add(taskToAdd);
+        this.duke.getTasks().add(taskToAdd);
 
         response[0] = "Got it. I've added this task:";
         response[1] = taskToAdd.toString();
         response[2] = String.format("Now you have %d task%s in the list.",
-                this.tasks.size(),
-                this.tasks.size() == 1 ? "" : "s");
+                this.duke.getTasks().size(),
+                this.duke.getTasks().size() == 1 ? "" : "s");
         return response;
     }
 }
