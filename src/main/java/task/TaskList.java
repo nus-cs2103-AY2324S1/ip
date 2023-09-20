@@ -222,29 +222,27 @@ public class TaskList {
      */
     public String dueBy(String command) {
         String[] commandList = command.trim().toLowerCase().split(" ");
-        if (commandList.length > 1) {
-            String dateTimeString = commandList[1];
-            LocalDateTime localDateTime = Deadline.convertDate(dateTimeString);
-            if (localDateTime != null) {
-                TaskList dueBy = new TaskList();
-                for (Task task : tasks) {
-                    if (task.isDeadline()) {
-                        Deadline deadline = (Deadline) task;
-                        if (deadline.isDueBy(localDateTime)) {
-                            dueBy.add(deadline);
-                        }
-                    }
-                }
-                if (dueBy.size() == 0) {
-                    return "The Mind sees no deadlines due by that day";
-                } else {
-                    return dueBy.list();
-                }
-            } else {
-                return "The Mind does not sense a correct DateTime";
-            }
-        } else {
+        if (commandList.length <= 1) {
             return "The Mind sees no deadline";
+        }
+        String dateTimeString = commandList[1];
+        LocalDateTime localDateTime = Deadline.convertDate(dateTimeString);
+        if (localDateTime == null) {
+            return "The Mind does not sense a correct DateTime";
+        }
+        TaskList dueBy = new TaskList();
+        for (Task task : tasks) {
+            if (task.isDeadline()) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.isDueBy(localDateTime)) {
+                    dueBy.add(deadline);
+                }
+            }
+        }
+        if (dueBy.size() == 0) {
+            return "The Mind sees no deadlines due by that day";
+        } else {
+            return dueBy.list();
         }
     }
 
