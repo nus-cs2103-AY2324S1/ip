@@ -2,7 +2,8 @@
 
 ## Chatbot UI
 
-![Ui](https://github.com/kohkaijie/ip/assets/122248866/875338bb-c5a8-4d75-96d7-e8e3a55bb39c)
+![Ui](https://github.com/kohkaijie/ip/assets/122248866/a1015f25-d0c1-4197-98a8-50a5e072ea48)
+
 
 ## Setup Instructions
 1. Download the CR7.jar file onto your desktop.
