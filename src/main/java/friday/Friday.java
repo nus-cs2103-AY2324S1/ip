@@ -1,5 +1,7 @@
 package friday;
 
+import friday.exception.InvalidNoteFormatException;
+import friday.exception.InvalidTaskFormatException;
 import friday.util.NoteList;
 import friday.util.Parser;
 import friday.util.Storage;
@@ -36,7 +38,7 @@ public class Friday {
      * @param input The user's input string.
      * @return A response string.
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws InvalidTaskFormatException, InvalidNoteFormatException {
         String lowercaseInput = input.toLowerCase().trim();
         if (lowercaseInput.startsWith("note ")) {
             // Handle notes
