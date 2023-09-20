@@ -35,7 +35,7 @@ and feature information.
 
 ___
 ## Features 
-> [!NOTE]
+> NOTE
 > 
 > Notes about the command format:
 > - Commands that do not take in parameters: `help`, `list`, `reminder`
@@ -71,7 +71,7 @@ Format: `help`
 
     Format: `deadline DEADLINE /by DUE_DATE`
 
-   > [!NOTE]
+   > NOTE
    > 
    > `DEADLINE` is strictly in the format `dd/MM/yyyy HH:mm`.
    
@@ -81,7 +81,7 @@ Format: `help`
 
     Format: `event EVENT /from START /to END`
     
-    > [!NOTE]
+    > NOTE
    > 
    > `START` and `END` are strictly in the format `dd/MM/yyyy HH:mm`. 
    
