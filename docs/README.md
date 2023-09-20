@@ -1,6 +1,6 @@
-# 📃 ChatALot - Your personal task manager chatbot!
+# 📃 ChatALot User Guide
 
-### Create and manage different types of tasks with ease.
+### Create and manage different types of tasks with ease!
 
 ## Summary 
 
@@ -31,6 +31,8 @@
 ⚠️ WARNING: 
 
 Please do not edit `duke.txt` yourself. If ChatALot cannot parse its contents, it will clear all existing data.
+
+After the data is cleared, a warning message will be displayed on your terminal/console.
 
 
 ### `list` - List out all of your current tasks
@@ -79,7 +81,7 @@ Event tasks due today:
 Back to [Summary](#summary)
 #### Description:
 
-Shows the list of tasks with description containing the specified keyword.
+Shows the list of tasks with description containing the specified keyword (case-sensitive).
 
 #### Input:
 
