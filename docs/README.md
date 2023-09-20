@@ -58,7 +58,19 @@ Removes tasks from your task list when they are no longer relevant or needed.
 Displays all the tasks in the task list.
 
 - Format: `list`
+
+- Example:
   
+![Local Image](./assets/images/list.png)
+
+  - The task display in this format: [Type][Completeness] Task description
+      - **Type**:
+        - `[T]` = `todo`
+        - `[E]` = `event`
+        - `[D]` = `deadline`
+      - **Completeness**:
+         - `[X]` = `done`
+         - `[ ]` = `not done`
 
 ### Edit a task: `edit`
 
@@ -68,12 +80,12 @@ Edits a task field to a new input
    - The INDEX must be a positive integer 1,2,3 ...
    - FIELD must be provided in lowercase.
    - Here are the respective FIELDs for each type of task:
-        - To-do: taskdesc
-        - Events: taskdesc, fromdate, todate
-        - Deadlines: taskdesc, duedate
+        - `todo`: `taskdesc`
+        - `event`: `taskdesc`, `fromdate`, `todate`
+        - `deadline`: `taskdesc`, `duedate`
    - The provided NEWINPUT must match the format for the provided FIELD.
 
-     e.g If FIELD = fromdate, then NEWINPUT = 23/08/2023 1800
+     e.g If FIELD = `fromdate`, then NEWINPUT = `23/08/2023 1800`
      
 - Example:
   
@@ -92,6 +104,8 @@ Marks a task as completed.
    
 - Example:
    - `mark 1`, Mark the first task of the list as done.
+ 
+![Local Image](./assets/images/mark.png)
 
 
 ### Mark not done -`unmark`
@@ -103,6 +117,8 @@ Marks a task as not complete.
      
 - Example:
    - `unmark 1` Mark the first task of the list as not done.
+ 
+![Local Image](./assets/images/unmark.png)
 
   
 ### Find a task - `find`
