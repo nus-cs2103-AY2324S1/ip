@@ -233,7 +233,7 @@
         -->
 
         <!-- Checks that the order of at-clauses follows the tagOrder default property value order.
-             @author, @version, @param, @return, @throws, @duke.exception, @see, @since, @serial, @serialField, @serialData, @deprecated
+             @author, @version, @param, @return, @throws, @bobi.exception, @see, @since, @serial, @serialField, @serialData, @deprecated
         -->
         <module name="AtclauseOrder"/>
 
