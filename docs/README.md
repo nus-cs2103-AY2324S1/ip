@@ -200,7 +200,7 @@ Deletes a task, when given a valid task index.
 
 When given a task index, delete that task.
 
-> [WARNING!]
+> [!WARNING]
 >SeeWhyAre will complain to you if:
 > - You did not provide a task index.
 > - You provide an index that is out of the range of your current list of tasks.
