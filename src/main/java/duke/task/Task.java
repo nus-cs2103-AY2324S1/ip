@@ -26,6 +26,9 @@ public abstract class Task{
         this.description = description;
         this.isDone = isDone;
     }
+    public void updateDescription(String description) {
+        this.description = description;
+    }
     /**
      * Marks the task as done by setting the completion status to true.
      */

@@ -1,9 +1,6 @@
 package duke;
 
-import duke.exception.DeadlineCommandUseException;
-import duke.exception.EventCommandUseException;
-import duke.exception.InvalidInputException;
-import duke.exception.ToDoCommandUseException;
+import duke.exception.*;
 
 import duke.task.Deadline;
 import duke.task.Event;
@@ -30,13 +27,64 @@ public class Parser {
         //empty constructor to initialize class objects
     }
     static String temp = "";
+    private static void updateTask(String str, TaskList tasks) throws InvalidInputException, EmptyInputException, TaskTypeMismatchException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        String num = str.substring(7, 8);
+        int number = Integer.valueOf(num);
+        if (number <= 0 || number > tasks.getSize()) {
+            throw new InvalidInputException(str);
+        }
+        int index = number - 1;
+        Task task = tasks.getTask(index);
+        if (str.contains("/description")) {
+            String description = str.substring(21).trim();
+            if (description.isEmpty()) {
+                throw new EmptyInputException();
+            }
+            task.updateDescription(description);
+        } else if (str.contains("/deadline")) {
+            if (!task.taskString().contains("[D]")) {
+                throw new TaskTypeMismatchException(str);
+            }
+            String date = str.substring(18).trim();
+            if (date.isEmpty()) {
+                throw new EmptyInputException();
+            }
+            Deadline deadline = (Deadline) task;
+            deadline.updateDateTime(LocalDateTime.parse(date, formatter));
+        } else if (str.contains("/event start date")) {
+            if (!task.taskString().contains("[E]")) {
+                throw new TaskTypeMismatchException(str);
+            }
+            String date = str.substring(27).trim();
+            if (date.isEmpty()) {
+                throw new EmptyInputException();
+            }
+            Event event = (Event) task;
+            event.updateStartDateTime(LocalDateTime.parse(date, formatter));
+        } else if (str.contains("/event end date")) {
+            if (!task.taskString().contains("[E]")) {
+                throw new TaskTypeMismatchException(str);
+            }
+            String date = str.substring(25).trim();
+            if (date.isEmpty()) {
+                throw new EmptyInputException();
+            }
+            Event event = (Event) task;
+            event.updateEndDateTime(LocalDateTime.parse(date, formatter));
+        } else {
+            throw new InvalidInputException(str);
+        }
+        temp =  Ui.printUpdatedTask(task);
+
+    }
     /**
      * Updates a task list based on the provided input string.
      * @param str   The input string containing the instruction to be performed.
      * @param tasks The TaskList object representing the list of tasks to be updated.
      * @throws InvalidInputException If the input string is invalid
      */
-    private static void updateList(String str, TaskList tasks) throws InvalidInputException {
+    private static void updateList(String str, TaskList tasks) throws InvalidInputException, EmptyInputException, TaskTypeMismatchException {
         if (str.startsWith("mark ")) {
             if (str.startsWith("mark all")) {
                 for (int i = 0; i < tasks.getSize(); i++) {
@@ -46,6 +94,9 @@ public class Parser {
             }
             else {
                 String num = str.substring(5);
+                if (num.trim().isEmpty()) {
+                    throw new EmptyInputException();
+                }
                 int number = Integer.valueOf(num);
                 if (number <= 0 || number > tasks.getSize()) {
                     throw new InvalidInputException(str);
@@ -63,6 +114,9 @@ public class Parser {
                 temp = Ui.printAllNotDone(tasks);
             } else {
                 String num = str.substring(7);
+                if (num.trim().isEmpty()) {
+                    throw new EmptyInputException();
+                }
                 int number = Integer.valueOf(num);
                 if (number <= 0 || number > tasks.getSize()) {
                     throw new InvalidInputException(str);
@@ -72,6 +126,8 @@ public class Parser {
                 Task notDone = tasks.getTask(index);
                 temp = Ui.printNotDone(notDone);
             }
+        } else if (str.startsWith("update ")) {
+            updateTask(str, tasks);
         } else if (str.startsWith("delete ")) {
             if (str.startsWith("delete all")) {
                 while (tasks.getSize() != 0) {
@@ -81,6 +137,9 @@ public class Parser {
             }
             else {
                 String num = str.substring(7);
+                if (num.trim().isEmpty()) {
+                    throw new EmptyInputException();
+                }
                 int number = Integer.valueOf(num);
                 if (number <= 0 || number > tasks.getSize()) {
                     throw new InvalidInputException(str);
@@ -96,10 +155,13 @@ public class Parser {
      * @param str   The input string.
      * @param tasks The TaskList to process tasks.
      */
-    private static void returnList(String str, TaskList tasks) {
+    private static void returnList(String str, TaskList tasks) throws EmptyInputException {
         if (str.startsWith("find ")) {
             //return tasklist with matching keywords
             String keyword = str.substring(5);
+            if (keyword.trim().isEmpty()) {
+                throw new EmptyInputException();
+            }
             TaskList matchingTasks = new TaskList();
             for (int i = 0; i < tasks.getSize(); i++) {
                 if (tasks.getTask(i).getTask().contains(keyword)) {
@@ -227,7 +289,7 @@ public class Parser {
                 return Ui.printHelp();
             }
             else if (str.startsWith("mark ") || str.startsWith("unmark ")
-                    || str.startsWith("delete ")) {
+                    || str.startsWith("delete ") || str.startsWith("update")) {
                 updateList(str, tasks);
                 Storage.saveTasks("src/data/Duke.txt", tasks);
             }
@@ -245,7 +307,7 @@ public class Parser {
         } catch (java.time.format.DateTimeParseException e) {
             //detect inputs that don't follow the yyyy-MM-dd HHmm format
             return Ui.printException();
-        } catch (InvalidInputException | FileNotFoundException e) {
+        } catch (EmptyInputException| TaskTypeMismatchException | InvalidInputException | FileNotFoundException e) {
             return Ui.printException(e.getMessage());
         }
         return temp;

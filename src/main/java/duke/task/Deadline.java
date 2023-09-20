@@ -31,6 +31,9 @@ public class Deadline extends Task {
         super(description, isDone);
         this.date = date;
     }
+    public void updateDateTime(LocalDateTime date) {
+        this.date = date;
+    }
 
     /**
      * Returns a formatted string representation of the Deadline Task, including

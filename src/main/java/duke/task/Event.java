@@ -26,6 +26,12 @@ public class Event extends Task {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+    public void updateStartDateTime(LocalDateTime date) {
+        this.startDate = date;
+    }
+    public void updateEndDateTime(LocalDateTime date) {
+        this.endDate = date;
+    }
     /**
      * Overloaded constructor to build an Event Task Object read from the tasks
      * saved in the txt file with the task description, completion status,

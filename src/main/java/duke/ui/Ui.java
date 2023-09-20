@@ -38,6 +38,11 @@ public class Ui{
                 "as done:" + "\n" +
                 "\t " + done.taskString();
     }
+    public static String printUpdatedTask(Task updated) {
+        return "\t" + "Nice! I've updated this task: " +
+                "\n" +
+                "\t " + updated.taskString();
+    }
 
     /**
      * Generates a message to indicate that all tasks have been marked as done.
@@ -153,18 +158,20 @@ public class Ui{
         return "No worries, muggle! Harry Potter is here to help :D Accio Help Guide! \n"
                 + "Here are the commands for use: \n"
                 + "1. help: shows this list of commands\n"
+                + "2. todo <task>: specify the task to be added in the list with no start or end date\n"
+                + "3. deadline <task> /by <yyyy-MM-dd HHmm>: specify the task to be added with a specific deadline\n"
+                + "4. event <task> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>: specify the event to be added with both start & end dates\n"
                 + "2. mark<index>: marks task at <index> in the list as done \n"
-                + "3. mark all: marks all tasks in the list as done \n"
                 + "4. unmark<index>: marks task at <index> in the list as not done \n"
-                + "5. unmark all: marks all tasks in the list as not done \n"
                 + "6. delete<index>: deletes task at <index> in the list\n"
-                + "7. delete all: deletes all tasks in the list\n"
-                + "8. list: shows the existing list of tasks\n"
-                + "9. find <keyword>: returns a new list of tasks containing the matching keyword in the task description\n"
-                + "10. todo <task>: specify the task to be added in the list with no start or end date\n"
-                + "11. deadline <task> /by <yyyy-MM-dd HHmm>: specify the task to be added with a specific deadline\n"
-                + "12. event <task> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>: specify the event to be added with both start & end dates\n"
-                + "13. bye: displays a goodbye message. ";
+                + "7. mark all/ unmark all/ delete all: modifies/removes all tasks in the list accordingly\n"
+                + "8. update <index> /description <new description>: changes description of the task at specified index \n"
+                + "8. update <index> /event <start/end> date <yyyy-MM-dd HHmm>: changes start/end date of the Event task at specified index \n"
+                + "8. update <index> /description <new description>: changes description of the task at specified index \n"
+                + "8. update <index> /deadline <yyyy-MM-dd HHmm>: changes deadline of the Deadline task at specified index \n"
+                + "9. list: shows the existing list of tasks\n"
+                + "10. find <keyword>: returns a new list of tasks containing the matching keyword in the task description\n"
+                + "11. bye: displays a goodbye message. ";
 
     }
 
