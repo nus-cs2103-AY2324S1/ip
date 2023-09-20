@@ -12,27 +12,17 @@ import duke.tasks.ToDo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 import java.util.ArrayList;
 
-import javafx.application.Application;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.image.Image;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+
 
 
 
@@ -44,11 +34,6 @@ import javafx.scene.Node;
         private TaskManager taskManager;
         private UI ui;
         private Parser parser;
-        private ScrollPane scrollPane;
-        private VBox dialogContainer;
-        private TextField userInput;
-        private Button sendButton;
-        private Scene scene;
         private Image user = new Image(this.getClass().getResourceAsStream("/images/speed.png"));
         private Image duke = new Image(this.getClass().getResourceAsStream("/images/ronaldo.png"));
         private boolean isRunning = false;
@@ -69,10 +54,6 @@ import javafx.scene.Node;
         }
 
 
-//        protected String getResponse(String input) {
-//            return "Duke heard: " + input;
-//        }
-
         public static void main(String[] args) {
             Duke duke = new Duke();
         }
@@ -86,7 +67,6 @@ import javafx.scene.Node;
 
             while (!input.equals("bye")) {
                 try {
-                    //input = scanner.nextLine();
                     String command = this.parser.getCommand(input);
                     switch (command) {
                     case "list":

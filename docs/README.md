@@ -4,7 +4,7 @@ Penaldo is a graphical user interface (GUI) desktop app that helps you track you
 
 - Download the `.jar` file under `Releases`,
 - Navigate to the directory in terminal,
-- run `java -jar penaldo.jar`, and voila!
+- run `java -jar penaldo.jar`, angd voila!
 
 ## Features 👾
 
