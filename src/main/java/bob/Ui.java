@@ -37,10 +37,10 @@ public class Ui {
      */
     public static String markTask(TaskList list, int markNo) throws BobException {
         if (markNo > 0 && markNo <= list.size()) {
-            System.out.println("Nice! I've marked this task as done:");
+            String response = "Ey! I've marked this task as done:\n" + list.get(markNo - 1).toString();
             list.get(markNo - 1).markAsDone();
-            System.out.println(list.get(markNo - 1).toString());
-            return "Nice! I've marked this task as done:\n" + list.get(markNo - 1).toString();
+            System.out.println(response);
+            return response;
         } else {
             throw new BobInvalidTaskException();
         }
@@ -56,7 +56,7 @@ public class Ui {
      */
     public static String deleteTask(TaskList list, int deleteNo) throws BobException {
         if (deleteNo > 0 && deleteNo <= list.size()) {
-            String response = "Noted. I've removed this task:\n";
+            String response = "Okeyy. I've removed this task:\n";
             response += list.get(deleteNo - 1).toString() + "\n";
             list.remove(deleteNo - 1);
             response += "Now you have " + String.valueOf(list.size()) + " tasks in the list.";
@@ -89,7 +89,7 @@ public class Ui {
             throw new BobInvalidTaskException();
         }
 
-        response = "Here are the matching tasks in your list:\n";
+        response = "Here are the matching tasks in your list eyyy:\n";
         for (int i = 1; i <= matches.size(); i++) {
             response += i + ". " + matches.get(i - 1).toString() + "\n";
         }
@@ -134,7 +134,7 @@ public class Ui {
     }
 
     private static String printRescheduleMessage(TaskList list, int rescheduleNo) {
-        String response = "Noted. I've rescheduled this task:\n";
+        String response = "Okeyy. I've rescheduled this task:\n";
         response += list.get(rescheduleNo - 1).toString();
         System.out.println(response);
 
@@ -151,7 +151,7 @@ public class Ui {
     public static String addTask(TaskList list, Task newTask) {
         String response;
         list.add(newTask);
-        response = "Got it. I've added this task:\n";
+        response = "Eyyy. I've added this task:\n";
         response += newTask.toString() + "\n";
         response += "Now you have " + String.valueOf(list.size()) + " tasks in the list.";
 
@@ -279,7 +279,7 @@ public class Ui {
      */
     public static String printTasks(TaskList list) {
         String response;
-        response = "Here are the tasks in your list:\n";
+        response = "Here are the tasks in your list eyy:\n";
         for (int i = 1; i <= list.size(); i++) {
             response += i + ". " + list.get(i - 1).toString() + "\n";
         }
@@ -292,7 +292,7 @@ public class Ui {
      * Shows the loading error.
      */
     public void showLoadingError() {
-        System.out.println("Error loading file");
+        System.out.println("Error loading file.");
     }
 
     /**
@@ -301,7 +301,7 @@ public class Ui {
      * @return goodbye message
      */
     public String printGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
-        return "Bye. Hope to see you again soon!";
+        System.out.println("Bye. Hope to see you again soon eyy!");
+        return "Bye. Hope to see you again soon eyy!";
     }
 }
