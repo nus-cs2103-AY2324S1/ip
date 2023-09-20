@@ -22,14 +22,13 @@ public class UnmarkTaskCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        try {
-            tasks.unmarkTask(id);
-            assert !tasks.getTask(id).isDone();
-            return ui.getTaskUnmarkedMessage(tasks.getTask(id));
-        } catch (RuntimeException e) {
-            throw new DukeException("\tIndex out of bounds. There are "
-                                        + tasks.getSize()
-                                            + " tasks currently.");
+        if (id >= tasks.getSize()) {
+            throw new DukeException("Index out of bounds. There are "
+                    + tasks.getSize()
+                    + " tasks currently.");
         }
+        tasks.unmarkTask(id);
+        assert !tasks.getTask(id).isDone();
+        return ui.getTaskUnmarkedMessage(tasks.getTask(id));
     }
 }

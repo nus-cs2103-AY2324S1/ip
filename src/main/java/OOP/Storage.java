@@ -155,9 +155,9 @@ public class Storage {
             LocalDateTime parsedDeadlineDateTime = LocalDateTime.parse(deadlineString, formatter);
             deadline = new Deadline(name, false, parsedDeadlineDateTime);
         } else {
-            throw new DukeException("\t Invalid deadline format. "
-                                        + "\n\tExpected format for deadline (time is optional):"
-                                            + "\n\t deadline {deadlineName} /by yyyy-MM-dd HHmm");
+            throw new DukeException("Invalid deadline format. "
+                                        + "\nExpected format for deadline (time is optional):"
+                                            + "\n deadline {deadlineName} /by yyyy-MM-dd HHmm");
         }
         return deadline;
     }

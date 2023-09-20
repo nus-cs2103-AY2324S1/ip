@@ -62,6 +62,7 @@ public class MainWindow extends AnchorPane {
         if (userText.getText().equals("help")) {
             try {
                 handleHelpCommand(dukeText);
+                userInput.clear();
                 return;
             } catch (IOException e) {
                 throw new DukeException("Something went wrong with displaying the help Pop-up!");
@@ -94,7 +95,6 @@ public class MainWindow extends AnchorPane {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Help");
         stage.setScene(new Scene(root));
         stage.showAndWait();
     }

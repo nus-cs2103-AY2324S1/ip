@@ -28,7 +28,7 @@ public class AddToDoCommand implements Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (toDo.getName().length() == 0) {
-            throw new DukeException("\tEmpty Description");
+            throw new DukeException("Empty Description");
         }
         tasks.addTask(this.toDo);
         return ui.getTaskAddedMessage(toDo, tasks);

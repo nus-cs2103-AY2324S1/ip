@@ -83,9 +83,9 @@ public class Parser {
         String deadlineName = extractSecondWordOnwards(twoParts[0]);
         twoParts[0] = deadlineName;
         if (deadlineName.length() == 0) {
-            throw new DukeException("\tEmpty Description");
+            throw new DukeException("Empty Description");
         } else if (twoParts.length != 2) {
-            throw new DukeException("\tUsage: deadline {taskName} /by {yyyy-MM-dd HHmm}");
+            throw new DukeException("Usage: deadline {taskName} /by {yyyy-MM-dd HHmm}");
         }
         return twoParts;
     }
@@ -103,11 +103,11 @@ public class Parser {
         String eventName = extractSecondWordOnwards(threeParts[0]);
         threeParts[0] = eventName;
         if (eventName.length() == 0) {
-            throw new DukeException("\tEmpty Description");
+            throw new DukeException("Empty Description");
         }
         if (threeParts.length != 3) {
-            throw new DukeException("\tIncorrect format for event."
-                                        + "\n\tExpected usage: "
+            throw new DukeException("Incorrect format for event."
+                                        + "\nExpected usage: "
                                             + "event {eventName} /from {eventStart} /to {eventEnd}");
         }
         String eventStart = extractSecondWordOnwards(threeParts[1]);
@@ -115,7 +115,7 @@ public class Parser {
         String eventEnd = extractSecondWordOnwards(threeParts[2]);
         threeParts[2] = eventEnd;
         if (eventStart.length() == 0 || eventEnd.length() == 0) {
-            throw new DukeException("\tBoth event start and end date times must be specified.");
+            throw new DukeException("Both event start and end date times must be specified.");
         }
         return threeParts;
     }
@@ -131,7 +131,7 @@ public class Parser {
         try {
             id = Integer.valueOf(inputWords[1]) - 1;
         } catch (RuntimeException e) {
-            throw new DukeException("\tExpected usage: mark {id}");
+            throw new DukeException("Expected usage: mark {id}");
         }
         return id;
     }

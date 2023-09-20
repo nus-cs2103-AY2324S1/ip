@@ -89,17 +89,17 @@ public class ParserTest {
         try {
             Parser.parseCommand("todo");
         } catch (DukeException e) {
-            assertEquals("\tEmpty Description", e.getMessage());
+            assertEquals("Empty Description", e.getMessage());
         }
         try {
             Parser.parseCommand("deadline");
         } catch (DukeException e) {
-            assertEquals("\tEmpty Description", e.getMessage());
+            assertEquals("Empty Description", e.getMessage());
         }
         try {
             Parser.parseCommand("event");
         } catch (DukeException e) {
-            assertEquals("\tEmpty Description", e.getMessage());
+            assertEquals("Empty Description", e.getMessage());
         }
     }
 }

@@ -3,108 +3,21 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefHeight="200.0" prefWidth="300.0" fx:controller="GUI.HelpPopupController">
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="400.0"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" fx:controller="GUI.HelpPopupController">
     <children>
-        <VBox alignment="CENTER" spacing="10">
-            <children>
-                <Label fx:id="helpLabel" text="Commands:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+        <ScrollPane hbarPolicy="NEVER" prefHeight="600.0" prefWidth="450.0" fx:id="scrollPane">
 
-                <Separator /> <!-- Add a separator after the label -->
+            <VBox  alignment="CENTER" spacing="10">
+                <children>
+                    <Label fx:id="helpLabel" text="Commands:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                    <Separator /> <!-- Add a separator after the label -->
 
-
-                <VBox spacing="10">
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        help
-                    </Text>
-                    <Text>
-                        - Get help pop-up to display.
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        list
-                    </Text>
-                    <Text wrappingWidth="230">
-                        - List all of your current tasks.
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        todo {taskName}
-                    </Text>
-                    <Text>
-                        - Add a ToDo to your task list.
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        deadline {taskName} /by {yyyy-MM-dd HHmm}
-                    </Text>
-                    <Text>
-                        - Add a Deadline with a specific date to your task list
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        event {eventName} /from {eventStart} /to {eventEnd}
-                    </Text>
-                    <Text wrappingWidth="230">
-                        - Add an event with a start and end (both strings for now)
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        mark {taskId}
-                    </Text>
-                    <Text>
-                        - Mark the task with id taskId as done.
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        unmark {taskId}
-                    </Text>
-                    <Text>
-                        - Mark the task with id taskId as not done.
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        Delete {taskId}
-                    </Text>
-                    <Text>
-                        - Delete the task with id taskId.
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        find {searchText}
-                    </Text>
-                    <Text>
-                        - Find all tasks that have relevant information to searchText.
-                    </Text>
-                    <Separator /> <!-- Add a separator between command groups -->
-
-
-                    <Text style="-fx-font-family: 'Monospaced';">
-                        bye
-                    </Text>
-                    <Text>
-                        - Bid farewell and close the window.
-                    </Text>
-                </VBox>
-
-                <Separator /> <!-- Add a separator between command groups -->
-
-                <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closePopup" text="Close" />
-            </children>
-        </VBox>
+                    <VBox fx:id="vBox" spacing="10">
+                        <!-- All commands are populated here in HelpPopupController -->
+                    </VBox>
+                    <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closePopup" text="Close" />
+                </children>
+            </VBox>
+        </ScrollPane>
     </children>
 </AnchorPane>

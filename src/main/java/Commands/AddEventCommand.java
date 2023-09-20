@@ -1,7 +1,8 @@
 package Commands;
+import Duke.DukeException;
+import OOP.Storage;
 import OOP.TaskList;
 import OOP.Ui;
-import OOP.Storage;
 import Tasks.Event;
 
 /**
@@ -33,7 +34,11 @@ public class AddEventCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.addTask(this.event);
+        if (this.event.getName().length() == 0) {
+            throw new DukeException("Empty Description");
+        }
+
+            tasks.addTask(this.event);
         return ui.getTaskAddedMessage(this.event, tasks);
     }
 }

@@ -26,14 +26,13 @@ public class DeleteTaskCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        try {
-            Task removedTask = tasks.deleteTask(id);
-            assert !removedTask.equals(tasks.getTask(id));
-            return ui.getTaskDeletedMessage(removedTask);
-        } catch (RuntimeException e) {
-            throw new DukeException("\tIndex out of bounds. There are "
-                                        + tasks.getSize()
-                                            + " tasks currently.");
+        if (id >= tasks.getSize()) {
+            throw new DukeException("Index out of bounds. There are "
+                    + tasks.getSize()
+                    + " tasks currently.");
         }
+        Task removedTask = tasks.deleteTask(id);
+//        assert !removedTask.equals(tasks.getTask(id));
+        return ui.getTaskDeletedMessage(removedTask);
     }
 }

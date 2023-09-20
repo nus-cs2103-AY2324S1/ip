@@ -31,7 +31,7 @@ public class AddDeadlineCommand implements Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (this.deadline.getName().length() == 0) {
-            throw new DukeException("\tEmpty Description");
+            throw new DukeException("Empty Description");
         }
         tasks.addTask(this.deadline);
         return ui.getTaskAddedMessage(this.deadline, tasks);

@@ -49,9 +49,9 @@ public class Ui {
      * @return These strings concatenated to one another.
      */
     public String getTaskAddedMessage(Task task, TaskList tasks) {
-        String str1 = "\t Got it. I've added this task:";
-        String str2 = String.format("\t\t %s", task.toString());
-        String str3 = String.format("\tNow you have %d tasks in the list.", tasks.getSize());
+        String str1 = "Got it. I've added this task:";
+        String str2 = String.format("%s", task.toString());
+        String str3 = String.format("Now you have %d tasks in the list.", tasks.getSize());
         return str1 + "\n" + str2 + "\n" + str3;
     }
 
@@ -62,8 +62,8 @@ public class Ui {
      * @return The concatenated string.
      */
     public String getTaskDeletedMessage(Task task) {
-        String str1 = "\tNoted. I've removed this task:";
-        String str2 = "\t\t" + task.toString();
+        String str1 = "Noted. I've removed this task:";
+        String str2 = task.toString();
         return str1 + "\n" + str2;
     }
 
@@ -74,8 +74,8 @@ public class Ui {
      * @return The concatenated string.
      */
     public String getTaskMarkedMessage(Task task) {
-        String str1 = "\tNice! I've marked this task as done:";
-        String str2 = "\t\t" + task.toString();
+        String str1 = "Nice! I've marked this task as done:";
+        String str2 = "" + task.toString();
         return str1 + "\n" + str2;
     }
     /**
@@ -85,8 +85,8 @@ public class Ui {
      * @return The concatenated string.
      */
     public String getTaskUnmarkedMessage(Task task) {
-        String str1 = "\tOk, I've marked this task as not done yet:";
-        String str2 = "\t\t" + task.toString();
+        String str1 = "Ok, I've marked this task as not done yet:";
+        String str2 = task.toString();
         return str1 + "\n" + str2;
     }
 
@@ -127,7 +127,7 @@ public class Ui {
      */
 
     public String getTaskString(int id, Task task) {
-        return String.format("\t%d.%s\n", id + 1, task.toString());
+        return String.format("%d.%s\n", id + 1, task.toString());
     }
 
     /**

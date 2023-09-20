@@ -14,6 +14,9 @@ public class ListTasksCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        if (tasks.getSize() == 0) {
+            return "You don't have any tasks yet! Use the `help` command to find out how you can add tasks!";
+        }
         String res = "";
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getTask(i);

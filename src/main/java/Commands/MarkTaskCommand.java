@@ -21,14 +21,13 @@ public class MarkTaskCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        try {
-            tasks.markTask(id);
-            assert tasks.getTask(id).isDone();
-            return ui.getTaskMarkedMessage(tasks.getTask(id));
-        } catch (RuntimeException e) {
-            throw new DukeException("\tIndex out of bounds. There are "
-                                        + tasks.getSize()
-                                            + " tasks currently.");
+        if (id >= tasks.getSize()) {
+            throw new DukeException("Index out of bounds. There are "
+                    + tasks.getSize()
+                    + " tasks currently.");
         }
+        tasks.markTask(id);
+        assert tasks.getTask(id).isDone();
+        return ui.getTaskMarkedMessage(tasks.getTask(id));
     }
 }
