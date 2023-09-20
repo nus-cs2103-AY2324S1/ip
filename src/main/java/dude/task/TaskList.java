@@ -142,7 +142,7 @@ public class TaskList {
             String taskNumberPrefix = String.format("%3s-", i + 1);
             Task task = tasks.get(i);
             assert task != null : "Task should not be null.";
-            String taskStr = taskNumberPrefix + task.toString() + "\n";
+            String taskStr = taskNumberPrefix + task + "\n";
             tasksList.append(taskStr);
         }
         return tasksList.toString();
