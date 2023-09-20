@@ -1,0 +1,12 @@
+todo borrow book
+event project meeting /from Monday 3pm /to 5pm
+list
+deadline CS2103T iP /by Aug 24th 2359hrs
+mark 2
+list
+unmark 3
+mark 3
+list
+unmark 2
+list
+bye
