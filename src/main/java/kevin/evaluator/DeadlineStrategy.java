@@ -46,7 +46,9 @@ public class DeadlineStrategy extends BaseStrategy {
             try {
                 for (String formatString : formatStrings) {
                     try {
+                        System.out.println(deadline + formatString);
                         deadlineDate = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern(formatString));
+                        break;
                     } catch (DateTimeParseException e) {
                         throw new KevinException("Ensure that the deadline is a valid date");
                     }
