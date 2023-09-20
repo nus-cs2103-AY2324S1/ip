@@ -1,0 +1,9 @@
+todo eat
+todo cs2103 IP
+list
+deadline return book /by tues 3pm
+mark 1
+mark 2
+event meeting /at Monday
+list
+bye

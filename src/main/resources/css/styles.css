@@ -1,0 +1,36 @@
+/* For styles related to DialogBox.fxml */
+
+.dialog-container {
+    -fx-spacing: 10px; /* Spacing between elements within the dialog container */
+    -fx-padding: 10px; /* Padding around the dialog container */
+    -fx-border-radius: 10px; /* Rounded corners for the dialog container */
+}
+
+.dialog {
+    -fx-background-color: #3498db; /* Background color for the individual dialog box */
+    -fx-padding: 10px; /* Padding around each dialog box */
+    -fx-border-radius: 10px; /* Rounded corners for each dialog box */
+    -fx-text-fill: white; /* Text color for the dialog text */
+    -fx-font-size: 14px; /* Font size for the dialog text */
+}
+
+.display-picture {
+    -fx-padding: 10px; /* Padding around the display picture (if used) */
+}
+
+/* For styles related to MainWindow.fxml */
+
+.user-input, .send-button {
+    -fx-font-size: 14px; /* Font size for user input and send button */
+    -fx-font-family: "Arial"; /* Font family for user input and send button */
+    -fx-padding: 10px; /* Padding for user input and send button */
+    -fx-border-radius: 5px; /* Rounded corners for user input and send button */
+}
+
+.send-button {
+    -fx-background-color: #2ecc71; /* Background color for the send button */
+}
+
+.scroll-pane {
+    -fx-background-color: #ecf0f1; /* Background color for the scroll pane */
+}
