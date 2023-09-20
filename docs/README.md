@@ -182,15 +182,13 @@ Jeoe chatbot home folder.
 
 
 ## Command summary <a id="command-summary-anchor"></a>
-| Action       | Format, Examples                                                                        |
-|--------------|-----------------------------------------------------------------------------------------|
-| Add todo     | `todo [TODO]`<br/> e.g. `todo task 1`                                                   |
-| Add event    | `event TASK /from START /to END`<br/>e.g. `event birthday /from yesterday /to tomorrow` |
-| Add deadline | `deadline TASK /by DATE&TIME`<br/>e.g.`deadline my deadline task /by 2023-06-01 15:00`  |
-| list         | `list`                                                                                  |
-| mark         | `mark INDEX`<br/>e.g.`mark 1 `                                                          |
-| unmark       | `unmark INDEX`<br/>e.g.`unmark 1 `                                                      |
-| delete       | `delete INDEX`<br/>e.g.`delete 1 `                                                      |
-| find         | `find [KEYWORDS]`<br/>e.g.`find smt`                                                    |
-| sort         | `sort`                                                                                  |
-| bye          | `bye`                                                                                   |
+- Add todo      `todo [TODO]`<br/> e.g. `todo task 1`                                                   
+- Add event     `event TASK /from START /to END`<br/>e.g. `event birthday /from yesterday /to tomorrow` 
+- Add deadline  `deadline TASK /by DATE&TIME`<br/>e.g.`deadline my deadline task /by 2023-06-01 15:00`  
+- list          `list`                                                                                  
+- mark          `mark INDEX`<br/>e.g.`mark 1 `                                                          
+- unmark        `unmark INDEX`<br/>e.g.`unmark 1 `                                                      
+- delete        `delete INDEX`<br/>e.g.`delete 1 `                                                      
+- find          `find [KEYWORDS]`<br/>e.g.`find smt`                                                    
+- sort          `sort`                                                                                  
+- bye           `bye`                                                                                   
