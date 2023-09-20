@@ -6,7 +6,24 @@ The project name is **"ChatBot"** and the name of the bot is **"WX-78"**.
 
 
 
+## Quick start
+
+1. Ensure you have Java 11 or above installed in your computer
+2. Download the latest `chatbot.jar`
+3. Copy the file to the folder you want to use as the home folder for the application
+4. Open a command terminal, `cd` to the folder you put the `jar` file in, then use `java -jar chatbot.jar` command to run the application. You should see the GUI of the application and a `data` folder being created in the application's folder
+5. Try interacting with the chat bot using the commands [below](#Features)!
+
+
+
 ## Features 
+
+- [create tasks](#Create tasks - `todo`, `deadline`, `event`)
+- [list](#List tasks - `list`)
+- [mark as done or undone](#Mark tasks - `mark`, `unmark`)
+- [delete](#Delete tasks - `delete`)
+- [find](#Find tasks - `find`)
+- [set priority](#Prioritise tasks - `priority`)
 
 ### Create tasks - `todo`, `deadline`, `event`
 
@@ -54,7 +71,7 @@ You can list everything in your task list.
 
 ### Mark tasks - `mark`, `unmark`
 
-You can mark your tasks as complete or incomplete.
+You can mark your tasks as done or undone.
 
 **Format:**
 
@@ -136,3 +153,11 @@ You can assign the priority of each task to be High, Medium or Low.
 Got it. I've set the priority of this task:
 [E][ ] (M) group meeting (from: 1pm to: 4pm)
 ```
+
+
+
+## Usage
+
+### Run the GUI application in command terminal: 
+
+`java -jar chatbot.jar`
