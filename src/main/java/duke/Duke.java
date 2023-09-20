@@ -40,7 +40,6 @@ public class Duke {
             switch (command) {
             case BYE:
                 response = Ui.getExitMessage();
-                // exit app after 1 second
                 CompletableFuture.delayedExecutor(1, TimeUnit.SECONDS).execute(Platform::exit);
                 break;
             case LIST:
@@ -71,7 +70,6 @@ public class Duke {
                 response = tasks.handleSort(input);
                 break;
             default:
-                // invalid input
                 throw new DukeException("Bro, I'm sorry but I don't know what that means :-(");
             }
 

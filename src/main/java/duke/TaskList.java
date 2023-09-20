@@ -35,8 +35,7 @@ public class TaskList {
      */
     public String addTask(Task task) {
         this.list.add(task);
-        return "Got it bro! I've added this task:\n" + task + "\n"
-                + "Now you have " + this.list.size() + " tasks in the list";
+        return Ui.getAddTaskMessage(task, list);
     }
 
     /**
@@ -49,13 +48,10 @@ public class TaskList {
     public String deleteTask(String taskIndex) throws DukeException {
         try {
             int index = Integer.parseInt(taskIndex) - 1;
-            list.get(index);
-            assert index > 0 && index < list.size();
-            StringBuilder s = new StringBuilder("Noted! I've deleted this task from the list:\n"
-                    + list.get(index) + "\n");
+            Task deletedTask = list.get(index);
+            assert index > 0;
             list.remove(index);
-            s.append("Now you have " + list.size() + " tasks in the list");
-            return s.toString();
+            return Ui.getDeleteTaskMessage(deletedTask, list);
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
             throw new DukeException("Invalid number");
@@ -77,7 +73,7 @@ public class TaskList {
             int index = Integer.parseInt(taskIndex) - 1;
             list.get(index).markAsDone();
             assert index > 0 && index < list.size();
-            return "Nice! I've marked this task as done:\n" + "" + list.get(index);
+            return Ui.getMarkedTaskMessage(list.get(index));
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
             throw new DukeException("Invalid number");
@@ -99,7 +95,7 @@ public class TaskList {
             int index = Integer.parseInt(taskIndex) - 1;
             list.get(index).unMark();
             assert index > 0 && index < list.size();
-            return "Nice! I've marked this task as not done yet:\n" + "" + list.get(index);
+            return Ui.getUnmarkTaskMessage(list.get(index));
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
             throw new DukeException("Invalid number");
@@ -198,11 +194,7 @@ public class TaskList {
      * @return All the tasks in the list as a string.
      */
     public String getList() {
-        StringBuilder s = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < list.size(); i++) {
-            s.append("" + (i + 1) + ". " + list.get(i) + "\n");
-        }
-        return s.toString();
+        return Ui.getListAsString(list);
     }
 
     /**
@@ -223,20 +215,6 @@ public class TaskList {
         return s.toString();
     }
 
-    /**
-     * Returns all the specified type of tasks in the current list in sorted order.
-     *
-     * @param sortedTasks List of sorted tasks.
-     * @param taskType    Type of task of sorted tasks.
-     * @return List of sorted tasks as a string.
-     */
-    private String getSortedTasks(List<? extends Task> sortedTasks, String taskType) {
-        StringBuilder s = new StringBuilder("Here are the sorted " + taskType + "s in your list:\n");
-        for (int i = 0; i < sortedTasks.size(); i++) {
-            s.append("" + (i + 1) + ". " + sortedTasks.get(i) + "\n");
-        }
-        return s.toString();
-    }
 
     /**
      * Extracts the search target from the user input and calls printMatchingTasks
@@ -287,7 +265,7 @@ public class TaskList {
 
         String taskType = matcher.group(1); // Extract task type
         List<? extends Task> sortedTasks = sortTasks(taskType);
-        return getSortedTasks(sortedTasks, taskType);
+        return Ui.getSortedTasks(sortedTasks, taskType);
 
     }
 
