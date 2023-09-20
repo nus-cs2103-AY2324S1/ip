@@ -12,7 +12,7 @@ public class Ui {
     /**
      * ASCII Art Generated from <a href="http://patorjk.com/software/taag/">...</a>
      */
-    private static final String LOGO_TEST = "\t┏┳┏┓┳┓┓┏┳┏┓\n" + "\t   ┃┣┫┣┫┃┃┃┗┓\n" + "\t┗┛┛┗┛┗┗┛┻┗┛\n";
+    private static final String LOGO_TEST = null;
 
     /**
      * Default date and time format used n Jarvis app.

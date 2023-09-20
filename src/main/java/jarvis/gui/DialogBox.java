@@ -8,11 +8,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -20,19 +17,16 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 
 /**
  * The Dialog class control represents a dialog box consisting of an ImageView
  * to represent the speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    public static final int MESSAGE_BOX_WIDTH = 400;
-    public static final int ARC_VALUE = 40;
-    @FXML
-    private Label dialog;
-    @FXML
-    private ImageView displayPicture;
+    private static final int MESSAGE_BOX_WIDTH = 350;
+    private static final int ARC_VALUE = 40;
+    private static final int MAX_TEXT_LEN = 60;
+    private static final int PFP_SIZE = 30;
 
     /**
      * Creates a new instance of DialogBox with the specified text and image.
@@ -49,18 +43,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         buildDialogBox(message, img);
-    }
-
-    /**
-     * Flips the dialog box such that the ImageView is on the left and text on the right.
-     */
-    private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
     }
 
     /**
@@ -87,13 +70,21 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Flips the dialog box such that the ImageView is on the left and text on the right.
+     */
+    private void flip() {
+        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
+        Collections.reverse(tmp);
+        getChildren().setAll(tmp);
+        setAlignment(Pos.TOP_LEFT);
+    }
+
     @FXML
     private void buildDialogBox(String message, Image img) {
-        Text text = createText(message);
-        Rectangle messageBox = createMessageBox(text);
-        Circle circleImage = new Circle(0, 0, 30);
-        circleImage.setFill(new ImagePattern(img));
-        StackPane dialogBox = new StackPane(messageBox, text);
+        Text formattedText = createText(message);
+        Circle circleImage = getCircularImg(img);
+        StackPane dialogBox = createDialogBox(formattedText);
         this.getChildren().addAll(dialogBox, circleImage);
     }
 
@@ -102,25 +93,77 @@ public class DialogBox extends HBox {
         return wrapText(new Text(string));
     }
 
-    private Rectangle createMessageBox(Text text) {
-        assert text != null : "Text cannot be null.";
+    private Text wrapText(Text text) {
+        String originalText = text.getText();
+        String[] lines = originalText.split("\n");
 
-        Text wrappedText = wrapText(text);
-        double messageBubbleHeight = wrappedText.getBoundsInLocal().getHeight() + 40;
-        Rectangle messageBox = new Rectangle(MESSAGE_BOX_WIDTH, messageBubbleHeight);
-        messageBox.setFill(Color.WHITE);
-        messageBox.setArcWidth(ARC_VALUE);
-        messageBox.setArcHeight(ARC_VALUE);
+        StringBuilder wrappedText = new StringBuilder();
+
+        for (String line : lines) {
+            wrapLine(line, wrappedText);
+        }
+
+        return new Text(wrappedText.toString());
+    }
+
+    private static void wrapLine(String line, StringBuilder wrappedText) {
+        String[] words = line.split("\\s+");
+        StringBuilder currentLine = new StringBuilder();
+
+        for (String word : words) {
+            if (word.length() > MAX_TEXT_LEN) {
+                wrapLongWord(word, currentLine);
+            }
+            if (currentLine.length() + word.length() <= MAX_TEXT_LEN) {
+                currentLine.append(word).append(" ");
+            } else {
+                wrappedText.append(currentLine.toString().trim()).append("\n");
+                currentLine = new StringBuilder(word + " ");
+            }
+        }
+
+        if (currentLine.length() > 0) {
+            wrappedText.append(currentLine.toString().trim()).append("\n");
+        }
+    }
+
+    private static void wrapLongWord(String word, StringBuilder wrappedText) {
+        int startIndex = 0;
+        while (startIndex < word.length()) {
+            int endIndex = Math.min(startIndex + MAX_TEXT_LEN, word.length());
+            String subWord = word.substring(startIndex, endIndex);
+            wrappedText.append(subWord).append("\n");
+            startIndex = endIndex;
+        }
+    }
+
+    private static Circle getCircularImg(Image img) {
+        Circle circleImage = new Circle(0, 0, PFP_SIZE);
+        circleImage.setFill(new ImagePattern(img));
+        return circleImage;
+    }
+
+    private StackPane createDialogBox(Text text) {
+        Rectangle messageBox = createMessageBox(text);
+        return new StackPane(messageBox, text);
+    }
+
+    private Rectangle createMessageBox(Text formattedText) {
+        assert formattedText != null : "Text cannot be null.";
+        Rectangle messageBox = getTextHeight(formattedText);
+        styleMessageBox(messageBox);
         return messageBox;
     }
 
-    private Text wrapText(Text text) {
-        TextFlow textFlow = new TextFlow();
-        textFlow.getChildren().add(text);
-        textFlow.setPrefWidth(MESSAGE_BOX_WIDTH - 100); // Adjust the width as needed
-        text.setTextOrigin(VPos.TOP);
-        text.setWrappingWidth(MESSAGE_BOX_WIDTH - 100); // Adjust the width as needed
-        return text;
+    private static Rectangle getTextHeight(Text formattedText) {
+        double messageBubbleHeight = formattedText.getBoundsInLocal().getHeight() + 40;
+        return new Rectangle(MESSAGE_BOX_WIDTH, messageBubbleHeight);
+    }
+
+    private static void styleMessageBox(Rectangle messageBox) {
+        messageBox.setFill(Color.WHITE);
+        messageBox.setArcWidth(ARC_VALUE);
+        messageBox.setArcHeight(ARC_VALUE);
     }
 }
 
