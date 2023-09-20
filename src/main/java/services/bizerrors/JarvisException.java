@@ -5,6 +5,7 @@ package services.bizerrors;
  */
 public class JarvisException extends Exception {
     public JarvisException(String message) {
-        super(message);
+        // Prepend a newline to the message to make it more readable.
+        super("\n" + message);
     }
 }
