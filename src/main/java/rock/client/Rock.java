@@ -10,9 +10,9 @@ import rock.storage.exceptions.StorageException;
 import rock.tasks.TaskList;
 
 /**
- * Rock is the name of and the main program used
- * to run the chatbot for ip.
- * @author Alvis Ng (supermii2)
+` * Rock is the name of and the main program used
+ * to run the bot for ip.
+ * @author Alvis Ng (supermii2)`
  */
 public class Rock {
     /** Default Filepath to save data if no filepath is specified*/
@@ -52,11 +52,11 @@ public class Rock {
      * @param input Command string
      * @return Response
      */
-    public String getResponse(String input) {
+    public Response getResponse(String input) {
         try {
-            return invoker.handle(input);
+            return Response.createValidResponse(invoker.handle(input));
         } catch (RockException e) {
-            return e.getMessage();
+            return Response.createErrorResponse(e.getMessage());
         }
     }
 

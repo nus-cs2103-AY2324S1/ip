@@ -32,13 +32,13 @@ public class CommandTaskMark extends Command {
         String inputString = input.getDefaultString();
         try {
             int taskIdx = Integer.parseInt(inputString);
-            client.getTaskList().mark(taskIdx, this.isMarking);
+            client.getTaskList().mark(taskIdx - 1, this.isMarking);
             this.client.saveFile();
             String response = "";
             if (this.isMarking) {
-                response += "Task marked successfully: \n";
+                response += "Task marked successfully\n";
             } else {
-                response += "Task unmarked successfully: \n";
+                response += "Task unmarked successfully\n";
             }
             return (response);
         } catch (NumberFormatException e) {
