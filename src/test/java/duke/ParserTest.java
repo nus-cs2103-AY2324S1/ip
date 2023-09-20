@@ -55,8 +55,8 @@ public class ParserTest {
 
     @Test
     void parse_list_success() throws DukeException {
-        assertEquals("You have no tasks!\n" +
-                "\"Enjoy today.\"", new Parser(new TaskList()).parse("List"));
+        assertEquals("You have no tasks!\n"
+                + "\"Enjoy today.\"", new Parser(new TaskList()).parse("List"));
     }
 
     @Test
