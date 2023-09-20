@@ -1,20 +1,6 @@
 # "Bell Curve God" User Guide
 _**Bell Curve God**_ is a Personal Assistant Chatbot that helps you keep track of various things.
 
-<details>
-
-**<summary>Summary of Commands</summary>**
-
-| [Create a new task](#create-a-new-task) | [Actions on existing task(s)](#modify-existing-tasks) | [Miscellaneous](#miscllaneous-commands) |
-| :---: | :---: | :---: |
-| [**`todo`**](#todo-description---create-a-task-without-specifying-any-time) | [**`list`**](#list---list-all-existing-tasks) | [**`help`**](#help---see-how-to-use-the-commands) |
-| [**`deadline`**](#deadline-description-by-deadline-date---create-a-task-with-both-start-and-end-time) | [**`delete`**](#delete-index---delete-a-task) | [**`bye`**](#bye---exit-the-app) |
-| [**`event`**](#event-description-from-start-date-to-end-date---create-a-task-with-a-deadline) | [**`find`**](#find-keyword---look-for-a-task-containing-the-keyword) |  |
-|  | [**`mark`**](#mark-index---mark-a-task-as-done) |  |
-|  | [**`unmark`**](#unmark-index---mark-a-task-as-not-done-yet) |  |
-
-</details>
-
 ## Features 
 
 ### Add tasks of different types
@@ -25,6 +11,16 @@ Create a task without specifying the time, with a deadline, or with both start a
 ### Modify existing tasks to manage them
 
 You can list existing tasks, delete one or more of them, look for the ones with some keyword, mark some as done and not done using [**these commands**](#modify-existing-tasks).
+
+### **Summary of Commands**
+
+| [Create a new task](#create-a-new-task) | [Actions on existing task(s)](#modify-existing-tasks) | [Miscellaneous](#miscllaneous-commands) |
+| :---: | :---: | :---: |
+| [**`todo`**](#todo-description---create-a-task-without-specifying-any-time) | [**`list`**](#list---list-all-existing-tasks) | [**`help`**](#help---see-how-to-use-the-commands) |
+| [**`deadline`**](#deadline-description-by-deadline-date---create-a-task-with-both-start-and-end-time) | [**`delete`**](#delete-index---delete-a-task) | [**`bye`**](#bye---exit-the-app) |
+| [**`event`**](#event-description-from-start-date-to-end-date---create-a-task-with-a-deadline) | [**`find`**](#find-keyword---look-for-a-task-containing-the-keyword) |  |
+|  | [**`mark`**](#mark-index---mark-a-task-as-done) |  |
+|  | [**`unmark`**](#unmark-index---mark-a-task-as-not-done-yet) |  |
 
 ## Usage
 
