@@ -9,27 +9,27 @@ public abstract class Task implements Serializable {
     /**The name of the task.*/
     private String taskName;
     /**Status on whether the task is done or not.*/
-    private boolean taskStatus;
+    private boolean isDone;
 
     /**Instantiates an instance of a task.
      * @param taskName takes in the name of the task.*/
     public Task(String taskName) {
         this.taskName = taskName;
-        this.taskStatus = false;
+        this.isDone = false;
     }
 
     /**
      * Sets the current task as done.
      */
     public void done() {
-        this.taskStatus = true;
+        this.isDone = true;
     }
 
     /**
      * Sets the current task as not done.
      */
     public void undo() {
-        this.taskStatus = false;
+        this.isDone = false;
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class Task implements Serializable {
      * @return Whether the task is done or not.
      */
     public boolean isDone() {
-        return this.taskStatus;
+        return this.isDone;
     }
 
     /**

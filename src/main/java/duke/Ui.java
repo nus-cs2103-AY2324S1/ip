@@ -22,8 +22,8 @@ public class Ui {
      * Sends a greeting message to the user.
      */
     public static String greet() {
-        return " Hellooooooooooo! I'm Lati!\n" +
-                " What can I do for you? :3\n";
+        return " Hellooooooooooo! I'm Lati!\n"
+                + " What can I do for you? :3\n";
     }
 
     /**
@@ -39,8 +39,8 @@ public class Ui {
      * @param index Number of tasks stored.
      */
     public static String store(String task, int index) {
-        return "Added! You want to: " + task + "\n" +
-                "Now you have " + index + (index > 1 ? " tasks!" : " task!");
+        return "Added! You want to: " + task + "\n"
+                + "Now you have " + index + (index > 1 ? " tasks!" : " task!");
     }
 
     /**
@@ -49,8 +49,8 @@ public class Ui {
      * @param index The number of tasks left.
      */
     public static String delete(String task, int index) {
-        return "Guess you don't want to do that anymore: " + task + "\n" +
-                "Now you have " + index + (index > 1 ? " tasks!" : " task!");
+        return "Guess you don't want to do that anymore: " + task + "\n"
+                + "Now you have " + index + (index > 1 ? " tasks!" : " task!");
     }
 
     /**
@@ -58,8 +58,8 @@ public class Ui {
      * @param task The marked task.
      */
     public static String mark(String task) {
-        return "NICEEEEE. Good job on completing the task!\n" +
-                task;
+        return "NICEEEEE. Good job on completing the task!\n"
+                + task;
     }
 
     /**
@@ -67,8 +67,8 @@ public class Ui {
      * @param task The unmarked tasks.
      */
     public static String unMark(String task) {
-        return "Ohhh... uhm, okay, task undone!\n" +
-                task;
+        return "Ohhh... uhm, okay, task undone!\n"
+                + task;
     }
 
     /**
@@ -118,11 +118,11 @@ public class Ui {
                 errorMessage = "Whoops, wrong format! Type todo <task>\n";
                 break;
             case "deadline":
-                errorMessage = "Whoops, wrong format! Type deadline <task> /by YYYY-MM-DD HH:MM\n";
+                errorMessage = "Whoops, wrong format! Type deadline <task> /by YYYY-MM-DD\n";
                 break;
             case "event":
-                errorMessage = "Whoops, wrong format! " +
-                        "Type event <task> /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM\n";
+                errorMessage = "Whoops, wrong format! "
+                        + "Type event <task> /from YYYY-MM-DD /to YYYY-MM-DD\n";
                 break;
             case "mark":
                 errorMessage = "Ehh? What do you want to mark? Type mark <index>\n";

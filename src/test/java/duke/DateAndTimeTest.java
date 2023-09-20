@@ -26,15 +26,6 @@ public class DateAndTimeTest {
     @Test
     public void dateStringTest() {
         DateAndTime test2 = new DateAndTime();
-        assertEquals("APRIL 1, 2023", test2.dayParse("2023-04-01"));
-    }
-
-    /**
-     * Test the DateAndTime::dayParse() method.
-     */
-    @Test
-    public void dateTimeStringTest() {
-        DateAndTime test3 = new DateAndTime();
-        assertEquals("APRIL 3, 2023, 18:00", test3.dayParse("2023-04-03", "18:00"));
+        assertEquals("Apr 01 2023", test2.dayParse("2023-04-01", "MMM dd YYYY"));
     }
 }

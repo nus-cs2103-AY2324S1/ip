@@ -1,18 +1,12 @@
 package duke;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  * Parses all input commands given by the user.
  */
 public class Parser {
 
     //The DukeList to store all tasks given to the Duke bot.
-    private TaskList list;
-
-    //The timeParser to parse and format all times given.
-    private DateAndTime timeParser = new DateAndTime();
+    private TaskList tasks;
 
 
     /**
@@ -20,120 +14,109 @@ public class Parser {
      * @param list the DukeList that contains all tasks at hand.
      */
     public Parser(TaskList list) {
-        this.list = list;
+        this.tasks = list;
     }
 
     /**
-     * Helps to parse and manage the user's inputs.
-     *
+     * Parses and manages the user's inputs.
      * @param tally takes in the input string.
+     * @return the Command to be executed.
      */
     public Command messageHandler(String tally) {
-        String comd = tally.split(" ")[0];
-        Command command = null;
+        String[] words = tally.split(" ", 2);
+        final String comd = words[0];
+        final String restOfCommand = words.length > 1 ? words[1] : "";
 
         switch (comd) {
         case "list":
-            command = new TaskLister(this.list);
-            break;
+            return new TaskLister(this.tasks);
         case "search":
-            Pattern searchCmd = Pattern.compile("search (.+)");
-            Matcher ms = searchCmd.matcher(tally);
-            command = this.groupRun(ms, 1) ? new TaskSearcher(ms.group(1), list)
-                : new TaskError("search");
-            break;
-        case "todo":
-            Pattern todoCmd = Pattern.compile("todo (.+)");
-            Matcher mt = todoCmd.matcher(tally);
-            command = this.groupRun(mt, 1) ? new ToDoAdder(mt.group(1), list)
-                : new TaskError("todo");
-            break;
-        case "deadline":
-            Pattern deadlineCmd = Pattern.compile("deadline (.+) /by (.+)");
-            Matcher md = deadlineCmd.matcher(tally);
-            if (this.groupRun(md, 2)) {
-                String formattedDeadline = this.timeParse(md.group(2));
-                command = formattedDeadline.equals(md.group(2)) ? new DeadlineAdder(md.group(1), formattedDeadline, list)
-                        : new TaskError("deadline");
-            } else {
-                command = new TaskError("deadline");
-            }
-            break;
-        case "event":
-            Pattern eventCmd = Pattern.compile("event (.+) /from (.+) /to (.+)");
-            Matcher ml = eventCmd.matcher(tally);
-            if (this.groupRun(ml, 3)) {
-                if (this.isValidTime(ml.group(2), ml.group(3))) {
-                    String formattedStart = this.timeParse(ml.group(2));
-                    String formattedEnd = this.timeParse(ml.group(3));
-                    command = new EventAdder(ml.group(1), formattedStart, formattedEnd, list);
-                } else {
-                    command = new TaskError("event");
-                }
-            } else {
-                command = new TaskError("event");
-            }
-            break;
-        case "mark":
-            try {
-                String indexMark = tally.split(" ")[1];
-                command = new TaskMarker(Integer.parseInt(indexMark), list);
-            } catch (NullPointerException e) {
-                command = new TaskError("mark");
-            }
-            break;
-        case "unmark":
-            try {
-                String indexMark = tally.split(" ")[1];
-                command = new TaskUnmarker(Integer.parseInt(indexMark), list);
-            } catch (NullPointerException e) {
-                command = new TaskError("unmark");
-            }
-            break;
-        case "delete":
-            try {
-                String indexMark = tally.split(" ")[1];
-                command = new TaskDeleter(Integer.parseInt(indexMark), list);
-            } catch (NullPointerException e) {
-                command = new TaskError("delete");
-            }
-            break;
+            return new TaskSearcher(restOfCommand, this.tasks);
         case "bye":
-            command = new Bye(list);
-            break;
+            return new Bye(tasks);
+        case "todo":
+        case "deadline":
+        case "event":
+            return this.addTask(comd, restOfCommand);
+        case "mark":
+        case "unmark":
+        case "delete":
+            return this.editTask(comd, restOfCommand);
         default:
-            command = new TaskError("other");
+            return new TaskError("other");
         }
+    }
 
-        return command;
+
+    /**
+     * Returns the specific command for adding a specific task
+     * @param taskType The type of task to be added.
+     * @param details The information of the given task.
+     * @return The command to add inputted task.
+     */
+    private Command addTask(String taskType, String details) {
+        switch (taskType) {
+        case "todo":
+            return new ToDoAdder(details, this.tasks);
+        case "deadline":
+            try {
+                String[] deadline = details.split(" /by ", 2);
+                String deadlineName = deadline[0];
+                String deadlineTime = deadline[1];
+
+                return new DeadlineAdder(deadlineName, deadlineTime, tasks);
+            } catch (NullPointerException e) {
+                return new TaskError("deadline");
+            }
+        case "event":
+            try {
+                String[] event = details.split(" /from ", 2);
+                String eventName = event[0];
+                String eventTime = event[1];
+
+                String[] times = eventTime.split(" /to ", 2);
+                String eventStart = times[0];
+                String eventEnd = times[1];
+
+                return new EventAdder(eventName, eventStart, eventEnd, tasks);
+            } catch (NullPointerException e) {
+                return new TaskError("event");
+            }
+        default :
+            return new TaskError("other");
+        }
     }
 
     /**
-     * Recursively runs the matches() method on a given matcher n times.
-     * @param m The matcher object
-     * @param n number of times it has to run
-     * @return the boolean value of all matches() run recursively.
+     * Returns a command to edit a specific task.
+     * @param editType The type of the edit to be made.
+     * @param index The index of the task to be edited.
+     * @return The command to edit a task.
      */
-    private boolean groupRun(Matcher m, int n) {
-        return n == 0 ? false : n == 1 ? m.matches() : m.matches() && groupRun(m, n - 1);
-    }
+    private Command editTask(String editType, String index) {
+        switch (editType) {
+        case "mark":
+            if (index.isEmpty()) {
+                return new TaskError("mark");
+            }
+            int indexNumber = Integer.parseInt(index);
+            assert indexNumber >= 0 : "Ehh? Make sure it's a non-negative index!!!";
+            return new TaskMarker(indexNumber, tasks);
+        case "unmark":
+            if (index.isEmpty()) {
+                return new TaskError("unmark");
+            }
+            int number = Integer.parseInt(index);
+            assert number >= 0 : "Ehh? Make sure it's a non-negative index!!!";
+            return new TaskUnmarker(number, tasks);
+        case "delete":
+            if (index.isEmpty()) {
+                return new TaskError("unmark");
+            }
+            return new TaskMarker(Integer.parseInt(index), tasks);
 
-    /**
-     * Parses the string date into a proper date format.
-     * @param date the date entered by the user.
-     * @return The formatted date string.
-     */
-    public String timeParse(String date) {
-        return timeParser.dayParse(date, "YYYY-MM-DD HH:MM");
-    }
-
-    /**
-     * Checks if a given start and end date for event tasks are valid
-     * @param start Starting date and time, if any.
-     * @param end Ending date and time, if any.
-     * @return Whether the date range is valid.
-     */
-    public boolean isValidTime(String start, String end) {
-        return timeParser.isValidDate(start, end);
+        default:
+            return new TaskError("other");
+        }
     }
 }

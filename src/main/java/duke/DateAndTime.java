@@ -16,7 +16,7 @@ public class DateAndTime {
      * @param format The format required.
      * @return The formatted date string
      */
-    public String dayParse(String dateString, String format) {
+    public static String parseDay(String dateString, String format) {
         try {
             LocalDate date = LocalDate.parse(dateString);
             return date.format(DateTimeFormatter.ofPattern(format));
@@ -31,7 +31,7 @@ public class DateAndTime {
      * @param end End date
      * @return If the given date range is valid.
      */
-    public boolean isValidDate(String start, String end) {
+    public static boolean isValidDate(String start, String end) {
         try {
             return !LocalDate.parse(start).isAfter(LocalDate.parse(end));
         } catch (DateTimeParseException e) {

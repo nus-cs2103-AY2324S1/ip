@@ -66,14 +66,12 @@ public class TaskList {
      * @param i takes in the index of the task to be set as done.
      */
     public String mark(int i) {
-        if (this.assertEquality(i)) {
-            Task task = tasks.get(i - 1);
-            task.done();
 
-            return Ui.mark(task.toString());
-        } else {
-            return Ui.indexError(tasks.size());
-        }
+        assert i <= tasks.size(): "Ehh? Make sure the index is valid";
+        Task task = tasks.get(i - 1);
+        task.done();
+
+        return Ui.mark(task.toString());
     }
 
     /**
@@ -81,14 +79,12 @@ public class TaskList {
      * @param i takes in the index of the task to be set as undone.
      */
     public String unmark(int i) {
-        if (this.assertEquality(i)) {
-            Task task = tasks.get(i - 1);
-            task.undo();
+        assert i <= tasks.size(): "Ehh? Make sure the index is valid";
 
-            return Ui.unMark(task.toString());
-        } else {
-            return Ui.indexError(tasks.size());
-        }
+        Task task = tasks.get(i - 1);
+        task.undo();
+
+        return Ui.unMark(task.toString());
     }
 
     /**
@@ -96,14 +92,11 @@ public class TaskList {
      * @param i takes in the index of the task to be removed.
      */
     public String delete(int i) {
-        if (this.assertEquality(i)) {
-            Task task = tasks.remove(i - 1);
-            int index = tasks.size();
+        assert i <= tasks.size(): "Ehh? Make sure the index is valid";
 
-            return Ui.delete(task.toString(), index);
-        } else {
-            return Ui.indexError(tasks.size());
-        }
+        Task task = tasks.remove(i - 1);
+        int index = tasks.size();
+        return Ui.delete(task.toString(), index);
     }
 
     /**
@@ -127,14 +120,5 @@ public class TaskList {
         } else {
             return Ui.showMatchesMessage() + "\n"+ Ui.display(foundTasks);
         }
-    }
-
-    /**
-     * Checks if the index is within the task size.
-     * @param index the index of a specific task
-     * @return whether the index is within the taskList size.
-     */
-    private boolean assertEquality(int index) {
-        return index <= tasks.size() && index > 0;
     }
 }
