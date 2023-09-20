@@ -34,51 +34,90 @@ public class Parser {
         }
 
         if (nextInput.startsWith("todo")) {
-            try {
-                String description = nextInput.substring(5);
-
-                checkInputIsNotEmpty(description);
-
-                arr.add(0, "todo");
-                arr.add(1, description);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidTodoException();
-            }
+            parseTodoInput(arr, nextInput);
         } else if (nextInput.startsWith("deadline")) {
-            try {
-                int by = nextInput.indexOf("/by");
-                String description = nextInput.substring(9, by - 1);
-                String deadline = nextInput.substring(by + 4);
-
-                checkInputIsNotEmpty(description, deadline);
-
-                arr.add(0,"deadline");
-                arr.add(1, description);
-                arr.add(2, deadline);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidDeadlineException();
-            }
+            parseDeadlineInput(arr, nextInput);
         } else if (nextInput.startsWith("event")) {
-            try {
-                int from = nextInput.indexOf("/from");
-                int to = nextInput.indexOf("/to");
-                String description = nextInput.substring(6, from - 1);
-                String start = nextInput.substring(from + 6, to - 1);
-                String end = nextInput.substring(to + 4);
-
-                checkInputIsNotEmpty(description, start, end);
-
-                arr.add(0, "event");
-                arr.add(1, description);
-                arr.add(2, start);
-                arr.add(3, end);
-            } catch (StringIndexOutOfBoundsException e) {
-                throw new InvalidEventException();
-            }
+            parseEventInput(arr, nextInput);
         } else {
             throw new InvalidCommandException();
         }
         return arr;
+    }
+
+    /**
+     * Parses user input. If input is appropriate, modifies the array to contain the type of task, description,
+     * start and end time, in that order.
+     *
+     * @param arr The array to modify.
+     * @param nextInput The user input.
+     * @throws InvalidEventException If format of event entered is invalid.
+     * @throws InvalidCommandException If format of command entered is invalid.
+     */
+    private void parseEventInput(List<String> arr, String nextInput) throws InvalidCommandException, InvalidEventException {
+        try {
+            int from = nextInput.indexOf("/from");
+            int to = nextInput.indexOf("/to");
+            String description = nextInput.substring(6, from - 1);
+            String start = nextInput.substring(from + 6, to - 1);
+            String end = nextInput.substring(to + 4);
+
+            checkInputIsNotEmpty(description, start, end);
+
+            arr.add(0, "event");
+            arr.add(1, description);
+            arr.add(2, start);
+            arr.add(3, end);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidEventException();
+        }
+    }
+
+    /**
+     *  Parses user input. If input is appropriate, modifies the array to contain the type of task, description,
+     *  and deadline, in that order.
+     *
+     * @param arr The array to modify.
+     * @param nextInput The user input.
+     * @throws InvalidDeadlineException If format of deadline entered is invalid.
+     * @throws InvalidCommandException If format of command entered is invalid.
+     */
+    private void parseDeadlineInput(List<String> arr, String nextInput) throws InvalidCommandException, InvalidDeadlineException {
+        try {
+            int by = nextInput.indexOf("/by");
+            String description = nextInput.substring(9, by - 1);
+            String deadline = nextInput.substring(by + 4);
+
+            checkInputIsNotEmpty(description, deadline);
+
+            arr.add(0,"deadline");
+            arr.add(1, description);
+            arr.add(2, deadline);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidDeadlineException();
+        }
+    }
+
+    /**
+     *  Parses user input. If input is appropriate, modifies the array to contain the type of task and description
+     *  in that order.
+     *
+     * @param arr The array to modify.
+     * @param nextInput The user input.
+     * @throws InvalidTodoException If format of todo entered is invalid.
+     * @throws InvalidCommandException If format of command entered is invalid.
+     */
+    private void parseTodoInput(List<String> arr, String nextInput) throws InvalidCommandException, InvalidTodoException {
+        try {
+            String description = nextInput.substring(5);
+
+            checkInputIsNotEmpty(description);
+
+            arr.add(0, "todo");
+            arr.add(1, description);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidTodoException();
+        }
     }
 
     /**
