@@ -17,7 +17,8 @@ public class Message {
 
     /** Displays welcome message */
     public String showWelcome() {
-        return "Greetings! I'm Dommi, your trusty taskmaster, here to make your task management journey a breeze! \uD83D\uDE80";
+        return "Greetings! I'm Dommi, your trusty taskmaster, "
+                + "here to make your task management journey a breeze! \uD83D\uDE80";
     }
 
     /** Displays goodbye message */
