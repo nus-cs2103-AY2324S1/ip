@@ -44,7 +44,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = gman.getResponse(input);
-        //gman needs a getResponse method.
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getGmanDialog(response, gmanImage)

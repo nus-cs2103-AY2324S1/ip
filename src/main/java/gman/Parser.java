@@ -37,7 +37,7 @@ public class Parser {
             return Ui.showError(new GmanException("There's nothing to print in the list bozo..."));
         }
         lastCommand = "list";
-        return Ui.listTasks(taskList); //attention
+        return Ui.listTasks(taskList);
     }
 
     /**
@@ -72,7 +72,7 @@ public class Parser {
      * @return A String that outputs gman's response to the user in the GUI.
      */
     public static String makeTodoCommand(String userInput, TaskList taskList) {
-        if (userInput.substring(4).isEmpty()) { //add if there is only space
+        if (userInput.substring(4).isEmpty()) {
             lastCommand = "error";
             return Ui.showError(new GmanException("OOOOOPs! The description of a todo cannot be empty!"));
         } else {
@@ -91,7 +91,7 @@ public class Parser {
      * @return A String that outputs gman's response to the user in the GUI.
      */
     public static String makeDeadlineCommand(String userInput, TaskList taskList) {
-        if (userInput.substring(8).isEmpty()) { //add if there is only space
+        if (userInput.substring(8).isEmpty()) {
             lastCommand = "error";
             return Ui.showError(new GmanException("OOOOOPs! The description of a deadline cannot be empty!"));
         } else {
@@ -111,11 +111,10 @@ public class Parser {
      * @return A String that outputs gman's response to the user in the GUI.
      */
     public static String makeEventCommand(String userInput, TaskList taskList) {
-        if (userInput.substring(5).isEmpty()) { //add if there is only space
+        if (userInput.substring(5).isEmpty()) {
             lastCommand = "error";
             return Ui.showError(new GmanException("OOOOOPs! The description of an event cannot be empty!"));
-        }
-        else {
+        } else {
             String[] segments = userInput.substring(5).split("/");
             String description = segments[0];
             String from = segments[1].substring(5); //cut aft space, below too
@@ -166,7 +165,6 @@ public class Parser {
 
 
     public static String undoDeleteTask(TaskList taskList) {
-        //need to add ui
         return "Undo successful! \n" + taskList.addTask(lastTaskDeleted) + "\n" + Ui.numberOfTasks(taskList);
     }
 
@@ -190,8 +188,7 @@ public class Parser {
     public static boolean isValidUndo() {
         if (lastCommand.equals("error") || lastCommand.isEmpty()) {
             return false;
-        }
-        if (lastCommand.equals("delete") || lastCommand.equals("add_task") || lastCommand.equals("mark")
+        } else if (lastCommand.equals("delete") || lastCommand.equals("add_task") || lastCommand.equals("mark")
                 || lastCommand.equals("unmark")) {
             return true;
         } else {
@@ -200,7 +197,6 @@ public class Parser {
     }
 
 
-    //instead of just printing it out, return a string to the GUI.
     public static String readInput(String userInput, TaskList taskList) {
         if (userInput.equals(exitWord)) {
             return exitCommand(taskList);
@@ -225,7 +221,7 @@ public class Parser {
             return makeEventCommand(userInput, taskList);
         } else if (prefix.equals("delete")) {
             return deleteCommand(userInput, taskList);
-        } else if (prefix.equals("find")) { //add exception if more than one searched word, i.e. space, e.g hi hi
+        } else if (prefix.equals("find")) {
             String keyword = words[1];
             return taskList.findTasks(keyword);
         } else if (prefix.equals("undo")) {

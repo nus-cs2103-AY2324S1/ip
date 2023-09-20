@@ -33,7 +33,7 @@ public class Task {
      *
      * @return a String of a symbol.
      */
-    public String getStatusIcon() { //for tasks
+    public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
@@ -41,7 +41,7 @@ public class Task {
     /**
      * Marks an undone Task as done.
      */
-    public void mark(){
+    public void mark() {
         isDone = true;
         assert this.getStatusIcon().equals("[X]") : "The status icon is wrong!";
 
