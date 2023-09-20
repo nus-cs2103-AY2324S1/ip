@@ -37,12 +37,16 @@ public class UnMarkCommand extends Command {
      */
     @Override
     public String execute() throws DukeException {
-        taskList.markAsNotDone(index - 1);
+        String res = "";
         try {
+            res = ui.printMarkedUnDone(taskList, index - 1);
+            taskList.markAsNotDone(index - 1);
             storage.save(taskList);
         } catch (IOException e) {
             ui.printError(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            res = ui.printError("I do not understand. You do not have that task.");
         }
-        return ui.printMarkedUnDone(taskList, index - 1);
+        return res;
     }
 }

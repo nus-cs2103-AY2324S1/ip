@@ -82,7 +82,10 @@ public class TaskList implements Serializable {
      *
      * @param index The index of task to be marked.
      */
-    public void markAsDone(int index) {
+    public void markAsDone(int index) throws IndexOutOfBoundsException {
+        if (index >= taskList.size()) {
+            throw new IndexOutOfBoundsException(String.format("I do not understand. You do not have a task %d", index));
+        }
         this.taskList.get(index).markDone();
     }
 
@@ -91,7 +94,10 @@ public class TaskList implements Serializable {
      *
      * @param index The index of task to be marked.
      */
-    public void markAsNotDone(int index) {
+    public void markAsNotDone(int index) throws IndexOutOfBoundsException {
+        if (index >= taskList.size()) {
+            throw new IndexOutOfBoundsException(String.format("I do not understand. You do not have a task %d", index));
+        }
         this.taskList.get(index).markNotDone();
     }
 
