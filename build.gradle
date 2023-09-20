@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'checkstyle'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -57,17 +56,13 @@ application {
 }
 
 shadowJar {
+    mainClassName = 'duke.Launcher'
     archiveBaseName = "duke"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
-}
-
-javafx {
-    version = '17.0.2'
-    modules = [ 'javafx.controls' , 'javafx.fxml' ]
 }
 
 run{
     enableAssertions = true
     standardInput = System.in
+    standardOutput = System.out
 }

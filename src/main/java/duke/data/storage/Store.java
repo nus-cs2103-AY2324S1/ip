@@ -2,15 +2,18 @@ package duke.data.storage;
 
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 import duke.data.task.Task;
 import duke.data.task.builder.TaskBuilder;
 import duke.data.task.tasklist.Tasklist;
 import duke.exception.DukeException;
-
+import duke.exception.InternalException;
 
 
 /**
@@ -19,42 +22,46 @@ import duke.exception.DukeException;
 public class Store {
     private static final Store store = new Store();
     private final Tasklist tasks = new Tasklist();
-    private final String fileName = "./src/main/java/duke/data/duke.txt";
+    private String filePath;
+    private Path folder;
+    private File storageFile;
     private final TaskBuilder taskBuilder = new TaskBuilder();
 
     private Store() {
-        // detect whether duke.txt exists, and create it if it doesn't
-        File file = new File(fileName);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
-        }
-
-        assert file.exists() : "file should exist";
-
-        FileReader fr = null;
+        initPathToDataFile();
         try {
-            fr = new FileReader(fileName);
-            int i;
-            String input = "";
-            while ((i = fr.read()) != -1) {
-                input += (char) i;
-            }
-            System.out.println(input);
-            String[] inputStrs = input.split("\n");
-            for (String inputStr : inputStrs) {
+            loadTasklist();
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+            assert false : e.getMessage();
+        }
+    }
+
+    private void initPathToDataFile() {
+        String rootPath = Paths.get("").toAbsolutePath().toString();
+        this.filePath = Paths.get(rootPath, "data/tasks.txt").toString();
+        Path path = Paths.get(filePath);
+        int len = path.getNameCount();
+        this.folder = Paths.get(rootPath, path.subpath(0, len - 1).toString());
+        this.storageFile = new File(this.filePath);
+    }
+    private void loadTasklist() throws DukeException {
+        if (!storageFile.exists()) {
+            return;
+        }
+        try {
+            Scanner sc = new Scanner(storageFile);
+            while (sc.hasNext()) {
+                String inputStr = sc.nextLine();
                 if (inputStr.equals("")) {
                     continue;
                 }
+                // add task
                 String[] taskTypeAndIsMarked = inputStr.split("/isMarked ");
                 assert taskTypeAndIsMarked.length == 2 : "taskTypeAndIsMarked should have length 2";
                 Task task = taskBuilder.buildFromString(taskTypeAndIsMarked[0]);
-                int prevTaskCount = tasks.getTaskCount();
                 tasks.addTask(task);
-                assert tasks.getTaskCount() == prevTaskCount + 1 : "task count should increase by 1";
+                //add tags
                 String[] isMarkedAndTagsStr = taskTypeAndIsMarked[1].split("/tags ");
                 if (isMarkedAndTagsStr[0].contains("true")) {
                     tasks.mark(tasks.getTaskCount());
@@ -67,18 +74,9 @@ public class Store {
                     tasks.addTagToTaskAtIndex(tasks.getTaskCount(), tag);
                 }
             }
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        } catch (DukeException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        } finally {
-            try {
-                if (fr != null) {
-                    fr.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Something went wrong: " + e.getMessage());
-            }
+
+        } catch (FileNotFoundException e) {
+            throw new InternalException("File not found: " + e.getMessage());
         }
     }
     /**
@@ -89,12 +87,16 @@ public class Store {
         return store;
     }
     private void write() {
+        if (!this.folder.toFile().exists()) {
+            this.folder.toFile().mkdirs();
+        }
         try {
-            FileWriter fw = new FileWriter(fileName);
+            FileWriter fw = new FileWriter(filePath);
             fw.write(tasks.getTaskRepresentations());
             fw.close();
         } catch (IOException e) {
             System.out.println("Something went wrong storing the change: " + e.getMessage());
+            assert false : "Something went wrong storing the change: " + e.getMessage();
         }
     }
 
