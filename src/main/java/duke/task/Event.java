@@ -69,6 +69,7 @@ public class Event extends Task {
             }
             break;
         default:
+            assert false : "Invalid update type!";
             throw new DukeException("Invalid update type!");
             // exception thrown, no break statement needed
         }

@@ -48,6 +48,7 @@ public class Deadline extends Task {
             throw new DukeException("Cannot update: Deadlines have only one deadline date!");
             // exception thrown, no break statement needed
         default:
+            assert false : "Invalid update type!";
             throw new DukeException("Invalid update type!");
             // exception thrown, no break statement needed
         }
