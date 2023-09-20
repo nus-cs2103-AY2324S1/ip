@@ -10,6 +10,7 @@ public class MarkCommand extends Command {
 
     private int indexToMark;
 
+
     public MarkCommand(String index) {
         this.indexToMark = java.lang.Integer.parseInt(index) - 1;
     }

@@ -27,11 +27,14 @@ public class Ui {
 
     /**
      * Prints out bye message at the end of the programme.
+     *
+     * @return
      */
-    public void bye() {
+    public String bye() {
         printLine();
         System.out.println("\tBye. Hope to see you again soon!");
         printLine();
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

@@ -18,6 +18,7 @@ public class DeadlineCommand extends Command{
     private String byInString;
     private final DateTimeFormatter DEADLINE_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
 
+
     public DeadlineCommand(String[] taskInfo) {
         String taskDescription = taskInfo[0];
         this.byInString = taskInfo[1].substring("by ".length());

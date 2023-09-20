@@ -23,6 +23,7 @@ public class EventCommand extends Command{
     private final DateTimeFormatter FROM_FORMATTER = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
     private final DateTimeFormatter TO_FORMATTER = DateTimeFormatter.ofPattern("HHmm");
 
+
     public EventCommand(String[] taskInfo) {
         String taskDescription = taskInfo[0];
         this.fromInString = taskInfo[1].substring("from ".length(), "from ".length() + "yyyyMMdd HHmm".length());
