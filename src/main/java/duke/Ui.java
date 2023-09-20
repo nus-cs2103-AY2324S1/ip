@@ -79,7 +79,7 @@ public class Ui {
      */
     public static String showHelp() {
         return "Try entering...\n"
-                + "1. **todo** \n- Create a todo task\n"
+                + "1. **todo []** \n- Create a todo task\n"
                 + "2. **deadline [] /by []** \n- Create a deadline \n"
                 + "3. **event [] /from [] /to []** \n- Create an event\n"
                 + "4. **list** \n- List all your events\n"
