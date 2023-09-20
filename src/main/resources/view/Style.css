@@ -1,0 +1,16 @@
+/* Rounded corner style for the VBox */
+.dialog-container {
+    -fx-background-radius: 18; /* Adjust the radius to control the roundness */
+    -fx-border-radius: 18; /* Adjust the radius to control the roundness */
+    -fx-border-color: #000000; /* Border color */
+    -fx-border-width: 1px; /* Border width */
+    -fx-background-color: #EFEFEF; /* Background color */
+}
+
+/* Style for the ScrollPane */
+.scroll-pane {
+    -fx-hbar-policy: never;
+    -fx-vbar-policy: as-needed; /* Add vertical scrollbar as needed */
+    -fx-pref-width: 100%; /* Take up available width */
+    -fx-pref-height: 100%; /* Take up available height */
+}
