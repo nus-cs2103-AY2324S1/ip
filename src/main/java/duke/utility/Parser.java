@@ -176,7 +176,7 @@ public class Parser {
      * @param input The string to be parsed.
      * @return The parsed integer, or -1 if parsing fails.
      */
-    private static int parseInt(String input) throws DukeException{
+    private static int parseInt(String input) throws DukeException {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
@@ -204,7 +204,7 @@ public class Parser {
 
         if (isQueryInvalid) {
             throw new DukeException("☹ OOPS!!! The format of a list is invalid. "
-                    + "Format: list sortBy <queryParam> <asc/desc>" + description[0] );
+                    + "Format: list sortBy <queryParam> <asc/desc>" + description[0]);
         }
 
         if (!description[1].equals("description")) {
@@ -215,7 +215,14 @@ public class Parser {
         return description[1] + " " + description[2];
     }
 
-    public static int validateTaskNumberInput (String input) throws DukeException {
+    /**
+     * Validates and extracts the task number from a mark or unmark command.
+     *
+     * @param input The user input containing the mark or unmark command.
+     * @return The task number of the mark or unmark command.
+     * @throws DukeException If the format is invalid.
+     */
+    public static int validateTaskNumberInput(String input) throws DukeException {
         assert input != null : "Input should not be null";
         String[] inputArr = input.split(" ");
         if (inputArr.length == 1) {
