@@ -99,7 +99,7 @@ Follow-up actions required:
 3. (Optional) Type in time of deadline
 
 
-Format: deadline`
+Format: `deadline`
 
 Example of usage (4-steps): 
 
@@ -143,4 +143,83 @@ The Chatbot will reply that the task has been inserted
 Got it. I've added this task:
 [D][] Finish CS2100 Assignment (by: 18-Sep-2023)
 Now you have 2 tasks in the list.
+```
+
+### `event` - Starts a process to add a Event entry into the list
+
+All the user has to type is "event", no arguments required.
+Further follow-up actions are required to complete the insertion of the task as instructed by the chatbot.
+<br>
+Follow-up actions required:
+1. Type in name of the task
+2. Type in date of start date
+3. (Optional) Type in time of start date
+4. Type in date of end date
+5. (Optional) Type in time of end date
+
+
+Format: `event`
+
+Example of usage (6-steps): 
+
+User types `event`
+
+Expected outcome:
+
+The Chatbot will prompt for the name of the task.
+
+```
+So you want to add an event task.Tell me what's the task.
+```
+
+User types in the `name of task`
+
+Expected outcome:
+
+The Chatbot will prompt for the start date
+
+```
+Now indicate the start date.
+```
+
+User types in the `date of start date`
+
+Expected outcome:
+
+The Chatbot will prompt for the start time
+
+```
+Indicate a start time ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time.
+```
+
+User types in the `start time` or `skip`
+
+Expected outcome:
+
+The Chatbot will prompt for the end date
+
+```
+Now indicate the end date.
+```
+
+User types in the `date of end date`
+
+Expected outcome:
+
+The Chatbot will prompt for the end time
+
+```
+Indicate an end time ranging from 0000 - 2359. You may enter 'Skip' to not indicate a time.
+```
+
+User types in the `end time` or `skip`
+
+Expected outcome:
+
+The Chatbot will reply that the task has been inserted
+
+```
+Got it. I've added this task:
+[E][] NUSBS Dharma Camp (from: 1-Jul-2024 0930 to: 2-Jul-2024 1800)
+Now you have 3 tasks in the list.
 ```
