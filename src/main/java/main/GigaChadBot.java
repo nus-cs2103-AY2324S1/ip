@@ -1,6 +1,8 @@
 package main;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import parser.Parser;
 import storage.Storage;
@@ -19,7 +21,9 @@ public class GigaChadBot extends Application {
     private static final Ui userUi = new Ui();
     private static final TaskList tasks = new TaskList();
     private static final Parser parser = new Parser();
-    private static final Storage store = new Storage("./src/main/java/OUTPUT.txt", tasks);
+    private static final String home = System.getProperty("user.home");
+    private static final Path path = Paths.get(home, "OUTPUT.txt");
+    private static final Storage store = new Storage(path.toString(), tasks);
 
     /**
      * Getter method for the storage instance.
