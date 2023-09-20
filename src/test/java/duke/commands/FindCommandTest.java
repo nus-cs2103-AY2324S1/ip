@@ -7,8 +7,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.TaskList;
+import duke.DukeException;
 import duke.tasks.Deadline;
+import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
 public class FindCommandTest {
@@ -19,7 +20,7 @@ public class FindCommandTest {
     );
 
     @Test
-    public void run_findExistingTasks_success() throws CommandException {
+    public void run_findExistingTasks_success() throws DukeException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         todo.markAsDone();
@@ -38,7 +39,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void run_findTasksWithMultiwordKeyword_success() throws CommandException {
+    public void run_findTasksWithMultiwordKeyword_success() throws DukeException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         todo.markAsDone();
@@ -53,7 +54,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void run_findNoTasks_commandExceptionThrown() throws CommandException {
+    public void run_findNoTasks_commandExceptionThrown() throws DukeException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         todo.markAsDone();

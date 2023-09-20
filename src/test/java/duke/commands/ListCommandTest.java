@@ -7,9 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.TaskList;
+import duke.DukeException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
+import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
 public class ListCommandTest {
@@ -24,7 +25,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void run_nonEmptyTaskList_success() throws CommandException {
+    public void run_nonEmptyTaskList_success() throws DukeException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         Deadline deadline = new Deadline("assignment", LocalDateTime.parse("2023-09-10T12:00"));

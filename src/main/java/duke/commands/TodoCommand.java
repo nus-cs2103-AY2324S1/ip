@@ -2,7 +2,8 @@ package duke.commands;
 
 import java.util.regex.Pattern;
 
-import duke.TaskList;
+import duke.tasks.TaskException;
+import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
 /**
@@ -29,17 +30,21 @@ public class TodoCommand extends Command {
         }
 
         Todo todo = new Todo(description);
-        tasks.add(todo);
+        try {
+            tasks.add(todo);
 
-        return new CommandResult(
-                true,
-                "Got it. I've added this task:",
-                todo.toString(),
-                String.format(
-                        "Now you have %d %s in the list.",
-                        tasks.size(),
-                        tasks.size() == 1 ? "task" : "tasks"
-                )
-        );
+            return new CommandResult(
+                    true,
+                    "Got it. I've added this task:",
+                    todo.toString(),
+                    String.format(
+                            "Now you have %d %s in the list.",
+                            tasks.size(),
+                            tasks.size() == 1 ? "task" : "tasks"
+                    )
+            );
+        } catch (TaskException e) {
+            throw new CommandException("A similar todo already exists!");
+        }
     }
 }

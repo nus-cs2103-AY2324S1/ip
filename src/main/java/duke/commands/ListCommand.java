@@ -3,7 +3,7 @@ package duke.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import duke.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * A command to list all tasks in the task list.

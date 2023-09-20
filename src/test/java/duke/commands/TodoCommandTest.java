@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.TaskList;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 public class TodoCommandTest {
     private static final String invalidFormatMessage = String.join(

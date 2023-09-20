@@ -1,12 +1,10 @@
-package duke;
+package duke.tasks;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import duke.tasks.Task;
 
 /**
  * Represents a list of tasks.
@@ -57,7 +55,13 @@ public class TaskList implements Serializable {
      *
      * @param t The task to be added to the list.
      */
-    public void add(Task t) {
+    public void add(Task t) throws TaskException {
+        for (Task task : tasks) {
+            if (task.equals(t)) {
+                throw new TaskException("A similar task already exists!");
+            }
+        }
+
         tasks.add(t);
     }
 

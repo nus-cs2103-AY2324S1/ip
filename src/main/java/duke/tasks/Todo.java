@@ -16,4 +16,14 @@ public class Todo extends Task implements Serializable {
     public String toString() {
         return String.format("[T]%s", super.toString());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Todo)) {
+            return false;
+        }
+
+        Todo other = (Todo) obj;
+        return this.description.equals(other.description);
+    }
 }
