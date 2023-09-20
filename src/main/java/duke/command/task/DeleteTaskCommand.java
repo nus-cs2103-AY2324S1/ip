@@ -1,5 +1,6 @@
 package duke.command.task;
 
+import duke.alias.AliasMap;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
@@ -27,7 +28,7 @@ public class DeleteTaskCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList items, AliasMap aliases, Ui ui, Storage storage) throws DukeException {
         Task item = items.delete(deleteNumber);
         storage.writeData(items);
         return ui.deleteItem(item.toString(), items.getCount());

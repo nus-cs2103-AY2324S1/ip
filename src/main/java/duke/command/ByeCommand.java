@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.alias.AliasMap;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -14,7 +15,7 @@ public class ByeCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList items, AliasMap aliases, Ui ui, Storage storage) throws DukeException {
         this.willExitNext = true;
         return ui.bye();
     }

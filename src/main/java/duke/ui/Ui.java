@@ -128,11 +128,20 @@ public class Ui {
 
     /**
      * Prints out the success message upon adding an item.
-     *
      * @param item The item that has been added.
      */
     public String addItem(String item, int count) {
         return talk("Got it. I've added this task:\n  " + item + "\n Now you have "
                 + count + " tasks in your list.");
+    }
+
+    /**
+     * Prints out the success message upon creating an alias.
+     * @param alias The alias created.
+     * @param fullCommand The full command for the alias.
+     */
+    public String addAlias(String alias, String fullCommand) {
+        return talk("Got it. I've created a new alias `"
+                + alias + "` for the command `" + fullCommand + "`.");
     }
 }

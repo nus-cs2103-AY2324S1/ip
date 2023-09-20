@@ -2,6 +2,7 @@ package duke.command.task;
 
 import java.util.ArrayList;
 
+import duke.alias.AliasMap;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
@@ -29,7 +30,7 @@ public class FindTaskCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList items, AliasMap aliases, Ui ui, Storage storage) throws DukeException {
         ArrayList<Task> result = items.searchFor(keyword);
         return ui.listSearch(result);
     }

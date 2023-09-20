@@ -2,6 +2,7 @@ package duke.command.task;
 
 import java.time.LocalDateTime;
 
+import duke.alias.AliasMap;
 import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
@@ -35,7 +36,7 @@ public class EventTaskCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList items, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList items, AliasMap aliases, Ui ui, Storage storage) throws DukeException {
         Task item = items.addEvent(name, from, to);
         storage.writeData(items);
         return ui.addItem(item.toString(), items.getCount());

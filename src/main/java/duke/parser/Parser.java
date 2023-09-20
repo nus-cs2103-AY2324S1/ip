@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import duke.alias.AliasMap;
 import duke.command.ByeCommand;
 import duke.command.Command;
+import duke.command.alias.AddAliasCommand;
 import duke.command.task.DeadlineTaskCommand;
 import duke.command.task.DeleteTaskCommand;
 import duke.command.task.EventTaskCommand;
@@ -189,6 +190,20 @@ public class Parser {
             } catch (DateTimeParseException e) {
                 throw new DukeException(DukeException.WRONG_DATETIME_MESSAGE);
             }
+        case "alias_add":
+            if (commandArr.length < 2) {
+                throw new DukeException("OOPS!!! Please provide me with the alias and full command.");
+            }
+            description = commandArr[1];
+            String alias = "";
+            String fullCommand = "";
+            String[] aliasDescription = description.split("=");
+            if (aliasDescription.length != 2) {
+                throw new DukeException("OOPS!! Please use this format: ALIAS=FULLCOMMAND");
+            }
+            alias = aliasDescription[0].trim();
+            fullCommand = aliasDescription[1].trim();
+            return new AddAliasCommand(alias, fullCommand);
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
