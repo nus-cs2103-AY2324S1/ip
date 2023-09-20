@@ -10,8 +10,8 @@ import java.util.Locale;
  */
 public class Event extends Task {
 
-    private LocalDateTime fromTime;
-    private LocalDateTime toTime;
+    LocalDateTime fromTime;
+    LocalDateTime toTime;
 
     /**
      * Constructs an Event task with the given task name and time range.
