@@ -45,7 +45,7 @@ Example of usage:
 
 Expected outcome:
 
-Got it! I've added this task:
+Got it! I've added this task:  
 [E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)
 Now you have 3 tasks in the list.
 
@@ -60,7 +60,7 @@ Example of usage:
 `list`
 
 Expected outcome:
-Here are the tasks in your list:
+Here are the tasks in your list:  
 1. [T][ ] Homework
 2. [D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)
 3. [E][ ] CS2103T Team Meeting (from Sep 21 2023, 21:00 to Sep 21 2023, 22:00)
@@ -75,7 +75,7 @@ Example of usage:
 
 `mark 1`
 
-Expected outcome:
+Expected outcome:  
 Nice! I've marked this task as done:
 [T][X] Homework
 
@@ -89,7 +89,7 @@ Example of usage:
 
 `umark 1`
 
-Expected outcome:
+Expected outcome:  
 Nice! I've marked this task as not done yet:
 [T][ ] Homework
 
