@@ -429,10 +429,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
 
 
-            this.sendMessage(ChatMessage.SenderType.CHATBOT,
-                    "Hope the above helps! :) " +
-                            "If you need additional information, please refer to the User Guide at " +
-                            "https://wxwern.github.io/ip/");
+            this.sendMessage(
+                    ChatMessage.SenderType.CHATBOT,
+                    "Hope the above helps! :) "
+                            + "If you need additional information, please refer to the User Guide at "
+                            + "https://wxwern.github.io/ip/"
+            );
             break;
 
         case EXIT:
