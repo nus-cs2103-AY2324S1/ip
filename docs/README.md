@@ -1,3 +1,8 @@
+---
+# <span style="color: red;">Jeoe Chatbot<span/>
+
+---
+
 # User Guide
 
 Jeoe is a desktop chat app for adding tasks and sorting them lexicographically
