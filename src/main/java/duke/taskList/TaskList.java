@@ -192,6 +192,7 @@ public class TaskList {
     /**
      * Add a Todo into the ArrayList.
      * @param command The duke.command specifying what todo to add.
+     * @return String returns the add todo string confirmation
      */
     public String addTodo(String command) {
 
@@ -230,6 +231,7 @@ public class TaskList {
     /**
      * Add a deadline into the list.
      * @param command Command specifying what deadline to add.
+     * @return String returns the add deadline string confirmation
      */
     public String addDeadline(String command) {
         String[] splitCommand = command.split(" ");
@@ -295,6 +297,7 @@ public class TaskList {
     /**
      * Mark the duke.task if duke.task is undone.
      * @param index Specifying which duke.task in the ArrayList.
+     * @return String return the task marked undone
      */
     public String markCurrentTaskUndone(int index) {
         return list.get(index).markUndone();
@@ -303,6 +306,7 @@ public class TaskList {
     /**
      * Mark the duke.task if duke.task is done,
      * @param index Specifying which duke.task in the ArrayList.
+     * @return String returns the task marked done
      */
     public String markCurrentTaskDone(int index) {
         list.get(index).markDone();
@@ -311,6 +315,7 @@ public class TaskList {
 
     /**
      * Print out all the tasks in the ArrayList.
+     * @return String list of all the items stored in database.
      */
     public String printList() {
         String strToPrint = "Here are the tasks in your list:\n";
@@ -322,6 +327,10 @@ public class TaskList {
         return strToPrint;
     }
 
+    /**
+     * Add a deadline into the list.
+     * @return String link of help
+     */
     public String linkHelp() {
         return "Read the README.md file at:\nhttps://github.com/tanshiyu1999/ip";
     }
@@ -329,6 +338,7 @@ public class TaskList {
     /**
      * Finds the tasks in the command and print them out.
      * @param command The command specifying the task.
+     * @return String returns the list of tasks found
      */
     public String findTasks(String command) {
         String[] splitCommand = command.split(" ");

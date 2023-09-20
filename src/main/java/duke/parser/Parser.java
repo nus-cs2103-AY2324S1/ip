@@ -74,4 +74,28 @@ public class Parser {
     public Pattern getFindRegex() {
         return this.findRegex;
     }
+
+    public Pattern getUnmarkRegex() {
+        return this.unmarkRegex;
+    }
+
+    public Pattern getMarkRegex() {
+        return this.markRegex;
+    }
+
+    public Pattern getDeadlineRegex() {
+        return this.deadlineRegex;
+    }
+
+    public Pattern getTodoRegex() {
+        return this.todoRegex;
+    }
+
+    public Pattern getEventRegex() {
+        return this.eventRegex;
+    }
+
+    public Pattern getDeleteRegex() {
+        return this.deleteRegex;
+    }
 }

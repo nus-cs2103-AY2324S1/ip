@@ -1,3 +1,4 @@
 T | 0 | meow
 T | 0 | help
 T | 0 | eat hotdog
+T | 0 | help
