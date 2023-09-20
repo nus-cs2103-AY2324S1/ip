@@ -1,15 +1,16 @@
 package chatty.task;
 
+import java.util.ArrayList;
+
 import chatty.exception.InvalidTaskNumberException;
 
-import java.util.ArrayList;
 
 /**
  * A class that creates and manages a list of tasks added by the user.
  */
 public class TaskList {
 
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * Constructor for the TaskList class that creates a new ArrayList to store the tasks.
@@ -95,7 +96,7 @@ public class TaskList {
         while (i < taskList.size()) {
             if (taskList.get(i).checkKeyword(keyword)) {
                 int taskNumber = i + 1;
-                listWithKeyword.append(taskNumber + ". " + this.showTask(taskNumber)).append('\n');
+                listWithKeyword.append(taskNumber).append(". ").append(this.showTask(taskNumber)).append('\n');
             }
             i++;
         }

@@ -71,10 +71,8 @@ public class Parser {
      * @param args The command arguments.
      * @return A DoneCommand to mark a task as done.
      * @throws IncompleteMessageException  When the user did not provide a task number.
-     * @throws InvalidTaskNumberException  When the task number entered by the user is invalid.
      */
-    private static Command parseDoneCommand(String args) throws IncompleteMessageException,
-            InvalidTaskNumberException {
+    private static Command parseDoneCommand(String args) throws IncompleteMessageException {
         if (args.isEmpty()) {
             throw new IncompleteMessageException("Done");
         }
@@ -88,10 +86,8 @@ public class Parser {
      * @param args The command arguments.
      * @return An UndoneCommand to mark a task as not done.
      * @throws IncompleteMessageException  When the user did not provide a task number.
-     * @throws InvalidTaskNumberException  When the task number entered by the user is invalid.
      */
-    private static Command parseUndoneCommand(String args) throws IncompleteMessageException,
-            InvalidTaskNumberException {
+    private static Command parseUndoneCommand(String args) throws IncompleteMessageException {
         if (args.isEmpty()) {
             throw new IncompleteMessageException("Undone");
         }
@@ -105,10 +101,8 @@ public class Parser {
      * @param args The command arguments.
      * @return A DeleteCommand to delete a task.
      * @throws IncompleteMessageException  When the user did not provide a task number.
-     * @throws InvalidTaskNumberException  When the task number entered by the user is invalid.
      */
-    private static Command parseDeleteCommand(String args) throws IncompleteMessageException,
-            InvalidTaskNumberException {
+    private static Command parseDeleteCommand(String args) throws IncompleteMessageException {
         if (args.isEmpty()) {
             throw new IncompleteMessageException("Delete");
         }
@@ -193,7 +187,6 @@ public class Parser {
 
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        String formattedDate = date.format(formatter);
-        return formattedDate;
+        return date.format(formatter);
     }
 }

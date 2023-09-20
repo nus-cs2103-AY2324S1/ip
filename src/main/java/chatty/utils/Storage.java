@@ -19,8 +19,8 @@ import chatty.task.ToDo;
  */
 public class Storage {
 
-    private String filePath;
-    private File file;
+    private final String filePath;
+    private final File file;
 
     /**
      * Constructor for the Storage class.
@@ -57,7 +57,7 @@ public class Storage {
             writer.write(tasks.toString());
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occured while trying to save tasks: " + e.getMessage());
+            System.out.println("An error occurred while trying to save tasks: " + e.getMessage());
         }
     }
 
@@ -66,9 +66,8 @@ public class Storage {
      *
      * @param taskList The list that contains the added tasks.
      * @throws IOException When the tasks cannot be loaded.
-     * @throws ChattyException
+     * @throws ChattyException When the tasks cannot be loaded.
      */
-    @SuppressWarnings("checkstyle:MissingSwitchDefault")
     public void loadTask(TaskList taskList) throws IOException, ChattyException {
         try {
             Scanner scanner = new Scanner(this.file);
@@ -86,6 +85,8 @@ public class Storage {
                 case 'E':
                     loadEventTask(taskList, task);
                     break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + taskType);
                 }
             }
         } catch (IOException e) {
