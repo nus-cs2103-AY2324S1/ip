@@ -16,7 +16,6 @@ public class Ui {
 
 
     public static String formatPrint(String input) {
-        //System.out.println(INDENT + LINE);
         StringBuilder output = new StringBuilder();
         String[] lines = input.split("\n");
 
@@ -32,7 +31,6 @@ public class Ui {
     }
     public String bye() {
         return formatPrint("Bye. Hope to see you again!");
-        //this.running = false;
     }
 
     public String mark(String taskDesc, TaskList tasks) {
