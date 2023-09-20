@@ -102,7 +102,7 @@ Example: `find ip`
 Expected Outcome:
 
 ```  
-Here are the matching tasks in your list;
+Here are the matching tasks in your list:
 1. [D] [] Submit ip (by: Sep 20 2023 2359)
 ```
 
