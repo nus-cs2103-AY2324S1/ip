@@ -20,7 +20,7 @@ public class Storage {
      * Reads data from file and loads into ArrayList if available. Else creates the file.
      *
      * @param pathOfDirectory Path variable provided
-     * @param storeTask       ArrayList<Task> which stores tasks when program is running
+     * @param storeTask ArrayList which stores tasks when program is running
      * @throws IOException if an I/O error occurs
      */
     public static void readFromDisk(Path pathOfDirectory, ArrayList<Task> storeTask) throws IOException {
@@ -39,23 +39,9 @@ public class Storage {
         for (String task : fileLines) {
             //since "|" is a special character, use "//"
             String[] taskVariablesTemp = task.split("\\|");
-            if (taskVariablesTemp[0].equals("T")) {
-                storeTask.add(new ToDo(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2]));
-            } else if (taskVariablesTemp[0].equals("D")) {
-                storeTask.add(new Deadline(Integer.parseInt(
-                        taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
-            } else if (taskVariablesTemp[0].equals("E")) {
-                storeTask.add(new Event(Integer.parseInt(
-                        taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
-            } else {
-
-            }
+            handleTaskTypes(taskVariablesTemp, storeTask);
         }
     }
-    private static void createNewFile(Path pathOfDirectory) throws IOException {
-        Files.createFile(pathOfDirectory);
-    }
-
     private static void handleTaskTypes(String[] taskVariablesTemp, ArrayList<Task> storeTask) {
         String taskType = taskVariablesTemp[0];
         switch(taskType) {
@@ -73,5 +59,8 @@ public class Storage {
         default:
             throw new IllegalStateException("Unexpected value: " + taskType);
         }
+    }
+    private static void createNewFile(Path pathOfDirectory) throws IOException {
+        Files.createFile(pathOfDirectory);
     }
 }

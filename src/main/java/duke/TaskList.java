@@ -1,18 +1,22 @@
 package duke;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.ListIterator;
+
 import dukeuielements.Ui;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
-import java.util.ArrayList;
-import java.util.ListIterator;
-import java.time.format.DateTimeParseException;
 
 
 /**
  * This class holds the ArrayList to load all the tasks. Contains important Task manipulation methods.
  */
-
 public class TaskList {
     //stores all the tasks
     private static ArrayList<Task> storeTask = new ArrayList<>(1);
@@ -25,12 +29,12 @@ public class TaskList {
     }
 
     /**
-     * Marks or unmarks the task.
+     * Mark or unmark the task.
      *
      * @param taskNumber The task number to be marked/unmarked.
      * @param userMarkerChoice User choice mark/unmark.
      */
-    public static String userMarkUnmark(String taskNumber, String userMarkerChoice) {
+    public static String userMarkUnmark(String taskNumber, String userMarkerChoice) throws DukeException {
         Task taskItem = storeTask.get(Integer.parseInt(taskNumber) - 1);
         return taskItem.changeStatus(userMarkerChoice);
     }
@@ -92,6 +96,13 @@ public class TaskList {
             return Ui.deleteTaskPrint(itemRemoved);
         }
     }
+
+    /**
+     * Find task string.
+     *
+     * @param findThis user input given with find function
+     * @return filtered list
+     */
     public static String findTask(String findThis) {
         ArrayList<Task> filteredList = altFindFunctions(findThis);
         ListIterator<Task> iterFilteredList = filteredList.listIterator();
@@ -126,7 +137,8 @@ public class TaskList {
         }
         return filteredList;
     }
-    private static ArrayList<Task> taskFind(String[] breakDownFindFunction, ListIterator<Task> ls, ArrayList<Task> filteredList) {
+    private static ArrayList<Task> taskFind(String[] breakDownFindFunction, ListIterator<Task> ls,
+                                            ArrayList<Task> filteredList) {
         String findFunctionMainType = breakDownFindFunction[0];
         String findFunctionSubType = breakDownFindFunction[1];
         if (findFunctionMainType.equals("all")) {
@@ -136,7 +148,8 @@ public class TaskList {
         }
     }
 
-    private static ArrayList<Task> getTasks(ListIterator<Task> ls, ArrayList<Task> filteredList, String findFunctionSubType) {
+    private static ArrayList<Task> getTasks(ListIterator<Task> ls, ArrayList<Task> filteredList,
+                                            String findFunctionSubType) {
         while (ls.hasNext()) {
             Task current = ls.next();
             String currentTaskType = current.getClass().getSimpleName();
@@ -152,5 +165,25 @@ public class TaskList {
     }
     public static int getTaskSize() {
         return storeTask.size();
+    }
+
+    /**
+     * Save data string.
+     *
+     * @return save msg
+     */
+    public static String saveData() {
+        try {
+            //closes file and truncates it
+            Files.write(Duke.PATH_OF_DIRECTORY, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
+            for (int i = 0; i < TaskList.getTaskSize(); i++) {
+                String taskToString = TaskList.getStoreTask().get(i).storeToDiskFormat() + "\n";
+                Files.write(Duke.PATH_OF_DIRECTORY, taskToString.getBytes(), StandardOpenOption.APPEND);
+            }
+            return Ui.saveDukeMsg();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "An error occurred...";
+        }
     }
 }

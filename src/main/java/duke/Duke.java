@@ -1,22 +1,21 @@
 package duke;
 
-import dukeuielements.Ui;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import javafx.scene.image.Image;
 
+/**
+ * The type Duke.
+ */
 public class Duke {
-    private Ui ui;
-    public static final Path PATHOFDIRECTORY = Paths.get("./data/duke.txt");
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    public static final Path PATH_OF_DIRECTORY = Paths.get("./data/duke.txt");
 
+    /**
+     * Instantiates a new Duke.
+     */
     public Duke() {
-        ui = new Ui();
-        assert ui != null;
         try {
-            Storage.readFromDisk(PATHOFDIRECTORY, TaskList.getStoreTask());
+            Storage.readFromDisk(PATH_OF_DIRECTORY, TaskList.getStoreTask());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -25,11 +24,7 @@ public class Duke {
         try {
             String dukeResponse = Parser.parse(input);
             assert dukeResponse != null;
-            if (dukeResponse.equals("bye")) {
-                return "Bye. Hope to see you again soon!";
-            } else {
-                return dukeResponse;
-            }
+            return dukeResponse;
         } catch (DukeException e) {
             return e.getMessage();
         } catch (NumberFormatException e) {

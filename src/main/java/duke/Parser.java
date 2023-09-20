@@ -1,28 +1,25 @@
 package duke;
-import dukeuielements.Ui;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
 
 /**
  * This class deals with making sense of the user input and carrying out tasks accordingly.
  */
 public class Parser {
-    private enum TaskKeyVal { ToDo, Deadline, Event, Delete, mark, unmark, bye, list, find};
+    private enum TaskKeyVal { ToDo, Deadline, Event, Delete, mark, unmark, save, list, find }
 
     /**
      * Returns a boolean based on the user input choice.
      * bye -> initiates user exit.
      * list -> lists all the tasks.
-     * mark -> marks the task.
-     * unmark -> unmarks the task.
+     * mark -> mark the task.
+     * unmark -> unmark the task.
      * ToDo -> creates a new ToDo and adds to task list.
      * Deadline -> creates a new Deadline and adds to task list.
      * Event -> creates a new Event and adds to task list.
      * Delete -> Deletes task at given number.
+     * find -> Finds task based on a certain keyword.
      *
      * @param userInput String value provided to be made sense of and carry task.
-     * @return boolean value false to break out of program, true otherwise.
+     * @return returns string value received after processing the task.
      * @throws DukeException when incorrect / invalid input is entered.
      */
     public static String parse(String userInput) throws DukeException {
@@ -32,9 +29,14 @@ public class Parser {
         //Stores enum value. might throw exception if invalid input entered.
         TaskKeyVal taskKeyVal = TaskKeyVal.valueOf(userTaskChoiceKey);
 
+        return getString(userInputList, userTaskChoiceKey, taskKeyVal);
+    }
+
+    private static String getString(String[] userInputList, String userTaskChoiceKey, TaskKeyVal taskKeyVal)
+            throws DukeException {
         switch (taskKeyVal) {
-        case bye:
-            return userExit();
+        case save:
+            return TaskList.saveData();
         case list:
             return TaskList.userListChoice();
         case mark:
@@ -73,17 +75,5 @@ public class Parser {
         }
         return false;
     }
-    private static String userExit() {
-        try {
-            Files.write(Duke.PATHOFDIRECTORY, new byte[0], StandardOpenOption.TRUNCATE_EXISTING); //closes file and truncates it
-            for (int i = 0; i < TaskList.getTaskSize(); i++) {
-                String taskToString = TaskList.getStoreTask().get(i).storeToDiskFormat() + "\n";
-                Files.write(Duke.PATHOFDIRECTORY, taskToString.getBytes(), StandardOpenOption.APPEND);
-            }
-            return Ui.endDukeMsg();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "An error occurred...";
-        }
-    }
+
 }

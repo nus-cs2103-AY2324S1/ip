@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.DukeException;
 import dukeuielements.Ui;
 
 /**
@@ -11,42 +12,53 @@ import dukeuielements.Ui;
  */
 public class Task {
     private String description;
-    private boolean isFalseStatus;
+    private boolean isTrueStatus;
     private String indent = "    ";
+
+    /**
+     * Instantiates a new Task.
+     *
+     * @param description the description
+     */
     public Task(String description) {
         this.description = description;
-        this.isFalseStatus = false;
+        this.isTrueStatus = false;
     }
+
+    /**
+     * Instantiates a new Task.
+     *
+     * @param description the description
+     * @param status      the status
+     */
     public Task(String description, boolean status) {
         this.description = description;
-        this.isFalseStatus = status;
+        this.isTrueStatus = status;
     }
 
     /**
      * Returns task complete/incomplete message based on user input.
      *
      * @param userInput mark/unmark which specifies the command.
+     * @return the string
      */
-    public String changeStatus(String userInput) {
-        switch (userInput) {
-        case "mark":
-            if (!this.isFalseStatus) {
-                this.isFalseStatus = !this.isFalseStatus;
-                return "Nice! Task completed successfully!" + "\n" + indent + this.toString();
-            } else {
-                return "Task already checked. Please try again..." + "\n" + indent + this.toString();
+    public String changeStatus(String userInput) throws DukeException {
+        try {
+            switch (userInput) {
+            case "mark":
+                return Ui.markStringReturn(this);
+            case "unmark":
+                return Ui.unmarkStringReturn(this);
+            default:
+                throw new DukeException("Unknown error occurred!");
             }
-        case "unmark":
-            if (!this.isFalseStatus) {
-                return "Task already unmarked! Please try again..." + "\n" + indent + this.toString();
-            } else {
-                this.isFalseStatus = !this.isFalseStatus;
-                return "Sure! Task status unchecked!" + "\n" + indent + this.toString();
-            }
-        default:
-            return Ui.miscMsgPrint("Unknown error occurred!");
+        } catch (DukeException e) {
+            return e.getMessage();
         }
     }
+
+
+
 
     /**
      * Returns date and time as a LocalDateTime parsed from user input yyyy-MM-dd HH:mm.
@@ -70,9 +82,27 @@ public class Task {
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd, yyyy HH:mm");
         return systemDateAndTime.format(outputFormat);
     }
-    public int getStatus() {
-        return this.isFalseStatus ? 1 : 0;
+
+    /**
+     * Gets status.
+     *
+     * @return the status
+     */
+    public int diskStatus() {
+        return this.isTrueStatus ? 1 : 0;
     }
+    public boolean getTaskStatus() {
+        return this.isTrueStatus;
+    }
+    public void setFalseStatus() {
+        this.isTrueStatus = !this.isTrueStatus;
+    }
+
+    /**
+     * Gets description.
+     *
+     * @return the description
+     */
     public String getDescription() {
         return this.description;
     }
@@ -83,12 +113,12 @@ public class Task {
      * @return String to store Task on Duke.txt file.
      */
     public String storeToDiskFormat() {
-        return this.getStatus() + "|" + this.description;
+        return this.diskStatus() + "|" + this.description;
     }
 
     @Override
     public String toString() {
-        if (this.getStatus() == 1) {
+        if (this.diskStatus() == 1) {
             return "[" + "X" + "] " + this.description;
         } else {
             return "[" + " " + "]" + this.description;

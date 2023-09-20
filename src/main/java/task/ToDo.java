@@ -9,7 +9,7 @@ public class ToDo extends Task {
         super(description);
     }
     public ToDo(int status, String description) {
-        super(description, status != 0);     //if 0, return false, else return true
+        super(description, status != 0); //if 0, return false, else return true
     }
 
     /**
@@ -17,7 +17,7 @@ public class ToDo extends Task {
      */
     @Override
     public String storeToDiskFormat() {
-        return "T" + "|" + this.getStatus() + "|" + this.getDescription();
+        return "T" + "|" + this.diskStatus() + "|" + this.getDescription();
     }
 
     /**

@@ -10,7 +10,7 @@ import task.Task;
  * The type Ui.
  */
 public class Ui {
-    private static String indent = "     ";
+    private static final String indent = "     ";
 
     /**
      * Print list string.
@@ -63,7 +63,8 @@ public class Ui {
      */
     public static String deleteTaskPrint(Task itemRemoved) {
         String removedTask = indent + "This task was removed..." + "\n" + itemRemoved + "\n";
-        removedTask = indent + "Now you have " + TaskList.getTaskSize() + " tasks in your task scheduler...";
+        removedTask = removedTask + indent + "Now you have " + TaskList.getTaskSize()
+                + " tasks in your task scheduler...";
         return removedTask;
     }
 
@@ -89,12 +90,42 @@ public class Ui {
         return msg;
     }
 
+
+    /**
+     * Mark task
+     *
+     * @param task the task
+     * @return the string representation of marked task
+     */
+    public static String markStringReturn(Task task) {
+        if (!task.getTaskStatus()) {
+            task.setFalseStatus();
+            return "Nice! Task completed successfully!" + "\n" + indent + task;
+        } else {
+            return "Task already checked. Please try again..." + "\n" + indent + task;
+        }
+    }
+
+    /**
+     * Unmark task
+     *
+     * @param task the task
+     * @return the string representation of unmarked task
+     */
+    public static String unmarkStringReturn(Task task) {
+        if (!task.getTaskStatus()) {
+            return "Task already unmarked! Please try again..." + "\n" + indent + task;
+        } else {
+            task.setFalseStatus();
+            return "Sure! Task status unchecked!" + "\n" + indent + task;
+        }
+    }
     /**
      * End duke msg string.
      *
      * @return the string
      */
-    public static String endDukeMsg() {
-        return "bye";
+    public static String saveDukeMsg() {
+        return "Tasks have been saved to disk!";
     }
 }

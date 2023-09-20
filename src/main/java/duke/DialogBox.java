@@ -1,6 +1,7 @@
 package duke;
 import java.io.IOException;
 import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,6 +58,12 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Greeting dialog box.
+     *
+     * @param iv the image to be displayed in the greeting box.
+     * @return the dialog box.
+     */
     public static DialogBox greetingDialogBox(Image iv) {
         String greeting = "Welcome! I am Tom!";
         var duke = new DialogBox(greeting, iv);
