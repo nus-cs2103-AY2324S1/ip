@@ -6,7 +6,7 @@ SeeWhyAre is a personal assistant chatbot that assists you to **keep track of yo
 2. Deadline
 3. Event
 
-You can manage your tasks seamlessly theough **Command Line Interface(CLI)**, such as *Add* a task, *Delete* a task, *Find* a task with a given keyword, *View* your tasks at a given date, and so on.
+You can manage your tasks seamlessly through **Command Line Interface(CLI)**, such as *Add* a task, *Delete* a task, *Find* a task with a given keyword, *View* your tasks at a given date, and so on.
 
 ## Features 
 
@@ -201,7 +201,7 @@ Deletes a task, when given a valid task index.
 When given a task index, delete that task.
 
 > [!WARNING]
->SeeWhyAre will complain to you if:
+> SeeWhyAre will complain to you if:
 > - You did not provide a task index.
 > - You provide an index that is out of the range of your current list of tasks.
 
@@ -333,8 +333,7 @@ All the tasks and their completion status are still saved.
 There will be a 2-second delay before SeeWhyAre Application automatically closes.
 
 Example of usage:
-
-- `bye`
+`bye`
 
 Expected outcome:
 ```
@@ -343,3 +342,19 @@ You are closing the SeeWhyAre chat bot.
 Bye bye. Please use me again soon!
 ____________________________________________________________
 ```
+
+## Command Summary 
+
+- `todo` `<taskDescription>` Creates a todo task with the given task description
+- `deadline` `<taskDescription>` `/by` `<deadlineDate` Creates a deadline task with the given task description and deadline date.
+- `event` `<taskDescription>` `/from` `<startDate>` `/to` `<endDate>` Creates an event task with the diven task description, start date, and end date.
+- `list` Lists all tasks from your current list of tasks.
+- `find` `<keyword>` Finds the list of tasks that contains the keyword.
+- `view` `<dateRequested>` Finds the list of tasks that are occuring on the date requested.
+- `delete` `<taskIndex>` Deletes the corresponding task from a given index.
+- `mark` `<taskIndex>` Marks the corresponding task as done.
+- `unmark` `<taskIndex>` Marks the corresponding task as NOT done yet.
+- `bye` Closes SeeWhyAre application.
+
+> [!NOTE]
+> Commands are not case-sensitive: keying in 'bye', 'bYE', 'ByE' are all calling the same `bye` command.
