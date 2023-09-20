@@ -106,6 +106,7 @@ public class HelpCommandTest {
             + "Notes:" + System.lineSeparator()
             + "- Replace `<description>` with a task description." + System.lineSeparator()
             + "- `<date>` should follow the yyyy-mm-dd date format." + System.lineSeparator()
+            + "           e.g. 2023-12-31" + System.lineSeparator()
             + "- `<taskIndex>` should be the index of the task in the list" + System.lineSeparator()
             + "                you want to manage." + System.lineSeparator()
             + System.lineSeparator()

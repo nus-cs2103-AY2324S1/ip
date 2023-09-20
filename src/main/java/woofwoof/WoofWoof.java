@@ -33,7 +33,7 @@ import woof.Woof;
 
 /**
  * The `WoofWoof` class is the main class for the Woof GUI application.
- * It handles user interactions and the core functionality of the application.
+ * The `WoofWoof` class relies on the existence of the `Woof` class, as it only extends `Woof` to support GUI.
  */
 public class WoofWoof extends Application {
     private static final Font FONT = loadCustomFont();
@@ -104,6 +104,12 @@ public class WoofWoof extends Application {
         this.userInput.setFont(getFont());
         this.sendButton.setFont(getFont());
         this.clearButton.setFont(getFont());
+
+        this.dialogArea.getChildren().addAll(
+            DialogBox.getBotDialog(
+                Woof.wrapText(WoofMessage.HI.toFormattedValue(), "", Woof.getChatWidth()), this.doggo
+            )
+        );
     }
 
     /**
@@ -133,7 +139,7 @@ public class WoofWoof extends Application {
             fxmlLoader.<WoofWoof>getController().setWoof(this.woof);
             primaryStage.show();
         } catch (IOException e) {
-            System.out.printf("oh no\n%s\n", e.getMessage());
+            System.out.printf("really oh no\n%s\n", e.getMessage());
         }
     }
 
@@ -185,12 +191,12 @@ public class WoofWoof extends Application {
      */
     @FXML
     private void handleUserSubmit() {
-        String message = this.userInput.getText();
-        if (!message.trim().isEmpty()) {
+        String message = this.userInput.getText().trim();
+        if (!message.isEmpty()) {
             String response = processMessage(message);
             this.dialogArea.getChildren().addAll(
-                DialogBox.getUserDialog(Woof.wrapText(message, "\n", Woof.getChatWidth()), this.user),
-                DialogBox.getBotDialog(Woof.wrapText(response, "\n", Woof.getChatWidth()), this.doggo)
+                DialogBox.getUserDialog(Woof.wrapText(message, "", Woof.getChatWidth()), this.user),
+                DialogBox.getBotDialog(Woof.wrapText(response, "", Woof.getChatWidth()), this.doggo)
             );
             this.userInput.clear();
         }
@@ -216,7 +222,7 @@ public class WoofWoof extends Application {
             currentStage.close();
             executorService.shutdown();
         }),
-            2, TimeUnit.SECONDS
+            1, TimeUnit.SECONDS
         );
     }
 

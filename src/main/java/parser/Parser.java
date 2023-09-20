@@ -67,7 +67,7 @@ public class Parser {
 
         ArrayList<String> result = new ArrayList<>();
 
-        String[] words = rawCommand.split("\\s+");
+        String[] words = rawCommand.trim().split(" ");
         if (words.length == 0) {
             return result.toArray(new String[0]);
         }
@@ -87,7 +87,7 @@ public class Parser {
                 result.add(currentWord);
                 subCommand = new StringBuilder();
             } else {
-                subCommand.append(" ").append(currentWord.trim());
+                subCommand.append(" ").append(currentWord);
             }
         }
 

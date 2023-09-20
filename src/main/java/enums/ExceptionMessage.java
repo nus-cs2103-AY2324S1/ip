@@ -36,7 +36,7 @@ public enum ExceptionMessage {
     private final String value;
 
     /**
-     * Constructs a `Exception Message` enum with the given value.
+     * Constructs an `ExceptionMessage` enum with the given value.
      *
      * @param value The string representation of the command word.
      */
@@ -47,10 +47,10 @@ public enum ExceptionMessage {
     }
 
     /**
-     * Gets the string representation of the exception message with the appropriate args word.
+     * Gets the string representation of the `ExceptionMessage` with the appropriate args word.
      *
      * @param args The arguments to replace placeholders in the exception message.
-     * @return The string representation of the exception message with the appropriate command word.
+     * @return The string representation of the `ExceptionMessage` with the appropriate command word.
      */
     public String toFormattedValue(String ... args) {
         return String.format(this.value, (Object[]) args);
