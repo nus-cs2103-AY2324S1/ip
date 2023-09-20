@@ -2,6 +2,7 @@ package duke;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,8 +20,11 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private Label welcomeLabel;
 
     private Duke duke;
+    private Ui ui;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/BiuBiu.jpg"));
@@ -28,6 +32,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+//        welcomeLabel.setText("ui.showWelcome()"); // new
+        String welcomeMessage = "Hi, I'm BiuBiu.\nI'm ready to help u!\n" +
+                "\n(u can save your task as todo/deadline/event)\n" +
+                "(can mark/unmark/find/delete/list your tasks)\n" +
+                "(type these keyword to find out more!)\n" +
+                "type 'woof' for surprise><";
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));
     }
 
     public void setDuke(Duke d) {

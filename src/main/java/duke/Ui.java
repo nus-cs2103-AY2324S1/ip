@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Ui {
     private Scanner scanner;
+    private boolean hasDisplayedWelcome = false;
 
     /**
      * Constructs a Ui object.
@@ -116,11 +117,14 @@ public class Ui {
             case "find":
                 output = handleFindCommand(parts, tasks);
                 break;
+            case "woof":
+                output = "meow";
+                break;
             default:
                 output = showError(userCommand);
             }
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            return showError("Invalid command format.");
+            return showError("I don't know this...");
         }
         return output;
     }
@@ -145,6 +149,10 @@ public class Ui {
      * @param storage The Storage object for saving tasks.
      */
     public String handleMarkCommand(String[] parts, TaskList tasks, Storage storage) {
+        if (parts.length == 1) {
+            return "pls enter: mark <index>";
+        }
+
         int doneTaskIndex = Integer.parseInt(parts[1]) - 1;
         tasks.markTaskAsDone(doneTaskIndex);
         storage.saveTasks(tasks);
@@ -159,6 +167,10 @@ public class Ui {
      * @param storage The Storage object for saving tasks.
      */
     public String handleUnmarkCommand(String[] parts, TaskList tasks, Storage storage) {
+        if (parts.length == 1) {
+            return "pls enter: unmark <index>";
+        }
+
         int notDoneTaskIndex = Integer.parseInt(parts[1]) - 1;
         tasks.markTaskAsNotDone(notDoneTaskIndex);
         storage.saveTasks(tasks);
@@ -175,7 +187,7 @@ public class Ui {
     public String handleTodoCommand(String userCommand, TaskList tasks, Storage storage) {
         Task newTask = Parser.parse(userCommand);
         if (newTask == null) {
-            return "Please describe what you want to do!";
+            return "What you want to do?? \n(format: todo <task>)";
         }
         tasks.addTask(newTask);
         storage.saveTasks(tasks);
@@ -192,7 +204,9 @@ public class Ui {
     public String handleDeadlineCommand(String userCommand, TaskList tasks, Storage storage) {
         Task newTask = Parser.parse(userCommand);
         if (newTask == null) {
-            return "Please describe your deadline!";
+            return "Please describe your deadline! \n" +
+                    "(format: deadline <task> /by <time>) \n" +
+                    "(indicate your time like: 2023-05-20)";
         }
         tasks.addTask(newTask);
         storage.saveTasks(tasks);
@@ -209,7 +223,9 @@ public class Ui {
     public String handleEventCommand(String userCommand, TaskList tasks, Storage storage) {
         Task newTask = Parser.parse(userCommand);
         if (newTask == null) {
-            return "Please describe your event!";
+            return "Please describe your event! \n" +
+                    "(format: event <task> /from <time> /to <time> \n" +
+                    "(indicate both your time like: 2023-06-12 1400)";
         }
         tasks.addTask(newTask);
         storage.saveTasks(tasks);
@@ -224,6 +240,10 @@ public class Ui {
      * @param storage The Storage object for saving tasks.
      */
     public String handleDeleteCommand(String[] parts, TaskList tasks, Storage storage) {
+        if (parts.length == 1) {
+            return "pls enter: delete <index>";
+        }
+
         int deletedTaskIndex = Integer.parseInt(parts[1]) - 1;
         tasks.deleteTask(deletedTaskIndex);
         storage.saveTasks(tasks);
@@ -238,7 +258,7 @@ public class Ui {
      */
     public String handleFindCommand(String[] parts, TaskList tasks) {
         if (parts.length == 1) {
-            return "Please specify a keyword to search for.";
+            return "pls enter: find <keyword>";
         } else {
             return showFindCommand(parts[1], tasks);
         }
@@ -267,9 +287,9 @@ public class Ui {
      * @param taskCount  The current number of tasks in the list.
      */
     public String showTaskAdded (Task task, int taskCount) {
-        String output = "Got it. I've added this task:";
+        String output = "*ฅ^•ﻌ•^ฅ* ogei!! I've added this task:";
         output += "\n " + task;
-        output += "\nNow you have " + taskCount + " tasks in the list.";
+        output += "\nNow you have " + taskCount + " tasks in the list! meow--";
         return output;
     }
 
@@ -293,7 +313,9 @@ public class Ui {
         String output = "Here are the tasks in your list:";
         for (int i = 0; i < taskList.size(); i++) {
             output += "\n" + (i + 1) + ". " + taskList.getTask(i);
+
         }
+        output += "\nପ(๑•ᴗ•๑)ଓ ♡";
         return output;
     }
 

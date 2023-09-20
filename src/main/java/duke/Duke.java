@@ -45,7 +45,7 @@ public class Duke extends Application {
 
         boolean isExit = false;
 
-        while (!isExit) {
+        while(!isExit) {
             String userCommand = ui.readCommand();
             isExit = ui.handleCommand(userCommand, tasks, storage) == ui.showExit()
                     ? true
