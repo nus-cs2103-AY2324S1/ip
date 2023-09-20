@@ -35,7 +35,7 @@ public class UserInterface {
      */
     public void init(String userImagePath, String dukeImagePath) {
         try {
-            assert(userImagePath != null && dukeImagePath != null); // Means the arguments are passed wrongly.
+            assert (userImagePath != null && dukeImagePath != null); // Means the arguments are passed wrongly.
             this.userImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(userImagePath)));
             this.dukeImg = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream(dukeImagePath)));
         } catch (NullPointerException e) {
