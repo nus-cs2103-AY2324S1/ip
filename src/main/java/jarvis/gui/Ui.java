@@ -8,12 +8,6 @@ import jarvis.tasks.Task;
  * The user interface class responsible for displaying information to the user on the CLI.
  */
 public class Ui {
-
-    /**
-     * ASCII Art Generated from <a href="http://patorjk.com/software/taag/">...</a>
-     */
-    private static final String LOGO_TEST = null;
-
     /**
      * Default date and time format used n Jarvis app.
      */
@@ -27,7 +21,7 @@ public class Ui {
      * Prints the intro message when Jarvis starts.
      */
     public String printIntro() {
-        return "Hi Master! I'm your personal assistant: JARVIS! \n" + "\n" + LOGO_TEST + "\n"
+        return "Hi Master! I'm your personal assistant: JARVIS! \n"
                 + "    How can I serve you today? \n";
     }
 
