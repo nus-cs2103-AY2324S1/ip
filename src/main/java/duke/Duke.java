@@ -30,7 +30,6 @@ public class Duke extends Application {
     }
     public static void main(String[] args) throws EmptyDescriptionException, InvalidCommandException,
             NotANumberException {
-        //Duke duke = new Duke("../ip/src/main/data/duke.txt");
     }
 
     /**
@@ -40,8 +39,6 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) {
-
-        //Window window = new Window(stage, storage, ui);
 
         Window.setParameters(stage, storage, ui);
 

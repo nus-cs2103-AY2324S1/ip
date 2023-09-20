@@ -55,8 +55,7 @@ public class Ui {
                 return tasks.updateTime(description, number);
             } else if (words[0].equalsIgnoreCase("help")) {
                 return tasks.help();
-            }
-            else {
+            } else {
                 throw new InvalidCommandException();
             }
         } catch (EmptyDescriptionException | InvalidCommandException e) {

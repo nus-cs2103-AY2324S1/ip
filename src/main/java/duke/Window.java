@@ -14,6 +14,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Creates the GUI
+ */
 public class Window {
 
     @FXML
@@ -28,7 +31,7 @@ public class Window {
     private static final AnchorPane mainLayout = new AnchorPane();
     private static final Scene scene = new Scene(mainLayout);
     private static final Image user = new Image(Window.class.getResourceAsStream("/images/DaUser.png"));
-    private static  final Image duke = new Image(Window.class.getResourceAsStream("/images/DaDuke.png"));
+    private static final Image duke = new Image(Window.class.getResourceAsStream("/images/DaDuke.png"));
     private static Storage storage = null;
     private static Ui ui = null;
 
@@ -81,6 +84,9 @@ public class Window {
         userInput.clear();
     }
 
+    /**
+     * Initializes the GUI
+     */
     public static void initializeWindow() {
         dialogContainer.setSpacing(20.0);
         scrollPane.setContent(dialogContainer);
@@ -88,6 +94,9 @@ public class Window {
         stage.show();
     }
 
+    /**
+     * Formats the GUI
+     */
     public static void formatWindow() {
         stage.setTitle("Duke");
         stage.setResizable(false);
@@ -114,6 +123,9 @@ public class Window {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
+    /**
+     * Adds user input to the GUI
+     */
     public static void addUserInput() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -124,6 +136,9 @@ public class Window {
         });
     }
 
+    /**
+     * Prints out a welcome message
+     */
     public static void welcomeMessage() {
         CircleClip clip = new CircleClip(40, 40, 40);
         ImageView dukeImageView = new ImageView(duke);
@@ -133,6 +148,9 @@ public class Window {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImageView, welMessage));
     }
 
+    /**
+     * Sends error message
+     */
     public static void sendErrorMessage() {
         CircleClip clip = new CircleClip(40, 40, 40);
         ImageView dukeImageView = new ImageView(duke);

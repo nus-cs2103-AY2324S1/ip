@@ -83,6 +83,12 @@ public class Parser {
         return LocalDateTime.parse(dateTimeStr, formatter);
     }
 
+    /**
+     * Extracts out the time for an Event.
+     * @param input String representation of the Event
+     * @return array of times (from time and to time)
+     * @throws InvalidInputException
+     */
     public static LocalDateTime[] retrieveEventTime(String input) throws InvalidInputException {
         String[] parts = input.split("/from | /to ");
         if (parts.length != 3) {

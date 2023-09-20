@@ -34,14 +34,14 @@ public abstract class Task {
     }
 
     /**
-     * Method to mark a task as done
+     * Method to mark a task as done inside the taskList
      */
     public void markTask() {
         this.isDone = true;
     }
 
     /**
-     * Method to mark a task as not done
+     * Method to mark a task as not done inside the taskList
      */
     public void unmarkTask() {
         this.isDone = false;

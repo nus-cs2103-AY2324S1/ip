@@ -24,9 +24,9 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * DialogBox
-     * @param l Label
-     * @param iv ImageView
+     * DialogBox inside the GUI
+     * @param l Label given to the GUI
+     * @param iv ImageView given to the GUI
      * @param isUserDialog Whether this dialogbox is userdialog or duke dialog
      * @param content content to be displayed
      */
