@@ -1,3 +1,5 @@
+# TaskMate - Your Personal Task-Tracking Assistant
+
 # User Guide
 
 ## Features 
