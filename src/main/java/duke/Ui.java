@@ -68,5 +68,23 @@ public class Ui {
         return resultBuilder.toString();
     }
 
+    /**
+     * Returns help message to guide user in navigating the bot.
+     *
+     * @return String message to help user navigate the bot.
+     */
+    public static String showHelp() {
+        return "Try entering...\n"
+                + "1. **todo** \n- Create a todo task\n"
+                + "2. **deadline [] /by []** \n- Create a deadline \n"
+                + "3. **event [] /from [] /to []** \n- Create an event\n"
+                + "4. **list** \n- List all your events\n"
+                + "5. **mark [index]** \n- Mark done for task at index\n"
+                + "5. **unmark [index]** \n- Unmark done for task at index\n"
+                + "6. **delete [index]** \n- Delete task at index\n"
+                + "7. **find [keyword]** \n- Find tasks with keyword\n"
+                + "8. **help** \n- Show all commands\n"
+                + "9. **bye** \n- Quit bot";
+    }
 
 }
