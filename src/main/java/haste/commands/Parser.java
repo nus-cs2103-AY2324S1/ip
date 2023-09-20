@@ -58,7 +58,7 @@ public class Parser {
             c = verifyEvent(cmd);
             break;
         default:
-            c = new InvalidCommand("Command should start with bye/list/mark/unmark/todo/deadline/event");
+            c = new InvalidCommand("Command should start with bye/list/mark/unmark/todo/deadline/event/delete");
         }
 
         return c;
