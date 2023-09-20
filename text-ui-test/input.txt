@@ -1,0 +1,14 @@
+event meeting /from Mon 2pm /to 4pm
+todo CS2103
+list
+mark 1
+list
+unmark 1
+deadline essay /by 3pm 26/7
+list
+mark 3
+delete 3
+list
+delete7
+deadline read
+bye
