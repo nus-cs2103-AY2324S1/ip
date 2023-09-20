@@ -25,6 +25,11 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructor for DialogBox.
+     * @param text This is the text that wants to be shown in the dialogBox.
+     * @param img This is the image that wants to be shown in the dialogBox.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(kevin.MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,10 +54,20 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a new Dialog Box with the text and image for the user.
+     * @param text This is the text that wants to be shown in the dialogBox.
+     * @param img This is the image that wants to be shown in the dialogBox.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a new Dialog Box that is flipped with the text and image for the Kevin (the bot).
+     * @param text This is the text that wants to be shown in the dialogBox.
+     * @param img This is the image that wants to be shown in the dialogBox.
+     */
     public static DialogBox getKevinDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

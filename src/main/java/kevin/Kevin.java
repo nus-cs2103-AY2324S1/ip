@@ -45,6 +45,11 @@ public class Kevin {
         }
     }
 
+    /**
+     * Gets the response from Kevin according to the user input.
+     * @param input The input that is received from the user.
+     * @return The output from the user's input.
+     */
     public String getResponse(String input) {
         try {
             QueryObject queryObject = parser.prepareArguments(input);
