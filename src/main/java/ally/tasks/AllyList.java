@@ -1,6 +1,7 @@
 package ally.tasks;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import ally.exceptions.AllyException;
 
@@ -9,8 +10,10 @@ import ally.exceptions.AllyException;
  */
 public class AllyList {
     private ArrayList<Task> arr;
+    protected static ArrayList<Deadline> deadlineArray;
     public AllyList(ArrayList<Task> tasks) throws AllyException {
         arr = new ArrayList<>(100);
+        deadlineArray = new ArrayList<>(100);
     }
 
     /**
@@ -19,6 +22,18 @@ public class AllyList {
      */
     public void addElements(Task task) throws AllyException {
         arr.add(task);
+    }
+
+    public void addDeadlineElements(Deadline deadline) throws AllyException {
+        deadlineArray.add(deadline);
+    }
+
+    public void sortDeadlines() {
+        Collections.sort(deadlineArray, new DeadlineComparator());
+    }
+
+    public ArrayList<Deadline> getSortedDeadline() {
+        return deadlineArray;
     }
 
     /**

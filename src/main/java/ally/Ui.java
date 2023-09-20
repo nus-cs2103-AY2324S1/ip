@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import ally.exceptions.AllyException;
 import ally.tasks.AllyList;
+import ally.tasks.Deadline;
 import ally.tasks.Task;
 
 /**
@@ -67,6 +68,15 @@ public class Ui {
         return stringBuilder.toString();
     }
 
+    public String showSortedList(ArrayList<Deadline> allyList) {
+        StringBuilder stringBuilder = new StringBuilder();
+        System.out.println("Here are the sorted deadlines in your list:\n");
+        for (int i = 0, len = allyList.size(); i < len; i++) {
+            stringBuilder.append(i + 1).append(". ").append(allyList.get(i).toString());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
     /**
      * Prints the deleted tasks and total number of tasks left.
      *

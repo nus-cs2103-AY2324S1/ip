@@ -39,6 +39,7 @@ public class AddDeadlineCommand extends Commands {
             assert ui != null;
             assert storage != null;
             Deadline ddline = new Deadline(description, by);
+            allyList.addDeadlineElements(ddline);
             allyList.addElements(ddline);
             storage.appendToFile(ddline);
             return allyList.printNewList(ddline);
