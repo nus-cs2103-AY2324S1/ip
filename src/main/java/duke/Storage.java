@@ -1,16 +1,18 @@
 package duke;
-
-import duke.task.Event;
-import duke.task.Deadline;
-import duke.task.Task;
-import duke.task.ToDo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.ToDo;
+
+
 
 /**
  * The Storage class handles the loading and saving of tasks to a specified file.
@@ -105,6 +107,25 @@ public class Storage {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    /**
+     * Writes the contents of a TaskList to a file specified by the current instance's file path.
+     * Each task is written as a separate line in the file.
+     *
+     * @param taskList The TaskList containing tasks to be written to the file.
+     * @throws DukeException If an IOException occurs while writing to the file.
+     */
+    public void writeLine(TaskList taskList) throws DukeException {
+        File resourceFile = new File(this.filePath);
+        try {
+            FileWriter writer = new FileWriter(resourceFile);
+            for (Task task : taskList.getTasks()) {
+                writer.write(task.toTxtString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
         }
     }
 }

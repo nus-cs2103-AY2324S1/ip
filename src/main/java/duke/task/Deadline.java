@@ -1,19 +1,20 @@
 package duke.task;
-
-import duke.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
+
+
 
 /**
  * The task.Deadline class represents a task with a specific deadline.
  * It is a subclass of the Task class.
  */
 public class Deadline extends Task {
+    private static DateTimeFormatter formatterToTxtString = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
     protected String by;
     protected LocalDateTime dateTime;
-    static DateTimeFormatter formatterToTxtString = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
 
     /**
      * Constructs a new Deadline ask with a description and deadline date/time.
@@ -54,7 +55,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toTxtString() {
-        return "[D] | [" + (this.isDone ? "X": " ") + "] | " + this.description + " | "
+        return "[D] | [" + (this.isDone ? "X" : " ") + "] | " + this.description + " | "
                 + this.dateTime.format(formatterToTxtString);
     }
 

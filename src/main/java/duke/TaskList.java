@@ -1,8 +1,8 @@
 package duke;
+import java.util.List;
 
 import duke.task.Task;
 
-import java.util.List;
 
 /**
  * The duke.TaskList class represents a collection of tasks.
@@ -65,6 +65,20 @@ public class TaskList {
         for (int i = 0; i < this.getSize(); i++) {
             System.out.println(" " + (i + 1) + ". " + tasks.get(i).toString());
         }
+    }
+
+    /**
+     * Generates a formatted string representation of the tasks in the TaskList.
+     * Each task is numbered and presented in a list format.
+     *
+     * @return A formatted string containing a numbered list of tasks.
+     */
+    public String printTaskListString() {
+        String result = "";
+        for (int i = 0; i < this.getSize(); i++) {
+            result += " " + (i + 1) + ". " + tasks.get(i).toString() + "\n";
+        }
+        return result;
     }
 
     /**

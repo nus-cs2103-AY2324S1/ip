@@ -1,12 +1,12 @@
 package duke;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import duke.task.Task;
 
-import java.util.ArrayList;
 
 /**
  * The TaskListTest class contains unit tests for the TaskList class.
