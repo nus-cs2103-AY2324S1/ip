@@ -2,8 +2,7 @@ package duke.command;
 
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.Task;
-import duke.task.TaskList;
+import duke.task.*;
 import duke.ui.Ui;
 
 /**
@@ -34,8 +33,8 @@ public class UnmarkCommand extends Command {
         assert this.index < 0 : "Index cannot be less than 0!";
 
         if (this.index + 1 > tasks.size()) {
-            throw new DukeException(ui.messageCard("The current number of tasks is " + tasks.size()
-                    + ", so you can't unmark task " + (index + 1) + "!!."));
+            throw new DukeException("The current number of tasks is " + tasks.size()
+                    + ", so you can't unmark task " + (index + 1) + "!!.");
         }
 
         //update
@@ -44,10 +43,23 @@ public class UnmarkCommand extends Command {
         storage.updateFile(tasks);
         ui.updateLatestUnmarked(index);
 
+        String type = findType(task);
         String res = "OK, I've marked this task as not done yet:" + "\n"
-                + "[" + task.getStatusIcon() + "] " + task.getDescription();
+                + "[" + type + "]" + "[" + task.getStatusIcon() + "] "
+                + task.getDescription();
         ui.updateMessage(res);
         ui.updateRecentCommand("unmark");
+    }
+    private String findType(Task task) {
+        if (task instanceof Todo) {
+            return "T";
+        } else if (task instanceof Deadline) {
+            return "D";
+        } else if (task instanceof Event) {
+            return "E";
+        }
+
+        return "";
     }
 
     /**
