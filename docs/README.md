@@ -4,6 +4,8 @@ Duke is a chatbot designed to be a task manager and assistant for users.
 
 ![Duke Screenshot](./Ui.png)
 
+---
+
 - [Quick Start](#quick-start)
 - [Features](#features)
     - [Task Management](#task-management)
@@ -124,6 +126,8 @@ Usage:
 
 `mark <task number>`
 
+Note that task numbers must be positive integers e.g. 1, 2, 3
+
 ### `Unmark`
 
 Removes a mark from a completed task.
@@ -131,6 +135,8 @@ Removes a mark from a completed task.
 Usage:
 
 `unmark <task number>`
+
+Note that task numbers must be positive integers e.g. 1, 2, 3
 
 ### `Delete`
 
@@ -140,9 +146,14 @@ Usage:
 
 `delete <task number>`
 
+Note that task numbers must be positive integers e.g. 1, 2, 3
+
 ### `Find`
 
 Searches for task descriptions using a keyword.
+
+- The search is case-sensitive e.g `hans` will not match `Hans`
+- The order of the keywords matters e.g. `Hans Bo` will match `Bo Hans`
 
 Usage:
 
