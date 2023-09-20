@@ -18,20 +18,20 @@ public class Parser {
      * @throws DukeException incorrect user inputs
      */
     public static Command addToList(String str) throws DukeException {
-        if (str.startsWith("todo")) {
+        if (str.startsWith("todo ")) {
             if (str.length() <= 5) {
                 throw new DukeException("So um, what exactly do you need to do?"
                         + "Add it as the description of the todo.");
             } else {
                 return new AddToDoCommand(str.substring(5));
             }
-        } else if (str.startsWith("event")) {
-            if (str.length() <= 15) {
+        } else if (str.startsWith("event ")) {
+            if (str.length() <= 47) {
                 throw new DukeException("So um, what exactly do you have?"
                         + " I need a description and the /from /to dates, please.\n"
                         + "(eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800)");
             }
-            if (!str.contains("/from ") || !str.contains("/to ")) {
+            if (!str.contains(" /from ") || !str.contains(" /to ")) {
                 throw new DukeException("When's the event? Write it explicitly. "
                         + "(eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800)");
             }
@@ -47,12 +47,12 @@ public class Parser {
                 throw new DukeException("Enter a proper date in the YYYY-MM-DD format."
                         + "(eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800)");
             }
-        } else if (str.startsWith("deadline")) {
-            if (str.length() <= 12) {
+        } else if (str.startsWith("deadline ")) {
+            if (str.length() <= 28) {
                 throw new DukeException("What are your task details? I need a description and a /by date, please.\n"
                         + "(eg. Assignment /by 2023-12-12 1800)");
             }
-            if (!str.contains("/by ")) {
+            if (!str.contains(" /by ")) {
                 throw new DukeException("When's the deadline? Write it explicitly."
                         + "(eg. Assignment /by 2023-12-12 1800)");
             }
@@ -91,13 +91,13 @@ public class Parser {
             return new HelpCommand();
         } else if (command.equals("list")) {
             return new ListCommand();
-        } else if (command.startsWith("mark") && command.length() > 5) {
+        } else if (command.startsWith("mark ") && command.length() > 5) {
             return new MarkCommand(command.substring(5));
-        } else if (command.startsWith("unmark") && command.length() > 7) {
+        } else if (command.startsWith("unmark ") && command.length() > 7) {
             return new UnmarkCommand(command.substring(7));
-        } else if (command.startsWith("delete") && command.length() > 7) {
+        } else if (command.startsWith("delete ") && command.length() > 7) {
             return new DeleteCommand(command.substring(7));
-        } else if (command.startsWith("find") && command.length() > 5) {
+        } else if (command.startsWith("find ") && command.length() > 5) {
             return new FindCommand(command.substring(5));
         } else {
             return addToList(command);
