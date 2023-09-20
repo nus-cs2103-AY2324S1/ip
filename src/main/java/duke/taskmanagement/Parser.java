@@ -61,19 +61,98 @@ public class Parser {
     }
 
     private String unmark(TaskList list, String cmd) {
-        int index = Integer.parseInt(cmd.substring(7, 8));
-        return list.unmark(index);
+        int startIndex = -1;
+        for (int i = 5; i < cmd.length(); i++) {
+            if (Character.isDigit(cmd.charAt(i))) {
+                startIndex = i;
+                break;
+            }
+        }
+
+        // If a digit is found, extract the integer
+        if (startIndex != -1) {
+            int endIndex = startIndex;
+            while (endIndex < cmd.length() && Character.isDigit(cmd.charAt(endIndex))) {
+                endIndex++;
+            }
+
+            String indexStr = cmd.substring(startIndex, endIndex);
+            int index = Integer.parseInt(indexStr);
+
+            // Check if the index is within a valid range
+            if (index >= 0 && index <= list.getListSize()) {
+                return list.unmark(index);
+            } else {
+                return "Invalid index. The index should be between 0 and " + (list.getListSize() );
+            }
+        } else {
+            return "Invalid index format"; // Handle the case where no valid index is found
+        }
     }
 
     private String mark(TaskList list, String cmd) {
-        int index = Integer.parseInt(cmd.substring(5, 6));
-        return list.mark(index);
+        // Find the starting index of the integer
+        int startIndex = -1;
+        for (int i = 5; i < cmd.length(); i++) {
+            if (Character.isDigit(cmd.charAt(i))) {
+                startIndex = i;
+                break;
+            }
+        }
+
+        // If a digit is found, extract the integer
+        if (startIndex != -1) {
+            int endIndex = startIndex;
+            while (endIndex < cmd.length() && Character.isDigit(cmd.charAt(endIndex))) {
+                endIndex++;
+            }
+
+            String indexStr = cmd.substring(startIndex, endIndex);
+            int index = Integer.parseInt(indexStr);
+
+            // Check if the index is within a valid range
+            if (index >= 0 && index <= list.getListSize()) {
+                return list.mark(index);
+            } else {
+                return "Invalid index. The index should be between 0 and " + (list.getListSize() );
+            }
+        } else {
+            return "Invalid index format"; // Handle the case where no valid index is found
+        }
     }
 
     private String delete(TaskList list, String cmd) {
-        int index = Integer.parseInt(cmd.substring(7, 8));
-        return list.deleteTask(index);
+        // Find the starting index of the integer
+        int startIndex = -1;
+        for (int i = 7; i < cmd.length(); i++) {
+            if (Character.isDigit(cmd.charAt(i))) {
+                startIndex = i;
+                break;
+            }
+        }
+
+        // If a digit is found, extract the integer
+        if (startIndex != -1) {
+            int endIndex = startIndex;
+            while (endIndex < cmd.length() && Character.isDigit(cmd.charAt(endIndex))) {
+                endIndex++;
+            }
+
+            String indexStr = cmd.substring(startIndex, endIndex);
+            int index = Integer.parseInt(indexStr);
+
+            // Check if the index is within a valid range
+            if (index >= 0 && index <= list.getListSize()) {
+                // Call the deleteTask method with the extracted index
+                return list.deleteTask(index);
+            } else {
+                return "Invalid index. The index should be between 0 and " + (list.getListSize());
+            }
+        } else {
+            return "Invalid index format"; // Handle the case where no valid index is found
+        }
     }
+
 
     private String deadline(TaskList list, String cmd) {
         String[] parts = cmd.split("/by");

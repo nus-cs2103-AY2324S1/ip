@@ -1,13 +1,20 @@
 package duke.taskmanagement;
 
+import javafx.stage.Stage;
+
+import java.util.Objects;
+
 public class Duke {
-    String PATH = "/Users/jjtiong/ip/data/duke.txt";
+    String PATH = "./data/duke.txt";
     private Ui ui = new Ui();
     private TaskList tasks;
     private Storage storage = new Storage(PATH);
+    private Stage stage;
 
-    public Duke () {
+    public Duke (Stage stage) {
+        this.stage = stage;
         tasks = new TaskList(this.ui, storage.loadData(), storage);
+        assert this.storage != null : "taskManager of Duke instance should not be null";
     }
 
     /**
@@ -18,13 +25,18 @@ public class Duke {
      * @return String message to the user.
      */
     public String getResponse(String input) {
+
         String greetingMessage = ui.greet();
         assert greetingMessage == "Hello! I'm JJ\n" +
                 "What can I do for you?\n" + "\n" : "greeting should contain default greet";
         Parser parser = new Parser(this.ui, this.tasks);
         assert parser != null : "parser should not be null at any point";
-        String messageToUser = parser.readCmd(this.tasks, input);
-        return messageToUser;
+        if (input.equals("bye")) {
+            stage.close();
+        }
+            String messageToUser = parser.readCmd(this.tasks, input);
+            return messageToUser;
+
     }
 
     public static void main(String[] args) {

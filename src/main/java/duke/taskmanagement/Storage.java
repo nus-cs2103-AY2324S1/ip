@@ -1,10 +1,6 @@
 package duke.taskmanagement;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +15,17 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        File file = new File(filePath);
+        if (file.exists()) {
+            return;
+        }
+
+        try {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error while creating file: " + e.getMessage());
+        }
     }
 
     /**
@@ -122,17 +129,18 @@ public class Storage {
      */
     public void changeToDone(int index) {
         List<String> lines = new ArrayList<>();
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                lines.add(line);
+        if (index <= lines.size()) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    lines.add(line);
+                }
+                reader.close();
+                markToDoneRead(index, lines);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            reader.close();
-            markToDoneRead(index, lines);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

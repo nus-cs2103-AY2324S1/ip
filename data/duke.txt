@@ -1,8 +1,10 @@
-D | 1 | return book | Mar 23 2023
-D | 1 | assignment | Mar 23 2022
-E | 0 | project meeting | Mon 2pm | 4pm
-T | 0 | cook dinner
-E | 0 | training | Wed 4pm | 7pm
-D | 0 | quiz | Sep 9 2023
-D | 0 | assign | Mar 20 2023
-E | 0 | Group Meeting | 2023-03-30 2pm | 2023-03-30 4pm
+T | 0 | test2
+T | 0 | test5
+T | 0 | test 5
+T | 0 | test6
+T | 0 | test7
+T | 0 | test8
+T | 0 | test9
+T | 0 | test10
+T | 0 | tast11
+T | 0 | test 15

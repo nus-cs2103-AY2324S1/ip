@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TaskList {
-    final String PATH = "/Users/jjtiong/ip/data/duke.txt";
+    final String PATH = "./data/duke.txt";
     private List<Task> listOfTasks = new ArrayList<>();
     private Storage storage;
     private Ui ui;
@@ -29,11 +29,15 @@ public class TaskList {
      *              text file and list.
      */
     public String deleteTask(int index) {
-        Task task = listOfTasks.get(index - 1);
-        listOfTasks.remove(index - 1);
-        int size = listOfTasks.size();
-        storage.deleteLine(index);
-        return ui.printRemoveTask(task.toString(), size);
+        if (index <= listOfTasks.size()) {
+            Task task = listOfTasks.get(index - 1);
+            listOfTasks.remove(index - 1);
+            int size = listOfTasks.size();
+            storage.deleteLine(index);
+            return ui.printRemoveTask(task.toString(), size);
+        } else {
+            return "Omg:(( index invalid.";
+        }
     }
 
     /**
@@ -83,12 +87,16 @@ public class TaskList {
      * @param index The index of task to mark as undone.
      */
     public String unmark(int index) {
-        Task task = listOfTasks.get(index - 1);
-        listOfTasks.remove(index - 1);
-        task.unmark();
-        listOfTasks.add(index-1, task);
-        storage.changeToUnDone(index);
-        return ui.printMarkUndone(task.toString());
+        if (index <= listOfTasks.size()) {
+            Task task = listOfTasks.get(index - 1);
+            listOfTasks.remove(index - 1);
+            task.unmark();
+            listOfTasks.add(index - 1, task);
+            storage.changeToUnDone(index);
+            return ui.printMarkUndone(task.toString());
+        } else {
+            return "OMG INVALID INDEX! ;((";
+        }
     }
 
     /**
@@ -97,12 +105,16 @@ public class TaskList {
      * @param index The index of task to mark as done.
      */
     public String mark(int index) {
-        Task task = listOfTasks.get(index-1);
-        listOfTasks.remove(index-1);
-        task.markAsDone();
-        listOfTasks.add(index-1, task);
-        storage.changeToDone(index);
-        return ui.printMarkDone(task.toString());
+        if (index <= listOfTasks.size()) {
+            Task task = listOfTasks.get(index - 1);
+            listOfTasks.remove(index - 1);
+            task.markAsDone();
+            listOfTasks.add(index - 1, task);
+            storage.changeToDone(index);
+            return ui.printMarkDone(task.toString());
+        } else {
+            return "OMG invalid index :(";
+        }
     }
 
     public List<Task> find(String str) {
