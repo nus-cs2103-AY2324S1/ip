@@ -1,24 +1,28 @@
-# User Guide
+# ___Respironix User Guide___
 
-## Features 
+## Features
 
-### Feature-ABC
+### Features - Track your different tasks
+- **ToDo**: A simple task.
+- **Deadline**: A task that needs to be done before a specific date/time.
+- **Event**: A task that starts and ends at a specific date/time.
 
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
+### Features - Search for different tasks
+- Find tasks related to a keyword.
+- Find tasks before a certain deadline.
+- Find tasks on a certain date.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - Creating simple task
 
-Describe the action and its outcome.
+Creates a new task with only a description.
+
+Format: `todo [DESCRIPTION]`
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo borrow book`
 
 Expected outcome:
 
