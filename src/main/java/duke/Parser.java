@@ -23,6 +23,9 @@ public class Parser {
             if (task.equals("list")) {
                 return handleList();
             }
+            if (task.equals("help")) {
+                return Ui.showHelp();
+            }
             String[] elements = task.split((" "));
             if (elements.length >= 2) {
                 String instruction = elements[0];
