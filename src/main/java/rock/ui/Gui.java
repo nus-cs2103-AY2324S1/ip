@@ -1,7 +1,5 @@
 package rock.ui;
 
-
-
 import rock.client.Rock;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -13,13 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.stage.Stage;
-
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import rock.client.Response;
 
 /**
