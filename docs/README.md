@@ -343,5 +343,3 @@ You are closing the SeeWhyAre chat bot.
 Bye bye. Please use me again soon!
 ____________________________________________________________
 ```
-
-- Cait will shut down
