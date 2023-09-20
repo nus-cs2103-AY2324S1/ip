@@ -1,20 +1,18 @@
 package duke.command;
 
-import duke.helper.Parser;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.task.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.Todo;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public class DeleteCommandTest {
     @Test
     public void testInvalidDeleteIndex() {
