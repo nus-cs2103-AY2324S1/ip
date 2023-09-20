@@ -30,10 +30,11 @@ public class Parser {
     private static final int EVENT_TO_FLAG_CHARACTER_COUNT = 4;
 
     /**
-     * Parse "find" command from the user.
-     * @param command String which is the user's command
-     * @return task name provided as the search string
-     * @throws FindMissingFieldException when the command does not contain any task name
+     * Parses "find" command from the user.
+     *
+     * @param command String which is the user's command.
+     * @return task name provided as the search string.
+     * @throws FindMissingFieldException when the command does not contain any task name.
      */
     public static String parseFindCommand(String command) throws FindMissingFieldException {
         assert (command.substring(0, 4).equals("find"));
@@ -49,11 +50,12 @@ public class Parser {
     }
 
     /**
-     * Parse "mark" or "unmark" command from the user.
-     * @param commandWords String array that contains the words in the command in order
-     * @return index of the task to mark or unmark
-     * @throws MarkMissingFieldException when the command is not in the expected format (2 words)
-     * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer
+     * Parses "mark" or "unmark" command from the user.
+     *
+     * @param commandWords String array that contains the words in the command in order.
+     * @return index of the task to mark or unmark.
+     * @throws MarkMissingFieldException when the command is not in the expected format (2 words).
+     * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer.
      */
     public static int parseMarkCommand(String[] commandWords)
             throws MarkMissingFieldException, InvalidTaskIndexException {
@@ -69,11 +71,12 @@ public class Parser {
     }
 
     /**
-     * Parse "delete" command from the user.
-     * @param commandWords String array that contains the words in the command in order
-     * @return index of the task to delete
-     * @throws DeleteMissingFieldException when the command is not in the expected format (2 words)
-     * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer
+     * Parses "delete" command from the user.
+     *
+     * @param commandWords String array that contains the words in the command in order.
+     * @return index of the task to delete.
+     * @throws DeleteMissingFieldException when the command is not in the expected format (2 words).
+     * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer.
      */
     public static int parseDeleteCommand(String[] commandWords)
             throws DeleteMissingFieldException, InvalidTaskIndexException {
@@ -89,11 +92,12 @@ public class Parser {
     }
 
     /**
-     * Parse "priority" command from the user.
-     * @param commandWords String array that contains the words in the command in order
-     * @return A Pair with head being the index of the task, and tail being the priority level letter
-     * @throws PriorityMissingFieldException when the command is not in the expected format (3 words)
-     * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer
+     * Parses "priority" command from the user.
+     *
+     * @param commandWords String array that contains the words in the command in order.
+     * @return A Pair with head being the index of the task, and tail being the priority level letter.
+     * @throws PriorityMissingFieldException when the command is not in the expected format (3 words).
+     * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer.
      */
     public static Pair<Integer, String> parsePriorityCommand(String[] commandWords)
             throws PriorityMissingFieldException, InvalidTaskIndexException {
@@ -110,10 +114,11 @@ public class Parser {
     }
 
     /**
-     * Parse "todo" command from the user.
-     * @param command String which is the user's command
-     * @return TodoTask instantiated with the name specified in the command
-     * @throws TodoMissingFieldException when no task name is specified in the command
+     * Parses "todo" command from the user.
+     *
+     * @param command String which is the user's command.
+     * @return TodoTask instantiated with the name specified in the command.
+     * @throws TodoMissingFieldException when no task name is specified in the command.
      */
     public static Task parseTodoTaskCommand(String command) throws TodoMissingFieldException {
         assert (command.substring(0, 4).equals("todo"));
@@ -129,10 +134,11 @@ public class Parser {
     }
 
     /**
-     * Parse "deadline" command from the user.
-     * @param command String which is the user's command
-     * @return DeadlineTask instantiated with the name and deadline specified in the command
-     * @throws DeadlineMissingFieldException when the command does not contain name or deadline
+     * Parses "deadline" command from the user.
+     *
+     * @param command String which is the user's command.
+     * @return DeadlineTask instantiated with the name and deadline specified in the command.
+     * @throws DeadlineMissingFieldException when the command does not contain name or deadline.
      */
     public static Task parseDeadlineTaskCommand(String command) throws DeadlineMissingFieldException {
         assert (command.substring(0, 8).equals("deadline"));
@@ -153,10 +159,11 @@ public class Parser {
     }
 
     /**
-     * Parse "event" command from the user.
-     * @param command String which is the user's command
-     * @return EventTask instantiated with the name, from (time), to (time) specified in the command
-     * @throws EventMissingFieldException when the command does not contain name, from or to
+     * Parses "event" command from the user.
+     *
+     * @param command String which is the user's command.
+     * @return EventTask instantiated with the name, from (time), to (time) specified in the command.
+     * @throws EventMissingFieldException when the command does not contain name, from or to.
      */
     public static Task parseEventTaskCommand(String command) throws EventMissingFieldException {
         assert (command.substring(0, 5).equals("event"));

@@ -28,17 +28,17 @@ public class ChatBot {
     private boolean noLocalFileAccess = false; // Whether the data file cannot be accessed due to permission issue.
 
     /**
-     * Constructor to instantiate a new ChatBot object.
+     * Instantiates a new ChatBot object.
      */
     public ChatBot() {
         this.storage = new Storage(LOCAL_DIRECTORY_PATH, LOCAL_FILE_PATH);
     }
 
     /**
-     * Attempt to initiate task list from local data file.
+     * Attempts to initiate task list from local data file.
      *
-     * @return INIT_TASKLIST_SUCCESS_STRING, if the initiation is successful
-     *         String representation of the exception, if any exception was thrown
+     * @return INIT_TASKLIST_SUCCESS_STRING, if the initiation is successful.
+     *         String representation of the exception, if any exception was thrown.
      */
     public String initTaskList() {
         try {
@@ -54,9 +54,9 @@ public class ChatBot {
     }
 
     /**
-     * Obtain the greeting message to be displayed at the start.
+     * Obtains the greeting message to be displayed at the start.
      *
-     * @return the String of greeting message
+     * @return the String of greeting message.
      */
     public String greet() {
         return "Welcome back, Wilson!\n"
@@ -65,20 +65,20 @@ public class ChatBot {
     }
 
     /**
-     * Obtain the farewell message in response to "bye" command
+     * Obtains the farewell message in response to "bye" command
      *
-     * @return the String of farewell message
+     * @return the String of farewell message.
      */
     private String farewell() {
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Process and execute the command from user input
+     * Processes and executes the command from user input.
      *
-     * @param command the String input of user's command
-     * @return the String response from the ChatBot
-     * @throws ChatBotException if an error is encountered during the execution
+     * @param command the String input of user's command.
+     * @return the String response from the ChatBot.
+     * @throws ChatBotException if an error is encountered during the execution.
      */
     public String handleCommand(String command) throws ChatBotException {
         assert (!command.isEmpty()); // empty command should be blocked in GUI method

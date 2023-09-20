@@ -14,34 +14,37 @@ public class TaskList {
     private final ArrayList<Task> taskList;
 
     /**
-     * Constructor that instantiates a TaskList object with specified list of task.
-     * @param taskList the initial list of task of the TaskList object
+     * Instantiates a TaskList object with specified list of task.
+     *
+     * @param taskList the initial list of task of the TaskList object.
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
     }
 
     /**
-     * Constructor that instantiates an empty TaskList object.
+     * Instantiates an empty TaskList object.
      */
     public TaskList() {
         this.taskList = new ArrayList<>(MAX_NUMBER_OF_TASKS);
     }
 
     /**
-     * Add a task to the list of tasks.
-     * @param task the Task object to be added
+     * Adds a task to the list of tasks.
+     *
+     * @param task the Task object to be added.
      */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
     /**
-     * Mark a task in the list to be completed or not completed.
-     * @param isDone whether to mark the task as completed or not completed
-     * @param index index of the task to be marked
-     * @return String representation of the task after being marked
-     * @throws InvalidTaskIndexException when the index provided does not correspond to any task
+     * Marks a task in the list to be completed or not completed.
+     *
+     * @param isDone whether to mark the task as completed or not completed.
+     * @param index index of the task to be marked.
+     * @return String representation of the task after being marked.
+     * @throws InvalidTaskIndexException when the index provided does not correspond to any task.
      */
     public String markAs(boolean isDone, int index) throws InvalidTaskIndexException {
         if (index < 1 || index > taskList.size()) {
@@ -53,10 +56,11 @@ public class TaskList {
     }
 
     /**
-     * Delete a task from the list.
-     * @param index index of the task to be deleted
-     * @return String representation of the task being deleted
-     * @throws InvalidTaskIndexException when the index provided does not correspond to any task
+     * Deletes a task from the list.
+     *
+     * @param index index of the task to be deleted.
+     * @return String representation of the task being deleted.
+     * @throws InvalidTaskIndexException when the index provided does not correspond to any task.
      */
     public String deleteTask(int index) throws InvalidTaskIndexException {
         if (index < 1 || index > taskList.size()) {
@@ -77,8 +81,9 @@ public class TaskList {
     }
 
     /**
-     * Obtain a String representation of all the tasks in the list, each in a line.
-     * @return String representation of all tasks in the list
+     * Obtains a String representation of all the tasks in the list, each in a line.
+     *
+     * @return String representation of all tasks in the list.
      */
     public String taskListToStrings() {
         return taskList.stream()
@@ -87,8 +92,9 @@ public class TaskList {
     }
 
     /**
-     * Obtain an indexed String representation of all tasks, each in a line.
-     * @return indexed String representation of all tasks
+     * Obtains an indexed String representation of all tasks, each in a line.
+     *
+     * @return indexed String representation of all tasks.
      */
     public String listTasks() {
         StringBuilder sb = new StringBuilder();
@@ -102,9 +108,10 @@ public class TaskList {
     }
 
     /**
-     * Obtain indexed String representation of tasks matched with the given name.
-     * @param name the task name to match with
-     * @return indexed String representation of tasks whose names contain the provided name
+     * Obtains indexed String representation of tasks matched with the given name.
+     *
+     * @param name the task name to match with.
+     * @return indexed String representation of tasks whose names contain the provided name.
      */
     public String findTasks(String name) {
         ArrayList<Task> matchedTasks = (ArrayList<Task>)
@@ -119,8 +126,9 @@ public class TaskList {
     }
 
     /**
-     * Obtain the number of tasks in the task list.
-     * @return number of tasks in the task list
+     * Obtains the number of tasks in the task list.
+     *
+     * @return number of tasks in the task list.
      */
     public int getSize() {
         return this.taskList.size();
