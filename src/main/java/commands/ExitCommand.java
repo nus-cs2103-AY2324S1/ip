@@ -1,5 +1,6 @@
 package commands;
 
+import javafx.application.Platform;
 import storage.Storage;
 import tasks.TaskList;
 import ui.Ui;
@@ -27,6 +28,7 @@ public class ExitCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         storage.saveTasksToFile(taskList.getList());
+        Platform.exit();
         return ui.showGoodbyeMessage();
     }
 }

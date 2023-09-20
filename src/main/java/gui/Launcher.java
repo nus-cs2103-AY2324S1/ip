@@ -8,11 +8,11 @@ import javafx.application.Application;
  */
 public class Launcher {
     /**
-     * The main method to start the Fishron application.
+     * Launches the application.
      *
-     * @param args Command-line arguments (not used in this application).
+     * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        Application.launch(Fishron.class, args);
+        Application.launch(Main.class, args);
     }
 }
