@@ -19,7 +19,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         tasks.changeStatusOfTask(indexToUnmark);
-        storage.updateFileAfterMark(indexToUnmark + 1);
+        storage.updateFileAfterUnmark(indexToUnmark + 1);
         return ui.printAfterUnmark(indexToUnmark, tasks);
     }
 }

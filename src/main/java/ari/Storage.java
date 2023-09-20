@@ -35,9 +35,9 @@ public class Storage {
                 dir.mkdir();
             }
 
-            File f = new File(directoryPath, fileName);
-            if (!f.exists()) {
-                f.createNewFile();
+            File file = new File(directoryPath, fileName);
+            if (!file.exists()) {
+                file.createNewFile();
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -52,8 +52,8 @@ public class Storage {
     public ArrayList<Task> load() throws FileNotFoundException {
         ArrayList<Task> lst = new ArrayList<>();
 
-        File f = new File(this.filePath);
-        Scanner scanner = new Scanner(f);
+        File file = new File(this.filePath);
+        Scanner scanner = new Scanner(file);
         try {
             while (scanner.hasNext()) {
                 lst.add(textToTask(scanner.nextLine()));
@@ -125,9 +125,9 @@ public class Storage {
      * @throws IOException if File cannot be opened / located
      */
     public void clearFile() throws IOException {
-        File f = new File(this.filePath);
-        f.delete();
-        f.createNewFile();
+        File file = new File(this.filePath);
+        file.delete();
+        file.createNewFile();
     }
 
     /**
@@ -148,8 +148,8 @@ public class Storage {
      */
     public void updateFileAfterMark(int lineNumber) throws IOException {
         String updatedContent = "";
-        File f = new File(this.filePath);
-        Scanner scanner = new Scanner(f);
+        File file = new File(this.filePath);
+        Scanner scanner = new Scanner(file);
         int i = 1;
         while (scanner.hasNext()) {
             if (i == lineNumber) {
@@ -173,8 +173,8 @@ public class Storage {
      */
     public void updateFileAfterUnmark(int lineNumber) throws IOException {
         String updatedContent = "";
-        File f = new File(this.filePath);
-        Scanner scanner = new Scanner(f);
+        File file = new File(this.filePath);
+        Scanner scanner = new Scanner(file);
         int i = 1;
         while (scanner.hasNext()) {
             if (i == lineNumber) {
@@ -198,8 +198,8 @@ public class Storage {
      */
     public void updateFileAfterDelete(int lineNumber) throws IOException {
         String updatedContent = "";
-        File f = new File(this.filePath);
-        Scanner scanner = new Scanner(f);
+        File file = new File(this.filePath);
+        Scanner scanner = new Scanner(file);
         int i = 1;
         while (scanner.hasNext()) {
             if (i == lineNumber) {
@@ -223,8 +223,8 @@ public class Storage {
      */
     public void updateFileAfterPostpone(Task postponedTask, int lineNumber, String newDeadline) throws IOException {
         String updatedContent = "";
-        File f = new File(this.filePath);
-        Scanner scanner = new Scanner(f);
+        File file = new File(this.filePath);
+        Scanner scanner = new Scanner(file);
         int i = 1;
         while (scanner.hasNext()) {
             if (i == lineNumber) {
@@ -253,8 +253,8 @@ public class Storage {
     public void updateFileAfterReschedule(Task rescheduledTask, int lineNumber, String newFrom, String newTo)
             throws IOException{
         String updatedContent = "";
-        File f = new File(this.filePath);
-        Scanner scanner = new Scanner(f);
+        File file = new File(this.filePath);
+        Scanner scanner = new Scanner(file);
         int i = 1;
         while (scanner.hasNext()) {
             if (i == lineNumber) {
