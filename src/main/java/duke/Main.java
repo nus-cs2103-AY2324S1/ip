@@ -27,6 +27,8 @@ public class Main extends Application {
             // Load tasks from the data file into the TaskList
             storage.loadTasksFromFile(taskList);
             List<Task> allTasks = taskList.getTasks();
+            assert storage != null : "Storage should not be null";
+            assert allTasks != null : "All tasks should not be null";
             Parser parser = new Parser();
             if (allTasks.size() == 0) {
             parser.run = 1;
