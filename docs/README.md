@@ -1,3 +1,5 @@
+# TaskMate - Your Personal Task-Tracking Assistant
+
 # User Guide
 
 TaskMate is a desktop application designed for task management, ideally utilized through a Command-Line Interface (CLI),
