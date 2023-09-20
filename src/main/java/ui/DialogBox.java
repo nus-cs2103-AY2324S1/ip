@@ -40,6 +40,10 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //@@author PetrichorPrecipice-reused
+        //Reused from https://stackoverflow.com/questions/20489908/border-radius-and-shadow-on-imageview
+        // with minor modifications
         displayPicture.setImage(img);
         dialog.setText(text);            // set a clip to apply rounded border to the original image.
         Rectangle clip = new Rectangle(
@@ -52,7 +56,10 @@ public class DialogBox extends HBox {
         parameters.setFill(Color.TRANSPARENT);
         WritableImage image = displayPicture.snapshot(parameters, null);
         displayPicture.setClip(null);
+        //@@author
+
         displayPicture.setImage(image);
+
     }
 
     /**
