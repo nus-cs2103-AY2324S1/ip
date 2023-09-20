@@ -1,9 +1,12 @@
 package noac.command;
 
+import noac.task.Task;
 import noac.util.NoacException;
 import noac.util.Storage;
 import noac.util.TaskList;
 import noac.util.Ui;
+
+import java.util.stream.StreamSupport;
 
 /**
  * For executing the delete command.
@@ -36,10 +39,12 @@ public class DeleteCommand  extends Command {
             throw new NoacException("OOPS!!! Please enter a task in your list!");
         }
 
+        Task deletedTask = tasks.getTask(this.taskIndex);
+
         tasks.deleteTask(this.taskIndex);
 
         storage.save(tasks);
 
-        return ui.showDeleteTask(tasks.getTask(this.taskIndex), tasks.size());
+        return ui.showDeleteTask(deletedTask, tasks.size());
     }
 }
