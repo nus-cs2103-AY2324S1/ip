@@ -19,8 +19,5 @@ text-ui-test/EXPECTED-UNIX.TXT
 # Java class files
 .class
 
-# Docs
-docs/
-
 # JUnit test data
 testdata
