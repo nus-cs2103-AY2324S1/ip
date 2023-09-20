@@ -33,7 +33,7 @@ public class Duke {
         } catch (DukeException | FileNotFoundException e) {
             message.showLoadingError();
             tasks = new TaskList();
-        } catch (ParseException e) {
+        } catch (ParseException | IOException e) {
             message.showError(e.getMessage());
         }
     }

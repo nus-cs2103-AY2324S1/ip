@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -30,10 +31,11 @@ public class Storage {
      * @param filePath the path of the .txt file.
      * @throws DukeException when the file does not end in .txt format.
      */
-    public Storage(String filePath) throws DukeException {
+    public Storage(String filePath) throws DukeException, IOException {
         storageFilePath = filePath;
         path = Paths.get(filePath);
         assert isValidPath(path) : "Storage file should end with '.txt'";
+        createDirectory(path);
     }
 
     private static boolean isValidPath(Path filePath) {
@@ -83,5 +85,18 @@ public class Storage {
             taskList.add(task);
         }
         return taskList;
+    }
+
+    /**
+     * Check if directory exists and if not, create one
+     *
+     * @param path the path of the directory
+     * @throws IOException when unable to create new directory
+     */
+    public void createDirectory(Path path) throws IOException {
+        Path dir = path.getParent();
+        if (!Files.exists(dir)) {
+            Files.createDirectories(dir);
+        }
     }
 }
