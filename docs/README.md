@@ -211,6 +211,6 @@ You can list existing tasks, delete one or more of them, look for the ones with 
 - Action: Exip the app and close the window. All task data will be stored locally at `./data/tasks.txt"`.
 - Example of usage: `bye`
 - Expected outcome:
-```
-Bye. Hope to see you soon!
-```
+  ```
+  Bye. Hope to see you soon!
+  ```
