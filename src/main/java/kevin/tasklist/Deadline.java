@@ -26,6 +26,8 @@ public class Deadline extends Task {
      * @return Returns a string of the new date format.
      */
     public String changeDeadlineFormat(LocalDateTime deadline) {
+        assert deadline != null : "deadline is not supposed to be null";
+
         return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 

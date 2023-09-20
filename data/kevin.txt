@@ -1,5 +1,5 @@
 Deadline - true - return book - 2019-12-02T18:00
 Deadline - true - cs2103 - 2023-09-22T23:59
-Deadline - true - return book - 2019-12-02T18:00
+Deadline - false - return book - 2019-12-02T18:00
 Deadline - false - return book - 2019-12-02T18:00
 Deadline - false - cs2103 - 2023-09-22T23:59

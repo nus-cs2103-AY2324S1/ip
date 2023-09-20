@@ -15,6 +15,8 @@ public class FileParser {
      * @throws KevinException On the detection of errors.
      */
     public QueryObject parseLine(String input) throws KevinException {
+        assert input != null : "input is not supposed to be null";
+
         String[] querySplit = input.trim().split(" - ", 3);
 
         if (querySplit.length == 0) {

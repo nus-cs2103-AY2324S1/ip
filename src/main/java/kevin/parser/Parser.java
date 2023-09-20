@@ -15,6 +15,8 @@ public class Parser {
      * @throws KevinException On the detection of errors.
      */
     public QueryObject prepareArguments(String userInput) throws KevinException {
+        assert userInput != null : "userInput is not supposed to be null";
+
         String[] querySplit = userInput.trim().split(" ", 2);
 
         if (querySplit.length == 0) {
