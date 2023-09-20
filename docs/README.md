@@ -1,52 +1,138 @@
-# YOURS User Guide
+# "YOURS" User Guide
 Welcome to our chatbot "YOURS"! This guide will help you get started with using our chatbot effectively for various tasks and interactions.
 
 ## Features 
 
 Notes about command format :
-- All commands are lower-case, e.g **todo** buy groceries, **find** gym
-- Words in UPPER_CASE are the parameters to be supplied by the user.
+- All commands are lower-case, e.g `todo` buy groceries, `find` gym
+- Words in `UPPER_CASE` are the parameters to be supplied by the user.
+  
+  - e.g. `deadline /by DUEDATE`, `DUEDATE` is a parameter which can be used as `deadline /by 23/08/2023 0800`.
+- The format for Date and Time (FROMDATE, TODATE & DUEDATE) is `DD/MM/YYYY HHmm`.
 
-### Add
+  - e.g `23/08/2023 1800`
+  
+
+### Create a task: `todo`, `event`, `deadline`
 
 The feature allows you to add new to-do tasks to your task list. YOURS supports three types of tasks To-Do, Events, and Deadlines.
 
-1. **To-Do Tasks**: Use this type to manage your everyday tasks and chores.
-2. **Events**: Create event tasks to schedule and organize upcoming events and activities.
-3. **Deadlines**: Keep track of important deadlines and due dates with this task type.
+1. `todo`: Manage your everyday tasks and chores.
    
-With these task types, you can organize and manage your tasks according to their nature, making it easier to stay organized and prioritize your work and personal commitments.
+      - Format: `todo TASKDESC`
+      - Example: `todo buy groceries`
+   
+2. `event`: Schedule and organize upcoming events and activities.
+   
+      - Format: `event TASKDESC /from FROMDATE /to TODATE`
+      - Example: `event meeting /from 23/08/2023 1800 /to 23/08/2023 1900`
+   
+3. `deadline`: Keep track of important deadlines.
+  
+      - Format: `deadline TASKDESC /by DUEDATE`
+      - Example: `deadline assignment /by 23/08/2023 2359`
+        
 
-### Delete
+### Delete a task: `delete`
 
-The Delete Feature in YOURS allows you to remove tasks from your task list when they are no longer relevant or needed. This feature is handy for keeping your task list clean and up-to-date.
+Removes tasks from your task list when they are no longer relevant or needed.
 
-### Feature-Edit
-### Feature-List
-### Feature-Mark
-### Feature-Unmark
-### Feature-Find
+- Format: `delete INDEX`
+   - The INDEX must be a positive integer 1,2,3 ...
+   
+- Example:
+   - `delete 1` Delete the first task of the list.
 
-Description of the feature.
 
-### Feature-XYZ
+### Listing all tasks - `list`
 
-Description of the feature.
+Displays all the tasks in the task list.
 
-## Usage
+- Format: `list`
+  
 
-### `Keyword` - Describe action
+### Edit a task: `edit`
 
-Describe the action and its outcome.
+Edits a task field to a new input
 
-Example of usage: 
+- Format: `edit INDEX FIELD NEWINPUT`
+   - The INDEX must be a positive integer 1,2,3 ...
+   - FIELD must be provided in lowercase.
+   - Here are the respective FIELDs for each type of task:
+        - To-do: taskdesc
+        - Events: taskdesc, fromdate, todate
+        - Deadlines: taskdesc, duedate
+   - The provided NEWINPUT must match the format for the provided FIELD.
 
-`keyword (optional arguments)`
+     e.g If FIELD = fromdate, then NEWINPUT = 23/08/2023 1800
+     
+- Example:
+  
+  - `edit 1 taskdesc fetch John` Edits the task description of the first task to `fetch John`.
+  
+  - `edit 2 fromdate 23/08/2023 1900` Edits the from date for the second task (an Events) to 23/08/2023 1900
 
-Expected outcome:
+:bulb: **Tip:** Use the list command to check the list for the task's index and its type to ease your edit process.
 
-Description of the outcome.
+### Mark done - `mark`
 
-```
-expected output
-```
+Marks a task as completed.
+
+- Format: `mark INDEX`
+  - The INDEX must be a positive integer 1,2,3 ...
+   
+- Example:
+   - `mark 1`, Mark the first task of the list as done.
+
+
+### Mark not done -`unmark`
+
+Marks a task as not complete.
+
+- Format: `unmark INDEX`
+   - The INDEX must be a positive integer 1,2,3 ...
+     
+- Example:
+   - `unmark 1` Mark the first task of the list as not done.
+
+  
+### Find a task - `find`
+
+Finds tasks that match the given keyword.
+
+- Format: `find KEYWORD`
+   
+- Example: `find fetch` Find tasks with a description contained fetch.
+
+  
+### Exiting the program - `bye`
+
+Exits the program.
+
+- Format: `bye`
+
+
+### Saving the data
+
+All data will be saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data
+
+All data will be saved on the hard disk automatically as text file `[JAR file location]/data/TaskList.txt`. Advanced users are welcome to update data directly by editing that data file.
+
+
+## Command Summary
+
+| Command | Format |  Example |
+|----------|----------|----------|
+| todo | `todo TASKDESC` | `todo buy groceries` |
+| event | `event TASKDESC /from FROMDATE /to TODATE` | `event meeting /from 23/08/2023 1800 /to 23/08/2023 1900` |
+| deadline | `deadline TASKDESC /by DUEDATE` | `deadline assignment /by 23/08/2023 2359` |
+| delete | `delete INDEX` | `delete 1` |
+| edit | `edit INDEX FIELD NEWINPUT` | `edit 1 taskdesc fetch John` <br> `edit 2 fromdate 23/08/2023 1900`|
+| list | `list` | `list` |
+| mark| `mark INDEX` | `mark 1` |
+| unmark | `unmark INDEX` | `unmark 1` |
+| find | `find KEYWORD`| `find fetch` |
+
+
