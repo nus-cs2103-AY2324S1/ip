@@ -47,7 +47,7 @@ public class Duke {
     }
 
     /**
-     * Function that starts a chat with the user.
+     * Starts a chat with the user.
      *
      * @author Kerway
      */

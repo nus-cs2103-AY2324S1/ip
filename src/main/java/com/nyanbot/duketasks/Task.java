@@ -54,7 +54,7 @@ public class Task {
     }
 
     /**
-     * Method that returns the status icon based on whether the task was completed.
+     * Returns the status icon based on whether the task was completed.
      * If the task has been completed, "X" will be returned, else " " will be returned.
      *
      * @author Tan Kerway

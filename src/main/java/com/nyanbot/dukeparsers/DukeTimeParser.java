@@ -69,9 +69,7 @@ public class DukeTimeParser {
      */
     public LocalDateTime parseDate(String time, String error) {
         int currentFormatID = -1;
-        // attempt to find a date format that matches the user's input date
-        // this allows for a wide range of date formats
-        for (String formatString : dateFormats) {
+        for (String formatString : dateFormats) { // find a date format string that matches the user pattern
             try {
                 if (isNumeric(formatString)) {
                     currentFormatID = Integer.parseInt(formatString);
@@ -82,37 +80,49 @@ public class DukeTimeParser {
                         .toInstant()
                         .atZone(ZoneId.systemDefault())
                         .toLocalDateTime();
-                if (currentFormatID == 0) { // case where the current format is a day(index 0)
-                    // add the year, month, day, and time(default to 2359)
-                    temp = addDay(temp);
-                } else if (currentFormatID == 1) {
-                    // case where the current format is not missing anything(index 1 to 7)
-                    // keep the final date as is
-                } else if (currentFormatID == 2) { // case where the current format is missing time(index 8 to 11)
-                    // add 2359 to the final date
-                    temp = addTime(temp);
-                } else if (currentFormatID == 3) { // case where the current format is missing year(index 12 to 19)
-                    // add the year to the final date
-                    temp = addYear(temp);
-                } else { // case where the current format is missing year and time(index 20 to 22)
-                    // add the year and time to the final date
-                    temp = addYear(temp);
-                    temp = addTime(temp);
-                    if (temp.isBefore(LocalDateTime.now())) {
-                        temp = temp.plusYears(1);
-                    }
-                }
-                // gc: the given date is before today's date even after parsing
-                if (temp.isBefore(LocalDateTime.now())) {
-                    DukeExceptionHandlers.handleNoDate(error);
-                }
-                return temp;
+                return addMissingDateFields(temp, currentFormatID, error);
             } catch (ParseException ignored) {
                 String s = "";
             }
         }
         DukeExceptionHandlers.handleNoDate(error);
         return null;
+    }
+
+    /**
+     * Appends missing date fields depending on what the user typed in.
+     * @author Tan Kerway
+     * @param temp the LocalDateTime object to modify
+     * @param currentFormatID the given type of date object
+     * @param error the error String(if any)
+     * @return a LocalDateTime object that has all the required information
+     */
+    private LocalDateTime addMissingDateFields(LocalDateTime temp, int currentFormatID, String error) {
+        if (currentFormatID == 0) { // case where the current format is a day(index 0)
+            // add the year, month, day, and time(default to 2359)
+            temp = addDay(temp);
+        } else if (currentFormatID == 1) {
+            // case where the current format is not missing anything(index 1 to 7)
+            // keep the final date as is
+        } else if (currentFormatID == 2) { // case where the current format is missing time(index 8 to 11)
+            // add 2359 to the final date
+            temp = addTime(temp);
+        } else if (currentFormatID == 3) { // case where the current format is missing year(index 12 to 19)
+            // add the year to the final date
+            temp = addYear(temp);
+        } else { // case where the current format is missing year and time(index 20 to 22)
+            // add the year and time to the final date
+            temp = addYear(temp);
+            temp = addTime(temp);
+            if (temp.isBefore(LocalDateTime.now())) {
+                temp = temp.plusYears(1);
+            }
+        }
+        // gc: the given date is before today's date even after parsing
+        if (temp.isBefore(LocalDateTime.now())) {
+            DukeExceptionHandlers.handleNoDate(error);
+        }
+        return temp;
     }
 
     /**
@@ -170,7 +180,7 @@ public class DukeTimeParser {
     }
 
     /**
-     * Updated the time fields of the LocalDateTime object.
+     * Updates the time fields of the LocalDateTime object.
      *
      * @author Tan Kerway
      * @param time the given LocalDateTime object
