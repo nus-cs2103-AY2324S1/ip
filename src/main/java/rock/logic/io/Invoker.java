@@ -36,7 +36,7 @@ public class Invoker {
             Function<Parser, String> command = this.commands.getCommand(keyword);
             return (command.apply(input));
         } catch (IllegalArgumentException e) {
-            throw new RockException(e);
+            throw new RockException(e.getMessage());
         }
     }
 }

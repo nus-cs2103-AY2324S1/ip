@@ -1,5 +1,6 @@
 package rock.ui;
 
+import rock.client.Response;
 import rock.client.Rock;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -20,8 +21,8 @@ public class Gui extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Rock.png"));
     private Rock rock;
     @Override
     public void start(Stage stage) {
@@ -80,22 +81,22 @@ public class Gui extends Application {
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-
-    }
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        String response = getResponse(userInput.getText());
-        Label dukeText = new Label(response);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
+        Response response = getResponse(userInput.getText());
+        Label responseText = new Label(response.getMessage());
+        if (response.isError()) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, new ImageView(user)),
+                    WarningBox.getWarning(responseText)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(userText, new ImageView(user)),
+                    DialogBox.getDukeDialog(responseText, new ImageView(duke))
+            );
+        }
         userInput.clear();
         if (rock.isTerminated()) {
             onTerminate();
@@ -105,7 +106,15 @@ public class Gui extends Application {
         userInput.setDisable(true);
         sendButton.setDisable(true);
     }
-    private String getResponse(String input) {
+    private Response getResponse(String input) {
         return rock.getResponse(input);
+    }
+
+    public void sendWarning(Response response) {
+        assert response.isError() : "Warnings cannot be normal messages";
+        Label responseText = new Label(response.getMessage());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(responseText, new ImageView(duke))
+        );
     }
 }
