@@ -32,11 +32,8 @@ public class Ui {
     /**
      * Generates and prints the welcome message upon the start of the application.
      */
-    public void showWelcomeMessage() {
-        out.println(DIVIDER);
-        out.println(Message.MESSAGE_WELCOME);
-        out.println(Message.MESSAGE_PROMPT);
-        out.println(DIVIDER);
+    public static String getWelcomeMessage() {
+        return DIVIDER + "\n" + Message.MESSAGE_WELCOME + "\n" + Message.MESSAGE_PROMPT + "\n" + DIVIDER;
     }
 
     /**

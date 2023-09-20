@@ -32,6 +32,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        String welcome = Ui.getWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getSlayDialog(welcome, slayImage));
     }
 
     public void setSlay(Slay slay) {
