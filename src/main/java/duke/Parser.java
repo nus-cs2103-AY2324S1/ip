@@ -127,6 +127,12 @@ public class Parser {
         scanner.close();
     }
 
+    /**
+     * Parses user input to execute various commands and provides a corresponding response.
+     *
+     * @param tasks The task list to be manipulated based on the parsed command.
+     * @return A response message or result of executing the parsed command.
+     */
     public String parse(TaskList tasks) {
         try {
             if (this.isBye()) {
