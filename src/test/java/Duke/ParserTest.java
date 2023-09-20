@@ -16,8 +16,8 @@ public class ParserTest {
         String output_invalid = Parser.input("Nonsense",tasks,iu);
         assertEquals(output_invalid,
                 horizontalLineTop
-                + "Someone should have paid attention in school... try again \n"
-                + horizontalLineBottom);
+                        + "Someone should have paid attention in school... try again \n"
+                        + horizontalLineBottom);
 
         String output_incomplete = Parser.input("todo", tasks, iu);
         assertEquals(output_incomplete,
