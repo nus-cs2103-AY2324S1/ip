@@ -34,7 +34,6 @@ public class DateFormatter {
      */
     public static boolean isValidFormat(String date) {
         try {
-            System.out.println("here");
             LocalDate.parse(date, FORMAT);
         } catch (DateTimeParseException e) {
             return false;

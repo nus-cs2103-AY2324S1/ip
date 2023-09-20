@@ -42,6 +42,8 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = pippi.getResponse(input);
+        assert input != null : "User input should not be null";
+        assert userImage != null : "User image should not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getPippiDialog(response, pippiImage)
