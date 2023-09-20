@@ -15,5 +15,6 @@
                 <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
             </content>
         </ScrollPane>
+      <TextField alignment="TOP_CENTER" layoutY="1.0" prefHeight="0.0" prefWidth="400.0" text="BanterBot" />
     </children>
 </AnchorPane>
