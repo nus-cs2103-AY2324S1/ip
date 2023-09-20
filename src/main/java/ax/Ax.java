@@ -7,6 +7,7 @@ import ax.display.DialogBox;
 import ax.display.Ui;
 import ax.storage.Storage;
 import javafx.application.Application;
+import javafx.beans.binding.NumberBinding;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +20,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import static javafx.beans.binding.Bindings.subtract;
 
 
 /**
@@ -83,33 +85,35 @@ public class Ax extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Ax");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
         mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
+        scrollPane.prefHeightProperty().bind(mainLayout.heightProperty());
+//        scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
-
+        scrollPane.setStyle("-fx-background: rgb(255,214,127);\n -fx-background-color: rgb(255,214,127)");
         // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
-        userInput.setPrefWidth(325.0);
+        NumberBinding userInputWidth = subtract(subtract(mainLayout.widthProperty(), sendButton.widthProperty()), 9);
+        userInput.prefWidthProperty().bind(userInputWidth);
 
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, 3.0);
+        AnchorPane.setRightAnchor(sendButton, 3.0);
 
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setLeftAnchor(userInput, 3.0);
+        AnchorPane.setBottomAnchor(userInput, 3.0);
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
