@@ -1,9 +1,5 @@
 package emiya.commands;
 
-public class UnknownCommand implements Command{
+public class UnknownCommand extends Command {
 
-    @Override
-    public String giveHelpDescription() {
-        return "";
-    }
 }

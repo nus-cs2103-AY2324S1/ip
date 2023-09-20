@@ -14,7 +14,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Deadline command.
  */
-public class DeadlineCommand implements Command {
+public class DeadlineCommand extends Command {
 
     /**
      * Creates a Deadline task object and adds the task into the task list.

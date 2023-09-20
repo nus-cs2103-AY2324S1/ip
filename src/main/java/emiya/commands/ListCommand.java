@@ -1,6 +1,6 @@
 package emiya.commands;
 
-public class ListCommand implements Command{
+public class ListCommand extends Command {
     @Override
     public String giveHelpDescription() {
         return "List: This command shows you all tasks currently within the list of tasks!\n"

@@ -12,7 +12,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Unmark command.
  */
-public class UnmarkCommand implements Command {
+public class UnmarkCommand extends Command {
 
     /**
      * Marks the task within the task list at the specified position as not completed.
@@ -29,8 +29,9 @@ public class UnmarkCommand implements Command {
      * @throws OutOfListBoundsException An exception that is thrown when the user tries to access a task that
      *     does not exist.
      */
-    public static String unmark(String posString, TaskList taskList, Storage storage, Ui ui, String fileName, String dirName)
-            throws EmptyUnmarkException, OutOfListBoundsException, UnknownCommandException, AlreadyUnmarkedException {
+    public static String unmark(String posString, TaskList taskList, Storage storage, Ui ui, String fileName,
+                                String dirName) throws EmptyUnmarkException, OutOfListBoundsException,
+            UnknownCommandException, AlreadyUnmarkedException {
 
         if (posString.equals("")) {
             throw new EmptyUnmarkException();

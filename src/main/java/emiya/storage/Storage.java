@@ -145,7 +145,6 @@ public class Storage {
             if (tasksStr.isEmpty()) {
                 continue;
             }
-            
             String[] tasksStrParts = tasksStr.split(" \\| ");
             String taskType = tasksStrParts[0];
             int isCompletedInt = Integer.parseInt(tasksStrParts[1]);

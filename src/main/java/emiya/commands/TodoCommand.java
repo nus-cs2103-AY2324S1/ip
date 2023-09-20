@@ -9,7 +9,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Todo command.
  */
-public class TodoCommand implements Command {
+public class TodoCommand extends Command {
 
     /**
      * Creates a Todo task object and adds the task into the task list.

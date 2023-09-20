@@ -2,7 +2,14 @@ package emiya.commands;
 
 import javafx.application.Platform;
 
-public class ByeCommand implements Command{
+/**
+ * A class that represents the Bye command.
+ */
+public class ByeCommand extends Command {
+
+    /**
+     * Exits the user out of the application.
+     */
     public static void exit() {
         Platform.exit();
     }

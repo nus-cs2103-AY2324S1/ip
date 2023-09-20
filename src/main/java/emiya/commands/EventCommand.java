@@ -15,7 +15,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Event command.
  */
-public class EventCommand implements Command {
+public class EventCommand extends Command {
 
     /**
      * Creates an Event task object and adds the task into the task list.

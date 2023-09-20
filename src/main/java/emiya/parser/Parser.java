@@ -19,7 +19,7 @@ import emiya.emiyaexception.WrongDateTimeFormatException;
  */
 public class Parser {
 
-    String[] parsedInput;
+    private String[] parsedInput;
     public Parser() {
         this.parsedInput = null;
     }

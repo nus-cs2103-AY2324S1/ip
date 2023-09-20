@@ -8,7 +8,7 @@ import emiya.task.TaskList;
 /**
  * A class that represents the Find command.
  */
-public class FindCommand implements Command{
+public class FindCommand extends Command {
 
     /**
      * Finds tasks in the task list that contain a specific input from the user.

@@ -12,7 +12,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Delete command.
  */
-public class DeleteCommand implements Command {
+public class DeleteCommand extends Command {
 
     /**
      * Removes a Task from the TaskList instance, at a specified position within the TaskList.
@@ -29,8 +29,9 @@ public class DeleteCommand implements Command {
      * @throws EmptyDeleteException An exception that is thrown when the user uses a delete command without
      *     providing a list index.
      */
-    public static String delete(String posString, TaskList taskList, Storage storage, Ui ui, String fileName, String dirName)
-            throws OutOfListBoundsException, EmptyDeleteException, UnknownCommandException {
+    public static String delete(String posString, TaskList taskList, Storage storage, Ui ui, String fileName,
+                                String dirName) throws OutOfListBoundsException,
+            EmptyDeleteException, UnknownCommandException {
 
         if (posString.equals("")) {
             throw new EmptyDeleteException();

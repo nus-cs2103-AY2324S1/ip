@@ -12,7 +12,7 @@ import emiya.ui.Ui;
 /**
  * A class that represents the Mark command.
  */
-public class MarkCommand implements Command {
+public class MarkCommand extends Command {
 
     /**
      * Marks the task within the task list at the specified position as completed.
@@ -29,8 +29,9 @@ public class MarkCommand implements Command {
      * @throws OutOfListBoundsException An exception that is thrown when the user tries to access a task that
      *     does not exist.
      */
-    public static String mark(String posString, TaskList taskList, Storage storage, Ui ui, String fileName, String dirName)
-            throws EmptyMarkException, OutOfListBoundsException, UnknownCommandException, AlreadyMarkedException {
+    public static String mark(String posString, TaskList taskList, Storage storage, Ui ui, String fileName,
+                              String dirName) throws EmptyMarkException, OutOfListBoundsException,
+            UnknownCommandException, AlreadyMarkedException {
 
         if (posString.equals("")) {
             throw new EmptyMarkException();

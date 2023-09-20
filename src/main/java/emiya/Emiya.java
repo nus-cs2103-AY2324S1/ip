@@ -19,6 +19,11 @@ public class Emiya {
     private Parser parser;
     private Ui ui;
 
+    /**
+     * Constructor for an Emiya instance.
+     * @param dirName The directory that the application data should be stored in.
+     * @param fileName The file that the application data should be stored in.
+     */
     public Emiya(String dirName, String fileName) {
         this.dirName = dirName;
         this.fileName = fileName;
@@ -69,7 +74,7 @@ public class Emiya {
             System.out.println(e.getMessage());
         }
 
-        assert isTaskAddedToList ? taskList.size() > 0: taskList.size() == 0 : "The TaskList instance will now " +
-                "be filled.";
+        assert isTaskAddedToList ? taskList.size() > 0 : taskList.size() == 0 : "The TaskList instance will now "
+                + "be filled.";
     }
 }
