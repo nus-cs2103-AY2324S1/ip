@@ -9,7 +9,7 @@ adding to do tasks, deadlines and events, viewing schedules for the day and find
   - [Adding a deadline task: deadline](#adding-a-deadline-task--deadline)
   - [Adding an event task: event](#adding-an-event-task--event)
   - [Marking a task: mark](#marking-a-task--mark)
-  - [Unmarking a task: unmark](#unmarking-a-task--unark)
+  - [Unmarking a task: unmark](#unmarking-a-task--unmark)
   - [Deleting a task: delete](#deleting-a-task--delete)
   - [Locating tasks by name: find](#locating-tasks-by-name--find)
   - [View schedule on a date: view schedule](#view-schedule-on-a-date--view-schedule)
@@ -36,7 +36,7 @@ Some example commands you can try:
 
 ## Features 
 
-> [!NOTE]
+> :exclamation:
 > Notes about the command format:
 > - Words in UPPER_CASE are the parameters to be supplied by the user.
 e.g. in todo NAME, NAME is a parameter which can be used as todo Task.
@@ -79,7 +79,7 @@ New todo task is added to the Anto chatbot. Confirmation message showing task an
 Adds a deadline task to the Anto chatbot.
 
 Format: `deadline NAME /by DATETIME`
-> [!NOTE]
+> :exclamation:
 > DATETIME entered must be in `dd-MM-yyyy HH:mm` format e.g. `15-05-2023 18:00` represents 15 May 2023 6pm.
 
 Example of usage:
@@ -97,7 +97,7 @@ New deadline task is added to the Anto chatbot. Confirmation message showing tas
 Adds an event task to the Anto chatbot.
 
 Format: `event NAME /from DATETIME /to DATETIME`
-> [!NOTE]
+> :exclamation:
 > DATETIME entered must be in `dd-MM-yyyy HH:mm` format e.g. `15-05-2023 18:00` represents 15 May 2023 6pm.
 
 Example of usage:
@@ -128,7 +128,7 @@ Task at index is marked as done. Confirmation message showing task is shown.
 
 ![Screenshot of result after marking.](mark.png)
 
-### Unmarking a task: `unark`
+### Unmarking a task: `unmark`
 
 Unmarks the task at the specified index in the Anto chatbot.
 - The index refers to the index number shown in the displayed task list.
@@ -184,7 +184,7 @@ Tasks that contains given keywords in their names will be shown.
 ### View schedule on a date: `view schedule`
 
 Find and list event tasks on specified date in the Anto chatbot.
-> [!NOTE]
+> :exclamation:
 > DATE entered must be in `dd-MM-yyyy` format e.g. `15-05-2023` represents 15 May 2023.
 
 Format: `view schedule DATE`
@@ -210,7 +210,7 @@ Anto data are saved in the hard disk automatically after any command that change
 ### Editing the data file
 Anto data are saved automatically as a txt file `[JAR file location]/data/anto.txt`. Advanced users are welcome to update data directly by editing that data file.
 
-> [!WARNING]
+> :exclamation:
 > Caution: If your changes to the data file makes its format invalid, Anto will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
 
 ## FAQ
@@ -218,16 +218,16 @@ Anto data are saved automatically as a txt file `[JAR file location]/data/anto.t
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Anto home folder.
 
 ## Command summary
-| Action        | Format                                 | Example                                |
-|---------------|----------------------------------------|----------------------------------------|
-| list          | list                                   | list                                   |
-| todo          | todo NAME                              | todo Borrow book                       |
-| deadline      | deadline NAME /by DATETIME             | deadline Return book /by 15-05-2023 18:00 |
+| Action        | Format                                 | Example                                                               |
+|---------------|----------------------------------------|-----------------------------------------------------------------------|
+| list          | list                                   | list                                                                  |
+| todo          | todo NAME                              | todo Borrow book                                                      |
+| deadline      | deadline NAME /by DATETIME             | deadline Return book /by 15-05-2023 18:00                             |
 | event         | event NAME /from DATETIME /to DATETIME | event Book Review Meeting /from 20-06-2023 18:00 /to 20-06-2023 20:00 |    
-| mark          | mark INDEX                             | mark 3 |
-| unmark        | unmark INDEX                           | unmark 3|
-| delete        | delete INDEX                           | delete 4 |
-| find          | find KEYWORDS                          | find book |
-| view schedule | view schedule DATE                     | view schedule 20-09-2023 |
-| bye           | bye                                    | bye |
+| mark          | mark INDEX                             | mark 3                                                                |
+| unmark        | unmark INDEX                           | unmark 3                                                              |
+| delete        | delete INDEX                           | delete 4                                                              |
+| find          | find KEYWORDS                          | find book                                                             |
+| view schedule | view schedule DATE                     | view schedule 20-09-2023                                              |
+| bye           | bye                                    | bye                                                                   |
 
