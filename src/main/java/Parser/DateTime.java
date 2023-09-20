@@ -34,4 +34,20 @@ public class DateTime {
         }
     }
 
+    /**
+     * Checks if a date and time string is in the past.
+     *
+     * @param dateTimeStr The date and time string to be checked.
+     * @return true if the date and time are in the past, false otherwise.
+     */
+    public boolean isDateInPast(String dateTimeStr) {
+        try {
+            LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, inputFormatter);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            return dateTime.isBefore(currentDateTime);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+    }
+
 }

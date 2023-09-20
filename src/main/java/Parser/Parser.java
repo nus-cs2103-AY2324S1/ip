@@ -37,7 +37,7 @@ public class Parser {
             return parseDeadlineCommand(str);
         } else if (str.startsWith("event")) {
             return parseEventCommand(str);
-        } else if (str.equals("list")) {
+        } else if (str.startsWith("list")) {
             return new ListCommand();
         } else if (str.startsWith("delete")) {
             return parseDeleteCommand(str);
@@ -45,7 +45,7 @@ public class Parser {
             return parseMarkCommand(str);
         } else if (str.startsWith("unmark")) {
             return parseUnmarkCommand(str);
-        } else if (str.equals("bye")) {
+        } else if (str.startsWith("bye")) {
             return new ByeCommand();
         } else if (str.startsWith("find")) {
             return parseFindCommand(str);
@@ -147,7 +147,8 @@ public class Parser {
      * @return A command object representing the parsed Delete command.
      */
     private static Command parseDeleteCommand(String str) {
-        int index = Integer.parseInt(str.substring(7));
+        String[] split = str.split(" ");
+        int index = Integer.parseInt(split [1]);
         return new DeleteCommand(index);
     }
 
@@ -158,7 +159,8 @@ public class Parser {
      * @return A command object representing the parsed Mark command.
      */
     private static Command parseMarkCommand(String str) {
-        int index = Integer.parseInt(str.substring(5));
+        String[] split = str.split(" ");
+        int index = Integer.parseInt(split [1]);
         return new MarkCommand(index);
     }
 
@@ -169,7 +171,8 @@ public class Parser {
      * @return A command object representing the parsed Unmark command.
      */
     private static Command parseUnmarkCommand(String str) {
-        int index = Integer.parseInt(str.substring(7));
+        String[] split = str.split(" ");
+        int index = Integer.parseInt(split [1]);
         return new UnmarkCommand(index);
     }
 
@@ -219,14 +222,21 @@ public class Parser {
      *
      * @param inputDateTime The date and time string to be parsed and formatted.
      * @return A formatted date and time string.
-     * @throws IllegalArgumentException If the input date and time string has an invalid format.
+     * @throws IllegalArgumentException If the input date and time string has an invalid format
+     *                                  or if the date is in the past.
      */
     private static String parseAndFormatDateTime(String inputDateTime) {
         DateTime dateTime = new DateTime();
         String formattedDateTime = dateTime.formatDateTime(inputDateTime);
+
         if (formattedDateTime.equals("Invalid format")) {
             throw new IllegalArgumentException("Invalid date/time format");
         }
+
+        if (dateTime.isDateInPast(inputDateTime)) {
+            throw new IllegalArgumentException("Date cannot be set to a past date");
+        }
+
         return formattedDateTime;
     }
 }

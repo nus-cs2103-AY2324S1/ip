@@ -26,7 +26,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(TaskList task, Ui ui, FileHandler f) {
-        return "Bye. Hope to see you again soon!";
+        return "Bye";
     }
 
     /**
