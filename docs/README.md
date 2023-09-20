@@ -424,7 +424,7 @@ No response from `Rat` will be given.
 bye
 ```
 
-### Summary
+## Summary
 Here is a summary of all commands:
 
 | Command        | Description                    |
