@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+
 import duke.exception.DukeException;
 
 /**
@@ -15,8 +17,8 @@ public class Duke {
     /**
      * Constructor for duke.Duke class with no parameters
      */
-    public Duke() {
-        storage = new Storage("C:/repos/ip/src/main/java/data/duke.txt");
+    public Duke() throws IOException {
+        storage = new Storage("./data/duke.txt");
         ui = new Ui();
         try {
             tasks = new TaskList(storage.load());
@@ -30,7 +32,7 @@ public class Duke {
      *
      * @param filePath The filepath where task data is stored.
      */
-    public Duke(String filePath) {
+    public Duke(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -42,7 +44,7 @@ public class Duke {
     }
 
     /**
-     * Runs the duke.Duke application
+     * Runs the Duke application
      */
     public void run() {
         ui.showWelcome();
@@ -50,7 +52,7 @@ public class Duke {
         while (isDone) {
             String userInput = ui.readCommand();
             try {
-                assert !tasks.equals(null): "TasksList should be initialised";
+                assert !tasks.equals(null) : "TasksList should be initialised";
                 isDone = Parser.parseCommand(userInput, this.tasks, this.ui);
             } catch (DukeException e) {
                 ui.showMessage(e.getMessage());
@@ -59,28 +61,31 @@ public class Duke {
     }
 
     /**
-     * Run for GUI Duke application
+     * Run Duke application with a given user input
      *
      * @param userInput The user's input
      * @return The String response for the given user's input
      */
     public String runInput(String userInput) {
         try {
-            assert !tasks.equals(null): "Tasks should not be null";
-            return Parser.parseInput(userInput, this.tasks, this.ui);
+            assert !tasks.equals(null) : "Tasks should not be null";
+            String output = Parser.parseInput(userInput, this.tasks, this.ui);
+            storage.saveData(this.tasks);
+            return output;
         } catch (DukeException e) {
             return e.getMessage();
+        } catch (IOException e) {
+            return "File Not Found";
         }
     }
 
     /**
-     * The main function of the duke.Duke application.
+     * The main function of the Duke application.
      *
      * @param args Command line arguments
-     * @throws DukeException If an error has occurred in the duke.Duke application.
      */
-    public static void main(String[] args) {
-        new Duke("C:/repos/ip/src/main/java/data/duke.txt").run();
+    public static void main(String[] args) throws IOException {
+        new Duke("./data/duke.txt").run();
     }
 
 }

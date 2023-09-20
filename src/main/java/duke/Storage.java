@@ -2,6 +2,8 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,17 +29,29 @@ public class Storage {
     }
 
     /**
+     * Saves the new task list into the given .txt file.
+     *
+     * @param tasks the updated task list.
+     * @throws IOException if there is issue writing into file.
+     */
+    public void saveData(TaskList tasks) throws IOException {
+        FileWriter fileWriter = new FileWriter(this.filepath);
+        fileWriter.write(tasks.toFileFormat());
+        fileWriter.close();
+    }
+
+    /**
      * Loads tasks from the file using the file path.
      *
      * @return An ArrayList of tasks loaded from the file.
      * @throws DukeException If there is an issue loading tasks or parsing the file.
      */
-    public ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws DukeException, IOException {
         ArrayList<String> dataArray = new ArrayList<>();
         ArrayList<Task> taskList = new ArrayList<>();
+        File file = new File(this.filepath);
 
         try {
-            File file = new File(this.filepath);
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String input = scanner.nextLine();
@@ -51,8 +65,11 @@ public class Storage {
                 taskList.add(loadData(item));
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("File Not Found: " + this.filepath);
+            File newFile = new File(filepath + "/../");
+            newFile.mkdir();
+            file.createNewFile();
         }
+
 
         return taskList;
     }
@@ -66,46 +83,44 @@ public class Storage {
      */
     public Task loadData(String dataInput) throws DukeException {
         Task newTask;
-        String[] arr = dataInput.split("\\|");
+        String[] dataArray = dataInput.split("\\|");
 
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = arr[i].trim();
+        for (int i = 0; i < dataArray.length; i++) {
+            dataArray[i] = dataArray[i].trim();
         }
 
         String taskType = arr[0];
-
-
-        if (taskType.equals("T")) {
-            if (arr.length < 3 || arr[2].isEmpty()) {
+        if (dataArray[0].equals("T")) {
+            if (dataArray.length < 3 || dataArray[2].isEmpty()) {
                 throw new EmptyTaskException("todo");
             }
 
-            newTask = new ToDo(arr[2]);
-        } else if (taskType.equals("D")) {
-            if (arr.length < 3 || arr[2].isEmpty()) {
+            newTask = new ToDo(dataArray[2]);
+        } else if (dataArray[0].equals("D")) {
+            if (dataArray.length < 3 || dataArray[2].isEmpty()) {
                 throw new EmptyTaskException("deadline");
             }
-            if (arr.length != 4 || arr[3].isEmpty()) {
+            if (dataArray.length != 4 || dataArray[3].isEmpty()) {
                 throw new EmptyDateException("deadline");
             }
 
-            newTask = new Deadline(arr[2], arr[3]);
+            newTask = new Deadline(dataArray[2], dataArray[3]);
         } else {
-            if (arr.length < 3 || arr[2].isEmpty()) {
+            if (dataArray.length < 3 || dataArray[2].isEmpty()) {
                 throw new EmptyTaskException("event");
             }
-            if (arr.length < 4 || arr[3].isEmpty()) {
+            if (dataArray.length < 4 || dataArray[3].isEmpty()) {
                 throw new EmptyDateException("event");
             }
-            if (arr.length != 5 || arr[4].isEmpty()) {
+            if (dataArray.length != 5 || dataArray[4].isEmpty()) {
                 throw new NoEndDateException();
             }
 
-            newTask = new Event(arr[2], arr[3], arr[4]);
+            newTask = new Event(dataArray[2], dataArray[3], dataArray[4]);
         }
 
         // mark as done
-        if (arr[1].equals("1")) {
+        if (dataArray[1].equals("1")) {
             newTask.markAsDone();
         }
 

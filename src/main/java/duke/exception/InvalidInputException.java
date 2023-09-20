@@ -9,9 +9,8 @@ public class InvalidInputException extends DukeException {
     /**
      * Constructor for duke.exception.InvalidInputException class.
      *
-     * @param msg The error message of the exception.
      */
-    public InvalidInputException(String msg) {
-        super(msg);
+    public InvalidInputException() {
+        super("☹ OOPS!!! I'm sorry, please provide a keyword to search.");
     }
 }

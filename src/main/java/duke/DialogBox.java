@@ -26,10 +26,10 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Constructor for DialogBox class
+     * Constructor for DialogBox class.
      *
-     * @param text The String to be displayed on the Label
-     * @param img The Image of the DialogBox
+     * @param text The String to be displayed on the Label.
+     * @param img The Image of the DialogBox.
      */
     private DialogBox(String text, Image img) {
         try {
@@ -56,11 +56,11 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox Object for the user
+     * Creates a DialogBox Object for the user.
      *
-     * @param text the dialog to be shown on the Label Object
-     * @param img the image of the dialog
-     * @return The DialogBox for the user
+     * @param text the dialog to be shown on the Label Object.
+     * @param img the image of the dialog.
+     * @return The DialogBox for the user.
      */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox userDialog = new DialogBox(text, img);
@@ -72,11 +72,11 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Creates a DialogBox Object for duke
+     * Creates a DialogBox Object for duke.
      *
-     * @param text the dialog to be shown on the Label Object
-     * @param img the image of the dialog
-     * @return The DialogBox for the duke
+     * @param text the dialog to be shown on the Label Object.
+     * @param img the image of the dialog.
+     * @return The DialogBox for the duke.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);

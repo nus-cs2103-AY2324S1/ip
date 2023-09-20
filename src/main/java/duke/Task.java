@@ -4,7 +4,7 @@ package duke;
  * The duke.Task class represents a basic task with a description and status to determine if task is done.
  * Tasks can be marked as done or undone.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -40,6 +40,13 @@ public class Task {
     }
 
     /**
+     * An accessor method to retrieve the status of the task to load into file.
+     */
+    public String getFileStatusIcon() {
+        return (isDone ? "1" : "0"); // mark done task with X
+    }
+
+    /**
      * An accessor method to retrieve the description of the task.
      *
      */
@@ -58,4 +65,20 @@ public class Task {
         return ("[" + getStatusIcon() + "] " + this.description);
     }
 
+    /**
+     * Returns a String repreentation of tasks in file format
+     *
+     * @return The String representation of the task to save in a file.
+     */
+    public String toFileFormat() {
+        return (" | " + getFileStatusIcon() + " | " + this.description);
+    }
+
+    /**
+     * Check if the input task is equals to the current Task instance.
+     *
+     * @param newTask The task to be compared to
+     * @return True if the both task are the same
+     */
+    public abstract boolean isDuplicate(Task newTask);
 }

@@ -36,6 +36,22 @@ public class TaskList {
     }
 
     /**
+     * Checks if the new Task is a duplicate of task
+     * already in the task list.
+     *
+     * @param addTask the new Task to be added.
+     * @return True if the new task matches an existing task in the task list.
+     */
+    public boolean isDuplicate(Task addTask) {
+        for (Task task: this.tasks) {
+            if (task.isDuplicate(addTask)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Adds a new task to the task list.
      *
      * @param userInput The user's input.
@@ -44,8 +60,12 @@ public class TaskList {
      */
     public String addTask(String userInput) throws DukeException {
         Task newTask = createNewTask(userInput);
+        if (isDuplicate(newTask)) {
+            return (newTask + " is already in the list.\nYou have "
+                    + this.tasks.size() + " tasks in the list.");
+        }
         this.tasks.add(newTask);
-        assert !this.tasks.isEmpty(): "TasksList should not be empty";
+        assert !this.tasks.isEmpty() : "TasksList should not be empty";
         return ("Got it. I've added this task:\n " + newTask
                 + "\nNow you have " + this.tasks.size() + " tasks in the list.");
 
@@ -60,28 +80,30 @@ public class TaskList {
      */
     public Task createNewTask(String userInput) throws DukeException {
         Task newTask;
-        String[] arr = userInput.split(" ", 2);
-
-        if (arr.length != 2 || arr[1].isEmpty()) {
-            throw new EmptyTaskException(arr[0]);
-        }
-        if (arr[0].equals("todo")) {
-            newTask = new ToDo(arr[1]);
-        } else if (arr[0].equals("deadline")) {
-            String[] a = arr[1].split(" /by ");
-            if (a.length != 2 || a[1].isEmpty()) {
-                throw new EmptyDateException(arr[0]);
-            }
-            newTask = new Deadline(a[0], getDate(a[1]));
+        String[] inputArray = userInput.split(" ", 2);
+        if (inputArray.length != 2 || inputArray[1].isEmpty()) {
+            throw new EmptyTaskException(inputArray[0]);
         } else {
-            assert arr[0].equals("event"): "The userInput should start with event";
-            String[] a = arr[1].split(" /from ");
-            if (a.length != 2 || a[1].isEmpty()) {
-                throw new EmptyDateException(arr[0]);
-            }
-            String[] fromto = a[1].split("/to ");
-            if (fromto.length != 2 || fromto[1].isEmpty()) {
-                throw new NoEndDateException();
+            if (inputArray[0].equals("todo")) {
+                newTask = new ToDo(inputArray[1]);
+            } else if (inputArray[0].equals("deadline")) {
+                String[] a = inputArray[1].split(" /by ");
+                if (a.length != 2 || a[1].isEmpty()) {
+                    throw new EmptyDateException(inputArray[0]);
+                }
+                newTask = new Deadline(a[0], getDate(a[1]));
+            } else {
+                assert inputArray[0].equals("event") : "The userInput should start with event";
+                String[] a = inputArray[1].split(" /from ");
+                if (a.length != 2 || a[1].isEmpty()) {
+                    throw new EmptyDateException(inputArray[0]);
+                }
+
+                String[] fromto = a[1].split("/to ");
+                if (fromto.length != 2 || fromto[1].isEmpty()) {
+                    throw new NoEndDateException();
+                }
+                newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
             }
             newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
         }
@@ -231,6 +253,19 @@ public class TaskList {
             taskList += ("\n" + index + "." + this.tasks.get(j).toString());
         }
 
+        return taskList;
+    }
+
+    /**
+     * Returns a string representation of the task list in file format.
+     *
+     * @return The string representation of the task list in file format.
+     */
+    public String toFileFormat() {
+        String taskList = "";
+        for (int j = 0; j < this.tasks.size(); j++) {
+            taskList += (this.tasks.get(j).toFileFormat() + "\n");
+        }
         return taskList;
     }
 }

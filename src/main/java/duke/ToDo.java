@@ -24,4 +24,29 @@ public class ToDo extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Check if the input task is equals to the current Todo instance.
+     *
+     * @param newTask The task to be compared to
+     * @return True if the both task are the same
+     */
+    @Override
+    public boolean isDuplicate(Task newTask) {
+        if (newTask instanceof ToDo) {
+            ToDo addTask = (ToDo) newTask;
+            return addTask.getDescription().equals(this.description);
+        }
+        return false;
+    }
+    /**
+     * Returns a String representation of Deadline task.
+     *
+     * @return The String representation of task to be saved into a file.
+     */
+    @Override
+    public String toFileFormat() {
+        return "T" + super.toFileFormat();
+    }
+
 }
