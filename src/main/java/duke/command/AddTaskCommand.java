@@ -5,11 +5,13 @@ import duke.data.task.Task;
 import duke.data.task.builder.Builder;
 import duke.exception.DukeException;
 
-
+/**
+ * Represents a command that interpret the user input string and add a task to the task list.
+ */
 public class AddTaskCommand implements Command {
     protected Builder<Task> taskBuilder;
 
-    public AddTaskCommand (Builder<Task> taskBuilder) {
+    public AddTaskCommand(Builder<Task> taskBuilder) {
         this.taskBuilder = taskBuilder;
     }
     /**
@@ -25,7 +27,8 @@ public class AddTaskCommand implements Command {
             return "Invalid input!\n";
         }
         s.addTask(task);
-        return "Got it. I’ve added this task:\n" + task + "\nNow you have " + s.getTaskCount() + " tasks in the list.\n";
+        return "Got it. I’ve added this task:\n"
+                + task + "\nNow you have " + s.getTaskCount() + " tasks in the list.\n";
     }
 
 }

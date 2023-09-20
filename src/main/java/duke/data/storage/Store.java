@@ -1,27 +1,21 @@
 package duke.data.storage;
 
-import duke.data.task.taskList.TaskList;
+import duke.data.task.tasklist.Tasklist;
 import duke.exception.DukeException;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-//import java.io.File;
 import java.io.FileReader;
-
 import duke.data.task.Task;
 import duke.data.task.builder.TaskBuilder;
 
 
 public class Store {
     private static Store store = new Store();
-    TaskList tasks = new TaskList();
+    Tasklist tasks = new Tasklist();
     String fileName = "duke.txt";
     TaskBuilder taskBuilder = new TaskBuilder();
-    //FileWriter fw;
-    //File file = new File("duke.txt");
-    
-        
 
     private Store() {
         // detect whetehr duke.txt exists, and create it if it doesn't
@@ -176,7 +170,7 @@ public class Store {
         return tasks.toString();
     } 
 
-    public TaskList find(String keyword) throws DukeException {
+    public Tasklist find(String keyword) throws DukeException {
         return tasks.findTasksWithKeyword(keyword);
     }
 }

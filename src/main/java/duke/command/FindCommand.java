@@ -6,12 +6,15 @@ import duke.data.storage.Store;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 
+/**
+ * Represents a command that interpret the user input string and find tasks that contain the keyword.
+ */
 public class FindCommand implements Command {
-    Store s = Store.getInstance();
+    private final Store s = Store.getInstance();
 
     /**
      * Finds tasks that contain the keyword.
-     * @param input String input from user in the format "find <keyword>".
+     * @param input String input from user in the format "find {keyword}".
      * @throws DukeException If input is invalid.
      */
     @Override
@@ -22,5 +25,5 @@ public class FindCommand implements Command {
         }
         String keyword = input.split(" ")[1];
         return "Here are the matching tasks in your list:\n" + s.find(keyword);
-    }  
+    }
 }

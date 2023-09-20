@@ -1,16 +1,14 @@
-package duke.data.task.taskList;
+package duke.data.task.tasklist;
 
+import duke.data.task.Task;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 
-
-import duke.data.task.Task;
-
-public class TaskList {
+public class Tasklist {
     private int taskCount = 0;
     private Task[] tasks = new Task[100];
 
-    public TaskList() {
+    public Tasklist() {
     }
 
     public void addTask(Task task) throws DukeException {
@@ -89,12 +87,12 @@ public class TaskList {
         return result;
     }
 
-    public TaskList findTasksWithKeyword(String keyword) throws DukeException{
-        TaskList result = new TaskList();
+    public Tasklist findTasksWithKeyword(String keyword) throws DukeException {
+        Tasklist result = new Tasklist();
 
         for (int i = 0; i < taskCount; i++) {
             if (tasks[i].hasKeyword(keyword)) {
-               result.addTask(tasks[i]); 
+                result.addTask(tasks[i]);
             }
         }
         return result;
