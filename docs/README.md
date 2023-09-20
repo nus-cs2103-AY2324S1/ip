@@ -2,6 +2,14 @@
 Johnny is an intelligent chatbot that can help you manage your tasks. Simply input
 the proper commands and enjoy your saved time!
 
+## Quick start
+1. Ensure you have Java 11 installed on your computer.
+1. Download the latest duke.jar
+1. Copy the file to the folder you want to use as the home folder for your AddressBook.
+1. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar duke.jar command to run the application.
+1. Type the command in the command box and press Enter to execute it.
+1. Refer to Features below for details of each command.
+
 ## Features 
 Input the desired command followed by the necessary fields 
 (designated with `CAPITAL_LETTERS`) with a space separating them. 
@@ -71,9 +79,9 @@ Displays all current tasks in your list:
 
 `list`
 
-
-
 ```
+[T] [x] go gym
+[D] [ ] finish homework | DUE: 04 July 2003, 6:00 PM |
 
 ```
 
