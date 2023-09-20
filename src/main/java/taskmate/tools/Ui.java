@@ -53,25 +53,36 @@ public class Ui {
         return s;
     }
 
+    /**
+     * @return the next line of user input
+     */
     public String nextLine() {
         return sc.nextLine();
     }
 
+    /**
+     * Prints greet message
+     */
     public void greetUser() {
         printMessage("Hello I'm " + chatbotName + "\n\nPlease call for `help` if you need anything!");
     }
 
+    /**
+     * Prints message to prompt the user
+     */
     public void promptUser() {
         printMessage("Input your command below:");
     }
 
+    /**
+     * Prints message when user exits the application
+     */
     public void farewellUser() {
         printMessage("Bye. Hope to see you again soon!");
     }
 
     /**
-     * This method prints out `text` in a formatted way, enveloping it with horizontal lines for aesthetic purposes. It
-     * prints the result out to `System.out`.
+     * Prints out `text` in a formatted way, enveloping it with horizontal lines for aesthetic purposes
      * @param text A String object representing the formatted reply by the chatbot
      */
     public void printMessage(String text) {
@@ -85,7 +96,7 @@ public class Ui {
     }
 
     /**
-     * This method takes in a TaskList object as input and iterates through all the tasks in it, printing each one of
+     * Takes in a TaskList object as input and iterates through all the tasks in it, printing each one of
      * them out sequentially.
      * @param tasks A TaskList object that represents the undeleted tasks stored by the chatbot
      */
@@ -99,9 +110,9 @@ public class Ui {
     }
 
     /**
+     * Takes in a String fileSavePath to print out the directory on the user's machine where their data will be stored.
      * This method is run only when the user inputs a "help" command, in which case, the instructions of how to use the
-     * chatbot is printed onto `System.out`. It takes in a String fileSavePath to print out the directory on the user's
-     * machine where their data will be stored.
+     * chatbot is printed.
      * @param fileSavePath A String representing the (relative) file path to save the user's data
      */
     public void printInputSpecifications(String fileSavePath) {
@@ -150,12 +161,15 @@ public class Ui {
         printMessage(message);
     }
 
+    /**
+     * Prints a message when a prompt that is unable to be parsed is made
+     */
     public void printInvalidCommandTypeExceptionResponse() {
         printMessage("OOPS!!!:( I'm sorry, but I don't know what that means :-(");
     }
 
     /**
-     * The chatbot's reply upon successful deletion of a task is printed out to `System.out`.
+     * Prints a reply upon successful deletion of a task.
      * @param taskToDelete A Task object representing the task the user intended to delete
      * @param numTotalTasks An int variable that represents the number of remaining tasks after deleting the task
      */
@@ -164,16 +178,24 @@ public class Ui {
                 + numTotalTasks + " task(s) in the list.");
     }
 
+    /**
+     * Prints a reply upon successful marking of a task.
+     * @param taskToMark An int variable that represents the task marked as completed
+     */
     public void printSuccessfulMarkResponse(Task taskToMark) {
         printMessage("Nice! I've marked this task as done:\n  " + taskToMark);
     }
 
+    /**
+     * Prints a reply upon successful unmarking of a task.
+     * @param taskToUnmark An int variable that represents the task unmarked to incomplete
+     */
     public void printSuccessfulUnmarkResponse(Task taskToUnmark) {
         printMessage("OK, I've marked this task as not done yet:\n" + taskToUnmark);
     }
 
     /**
-     * The chatbot's reply upon successful addition of a task is printed out to `System.out`.
+     * Prints a reply reply upon successful addition of a task.
      * @param newTask A Task object representing the task the user intended to add
      * @param numTotalTasks An int variable that represents the number of remaining tasks after adding the task
      */
@@ -182,50 +204,66 @@ public class Ui {
                 + " task(s) in the list.");
     }
 
-    public void printInvalidMarkOrUnmarkResponse(int numTotalTasks) {
-        printMessage("OOPS!!!:( The description of a mark/unmark must be between 1 and " + numTotalTasks + ".");
-    }
-
+    /**
+     * Prints a message when the user leaves the "by" clause of a Deadline task empty
+     */
     public void printEmptyByExceptionResponse() {
         printMessage("By clause cannot be empty!");
     }
 
+    /**
+     * Prints a message when the user leaves the "to" clause of an Event task empty
+     */
     public void printEmptyToExceptionResponse() {
         printMessage("To clause cannot be empty!");
     }
 
+    /**
+     * Prints a message when the user leaves the "from" clause of an Event task empty
+     */
     public void printEmptyFromExceptionResponse() {
         printMessage("From clause cannot be empty!");
     }
 
+    /**
+     * Prints a message when the user writes the "by" clause in an incorrect format
+     */
     public void printInvalidByExceptionResponse() {
         printMessage("By clause must be in the following format: YYYY-MM-DD");
     }
 
+    /**
+     * Prints a message when the user writes the "to" clause in an incorrect format
+     */
     public void printInvalidToExceptionResponse() {
         printMessage("To clause must be in the following format: YYYY-MM-DD");
     }
 
+    /**
+     * Prints a message when the user writes the "from" clause in an incorrect format
+     */
     public void printInvalidFromExceptionResponse() {
         printMessage("From clause must be in the following format: YYYY-MM-DD");
     }
 
-    public void printEmptyTodoDescriptionResponse() {
-        printMessage("OOPS!!!:( The description of a todo cannot be empty.");
-    }
-
-    public void printInvalidDeleteResponse(int numTotalTasks) {
-        printMessage("OOPS!!!:( The description of a delete must be between 1 and " + numTotalTasks + ".");
-    }
-
+    /**
+     * Prints a message when the user inputs a non-integer when an integer is expected
+     */
     public void printNotAnIntegerExceptionResponse() {
         printMessage("Please enter a valid integer (E.g. mark 1, unmark 8, delete 3, update 2 <TAG> <newValue>...)");
     }
 
+    /**
+     * Prints a message when a previous file containing past tasks data cannot be found
+     * @param filePath a String object representing the expected filepath of the tasks data
+     */
     public void printFileNotFoundResponse(String filePath) {
         printMessage("No previous datafile found in " + filePath + ". Creating new task list for you!");
     }
 
+    /**
+     * Prints a message when the user attempts to reference a task that does not exist in their task-list
+     */
     public void printTaskNotFoundExceptionResponse() {
         printMessage("OOPS!!!:( No such task exists in your task list");
     }
@@ -237,13 +275,16 @@ public class Ui {
         printMessage("Datafile located. However, it is empty. Creating a new task list for you!");
     }
 
+    /**
+     * Prints a fail message if an exception occurs when attempting to save the user's tasks data
+     * @param savePath a String object representing the intended filepath of the user's tasks data
+     */
     public void printSaveFailResponse(String savePath) {
         System.out.println("Failed to write to " + savePath);
     }
 
     /**
-     * This method is run only when the user inputs a "find" command, in which case, this method prints the tasks that
-     * match the user's input query.
+     * Prints the tasks that match the user's input query when executing a `find` command
      * @param matchingTasks An ArrayList object that stores the matching tasks to be printed out
      */
     public void printMatchingTasks(ArrayList<Task> matchingTasks) {
@@ -260,7 +301,7 @@ public class Ui {
     }
 
     /**
-     * The chatbot's reply upon successful updating of a task is printed out to `System.out`.
+     * Prints a message upon successful updating of a task
      * @param updateIndex An int index in the task list that is updated
      * @param successfulChanges An ArrayList of successful updates
      */
@@ -278,7 +319,7 @@ public class Ui {
     }
 
     /**
-     * Prints message when unsuccessful update to Todo task is made
+     * Prints a message when unsuccessful update to Todo task is made
      */
     public void printInvalidTodoUpdateException() {
         String message = "Invalid update to Todo task!\n";
@@ -287,7 +328,7 @@ public class Ui {
     }
 
     /**
-     * Prints message when unsuccessful update to Deadline task is made
+     * Prints a message when unsuccessful update to Deadline task is made
      */
     public void printInvalidDeadlineUpdateException() {
         String message = "Invalid update to Deadline task!\n";
@@ -296,7 +337,7 @@ public class Ui {
     }
 
     /**
-     * Prints message when unsuccessful update to Event task is made
+     * Prints a message when unsuccessful update to Event task is made
      */
     public void printInvalidEventUpdateException() {
         String message = "Invalid update to Event task!\n";
@@ -305,7 +346,7 @@ public class Ui {
     }
 
     /**
-     * Prints message when the user makes an update command without any clauses
+     * Prints a message when the user makes an update command without any clauses
      * Possible clauses: /name, /by, /from, /to
      */
     public void printClauselessUpdateExceptionResponse() {

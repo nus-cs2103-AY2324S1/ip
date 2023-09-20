@@ -17,7 +17,7 @@ public class Storage {
     private final String saveFilePath;
 
     /**
-     * A constructor for Storage objects to store tasks data to the user's machine. It takes in a relative file path to
+     * Constructs a Storage object to store tasks data to the user's machine. It takes in a relative file path to
      * save the data.
      * @param filePath A String object representing the relative file path to save the user's task data
      */
@@ -30,6 +30,9 @@ public class Storage {
         return this.saveFilePath;
     }
 
+    /**
+     * @return a String object that represents the absolute filepath of the save file
+     */
     public String getAbsoluteSaveFilePath() {
         return System.getProperty("user.dir")
                 + this.getSaveFilePath().substring(1).replace("/", "\\");

@@ -16,6 +16,11 @@ public class Main extends Application {
 
     private final TaskMate taskMate = new TaskMate();
 
+    /**
+     * Sets the stage and links the FXML, TaskMate, and title components together.
+     * @param stage the primary stage for this application, onto which the application scene can be set.
+     *     Applications may create other stages, if needed, but they will not be primary stages.
+     */
     @Override
     public void start(Stage stage) {
         try {
