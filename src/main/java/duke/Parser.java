@@ -164,10 +164,10 @@ public class Parser {
     private static String findFlags(HashMap<String, LocalDateTime> flagMap,
             String[] splitInputs, String... flags)
             throws DukeBadInputException, DateTimeParseException {
-
         // Check for the description of flag
-        HashMap<String, String> flagValues = Parser.find(splitInputs, flags);
-        if (flagValues.get("/desc") == "") {
+        HashMap<String, String> flagValues = Parser.find(splitInputs);
+
+        if (flagValues.get("/desc").isBlank()) {
             throw new DukeBadInputException(
                     "Quack doesn't understand an empty description, please provide one!!");
         }
@@ -177,10 +177,16 @@ public class Parser {
         boolean isMissing = false;
         for (String flag : flags) {
             String flagValue = flagValues.get(flag);
+            // handles missing flag
             if (flagValue == null) {
                 missingFlag.append(flag).append(", ");
                 isMissing = true;
                 continue;
+            }
+            // handles missing description
+            if (flagValue.isBlank()) {
+                throw new DukeBadInputException(
+                        "Quack doesn't understand an empty date for " + flag + ", please provide one!!");
             }
             LocalDateTime val = LocalDateTime.parse(flagValue, Parser.PARSE_FORMAT);
             flagMap.put(flag, val);
@@ -190,6 +196,11 @@ public class Parser {
                     "Quack cant find the following required flags: "
                             + missingFlag.toString() + "please provide quack with them please");
         }
+
+        if (flagValues.keySet().size() != flags.length + 1) {
+            throw new DukeBadInputException(
+                    "Too many flags! Please only include the required flags");
+        }
         return flagValues.get("/desc");
     }
 
@@ -197,12 +208,11 @@ public class Parser {
      * Finds the required flags in the array of strings
      *
      * @param arr   - the array of strings that you want to find the flags from
-     * @param items - the array of flags you want to find from the array
      * @return A hashmap mapping the flags to its value
      * @throws DukeBadInputException - if the flags cannot be found or without a
      *                               description
      */
-    private static HashMap<String, String> find(String[] arr, String[] items) throws DukeBadInputException {
+    private static HashMap<String, String> find(String[] arr) throws DukeBadInputException {
         StringBuilder current = new StringBuilder();
         String flag = "/desc";
         HashMap<String, String> ret = new HashMap<>();

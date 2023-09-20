@@ -146,4 +146,12 @@ public class ParserTest {
                 Parser.parse("event testingEvent /from 2023-05-07 03:03 /to 2021-05-07 03:05"));
         assertEquals("Quack does not understand a event where /to is before /from", e.getMessage());
     }
+
+    @Test
+    public void parseCommand_tooManyFlags_exceptionThrown() {
+        // Event command
+        DukeBadInputException e = assertThrows(DukeBadInputException.class, ()->
+                Parser.parse("event testingEvent /from 2023-05-07 03:03 /lame 2023-05-07 03:03 /to 2021-05-07 03:05"));
+        assertEquals("Too many flags! Please only include the required flags", e.getMessage());
+    }
 }

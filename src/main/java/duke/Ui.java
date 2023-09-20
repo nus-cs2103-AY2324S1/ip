@@ -23,7 +23,7 @@ public class Ui {
      * Default Help Message
      */
     private static final String HELP_MESSAGE = "Quack understands these commands: list, mark, "
-            + "unmark, delete, reminder, todo, deadline, event\n\n"
+            + "unmark, delete,find, reminder, todo, deadline, event\n\n"
             + "For mark/unmark/delete please provide a number after, such as mark 2.\n\n"
             + "deadline requires the /by keyword and event requires the /from and /to keyword.\n\n"
             + "Please provide a valid date and time after the keyword with the following format:"

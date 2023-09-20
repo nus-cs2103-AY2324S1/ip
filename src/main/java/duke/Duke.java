@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import duke.command.Command;
 import duke.exception.DukeBadInputException;
@@ -46,7 +47,7 @@ public class Duke {
                     "has some internal problem and is unable to help you today, please contact quacks mum");
             this.storage = null;
         } catch (DukeBadInputException e) {
-            this.storageLoadErrorMessage += "\n" + this.ui.getErrorMessage(storageFilePath
+            this.storageLoadErrorMessage += "\n" + this.ui.getErrorMessage(String.join("/", storageFilePath)
                     + " is not a text file, please provide a file!");
             this.storage = null;
         }
@@ -95,7 +96,7 @@ public class Duke {
                     + ", quack only understand numbers, please input a numeric value!";
         } catch (DateTimeParseException e) {
             return e.getMessage()
-                    + "Quack only understands date in this format: "
+                    + " Quack only understands date in this format: "
                     + "YYYY-MM-DD HH:MM, do give the hours in 24hours format";
         }
     }
