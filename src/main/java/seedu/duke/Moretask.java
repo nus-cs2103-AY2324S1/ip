@@ -39,13 +39,15 @@ class Deadline extends Task {
 }
 
 class Event extends Task {
-    public String from;
-    public String to;
+    public LocalDate from;
+    public LocalDate to;
 
     public Event(String description, String from, String to) {
         super(description);
-        this.from = from;
-        this.to = to;
+        LocalDate fromDate = LocalDate.parse(from);
+        LocalDate toDate = LocalDate.parse(to);
+        this.from = fromDate;
+        this.to = toDate;
     }
 
     @Override

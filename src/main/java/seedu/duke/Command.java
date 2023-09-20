@@ -5,24 +5,51 @@ package seedu.duke;
  */
 public class Command {
 
+    /**
+     * Custom exception class for handling tasks with empty descriptions.
+     */
     static class EmptyDescriptionException extends Exception {
         public EmptyDescriptionException(String task) {
             super("OOPS!!! The description of a " + task + " cannot be empty.");
         }
     }
 
+    /**
+     * Custom exception class for handling wrong command formats.
+     */
     static class WrongFormatException extends Exception {
         public WrongFormatException(String message) {
             super(message);
         }
     }
 
+    /**
+     * Custom exception class for handling unknown commands.
+     */
     static class UnknownCommandException extends Exception {
         public UnknownCommandException() {
             super("OOPS I'm sorry, but I don't know what that means :-P");
         }
     }
 
+    /**
+     * Sorts the tasks in the provided TaskList.
+     *
+     * @param tasks The TaskList to be sorted.
+     * @return A message indicating that the list has been sorted.
+     */
+    public static String sortCommand(TaskList tasks) {
+        tasks.sort();
+        String output = "I have sorted your list \n";
+        return output + listCommand(tasks);
+    }
+
+    /**
+     * Lists all tasks in the provided TaskList.
+     *
+     * @param tasks The TaskList to list tasks from.
+     * @return A formatted string containing the list of tasks.
+     */
     public static String listCommand(TaskList tasks) {
         String output = "";
         output += "Here are the tasks in your list:" + "\n";
@@ -32,9 +59,16 @@ public class Command {
         return output;
     }
 
+    /**
+     * Finds and lists tasks matching a filter word in the provided TaskList.
+     *
+     * @param tasks      The TaskList to search for matching tasks.
+     * @param filterWord The filter word to match against task descriptions.
+     * @return A formatted string containing the matching tasks.
+     */
     public static String findCommand(TaskList tasks, String filterWord) {
         String output = "";
-        output += "Here are the matching in your list:";
+        output += "Here are the matching tasks in your list:";
         TaskList filteredTaskList = tasks.findmatching(filterWord.substring(5));
         for (int i = 0; i < filteredTaskList.size(); i++) {
             output += ((i + 1) + ". " + filteredTaskList.get(i).toString()) + "\n";
@@ -42,6 +76,14 @@ public class Command {
         return output;
     }
 
+    /**
+     * Marks or unmarks a task as done in the provided TaskList.
+     *
+     * @param tasks        The TaskList containing the task to be marked/unmarked.
+     * @param inputParts   The input parts containing the task index.
+     * @param commandType  The type of command (MARK or UNMARK).
+     * @return A message indicating whether the task was marked or unmarked.
+     */
     public static String markCommand(TaskList tasks, String[] inputParts, CommandType commandType) {
         try {
             int taskIndex = Integer.parseInt(inputParts[1]) - 1;
@@ -62,13 +104,20 @@ public class Command {
         }
     }
 
+    /**
+     * Deletes a task from the provided TaskList.
+     *
+     * @param tasks      The TaskList containing the task to be deleted.
+     * @param inputParts The input parts containing the task index.
+     * @return A message indicating that the task was deleted.
+     */
     public static String deleteCommand(TaskList tasks, String[] inputParts) {
         assert inputParts.length >= 2 : "Invalid inputParts length";
+        if (inputParts[1].equals("All")) {
+            tasks.clear();
+            return "I have cleared all tasks from your todo list";
+        }
         try {
-            if (inputParts[1].equals("All")) {
-                tasks.clear();
-                return "I have cleared all tasks from your todo list";
-            }
             int index = Integer.parseInt(inputParts[1]) - 1;
             Task task = tasks.get(index);
             tasks.remove(index);
@@ -76,9 +125,15 @@ public class Command {
         } catch (Exception e) {
             return "Invalid task index";
         }
-        
     }
 
+    /**
+     * Processes the user's input and executes the corresponding command.
+     *
+     * @param userInput The user's input.
+     * @param tasks     The TaskList to perform actions on.
+     * @return The result message of the executed command.
+     */
     public static String processUserInput(String userInput, TaskList tasks) {
         String[] inputParts = userInput.split(" ");
         String commandStr = inputParts[0];
@@ -104,11 +159,21 @@ public class Command {
                 }
             case FIND:
                 return Command.findCommand(tasks, userInput);
+            case SORT:
+                return Command.sortCommand(tasks);
             default:
-                return "Sorry I dont know what you mean";
+                return "Sorry I don't know what you mean";
         }
     }
 
+    /**
+     * Creates a Todo task and adds it to the TaskList.
+     *
+     * @param tasks     The TaskList to add the task to.
+     * @param inputParts The input parts containing the task description.
+     * @param userInput The full user input.
+     * @throws EmptyDescriptionException If the task description is empty.
+     */
     public static void todoCommand(TaskList tasks, String[] inputParts, String userInput) throws EmptyDescriptionException {
         if (inputParts.length <= 1) {
             throw new EmptyDescriptionException(inputParts[0]);
@@ -116,6 +181,15 @@ public class Command {
         tasks.add(new Todo(userInput.substring(5)));
     }
 
+    /**
+     * Creates a Deadline task and adds it to the TaskList.
+     *
+     * @param tasks     The TaskList to add the task to.
+     * @param inputParts The input parts containing the task description.
+     * @param userInput The full user input.
+     * @throws EmptyDescriptionException If the task description is empty.
+     * @throws WrongFormatException    If the input format for Deadline is incorrect.
+     */
     public static void deadlineCommand(TaskList tasks, String[] inputParts, String userInput) throws EmptyDescriptionException, WrongFormatException{
         if (inputParts.length <= 1) {
             throw new EmptyDescriptionException(inputParts[0]);
@@ -130,6 +204,16 @@ public class Command {
         }
     }
 
+
+    /**
+     * Creates an Event task and adds it to the TaskList.
+     *
+     * @param tasks     The TaskList to add the task to.
+     * @param inputParts The input parts containing the task description.
+     * @param userInput The full user input.
+     * @throws EmptyDescriptionException If the task description is empty.
+     * @throws WrongFormatException    If the input format for Event is incorrect.
+     */
     public static void eventCommand(TaskList tasks, String[] inputParts, String userInput) throws EmptyDescriptionException, WrongFormatException{
         if (inputParts.length <= 1) {
             throw new EmptyDescriptionException(inputParts[0]);
@@ -140,17 +224,34 @@ public class Command {
             String to = eventParts[2];
             tasks.add(new Event(description, from, to));
         } catch (Exception e) {
-            throw new WrongFormatException("OOPS events need to be in this format, event project meeting /from Mon 2pm /to 4pm");
+            throw new WrongFormatException("OOPS events need to be in this format, event project meeting /from YYYY-MM-DD /to YYYY-MM-DD");
         }
     }
 
+    /**
+     * Generates a goodbye message.
+     * which will trigger the program in main to close
+     * the window when this goodbye message is detected
+     *
+     * @return A farewell message.
+     */
     public static String byeCommand() {
         return "Bye, patrick this window will magically disappear in 3 seconds";
     }
 
 
 
-
+    /**
+     * Handles task creation commands (TODO, DEADLINE, EVENT) and adds the task to the TaskList.
+     *
+     * @param userInput   The full user input.
+     * @param tasks       The TaskList to add the task to.
+     * @param commandType The type of command (TODO, DEADLINE, EVENT).
+     * @return A message indicating that the task has been added.
+     * @throws EmptyDescriptionException If the task description is empty.
+     * @throws UnknownCommandException   If the command type is unknown.
+     * @throws WrongFormatException      If the input format for the command is incorrect.
+     */
     public static String taskCommand(String userInput, TaskList tasks, CommandType commandType) throws EmptyDescriptionException, UnknownCommandException, WrongFormatException {
         String[] inputParts = userInput.split(" ");
 
@@ -170,17 +271,25 @@ public class Command {
         return output;
     }
 
-
-    public static CommandType getCommandType(String commandStr) {
+    /**
+     * Gets the CommandType enum value based on the command string.
+     *
+     * @param commandStr The command string.
+     * @return The CommandType enum value.
+     */
+    public static CommandType getCommandType(String commandString) {
         try {
-            return CommandType.valueOf(commandStr.toUpperCase());
+            return CommandType.valueOf(commandString.toUpperCase());
         } catch (IllegalArgumentException e) {
             return CommandType.UNKNOWN;
         }
     }
 
+    /**
+     * Enum representing different command types.
+     */
     enum CommandType {
-        LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, BYE, UNKNOWN
+        LIST, MARK, UNMARK, DELETE, TODO, DEADLINE, EVENT, FIND, BYE, SORT, UNKNOWN
     }
 
 }

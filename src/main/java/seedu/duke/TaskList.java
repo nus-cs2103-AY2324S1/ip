@@ -37,7 +37,10 @@ class TaskList {
         tasks.clear();
     }
 
-
+    public void sort() {
+        TaskComparator taskComparator = new TaskComparator();
+        tasks.sort(taskComparator);
+    }
 
     public Task get(int index) {
         if (index >= 0 && index < tasks.size()) {

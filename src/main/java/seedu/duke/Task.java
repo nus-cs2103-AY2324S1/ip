@@ -1,12 +1,13 @@
 
 package seedu.duke;
+import java.time.LocalDate;
 
 /**
  * Task models the different type of tasks in a tasks list.
  *
  * @param discription is the name of the Task that needs to be done.
  */
-class Task {
+public class Task {
     protected String description;
     protected boolean isDone;
 
