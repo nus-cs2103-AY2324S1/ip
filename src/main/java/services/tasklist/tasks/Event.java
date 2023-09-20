@@ -5,6 +5,9 @@ import services.bizerrors.InvalidArgumentException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a start time and end time.
+ */
 public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
