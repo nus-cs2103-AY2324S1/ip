@@ -55,9 +55,11 @@ public class Parser {
                 taskToAdd = new ToDo(taskInfo);
                 break;
             case "D":
-                return createDeadLineTask(taskInfo);
+                taskToAdd = createDeadLineTask(taskInfo);
+                break;
             case "E":
-                return createEventTask(taskInfo);
+                taskToAdd = createEventTask(taskInfo);
+                break;
             default:
                 throw new DukeException("File is corrupted!");
             }
@@ -102,7 +104,7 @@ public class Parser {
         try {
             String[] parts = taskInfo.split(" \\(from: ");
             String description = parts[0];
-            String[] dateParts = parts[1].split(" to ");
+            String[] dateParts = parts[1].split(" to: ");
             String from = dateParts[0];
             String to = dateParts[1].substring(0, dateParts[1].length() - 1);
             return new Event(description, from, to);
