@@ -122,52 +122,28 @@ public class Storage {
      * @throws InvalidDateException If the date format or content in the file is corrupted or invalid.
      */
     public void loadTasks() throws IOException, InvalidDateException {
-        // Use FileInputStream and BufferedReader, opposite of saveTask().
-        // Use try-catch to check if file exists or if file is correct format.
         checkDirectory();
         checkFile();
-
         FileInputStream inputStream = new FileInputStream(filePath);
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((inputStream)));
         String currentLine;
-
         try {
             while ((currentLine = bufferedReader.readLine()) != null) {
                 if (!TaskList.isValidTaskLine(currentLine)) {
                     System.out.printf("Skipping corrupted line: %s\n", currentLine);
                 }
-
-                // Parse the line and create tasks.
+                // Parse the line. Check which type of task it belongs to. Create task and put it in list of tasks.
                 String[] content = currentLine.split(" \\| ");
                 String taskDescription = content[2];
-                Task taskFromHardDisk;
-
-                // Check which type of task it belongs to.
-                // Create the task and add task to list of tasks.
                 switch(content[0]) {
                 case "E":
-                    if (!TaskList.isValidDate(content[3]) || !TaskList.isValidDate(content[4])) {
-                        System.out.printf("Skipping line with invalid date: %s\n", currentLine);
-                    } else {
-                        taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]),
-                                LocalDate.parse(content[4]));
-                        checkCompletionStatus(taskFromHardDisk, content[1]);
-                        listOfTasks.add(taskFromHardDisk);
-                    }
+                    loadEventTasks(content, taskDescription, currentLine);
                     break;
                 case "D":
-                    if (!TaskList.isValidDate(content[3])) {
-                        System.out.printf("Skipping line with invalid date: %s\n", currentLine);
-                    } else {
-                        taskFromHardDisk = new Deadline(taskDescription, LocalDate.parse(content[3]));
-                        checkCompletionStatus(taskFromHardDisk, content[1]);
-                        listOfTasks.add(taskFromHardDisk);
-                    }
+                    loadDeadlineTasks(content, taskDescription, currentLine);
                     break;
                 default:
-                    taskFromHardDisk = new Todo(taskDescription);
-                    checkCompletionStatus(taskFromHardDisk, content[1]);
-                    listOfTasks.add(taskFromHardDisk);
+                    loadTodoTasks(content, taskDescription);
                     break;
                 }
             }
@@ -175,6 +151,33 @@ public class Storage {
             System.out.printf("Error while reading file: %s", e.getMessage());
         }
         bufferedReader.close();
+    }
+
+    private void loadEventTasks(String[] content, String taskDescription, String currentLine) {
+        if (!TaskList.isValidDate(content[3]) || !TaskList.isValidDate(content[4])) {
+            System.out.printf("Skipping line with invalid date: %s\n", currentLine);
+        } else {
+            Event taskFromHardDisk = new Event(taskDescription, LocalDate.parse(content[3]),
+                    LocalDate.parse(content[4]));
+            checkCompletionStatus(taskFromHardDisk, content[1]);
+            listOfTasks.add(taskFromHardDisk);
+        }
+    }
+
+    private void loadDeadlineTasks(String[] content, String taskDescription, String currentLine) {
+        if (!TaskList.isValidDate(content[3])) {
+            System.out.printf("Skipping line with invalid date: %s\n", currentLine);
+        } else {
+            Deadline taskFromHardDisk = new Deadline(taskDescription, LocalDate.parse(content[3]));
+            checkCompletionStatus(taskFromHardDisk, content[1]);
+            listOfTasks.add(taskFromHardDisk);
+        }
+    }
+
+    private void loadTodoTasks(String[] content, String taskDescription) {
+        Todo taskFromHardDisk = new Todo(taskDescription);
+        checkCompletionStatus(taskFromHardDisk, content[1]);
+        listOfTasks.add(taskFromHardDisk);
     }
 
     /**
