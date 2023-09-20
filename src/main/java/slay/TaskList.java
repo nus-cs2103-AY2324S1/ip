@@ -24,6 +24,11 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns String representation of the TaskList.
+     *
+     * @return String representation of the TaskList.
+     */
     @Override
     public String toString() {
         if (this.tasks.isEmpty()) {
@@ -40,10 +45,11 @@ public class TaskList {
         return result;
     }
 
-    public Boolean isEmpty() {
-        return this.tasks.isEmpty();
-    }
-
+    /**
+     * Returns the size of the TaskList.
+     *
+     * @return int representing the size of the TaskList.
+     */
     public int size() {
         return this.tasks.size();
     }

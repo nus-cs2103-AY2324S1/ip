@@ -52,6 +52,8 @@ public class Storage {
 
     /**
      * Loads the Tasks from the storage file, and returns a tong.TaskList with previously saved Tasks.
+     *
+     * @return TaskList created from previously saved data.
      */
     public TaskList load() {
         try {
@@ -71,6 +73,7 @@ public class Storage {
      *
      * @param taskList The TaskList which contains the Tasks to be turned to String representation
      *                 so that it can be saved into the data file.
+     * @return List of String to be saved into the data file.
      */
     private static List<String> encode(TaskList taskList) {
         List<String> encodedTaskList = new ArrayList<>();

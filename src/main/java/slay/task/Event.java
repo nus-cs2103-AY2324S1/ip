@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents Event Task.
+ */
 public class Event extends Task {
     public static final String TYPE = "event";
     protected LocalDateTime from;
@@ -44,6 +47,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " (from: " + fromFormatted + " to: " + toFormatted + ")";
     }
 
+    /**
+     * Returns encoded Event Task.
+     *
+     * @return String representation of the Event Task to be saved into the data file.
+     */
     @Override
     public String getEncodedString() {
         String encoded = "E | ";

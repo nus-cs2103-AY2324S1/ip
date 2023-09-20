@@ -26,6 +26,7 @@ public class AddCommand extends Command {
         this.toAdd = toAdd;
     }
 
+
     @Override
     public CommandResult execute() {
         taskList.addTask(toAdd);

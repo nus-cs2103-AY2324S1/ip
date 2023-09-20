@@ -2,6 +2,9 @@ package slay.task;
 
 import slay.exception.DuplicatedMarkException;
 
+/**
+ * An abstract class representing a Task.
+ */
 public abstract class Task {
     protected String name;
     protected boolean isDone;
@@ -18,8 +21,13 @@ public abstract class Task {
         this.isDone = isDone;
     }
 
+    /**
+     * Returns String representation of the status of this Task.
+     *
+     * @return "X" if the Task is marked as done or " " if the Task is marked as not done.
+     */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     @Override
@@ -68,6 +76,11 @@ public abstract class Task {
         return event;
     }
 
+    /**
+     * Marks this Task as done.
+     *
+     * @throws DuplicatedMarkException if the Task is currently marked as done.
+     */
     public void markAsDone() throws DuplicatedMarkException {
         if (this.isDone) {
             throw new DuplicatedMarkException("The task has already been marked as done.");
@@ -76,6 +89,11 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Marks this Task as not done.
+     *
+     * @throws DuplicatedMarkException if the Task is currently marked as not done.
+     */
     public void markAsNotDone() throws DuplicatedMarkException {
         if (!this.isDone) {
             throw new DuplicatedMarkException("The task is currently undone.");
@@ -88,6 +106,11 @@ public abstract class Task {
         this.tag = tag;
     }
 
+    /**
+     * Returns the tag of this Task.
+     *
+     * @return String of the tag or null if the Task is not tagged.
+     */
     public String getTag() {
         return this.tag;
     }

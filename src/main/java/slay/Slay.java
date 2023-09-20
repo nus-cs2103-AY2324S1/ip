@@ -22,6 +22,12 @@ public class Slay {
         parser = new Parser();
     }
 
+    /**
+     * Gets response to a user input.
+     *
+     * @param userInput Input of user waiting for response from the slay.
+     * @return String of response to the user.
+     */
     public String getResponse(String userInput) {
         Command c = parser.parse(userInput);
         c.setData(this.tasks);

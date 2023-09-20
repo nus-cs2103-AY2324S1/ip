@@ -70,7 +70,7 @@ public class Parser {
             case ExitCommand.COMMAND_WORD:
                 return new ExitCommand();
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
+            case HelpCommand.COMMAND_WORD:
             default:
                 return new HelpCommand();
             }
@@ -79,6 +79,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses arguments in the context of the find task command.
+     *
+     * @param args command args string which is supposed to be a keyword.
+     * @return the prepared command
+     */
     private Command prepareFind(String args) throws EmptyArgumentException {
         if (args.isEmpty()) {
             throw new EmptyArgumentException();
@@ -226,6 +232,12 @@ public class Parser {
         return new UnmarkCommand(targetVisibleIndex);
     }
 
+    /**
+     * Parses arguments in the context of the tag task command.
+     *
+     * @param args command args string which is supposed to be an integer followed by a label.
+     * @return the prepared command
+     */
     private Command prepareTag(String args) {
         String[] split = args.split(" ");
         int targetVisibleIndex = Integer.parseInt(split[0]);

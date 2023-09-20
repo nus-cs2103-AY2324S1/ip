@@ -5,6 +5,9 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents Deadline Task.
+ */
 public class Deadline extends Task {
     public static final String TYPE = "deadline";
     protected LocalDateTime by;
@@ -30,6 +33,11 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + byFormatted + ")";
     }
 
+    /**
+     * Returns encoded Deadline Task.
+     *
+     * @return String representation of the Deadline Task to be saved into the data file.
+     */
     @Override
     public String getEncodedString() {
         String encoded = "D | ";
