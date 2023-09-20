@@ -85,8 +85,8 @@ public class DukeUi {
      */
     public String echoTaskDeleted(Task removedTask, int tasksCount) {
         assert removedTask != null : "given task should be non null";
-        return "Noted. I've removed this task:"
-                + "    " + removedTask
+        return "Noted. I've removed this task:\n"
+                + "    " + removedTask + "\n"
                 + "Now you have " + tasksCount + " tasks in the list.";
     }
 
@@ -99,7 +99,7 @@ public class DukeUi {
      */
     public String echoTaskUnmarked(Task currentTask) {
         assert currentTask != null : "given task should be non null";
-        return "OK, I've marked this task as not nyan yet:"
+        return "OK, I've marked this task as not nyan yet:\n"
                 + "    " + currentTask;
     }
 }
