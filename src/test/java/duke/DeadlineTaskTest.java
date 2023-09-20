@@ -13,12 +13,12 @@ public class DeadlineTaskTest {
     @Test
     public void deadlineTaskTest1() {
         DeadlineTask dl = new DeadlineTask("test1", LocalDate.parse("2019-10-15"), false, TaskPriority.LOW);
-        assertEquals( "[D][ ] test1 (by: Oct 15 2019)", dl.toString());
+        assertEquals( "[D][ ][L] test1 (by: Oct 15 2019)", dl.toString());
     }
 
     @Test
     public void deadlineTaskTest2() {
         DeadlineTask dl = new DeadlineTask("test2", LocalDate.parse("2020-12-01"), true, TaskPriority.HIGH);
-        assertEquals( "[D][X] test2 (by: Dec 01 2020)", dl.toString());
+        assertEquals( "[D][X][H] test2 (by: Dec 01 2020)", dl.toString());
     }
 }
