@@ -1,5 +1,6 @@
 package kiera.command;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -53,7 +54,9 @@ public class SortCommand extends Command {
             filtered.sort(new CompareTasks("date"));
         } else {
             assert comparable.equals("time");
-            filtered.sort(new CompareTasks("time"));
+            filtered.stream().filter(task -> task.getStartDate().equals(LocalDate.now()))
+                    .collect(Collectors.toCollection(ArrayList::new))
+                    .sort(new CompareTasks("time"));
         }
         String result = filtered.stream()
                 .map(task ->tasks.indexOf(task) + ". " + task + "\n")
