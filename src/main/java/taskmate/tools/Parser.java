@@ -35,7 +35,7 @@ import taskmate.main.TaskMate;
 public class Parser {
 
     /**
-     * Reads the user input and returns a Command object that represents the input.
+     * Parses the raw user input and returns a Command object that represents the input.
      * @param userInput A String object passed by the user representing their command to the chatbot
      * @return A Command object that represents the String command passed by the user
      * @throws InvalidCommandTypeException Thrown when the user passes an unrecognized command

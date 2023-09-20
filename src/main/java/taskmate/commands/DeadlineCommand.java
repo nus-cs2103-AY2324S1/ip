@@ -17,9 +17,9 @@ public class DeadlineCommand extends AddCommand {
     private final LocalDate by;
 
     /**
-     * DeadlineCommand constructor that allows the developer to specify the name of the task, and a date that represents
-     * the date that this task must be completed. This date must be a String in the form "YYYY-mm-dd" to be parsed to a
-     * `LocalDate` object.
+     * Constructs a DeadlineCommand object that allows the developer to specify the task name, and a date that
+     * represents the date that this task must be completed. This date must be a String in the form "YYYY-mm-dd" to be
+     * parsed to a `LocalDate` object.
      *
      * @param name the name of the deadline task.
      * @param by the date that the deadline task has to be completed. It has to be of the form "YYYY-mm-dd".

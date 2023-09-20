@@ -25,9 +25,7 @@ public class TaskList {
     private final ArrayList<Task> tasks = new ArrayList<Task>();
     private int numTotalTasks = 0;
     private int numIncompleteTasks = 0;
-
-    public TaskList() {
-    }
+    private final int indexOfTaskName = 7; // start index of task name (e.g. index of "read book" in "[T][X] read book")
 
     /**
      * Constructs a TaskList object with the contents of the saved task file read from a Storage object.
@@ -61,23 +59,33 @@ public class TaskList {
         }
     }
 
+    /**
+     * @return an integer representing the number of incomplete tasks in the task-list
+     */
+    public int getNumIncompleteTasks() {
+        return numIncompleteTasks;
+    }
+
     private String getSavedTaskType(String taskAsString) {
-        return taskAsString.substring(1, 2);
+        int indexOfTaskType = 1; // The index of each line where task type is located (e.g. 'T' in "[T][X] read book")
+        return taskAsString.substring(indexOfTaskType, indexOfTaskType + 1);
     }
 
     private boolean getSavedTaskIsDone(String taskAsString) {
-        return taskAsString.charAt(4) == 'X';
+        char markSymbol = 'X';
+        int indexOfX = 4; // The index of each line where 'X' is located (e.g. 'X' in "[T][X] read book")
+        return taskAsString.charAt(indexOfX) == markSymbol;
     }
 
     private Todo createTodoTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
-        String name = taskAsString.substring(7);
+        String name = taskAsString.substring(indexOfTaskName);
         return new Todo(name, taskIsDone);
     }
 
     private Deadline createDeadlineTaskFromSavedTask(String taskAsString, boolean taskIsDone) {
         String delimiter = "(by: ";
         int indexOfByParam = taskAsString.lastIndexOf(delimiter);
-        String name = taskAsString.substring(7, indexOfByParam);
+        String name = taskAsString.substring(indexOfTaskName, indexOfByParam);
         String by = taskAsString.substring(indexOfByParam + delimiter.length(), taskAsString.length() - 1);
         return new Deadline(name, by, taskIsDone);
     }
@@ -87,7 +95,7 @@ public class TaskList {
         String delimiter2 = " to: ";
         int indexOfFromParam = taskAsString.lastIndexOf(delimiter);
         int indexOfToParam = taskAsString.lastIndexOf(delimiter2);
-        String name = taskAsString.substring(7, indexOfFromParam);
+        String name = taskAsString.substring(indexOfTaskName, indexOfFromParam);
         String from = taskAsString.substring(indexOfFromParam + delimiter.length(), indexOfToParam);
         String to = taskAsString.substring(indexOfToParam + delimiter2.length(), taskAsString.length() - 1);
         return new Event(name, from, to, taskIsDone);
@@ -119,13 +127,14 @@ public class TaskList {
             this.markAsDone(t);
         } catch (TaskNotFoundException e) {
             // Assertion above guarantees that t can be found within tasks so no TaskNotFoundException will be thrown
+            assert false;
         }
     }
 
     /**
      * Removes a Task object t
      * @param i An int variable representing the 1-based index of the task to be removed
-     * @throws TaskNotFoundException Thrown when i is outside of the range [max(0, tasks.size()), tasks.size()]
+     * @throws TaskNotFoundException Thrown when `i` is outside of the range [max(0, tasks.size()), tasks.size()]
      */
     public void removeTask(int i) throws TaskNotFoundException {
         boolean indexOutOfBounds = i > tasks.size() | i < 0;

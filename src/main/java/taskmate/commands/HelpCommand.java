@@ -11,7 +11,7 @@ import taskmate.tools.Ui;
 public class HelpCommand extends Command {
 
     /**
-     * HelpCommand constructor that allows the user to create a `help` command that guides them to use TaskMate.
+     * Constructs a HelpCommand object that allows the user to create a `help` command that guides them to use TaskMate.
      */
     public HelpCommand() {
         this.commandType = "Help";

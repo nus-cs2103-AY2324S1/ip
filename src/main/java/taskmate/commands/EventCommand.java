@@ -19,7 +19,7 @@ public class EventCommand extends AddCommand {
 
 
     /**
-     * EventCommand constructor that allows the developer to specify the name of the task, a date that represents
+     * Constructs a EventCommand object that allows the developer to specify the task name, a date that represents
      * the date that this task starts, and a date that represents the date that this task ends. These dates must
      * be String instances in the form "YYYY-mm-dd" to be parsed to `LocalDate` instances.
      *

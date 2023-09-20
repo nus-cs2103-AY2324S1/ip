@@ -40,6 +40,9 @@ public class TaskMate {
     private final Storage storage;
     private TaskList tasks;
 
+    /**
+     * Constructs a TaskMate object that initializes the backend logic
+     */
     TaskMate() {
         this.ui = new Ui(CHATBOT_NAME);
         this.storage = new Storage(DEFAULT_SAVE_TASK_FILE_PATH);

@@ -24,7 +24,7 @@ public class UpdateCommand extends Command {
     private final int updateIndex;
 
     /**
-     * UpdateCommand constructor that allows the developer to update the attributes of an existing task
+     * Constructs a UpdateCommand object that allows the developer to update the attributes of an existing task
      * @param updateIndex a one-indexed int that represents the task to be updated
      * @param changes a Hashmap that represents the changes to be made to the task
      */
@@ -34,6 +34,7 @@ public class UpdateCommand extends Command {
     }
 
     /**
+     * Executes the `update` command by updating the task attributes defined by the user
      * @param tasks   TaskList object that stores the list of undeleted tasks defined by the user.
      * @param ui      Ui object that deals with taking in user input and printing messages out to the user.
      * @param storage Storage object that saves undeleted tasks to the disk.

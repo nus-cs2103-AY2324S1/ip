@@ -15,8 +15,8 @@ public class MarkCommand extends Command {
     private final int markIndex;
 
     /**
-     * MarkCommand constructor that allows the developer to specify the index of the task to be marked as completed.
-     *
+     * Constructs a MarkCommand object that allows the developer to specify the index of the task to be marked as
+     * completed.
      * @param markIndex the index of the task to be marked from the task list. This index is 1-based, which means
      *                  the markIndex starts from 1 to the number of tasks available, rather than starting from 0.
      */

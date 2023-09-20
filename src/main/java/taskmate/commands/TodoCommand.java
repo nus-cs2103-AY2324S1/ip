@@ -13,7 +13,7 @@ import taskmate.tools.tasks.Todo;
 public class TodoCommand extends AddCommand {
 
     /**
-     * TodoCommand constructor that allows the developer to specify the name of the task.
+     * Constructs a TodoCommand object that allows the developer to specify the name of the task.
      *
      * @param name the name of the todo task.
      */

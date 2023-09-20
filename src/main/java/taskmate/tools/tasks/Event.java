@@ -74,11 +74,19 @@ public class Event extends Task {
         return "Event";
     }
 
-    String getStartDatetimeFormatted() {
+    /**
+     * @return a String object that represents the date of the "from" clause formatted in the "MMM d yyyy" format (E.g.
+     *     Sep 29 2023)
+     */
+    String getFromFormatted() {
         return this.startDatetime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-    String getEndDatetimeFormatted() {
+    /**
+     * @return a String object that represents the date of the "to" clause formatted in the "MMM d yyyy" format (E.g.
+     *     Sep 29 2023)
+     */
+    String getToFormatted() {
         return this.endDatetime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
@@ -93,35 +101,52 @@ public class Event extends Task {
     @Override
     public HashMap<String, String> update(HashMap<String, String> changes) throws InvalidEventUpdateException,
             InvalidFromException, InvalidToException {
-        HashMap<String, String> successfulUpdates = new HashMap<>();
 
         // Check if update command is valid
+        checkValidUpdate(changes);
+
+        // Set updates if update command is valid
+        return setUpdatesAndReturnSuccessfulUpdates(changes);
+    }
+
+    protected void checkValidUpdate(HashMap<String, String> changes) throws InvalidEventUpdateException,
+            InvalidFromException, InvalidToException {
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
-            if (!attribute.equals("/name") & !attribute.equals("/from") & !attribute.equals("/to")) {
+            boolean isName = attribute.equals("/name");
+            boolean isFrom = attribute.equals("/from");
+            boolean isTo = attribute.equals("/to");
+            if (!isName & !isFrom & !isTo) {
                 throw new InvalidEventUpdateException();
-            } else if (attribute.equals("/from") & !super.checkValidDateFormat(newValue)) {
+            } else if (isFrom & !super.checkValidDateFormat(newValue)) {
                 throw new InvalidFromException();
-            } else if (attribute.equals("/to") & !super.checkValidDateFormat(newValue)) {
+            } else if (isTo & !super.checkValidDateFormat(newValue)) {
                 throw new InvalidToException();
             }
         }
+    }
 
+    protected HashMap<String, String> setUpdatesAndReturnSuccessfulUpdates(HashMap<String, String> changes) throws
+            InvalidEventUpdateException {
+        HashMap<String, String> successfulUpdates = new HashMap<>();
         for (HashMap.Entry<String, String> attributeValuePair : changes.entrySet()) {
             String attribute = attributeValuePair.getKey();
             String newValue = attributeValuePair.getValue();
-            if (attribute.equals("/name")) {
+            boolean isName = attribute.equals("/name");
+            boolean isFrom = attribute.equals("/from");
+            boolean isTo = attribute.equals("/to");
+            if (isName) {
                 setName(newValue);
                 successfulUpdates.put("name", newValue);
-            } else if (attribute.equals("/from")) {
+            } else if (isFrom) {
                 setStartDatetime(newValue);
                 successfulUpdates.put("from", newValue);
-            } else if (attribute.equals("/to")) {
+            } else if (isTo) {
                 setEndDatetime(newValue);
                 successfulUpdates.put("to", newValue);
             } else {
-                throw new InvalidEventUpdateException();
+                throw new InvalidEventUpdateException(); // Happens when user gives datetime in incorrect format
             }
         }
         return successfulUpdates;
@@ -142,7 +167,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: "
-                + this.getStartDatetimeFormatted() + " to: " + this.getEndDatetimeFormatted() + ")";
+                + this.getFromFormatted() + " to: " + this.getToFormatted() + ")";
     }
 
     @Override

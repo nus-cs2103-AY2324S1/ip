@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     private final String query;
 
     /**
-     * FindCommand constructor that allows the user to look for tasks that match `query`.
+     * Constructs a FindCommand object that allows the user to look for tasks that match `query`.
      */
     public FindCommand(String query) {
         this.query = query.toLowerCase();
@@ -24,6 +24,13 @@ public class FindCommand extends Command {
         this.isExit = false;
     }
 
+    /**
+     * Executes the `find` command that matches the tasks in the user's undeleted tasks to the user-defined query. This
+     * match is case-insensitive, and is able to match the tasks' names and/or the dates associated to them.
+     * @param tasks TaskList object that stores the list of undeleted tasks defined by the user.
+     * @param ui Ui object that deals with taking in user input and printing messages out to the user.
+     * @param storage Storage object that saves undeleted tasks to the disk.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
 
