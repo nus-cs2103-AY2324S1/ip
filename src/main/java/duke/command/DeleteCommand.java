@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
         try {
             return tasks.deleteTask(Integer.parseInt(words[1]) - 1, storage);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            throw new InvalidArgumentException("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
+            throw new InvalidArgumentException("delete");
         }
     }
 }

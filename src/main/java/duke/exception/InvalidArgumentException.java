@@ -13,6 +13,6 @@ public class InvalidArgumentException extends DukeException {
      * @param s The name of the command for which the arguments are invalid.
      */
     public InvalidArgumentException(String s) {
-        super("☹ OOPS!!! I'm sorry, but arguments to " + s + " cannot be empty");
+        super("☹ OOPS!!! I'm sorry, but arguments to " + s + " is invalid");
     }
 }

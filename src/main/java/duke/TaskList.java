@@ -7,9 +7,6 @@ import duke.exception.DukeException;
 import duke.exception.DuplicateTaskException;
 import duke.task.Task;
 
-import javax.imageio.IIOException;
-
-
 /**
  * A class to represent a list of tasks.
  */
@@ -47,7 +44,7 @@ public class TaskList {
         sb.append("Got it. I've added this task:\n");
         sb.append(t + "\n");
         sb.append("Now you have " + this.taskList.size() + " in the list." + "\n");
-        try{
+        try {
             storage.writeTasksToFile(this.taskList);
         } catch (IOException e) {
             throw new DukeException("☹ OOPS!!! I'm sorry, error writing tasks to file");
@@ -77,7 +74,7 @@ public class TaskList {
         sb.append("Noted! I've removed this task:" + "\n");
         sb.append(t + "\n");
         sb.append("Now you have " + length + " tasks in the list." + "\n");
-        try{
+        try {
             storage.writeTasksToFile(this.taskList);
         } catch (IOException e) {
             throw new DukeException("☹ OOPS!!! I'm sorry, error writing tasks to file");
