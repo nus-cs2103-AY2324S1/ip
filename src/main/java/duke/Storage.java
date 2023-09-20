@@ -34,52 +34,62 @@ public class Storage {
         //if anything happen to the path or to the file, just return a new ArrayList and continue, no exception printed
         Path path = Paths.get("./data/duke.txt");
         ArrayList<Task> loadList = new ArrayList<>();
-        if (Files.exists(path)) {
-            try {
-                List<String> lines = Files.readAllLines(path);
-                for (String line : lines) {
-                    String[] parsed_str = line.split("\\s\\|\\s");
-                    if (parsed_str[0].equals("T")) {
-                        int size = parsed_str.length;
-                        Boolean done = parsed_str[1].equals("1") ? true : false;
-                        String description = parsed_str[2];
-                        Todo curr = new Todo(description);
-                        if (done) {
-                            curr.markAsDone();
-                        }
-                        loadList.add(curr);
-                    } else if (parsed_str[0].equals("D")) {
-                        //reach the date
-                        Boolean done = parsed_str[1].equals("1") ? true : false;
-                        String description = parsed_str[2];
-                        String by_date = parsed_str[3];
-                        Deadline curr = new Deadline(description, by_date);
-                        if (done) {
-                            curr.markAsDone();
-                        }
-                        loadList.add(curr);
-                    } else if (parsed_str[0].equals("E")) {
-                        Boolean done = parsed_str[1].equals("1") ? true : false;
-                        String description = parsed_str[2];
-                        String fromDate = parsed_str[3];
-                        String toDate = parsed_str[4];
-                        Event curr = new Event(description, fromDate, toDate);
-                        if (done) {
-                            curr.markAsDone();
-                        }
-                        loadList.add(curr);
-                    }
-                }
-            } catch (Exception e) {
-                //if anything happen, just return a new one
-                throw new DukeException("Error occured in loading", e);
-            }
 
-        } else {
-            //if the file do not exist, just return a new array list
-            return new ArrayList<Task>();
+        if (!Files.exists(path)) {
+            return loadList;
+        }
+
+        try {
+            List<String> lines = Files.readAllLines(path);
+            for (String line : lines) {
+                String[] parsed_str = line.split("\\s\\|\\s");
+                if (parsed_str[0].equals("T")) {
+                    loadTodo(loadList, parsed_str);
+                } else if (parsed_str[0].equals("D")) {
+                    loadDeadline(loadList, parsed_str);
+                } else if (parsed_str[0].equals("E")) {
+                    loadEvent(loadList, parsed_str);
+                }
+            }
+        } catch (Exception e) {
+            //if anything happen, just return a new one
+            throw new DukeException("Error occured in loading", e);
         }
         return loadList;
+    }
+
+    private static void loadEvent(ArrayList<Task> loadList, String[] parsed_str) {
+        Boolean done = parsed_str[1].equals("1") ? true : false;
+        String description = parsed_str[2];
+        String fromDate = parsed_str[3];
+        String toDate = parsed_str[4];
+        Event curr = new Event(description, fromDate, toDate);
+        if (done) {
+            curr.markAsDone();
+        }
+        loadList.add(curr);
+    }
+
+    private static void loadDeadline(ArrayList<Task> loadList, String[] parsed_str) {
+        Boolean done = parsed_str[1].equals("1") ? true : false;
+        String description = parsed_str[2];
+        String by_date = parsed_str[3];
+        Deadline curr = new Deadline(description, by_date);
+        if (done) {
+            curr.markAsDone();
+        }
+        loadList.add(curr);
+    }
+
+    private static void loadTodo(ArrayList<Task> loadList, String[] parsed_str) {
+        int size = parsed_str.length;
+        Boolean done = parsed_str[1].equals("1") ? true : false;
+        String description = parsed_str[2];
+        Todo curr = new Todo(description);
+        if (done) {
+            curr.markAsDone();
+        }
+        loadList.add(curr);
     }
 
     /**
@@ -104,7 +114,7 @@ public class Storage {
                 filewriter.write(curr.stringInFile() + "\n");
             }
         } catch (Exception e) {
-            System.out.println("Error occured in writing the file");
+            System.out.println("Error occurred in writing the file");
         }
     }
 }

@@ -1,22 +1,22 @@
 package duke;
 
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class ParserTest {
     @Test
     public void deadlineCommandTest () {
         Parser parser = new Parser();
-        String command = "deadline a deadline here /by 2022-02-01";
+        String command = "ddl a deadline here /by 2022-02-01";
         String result = parser.parseCommand(command);
         assertEquals("deadline", result);
     }
     @Test
     public void eventCommandTest() {
         Parser parser = new Parser();
-        String command = "event an event here /from 2022-02-01 /to 2022-02-01";
+        String command = "ev an event here /from 2022-02-01 /to 2022-02-01";
         String result = parser.parseCommand(command);
         assertEquals("event", result);
     }
