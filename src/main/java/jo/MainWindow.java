@@ -22,9 +22,8 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Jo jo;
-
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/JoImage.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/UserImage.png"));
+    private Image joImage = new Image(this.getClass().getResourceAsStream("/images/JoImage.png"));
 
     /**
      * Initializes the MainWindow and adds a greeting message by the bot.
@@ -34,7 +33,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         String greetingMessage = "Hello! I am Jo.\nWhat can I do for you?";
         dialogContainer.getChildren().addAll(
-                DialogBox.getJoDialog(greetingMessage, dukeImage)
+                DialogBox.getJoDialog(greetingMessage, joImage)
         );
     }
 
@@ -52,7 +51,7 @@ public class MainWindow extends AnchorPane {
         String response = jo.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getJoDialog(response, dukeImage)
+                DialogBox.getJoDialog(response, joImage)
         );
         userInput.clear();
     }

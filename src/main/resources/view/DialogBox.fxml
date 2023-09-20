@@ -4,14 +4,24 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Text fx:id="textContent" />
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
+        <VBox styleClass="dialog-box" minWidth="75.00">
+            <Text fx:id="textContent" styleClass="dialog-text"/>
+            <ImageView fx:id="displayPicture" styleClass="dialog-image" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                <VBox.margin>
+                    <Insets top="10.0"/>
+                </VBox.margin>
+            </ImageView>
+        </VBox>
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="20.0" left="5.0" right="5.0" top="15.0" />
     </padding>
+    <VBox.margin>
+        <Insets top="5.0"/>
+    </VBox.margin>
 </fx:root>
 
