@@ -168,7 +168,7 @@ public class Parser {
             if (split.length <= 1 || split.length > 2) {
                 return ui.showInvalidMessage();
             }
-            int ind = Integer.parseInt(split[1]) - 1;
+            int ind = Integer.parseInt(split[1]);
             return fullList.deleteFromList(ind);
 
         case FIND:
@@ -197,23 +197,13 @@ public class Parser {
             if (isInvalidCommand) {
                 return ui.showCustomError("The command used after mass is not valid: " + commandToBeDone);
             }
-            // For testing purposes
-            for (int i = 0; i < inputPartsMass.length; i++) {
-                System.out.println("inputPartsMass " + inputPartsMass[i]);
-            }
 
             int[] indexArray = new int[inputPartsMass.length - 2];
             for (int i = 2; i < inputPartsMass.length; i++) {
                 int value = Integer.parseInt(inputPartsMass[i].trim());
                 indexArray[i - 2] = value;
-                // For testing purpose
-                System.out.println("inserted value: " + value + "indexArray: " + indexArray[i-2]);
             }
 
-            // For testing purpose
-            for (int i = 0; i < indexArray.length; i++) {
-                System.out.println(indexArray[i]);
-            }
             if (isMark) {
                 return fullList.markItem(indexArray);
             } else if (isUnMark) {

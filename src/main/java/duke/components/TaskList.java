@@ -54,13 +54,15 @@ public class TaskList {
         }
 
         StringBuilder result = new StringBuilder();
+        int count = 0;
         for (int index : indices) {
-            if (index >= 0 && index < fullList.size()) {
+            int actualIndex = index - count - 1;
+            if (actualIndex >= 0 && actualIndex < fullList.size()) {
                 int currSize = this.fullList.size();
-                Task item = fullList.get(index);
+                Task item = fullList.get(actualIndex);
                 this.fullList.remove(item);
-                assert this.fullList.size() == currSize - 1 : "Delete from list failed";
-                result.append(ui.showDeleteMessage(item, currSize - 1)).append('\n');
+                count++;
+                result.append(ui.showDeleteMessage(item, currSize - 1)).append('\n').append('\n');
             } else {
                 result.append(ui.showNoItemMessage(index)).append('\n');
             }
@@ -84,7 +86,7 @@ public class TaskList {
             if (actualIndex >= 0 && actualIndex < fullList.size()) {
                 Task curr = fullList.get(actualIndex);
                 curr.markDone();
-                result.append(ui.showMarkMessage(curr)).append('\n');
+                result.append(ui.showMarkMessage(curr)).append('\n').append('\n');
             } else {
                 result.append(ui.showNoItemMessage(index));
             }
@@ -108,7 +110,7 @@ public class TaskList {
             if (actualIndex >= 0 && actualIndex < fullList.size()) {
                 Task curr = fullList.get(actualIndex);
                 curr.markNotDone();
-                result.append(ui.showUnmarkMessage(curr)).append('\n');
+                result.append(ui.showUnmarkMessage(curr)).append('\n').append('\n');
             } else {
                 result.append(ui.showNoItemMessage(index));
             }

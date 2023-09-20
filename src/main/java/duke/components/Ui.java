@@ -10,10 +10,9 @@ import duke.task.Task;
  */
 public class Ui {
     private Scanner scanner;
-    private final String line = "------------------------------------";
     private final String chatBot = "chuababyy";
     private final String commands =
-            line + "\n" + "List of commands\n" + "1. todo [description]\n"
+            "List of commands\n" + "1. todo [description]\n"
                     + "2. deadline [description] /by [deadline in DD-MM-YYYY TIME]\n"
                     + "3. event [description] /from [start date in DD-MM-YYYY TIME] "
                     + "/to [end date in DD-MM-YYYY TIME]\n"
@@ -22,8 +21,7 @@ public class Ui {
                     + "6. delete [item_number]\n"
                     + "7. mass [delete/mark/unmark] [item_numbers]\n"
                     + "8. list\n"
-                    + "9. bye\n"
-                    + line;
+                    + "9. bye";
 
     /**
      * Constructs a Ui instance and initializes the scanner.
@@ -33,44 +31,24 @@ public class Ui {
     }
 
     /**
-     * Displays a separator line.
-     */
-    public String showLine() {
-        return line;
-    }
-
-    /**
      * Displays a welcome message when the chatBot starts.
      */
     public String showWelcome() {
-        return (
-                showLine() + '\n'
-                        + "Hello! I'm " + chatBot + '\n'
-                                + "What can I do for you?" + '\n'
-                                        + showLine()
-            );
+        return "Hello! I'm " + chatBot + '\n' + "What can I do for you?";
     }
 
     /**
      * Displays a message which indicates that the item to be added cannot be empty.
      */
     public String showEmptyMessage() {
-        return (
-                showLine() + '\n'
-                        + "Item to be added cannot be empty" + '\n'
-                                + showLine()
-            );
+        return "Item to be added cannot be empty";
     }
 
     /**
      * Displays a message which indicates an invalid command.
      */
     public String showUnknownMessage() {
-        return (
-                showLine() + '\n'
-                        + "Invalid structure. Please follow the valid commands below.\n" + commands
-                                + showLine()
-            );
+        return "Invalid structure. Please follow the valid commands below.\n" + commands;
     }
 
     /**
@@ -84,16 +62,14 @@ public class Ui {
      * Displays a message which indicated the item does not exist.
      */
     public String showNoItemMessage(int i) {
-        return showLine() + '\n' + "No such item exists: " + i + '\n' + showLine();
+        return  "No such item exists: " + i;
     }
 
     /**
      * Displays a goodbye message.
      */
     public String showByeMessage() {
-        return showLine() + '\n'
-                + "Bye. Hope to see you again soon!" + '\n'
-                        + showLine();
+        return  "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -114,10 +90,8 @@ public class Ui {
      */
 
     public String showAddMessage(Task task, int size) {
-        return showLine() + '\n'
-                + "Got it. I've added this task:" + '\n' + task.toString() + '\n'
-                        + "Now you have " + size + " tasks in the list." + '\n'
-                                + showLine();
+        return  "Got it. I've added this task:" + '\n' + task.toString() + '\n'
+                        + "Now you have " + size + " tasks in the list.";
     };
 
     /**
@@ -128,10 +102,8 @@ public class Ui {
      */
 
     public String showDeleteMessage(Task task, int size) {
-        return showLine() + '\n' + "Noted. I've removed this task:\n"
-                + task.toString() + "\n"
-                        + "Now you have " + size + " tasks in the list." + '\n'
-                                + showLine();
+        return  "Noted. I've removed this task:\n" + task.toString() + "\n"
+                + "Now you have " + size + " tasks in the list.";
     }
 
     /**
@@ -140,10 +112,7 @@ public class Ui {
      * @param task The task to be marked.
      */
     public String showMarkMessage(Task task) {
-        return showLine() + '\n'
-                + "Nice! I've marked this task as done:" + '\n'
-                        + task.toString() + '\n'
-                                + showLine();
+        return  "Nice! I've marked this task as done:" + '\n' + task.toString();
     }
 
     /**
@@ -152,19 +121,14 @@ public class Ui {
      * @param task The task to be unMarked.
      */
     public String showUnmarkMessage(Task task) {
-        return showLine() + '\n'
-                + "Ok, I've marked this task as not done yet:\n"
-                        + task.toString() + '\n'
-                                + showLine();
+        return  "Ok, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
      * Displays an error message when the date format is invalid.
      */
     public String showInvalidDate() {
-        return showLine() + '\n'
-                + "Invalid date format. Start date is after end date" + '\n'
-                        + showLine();
+        return  "Invalid date format. Start date is after end date";
     }
 
     /**
@@ -173,8 +137,7 @@ public class Ui {
      * @param list The list of tasks which match.
      */
     public String showFind(TaskList list) {
-        return showLine() + '\n'
-                + "Here are the matching tasks in your list" + '\n'
+        return  "Here are the matching tasks in your list" + '\n'
                 + list.toString();
     }
 
@@ -182,12 +145,10 @@ public class Ui {
      * Displays message when there are no tasks that match a given keyword.
      */
     public String showNoFind() {
-        return showLine() + '\n'
-                + "There are no matching tasks in your current list" + '\n'
-                + showLine();
+        return  "There are no matching tasks in your current list";
     }
 
     public String showCustomError(String error) {
-        return showLine() + '\n' + error + '\n' + showLine();
+        return  error;
     }
 }
