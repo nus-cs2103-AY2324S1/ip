@@ -11,7 +11,7 @@ public class Ui {
     /**
      * A horizontal line used for separating messages.
      */
-    public static String horizontalLine = "_".repeat(40) + "\n";
+    public static String horizontalLine = "_".repeat(34) + "\n";
 
     /**
      * Displays a greeting message when the program starts.
