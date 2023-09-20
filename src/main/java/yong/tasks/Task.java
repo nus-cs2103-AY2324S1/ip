@@ -67,7 +67,7 @@ public class Task implements Serializable {
      *
      * @param datetimeString String format of the date and or time parsed in yyyy-mm-dd HHmm
      */
-    protected LocalDateTime parseDateTime(String datetimeString) throws InvalidParameterException {
+    public LocalDateTime parseDateTime(String datetimeString) throws InvalidParameterException {
         try {
             String pattern = "yyyy-MM-dd HHmm";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);

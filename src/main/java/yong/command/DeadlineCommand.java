@@ -47,7 +47,8 @@ public class DeadlineCommand extends Command {
 
             return outputString;
         } catch (Exception e) {
-            throw new DukeException("Please give a valid description for a Deadline task!");
+            throw new DukeException("Please give a valid description for a Deadline task!"
+                    + " An example format will be \"Deadline Return Book /by 2023-02-03 1700\"");
         }
     }
 }

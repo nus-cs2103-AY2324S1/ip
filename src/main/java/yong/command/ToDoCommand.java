@@ -46,7 +46,8 @@ public class ToDoCommand extends Command {
 
             return outputString;
         } catch (Exception e) {
-            throw new DukeException("Please give a valid description for a ToDo task!");
+            throw new DukeException("Please give a valid description for a ToDo task!"
+                    + " An example format will be \"ToDo Borrow book\"");
         }
     }
 }

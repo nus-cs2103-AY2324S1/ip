@@ -6,7 +6,13 @@ import yong.tasks.Event;
 import yong.tasks.Task;
 
 
+
+
 import yong.exception.DukeException;
+
+import java.security.InvalidParameterException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 
 /**
@@ -43,16 +49,36 @@ public class EventCommand extends Command {
             String from = parts[1].trim().split(" ", 2)[1];
             String to = parts[2].trim().split(" ", 2)[1];
 
-            Task newTask = new Event(description, from, to);
+            LocalDateTime fromDate = parseDateTime(from);
+            LocalDateTime toDate = parseDateTime(to);
 
-            taskList.add(newTask);
+            if (fromDate.isBefore(toDate)) {
+                Task newTask = new Event(description, from, to);
 
-            outputString = "Okay! Task added \n" + newTask;
+                taskList.add(newTask);
+
+                outputString = "Okay! Task added \n" + newTask;
+            } else {
+                outputString = "From Date cannot be after To Date!";
+            }
 
             return outputString;
         } catch (Exception e) {
             System.out.println(e);
-            throw new DukeException("Please give a valid description for an Event task!");
+            throw new DukeException("Please give a valid description for an Event task!"
+                    + " An example time format will be \"Event Read Book /from 2022-03-01 1800 /to 2022-04-02 1900\"");
+        }
+    }
+
+    public LocalDateTime parseDateTime(String datetimeString) throws InvalidParameterException {
+        try {
+            String pattern = "yyyy-MM-dd HHmm";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+            LocalDateTime datetime = LocalDateTime.parse(datetimeString, formatter);
+            return datetime;
+        } catch (Exception e) {
+            System.out.println("Wrong date format provided");
+            throw new InvalidParameterException();
         }
     }
 }
