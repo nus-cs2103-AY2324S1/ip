@@ -13,10 +13,11 @@ import chatbot.exceptions.MarkMissingFieldException;
 import chatbot.exceptions.MissingFieldException;
 import chatbot.tasks.EventTask;
 import chatbot.tasks.Task;
+import javafx.util.Pair;
 
 public class ParserTest {
     @Test
-    public void markTest1() {
+    public void parseMarkCommand_missingField_exception() {
         String[] commandWords = new String[]{"mark"};
         try {
             Parser.parseMarkCommand(commandWords);
@@ -29,7 +30,7 @@ public class ParserTest {
     }
 
     @Test
-    public void markTest2() {
+    public void parseMarkCommand_validIndex_noException() {
         String[] commandWords = new String[]{"mark", "2103"};
         try {
             assertEquals(Parser.parseMarkCommand(commandWords), 2103);
@@ -41,7 +42,7 @@ public class ParserTest {
     }
 
     @Test
-    public void markTest3() {
+    public void parseMarkCommand_invalidIndex_exception() {
         String[] commandWords = new String[]{"mark", "a1"};
         try {
             Parser.parseMarkCommand(commandWords);
@@ -54,7 +55,7 @@ public class ParserTest {
     }
 
     @Test
-    public void deleteTest1() {
+    public void parseDeleteCommand_missingField_exception() {
         String[] commandWords = new String[]{"delete"};
         try {
             Parser.parseDeleteCommand(commandWords);
@@ -67,7 +68,7 @@ public class ParserTest {
     }
 
     @Test
-    public void deleteTest2() {
+    public void parseDeleteCommand_validInput_noException() {
         String[] commandWords = new String[]{"delete", "2103"};
         try {
             assertEquals(Parser.parseDeleteCommand(commandWords), 2103);
@@ -79,7 +80,7 @@ public class ParserTest {
     }
 
     @Test
-    public void deleteTest3() {
+    public void parseDeleteCommand_invalidIndex_exception() {
         String[] commandWords = new String[]{"delete", "a1"};
         try {
             Parser.parseDeleteCommand(commandWords);
@@ -92,7 +93,72 @@ public class ParserTest {
     }
 
     @Test
-    public void eventTest1() {
+    public void parsePriorityCommand_missingTwoFields_exception() {
+        String[] commandWords = new String[]{"priority"};
+        try {
+            Parser.parsePriorityCommand(commandWords);
+            fail();
+        } catch (MissingFieldException e) {
+            assertTrue(true);
+        } catch (InvalidTaskIndexException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parsePriorityCommand_missingOneField_exception() {
+        String[] commandWords = new String[]{"priority", "1"};
+        try {
+            Parser.parsePriorityCommand(commandWords);
+            fail();
+        } catch (MissingFieldException e) {
+            assertTrue(true);
+        } catch (InvalidTaskIndexException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parsePriorityCommand_extraField_exception() {
+        String[] commandWords = new String[]{"priority", "1", "H", "M"};
+        try {
+            Parser.parsePriorityCommand(commandWords);
+            fail();
+        } catch (MissingFieldException e) {
+            assertTrue(true);
+        } catch (InvalidTaskIndexException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parsePriorityCommand_invalidIndex_exception() {
+        String[] commandWords = new String[]{"priority", "a1", "H"};
+        try {
+            Parser.parsePriorityCommand(commandWords);
+            fail();
+        } catch (MissingFieldException e) {
+            fail();
+        } catch (InvalidTaskIndexException e) {
+            assertTrue(true);
+        }
+    }
+
+    @Test
+    public void parsePriorityCommand_validInput_success() {
+        String[] commandWords = new String[]{"priority", "1", "H"};
+        try {
+            Pair output = Parser.parsePriorityCommand(commandWords);
+            assertEquals(new Pair<>(1, "H"), output);
+        } catch (MissingFieldException e) {
+            fail();
+        } catch (InvalidTaskIndexException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void parseEventCommand_missingDescription_exception() {
         String command = "event /from 1 /to 2";
         try {
             Parser.parseEventTaskCommand(command);
@@ -103,7 +169,7 @@ public class ParserTest {
     }
 
     @Test
-    public void eventTest2() {
+    public void parseEventCommand_missingFrom_exception() {
         String command = "event 1 /from /to 2";
         try {
             Parser.parseEventTaskCommand(command);
@@ -114,7 +180,7 @@ public class ParserTest {
     }
 
     @Test
-    public void eventTest3() {
+    public void parseEventCommand_missingTo_exception() {
         String command = "event 1 /from 2 /to";
         try {
             Parser.parseEventTaskCommand(command);
@@ -125,7 +191,7 @@ public class ParserTest {
     }
 
     @Test
-    public void eventTest4() {
+    public void parseEventCommand_validInput_success() {
         String command = "event 1 /from 2 /to 3";
         try {
             Task task = Parser.parseEventTaskCommand(command);
@@ -136,7 +202,7 @@ public class ParserTest {
     }
 
     @Test
-    public void eventTest5() {
+    public void parseEventCommand_validInput_correctName() {
         String command = "event 1 /from 2 /to 3";
         try {
             Task task = Parser.parseEventTaskCommand(command);
