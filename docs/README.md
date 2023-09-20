@@ -1,4 +1,4 @@
-# User Guide
+# Duke chatbot User Guide
 
 
 ## Usage
