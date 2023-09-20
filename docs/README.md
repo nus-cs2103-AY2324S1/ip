@@ -155,3 +155,9 @@ AdaBot is terminated. You may close this window.
 | `a [YYYY-MM-DD]`                                      | `date`       | Find all tasks you have on a specific date |
 | `del [number]`                                        | `delete`     | Delete a task                              |
 | `b`                                                   | `bye`        | Close AdaBot                               |
+
+# Get Started
+
+- You can download the jar file [here](https://github.com/nixonwidjaja/ip/releases)
+- Make sure you have Java and JRE installed on your device
+- Run the jar file

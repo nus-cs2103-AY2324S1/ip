@@ -16,9 +16,16 @@ And it is **FREE!**
 Features:
 - [x] Managing tasks
 - [x] Managing deadline
-- [ ] Reminders (coming soon)
+- [x] Managing events
+- [x] User-friendly and intuitive GUI
 
-[User Guide](http://nixonwidjaja.github.io/ip/)
+# User Guide
+See User Guide [here](http://nixonwidjaja.github.io/ip/)
+
+# Get Started
+- You can download the jar file [here](https://github.com/nixonwidjaja/ip/releases)
+- Make sure you have Java and JRE installed on your device
+- Run the jar file
 
 ##
 If you Java programmer, you can use it to practice Java too. Here's the ```main``` method in ```Duke.java```:
