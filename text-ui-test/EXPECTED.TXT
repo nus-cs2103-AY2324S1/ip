@@ -6,7 +6,7 @@ ____________________________________________________________
 OOPS!!! I'm sorry, but I don't know what that means :-(
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+You currently have no tasks in your list.
 ____________________________________________________________
 ____________________________________________________________
 OOPS!!! The description of todo cannot be empty.
@@ -20,7 +20,7 @@ ____________________________________________________________
 OOPS!!! The description of deadline cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The by of deadline cannot be empty.
+OOPS!!! The deadline time of deadline cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -31,10 +31,10 @@ ____________________________________________________________
 OOPS!!! The description of event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The from of event cannot be empty.
+OOPS!!! The start time of event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The to of event cannot be empty.
+OOPS!!! The end time of event cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Got it. I've added this task:
@@ -48,7 +48,7 @@ Here are the tasks in your list:
 3.[E][ ] project meeting (from: Sep 2 2022 1200 to: Sep 2 2022 1600)
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The index of mark cannot be empty.
+OOPS!!! The task index of mark cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 Nice! I've marked this task as done:
@@ -65,7 +65,7 @@ Here are the tasks in your list:
 3.[E][X] project meeting (from: Sep 2 2022 1200 to: Sep 2 2022 1600)
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The index of unmark cannot be empty.
+OOPS!!! The task index of unmark cannot be empty.
 ____________________________________________________________
 ____________________________________________________________
 OK, I've marked this task as not done yet:
@@ -78,25 +78,25 @@ Here are the tasks in your list:
 3.[E][X] project meeting (from: Sep 2 2022 1200 to: Sep 2 2022 1600)
 ____________________________________________________________
 ____________________________________________________________
-OOPS!!! The task index is invalid.
+OOPS!!! No such task with index 0
 ____________________________________________________________
 ____________________________________________________________
-Noted. I've removed this task:
+Got it. I've removed this task:
 [D][ ] return book (by: Sep 1 2023 1800)
 Now you have 2 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Noted. I've removed this task:
+Got it. I've removed this task:
 [T][ ] borrow book
 Now you have 1 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Noted. I've removed this task:
+Got it. I've removed this task:
 [E][X] project meeting (from: Sep 2 2022 1200 to: Sep 2 2022 1600)
 Now you have 0 tasks in the list.
 ____________________________________________________________
 ____________________________________________________________
-Here are the tasks in your list:
+You currently have no tasks in your list.
 ____________________________________________________________
 ____________________________________________________________
 Bye. Hope to see you again soon!

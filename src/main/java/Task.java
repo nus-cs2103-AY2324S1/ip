@@ -16,11 +16,11 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
-    public void markStatus() {
+    public void mark() {
         this.isDone = true;
     }
 
-    public void unmarkStatus() {
+    public void unmark() {
         this.isDone = false;
     }
 

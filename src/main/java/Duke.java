@@ -10,100 +10,48 @@ import java.util.ArrayList;
 
 public class Duke {
 
-    private static final String FILE_PATH = "./data/duke.txt";
+    private Ui ui;
+    private Storage storage;
+    private Parser parser;
+    private TaskList tasks;
 
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    // Initialize the classes in the Duke constructor.
+    public Duke(String filePath) {
+        this.ui = new Ui();
+        this.storage = new Storage(filePath);
+        tasks = new TaskList(storage.loadTasks());
+        this.parser = new Parser();
+    }
 
-    private static DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    public void run() {
+        ui.greet();
+        boolean isExit = false;
+        while (!isExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                Command c = parser.parse(fullCommand);
+                c.execute(tasks, ui, storage);
+                isExit = c.isExit();
+            } catch (DukeException e) {
+                ui.display(e.getMessage());
+            }
+        }
+    }
 
-    private static DateTimeFormatter outputDateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
+    public static void main(String[] args) {
+        new Duke("./data/duke.txt").run();
+    }
+}
+/*
+public class Duke {
+
 
     private static LocalDateTime parseInputDateTime(String dateTimeString){
         return LocalDateTime.parse(dateTimeString, inputDateTimeFormatter);
     }
 
-    private static LocalDateTime parseOutputDateTime(String dateTimeString){
-        return LocalDateTime.parse(dateTimeString, outputDateTimeFormatter);
-    }
 
 
-    private static void saveTasks() {
-        try {
-            FileWriter writer = new FileWriter(FILE_PATH);
-
-            for (Task task : tasks) {
-                writer.write(task.toSaveString() + "\n");
-            }
-
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred while saving tasks.");
-            e.printStackTrace();
-        }
-    }
-
-    private static void loadTasks() {
-        File file = new File(FILE_PATH);
-
-        if (!file.exists()) {
-            System.out.println("No save file detected. Attempting to create one...");
-            if (file.getParentFile() != null) {
-                file.getParentFile().mkdirs();  // This creates the directory structure if it doesn't exist
-            }
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                System.out.println("An error occurred while creating a new save file.");
-                e.printStackTrace();
-            }
-            System.out.println("Save file created successfully at " + FILE_PATH);
-        }
-
-        List<String> lines;
-
-        try {
-            lines = Files.readAllLines(file.toPath());
-        } catch (IOException e) {
-            System.out.println("An error occurred while loading tasks.");
-            return;
-        }
-
-        for (String line : lines) {
-            String[] parts = line.split(" \\| ");
-            boolean isMarked = parts[1].equals("1");
-
-            switch (parts[0]) {
-            case "T":
-                tasks.add(new Todo(parts[2], isMarked));
-                break;
-            case "D":
-                tasks.add(new Deadline(parts[2], isMarked, parseOutputDateTime(parts[3])));
-                break;
-            case "E":
-                tasks.add(new Event(parts[2], isMarked, parseOutputDateTime(parts[3]), parseOutputDateTime(parts[4])));
-                break;
-            }
-        }
-    }
-
-    private static void display(String... text) {
-        System.out.println("____________________________________________________________");
-        for (String i : text)
-            System.out.println(i);
-        System.out.println("____________________________________________________________");
-    }
-
-    private static void raiseMissingValueError(String value, String command) {
-        Duke.display(String.format("OOPS!!! The %s of %s cannot be empty.", value, command));
-    }
-
-    private static void greet() {
-        Duke.display("Hello! I'm Tackie", "What can I do for you?");
-    }
-
-    private static void farewell() {
-        Duke.display("Bye. Hope to see you again soon!");
-    }
 
     private static void list(){
         System.out.println("____________________________________________________________");
@@ -253,11 +201,12 @@ public class Duke {
                 break;
 
             default:
-                Duke.display("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                Ui.display("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
             saveTasks();
             userInput = scanner.nextLine();
         }
-        Duke.farewell();
+        ui.farewell();
     }
 }
+*/
