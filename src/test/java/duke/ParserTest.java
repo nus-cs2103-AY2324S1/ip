@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Scanner;
 
 public class ParserTest {
 
@@ -104,8 +103,13 @@ public class ParserTest {
 
     // Helper method to provide input for testing
     private void provideInput(String input) {
-        InputStream inputStream = new ByteArrayInputStream(input.getBytes());
-        System.setIn(inputStream);
-        parser.setUserInput(parser.getUserInput());
+        InputStream originalInput = System.in;  // Store the original System.in
+        try {
+            InputStream inputStream = new ByteArrayInputStream(input.getBytes());
+            System.setIn(inputStream);
+            parser.setUserInput(input); // Set the user input directly
+        } finally {
+            System.setIn(originalInput);  // Reset System.in to its original state
+        }
     }
 }
