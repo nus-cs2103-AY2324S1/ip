@@ -1,10 +1,40 @@
 # User Guide
 
+## Table of Contents
+
+- [Getting Started](Getting-Started)
+- [Features](Features)
+
+## Getting Started
+
+1. Ensure you have Java 11 Installed
+2. Download Jar file
+3. Run java -jar duke.jar to begin
+4. Duke ChatBot should appear, happy chatting!
+
 ## Features 
 
-### Feature-ABC
+### Add a task: `todo`, `deadline`, `event`
 
-Description of the feature.
+Add a new task into your task list. 
+
+Example of usage: 
+`todo (optional arguments)`
+
+Expected outcome:
+`added task to list`
+
+Description of the outcome.
+Adds task to list
+
+
+
+```
+expected output
+```
+
+
+
 
 ### Feature-XYZ
 
@@ -27,4 +57,10 @@ Description of the outcome.
 ```
 expected output
 ```
+
+
+### Summary
+Action | Format, Examples 
+------ | -------
+hello | hello
 
