@@ -284,7 +284,7 @@ public abstract class Command {
      * The FindCommand class represents the "find" command in the Duke application, allowing the user to find tasks.
      * It finds tasks in the task list that contain the specified keyword.
      */
-    public static class Find extends Command {
+    public static class FindCommand extends Command {
         /** The keyword to be searched for. */
         private String keyword;
 
@@ -293,7 +293,7 @@ public abstract class Command {
          *
          * @param keyword The keyword to be searched for.
          */
-        public Find(String keyword) {
+        public FindCommand(String keyword) {
             this.keyword = keyword;
         }
 
