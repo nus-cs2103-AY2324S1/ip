@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.TaskList;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 public class EventCommandTest {
     private static final String invalidFormatMessage = String.join(
@@ -52,6 +52,19 @@ public class EventCommandTest {
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());
+    }
+
+    @Test
+    public void run_duplicateEvent_commandExceptionThrown() {
+        try {
+            TaskList tasks = new TaskList();
+            Command command = new EventCommand("event meeting /from 2023-09-10T12:00 /to 2023-09-10T15:00");
+            command.run(tasks);
+            command = new EventCommand("event meeting /from 2023-09-10T12:00 /to 2023-09-10T15:00");
+            command.run(tasks);
+        } catch (CommandException e) {
+            assertEquals("A similar event already exists!", e.getMessage());
+        }
     }
 
     @Test

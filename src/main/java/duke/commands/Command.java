@@ -3,7 +3,7 @@ package duke.commands;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * Represents a command of the program.

@@ -7,7 +7,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.TaskList;
+import duke.DukeException;
+import duke.tasks.TaskException;
+import duke.tasks.TaskList;
 import duke.tasks.Todo;
 
 public class UnmarkCommandTest {
@@ -18,7 +20,7 @@ public class UnmarkCommandTest {
     );
 
     @Test
-    public void run_markUndoneEvent_success() throws CommandException {
+    public void run_markUndoneEvent_success() throws DukeException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         todo.markAsDone();
@@ -32,7 +34,7 @@ public class UnmarkCommandTest {
     }
 
     @Test
-    public void run_markDoneEvent_commandExceptionThrown() {
+    public void run_markDoneEvent_commandExceptionThrown() throws TaskException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
         tasks.add(todo);

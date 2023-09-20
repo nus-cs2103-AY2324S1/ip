@@ -28,4 +28,16 @@ public class Event extends Task implements Serializable {
     public String toString() {
         return String.format("[E]%s (from %s to %s)", super.toString(), startTime, endTime);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Event)) {
+            return false;
+        }
+
+        Event other = (Event) obj;
+        return this.description.equals(other.description)
+                && this.startTime.equals(other.startTime)
+                && this.endTime.equals(other.endTime);
+    }
 }

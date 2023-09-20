@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
-import duke.TaskList;
 import duke.tasks.Deadline;
+import duke.tasks.TaskException;
+import duke.tasks.TaskList;
 
 /**
  * A command to add a new deadline.
@@ -54,6 +55,8 @@ public class DeadlineCommand extends Command {
             );
         } catch (DateTimeParseException e) {
             throw new CommandException("Deadline due date is not a valid datetime!");
+        } catch (TaskException e) {
+            throw new CommandException("A similar deadline already exists!");
         }
     }
 }

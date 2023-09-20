@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.TaskList;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 public class TodoCommandTest {
     private static final String invalidFormatMessage = String.join(
@@ -32,6 +32,19 @@ public class TodoCommandTest {
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());
+    }
+
+    @Test
+    public void run_duplicateTodo_commandExceptionThrown() {
+        try {
+            TaskList tasks = new TaskList();
+            Command command = new TodoCommand("todo read book");
+            command.run(tasks);
+            command = new TodoCommand("todo read book");
+            command.run(tasks);
+        } catch (CommandException e) {
+            assertEquals("A similar todo already exists!", e.getMessage());
+        }
     }
 
     @Test

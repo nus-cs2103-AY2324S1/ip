@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import duke.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * Module for loading tasks from and saving tasks to a file cache.

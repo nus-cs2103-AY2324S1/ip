@@ -1,6 +1,6 @@
 package duke.commands;
 
-import duke.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * A command to exit the program.

@@ -2,8 +2,8 @@ package duke.commands;
 
 import java.util.regex.Pattern;
 
-import duke.TaskList;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 /**
  * A command to delete a task from the task list.

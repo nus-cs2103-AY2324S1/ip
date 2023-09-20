@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import duke.TaskList;
+import duke.tasks.TaskList;
 
 /**
  * A command to find tasks using a keyword.

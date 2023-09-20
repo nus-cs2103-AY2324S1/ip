@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
-import duke.TaskList;
 import duke.tasks.Event;
+import duke.tasks.TaskException;
+import duke.tasks.TaskList;
 
 /**
  * A command to add a new event.
@@ -63,6 +64,8 @@ public class EventCommand extends Command {
             );
         } catch (DateTimeParseException e) {
             throw new CommandException("Event start or end time is not a valid datetime!");
+        } catch (TaskException e) {
+            throw new CommandException("A similar event already exists!");
         }
 
     }

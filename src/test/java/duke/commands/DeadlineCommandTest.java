@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duke.TaskList;
 import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 public class DeadlineCommandTest {
     private static final String invalidFormatMessage = String.join(
@@ -34,6 +34,19 @@ public class DeadlineCommandTest {
 
         Task todo = tasks.get(0);
         assertFalse(todo.isDone());
+    }
+
+    @Test
+    public void run_duplicateDeadline_commandExceptionThrown() {
+        try {
+            TaskList tasks = new TaskList();
+            Command command = new DeadlineCommand("deadline assignment /by 2023-09-10T12:00");
+            command.run(tasks);
+            command = new DeadlineCommand("deadline assignment /by 2023-09-10T12:00");
+            command.run(tasks);
+        } catch (CommandException e) {
+            assertEquals("A similar deadline already exists!", e.getMessage());
+        }
     }
 
     @Test
