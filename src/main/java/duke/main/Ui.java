@@ -16,9 +16,9 @@ public class Ui {
             +  "/  ))        /  ))        /  ))        /  ))        /  ))        /  ))\n"
             +  "  ``          ``          ``          ``          ``         ``";
     private static final String HELP = "IMPORTANT NOTES:\n"
-            + "Todo: todo <task>\n"
-            + "Deadline: deadline <deadline> /by <duedate>\n"
-            + "Event: event <event> /from <start> /to <end>\n"
+            + "Todo: todo {task}\n"
+            + "Deadline: deadline {deadline} /by {duedate}\n"
+            + "Event: event {event} /from {start} /to {end}\n"
             + "Datetime format: \"dd/MM/yyyy HH:mm\"\n";
     private static final String GREET = "Hello! I'm Birdy\n"
             + "chirp chirp! How can I help?\n";

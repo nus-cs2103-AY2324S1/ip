@@ -35,6 +35,10 @@ public class Parser {
             return new ReminderCommand(null);
         }
 
+        if (headCommand.equals("help")) {
+            return new HelpCommand(null);
+        }
+
         if (splitCommand.length < 2) {
             throw new EmptyTaskException();
         }
