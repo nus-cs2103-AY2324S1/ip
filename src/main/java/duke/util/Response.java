@@ -9,6 +9,7 @@ public class Response {
 
     private String message;
     private boolean isError;
+    private boolean isExit;
 
     /**
      * Constructs a <code>Response</code> object.
@@ -19,6 +20,7 @@ public class Response {
     public Response(String message, boolean isError) {
         this.message = message;
         this.isError = isError;
+        this.isExit = false;
     }
 
     /**
@@ -28,6 +30,19 @@ public class Response {
      */
     public Response(String message) {
         this(message, false);
+    }
+
+    /**
+     * Constructs a <code>Response</code> object.
+     *
+     * @param message The message of the response.
+     * @param isError Whether the response is an error response.
+     * @param isExit Whether the response is an exit response.
+     */
+    public Response(String message, boolean isError, boolean isExit) {
+        this.message = message;
+        this.isError = isError;
+        this.isExit = isExit;
     }
 
     /**
@@ -56,6 +71,15 @@ public class Response {
      */
     public boolean isErrorResponse() {
         return isError;
+    }
+
+    /**
+     * Returns whether the response is an exit response.
+     *
+     * @return True if the response is an exit response, false otherwise.
+     */
+    public boolean isExitResponse() {
+        return isExit;
     }
 
     /**

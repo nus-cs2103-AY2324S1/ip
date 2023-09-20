@@ -34,17 +34,16 @@ public class Duke {
         this.storage = new Storage(FOLD_PATH, DEFAULT_FILE_NAME);
         this.ui = new Ui();
         try {
-            this.taskList = new TaskList(storage.loadTasks(true, DEFAULT_FILE_NAME));
+            taskList = new TaskList(storage.loadTasks(true, DEFAULT_FILE_NAME));
         } catch (DukeException e) {
             storage.createTaskFile();
             taskList = new TaskList();
-            return Response.connectResponses(ui.showLoadingError(), ui.showWelcome());
+            return ui.showLoadingError();
         }
         try {
             storage.loadAlias();
         } catch (DukeException e) {
-            return Response.connectResponses(ui.showError(e.getMessage()),
-                    ui.showWelcome());
+            return ui.showError(e.getMessage());
         }
         return ui.showWelcome();
     }
@@ -58,11 +57,7 @@ public class Duke {
     public Response getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            Response response = c.execute(taskList, ui, storage);
-            if (c.isExit()) {
-                System.exit(0);
-            }
-            return response;
+            return c.execute(taskList, ui, storage);
         } catch (DukeException e) {
             return ui.showError(e.getMessage());
         }

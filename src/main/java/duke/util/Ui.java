@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import duke.exception.DukeException;
 import duke.task.Task;
 
 /**
@@ -21,7 +22,7 @@ public class Ui {
      * @return the response message to the user.
      */
     public Response showWelcome() {
-        return new Response(String.format("Hello! I'm %s\nWhat can I do for you?", NAME));
+        return new Response(String.format("Greetings! I am %s. How can I assist you?", NAME));
     }
 
     /**
@@ -30,8 +31,8 @@ public class Ui {
      * @return the response message to the user.
      */
     public Response showLoadingError() {
-        return new Response("OOPS!!!Something terrible happened to the data file.\n"
-                + "Don't worry I will clean up the mess!\n\n", true);
+        return new Response("OOPS!!! Something terrible happened to the data file.\n\n"
+                + "Don't worry I will clean up the mess!", true);
     }
 
     /**
@@ -51,7 +52,7 @@ public class Ui {
      * @return the response message to the user.
      */
     public Response showExit() {
-        return new Response("Bye. Hope to see you again soon!");
+        return new Response("Bye. Hope to see you again soon!", false, true);
     }
 
     /**
@@ -65,9 +66,9 @@ public class Ui {
     public Response showAddTask(Task task, int taskListSize) {
         assert task != null : "Task should not be null";
 
-        return new Response(String.format("Got it. I've added this task:\n"
+        return new Response(String.format("Awesome! I've added the following task:\n"
                            + "  %s\n"
-                           + "Now you have %d tasks in the list.\n",
+                           + "Now you have %d tasks.\n",
                 task, taskListSize));
     }
 
@@ -82,7 +83,7 @@ public class Ui {
     public Response showDeleteTask(Task removedTask, int taskListSize) {
         assert removedTask != null : "Removed task should not be null";
 
-        return new Response(String.format("Noted. I've removed this task:%n"
+        return new Response(String.format("Noted. I've removed this task:\n"
                            + "  %s\n"
                            + "Now you have %d tasks in the list.%n",
                  removedTask, taskListSize));
@@ -98,7 +99,7 @@ public class Ui {
     public Response showMarkTask(boolean isMark, String task) {
         String message = isMark
                 ? "Nice! I've marked this task as done:"
-                : "OK, I've marked this task as not done yet:";
+                : "OK, I've unmarked this task:";
         return new Response(String.format("%s\n  %s\n", message, task));
     }
 
@@ -246,5 +247,55 @@ public class Ui {
             strBuilder.append(String.format("  %s", alias));
         }
         return new Response(strBuilder.toString());
+    }
+
+    /**
+     * Shows the general help message to the user.
+     *
+     * @return the response message to the user.
+     */
+    public Response showGeneralHelp() {
+        return new Response(Help.generalHelp());
+    }
+
+    /**
+     * Shows the help message for a particular command to the user.
+     *
+     * @param key The keyword of the command that the user is requesting help.
+     * @return   The response message to the user.
+     */
+    public Response showHelp(Keyword key) throws DukeException {
+        switch (key) {
+        case BYE:
+            return new Response(Help.byeHelp());
+        case SORT:
+            return new Response(Help.sortHelp());
+        case ALIAS:
+            return new Response(Help.aliasHelp());
+        case LOAD:
+            return new Response(Help.loadHelp());
+        case LIST:
+            return new Response(Help.listHelp());
+        case MARK:
+            return new Response(Help.markHelp());
+        case UNMARK:
+            return new Response(Help.unmarkHelp());
+        case DELETE:
+            return new Response(Help.deleteHelp());
+        case TODO:
+            return new Response(Help.todoHelp());
+        case FIND:
+            return new Response(Help.findHelp());
+        case PRINT_DATE:
+            return new Response(Help.printDateHelp());
+        case EVENT:
+            return new Response(Help.eventHelp());
+        case DEADLINE:
+            return new Response(Help.deadlineHelp());
+        case HELP:
+            throw new DukeException("Umm... I think you are asking for help for the help command.");
+        default:
+            throw new DukeException("OOPS!!! I might not be able to provide help for the command.");
+        }
     }
 }

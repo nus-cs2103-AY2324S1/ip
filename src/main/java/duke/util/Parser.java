@@ -6,6 +6,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.LoadCommand;
 import duke.command.MarkCommand;
@@ -39,7 +40,7 @@ public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         String[] split = fullCommand.split(" ");
         if (fullCommand.isEmpty() || split.length == 0) {
-            throw new DukeException("OOPS!!! You have not entered anything!");
+            throw new DukeException("Oh no, you've entered the abyss of nothingness! \uD83C\uDF0C");
         }
 
         Keyword key;
@@ -111,6 +112,9 @@ public class Parser {
         case ALIAS:
             return new AliasCommand();
 
+        case HELP:
+            return new HelpCommand();
+
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
@@ -166,6 +170,9 @@ public class Parser {
 
         case ALIAS:
             return new AliasCommand(commandBody);
+
+        case HELP:
+            return new HelpCommand(commandBody);
 
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");

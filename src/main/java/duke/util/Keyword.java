@@ -16,7 +16,8 @@ public enum Keyword {
     FIND("find"),
     LOAD("load"),
     SORT("sort"),
-    ALIAS("alias");
+    ALIAS("alias"),
+    HELP("help");
 
     private final String keyword;
 

@@ -8,7 +8,7 @@ import duke.util.TaskList;
 import duke.util.Ui;
 
 /**
- * AliasCommand class is used to add or remove an alias.
+ * Represents a <code>alias</code> command. It can add an alias or remove an existing one.
  * It can also list all the current aliases. A <code>AliasCommand</code> object
  * corresponds to an executable command when the user wants to add or remove an alias.
  */
