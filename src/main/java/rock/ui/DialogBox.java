@@ -1,18 +1,31 @@
 package rock.ui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 
+
+/**
+ * Represents a dialog box in
+ * the bot GUI
+ *
+ * @author Alvis Ng (PsineWave)
+ */
 public class DialogBox extends HBox {
 
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Creates a dialogue box with text
+     * and image
+     * @param l Label containing display text
+     * @param iv Image to attach to dialog box
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;

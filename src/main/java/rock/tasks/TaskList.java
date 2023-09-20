@@ -112,6 +112,11 @@ public class TaskList implements Serializable {
         return response;
     }
 
+    /**
+     * Checks if the givent ask is in the list
+     * @param t Task to check for
+     * @return True if task in list, false otherwise
+     */
     public boolean isPresent(Task t) {
         for (int i = 0; i < items.size(); i++) {
             if (items.get(i).equals(t)) {

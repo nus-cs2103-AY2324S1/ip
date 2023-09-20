@@ -4,7 +4,11 @@ import java.util.NoSuchElementException;
 
 import rock.client.Rock;
 import rock.logic.io.Parser;
-import rock.tasks.*;
+import rock.tasks.Task;
+import rock.tasks.TaskDeadline;
+import rock.tasks.TaskEvent;
+import rock.tasks.TaskList;
+import rock.tasks.TaskTodo;
 
 /**
  * Representation of possible types

@@ -1,18 +1,26 @@
 package rock.ui;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 
+/**
+ * Represents a warning box
+ * for the bot to interact with user
+ *
+ * @author Alvis Ng (supermii2)
+ */
 public class WarningBox extends HBox {
 
     private Label text;
+
+    /**
+     * Creates a warning box
+     * to indicate a client warning
+     * @param l Text of warning box
+     */
     public WarningBox(Label l) {
         text = l;
         text.setWrapText(true);

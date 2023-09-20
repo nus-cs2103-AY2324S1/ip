@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import rock.client.Rock;
 import rock.storage.exceptions.StorageException;
 import rock.tasks.TaskList;
-import rock.client.Rock;
 
 /**
  * Used to handle saving
