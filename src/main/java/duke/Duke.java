@@ -14,7 +14,19 @@ import duke.exception.DukeException;
 import duke.ui.Invoker;
 
 public class Duke {
-    private Invoker invoker = new Invoker();
+    private Invoker invoker;
+
+    public Duke() {
+        this.invoker = new Invoker();
+        invoker.setCommand("list", new ListCommand());
+        invoker.setCommand("mark", new MarkCommand());
+        invoker.setCommand("unmark", new UnmarkCommand());
+        invoker.setCommand("todo", new AddTaskCommand(new TodoBuilder()));
+        invoker.setCommand("deadline", new AddTaskCommand(new DeadlineBuilder()));
+        invoker.setCommand("event", new AddTaskCommand(new EventBuilder()));
+        invoker.setCommand("delete", new DeleteCommand());
+        invoker.setCommand("find", new FindCommand());
+    }
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm Doctor101");
@@ -48,17 +60,6 @@ public class Duke {
             }
             System.out.println("____________________________________________________________");
         }
-    }
-
-    public void init() {
-        this.invoker.setCommand("list", new ListCommand());
-        this.invoker.setCommand("mark", new MarkCommand());
-        this.invoker.setCommand("unmark", new UnmarkCommand());
-        this.invoker.setCommand("todo", new AddTaskCommand(new TodoBuilder()));
-        this.invoker.setCommand("deadline", new AddTaskCommand(new DeadlineBuilder()));
-        this.invoker.setCommand("event", new AddTaskCommand(new EventBuilder()));
-        this.invoker.setCommand("delete", new DeleteCommand());
-        this.invoker.setCommand("find", new FindCommand());
     }
 
     public String getWelcomeMessage() {
