@@ -29,6 +29,7 @@ public class Storage {
      * @param filePath The string representation of the file path.
      */
     public Storage(String filePath) {
+        assert !filePath.trim().equals("") : "Data file path cannot be empty";
         this.filePath = filePath;
     }
 
@@ -80,21 +81,18 @@ public class Storage {
         String taskType = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
-
         TaskList tasks = new TaskList();
 
         switch (taskType) {
         case "T":
             tasks.addTask(new Todo(description, isDone));
             break;
-
         case "D":
             String by = parts[3];
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate deadlineBy = LocalDate.parse(by, formatter);
             tasks.addTask(new Deadline(description, deadlineBy, isDone));
             break;
-
         case "E":
             String start = parts[3];
             String end = parts[4];
@@ -103,11 +101,9 @@ public class Storage {
             LocalDate endDate = LocalDate.parse(end, formatter);
             tasks.addTask(new Event(description, startDate, endDate, isDone));
             break;
-
         default:
             throw new BuddyException("Unexpected value: " + taskType);
         }
-
         return tasks;
     }
 }
