@@ -1,0 +1,7 @@
+D|1|3|CS2103 Assignment|2023-04-02
+D|1|1|CS2100 tutorial|2021-02-02 0800
+D|0|3|CS2101 presentation|2020-09-09
+T|0|3|Review CS2100 tutorial
+D|0|1|CS2101 Assignment|2020-09-09
+T|0|0|Review ST2334 tutorial
+T|0|3|Review CS2101 tutorial

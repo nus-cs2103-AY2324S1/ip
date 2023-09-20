@@ -1,0 +1,9 @@
+todo Buy groceries
+event Meeting /from 2023-01-01 /to 2023-01-01
+deadline Submit report /by 2023-01-01 2000
+list
+mark 1
+list
+unmark 1
+list
+bye
