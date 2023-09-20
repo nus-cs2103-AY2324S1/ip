@@ -83,6 +83,10 @@ Expected outcome:
 The Chatbot will reply that the task has been inserted
 
 ```
+Got it. I've added this task:
+[T][] Read Book
+Now you have 1 tasks in the list.
+```
 
 ### `deadline` - Starts a process to add a Deadline entry into the list
 
@@ -138,5 +142,5 @@ The Chatbot will reply that the task has been inserted
 ```
 Got it. I've added this task:
 [D][] Finish CS2100 Assignment (by: 18-Sep-2023)
-Now you have 2 tasks in the list
+Now you have 2 tasks in the list.
 ```
