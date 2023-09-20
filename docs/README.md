@@ -17,7 +17,7 @@ Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Int
    * `todo Task` : Adds a new task of type **Todo** with the title `Task` to the Chatbot.
    * `delete 3` : Deletes the 3rd task shown in the task list.
    * `mark 1` : Marks the 1st task shown in the task list.
-   * `bye` : Exits the app.
+   * `bye` : Exits the chat.
      
 8. Refer to the Features below for details of each command.
    
@@ -253,7 +253,7 @@ Here are the tasks in your list:
 2. [E][ ] Watch CS2100 Lecture (from: 15 September 2023 16:00 to: 15 September 2023 18:00)
 ```
 
-### Deleting a person : `delete`
+### Deleting a task : `delete`
 
 Deletes the specified task from the Task List.
 
@@ -283,9 +283,9 @@ Now you have 2 tasks in the list.
 
 
 
-### Exiting the program : `bye`
+### Exiting the Chat : `bye`
 
-Exits the program.
+Exits the Chat. The Program will exit upon the next input entered.
 
 Format: `bye`
 
