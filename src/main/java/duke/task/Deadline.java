@@ -68,7 +68,7 @@ public class Deadline extends Task {
                     Storage.saveTask(deadlineTask, true);
                     Storage.listOfTasks.add(deadlineTask);
 
-                    message.append("Got it, I've added this Task:\n");
+                    message.append("Got it, I've added this task:\n");
                     message.append(String.format(" %s\n", deadlineTask));
                     message.append(String.format("Now you have %d task(s) in the list.\n", Storage.listOfTasks.size()));
                 } else {

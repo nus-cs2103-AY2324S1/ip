@@ -168,7 +168,7 @@ public class TaskList {
 
             message.append("Ok. I've marked this Task as NOT done yet:\n");
             message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
-            System.out.println("     Nice! I've marked this Task as done:");
+            System.out.println("     Ok. I've marked this Task as NOT done yet:");
             System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.getDescription());
         }
         return message.toString();
