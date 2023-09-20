@@ -2,7 +2,6 @@ package com.mimi.main;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.*;
 
 import com.mimi.commands.Command;
 import com.mimi.ui.Ui;
@@ -66,7 +65,7 @@ public class Mimi extends Application implements DataCallback {
     private void closeWindow() {
         try {
             PauseTransition delay = new PauseTransition(Duration.seconds(3));
-            delay.setOnFinished( event -> this.window.close());
+            delay.setOnFinished(event -> this.window.close());
             delay.play();
         } catch (IllegalStateException e) {
             ui.unableToClose();
