@@ -9,6 +9,7 @@ import chatbot.ui.Ui;
 /**
  * Represents a command to add a deadline to the task list
  */
+
 public class DeadlineCommand extends Command {
     /**
      * Description of the deadline to be added
@@ -31,7 +32,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     *  Returns a boolean value to indicate whether to exit the program
+     * Returns a boolean value to indicate whether to exit the program
      * @return A boolean value
      */
     @Override

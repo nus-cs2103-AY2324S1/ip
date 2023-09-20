@@ -48,21 +48,6 @@ public class Duke extends Application {
     }
 
 
-//    public void run() {
-//        boolean isExit = false;
-//        ui.showWelcome();
-//
-//        while (!isExit) {
-//            try {
-//                Command c = Parser.parse(ui.readInput());
-//                c.execute(tasklist, ui, storage);
-//                isExit = c.isExit();
-//            } catch (DukeException e) {
-//                System.out.println("Error: " + e.getMessage());
-//            }
-//        }
-//    }
-
     @Override
     public void start(Stage stage) throws FileNotFoundException {
 
@@ -191,8 +176,4 @@ public class Duke extends Application {
         }
         return output;
     }
-//    public static void main(String[] args) {
-//        Duke duke = new Duke();
-//        ui.showWelcome();
-//    }
 }
