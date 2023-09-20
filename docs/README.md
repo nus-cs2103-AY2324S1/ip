@@ -15,7 +15,7 @@ Start chatting with Bot to achieve peak organization
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-2. Download the latest `ip2103-v3.4.0.jar` from [here]().
+2. Download the latest `bot.jar` from [here](https://github.com/neyapraveen/ip/releases/latest).
 
 3. Double-click the file to start the app.
 
