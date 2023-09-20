@@ -1,5 +1,8 @@
 package duke.data.task;
 
+/**
+ * Represents a task with start and end time.
+ */
 public class Event extends Task {
     private From from;
     private To to;

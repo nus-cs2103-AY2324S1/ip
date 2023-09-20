@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.Duke;
-import duke.exception.DukeException;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.time.DateTimeException;
+
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,8 +26,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Duke duke;
-
-    private final String BYE = "Bye.";
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -57,7 +54,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (response.equals(BYE)) {
+        if (response.equals(Duke.getFinishMessage())) {
             PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
             pause.setOnFinished(event -> System.exit(0));
             pause.play();

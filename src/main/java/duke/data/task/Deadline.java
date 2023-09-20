@@ -2,6 +2,9 @@ package duke.data.task;
 
 import duke.exception.InvalidInputException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends Task {
     private By by;
 

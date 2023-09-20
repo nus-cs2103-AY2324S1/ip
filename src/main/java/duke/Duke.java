@@ -14,7 +14,10 @@ import duke.exception.DukeException;
 import duke.ui.Invoker;
 
 public class Duke {
+    private static String FINISH_MESSAGE = "Bye. Hope to see you again soon!";
     private Invoker invoker;
+
+
 
     public Duke() {
         this.invoker = new Invoker();
@@ -68,7 +71,7 @@ public class Duke {
 
     public String getResponse(String input) {
         if (input.equals("bye")) {
-            return "Bye. Hope to see you again soon!";
+            return FINISH_MESSAGE;
         } else {
             try {
                 return invoker.execute(input);
@@ -76,5 +79,8 @@ public class Duke {
                 return e.getMessage();
             }
         }
+    }
+    public static String getFinishMessage() {
+        return FINISH_MESSAGE;
     }
 }

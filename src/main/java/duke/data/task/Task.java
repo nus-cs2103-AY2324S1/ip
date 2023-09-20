@@ -1,5 +1,8 @@
 package duke.data.task;
 
+/**
+ * Represents a task.
+ */
 public abstract class Task {
     protected Description description;
     protected boolean isDone = false;
@@ -35,6 +38,6 @@ public abstract class Task {
     }
 
     public boolean hasKeyword(String keyword) {
-       return this.description.hasKeyword(keyword);
+        return this.description.hasKeyword(keyword);
     }
 }

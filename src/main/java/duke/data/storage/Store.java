@@ -1,24 +1,29 @@
 package duke.data.storage;
 
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import duke.data.task.Task;
+import duke.data.task.builder.TaskBuilder;
 import duke.data.task.tasklist.Tasklist;
 import duke.exception.DukeException;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.FileReader;
-import duke.data.task.Task;
-import duke.data.task.builder.TaskBuilder;
 
 
+/**
+ * Responsible for reading and writing to duke.txt in the data folder which stores the task list contents.
+ */
 public class Store {
-    private static Store store = new Store();
-    Tasklist tasks = new Tasklist();
-    String fileName = "./src/main/java/duke/data/duke.txt";
-    TaskBuilder taskBuilder = new TaskBuilder();
+    private static final Store store = new Store();
+    private final Tasklist tasks = new Tasklist();
+    private final String fileName = "./src/main/java/duke/data/duke.txt";
+    private final TaskBuilder taskBuilder = new TaskBuilder();
 
     private Store() {
-        // detect whetehr duke.txt exists, and create it if it doesn't
+        // detect whether duke.txt exists, and create it if it doesn't
         File file = new File(fileName);
         if (!file.exists()) {
             try {
@@ -57,21 +62,18 @@ public class Store {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
         }
-        
     }
-      
     /**
-     * Returns the instance of Store.
+     * Returns the single instance of Store.
      * @return The instance of Store.
      */
     public static Store getInstance() {
         return store;
     }
-     
-    private void write() {   
+    private void write() {
         try {
-             FileWriter fw = new FileWriter(fileName);
-             fw.write(tasks.getUserInputStrs());
+            FileWriter fw = new FileWriter(fileName);
+            fw.write(tasks.getUserInputStrs());
             fw.close();
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
@@ -81,7 +83,7 @@ public class Store {
     /**
      * Adds a task to the task list.
      * @param task The task to be added.
-     * @throws DukeException
+     * @throws DukeException If task list is full.
      */
     public void addTask(Task task) throws DukeException {
         tasks.addTask(task);
@@ -94,27 +96,24 @@ public class Store {
     public Task[] getTasks() {
         return tasks.getTasks();
     }
-    
     /**
      * Returns the task at the specified index.
      * @param index The index of the task to be returned.
      * @return The task at the specified index.
      * @throws DukeException If index is invalid.
      */
-    public Task getTask(int index) throws DukeException{
-         return tasks.getTask(index);
+    public Task getTask(int index) throws DukeException {
+        return tasks.getTask(index);
     }
-     
     /**
      * Deletes a task from the task list.
      * @param index The index of the task to be deleted.
      * @throws DukeException If index is invalid.
      */
-    public void deleteTask(int index) throws DukeException{
+    public void deleteTask(int index) throws DukeException {
         tasks.deleteTask(index);
         write();
     }
-    
     /**
      * Marks a task as done.
      * @param index The index of the task to be marked as done.
@@ -123,9 +122,7 @@ public class Store {
     public void mark(int index) throws DukeException {
         tasks.mark(index);
         write();
-       
     }
-     
     /**
      * Marks a task as not done.
      * @param index The index of the task to be marked as not done.
@@ -135,41 +132,26 @@ public class Store {
         tasks.unmark(index);
         write();
     }
-    
     /**
      * Updates the description of a task.
      * @param index The index of the task to be updated.
      * @param description The new description of the task.
      * @throws DukeException If index is invalid.
      */
-    public void updateDescription(int index, String description) throws DukeException{
+    public void updateDescription(int index, String description) throws DukeException {
         tasks.updateDescription(index, description);
-        write(); 
-    }  
-    
-    /**
-     * Updates the date of a task.
-     * @param index The index of the task to be updated.
-     * @param date The new date of the task.
-     * @throws DukeException If index is invalid.
-     */
+        write();
+    }
     public int getTaskCount() {
         return tasks.getTaskCount();
     }
-    
-    /**
-     * Returns the number of tasks in the task list.
-     * @return The number of tasks in the task list.
-     */
     public boolean hasTaskAtIndex(int index) {
         return tasks.hasTaskAtIndex(index);
     }
-    
     @Override
     public String toString() {
         return tasks.toString();
-    } 
-
+    }
     public Tasklist find(String keyword) throws DukeException {
         return tasks.findTasksWithKeyword(keyword);
     }
