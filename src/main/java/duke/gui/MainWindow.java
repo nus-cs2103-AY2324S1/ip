@@ -60,7 +60,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
         if (response.equals(BYE_MSG)) {
             // Close the window after 5 seconds
-            PauseTransition pause = new PauseTransition(Duration.seconds(5));
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
             pause.setOnFinished(event -> duke.close());
             pause.play();
         }

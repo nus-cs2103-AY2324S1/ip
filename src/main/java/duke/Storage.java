@@ -9,10 +9,9 @@ import java.io.IOException;
  * Represents a storage that loads tasks from the specified file and saves tasks to the same file.
  */
 public class Storage {
-    private final String filePath;
+    private static final String FILE_PATH = "data/duke.txt";
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
     }
 
     /**
@@ -36,9 +35,9 @@ public class Storage {
             return;
         }
         assert !txt.isEmpty() : "tasks.txt should not be empty";
-        new File(filePath).createNewFile();
-        assert new File(filePath).exists() : "tasks.txt should exist";
-        FileWriter fw = new FileWriter(filePath);
+        new File(FILE_PATH).createNewFile();
+        assert new File(FILE_PATH).exists() : "tasks.txt should exist";
+        FileWriter fw = new FileWriter(FILE_PATH);
         fw.write(taskList.getTasksTxt());
         fw.close();
     }

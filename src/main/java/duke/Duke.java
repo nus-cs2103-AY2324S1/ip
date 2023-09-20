@@ -21,7 +21,7 @@ public class Duke {
      */
     public Duke(Stage stage) {
         this.stage = stage;
-        storage = new Storage("data/duke.txt");
+        storage = new Storage();
         tasks = new TaskList();
         try {
             tasks.addTasks(storage.loadFile());
@@ -41,7 +41,7 @@ public class Duke {
         try {
             String output = parser.parse(input);
             if (!parser.isRunning()) {
-                exit();
+                return exit();
             }
             return output;
         } catch (DukeException e) {
