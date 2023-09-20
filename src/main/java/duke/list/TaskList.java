@@ -3,6 +3,7 @@ package duke.list;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.exception.KoraException;
 import duke.task.Task;
 
 /**
@@ -14,15 +15,18 @@ public class TaskList {
 
     public TaskList() {
         tasks = new ArrayList<>();
-
     }
 
     public void addTask(Task task) {
         tasks.add(task);
     }
 
-    public Task getTask(int taskIndex) {
-        return tasks.get(taskIndex - 1);
+    public Task getTask(int taskIndex) throws KoraException {
+        try {
+            return tasks.get(taskIndex - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new KoraException("AiGu! There are only " + tasks.size() + " tasks!");
+        }
     }
 
     public void removeTask(int taskIndex) {

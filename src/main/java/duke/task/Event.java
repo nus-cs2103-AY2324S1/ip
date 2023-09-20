@@ -22,19 +22,19 @@ public class Event extends Task {
         dtParser = new DateTimeParser();
         saveStringStart = dtParser.saveFormatted(this.startTime);
         saveStringEnd = dtParser.saveFormatted(this.endTime);
-        outStringStart = dtParser.saveFormatted(this.startTime);
-        outStringEnd = dtParser.saveFormatted(this.endTime);
+        outStringStart = dtParser.outFormatted(this.startTime);
+        outStringEnd = dtParser.outFormatted(this.endTime);
     }
 
     @Override
     public String getTime() {
-        return saveStringStart + "to " + saveStringEnd;
+        return saveStringStart + " to " + saveStringEnd;
     }
 
     @Override
     public String saveFormat() {
         String output;
-        output = super.saveFormat() + "/ " + saveStringStart + "/ " + saveStringEnd;
+        output = super.saveFormat() + " / " + saveStringStart + " / " + saveStringEnd;
         return output;
     }
 
@@ -42,7 +42,7 @@ public class Event extends Task {
     public String toString() {
         String output;
         output = super.toString()
-                + "(from: " + outStringStart + " to: " + outStringEnd + ")";
+                + " (from: " + outStringStart + " to: " + outStringEnd + ")";
         return output;
     }
 }

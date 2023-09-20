@@ -27,14 +27,14 @@ public class Deadline extends Task {
     @Override
     public String saveFormat() {
         String output;
-        output = super.saveFormat() + "/ " + saveString;
+        output = super.saveFormat() + " / " + saveString;
         return output;
     }
 
     @Override
     public String toString() {
         String output;
-        output = super.toString() + "(" + "by: " + outString + ")";
+        output = super.toString() + " (" + "by: " + outString + ")";
         return output;
     }
 }

@@ -19,7 +19,7 @@ public class EventCommand extends Command {
 
     public EventCommand(String[] details) throws KoraException {
         if (details.length != 3) {
-            throw new KoraException("AiGu! Event needs to have a due date!");
+            throw new KoraException("AiGu! Event needs to have a start date and end date!");
         }
         taskDetails = details[0].replace("event ", "");
         String startTime = details[1].replace("from ", "");
