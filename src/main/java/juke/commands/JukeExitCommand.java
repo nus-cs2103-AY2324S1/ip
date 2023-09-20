@@ -1,5 +1,6 @@
 package juke.commands;
 
+import juke.responses.Dialog;
 import juke.responses.Response;
 
 /**
@@ -22,6 +23,6 @@ public class JukeExitCommand extends JukeCommand {
      */
     @Override
     public Response execute(Response response) {
-        return response.withJuke(JukeExitCommand.EXIT_STRING);
+        return response.with(Dialog.ofJuke(JukeExitCommand.EXIT_STRING));
     }
 }

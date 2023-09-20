@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import juke.exceptions.parsers.JukeDateFormatParseException;
+import juke.commons.exceptions.parsers.JukeDateFormatParseException;
 
 //@@author asdfghjkxd-reused
 // Code is reused from GitHub Copilot autocompletion. Some test cases, as well as the data, may have been

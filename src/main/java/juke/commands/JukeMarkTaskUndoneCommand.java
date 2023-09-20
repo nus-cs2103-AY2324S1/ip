@@ -1,6 +1,7 @@
 package juke.commands;
 
-import juke.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.storage.JukeStorageException;
+import juke.responses.Dialog;
 import juke.responses.Response;
 import juke.tasks.TaskList;
 
@@ -35,7 +36,9 @@ public class JukeMarkTaskUndoneCommand extends JukeCommand {
     @Override
     public Response execute(Response response) {
         this.taskList.setAsIncomplete(this.index);
-        return response.withJuke("Task marked as undone: "
-                                         + this.taskList.getTaskInformation(this.index));
+        return response
+                .with(Dialog.ofJuke("Task marked as undone: "
+                                         + this.taskList.getTaskInformation(this.index)))
+                .with(Dialog.ofJuke("Your current tasks:\n" + this.taskList));
     }
 }

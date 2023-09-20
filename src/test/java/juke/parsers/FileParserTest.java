@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import juke.exceptions.parsers.JukeDataFileParseException;
-import juke.exceptions.parsers.JukeDateFormatParseException;
+import juke.commons.exceptions.parsers.JukeDataFileParseException;
+import juke.commons.exceptions.parsers.JukeDateFormatParseException;
 import juke.tasks.JukeDeadline;
 import juke.tasks.JukeEvent;
 import juke.tasks.JukeTodo;

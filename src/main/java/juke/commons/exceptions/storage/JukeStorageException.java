@@ -1,6 +1,6 @@
-package juke.exceptions.storage;
+package juke.commons.exceptions.storage;
 
-import juke.exceptions.JukeException;
+import juke.commons.exceptions.JukeException;
 
 /**
  * Represents a generic error with the storing, retrieving or modifying of data

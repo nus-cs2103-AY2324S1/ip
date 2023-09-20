@@ -2,6 +2,7 @@ package juke.commands;
 
 import java.util.List;
 
+import juke.responses.Dialog;
 import juke.responses.Response;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
@@ -53,6 +54,6 @@ public class JukeFindTaskCommand extends JukeCommand {
             }
         }
 
-        return response.withJuke(stringBuilder.toString());
+        return response.with(Dialog.ofJuke(stringBuilder.toString()));
     }
 }

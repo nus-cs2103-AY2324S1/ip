@@ -1,53 +1,45 @@
 package juke.responses;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import juke.commons.classes.JukeObject;
+import juke.ui.components.DialogBox;
 
 /**
  * Represents the two-sided conversation between Juke and the user. Future implementation of this class
  * may see the use of a history list to capture more conversations between the user and Juke.
  */
 public class Response extends JukeObject {
-    /** Represents the input message from the user. */
-    private final String inputMessage;
+    /** Represents a series of Dialogs to be printed */
+    private final List<Dialog> messages;
 
-    /** Represents the output message from Juke. */
-    private final String outputMessage;
+    /**
+     * Constructs an instance of {@code Response}. This method is made private to
+     * prevent illegal instantiation from the user.
+     */
+    private Response() {
+        this.messages = new LinkedList<>();
+    }
+
+    /**
+     * Constructs an instance of {@code Response}. This method is made private to
+     * prevent illegal instantiation from the user.
+     */
+    private Response(List<Dialog> withDialogs) {
+        this.messages = new LinkedList<>(withDialogs);
+    }
 
     /**
      * Constructs an instance of {@code Response}. This method is made private to
      * prevent illegal instantiation from the user.
      *
-     * @param inputMessage String representing user input
-     * @param outputMessage String representing Juke output
+     * @param inputDialog Input dialog message to display
      */
-    private Response(String inputMessage, String outputMessage) {
-        this.inputMessage = inputMessage;
-        this.outputMessage = outputMessage;
-    }
-
-    /**
-     * Returns a {@code Response} containing the inputs from the user.
-     * Note that the user input must be wrapped as the actions do not automatically wrap the
-     * user input.
-     *
-     * @param inputMessage User response
-     * @return {@code Response} containing the inputs from the user
-     */
-    public static Response ofUser(String inputMessage) {
-        return new Response(inputMessage, null);
-    }
-
-    /**
-     * Composes a {@code Response} with Juke's output message. Be warned that if
-     * this method is called with a Response object that already has a Juke output,
-     * then the previous Juke output will be overwritten. This behaviour may be changed
-     * in a future implementation of the Response class.
-     *
-     * @param outputMessage Juke output
-     * @return {@code Response} with Juke's output message
-     */
-    public Response withJuke(String outputMessage) {
-        return new Response(this.inputMessage, outputMessage);
+    private Response(Dialog... inputDialog) {
+        this();
+        this.messages.addAll(List.of(inputDialog));
     }
 
     /**
@@ -56,24 +48,37 @@ public class Response extends JukeObject {
      * @return {@code Response} with no input or output messages
      */
     public static Response of() {
-        return new Response(null, null);
+        return new Response();
     }
 
     /**
-     * Returns the input message from the user.
+     * Returns a {@code Response} with existing inputs.
      *
-     * @return String representing the input message from the user
+     * @return {@code Response} object pre-populated with the dialog inputs
      */
-    public String getInputMessage() {
-        return this.inputMessage;
+    public static Response of(Dialog... dialogs) {
+        return new Response(dialogs);
     }
 
     /**
-     * Returns the output message from Juke.
+     * Returns the list of dialogs mapped into its corresponding {@code DialogBox} object.
      *
-     * @return String representing the output message from Juke
+     * @return {@code List} of {@code DialogBox}
      */
-    public String getOutputMessage() {
-        return this.outputMessage;
+    public List<DialogBox> getDialogBoxes() {
+        return this.messages.stream().map(Dialog::getDialogBoxRepresentation).collect(Collectors.toList());
+    }
+
+    /**
+     * Composes the input {@code Dialog} with the existing {@code Dialogs}, and
+     * return a new instance of {@code Response} with the input {@code Dialog}.
+     *
+     * @param inputDialog Input {@code Dialog} object
+     * @return {@code Response} object
+     */
+    public Response with(Dialog inputDialog) {
+        List<Dialog> composedDialogs = new LinkedList<>(this.messages);
+        composedDialogs.add(inputDialog);
+        return new Response(composedDialogs);
     }
 }

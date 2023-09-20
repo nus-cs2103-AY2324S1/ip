@@ -7,9 +7,9 @@ import java.util.List;
 import juke.commons.classes.JukeObject;
 import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
-import juke.exceptions.JukeStateException;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
-import juke.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.JukeStateException;
+import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
+import juke.commons.exceptions.storage.JukeStorageException;
 import juke.storage.Storage;
 
 /**
@@ -56,40 +56,33 @@ public class TaskList extends JukeObject {
      * Adds a task to the task list.
      *
      * @param task {@code JukeTask} object.
-     * @return true if the task is added, else false
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
-    public boolean addTask(JukeTask task) {
+    public void addTask(JukeTask task) {
         int lengthOfTasks = this.tasks.size();
-        boolean isSuccess = this.tasks.add(task);
 
-        if (isSuccess) {
+        if (this.tasks.add(task)) {
             assert this.tasks.size() == lengthOfTasks + 1;
             this.storage.write(this.tasks);
         }
-
-        return isSuccess;
     }
 
     /**
      * Deletes a task by index from the task list.
      *
      * @param task Index of {@code JukeTask} object
-     * @return {@code JukeTask} deleted if the task is successfully deleted, else throws an exception
      * @throws JukeIllegalArgumentException if the input argument is invalid
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
-    public JukeTask deleteTask(int task) {
+    public void deleteTask(int task) {
         try {
-            JukeTask returnedTask = this.tasks.get(task);
+            JukeTask taskToDelete = this.tasks.get(task);
             int lengthOfTasks = this.tasks.size();
 
-            if (this.tasks.remove(returnedTask)) {
+            if (this.tasks.remove(taskToDelete)) {
                 assert this.tasks.size() == lengthOfTasks - 1;
                 this.storage.write(this.tasks);
             }
-
-            return returnedTask;
         } catch (IndexOutOfBoundsException ex) {
             throw new JukeIllegalArgumentException("Oh no! The task index you have provided is not valid!");
         }

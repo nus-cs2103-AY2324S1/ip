@@ -1,4 +1,4 @@
-package juke.exceptions.parsers;
+package juke.commons.exceptions.parsers;
 
 /**
  * Represents an error with the parsing the datafile.

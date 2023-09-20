@@ -2,9 +2,9 @@ package juke;
 
 import javafx.application.Application;
 import juke.commands.JukeExceptionCommand;
-import juke.exceptions.JukeInitialisationException;
-import juke.exceptions.parsers.JukeParseException;
-import juke.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.JukeInitialisationException;
+import juke.commons.exceptions.parsers.JukeParseException;
+import juke.commons.exceptions.storage.JukeStorageException;
 import juke.responses.Response;
 import juke.ui.Ui;
 
@@ -13,7 +13,7 @@ import juke.ui.Ui;
  */
 public class Juke {
     /** Represents the max character width of any String printed to screen. */
-    public static final int MAX_STRING_LENGTH = 50;
+    public static final int MAX_STRING_LENGTH = 40;
 
     /**
      * Runs the main event loop for Juke. This method invokes the inner {@code start()}

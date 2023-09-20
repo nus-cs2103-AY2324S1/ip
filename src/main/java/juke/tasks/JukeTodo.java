@@ -1,7 +1,7 @@
 package juke.tasks;
 
 import juke.commons.enums.SortTypeEnum;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
+import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
 
 /**
  * Represents a Todo task. Todo tasks do not have any deadlines.

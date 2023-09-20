@@ -1,8 +1,8 @@
 package juke.commands;
 
-import juke.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.storage.JukeStorageException;
+import juke.responses.Dialog;
 import juke.responses.Response;
-import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
 
 /**
@@ -35,7 +35,10 @@ public class JukeDeleteTaskCommand extends JukeCommand {
      */
     @Override
     public Response execute(Response response) {
-        JukeTask jt = this.taskList.deleteTask(this.task);
-        return response.withJuke("Task deleted: " + jt);
+        this.taskList.deleteTask(this.task);
+
+        return response
+                .with(Dialog.ofJuke("Task deleted: " + this.task))
+                .with(Dialog.ofJuke("Your current tasks:\n" + this.taskList));
     }
 }
