@@ -1,4 +1,4 @@
-package duke;
+package duke.task;
 
 /**
  * The TaskType enum represents different types of tasks in the Duke application.

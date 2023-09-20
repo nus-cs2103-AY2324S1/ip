@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class TodoTask extends Task {
     private LocalDate fromDate;
     private LocalDate toDate;
+    private TaskPriority taskPriority;
 
     /**
      * Constructs a TodoTask with the specified description, date range, and completion status.
@@ -19,10 +20,11 @@ public class TodoTask extends Task {
      * @param toDate      The ending date of the date range.
      * @param isDone      The completion status of the task (true if done, false otherwise).
      */
-    public TodoTask(String description, LocalDate fromDate, LocalDate toDate, boolean isDone) {
-        super(description, isDone);
+    public TodoTask(String description, LocalDate fromDate, LocalDate toDate, boolean isDone, TaskPriority taskPriority) {
+        super(description, isDone, fromDate, taskPriority);
         this.fromDate = fromDate;
         this.toDate = toDate;
+        this.taskPriority = taskPriority;
     }
 
     /**
@@ -32,7 +34,7 @@ public class TodoTask extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString() + " " + this.getDescriptionDetails();
+        return "[T]" + super.toString() + "[" + this.taskPriority.toCode() + "] " + this.getDescriptionDetails();
     }
 
     /**
@@ -43,7 +45,9 @@ public class TodoTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (from: %s to: %s)", getTaskType(), this.isDone ? 1 : 0, this.description,
+        return String.format("%s | %d | %s | %s (from: %s to: %s)", getTaskType(), this.isDone ? 1 : 0,
+                this.taskPriority.toCode(),
+                this.description,
                 this.fromDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")),
                 this.toDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }

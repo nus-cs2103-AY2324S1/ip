@@ -1,7 +1,6 @@
 package duke;
 
 import duke.command.DukeException;
-import duke.command.Parser;
 import duke.task.Task;
 
 import java.io.BufferedReader;
@@ -37,7 +36,7 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
 
         try {
-            File file = new File(filePath);
+            File file = new File(this.filePath);
             if (!file.exists()) {
                 return tasks; // If the file doesn't exist yet, no need to load tasks
             }
@@ -64,7 +63,7 @@ public class Storage {
      */
     public void saveTasksToFile(ArrayList<Task> tasks) throws DukeException {
         try {
-            FileWriter writer = new FileWriter(filePath);
+            FileWriter writer = new FileWriter(this.filePath);
             for (Task task : tasks) {
                 writer.write(task.toFileString() + "\n");
             }

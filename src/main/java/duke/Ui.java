@@ -22,9 +22,9 @@ public class Ui {
     }
 
     /**
-     * Displays a goodbye message to the user.
+     * Displays a welcome message to the user.
      *
-     * @return The goodbye message as a string.
+     * @return The welcome message as a string.
      */
     public String showHiMessage() {
         StringBuilder message = new StringBuilder();

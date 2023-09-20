@@ -3,6 +3,7 @@ package duke.task;
 import duke.command.DukeException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The TaskList class represents a list of tasks in the Duke application.
@@ -24,7 +25,7 @@ public class TaskList {
      * @param arr The list of tasks to initialize the TaskList.
      */
     public TaskList(ArrayList<Task> arr) {
-        tasks = arr;
+        this.tasks = arr;
     }
 
     /**
@@ -37,9 +38,15 @@ public class TaskList {
         this.tasks.add(task);
     }
 
+    /**
+     * Checks if a task at the specified index is marked as done.
+     *
+     * @param taskIndex The index of the task to check.
+     * @return true if the task is done, false otherwise.
+     */
     public boolean isTaskDone(int taskIndex) {
-        if (taskIndex >= 0 && taskIndex < tasks.size()) {
-            Task task = tasks.get(taskIndex);
+        if (taskIndex >= 0 && taskIndex < this.tasks.size()) {
+            Task task = this.tasks.get(taskIndex);
             return task.isDone();
         }
         return false;
@@ -138,16 +145,29 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks in the TaskList that contain a specified keyword in their description.
+     *
+     * @param keyword The keyword to search for in task descriptions.
+     * @return An ArrayList of tasks matching the keyword.
+     */
     public ArrayList<Task> findTasksByKeyword(String keyword) {
         assert keyword != null : "keyword cannot be null";
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
-        for (Task task : tasks) {
+        for (Task task : this.tasks) {
             if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }
 
         return matchingTasks;
+    }
+
+    /**
+     * Sorts tasks in the TaskList by priority.
+     */
+    public void sortTasksByPriority() {
+        Collections.sort(this.tasks, new PriorityComparator());
     }
 }

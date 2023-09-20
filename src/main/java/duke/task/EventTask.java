@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class EventTask extends Task {
     private LocalDate atDate;
+    private TaskPriority priority;
 
     /**
      * Constructs an EventTask with the specified description, event date, and completion status.
@@ -17,9 +18,10 @@ public class EventTask extends Task {
      * @param atDate      The date of the event.
      * @param isDone      The completion status of the task (true if done, false otherwise).
      */
-    public EventTask(String description, LocalDate atDate, boolean isDone) {
-        super(description, isDone);
+    public EventTask(String description, LocalDate atDate, boolean isDone, TaskPriority priority) {
+        super(description, isDone, atDate, priority);
         this.atDate = atDate;
+        this.priority = priority;
     }
 
     /**
@@ -29,7 +31,7 @@ public class EventTask extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " " + this.getDescriptionDetails();
+        return "[E]" + super.toString() + "[" + this.priority.toCode() + "] " + this.getDescriptionDetails();
     }
 
     /**
@@ -40,7 +42,11 @@ public class EventTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (at: %s)", getTaskType(), this.isDone ? 1 : 0, this.description,
+        return String.format("%s | %d | %s | %s (at: %s)",
+                getTaskType(),
+                this.isDone ? 1 : 0,
+                this.priority.toCode(),
+                this.description,
                 this.atDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 

@@ -2,14 +2,13 @@ package duke;
 
 import duke.command.Command;
 import duke.command.DukeException;
-import duke.command.Parser;
 import duke.task.TaskList;
 
 import java.util.Scanner;
 
 /**
- * The Duke class represents a chatbot application.
- * It allows users to add, mark as done, mark as not done, delete, and list 3 different type of tasks.
+ * The Duke class represents a chatbot application that manages tasks.
+ * Users can add, mark as done, mark as not done, delete, list, and interact with different types of tasks.
  */
 public class Duke {
 
@@ -44,18 +43,26 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command command = Parser.parseCommand(input);
-            return command.execute(tasks, ui, storage);
+            return command.execute(this.tasks, this.ui, this.storage);
         } catch (DukeException e) {
-            return ui.showError(e.getMessage());
+            return this.ui.showError(e.getMessage());
         }
     }
 
+    /**
+     * The main entry point for the Duke application.
+     *
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args) {
         new Duke("./src/main/java/duke/duke.txt").run();
     }
 
+    /**
+     * Runs the Duke application, allowing users to interact with it through the command line.
+     */
     public void run() {
-        ui.showHiMessage();
+        this.ui.showHiMessage();
 
         Scanner scanner = new Scanner(System.in);
         String userInput;
@@ -66,6 +73,6 @@ public class Duke {
             System.out.println(response);
         } while (!userInput.equalsIgnoreCase("bye"));
 
-        ui.showGoodbyeMessage();
+        this.ui.showGoodbyeMessage();
     }
 }

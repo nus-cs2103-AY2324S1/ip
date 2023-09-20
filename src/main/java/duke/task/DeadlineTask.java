@@ -9,6 +9,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class DeadlineTask extends Task {
     private LocalDate byDate;
+    private TaskPriority priority;
+
 
     /**
      * Constructs a DeadlineTask with the specified description, deadline date, and completion status.
@@ -17,9 +19,10 @@ public class DeadlineTask extends Task {
      * @param byDate      The deadline date of the task.
      * @param isDone      The completion status of the task (true if done, false otherwise).
      */
-    public DeadlineTask(String description, LocalDate byDate, boolean isDone) {
-        super(description, isDone);
+    public DeadlineTask(String description, LocalDate byDate, boolean isDone, TaskPriority priority) {
+        super(description, isDone, byDate, priority);
         this.byDate = byDate;
+        this.priority = priority;
     }
 
     /**
@@ -29,7 +32,7 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " " + this.getDescriptionDetails();
+        return "[D]" + super.toString() + "[" + this.priority.toCode() + "] " + this.getDescriptionDetails();
     }
 
     /**
@@ -40,7 +43,11 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("%s | %d | %s (by: %s)", getTaskType(), this.isDone ? 1 : 0, this.description,
+        return String.format("%s | %d | %s | %s (by: %s)",
+                getTaskType(),
+                this.isDone ? 1 : 0,
+                this.priority.toCode(),
+                this.description,
                 this.byDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
