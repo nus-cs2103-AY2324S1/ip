@@ -1,9 +1,9 @@
-# User Guide
+# User Guide for Bloop Bloop 🐳
 
 ## Project ~~Duke~~ Bloop
-This is a project template for a greenfield Java project.
-It's named after my favourite whale shark called Bloop 🐳😄.
-Given below are instructions on how to use it.
+This is a project template for a greenfield Java project.<br>
+It's named after my favourite whale shark called Bloop 🐳😄.<br>
+Given below are instructions on how to use it.<br>
 
 Hello from
 ```
@@ -97,15 +97,15 @@ Hello from
 >> **mark2** <br>
 >> **mark3** 
 >>> 2. [D][X] homework (by: 20 Sep 2023 12:34)<br>
->>> 3. [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023 15:00)
+>>> 3. [E][X] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023 15:00)
 >
 >> **unmark 1**
 >>> 1. [T][ ] laundry<br>
 >
 >> **list** <br> 
->> 1. [T][X] laundry<br>
+>> 1. [T][ ] laundry<br>
 >> 2. [D][X] homework (by: 20 Sep 2023 12:34)<br>
->> 3. [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023
+>> 3. [E][X] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023
 >
 > **Stats**
 >> Here are the task statistics: <br>
@@ -119,3 +119,8 @@ Hello from
 > Dont worry!!! <br>
 > Use the command: **help** <br>
 > Bloop Bloop will assist you and list out all available commands!
+
+
+## Acknowledgements:
+> Javadocs were written by ChatGPT :) <br>
+> The extra Javadocs html were generated using IntelleJ software :)
