@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import juke.commons.DateUtils;
 import juke.commons.classes.JukeObject;
 import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
@@ -62,9 +63,9 @@ public abstract class JukeCommand extends JukeObject {
 
         switch (mainCommand) {
         case "list":
-            return new JukePrintCommand(taskList);
+            return JukeCommand.list(args, taskList);
         case "bye":
-            return new JukeExitCommand();
+            return JukeCommand.exit(args);
         case "mark":
             return JukeCommand.mark(args, taskList);
         case "unmark":
@@ -88,6 +89,37 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
+     * Creates a {@code JukePrintCommand} object. Command will print out the task list.
+     *
+     * @param args Parsed arguments
+     * @param taskList {@code TaskList} object which manages all tasks
+     * @return {@code JukePrintCommand} object
+     */
+    private static JukePrintCommand list(String[] args, TaskList taskList) {
+        if (args.length != 1) {
+            throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your list command!",
+                                                          "list");
+        }
+
+        return new JukePrintCommand(taskList);
+    }
+
+    /**
+     * Creates a {@code JukeExitCommand} object. Command will exit Juke.
+     *
+     * @param args Parsed arguments
+     * @return {@code JukeExitCommand} object
+     */
+    private static JukeExitCommand exit(String[] args) {
+        if (args.length != 1) {
+            throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your bye command!",
+                                                          "bye");
+        }
+
+        return new JukeExitCommand();
+    }
+
+    /**
      * Creates a {@code JukeMarkTaskDoneCommand} object. Command will mark a task as complete.
      *
      * @param args Parsed arguments
@@ -95,7 +127,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeMarkTaskDoneCommand} object
      */
     private static JukeMarkTaskDoneCommand mark(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1 || args.length > 2) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your mark command!",
                                                           "mark [task number]");
         } else {
@@ -117,7 +149,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeMarkTaskUndoneCommand} object
      */
     private static JukeMarkTaskUndoneCommand unmark(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1 || args.length > 2) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your unmark command!",
                                                           "unmark [task number]");
         } else {
@@ -139,7 +171,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeDeleteTaskCommand} object
      */
     private static JukeDeleteTaskCommand delete(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1 || args.length > 2) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your delete command!",
                                                           "delete [task number]");
         } else {
@@ -173,7 +205,7 @@ public abstract class JukeCommand extends JukeObject {
             //@@author
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, newArgs)) {
-                throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                throw new JukeIllegalArgumentException("Oh no! The input cannot contain the character \"|\"!");
             }
 
             JukeTask jt = new JukeTodo(newArgs);
@@ -204,7 +236,7 @@ public abstract class JukeCommand extends JukeObject {
             String[] parsedArguments = Parser.parseByByString(newDeadlineArgs);
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, parsedArguments[0])) {
-                throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                throw new JukeIllegalArgumentException("Oh no! The input cannot contain the character \"|\"!");
             }
 
             JukeTask jt = new JukeDeadline(parsedArguments[0], DateTimeParser.parse(parsedArguments[1]));
@@ -237,13 +269,13 @@ public abstract class JukeCommand extends JukeObject {
             String[] parsedArguments = Parser.parseByFromToString(newEventArgs);
 
             if (Pattern.matches(JukeCommand.ILLEGAL_TOPIC_REGEX, parsedArguments[0])) {
-                throw new JukeIllegalArgumentException("Oh no! The topic cannot contain the character \"|\"!");
+                throw new JukeIllegalArgumentException("Oh no! The input cannot contain the character \"|\"!");
             }
 
             LocalDateTime startTime = DateTimeParser.parse(parsedArguments[1]);
             LocalDateTime endTime = DateTimeParser.parse(parsedArguments[2]);
 
-            if (endTime.isBefore(startTime)) {
+            if (DateUtils.isAfter(startTime, endTime)) {
                 throw new JukeIllegalArgumentException("Oh no! The \"to\" date cannot be before the "
                                                                + "\"from\" date!");
             }
@@ -282,7 +314,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeSortListCommand} object
      */
     private static JukeSortListCommand sort(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1 || args.length > 3) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
                                                           "sort [a/asc/ascend/ascending | "
                                                                   + "d/desc/descend/descending] "

@@ -97,8 +97,6 @@ public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTa
      *
      * <p>This method is present mainly for polymorphism and method reuse.</p>
      *
-     * <p>Do note that this method's outputs are inverted to ensure proper sort order.</p>
-     *
      * @param task the {@code JukeTask} object to be compared with
      * @param sortType the type of sort to perform on the tasks
      * @return -1 if this {@code JukeTask} object is before the {@code JukeTask} object passed in, 0 if they
@@ -106,6 +104,6 @@ public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTa
      */
     @Override
     public int sortBy(JukeTask task, SortTypeEnum sortType) {
-        return this.taskName.compareTo(task.taskName) * -1;
+        return this.taskName.compareTo(task.taskName);
     }
 }

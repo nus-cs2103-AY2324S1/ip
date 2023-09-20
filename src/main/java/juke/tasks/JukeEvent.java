@@ -3,6 +3,7 @@ package juke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import juke.commons.DateUtils;
 import juke.commons.enums.SortTypeEnum;
 import juke.commons.exceptions.JukeStateException;
 import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
@@ -66,19 +67,6 @@ public class JukeEvent extends JukeTask implements TaskSortable<JukeTask> {
     }
 
     /**
-     * Compares the input {@code LocalDateTime} object with the end time of this {@code JukeEvent} object. This
-     * method is mainly used for sorting, and should not be invoked directly by the user.
-     *
-     * @param dateTime input {@code LocalDateTime} object
-     * @return -1 if the input {@code LocalDateTime} object is before the end time of this {@code JukeEvent} object,
-     *     0 if they are the same, and 1 if the input {@code LocalDateTime} object is after the end time of this
-     *     {@code JukeEvent} object
-     */
-    public int compareEndTime(LocalDateTime dateTime) {
-        return dateTime.compareTo(this.endTime);
-    }
-
-    /**
      * Compares this {@code JukeEvent} object with the input {@code JukeTask} object for order.
      * This method should not be directly invoked by the user as it is mainly used for sorting.
      *
@@ -115,10 +103,9 @@ public class JukeEvent extends JukeTask implements TaskSortable<JukeTask> {
     private int compareDeadlineOrEndDate(JukeTask task) {
         if (task instanceof JukeEvent) {
             JukeEvent event = (JukeEvent) task;
-            return this.endTime.compareTo(event.endTime);
+            return DateUtils.compareDateTimes(this.endTime, event.endTime);
         } else if (task instanceof JukeDeadline) {
-            JukeDeadline deadline = (JukeDeadline) task;
-            return deadline.compareDeadline(this.endTime);
+            return DateUtils.compareDateTimes(this.endTime, ((JukeDeadline) task).getDeadline());
         } else if (task instanceof JukeTodo) {
             // since todos have an infinitely early deadline, they are always considered to be before events
             // and so events are always after todos, subjected to the constraints of the sort order
@@ -150,6 +137,15 @@ public class JukeEvent extends JukeTask implements TaskSortable<JukeTask> {
             // should not reach here, unless there are other unknown subclasses of JukeTask
             throw new JukeIllegalArgumentException("Oh no! I cannot sort the list with an unknown task within it!");
         }
+    }
+
+    /**
+     * Returns the end date of this {@code JukeEvent} object.
+     *
+     * @return End date of this {@code JukeEvent} object.
+     */
+    public LocalDateTime getEndDate() {
+        return this.endTime;
     }
 
     /**

@@ -1,7 +1,5 @@
 package juke.responses;
 
-import juke.Juke;
-import juke.commons.utils.StringUtils;
 import juke.ui.components.DialogBox;
 import juke.ui.components.JukeDialogBox;
 import juke.ui.components.UserDialogBox;
@@ -28,7 +26,7 @@ public abstract class Dialog {
      * @param text Input dialog text
      */
     public static Dialog ofUser(String text) {
-        return new UserDialog(StringUtils.wrap(text, Juke.MAX_STRING_LENGTH));
+        return new UserDialog(text);
     }
 
     /**
@@ -37,7 +35,7 @@ public abstract class Dialog {
      * @param text Input dialog text
      */
     public static Dialog ofJuke(String text) {
-        return new JukeDialog(StringUtils.wrap(text, Juke.MAX_STRING_LENGTH));
+        return new JukeDialog(text);
     }
 
     /**

@@ -97,7 +97,7 @@ public class TaskList extends JukeObject {
      * @throws JukeStorageException if there is an issue with storing the changes
      */
     public void setAsComplete(int index) {
-        if (index < 0 || index > this.tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new JukeIllegalArgumentException("Oh no! I do not have such task recorded!");
         }
 
@@ -114,7 +114,7 @@ public class TaskList extends JukeObject {
      * @throws JukeStorageException if there is an issue with storing the changes
      */
     public void setAsIncomplete(int index) throws JukeStorageException {
-        if (index < 0 || index > this.tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new JukeIllegalArgumentException("Oh no! I do not have such task recorded!");
         }
 
@@ -130,7 +130,7 @@ public class TaskList extends JukeObject {
      * @throws JukeIllegalArgumentException if the input argument is invalid
      */
     public String getTaskInformation(int index) {
-        if (index < 0 || index > this.tasks.size()) {
+        if (index < 0 || index >= this.tasks.size()) {
             throw new JukeIllegalArgumentException("Oh no! I do not have such task recorded!");
         }
 
@@ -168,7 +168,7 @@ public class TaskList extends JukeObject {
         try {
             this.tasks.sort((t1, t2) -> t2.sortBy(t1, sortType));
 
-            if (sortOrder.equals(SortOrderEnum.DESCENDING)) {
+            if (sortOrder.equals(SortOrderEnum.ASCENDING)) {
                 this.reverse();
             }
         } catch (IllegalArgumentException | UnsupportedOperationException | ClassCastException ex) {

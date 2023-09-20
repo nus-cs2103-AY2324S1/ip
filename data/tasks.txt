@@ -1,6 +1,12 @@
-T|F|complete all leetcode questions
-E|F|complete assignments and start revising for cs123456789 midterms finals and special term|2023-09-18T00:00|2024-09-18T00:00
-D|F|cs2100 assignment|2023-09-17T00:00
-T|F|finish cs2103t assignment
-T|F|wow i love cs
-T|F|oh wow this is so great lol
+T|T|100000
+T|F|bitch
+E|F|bruh|2020-10-01T00:00|2022-10-05T00:00
+T|F|bruh
+T|F|bruh
+D|T|deadline task|2023-04-29T00:00
+D|F|event|2001-01-01T00:00
+E|F|idk|2019-02-01T00:00|2023-02-01T00:00
+T|T|naur
+T|F|task
+E|F|this|2029-01-01T00:00|2099-01-01T00:00
+T|F|this

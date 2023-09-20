@@ -3,6 +3,7 @@ package juke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import juke.commons.DateUtils;
 import juke.commons.enums.SortTypeEnum;
 import juke.commons.exceptions.JukeStateException;
 import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
@@ -53,19 +54,6 @@ public class JukeDeadline extends JukeTask {
     @Override
     public String save() {
         return "D" + super.save() + "|" + deadline;
-    }
-
-    /**
-     * Compares this {@code JukeDeadline}'s deadline with respect to the localDateTime object input. This method
-     * is mainly used for sorting, and should not be invoked directly by the user.
-     *
-     * @param localDateTime {@code LocalDateTime} object to compare with
-     * @return -1 if this {@code JukeDeadline}'s deadline is before the input {@code LocalDateTime} object,
-     *     0 if they are the same, and 1 if this {@code JukeDeadline}'s deadline is after the
-     *     input {@code LocalDateTime} object
-     */
-    public int compareDeadline(LocalDateTime localDateTime) {
-        return localDateTime.compareTo(this.deadline);
     }
 
     /**
@@ -131,11 +119,9 @@ public class JukeDeadline extends JukeTask {
      */
     private int compareDeadlineOrEndDate(JukeTask task) {
         if (task instanceof JukeEvent) {
-            JukeEvent event = (JukeEvent) task;
-            return event.compareEndTime(this.deadline);
+            return DateUtils.compareDateTimes(this.deadline, ((JukeEvent) task).getEndDate());
         } else if (task instanceof JukeDeadline) {
-            JukeDeadline deadline = (JukeDeadline) task;
-            return this.deadline.compareTo(deadline.deadline);
+            return DateUtils.compareDateTimes(this.deadline, ((JukeDeadline) task).deadline);
         } else if (task instanceof JukeTodo) {
             // since todos have an infinitely early deadline, they are always considered to be before deadlines
             return 1;
@@ -143,6 +129,15 @@ public class JukeDeadline extends JukeTask {
             // should not reach here, unless there are other unknown subclasses of JukeTask
             throw new JukeIllegalArgumentException("Oh no! I cannot sort the list with an unknown task within it!");
         }
+    }
+
+    /**
+     * Returns the deadline of this {@code JukeDeadline} object.
+     *
+     * @return End date of this {@code JukeEvent} object.
+     */
+    public LocalDateTime getDeadline() {
+        return this.deadline;
     }
 
     /**

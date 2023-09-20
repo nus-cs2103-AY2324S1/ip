@@ -72,6 +72,9 @@ no deadlines, and are represented only by its completion status!
 
 `todo [task name]`
 
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
+
 #### Examples
 
 * `todo task`
@@ -92,6 +95,8 @@ The following are examples of errors that could happen to the `todo` command:
 
 * `todo`: When the argument is ommitted, an error will occur
 
+---
+
 ### Add a `Deadline` Task
 
 Create a `Deadline` Task to track completable tasks with a deadline!
@@ -106,6 +111,9 @@ Create a `Deadline` Task to track completable tasks with a deadline!
     * `YYYY`: 4 digit number representing the year
     * `HH`: 2 digit number representing the hour in 24 hours
     * `MM`: 2 digit number representing the minutes
+
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -126,6 +134,8 @@ The following are examples of errors that could happen to the `deadline` command
 
 * `deadline`, `deadline /by`: When the arguments are ommitted, an error will occur
 * `deadline error task /by gibberish`: When the date argument is invalid, an error will occur
+
+---
 
 ### Create an `Event` Task
 
@@ -148,6 +158,9 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
 > **ℹ️ Note**  
 > The date formats used in `event` follows closely to what `deadline` uses!
 
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
+
 #### Examples
 
 * `event task /from 01/01/2023 23:59 /to 01/01/2024 23:59`
@@ -168,6 +181,8 @@ The following are examples of errors that could happen to the `event` command:
 * `event`, `event /from`, `event /from /to`: When the arguments are ommitted, an error will occur
 * `event error task /from gibberish /to gibberish 2`: When the date argument is invalid, an error will occur
 * `event error task 2 /from 01/01/2023 /to 01/01/2000`: When the start date is before the end date, an error will occur
+
+---
 
 ### List all Tasks
 
@@ -202,6 +217,8 @@ The following are examples of errors that could happen to the `list` command:
 * `ls`: Using shortened spellings will result in errors
 * 'list all my tasks`: Adding extra parameters will result in errors
 
+---
+
 ### Delete a Task
 
 You can also delete a Task from `Juke` to remove any unwanted task from your task list!
@@ -235,6 +252,8 @@ The following are examples of errors that could happen to the `mark` command:
 * `delete 10000000`, `delete -1`: When attempting to delete a task that don't exist, an error will occur
 * `delete 1` and then `delete 1` again: When attempting to delete a task that is already deleted, an error will occur
 
+---
+
 ### Mark a Task as Done
 
 You can mark a Task as complete to help you track your incomplete tasks!
@@ -262,7 +281,7 @@ Task marked as done: <TASK>
 ```
 
 > **ℹ️ Note**  
-> The task indicator will turn from `[]` to `[✓]`
+> The task indicator will turn from `[ ]` to `[✓]`
 
 #### Possible Errors
 
@@ -270,6 +289,8 @@ The following are examples of errors that could happen to the `mark` command:
 
 * `mark 10000000`, `mark -1`: When attempting to mark a task that don't exist, an error will occur
 * `mark 1` and then `mark 1` again: When attempting to mark a task that is already marked, an error will occur
+
+---
 
 ### Mark a Task as Undone
 
@@ -307,7 +328,9 @@ The following are examples of errors that could happen to the `mark` command:
 * `unmark 10000000`, `unmark -1`: When attempting to unmark a task that don't exist, an error will occur
 * `unmark 1` and then `unmark 1` again: When attempting to unmark a task that is not marked, an error will occur
 
-### Find your Task
+---
+
+### Find your Tasks
 
 Need help searching for a Task in your Task list? Use the Find feature to help you search 
 for the Task that you are looking for!
@@ -320,6 +343,9 @@ find [QUERY]
 
 > **ℹ️ Note**  
 > The query can be any valid task name String (does not contain the illegal character `|`)!
+
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -344,6 +370,8 @@ Found them! Here are some of the tasks in your task list that contain the word
 The following are examples of errors that could happen to the `mark` command:
 
 * `find`: If the argument is omitted, an error will occur
+
+---
 
 ### Sort your Tasks
 
@@ -396,6 +424,8 @@ The following are examples of errors that could happen to the `sort` command:
 * `sort`, `sort d`: If the argument is omitted, an error will occur
 * `sort ddescending ddeadline`: If the argument is not in any one of the permitted arguments above,
   an error will occur
+
+---
 
 ### Exit Juke
 
