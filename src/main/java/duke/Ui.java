@@ -1,22 +1,9 @@
 package duke;
 
-import java.util.Scanner;
-
 /**
  * Manages user interactions in the Duke class.
  */
 public class Ui {
-
-    //The scanner used to scan user inputs
-    private static Scanner scan = new Scanner(System.in);
-
-    /**
-     * Scans user inputs.
-     * @return The string user input scanned by the scanner.
-     */
-    public static String scan() {
-        return scan.nextLine();
-    }
 
     /**
      * Sends a greeting message to the user.
