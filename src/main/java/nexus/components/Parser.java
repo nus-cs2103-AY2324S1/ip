@@ -19,6 +19,7 @@ public class Parser {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
+        assert data.length == 2 : "Mark task has more than 1 argument.";
         int index = Integer.parseInt(data[1]) - 1;
         list.get(index).setDone();
         storage.editTask("mark", index);
@@ -29,6 +30,7 @@ public class Parser {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
+        assert data.length == 2 : "Unmark task has more than 1 argument.";
         int index = Integer.parseInt(data[1]) - 1;
         list.get(index).setUndone();
 
@@ -41,6 +43,7 @@ public class Parser {
         if (data.length == 1) {
             throw new InvalidInputException("Task index must be specified");
         }
+        assert data.length == 2 : "Delete task has more than 1 argument.";
         int index = Integer.parseInt(data[1]) - 1;
         Task deleted = list.get(index);
         list.remove(index);
@@ -141,12 +144,24 @@ public class Parser {
      * @param list TaskList.
      * @param data String[].
      * @param ui Ui.
+     * @return The tasks found.
      */
     public static String parseFind(TaskList list, String[] data, Ui ui) {
         data[0] = "";
         String keyword = String.join(" ", data).trim();
         System.out.println(keyword);
         return ui.showFind(keyword, list);
+    }
+
+    /**
+     * Handle list command.
+     *
+     * @param list TaskList.
+     * @param ui Ui.
+     * @return All tasks stored on hard drive.
+     */
+    public static String parseList(TaskList list, Ui ui) {
+        return ui.showList(list);
     }
 
     /**
@@ -162,10 +177,11 @@ public class Parser {
     public static String parseInput(Ui ui, Storage storage, TaskList list, String input)
             throws InvalidInputException {
         String[] data = input.split(" ");
+        assert data.length > 0 : "Input is empty.";
 
         switch (data[0]) {
         case "list":
-            return ui.showList(list);
+            return Parser.parseList(list, ui);
         case "find":
             return Parser.parseFind(list, data, ui);
         case "mark":
