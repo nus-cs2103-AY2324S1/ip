@@ -22,9 +22,9 @@ import duke.exception.InternalException;
 public class Store {
     private static final Store store = new Store();
     private final Tasklist tasks = new Tasklist();
-    private String filePath;
-    private Path folder;
-    private File storageFile;
+    private String dataFilePath;
+    private Path dataFolderPath;
+    private File dataFile;
     private final TaskBuilder taskBuilder = new TaskBuilder();
 
     private Store() {
@@ -39,18 +39,17 @@ public class Store {
 
     private void initPathToDataFile() {
         String rootPath = Paths.get("").toAbsolutePath().toString();
-        this.filePath = Paths.get(rootPath, "data/tasks.txt").toString();
-        Path path = Paths.get(filePath);
-        int len = path.getNameCount();
-        this.folder = Paths.get(rootPath, path.subpath(0, len - 1).toString());
-        this.storageFile = new File(this.filePath);
+        this.dataFilePath = Paths.get(rootPath, "data/tasks.txt").toString();
+        Path path = Paths.get(dataFilePath);
+        this.dataFolderPath = Paths.get(rootPath, path.subpath(0, path.getNameCount() - 1).toString());
+        this.dataFile = new File(this.dataFilePath);
     }
     private void loadTasklist() throws DukeException {
-        if (!storageFile.exists()) {
+        if (!dataFile.exists()) {
             return;
         }
         try {
-            Scanner sc = new Scanner(storageFile);
+            Scanner sc = new Scanner(dataFile);
             while (sc.hasNext()) {
                 String inputStr = sc.nextLine();
                 if (inputStr.equals("")) {
@@ -87,11 +86,11 @@ public class Store {
         return store;
     }
     private void write() {
-        if (!this.folder.toFile().exists()) {
-            this.folder.toFile().mkdirs();
+        if (!this.dataFolderPath.toFile().exists()) {
+            this.dataFolderPath.toFile().mkdirs();
         }
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(dataFilePath);
             fw.write(tasks.getTaskRepresentations());
             fw.close();
         } catch (IOException e) {

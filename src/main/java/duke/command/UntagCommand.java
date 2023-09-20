@@ -23,6 +23,6 @@ public class UntagCommand implements Command {
         int index = Integer.parseInt(input.split(" ")[1]);
         Store s = Store.getInstance();
         s.removeTagFromTaskAtIndex(index, input.split(" ")[2]);
-        return "Deleted tag " + input.split(" ")[2] + "to task: \n" + s.getTask(index).toString();
+        return "Deleted tag " + input.split(" ")[2] + " for task: \n" + s.getTask(index).toString();
     }
 }
