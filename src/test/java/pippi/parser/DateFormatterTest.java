@@ -14,7 +14,7 @@ public class DateFormatterTest {
         String inputDate = "2023-08-31";
         LocalDate expectedDate = LocalDate.of(2023, 8, 31);
 
-        LocalDate result = DateFormatter.convertToLocalDate(inputDate);
+        LocalDate result = DateFormatter.convertStringToLocalDate(inputDate);
 
         assertEquals(expectedDate, result);
     }

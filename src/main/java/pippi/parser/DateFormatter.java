@@ -3,7 +3,11 @@ package pippi.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+/**
+ * The DateFormatter class is responsible for all tasks related to date format conversion and validity check.
+ *
+ * @author Nathan
+ */
 public class DateFormatter {
     public static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     /**
@@ -12,7 +16,7 @@ public class DateFormatter {
      * @param date String of date in yyyy-MM-dd format
      * @return LocalDate
      */
-    public static LocalDate convertToLocalDate(String date) {
+    public static LocalDate convertStringToLocalDate(String date) {
         return LocalDate.parse(date, FORMAT);
     }
 

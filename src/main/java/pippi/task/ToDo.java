@@ -1,6 +1,17 @@
 package pippi.task;
 
+/**
+ * The ToDo class represents a specific type of task
+ * that doesn't include anything aside from task description
+ *
+ * @author Nathan
+ */
 public class ToDo extends Task {
+    /**
+     * Constructs a ToDo instance with the specified ToDo description.
+     *
+     * @param description The description of the ToDo task.
+     */
     public ToDo(String description) {
         super(description);
     }
