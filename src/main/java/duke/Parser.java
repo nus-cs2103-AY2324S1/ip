@@ -141,7 +141,7 @@ public class Parser {
             } else if (this.isList()) {
                 return tasks.printFileContents();
             } else if (this.isSort()) {
-                return tasks.sortList();
+                return tasks.returnSortedList();
             } else if (this.isMark()) {
                 return tasks.mark(userInput);
             } else if (this.isUnmark()) {

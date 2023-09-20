@@ -122,12 +122,13 @@ public class TaskList {
                 throw new DukeException("Error: Invalid Task Index!");
             } else {
                 int remainingTasks = taskCount - 1;
+                String res = ui.getDeleteTaskMessage(tasks, taskIndex, remainingTasks);
                 tasks.remove(taskIndex);
                 if (taskCount > 0) {
                     taskCount--;
                 }
                 writeToFile();
-                return ui.getDeleteTaskMessage(tasks, taskIndex, remainingTasks);
+                return res;
             }
         } catch (DukeException exception) {
             return exception.getMessage();
@@ -272,7 +273,7 @@ public class TaskList {
     /**
      * Sorts the list of tasks in ascending alphabetical order.
      */
-    public String sortList() {
+    public String returnSortedList() {
         Collections.sort(tasks);
         return ui.getSortedMessage() + displayList();
     }
