@@ -27,25 +27,6 @@ public class Duke {
      *
      * param args The command line arguments, for now it serves no purpose.
      */
-    // public static void main(String[] args) {
-    //     TaskListStorage tasklistStorage = new TaskListStorage(TASK_FILEPATH);
-    //     Parser parser = new Parser();
-
-    //     Ui.opener();
-    //     Scanner sc = new Scanner(System.in);
-    //     String input = sc.nextLine();
-    //     while (!input.equals("bye")) {
-    //         try {
-    //             parser.dispatch(input).execute(tasklistStorage);
-    //         } catch (UnknownCommandException | MissingDescriptionException | IncorrectCommandFormatException
-    //                 | InvalidIndexException | InvalidTimeFormatException e) {
-    //             Ui.printInLine(e.getMessage());
-    //         }
-    //         input = sc.nextLine();
-    //     }
-    //     sc.close();
-    //     Ui.printWithTab("Bye. Hope to see you again soon!");
-    // }
 
     public String getResponse(String input) {
         try {

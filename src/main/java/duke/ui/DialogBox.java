@@ -39,15 +39,6 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
-    // /**
-    //  * Initializes the dialog box.
-    //  */
-    // @FXML
-    // public void initialize() {
-    //     //change the height of the hbox to fit the text
-    //     dialog.prefHeightProperty().bind(this.heightProperty());
-    // }
-
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
