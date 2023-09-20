@@ -1,3 +1,4 @@
+<!-- Inspired by https://yufannnn.github.io/ip/ for the structure and format of the user documentation. Reused its template, but fill in with my own content-->
 # User Guide
 - [Introduction](#introduction)
 - [Quick Start](#quick-start)
@@ -183,7 +184,18 @@ if you run `list` again, you will get the following output:
 
 ### Bye
 The `bye` command allows you to exit the task list application.
-All your modification to the tasks in the task list will be saved in the data/duke.txt file.
-So please do not delete this file if you want to keep your tasks.
+All your modification to the tasks in the task list will be saved, and you can continue from where you left off when you launch the app again.
 ## FAQ
-**Caution:** Avoid from modifying the program data in the data/duke.txt file.
+Q: How do I save my tasks?
+
+A: All your modification to the tasks in the task list will be saved in the data/duke.txt file.
+So please do not delete this file if you want to keep your tasks.
+
+Q: Why could I only see 4 tasks in the list after I added 5 tasks?
+
+A: Due to the limitation of the window size, you can only see 4 tasks at a time. But I am working on a solution to this problem.
+
+Q: Why deadline must take YYYY-MM-DD as the format of the date, but event can take any format?
+
+A: Because most of the time the starting time and ending time of an event is going to be quite close and share quite some repetition in common, so I think it is more convenient to allow the user to input the date in any format. But for deadline, it is more likely that the deadline is on an exact day, so I think it is better to force the user to input the date in YYYY-MM-DD format.
+
