@@ -9,7 +9,11 @@ import friday.item.Note;
  * Represents a list of notes in the Friday application.
  */
 public class NoteList {
-    private ArrayList<Note> noteList = new ArrayList<>();
+    private ArrayList<Note> noteList;
+
+    public NoteList(Storage noteStorage) {
+        noteList = noteStorage.readNotesItems();
+    }
 
     /**
      * Adds a note to the note list.
@@ -21,25 +25,25 @@ public class NoteList {
     }
 
     /**
-     * Returns the list of notes.
-     *
-     * @return An ArrayList of notes.
-     */
-    public ArrayList<Note> getNoteList() {
-        return noteList;
-    }
-
-    /**
      * Deletes a specific note from the list.
      *
      * @param noteNumber The index of the note to be deleted.
      * @return A string message indicating the note has been removed.
      */
     public String delete(int noteNumber) {
+        if (noteList.isEmpty()) {
+            return "The note list is empty. Nothing to delete!";
+        }
+
+        if (noteNumber < 0 || noteNumber >= noteList.size()) {
+            return "Invalid note number. Please provide a valid note index number.";
+        }
+
         Note note = noteList.get(noteNumber);
         noteList.remove(noteNumber);
         return "I've removed this note:\n" + note + "\n" + message();
     }
+
 
     @Override
     public String toString() {

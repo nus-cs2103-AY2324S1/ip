@@ -1,6 +1,5 @@
 package friday;
 
-import friday.exception.InvalidNoteFormatException;
 import friday.exception.InvalidTaskFormatException;
 import friday.util.NoteList;
 import friday.util.Parser;
@@ -22,10 +21,11 @@ public class Friday {
      * Initializes the user interface, task list, input scanner, storage, and parser.
      */
     public Friday() {
-        this.taskList = new TaskList();
-        this.noteList = new NoteList();
-        this.taskStorage = new Storage("data/tasks.txt");
-        this.noteStorage = new Storage("data/notes.txt");
+        this.noteStorage = new Storage("./data/notes.txt");
+        this.taskStorage = new Storage("./data/tasks.txt");
+
+        this.taskList = new TaskList(taskStorage);
+        this.noteList = new NoteList(noteStorage);
         this.parser = new Parser();
     }
 
@@ -38,7 +38,7 @@ public class Friday {
      * @param input The user's input string.
      * @return A response string.
      */
-    public String getResponse(String input) throws InvalidTaskFormatException, InvalidNoteFormatException {
+    public String getResponse(String input) throws InvalidTaskFormatException {
         String lowercaseInput = input.toLowerCase().trim();
         if (lowercaseInput.startsWith("note ")) {
             // Handle notes

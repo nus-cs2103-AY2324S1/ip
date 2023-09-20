@@ -9,7 +9,11 @@ import friday.item.Task;
  * Represents a list of tasks in the Friday application.
  */
 public class TaskList {
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private ArrayList<Task> taskList;
+
+    public TaskList(Storage taskStorage) {
+        this.taskList = taskStorage.readTaskItems();
+    }
 
     /**
      * Adds a task to the task list.
@@ -60,10 +64,10 @@ public class TaskList {
      * Finds tasks in the list that contain a specific keyword.
      *
      * @param keyWord The keyword to search for.
-     * @return A TaskList containing tasks that match the keyword.
+     * @return An ArrayList containing tasks that match the keyword.
      */
-    public TaskList findTasks(String keyWord) {
-        TaskList result = new TaskList();
+    public ArrayList<Task> findTasks(String keyWord) {
+        ArrayList<Task> result = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {
             Task item = taskList.get(i);
             if (item.containsKeyWord(keyWord)) {
@@ -71,6 +75,15 @@ public class TaskList {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns the number of tasks in the task list.
+     *
+     * @return The number of tasks in the task list.
+     */
+    public int size() {
+        return taskList.size();
     }
 
     @Override

@@ -2,13 +2,16 @@ package friday.util;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import friday.exception.InvalidNoteFormatException;
 import friday.exception.InvalidTaskFormatException;
 import friday.item.Deadline;
 import friday.item.Event;
 import friday.item.Note;
+import friday.item.Task;
 import friday.item.Todo;
+
 
 
 /**
@@ -51,7 +54,7 @@ public class Parser {
      */
     private void saveNotes(String noteList, Storage storage) throws InvalidNoteFormatException {
         try {
-            storage.saveNoteFile(noteList);
+            storage.saveFile(noteList);
         } catch (IOException e) {
             throw new InvalidNoteFormatException("SaveNote Error: " + e.getMessage());
         }
@@ -65,16 +68,15 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    public String processTaskCommand(String userInput, TaskList taskList, Storage storage)
-            throws InvalidTaskFormatException {
+    public String processTaskCommand(String userInput, TaskList taskList, Storage storage) {
         String generalCommandsFunctionResponse = handleGeneralCommands(userInput);
         if (generalCommandsFunctionResponse != null) {
             return generalCommandsFunctionResponse;
         }
         try {
             return handleTaskCommands(userInput, taskList, storage);
-        } catch (Exception e) {
-            throw new InvalidTaskFormatException("HandleTask error occurred: " + e.getMessage());
+        } catch (InvalidTaskFormatException e) {
+            return e.getMessage();
         }
     }
 
@@ -86,12 +88,11 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    public String processNoteCommand(String userInput, NoteList noteList, Storage storage)
-            throws InvalidNoteFormatException {
+    public String processNoteCommand(String userInput, NoteList noteList, Storage storage) {
         try {
             return handleNoteCommand(userInput, noteList, storage);
-        } catch (Exception e) {
-            throw new InvalidNoteFormatException("HandleNote error occurred: " + e.getMessage());
+        } catch (InvalidNoteFormatException e) {
+            return e.getMessage();
         }
     }
 
@@ -219,6 +220,7 @@ public class Parser {
         default:
             throw new InvalidTaskFormatException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+
     }
 
     /**
@@ -242,12 +244,31 @@ public class Parser {
      * @throws InvalidTaskFormatException If an error occurs during processing.
      */
     private String unmarkTask(String userInput, TaskList taskList, Storage storage) throws InvalidTaskFormatException {
-        int unmarkTaskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_POSITION_IN_INPUT])
-                                - INDEX_OFFSET_FOR_ZERO_BASED_LIST;
-        String unmarkMessage = taskList.unmark(unmarkTaskNumber);
-        saveTasks(taskList.toString(), storage);
-        return "Nice! I've marked this task as not done yet: \n" + unmarkMessage;
+        String[] splitInput = userInput.split(" ");
+        if (splitInput.length < MIN_TASK_INPUT) {
+            throw new InvalidTaskFormatException("Please provide a task number to unmark.");
+        }
+        int unmarkTaskNumber;
+        try {
+            unmarkTaskNumber = Integer.parseInt(splitInput[TASK_NUMBER_POSITION_IN_INPUT])
+                    -
+                    INDEX_OFFSET_FOR_ZERO_BASED_LIST;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskFormatException("Invalid task number. Please provide a valid number to unmark.");
+        }
+
+        try {
+            String unmarkMessage = taskList.unmark(unmarkTaskNumber);
+            saveTasks(taskList.toString(), storage);
+            return "Nice! I've marked this task as not done yet: \n" + unmarkMessage;
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskFormatException("The task number provided is out of bounds. "
+                    +
+                    "Please provide a valid task number based on the task list.");
+        }
     }
+
+
 
     /**
      * Processes the 'mark' command to mark a task as complete.
@@ -258,13 +279,32 @@ public class Parser {
      * @return A response message after marking the task.
      * @throws InvalidTaskFormatException If an error occurs during processing.
      */
-    private String markTask(String userInput, TaskList taskList, Storage storage)
-            throws InvalidTaskFormatException {
-        int markTaskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_POSITION_IN_INPUT]);
-        String markMessage = taskList.mark(markTaskNumber - INDEX_OFFSET_FOR_ZERO_BASED_LIST);
-        saveTasks(taskList.toString(), storage);
-        return "Nice! I've marked this task as done:\n" + markMessage;
+    private String markTask(String userInput, TaskList taskList, Storage storage) throws InvalidTaskFormatException {
+        String[] splitInput = userInput.split(" ");
+        if (splitInput.length < MIN_TASK_INPUT) {
+            throw new InvalidTaskFormatException("Please provide a task number to mark.");
+        }
+        int markTaskNumber;
+        try {
+            markTaskNumber = Integer.parseInt(splitInput[TASK_NUMBER_POSITION_IN_INPUT])
+                    -
+                    INDEX_OFFSET_FOR_ZERO_BASED_LIST;
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskFormatException("Invalid task number. Please provide a valid number to mark.");
+        }
+
+        try {
+            String markMessage = taskList.mark(markTaskNumber);
+            saveTasks(taskList.toString(), storage);
+            return "Nice! I've marked this task as done:\n" + markMessage;
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskFormatException("The task number provided is out of bounds. "
+                    +
+                    "Please provide a valid task number based on the task list.");
+        }
     }
+
+
 
     /**
      * Processes the 'delete' command to remove a task from the task list.
@@ -277,11 +317,24 @@ public class Parser {
      */
     private String deleteTask(String userInput, TaskList taskList, Storage storage)
             throws InvalidTaskFormatException {
-        int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_POSITION_IN_INPUT]);
-        String deleteMessage = taskList.delete(deleteTaskNumber - INDEX_OFFSET_FOR_ZERO_BASED_LIST);
-        saveTasks(taskList.toString(), storage);
-        return "Task deleted successfully!\n" + deleteMessage;
+        try {
+            int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_POSITION_IN_INPUT]);
+
+            if (deleteTaskNumber <= 0 || deleteTaskNumber > taskList.size()) {
+                throw new InvalidTaskFormatException("Invalid task number. Please provide a valid number");
+            }
+
+            String deleteMessage = taskList.delete(deleteTaskNumber - INDEX_OFFSET_FOR_ZERO_BASED_LIST);
+            saveTasks(taskList.toString(), storage);
+            return "Task deleted successfully!\n" + deleteMessage;
+
+        } catch (NumberFormatException e) {
+            throw new InvalidTaskFormatException("Please provide a valid task number to delete.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new InvalidTaskFormatException("Please provide a task number after the 'delete' command.");
+        }
     }
+
 
     /**
      * Processes the 'find' command to search for tasks by a given keyword.
@@ -291,17 +344,24 @@ public class Parser {
      * @return A string detailing all tasks that match the search keyword.
      * @throws InvalidTaskFormatException If an error occurs during processing.
      */
-    private String findTask(String userInput, TaskList taskList)
-            throws InvalidTaskFormatException {
+    private String findTask(String userInput, TaskList taskList) throws InvalidTaskFormatException {
         String[] findInput = userInput.split(" ", MIN_TASK_INPUT);
-        if (findInput.length < MIN_TASK_INPUT
-                ||
-                findInput[TASK_NUMBER_POSITION_IN_INPUT].trim().isEmpty()) {
+        if (findInput.length < MIN_TASK_INPUT || findInput[TASK_NUMBER_POSITION_IN_INPUT].trim().isEmpty()) {
             throw new InvalidTaskFormatException("Oops! Please add a keyword to search for!");
         }
-        TaskList result = taskList.findTasks(findInput[1]);
-        return "Here are the matching tasks in your list:\n" + result.toString();
+
+        ArrayList<Task> result = taskList.findTasks(findInput[1]);
+
+        StringBuilder resultBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
+
+        for (int i = 0; i < result.size(); i++) {
+            Task task = result.get(i);
+            resultBuilder.append(i + 1).append(". ").append(task.toString()).append("\n");
+        }
+
+        return resultBuilder.toString();
     }
+
 
     /**
      * Represents the types of commands specifically related to notes in the Friday application.
@@ -379,7 +439,7 @@ public class Parser {
             throws InvalidTaskFormatException {
         String[] commandAndDetails = userInput.split(" ", MIN_TASK_INPUT);
         if (commandAndDetails.length < MIN_TASK_INPUT || !userInput.contains("/by")) {
-            return "Incorrect format for 'deadline'. Here is a sample:\ndeadline return book /by Sunday";
+            return "Incorrect format for 'deadline'. Here is a sample:\ndeadline return book /by 01/01/2001";
         }
         String[] taskAndDate = commandAndDetails[1]
                 .split(" /by ", MIN_TASK_INPUT);
@@ -388,6 +448,8 @@ public class Parser {
         }
         String taskDescription = taskAndDate[0];
         String deadlineDate = taskAndDate[1];
+        System.out.println(taskDescription);
+        System.out.println(deadlineDate);
 
         Deadline deadline;
         try {
@@ -398,7 +460,7 @@ public class Parser {
         } catch (DateTimeParseException e) {
             throw new InvalidTaskFormatException("Invalid date format provided for deadline. "
                     +
-                    "Supported formats: M/d/yyyy, MM-dd-yyyy, yyyy/MM/dd");
+                    "Supported formats: MM/dd/yyyy, MM-dd-yyyy, yyyy/MM/dd");
         }
     }
 

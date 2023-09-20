@@ -32,11 +32,11 @@ public class Deadline extends Task {
      */
     private String toDate() {
         //Solution below inspired by https://www.baeldung.com/java-datetimeformatter
-        List<String> validPatterns = Arrays.asList("M/d/yyyy", "MM-dd-yyyy", "yyyy/MM/dd");
-        for (String pattern : validPatterns) {
+        List<String> dateFormats = Arrays.asList("M/d/yyyy", "MM-dd-yyyy", "yyyy/MM/dd", "MMM d yyyy");
+        for (String pattern : dateFormats) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-                deadline = LocalDate.parse(deadlineStr.trim(), formatter);
+                deadline = LocalDate.parse(deadlineStr, formatter);
                 return deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             } catch (DateTimeParseException e) {
                 System.out.println("Failed to parse date with unsupported pattern: " + pattern);
