@@ -3,11 +3,9 @@ package ekud.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import ekud.exceptions.EkudIOException;
-import ekud.parser.Parser;
 import ekud.tasks.*;
 
 /**
@@ -45,12 +43,15 @@ public class Storage {
     }
 
     /**
-     * Loads saved tasks from the file into the chatbot's TaskList.
+     * Loads saved tasks from the file into the chatbot's taskList.
+     * Saved tasks format eg:
+     *  T |   | task1 | medium
+     *  D | X | task2 | 1st Sep | high
+     *  E |   | task3 | 1st Sep 2pm | 3rd Sep 2pm | low
      * @param taskList The chatbot's TaskList to load tasks into.
-     * @throws EkudIOException Exception involving improper loading of saved tasks into TaskList.
+     * @throws EkudIOException Exception involving improper loading of saved tasks into taskList.
      */
     public String loadData(TaskList taskList) throws EkudIOException {
-        Parser parser = new Parser(); // For parsing dateTime
         taskList.clear();
         assert taskList.getSize() == 0 : "Task list should be empty before loading data";
         try {
@@ -59,10 +60,6 @@ public class Storage {
             int numDoneTasks = 0;
             int numHighPriorityUndoneTasks = 0;
             while (scanner.hasNextLine()) {
-                // Saved tasks format eg:
-                // T |   | task1 | medium
-                // D | X | task2 | 1st Sep | high
-                // E |   | task3 | 1st Sep 2pm | 3rd Sep 2pm | low
                 String[] taskDetails = scanner.nextLine().split(" \\| ");
                 TaskType taskType = TaskType.getTaskType(taskDetails[0]);
                 if (taskType == null) {
@@ -74,24 +71,9 @@ public class Storage {
                 if (priority == null) {
                     throw new EkudIOException("Error with parsing saved tasks: Invalid priority");
                 }
+                taskList.addSavedTask(taskType, description, priority, taskDetails);
                 if (priority.equals(Priority.HIGH) && !isDoneTask) {
                     numHighPriorityUndoneTasks++;
-                }
-                switch (taskType) {
-                case TODO:
-                    taskList.addTask(new ToDo(description, priority));
-                    break;
-                case DEADLINE:
-                    LocalDateTime dateTime = parser.parseSavedDateTime(taskDetails[3]);
-                    taskList.addTask(new Deadline(description, dateTime, priority));
-                    break;
-                case EVENT:
-                    LocalDateTime fromDateTime = parser.parseSavedDateTime(taskDetails[3]);
-                    LocalDateTime toDateTime = parser.parseSavedDateTime(taskDetails[4]);
-                    taskList.addTask(new Event(description, fromDateTime, toDateTime, priority));
-                    break;
-                default:
-                    throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
                 }
                 if (isDoneTask) {
                     taskList.markDoneOnStart(curTaskIndex);
@@ -99,19 +81,7 @@ public class Storage {
                 }
                 curTaskIndex++;
             }
-            String response;
-            if (curTaskIndex == 0) {
-                response = "[No previous tasks saved]";
-            } else {
-                response = numHighPriorityUndoneTasks == 0
-                        ? String.format(
-                        "[You currently have (%d) unfinished task(s)]",
-                        curTaskIndex - numDoneTasks)
-                        : String.format(
-                        "[You currently have (%d) HIGH priority task(s) out of (%d) unfinished task(s)]",
-                        numHighPriorityUndoneTasks, curTaskIndex - numDoneTasks);
-            };
-            return response;
+            return this.craftResponse(curTaskIndex, numDoneTasks, numHighPriorityUndoneTasks) + "\n";
         } catch (IOException e) {
             throw new EkudIOException("Error with loading saved tasks: " + e);
         } catch (IndexOutOfBoundsException e) {
@@ -138,4 +108,33 @@ public class Storage {
         }
     }
 
+
+
+    /**
+     * Helper function to craft a string response for the user after loading up saved data.
+     * @param totalTasks Total number of saved tasks loaded into taskList.
+     * @param numDoneTasks Total number of loaded tasks which are already done.
+     * @param numHighPriorityUndoneTasks Total number of high priority tasks which are not yet done.
+     * @return String response
+     */
+    private String craftResponse(int totalTasks, int numDoneTasks, int numHighPriorityUndoneTasks) {
+        String response;
+        if (totalTasks == 0) {
+            response = "[No previous tasks saved]";
+        } else {
+            int numUndoneTasks = totalTasks - numDoneTasks;
+            response = numHighPriorityUndoneTasks == 0
+                    ? String.format(
+                    "[You currently have (%d) unfinished %s]",
+                    numUndoneTasks,
+                    numUndoneTasks > 1 ? "tasks": "task")
+                    : String.format(
+                    "[You currently have (%d) HIGH priority %s out of (%d) unfinished %s]",
+                    numHighPriorityUndoneTasks,
+                    numHighPriorityUndoneTasks > 1 ? "tasks": "task",
+                    numUndoneTasks,
+                    numUndoneTasks > 1 ? "tasks": "task");
+        };
+        return response;
+    }
 }

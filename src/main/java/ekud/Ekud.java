@@ -8,7 +8,7 @@ import ekud.tasks.TaskList;
 import ekud.ui.Launcher;
 
 /**
- * Represents the Ekud chatbot where the main functionality of this program runs in.
+ * Represents the Ekud chatbot which encompasses the main functionality of this program.
  */
 public class Ekud {
     // TaskList object to store and manipulate all of user's tasks, as well as
@@ -34,9 +34,11 @@ public class Ekud {
     }
 
     /**
-     * Main function for chatbot to parse user input, execute the command,
-     * then return a String response for the user.
-     * @return String response
+     * Returns a String in response to the user input, after parsing the input and executing
+     * the given command.
+     *
+     * @param userInput User input consisting of a command and its arguments.
+     * @return String response for the user.
      */
     public String getResponse(String userInput) {
         Parser parser = new Parser();
@@ -65,7 +67,8 @@ public class Ekud {
 
     /**
      * Activates the chatbot by loading saved data & greeting the user.
-     * @return String response
+     *
+     * @return String response.
      */
     public String start() {
         if (isActive) {
@@ -77,7 +80,8 @@ public class Ekud {
 
     /**
      * De-activates the chatbot by saving the data & responding with a farewell message.
-     * @return String response
+     *
+     * @return String response.
      */
     public String end() {
         this.isActive = false;
@@ -87,7 +91,8 @@ public class Ekud {
     /**
      * Helper function to load saved data upon activating the chatbot with a response
      * on whether data was successfully loaded.
-     * @return String response
+     *
+     * @return String response.
      */
     public String loadData() {
         try {
@@ -100,7 +105,8 @@ public class Ekud {
     /**
      * Helper function to save data upon de-activating the chatbot with a response on
      * whether data was successfully saved.
-     * @return String response
+     *
+     * @return String response.
      */
     public String saveData() {
         try {
@@ -111,9 +117,9 @@ public class Ekud {
     }
 
     /**
-     * Helper function to retrieve the chatbot's greeting, used in here
-     * and by the JavaFX GUI.
-     * @return String
+     * Retrieves the chatbot's greeting for use in the JavaFX GUI.
+     *
+     * @return String response.
      */
     public String getGreeting() {
         return "Hello there! I'm ekud. :)\n"
@@ -121,8 +127,9 @@ public class Ekud {
     }
 
     /**
-     * Main function to launch the JavaFX GUI for the chatbot.
-     * @param args -
+     * Launches the JavaFX GUI for the chatbot.
+     *
+     * @param args Command line arguments (not used at the moment).
      */
     public static void main(String[] args) {
         Launcher.main(args);

@@ -4,13 +4,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import ekud.exceptions.EkudException;
+import ekud.exceptions.EkudIOException;
 import ekud.exceptions.EkudIllegalArgException;
 import ekud.exceptions.EkudInvalidCommandException;
+import ekud.parser.Parser;
 
 /**
  * TaskList handles task modifications and invalid user inputs for
- * modifying tasks, and is a key component of the ekud.Ekud chatbot.
+ * modifying tasks, and is a key component of the chatbot.
  */
 public class TaskList {
     // Actual list storing the tasks
@@ -19,7 +20,7 @@ public class TaskList {
     private List<Task> cachedTasks;
 
     /**
-     * Constructor for TaskList which initialises its arrays.
+     * Constructs a TaskList which initialises its arrays.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
@@ -28,6 +29,7 @@ public class TaskList {
 
     /**
      * Returns the tasks as a string.
+     *
      * @return String response message for user.
      */
     public String showTasks() {
@@ -44,6 +46,7 @@ public class TaskList {
 
     /**
      * Marks a specific task as done and returns a confirmation message.
+     *
      * @param index Index number of task supplied by user.
      * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg for index number.
@@ -55,8 +58,9 @@ public class TaskList {
     }
 
     /**
-     * Same as the markTaskAsDone() function, but used when loading saved tasks
-     * from the hard disk, specifically by the storage object.
+     * Marks a specific task as done when loading saved tasks from the hard disk
+     * on startup.
+     *
      * @param index
      */
     public void markDoneOnStart(int index) {
@@ -65,6 +69,7 @@ public class TaskList {
 
     /**
      * Marks a specific task as not done and returns a confirmation messsage.
+     *
      * @param index Index number of task supplied by user.
      * @return String response message for user.
      * @throws EkudIllegalArgException Illegal arg for index number.
@@ -75,6 +80,13 @@ public class TaskList {
         return "The following task is marked as not done yet:\n" + task;
     }
 
+    /**
+     * Changes the priority of a specific task.
+     *
+     * @param priority
+     * @param index
+     * @return
+     */
     public String changePriority(Priority priority, int index) {
         Task task = this.tasks.get(index);
         task.changePriority(priority);
@@ -85,7 +97,8 @@ public class TaskList {
     }
 
     /**
-     * Returns the confirmation message for having added a task.
+     * Returns the confirmation message for adding a task.
+     *
      * @param task
      * @return String response message for user.
      */
@@ -97,20 +110,40 @@ public class TaskList {
     }
 
     /**
-     * Adds an already initialised task to this TaskList, used for loading
-     * saved tasks onto this TaskList on startup, specifically by the
-     * storage object.
-     * @param task
+     * Adds a particular saved task to this TaskList.
+     *
+     * @param taskType Type of task to be added.
+     * @param description Description of task.
+     * @param priority Priority of task.
+     * @param taskDetails Additional details of task.
+     * @throws EkudIOException If task failed to be added.
      */
-    public void addTask(Task task) {
-        this.tasks.add(task);
+    public void addSavedTask(TaskType taskType, String description, Priority priority,
+                               String[] taskDetails) throws EkudIOException {
+        Parser parser = new Parser(); // For parsing dateTime
+        switch (taskType) {
+        case TODO:
+            this.tasks.add(new ToDo(description, priority));
+            break;
+        case DEADLINE:
+            LocalDateTime dateTime = parser.parseSavedDateTime(taskDetails[3]);
+            this.tasks.add(new Deadline(description, dateTime, priority));
+            break;
+        case EVENT:
+            LocalDateTime fromDateTime = parser.parseSavedDateTime(taskDetails[3]);
+            LocalDateTime toDateTime = parser.parseSavedDateTime(taskDetails[4]);
+            this.tasks.add(new Event(description, fromDateTime, toDateTime, priority));
+            break;
+        default:
+            throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
+        }
     }
 
     /**
      * Adds a to-do task to this TaskList.
+     *
      * @param description Description of the to-do task.
      * @return String response message for user.
-     * @throws EkudIllegalArgException Illegal arg for to-do task.
      */
     public String addToDo(String description) {
         ToDo newToDo = new ToDo(description, Priority.MEDIUM);
@@ -120,10 +153,10 @@ public class TaskList {
 
     /**
      * Adds a deadline task to this TaskList.
+     *
      * @param description Description of the deadline task.
      * @param dateTime Date and time to complete this task by.
      * @return String response message for user.
-     * @throws EkudIllegalArgException Illegal arg(s) for deadline task.
      */
     public String addDeadline(String description, LocalDateTime dateTime) {
         Deadline newDeadline = new Deadline(description, dateTime, Priority.MEDIUM);
@@ -133,6 +166,7 @@ public class TaskList {
 
     /**
      * Adds an event task to this TaskList and returns a confirmation message.
+     *
      * @param description Description of the event task.
      * @param dateTimes Date and Time this event starts and ends.
      * @return String response for user.
@@ -145,8 +179,10 @@ public class TaskList {
 
     /**
      * Deletes a task from this TaskList and returns a confirmation message.
+     *
      * @param index Index number of task to be deleted as supplied by user.
      * @return String response message for user.
+     * @throws EkudInvalidCommandException If taskList is empty.
      */
     public String deleteTask(int index) throws EkudInvalidCommandException {
         if (this.tasks.isEmpty()) {
@@ -162,6 +198,7 @@ public class TaskList {
 
     /**
      * Finds a list of tasks matching the user's keyword search and returns it as a String.
+     *
      * @param keyword
      * @return String response of tasks for user.
      */
@@ -187,6 +224,7 @@ public class TaskList {
     /**
      * Helper function used by the storage object to retrieve the number of tasks to store
      * into the hard disk.
+     *
      * @return Number of tasks to be saved.
      */
     public int getSize() {
@@ -195,19 +233,32 @@ public class TaskList {
 
     /**
      * Helper function used by the storage object to format all tasks to be saved.
+     *
      * @param i Index number of task to be formatted.
      * @return Task formatted for saving.
      */
     public String getSaveTaskFormat(int i) {
         return this.tasks.get(i).getSaveFormat();
     }
+
+    /**
+     * Clears the current tasks in taskList.
+     *
+     * @return String response for user.
+     */
     public String clear() {
         this.cachedTasks = this.tasks;
         this.tasks = new ArrayList<>();
         return "Task list has been reset :o";
     }
+
+    /**
+     * Restores tasks cleared by the most recent clear command.
+     *
+     * @return String response for user.
+     */
     public String undoClear() {
-        this.tasks = this.cachedTasks;
+        this.tasks.addAll(cachedTasks);
         return "Cleared task list has been restored :o";
     }
 }

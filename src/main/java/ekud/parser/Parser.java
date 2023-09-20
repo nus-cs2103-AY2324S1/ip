@@ -25,7 +25,8 @@ public class Parser {
     private static final int CUR_YEAR = 2023;
 
     /**
-     * Splits the user's input into command and arguments.
+     * Splits the raw user input into command and arguments.
+     *
      * @param userInput The given line of raw user input.
      * @return String[] containing the user command and user args.
      */
@@ -37,11 +38,12 @@ public class Parser {
     }
 
     /**
-     * Core function for parsing user arguments based on the command and handling any invalid
-     * arguments, before executing the command and returning a String response.
-     * @param userInputs The inputs given by the user which includes the command and respective args.
-     * @return String response message for the user.
-     * @throws EkudException Either invalid commands or illegal arguments for the commands.
+     * Parses the given inputs and handles any invalid command or illegal arguments,
+     * before executing the command and returning a String response.
+     *
+     * @param userInputs The given user inputs which include the command and its respective args.
+     * @return String response for the user.
+     * @throws EkudException If invalid command or illegal arguments are given.
      */
     public String parseAndExecute(TaskList taskList, String ... userInputs) throws EkudException {
         assert userInputs.length != 0 : "Should supply 2 userInput arguments for parseAndExecute()";
@@ -85,6 +87,7 @@ public class Parser {
 
     /**
      * Parses the user's input date and time into a LocalDateTime object.
+     *
      * @param inputDateTime User's input dateTime in the format dd-MM HHmm.
      * @return LocalDateTime
      */
@@ -98,6 +101,7 @@ public class Parser {
 
     /**
      * Parses a date and time from the saved tasks file into a LocalDateTime object.
+     *
      * @param savedDateTime Saved dateTime in the format dd MMM yyyy h:mm a.
      * @return LocalDateTime
      */
@@ -107,6 +111,7 @@ public class Parser {
 
     /**
      * Helper function to check for a valid task number.
+     *
      * @param userArgs Number String supplied by the user.
      * @return An integer index number
      * @throws EkudIllegalArgException
@@ -128,9 +133,10 @@ public class Parser {
 
     /**
      * Helper function to ensure valid arguments for a to-do task before adding it to taskList.
+     *
      * @param userArgs
      * @param taskList
-     * @return String response after adding task
+     * @return String response after adding task.
      * @throws EkudIllegalArgException
      */
     private String parseAndAddTodo(String userArgs, TaskList taskList)
@@ -143,9 +149,10 @@ public class Parser {
 
     /**
      * Helper function to ensure valid arguments for a deadline task before adding it to taskList.
+     *
      * @param userArgs
      * @param taskList
-     * @return String response after adding task
+     * @return String response after adding task.
      * @throws EkudIllegalArgException
      */
     private String parseAndAddDeadline(String userArgs, TaskList taskList)
@@ -161,17 +168,18 @@ public class Parser {
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new EkudIllegalArgException(String.format(
                     "Deadline formatted wrongly\n"
-                            + "-> Please ensure 'deadline <description> /by <%s>' is followed\n"
-                            + "-> For example: deadline finish quiz /by 3 Jun 1830",
+                    + "-> Please ensure 'deadline <description> /by <%s>' is followed\n"
+                    + "-> For example: deadline finish quiz /by 3 Jun 1830",
                     INPUT_DATETIME_FORMAT));
         }
     }
 
     /**
      * Helper function to ensure valid arguments for an event task before adding to taskList.
+     *
      * @param userArgs
      * @param taskList
-     * @return String response after adding task
+     * @return String response after adding task.
      * @throws EkudIllegalArgException
      */
     private String parseAndAddEvent(String userArgs, TaskList taskList) throws EkudIllegalArgException {
@@ -191,8 +199,8 @@ public class Parser {
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
             throw new EkudIllegalArgException(String.format(
                     "Event formatted wrongly\n"
-                            + "-> Ensure 'event <description> /from <%s> /to <%s>' is followed\n"
-                            + "-> For example: event company dinner /from 20 Oct 1730 /to 20 Oct 2215",
+                    + "-> Ensure 'event <description> /from <%s> /to <%s>' is followed\n"
+                    + "-> For example: event company dinner /from 20 Oct 1730 /to 20 Oct 2215",
                     INPUT_DATETIME_FORMAT,
                     INPUT_DATETIME_FORMAT));
         }
@@ -200,6 +208,7 @@ public class Parser {
 
     /**
      * Helper function to check for a valid keyword.
+     *
      * @param userArgs
      * @return keyword
      * @throws EkudIllegalArgException
@@ -218,6 +227,7 @@ public class Parser {
 
     /**
      * Helper function to ensure valid arguments before changing a task priority.
+     *
      * @param userArgs
      * @param taskList
      * @return String response after changing priority
@@ -231,8 +241,8 @@ public class Parser {
             if (priority == null) {
                 throw new EkudIllegalArgException(
                         "Priority formatted wrongly\n"
-                                + "-> Ensure 'priority <taskNum> <high/medium/low>' is followed\n"
-                                + "-> For example: priority 3 high");
+                        + "-> Ensure 'priority <taskNum> <high/medium/low>' is followed\n"
+                        + "-> For example: priority 3 high");
             }
             return taskList.changePriority(priority, taskNum - 1);
         } catch (IndexOutOfBoundsException e) {
