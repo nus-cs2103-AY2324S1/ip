@@ -29,8 +29,8 @@ public abstract class Task {
         return "[" + this.getStatusIcon() + "] " + this.description;
     }
 
-    public String getUserInputString() throws NullPointerException {
-        return this.userInputString;
+    public String getTaskRepresentation() throws NullPointerException {
+        return this.userInputString + "/isMarked?" + this.isDone;
     }
 
     public void setUserInputString(String userInputString) {

@@ -48,10 +48,15 @@ public class Store {
                 if (inputStr.equals("")) {
                     continue;
                 }
-                Task task = taskBuilder.buildFromString(inputStr);
+                String[] taskTypeAndIsMarked = inputStr.split("/isMarked?");
+                assert taskTypeAndIsMarked.length == 2 : "taskTypeAndIsMarked should have length 2";
+                Task task = taskBuilder.buildFromString(taskTypeAndIsMarked[0]);
                 int prevTaskCount = tasks.getTaskCount();
                 tasks.addTask(task);
                 assert tasks.getTaskCount() == prevTaskCount + 1 : "task count should increase by 1";
+                if (taskTypeAndIsMarked[1].contains("true")) {
+                    tasks.mark(tasks.getTaskCount());
+                }
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
@@ -77,10 +82,10 @@ public class Store {
     private void write() {
         try {
             FileWriter fw = new FileWriter(fileName);
-            fw.write(tasks.getUserInputStrs());
+            fw.write(tasks.getTaskRepresentations());
             fw.close();
         } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Something went wrong storing the change: " + e.getMessage());
         }
     }
 

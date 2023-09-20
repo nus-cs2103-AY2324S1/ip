@@ -100,10 +100,10 @@ public class Tasklist {
         return result;
     }
 
-    public String getUserInputStrs() {
+    public String getTaskRepresentations() {
         String result = "";
         for (int i = 0; i < taskCount; i++) {
-            result += tasks[i].getUserInputString() + "\n";
+            result += tasks[i].getTaskRepresentation() + "\n";
         }
         return result;
     }
