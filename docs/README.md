@@ -2,13 +2,25 @@
 
 ## Features 
 
-### Add task
+### Add and remove tasks
 
-Add tasks such as a todo, deadline or an event.
+Add tasks such as a todo, deadline or an event. Delete tasks by index.
 
-### Delete task
+### Mark and unmark tasks as done/undone
 
-Delete tasks by index.
+All tasks can be marked. Marked tasks will be indicated with [X] and unmarked tasks will be indicated with [ ].
+
+### Save and read tasks for future usage
+
+When done with managing tasks, simply say bye and the Gman Chatbot will save your task list that can be opened again in 
+the future.
+
+### List out tasks
+List out all tasks in the task list in a numbered list, starting from most recently added at  1.
+
+### Find tasks with a specific keyword
+Same as listing out tasks, but only those that contain a user specified keyword.
+
 
 ## Usage
 
