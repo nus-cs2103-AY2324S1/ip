@@ -43,7 +43,7 @@ Example of usage:
 
 Expected outcome:
 
-The Chatbot will reply with a list of all the tasks that is tracked
+The Chatbot will respond with a list of all the tasks that is tracked
 
 ```
 Here are the tasks in your list:
@@ -137,7 +137,7 @@ User types in the `time of deadline` or `skip`
 
 Expected outcome:
 
-The Chatbot will reply that the task has been inserted
+The Chatbot will respond that the task has been inserted
 
 ```
 Got it. I've added this task:
@@ -216,7 +216,7 @@ User types in the `end time` or `skip`
 
 Expected outcome:
 
-The Chatbot will reply that the task has been inserted
+The Chatbot will respond that the task has been inserted
 
 ```
 Got it. I've added this task:
@@ -239,7 +239,7 @@ Example of usage:
 
 Expected outcome:
 
-The Chatbot will reply that the task has been successfully marked as done
+The Chatbot will respond that the task has been successfully marked as done
 
 ```
 Nice! I've marked this task as done
@@ -261,7 +261,7 @@ Example of usage:
 
 Expected outcome:
 
-The Chatbot will reply that the task has been successfully marked as incomplete
+The Chatbot will respond that the task has been successfully marked as incomplete
 
 ```
 OK! I've marked this task as not done yet:
@@ -283,7 +283,7 @@ Example of usage:
 
 Expected outcome:
 
-The Chatbot will reply that the task has been successfully deleted
+The Chatbot will respond that the task has been successfully deleted
 
 ```
 Noted. I've removed this task:
