@@ -1,5 +1,10 @@
 # User Guide
 
+PaimonBot is your friendly and ever-curious companion in the digital world. She's here 
+to assist travellers in **managing their tasks** (todos, deadlines and events), 
+optimised for use via a **Command-Line Interface (CLI)**, while still retaining the
+advantages of a **Graphical User Interface (GUI)**. 
+
 ## Features 
 
 ### Feature-ABC
