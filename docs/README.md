@@ -6,18 +6,17 @@ Chatty is a task management application, that allows you to keep track of you ta
 1. Ensure that you have Java `11` or above stored in your computer
 2. Download the latest `duke.jar` from [here](https://github.com/AlyssaPng/ip/releases/tag/A-Release)
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application. The Chatty GUI should appear in a few seconds.
-4. Similarly, you can download the code and run the application on Intellij. Follow the instructions [here](https://alyssapng.github.io/ip/#setting-up-in-intellij)
-5. Type the command in the command box and press Enter to execute it.  e.g. typing `list` and pressing Enter will display all the tasks in the task list.
-6. Here are some example commands:
+4. Type the command in the command box and press Enter to execute it.  e.g. typing `list` and pressing Enter will display all the tasks in the task list.
+5. Here are some example commands:
    1. `todo read book`: Adds a ToDo task with the description: "read book".
-   2. `deadline CS2103T project /by 2019-10-15 1800` : Adds a Deadline task with the description: "CS2103T IP" and the due date: "Oct 15 2019 6:00pm"
+   2. `deadline CS2103T project /by 2019-10-15 1800` : Adds a Deadline task with the description: "CS2103T IP" and due date: "Oct 15 2019 6:00pm"
    3. `list`: Displays all the tasks in the task list and their respective task index.
    4. `delete 1`: Removes the first task in the task list.
    5. `mark 3`: Marks the third task in the task list as done.
    6. `find project`: Displays the tasks which description contains the String "project".
    7. `bye`: Exits the application.
 
-## Things to Note: 
+## Things to Note:
 1. Chatty automatically saves your task list into a `./data/duke.txt` file which is updated everytime task list is changed.
    1. `./data/duke.txt` file is located in the same directory as your `duke.jar` file
 2. Chatty will tell you if you have already added a task into you task list, preventing duplicates!
@@ -67,7 +66,6 @@ Format: `delete TASKINDEX`
 Example(s):
 - `delete 1`
 
-
 ### Marking a Task as done: `mark`
 Mark a task as done on the task list using the task's index.d
 Format: `mark TASKINDEX`
@@ -76,10 +74,10 @@ Format: `mark TASKINDEX`
 Example(s):
 - `mark 1`
 
-### Marking a Task as undone: `mark`
+### Marking a Task as undone: `unmark`
 Mark a task as undone on the task list using the task's index.
 
-Format: `mark TASKINDEX`
+Format: `unmark TASKINDEX`
 * Marks the task with the given `TASKINDEX` as undone. The index refers to the index number shown in the displayed task list. The index must be a positive integer 1, 2, 3, …
 
 Example(s):
