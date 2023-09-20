@@ -16,6 +16,9 @@ public class Main extends Application {
 
     private GigaChadBot duke = new GigaChadBot();
 
+    /**
+     * Starts the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

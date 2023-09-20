@@ -9,8 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import main.GigaChadBot;
 import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
 
 import java.io.IOException;
 
@@ -36,6 +34,9 @@ public class MainWindow extends AnchorPane {
     private final String NAME = "GigaChadbot";
 
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

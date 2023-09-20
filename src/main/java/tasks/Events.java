@@ -42,6 +42,8 @@ public class Events extends Task {
 
     /**
      * Marks the `Events` task as done and provides feedback.
+     * 
+     * @return A string indicating the task is marked as done.
      */
     @Override
     public String markDone() {
@@ -51,6 +53,8 @@ public class Events extends Task {
 
     /**
      * Unmarks the `Events` task as done and provides feedback.
+     * 
+     * @return A string indicating the task is unmarked as done.
      */
     @Override
     public String unmarkDone() {

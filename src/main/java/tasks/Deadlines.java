@@ -38,7 +38,7 @@ public class Deadlines extends Task {
     /**
      * Marks the `Deadlines` task as done and prints a message indicating the task is marked as done.
      *
-     * @return
+     * @return A message indicating the task is marked as done.
      */
     @Override
     public String markDone() {
@@ -48,6 +48,8 @@ public class Deadlines extends Task {
 
     /**
      * Unmarks the `Deadlines` task as done and prints a message indicating the task is unmarked as done.
+     * 
+     * @return A message indicating the task is unmarked as done.
      */
     @Override
     public String unmarkDone() {

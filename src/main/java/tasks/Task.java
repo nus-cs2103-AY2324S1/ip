@@ -1,5 +1,9 @@
 package tasks;
 
+
+/**
+ * The `Task` class represents a task that can be added to the task list.
+ */
 public class Task {
     private boolean isDone;
     private final String NAME;

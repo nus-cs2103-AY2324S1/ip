@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * The `ToDos` class represents a task that is a todo.
+ */
 public class ToDos extends Task {
     public ToDos(String name, boolean isDone) {
         super(name, isDone);
