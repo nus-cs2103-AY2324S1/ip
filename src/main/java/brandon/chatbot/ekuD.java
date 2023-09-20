@@ -17,7 +17,7 @@ import brandon.chatbot.tasks.TaskList;
  * Entry point of the Duke chatbot application.
  * Initializes the application and starts the interaction with the user.
  */
-public class Duke {
+public class ekuD {
     public static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     private static Path outputPath = Paths.get(CURRENT_DIRECTORY, "output.txt");
     private TaskList tasks = new TaskList();
