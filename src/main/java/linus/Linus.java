@@ -1,14 +1,20 @@
 package linus;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import linus.command.ByeCommand;
+import linus.command.Command;
+import linus.command.DeadlineCommand;
+import linus.command.DeleteCommand;
+import linus.command.EventCommand;
+import linus.command.FindCommand;
+import linus.command.HelpCommand;
+import linus.command.ListCommand;
+import linus.command.MarkCommand;
+import linus.command.StatsCommand;
+import linus.command.ToDoCommand;
+import linus.command.UnmarkCommand;
 import linus.exception.LinusException;
 import linus.storage.Storage;
-import linus.task.Deadline;
-import linus.task.Event;
 import linus.task.TaskList;
-import linus.task.ToDo;
 import linus.util.Parser;
 import linus.util.Ui;
 
@@ -17,26 +23,22 @@ import linus.util.Ui;
  */
 public class Linus {
     private static final String FILE_PATH = "data/linus.txt";
+    private static final String BYE_FLAG = "bye";
+    private static final String HELP_FLAG = "help";
+    private static final String LIST_FLAG = "list";
+    private static final String TODO_FLAG = "todo";
+    private static final String DEADLINE_FLAG = "deadline";
+    private static final String EVENT_FLAG = "event";
+    private static final String MARK_FLAG = "mark";
+    private static final String UNMARK_FLAG = "unmark";
+    private static final String DELETE_FLAG = "delete";
+    private static final String FIND_FLAG = "find";
+    private static final String STATS_FLAG = "stats";
 
-    private static final String STATS_COMMAND_REGEX =
-            "/duration (\\d+)"
-                    + "( /task (todo|deadline|event))?"
-                    + "( /done)?";
 
-    private static enum Command {
-        LIST,
-        MARK,
-        UNMARK,
-        DELETE,
-        FIND,
-        TODO,
-        DEADLINE,
-        EVENT,
-        STATS,
-        HELP,
-        BYE
-    }
-
+    private static final String INVALID_COMMAND_MESSAGE =
+            "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+                    + "Please start your inputs with a valid command.";
     private Storage storage = null;
     private TaskList tasks = null;
 
@@ -73,108 +75,63 @@ public class Linus {
 
     public String getResponse(String input) {
         ui.resetOutput();
+        Command command = null;
         try {
-            String[] items = null;
-            String description = "";
-            int index = 0;
-
             String[] commandAndData = Parser.parse(input);
-            String command = commandAndData[0];
+            String commandString = commandAndData[0];
             String data = commandAndData[1];
 
-            switch (Command.valueOf(command.toUpperCase())) {
-            case BYE:
-                ui.printExitMessage();
+            switch (commandString) {
+            case BYE_FLAG:
+                command = new ByeCommand(ui);
+                command.execute();
                 break;
-            case HELP:
-                ui.printHelpMessage();
+            case HELP_FLAG:
+                command = new HelpCommand(ui);
+                command.execute();
                 break;
-            case LIST:
-                ui.printList(tasks.getList(), "Here are the tasks in your list:\n");
+            case LIST_FLAG:
+                command = new ListCommand(tasks, ui);
+                command.execute();
                 break;
-            case MARK:
-                index = Integer.parseInt(data) - 1;
-                tasks.mark(index);
-                ui.printMarkSuccessMessage(tasks.get(index), tasks.getList().size());
+            case MARK_FLAG:
+                command = new MarkCommand(tasks, data, ui);
+                command.execute();
                 break;
-            case UNMARK:
-                index = Integer.parseInt(data) - 1;
-                tasks.unmark(index);
-                ui.printUnmarkSuccessMessage(tasks.get(index), tasks.getList().size());
+            case UNMARK_FLAG:
+                command = new UnmarkCommand(tasks, data, ui);
+                command.execute();
                 break;
-            case DELETE:
-                index = Integer.parseInt(data) - 1;
-                tasks.delete(index);
-                ui.printDeleteSuccessMessage(tasks.get(index), tasks.getList().size());
+            case DELETE_FLAG:
+                command = new DeleteCommand(tasks, data, ui);
+                command.execute();
                 break;
-            case FIND:
-                ui.printFindSuccessMessage(tasks.find(data));
+            case FIND_FLAG:
+                command = new FindCommand(tasks, data, ui);
+                command.execute();
                 break;
-            case TODO:
-                if (data == "") {
-                    throw new LinusException("☹ OOPS!!! The description of a todo cannot be empty.");
-                }
-                description = data;
-                tasks.add(new ToDo(description));
-                ui.printAddSuccessMessage(tasks.get(tasks.getList().size() - 1), tasks.getList().size());
+            case TODO_FLAG:
+                command = new ToDoCommand(tasks, data, ui);
+                command.execute();
                 break;
-            case DEADLINE:
-                items = data.split(" /by ");
-                if (items.length != 2) {
-                    throw new LinusException(
-                            "☹ OOPS!!! Please specify the deadline in the correct format: "
-                                    + "deadline <description> /by <date>"
-                    );
-                }
-
-                description = items[0];
-                String by = items[1];
-
-                tasks.add(new Deadline(description, by));
-                ui.printAddSuccessMessage(tasks.get(tasks.getList().size() - 1), tasks.getList().size());
+            case DEADLINE_FLAG:
+                command = new DeadlineCommand(tasks, data, ui);
+                command.execute();
                 break;
-            case EVENT:
-                items = data.split(" /from | /to ");
-                if (items.length != 3) {
-                    throw new LinusException(
-                            "☹ OOPS!!! Please specify the event in the correct format: \n"
-                                    + "event <description> /from <date> /to <date>"
-                    );
-                }
-                description = items[0];
-                String from = items[1];
-                String to = items[2];
-
-                tasks.add(new Event(description, from, to));
-                ui.printAddSuccessMessage(tasks.get(tasks.getList().size() - 1), tasks.getList().size());
+            case EVENT_FLAG:
+                command = new EventCommand(tasks, data, ui);
+                command.execute();
                 break;
-            case STATS:
-                Pattern pattern = Pattern.compile(STATS_COMMAND_REGEX);
-                Matcher matcher = pattern.matcher(data);
-                if (matcher.matches()) {
-                    int duration = Integer.parseInt(matcher.group(1));
-                    String taskType = null;
-                    if (matcher.group(2) != null) {
-                        taskType = matcher.group(3);
-                    }
-                    boolean isFilterByDone = matcher.group(4) != null;
-                    ui.printStats(tasks.showStats(duration, taskType, isFilterByDone));
-                } else {
-                    throw new LinusException(
-                            "☹ OOPS!!! Please specify the stats in the correct format: \n"
-                                    + "stats /duration <number of days> /task <taskType> /done \n"
-                                    + "where /task <taskType> and /done are optional"
-                    );
-                }
-
+            case STATS_FLAG:
+                command = new StatsCommand(tasks, data, ui);
+                command.execute();
                 break;
             default:
                 throw new IllegalArgumentException();
             }
             storage.store(tasks.getList());
         } catch (IllegalArgumentException e) {
-            ui.print("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
-                    + "Please start your inputs with a valid command.");
+            ui.print(INVALID_COMMAND_MESSAGE);
         } catch (LinusException e) {
             ui.print(e.getMessage());
         }

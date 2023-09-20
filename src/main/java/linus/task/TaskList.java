@@ -40,6 +40,10 @@ public class TaskList {
         return this.tasks;
     }
 
+    public int getSize() {
+        return this.tasks.size();
+    }
+
     /**
      * Returns the number of tasks in the list.
      *
