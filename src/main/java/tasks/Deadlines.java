@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
  * and adds functionality to handle deadlines and provide formatted representations of tasks.
  */
 public class Deadlines extends Task {
-    private LocalDate by;
+    private final LocalDate by;
 
     /**
      * Constructs a `Deadlines` task.
@@ -43,7 +43,7 @@ public class Deadlines extends Task {
     @Override
     public String markDone() {
         super.markDone();
-        return "Oki, I've marked this task as done: \n" + this.toString();
+        return "Oki, I've marked this task as done: \n" + this;
     }
 
     /**
@@ -54,6 +54,6 @@ public class Deadlines extends Task {
     @Override
     public String unmarkDone() {
         super.unmarkDone();
-        return "Damn bro...unmarked this task :( : \n" + this.toString();
+        return "Damn bro...unmarked this task :( : \n" + this;
     }
 }

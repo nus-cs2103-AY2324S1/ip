@@ -22,16 +22,13 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
 
     private GigaChadBot corubi;
-    private Parser parser = new Parser();
+    private final Parser parser = new Parser();
 
 
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/idol.png"));
     private final Image bot = new Image(this.getClass().getResourceAsStream("/images/chad.png"));
-    private final String NAME = "GigaChadbot";
 
 
     /**
@@ -44,6 +41,7 @@ public class MainWindow extends AnchorPane {
 
     public void setBot(GigaChadBot d) throws IOException {
         corubi = d;
+        String NAME = "GigaChadbot";
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(corubi.getStore().load(parser), bot),
                 DialogBox.getDukeDialog("Hello! I am " + NAME + ". \nWhat can I do for you?", bot)

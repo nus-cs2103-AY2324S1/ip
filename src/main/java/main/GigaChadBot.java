@@ -26,15 +26,6 @@ public class GigaChadBot extends Application {
     private static final Parser parser = new Parser();
     private static final Storage store = new Storage("./src/main/java/OUTPUT.txt", tasks);
 
-    @FXML
-    private ScrollPane scrollPane;
-    @FXML
-    private VBox dialogContainer;
-    @FXML
-    private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     /**
      * Getter method for the storage instance.
      *
@@ -48,7 +39,7 @@ public class GigaChadBot extends Application {
      * Start method to initialize the application.
      */
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
     }
 
     /**

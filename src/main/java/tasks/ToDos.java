@@ -24,7 +24,7 @@ public class ToDos extends Task {
     @Override
     public String markDone() {
         super.markDone();
-        return "Oki, I've marked this task as done: \n" + this.toString();
+        return "Oki, I've marked this task as done: \n" + this;
     }
 
     /*
@@ -34,6 +34,6 @@ public class ToDos extends Task {
     @Override
     public String unmarkDone() {
         super.unmarkDone();
-        return "Damn bro...unmarked this task :( : \n" + this.toString();
+        return "Damn bro...unmarked this task :( : \n" + this;
     }
 }

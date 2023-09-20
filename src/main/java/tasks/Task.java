@@ -7,8 +7,6 @@ package tasks;
 public class Task {
     private boolean isDone;
     private final String NAME;
-    private final String DONE = "[X] ";
-    private final String NOTDONE = "[] ";
 
     /**
      * Constructor for the Task class.
@@ -36,6 +34,8 @@ public class Task {
      * @return A formatted string representing the task.
      */
     public String toString() {
+        String DONE = "[X] ";
+        String NOTDONE = "[] ";
         return this.checkDone()
                 ? DONE + this.NAME
                 : NOTDONE + this.NAME;
