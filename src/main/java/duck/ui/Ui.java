@@ -46,6 +46,7 @@ public class Ui {
     }
 
     public void showAddTaskMessage(Task task, int taskCount) {
+        assert taskCount >= 0 : "Task count should be non-negative.";
         String addTask = "Got it. I've added this task: \n"
                 + task + "\n"
                 + "Now you have " + taskCount + " task(s) in the list.";
@@ -79,6 +80,7 @@ public class Ui {
     }
 
     public void showDeleteTaskMessage(Task task, int taskCount) {
+        assert taskCount >= 0 : "Task count should be non-negative.";
         String deleteTask = "Noted. I've removed this task: \n"
                 + task + "\n"
                 + "Now you have " + taskCount + " task(s) in the list.";

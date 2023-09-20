@@ -33,6 +33,7 @@ public class TaskList {
 
     // Getter for taskCount
     public int getTaskCount() {
+        assert taskCount >= 0 : "Task count should be non-negative.";
         return this.taskCount;
     }
 
@@ -168,5 +169,3 @@ public class TaskList {
         return allTasks;
     }
 }
-
-
