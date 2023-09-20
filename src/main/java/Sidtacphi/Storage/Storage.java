@@ -2,6 +2,9 @@ package Sidtacphi.Storage;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,9 @@ public class Storage {
         module.addSerializer(Task.class, new TaskSerializer());
         mapper.registerModule(module);
         try {
+            String makeDirPath = location.substring(0, location.lastIndexOf("/"));
+            Path path = Paths.get(makeDirPath);
+            Files.createDirectories(path);
             mapper.writeValue(new File(location), taskList);
         } catch (IOException e) {
             new File(location);

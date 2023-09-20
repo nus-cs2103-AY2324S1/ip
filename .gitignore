@@ -20,7 +20,9 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
-/cache/
+
+# Storage of project
+/stored/
 
 # MacOS custom attributes files created by Finder
 .DS_Store
