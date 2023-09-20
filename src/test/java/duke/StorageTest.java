@@ -10,7 +10,7 @@ class StorageTest {
     @Test
     void testLoad() {
         Storage storage = new Storage("taskList.txt");
-        File loadedFile = storage.load();
+        File loadedFile = storage.loadTasks();
         assertNotNull(loadedFile);
         assertEquals("taskList.txt", loadedFile.getName());
     }

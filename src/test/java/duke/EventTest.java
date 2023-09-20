@@ -22,7 +22,7 @@ class EventTest {
         LocalDate end = LocalDate.of(2023, 9, 5);
         Event event = new Event("Conference", start, end);
         event.mark();
-        assertTrue(event.done);
+        assertTrue(event.isMarked());
     }
 
     @Test
@@ -31,9 +31,9 @@ class EventTest {
         LocalDate end = LocalDate.of(2023, 9, 5);
         Event event = new Event("Conference", start, end);
         event.mark();
-        assertTrue(event.done);
+        assertTrue(event.isMarked());
         event.unMark();
-        assertFalse(event.done);
+        assertFalse(event.isMarked());
     }
 }
 

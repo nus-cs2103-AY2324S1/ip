@@ -16,16 +16,16 @@ class ToDoTest {
     void testMark() {
         ToDo todo = new ToDo("Buy groceries");
         todo.mark();
-        assertTrue(todo.done);
+        assertTrue(todo.isMarked());
     }
 
     @Test
     void testUnmark() {
         ToDo todo = new ToDo("Buy groceries");
         todo.mark();
-        assertTrue(todo.done);
+        assertTrue(todo.isMarked());
         todo.unMark();
-        assertFalse(todo.done);
+        assertFalse(todo.isMarked());
     }
 }
 

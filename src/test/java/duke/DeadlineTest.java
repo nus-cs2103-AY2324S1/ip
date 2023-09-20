@@ -20,7 +20,7 @@ class DeadlineTest {
         LocalDate deadline = LocalDate.of(2023, 9, 30);
         Deadline task = new Deadline("Complete assignment", deadline);
         task.mark();
-        assertTrue(task.done);
+        assertTrue(task.isMarked());
     }
 
     @Test
@@ -28,8 +28,8 @@ class DeadlineTest {
         LocalDate deadline = LocalDate.of(2023, 9, 30);
         Deadline task = new Deadline("Complete assignment", deadline);
         task.mark();
-        assertTrue(task.done);
+        assertTrue(task.isMarked());
         task.unMark();
-        assertFalse(task.done);
+        assertFalse(task.isMarked());
     }
 }
