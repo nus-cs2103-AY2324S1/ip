@@ -48,4 +48,12 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    @FXML
+    public void handleWelcome() {
+        String intro = duke.getWelcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(intro, dukeImage)
+        );
+    }
 }
