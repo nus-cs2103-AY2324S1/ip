@@ -63,7 +63,7 @@ public abstract class JukeCommand extends JukeObject {
 
         switch (mainCommand) {
         case "list":
-            return new JukePrintCommand(taskList);
+            return JukeCommand.list(args, taskList);
         case "bye":
             return new JukeExitCommand();
         case "mark":
@@ -89,6 +89,22 @@ public abstract class JukeCommand extends JukeObject {
     }
 
     /**
+     * Creates a {@code JukePrintCommand} object. Command will print out the task list.
+     *
+     * @param args Parsed arguments
+     * @param taskList {@code TaskList} object which manages all tasks
+     * @return {@code JukePrintCommand} object
+     */
+    public static JukePrintCommand list(String[] args, TaskList taskList) {
+        if (args.length != 1) {
+            throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your list command!",
+                                                          "list");
+        }
+
+        return new JukePrintCommand(taskList);
+    }
+
+    /**
      * Creates a {@code JukeMarkTaskDoneCommand} object. Command will mark a task as complete.
      *
      * @param args Parsed arguments
@@ -96,7 +112,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeMarkTaskDoneCommand} object
      */
     private static JukeMarkTaskDoneCommand mark(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1 || args.length > 2) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your mark command!",
                                                           "mark [task number]");
         } else {
@@ -118,7 +134,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeMarkTaskUndoneCommand} object
      */
     private static JukeMarkTaskUndoneCommand unmark(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1 || args.length > 2) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your unmark command!",
                                                           "unmark [task number]");
         } else {
@@ -140,7 +156,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeDeleteTaskCommand} object
      */
     private static JukeDeleteTaskCommand delete(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1 || args.length > 2) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your delete command!",
                                                           "delete [task number]");
         } else {
@@ -283,7 +299,7 @@ public abstract class JukeCommand extends JukeObject {
      * @return {@code JukeSortListCommand} object
      */
     private static JukeSortListCommand sort(String[] args, TaskList taskList) {
-        if (args.length == 1) {
+        if (args.length == 1  || args.length > 3) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your sort command!",
                                                           "sort [a/asc/ascend/ascending | "
                                                                   + "d/desc/descend/descending] "
