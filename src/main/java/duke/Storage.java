@@ -21,7 +21,7 @@ public class Storage {
 
 
     /**
-     * Init the storage at the current filePath.
+     * Initialise the storage at the current filePath.
      * @param filePath where the saved file is
      */
     public Storage(String filePath) {

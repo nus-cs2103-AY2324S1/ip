@@ -47,9 +47,10 @@ public class Duke {
 
 
     /**
-     * Mark the idx^th element in the list.
-     * @param idx index in the list(1-index)
-     * @return The Task marked
+     * Marks the task at the specified index as "done" in the task list.
+     *
+     * @param idx The 1-based index of the task to mark as done.
+     * @return The task that was marked as done.
      */
     public Task done(int idx) {
         this.tasklist.get(idx).mark();
@@ -57,9 +58,10 @@ public class Duke {
     }
 
     /**
-     * Unmark the idx^th element in the list.
-     * @param idx index in the list(1-index)
-     * @return The Task unmarked
+     * Marks the task at the specified index as "undone" in the task list.
+     *
+     * @param idx The 1-based index of the task to mark as undone.
+     * @return The task that was marked as undone.
      */
     public Task undone(int idx) {
         this.tasklist.get(idx).unmark();
@@ -94,10 +96,11 @@ public class Duke {
     }
 
     /**
-     * Adds a todo task based on the description of the string
-     * detailing its deadline.
-     * @param s the string
-     * @return the todo Tasked added
+     * Adds a to-do task to the task list based on the provided description.
+     *
+     * @param s The description of the to-do task.
+     * @return The to-do task that was added to the list.
+     * @throws DukeException If there are not enough parameters provided in the description.
      */
     public Task addToDo(String s) throws DukeException {
         try {
@@ -120,6 +123,7 @@ public class Duke {
      * detailing its start, end and description.
      * @param s the string
      * @return the Event Tasked added
+     * @throws DukeException If there are not enough parameters provided in the description.
      */
     public Task addEvent(String s) throws DukeException {
         //E|1|descr|12/4/2020 1600|12/4/2020 1700
