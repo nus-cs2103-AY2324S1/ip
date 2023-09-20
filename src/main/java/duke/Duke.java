@@ -105,8 +105,8 @@ public class Duke extends Application {
                 assert userMessage != null : "User message is null.";
                 assert botMessage != null : "Bot message is null.";
 
-                userMessage.setAlignment(Pos.CENTER_LEFT);
-                botMessage.setAlignment(Pos.CENTER_RIGHT);
+                userMessage.setAlignment(Pos.CENTER_RIGHT);
+                botMessage.setAlignment(Pos.CENTER_LEFT);
 
                 dialogContainer.getChildren().addAll(userMessage, botMessage);
 
@@ -123,7 +123,7 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Duke");
+        stage.setTitle("RemindMe");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
