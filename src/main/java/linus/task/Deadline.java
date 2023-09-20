@@ -27,6 +27,7 @@ public class Deadline extends Task {
 
     /**
      * Sets the deadline of the task.
+     *
      * @param by
      * @throws LinusException
      */
@@ -34,7 +35,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDate.parse(by);
         } catch (DateTimeParseException e) {
-            throw new LinusException("☹ OOPS!!! Please specify the deadline in the correct format: yyyy-mm-dd");
+            throw new LinusException("☹ OOPS!!! Please specify the deadline "
+                    + "in the correct format: yyyy-mm-dd");
         }
     }
 

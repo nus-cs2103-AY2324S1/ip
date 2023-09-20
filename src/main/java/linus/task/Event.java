@@ -29,6 +29,7 @@ public class Event extends Task {
 
     /**
      * Sets the start date and end date of the event.
+     *
      * @param from
      * @param to
      * @throws LinusException
@@ -40,7 +41,8 @@ public class Event extends Task {
 
             if (parsedFromDate.isAfter(parsedToDate)) {
                 throw new LinusException(
-                        "☹ OOPS!!! Please specify the start date before/on the same day as the end date."
+                        "☹ OOPS!!! Please specify the start date "
+                                + "before/on the same day as the end date."
                 );
             }
 
@@ -49,7 +51,8 @@ public class Event extends Task {
 
         } catch (DateTimeParseException e) {
             throw new LinusException(
-                    "☹ OOPS!!! Please specify the start and/or end dates in the correct format: yyyy-mm-dd"
+                    "☹ OOPS!!! Please specify the start and/or end dates "
+                            + "in the correct format: yyyy-mm-dd"
             );
         }
 

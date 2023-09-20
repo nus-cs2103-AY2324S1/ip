@@ -38,18 +38,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-
-        clipImage(displayPicture);
-    }
-
-    /**
-     * Clips the image to a circle.
-     */
-    private void clipImage(ImageView picture) {
-        Circle clip = new Circle(picture.getFitWidth() / 2, picture.getFitHeight() / 2,
-                Math.min(picture.getFitWidth(), picture.getFitHeight()) / 2);
-
-        picture.setClip(clip);
     }
 
     /**
