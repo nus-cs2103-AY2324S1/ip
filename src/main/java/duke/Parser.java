@@ -12,7 +12,7 @@ public class Parser {
      */
     public static Command parse(String input) {
         assert input != null : "Input should not be null";
-        if (input.equals("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             return new ExitCommand();
 
         } else if (input.startsWith("mark")) {
@@ -25,7 +25,7 @@ public class Parser {
             int i = Integer.parseInt(num);
             return new UnmarkCommand(i - 1);
 
-        } else if (input.equals("list")) {
+        } else if (input.equalsIgnoreCase("list")) {
             return new ListCommand();
 
         } else if (input.startsWith("delete")) {
