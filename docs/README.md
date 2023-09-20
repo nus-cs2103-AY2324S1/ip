@@ -52,3 +52,28 @@ Here are the tasks in your list:
 3. [D][X] Finish CS2103T ip (by: 22-Sep-2023)
 4. [E][] NUSBS Dharma Camp (from: 1-Jul-2024 to: 2-Jul-2024)
 ```
+
+### `todo` - Starts a process to add a ToDo entry into the list
+
+All the user has to type is "todo", no arguments required. 
+Further follow-up actions are required to complete the insertion of the task as instructed by the chatbot:
+1. Type in name of the task
+
+
+Format: `todo`
+
+Example of usage: 
+
+User types `todo`
+
+Expected outcome:
+
+The Chatbot will reply with a list of all the tasks that is tracked
+
+```
+Here are the tasks in your list:
+1. [T][] Read Book
+2. [D][X] Finish CS2100 Assignment (by: 18-Sep-2023 1300)
+3. [D][X] Finish CS2103T ip (by: 22-Sep-2023)
+4. [E][] NUSBS Dharma Camp (from: 1-Jul-2024 to: 2-Jul-2024)
+```
