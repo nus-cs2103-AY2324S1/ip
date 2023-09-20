@@ -1,13 +1,13 @@
 # ET User Guide
 
 ## Features 
-- [Adding a Todo task: `todo`]
-- [Adding a Deadline task: `deadline`]
-- [Adding an Event task: `event`]
-- [Listing all tasks: `list`]
-- [Deleting a task: `delete`]
-- [Finding a task: `find`]
-- [Exiting a programme: `bye`]
+- [Adding a Todo task: `todo`]((https://github.com/alientian/ip/blob/master/docs/README.md#adding-a-todo-task-todo))
+- [Adding a Deadline task: `deadline`](https://github.com/alientian/ip/blob/master/docs/README.md#adding-a-deadline-task-deadline)
+- [Adding an Event task: `event`](https://github.com/alientian/ip/blob/master/docs/README.md#adding-an-event-task-event)
+- [Listing all tasks: `list`](https://github.com/alientian/ip/blob/master/docs/README.md#listing-all-tasks-list)
+- [Deleting a task: `delete`](https://github.com/alientian/ip/blob/master/docs/README.md#deleting-a-task-delete)
+- [Finding a task: `find`](https://github.com/alientian/ip/blob/master/docs/README.md#finding-a-task-find)
+- [Exiting a programme: `bye`](https://github.com/alientian/ip/blob/master/docs/README.md#exiting-a-programme-bye)
 
 ## Usage
 
