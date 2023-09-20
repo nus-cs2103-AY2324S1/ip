@@ -1,5 +1,8 @@
 package duke.task;
 
+/**
+ * This class encapsulates a Recurring task.
+ */
 public class Recurring extends Task {
     private String recurring;
 
