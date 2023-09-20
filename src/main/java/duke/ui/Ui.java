@@ -180,7 +180,7 @@ public class Ui {
     }
 
     /**
-     * Comparator to sort tasks by date-time.
+     * Provides a comparator to sort tasks by date-time.
      * @return the comparator to sort tasks by date-time.
      */
     private static Comparator<Task> compareByDateTime() {
@@ -193,7 +193,7 @@ public class Ui {
     }
 
     /**
-     * Helper method to extract date-time from a task.
+     * Extracts date-time from a task.
      * @param task the task
      * @param formatter the date-time formatter
      * @return the date-time of the task
