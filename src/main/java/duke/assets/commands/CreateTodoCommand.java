@@ -43,11 +43,7 @@ public class CreateTodoCommand extends CommandAbstract {
     private boolean isValid() {
         Pattern commandRegex = Pattern.compile("^todo .+", Pattern.CASE_INSENSITIVE);
         Matcher inputMatcher = commandRegex.matcher(this.input);
-        if (!inputMatcher.find()) {
-            System.out.println("ChadGPT: Please provide a description about your task.");
-            return false;
-        }
-        return true;
+        return inputMatcher.find();
     }
 
     /**
@@ -64,7 +60,7 @@ public class CreateTodoCommand extends CommandAbstract {
             newTask.completeNewTask();
         }
         tasklist.addTask(newTask);
-        return "ChadGPT: No problem! Just remember to do your task before the deadline.";
+        return "No problem! Just remember to do your task before the deadline.";
     }
 
     /**

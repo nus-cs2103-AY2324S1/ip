@@ -35,6 +35,16 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
+        setComponents(stage);
+        addFunctionality();
+    }
+
+    /**
+     * Sets up the required components of UI
+     *
+     * @param stage UI stage
+     */
+    private void setComponents(Stage stage) {
         // Step 1. Setting up required components
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -50,7 +60,16 @@ public class Duke extends Application {
 
         stage.setScene(scene);
         stage.show();
+        formatWindow(stage, mainLayout);
+    }
 
+    /**
+     * Format the UI window
+     *
+     * @param stage ui stage
+     * @param mainLayout layout of UI
+     */
+    private void formatWindow(Stage stage, AnchorPane mainLayout) {
         // Step 2. Formatting the window to look as expected
         stage.setTitle("ChadGPT");
         stage.setResizable(false);
@@ -80,7 +99,12 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
+    /**
+     * Add functionality to UI handle user input
+     */
+    private void addFunctionality() {
         // Part 3. Add functionality to handle user input.
         readFromData();
 
@@ -97,7 +121,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Method to create dialog boxes for user and chatbot, given some user input
+     * Creates dialog boxes for user and chatbot given some user input
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
@@ -111,17 +135,17 @@ public class Duke extends Application {
     }
 
     /**
-     * Private helper method to get the text response for the chatbot
+     * Formats the text response for the chatbot
      *
-     * @param input appropriate text response
-     * @return full text response for the chatbot
+     * @param input text response from the chatbot
+     * @return full text response from the chatbot as a string
      */
     private String getResponse(String input) {
         return "ChadGPT: " + input;
     }
 
     /**
-     * Private helper method to help create a DialogueBox by the chatbot without user prompt
+     * Creates a DialogueBox for the chatbot, without user prompt
      *
      * @param message text to be displayed by chatbot
      */

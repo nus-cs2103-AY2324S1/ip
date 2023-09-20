@@ -65,6 +65,14 @@ public abstract class TaskAbstract {
         return this.description.contains(token);
     }
 
+    /**
+     * Compare the deadline date of the two tasks
+     *
+     * @param other other task
+     * @param reverse true for descending order, false for ascending order
+     * @return a negative integer if this task has ordering priority over the other, 0 if both are chronologically
+     *     equivalent and a positive integer if other task has ordering priority over this one
+     */
     public int compareDate(TaskAbstract other, boolean reverse) {
         int dateComparison = this.getDate(reverse).compareTo(other.getDate(reverse));
         int timeComparison = this.getTime(reverse).compareTo(other.getTime(reverse));
@@ -73,13 +81,33 @@ public abstract class TaskAbstract {
                 : reverseMultiplicator * timeComparison) : reverseMultiplicator * dateComparison;
     }
 
+    /**
+     * Compare the information of two tasks lexicographically
+     *
+     * @param other other task
+     * @param reverse true for descending order, false for ascending order
+     * @return a negative integer if this task has ordering priority over the other, 0 if both are lexicographically
+     *     equivalent and a positive integer if the other task has ordering priority over this one
+     */
     public int compareInformation(TaskAbstract other, boolean reverse) {
         int informationComparison = this.description.compareTo(other.description);
         return informationComparison * (reverse ? -1 : 1);
     }
 
+    /**
+     * Get the deadline date of the task
+     *
+     * @param reverse true for descending order, false for ascending order
+     * @return the deadline date of the task
+     */
     protected abstract LocalDate getDate(boolean reverse);
 
+    /**
+     * Get the deadline time of the task
+     *
+     * @param reverse true for descending order, false for ascending order
+     * @return the deadline time of the task
+     */
     protected abstract LocalTime getTime(boolean reverse);
 
     /**

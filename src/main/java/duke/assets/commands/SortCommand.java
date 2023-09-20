@@ -5,19 +5,40 @@ import java.util.regex.Pattern;
 
 import duke.assets.storage.TaskList;
 
+/**
+ * Creates a sort command that can sort by lexicographical order or chronological order
+ */
 public class SortCommand extends CommandAbstract {
     private static final String SORT_COMMAND_REGEX_STRING = "^sort -(a|c)($| -d$)";
 
+    /**
+     * Create a new sort command with the given user input string
+     *
+     * @param input user input
+     */
     public SortCommand(String input) {
         super(input);
     }
 
+    /**
+     * Check if the user input is of the valid format
+     *
+     * @param tasklist the task list to validate against
+     * @return true if the user input is valid, false otherwise
+     */
     protected boolean isValid(TaskList tasklist) {
         Pattern inputPattern = Pattern.compile(SORT_COMMAND_REGEX_STRING);
         Matcher inputMatcher = inputPattern.matcher(this.input);
         return inputMatcher.find();
     }
 
+    /**
+     * Compelte the operation by sorting the list of tasks according to user preference
+     *
+     * @param tasklist the task list to operate on
+     * @return string of the appropriate chatbot message response, or UNHANDLED_EXCEPTION_STRING for any unhandled
+     *     edge cases
+     */
     @Override
     protected String completeOperation(TaskList tasklist) {
         String[] delimitedByFlag = this.input.split(" -");
@@ -35,6 +56,12 @@ public class SortCommand extends CommandAbstract {
         return UNHANDLED_EXCEPTION_STRING;
     }
 
+    /**
+     * Handles exceptions that occur when validating the input command and returns the appropriate chatbot
+     * response as a string
+     *
+     * @return string of appropriate bot response, or UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
+     */
     @Override
     protected String findException() {
         Pattern missingDescendingFlagPattern = Pattern.compile("^sort -(a|c)");
