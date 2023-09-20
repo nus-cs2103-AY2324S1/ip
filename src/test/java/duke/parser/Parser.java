@@ -1,9 +1,6 @@
 package duke.parser;
 
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.ToDo;
+import duke.task.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,18 +24,17 @@ public class Parser {
     }
 
     /**
-     *  Return input that has been pre-processed become sliced Array
+     * Return input that has been pre-processed become sliced Array
      *
      * @return inputArray
      */
     public String[] parseInput() {
-
         return inputArray;
     }
 
 
     /**
-     *  Return command after parsing the input
+     * Return command after parsing the input
      *
      * @return the command to be done : todo deadline
      */
@@ -48,16 +44,17 @@ public class Parser {
     }
 
     /**
-     *  Return index after parsing the input like for mark/unmark index based on user
+     * Return index after parsing the input like for mark/unmark index based on user
      *
      * @return the index has been registered
      */
     public String getIndex() {
+        assert inputArray.length < 2 : "Parser Assume there the inputArray have larger than 2";
         return parseInput()[1];
     }
 
     public Task processEvent() {
-        if(inputArray.length <= 2) {
+        if (inputArray.length <= 2) {
             return null;
         }
 
@@ -67,22 +64,36 @@ public class Parser {
 
         String endDate = "";
         String startDate = "";
-        for(int i = 0; i < inputArray.length; i++) {
-            if(inputArray[i].equals("/from") && startIndex == -1) {
+        boolean gotFrom = false;
+        boolean gotTo = false;
+        //Extracting Task, date for /from and /to
+        for (int i = 0; i < inputArray.length; i++) {
+            if (inputArray[i].equals("/from") && startIndex == -1) {
                 startIndex = i;
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i ));
-            } else if(inputArray[i].equals("/to") && startIndex != -1) {
+                gotFrom = true;
+            } else if (inputArray[i].equals("/to") && startIndex != -1) {
                 endDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 startDate = String.join(" ", Arrays.copyOfRange(inputArray, startIndex + 1, i));
+                gotTo = true;
             }
         }
 
-        Task newTask = new Event(extractedTask,convertDateTime(startDate),convertDateTime(endDate));
-        return newTask;
+        assert gotFrom: "There is no /from in Event";
+        assert gotTo: "There is no /to in Event";
+        assert gotFrom && gotTo: "Incomplete From and To Event";
 
+        try{
+            LocalDateTime formattedStartDate = convertDateTime(startDate);
+            LocalDateTime formattedEndDate = convertDateTime(endDate);
+            Task newTask = new Event(extractedTask,formattedStartDate,formattedEndDate);
+            return newTask;
+
+        } catch(Exception e) {
+            return null;
+        }
     }
 
-        //Using format given by textbook dd-mm-yyyy HHmm example :"02/12/2019 1800"
     /**
      * Convert the LocalDateTime based on String formatted input
      *
@@ -104,24 +115,32 @@ public class Parser {
      * @return Deadline Task
      */
     public Task processDeadline() {
-        if(inputArray.length <= 2) {
+        if (inputArray.length <= 2) {
             return null;
         }
 
         String dueDate = "";
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+        boolean existBy = false;
 
-        for(int i = 0; i < inputArray.length; i++) {
-            if(inputArray[i].equals("/by")) {
+        for (int i = 0; i < inputArray.length; i++) {
+            if (inputArray[i].equals("/by")) {
                 dueDate = String.join(" ", Arrays.copyOfRange(inputArray, i+1, inputArray.length));
                 extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, i));
+                existBy = true;
 
                 break;
             }
         }
 
-        Task newTask = new Deadline(extractedTask,convertDateTime(dueDate));
-        return newTask;
+        assert existBy: "There is no '/by' in the deadline";
+        try {
+            LocalDateTime formattedDeadlineDate = convertDateTime(dueDate);
+            Task newTask = new Deadline(extractedTask,formattedDeadlineDate);
+            return newTask;
+        } catch(Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -130,24 +149,56 @@ public class Parser {
      * @return Todo Task
      */
     public Task processToDo() {
-        if(inputArray.length <= 1) {
+        if (inputArray.length <= 1) {
             return null;
         }
 
         String extractedTask = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
         Task newTask = new ToDo(extractedTask);
-
         return newTask;
     }
 
-    public String getExtracted() {
-
-        if(inputArray.length <= 1) {
-            return "";
+    public Tag processGetTag() {
+        if (inputArray.length <= 2) {
+            return null;
         }
 
-        String extractedWord = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
+        return Tag.generateTag(inputArray[2]);
+    }
 
+    public int processTagGetTaskIndex() {
+        if (inputArray.length <= 2) {
+            return -1;
+        }
+        try {
+            int index = Integer.parseInt(getIndex());
+            return index - 1;
+        } catch (Exception e) {
+            return -1;
+        }
+    }
+
+    public Tag processListTag() {
+        if (inputArray.length != 2) {
+            return null;
+        }
+        String tagName = inputArray[1];
+
+        if (!Tag.existTag(tagName)) {
+            return null;
+        }
+        return Tag.generateTag(tagName);
+
+
+    }
+
+
+    public String getExtracted() {
+
+        if (inputArray.length <= 1) {
+            return "";
+        }
+        String extractedWord = String.join(" ", Arrays.copyOfRange(inputArray, 1, inputArray.length));
         return extractedWord;
     }
 
@@ -163,7 +214,7 @@ public class Parser {
             //from string to index
             int index = Integer.parseInt(getIndex());
             return index;
-        }catch(Exception e) {
+        } catch (Exception e) {
             return -1;
         }
     }
@@ -176,7 +227,7 @@ public class Parser {
         try {
             int index = Integer.parseInt(getIndex());
             return index;
-        }catch(Exception e) {
+        } catch (Exception e) {
             return -1;
         }
     }
@@ -185,17 +236,17 @@ public class Parser {
      *
      * @return Integer Index to be deleted
      */
-    public int processDeleteIndex() {
-        if(inputArray.length != 2) {
+    public int processRemoveIndex() {
+        if (inputArray.length != 2) {
             return -1;
-        }else{
-            try {
-                int index = Integer.parseInt(getIndex());
-                return index;
-            }catch(Exception e){
-                return -1;
-            }
         }
+        try {
+            int index = Integer.parseInt(getIndex());
+            return index;
+        } catch (Exception e) {
+            return -1;
+        }
+
     }
 
 

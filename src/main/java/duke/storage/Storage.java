@@ -30,6 +30,11 @@ public class Storage {
      */
     public TaskArray load() {
         // Create the folder/file if it doesn't exist
+        createFolder();
+        createFile();
+
+        ArrayList<String> result = new ArrayList();
+
         ArrayList<String> toBeProcessedArray = scanFile(this.filePath);
         return parseData(toBeProcessedArray);
     }
@@ -40,7 +45,7 @@ public class Storage {
      * @param filePath The path of the file to be created.
      * @return True if the file already exists, false if a new file was created.
      */
-    public boolean createFile(String filePath) {
+    public boolean createFile() {
         File file = new File(filePath);
         if (file.exists()) {
             System.out.println("File already exists.");
@@ -63,8 +68,8 @@ public class Storage {
      * @param folderPath The path of the folder to be created.
      * @return True if the folder already exists, false if a new folder was created.
      */
-    public boolean createFolder(String folderPath) {
-        File folder = new File(folderPath).getParentFile();
+    public boolean createFolder() {
+        File folder = new File(filePath).getParentFile();
 
         if (folder.exists()) {
             System.out.println("Folder already exists.");

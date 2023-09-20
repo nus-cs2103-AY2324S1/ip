@@ -30,16 +30,8 @@ public class Storage {
      */
     public TaskArray load() {
         // Create the folder/file if it doesn't exist
-        boolean createdFolder = createFolder(this.filePath);
-        boolean createdFile =createFile(this.filePath);
-
-        ArrayList<String> result = new ArrayList();
-        ArrayList<String> tobeProcessedArray = scanFile(this.filePath);
-
-
-
-        return parseData(tobeProcessedArray);
-
+        ArrayList<String> toBeProcessedArray = scanFile(this.filePath);
+        return parseData(toBeProcessedArray);
     }
 
     /**
@@ -50,19 +42,19 @@ public class Storage {
      */
     public boolean createFile(String filePath) {
         File file = new File(filePath);
-        if (!file.exists()) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            System.out.println("File created successfully.");
-
-            return false;
-        } else {
+        if (file.exists()) {
             System.out.println("File already exists.");
             return true;
         }
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("File created successfully.");
+
+        return false;
     }
 
     /**
@@ -74,20 +66,19 @@ public class Storage {
     public boolean createFolder(String folderPath) {
         File folder = new File(folderPath).getParentFile();
 
-        if (!folder.exists()) {
-            boolean folderCreated = folder.mkdirs();
-            if (folderCreated) {
-                System.out.println("Folder created successfully.");
-            } else {
-                System.out.println("Failed to create folder.");
-            }
-            return false;
-
-        } else {
+        if (folder.exists()) {
             System.out.println("Folder already exists.");
             return true;
 
         }
+        boolean folderCreated = folder.mkdirs();
+        if (folderCreated) {
+            System.out.println("Folder created successfully.");
+        } else {
+            System.out.println("Failed to create folder.");
+        }
+        return false;
+
     }
 
     /**
@@ -100,10 +91,12 @@ public class Storage {
 
         ArrayList<String> lines = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line = reader.readLine();
+            while (line != null) {
                 lines.add(line);
+                line = reader.readLine();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,44 +112,42 @@ public class Storage {
      */
     public TaskArray parseData(ArrayList<String> inputList) {
 
-        ArrayList<Task> arrayTask = new ArrayList<>();
+        
+        ArrayList<Task> taskArrayList = new ArrayList<>();
 
         for (String input : inputList) {
-            String[] parts = input.split(";");
-            String type = parts[0];
-            String text = parts[1];
-            boolean checked = false;
-
-            if(parts[2].equals("true")) {
-                checked = true;
+            Task newTask = inputToTask(input);
+            if (newTask != null) {
+                taskArrayList.add(newTask);
             }
-
-            Task newTask;
-
-            switch(type) {
-                case "T":
-                    newTask = new ToDo(text,checked);
-                    arrayTask.add(newTask);
-                    break;
-
-                case "E":
-                    LocalDateTime startDate = LocalDateTime.parse(parts[3]);
-                    LocalDateTime endDate = LocalDateTime.parse(parts[4]);
-                    newTask = new Event(text,startDate,endDate,checked);
-                    arrayTask.add(newTask);
-                    break;
-
-                case "D":
-                    LocalDateTime dueDate = LocalDateTime.parse(parts[3]);
-                    newTask = new Deadline(text,dueDate,checked);
-                    arrayTask.add(newTask);
-                    break;
-            }
-
-
-
         }
-        return new TaskArray(arrayTask);
+
+        return new TaskArray(taskArrayList);
+    }
+
+    public Task inputToTask(String input) {
+        String[] parts = input.split(";");
+        String type = parts[0];
+        String text = parts[1];
+        boolean checked = parts[2].equals("true");
+        Tag tag = Tag.generateTag(parts[3]);
+
+
+        switch (type) {
+            case "T":
+                return new ToDo(text,checked,tag);
+
+            case "E":
+                LocalDateTime startDate = LocalDateTime.parse(parts[4]);
+                LocalDateTime endDate = LocalDateTime.parse(parts[5]);
+                return new Event(text,startDate,endDate,checked,tag);
+
+            case "D":
+                LocalDateTime dueDate = LocalDateTime.parse(parts[4]);
+                return new Deadline(text,dueDate,checked,tag);
+        }
+
+        return null;
     }
 
     /**
@@ -174,6 +165,7 @@ public class Storage {
             String input = task.getParsedTask();
             output.add(input);
         }
+        assert output.size() == taskArrayList.size(): "Not All Data in Task Array being formatted into Output";
         return output;
 
     }
@@ -186,11 +178,14 @@ public class Storage {
      */
     public void inputFile(ArrayList<String> inputArray, String filePath) {
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
             for (String line : inputArray) {
                 writer.write(line);
                 writer.newLine(); // Add a newline after each line
             }
+            writer.close(); // Close the writer to flush changes
+
         } catch (IOException e) {
             e.printStackTrace();
         }
