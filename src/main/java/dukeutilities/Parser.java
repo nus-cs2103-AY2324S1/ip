@@ -24,15 +24,13 @@ import task.ToDo;
  * It also handles reading and parsing text from files.
  */
 public class Parser {
-<<<<<<< HEAD
+
     /**
      * Parses a line in the user's file text and returns the corresponding Task.
      *
      * @param line The full line in the file.
      * @return The task object represented by the text.
      */
-=======
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
     public static Task parseLine(String line) {
         String[] sections = line.split(" | ");
         int type = parseType(sections[0]);
@@ -52,15 +50,12 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Parses a string value of a letter to determine task type.
      *
      * @param letter A string representing the task type.
      * @return An integer representing the task type.
      */
-=======
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
     private static int parseType(String letter) {
         switch (letter) {
             case "T":
@@ -75,15 +70,12 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Parses a string value of a number to determine if task is done.
      *
      * @param number A string representing the task status.
      * @return A Boolean representing the task status.
      */
-=======
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
     private static Boolean parseDone(String number) {
         int isComplete = Integer.parseInt(number);
         assert (isComplete == 1 || isComplete == 0);
@@ -101,17 +93,9 @@ public class Parser {
         if (fullCommand.isEmpty()) {
             throw new DukeException("You entered nothing! Try again!");
         }
-<<<<<<< HEAD
         String[] parts = fullCommand.split(" ", 2);
         String commandType = parts[0].toLowerCase();
         String commandArgs = parts.length > 1 ? parts[1] : "";
-=======
-
-        String[] parts = fullCommand.split(" ", 2);
-        String commandType = parts[0].toLowerCase();
-        String commandArgs = parts.length > 1 ? parts[1] : "";
-
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
         switch (commandType) {
             case "list":
                 return new ListCommand();
@@ -138,7 +122,7 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
+
     /**
      * Creates a Task command object according to the user's arugments and type.
      *
@@ -147,16 +131,11 @@ public class Parser {
      * @return A Command object representing the created command.
      * @throws DukeException If the command is invalid.
      */
-=======
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
+
     private static Command createTaskCommand(String commandArgs, String type) throws DukeException {
         if (commandArgs.isEmpty()) {
             throw new DukeException("Description cannot be empty!");
         }
-<<<<<<< HEAD
-=======
-
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
         try {
             switch (type) {
                 case "todo":
@@ -173,7 +152,6 @@ public class Parser {
         }
     }
 
-<<<<<<< HEAD
     /**
      * Creates an Edit command object according to the user's arugments and type.
      *
@@ -182,8 +160,6 @@ public class Parser {
      * @return A Command object representing the created command.
      * @throws DukeException If the command is invalid.
      */
-=======
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
     private static Command createEditCommand(String commandArgs, String type) throws DukeException {
         try {
             if (type.equals("unmark")) {
@@ -192,15 +168,10 @@ public class Parser {
                 return new MarkCommand(Integer.parseInt(commandArgs) - 1);
             } else if (type.equals("delete")) {
                 return new DeleteCommand(Integer.parseInt(commandArgs) - 1);
-<<<<<<< HEAD
             } else if (type.equals("update")) {
                 return new UpdateCommand(commandArgs);
             } else {
                 throw new DukeException("Unknown command!");
-=======
-            } else {
-                return new UpdateCommand(commandArgs);
->>>>>>> 4738bb3a1e77454b16768a2b480a1da874fe46c5
             }
         } catch (NumberFormatException e) {
             throw new DukeException("Please input a valid numeric value for " + type + " command!");
