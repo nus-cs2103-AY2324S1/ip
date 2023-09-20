@@ -1,9 +1,3 @@
-T |   | test
-T |   | lunch
-D |   | lunch | 2023-09-17
-T |   | random
-E |   | birthday | 2023-09-05 | 3PM | 4PM
-T |   | test
-T |   | home work
-E |   | test | 2023-09-17 | 9PM | 10AM
-E |   | test | 2023-09-17 | 3PM | 4PM
+D |   | homework | 2023-09-23
+E |   | birthday | 2023-09-23 | 8PM | 10PM
+D |   | iP | 2023-09-22
