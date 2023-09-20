@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import duke.assets.storage.TaskList;
 
 class SortCommandTest {
-
     @Test
     void testInvalidCommand() {
         SortCommand command = new SortCommand("invalid command");

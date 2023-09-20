@@ -121,6 +121,11 @@ public class CreateDeadlineCommand extends CommandAbstract {
      */
     private String checkParsing() {
         try { // Checks if it is possible to parse the user specified date into date time objects.
+            Pattern datePattern = Pattern.compile(VALID_DATE_REGEX_STRING);
+            Matcher dateMatcher = datePattern.matcher(this.input);
+            if (!dateMatcher.find()) {
+                throw new DateTimeException("Invalid Date");
+            }
             String[] dates = this.input.split("/by ")[1].split(" ");
             String endDate = dates[0];
             String year = endDate.substring(0, 4);

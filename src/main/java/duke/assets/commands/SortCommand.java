@@ -79,7 +79,7 @@ public class SortCommand extends CommandAbstract {
         // Checks if the order in which list is to be sorted in is valid
         if (inputMatcher.usePattern(missingSortByPattern).find()) {
             return "Only sorting by alphabetical order or chronological order supported. Use flags"
-                    + "-a for alphabetical and -c for chronological";
+                    + " -a for alphabetical and -c for chronological";
         }
 
         assert(this.input.startsWith("sort"));

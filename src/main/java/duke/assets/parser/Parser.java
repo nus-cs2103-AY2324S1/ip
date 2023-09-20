@@ -37,7 +37,7 @@ public class Parser {
      * @throws InvalidCommandException if the input command is invalid
      */
     private CommandAbstract createUserCommand(String input) throws InvalidCommandException {
-        try { // Identify invalid commands without whitespaces
+        try { // Identify whitespace commands
             String command = input.split(" ")[0];
         } catch (IndexOutOfBoundsException indexOutOfBoundsExcept) {
             throw new InvalidCommandException("Please input a valid command.");

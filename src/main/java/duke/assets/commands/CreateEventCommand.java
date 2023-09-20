@@ -120,16 +120,21 @@ public class CreateEventCommand extends CommandAbstract {
             return "Please verify you have included the start date after /from and "
                     + "end date after /to commands";
         }
-        return checkFormatting();
+        return checkDateTimeFormatting();
     }
 
     /**
-     * Check if the user input format is of the right format
+     * Check if the user input format is of the right date and time format
      *
-     * @return appropriate debugging chatbot message, or unhandled exception message for any edge cases not caught
+     * @return appropriate debugging chatbot message
      */
-    private String checkFormatting() {
+    private String checkDateTimeFormatting() {
         try { // Checks if user has input all dates and time in the correct format
+            Pattern datePattern = Pattern.compile(VALID_DATE_REGEX_STRING);
+            Matcher dateMatcher = datePattern.matcher(this.input);
+            if (dateMatcher.results().count() < 2) {
+                throw new DateTimeException("Invalid date");
+            }
             String dates = this.input.split(" /from ")[1];
             String[] startDateArr = dates.split(" /to ")[0].split(" ");
             String startDate = startDateArr[0];
@@ -143,6 +148,25 @@ public class CreateEventCommand extends CommandAbstract {
                 LocalTime startTimeObj = LocalTime.parse(startDateArr[1].substring(0, 2) + ":"
                         + startDateArr[1].substring(2));
             }
+        } catch (NumberFormatException numberExcept) {
+            return "Please ensure the time of your deadline is in numerical format.";
+        } catch (IndexOutOfBoundsException | IllegalArgumentException indexExcept) {
+            return "Ensure that deadline date follows the following format: "
+                    + "yyyy-mm-dd or yyyy/mm/dd.";
+        } catch (DateTimeException dateTimeException) {
+            return "Please input a valid date and time";
+        }
+        return checkEndDateTimeFormatting();
+    }
+
+    /**
+     * Processes the event end date and time input to check if it follows the appropriate formatting
+     *
+     * @return appropriate debugging chatbot message, or unhandled exception message for any edge cases not caught
+     */
+    private String checkEndDateTimeFormatting() {
+        try {
+            String dates = this.input.split(" /from ")[1];
             String[] endDateArr = dates.split(" /to ")[1].split(" ");
             String endDate = endDateArr[0];
             String endDateYear = endDate.substring(0, 4);
@@ -163,7 +187,7 @@ public class CreateEventCommand extends CommandAbstract {
         } catch (DateTimeException dateTimeException) {
             return "Please input a valid date and time";
         }
-        // If exception is not caught by here, will flag an error string
+        // If exception is not caught by here, will flag a standard error string
         return UNHANDLED_EXCEPTION_STRING;
     }
 }
