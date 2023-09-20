@@ -32,10 +32,10 @@ public class UnmarkCommand extends Command {
         try {
             taskList.unmarkTask(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("This task does not exist! Try again!");
+            throw new DukeException("This task does not exist! Try again naughty boy!");
         }
         storage.writeListToFile(taskList);
-        String s = String.format("Aw man! I have marked this task as undone. We go again!\n %s",
+        String s = String.format("Kinky! I have marked this task as undone. \n %s",
                 taskList.getTaskInString(index));
         return s;
     }

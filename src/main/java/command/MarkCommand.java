@@ -32,10 +32,10 @@ public class MarkCommand extends Command {
         try {
             taskList.markTask(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException("This task does not exist! Try again!");
+            throw new DukeException("This task does not exist! Try again naughty boy!");
         }
         storage.writeListToFile(taskList);
-        String s = String.format("Good Job! I have marked this task as done!\n %s",
+        String s = String.format("Good job dirty boy! I have marked this task as done!\n %s",
                 taskList.getTaskInString(index));
         return s;
     }

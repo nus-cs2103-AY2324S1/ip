@@ -42,8 +42,8 @@ public class Duke {
      * @param input A string of the input
      */
     public String getResponse(String input) {
-        if (input.equals("sexy time")) {
-            return "Oh Johnny boy is always ready for sexy times.";
+        if (input.equals("hey Johnny")) {
+            return "Oh Johnny boy is ready to get you started!";
         }
         try {
             Command c = Parser.parse(input);
@@ -51,7 +51,7 @@ public class Duke {
         } catch (DukeException e) {
             return e.getMessage();
         } catch (DateTimeParseException e) {
-            return "Incorrect format input";
+            return "Incorrect format input, you have been a bad boy!";
         }
     }
 
