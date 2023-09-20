@@ -24,7 +24,7 @@ public class Event extends Task {
      * Returns a string representation of the Event Object to be written to the file.
      */
     public String toText() {
-        return "Event - " + isDone + " - " + name + " -" + startTime + " -" + endTime + System.lineSeparator();
+        return "Event - " + isDone + " - " + name + " - " + startTime + " - " + endTime + System.lineSeparator();
     }
 
     /**
@@ -33,6 +33,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from:" + this.startTime + " to:" + this.endTime + ")";
+        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
     }
 }
