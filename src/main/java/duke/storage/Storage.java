@@ -155,7 +155,7 @@ public class Storage {
         String[] array;
         try {
             while (scanner.hasNext()) {
-                array = scanner.nextLine().split("/ ");
+                array = scanner.nextLine().split(" / ");
                 if (array[0].equals("")) {
                     continue;
                 }

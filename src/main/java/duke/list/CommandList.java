@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import duke.exception.KoraException;
+
 /**
  * Command list class that stores command names and types.
  */
@@ -46,10 +48,13 @@ public class CommandList {
         commandTypeList.put(commandType, nameList);
     }
 
-    public void deleteCommandName(String commandType, String commandName) {
+    public void deleteCommandName(String commandType, String commandName) throws KoraException {
         commandNameList.remove(commandName);
         ArrayList<String> nameList = commandTypeList.get(commandType);
         nameList.remove(commandName);
+        if (nameList.isEmpty()) {
+            throw new KoraException("Omo! You won't have any available command name for: " + commandType);
+        }
         commandTypeList.put(commandType, nameList);
     }
 
@@ -80,7 +85,7 @@ public class CommandList {
             int size = commandTypeList.get(type).size();
             output = output + type;
             for (int i = 0; i < size; i++) {
-                output = output + "/ " + commandTypeList.get(type).get(i);
+                output = output + " / " + commandTypeList.get(type).get(i);
             }
             output = output + "\n";
         }

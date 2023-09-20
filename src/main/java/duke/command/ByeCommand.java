@@ -33,8 +33,7 @@ public class ByeCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Storage storage) {
-
-        commandMessage = "Byebye. See you again!";
+        commandMessage = "JalGa! See you again!";
     }
 
     /**
