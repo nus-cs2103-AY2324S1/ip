@@ -8,7 +8,9 @@ BeeBot is a basic CLI chatbot task manager that helps you keep track of your tas
 2. Download the latest `beebot.jar` from [here](https://github.com/leezhengjing/ip/releases/tag/v0.2)
 3. Copy the file to the folder you want to use as the home folder for your BeeBot.
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+
 ![Ui](Ui.png)
+
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
 6. Refer to the [Features](#features) below for details of each command.
 7. Some example commands you can try:
