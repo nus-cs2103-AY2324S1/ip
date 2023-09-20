@@ -2,6 +2,14 @@
 
 Welcome to Philip, your personal task manager! Philip is designed to help you keep track of your tasks, whether they are to-dos, deadlines, or events. This user guide will provide you with an overview of Philip's features and how to use them effectively.
 
+## Quick start
+1. Ensure you have Java `11` installed on your computer.
+2. Download the latest `duke.jar`
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar duke.jar command to run the application. 
+5. Type the command in the command box and press Enter to execute it.
+6. Refer to Features below for details of each command.
+
 ## Features 
 
 ### Adding a to-do task: `todo`

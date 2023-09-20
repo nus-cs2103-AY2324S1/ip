@@ -35,6 +35,7 @@ public class Duke {
             tasks = new TaskList();
         } catch (IOException e){
             System.out.println("Something went wrong while loading saved task file.");
+            tasks = new TaskList();
         }
     }
 

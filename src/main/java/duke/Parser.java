@@ -23,7 +23,7 @@ public class Parser {
      */
     public static String processUserInput(String userInput, TaskList taskList) {
         try {
-            parseInput(userInput, taskList);
+            response = parseInput(userInput, taskList);
         } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException | IOException e) {
             System.out.println(e);
             response = e.toString();

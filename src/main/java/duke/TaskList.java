@@ -40,14 +40,16 @@ public class TaskList {
      * @return A string containing the list of tasks.
      */
     public String handleListCommand() {
-        String listTasks = listTasks(taskArray);
-        if (listTasks != "") {
+        if (!taskArray.isEmpty()) {
+            String listTasks = listTasks(taskArray);
             System.out.println("Here are the tasks in your list:");
             System.out.println(listTasks);
             return "Here are the tasks in your list:\n" + listTasks;
-        } else {
+        } else if (taskArray.isEmpty()){
             System.out.println("There are no tasks in your list at the moment. Add some!");
             return "There are no tasks in your list at the moment. Add some!";
+        } else {
+            return "Something went wrong while listing your task list!";
         }
     }
 
