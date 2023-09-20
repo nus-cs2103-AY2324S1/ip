@@ -41,67 +41,73 @@ public class TaskList {
     /**
      * Extracts task index from user input and deletes the task.
      *
-     * @param taskIndex The task index input by user.
+     * @param input The text input by the user.
      * @return Message indicating task was deleted.
      * @throws DukeException If the input is not a number or is out of range of the list.
      */
-    public String deleteTask(String taskIndex) throws DukeException {
+    public String deleteTask(String input) throws DukeException {
+        String[] words = input.split(" ");
         try {
+            String taskIndex = words[1];
             int index = Integer.parseInt(taskIndex) - 1;
             Task deletedTask = list.get(index);
-            assert index > 0;
+            assert index >= 0;
             list.remove(index);
             return Ui.getDeleteTaskMessage(deletedTask, list);
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
-            throw new DukeException("Invalid number");
+            throw new DukeException("Invalid task index.");
         } catch (NumberFormatException e) {
             // user did not enter a number
-            throw new DukeException("Please key in a number");
+            throw new DukeException("Please key in a task index.");
         }
     }
 
     /**
      * Extracts task index from user input and marks the task as done.
      *
-     * @param taskIndex The task index input by user.
+     * @param input The text input by the user.
      * @return Message indicating task marked as done.
      * @throws DukeException If the input is not a number or is out of range of the list.
      */
-    public String markTask(String taskIndex) throws DukeException {
+    public String markTask(String input) throws DukeException {
+        String[] words = input.split(" ");
         try {
+            String taskIndex = words[1];
             int index = Integer.parseInt(taskIndex) - 1;
             list.get(index).markAsDone();
-            assert index > 0 && index < list.size();
+            assert index >= 0 && index < list.size();
             return Ui.getMarkedTaskMessage(list.get(index));
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
-            throw new DukeException("Invalid number");
+            throw new DukeException("Invalid task index.");
         } catch (NumberFormatException e) {
             // user did not enter a number
-            throw new DukeException("Please key in a number");
+            throw new DukeException("Please key in a task index.");
         }
     }
 
     /**
      * Extracts task index from user input and marks the task as not done.
      *
-     * @param taskIndex The task index input by user.
+     * @param input The text input by the user.
      * @return Message indicating task marked as not done.
      * @throws DukeException If the input is not a number or is out of range of the list.
      */
-    public String unmarkTask(String taskIndex) throws DukeException {
+    public String unmarkTask(String input) throws DukeException {
+        String[] words = input.split(" ");
         try {
+            String taskIndex = words[1];
             int index = Integer.parseInt(taskIndex) - 1;
             list.get(index).unMark();
-            assert index > 0 && index < list.size();
+            assert index >= 0 && index < list.size();
             return Ui.getUnmarkTaskMessage(list.get(index));
         } catch (IndexOutOfBoundsException e) {
             // number input is invalid
-            throw new DukeException("Invalid number");
+            throw new DukeException("Invalid task index.");
         } catch (NumberFormatException e) {
             // user did not enter a number
-            throw new DukeException("Please key in a number");
+            throw new DukeException("Please key in a task index.");
         }
     }
 
@@ -293,7 +299,7 @@ public class TaskList {
                     .collect(Collectors.toList());
             return events;
         } else {
-            throw new DukeException("OOPS!!! Task type for sort is invalid :(");
+            throw new DukeException("OOPS!!! Task type for sort can only be deadline or event.");
         }
     }
 }

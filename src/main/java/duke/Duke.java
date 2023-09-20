@@ -32,7 +32,6 @@ public class Duke {
      * @return Response by Brobot in string format.
      */
     public String getResponse(String input) {
-        String[] words = input.split(" ");
         Command command = Parser.decideCommand(input);
         String response;
 
@@ -46,13 +45,13 @@ public class Duke {
                 response = tasks.getList();
                 break;
             case MARK:
-                response = tasks.markTask(words[1]);
+                response = tasks.markTask(input);
                 break;
             case UNMARK:
-                response = tasks.unmarkTask(words[1]);
+                response = tasks.unmarkTask(input);
                 break;
             case DELETE:
-                response = tasks.deleteTask(words[1]);
+                response = tasks.deleteTask(input);
                 break;
             case TODO:
                 response = tasks.addTodo(input);

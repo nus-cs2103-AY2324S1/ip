@@ -72,12 +72,12 @@ public class TaskListTest {
         try {
             Task task4 = new Deadline(LocalDate.of(2023, 5, 23), "read book");
             task4.markAsDone();
-            taskList.markTask("4");
+            taskList.markTask("mark 4");
             assertEquals(task4.toString(), list.get(2).toString());
             fail(); // the test should not reach this line
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            assertEquals("Invalid number", e.getMessage());
+            assertEquals("Invalid task index.", e.getMessage());
         }
     }
 
@@ -86,12 +86,12 @@ public class TaskListTest {
         try {
             Task task4 = new Deadline(LocalDate.of(2023, 5, 23), "read book");
             task4.markAsDone();
-            taskList.markTask("read book");
+            taskList.markTask("mark read book");
             assertEquals(task4.toString(), list.get(2).toString());
             fail(); // the test should not reach this line
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            assertEquals("Please key in a number", e.getMessage());
+            assertEquals("Please key in a task index.", e.getMessage());
         }
     }
 
@@ -100,7 +100,7 @@ public class TaskListTest {
         try {
             Task task4 = new Deadline(LocalDate.of(2023, 5, 23), "read book");
             task4.markAsDone();
-            taskList.markTask("3");
+            taskList.markTask("mark 3");
             assertEquals(task4.toString(), list.get(2).toString());
         } catch (Exception e) {
             fail();
