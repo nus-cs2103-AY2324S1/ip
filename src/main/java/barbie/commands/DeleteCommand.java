@@ -25,7 +25,6 @@ public class DeleteCommand extends Command {
         }
         String taskToDel = taskList.get(taskNumber).toString();
 
-        String taskToDel = taskList.get(taskNumber).toString();
 
         taskList.remove(this.taskNumber);
         Storage.deleteLine(taskNumber);
