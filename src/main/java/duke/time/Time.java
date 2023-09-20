@@ -20,7 +20,7 @@ public class Time {
      */
     public static final LocalDate parseTime(String time) throws TimeParsingException {
         try {
-            assert time != null : "Time string should not be null";
+            //assert time != null : "Time string should not be null";
             return LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (Exception e) {
             throw new TimeParsingException("Unable to parse time: " + time);
@@ -35,6 +35,7 @@ public class Time {
      * @return A string representation of the date.
      */
     public static final String formatTime(LocalDate time) {
+        assert time != null : "Time should not be null";
         return time.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
@@ -46,6 +47,7 @@ public class Time {
      * @return A string representation of the date in a format suitable for storing.
      */
     public static final String formatTimeStoring(LocalDate time) {
+        assert time != null : "Time should not be null";
         return time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

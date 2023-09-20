@@ -13,7 +13,13 @@ import duke.ui.Ui;
 public class FindCommand extends Command {
     private final String keyword;
 
+    /**
+     * Creates a new FindCommand with the given keyword.
+     *
+     * @param keyword The keyword to search for.
+     */
     public FindCommand(String keyword) {
+        assert keyword != null : "Keyword should not be null";
         this.keyword = keyword;
     }
 
