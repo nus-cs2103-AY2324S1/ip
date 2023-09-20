@@ -50,7 +50,6 @@ public class DeadlineCommand extends Command {
         try {
             LocalDateTime deadline = LocalDateTime.parse(splitTask[1], Storage.DATE_TIME_INPUT_FORMATTER);
             Deadline t = new Deadline(deadlineDescription, deadline);
-
             return tasks.addTask(t, storage);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();

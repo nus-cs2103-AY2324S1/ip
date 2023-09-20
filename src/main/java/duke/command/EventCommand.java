@@ -46,7 +46,6 @@ public class EventCommand extends Command {
         String eventDescription = splitCommand[0];
         String[] splitDeadline = splitCommand[1].split("/", 2);
         super.validateArguments(splitDeadline, "event");
-
         super.validateArguments(splitDeadline[0].split(" ", 2), "event");
         super.validateArguments(splitDeadline[1].split(" ", 2), "event");
 
@@ -56,7 +55,6 @@ public class EventCommand extends Command {
             LocalDateTime to = LocalDateTime.parse(splitDeadline[1].split(" ", 2)[1]
                     .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
             Event t = new Event(eventDescription, from, to);
-
             return tasks.addTask(t, storage);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
