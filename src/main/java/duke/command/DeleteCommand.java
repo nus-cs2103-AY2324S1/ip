@@ -21,7 +21,7 @@ public class DeleteCommand extends Command {
      * @return the response to the user.
      */
     public String[] execute() {
-        assert taskNumToDelete >= 0 && taskNumToDelete < this.duke.getTasks().size() : "Task number is not valid";
+        assert taskNumToDelete > 0 && taskNumToDelete <= this.duke.getTasks().size() : "Task number is not valid";
         String[] response = new String[3];
 
         try {

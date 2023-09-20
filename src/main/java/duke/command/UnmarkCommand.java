@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
      * @return the response to the user
      */
     public String[] execute() {
-        assert taskNumToMark >= 0 && taskNumToMark < this.duke.getTasks().size() : "Task number is not valid";
+        assert taskNumToMark > 0 && taskNumToMark <= this.duke.getTasks().size() : "Task number is not valid";
         String[] response = new String[2];
 
         try {
