@@ -1,7 +1,7 @@
 # ET User Guide
 
 ## Features 
-- [Adding a Todo task: `todo`]((https://github.com/alientian/ip/blob/master/docs/README.md#adding-a-todo-task-todo))
+- [Adding a Todo task: `todo`](https://github.com/alientian/ip/blob/master/docs/README.md#adding-a-todo-task-todo)
 - [Adding a Deadline task: `deadline`](https://github.com/alientian/ip/blob/master/docs/README.md#adding-a-deadline-task-deadline)
 - [Adding an Event task: `event`](https://github.com/alientian/ip/blob/master/docs/README.md#adding-an-event-task-event)
 - [Listing all tasks: `list`](https://github.com/alientian/ip/blob/master/docs/README.md#listing-all-tasks-list)
