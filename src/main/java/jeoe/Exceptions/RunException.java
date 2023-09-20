@@ -5,7 +5,7 @@ package jeoe.Exceptions;
  * It is an exception thrown when an error was encountered during the Jeoe program.
  *
  * @author Joe Chua
- * @version Week-3
+ * @version Week-6
  */
 public class RunException extends Exception {
 
