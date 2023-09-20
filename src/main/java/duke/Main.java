@@ -10,15 +10,20 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * The `Main` class serves as the entry point for the Duke application's GUI.
+ * It initializes the application, loads tasks from a data file,
+ * and sets up the user interface.
  */
 public class Main extends Application {
 
     private static Duke duke = new Duke();
     public static TaskList taskList = Duke.taskList;
-
-
-
+    
+    /**
+     * The main entry point of the Duke GUI application.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {
