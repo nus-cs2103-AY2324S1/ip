@@ -109,6 +109,15 @@ public class Parser {
         return userInput.startsWith("find ");
     }
 
+    /**
+     * Checks if the user wants to find a specific task.
+     *
+     * @return True if the user input starts with "find ", indicating an event command; false otherwise.
+     */
+    public boolean isSort() {
+        return userInput.equals("sort");
+    }
+
 
     /**
      * Closes the scanner used for reading user input.

@@ -83,7 +83,6 @@ public class TaskList {
                 throw new DukeException("Error: There are no items in the list!");
             }
             res = new StringBuilder();
-            Collections.sort(tasks);
             for (int i = 0; i < taskCount; i++) {
                 Task task = tasks.get(i);
                 int index = i + 1;
@@ -103,7 +102,6 @@ public class TaskList {
      */
     public static String displayList(ArrayList<Task> tasks) {
         String res = "";
-        Collections.sort(tasks);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
             int index = i + 1;
@@ -275,5 +273,12 @@ public class TaskList {
             }
         }
         return displayList(findTasks);
+    }
+    /**
+     * Sorts the list of tasks in ascending alphabetical order.
+     */
+    public String sortList() {
+        Collections.sort(tasks);
+        return "Okay, I've sorted your lists \n" + displayList();
     }
 }

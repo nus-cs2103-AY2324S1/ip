@@ -32,6 +32,8 @@ public class Duke {
                 return ui.goodbye();
             } else if (parser.isList()) {
                 return tasks.printFileContents();
+            } else if (parser.isSort()) {
+                return tasks.sortList();
             } else if (parser.isMark()) {
                 return tasks.mark(userInput);
             } else if (parser.isUnmark()) {
