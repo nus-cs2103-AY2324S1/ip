@@ -52,7 +52,7 @@ checkstyle {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "seeWhyAre"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
