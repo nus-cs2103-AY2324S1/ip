@@ -25,6 +25,16 @@ public class Storage {
     public Storage(String filePath) {
         assert filePath != null : "File path cannot be null."; // Assumption: File path should not be null
         this.filePath = filePath;
+        try {
+            File file = new File(filePath);
+            assert file != null : "File object cannot be null."; // Assumption: File should not be null
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            System.out.println("Bzzz! An error occured when creating the file.");
+        }
     }
 
     /**
