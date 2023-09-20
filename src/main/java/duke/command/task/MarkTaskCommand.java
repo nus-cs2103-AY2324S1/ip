@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.task;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -9,7 +10,7 @@ import duke.ui.Ui;
 /**
  * The `MarkCommand` class represents a command to mark a task as done in the task list.
  */
-public class MarkCommand extends Command {
+public class MarkTaskCommand extends Command {
 
     private int markIndex;
 
@@ -18,7 +19,7 @@ public class MarkCommand extends Command {
      *
      * @param markIndex The index of the task to be marked as done.
      */
-    public MarkCommand(int markIndex) {
+    public MarkTaskCommand(int markIndex) {
         this.markIndex = markIndex;
     }
 

@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.task;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -9,7 +10,7 @@ import duke.ui.Ui;
 /**
  * The `DeleteCommand` class represents a command to delete a task from the task list.
  */
-public class DeleteCommand extends Command {
+public class DeleteTaskCommand extends Command {
 
     private int deleteNumber;
 
@@ -18,7 +19,7 @@ public class DeleteCommand extends Command {
      *
      * @param deleteNumber The task number to be deleted.
      */
-    public DeleteCommand(int deleteNumber) {
+    public DeleteTaskCommand(int deleteNumber) {
         this.deleteNumber = deleteNumber;
     }
 

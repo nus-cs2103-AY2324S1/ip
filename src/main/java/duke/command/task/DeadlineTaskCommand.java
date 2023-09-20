@@ -1,7 +1,8 @@
-package duke.command;
+package duke.command.task;
 
 import java.time.LocalDateTime;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -11,7 +12,7 @@ import duke.ui.Ui;
 /**
  * The `DeadlineCommand` class represents a command to add a deadline task to the task list.
  */
-public class DeadlineCommand extends Command {
+public class DeadlineTaskCommand extends Command {
 
     private String name;
     private LocalDateTime by;
@@ -22,7 +23,7 @@ public class DeadlineCommand extends Command {
      * @param name The name of the deadline task.
      * @param by   The deadline date and time.
      */
-    public DeadlineCommand(String name, LocalDateTime by) {
+    public DeadlineTaskCommand(String name, LocalDateTime by) {
         assert(name != null && by != null);
         this.name = name;
         this.by = by;

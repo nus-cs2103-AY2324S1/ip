@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.task;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -9,7 +10,7 @@ import duke.ui.Ui;
 /**
  * The `UnmarkCommand` class represents a command to unmark a task as not done in the task list.
  */
-public class UnmarkCommand extends Command {
+public class UnmarkTaskCommand extends Command {
 
     private int unmarkIndex;
 
@@ -18,7 +19,7 @@ public class UnmarkCommand extends Command {
      *
      * @param unmarkIndex The index of the task to be unmarked as not done.
      */
-    public UnmarkCommand(int unmarkIndex) {
+    public UnmarkTaskCommand(int unmarkIndex) {
         this.unmarkIndex = unmarkIndex;
     }
 

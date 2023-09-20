@@ -1,5 +1,6 @@
-package duke.command;
+package duke.command.task;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -9,7 +10,7 @@ import duke.ui.Ui;
 /**
  * The `ToDoCommand` class represents a command to add a to-do task to the task list.
  */
-public class ToDoCommand extends Command {
+public class ToDoTaskCommand extends Command {
 
     private String name;
 
@@ -18,7 +19,7 @@ public class ToDoCommand extends Command {
      *
      * @param name The name of the to-do task.
      */
-    public ToDoCommand(String name) {
+    public ToDoTaskCommand(String name) {
         assert(name != null && name.isEmpty());
         this.name = name;
     }

@@ -1,7 +1,8 @@
-package duke.command;
+package duke.command.task;
 
 import java.util.ArrayList;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -11,7 +12,7 @@ import duke.ui.Ui;
 /**
  * The `FindCommand` class represents a command to find tasks based on their names.
  */
-public class FindCommand extends Command {
+public class FindTaskCommand extends Command {
 
     private String keyword;
 
@@ -20,7 +21,7 @@ public class FindCommand extends Command {
      *
      * @param keyword The keyword to be used to search.
      */
-    public FindCommand(String keyword) {
+    public FindTaskCommand(String keyword) {
         this.keyword = keyword;
     }
 

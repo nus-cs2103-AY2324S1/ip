@@ -1,7 +1,8 @@
-package duke.command;
+package duke.command.task;
 
 import java.time.LocalDateTime;
 
+import duke.command.Command;
 import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -11,7 +12,7 @@ import duke.ui.Ui;
 /**
  * The `EventCommand` class represents a command to add an event task to the task list.
  */
-public class EventCommand extends Command {
+public class EventTaskCommand extends Command {
 
     private String name;
     private LocalDateTime from;
@@ -24,7 +25,7 @@ public class EventCommand extends Command {
      * @param from The start date and time of the event.
      * @param to   The end date and time of the event.
      */
-    public EventCommand(String name, LocalDateTime from, LocalDateTime to) {
+    public EventTaskCommand(String name, LocalDateTime from, LocalDateTime to) {
         assert(name != null && from != null && to != null);
         this.name = name;
         this.from = from;

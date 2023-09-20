@@ -12,7 +12,7 @@ public class Ui {
     private static final String GOODBYE = "Bye. Hope to see you again soon!";
     private static final String EMPTY_LIST = "Your list is currently empty.";
     private static final String ERROR_CANNOT_LOAD_DATA =
-            "I am unable to read your duke.txt data file. Starting with a blank task list...";
+            "I am unable to read your data file. Starting with a blank task list...";
     private static final String NO_MATCHING_TASKS = "Your keyword search returned no matching tasks.";
     private Scanner sc;
 

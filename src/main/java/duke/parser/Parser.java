@@ -7,14 +7,14 @@ import java.time.format.DateTimeParseException;
 import duke.alias.AliasMap;
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.DeadlineCommand;
-import duke.command.DeleteCommand;
-import duke.command.EventCommand;
-import duke.command.FindCommand;
-import duke.command.ListCommand;
-import duke.command.MarkCommand;
-import duke.command.ToDoCommand;
-import duke.command.UnmarkCommand;
+import duke.command.task.DeadlineTaskCommand;
+import duke.command.task.DeleteTaskCommand;
+import duke.command.task.EventTaskCommand;
+import duke.command.task.FindTaskCommand;
+import duke.command.task.ListTaskCommand;
+import duke.command.task.MarkTaskCommand;
+import duke.command.task.ToDoTaskCommand;
+import duke.command.task.UnmarkTaskCommand;
 import duke.exception.DukeException;
 
 /**
@@ -85,20 +85,20 @@ public class Parser {
         case "bye":
             return new ByeCommand();
         case "list":
-            return new ListCommand();
+            return new ListTaskCommand();
         case "find":
             if (commandArr.length < 2) {
                 throw new DukeException("\"OOPS!!! Please include the keyword you would like to search.");
             }
             String searchWord = commandArr[1].trim();
-            return new FindCommand(searchWord);
+            return new FindTaskCommand(searchWord);
         case "mark":
             if (commandArr.length < 2) {
                 throw new DukeException("OOPS!!! Please include the task number you would like to mark.");
             }
             try {
                 int markNumber = Integer.parseInt(commandArr[1].trim());
-                return new MarkCommand(markNumber);
+                return new MarkTaskCommand(markNumber);
             } catch (NumberFormatException e) {
                 throw new DukeException("OOPS!! Please indicate a number for the task.");
             }
@@ -108,7 +108,7 @@ public class Parser {
             }
             try {
                 int unmarkNumber = Integer.parseInt(commandArr[1].trim());
-                return new UnmarkCommand(unmarkNumber);
+                return new UnmarkTaskCommand(unmarkNumber);
             } catch (NumberFormatException e) {
                 throw new DukeException("OOPS!! Please indicate a number for the task.");
             }
@@ -118,7 +118,7 @@ public class Parser {
             }
             try {
                 int deleteNumber = Integer.parseInt(commandArr[1].trim());
-                return new DeleteCommand(deleteNumber);
+                return new DeleteTaskCommand(deleteNumber);
             } catch (NumberFormatException e) {
                 throw new DukeException("OOPS!! Please indicate a number for the task.");
             }
@@ -127,7 +127,7 @@ public class Parser {
                 throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
             }
             description = commandArr[1];
-            return new ToDoCommand(description);
+            return new ToDoTaskCommand(description);
         case "deadline":
             if (commandArr.length < 2) {
                 throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
@@ -151,7 +151,7 @@ public class Parser {
             }
             try {
                 LocalDateTime byParsed = LocalDateTime.parse(deadlineBy, DATETIME_INPUT_FORMAT);
-                return new DeadlineCommand(deadlineName, byParsed);
+                return new DeadlineTaskCommand(deadlineName, byParsed);
             } catch (DateTimeParseException e) {
                 throw new DukeException(DukeException.WRONG_DATETIME_MESSAGE);
             }
@@ -185,7 +185,7 @@ public class Parser {
             try {
                 LocalDateTime fromParsed = LocalDateTime.parse(eventFrom, DATETIME_INPUT_FORMAT);
                 LocalDateTime toParsed = LocalDateTime.parse(eventTo, DATETIME_INPUT_FORMAT);
-                return new EventCommand(eventName, fromParsed, toParsed);
+                return new EventTaskCommand(eventName, fromParsed, toParsed);
             } catch (DateTimeParseException e) {
                 throw new DukeException(DukeException.WRONG_DATETIME_MESSAGE);
             }
