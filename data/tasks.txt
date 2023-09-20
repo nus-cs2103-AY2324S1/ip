@@ -1,12 +1,6 @@
-E|F|very big event oh no|2023-12-25T00:00|2023-12-26T00:00
-T|F|this
-T|F|thing
-E|F|tasky busky wusky|2023-01-01T00:00|2024-01-01T00:00
-E|F|tasky|2023-01-01T23:59|2024-01-01T23:59
-D|F|task|2023-01-01T23:59
-E|T|splashdown|2022-04-24T00:00|2022-04-25T00:00
-T|F|oh no is this a bug
-T|F|new event
-D|T|finish cs career|9999-12-31T00:00
-T|F|event
-T|F|bye
+T|F|complete all leetcode questions
+E|F|complete assignments and start revising for cs123456789 midterms finals and special term|2023-09-18T00:00|2024-09-18T00:00
+D|F|cs2100 assignment|2023-09-17T00:00
+T|F|finish cs2103t assignment
+T|F|wow i love cs
+T|F|oh wow this is so great lol
