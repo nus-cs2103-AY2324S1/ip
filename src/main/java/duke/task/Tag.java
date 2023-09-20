@@ -7,12 +7,20 @@ public class Tag {
     private String tagName;
     private static HashMap<String, Tag> tagHashMap = new HashMap<>();
     private static HashMap<Tag, ArrayList<Task>> tagTaskArrayHashMap = new HashMap<>();
+    private static Tag emptyTag= new EmptyTag();
 
-    public Tag(String tagName) {
+    protected Tag(String tagName) {
         this.tagName = tagName;
     }
 
     public String getTagName() {
+        return tagName;
+    }
+    public String getHashedTagName() {
+        return "#" + tagName;
+    }
+
+    public String getParsedTagName() {
         return tagName;
     }
 
@@ -21,8 +29,8 @@ public class Tag {
     }
 
     public static Tag generateTag(String tagName) {
-        if(tagName == "null"){
-            return null;
+        if(tagName == null || tagName.equals("") || tagName.equals("null")){
+            return emptyTag;
         }
         if(!tagHashMap.containsKey(tagName)) {
             Tag newTag = new Tag(tagName);

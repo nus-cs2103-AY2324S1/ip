@@ -14,8 +14,9 @@ public class Task {
      * @param text The text description of the task.
      */
     public Task(String text) {
-            this.text = text;
-            this.checked = false;
+        this.text = text;
+        this.checked = false;
+        this.tag = Tag.generateTag(null);
     }
 
     /**
@@ -28,6 +29,7 @@ public class Task {
     public Task(String text,boolean checked) {
         this.text = text;
         this.checked = checked;
+        this.tag = Tag.generateTag(null);
     }
 
     public Task(String text,boolean checked, Tag tag) {
@@ -91,7 +93,7 @@ public class Task {
             result = getType() + getChecked() + " " + getText();
             return result;
         }
-        result = getType() + getChecked() + "#" + tag.getTagName() + " " + getText();
+        result = getType() + getChecked() + tag.getHashedTagName() + " " + getText();
         return result;
 
     }
@@ -127,7 +129,7 @@ public class Task {
      * @return The parsed data of the task.
      */
     public String getParsedTask() {
-        String result = this.type + ";" + this.text + ";" + this.checked + ";" + this.tag.getTagName();
+        String result = this.type + ";" + this.text + ";" + this.checked + ";" + this.tag.getParsedTagName();
         return result;
     }
 
@@ -138,7 +140,7 @@ public class Task {
     }
     public String setTag(Tag tag) {
         this.tag = tag;
-        return "Tag : " + tag.getTagName() + " has been setup!";
+        return "Tag : " + tag.getTagName() + " has been setup on "+this.text+" !\n" + getTypeCheckedText() ;
     }
     public Tag getTag() {
         return getTag();

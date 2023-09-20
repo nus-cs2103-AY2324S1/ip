@@ -22,10 +22,15 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+
+            stage.setTitle("Welcome to KimDuke");
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(Main.class.getResource("/application.css").toExternalForm());
             stage.setScene(scene);
+
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
