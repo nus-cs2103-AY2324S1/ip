@@ -119,3 +119,8 @@ Hello from
 > Dont worry!!! <br>
 > Use the command: **help** <br>
 > Bloop Bloop will assist you and list out all available commands!
+
+
+## Acknowledgements:
+> Javadocs were written by ChatGPT :) <br>
+> The extra Javadocs html were generated using IntelleJ software :)
