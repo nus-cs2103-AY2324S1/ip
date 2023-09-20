@@ -71,7 +71,7 @@ public class Ui {
      * Displays a message when the user exits.
      */
     public void exitMessage() {
-        this.showResponse("Bye. Hope to see you again soon!");
+        this.showResponse("Meow! Going to sleep in 3 seconds...");
     }
 
     /**
@@ -367,5 +367,13 @@ public class Ui {
      */
     public void addSameTaskMessage() {
         showResponse("Meow! You cannot add a task that is completely identical to a previous task!");
+    }
+
+    /**
+     * Displays an error message if the exit command does not work.
+     */
+    public void unableToClose() {
+        showResponse("Meow! There is an error in closing, maybe try "
+                + "clicking the exit button on the top right!");
     }
 }

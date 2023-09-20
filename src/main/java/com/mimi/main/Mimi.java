@@ -2,12 +2,15 @@ package com.mimi.main;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.*;
 
 import com.mimi.commands.Command;
 import com.mimi.ui.Ui;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * The main class of the Mimi program.
@@ -18,6 +21,7 @@ public class Mimi extends Application implements DataCallback {
     private Storage storage;
     private Ui ui;
     private ReadWriteData readWriteData;
+    private Stage window;
 
     /**
      * Default constructor.
@@ -54,7 +58,22 @@ public class Mimi extends Application implements DataCallback {
         c.uiResponse(this.ui);
 
 
+        if (c.isExit()) {
+            closeWindow();
+        }
     }
+
+    private void closeWindow() {
+        try {
+            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            delay.setOnFinished( event -> this.window.close());
+            delay.play();
+        } catch (IllegalStateException e) {
+            ui.unableToClose();
+        }
+    }
+
+
 
     /**
      * Starts the program.
@@ -64,6 +83,7 @@ public class Mimi extends Application implements DataCallback {
     public void start(Stage stage) {
         String directory = "./data/";
         String dataPath = "./data/Mimi.txt";
+        this.window = stage;
 
         this.ui = new Ui(stage, this);
         this.storage = new Storage(this.ui);
