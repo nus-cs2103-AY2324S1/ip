@@ -96,7 +96,7 @@ public class Main extends Application {
 
         //To print welcome message on startup of GUI
         Label dukeText = new Label(ui.welcomeMessage());
-        List<Task> dueTasks = duke.getTasksDueInADay();
+        List<Task> dueTasks = duke.getTasksDueSoon();
 
         if (!dueTasks.isEmpty()) {
             dukeText.setText(dukeText.getText() + "\n\nYou have tasks due soon:\n");

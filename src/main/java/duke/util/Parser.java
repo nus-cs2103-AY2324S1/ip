@@ -310,6 +310,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the user's input contains more than just the command word.
+     *
+     * @param userInput The user's input.
+     * @param message The error message to be thrown if the user's input is not valid.
+     * @throws MissingInputException If the user's input consists of only the command word.
+     */
     private void checkValidity(String userInput, String message) throws MissingInputException {
         String[] inputWords = userInput.split(" ");
         if (inputWords.length <= 1) {

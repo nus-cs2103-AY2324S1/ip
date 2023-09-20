@@ -39,6 +39,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Returns the UI associated with this Duke instance.
+     *
+     * @return ui The Ui.
+     */
     public Ui getUi() {
         return ui;
     }
@@ -47,7 +52,12 @@ public class Duke {
         return parser.parseUserInput(userInput);
     }
 
-    public List<Task> getTasksDueInADay() {
+    /**
+     * Returns a list of tasks that are due in 3 days.
+     *
+     * @return A list of tasks due in 3 days.
+     */
+    public List<Task> getTasksDueSoon() {
         LocalDateTime now = LocalDateTime.now();
 
         List<Task> dueTasks = new ArrayList<>();
@@ -60,17 +70,5 @@ public class Duke {
             }
         }
         return dueTasks;
-    }
-
-    /**
-     * The main entry point for the task bot.
-     *
-     * @param args Not used.
-     */
-    public static void main(String[] args) {
-        new Duke();
-        while (!isDone) {
-            System.out.println(getResponse(ui.getUserInput()));
-        }
     }
 }
