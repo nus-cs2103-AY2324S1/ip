@@ -38,7 +38,7 @@ Now you have 1 task(s) in the list.
 ```
 
 
-### `deadline`
+### Deadline
 
 Adds a deadline to your list of tasks.
 You have to provide a description of your `deadline` task.
@@ -71,7 +71,7 @@ Now you have 2 task(s) in the list.
 ```
 
 
-### `event`
+### Event
 
 Adds an event to your list of tasks.
 You have to provide a description of your `event` task.
@@ -104,7 +104,7 @@ Now you have 3 task(s) in the list.
 ```
 
 
-### `list`
+### List
 Shows your list of saved tasks.
 
 #### Usage
@@ -135,7 +135,7 @@ No tasks for now!
 ```
 
 
-### `mark`
+### Mark
 When given a valid task index, marks the corresponding task as done.
 
 #### Usage
@@ -163,7 +163,7 @@ Invalid Index of Task. You currently have 3 Task(s)
 ```
 
 
-### `unmark`
+### Unmark
 When given a valid task index, marks the corresponding task as NOT done yet.
 
 #### Usage
@@ -191,7 +191,7 @@ Invalid Index of Task. You currently have 3 Task(s)
 ```
 
 
-### `delete`
+### Delete
 Deletes a task, when given a valid task index.
 
 #### Usage
@@ -243,7 +243,7 @@ This will remove Task 5 from your Task List, assuming you have at least 5 tasks.
 ```
 
 
-### `find`
+### Find
 Finds the task(s) with the given keyword.
 
 #### Usage
@@ -286,7 +286,7 @@ You currently have no tasks so I can't find any matching tasks :/.
 ```
 
 
-### `view`
+### View
 Shows you the list of tasks that is occurring on a particular day, including event tasks ranging across multiple days.
 Essentially, this lets you view your schedule.
 
@@ -321,7 +321,7 @@ Here are your scheduled tasks happening on Nov 02 2023:
 ```
 
 
-### `bye`
+### Bye
 Shuts down the application.
 
 #### Usage
