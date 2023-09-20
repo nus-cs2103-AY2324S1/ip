@@ -26,7 +26,7 @@ public abstract class Task implements Serializable {
     //region Getter/setter
 
     /**
-     * Check if the task is marked as done.
+     * Checks if the task is marked as done.
      *
      * @return true if done, false otherwise.
      */
@@ -35,14 +35,14 @@ public abstract class Task implements Serializable {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void setDone() {
         isDone = true;
     }
 
     /**
-     * Mark the task as not done.
+     * Marks the task as not done.
      */
     public void setUndone() {
         isDone = false;
@@ -101,14 +101,14 @@ public abstract class Task implements Serializable {
             String... arguments
     ) {
         NamedParameterMap newMap = new NamedParameterMap();
-        boolean missing = false;
+        boolean isArgumentMissing = false;
         for (String arg : arguments) {
             if (!map.containsKey(arg)) {
-                missing = true;
+                isArgumentMissing = true;
                 newMap.addNamedParameter(arg, "");
             }
         }
-        if (missing) {
+        if (isArgumentMissing) {
             return Optional.of(newMap);
         } else {
             return Optional.empty();

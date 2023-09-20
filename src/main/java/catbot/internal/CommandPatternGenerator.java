@@ -12,12 +12,12 @@ import java.util.function.Consumer;
 public interface CommandPatternGenerator<T> {
 
     /**
-     * Return a CommandPattern created with the provided Consumer as a fallthrough option.
+     * Returns a CommandPattern created with the provided Consumer as a fallthrough option.
      * The default consumer will be run if the pattern cannot be applied to the provided string.
      *
      * @param invalidInput the default Consumer that accepts the provided command, if the pattern cannot be applied.
      * @return CommandPattern generated.
      * @see CommandPattern
      */
-    public CommandPattern<T> generateUsingDefault(Consumer<String> invalidInput);
+    CommandPattern<T> generateUsingDefault(Consumer<String> invalidInput);
 }

@@ -14,7 +14,7 @@ public class CommandMap {
     //endregion
 
     /**
-     * Add an invocation-command pair to the map. Supports pipelining.
+     * Adds an invocation-command pair to the map. Supports pipelining.
      *
      * @param invocation the String that calls the command.
      * @param lambda the Command that triggers through the corresponding String.

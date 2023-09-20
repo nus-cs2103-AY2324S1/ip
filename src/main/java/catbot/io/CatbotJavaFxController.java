@@ -64,7 +64,7 @@ public class CatbotJavaFxController extends AnchorPane {
         return input;
     }
 
-    CommandArgumentStruct parseStringToStruct(String commandString) {
+    private CommandArgumentStruct parseStringToStruct(String commandString) {
         NamedParameterMap namedParameterMap = parser.parse(commandString);
         assert namedParameterMap.keySet().size() == 1;
         for (String command : namedParameterMap.keySet()) {

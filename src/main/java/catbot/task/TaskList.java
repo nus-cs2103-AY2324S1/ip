@@ -73,7 +73,7 @@ public class TaskList {
     }
 
     /**
-     * Get a {@link Bounds bounds} object to represent valid indexes.
+     * Retrieves a {@link Bounds bounds} object that represents valid indexes.
      * @return Bounds object for relevant indexes.
      */
     public Bounds getIndexBounds() {
@@ -114,7 +114,7 @@ public class TaskList {
     }
 
     /**
-     * Get the length of the list.
+     * Retrieves the length of the list.
      *
      * @return number of tasks in the list.
      */
@@ -123,7 +123,7 @@ public class TaskList {
     }
 
     /**
-     * Retrieve a task at a specified index.
+     * Retrieves a task at a specified index.
      *
      * @param index index of the task to retrieve.
      * @return task at the provided index.
@@ -133,7 +133,7 @@ public class TaskList {
     }
 
     /**
-     * Return an ArrayList of the string representations of all tasks, in sequence.
+     * Returns an ArrayList of the string representations of all tasks, in sequence.
      *
      * @return ArrayList of toStringed tasks.
      */
@@ -146,7 +146,7 @@ public class TaskList {
     }
 
     /**
-     * Get a list of all tasks whose descriptions contain the search string.
+     * Returns a list of all tasks whose descriptions contain the search string.
      *
      * @param string text to search in descriptions.
      * @return TaskList containing tasks whose descriptions contain the search text.

@@ -10,14 +10,14 @@ import java.util.function.Supplier;
 public interface ObjectStorage<T> {
 
     /**
-     * Write the given object.
+     * Writes the given object to disk.
      *
      * @param object object to write.
      */
     void write(T object);
 
     /**
-     * Read and return a given object if possible, otherwise call the default supplier.
+     * Reads and returns a given object if possible, otherwise calls the default supplier.
      *
      * @return stored object if successful, provided object otherwise.
      * @see java.util.Map#getOrDefault for inspiration.
@@ -25,7 +25,7 @@ public interface ObjectStorage<T> {
     T readOrDefault();
 
     /**
-     * Provide a default supplier to provide a default value if an issue occurs while reading.
+     * Provides a default supplier to supply a default value if an issue occurs while reading.
      *
      * @param supplier to provide default value.
      */

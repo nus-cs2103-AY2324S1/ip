@@ -31,6 +31,11 @@ public class CatBot implements Bot {
 
     //region Constructor
 
+    /**
+     * Constructs a CatBot using the provided TaskList.
+     *
+     * @param taskList taskList for CatBot to operate on.
+     */
     public CatBot(TaskList taskList) {
         this.taskList = taskList;
     }
@@ -45,7 +50,11 @@ public class CatBot implements Bot {
         addSupportedCommandsToCommandMap();
     }
 
+    @Override
     public void run(CommandArgumentStruct commandArgumentStruct) {
+        if (commandArgumentStruct == null) {
+            return;
+        }
         commands.run(commandArgumentStruct.getCommand(), commandArgumentStruct.getArgument());
     }
 
@@ -63,7 +72,7 @@ public class CatBot implements Bot {
         /*
         * TLDR: this method is a list of commands, and therefore follows list logic.
         * The following method is really long, but does not compromise readability in my opinion.
-        * It works like a list of entries, and the entries are independent except for biconsumers,
+        * It works like a list of entries, and the entries are independent except for bi-consumers,
         * which acts to reduce redundant copy-pasting.
         * PATTERNS: command patterns are created using generators.
         * BI-CONSUMERS: bi-consumers are created out of otherwise repetitive combinations of patterns and behaviours.

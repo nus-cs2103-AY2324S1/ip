@@ -83,6 +83,10 @@ public abstract class CatBotCommandPatterns {
 
     //region String Pattern
 
+    /**
+     * Gets a singleton instance of {@link StringPatternGenerator}.
+     * @return the generator.
+     */
     public static CommandPatternGenerator<String> getStringPatternGenerator() {
         return stringPatternGenerator;
     }

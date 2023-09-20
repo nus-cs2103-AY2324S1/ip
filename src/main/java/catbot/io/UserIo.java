@@ -8,13 +8,13 @@ import catbot.bot.Bot;
 public interface UserIo extends ErrorIndicatorIo, TaskAssistantIo {
 
     /**
-     * Initialize IO channel.
+     * Initializes IO channel.
      * Intended to open resources, or send a welcome message.
      * */
     void initialize();
 
     /**
-     * Cleanup IO channel.
+     * Cleans up the IO channel.
      * Intended to close resources, or send a goodbye message.
      */
     void cleanup();

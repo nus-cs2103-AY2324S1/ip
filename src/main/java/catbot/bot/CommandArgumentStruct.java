@@ -18,10 +18,20 @@ public class CommandArgumentStruct {
         this.argument = argument;
     }
 
+    /**
+     * Retrieves the argument to be given while running the command.
+     *
+     * @return the argument.
+     */
     public String getArgument() {
         return argument;
     }
 
+    /**
+     * Retrieves the command to run, as a String.
+     *
+     * @return the command.
+     */
     public String getCommand() {
         return command;
     }

@@ -58,7 +58,7 @@ public class Parser {
     }
 
     /**
-     * Apply the parser to the given String, and return a representation of parameter-argument pairs.
+     * Applies the parser to the given String, and return a representation of parameter-argument pairs.
      *
      * @param s String to parse.
      * @return NamedParameterMap with commands as keys, and arguments as values.
@@ -76,7 +76,8 @@ public class Parser {
     //region Internal Helpers
 
     /**
-     * Split string into one pair of command + argument based on the first whitespace.
+     * Splits string into one pair of command + argument based on the first whitespace.
+     *
      * @param s string containing both command and argument, in that order
      * @param map to store the mapping between command and argument
      */

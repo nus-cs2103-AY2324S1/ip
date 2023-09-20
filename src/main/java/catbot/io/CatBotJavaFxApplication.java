@@ -15,6 +15,12 @@ public class CatBotJavaFxApplication extends Application {
 
     private static CatbotJavaFxController lastCreatedController;
 
+    /**
+     * Retrieves the last created controller instance.
+     * Intended to be accessed after application launch.
+     *
+     * @return controller from the latest started CatBotJavaFxApplication object.
+     */
     static CatbotJavaFxController getLastCreatedController() {
         return lastCreatedController;
     }

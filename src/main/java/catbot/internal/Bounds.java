@@ -30,7 +30,7 @@ public class Bounds {
     }
 
     /**
-     * Retrieve the inclusive lower bound of the Bound.
+     * Retrieves the inclusive lower bound of the Bound.
      *
      * @return lower bound, inclusive.
      */
@@ -39,7 +39,7 @@ public class Bounds {
     }
 
     /**
-     * Retrieve the inclusive upper bound of the Bound.
+     * Retrieves the inclusive upper bound of the Bound.
      *
      * @return upper bound, inclusive.
      */

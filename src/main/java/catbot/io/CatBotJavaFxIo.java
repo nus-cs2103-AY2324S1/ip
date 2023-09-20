@@ -14,6 +14,8 @@ public class CatBotJavaFxIo implements UserIo {
 
     //region Constants
 
+    //http://www.patorjk.com/software/taag/#p=display&h=1&f=3D-ASCII&t=CAT%20BOT
+    //font: 3D-ASCII; Character Width: Fitted; Character Height: Default; Text: CAT BOT
     public static final String NAME =
             " ________   ________   _________        ________   ________   _________   \n"
             + "|\\   ____\\ |\\   __  \\ |\\___   ___\\     |\\   __  \\ |\\   __  \\ |\\___   ___\\ \n"
@@ -31,14 +33,6 @@ public class CatBotJavaFxIo implements UserIo {
     private CatbotJavaFxController controller;
     private volatile boolean isStillOpen = true;
     private Bot bot;
-
-    //endregion
-
-    //region Constructors
-
-    public CatBotJavaFxIo() {
-
-    }
 
     //endregion
 

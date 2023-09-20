@@ -76,6 +76,8 @@ public class NamedParameterMap {
     }
 
     /**
+     * Adds a parameter and its argument as a key-value pair into the NamedParameterMap.
+     *
      * @param parameterName  key with which the specified value is to be associated
      * @param parameterValue value to be associated with the specified key
      * @return this, for pipelining
