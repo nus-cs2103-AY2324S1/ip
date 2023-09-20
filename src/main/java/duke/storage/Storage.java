@@ -1,4 +1,6 @@
 package duke.storage;
+import duke.exception.DukeException;
+import duke.exception.PositionException;
 import duke.task.TaskList;
 import duke.task.Task;
 import duke.task.ToDo;
@@ -186,22 +188,22 @@ public class Storage {
 	 * @param i Position of tasks to be deleted.
 	 * @param isMain Whether file access is Main or Archive file.
 	 */
-	public Task deleteFromMainFile(int i, boolean isMain) {
+	public Task deleteFromMainFile(int i, boolean isMain) throws DukeException {
 		String filePathReference = isMain ? filePathMain : filePathArchive;
 		TaskList taskListReference = isMain ? taskList : archiveList;
-		Task taskDeleted = taskListReference.remove(i);
 
 		try {
+			Task taskDeleted = taskListReference.remove(i);
 			FileWriter fw = new FileWriter(filePathReference, true);
 			for (Task task: taskList.getTaskList()) {
 				fw.write(task.writeToFile());
 				fw.write("\n");
 			}
 			fw.close();
-		} catch (IOException e) {
-			System.out.println("Delete fail " + e.getMessage());
+			return taskDeleted;
+		} catch (IOException | PositionException e) {
+			throw new DukeException(e.getMessage());
 		}
-		return taskDeleted;
 	}
 
 	public void updateMainStorage(boolean isMain) {

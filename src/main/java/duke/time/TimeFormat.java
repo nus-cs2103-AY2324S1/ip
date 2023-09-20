@@ -1,11 +1,13 @@
 package duke.time;
 
+import duke.Duke;
 import duke.exception.DukeException;
 import duke.exception.TimeFormatException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,12 +18,16 @@ import java.util.Date;
  */
 public class TimeFormat {
 
-	public static LocalDateTime fullDayFormat(String description, String item) {
+	public static LocalDateTime fullDayFormat(String description, String item) throws DukeException {
 		StringBuilder startTime = new StringBuilder();
 		String[] timePhrase = Arrays.copyOfRange(item.split(" "), 1, 3);
 		startTime.append(timePhrase[1]).append("T").append(timePhrase[0]);
-		LocalDateTime timeFormat = LocalDateTime.parse(startTime.toString());
-		return timeFormat;
+		try {
+			LocalDateTime timeFormat = LocalDateTime.parse(startTime.toString());
+			return timeFormat;
+		} catch (DateTimeParseException e) {
+			throw new DukeException("Format of date and time is not right \n" + e.getMessage());
+		}
 	}
 
 	public static String getDay(String dayAndMonth, boolean getDay) {
@@ -62,8 +68,8 @@ public class TimeFormat {
 			StringBuilder dateFormatBuilder = new StringBuilder();
 			dateFormatBuilder.append(year).append("-").append(monthValue(month)).append("-").append(day).append("T").append(formatTime);
 			return LocalDateTime.parse(dateFormatBuilder.toString());
-		} catch (ParseException e) {
-			throw new TimeFormatException("format of time is not right, enter it as /by 630pm 18june");
+		} catch (ParseException | IllegalArgumentException | DateTimeParseException e) {
+			throw new TimeFormatException("format of time is not right, enter it as /by 630pm 18june\n" + e.getMessage());
 		}
 	}
 	/**

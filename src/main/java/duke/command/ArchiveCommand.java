@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.exception.PositionException;
 import duke.storage.Storage;
 import duke.task.Task;
@@ -28,7 +29,7 @@ public class ArchiveCommand extends Command{
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		if (isArchive) {
 			try {
-				Task task = taskList.toArchiveFile(position);
+				Task task = taskList.toArchiveFile(this.position);
 				storage.updateMainStorage(true);
 				storage.addToFileMain(task, taskList, false);
 				System.out.println(ui.showArchive(task));
@@ -38,11 +39,16 @@ public class ArchiveCommand extends Command{
 				return e.getMessage();
 			}
 		} else {
-			Task task = storage.deleteFromMainFile(position, false);
-			taskList.add(task);
-			storage.updateMainStorage(true);
-			System.out.println(ui.showUnArchive(task));
-			return ui.showUnArchive(task);
+			try {
+				Task task = storage.deleteFromMainFile(this.position, false);
+				taskList.add(task);
+				storage.updateMainStorage(true);
+				System.out.println(ui.showUnArchive(task));
+				return ui.showUnArchive(task);
+			} catch (DukeException e) {
+				System.out.println(e.getMessage());
+				return e.getMessage();
+			}
 		}
 	}
 }

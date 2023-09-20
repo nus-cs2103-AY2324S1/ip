@@ -38,13 +38,17 @@ public class TaskList {
 
 	/**
 	 * Remove task from taskList to be added into archive file
+	 * Note that the position is actually index!
 	 *
 	 * @param position of task to be removed
 	 * @return Task to be added to archvie file
 	 */
 	public Task toArchiveFile(int position) throws PositionException {
-		if (position > taskList.size() || position < 0) {
+		if (position > taskList.size() - 1 || position < 0) {
 			throw new PositionException("Can not archive beyond list");
+		}
+		for (Task i: taskList) {
+			System.out.println(i.toString());
 		}
 		return taskList.remove(position);
 	}
@@ -137,7 +141,10 @@ public class TaskList {
 		this.taskList.clear();
 	}
 
-	public Task remove(int i) {
+	public Task remove(int i) throws PositionException {
+		if (i > taskList.size() - 1) {
+			throw new PositionException("Cannot access beyond list");
+		}
 		return this.taskList.remove(i);
 	}
 

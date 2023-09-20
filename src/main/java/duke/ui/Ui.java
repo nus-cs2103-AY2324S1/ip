@@ -16,11 +16,15 @@ public class Ui {
 	private final PrintStream out;
 	private static final String COMMENT_LINE_REGEX = "#.";
 
-	private static final String LOGO = " ____        _        \n"
-			+ "|  _ \\ _   _| | _____ \n"
-			+ "| | | | | | | |/ / _ \\\n"
-			+ "| |_| | |_| |   <  __/\n"
-			+ "|____/ \\__,_|_|\\_\\___|\n";
+	private static final String LOGO =
+			        "          .--.\n" +
+					"         |o_o |\n" +
+					"         |:_/ |\n" +
+					"        //   \\ \\\n" +
+					"       (|     | )\n" +
+					"      /'\\_   _/`\\\n" +
+					"      \\___)=(___/";
+
 	/**
 	 * Handles user input and gives an output
 	 *
@@ -94,13 +98,23 @@ public class Ui {
 	}
 
 	public void showWelcome() {
-		String greeting = String.format("____________________________________________________________\n" +
-				"Hello! I'm %s\n" +
+		String greeting = String.format("____________________________________________________________\n" + "Hello! I'm %s\n" +
 				"What can I do for you?\n" +
 				"____________________________________________________________", this.name);
 		System.out.println(LOGO);
 		System.out.println(greeting);
 	}
+
+	public String greet() {
+		String greeting = String.format(
+				LOGO + "\n" +
+				"Hello! I'm %s\n" +
+				"What can I do for you?\n" +
+				"Type help into the console to find out what you can do!", this.name);
+		return greeting;
+	}
+
+
 
 	/**
 	 * Outputs to user a goodBye message.

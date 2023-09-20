@@ -82,6 +82,7 @@ public class Parser {
 		boolean isFind = commandWord.equals("find");
 
 		int pos = isFind ? 0 : Parser.getValidIndex(accessKey);
+
 		boolean isMark = commandWord.equals("mark") || commandWord.equals("unmark");
 		boolean isDelete = commandWord.equals("delete");
 		boolean isArchive = commandWord.equals("archive");

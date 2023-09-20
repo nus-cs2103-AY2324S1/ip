@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.exception.DukeException;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -31,7 +32,7 @@ public class ArchiveDeleteCommand extends Command {
 			storage.updateMainStorage(false);
 			System.out.println(ui.showDelete(task, remaining));
 			return ui.showDelete(task, remaining);
-		} catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException | DukeException e) {
 			return e.getMessage();
 		}
 	}
