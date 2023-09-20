@@ -14,24 +14,24 @@ public class Ui {
     public static String horizontalLine = "_".repeat(34) + "\n";
 
     /**
-     * Displays a greeting message when the program starts.
+     * Generates a greeting message when the program starts.
+     *
+     * @return A greeting message.
      */
     public static String greet() {
-        return (horizontalLine + "Hello ┌[-.-]┘! I'm Bot.\n "
+        return (horizontalLine + "Hello ┌[-.-]┘! I'm Bot.\n"
                 + "What can I do for you?\n" + horizontalLine);
     }
 
     /**
-     * Displays a farewell message when the program exits.
+     * Generates a farewell message when the program exits.
+     *
+     * @return A farewell message.
      */
     public static String sayBye() {
         return (horizontalLine
                 + "Goodbye Human ┌[-.-]┘. I'll be here recharging, ready to assist you anytime!\n" + horizontalLine);
     }
-
-
-
-
 
     /**
      * Displays search results based on a keyword in the task list.
