@@ -59,10 +59,12 @@ public class Help {
      */
     public static String markHelp() {
         return "mark <task number>\n"
+                + "mark all\n"
                 + "==================\n"
                 + "- Marks the task as done.\n"
                 + "- The task number should be a positive integer.\n"
-                + "- The task number should not be empty.\n";
+                + "- The task number should not be empty.\n"
+                + "- In the case of 'mark all', all the tasks will be marked.\n";
     }
 
     /**
@@ -72,10 +74,12 @@ public class Help {
      */
     public static String unmarkHelp() {
         return "unmark <task number>\n"
+                + "unmark all\n"
                 + "==================\n"
                 + "- Unmarks the task as done.\n"
                 + "- The task number should be a positive integer.\n"
-                + "- The task number should not be empty.\n";
+                + "- The task number should not be empty.\n"
+                + "- In the case of 'unmark all', all the tasks will be unmarked.\n";
     }
 
     /**
@@ -85,10 +89,12 @@ public class Help {
      */
     public static String deleteHelp() {
         return "delete <task number>\n"
+                +"delete all\n"
                 + "==================\n"
                 + "- Deletes the task.\n"
                 + "- The task number should be a positive integer.\n"
-                + "- The task number should not be empty.\n";
+                + "- The task number should not be empty.\n"
+                + "- In the case of 'delete all', all the tasks will be deleted.\n";
     }
 
     /**

@@ -69,8 +69,8 @@ public class SortCommand extends Command {
                 taskList.sortTaskList(Task::compareDeadline);
                 break;
 
-            case "category":
-                taskList.sortTaskList(Task::compareCategory);
+            case "type":
+                taskList.sortTaskList(Task::compareType);
                 break;
 
             default:

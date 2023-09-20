@@ -121,5 +121,5 @@ public abstract class Task implements Comparable<Task> {
      * @param task the object to be compared.
      * @return the result of comparison.
      */
-    public abstract int compareCategory(Task task);
+    public abstract int compareType(Task task);
 }

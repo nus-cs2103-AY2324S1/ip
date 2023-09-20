@@ -73,8 +73,8 @@ public class AliasCommand extends Command {
             if (!Alias.isAliasPresent(aliasFrom)) {
                 throw new DukeException("OOPS!!! The alias is not found!");
             }
-            Alias.removeAlias(aliasFrom);
             aliasTo = Alias.getAlias(aliasFrom);
+            Alias.removeAlias(aliasFrom);
         }
 
         storage.saveAlias(Alias.saveAliasFormat());

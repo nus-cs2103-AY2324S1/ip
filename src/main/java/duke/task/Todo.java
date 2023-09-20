@@ -63,7 +63,7 @@ public class Todo extends Task {
     }
 
     @Override
-    public int compareCategory(Task task) {
+    public int compareType(Task task) {
         int smaller = -1;
         if (task instanceof Todo) {
             return super.compareTo(task);

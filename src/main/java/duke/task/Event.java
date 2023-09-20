@@ -114,7 +114,7 @@ public class Event extends Task {
     }
 
     @Override
-    public int compareCategory(Task task) {
+    public int compareType(Task task) {
         int larger = 1;
         if (task instanceof Event) {
             return super.compareTo(task);

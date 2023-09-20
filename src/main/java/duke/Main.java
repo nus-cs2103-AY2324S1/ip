@@ -25,7 +25,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.setScene(scene);
-            stage.setTitle("404");
+            stage.setTitle("Task404Bot");
             stage.setResizable(false);
             stage.getIcons().add(appIcon);
             stage.show();

@@ -14,7 +14,7 @@ import duke.task.Task;
  */
 public class Ui {
 
-    protected static final String NAME = "404";
+    protected static final String NAME = "Task404Bot";
 
     /**
      * Shows the welcome message to the user.

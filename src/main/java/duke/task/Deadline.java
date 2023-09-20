@@ -106,7 +106,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public int compareCategory(Task task) {
+    public int compareType(Task task) {
         int smaller = -1;
         int larger = 1;
         int equal = 0;
