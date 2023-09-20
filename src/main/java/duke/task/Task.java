@@ -12,7 +12,7 @@ public class Task {
      * field ogName is the original name of the task parsed in
      * field type is the tyoe of Task parsed in
      */
-    private boolean completed;
+    private boolean isCompleted;
     private final String name;
     private String type;
     private String originalName;
@@ -23,11 +23,11 @@ public class Task {
      */
 
     public Task(String name) {
-        this.completed = false;
+        this.isCompleted = false;
         this.name = name;
     }
     public boolean isCompleted() {
-        return this.completed;
+        return this.isCompleted;
     }
 
 
@@ -35,7 +35,7 @@ public class Task {
      * Method to mark the task as completed
      */
     public void markCompleted() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
@@ -43,7 +43,7 @@ public class Task {
      */
 
     public void markUncompleted() {
-        this.completed = false;
+        this.isCompleted = false;
     }
     public String getType() {
         return this.type;
@@ -63,7 +63,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        if (this.completed) {
+        if (this.isCompleted) {
             return "[X]" + this.name;
         } else {
             return "[ ]" + this.name;
@@ -79,6 +79,6 @@ public class Task {
             return false;
         }
         Task newTask = (Task) o;
-        return o.toString().equals(o.toString());
+        return o.toString().equals(this.toString());
     }
 }

@@ -95,7 +95,7 @@ public class TaskList {
             String check = tasklist.get(i).toString();
             if (check.contains(keyword)) {
                 res += "\n";
-                res += (foundcount + ". " + check);
+                res += (foundcount + 1 + ". " + check);
                 foundcount += 1;
             }
         }

@@ -37,10 +37,5 @@ public class EventTest {
         String actlmessage = except.toString(); //get the full message
     }
 
-    @Test
-    public void checkValidDateInput() {
-        String inputCommand = " project meeting /from 2019-12-02 /to 2019-12-04";
-    }
-
 
 }
