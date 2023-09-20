@@ -7,12 +7,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import juke.Juke;
-import juke.exceptions.JukeInitialisationException;
+import juke.commons.exceptions.JukeInitialisationException;
+import juke.responses.Dialog;
 
 /**
  * Represents a dialog box containing the user's message.
  */
-public class UserDialog extends DialogBox {
+public class UserDialogBox extends DialogBox {
     /** Container for the dialog box contents. */
     @FXML
     private StackPane dialogBubble;
@@ -32,18 +33,18 @@ public class UserDialog extends DialogBox {
     private ImageView displayImage;
 
     /**
-     * Constructs an instance of {@code UserDialog}.
+     * Constructs an instance of {@code UserDialogBox}.
      *
-     * @param text Text to display in the dialog box
+     * @param dialog Text to display in the dialog box
      */
-    public UserDialog(String text) {
+    public UserDialogBox(Dialog dialog) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Juke.class.getResource("/view/UserDialog.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
 
-            textLabel.setText(text);
+            this.textLabel.setText(dialog.getDialogText());
             this.backgroundRegion.maxHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
             this.backgroundRegion.minHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
             this.backgroundRegion.minWidthProperty().bind(this.textLabel.widthProperty().add(25.0d));

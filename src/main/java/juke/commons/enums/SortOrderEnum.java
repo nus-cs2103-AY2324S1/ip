@@ -5,20 +5,10 @@ package juke.commons.enums;
  */
 public enum SortOrderEnum {
     /** Ascending order sort. */
-    ASCENDING(1),
+    ASCENDING,
 
     /** Descending order sort. */
-    DESCENDING(-1);
-
-    /** Comparator multiplier to dictate order of sort, 1 for ascending and -1 for descending. */
-    private final int multiplier;
-
-    /**
-     * Constructs a {@code SortOrderEnum} object. This method cannot be invoked by the user.
-     */
-    SortOrderEnum(int multiplier) {
-        this.multiplier = multiplier;
-    }
+    DESCENDING;
 
     /**
      * Parses the input string into a {@code SortOrderEnum} enum. switch-case
@@ -48,14 +38,5 @@ public enum SortOrderEnum {
         default:
             throw new IllegalArgumentException("Oh no! The sort order you entered is invalid!");
         }
-    }
-
-    /**
-     * Returns the multiplier for the specified {@code SortOrderEnum} enum.
-     *
-     * @return 1 if the sort is ascending, -1 if the sort is descending
-     */
-    public int getMultiplier() {
-        return this.multiplier;
     }
 }

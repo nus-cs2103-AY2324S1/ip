@@ -3,10 +3,9 @@ package juke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
-import juke.exceptions.JukeStateException;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
+import juke.commons.exceptions.JukeStateException;
+import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
 
 /**
  * Represents a Deadline task. Deadline tasks contain a deadline which is represented by a
@@ -74,22 +73,21 @@ public class JukeDeadline extends JukeTask {
      * not be directly invoked by the user as it is mainly used for sorting.
      *
      * @param task the {@code JukeTask} object to be compared with
-     * @param sortOrder the order to sort the tasks by
      * @param sortType the type of sort to perform on the tasks
      * @return -1 if this {@code JukeDeadline} object is before the {@code JukeTask} object passed in, 0 if they
      *     are the same, and 1 if this {@code JukeDeadline} object is after the {@code JukeTask} object passed in
      */
     @Override
-    public int sortBy(JukeTask task, SortOrderEnum sortOrder, SortTypeEnum sortType) {
+    public int sortBy(JukeTask task, SortTypeEnum sortType) {
         switch (sortType) {
         case DESCRIPTION:
             // reuses the superclass's description comparator method
-            return super.sortBy(task, sortOrder, sortType);
+            return super.sortBy(task, sortType);
         case DEADLINE:
         case END_DATE:
-            return this.compareDeadlineOrEndDate(task, sortOrder);
+            return this.compareDeadlineOrEndDate(task);
         case START_DATE:
-            return this.compareStartDate(task, sortOrder);
+            return this.compareStartDate(task);
         default:
             throw new JukeIllegalArgumentException("Oh no! I cannot sort the list on that field!");
         }
@@ -100,23 +98,22 @@ public class JukeDeadline extends JukeTask {
      * This method should not be directly invoked by the user as it is mainly used for sorting.
      *
      * @param task the {@code JukeTask} object to be compared with
-     * @param sortOrder the order to sort the tasks by
      * @return -1 if this {@code JukeDeadline} object's start date is before the start date of the
      *     input {@code JukeTask} object, 0 if they are the same, and 1 if this {@code JukeDeadline}'s
      *     start date is after the start date of the input {@code JukeTask} object
      */
-    private int compareStartDate(JukeTask task, SortOrderEnum sortOrder) {
+    private int compareStartDate(JukeTask task) {
         if (task instanceof JukeEvent) {
             // deadlines are assumed to have an infinitely early start date
             // and is hence always before any event task
-            return -1 * sortOrder.getMultiplier();
+            return -1;
         } else if (task instanceof JukeDeadline) {
             // deadlines are of equal priority when compared to other deadlines
             return 0;
         } else if (task instanceof JukeTodo) {
             // todos are assumed to have a smaller but infinitely early start date
             // and are hence before after any deadline task
-            return sortOrder.getMultiplier();
+            return 1;
         } else {
             // should not reach here, unless there are other unknown subclasses of JukeTask
             throw new JukeIllegalArgumentException("Oh no! I cannot sort the list with an unknown task within it!");
@@ -128,21 +125,20 @@ public class JukeDeadline extends JukeTask {
      * with another input {@code JukeEvent} object.
      *
      * @param task the {@code JukeTask} object to be compared with
-     * @param sortOrder the order to sort the tasks by
      * @return -1 if this {@code JukeDeadline} object's deadline is before the deadline/end date of the
      *     input {@code JukeTask} object, 0 if they are the same, and 1 if this {@code JukeDeadline}'s
      *     deadline is after the deadline/end date of the input {@code JukeTask} object
      */
-    private int compareDeadlineOrEndDate(JukeTask task, SortOrderEnum sortOrder) {
+    private int compareDeadlineOrEndDate(JukeTask task) {
         if (task instanceof JukeEvent) {
             JukeEvent event = (JukeEvent) task;
-            return event.compareEndTime(this.deadline) * sortOrder.getMultiplier();
+            return event.compareEndTime(this.deadline);
         } else if (task instanceof JukeDeadline) {
             JukeDeadline deadline = (JukeDeadline) task;
-            return this.deadline.compareTo(deadline.deadline) * sortOrder.getMultiplier();
+            return this.deadline.compareTo(deadline.deadline);
         } else if (task instanceof JukeTodo) {
-            // since todos have an infinitely early deadline, they are always considered to be before events
-            return sortOrder.getMultiplier();
+            // since todos have an infinitely early deadline, they are always considered to be before deadlines
+            return 1;
         } else {
             // should not reach here, unless there are other unknown subclasses of JukeTask
             throw new JukeIllegalArgumentException("Oh no! I cannot sort the list with an unknown task within it!");
@@ -158,7 +154,7 @@ public class JukeDeadline extends JukeTask {
     public String toString() {
         return JukeDeadline.TASK_DESCRIPTOR
                 + super.toString()
-                + " (by: "
+                + " (by "
                 + this.deadline.format(DateTimeFormatter.ofPattern("dd MMM yyyy, HHmm"))
                 + " hrs)";
     }

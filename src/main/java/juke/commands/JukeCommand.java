@@ -7,9 +7,9 @@ import java.util.regex.Pattern;
 import juke.commons.classes.JukeObject;
 import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
-import juke.exceptions.JukeException;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
-import juke.exceptions.arguments.JukeIllegalCommandArgumentException;
+import juke.commons.exceptions.JukeException;
+import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
+import juke.commons.exceptions.arguments.JukeIllegalCommandArgumentException;
 import juke.parsers.DateTimeParser;
 import juke.parsers.Parser;
 import juke.responses.Response;
@@ -199,7 +199,7 @@ public abstract class JukeCommand extends JukeObject {
         if (!Parser.isMatchByString(newDeadlineArgs)) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your deadline command!",
                                                           "deadline [description] /by [DD(-/)MM(-/)YYYY HH(-:)MM "
-                                                                  + "or DD(-/)MM(-/)YYYY]\n(..) -> any of");
+                                                                  + "or DD(-/)MM(-/)YYYY]\nNote: (..) -> any of");
         } else {
             String[] parsedArguments = Parser.parseByByString(newDeadlineArgs);
 
@@ -230,9 +230,9 @@ public abstract class JukeCommand extends JukeObject {
         if (!Parser.isMatchFromToString(newEventArgs)) {
             throw new JukeIllegalCommandArgumentException("Oh no! I cannot understand your event command!",
                                                           "event [description] /from [DD(-/)MM(-/)YYYY HH(-:)MM "
-                                                                  + "or DD(-/)MM(-/)YYYY]\n"
+                                                                  + "or DD(-/)MM(-/)YYYY] "
                                                                   + "/to [DD(-/)MM(-/)YYYY HH(-:)MM or DD(-/)"
-                                                                  + "MM(-/)YYYY]\n(..) -> any of");
+                                                                  + "MM(-/)YYYY]\nNote: (..) -> any of");
         } else {
             String[] parsedArguments = Parser.parseByFromToString(newEventArgs);
 

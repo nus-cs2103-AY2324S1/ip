@@ -1,6 +1,7 @@
 package juke.commands;
 
 import juke.commons.classes.JukeObject;
+import juke.responses.Dialog;
 import juke.responses.Response;
 
 /**
@@ -27,6 +28,6 @@ public class JukePrintCommand extends JukeCommand {
      */
     @Override
     public Response execute(Response response) {
-        return response.withJuke(printTarget.toString());
+        return response.with(Dialog.ofJuke(printTarget.toString()));
     }
 }

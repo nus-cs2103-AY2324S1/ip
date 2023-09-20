@@ -1,4 +1,4 @@
-package juke.exceptions;
+package juke.commons.exceptions;
 
 /**
  * Exception that encapsulates the situation whereby Juke cannot

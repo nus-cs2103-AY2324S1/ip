@@ -3,7 +3,7 @@ package juke.parsers;
 import java.time.LocalDateTime;
 
 import juke.commons.classes.JukeObject;
-import juke.exceptions.parsers.JukeDataFileParseException;
+import juke.commons.exceptions.parsers.JukeDataFileParseException;
 import juke.tasks.JukeDeadline;
 import juke.tasks.JukeEvent;
 import juke.tasks.JukeTask;

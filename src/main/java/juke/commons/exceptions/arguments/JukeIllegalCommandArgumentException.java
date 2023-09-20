@@ -1,4 +1,4 @@
-package juke.exceptions.arguments;
+package juke.commons.exceptions.arguments;
 
 /**
  * Represents an illegal command argument being entered into the command line.

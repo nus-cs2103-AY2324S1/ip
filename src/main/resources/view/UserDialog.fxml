@@ -33,9 +33,9 @@ Code reused from https://se-education.org/guides/tutorials/javaFxPart4.html, wit
                 <Label fx:id="textLabel" wrapText="true"/>
             </children>
         </StackPane>
-        <ImageView fx:id="displayImage" fitHeight="100.0d" fitWidth="100.0d">
+        <ImageView fx:id="displayImage" fitHeight="60.0d" fitWidth="60.0d" preserveRatio="true">
             <clip>
-                <Circle radius="50.0d" centerX="50.0" centerY="50.0"/>
+                <Circle radius="30.0d" centerX="30.0" centerY="30.0"/>
             </clip>
             <image>
                 <!--

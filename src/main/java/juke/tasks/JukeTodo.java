@@ -1,8 +1,7 @@
 package juke.tasks;
 
-import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
+import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
 
 /**
  * Represents a Todo task. Todo tasks do not have any deadlines.
@@ -48,42 +47,42 @@ public class JukeTodo extends JukeTask {
      * Compares this {@code JukeTodo} object with the input {@code JukeTask} object.
      *
      * @param task the {@code JukeTask} object to be compared with
-     * @param sortOrder the order to sort the tasks by
      * @param sortType the type of sort to perform on the tasks
      * @return -1 if this {@code JukeTodo} object is before the input {@code JukeTask} object,
      *     0 if they are of the same date order, and 1 if this {@code JukeTodo} object is after
      *     the input {@code JukeTask} object
      */
     @Override
-    public int sortBy(JukeTask task, SortOrderEnum sortOrder, SortTypeEnum sortType) {
+    public int sortBy(JukeTask task, SortTypeEnum sortType) {
         switch (sortType) {
         case DESCRIPTION:
             // reuses the superclass's description comparator method
-            return super.sortBy(task, sortOrder, sortType);
+            return super.sortBy(task, sortType);
         case DEADLINE:
         case END_DATE:
         case START_DATE:
-            return this.compareStartDate(task, sortOrder);
+            return this.compareDates(task);
         default:
             throw new JukeIllegalArgumentException("Oh no! I cannot sort the list on that field!");
         }
     }
 
+
+
     /**
      * Compares the start date between this {@code JukeTodo} object with the input {@code JukeTask} object.
      *
      * @param task the {@code JukeTask} object to be compared with
-     * @param sortOrder the order to sort the tasks by
      * @return -1 if the start date of this {@code JukeDeadline} object is before the start date of the input
      *     {@code JukeTask} object, 0 if they are the same, and 1 if the start date of this {@code JukeDeadline}
      *     object is after the start date of the input {@code JukeTask} object
      */
-    private int compareStartDate(JukeTask task, SortOrderEnum sortOrder) {
+    private int compareDates(JukeTask task) {
         if (task instanceof JukeEvent || task instanceof JukeDeadline) {
             // todos are assumed to have an infinitely early start date
             // and is hence always before any event task; and
             // deadlines have a larger but infinitely early start date
-            return -1 * sortOrder.getMultiplier();
+            return -1;
         } else if (task instanceof JukeTodo) {
             // todos are of equal priority when compared to other todos
             return 0;

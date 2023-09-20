@@ -9,14 +9,14 @@ import javafx.scene.layout.VBox;
 import juke.commands.JukeCommand;
 import juke.commands.JukeExceptionCommand;
 import juke.commands.JukeExitCommand;
-import juke.exceptions.JukeException;
-import juke.exceptions.JukeInitialisationException;
-import juke.exceptions.parsers.JukeParseException;
-import juke.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.JukeException;
+import juke.commons.exceptions.JukeInitialisationException;
+import juke.commons.exceptions.parsers.JukeParseException;
+import juke.commons.exceptions.storage.JukeStorageException;
+import juke.responses.Dialog;
 import juke.responses.Response;
 import juke.storage.Storage;
 import juke.tasks.TaskList;
-import juke.ui.components.DialogBox;
 
 //@@author asdfghjkxd-reused
 // Code is largely reused with some major modifications from
@@ -62,7 +62,8 @@ public class MainWindow extends AnchorPane {
             this.taskList = TaskList.of(this.storage);
         } catch (JukeInitialisationException | JukeStorageException
                  | JukeParseException ex) {
-            this.dialogContainer.getChildren().add(DialogBox.ofJuke(ex.getMessage()));
+            this.dialogContainer.getChildren().add(
+                    Dialog.ofJuke(ex.getMessage()).getDialogBoxRepresentation());
             this.exit();
         }
     }
@@ -82,7 +83,7 @@ public class MainWindow extends AnchorPane {
         this.scrollPane.vvalueProperty().bind(this.dialogContainer.heightProperty());
 
         // add the introductory dialog to the dialog container
-        this.dialogContainer.getChildren().add(this.getIntroductoryDialog());
+        this.addIntroductoryDialog();
 
         // handle user inputs
         this.submitButton.setOnMouseClicked((event) -> this.handleInput());
@@ -98,9 +99,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleInput() {
         String inputCommand = this.inputField.getText();
+        Response response = Response.of(Dialog.ofUser(inputCommand));
 
         try {
-            Response response = Response.ofUser(inputCommand);
             JukeCommand action = JukeCommand.of(inputCommand, this.taskList);
 
             // invokes the exit action should the user key in "bye" as the command
@@ -109,58 +110,27 @@ public class MainWindow extends AnchorPane {
             }
 
             // otherwise, execute the command and get the responses from the user and Juke
-            Response returns = action.execute(response);
-            String inputMessage = returns.getInputMessage();
-            String outputMessage = returns.getOutputMessage();
-
-            if (inputMessage != null) {
-                DialogBox userDialog = getAsUserInput(inputMessage);
-                this.dialogContainer.getChildren().addAll(userDialog);
-            }
-
-            if (outputMessage != null) {
-                DialogBox jukeDialog = getAsJukeOutput(outputMessage);
-                this.dialogContainer.getChildren().addAll(jukeDialog);
-            }
+            response = action.execute(response);
         } catch (JukeException ex) {
-            Response returns = new JukeExceptionCommand(ex).execute(Response.ofUser(inputCommand));
-            this.dialogContainer.getChildren().addAll(
-                    getAsUserInput(returns.getInputMessage()),
-                    getAsJukeOutput(returns.getOutputMessage()));
+            // execute an exception command and add the response to the user
+            response = new JukeExceptionCommand(ex).execute(response);
         } finally {
+            // finalise the dialog boxes to add
+            this.dialogContainer
+                    .getChildren()
+                    .addAll(response.getDialogBoxes());
             this.inputField.clear();
         }
     }
 
     /**
-     * Returns a UserDialog object that contains the inputs by the user.
-     *
-     * @param userInput User input
-     * @return {@code UserDialog} object
+     * Adds the introduction dialog to the user's screen on initialisation.
      */
-    private DialogBox getAsUserInput(String userInput) {
-        return DialogBox.ofUser(userInput);
-    }
-
-    /**
-     * Returns a JukeDialog object that contains the outputs from Juke.
-     *
-     * @param jukeOutput Juke output
-     * @return {@code JukeDialog} object
-     */
-    private DialogBox getAsJukeOutput(String jukeOutput) {
-        return DialogBox.ofJuke(jukeOutput);
-    }
-
-    /**
-     * Returns a DialogBox object that contains the introductory message
-     * when the user first launch Juke.
-     *
-     * @return {@code JukeDialog} object with the introductory message
-     */
-    private DialogBox getIntroductoryDialog() {
+    private void addIntroductoryDialog() {
         String introductoryMessage = "Hello! I'm Juke (J|ava D|uke)!\nWhat can I do for you today?";
-        return this.getAsJukeOutput(introductoryMessage);
+        this.dialogContainer
+                .getChildren()
+                .add(Dialog.ofJuke(introductoryMessage).getDialogBoxRepresentation());
     }
 
     /**

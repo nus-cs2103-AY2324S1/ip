@@ -24,25 +24,5 @@ public abstract class DialogBox extends HBox {
         FXCollections.reverse(childWidgets);
         this.getChildren().setAll(childWidgets);
     }
-
-    /**
-     * Creates a dialog box that represents the user's inputs.
-     *
-     * @param text Text to render in the dialog box
-     * @return {@code UserDialog} object
-     */
-    public static DialogBox ofUser(String text) {
-        return new UserDialog(text);
-    }
-
-    /**
-     * Creates a dialog box that represents Juke's outputs.
-     *
-     * @param text Text to render in the dialog box
-     * @return {@code JukeDialog} object
-     */
-    public static DialogBox ofJuke(String text) {
-        return new JukeDialog(text);
-    }
 }
 //@@author

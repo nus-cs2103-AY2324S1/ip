@@ -1,6 +1,6 @@
-package juke.exceptions.arguments;
+package juke.commons.exceptions.arguments;
 
-import juke.exceptions.JukeException;
+import juke.commons.exceptions.JukeException;
 
 /**
  * Represents illegal argument(s) being used anywhere in Juke. This exception is the

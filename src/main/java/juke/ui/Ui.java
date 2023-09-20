@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import juke.exceptions.JukeInitialisationException;
+import juke.commons.exceptions.JukeInitialisationException;
 
 /**
  * User interface of Juke.

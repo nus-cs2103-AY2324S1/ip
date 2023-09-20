@@ -1,4 +1,4 @@
-package juke.exceptions.storage;
+package juke.commons.exceptions.storage;
 
 /**
  * Represents an error with the writing of data to the datafile.

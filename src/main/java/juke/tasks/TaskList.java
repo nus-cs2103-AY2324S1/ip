@@ -1,15 +1,15 @@
 package juke.tasks;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 import juke.commons.classes.JukeObject;
 import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
-import juke.commons.utils.StringUtils;
-import juke.exceptions.JukeStateException;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
-import juke.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.JukeStateException;
+import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
+import juke.commons.exceptions.storage.JukeStorageException;
 import juke.storage.Storage;
 
 /**
@@ -22,9 +22,6 @@ public class TaskList extends JukeObject {
 
     /** String representation of the {@code TaskList} when it is empty. */
     private static final String NO_TASKS_PRESENT_STRING = "No Tasks Present!";
-
-    /** Max number of characters on a line. */
-    private static final int MAX_LINE_LENGTH = 35;
 
     /** List of JukeTasks under this {@code TaskList}'s control. */
     private final LinkedList<JukeTask> tasks;
@@ -59,40 +56,33 @@ public class TaskList extends JukeObject {
      * Adds a task to the task list.
      *
      * @param task {@code JukeTask} object.
-     * @return true if the task is added, else false
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
-    public boolean addTask(JukeTask task) {
+    public void addTask(JukeTask task) {
         int lengthOfTasks = this.tasks.size();
-        boolean isSuccess = this.tasks.add(task);
 
-        if (isSuccess) {
+        if (this.tasks.add(task)) {
             assert this.tasks.size() == lengthOfTasks + 1;
             this.storage.write(this.tasks);
         }
-
-        return isSuccess;
     }
 
     /**
      * Deletes a task by index from the task list.
      *
      * @param task Index of {@code JukeTask} object
-     * @return {@code JukeTask} deleted if the task is successfully deleted, else throws an exception
      * @throws JukeIllegalArgumentException if the input argument is invalid
      * @throws JukeStorageException if there is are any issues with retrieving data from the datafile
      */
-    public JukeTask deleteTask(int task) {
+    public void deleteTask(int task) {
         try {
-            JukeTask returnedTask = this.tasks.get(task);
+            JukeTask taskToDelete = this.tasks.get(task);
             int lengthOfTasks = this.tasks.size();
 
-            if (this.tasks.remove(returnedTask)) {
+            if (this.tasks.remove(taskToDelete)) {
                 assert this.tasks.size() == lengthOfTasks - 1;
                 this.storage.write(this.tasks);
             }
-
-            return returnedTask;
         } catch (IndexOutOfBoundsException ex) {
             throw new JukeIllegalArgumentException("Oh no! The task index you have provided is not valid!");
         }
@@ -176,7 +166,11 @@ public class TaskList extends JukeObject {
         List<JukeTask> originalTasks = new LinkedList<>(this.tasks);
 
         try {
-            this.tasks.sort((task1, task2) -> task1.sortBy(task2, sortOrder, sortType));
+            this.tasks.sort((t1, t2) -> t2.sortBy(t1, sortType));
+
+            if (sortOrder.equals(SortOrderEnum.DESCENDING)) {
+                this.reverse();
+            }
         } catch (IllegalArgumentException | UnsupportedOperationException | ClassCastException ex) {
             // if there is an error, revert the changes
             this.tasks.clear();
@@ -186,6 +180,13 @@ public class TaskList extends JukeObject {
             // save any changes made to the task list
             this.storage.write(this.tasks);
         }
+    }
+
+    /**
+     * Reverses the order of the task list.
+     */
+    private void reverse() {
+        Collections.reverse(this.tasks);
     }
 
     /**
@@ -204,8 +205,10 @@ public class TaskList extends JukeObject {
         builder.append(TaskList.TASK_LIST_HEADER);
 
         for (int i = 0; i < this.tasks.size(); i++) {
-            String built = (i + 1) + ". " + this.tasks.get(i) + "\n";
-            builder.append(StringUtils.wrap(built, TaskList.MAX_LINE_LENGTH));
+            builder.append(i + 1)
+                   .append(". ")
+                   .append(this.tasks.get(i))
+                   .append("\n");
         }
 
         return builder.toString().strip();

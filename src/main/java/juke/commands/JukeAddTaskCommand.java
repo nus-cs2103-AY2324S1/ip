@@ -1,8 +1,7 @@
 package juke.commands;
 
-import juke.Juke;
-import juke.commons.utils.StringUtils;
-import juke.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.storage.JukeStorageException;
+import juke.responses.Dialog;
 import juke.responses.Response;
 import juke.tasks.JukeTask;
 import juke.tasks.TaskList;
@@ -38,7 +37,8 @@ public class JukeAddTaskCommand extends JukeCommand {
     @Override
     public Response execute(Response response) {
         this.taskList.addTask(this.task);
-        return response.withJuke(
-                StringUtils.wrap("Task added: " + this.task, Juke.MAX_STRING_LENGTH));
+        return response
+                .with(Dialog.ofJuke("Task added: " + this.task))
+                .with(Dialog.ofJuke("Your current tasks:\n" + this.taskList));
     }
 }

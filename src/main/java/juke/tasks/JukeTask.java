@@ -1,12 +1,11 @@
 package juke.tasks;
 
 import juke.commons.classes.JukeObject;
-import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
+import juke.commons.exceptions.JukeStateException;
 import juke.commons.interfaces.Savable;
 import juke.commons.interfaces.TaskSortable;
-import juke.exceptions.JukeStateException;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
+
 
 /**
  * Abstract Class that represents a task that the user can add to Juke.
@@ -95,24 +94,18 @@ public abstract class JukeTask extends JukeObject implements TaskSortable<JukeTa
     /**
      * Compares this {@code JukeTask} object with the specified {@code JukeTask} object for order. This method
      * compares task description only.
-     * <p>
-     * This method is present mainly for polymorphism and method reuse.
+     *
+     * <p>This method is present mainly for polymorphism and method reuse.</p>
+     *
+     * <p>Do note that this method's outputs are inverted to ensure proper sort order.</p>
      *
      * @param task the {@code JukeTask} object to be compared with
-     * @param sortOrder the order to sort the tasks by
      * @param sortType the type of sort to perform on the tasks
      * @return -1 if this {@code JukeTask} object is before the {@code JukeTask} object passed in, 0 if they
      *     are the same, and 1 if this {@code JukeTask} object is after the {@code JukeTask} object passed in
      */
     @Override
-    public int sortBy(JukeTask task, SortOrderEnum sortOrder, SortTypeEnum sortType) {
-        switch (sortOrder) {
-        case ASCENDING:
-            return this.taskName.compareTo(task.taskName);
-        case DESCENDING:
-            return this.taskName.compareTo(task.taskName) * -1;
-        default:
-            throw new JukeIllegalArgumentException("Oh no! I cannot sort the list in that order!");
-        }
+    public int sortBy(JukeTask task, SortTypeEnum sortType) {
+        return this.taskName.compareTo(task.taskName) * -1;
     }
 }
