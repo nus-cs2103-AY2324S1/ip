@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
-- [Getting Started](Getting-Started)
-- [Features](Features)
+- [Getting Started](#Getting-Started)
+- [Features](#Features)
 
 ## Getting Started
 
