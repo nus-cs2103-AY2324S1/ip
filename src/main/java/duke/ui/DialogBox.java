@@ -41,6 +41,8 @@ public class DialogBox extends HBox {
         dialogTextFlow.getChildren().add(textNode);
         displayPicture.setImage(img);
         HBox.setMargin(displayPicture, new Insets(0, 10, 0, 10));
+
+        getStyleClass().add("dialog-box");
     }
 
     /**
@@ -49,6 +51,11 @@ public class DialogBox extends HBox {
     private void flip() {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
+        this.setStyle("-fx-background-color: linear-gradient(to left, lavenderBlush, mistyRose);"
+                + "-fx-border-color: white;"
+                + "-fx-background-radius: 20 20 20 20;"
+                + "-fx-border-radius: 20 20 20 20;"
+                + "-fx-border-width: 3;");
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
     }
