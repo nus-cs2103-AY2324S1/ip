@@ -79,7 +79,7 @@ public class Ui {
      */
     public void printDeleteConfirmation(int i, TaskList taskList) throws InvalidTaskNumberException {
         assert i < taskList.size();
-        System.out.println("Noted. I've removed this task:\n" + taskList.taskRep(i) + "\n");
+        System.out.println("Noted. I've removed the task!\n");
     }
 
     /**
