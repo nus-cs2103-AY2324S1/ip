@@ -27,7 +27,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toPrintString() {
-
         return ToDo.PREPEND + super.toPrintString();
 
     }
