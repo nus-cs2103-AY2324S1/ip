@@ -28,7 +28,3 @@ Description of the outcome.
 expected output
 ```
 
-
-```
-expected output
-```
