@@ -18,6 +18,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/Gui.fxml"));
             AnchorPane anchorPane = fxmlLoader.load();
             Scene scene = new Scene(anchorPane);
+            stage.setTitle("ChatBot");
             stage.setScene(scene);
             fxmlLoader.<Gui>getController().setChatBot(chatBot);
             stage.show();

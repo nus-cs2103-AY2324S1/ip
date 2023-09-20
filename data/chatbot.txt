@@ -1,8 +1,2 @@
-[D][X] (H) 1 (by: 2023-12-123)
-[D][ ] (L) 2 (by: tmr)
-[D][ ] (M) 3 (by: 12 December 2023)
-[D][ ] (H) 5 (by: 12 December 2022)
-[E][ ] (M) 6 (from: 4 February 2024 to: 2024-21-03)
-[E][ ] (H) 44 (from: 1 to: 2)
-[T][X] (L) 8 
-[E][ ] (L) 9 (from: 1 to: 2)
+[T][ ] (H) 2103T tP user guide
+[E][ ] (M) group meeting        (from: Saturday 1pm to: Saturday 4pm)
