@@ -178,7 +178,7 @@ Example of usage:
 
 Expected outcome:
 
-Bart will send a message confirming the end of the conversation.
+Bart will send a message confirming the end of the conversation, and the window will close after 5 seconds.
 
 
 ```
