@@ -5,7 +5,7 @@ package tasks;
  */
 public class ToDo extends Task {
 
-    private String TaskIcon = "[T]";
+    private String taskIcon = "[T]";
 
     /**
      * A public constructor to initialize a Todo task
@@ -29,7 +29,7 @@ public class ToDo extends Task {
 
     @Override
     public String getTaskAsString() {
-        String message = String.format("%s[%s] %s", this.TaskIcon,this.getStatusIcon(), this.getDescription());
+        String message = String.format("%s[%s] %s", this.taskIcon, this.getStatusIcon(), this.getDescription());
         return message;
     }
 }

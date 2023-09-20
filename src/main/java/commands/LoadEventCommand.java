@@ -1,16 +1,25 @@
 package commands;
 
-import functions.TaskList;
-import tasks.Event;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class LoadEventCommand extends Command{
+import functions.TaskList;
+import tasks.Event;
+
+/**
+ * Represents a command to load a event task into a task list.
+ */
+public class LoadEventCommand extends Command {
 
     private String currentTaskAsString;
     private TaskList taskList;
 
+    /**
+     * Constructs a new LoadEventCommand object with the given parameters.
+     *
+     * @param currentTaskAsString a string representation of the event task to be loaded
+     * @param taskList the task list to which the event task should be added
+     */
     public LoadEventCommand(String currentTaskAsString, TaskList taskList) {
         this.currentTaskAsString = currentTaskAsString;
         this.taskList = taskList;
@@ -21,9 +30,9 @@ public class LoadEventCommand extends Command{
         boolean isDone = currentTaskAsString.substring(4, 5).toUpperCase().equals("X");
         int descriptionBeginIndex = 7;
 
-        int descriptionEndIndex = currentTaskAsString.indexOf("(from:")-1;
+        int descriptionEndIndex = currentTaskAsString.indexOf("(from:") - 1;
         int fromTimingStartIndex = currentTaskAsString.indexOf("(from:") + 7;
-        int fromTimingEndIndex = currentTaskAsString.indexOf("to:")-1;
+        int fromTimingEndIndex = currentTaskAsString.indexOf("to:") - 1;
         int toTimingStartIndex = fromTimingEndIndex + 5;
         int toTimingEndIndex = currentTaskAsString.length() - 1;
 

@@ -1,25 +1,19 @@
 package functions;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 import commands.Command;
 import commands.LoadDeadlineCommand;
 import commands.LoadEventCommand;
 import commands.LoadToDoCommand;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.ToDo;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
-import java.io.FileReader;
-
 /**
  * A utility class for loading a file.
  */
 public class Load {
 
-    TaskList taskList;
+    private TaskList taskList;
     private String loadFilePath;
 
     /**
@@ -40,11 +34,12 @@ public class Load {
     public TaskList load() throws IOException {
         FileReader f = null;
 
+        // Checks if file exists.
         try {
             f = new FileReader(loadFilePath);
         } catch (IOException e) {
-            System.out.println("File does not exist in directory.");
-            return null;
+            // Creates new taskList
+            return this.taskList;
         }
 
         Scanner s = new Scanner(f); // create a Scanner using the File as the source
@@ -73,10 +68,10 @@ public class Load {
                 break;
 
             default:
-               commandResult = "Error";
+                commandResult = "Error";
             }
 
-            assert commandResult == "Ok";
+            assert commandResult == "Ok" : "Error in loading task";
 
         }
         f.close();

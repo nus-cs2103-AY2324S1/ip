@@ -4,11 +4,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents a event task, with a description, the start and the end date.
+ * Represents an event task, with a description, the start and the end date.
  */
 public class Event extends Task {
 
-    private String TaskIcon = "[E]";
+    private String taskIcon = "[E]";
     private LocalDateTime startDate;
     private LocalDateTime endDate;
 
@@ -41,7 +41,7 @@ public class Event extends Task {
     }
     @Override
     public String getTaskAsString() {
-        String message = String.format("%s[%s] %s (from: %s to: %s)", this.TaskIcon,this.getStatusIcon(),
+        String message = String.format("%s[%s] %s (from: %s to: %s)", this.taskIcon, this.getStatusIcon(),
                 this.getDescription(), this.getStartDate(), this.getEndDate());
         return message;
     }
