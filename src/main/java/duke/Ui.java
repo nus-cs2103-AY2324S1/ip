@@ -28,7 +28,7 @@ public class Ui {
         System.out.println(indentedMsg);
         System.out.println(LINE_BREAK);
 
-        return indentedMsg;
+        return msg;
     }
 
     /**
