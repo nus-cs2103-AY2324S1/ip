@@ -9,7 +9,9 @@ import java.time.format.DateTimeFormatter;
 import com.nyanbot.dukeexceptionhandlers.DukeExceptionHandlers;
 
 /**
- * This class contains the fields and methods needed to parse DateTime objects
+ * This class contains the fields and methods needed to parse DateTime objects.
+ * Handles issues with the dates.
+ * @author Tan Kerway
  */
 public class DukeTimeParser {
     protected static final LocalDateTime DEFAULT_DATE = LocalDateTime.of(1970, 1, 1, 0, 0);
