@@ -27,6 +27,7 @@ public class CommandList {
         addCommandName("unset", "unset");
         addCommandName("load", "load");
         addCommandName("change", "change");
+        addCommandName("help", "help");
     }
 
     public void addCommandName(String commandType, String commandName) {
