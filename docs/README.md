@@ -6,7 +6,7 @@
 2. Download `Ekud.jar` from [here](https://github.com/J-hta-n/ip/releases).
 3. Run `java -jar Ekud.jar` on the terminal in the same directory as the jar file.
 
-<img src="https://j-hta-n.github.io/ip/Ui.png" alt="Ekud chatbot" width=150>
+<img src="https://j-hta-n.github.io/ip/Ui.png" alt="Ekud chatbot" width=180>
 
 ## Features 
 
