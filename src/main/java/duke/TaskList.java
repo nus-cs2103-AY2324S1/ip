@@ -27,6 +27,7 @@ public class TaskList {
      */
     public TaskList(File file) throws FileNotFoundException {
         taskList = file;
+        taskList.deleteOnExit();
     }
 
     /**

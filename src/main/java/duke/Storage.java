@@ -16,6 +16,7 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.taskList = new File(filePath);
+        this.taskList.deleteOnExit();
     }
 
     /**
