@@ -29,9 +29,9 @@ Example of usage:
 
 Expected outcome:
 
-Got it! I've added this task:
-[D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)
-Now you have 2 tasks in the list.
+Got it! I've added this task:  
+[D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)  
+Now you have 2 tasks in the list.  
 
  <br />
 
