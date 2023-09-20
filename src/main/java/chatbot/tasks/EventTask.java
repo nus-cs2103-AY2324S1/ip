@@ -5,6 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
+/**
+ * Class that represents an event task scheduled by user.
+ */
 public class EventTask extends Task {
     private static String type = "E";
     private LocalDate from;

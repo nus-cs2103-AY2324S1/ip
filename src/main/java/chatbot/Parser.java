@@ -88,6 +88,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parse "priority" command from the user.
+     * @param commandWords String array that contains the words in the command in order
+     * @return A Pair with head being the index of the task, and tail being the priority level letter
+     * @throws PriorityMissingFieldException when the command is not in the expected format (3 words)
+     * @throws InvalidTaskIndexException when the second word cannot be interpreted as an integer
+     */
     public static Pair<Integer, String> parsePriorityCommand(String[] commandWords)
             throws PriorityMissingFieldException, InvalidTaskIndexException {
         assert (commandWords[0].equals("priority"));

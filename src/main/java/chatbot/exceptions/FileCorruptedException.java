@@ -1,5 +1,8 @@
 package chatbot.exceptions;
 
+/**
+ * Class that represents an exception due to the data file containing invalid data.
+ */
 public class FileCorruptedException extends LocalFileException {
     private String filePath;
 

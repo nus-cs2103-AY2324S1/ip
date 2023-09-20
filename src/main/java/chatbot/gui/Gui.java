@@ -9,6 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 
+/**
+ * Class that represents the graphical user interface of the application.
+ */
 public class Gui {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
     private Image chatBotImage = new Image(this.getClass().getResourceAsStream("/images/ChatBot.png"));

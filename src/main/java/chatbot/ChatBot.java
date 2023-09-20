@@ -16,7 +16,7 @@ import chatbot.tasks.Task;
 import javafx.util.Pair;
 
 /**
- * Main ChatBot class which instantiates a ChatBot object that coordinates other components.
+ * ChatBot class which instantiates a ChatBot object that coordinates other components.
  */
 public class ChatBot {
     public static final String INIT_TASKLIST_SUCCESS_STRING = "Init TaskList Success";

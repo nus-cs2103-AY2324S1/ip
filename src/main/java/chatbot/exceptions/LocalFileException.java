@@ -1,5 +1,8 @@
 package chatbot.exceptions;
 
+/**
+ * Class that represents a generic exception with a local data file.
+ */
 public class LocalFileException extends ChatBotException {
     private String filePath;
 

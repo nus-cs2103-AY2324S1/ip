@@ -1,5 +1,8 @@
 package chatbot.exceptions;
 
+/**
+ * Class that represents any generic exception associated with the ChatBot's logic.
+ */
 public class ChatBotException extends Exception {
     @Override
     public String toString() {

@@ -1,5 +1,8 @@
 package chatbot.exceptions;
 
+/**
+ * Class that represents an exception due to incorrect mark or unmark command provided by user.
+ */
 public class MarkMissingFieldException extends MissingFieldException {
     @Override
     public String toString() {

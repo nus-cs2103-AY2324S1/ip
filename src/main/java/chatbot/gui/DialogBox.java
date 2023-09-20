@@ -16,6 +16,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Class that initiates rounded rectangular boxes that contain text messages in the GUI.
+ */
 public class DialogBox extends HBox {
     @FXML
     private Text text;

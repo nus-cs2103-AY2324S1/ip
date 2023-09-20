@@ -1,5 +1,8 @@
 package chatbot.exceptions;
 
+/**
+ * Class that represents an exception due to incorrect delete command provided by user.
+ */
 public class DeleteMissingFieldException extends MissingFieldException {
     @Override
     public String toString() {

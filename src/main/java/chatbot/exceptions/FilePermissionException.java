@@ -1,5 +1,8 @@
 package chatbot.exceptions;
 
+/**
+ * Class that represents an exception due to insufficient access to the data file.
+ */
 public class FilePermissionException extends LocalFileException {
     private String filePath;
 

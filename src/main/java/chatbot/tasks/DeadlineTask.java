@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 
-
+/**
+ * Class that represents a deadline task scheduled by user.
+ */
 public class DeadlineTask extends Task {
     private static String type = "D";
     private LocalDate deadline;

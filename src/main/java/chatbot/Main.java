@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Main class that represents the main application process, which coordinates ChatBot and GUI.
+ */
 public class Main extends Application {
     private ChatBot chatBot = new ChatBot();
 
