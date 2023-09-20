@@ -1,9 +1,9 @@
-# User Guide
+# User Guide for Bloop Bloop 🐳
 
 ## Project ~~Duke~~ Bloop
-This is a project template for a greenfield Java project.
-It's named after my favourite whale shark called Bloop 🐳😄.
-Given below are instructions on how to use it.
+This is a project template for a greenfield Java project.<br>
+It's named after my favourite whale shark called Bloop 🐳😄.<br>
+Given below are instructions on how to use it.<br>
 
 Hello from
 ```
