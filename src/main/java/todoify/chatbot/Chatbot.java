@@ -29,6 +29,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     private final String name;
     private final ArrayList<ChatMessage> convoList;
     private final TaskManager taskManager;
+    private final ChatCommandExecutor commandExecutor;
     private boolean isClosed;
 
 
@@ -43,6 +44,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         this.name = name == null ? DEFAULT_NAME : name;
         this.convoList = new ArrayList<>();
         this.taskManager = taskManager == null ? new TaskManager() : taskManager;
+        this.commandExecutor = new ChatCommandExecutor(this);
         this.isClosed = true;
     }
 
@@ -82,8 +84,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
         this.isClosed = false;
 
-        this.sendMessage(
-                ChatMessage.SenderType.CHATBOT,
+        this.sendMessageToUser(
                 String.format("Hello! I'm %s, your friendly task helper.", this.name)
         );
 
@@ -92,21 +93,20 @@ public class Chatbot extends EventEmitter<ChatMessage> {
 
             // If successful, prompt about current state.
             if (this.taskManager.getTaskCount() > 0) {
-                this.sendMessage(
-                        ChatMessage.SenderType.CHATBOT,
+                this.sendMessageToUser(
                         String.format("You've %d tasks in your list right now! :)", this.taskManager.getTaskCount())
                 );
             } else {
-                this.sendMessage(ChatMessage.SenderType.CHATBOT, "You have no tasks right now! :)");
+                this.sendMessageToUser("You have no tasks right now! :)");
             }
 
         } catch (FileNotFoundException e) {
             // Do nothing.
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, "You have no tasks right now! :)");
+            this.sendMessageToUser("You have no tasks right now! :)");
 
         } catch (IOException e) {
             // Warn about the error.
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
+            this.sendMessageToUser(String.format(
                     "Sorry, I couldn't load your tasks.\nThe error was: [%s] %s\n"
                             + "I'll be starting from a blank slate instead.",
                     e.getClass().getSimpleName(),
@@ -114,7 +114,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             ));
         }
 
-        this.sendMessage(ChatMessage.SenderType.CHATBOT, "What can I do for you?");
+        this.sendMessageToUser("What can I do for you?");
     }
 
     /**
@@ -125,7 +125,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             return;
         }
         this.isClosed = true;
-        this.sendMessage(ChatMessage.SenderType.CHATBOT, "Bye! Hope to see you again soon! ^-^");
+        this.sendMessageToUser("Bye! Hope to see you again soon! ^-^");
     }
 
     /**
@@ -146,8 +146,11 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         return this.isClosed;
     }
 
+
+
+
     /**
-     * Method to send a message to the chatbot from the user.
+     * Sends a message to the chatbot from the user.
      *
      * @param message The message string to send.
      * @return The resulting message sent.
@@ -162,7 +165,7 @@ public class Chatbot extends EventEmitter<ChatMessage> {
     }
 
     /**
-     * Method to send a message to the user from the chatbot.
+     * Sends a message to the user from the chatbot.
      *
      * <p>
      * Note that sending as the chatbot may only be invoked from within the chatbot package, and is allowed to bypass
@@ -172,13 +175,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      * @param message The message string to send.
      * @return The resulting message sent.
      */
-    ChatMessage sendMessageFromChatbot(String message) {
+    ChatMessage sendMessageToUser(String message) {
         return this.sendMessage(ChatMessage.SenderType.CHATBOT, message);
     }
 
-
     /**
-     * Internal method to send a message.
+     * Sends a message with the given sender.
      *
      * @param message The message to send.
      * @return The resulting message sent.
@@ -190,35 +192,38 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         return msg;
     }
 
+
+
+
     /**
-     * Internal method to process newly received messages.
+     * Processes the message. Used for processing new messages as they are delivered.
      *
      * @param message The message to process.
      */
     private void processMessage(ChatMessage message) {
-        // Let's notify the listeners.
+        // We need to notify the listeners for every message.
         this.fireEvent(message);
 
+        // Self messages need no further processing.
         if (message.getSenderType() == ChatMessage.SenderType.CHATBOT) {
-            // For now, self messages need no further processing.
             return;
         }
 
-        // Let's see what the other users send!
-        final ChatCommand command = ChatCommand.parse(message.getMessage());
-        this.processCommand(command);
+        // User's messages are commands. Process them appropriately.
+        this.processCommand(
+                ChatCommand.parse(message.getMessage())
+        );
     }
 
-
     /**
-     * Internal method to process newly received commands.
+     * Processes a chat command. Used for processing newly received commands.
      *
      * @param chatCommand The command to process.
      */
     private void processCommand(ChatCommand chatCommand) {
         try {
             // Execute the command in question.
-            new ChatCommandExecutor(this).execute(chatCommand);
+            this.commandExecutor.execute(chatCommand);
 
             // Save any updates if necessary.
             if (chatCommand.getOperation().isWriteOperation()) {
@@ -226,31 +231,54 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             }
 
         } catch (ChatbotCommandException e) {
-            // All errors related to command processing will be caught here, and should be shown to the user.
-            this.sendMessageFromChatbot("Oops! " + e.getLocalizedMessage());
+            this.processCommandError(e);
 
         } catch (IOException e) {
-            // Upon failure, let the user know.
-            this.sendMessageFromChatbot(
-                    "Oops! I'm having problems saving your data to storage. Your data may not be preserved."
-                            + String.format(
-                            "The error was: [%s] %s",
-                            e.getClass().getSimpleName(),
-                            e.getLocalizedMessage()
-                    )
-            );
+            this.processSaveError(e);
 
         } catch (Exception e) {
-            // Any other exceptions are errors unrelated to the command itself. In this case, let the user know anyway.
-            e.printStackTrace();
-            this.sendMessageFromChatbot(String.format(
-                    "Oh no, something's wrong! [%s] %s",
-                    e.getClass().getSimpleName(),
-                    e.getLocalizedMessage()
-            ));
+            this.processUnknownInternalError(e);
 
         }
     }
 
+    /**
+     * Processes the received exception as a command processing error.
+     *
+     * @param e The exception received.
+     */
+    private void processCommandError(ChatbotCommandException e) {
+        this.sendMessageToUser("Oops! " + e.getLocalizedMessage());
+    }
+
+    /**
+     * Processes the received exception as a save-to-disk error.
+     *
+     * @param e The exception received.
+     */
+    private void processSaveError(IOException e) {
+        this.sendMessageToUser(
+                "Oops! I'm having problems saving your data to storage. Your data may not be preserved."
+                        + String.format(
+                        "The error was: [%s] %s",
+                        e.getClass().getSimpleName(),
+                        e.getLocalizedMessage()
+                )
+        );
+    }
+
+    /**
+     * Processes the received exception as an unknown internal error.
+     *
+     * @param e The exception received.
+     */
+    private void processUnknownInternalError(Exception e) {
+        e.printStackTrace();
+        this.sendMessageToUser(String.format(
+                "Oh no, something's wrong! [%s] %s",
+                e.getClass().getSimpleName(),
+                e.getLocalizedMessage()
+        ));
+    }
 
 }

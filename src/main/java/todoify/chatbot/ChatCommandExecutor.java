@@ -248,7 +248,7 @@ class ChatCommandExecutor {
         var task = new Todo(taskTitle);
         this.taskManager.addTask(task);
 
-        this.chatbot.sendMessageFromChatbot(String.format(
+        this.chatbot.sendMessageToUser(String.format(
                 "Got it. I've added this todo:\n  %s\nYou have %d tasks in your list now! :)",
                 task,
                 this.taskManager.getTaskCount()
@@ -262,7 +262,7 @@ class ChatCommandExecutor {
         var task = new Deadline(taskTitle, taskDates.get("by"));
         this.taskManager.addTask(task);
 
-        this.chatbot.sendMessageFromChatbot(String.format(
+        this.chatbot.sendMessageToUser(String.format(
                 "Got it. I've added this deadline:\n  %s\nYou have %d tasks in your list now! :)",
                 task,
                 this.taskManager.getTaskCount()
@@ -276,7 +276,7 @@ class ChatCommandExecutor {
         var task = new Event(taskTitle, taskDates.get("from"), taskDates.get("to"));
         this.taskManager.addTask(task);
 
-        this.chatbot.sendMessageFromChatbot(String.format(
+        this.chatbot.sendMessageToUser(String.format(
                 "Got it. I've added this event:\n  %s\nYou have %d tasks in your list now! :)",
                 task,
                 this.taskManager.getTaskCount()
@@ -299,11 +299,11 @@ class ChatCommandExecutor {
 
         // Send an update to the user.
         if (isCompleted) {
-            this.chatbot.sendMessageFromChatbot(
+            this.chatbot.sendMessageToUser(
                     String.format("Nice! I've marked this task as done:\n   %s", task)
             );
         } else {
-            this.chatbot.sendMessageFromChatbot(
+            this.chatbot.sendMessageToUser(
                     String.format("OK, I've marked this task as not done yet:\n   %s", task)
             );
         }
@@ -315,7 +315,7 @@ class ChatCommandExecutor {
         this.taskManager.removeTask(indexTaskPair.getKey());
 
         // Send an update to the user.
-        this.chatbot.sendMessageFromChatbot(String.format(
+        this.chatbot.sendMessageToUser(String.format(
                 "Alright, I've deleted this task:\n   %s\nYou're left with %d tasks now! :)",
                 indexTaskPair.getValue(),
                 this.taskManager.getTaskCount()
@@ -341,7 +341,7 @@ class ChatCommandExecutor {
         ));
 
         // Send the message to the user.
-        this.chatbot.sendMessageFromChatbot(builder.toString());
+        this.chatbot.sendMessageToUser(builder.toString());
     }
 
     private void processSearch(ChatCommand command) throws ChatbotCommandException {
@@ -366,7 +366,7 @@ class ChatCommandExecutor {
         builder.append("\nThat's it!");
 
         // Send the results to the user.
-        this.chatbot.sendMessageFromChatbot(builder.toString());
+        this.chatbot.sendMessageToUser(builder.toString());
     }
 
     private void processHelp(ChatCommand command) throws ChatbotCommandException {
@@ -412,8 +412,8 @@ class ChatCommandExecutor {
                         + "https://wxwern.github.io/ip/";
 
         // Send the messages to the user.
-        this.chatbot.sendMessageFromChatbot(primaryMessage);
-        this.chatbot.sendMessageFromChatbot(footerMessage);
+        this.chatbot.sendMessageToUser(primaryMessage);
+        this.chatbot.sendMessageToUser(footerMessage);
     }
 
     private void processExit(ChatCommand command) throws ChatbotCommandException {
