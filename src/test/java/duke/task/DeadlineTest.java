@@ -13,11 +13,11 @@ public class DeadlineTest {
 
     @Test
     public void testUnmarkTodo() {
-        assertEquals(false, deadline.markTask(), "Unmarking deadline should work");
+        assertEquals(false, deadline.unmarkTask(), "Unmarking deadline should work");
     }
 
     @Test
     public void testToString() {
-        assertEquals("[D][ ] task (by: 11/11/2002 11:00)", deadline.toString(), "deadline.toString() should work");
+        assertEquals("[D][ ] task (by: 11/11/2002 11:11)", deadline.toString(), "deadline.toString() should work");
     }
 }

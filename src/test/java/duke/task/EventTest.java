@@ -13,7 +13,7 @@ public class EventTest {
 
     @Test
     public void testUnmarkTodo() {
-        assertEquals(false, event.markTask(), "Unmarking event should work");
+        assertEquals(false, event.unmarkTask(), "Unmarking event should work");
     }
 
     @Test
