@@ -54,6 +54,9 @@ public class Parser {
         case unmark:
             return new UnmarkCommand(Integer.parseInt(secondWord));
         case todo:
+            if (secondWord.isEmpty()) {
+                throw new DukeException("Oops! The description of a todo cannot be empty.");
+            }
             return new AddToDoCommand(secondWord);
         case deadline:
             if (secondWord.contains(" /by ")) {
