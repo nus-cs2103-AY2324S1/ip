@@ -29,7 +29,7 @@ Hello from
 - [ ] Stay tuned for more!!😄
 
 # SneakPeek
-"![alt text](Ui.png)"
+![alt text](Ui.png)
 
 # Commands & Uses (At a Glance 👀)
 
