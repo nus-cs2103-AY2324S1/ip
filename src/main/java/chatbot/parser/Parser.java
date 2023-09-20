@@ -73,6 +73,8 @@ public class Parser {
             return new UnmarkCommand(Integer.parseInt(command.split(" ")[1].trim()));
         } else if (command.split(" ")[0].equals("find")) {
             return new FindCommand(command.split(" ")[1]);
+        } else if (command.split(" ")[0].equals("help")){
+            return new HelpCommand();
         } else {
             return new InvalidCommand();
         }
