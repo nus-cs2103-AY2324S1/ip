@@ -28,7 +28,7 @@ public abstract class Task {
     public void markAsDone(boolean willDisplayMessage, Ui ui) {
         this.isDone = true;
         if (willDisplayMessage) {
-            ui.printMessage("\nNice! I've marked this task as done:\n  " + this + "\n");
+            ui.printMessage("Nice! I've marked this task as done:\n  " + this + "\n");
         }
     }
 
@@ -40,7 +40,7 @@ public abstract class Task {
     public void unmarkAsDone(boolean willDisplayMessage, Ui ui) {
         this.isDone = false;
         if (willDisplayMessage) {
-            System.out.println("\nNice! I've unmarked this task as done:\n  " + this + "\n");
+            ui.printMessage("Nice! I've unmarked this task as done:\n  " + this + "\n");
         }
     }
 

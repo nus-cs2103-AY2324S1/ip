@@ -159,7 +159,7 @@ public class TaskList {
                 .collect(Collectors.toList());
 
         if (foundTasks.isEmpty()) {
-            ui.printMessage("\nNo matching tasks found.");
+            ui.printMessage("No matching tasks found.");
             return;
         }
 

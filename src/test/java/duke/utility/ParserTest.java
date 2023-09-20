@@ -73,10 +73,17 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseInt() {
-        assertEquals(42, Parser.parseInt("42"));
+    public void testValidateTaskNumberInput() {
+        try {
+            int result = Parser.validateTaskNumberInput("mark 1");
+            assertEquals(1, result);
+        } catch (DukeException e) {
+            fail("Unexpected DukeException thrown.");
+        }
 
-        assertEquals(-1, Parser.parseInt("not_a_number"));
+        assertThrows(DukeException.class, () -> {
+            Parser.validateTaskNumberInput("mark a");
+        });
     }
 }
 

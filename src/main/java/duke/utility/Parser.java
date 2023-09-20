@@ -32,10 +32,10 @@ public class Parser {
                 String queryParam = Parser.validateListCommand(input);
                 return new ListCommand(queryParam);
             case "mark":
-                int markTaskNumber = Parser.parseInt(inputArr[1]);
+                int markTaskNumber = Parser.validateTaskNumberInput(input);
                 return new MarkCommand(markTaskNumber);
             case "unmark":
-                int unmarkTaskNumber = Parser.parseInt(inputArr[1]);
+                int unmarkTaskNumber = Parser.validateTaskNumberInput(input);
                 return new UnmarkCommand(unmarkTaskNumber);
             case "todo":
                 String todoDescription = Parser.validateToDoCommand(input);
@@ -47,7 +47,7 @@ public class Parser {
                 String eventDescription = Parser.validateEventCommand(input);
                 return new AddCommand(eventDescription);
             case "delete":
-                int deleteTaskNumber = Parser.parseInt(inputArr[1]);
+                int deleteTaskNumber = Parser.validateTaskNumberInput(input);
                 return new DeleteCommand(deleteTaskNumber);
             case "find":
                 String keyword = input.replace("find", "").trim();
@@ -115,7 +115,7 @@ public class Parser {
 
         if (DateParser.isInvalidDateTime(by)) {
             throw new DukeException("☹ OOPS!!! The format of the date time is invalid. "
-                    + "Format: YYYY-MM-DD HH:MM");
+                    + "Format: dd-MM-yyyy HH:mm");
         }
 
         return input.replace("deadline", "");
@@ -164,7 +164,7 @@ public class Parser {
 
         if (DateParser.isInvalidDateTime(from) || DateParser.isInvalidDateTime(to)) {
             throw new DukeException("☹ OOPS!!! The format of the date time is invalid. "
-                    + "Format: YYYY-MM-DD HH:MM");
+                    + "Format: dd-MM-yyyy HH:mm");
         }
 
         return input.replace("event", "");
@@ -176,12 +176,11 @@ public class Parser {
      * @param input The string to be parsed.
      * @return The parsed integer, or -1 if parsing fails.
      */
-    public static int parseInt(String input) {
+    private static int parseInt(String input) throws DukeException{
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            System.out.println("☹ OOPS!!! Please enter a valid number");
-            return -1;
+            throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
     }
 
@@ -215,4 +214,15 @@ public class Parser {
 
         return description[1] + " " + description[2];
     }
+
+    public static int validateTaskNumberInput (String input) throws DukeException {
+        assert input != null : "Input should not be null";
+        String[] inputArr = input.split(" ");
+        if (inputArr.length == 1) {
+            throw new DukeException("☹ OOPS!!! The task number is invalid.");
+        }
+        return Parser.parseInt(inputArr[1]);
+    }
 }
+
+
