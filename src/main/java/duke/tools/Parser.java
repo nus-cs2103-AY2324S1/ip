@@ -24,7 +24,7 @@ public class Parser {
      * Represents the different commands accepted by the chatbot.
      */
     public enum Operations {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, CHECK, FIND;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, CHECK, FIND, ERROR;
 
         static {
             for (Operations op : values()) {
@@ -34,6 +34,8 @@ public class Parser {
         }
 
     }
+
+    private static final String UNKNOWN_COMMAND_REPLY = "I do not recognise the command...";
 
     private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
             .appendPattern("yyyy-MM-dd")
@@ -55,7 +57,13 @@ public class Parser {
         // Use Regex to extract the first word even with preceding whitespace
         String op = fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase();
 
-        Operations command = Operations.valueOf(op);
+        Operations command;
+        try {
+            command = Operations.valueOf(op);
+
+        } catch (IllegalArgumentException e) {
+            command = Operations.ERROR;
+        }
 
 
         switch (command) {

@@ -48,7 +48,6 @@ public class AddCommand extends Command {
 
         // Remove all words except the command
         String op = fullCommand.replaceAll("^\\W*\\b(\\w+).*", "$1").toUpperCase();
-
         Parser.Operations operation = Parser.Operations.valueOf(op);
 
         Task task;
