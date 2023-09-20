@@ -1,6 +1,6 @@
 # DuckBot User Guide
 
-<body style="background-color: black; color: white; font-family: Arial, sans-serif; padding: 20px;">
+<body style="background-color: black; color: white; font-family: Arial, sans-serif; padding: 20px;"> </body>
 
 ## <font color = "darkgrey"> Introduction </font>
 
@@ -279,7 +279,7 @@ Exits the application with a message.
 Bye. Hope to see you agaon soon!
 
 ```
-</body>
+
 
 
 
