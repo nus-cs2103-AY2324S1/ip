@@ -31,12 +31,15 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        assert userImage != null : "User display image should not be null.";
+        assert dudeImage != null : "Dude display image should not be null.";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     public void setDude(Dude d) {
         dude = d;
         String firstMsg = dude.initialize();
+        assert dude != null : "Dude instance should not be null.";
         dialogContainer.getChildren().addAll(
                 DialogBox.getDudeDialog(firstMsg, dudeImage)
         );
