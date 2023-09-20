@@ -22,7 +22,8 @@ public class UpdateCommand extends Command {
             + "** Description can be updated for all tasks type, however,\n"
             + "   date can only be updated for deadline and event tasks"
             + "     and start and end can only be updated for event task!\n"
-            + "Date format: YYYY-MM-DD\n" + "Time format: HH(AM/PM)";
+            + "Date format: YYYY-MM-DD\n" + "Time format: HH(AM/PM)"
+            + "Example: update 1 description party";
     private static final String MESSAGE_SUCCESS = "I've updated the %s!\n %s";
     private static final String INVALID_UPDATE_INFO = "Unable to update info. Please check the given instructions";
     private static final Pattern DATE_FORMAT =

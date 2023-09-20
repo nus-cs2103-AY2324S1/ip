@@ -11,7 +11,7 @@ public class ToDoCommand extends Command {
     // Adapted from
     // https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/AddCommand.java
     public static final String COMMAND_WORD = "todo";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a ToDo task to the task list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a ToDo task to the task list.\n"
             + "Parameters: Description\n"
             + "Example: " + COMMAND_WORD + " homework";
     private static final String MESSAGE_SUCCESS = "Got it. I've added this task: \n %1$s \n";

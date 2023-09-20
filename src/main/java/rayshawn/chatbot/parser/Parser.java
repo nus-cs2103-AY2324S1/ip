@@ -187,7 +187,7 @@ public class Parser {
         }
 
         try {
-            return new FindCommand(matcher.group("description"));
+            return new FindCommand(matcher.group("keywords"));
         } catch (ChatBotException e) {
             return new IncorrectCommand(e.getMessage());
         }

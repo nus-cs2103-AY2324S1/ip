@@ -15,6 +15,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose description contain any of "
             + "the specific keywords (case-sensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: Description \n"
             + "Example: " + COMMAND_WORD + " homework";
 
     private static final String MESSAGE_FAILED = "You have no tasks with the keyword: ";

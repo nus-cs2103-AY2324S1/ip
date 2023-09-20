@@ -1,5 +1,6 @@
 package rayshawn.chatbot.storage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -72,6 +73,8 @@ public class Storage {
      */
     public TaskList loadTasks() throws StorageOperationException {
         if (!Files.exists(path) || !Files.isRegularFile(path)) {
+            createDirectory();
+
             return new TaskList();
         }
 
@@ -83,6 +86,27 @@ public class Storage {
             throw new StorageOperationException("Error writing to file: " + path);
         } catch (ChatBotException e) {
             throw new StorageOperationException("File contains illegal data values; data type constraints not met");
+        }
+    }
+
+    private void createDirectory() {
+        File f = new File("./data");
+        if (!hasDirectory()) {
+            f.mkdir();
+        }
+    }
+
+    private boolean hasDirectory() {
+        File f = new File("./data");
+        return f.exists() && f.isDirectory();
+    }
+    private void createTaskList() throws ChatBotException {
+        File f = new File(DEFAULT_STORAGE_FILEPATH);
+        try {
+            f.createNewFile();
+        } catch (IOException e) {
+            throw new ChatBotException("It seems that I can't create the tasklist for you. "
+                    + "Please add the file manually!");
         }
     }
 
