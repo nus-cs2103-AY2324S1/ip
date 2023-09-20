@@ -16,6 +16,7 @@ public class Message {
 
     public static final String MESSAGE_EMPTY_ARGUMENT = "It seems that your command is incomplete. "
             + "What do you want to say?";
+    public static final String MESSAGE_INVALID_DATETIME_FORMAT = "Please specify the date and tine in given format.";
     public static final String MESSAGE_INVALID_TASK_INDEX = "The task index seems to be invalid."
             + "Double check and try it again!";
 }

@@ -7,6 +7,7 @@ import slay.task.Deadline;
 import slay.task.Event;
 import slay.task.ToDo;
 
+import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -76,6 +77,8 @@ public class Parser {
             }
         } catch (EmptyArgumentException e) {
             return new IncorrectCommand(Message.MESSAGE_EMPTY_ARGUMENT);
+        } catch (DateTimeParseException e) {
+            return new IncorrectCommand(Message.MESSAGE_INVALID_DATETIME_FORMAT);
         }
     }
 
@@ -98,7 +101,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args) {
+    private Command prepareAdd(String args) throws DateTimeParseException {
         try {
             final Matcher matcher = TASK_ARGS_FORMAT.matcher(args.trim());
             if (!matcher.matches()) {

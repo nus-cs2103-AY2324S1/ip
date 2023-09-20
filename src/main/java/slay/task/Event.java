@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents Event Task.
@@ -14,7 +15,7 @@ public class Event extends Task {
     protected LocalDateTime to;
 
     public Event(String description, String fromDateString, String fromTimeString,
-                 String toDateString, String toTimeString) {
+                 String toDateString, String toTimeString) throws DateTimeParseException {
         super(description);
 
         LocalDate fromDate = LocalDate.parse(fromDateString);
@@ -30,7 +31,7 @@ public class Event extends Task {
     }
 
     public Event(Boolean isDone, String description,
-                 String fromDateTimeString, String toDateTimeString) {
+                 String fromDateTimeString, String toDateTimeString) throws DateTimeParseException {
         super(description, isDone);
 
         LocalDateTime from = LocalDateTime.parse(fromDateTimeString);
