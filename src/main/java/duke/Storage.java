@@ -87,11 +87,26 @@ public class Storage {
         }
     }
 
+    /**
+     * Updates the given `TaskList` with a new list of tasks.
+     *
+     * @param taskList     The `TaskList` to update with the new list of tasks.
+     * @param loadedTasks  The list of tasks to replace the current tasks in `taskList`.
+     */
     private void updateTaskList(TaskList taskList, List<Task> loadedTasks) {
         taskList.getTasks().clear();
         taskList.getTasks().addAll(loadedTasks);
     }
 
+    /**
+     * Creates a new `Task` object based on the task type, description, and parts.
+     *
+     * @param taskType        The type of the task (e.g., "T" for Todo, "D" for Deadline).
+     * @param taskDescription The description of the task.
+     * @param parts           An array containing task details.
+     * @return A new `Task` object representing the parsed task.
+     * @throws DukeException If the task format is invalid.
+     */
     private Task createTask(String taskType, String taskDescription, String[] parts) throws DukeException {
         Task task;
 
@@ -107,7 +122,6 @@ public class Storage {
         } else {
             throw new DukeException("Invalid task format.");
         }
-
         return task;
     }
 
@@ -186,7 +200,6 @@ public class Storage {
                 position += line.length() + System.lineSeparator().length();
                 currentLine++;
             }
-
             file.seek(position);
             file.writeBytes(updatedContent);
 

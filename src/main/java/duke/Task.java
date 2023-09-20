@@ -135,7 +135,9 @@ public class Task {
     }
 
     /**
-     * Prints the list of tasks.
+     * Formats the list of tasks into a human-readable string.
+     *
+     * @return A formatted string containing the tasks in the list.
      */
     public String formatList() {
         StringBuilder formattedList = new StringBuilder();
@@ -171,15 +173,18 @@ public class Task {
     }
 
     /**
-     * Marks a task as done by its index, updates its status,
-     * and writes the change to the file.
+     * Marks a task as done in the task list and updates
+     * the storage file accordingly.
      *
-     * @param i The index of the task to mark as done.
-     * @throws DukeException If the index is invalid.
+     * @param i The index of the task to be marked as done.
+     * @return A message confirming the task's status change.
+     * @throws DukeException If the provided index is invalid.
      */
     public String mark(int i) throws DukeException {
         if (i > Duke.taskList.getTasks().size() || i <= 0) {
-            throw new DukeException(Ui.horizontalLine + "OOPS!!! Invalid number :(\n" + Ui.horizontalLine);
+            throw new DukeException(Ui.horizontalLine
+                    + "OOPS!!! Invalid number :(\n"
+                    + Ui.horizontalLine);
         }
         Task markTask = Duke.taskList.getTasks().get(i - 1);
         markTask.status = TaskStatus.DONE;
@@ -189,7 +194,6 @@ public class Task {
 
         return (Ui.horizontalLine + "Nice! I've marked this task as done:\n"
                 + markTask.toString() + "\n" + Ui.horizontalLine);
-
     }
 
     /**
@@ -199,23 +203,23 @@ public class Task {
         this.status = TaskStatus.DONE;
     }
 
-    public void unmark() {
-        this.status = TaskStatus.NOT_DONE;
-    }
-
-    public void delete() {
-        Duke.taskList.deleteTask(this); // Remove the task from the list
-    }
-
+    /**
+     * Checks if the current task contains the specified keyword.
+     *
+     * @param keyword The keyword to search for within the task.
+     * @return {@code true} if the task contains the keyword,
+     * {@code false} otherwise.
+     */
     public boolean contains(String keyword) {
         return task.contains(keyword);
     }
 
     /**
-     * Marks a task as not done by index and updates it in the file.
+     * Unmarks a task as done by changing its status to "not done."
      *
-     * @param i The index of the task to mark as not done.
-     * @throws DukeException If the index is invalid.
+     * @param i The index of the task in the list to unmark.
+     * @return A string confirming the task's status change.
+     * @throws DukeException If the provided index is invalid.
      */
     public String unmark(int i) throws DukeException {
         if (i > Duke.taskList.getTasks().size() || i <= 0) {
@@ -231,10 +235,13 @@ public class Task {
     }
 
     /**
-     * Deletes a task by index, updates the task counter, and removes it from the file.
+     * Deletes a task from the task list and updates the
+     * storage file accordingly.
      *
-     * @param i The index of the task to delete.
-     * @throws DukeException If the index is invalid.
+     * @param i The index of the task to be deleted.
+     * @return A message confirming the deletion of the task and
+     * the current task count.
+     * @throws DukeException If the provided index is invalid.
      */
     public String delete(int i) throws DukeException {
         if (i > Duke.taskList.size() || i <= 0) {
