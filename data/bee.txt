@@ -1,6 +1,2 @@
-[T][ ] YOUR MOM
-[D][ ] YOUR DAD (by: Aug 30 2023 23:59)
-[T][ ] YOUR MOM
-[T][X] YOUR DADDY
-[T][ ] YOUR DAD
-[T][ ] finish IP 
+[T][ ] Print SFI2014 Essay
+[D][ ] Finalise IP Submission (by: Sep 22 2023 23:59)
