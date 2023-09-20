@@ -140,7 +140,7 @@ public class Ui {
         if (matchingTasks.isEmpty()) {
             return "There are no tasks in your list yet :O";
         } else {
-            String msg = "Here are the tasks with " + keyword + ":\n";
+            String msg = "Here are the tasks with " + "\"" + keyword + "\"" + ":\n";
             int i = 1;
             for (Task t : matchingTasks) {
                 msg += i + ". " + t;

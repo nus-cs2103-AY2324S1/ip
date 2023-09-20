@@ -29,7 +29,7 @@ public class Storage {
     }
 
     /**
-     * The method to write and save tasks from the task list into the file.
+     * Writes and save tasks from the task list into the file.
      *
      * @param taskList The task list to get the tasks from.
      */
