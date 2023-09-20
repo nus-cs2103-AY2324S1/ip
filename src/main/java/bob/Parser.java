@@ -129,6 +129,24 @@ public class Parser {
     }
 
     /**
+     * Checks if input is a valid date for LocalDate.
+     *
+     * @param input the input date.
+     * @return a boolean to show if the input is a valid date.
+     */
+    public boolean isValidDate(String input) {
+        char[] charArray = input.toCharArray();
+        if (charArray.length == 10 && Character.isDigit(charArray[0]) && Character.isDigit(charArray[1])
+                && Character.isDigit(charArray[2]) && Character.isDigit(charArray[3])
+                && Character.isDigit(charArray[5]) && Character.isDigit(charArray[6])
+                && Character.isDigit(charArray[8]) && Character.isDigit(charArray[9])
+                && charArray[4] == '-' && charArray[7] == '-') {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns the new due date of a Deadline.
      *
      * @param input the user input.

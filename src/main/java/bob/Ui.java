@@ -7,6 +7,7 @@ import bob.exceptions.BobEmptyTaskException;
 import bob.exceptions.BobException;
 import bob.exceptions.BobInvalidEventDateException;
 import bob.exceptions.BobInvalidInputException;
+import bob.exceptions.BobInvalidLocalDateException;
 import bob.exceptions.BobInvalidTaskException;
 import bob.tasks.Deadline;
 import bob.tasks.Event;
@@ -113,21 +114,25 @@ public class Ui {
             //get new due date, change due date, print new task
             String newDueDate = parser.getNewDueDate(input);
 
-            LocalDate d1 = LocalDate.parse(newDueDate);
-            ((Deadline) list.get(rescheduleNo - 1)).rescheduleDueDate(d1);
-
-            return printRescheduleMessage(list, rescheduleNo);
+            if (parser.isValidDate(newDueDate)) {
+                LocalDate d1 = LocalDate.parse(newDueDate);
+                ((Deadline) list.get(rescheduleNo - 1)).rescheduleDueDate(d1);
+                return printRescheduleMessage(list, rescheduleNo);
+            }
+            throw new BobInvalidLocalDateException();
         }
 
         if (list.get(rescheduleNo - 1) instanceof Event) {
             String newStartDate = parser.getNewStartDate(input);
             String newEndDate = parser.getNewEndDate(input);
 
-            LocalDate d1 = LocalDate.parse(newStartDate);
-            LocalDate d2 = LocalDate.parse(newEndDate);
-            ((Event) list.get(rescheduleNo - 1)).rescheduleEventDate(d1, d2);
-
-            return printRescheduleMessage(list, rescheduleNo);
+            if (parser.isValidDate(newStartDate) && parser.isValidDate(newEndDate)) {
+                LocalDate d1 = LocalDate.parse(newStartDate);
+                LocalDate d2 = LocalDate.parse(newEndDate);
+                ((Event) list.get(rescheduleNo - 1)).rescheduleEventDate(d1, d2);
+                return printRescheduleMessage(list, rescheduleNo);
+            }
+            throw new BobInvalidLocalDateException();
         }
 
         throw new BobInvalidInputException();
@@ -224,10 +229,13 @@ public class Ui {
 
         if (taskName.isBlank()) {
             throw new BobEmptyTaskException("deadline");
-        } else {
+        }
+        if (parser.isValidDate(dueDate)) {
             LocalDate d1 = LocalDate.parse(dueDate);
             Deadline thisTask = new Deadline(taskName, d1);
             return addTask(list, thisTask);
+        } else {
+            throw new BobInvalidLocalDateException();
         }
     }
 
@@ -262,13 +270,17 @@ public class Ui {
             throw new BobEmptyTaskException("event");
         }
 
-        LocalDate d1 = LocalDate.parse(startDate);
-        LocalDate d2 = LocalDate.parse(endDate);
-        if (d2.isBefore(d1)) {
-            throw new BobInvalidEventDateException();
+        if (parser.isValidDate(startDate) && parser.isValidDate(endDate)) {
+            LocalDate d1 = LocalDate.parse(startDate);
+            LocalDate d2 = LocalDate.parse(endDate);
+            if (d2.isBefore(d1)) {
+                throw new BobInvalidEventDateException();
+            }
+            Event thisTask = new Event(taskName, d1, d2);
+            return addTask(list, thisTask);
+        } else {
+            throw new BobInvalidLocalDateException();
         }
-        Event thisTask = new Event(taskName, d1, d2);
-        return addTask(list, thisTask);
     }
 
     /**
