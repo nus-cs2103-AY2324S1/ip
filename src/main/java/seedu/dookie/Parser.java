@@ -41,25 +41,25 @@ public class Parser {
 
             switch (taskType) {
                 case LIST:
-                    return getListItems();
+                    return new ListCommand(tasks, ui).execute();
                 case TODO:
-                    return parseToDoCommand(cmd);
+                    return new ToDoCommand(this, tasks, ui).execute(cmd);
                 case DEADLINE:
-                    return parseDeadlineCommand(cmd);
+                    return new DeadlineCommand(this, tasks, ui).execute(cmd);
                 case EVENT:
-                    return parseEventCommand(cmd);
+                    return new EventCommand(this, tasks, ui).execute(cmd);
                 case DELETE:
-                    return parseDeleteCommand(cmd);
+                    return new DeleteCommand(this, tasks, ui).execute(cmd);
                 case MARK:
-                    return parseMarkCommand(cmd);
+                    return new MarkCommand(this, tasks, ui).execute(cmd);
                 case UNMARK:
-                    return parseUnmarkCommand(cmd);
+                    return new UnmarkCommand(this, tasks, ui).execute(cmd);
                 case FIND:
-                    return parseFindCommand(cmd);
+                    return new FindCommand(this, tasks, ui).execute(cmd);
                 case POSTPONE:
-                    return parsePostponeCommand(cmd);
+                    return new PostponeCommand(this, tasks, ui).execute(cmd);
                 case BYE:
-                    return exit();
+                    return new ExitCommand(ui).execute();
             }
         } catch (DookieException e) {
             return e.getMessage();
@@ -87,268 +87,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Returns a string containing the current tasks.
-     *
-     * @return A string containing the current tasks.
-     */
-    private String getListItems() {
-        return ui.getListItemsString(tasks);
-    }
-
-    /**
-     * Executes the code corresponding to a ToDo command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the add task message.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     */
-    private String parseToDoCommand(String cmd) throws InvalidDescriptionException {
-        // Check if description is empty
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("todo");
-        }
-
-        String taskName = cmd.split(" ", 2)[1];
-        Task todo = new ToDo(taskName);
-        tasks.addTask(todo);
-        return ui.getAddTaskMessage(todo, tasks);
-    }
-
-    /**
-     * Executes the code corresponding to a Deadline command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the add task message.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     * @throws NoDeadlineException When there is no deadline specified.
-     * @throws InvalidDeadlineException When the deadline specified is not in the correct format.
-     */
-    private String parseDeadlineCommand(String cmd) throws InvalidDescriptionException,
-                                                            NoDeadlineException,
-                                                            InvalidDeadlineException {
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("deadline");
-        }
-
-        String taskWithDeadline = cmd.split(" ", 2)[1];
-
-        if (hasNoDeadline(taskWithDeadline)) {
-            throw new NoDeadlineException();
-        }
-
-        String taskName = taskWithDeadline.split("/", 2)[0];
-        String deadlineDescription = taskWithDeadline.split("/", 2)[1];
-
-        LocalDateTime dateTime = checkDeadline(deadlineDescription);
-        if (dateTime == null) {
-            throw new InvalidDeadlineException(deadlineDescription);
-        }
-        Task deadline = new Deadline(taskName, dateTime);
-        tasks.addTask(deadline);
-        return ui.getAddTaskMessage(deadline, tasks);
-    }
-
-    /**
-     * Executes the code corresponding to a Deadline command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the add task message.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     * @throws IncompleteDurationException When the duration is not correctly specified.
-     */
-    private String parseEventCommand(String cmd) throws InvalidDescriptionException,
-                                                        IncompleteDurationException {
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("event");
-        }
-
-        String taskWithDuration = cmd.split(" ", 2)[1];
-        String[] time = taskWithDuration.split("/");
-
-        // Check if there is a valid duration
-        if (time.length != 3) {
-            throw new IncompleteDurationException();
-        }
-
-        String taskName = time[0];
-        String starting = time[1];
-        String ending = time[2];
-
-        // Assumes that starting and ending both start with "from" and "to" respectively
-        Task event = new Event(taskName, checkStarting(starting), checkEnding(ending));
-        tasks.addTask(event);
-        return ui.getAddTaskMessage(event, tasks);
-    }
-
-    /**
-     * Executes the code corresponding to a delete command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the delete task message.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     * @throws InvalidIntegerException When the argument specified is not an integer.
-     * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
-     */
-    private String parseDeleteCommand(String cmd) throws InvalidDescriptionException,
-                                                            InvalidIntegerException,
-                                                            InvalidTaskNumberException,
-                                                            InvalidDataFormatException {
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("delete");
-        }
-
-        int taskNumber = -1;
-        String integer = cmd.split(" ", 2)[1];
-
-        try {
-            taskNumber = Integer.parseInt(integer);
-        } catch (Exception e) {
-            throw new InvalidIntegerException();
-        }
-
-        if (!isValidTaskNumber(taskNumber)) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
-
-        Task task = tasks.updateTasks(taskNumber - 1, "DELETE");
-        return ui.getDeleteTaskMessage(task, new TaskList(storage.load()));
-    }
-
-    /**
-     * Executes the code corresponding to a mark command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the mark task message.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     * @throws InvalidIntegerException When the argument specified is not an integer.
-     * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
-     */
-    private String parseMarkCommand(String cmd) throws InvalidDescriptionException,
-                                                        InvalidIntegerException,
-                                                        InvalidTaskNumberException,
-                                                        InvalidDataFormatException {
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("mark");
-        }
-
-        int taskNumber = -1;
-        String integer = cmd.split(" ", 2)[1];
-
-        try {
-            taskNumber = Integer.parseInt(integer);
-        } catch (Exception e) {
-            throw new InvalidIntegerException();
-        }
-
-        if (!isValidTaskNumber(taskNumber)) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
-
-        Task task = tasks.updateTasks(taskNumber - 1, "MARK");
-        return ui.getMarkedTaskMessage(task);
-    }
-
-    /**
-     * Executes the code corresponding to an unmark command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the unmark task message.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     * @throws InvalidIntegerException When the argument specified is not an integer.
-     * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
-     */
-    private String parseUnmarkCommand(String cmd) throws InvalidDescriptionException,
-                                                            InvalidIntegerException,
-                                                            InvalidTaskNumberException,
-                                                            InvalidDataFormatException {
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("unmark");
-        }
-
-        int taskNumber = -1;
-        String integer = cmd.split(" ", 2)[1];
-
-        try {
-            taskNumber = Integer.parseInt(integer);
-        } catch (Exception e) {
-            throw new InvalidIntegerException();
-        }
-
-        if (!isValidTaskNumber(taskNumber)) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
-
-        Task task = tasks.updateTasks(taskNumber - 1, "UNMARK");
-        return ui.getUnmarkedTaskMessage(task);
-    }
-
-    /**
-     * Executes the code corresponding to a find command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the found results.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     */
-    private String parseFindCommand(String cmd) throws InvalidDescriptionException {
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("find");
-        }
-
-        String keyword = cmd.split(" ", 2)[1];
-        ArrayList<Task> results = tasks.find(keyword);
-        return ui.getFindResults(results);
-    }
-
-    /**
-     * Returns a string containing the exit message.
-     *
-     * @return A string containing the exit message.
-     */
-    private String exit() {
-        return ui.getExitMessage();
-    }
-
-    /**
-     * Executes the code corresponding to a postpone command.
-     *
-     * @param cmd The user input.
-     * @return A string containing the postpone task message.
-     * @throws InvalidDescriptionException When there is only one word in the user input.
-     * @throws InvalidIntegerException When the argument specified is not an integer.
-     * @throws InvalidTaskNumberException When the integer specified is not a task number.
-     * @throws InvalidDataFormatException When the format dookie.txt file is incorrect.
-     * @throws NoDeadlineException When no new deadline is specified.
-     */
-    private String parsePostponeCommand(String cmd) throws InvalidDescriptionException,
-                                                            InvalidIntegerException,
-                                                            InvalidTaskNumberException,
-                                                            InvalidDataFormatException,
-                                                            NoDeadlineException {
-        if (descriptionIsEmpty(cmd)) {
-            throw new InvalidDescriptionException("postpone");
-        }
-
-        int taskNumber = -1;
-        String integer = cmd.split(" ", 3)[1];
-
-        try {
-            taskNumber = Integer.parseInt(integer);
-        } catch (Exception e) {
-            throw new InvalidIntegerException();
-        }
-
-        if (!isValidTaskNumber(taskNumber)) {
-            throw new InvalidTaskNumberException(taskNumber);
-        }
-
-        Task task = tasks.postponeTask(cmd,(taskNumber - 1));
-        return ui.getPostponeMessage(task);
-
-    }
 
     /**
      * Checks whether the task description has been specified.

@@ -34,7 +34,6 @@ public class Event extends Task {
 
     @Override
     public String getTimeInfo() {
-//        return "hi";
         // Format month in words
         DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH);
         String startMonthInWords = this.start.format(monthFormatter);
