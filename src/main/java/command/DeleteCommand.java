@@ -34,7 +34,7 @@ public class DeleteCommand extends Command {
             String taskRemoved = taskList.getTaskInString(taskToDeleteIndex);
             taskList.deleteTask(taskToDeleteIndex);
             storage.writeListToFile(taskList);
-            String s = String.format("Okay! I have removed the following task from the list:\n %s\n %s",
+            String s = String.format("Okay master! I have removed the following task from the list:\n %s\n %s",
                     taskRemoved, taskList.NumberOfTaskListInString());
             return s;
         } catch (IndexOutOfBoundsException e) {

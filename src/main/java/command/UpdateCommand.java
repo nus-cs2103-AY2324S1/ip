@@ -36,21 +36,21 @@ public class UpdateCommand extends Command {
             case "title":
                 taskList.getTask(index).editTitle(edit);
                 storage.writeListToFile(taskList);
-                return "Task title successfully updated";
+                return "Task title successfully updated cowboy!";
             case "deadline":
                 taskList.getTask(index).editDeadline(edit);
                 storage.writeListToFile(taskList);
-                return "Task deadline successfully updated";
+                return "Task deadline successfully updated cowboy!";
             case "start":
                 taskList.getTask(index).editStart(edit);
                 storage.writeListToFile(taskList);
-                return "Task start time successfully updated";
+                return "Task start time successfully updated cowboy!";
             case "end":
                 taskList.getTask(index).editEnd(edit);
                 storage.writeListToFile(taskList);
-                return "Task end time successfully updated";
+                return "Task end time successfully updated cowboy!";
             default:
-                return "Please check your inputs again!";
+                return "Please check your inputs again or I'll punish you!";
         }
 
     }

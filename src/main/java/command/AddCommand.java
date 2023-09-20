@@ -32,7 +32,7 @@ public class AddCommand extends Command {
     public String execute(TaskList taskList, Storage storage) {
         taskList.addTask(this.taskToAdd);
         storage.writeListToFile(taskList);
-        String s = String.format("Roger! I have added the following task to the list:\n %s\n %s",
+        String s = String.format("Yes daddy! I have added the following task to the list:\n %s\n %s",
                 this.taskToAdd.toString(), taskList.NumberOfTaskListInString());
         return s;
     }

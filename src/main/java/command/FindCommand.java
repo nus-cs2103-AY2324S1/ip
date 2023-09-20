@@ -27,7 +27,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage) {
         TaskList queryList = taskList.findTask(this.query);
-        String s = String.format("%s\n %d task(s) match your query",
+        String s = String.format("%s\n %d task(s) match your query, sexy!",
                 queryList.getListInString(), queryList.getLength());
         return s;
     }
