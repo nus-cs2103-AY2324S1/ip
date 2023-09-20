@@ -257,10 +257,10 @@ public class TaskList {
             throw new BrunoIntegerMismatchException(task);
         }
         if (Integer.parseInt(val) > size) {
-            throw new BrunoIndexOutOfBoundsException("note");
+            throw new BrunoIndexOutOfBoundsException(task);
         }
         if (Integer.parseInt(val) < 0) {
-            throw new BrunoNegativeArgException("note");
+            throw new BrunoNegativeArgException(task);
         }
     }
 
