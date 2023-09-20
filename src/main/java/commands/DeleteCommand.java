@@ -2,6 +2,7 @@ package commands;
 
 import functions.*;
 import tasks.*;
+import utilities.Messages;
 
 import java.io.IOException;
 
@@ -30,9 +31,13 @@ public class DeleteCommand extends Command {
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task t = tasks.deleteTask(num);
-        storage.saveFiles(tasks.showList());
-        return ui.showDeleteMsg(t, tasks.numOfTasks());
+        try {
+            Task t = tasks.deleteTask(num);
+            storage.saveFiles(tasks.showList());
+            return ui.showDeleteMsg(t, tasks.numOfTasks());
+        } catch (IndexOutOfBoundsException e) {
+            return ui.showErrorMsg(Messages.INVALID_NUMBER);
+        }
     }
 }
 

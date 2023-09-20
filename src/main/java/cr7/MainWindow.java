@@ -10,6 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
+import utilities.CR7EmptyInputException;
+import utilities.CR7Exception;
 
 /**
  * Controller for CR7.MainWindow. Provides the layout for the other controls.
@@ -49,7 +51,7 @@ public class MainWindow extends AnchorPane {
      */
     private void sendWelcomeMessage() {
         if (!isWelcomeMessageSent) {
-            String welcomeMsg = "Welcome to the chat! Type 'bye' to exit.\n";
+            String welcomeMsg = "Welcome to CR7! Type 'bye' to exit.\n";
             dialogContainer.getChildren().addAll(
                     DialogBox.getDukeDialog(welcomeMsg, dukeImage)
             );
@@ -62,7 +64,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws CR7Exception {
         String input = userInput.getText();
         if (input.equals("bye")) {
             String exitMsg = "Bye! Hope to see you again soon! SIUUUU\n";

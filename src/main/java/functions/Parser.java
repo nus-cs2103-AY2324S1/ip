@@ -9,6 +9,7 @@ import commands.ListCommand;
 import commands.MarkCommand;
 import commands.SearchCommand;
 import commands.UnmarkCommand;
+import utilities.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -68,93 +69,126 @@ public class Parser {
      * @param input The user input string.
      * @return A Command object representing the parsed command.
      */
-    public static Command parse(String input) {
-        String[] words = input.split(" ");
-        String first = words[0];
-        switch (first) {
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "delete":
-                int s = Integer.parseInt(words[1]);
-                return new DeleteCommand(s);
-            case "mark":
-                int sMark = Integer.parseInt(words[1]);
-                return new MarkCommand(sMark);
-            case "unmark":
-                int sUnmark = Integer.parseInt(words[1]);
-                return new UnmarkCommand(sUnmark);
-            case "find":
-                String search = words[1];
-                return new SearchCommand(search);
-            case "todo":
-                return handleToDo(input);
-            case "fixed":
-                return handleFixed(input);
-            case "deadline":
-                return handleDeadline(input);
-            case "event":
-                return handleEvent(input);
-            default:
-                return new ErrorCommand("I'm sorry, but I don't know what that means :(\n");
+    public static Command parse(String input) throws IndexOutOfBoundsException {
+        try {
+            String[] words = input.split(" ");
+            String first = words[0];
+            switch (first) {
+                case "bye":
+                    return new ExitCommand();
+                case "list":
+                    return new ListCommand();
+                case "delete":
+                    int s = checkIndex(words);
+                    return new DeleteCommand(s);
+                case "mark":
+                    int sMark = checkIndex(words);
+                    return new MarkCommand(sMark);
+                case "unmark":
+                    int sUnmark = checkIndex(words);
+                    return new UnmarkCommand(sUnmark);
+                case "find":
+                    return handleSearch(input);
+                case "todo":
+                    return handleToDo(input);
+                case "fixed":
+                    return handleFixed(input);
+                case "deadline":
+                    return handleDeadline(input);
+                case "event":
+                    return handleEvent(input);
+                default:
+                    throw new CR7InvalidCommandException(Messages.WRONG_COMMAND);
+            }
+        } catch (CR7Exception e) {
+            return new ErrorCommand(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            return new ErrorCommand(Messages.INVALID_NUMBER);
         }
     }
 
-    private static Command handleToDo(String input) {
+    private static int checkIndex(String[] words) throws CR7Exception{
+        try {
+            return Integer.parseInt(words[1]);
+        } catch (NumberFormatException e) {
+            throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
+        }
+    }
+
+    private static Command handleToDo(String input) throws CR7Exception {
         if (input.length() <= 5) {
-            return new ErrorCommand("The description of a task cannot be empty.\n");
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
         }
         String todoDesc = input.substring(5);
         return new AddCommand(todoDesc);
     }
 
-    private static Command handleFixed(String input) {
-        if (input.length() <= 6) {
-            return new ErrorCommand("The description of a task cannot be empty.\n");
+    private static Command handleSearch(String input) throws CR7Exception {
+        if (input.length() <= 5) {
+            throw new CR7EmptyInputException(Messages.EMPTY_SEARCH);
         }
-        int y = input.indexOf("/for ");
-        if (y == -1) {
-            return new ErrorCommand("Please enter the duration of the task in the correct format.\n");
+        String desc = input.substring(5);
+        if (desc.isBlank()) {
+            throw new CR7EmptyInputException(Messages.EMPTY_SEARCH);
         }
-        String fixedDesc = input.substring(6, y - 1);
-        String duration = input.substring(y + 5);
-        return new AddCommand(fixedDesc, duration);
+        return new SearchCommand(desc);
     }
 
-    private static Command handleDeadline(String input) {
+    private static Command handleFixed(String input) throws CR7Exception {
+        if (input.length() <= 6) {
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
+        }
+        int y = input.indexOf("/for ");
+        if (y == -1 || y <= 8) {
+            throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
+        }
+        String desc = input.substring(6, y - 1);
+        String duration = input.substring(y + 5);
+        if (desc.isBlank() || duration.isBlank()) {
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
+        }
+        return new AddCommand(desc, duration);
+    }
+
+    private static Command handleDeadline(String input) throws CR7Exception {
         if (input.length() <= 9) {
-            return new ErrorCommand("The description of a task cannot be empty.\n");
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
         }
         int z = input.indexOf("/by ");
-        if (z == -1) {
-            return new ErrorCommand("Please enter the deadline of the task in the correct format.\n");
+        if (z == -1 || z <= 11) {
+            throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
         String desc = input.substring(9, z - 1);
+        if (desc.isBlank()) {
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
+        }
         String d = input.substring(z + 4);
         LocalDateTime date = parseDate(d);
         if (date == null) {
-            return new ErrorCommand("PLease enter the date and time in the correct format. \n");
+            throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
         return new AddCommand(desc, date);
     }
 
-    public static Command handleEvent(String input) {
+    public static Command handleEvent(String input) throws CR7Exception {
         if (input.length() <= 6) {
-            return new ErrorCommand("The description of a task cannot be empty.\n");
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
         }
         int fromIndex = input.indexOf("/from ");
         int toIndex = input.indexOf("/to ");
-        if (fromIndex == -1 || toIndex == -1) {
-            return new ErrorCommand("Please enter the start and end time of the task in the correct format.\n");
+        if (fromIndex == -1 || fromIndex <= 8 || toIndex == -1 || fromIndex < toIndex) {
+            throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
-        String name = input.substring(6, input.indexOf("/") - 1);
+        String name = input.substring(6, input.indexOf("/from ") - 1);
+        if (name.isBlank()) {
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
+        }
         String g = input.substring(fromIndex + 6, toIndex).trim();
         String e = input.substring(toIndex + 4).trim();
         LocalDateTime start = parseDate(g);
         LocalDateTime end = parseDate(e);
         if (start == null || end == null) {
-            return new ErrorCommand("PLease enter the date and time in the correct format. \n");
+            throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
         return new AddCommand(name, start, end);
     }

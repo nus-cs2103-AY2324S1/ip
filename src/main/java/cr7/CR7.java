@@ -1,7 +1,12 @@
 package cr7;
 
-import commands.*;
-import functions.*;
+import commands.Command;
+import functions.Parser;
+import functions.Storage;
+import functions.TaskList;
+import functions.Ui;
+import utilities.CR7EmptyInputException;
+import utilities.CR7Exception;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -39,7 +44,7 @@ public class CR7 {
      * @param args The command-line arguments (not used in this context).
      */
     public static void main(String[] args) {
-        new CR7("src/main/data/CR7.CR7.txt");
+        new CR7("src/main/data/cr7.CR7.txt");
     }
 
     /**
@@ -52,7 +57,7 @@ public class CR7 {
      * @throws AssertionError if the input is null or empty.
      * @throws IOException if any IO-related error occurs during command execution.
      */
-    public String getResponse(String input) {
+    public String getResponse(String input) throws CR7Exception {
         try {
             assert input != null && !input.trim().isEmpty() : "Input should not be null or empty!";
             Command c = Parser.parse(input);

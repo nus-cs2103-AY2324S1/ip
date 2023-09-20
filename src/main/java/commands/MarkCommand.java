@@ -3,6 +3,7 @@ package commands;
 import functions.*;
 import java.io.IOException;
 import tasks.*;
+import utilities.Messages;
 
 /**
  * Represents a command to mark a task as completed.
@@ -29,9 +30,13 @@ public class MarkCommand extends Command {
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task t = tasks.markTask(this.num);
-        storage.saveFiles(tasks.showList());
-        return ui.showMarkMsg(t);
+        try {
+            Task t = tasks.markTask(this.num);
+            storage.saveFiles(tasks.showList());
+            return ui.showMarkMsg(t);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.showErrorMsg(Messages.INVALID_NUMBER);
+        }
     }
 }
 

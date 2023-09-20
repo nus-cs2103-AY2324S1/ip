@@ -3,6 +3,7 @@ package commands;
 import functions.*;
 import java.io.IOException;
 import tasks.*;
+import utilities.Messages;
 
 /**
  * Represents a command to unmark a completed task.
@@ -29,9 +30,13 @@ public class UnmarkCommand extends Command {
      * @throws IOException If an I/O error occurs while interacting with storage.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        Task t = tasks.unmarkTask(this.num);
-        storage.saveFiles(tasks.showList());
-        return ui.showUnmarkMsg(t);
+        try {
+            Task t = tasks.unmarkTask(this.num);
+            storage.saveFiles(tasks.showList());
+            return ui.showUnmarkMsg(t);
+        } catch (IndexOutOfBoundsException e) {
+            return ui.showErrorMsg(Messages.INVALID_NUMBER);
+        }
     }
 }
 

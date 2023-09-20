@@ -111,7 +111,7 @@ public class Ui {
      * @param errorMsg The error message to be displayed.
      */
     public String showErrorMsg(String errorMsg) {
-        return "OOPS!!! I've encountered a problem here!"
+        return "OOPS!!! I've encountered a problem here! "
                 + errorMsg;
     }
 }

@@ -7,5 +7,6 @@ unmark 1
 delete 3
 todo Write a report
 event Conference call /from 2023-09-03 09:00 /to 2023-09-03 11:00
+fixed yoga /for 3 hours
 list
 bye
