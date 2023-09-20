@@ -2,41 +2,18 @@
 
 ## Features 
 
-### 1. Add a To-Do Task
+### Managing your tasks
 
-To add a todo-task without a specific time.
+Users can add 3 types of tasks:
+1. a TODO task that only contains a description.
+2. a DEADLINE task that consists of description and a deadline.
+3. an EVENT that consists of a description, start date and end date.
 
-### 2. Add a Deadline
-
-To add a task with a deadline.
-
-### 3. Add an Event
-
-To add an event with a specific time frame.
-
-### 4. Mark a task
-
-To mark a task as completed.
-
-### 5. Unmark a task
-
-To unmark a completed task.
-
-### 6. Delete a Task
-
-To remove a task from your list.
-
-### 7. List All Tasks
-
-To view a list of all your tasks
-
-### 8. Help command
-
-If you need a quick reminder of available commands.
-
-### 9.Ending the Session
-
-When you're done managing your tasks.
+### Access your tasks
+1. mark a task as done
+2. mark a task as undone
+3. delete a task
+4. find task(s) using its description.
 
 ## Usage
 
