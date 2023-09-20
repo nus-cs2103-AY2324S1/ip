@@ -1,6 +1,8 @@
 package duke;
 
-import java.util.Scanner;
+import javafx.application.Platform;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The Parser class is responsible for parsing user input and determining the corresponding actions to take.
@@ -8,17 +10,7 @@ import java.util.Scanner;
  */
 public class Parser {
     private static String userInput;
-    private static final Scanner scanner = new Scanner(System.in);
     private final Ui ui = new Ui();
-
-    /**
-     * Retrieves the user input from the scanner.
-     *
-     * @return The user input as a string.
-     */
-    public String getUserInput() {
-        return scanner.nextLine();
-    }
 
     /**
      * Sets the user input to a new value.
@@ -121,12 +113,19 @@ public class Parser {
 
 
     /**
-     * Closes the scanner used for reading user input.
+     * Closes the Application after 5 seconds.
      */
     public void goodbye() {
-        scanner.close();
+        Timer timer = new Timer();
+        long delay = 5000;
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.exit();
+                timer.cancel(); // Stop the timer after execution
+            }
+        }, delay);
     }
-
     /**
      * Parses user input to execute various commands and provides a corresponding response.
      *
