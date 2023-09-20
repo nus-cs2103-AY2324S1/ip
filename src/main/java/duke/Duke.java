@@ -27,7 +27,7 @@ public class Duke {
      *
      * @param filePath Path of data file from root.
      */
-    public Duke(String filePath) {
+    public Duke(String filePath) throws DukeException {
         this.storage = new Storage(filePath);
         this.parser = new Parser();
     }
@@ -51,93 +51,34 @@ public class Duke {
                 break;
 
             case LIST:
-                botResponse = "Here are the tasks in your list:\n" + tasks.toString();
+                botResponse = getListString();
                 break;
 
             case MARK:
-                // get index by splitting user input and get task at that index from list
-                int indexToBeMarked = Integer.parseInt(userInput.split(" ")[1]);
-
-                if (indexToBeMarked < 1 || indexToBeMarked > tasks.getNumberOfTasks()) {
-                    throw new DukeIndexOutOfBoundsException("mark");
-                }
-
-                Task toBeMarked = tasks.getTaskAt(indexToBeMarked - 1);
-
-                assert toBeMarked != null;
-
-                toBeMarked.mark();
-                botResponse = "Nice! I've marked this task as done:\n" + toBeMarked.toString();
+                botResponse = getMarkedString(userInput);
                 break;
 
             case UNMARK:
-                // get index by splitting user input and get task at that index from list
-                int indexToBeUnmarked = Integer.parseInt(userInput.split(" ")[1]);
-
-                if (indexToBeUnmarked < 1 || indexToBeUnmarked > tasks.getNumberOfTasks()) {
-                    throw new DukeIndexOutOfBoundsException("unmark");
-                }
-
-                Task toBeUnmarked = tasks.getTaskAt(indexToBeUnmarked - 1);
-
-                assert toBeUnmarked != null;
-
-                toBeUnmarked.unmark();
-                botResponse = "OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString();
+                botResponse = getUnmarkedString(userInput);
                 break;
 
             case DELETE:
-                int indexToBeDeleted = Integer.parseInt(userInput.split(" ")[1]);
-
-                if (indexToBeDeleted < 1 || indexToBeDeleted > tasks.getNumberOfTasks()) {
-                    throw new DukeIndexOutOfBoundsException("delete");
-                }
-
-                Task toBeDeleted = tasks.getTaskAt(indexToBeDeleted - 1);
-
-                assert toBeDeleted != null;
-
-                tasks.deleteTaskAt(indexToBeDeleted - 1);
-                botResponse = "Noted. I've removed this task:\n" + toBeDeleted.toString()
-                        + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
+                botResponse = getDeletedString(userInput);
                 break;
 
             case FIND:
-                TaskList filtered = tasks.getFilteredTaskList(userInput);
-
-                assert filtered != null;
-
-                botResponse = "Here are the matching tasks in your list:\n" + filtered.toString();
+                botResponse = getFilteredString(userInput);
                 break;
 
             case CHANGE:
-                int indexToBeChanged = Integer.parseInt(userInput.split(" ")[2]);
-
-                if (indexToBeChanged < 1 || indexToBeChanged > tasks.getNumberOfTasks()) {
-                    throw new DukeIndexOutOfBoundsException("change priority");
-                }
-
-                Task toBeChanged = tasks.getTaskAt(indexToBeChanged - 1);
-
-                assert toBeChanged != null;
-
-                toBeChanged.changePriority(Priority.valueOf(userInput.split(" ")[3].toUpperCase()));
-                botResponse = "Noted. I've changed the priority of this task:\n" + toBeChanged.toString()
-                        + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
+                botResponse = getChangedString(userInput);
                 break;
 
             case TODO:
             case DEADLINE:
             case EVENT:
             default:
-                Task taskToAdd = parser.getTask(userInput);
-                try {
-                    tasks.addToList(taskToAdd);
-                    botResponse = "Got it. I've added this task:\n" + taskToAdd.toString()
-                            + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
-                } catch (NullPointerException e) {
-                    throw new DukeException("OOPS!!! Could not add task to the list");
-                }
+                botResponse = getTaskString(userInput);
                 break;
             }
 
@@ -146,6 +87,93 @@ public class Duke {
             botResponse = e.getMessage();
         } finally {
             return botResponse;
+        }
+    }
+
+    public String getListString() {
+        return "Here are the tasks in your list:\n" + tasks.toString();
+    }
+
+    public String getMarkedString(String userInput) {
+        // get index by splitting user input and get task at that index from list
+        int indexToBeMarked = Integer.parseInt(userInput.split(" ")[1]);
+
+        if (indexToBeMarked < 1 || indexToBeMarked > tasks.getNumberOfTasks()) {
+            throw new DukeIndexOutOfBoundsException("mark");
+        }
+
+        Task toBeMarked = tasks.getTaskAt(indexToBeMarked - 1);
+
+        assert toBeMarked != null;
+
+        toBeMarked.mark();
+        return "Nice! I've marked this task as done:\n" + toBeMarked.toString();
+    }
+
+    public String getUnmarkedString(String userInput) {
+        // get index by splitting user input and get task at that index from list
+        int indexToBeUnmarked = Integer.parseInt(userInput.split(" ")[1]);
+
+        if (indexToBeUnmarked < 1 || indexToBeUnmarked > tasks.getNumberOfTasks()) {
+            throw new DukeIndexOutOfBoundsException("unmark");
+        }
+
+        Task toBeUnmarked = tasks.getTaskAt(indexToBeUnmarked - 1);
+
+        assert toBeUnmarked != null;
+
+        toBeUnmarked.unmark();
+        return "OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString();
+    }
+
+    public String getDeletedString(String userInput) {
+        int indexToBeDeleted = Integer.parseInt(userInput.split(" ")[1]);
+
+        if (indexToBeDeleted < 1 || indexToBeDeleted > tasks.getNumberOfTasks()) {
+            throw new DukeIndexOutOfBoundsException("delete");
+        }
+
+        Task toBeDeleted = tasks.getTaskAt(indexToBeDeleted - 1);
+
+        assert toBeDeleted != null;
+
+        tasks.deleteTaskAt(indexToBeDeleted - 1);
+        return "Noted. I've removed this task:\n" + toBeDeleted.toString()
+                + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
+    }
+
+    public String getFilteredString(String userInput) {
+        TaskList filtered = tasks.getFilteredTaskList(userInput);
+
+        assert filtered != null;
+
+        return "Here are the matching tasks in your list:\n" + filtered.toString();
+    }
+
+    public String getChangedString(String userInput) {
+        int indexToBeChanged = Integer.parseInt(userInput.split(" ")[2]);
+
+        if (indexToBeChanged < 1 || indexToBeChanged > tasks.getNumberOfTasks()) {
+            throw new DukeIndexOutOfBoundsException("change priority");
+        }
+
+        Task toBeChanged = tasks.getTaskAt(indexToBeChanged - 1);
+
+        assert toBeChanged != null;
+
+        toBeChanged.changePriority(Priority.valueOf(userInput.split(" ")[3].toUpperCase()));
+        return "Noted. I've changed the priority of this task:\n" + toBeChanged.toString()
+                + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
+    }
+
+    public String getTaskString(String userInput) throws DukeException {
+        Task taskToAdd = parser.getTask(userInput);
+        try {
+            tasks.addToList(taskToAdd);
+            return "Got it. I've added this task:\n" + taskToAdd.toString()
+                    + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
+        } catch (NullPointerException e) {
+            throw new DukeException("OOPS!!! Could not add task to the list");
         }
     }
 }
