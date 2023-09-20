@@ -1,6 +1,7 @@
 package slay;
 
 import slay.command.*;
+import slay.exception.EmptyArgumentException;
 import slay.exception.IncorrectDescriptionFormatException;
 import slay.task.Deadline;
 import slay.task.Event;
@@ -35,20 +36,21 @@ public class Parser {
      * @return the command based on the user input
      */
     public Command parse(String userInput) {
-        String[] seperated = userInput.split(" ", 2);
-        String commandWord = seperated[0];
-        String arguments = "";
-        if (seperated.length > 1) {
-            arguments += seperated[1];
-        }
+        try {
+            String[] seperated = userInput.split(" ", 2);
+            String commandWord = seperated[0];
+            String arguments = "";
+            if (seperated.length > 1) {
+                arguments += seperated[1];
+            }
 
-        switch (commandWord) {
+            switch (commandWord) {
 
             case ListCommand.COMMAND_WORD:
                 return new ListCommand();
 
             case FindCommand.COMMAND_WORD:
-                return new FindCommand(arguments);
+                return prepareFind(arguments);
 
             case AddCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
@@ -71,9 +73,19 @@ public class Parser {
             case HelpCommand.COMMAND_WORD: // Fallthrough
             default:
                 return new HelpCommand();
+            }
+        } catch (EmptyArgumentException e) {
+            return new IncorrectCommand(Message.MESSAGE_EMPTY_ARGUMENT);
         }
     }
 
+    private Command prepareFind(String args) throws EmptyArgumentException {
+        if (args.isEmpty()) {
+            throw new EmptyArgumentException();
+        } else {
+            return new FindCommand(args);
+        }
+    }
     /**
      * Parses arguments in the context of the add task command.
      *

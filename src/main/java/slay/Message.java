@@ -14,6 +14,8 @@ public class Message {
     public static final String MESSAGE_INCORRECT_ADD_TASK_KEYWORD = "Sorry, I don't know this type of tasks:(\n"
             + "You may choose from what I have:D\n";
 
+    public static final String MESSAGE_EMPTY_ARGUMENT = "It seems that your command is incomplete. "
+            + "What do you want to say?";
     public static final String MESSAGE_INVALID_TASK_INDEX = "The task index seems to be invalid."
             + "Double check and try it again!";
 }

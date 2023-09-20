@@ -1,5 +1,6 @@
 package slay.command;
 
+import slay.exception.EmptyArgumentException;
 import slay.task.Task;
 
 import java.util.ArrayList;
