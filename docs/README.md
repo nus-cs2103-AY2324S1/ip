@@ -1,21 +1,30 @@
 # "YOURS" User Guide
-Welcome to our chatbot "YOURS"! This guide will help you get started with using our chatbot effectively for various tasks and interactions.
+Welcome to "YOURS"! This guide will help you get started with using our chatbot effectively for various tasks and interactions.
+
+## Quick Start
+
+1. Ensure you have Java 11 or above installed on your Computer.
+2. Download the latest duke.jar
+3. Copy the file to the folder you want to use as the home folder for your Duke.
+4. Run the jar file.
+5. Type the command in the command box and press Enter to execute it.
+6. Refer to the Features below for details of each command.
 
 ## Features 
 
 Notes about command format :
-- All commands are lower-case, e.g `todo` buy groceries, `find` gym
+- All commands are lower-case, e.g. `todo` buy groceries, `find` gym
 - Words in `UPPER_CASE` are the parameters to be supplied by the user.
   
   - e.g. `deadline /by DUEDATE`, `DUEDATE` is a parameter which can be used as `deadline /by 23/08/2023 0800`.
-- The format for Date and Time (FROMDATE, TODATE & DUEDATE) is `DD/MM/YYYY HHmm`.
+- The format for all Dates and Time (FROMDATE, TODATE & DUEDATE) is `DD/MM/YYYY HHmm`.
 
   - e.g `23/08/2023 1800`
   
 
 ### Create a task: `todo`, `event`, `deadline`
 
-The feature allows you to add new to-do tasks to your task list. YOURS supports three types of tasks To-Do, Events, and Deadlines.
+The feature allows you to add new to-do tasks to your task list. YOURS supports three types of tasks todo, event, and deadline.
 
 1. `todo`: Manage your everyday tasks and chores.
    
