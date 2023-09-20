@@ -1,21 +1,61 @@
 # CR7 Chatbot User Guide
 
+## Chatbot UI
+
+![Ui](https://github.com/kohkaijie/ip/assets/122248866/875338bb-c5a8-4d75-96d7-e8e3a55bb39c)
+
+## Setup Instructions
+1. Download the CR7.jar file onto your desktop.
+2. Open your command-line interface and `cd` to the folder where the jar file is located.
+3. Run `java -jar CR7.jar` and wait for the chatbot to open.
+
 ## Features 
 
-### Adding and Deleting of new tasks
+### Adding of new Tasks
 
-#### Adding tasks
-The chatbot allows you to create various types of new tasks that you can store in the chatbot. The chatbot supports these task types:
+#### ToDo tasks
+Adds a todo task to your task list.
 
-1. ToDo tasks
-   - Tasks with a description but no time constraints. To create a ToDo task, type _todo (description)_.
-2. Deadline tasks
-   - Tasks with a description and a deadline. To create a Deadline task, type _deadline (description) /by (deadline)_.
-3. Event tasks
-   - Tasks with a description and a start and end time. To create an Event task, type _event (description) /from (start time) /to (end time)_.
-4. Fixed Duration tasks
-   - Tasks with a description and a fixed duration. To create a Fixed Duration task, type _fixed (description) /for (duration)_.
+Format:
+> _todo (description)_
 
+Sample Run:
+```
+todo run
+```
+
+#### Deadline tasks
+Adds a task with a deadline to your task list. 
+
+Format:
+> _deadline (description) /by (deadline)_
+
+Sample Run:
+```
+deadline watch ronaldo highlights /by 2023-09-20 2100
+```
+
+#### Event tasks
+Adds a task with a start time and end time to your task list.
+
+Format:
+> _event (description) /from (start time) /to (end time)_
+
+Sample Run:
+```
+event siuuuu /from 2023-09-20 2100 /to 2023-09-20 2200
+```
+
+#### Fixed Duration tasks
+Adds a task with a fixed duration to your task list.  
+
+Format:
+> _fixed (description) /for (duration)_
+
+Sample Run:
+```
+fixed dillon brooks dance /for 2 hours
+```
 ***Note that for Deadline and Event tasks, the chatbot only supports entering the date and time in the following formats:***
 
    For Dates, 
@@ -30,42 +70,67 @@ The chatbot allows you to create various types of new tasks that you can store i
       
 All task timings **MUST** include both date and time, starting with date followed by time.
 
-#### Deleting tasks
-To delete a task that you have created, type delete followed by the the number of the task in the task list (e.g _delete 2_). To check which number the task is in the task list, you may use the following feature below:
+### Deleting tasks
 
-### Listing of tasks in the task list
+Deletes a task of the given index from the task list.
 
-The chatbot allows you to list out all the tasks that you have previously created in the order in which they are created.
+Format:
+> _delete (index)_
 
-To list out all your tasks, simply type the command _list_
+Sample Run:
+```
+delete 3
+```
+***Note that only numerical inputs are accepted (_delete three_ not allowed) and must be a task index from the list***
 
-### Marking and Un-marking of tasks 
+### Listing tasks
 
-The chatbot allows you to mark out tasks that you have already completed. To mark a task as complete, simple type mark followed by the number of the task in the task list (e.g _mark 2_). 
+Lists out all tasks in the task list based on the order they are created.
 
-What if accidentally marked the wrong task, or realised it is not complete? No need to worry, you can also unmark the task in the same way that you have marked it by typing _unmark_ instead (e.g _unmark 2_).
+Format:
+> _list_
+
+Sample Run:
+```
+list
+```
+
+### Marking of tasks 
+
+Marks a task of the specified index as complete.
+
+Format:
+> _mark (index)_
+
+Sample Run:
+```
+mark 2
+```
+
+### Un-marking of tasks
+
+Marks a task of the specified index as incomplete.
+
+Format:
+> _unmark (index)_
+
+Sample Run:
+```
+unmark 2
+```
+***Note that the numerical input for marking and unmarking command has the same specifications as the delete command***
 
 ### Searching for tasks
 
-The chatbot also allows you to search for tasks matching a specific description. Suppose I want to search for a task with the keyword _run_ in the description:
-   1. Type _search run_
-   2. The chatbot will automatically list out all tasks with descriptions containing the keyword _run_
-   3. If no tasks containing the _run_ keyword exists, the chatbot will return the following message: ***There are no tasks matching your description. Please try another search keyword***
+Searches for all tasks with a matching description.
 
-## Usage
+Format:
+> _find (description)_
 
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+Sample Run:
 ```
-expected output
+find run
 ```
+***Note that empty descriptions are not allowed***
+
+
