@@ -11,7 +11,7 @@ import duke.data.task.Todo;
 public class TaskListTest {
     /** Tests add feature of TaskList */
     @Test
-    public void test_add() throws DukeException {
+    public void addTest() throws DukeException {
         TaskList taskList = new TaskList();
         Todo newToDo = new Todo("go running");
         taskList.addTask(newToDo);
@@ -21,7 +21,7 @@ public class TaskListTest {
 
     /** Tests delete feature of TaskList */
     @Test
-    public void test_delete() throws DukeException {
+    public void deleteTest() throws DukeException {
         TaskList taskList = new TaskList();
         Todo newToDo = new Todo("go running");
         Todo newToDo2 = new Todo("go dancing");
@@ -34,7 +34,7 @@ public class TaskListTest {
 
     /** Tests marked feature of TaskList */
     @Test
-    public void test_mark() throws DukeException {
+    public void markTest() throws DukeException {
         TaskList taskList = new TaskList();
         Todo newToDo = new Todo("go running");
         taskList.addTask(newToDo);
@@ -46,7 +46,7 @@ public class TaskListTest {
 
     /** Tests unmarked feature of TaskList */
     @Test
-    public void test_unmark() throws DukeException {
+    public void unmarkTest() throws DukeException {
         TaskList taskList = new TaskList();
         Todo newToDo = new Todo("go running");
         taskList.addTask(newToDo);
@@ -60,7 +60,7 @@ public class TaskListTest {
 
     /** Tests exceptions thrown by TaskList */
     @Test
-    public void test_exceptions() throws DukeException {
+    public void exceptionsTest() throws DukeException {
         TaskList taskList = new TaskList();
         Todo newToDo = new Todo("go running");
         taskList.addTask(newToDo);
