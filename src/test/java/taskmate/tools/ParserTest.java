@@ -182,7 +182,7 @@ public class ParserTest {
 
 
     @Test
-    public void getCommandType_invalidCommand_exceptionThrown() {
+    public void getCommandType_unrecognizedCommand_exceptionThrown() {
         String invalidCommand = "goodbye";
         try {
             Parser.getCommandType(invalidCommand);
@@ -198,13 +198,177 @@ public class ParserTest {
         } catch (InvalidCommandTypeException e) {
             assertNull(e.getMessage());
         }
+    }
 
+    @Test
+    public void getCommandType_emptyCommand_exceptionThrown() {
         String emptyCommand = "";
         try {
             Parser.getCommandType(emptyCommand);
             fail();
         } catch (InvalidCommandTypeException e) {
             assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void getCommandType_correctCommandButTypo_success() {
+        String typoUpdateCommand = "update1";
+        String parsedCommand;
+        try {
+            parsedCommand = Parser.getCommandType(typoUpdateCommand);
+            assertEquals(parsedCommand, "update");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoTodoCommand = "todoread book";
+        try {
+            parsedCommand = Parser.getCommandType(typoTodoCommand);
+            assertEquals(parsedCommand, "todo");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoDeadlineCommand = "deadlineread book";
+        try {
+            parsedCommand = Parser.getCommandType(typoDeadlineCommand);
+            assertEquals(parsedCommand, "deadline");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoEventCommand = "event";
+        try {
+            parsedCommand = Parser.getCommandType(typoEventCommand);
+            assertEquals(parsedCommand, "event");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoListCommand = "list tasks";
+        try {
+            parsedCommand = Parser.getCommandType(typoListCommand);
+            assertEquals(parsedCommand, "list");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoFindCommand = "findquery";
+        try {
+            parsedCommand = Parser.getCommandType(typoFindCommand);
+            assertEquals(parsedCommand, "find");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoMarkCommand = "mark1";
+        try {
+            parsedCommand = Parser.getCommandType(typoMarkCommand);
+            assertEquals(parsedCommand, "mark");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoUnmarkCommand = "unmark201384792378141";
+        try {
+            parsedCommand = Parser.getCommandType(typoUnmarkCommand);
+            assertEquals(parsedCommand, "unmark");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoHelpCommand = "help me";
+        try {
+            parsedCommand = Parser.getCommandType(typoHelpCommand);
+            assertEquals(parsedCommand, "help");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoByeCommand = "byebye";
+        try {
+            parsedCommand = Parser.getCommandType(typoByeCommand);
+            assertEquals(parsedCommand, "bye");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+    }
+
+    @Test
+    public void getCommandType_correctCommandButEmptyDescription_success() {
+        String typoUpdateCommand = "update";
+        String parsedCommand;
+        try {
+            parsedCommand = Parser.getCommandType(typoUpdateCommand);
+            assertEquals(parsedCommand, "update");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoTodoCommand = "todo";
+        try {
+            parsedCommand = Parser.getCommandType(typoTodoCommand);
+            assertEquals(parsedCommand, "todo");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoDeadlineCommand = "deadline";
+        try {
+            parsedCommand = Parser.getCommandType(typoDeadlineCommand);
+            assertEquals(parsedCommand, "deadline");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoEventCommand = "event";
+        try {
+            parsedCommand = Parser.getCommandType(typoEventCommand);
+            assertEquals(parsedCommand, "event");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoFindCommand = "find";
+        try {
+            parsedCommand = Parser.getCommandType(typoFindCommand);
+            assertEquals(parsedCommand, "find");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoMarkCommand = "mark";
+        try {
+            parsedCommand = Parser.getCommandType(typoMarkCommand);
+            assertEquals(parsedCommand, "mark");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
+        }
+
+        String typoUnmarkCommand = "unmark";
+        try {
+            parsedCommand = Parser.getCommandType(typoUnmarkCommand);
+            assertEquals(parsedCommand, "unmark");
+        } catch (InvalidCommandTypeException e) {
+            assertNull(e.getMessage());
+            fail();
         }
     }
 
