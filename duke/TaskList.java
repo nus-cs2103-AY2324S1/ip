@@ -112,4 +112,18 @@ public class TaskList implements Serializable {
     protected ArrayList<Task> getTaskArrayList() {
         return taskArrayList;
     }
+
+    /**
+     * Lists tasks in the TaskList whose description matches with keyword.
+     *
+     * @param key The keyword users are looking up for.
+     */
+    public void findTasks(String key) {
+        for (int i = 0; i < taskArrayList.size(); i++) {
+            Task task = taskArrayList.get(i);
+            if(task.description.contains(key)) {
+                System.out.println((i + 1) + ". " + task);
+            }
+        }
+    }
 }

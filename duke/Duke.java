@@ -64,14 +64,26 @@ public class Duke {
                         taskList.listTasks();
                         continue;
                     case MARK:
-                        int markId = Integer.parseInt(response.substring(5));
-                        String markMessage = taskList.markTaskAsDone(markId);
-                        ui.showMessage(markMessage);
+                        try {
+                            int markId = Integer.parseInt(response.substring(5).trim());
+                            String markMessage = taskList.markTaskAsDone(markId);
+                            ui.showMessage(markMessage);
+                        } catch (NumberFormatException e) {
+                            ui.showMessage("Invalid format. Key in an integer within range");
+                        }
                         continue;
                     case UNMARK:
-                        int unmarkId = Integer.parseInt(response.substring(7));
-                        String unmarkMessage = taskList.unmarkTask(unmarkId);
-                        ui.showMessage(unmarkMessage);
+                        try {
+                            int unmarkId = Integer.parseInt(response.substring(7).trim());
+                            String unmarkMessage = taskList.unmarkTask(unmarkId);
+                            ui.showMessage(unmarkMessage);
+                        } catch (NumberFormatException e) {
+                            ui.showMessage("Invalid format. Key in an integer within range");
+                        }
+                        continue;
+                    case FIND:
+                        ui.showMessage("Here are the matching tasks in your list:");
+                        taskList.findTasks(response.substring(5));
                         continue;
                     case TODO:
                         String todoDescription = response.substring(5);

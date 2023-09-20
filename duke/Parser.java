@@ -15,7 +15,7 @@ public class Parser {
      * Enum representing the types of commands that the parser can recognize.
      */
     public enum CommandType {
-        BYE, LIST, MARK, UNMARK, TODO, EVENT, DEADLINE, DELETE, INVALID
+        BYE, LIST, MARK, UNMARK, FIND, TODO, EVENT, DEADLINE, DELETE, INVALID
     }
 
     /**
@@ -33,6 +33,8 @@ public class Parser {
             return CommandType.MARK;
         } else if (command.startsWith("unmark ")) {
             return CommandType.UNMARK;
+        } else if(command.startsWith("find")) {
+            return CommandType.FIND;
         } else if (command.startsWith("todo ")) {
             return CommandType.TODO;
         } else if (command.startsWith("event ")) {
