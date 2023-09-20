@@ -1,6 +1,6 @@
 # Cristiano Ronaldo Task Manager 🤖
 
-Cristiano is a graphical user interface (GUI) desktop app that helps you track your upcoming tasks. To start using Cristiano, you can:
+Penaldo is a graphical user interface (GUI) desktop app that helps you track your upcoming tasks. To start using Cristiano, you can:
 
 - Download the `.jar` file under `Releases`,
 - Navigate to the directory in terminal,
@@ -8,7 +8,7 @@ Cristiano is a graphical user interface (GUI) desktop app that helps you track y
 
 ## Features 👾
 
-Cristiano is packed with various features, such as:
+Penaldo is packed with various features, such as:
 
 * Addition and deletion of tasks
     * Todos
@@ -46,7 +46,7 @@ Create a todo.
 ```
 > todo CS2103T assignment
 Got it. I've added the task:
-[T][ ] CS2101 slides
+    [T][ ] CS2101 slides
 You now have 1 task in your list, just like how I have 5 Ballon d'Ors.
 ```
 
@@ -63,7 +63,7 @@ Create an event.
 ```
 > event Football /from 19/09/2023 16:00 /to 19/09/2023 19:00
 Got it. I've added the task:
-[E][ ] Football (from 19 Sep 2023 17:00 to 19 Sep 2023 19:00)
+    [E][ ] Football (from 19 Sep 2023 17:00 to 19 Sep 2023 19:00)
 You now have 2 tasks in your list, just like how I have 5 Ballon d'Ors.
 ```
 
@@ -80,7 +80,7 @@ Create a deadline.
 ```
 > deadline CS2101 slides /due 21/09/2023 23:59
 Got it. I've added the task:
-[D][ ] CS2101 slides (by 21 Sep 2023, 23:59)
+    [D][ ] CS2101 slides (by 21 Sep 2023, 23:59)
 You now have 3 tasks in your list, just like how I have 5 Ballon d'Ors.
 ```
 
@@ -95,7 +95,7 @@ Mark a task as completed.
 ```
 > mark 3
 SIUUU! I've marked this task as done. We will make Saudi League number 1.
-[E][X] Football (from 19 Sep 2023 17:00 to 19 Sep 2023 19:00)
+    [E][X] Football (from 19 Sep 2023 17:00 to 19 Sep 2023 19:00)
 ```
 
 ### - `delete`
@@ -109,7 +109,7 @@ Delete a specific task.
 ```
 > delete 1
 I've deleted this task from the list!
-[T][ ] CS2103T assignment
+    [T][ ] CS2103T assignment
 Now you have 2 tasks in your list.
 ```
 
@@ -124,7 +124,7 @@ Search a task based on the keyword provided.
 ```
 > find assignment
 Here are the matching tasks in your list
-1. [T][ ] CS2103T assignment
+    1. [T][ ] CS2103T assignment
 ```
 
 ### - `bye`
