@@ -1,4 +1,8 @@
-# User Guide
+# User Guide For Duke
+
+## Duke - A bot for managing your tasks
+
+### Let Duke the bot to help you manage your everyday tasks!
 
 ## Features 
 
