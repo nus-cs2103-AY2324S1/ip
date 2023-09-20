@@ -1,24 +1,32 @@
-# User Guide
+# User Guide for nyanbot
 
 ## Features 
+- [x] **Add a Todo**
+- [x] **Add a Deadline**
+- [x] **Add an Event**
+- [x] **Accept a wide variety of dates**
 
-### Feature-ABC
+### Add a Todo
+Task without a time attached to it.
 
-Description of the feature.
+### Add a Deadline
+Task with a deadline attached to it.
 
-### Feature-XYZ
+### Add an Event
+Task with a start time and end time.
 
-Description of the feature.
+### Accept multiple date formats
+Examples: `Sun` or `23/12/2023`
 
 ## Usage
+Just click on the jar file to get started!
 
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
+### `todo` - Tells nyan that the task after the command is a Todo Task
+Adds the task to your tasklist.
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo buy bread`
 
 Expected outcome:
 
