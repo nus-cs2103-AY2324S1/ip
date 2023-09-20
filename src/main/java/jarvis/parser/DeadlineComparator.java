@@ -5,7 +5,11 @@ import java.util.Comparator;
 
 import jarvis.tasks.Task;
 
-
+/**
+ * Comparator class for comparing tasks based on their deadlines.
+ * This class is used to sort tasks by their due dates, allowing for tasks
+ * with earlier deadlines to appear first in sorted lists.
+ */
 public class DeadlineComparator implements Comparator<Task> {
     @Override
     public int compare(Task task1, Task task2) {
