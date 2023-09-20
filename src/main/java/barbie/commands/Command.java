@@ -9,7 +9,7 @@ import barbie.types.Task;
  * All commands will inherit from this class.
  */
 public abstract class Command {
-    boolean isExit;
+    protected boolean isExit;
 
     /**
      * Runs the command of this instance of Command.
