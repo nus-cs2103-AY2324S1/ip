@@ -1,4 +1,4 @@
 T | 1 | read book
 E | 1 | this | 2023-11-30 2359 to 2023-08-31 1000
-T | 0 | submit this on friday!
+T | 1 | submit this on friday!
 D | 0 | this | 2023-08-31 2359
