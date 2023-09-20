@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  */
 public class Deadline extends Task {
 
-
+    private static final int VALID_DAYS = 0;
     private static final int DUE_DAYS = 7;
     protected LocalDateTime by;
 
@@ -25,17 +25,18 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + super.convertDateToString(this.by) + ")";
+        return "[D]" + super.toString() + " (by: " + super.convertDateToString(by) + ")";
     }
 
     @Override
     public String convertToSaveFormat() {
         return "D | " + super.convertToSaveFormat() + " | "
-                + super.convertDateToString(this.by);
+                + super.convertDateToString(by);
     }
 
     @Override
     public boolean isWithinDue() {
-        return Duration.between(LocalDateTime.now(), this.by).toDays() <= DUE_DAYS;
+        long dueDays = Duration.between(LocalDateTime.now(), by).toDays();
+        return dueDays >= VALID_DAYS && dueDays <= DUE_DAYS;
     }
 }

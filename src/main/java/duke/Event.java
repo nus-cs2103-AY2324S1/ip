@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  */
 public class Event extends Task {
 
-
+    private static final int VALID_DAYS = 0;
     private static final int DUE_DAYS = 7;
     protected LocalDateTime from;
     protected LocalDateTime to;
@@ -28,18 +28,19 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + super.convertDateToString(this.from)
-                + " to: " + super.convertDateToString(this.to) + ")";
+        return "[E]" + super.toString() + " (from: " + super.convertDateToString(from)
+                + " to: " + super.convertDateToString(to) + ")";
     }
 
     @Override
     public String convertToSaveFormat() {
-        return "E | " + super.convertToSaveFormat() + " | " + super.convertDateToString(this.from)
-                + " to " + super.convertDateToString(this.to);
+        return "E | " + super.convertToSaveFormat() + " | " + super.convertDateToString(from)
+                + " to " + super.convertDateToString(to);
     }
 
     @Override
     public boolean isWithinDue() {
-        return Duration.between(LocalDateTime.now(), this.from).toDays() <= DUE_DAYS;
+        long dueDays = Duration.between(LocalDateTime.now(), from).toDays();
+        return dueDays >= VALID_DAYS && dueDays <= DUE_DAYS;
     }
 }
