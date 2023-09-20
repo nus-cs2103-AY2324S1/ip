@@ -34,7 +34,7 @@ class TaskListTest {
     }
 
     @Test
-    void testHandleDeadline() throws FileNotFoundException {
+    void testHandleDeadline() throws FileNotFoundException, DukeException {
         TaskList taskList = new TaskList(tempFile);
         taskList.handleDeadline("deadline Complete assignment /by 2023-09-30");
         assertEquals(1, taskList.getTasks().size());
@@ -43,7 +43,7 @@ class TaskListTest {
     }
 
     @Test
-    void testHandleEvent() throws FileNotFoundException {
+    void testHandleEvent() throws FileNotFoundException, DukeException {
         TaskList taskList = new TaskList(tempFile);
         taskList.handleEvent("event Conference /from 2023-09-01 /to 2023-09-05");
         assertEquals(1, taskList.getTasks().size());

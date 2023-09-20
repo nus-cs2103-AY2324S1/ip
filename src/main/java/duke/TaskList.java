@@ -228,7 +228,10 @@ public class TaskList {
      *
      * @param input The string representation of the todo task and deadline.
      */
-    public String handleDeadline(String input) {
+    public String handleDeadline(String input) throws DukeException {
+        if (!input.contains("/by ")) {
+            throw new DukeException("Input does not contain '/by ' to indicate the deadline!");
+        }
         String[] parts = input.split("/by ");
         String nameOfTask = parts[0].trim().substring(9);
         try {
@@ -245,7 +248,10 @@ public class TaskList {
      *
      * @param input The string representation of the event, start time, and end time.
      */
-    public String handleEvent(String input) {
+    public String handleEvent(String input) throws DukeException {
+        if (!input.contains("/from ") || !input.contains("/to ")) {
+            throw new DukeException("Input does not contain '/from' and/or '/to' to indicate event start and end dates.");
+        }
         String[] taskAndTime = input.split("/from ");
         String[] fromAndTo = taskAndTime[1].split("/to ");
         try {
