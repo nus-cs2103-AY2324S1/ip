@@ -4,6 +4,7 @@
 
 - [Getting Started](#Getting-Started)
 - [Features](#Features)
+- [Summary](#Summary)
 
 ## Getting Started
 
