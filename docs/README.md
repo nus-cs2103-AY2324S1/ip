@@ -13,10 +13,23 @@ Todoify is easy to use for users with experience of the CLI. It:
 
 ## Getting Started
 
-1. Check out the [releases](https://github.com/wxwern/ip/releases).
-2. Download the latest `.jar` file.
-3. Run the JAR file by double-clicking it, or using `java -jar <jar file name>` in the terminal.
-4. Talk to the chatbot to add your tasks! To learn how to communicate with Todoify, simply send a `help` message to list available commands.
+1. Ensure you have **Java 11 or later installed** on your device.
+
+2. **Check out** the [releases](https://github.com/wxwern/ip/releases).
+
+3. **Download** the latest `.jar` file, and move it to the *home folder* where you want to use Todoify.
+
+4. **Launch** the JAR file by doing one of the following:
+    - **Open a terminal** and **`cd` into the directory of the JAR file**. Then, **run `java -jar todoify-v1.0.jar`**.
+        - *Note:* The version number may not be the same. Change the version number if it's not the version you downloaded.
+
+    - **Navigate to the folder containing the JAR file** in your file manager, then **double-click to open** it.
+        - *Note:* Some systems might prevent you from launching Todoify like this directly as it is not code-signed - see the notice at the [Launch Modes > Graphical User Interface](#graphical-user-interface-gui) section for information.
+
+5. You will see [a GUI like above](#todoify-user-guide). See alternative [launch modes](#launch-modes) if you prefer to use the TUI.
+
+6. **Talk to Todoify** to manage your tasks!
+    - To learn how to communicate with Todoify, simply send a `help` message to list available commands.
 
 ## Features
 
@@ -52,14 +65,23 @@ This evaluates:
 
 ### Launch Modes
 
-For very advanced users, you can launch Todoify in both **GUI** and **TUI** modes. While the former requires a [desktop environment](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
+For very advanced users, you can launch Todoify in both **GUI** and **TUI** modes. While the former requires a [desktop environment (DE)](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems with no DE - like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
+
+#### Graphical User Interface (GUI)
 
 **To launch in GUI mode**, either:
 
 - Navigate to where the JAR file is stored in your file manager, then double-click the JAR file.
 - Navigate to the directory of the JAR file in your terminal via `cd`, then run: `java -jar todoify-v1.0.jar`.
 - You will see the following:
+
     ![Todoify Screenshot](first-launch.png ':size=400')
+
+!> As Todoify is not [code-signed](https://en.wikipedia.org/wiki/Code_signing), some platforms have security measures in place that prevent you from opening them via a simple double-click. You may thus need to temporarily bypass these protections to launch Todoify. ([Windows](https://support.microsoft.com/en-us/windows/add-an-exclusion-to-windows-security-811816c0-4dfd-af4a-47e4-c301afe13b26), [macOS](https://support.apple.com/en-gb/guide/mac-help/mh40616/mac))
+
+?> Note that for terminal invocations, you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
+
+#### Text-only User Interface (TUI)
 
 **To launch in TUI mode**, navigate to the directory of the JAR file in your terminal, then run:
 
@@ -219,6 +241,8 @@ It has two distinct behaviours depending on your [Launch Mode](#launch-modes):
 - In the **TUI**, this exits the program. You can use your terminal scrollback if you need to refer to the transcript.
 
 ## Command Summary
+
+A summary of all commands is accessible via the `help` command within Todoify. A copy is reproduced here:
 
 - `todo`
     - Adds a todo with the given title.
