@@ -29,9 +29,13 @@ public class Storage {
      *
      * @param filepath The filepath of the data file.
      */
-    public Storage(String filepath) {
+    public Storage(String filepath) throws IOException{
         this.filepath = filepath;
         this.file = new File(filepath);
+        if (!file.exists()) {
+            this.file.getParentFile().mkdirs();
+            this.file.createNewFile();
+        }
     }
 
     /**

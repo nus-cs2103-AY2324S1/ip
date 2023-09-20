@@ -46,6 +46,9 @@ public class Ui {
      * @param tasks The ArrayList of tasks to be displayed.
      */
     public String showListMsg(ArrayList<Task> tasks) {
+        if (tasks.size() == 0) {
+            return "You have no active tasks right now!\n";
+        }
         String list = "Here are the tasks in your list:\n";
         for (int i = 1; i < tasks.size() + 1; i++) {
             Task x = tasks.get(i - 1);
@@ -64,7 +67,7 @@ public class Ui {
             return "There are no tasks matching your description. " +
                     "Please try another search keyword.\n";
         } else {
-            String list = "Here are the matching tasks in your list:";
+            String list = "Here are the matching tasks in your list:\n";
             for (int i = 1; i < tasks.size() + 1; i++) {
                 Task x = tasks.get(i - 1);
                 list += i + "." + x.toString() + "\n";

@@ -5,7 +5,6 @@ import functions.Parser;
 import functions.Storage;
 import functions.TaskList;
 import functions.Ui;
-import utilities.CR7EmptyInputException;
 import utilities.CR7Exception;
 
 import java.io.FileNotFoundException;
@@ -25,7 +24,7 @@ public class CR7 {
      *
      * @param filePath The file path for storing task data.
      */
-    public CR7(String filePath) {
+    public CR7(String filePath) throws IOException {
         assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty!";
         ui = new Ui();
         storage = new Storage(filePath);
@@ -43,7 +42,7 @@ public class CR7 {
      *
      * @param args The command-line arguments (not used in this context).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new CR7("src/main/data/cr7.CR7.txt");
     }
 

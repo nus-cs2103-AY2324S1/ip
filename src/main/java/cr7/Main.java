@@ -15,6 +15,9 @@ public class Main extends Application {
 
     private CR7 cr7 = new CR7("src/main/data/cr7.CR7.txt");
 
+    public Main() throws IOException {
+    }
+
     @Override
     public void start(Stage stage) {
         try {
