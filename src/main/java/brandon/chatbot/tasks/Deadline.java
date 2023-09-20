@@ -1,13 +1,15 @@
 package brandon.chatbot.tasks;
 
+import brandon.chatbot.common.DukeException;
+import brandon.chatbot.tag.Tag;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import brandon.chatbot.tag.Tag;
-import brandon.chatbot.common.DukeException;
+import static brandon.chatbot.commands.Feedback.DEADLINE_BLANK;
 
 /**
  * Represents a Task with Deadline date.
@@ -24,14 +26,13 @@ public class Deadline extends Task {
      */
     public Deadline(String title, String deadline, Optional<ArrayList<Tag>> tags) throws DukeException {
         super(title, tags);
-        if (deadline.isBlank()) {
-            throw new DukeException("    Deadline cannot be blank...\n--------------------------------");
+        if (deadline == null) {
+            throw new DukeException(DEADLINE_BLANK);
         }
-
         try {
             String inputDateFormat = "yyyy-MM-dd";
             String outputDateFormat = "MMM d yyyy";
-            LocalDate d1 = LocalDate.parse(deadline, DateTimeFormatter.ofPattern(inputDateFormat));
+            LocalDate d1 = LocalDate.parse(deadline.strip(), DateTimeFormatter.ofPattern(inputDateFormat));
             this.deadline = d1.format(DateTimeFormatter.ofPattern(outputDateFormat));
         } catch (DateTimeParseException e) {
             String wrongDateInputExceptionMessage = "Could you try your date in yyyy-mm-dd format instead...?";

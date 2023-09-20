@@ -1,11 +1,12 @@
 package brandon.chatbot.tasks;
 
-import brandon.chatbot.tag.Tag;
 import brandon.chatbot.common.DukeException;
+import brandon.chatbot.tag.Tag;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Optional;
+
+import static brandon.chatbot.commands.Feedback.TITLE_BLANK;
 
 /**
  * Represents a Task to be done by the user.
@@ -22,8 +23,8 @@ public class Task {
      */
 
     public Task(String title, Optional<ArrayList<Tag>> tagOptional) throws DukeException {
-        if (title.isBlank()) {
-            throw new DukeException("    Title of a " + this + " cannot be blank...\n--------------------------------");
+        if (title == null) {
+            throw new DukeException(TITLE_BLANK);
         }
         this.title = title;
         this.isDone = false;

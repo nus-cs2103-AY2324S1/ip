@@ -1,8 +1,8 @@
 package brandon.chatbot.commands;
 
-import java.util.Optional;
-
 import brandon.chatbot.tasks.TaskList;
+
+import java.util.Optional;
 
 
 /**
@@ -12,7 +12,7 @@ public class CommandResult {
     public final String feedbackToUser;
     private TaskList tasks;
     public CommandResult(String feedbackToUser) {
-        assert feedbackToUser != null: "feedback to user should not be empty.";
+        assert feedbackToUser != null: "CommandResult: feedback to user should not be empty.";
 
         this.feedbackToUser = feedbackToUser;
     }
@@ -24,8 +24,8 @@ public class CommandResult {
      * @param tasks is the instance of TaskList to be printed.
      */
     public CommandResult(String feedbackToUser, TaskList tasks) {
-        assert feedbackToUser != null: "feedback to user should not be empty.";
-        assert tasks != null: "TaskList should not be empty.";
+        assert feedbackToUser != null: "CommandResult: feedback to user should not be empty.";
+        assert tasks != null: "CommandResult: TaskList should not be empty.";
 
         this.feedbackToUser = feedbackToUser;
         this.tasks = tasks;
