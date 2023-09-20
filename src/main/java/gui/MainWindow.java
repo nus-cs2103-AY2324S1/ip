@@ -16,6 +16,8 @@ import javafx.util.Duration;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    // @@author tanyyyming-reused
+    // Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modifications
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -35,10 +37,20 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Jarvis instance for the MainWindow.
+     *
+     * @param j Jarvis instance.
+     */
     public void setJarvis(Jarvis j) {
         jarvis = j;
     }
 
+    /**
+     * Sets the greeting message to be displayed in the MainWindow.
+     *
+     * @param message Greeting message.
+     */
     public void setGreetingMessage(String message) {
         dialogContainer.getChildren().addAll(DialogBox.getJarvisDialog(message, jarvisImage));
     }
@@ -58,9 +70,11 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if (input.equals("exit")) {
+            // Exit after 2 seconds.
             PauseTransition pause = new PauseTransition(Duration.seconds(2));
             pause.setOnFinished(event -> Platform.exit());
             pause.play();
         }
     }
+    // @@ author
 }
