@@ -15,11 +15,20 @@ public class Ui {
     private static final String LOGO = "(• >       (• >       (• >       (• >       (• >       (• >\n"
             +  "/  ))        /  ))        /  ))        /  ))        /  ))        /  ))\n"
             +  "  ``          ``          ``          ``          ``         ``";
-    private static final String HELP = "IMPORTANT NOTES:\n"
-            + "Todo: todo {task}\n"
-            + "Deadline: deadline {deadline} /by {duedate}\n"
-            + "Event: event {event} /from {start} /to {end}\n"
-            + "Datetime format: \"dd/MM/yyyy HH:mm\"\n";
+    private static final String HELP = "HELP INFORMATION\n"
+            + "Show help: help\n"
+            + "Add Todo: todo {task}\n"
+            + "Add Deadline: deadline {deadline} /by {duedate}\n"
+            + "Add Event: event {event} /from {start} /to {end}\n"
+            + "NOTE: Datetime format: \"dd/MM/yyyy HH:mm\"\n";
+
+    private static final String FEATURES = "Find tasks: find {keyword}\n"
+            + "Delete tasks: delete {index}\n"
+            + "Mark tasks: mark {index}\n"
+            + "Unmark tasks: unmark {index}\n"
+            + "Set reminder: remind {index}\n"
+            + "Show list: list\n"
+            + "Show reminders: reminder\n";
     private static final String GREET = "Hello! I'm Birdy\n"
             + "chirp chirp! How can I help?\n";
     private static final String PARTING = "chirp! See you around!\n";
@@ -69,7 +78,7 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message to the user.
+     * Displays a header message to the user.
      */
     public void showHeader() {
         appendCurrentMessage(LOGO);
@@ -78,6 +87,9 @@ public class Ui {
         System.out.println(output);
     }
 
+    /**
+     * Displays a greeting message to the user.
+     */
     public void showGreeting() {
         appendCurrentMessage(GREET);
         System.out.println(GREET);
@@ -88,6 +100,15 @@ public class Ui {
      */
     public void showHelp() {
         appendCurrentMessage(HELP);
+        String output = DIVIDER + HELP + DIVIDER;
+        System.out.println(output);
+    }
+
+    /**
+     * Displays feature lists and help information to the user.
+     */
+    public void showFeatures() {
+        appendCurrentMessage(FEATURES);
         String output = DIVIDER + HELP + DIVIDER;
         System.out.println(output);
     }
