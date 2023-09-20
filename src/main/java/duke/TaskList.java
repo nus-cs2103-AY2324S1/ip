@@ -154,7 +154,7 @@ public class TaskList {
                 throw new DukeException("Error: Task is already completed!");
             } else {
                 tasks.get(taskIndex).mark();
-                assert tasks.get(taskIndex).done : "Unable to mark Task!";
+                assert tasks.get(taskIndex).isMarked() : "Unable to mark Task!";
                 writeToFile();
                 String response = "Great job! You've completed the following task:"
                         + "\n" + tasks.get(taskIndex).toString();
@@ -180,7 +180,7 @@ public class TaskList {
             } else {
                 tasks.get(taskIndex).unMark();
                 writeToFile();
-                assert !tasks.get(taskIndex).done : "Unable to unmark Task!";
+                assert !tasks.get(taskIndex).isMarked() : "Unable to unmark Task!";
                 String response = "You've marked the following task as incomplete:"
                         + "\n" + tasks.get(taskIndex).toString();
                 return response;

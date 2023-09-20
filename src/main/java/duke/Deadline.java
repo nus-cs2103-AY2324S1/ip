@@ -24,21 +24,18 @@ public class Deadline extends Task {
     @Override
     public void mark() {
         super.mark();
-        System.out.println(super.line() + "Okay, I have marked this task as completed!" + "\n" + this.toString());
-        System.out.println(super.line());
+        System.out.println("Okay, I have marked this task as completed!" + "\n" + this.toString());
     }
 
     @Override
     public void unMark() {
         super.unMark();
-        System.out.println(super.line() + "Okay, I have marked this task as incomplete!" + "\n" + this.toString());
-        System.out.println(super.line());
+        System.out.println("Okay, I have marked this task as incomplete!" + "\n" + this.toString());
     }
 
     @Override
     public String toString() {
-        String checkbox = this.done ? "[X] " : "[ ] ";
         String submitDate = "(by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
-        return "[D]" + checkbox + task + " " + submitDate;
+        return "[D]" + super.toString() + " " + submitDate;
     }
 }

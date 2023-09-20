@@ -27,20 +27,17 @@ public class Event extends Task {
     @Override
     public void mark() {
         super.mark();
-        System.out.println(super.line() + "Okay, I have marked this task as completed!" + "\n" + this.toString());
-        System.out.println(super.line());
+        System.out.println("Okay, I have marked this task as completed!" + "\n" + this.toString());
     }
     @Override
     public void unMark() {
         super.unMark();
-        System.out.println(super.line() + "Okay, I have marked this task as incomplete!" + "\n" + this.toString());
-        System.out.println(super.line());
+        System.out.println("Okay, I have marked this task as incomplete!" + "\n" + this.toString());
     }
     @Override
     public String toString() {
-        String checkbox = this.done ? "[X] " : "[ ] ";
         String startTime = "(from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         String endTime = "to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
-        return "[E]" + checkbox + task + " " + startTime + " " + endTime;
+        return "[E]" + super.toString() + " " + startTime + " " + endTime;
     }
 }

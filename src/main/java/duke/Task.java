@@ -4,9 +4,8 @@ package duke;
  * The Task class represents a generic task item with a description and completion status.
  */
 public class Task implements Comparable<Task> {
-    Boolean done = false;
-    String task;
-    static String line = "______________________________________________________________________________________\n";
+    private Boolean isDone = false;
+    private final String task;
 
     /**
      * Constructs a Task instance with the specified task description.
@@ -23,30 +22,21 @@ public class Task implements Comparable<Task> {
      * @return True if the task is marked as done, false otherwise.
      */
     public Boolean isMarked() {
-        return this.done;
+        return this.isDone;
     }
 
     /**
      * Marks the task as done.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the task as incomplete.
      */
     public void unMark() {
-        this.done = false;
-    }
-
-    /**
-     * Returns a horizontal line used for separating sections.
-     *
-     * @return The horizontal line as a string.
-     */
-    public String line() {
-        return line;
+        this.isDone = false;
     }
 
     /**
@@ -64,10 +54,11 @@ public class Task implements Comparable<Task> {
      */
     @Override
     public String toString() {
-        String checkbox = this.done ? "[X] " : "[ ] ";
+        String checkbox = this.isDone ? "[X] " : "[ ] ";
         return checkbox + task;
     }
 
+    @Override
     public int compareTo(Task otherTask) {
         return this.task.compareTo(otherTask.task);
     }
