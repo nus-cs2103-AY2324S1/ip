@@ -117,6 +117,9 @@ public class Ui {
             case "find":
                 output = handleFindCommand(parts, tasks);
                 break;
+            case "update":
+                output = handleUpdateCommand(parts, tasks);
+                break;
             case "woof":
                 output = "meow";
                 break;
@@ -259,9 +262,120 @@ public class Ui {
     public String handleFindCommand(String[] parts, TaskList tasks) {
         if (parts.length == 1) {
             return "pls enter: find <keyword>";
-        } else {
-            return showFindCommand(parts[1], tasks);
         }
+        return showFindCommand(parts[1], tasks);
+    }
+
+    /**
+     * Handles the 'update' command.
+     *
+     * @param parts  An array containing command parts.
+     * @param tasks  The TaskList containing tasks.
+     */
+    public String handleUpdateCommand(String[] parts, TaskList tasks) {
+        if (parts.length == 1) {
+            return "pls enter: update <index> </parts> </new_info>\n" +
+                    "(eg: update 2 /descr /have dinner)\n" +
+                    "\nRef. for </parts>:\n" +
+                    "1./descr: for all types of task.\n" +
+                    "2./time: for 'Deadline' only.\n" +
+                    "3./start_time, /end_time: for 'Event' only.";
+        }
+        String commandType = parts[0].toLowerCase();
+        String[] updateParts = parts[1].split(" /");
+        String updateType = updateParts[1].toLowerCase();
+        String output = "";
+
+        switch(updateType) {
+        case "descr":
+            output = updateDescr(updateParts, tasks);
+            break;
+        case "time":
+            output = updateTime(updateParts, tasks);
+            break;
+        case "start_time":
+            output = updateStartTime(updateParts, tasks);
+            break;
+        case "end_time":
+            output = updateEndTime(updateParts, tasks);
+            break;
+        default:
+            output = showError("sry... idk what u want to update.\n" +
+                    "u can type 'update' for more info!");
+        }
+        return output;
+    }
+
+    /**
+     * Updates the description of the task.
+     *
+     * @param updateParts  An array containing update command.
+     * @param tasks     The TaskList containing tasks.
+     */
+    public String updateDescr(String[] updateParts, TaskList tasks) {
+        if (updateParts.length < 3 ) {
+            return "Make sure you enter both index and description!";
+        }
+        int index = Integer.parseInt(updateParts[0]) - 1;
+        String description = updateParts[2];
+        Task task = tasks.getTask(index);
+
+        task.updateDescription(description);
+        return "Great, I've updated task " + (index + 1) + " !!";
+    }
+
+    /**
+     * Updates the time of a Deadline.
+     *
+     * @param updateParts  An array containing update command.
+     * @param tasks    A TaskList containing tasks.
+     */
+    public String updateTime(String[] updateParts, TaskList tasks) {
+        if (updateParts.length < 3 ) {
+            return "Make sure you enter both index and time!";
+        }
+        int index = Integer.parseInt(updateParts[0]) - 1;
+        String time = updateParts[2];
+        Deadline task = (Deadline)tasks.getTask(index);
+
+        task.updateTime(time);
+        return "woohoo~~ the time of task " + (index + 1) + " has been updated!";
+    }
+
+    /**
+     * Updates the start time of a Event.
+     *
+     * @param updateParts  An array containing the update command.
+     * @param tasks   A TaskList containing tasks.
+     */
+    public String updateStartTime(String[] updateParts, TaskList tasks) {
+        if (updateParts.length < 3) {
+            return "Make sure you enter both index and time !!";
+        }
+        int index = Integer.parseInt(updateParts[0]) - 1;
+        String startTime = updateParts[2];
+        Event task = (Event)tasks.getTask(index);
+
+        task.updateStartTime(startTime);
+        return "nice! task " + (index + 1) + " has new start time now!";
+    }
+
+    /**
+     * Updates the end time of a Event.
+     *
+     * @param updateParts  An array containing the update command.
+     * @param tasks   A TaskList containing tasks.
+     */
+    public String updateEndTime(String[] updateParts, TaskList tasks) {
+        if (updateParts.length < 3) {
+            return "Make sure you enter both index and time !!";
+        }
+        int index = Integer.parseInt(updateParts[0]) - 1;
+        String endTime = updateParts[2];
+        Event task = (Event)tasks.getTask(index);
+
+        task.updateEndTime(endTime);
+        return "nice! task " + (index + 1) + " has new end time now!";
     }
 
     /**

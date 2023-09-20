@@ -1,1 +1,2 @@
 TODO | read book
+EVENT | meeting | 2023-10-10 1400 | 2023-10-10 1800

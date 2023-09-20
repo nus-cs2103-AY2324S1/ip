@@ -25,6 +25,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Updates the time of a Deadline.
+     *
+     * @param deadlineString  A new time string.
+     */
+    public void updateTime(String deadlineString) {
+        this.deadline = parseDeadline(deadlineString);
+    }
+
+    /**
      * Parses the deadline date from string.
      *
      * @param deadlineString  The deadline date string in "yyyy-MM-dd" format.
