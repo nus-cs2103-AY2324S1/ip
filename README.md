@@ -1,24 +1,35 @@
 # Duke project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a chatbot project named Kniaz, patterned after the [Duke Project template](https://github.com/se-edu/duke).
 
-## Setting up in Intellij
+Kniaz being a romanisation of a Eastern European title analogous to the title of Duke, hence the name.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## How to use Kniaz
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Download the latest release from the github repo of Kniaz
+
+Ensure you have Java 11 [installed.](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html)
+
+Run the .jar file as per these [instructions.](https://docs.oracle.com/javase/tutorial/deployment/jar/run.html)
+
+You should see Kniaz open!
+
+The list of commands, and their descriptions are :
+
+* `todo {task}` : Adds a todo (a task without a date) with name `task`
+
+* `deadline {task} /by {time}` Adds a deadline with name  `task` with deadline `time`.
+Parses according to the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time format. 
+Just stores your time as a string if not in this format.
+
+* `event {task} /from {time_from} /to {time_to}` Adds an event with name `task` that starts from `time_from` and lasts until `time_to`.
+  Parses according to the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time format.
+  Just stores your time as a string if not in this format.
+* `list` Lists all the added tasks in index order. (1-indexed, meaning the first task has an index of 1.)
+* `mark {index}` Marks the task at `index` as done.
+* `unmark {index}` Un-marks the task at `index`.
+* `delete {index}` Deletes the task at `index`.
+* `tag {index} {tag}` Tags the task at `index` with tag `tag`. Tasks can have an arbitrary number of tags.
+* `find {search}` Searches all task names and task tags for your search term, `search`. Prints a list containing all found tasks.
+
+Do note most commands will give you immediate feedback when you key them in, so you always know when a command works or fails.
