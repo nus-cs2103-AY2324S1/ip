@@ -101,6 +101,7 @@ public class Duke {
      */
     public Task addToDo(String s) throws DukeException {
         try {
+
             Task res = new Todo(s);
             boolean isAdded = this.tasklist.add(res);
             if (isAdded) {
