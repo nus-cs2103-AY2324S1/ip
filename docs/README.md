@@ -1,10 +1,13 @@
+<div style="background-color:rgb(0,0,0);
+color: white">
+
 # Jeeves User Guide
 
 ## Feature List
 The exact syntax to be used to access these features will be detailed in the next section.
 
-* [Add and track 'Todo' tasks](#add-and-track-'todo'-tasks)
-* Add and track 'Deadline' tasks
+* [Add and track 'Todo' tasks](#add-and-track-todo-tasks)
+* [Add and track 'Deadline' tasks](#add-and-track-deadline-tasks)
 * Add and track 'Event' tasks
 * List all of your tasks
 * Mark and Unmark tasks to keep track of your work
@@ -46,3 +49,5 @@ Example of usage:
 
 Expected outcome:
 Jeeves will create a new Deadline task with description 'finish user guide' with the deadline being '20 Sep 2023'
+
+</div>
