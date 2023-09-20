@@ -238,7 +238,6 @@ public class TaskList {
      */
     public String findTasks(String keyword) {
         StringBuilder output = new StringBuilder();
-        output.append(Ui.getDottedLine());
         if (tasks.isEmpty()) {
             output.append("There are no tasks in your list.\n");
         } else {
@@ -254,7 +253,6 @@ public class TaskList {
                 output.append("Sorry there are no matching tasks!\n");
             }
         }
-        output.append(Ui.getDottedLine());
         return output.toString();
     }
 }

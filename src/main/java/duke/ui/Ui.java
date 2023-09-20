@@ -23,18 +23,9 @@ public class Ui {
      */
     public String getHelloMessage() {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         output.append("Hello! I'm " + this.name + "\n");
         output.append("What can I do for you?\n");
-        output.append(getDottedLine());
         return output.toString();
-    }
-
-    /**
-     * Prints dotted line with new line.
-     */
-    public static String getDottedLine() {
-        return "________________________\n";
     }
 
     /**
@@ -43,9 +34,7 @@ public class Ui {
      */
     public static String getGoodbyeMessage() {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         output.append("Bye. Hope to see you again soon!\n");
-        output.append(getDottedLine());
         return output.toString();
     }
 
@@ -57,13 +46,11 @@ public class Ui {
      */
     public static String getDeleteTaskMessage(List<Task> tasks, int index) {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         output.append("Noted. I've removed this duke.task:\n");
         output.append(tasks.get(index - 1) + "\n");
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
         int remainingTasks = tasks.size() - 1;
         output.append("Now you have " + remainingTasks + " " + placeholder + " in the list.\n");
-        output.append(getDottedLine());
         return output.toString();
     }
 
@@ -74,12 +61,10 @@ public class Ui {
      */
     public static String getAddTaskMessage(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         output.append("Got it. I've added this duke.task:\n");
         output.append(tasks.get(tasks.size() - 1) + "\n");
         String placeholder = tasks.size() == 1 ? "task" : "tasks";
         output.append("Now you have " + tasks.size() + " " + placeholder + " in the list.\n");
-        output.append(getDottedLine());
         return output.toString();
     }
 
@@ -90,7 +75,6 @@ public class Ui {
      */
     public static String getListTasksMessage(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         if (tasks.isEmpty()) {
             output.append("There are no tasks in your list.\n");
         } else {
@@ -99,7 +83,6 @@ public class Ui {
                 output.append((i + 1) + "." + tasks.get(i) + "\n");
             }
         }
-        output.append(getDottedLine());
         return output.toString();
     }
 
@@ -110,8 +93,6 @@ public class Ui {
      */
     public static String getSortedTasksByTypeMessage(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
-
         if (tasks.isEmpty()) {
             output.append("There are no tasks in your list.\n");
         } else {
@@ -134,7 +115,6 @@ public class Ui {
                 output.append(index++ + "." + t + "\n");
             }
         }
-        output.append(getDottedLine());
         return output.toString();
     }
 
@@ -145,7 +125,6 @@ public class Ui {
      */
     public static String getSortedTasksByDatetimeMessage(List<Task> tasks) {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         List<Task> todoTasks = tasks.stream().filter(task ->
                 task.toString().startsWith("[T]")).collect(Collectors.toList());
         if (tasks.isEmpty()) {
@@ -161,7 +140,6 @@ public class Ui {
                 output.append(index++ + "." + t + "\n");
             }
         }
-        output.append(getDottedLine());
         return output.toString();
     }
 
@@ -219,11 +197,9 @@ public class Ui {
      */
     public static String getMarkAsDoneMessage(List<Task> tasks, int index) {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         output.append("Nice! I've marked this task as done:\n");
         tasks.get(index - 1).markAsDone();
         output.append(tasks.get(index - 1) + "\n");
-        output.append(getDottedLine());
         return output.toString();
     }
 
@@ -235,11 +211,9 @@ public class Ui {
      */
     public static String getMarkAsUndoneMessage(List<Task> tasks, int index) {
         StringBuilder output = new StringBuilder();
-        output.append(getDottedLine());
         output.append("OK, I've marked this task as not done yet:\n");
         tasks.get(index - 1).markAsUndone();
         output.append(tasks.get(index - 1) + "\n");
-        output.append(getDottedLine());
         return output.toString();
     }
 

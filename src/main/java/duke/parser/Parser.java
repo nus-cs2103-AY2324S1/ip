@@ -131,8 +131,6 @@ public class Parser {
      * @return The error message.
      */
     private static String handleDukeException(DukeException e) {
-        return Ui.getDottedLine()
-                + e.getMessage()
-                + Ui.getDottedLine();
+        return e.getMessage();
     }
 }
