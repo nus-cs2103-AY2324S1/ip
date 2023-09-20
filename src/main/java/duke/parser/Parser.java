@@ -55,30 +55,69 @@ public class Parser {
         return Integer.parseInt(rest);
     }
 
+    /**
+     * Marks a task as done.
+     * @param input The user's input.
+     * @param taskList The list of tasks.
+     * @return The mark as done message.
+     * @throws InvalidArgumentException If the task's format is invalid.
+     * @throws IllegalTaskIndexException If the index is invalid.
+     */
     private static String handleMark(String input, TaskList taskList)
             throws InvalidArgumentException, IllegalTaskIndexException {
         int index = extractIndexFromCommand(input, "mark");
         return taskList.markAsDone(index);
     }
 
+    /**
+     * Marks a task as undone.
+     * @param input The user's input.
+     * @param taskList The list of tasks.
+     * @return The mark as undone message.
+     * @throws InvalidArgumentException If the task's format is invalid.
+     * @throws IllegalTaskIndexException If the index is invalid.
+     */
     private static String handleUnmark(String input, TaskList taskList)
             throws InvalidArgumentException, IllegalTaskIndexException {
         int index = extractIndexFromCommand(input, "unmark");
         return taskList.markAsUndone(index);
     }
 
+    /**
+     * Deletes a task.
+     * @param input The user's input.
+     * @param taskList The list of tasks.
+     * @return The delete message.
+     * @throws InvalidArgumentException If the task's format is invalid.
+     * @throws IllegalTaskIndexException If the index is invalid.
+     */
     private static String handleDelete(String input, TaskList taskList)
             throws InvalidArgumentException, IllegalTaskIndexException {
         int index = extractIndexFromCommand(input, "delete");
         return taskList.deleteTask(index);
     }
 
+    /**
+     * Finds tasks with a keyword.
+     * @param input The user's input.
+     * @param taskList The list of tasks.
+     * @return The find message.
+     * @throws InvalidArgumentException If the task's format is invalid.
+     */
     private static String handleFind(String input, TaskList taskList) throws InvalidArgumentException {
         String keyword = extractArgFromCommand(input, "find");
         return taskList.findTasks(keyword);
     }
 
-    private static String extractArgFromCommand(String input, String command) throws InvalidArgumentException {
+    /**
+     * Extracts the argument from a command.
+     * @param input The user's input.
+     * @param command The command.
+     * @return The argument.
+     * @throws InvalidArgumentException If the argument is missing.
+     */
+    private static String extractArgFromCommand(String input, String command)
+            throws InvalidArgumentException {
         String rest = input.substring(command.length()).trim();
         if (rest.isEmpty()) {
             throw new InvalidArgumentException("The '" + command + "' command must be followed by a keyword.");
@@ -86,6 +125,11 @@ public class Parser {
         return rest;
     }
 
+    /**
+     * Handles a DukeException.
+     * @param e The DukeException.
+     * @return The error message.
+     */
     private static String handleDukeException(DukeException e) {
         return Ui.getDottedLine() +
                 e.getMessage() +
