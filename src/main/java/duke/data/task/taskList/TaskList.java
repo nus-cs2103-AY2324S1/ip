@@ -4,6 +4,9 @@ import duke.data.task.Task;
 import duke.exception.DukeException;
 import duke.exception.InvalidInputException;
 
+/**
+ * Manager class for all the tasks of the user.
+ */
 public class Tasklist {
     private int taskCount = 0;
     private Task[] tasks = new Task[100];
