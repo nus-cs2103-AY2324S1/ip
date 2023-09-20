@@ -30,7 +30,7 @@ public class Duke {
     private static TaskList tasks;
     private static String DIR_PATH = "./data";
     private static String FILE_PATH = "./data/duke.txt";
-    enum Command { MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, BYE, LIST, INVALID, FIND, REMINDER }
+    enum Command { MARK, UNMARK, DELETE, TODO, EVENT, DEADLINE, BYE, LIST, INVALID, FIND, REMINDER, HELP}
     /**
      * Checks if the command is valid or invalid.
      * @param command Command word to be identified.
@@ -58,6 +58,8 @@ public class Duke {
             return Command.FIND;
         case "reminder":
             return Command.REMINDER;
+        case "help":
+            return Command.HELP;
         default:
             return Command.INVALID;
         }
@@ -91,6 +93,8 @@ public class Duke {
             return tasks.findTask(info);
         case REMINDER:
             return tasks.setReminder(info);
+        case HELP:
+            return tasks.getHelp();
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

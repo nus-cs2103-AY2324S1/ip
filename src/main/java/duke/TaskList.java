@@ -40,6 +40,7 @@ public class TaskList {
      * @throws DukeArgumentException DukeArgumentException is thrown if the provided task number is invalid.
      */
     public String unmark(String i) throws DukeArgumentException {
+        // checks for missing index
         if (parser.commandSplit(i).length < 2) {
             throw new DukeArgumentException("Which task do you want to mark as not done? Write your command as:\n"
                     + "unmark <INDEX_OF_TASK>");
@@ -65,6 +66,7 @@ public class TaskList {
      * @throws DukeArgumentException DukeArgumentException is thrown if the provided task number is invalid.
      */
     public String mark(String i) throws DukeArgumentException {
+        // checks for missing index
         if (parser.commandSplit(i).length < 2) {
             throw new DukeArgumentException("Which task to you want to mark as done? Write your command as:\n"
                     + "mark <INDEX_OF_TASK>");
@@ -117,7 +119,7 @@ public class TaskList {
             String message;
             message = "Here are the tasks in your list:\n";
             for (int a = 0; a < numTask; a++) {
-                message += "     " + (a + 1) + ". " + taskArray.get(a).printDesc() + "\n";
+                message += (a + 1) + ". " + taskArray.get(a).printDesc() + "\n";
             }
             return message;
         }
@@ -247,5 +249,29 @@ public class TaskList {
         } else {
             return message;
         }
+    }
+    public String getHelp() {
+        String message = "Here are some of the commands that I can execute!:\n"
+                + "1. List out the all the tasks\n"
+                + "   Command format: list()\n"
+                + "2. Adding Todo task\n"
+                + "   Command format: todo TASK_DESCRIPTION\n"
+                + "3. Adding Event task\n"
+                + "   Command format: event TASK_DESCRIPTION /from START_DATE_TIME /to END_DATE_TIME\n"
+                + "   All DATE_TIME must be in the format of YYYY-MM-ddThh:mm:ss\n"
+                + "4. Adding Deadline task\n"
+                + "   Command format: deadline TASK_DESCRIPTION /by DATE_TIME\n"
+                + "   DATE_TIME must be in the format of YYYY-MM-ddThh:mm:ss\n"
+                + "5. Marking a task as done\n"
+                + "   Command format: mark TASK_INDEX\n"
+                + "6. Marking a task as not done\n"
+                + "   Command format: unmark TASK_INDEX\n"
+                + "7. Delete a task\n"
+                + "   Command format: delete TASK_INDEX\n"
+                + "8. Set reminder for a task\n"
+                + "   Command format: reminder TASK_INDEX\n"
+                + "9. Find a task given a keyword\n"
+                + "   Command format: find TASK_KEYWORD\n";
+        return message;
     }
 }
