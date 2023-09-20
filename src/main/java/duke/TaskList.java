@@ -17,6 +17,7 @@ public class TaskList {
     private static File taskList;
     private static int taskCount = 0;
     private static ArrayList<Task> tasks = new ArrayList<>();
+    private final Ui ui = new Ui();
 
     /**
      * Constructs a TaskList instance with the specified file containing task data.
@@ -122,16 +123,12 @@ public class TaskList {
                 throw new DukeException("Error: Invalid Task Index!");
             } else {
                 int remainingTasks = taskCount - 1;
-                String response = "Got it! I've removed this task:"
-                        + "\n" + tasks.get(taskIndex).toString()
-                        + "\n" + "You now have " + remainingTasks
-                        + " task(s) in the list";
                 tasks.remove(taskIndex);
                 if (taskCount > 0) {
                     taskCount--;
                 }
                 writeToFile();
-                return response;
+                return ui.getDeleteTaskMessage(tasks, taskIndex, remainingTasks);
             }
         } catch (DukeException exception) {
             return exception.getMessage();
@@ -154,9 +151,7 @@ public class TaskList {
                 tasks.get(taskIndex).mark();
                 assert tasks.get(taskIndex).isMarked() : "Unable to mark Task!";
                 writeToFile();
-                String response = "Great job! You've completed the following task:"
-                        + "\n" + tasks.get(taskIndex).toString();
-                return response;
+                return ui.getMarkedMessage(tasks, taskIndex);
             }
         } catch (DukeException exception) {
             return exception.getMessage();
@@ -179,9 +174,7 @@ public class TaskList {
                 tasks.get(taskIndex).unMark();
                 writeToFile();
                 assert !tasks.get(taskIndex).isMarked() : "Unable to unmark Task!";
-                String response = "You've marked the following task as incomplete:"
-                        + "\n" + tasks.get(taskIndex).toString();
-                return response;
+                return ui.getUnmarkedMessage(tasks, taskIndex);
             }
         } catch (DukeException exception) {
             return exception.getMessage();
@@ -197,17 +190,13 @@ public class TaskList {
      */
     public String addToList(Task task, int taskId) {
         int numTasks = taskCount + 1;
-        String response = "Got it! I've added this task:"
-                + "\n" + task.toString() + "\n"
-                + "You now have " + numTasks
-                + " task(s) in the list";
         tasks.add(taskId, task);
         assert tasks.size() == numTasks : "Error with tallying tasks";
         if (taskCount < tasks.size()) {
             taskCount++;
         }
         writeToFile();
-        return response;
+        return ui.getAddTaskMessage(task, numTasks);
     }
 
     /**
@@ -226,7 +215,10 @@ public class TaskList {
      *
      * @param input The string representation of the todo task and deadline.
      */
-    public String handleDeadline(String input) {
+    public String handleDeadline(String input) throws DukeException {
+        if (!input.contains("/by ")) {
+            throw new DukeException("Input does not contain '/by ' to indicate the deadline.");
+        }
         String[] parts = input.split("/by ");
         String nameOfTask = parts[0].trim().substring(9);
         try {
@@ -234,7 +226,7 @@ public class TaskList {
             Deadline task = new Deadline(nameOfTask, deadline);
             return addToList(task, taskCount);
         } catch (DateTimeParseException e) {
-            return "Invalid Date Format! Follow: YYYY-MM-DD";
+            return ui.getInvalidDateMessage();
         }
     }
 
@@ -243,7 +235,11 @@ public class TaskList {
      *
      * @param input The string representation of the event, start time, and end time.
      */
-    public String handleEvent(String input) {
+    public String handleEvent(String input) throws DukeException {
+        if (!input.contains("/from ") || !input.contains("/to ")) {
+            throw new DukeException("Input does not contain '/from' and/or "
+                    + "'/to' to indicate event start and end dates.");
+        }
         String[] taskAndTime = input.split("/from ");
         String[] fromAndTo = taskAndTime[1].split("/to ");
         try {
@@ -253,7 +249,7 @@ public class TaskList {
             Event task = new Event(nameOfTask, start, end);
             return addToList(task, taskCount);
         } catch (DateTimeParseException e) {
-            return "Invalid Date Format! Follow: YYYY-MM-DD";
+            return ui.getInvalidDateMessage();
         }
     }
 
@@ -279,6 +275,6 @@ public class TaskList {
      */
     public String sortList() {
         Collections.sort(tasks);
-        return "Okay, I've sorted your list \n" + displayList();
+        return ui.getSortedMessage() + displayList();
     }
 }
