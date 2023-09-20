@@ -76,9 +76,10 @@ public class Parser {
      * @param input the input command string
      * @param tasklist the task list to operate on
      * @return appropriate chatbot response, exception details or UNHANDLED_EXCEPTION_STRING if
-     * there are unhandled edge cases
+     *     there are unhandled edge cases
      */
     public String passUserCommand(String input, TaskList tasklist) {
+        assert(tasklist != null);
         try {
             CommandAbstract command = createUserCommand(input);
             return command.execute(tasklist);

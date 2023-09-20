@@ -1,5 +1,6 @@
 package duke.assets.commands;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.regex.Matcher;
@@ -83,6 +84,15 @@ public class CreateEventCommand extends CommandAbstract {
      * @return string of appropriate bot response, UNHANDLED_EXCEPTION_STRING for any unhandled edge cases
      */
     protected String findException() {
+        return checkInformationPresent();
+    }
+
+    /**
+     * Check if the user included information about the event task
+     *
+     * @return appropriate debugging chatbot message
+     */
+    private String checkInformationPresent() {
         String[] delimitedBySlash = this.input.split("/");
 
         try { // Checks if user included information about the event task
@@ -90,6 +100,16 @@ public class CreateEventCommand extends CommandAbstract {
         } catch (IndexOutOfBoundsException indexExcept) {
             return "Please include information about the task you would like to add.";
         }
+        return checkDatePresent();
+    }
+
+    /**
+     * Check if the user included the date in the right format
+     *
+     * @return appropriate debugging chatbot message
+     */
+    private String checkDatePresent() {
+        String[] delimitedBySlash = this.input.split("/");
 
         try { // Checks if users have included the start and end dates after /from and /to respectively
             String startDate = delimitedBySlash[1].substring(5, delimitedBySlash[1].length() - 1);
@@ -100,7 +120,15 @@ public class CreateEventCommand extends CommandAbstract {
             return "Please verify you have included the start date after /from and "
                     + "end date after /to commands";
         }
+        return checkFormatting();
+    }
 
+    /**
+     * Check if the user input format is of the right format
+     *
+     * @return appropriate debugging chatbot message, or unhandled exception message for any edge cases not caught
+     */
+    private String checkFormatting() {
         try { // Checks if user has input all dates and time in the correct format
             String dates = this.input.split(" /from ")[1];
             String[] startDateArr = dates.split(" /to ")[0].split(" ");
@@ -132,8 +160,11 @@ public class CreateEventCommand extends CommandAbstract {
         } catch (IndexOutOfBoundsException | IllegalArgumentException indexExcept) {
             return "Ensure that deadline date follows the following format: "
                     + "yyyy-mm-dd or yyyy/mm/dd.";
+        } catch (DateTimeException dateTimeException) {
+            return "Please input a valid date and time";
         }
         // If exception is not caught by here, will flag an error string
         return UNHANDLED_EXCEPTION_STRING;
     }
 }
+

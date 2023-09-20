@@ -119,7 +119,7 @@ public class TaskList {
             taskStream.map(x -> x.saveToTextFormat()).forEach(x -> pw.println(x));
             pw.close();
         } catch (IOException e) {
-            System.out.println("ChadGPT: Please check if your I/O is working as intended.");
+            System.out.println("Please check if your I/O is working as intended.");
         }
     }
 
@@ -179,11 +179,23 @@ public class TaskList {
         return baseString;
     }
 
+    /**
+     * Sort the task list by lexicographical order
+     *
+     * @param reverse true if the user wants to sort in descending order, false for ascending order
+     * @return appropriate chatbot message response
+     */
     public String sortByAlphabetical(boolean reverse) {
         this.taskList.sort((x, y) -> x.compareInformation(y, reverse));
         return "Done! I have sorted your list in" + (reverse ? " descending " : " ") + "alphabetical order!";
     }
 
+    /**
+     * Sort the tasklist by chronological order
+     *
+     * @param reverse true if the user wants to sort in descending order, false for ascending order
+     * @return appropriate chatbot message response
+     */
     public String sortByChronological(boolean reverse) {
         this.taskList.sort((x, y) -> x.compareDate(y, reverse));
         return "Done! I have sorted your list in " + (reverse ? " descending " : " ") + "chronological order!";
