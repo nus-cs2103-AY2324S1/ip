@@ -10,3 +10,4 @@ deadline / 1 / mathhomework / 2023-09-10 1900
 deadline / 0 / mathhomework / 2023-09-09 2000
 deadline / 0 / mathhomework / 2023-09-06 1400
 deadline / 1 / mathhomework / 2023-09-05 1500
+event / 0 / marathon / 2023-09-20 1400 / 2023-09-20 1600
