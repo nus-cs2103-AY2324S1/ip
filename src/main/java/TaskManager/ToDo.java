@@ -79,7 +79,7 @@ public class ToDo extends Task {
         if (this.isDone) {
             x = "X";
         } else {
-            x = " ";
+            x = "  ";
         }
         String str1 = String.format("[%s] ", x);
         return "[T]" + str1 + this.taskDesc;
