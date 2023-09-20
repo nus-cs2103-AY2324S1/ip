@@ -34,7 +34,7 @@ public class Parser {
     );
 
     private enum Cmd {
-        MARK, UNMARK, LIST, EXIT, TODO, DEADLINE, EVENT, DELETE, FIND, LOCATION
+        MARK, UNMARK, LIST, EXIT, TODO, DEADLINE, EVENT, DELETE, FIND, LOCATION, INVALID
     }
 
     public Parser() {
@@ -49,7 +49,7 @@ public class Parser {
     public static Command parse(String text) throws DukeException {
         String[] parts = text.split(" ", 2);
         String description = parts.length >= 2 ? parts[1] : null;
-        Cmd action = COMMAND_MAP.get(parts[0]);
+        Cmd action = COMMAND_MAP.getOrDefault(parts[0], Cmd.INVALID);
         switch (action) {
         case EXIT:
             return new ExitCommand();
