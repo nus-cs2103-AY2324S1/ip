@@ -15,4 +15,3 @@ T | 0 | aoskao
 T | 0 | qqq
 T | 0 | lll
 T | 0 | abc
-T | 0 | lol

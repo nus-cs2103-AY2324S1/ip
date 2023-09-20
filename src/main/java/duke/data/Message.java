@@ -7,6 +7,7 @@ import duke.data.task.Task;
 
 /**
  * The Ui class handles user input and display messages.
+ * Used ChatGPT for the generation of phrases used by Duke
  */
 public class Message {
     /** Constructor to initialize Ui */
@@ -16,12 +17,12 @@ public class Message {
 
     /** Displays welcome message */
     public String showWelcome() {
-        return "Welcome! I'm Dommi and I'm here to assist you with your task management!";
+        return "Greetings! I'm Dommi, your trusty taskmaster, here to make your task management journey a breeze! \uD83D\uDE80";
     }
 
     /** Displays goodbye message */
     public String showBye() {
-        return "Goodbye! Hope to see you again soon!";
+        return "Adieu! Anticipating your triumphant return!";
     }
 
     /** Displays loading error */
@@ -44,7 +45,7 @@ public class Message {
      * @param task the task that was marked.
      */
     public String showMarked(Task task) {
-        String response = "Nice! I've marked this task as done:\n";
+        String response = "Fantastic! Task conquered, marked as done:\n";
         response += task;
         return response;
     }
@@ -55,7 +56,7 @@ public class Message {
      * @param task the task that was unmarked.
      */
     public String showUnmarked(Task task) {
-        String response = "OK, I've marked this task as not done yet:\n";
+        String response = "Alrighty then! Task status reverted to 'Not done' for now:\n";
         response += task;
         return response;
     }
@@ -67,7 +68,7 @@ public class Message {
      * @param noTasks number of tasks in arraylist.
      */
     public String showTaskAdded(Task task, int noTasks) {
-        String response = "Got it. I've added this task:\n";
+        String response = "Message received! Task added to the list:\n";
         response += task;
         response += "\nNow you have " + noTasks + " tasks in the list.";
         return response;
@@ -80,7 +81,7 @@ public class Message {
      * @param noTasks number of tasks in arraylist.
      */
     public String showTaskDeleted(Task task, int noTasks) {
-        String response = "Noted. I've removed this task:\n";
+        String response = "Copy that! Task successfully erased:\n";
         response += task;
         response += "\nNow you have " + noTasks + " tasks in the list.";
         return response;
@@ -105,17 +106,17 @@ public class Message {
 
     /** Displays invalid format error */
     public String showInvalidFormat() {
-        return "☹ OOPS!!! Date has to be in yyyy-mm-dd format!";
+        return "Oops! Our date needs to be in the sleek yyyy-mm-dd format!";
     }
 
     /** Displays writing to file error */
     public String showWriteFileError() {
-        return "☹ OOPS!!! Error writing to file!";
+        return "Oops! A gremlin's been tampering with our file-writing equipment!";
     }
 
     /** Displays invalid command error */
     public String showInvalidCommand() {
-        return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
+        return " Oops! It seems like an input I can't quite decipher. Please try again!";
     }
 
     /** Displays all the tasks in the array list in the parameter */
