@@ -1,0 +1,47 @@
+/* styles.css */
+
+/* Define a class for circular images */
+.dialog-image {
+    -fx-stroke-type: outside;
+    -fx-stroke-width: 2;
+    -fx-stroke-color: #000;
+    -fx-shape: "M10,0A10,10 0 1,0 20,0A10,10 0 0,0 10,0Z";
+}
+
+/* Define a class for dialog boxes */
+.dialog-box {
+    -fx-background-color: rgba(255, 255, 255, 0.5); /* Background color */
+    -fx-padding: 10px; /* Padding inside the dialog box */
+    -fx-background-radius: 10px; /* Rounded corners */
+    -fx-border-radius: 10px; /* Rounded corners for the border */
+}
+
+/* Define a class for dialog text */
+.dialog-text {
+    -fx-font-size: 18px;
+    -fx-font-family: "Impact";
+}
+
+/* Customize the send button's color */
+.sendButton {
+    -fx-background-color: #ebcb9b;
+    -fx-font-size: 20px;
+    -fx-font-family: "Impact";
+    -fx-background-radius: 15px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px 10px;
+}
+
+/* Customize the text field's color, font, and border */
+.text-field {
+    -fx-background-color: rgb(108, 212, 228, 0.5);
+    -fx-text-fill: #443c2c;
+    -fx-font-size: 14px;
+    -fx-font-family: "Abel";
+    -fx-font-weight: bold;
+    -fx-background-radius: 15px;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+}
+
+
