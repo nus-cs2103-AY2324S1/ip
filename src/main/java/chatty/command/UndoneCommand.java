@@ -12,7 +12,7 @@ import chatty.utils.Ui;
  */
 public class UndoneCommand extends Command {
 
-    private int index;
+    private final int index;
 
     /**
      * Constructor for the UndoneCommand instance.
@@ -26,7 +26,8 @@ public class UndoneCommand extends Command {
 
     /**
      * Executes the 'unmark' command to mark a task as undone in the task list.
-     * This method updates the status of the specified task as undone, saves the updated task list to storage (if required),
+     * This method updates the status of the specified task as undone,
+     * saves the updated task list to storage (if required),
      * and returns a string indicating that the task has been marked as undone.
      *
      * @param taskList The task list with the current available tasks.

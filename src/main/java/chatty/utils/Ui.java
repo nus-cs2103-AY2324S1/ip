@@ -12,7 +12,7 @@ import chatty.task.TaskList;
  */
 public class Ui {
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     /**
      * Constructor for the Ui class.

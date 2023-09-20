@@ -12,7 +12,7 @@ import chatty.utils.Ui;
  */
 public class FindCommand extends Command {
 
-    private String keyword;
+    private final String keyword;
 
 
     /**

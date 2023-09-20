@@ -12,7 +12,7 @@ import chatty.utils.Ui;
  */
 public class DoneCommand extends Command {
 
-    private int index;
+    private final int index;
 
     /**
      * Constructor for the DoneCommand instance.

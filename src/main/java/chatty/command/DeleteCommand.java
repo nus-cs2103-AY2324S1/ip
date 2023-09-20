@@ -12,7 +12,7 @@ import chatty.utils.Ui;
  */
 public class DeleteCommand extends Command {
 
-    private int index;
+    private final int index;
 
 
     /**

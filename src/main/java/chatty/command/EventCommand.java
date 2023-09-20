@@ -14,7 +14,7 @@ import chatty.utils.Ui;
  */
 public class EventCommand extends Command {
 
-    private Task task;
+    private final Task task;
 
     /**
      * Constructor for the EventCommand instance.
