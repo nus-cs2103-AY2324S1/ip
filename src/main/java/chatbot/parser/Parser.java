@@ -17,15 +17,21 @@ public class Parser {
         if (command.equals("list") || command.equals("bye")) {
             return true;
         } else if (command.split(" ")[0].equals("todo") && command.split(" ")[1].length() < 1) {
-            throw new DukeException("Error! Please include a description of the todo");
+            throw new DukeException("Error! Please include a description of the todo. Eg. todo run");
         } else if (command.split(" ")[0].equals("deadline") && command.split(" ")[1].length() < 1
                 && !command.contains("/by")) {
-            throw new DukeException("Error! Input should have a description and date");
-        } else if (command.split(" ")[0].equals("event") && command.split(" ")[1].length() < 1
-                && !command.contains("/from") && !command.contains("/to")) {
-            throw new DukeException("Error! Input should have a description, start date and end date");
+            throw new DukeException("Error! Input should have a description and date. " +
+                    "Eg. deadline assignment /by dd-MM-yyyy HH:mm:ss");
+        } else if (command.split(" ")[0].equals("event") && command.split(" ")[1].length() < 1){
+            throw new DukeException("Error! Input should have a description.");
+        } else if (command.split(" ")[0].equals("event") && !command.contains("/from")) {
+            throw new DukeException("Error! Input should have a start date." +
+                    "Eg. event sports day /from dd-MM-yyyy HH:mm:ss /to dd-MM-yyyy HH:mm:ss");
+        } else if (command.split(" ")[0].equals("event") && !command.contains("/to")) {
+            throw new DukeException("Error! Input should have an end date." +
+                    "Eg. event sports day /from dd-MM-yyyy HH:mm:ss /to dd-MM-yyyy HH:mm:ss");
         } else if (command.split(" ")[0].equals("mark") && command.split(" ")[1].length() < 1) {
-            throw new DukeException("Error! Please include a description of the task to be marked");
+            throw new DukeException("Error! Please include a description of the task to be marked.");
         } else if (command.split(" ")[0].equals("unmark") && command.split(" ")[1].length() < 1) {
             throw new DukeException("Error! Please include a description of the task to be unmarked");
         } else {

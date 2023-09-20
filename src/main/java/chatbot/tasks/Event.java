@@ -11,20 +11,20 @@ public class Event extends Task {
     /**
      * End date of event task
      */
-    protected String end;
+    private String end;
     /**
      * Start date of event task
      */
-    protected String start;
+    private String start;
 
     /**
      * Formatted start date of event task
      */
-    protected LocalDateTime formattedStart;
+    private LocalDateTime formattedStart;
     /**
      * Formatted end date of event task
      */
-    protected LocalDateTime formattedEnd;
+    private LocalDateTime formattedEnd;
 
     /**
      * Constructor for Event
