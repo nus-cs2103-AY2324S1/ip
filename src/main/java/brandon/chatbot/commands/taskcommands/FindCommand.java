@@ -3,9 +3,10 @@ package brandon.chatbot.commands.taskcommands;
 import brandon.chatbot.Message;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
-import brandon.chatbot.tag.Tag;
+import brandon.chatbot.common.DukeException;
 import brandon.chatbot.tasks.Task;
 import brandon.chatbot.tasks.TaskList;
+import brandon.chatbot.tag.Tag;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -24,23 +25,22 @@ public class FindCommand extends Command {
         this.title = title;
         this.tags = tags;
     }
-
     @Override
-    public CommandResult execute() {
-
+    public CommandResult execute() throws DukeException {
         TaskList newList = new TaskList();
+        boolean titleExists = false;
 
         if (!title.isPresent() && !tags.isPresent()) {
-            return new CommandResult(TITLE_BLANK);
+            throw new DukeException(TITLE_BLANK);
         }
 
         if (title.isPresent()) {
             findAndAddTasks(newList);
+            titleExists = true;
         }
 
-
         if (tags.isPresent()) {
-            findTasksByTagsAndFilter(newList);
+            findTasksByTagsAndFilter(newList, titleExists);
         }
 
         if (newList.isEmpty()) {
@@ -60,9 +60,9 @@ public class FindCommand extends Command {
         return newList;
     }
 
-    private TaskList findTasksByTagsAndFilter(TaskList newList) {
+    private TaskList findTasksByTagsAndFilter(TaskList newList, boolean titleExists) {
         for (Tag t : tags.get()) {
-            if (newList.isEmpty()) {
+            if (newList.isEmpty() && !titleExists) {
                 newList.appendTaskList(tagTaskMap.getTaskList(t));
             } else {
                 newList = newList.filterTaskWithTag(t);

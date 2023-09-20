@@ -33,6 +33,7 @@ public class Event extends Task {
         }
         if (endTime == null) {
             throw new DukeException(ENDING_TIME_BLANK);
+
         }
         try {
             String inputDateFormat = "yyyy-MM-dd";

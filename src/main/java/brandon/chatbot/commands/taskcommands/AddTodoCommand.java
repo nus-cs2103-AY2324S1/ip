@@ -15,7 +15,6 @@ import static brandon.chatbot.commands.Feedback.ADD_SUCCESS;
  * Represents a command that adds a todo task into the task list.
  */
 public class AddTodoCommand extends Command {
-
     private String title;
     private Optional<ArrayList<Tag>> tags;
 

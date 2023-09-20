@@ -9,12 +9,12 @@ import brandon.chatbot.tasks.Deadline;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static brandon.chatbot.commands.Feedback.ADD_SUCCESS;
+
 /**
  * Represents the command that adds deadline to the task list.
  */
 public class AddDeadlineCommand extends Command {
-    public static final String ADD_SUCCESS = "ok... I'm adding..";
-
     private String title;
     private String deadline;
     private Optional<ArrayList<Tag>> tags;

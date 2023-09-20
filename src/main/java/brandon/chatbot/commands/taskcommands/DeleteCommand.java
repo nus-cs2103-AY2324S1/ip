@@ -8,7 +8,7 @@ import brandon.chatbot.common.DukeIndexOutOfBoundsException;
  * Represents a deleting task command the user typed in.
  */
 public class DeleteCommand extends Command {
-    public static final String DELETE_SUCCESS = "ok... I'm deleting...";
+    public static final String DELETE_SUCCESS = "ok... I'm deleting...-ㅅ-";
     private int index;
 
     public DeleteCommand(int index) {
