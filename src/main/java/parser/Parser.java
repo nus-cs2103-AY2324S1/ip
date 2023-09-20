@@ -1,5 +1,6 @@
 package parser;
 
+import commands.Commands;
 import tasks.*;
 import ui.Ui;
 import main.Duke;
@@ -16,12 +17,14 @@ public class Parser {
     private Ui ui;
     private Storage storage;
     private TaskList tasklist;
+    private Commands commands;
 
     public Parser(Duke chad, ArrayList<Task> taskArrayList) {
         this.chad = chad;
         this.ui = new Ui();
         this.storage = new Storage();
         this.tasklist = new TaskList(taskArrayList);
+        this.commands = new Commands(chad, taskArrayList);
     }
 
     /**
@@ -159,56 +162,31 @@ public class Parser {
         String output = "";
 
         if (inputArray[0].equals("bye")) {
-            output = ui.displayChadBye();
+            output = commands.byeCommand();
 
         } else if (inputArray[0].equals("list")) {
-            output = ui.displaychadListTask(chad.taskArrayList);
+            output = commands.listCommand();
 
         } else if (inputArray[0].equals("mark")) {
-            try {
-                Integer index = Integer.valueOf(inputArray[1]);
-                tasklist.chadMarkTask(index);
-                storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadMarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
-                        chad.taskArrayList.get(index - 1).getMark());
 
+            output = commands.markCommand(inputArray);
 
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                output = "The task index is invalid! Try again!";
-            }
             assert false: "Code should not reach here";
 
         } else if (inputArray[0].equals("unmark")) {
-            try {
 
-                Integer index = Integer.valueOf(inputArray[1]);
-                tasklist.chadUnmarkTask(index);
-                storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadUnmarkTaskOutput(chad.taskArrayList.get(index - 1).getName(),
-                        chad.taskArrayList.get(index - 1).getMark());
+            output = commands.unmarkCommand(inputArray);
 
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                output = "The task index is invalid! Try again!";
-            }
             assert false: "Code should not reach here";
 
         } else if (inputArray[0].equals("find")) {
-            String name = inputArray[1];
-            output = tasklist.displayChadFindTask(name);
+
+            output = commands.findCommand(inputArray);
 
         } else if (inputArray[0].equals("todo")) {
-            try {
-                if (inputArray.length == 1 || inputArray[1].isEmpty()) {
-                    throw new Duke.DukeException("Hey! You forgot what you needed to do?");
-                }
-                Todo newTodo = new Todo(inputArray[1]);
-                tasklist.chadAddList(newTodo);
-                storage.writeFile(chad.taskArrayList);
-                output = ui.displayChadAddListOutput(newTodo.toString());
 
-            } catch (Duke.DukeException e) {
-                output =  e.getMessage() + "\n";
-            }
+            output = commands.todoCommand(inputArray);
+
             assert false: "Code should not reach here";
 
         } else if (inputArray[0].equals("deadline")) {
