@@ -54,7 +54,7 @@ shadowJar {
     archiveBaseName = "puke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    mainClassName = "puke.Main"
+    mainClassName = "puke.Puke"
 }
 
 run{

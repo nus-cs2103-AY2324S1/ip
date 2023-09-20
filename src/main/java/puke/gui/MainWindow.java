@@ -1,5 +1,6 @@
 package puke.gui;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,8 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import puke.command.ErrorCommand;
 import puke.Puke;
+import puke.command.ErrorCommand;
+import puke.command.ExitCommand;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,6 +26,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     private Puke puke;
+    private boolean isExit = false;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private final Image pukeImage = new Image(this.getClass().getResourceAsStream("/images/Puke.png"));
@@ -44,7 +47,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Puke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -52,7 +55,13 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = puke.getResponse(input);
         dialogContainer.getChildren().add(UserDialogBox.getUserDialog(input, userImage));
-        if (response.equals(ErrorCommand.getErrorMessage())) {
+        if (isExit) {
+            Platform.exit();
+        }
+        if (response.equals(ExitCommand.EXIT_MESSAGE)) {
+            isExit = true;
+            dialogContainer.getChildren().add(PukeDialogBox.getPukeDialog(response, pukeImage));
+        } else if (response.equals(ErrorCommand.getErrorMessage())) {
             dialogContainer.getChildren().add(ErrorDialogBox.getErrorDialog(pukeImage));
         } else {
             dialogContainer.getChildren().add(PukeDialogBox.getPukeDialog(response, pukeImage));

@@ -3,8 +3,10 @@ package puke;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.application.Application;
 import puke.command.Command;
 import puke.command.ErrorCommand;
+import puke.gui.Main;
 import puke.managers.DataHandler;
 import puke.managers.Parser;
 import puke.managers.PukeException;
@@ -31,6 +33,9 @@ public class Puke {
             assert created;
             tasks = new TaskList();
         }
+    }
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
     }
     public String getResponse(String input) {
         Command next;

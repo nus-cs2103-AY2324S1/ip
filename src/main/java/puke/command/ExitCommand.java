@@ -7,9 +7,10 @@ import puke.managers.TaskList;
  * A Command class that when executed, prints the exit message.
  */
 public class ExitCommand extends Command {
-    private static final String EXIT_MESSAGE = "It appears that the user has decided to close the program as indicated "
+    public static final String EXIT_MESSAGE = "It appears that the user has decided to close the program as indicated "
             + "by the command of which this is the function being issued and therefore, "
-            + "I shall bid thee farewell and wish thee great fortune in your future endeavors.";
+            + "I shall bid thee farewell and wish thee great fortune in your future endeavors.\n"
+            + "Any input henceforth will close the certain and definite article of which has been known as PukeBot.";
 
     /**
      * Creates a new ExitCommand

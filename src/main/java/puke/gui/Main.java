@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import puke.Puke;
 
 /**
- * a
+ * Main class of the GUI
  */
 public class Main extends Application {
     private final Puke puke = new Puke();
