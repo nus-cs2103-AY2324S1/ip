@@ -39,13 +39,8 @@ public class MultipleCommand extends Command {
         Result result = getResult();
         int[] reversedValues = result.reversedValues;
         int[] values = result.values;
-        for (int i = 0; i < reversedValues.length; i++) {
-            for (int j = i + 1; j < reversedValues.length; j++) {
-                if (reversedValues[i] == reversedValues[j]) {
-                    throw new DukeException("Oh no, do not repeat the indexes");
-                }
-            }
-        }
+        checkForDuplicates(reversedValues);
+        checkForDuplicates(values);
         if (commandType.equals("del")) {
             for (int reversedValue : reversedValues) {
                 Task task = taskList.deleteTask(reversedValue - 1);
@@ -66,6 +61,22 @@ public class MultipleCommand extends Command {
         }
         fileStorage.write(taskList);
         return ui.showNewList(result.newList, taskList, commandType);
+    }
+
+    /**
+     * Throws an error if there is a duplicate in the list.
+     *
+     * @param intArray The Int array that will be checked.
+     * @throws DukeException If there are duplicates.
+     */
+    private static void checkForDuplicates(int[] intArray) throws DukeException {
+        for (int i = 0; i < intArray.length; i++) {
+            for (int j = i + 1; j < intArray.length; j++) {
+                if (intArray[i] == intArray[j]) {
+                    throw new DukeException("Oh no, do not repeat the indexes");
+                }
+            }
+        }
     }
 
     /**

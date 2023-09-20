@@ -20,7 +20,9 @@ public class Task {
     public Task() {
         this.isEmpty = true;
     }
-    public boolean isItEmpty() { return isEmpty; }
+    public boolean isItEmpty() {
+        return isEmpty;
+    }
     public void setType(String type) {
         this.type = type;
     }

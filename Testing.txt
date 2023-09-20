@@ -1,6 +1,3 @@
-[D][ ] work more on ip (by: Sep 22 2023)
-[E][ ] workout (from: Sep 22 2023 to: Sep 22 3023)
-[T][X] workout
-[T][ ] shower
-[D][ ] dry off (by: Sep 22 2023)
-[E][ ] change clothes (from: Sep 23 2023 to: Sep 23 2024)
+  [D][X] rk more on ip (by: Sep 22 2023)
+  [E][X] rkout (from: Sep 22 2023 to: Sep 22 3023)
+  [E][ ] ange clothes (from: Sep 23 2023 to: Sep 23 2024)
