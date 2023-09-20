@@ -66,4 +66,19 @@ public class TodoTest {
             assertEquals("Cannot update: Todos do not have dates!", e.getMessage());
         }
     }
+
+    @Test
+    public void testClone() {
+        try {
+            Todo t1 = new Todo("Message");
+            t1.markAsDone();
+            Todo t2 = t1.clone();
+            t2.update(UpdateType.DESCRIPTION, "New Message");
+
+            assertEquals("[T][X] Message", t1.toString());
+            assertEquals("[T][ ] New Message", t2.toString());
+        } catch (DukeException e) {
+            fail("DukeException should not be thrown!");
+        }
+    }
 }

@@ -75,4 +75,23 @@ public class DeadlineTest {
             assertEquals("Cannot update: Deadlines have only one deadline date!", e.getMessage());
         }
     }
+
+    @Test
+    public void testClone() {
+        try {
+            Deadline d = new Deadline("Deadline",
+                    LocalDateTime.parse("2023-10-10T12:00:00"));
+            d.markAsDone();
+            d.update(UpdateType.DESCRIPTION, "New Deadline");
+            Deadline d2 = d.clone();
+            d.update(UpdateType.DESCRIPTION, "Old Deadline");
+            d2.update(UpdateType.DATE1, "2023-10-09T12:34:56");
+            assertEquals("[D][X] Old Deadline (by: Oct 10 2023, 12:00:00)",
+                    d.toString());
+            assertEquals("[D][ ] New Deadline (by: Oct 09 2023, 12:34:56)",
+                    d2.toString());
+        } catch (DukeException e) {
+            fail("DukeException should not be thrown!");
+        }
+    }
 }
