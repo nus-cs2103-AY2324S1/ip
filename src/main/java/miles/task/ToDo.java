@@ -6,7 +6,7 @@ import miles.MilesException;
  * Represents a todo task that has no dates involved.
  */
 public class ToDo extends Task {
-    private static String noDescErrorMsg = "OOPS!!! The description of a todo cannot be empty.";
+    private static String noDescErrorMsg = "Hold up... The description of a todo cannot be empty.";
 
     /**
      * Constructor to create a new todo task.

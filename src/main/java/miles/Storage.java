@@ -97,7 +97,6 @@ public class Storage {
 
             scanner.close();
             return taskList;
-
         } catch (IOException e) {
             ui.printErrorMsg(e.getMessage());
             return new TaskList();

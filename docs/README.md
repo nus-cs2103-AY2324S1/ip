@@ -6,6 +6,7 @@
 2. Download `miles.jar` from this repository.
 3. Navigate to the directory containing `miles.jar`.
 4. Run the following command
+
    ```
    java -jar miles.jar
    ```
