@@ -26,11 +26,20 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/img/user.jpeg"));
     private Image birdyImage = new Image(this.getClass().getResourceAsStream("/img/bird.jpeg"));
 
+    /**
+     * Initializes the controller. Binds the scrollPane's vvalue to the dialogContainer's height property.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+
+    /**
+     * Sets the Duke instance for the application and displays the initial Duke message in the dialog container.
+     *
+     * @param d The Duke instance to set.
+     */
     public void setDuke(Duke d) {
         duke = d;
         dialogContainer.getChildren().add(

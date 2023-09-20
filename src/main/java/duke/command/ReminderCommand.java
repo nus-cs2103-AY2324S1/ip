@@ -5,10 +5,13 @@ import duke.main.TaskList;
 import duke.main.Ui;
 import duke.task.Task;
 
+/**
+ * The ReminderCommand represents a command to list the reminders of the task list.
+ */
 public class ReminderCommand extends Command {
 
     /**
-     * Constructs a Command object with the specified task.
+     * Constructs a ReminderCommand object with the specified task.
      *
      * @param task The task associated with the command.
      */

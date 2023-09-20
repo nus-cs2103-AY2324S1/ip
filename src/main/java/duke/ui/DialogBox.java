@@ -49,10 +49,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Creates and returns a user dialog box with the given text and image.
+     *
+     * @param text The text to display in the user dialog.
+     * @param img The image to display in the user dialog.
+     * @return A DialogBox representing the user's dialog.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Creates and returns a Birdy dialog box with the given text and image.
+     * This dialog is flipped to position the image on the left and the text on the right.
+     *
+     * @param text The text to display in Birdy's dialog.
+     * @param img The image to display in Birdy's dialog.
+     * @return A DialogBox representing Birdy's dialog.
+     */
     public static DialogBox getBirdyDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

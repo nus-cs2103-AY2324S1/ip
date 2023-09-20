@@ -88,6 +88,11 @@ public class TaskList {
         return tasks.stream().filter(predicate).collect(Collectors.<Task>toList());
     }
 
+    /**
+     * Retrieve a list of reminders from the TaskList.
+     *
+     * @return A list of tasks that are reminders and not marked as done.
+     */
     public List<Task> getReminders() {
         return filterTasks(task -> !task.isMarked() && task.isReminder());
     }

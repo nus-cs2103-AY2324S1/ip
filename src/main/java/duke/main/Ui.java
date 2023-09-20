@@ -200,6 +200,11 @@ public class Ui {
         System.out.println(DIVIDER);
     }
 
+    /**
+     * Retrieves the current message and resets the current message.
+     *
+     * @return The current message as a String.
+     */
     public String getCurrentMessage() {
         String message = currentMessage;
         currentMessage = "";

@@ -37,6 +37,13 @@ public class Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws IOException, InvalidTaskNumberException {
     }
 
+    /**
+     * Checks if the given index is valid for the task list.
+     *
+     * @param index The index to check.
+     * @param tasks The task list to validate against.
+     * @return true if the index is valid, false otherwise.
+     */
     boolean isValidIndex(int index, TaskList tasks) {
         return index < tasks.getSize() && index >= 0;
     }
