@@ -59,6 +59,53 @@ public class Storage {
      * @param taskList The `TaskList` to populate with loaded tasks.
      */
 
+//    public void loadTasksFromFile(TaskList taskList) {
+//        List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
+//
+//        try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                String[] parts = line.split(" \\| ");
+//                if (parts.length < 3) {
+//                    continue;
+//                }
+//                String taskType = parts[0];
+//                boolean isDone = Integer.parseInt(parts[1]) == 1;
+//                String taskDescription = parts[2];
+//
+//                // Check if the task is already in duke.Duke.allTasks
+//                if (!Duke.taskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
+//                    Task task;
+//
+//                    if (taskType.equals("T")) {
+//                        task = new Todo(taskDescription, false);
+//                    } else if (taskType.equals("D") && parts.length >= 4) {
+//                        String by = parts[3];
+//                        task = new Deadline(taskDescription, false, by);
+//                    } else if (taskType.equals("E") && parts.length >= 4) {
+//                        String from = parts[3];
+//                        String to = (parts.length > 4) ? parts[4] : "";
+//                        task = new Event(taskDescription, false, from, to);
+//                    } else {
+//                        continue;
+//                    }
+//
+//                    if (isDone) {
+//                        task.setStatus(TaskStatus.DONE);
+//                    }
+//
+//                    loadedTasks.add(task);
+//                }
+//            }
+//
+//            taskList.getTasks().clear();
+//            taskList.getTasks().addAll(loadedTasks);
+//        } catch (FileNotFoundException e) {
+//            System.err.println("File not found: " + e.getMessage());
+//        } catch (DukeException e) {
+//
+//        }
+//    }
     public void loadTasksFromFile(TaskList taskList) {
         List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
 
@@ -73,27 +120,11 @@ public class Storage {
                 boolean isDone = Integer.parseInt(parts[1]) == 1;
                 String taskDescription = parts[2];
 
-                // Check if the task is already in duke.Duke.allTasks
-                if (!Duke.taskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
-                    Task task;
-
-                    if (taskType.equals("T")) {
-                        task = new Todo(taskDescription, false);
-                    } else if (taskType.equals("D") && parts.length >= 4) {
-                        String by = parts[3];
-                        task = new Deadline(taskDescription, false, by);
-                    } else if (taskType.equals("E") && parts.length >= 4) {
-                        String from = parts[3];
-                        String to = (parts.length > 4) ? parts[4] : "";
-                        task = new Event(taskDescription, false, from, to);
-                    } else {
-                        continue;
-                    }
-
+                if (!Duke.taskList.isTaskInAllTasks(taskType, taskDescription)) {
+                    Task task = createTask(taskType, taskDescription, parts);
                     if (isDone) {
                         task.setStatus(TaskStatus.DONE);
                     }
-
                     loadedTasks.add(task);
                 }
             }
@@ -103,9 +134,28 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (DukeException e) {
-
         }
     }
+
+    private Task createTask(String taskType, String taskDescription, String[] parts) throws DukeException {
+        Task task;
+
+        if (taskType.equals("T")) {
+            task = new Todo(taskDescription, false);
+        } else if (taskType.equals("D") && parts.length >= 4) {
+            String by = parts[3];
+            task = new Deadline(taskDescription, false, by);
+        } else if (taskType.equals("E") && parts.length >= 4) {
+            String from = parts[3];
+            String to = (parts.length > 4) ? parts[4] : "";
+            task = new Event(taskDescription, false, from, to);
+        } else {
+            throw new DukeException("Invalid task format.");
+        }
+
+        return task;
+    }
+
 
     /**
      * Saves a task to the file by appending it as a new line.
@@ -133,7 +183,6 @@ public class Storage {
         try {
             File inputFile = new File(FILE_PATH);
             File tempFile = new File(FILE_PATH + ".tmp");
-
             BufferedReader reader = new BufferedReader(new FileReader(inputFile));
             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 
@@ -142,15 +191,12 @@ public class Storage {
 
             while ((currentLine = reader.readLine()) != null) {
                 lineCounter++;
-
                 if (lineCounter == lineNumber) {
                     continue; // Skip the line to be deleted
                 }
-
                 writer.write(currentLine);
                 writer.newLine();
             }
-
             writer.close();
             reader.close();
 
