@@ -9,5 +9,5 @@ public interface Command {
      * Runs command.
      * @param args string representing arguments to pass to the command.
      */
-    public void run(String args);
+    void run(String args);
 }
