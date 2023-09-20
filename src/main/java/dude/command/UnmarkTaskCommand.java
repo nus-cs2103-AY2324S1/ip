@@ -31,6 +31,7 @@ public class UnmarkTaskCommand extends DudeCommand {
     @Override
     public String execute(TaskList taskList, Storage storage) throws DudeException {
         Task task = taskList.getTask(taskIndex);
+        assert task != null : "Task should not be null.";
         task.markAsNotDone();
         storage.save(taskList.toArrayList());
         return String.format(MARKED_AS_NOT_DONE_PREFIX + task);
