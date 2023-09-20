@@ -6,7 +6,7 @@ import storage.FileHandler;
 import storage.TaskList;
 
 /**
- * duke.Duke class is a simple chatbot that allows users
+ * Duke is a simple chatbot that allows users
  * to mark down their tasks.It allows users to add,
  * list, and manage tasks.
  */
@@ -34,8 +34,7 @@ public class Duke {
     }
 
     /**
-     * The main for the duke.Duke application.
-     * Create a duke.Duke instance to run.
+     * Creates a Duke instance to run.
      *
      * @param args (not used in this application).
      */

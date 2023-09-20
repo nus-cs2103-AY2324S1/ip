@@ -28,14 +28,4 @@ public class EmptyCommand extends Command {
     public String execute(TaskList t, Ui ui, FileHandler f) {
         return "Please enter something!";
     }
-
-    /**
-     * Checks whether the command is an exit command.
-     *
-     * @return `false` because this command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

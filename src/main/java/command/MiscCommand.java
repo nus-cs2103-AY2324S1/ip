@@ -29,14 +29,4 @@ public class MiscCommand extends Command {
     public String execute(TaskList t, Ui ui, FileHandler f) {
         return "I don't really understand what you mean.";
     }
-
-    /**
-     * Checks whether the command is an exit command.
-     *
-     * @return `false` because this command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

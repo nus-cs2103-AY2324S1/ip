@@ -28,14 +28,4 @@ public class ByeCommand extends Command {
     public String execute(TaskList task, Ui ui, FileHandler f) {
         return "Bye";
     }
-
-    /**
-     * Checks whether the command is an exit command.
-     *
-     * @return `true` because this command exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

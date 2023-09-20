@@ -45,14 +45,4 @@ public class DeleteCommand extends Command {
             return "Please enter the correct task's index number.";
         }
     }
-
-    /**
-     * Checks whether the command is an exit command.
-     *
-     * @return `false` because this command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

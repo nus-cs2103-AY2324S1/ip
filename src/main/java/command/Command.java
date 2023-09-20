@@ -10,8 +10,6 @@ import storage.TaskList;
  */
 public abstract class Command {
 
-    private boolean isExit = false;
-
     /**
      * Executes the command with the provided task list, user interface, and file handler.
      *
@@ -21,10 +19,5 @@ public abstract class Command {
      * @return   A string representation of message.
      */
     public abstract String execute(TaskList t, Ui ui, FileHandler f);
-
-    /**
-     * Checks whether the command is an exit command.
-     */
-    public abstract boolean isExit();
 
 }

@@ -133,9 +133,5 @@ public class EditCommand extends Command {
         }
         return "Please provide a valid item type for event! (taskdesc and duedate)";
     }
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
 

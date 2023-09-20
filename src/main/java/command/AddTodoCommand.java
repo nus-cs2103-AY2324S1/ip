@@ -40,14 +40,4 @@ public class AddTodoCommand extends Command {
         return "Help you added a new event.\n     " + newTodo.toString()
                 + "\nNow you have " + task.size() + String.format(" task(s) in the list.");
     }
-
-    /**
-     * Checks whether the command is an exit command.
-     *
-     * @return `false` because this command does not exit the application.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
