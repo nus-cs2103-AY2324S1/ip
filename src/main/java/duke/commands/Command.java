@@ -4,17 +4,17 @@ package duke.commands;
 import duke.exception.DukeException;
 
 /**
- * An abstract class for all commands.
+ * Executes commands based on input
  */
 public abstract class Command {
     /**
-     * An abstract method that executes the command the user gives.
-     * @throws DukeException
+     * Executes the command specified by the user
+     * @throws DukeException if an error occurs while executing the command
      */
     public abstract String execute() throws DukeException;
 
     /**
-     * A function to obtain the description of the task at hand.
+     * Obtains the description of the task
      *
      * @param task The task to get description from.
      * @param input The input to obtain the type of task.
