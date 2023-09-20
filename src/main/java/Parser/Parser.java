@@ -148,6 +148,10 @@ public class Parser {
      */
     private static Command parseDeleteCommand(String str) {
         String[] split = str.split(" ");
+
+        if (split.length < 2) {
+            return new ErrorCommand("Hey darling! Please provide an index number after a space!");
+        }
         int index = Integer.parseInt(split [1]);
         return new DeleteCommand(index);
     }
@@ -160,6 +164,9 @@ public class Parser {
      */
     private static Command parseMarkCommand(String str) {
         String[] split = str.split(" ");
+        if (split.length < 2) {
+            return new ErrorCommand("Hey darling! Please provide an index number after a space!");
+        }
         int index = Integer.parseInt(split [1]);
         return new MarkCommand(index);
     }
@@ -172,6 +179,9 @@ public class Parser {
      */
     private static Command parseUnmarkCommand(String str) {
         String[] split = str.split(" ");
+        if (split.length < 2) {
+            return new ErrorCommand("Hey darling! Please provide an index number after a space!");
+        }
         int index = Integer.parseInt(split [1]);
         return new UnmarkCommand(index);
     }
