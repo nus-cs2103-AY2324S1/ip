@@ -64,6 +64,13 @@ public class Duke extends Application {
         }
     }
 
+    /**
+     * Converts the String its corresponding Command.
+     *
+     * @param commandString The String representation of the Command.
+     * @return The corresponding Command.
+     * @throws InvalidCommandException
+     */
     private Command stringToCommand(String commandString) throws InvalidCommandException {
         if (commandString.length() == 0) {
             throw new InvalidCommandException("Nothing happened!");

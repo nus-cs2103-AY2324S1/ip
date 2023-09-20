@@ -68,6 +68,12 @@ public class Task {
         return true;
     }
 
+    /**
+     * Parses the parameters of a Task from its CSV representation.
+     * @param string The String representation of the task in CSV format
+     * @return The parsed parameters of the Task.
+     * @throws TaskFormatException
+     */
     private static String[] commaStringToArgs(String string) throws TaskFormatException {
         String[] args = string.split(",");
         if (args.length < 2) {
@@ -85,7 +91,7 @@ public class Task {
     /**
      * Creates a task from its String representation in CSV format.
      *
-     * @param string The String representation in CSV format.
+     * @param string The String representation of the task in CSV format.
      * @return The corresponding created Task object.
      * @throws TaskFormatException
      * @throws DateTimeParseException
@@ -145,10 +151,21 @@ public class Task {
         return description;
     }
 
+    /**
+     * Creates a copy of this Task with the same parameters.
+     * Copy is unmarked by default.
+     *
+     * @return A copy of this Task.
+     */
     public Task copy() {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Translates all the relevant datetime variables by a certain period.
+     *
+     * @param period The period to translate by.
+     */
     public void translateTime(Period period) {
         throw new UnsupportedOperationException();
     }

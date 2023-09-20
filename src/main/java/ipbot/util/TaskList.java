@@ -50,6 +50,8 @@ public class TaskList {
 
     /**
      * Returns the list of tasks as a String.
+     *
+     * @return The list of tasks.
      */
     public String listTasks() {
         String taskListString = LIST_TASKS_PREFIX;
@@ -59,6 +61,13 @@ public class TaskList {
         return taskListString;
     }
 
+    /**
+     * Checks if a Task should be printed for a query date.
+     *
+     * @param task The task to check.
+     * @param queryDate The date to check.
+     * @return true if the Task should be printed, false otherwise.
+     */
     private boolean printTaskForQueryDate(Task task, LocalDateTime queryDate) {
         if (task instanceof Event) {
             Event event = (Event) task;
@@ -81,6 +90,7 @@ public class TaskList {
      * and the events that are ongoing at that time, as a String.
      *
      * @param queryDate The time to query.
+     * @return The list of tasks.
      */
     public String listTasks(LocalDateTime queryDate) {
         String taskListString = LIST_TASKS_PREFIX;
@@ -93,6 +103,12 @@ public class TaskList {
         return taskListString;
     }
 
+    /**
+     * Returns a list of tasks that contain a certain String in its description, as a String.
+     *
+     * @param findStr The String to search in the description.
+     * @return The list of tasks.
+     */
     public String listTasks(String findStr) {
         if (findStr == null || findStr.isEmpty()) {
             return "Please enter a search term";
@@ -131,6 +147,14 @@ public class TaskList {
         return new Pair<>(tasks.get(index), wasNotUnmarked);
     }
 
+    /**
+     * Handles logic for marking a task.
+     *
+     * @param isMark Whether we are marking or unmarking the task.
+     * @param commandArgs The arguments passed to the command.
+     * @return The output of the command.
+     * @throws CommandArgumentException
+     */
     public String handleMark(boolean isMark, Map<String, String> commandArgs) throws CommandArgumentException {
         int markIndex = Parser.checkIndexArg(commandArgs.get(""), this.getTasksSize());
         if (markIndex == -1) {
@@ -145,10 +169,19 @@ public class TaskList {
         }
     }
 
-    private String getArgument(Map<String, String> commandArgs, String taskType, String arg)
+    /**
+     * Extracts an argument and checks that it exists.
+     *
+     * @param commandArgs The arguments passed to the command.
+     * @param commandType The command that requires the argument.
+     * @param arg The argument required.
+     * @return The argument variable corresponding to the required argument.
+     * @throws CommandArgumentException
+     */
+    private String getArgument(Map<String, String> commandArgs, String commandType, String arg)
             throws CommandArgumentException {
         if (commandArgs.get(arg) == null) {
-            throw new CommandArgumentException(String.format(MISSING_ARGUMENT_FORMAT, taskType, arg));
+            throw new CommandArgumentException(String.format(MISSING_ARGUMENT_FORMAT, commandType, arg));
         }
         if (commandArgs.get(arg).isEmpty()) {
             throw new CommandArgumentException(String.format(ARGUMENT_EMPTY_FORMAT, arg));
@@ -156,6 +189,15 @@ public class TaskList {
         return commandArgs.get(arg);
     }
 
+    /**
+     * Extracts an optional argument and checks that it is valid.
+     *
+     * @param commandArgs The arguments passed to the command.
+     * @param arg The argument to check.
+     * @return The argument variable corresponding to the required argument.
+     * null if it is not given.
+     * @throws CommandArgumentException
+     */
     private String getOptionalArgument(Map<String, String> commandArgs, String arg) throws CommandArgumentException {
         if (commandArgs.get(arg) == null) {
             return null;
@@ -218,6 +260,13 @@ public class TaskList {
         return event;
     }
 
+    /**
+     * Handles logic for deleting a task.
+     *
+     * @param commandArgs The arguments passed to the command.
+     * @return The output of the command.
+     * @throws CommandArgumentException
+     */
     public String handleDelete(Map<String, String> commandArgs) throws CommandArgumentException {
         int deleteIndex = Parser.checkIndexArg(commandArgs.get(""), this.getTasksSize());
         if (deleteIndex == -1) {
@@ -239,6 +288,15 @@ public class TaskList {
         return task;
     }
 
+    /**
+     * Converts a String to a positive integer.
+     *
+     * @param string The String to convert.
+     * @param errorPrefix The error message to throw if the String is not a positive integer.
+     * @param defVal The value to return if the String is null.
+     * @return defVal if the String is null. Otherwise, the converted String.
+     * @throws CommandArgumentException
+     */
     private int strToPositiveInt(String string, String errorPrefix, int defVal) throws CommandArgumentException {
         if (string == null) {
             return defVal;
@@ -249,6 +307,13 @@ public class TaskList {
         return Integer.parseInt(string);
     }
 
+    /**
+     * Handles logic for recurring a task.
+     *
+     * @param commandArgs The arguments passed to the command.
+     * @return The output of the command.
+     * @throws CommandArgumentException
+     */
     public String recurTask(Map<String, String> commandArgs) throws CommandArgumentException {
         int recurIndex = Parser.checkIndexArg(commandArgs.get(""), this.getTasksSize());
         if (recurIndex == -1) {
@@ -279,6 +344,11 @@ public class TaskList {
                 + numTimes + " times";
     }
 
+    /**
+     * Converts this TaskList to a CSV String.
+     *
+     * @return The CSV String representation of this TaskList.
+     */
     public String toCommaString() {
         String string = "";
         for (int i = 0; i < this.tasks.size(); i++) {

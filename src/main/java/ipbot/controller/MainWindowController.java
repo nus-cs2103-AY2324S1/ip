@@ -57,6 +57,9 @@ public class MainWindowController {
         this.userInput.clear();
     }
 
+    /**
+     * Sends the welcome message to the user.
+     */
     public void sendWelcome() {
         assert this.dialogContainer != null : "Dialog container component not found";
         this.dialogContainer.getChildren().add(DialogBox.getBotDialog(WELCOME_MESSAGE, botImage));
