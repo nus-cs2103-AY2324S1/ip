@@ -9,11 +9,11 @@ import command.ClearCommand;
 import command.Command;
 import command.DeadlineCommand;
 import command.DeleteCommand;
-import command.DeleteMultipleCommand;
 import command.EventCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
+import command.MultipleCommand;
 import command.TodoCommand;
 import command.UnmarkCommand;
 import dukeexception.DukeException;
@@ -39,23 +39,29 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            if (split.length > 2) {
-                throw new DukeException("Please state in this format (mark 1)");
+            if (!split[1].contains(",")) {
+                if (split.length > 2) {
+                    throw new DukeException("Please state in this format (mark 1)");
+                }
+                try {
+                    return new MarkCommand(Integer.parseInt(split[1]));
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Invalid Index");
+                }
             }
-            try {
-                return new MarkCommand(Integer.parseInt(split[1]));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Invalid Index");
-            }
+            return new MultipleCommand(split[1], "mark");
         case "unmark":
-            if (split.length > 2) {
-                throw new DukeException("Please state in this format (unmark 1)");
+            if (!split[1].contains(",")) {
+                if (split.length > 2) {
+                    throw new DukeException("Please state in this format (unmark 1)");
+                }
+                try {
+                    return new UnmarkCommand(Integer.parseInt(split[1]));
+                } catch (NumberFormatException e) {
+                    throw new DukeException("Invalid Index");
+                }
             }
-            try {
-                return new UnmarkCommand(Integer.parseInt(split[1]));
-            } catch (NumberFormatException e) {
-                throw new DukeException("Invalid Index");
-            }
+            return new MultipleCommand(split[1], "unmark");
         case "delete":
             if (!split[1].contains(",")) {
                 if (split.length > 2) {
@@ -67,7 +73,7 @@ public class Parser {
                     throw new DukeException("Invalid Index");
                 }
             }
-            return new DeleteMultipleCommand(split[1]);
+            return new MultipleCommand(split[1], "del");
         case "todo":
             if (split.length < 2 || split[1].isEmpty()) {
                 throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
