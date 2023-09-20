@@ -6,7 +6,9 @@ It frees your mind of having to remember things you need to do. It's
 - text-based
 - easy to learn
 - ~~FAST~~ *SUPER* FAST to use
+
 ---
+
 ## Features
 
 ### Adding a task (3 types): `todo`, `deadline`, `event`
@@ -77,6 +79,7 @@ Examples:
 - `find s e` returns `sleep` and `Eat`
 - `find Read` returns `read book`
 - `find a` returns `Eat` and `Andy's event`
+
 ![img.png](img.png)
 
 ### Exiting the program: `bye`
@@ -89,5 +92,4 @@ Task data are saved in the hard disk automatically after any command that change
 
 ### Editing the data file
 Task data are saved automatically as a Text file `[JAR file location]/data/jo.txt`. Advanced users are welcome to update data directly by editing that data file.
-> [!NOTE]
-> If your changes to the data file makes its format invalid, the program may not be able to run smoothly. Hence, please ensure that all changes follow the format closely. 
+> If your changes to the data file makes its format invalid, the program may not be able to run smoothly. Hence, please **ensure that all changes follow the format closely**. 
