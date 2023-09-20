@@ -246,3 +246,24 @@ Noted. I've removed this task:
 [T][] Read Book
 Now you have 2 tasks in the list
 ```
+
+### `find` - Finds task with the associated specified keyword/phrase
+
+User has to type `find` followed by the keyword/phrase that they want to find.
+
+Format: `delete WORDS`
+- Finds the task with the specified WORDS
+- `WORDS` can be a part of a word or phrase (e.g. find accum would find tasks with the word "accumulator" in it) 
+
+Example of usage: 
+
+`find read`
+
+Expected outcome:
+
+The Chatbot will provide a list of the tasks with the word "read" in it
+```
+Here are the matching tasks in your list with its correct corresponding index numbers:
+1.[T][] Read Book
+```
+Note:- The Index number displayed in the chatbot response will correspond to the actual index number of the task in the full list
