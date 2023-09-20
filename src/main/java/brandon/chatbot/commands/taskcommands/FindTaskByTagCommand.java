@@ -9,7 +9,7 @@ import brandon.chatbot.tasks.TaskList;
 import java.util.ArrayList;
 
 public class FindTaskByTagCommand extends Command {
-    private static final String FIND_SUCCESS = "ok... I'm finding the task...\n";
+    private static final String FIND_SUCCESS = "ok... I'm finding the task...-ㅅ-\n";
     private String title;
     private ArrayList<Tag> tags;
 

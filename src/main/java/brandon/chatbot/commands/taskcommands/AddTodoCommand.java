@@ -13,7 +13,7 @@ import java.util.Optional;
  * Represents a command that adds a todo task into the task list.
  */
 public class AddTodoCommand extends Command {
-    public static final String ADD_SUCCESS = "ok... I'm adding..";
+    public static final String ADD_SUCCESS = "ok... I'm adding..-ㅅ-";
     private Todo todoToAdd;
 
     private Optional<ArrayList<Tag>> tags;

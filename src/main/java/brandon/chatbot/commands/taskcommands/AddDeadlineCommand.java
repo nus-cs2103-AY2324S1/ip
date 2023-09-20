@@ -13,7 +13,7 @@ import java.util.Optional;
  * Represents the command that adds deadline to the task list.
  */
 public class AddDeadlineCommand extends Command {
-    public static final String ADD_SUCCESS = "ok... I'm adding..";
+    public static final String ADD_SUCCESS = "ok... I'm adding..-ㅅ-";
     private Deadline deadlineToAdd;
 
     public AddDeadlineCommand(String taskName, String deadline, Optional<ArrayList<Tag>> tags) throws DukeException {

@@ -8,7 +8,7 @@ import brandon.chatbot.common.DukeIndexOutOfBoundsException;
  * Represents a command that marks the finished status of a task in the task list.
  */
 public class MarkCommand extends Command {
-    public static final String MARK_SUCCESS = "ok... I'm marking...";
+    public static final String MARK_SUCCESS = "ok... I'm marking...-ㅅ-";
     private int index;
 
     public MarkCommand(int index) {

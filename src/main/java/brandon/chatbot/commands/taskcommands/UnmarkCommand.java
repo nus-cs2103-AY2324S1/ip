@@ -1,7 +1,5 @@
 package brandon.chatbot.commands.taskcommands;
 
-import java.io.IOException;
-
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
@@ -10,7 +8,7 @@ import brandon.chatbot.common.DukeIndexOutOfBoundsException;
  * Represents the command that unmarks the finished status of a task.
  */
 public class UnmarkCommand extends Command {
-    public static final String UNMARK_SUCCESS = "ok... I'm unmarking...";
+    public static final String UNMARK_SUCCESS = "ok... I'm unmarking...-ㅅ-";
     private int index;
 
     public UnmarkCommand(int index) {

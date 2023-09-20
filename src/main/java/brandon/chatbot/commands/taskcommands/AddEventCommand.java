@@ -13,7 +13,7 @@ import java.util.Optional;
  * Represents a command that adds event to the task list.
  */
 public class AddEventCommand extends Command {
-    public static final String ADD_SUCCESS = "ok... I'm adding..";
+    public static final String ADD_SUCCESS = "ok... I'm adding..-ㅅ-";
     private Event eventToAdd;
 
     public AddEventCommand(String taskName, String from, String to, Optional<ArrayList<Tag>> tags) throws DukeException {
