@@ -8,18 +8,20 @@ import duke.data.exception.DukeException;
 import duke.storage.Storage;
 
 /**
- * The MarkCommand marks a task as completed, update the .txt file
- * and display a task marked message when it is executed.
+ * The MarkCommand class represents a command to mark a task as completed,
+ * update the task list in memory and the .txt file, and
+ * display a task marked message when executed.
  */
 public class MarkCommand extends Command {
 
-    /** ID of task to be marked. */
+    /** The ID of the task to be marked as completed. */
     private final int taskID;
 
     /**
-     * Constructor to initialize MarkCommand.
+     * Constructs a new MarkCommand with the specified task ID.
      *
-     * @param taskID ID of task to be marked.
+     * @param taskID         The ID of the task to be marked as completed.
+     * @throws DukeException If the provided task ID is invalid (less than 1).
      */
     public MarkCommand(int taskID) throws DukeException {
         if (taskID < 1) {

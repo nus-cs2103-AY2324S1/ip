@@ -13,13 +13,15 @@ import duke.storage.Storage;
  */
 public abstract class Command {
     /**
-     * Executes command based on the command type.
+     * Executes a command based on the command type.
      * Subtype will inherit and implement the method.
      *
      * @param taskList All Tasks created.
-     * @param storage Object to write and store data.
-     * @throws IOException  If file not found or corrupted.
-     * @throws DukeException If invalid user input is passed to command.
+     * @param message  The message object for displaying messages.
+     * @param storage  Object to write and store data.
+     * @return The message to be displayed by the chatbot.
+     * @throws IOException  If a file is not found or corrupted during storage operations.
+     * @throws DukeException If invalid user input is passed to the command.
      */
     public abstract String execute(TaskList taskList, Message message, Storage storage)
             throws DukeException, IOException;

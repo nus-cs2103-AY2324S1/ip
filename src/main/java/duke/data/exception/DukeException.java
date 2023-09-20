@@ -6,9 +6,9 @@ package duke.data.exception;
  */
 public class DukeException extends Exception {
     /**
-     * Constructor to initialize DukeException.
+     * Constructs a new DukeException with the specified error message.
      *
-     * @param msg Message of error thrown.
+     * @param msg The error message describing the exception.
      */
     public DukeException(String msg) {
         super(msg);

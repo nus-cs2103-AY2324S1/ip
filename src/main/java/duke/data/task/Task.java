@@ -1,8 +1,7 @@
 package duke.data.task;
 
 /**
- * The Task class represents a task with description
- * and whether it is completed or not.
+ * The Task class represents a task with a description and tracks whether it is completed.
  */
 public class Task {
     /** Description of the task */
@@ -11,57 +10,61 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructor to initialize Task.
+     * Constructs a new Task with the specified description, initially marked as not done.
      *
-     * @param description Description of the Todo task.
+     * @param description The description of the task.
      */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
-    /** Marks task as done by setting isDone to true */
+    /**
+     * Marks the task as done by setting the isDone flag to true.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
-    /** Marks task as undone by setting isDone to false */
+    /**
+     * Marks the task as not done by setting the isDone flag to false.
+     */
     public void markAsNotDone() {
         isDone = false;
     }
 
     /**
-     * Checks whether task is done
+     * Checks whether the task is marked as done.
      *
-     * @return boolean of whether the task is done or not
-     * */
+     * @return true if the task is marked as done, false otherwise.
+     */
     public boolean getDone() {
         return isDone;
     }
 
     /**
-     * Gets the status icon of the task
+     * Gets the status icon of the task.
      *
-     * @return X if task is marked as done and empty if not done
-     * */
+     * @return "X" if the task is marked as done, an empty string if not done.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * Checks whether the user search query exists in the description of task.
+     * Checks whether the user's search query exists in the description of the task.
      *
-     * @param query the search query entered by the user.
-     * @return whether the query exists in the description of the task.
+     * @param query The search query entered by the user.
+     * @return true if the query exists in the description of the task, false otherwise.
      */
     public boolean contains(String query) {
         return description.contains(query);
     }
 
     /**
-     * Gets the formatted string of the task to be written to .txt file
+     * Gets the formatted string representation of the task for writing to a .txt file.
      *
-     * @return formatted string of the task
+     * @return A formatted string representation of the task.
      */
     public String toWrite() {
         if (isDone) {
@@ -70,11 +73,6 @@ public class Task {
         return "0 | " + description;
     }
 
-    /**
-     * Gets the formatted string of the task to be displayed in the UI
-     *
-     * @return formatted string of the task
-     * */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

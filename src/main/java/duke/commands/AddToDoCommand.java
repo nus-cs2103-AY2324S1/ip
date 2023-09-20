@@ -8,8 +8,8 @@ import duke.data.task.Todo;
 import duke.storage.Storage;
 
 /**
- * The AddToDoCommand adds a todo into TaskList, writes into .txt file
- * and display a task added message when it is executed.
+ * Represents a command for adding a todo task
+ * to TaskList, writing it to a file, and displaying a task added message.
  */
 public class AddToDoCommand extends Command {
     /** Description of the Todo task */
@@ -18,7 +18,7 @@ public class AddToDoCommand extends Command {
     /**
      * Constructor to initialize AddToDoCommand.
      *
-     * @param description Description of the Todo task.
+     * @param description Description of the todo task.
      */
     public AddToDoCommand(String description) {
         this.description = description;

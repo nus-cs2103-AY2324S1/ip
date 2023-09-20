@@ -6,7 +6,7 @@ import duke.data.exception.DukeException;
 import duke.storage.Storage;
 
 /**
- * The DisplayTaskCommand display the task requested when it is executed.
+ * Represents a command for displaying the task list when executed.
  */
 public class DisplayTaskCommand extends Command {
 

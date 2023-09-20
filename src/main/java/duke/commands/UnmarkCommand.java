@@ -8,18 +8,20 @@ import duke.data.exception.DukeException;
 import duke.storage.Storage;
 
 /**
- * The UnmarkCommand unmark a task as completed, update the .txt file
- * and display a task unmarked message when it is executed.
+ * The UnmarkCommand class represents a command to unmark a
+ * task as completed, update the task list in memory and the
+ * .txt file, and display a task unmarked message when executed.
  */
 public class UnmarkCommand extends Command {
 
-    /** ID of task to be unmarked. */
+    /** The ID of the task to be unmarked as incomplete. */
     private final int taskID;
 
     /**
-     * Constructor to initialize UnmarkCommand.
+     * Constructs a new UnmarkCommand with the specified task ID.
      *
-     * @param taskID ID of task to be unmarked.
+     * @param taskID         The ID of the task to be unmarked as incomplete.
+     * @throws DukeException If the provided task ID is invalid (less than 1).
      */
     public UnmarkCommand(int taskID) throws DukeException {
         if (taskID < 1) {

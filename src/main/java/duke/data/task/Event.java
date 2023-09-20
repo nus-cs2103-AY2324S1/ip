@@ -4,21 +4,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The Event class a child class of Task that
- * has the description, from and to attribute.
+ * The Event class is a child class of Task that represents tasks
+ * with a description and specific start and end date.
  */
 public class Event extends Task {
-    /** Start date of event */
+    /** The start date of the event. */
     protected Date from;
-    /** End date of event */
+    /** The end date of the event. */
     protected Date to;
 
     /**
-     * Constructor to initialize Event.
+     * Constructs a new Event task with the specified description, start date, and end date.
      *
-     * @param description Description of the event.
-     * @param from Start date of event.
-     * @param to End date of event.
+     * @param description The description of the event.
+     * @param from        The start date and time of the event.
+     * @param to          The end date and time of the event.
      */
     public Event(String description, Date from, Date to) {
         super(description);
@@ -27,10 +27,10 @@ public class Event extends Task {
     }
 
     /**
-     * Check whether is there a clash of dates between two events
+     * Checks whether there is a clash of dates between two events.
      *
-     * @param event The event that is being compared to
-     * @return whether there is a clash or not
+     * @param event The event being compared for date clash.
+     * @return True if there is a clash, false otherwise.
      */
     public boolean checkClash(Event event) {
         if (this.from.compareTo(event.from) >= 0 && this.from.compareTo(event.to) <= 0) {

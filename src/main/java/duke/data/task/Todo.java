@@ -1,14 +1,14 @@
 package duke.data.task;
 
 /**
- * The Todo class a child class of Task that
- * only has the description attribute.
+ * The Todo class is a child class of Task that represents tasks
+ * with a description but without a specific deadline or start/end time.
  */
 public class Todo extends Task {
     /**
-     * Constructor to initialize Todo.
+     * Constructs a new Todo task with the specified description.
      *
-     * @param description Description of the Todo task.
+     * @param description The description of the Todo task.
      */
     public Todo(String description) {
         super(description);

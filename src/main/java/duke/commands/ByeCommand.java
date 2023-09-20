@@ -5,7 +5,7 @@ import duke.data.TaskList;
 import duke.storage.Storage;
 
 /**
- * The ByeCommand display a goodbye message when it is executed.
+ * Represents a command for displaying a goodbye message when executed.
  */
 public class ByeCommand extends Command {
 

@@ -9,8 +9,8 @@ import duke.data.task.Deadline;
 import duke.storage.Storage;
 
 /**
- * The AddDeadlineCommand adds a deadline into TaskList, writes into .txt file
- * and display a task added message when it is executed.
+ * Represents a command for adding a deadline task to TaskList,
+ * writing it to a file, and displaying a task added message.
  */
 public class AddDeadlineCommand extends Command {
     /** Description of the deadline task */
@@ -22,7 +22,7 @@ public class AddDeadlineCommand extends Command {
      * Constructor to initialize AddDeadlineCommand.
      *
      * @param description Description of the deadline task.
-     * @param by Date of deadline.
+     * @param by          Date of the deadline task.
      */
     public AddDeadlineCommand(String description, Date by) {
         this.description = description;

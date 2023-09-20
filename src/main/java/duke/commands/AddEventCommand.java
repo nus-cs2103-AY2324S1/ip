@@ -10,8 +10,8 @@ import duke.data.task.Event;
 import duke.storage.Storage;
 
 /**
- * The AddEventCommand adds an event into TaskList, writes into .txt file
- * and display a task added message when it is executed.
+ * Represents a command for adding an event task to TaskList,
+ * writing it to a file, and displaying a task added message.
  */
 public class AddEventCommand extends Command {
     /** Description of the event */
@@ -26,8 +26,8 @@ public class AddEventCommand extends Command {
      * Constructor to initialize AddEventCommand.
      *
      * @param description Description of the event.
-     * @param from Start date of event.
-     * @param to End date of event.
+     * @param from        Start date of the event.
+     * @param to          End date of the event.
      */
     public AddEventCommand(String description, Date from, Date to) {
         this.description = description;

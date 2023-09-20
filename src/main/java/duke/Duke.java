@@ -31,7 +31,6 @@ public class Duke {
             storage = new Storage("data/tasks.txt");
             tasks = new TaskList(storage.load());
         } catch (DukeException | FileNotFoundException e) {
-            message.showLoadingError();
             tasks = new TaskList();
         } catch (ParseException | IOException e) {
             message.showError(e.getMessage());

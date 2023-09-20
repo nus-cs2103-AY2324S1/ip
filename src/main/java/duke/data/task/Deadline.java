@@ -4,18 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The Deadline class a child class of Task that
- * has the description and by attribute..
+ * The Deadline class is a child class of Task that represents tasks
+ * with a description and a specific deadline date.
  */
 public class Deadline extends Task {
-    /** Date of deadline */
+    /** The date of the deadline. */
     protected Date by;
 
     /**
-     * Constructor to initialize Deadline.
+     * Constructs a new Deadline task with the specified description and deadline date.
      *
-     * @param description Description of the deadline task.
-     * @param by Date of deadline.
+     * @param description The description of the deadline task.
+     * @param by          The date of the deadline.
      */
     public Deadline(String description, Date by) {
         super(description);

@@ -6,44 +6,52 @@ import duke.data.exception.DukeException;
 import duke.data.task.Task;
 
 /**
- * The Ui class handles user input and display messages.
- * Used ChatGPT for the generation of phrases used by Duke
- */
+ * The Message class handles user input and display messages.
+ * It is used to generate phrases used by Dommi for communication.
+ * I Used ChatGPT for the generation of phrases
+*/
 public class Message {
-    /** Constructor to initialize Ui */
+    /**
+     * Constructor to initialize the Message class.
+     */
     public Message() {
 
     }
 
-    /** Displays welcome message */
+    /**
+     * Displays the welcome message when Dommi is started.
+     *
+     * @return The welcome message.
+     */
     public String showWelcome() {
         return "Greetings! I'm Dommi, your trusty taskmaster, "
                 + "here to make your task management journey a breeze! \uD83D\uDE80";
     }
 
-    /** Displays goodbye message */
+    /**
+     * Displays the goodbye message when exiting Dommi.
+     *
+     * @return The goodbye message.
+     */
     public String showBye() {
         return "Adieu! Anticipating your triumphant return!";
     }
 
-    /** Displays loading error */
-    public String showLoadingError() {
-        return ".txt file not found! Creating .txt file ...";
-    }
-
     /**
-     * Displays error provided by the program.
+     * Displays an error message provided by the program.
      *
-     * @param error the error message being thrown.
+     * @param error The error message being thrown.
+     * @return The error message.
      */
     public String showError(String error) {
         return error;
     }
 
     /**
-     * Displays task as marked.
+     * Displays a task as marked.
      *
-     * @param task the task that was marked.
+     * @param task The task that was marked.
+     * @return A message indicating that the task has been marked as done.
      */
     public String showMarked(Task task) {
         String response = "Fantastic! Task conquered, marked as done:\n";
@@ -52,9 +60,10 @@ public class Message {
     }
 
     /**
-     * Displays task as unmarked.
+     * Displays a task as unmarked.
      *
-     * @param task the task that was unmarked.
+     * @param task The task that was unmarked.
+     * @return A message indicating that the task has been reverted to 'Not done'.
      */
     public String showUnmarked(Task task) {
         String response = "Alrighty then! Task status reverted to 'Not done' for now:\n";
@@ -63,10 +72,11 @@ public class Message {
     }
 
     /**
-     * Displays task as added.
+     * Displays a task as added.
      *
-     * @param task the task that was added
-     * @param noTasks number of tasks in arraylist.
+     * @param task     The task that was added.
+     * @param noTasks  The number of tasks in the list.
+     * @return A message indicating that the task has been added to the list.
      */
     public String showTaskAdded(Task task, int noTasks) {
         String response = "Message received! Task added to the list:\n";
@@ -76,10 +86,11 @@ public class Message {
     }
 
     /**
-     * Displays task as deleted.
+     * Displays a task as deleted.
      *
-     * @param task the task that was deleted
-     * @param noTasks number of tasks in arraylist.
+     * @param task     The task that was deleted.
+     * @param noTasks  The number of tasks in the list.
+     * @return A message indicating that the task has been deleted.
      */
     public String showTaskDeleted(Task task, int noTasks) {
         String response = "Copy that! Task successfully erased:\n";
@@ -89,9 +100,11 @@ public class Message {
     }
 
     /**
-     * Displays all tasks in taskList
+     * Displays all tasks in the given task list.
      *
-     * @param taskList taskList from Duke.
+     * @param taskList The task list from Duke.
+     * @return A formatted string displaying the tasks.
+     * @throws DukeException If unable to retrieve task.
      */
     public String showTaskList(TaskList taskList) throws DukeException {
         String response = "";
@@ -105,22 +118,39 @@ public class Message {
         return response;
     }
 
-    /** Displays invalid format error */
+    /**
+     * Displays an error message for an invalid date format.
+     *
+     * @return The error message for an invalid date format.
+     */
     public String showInvalidFormat() {
         return "Oops! Our date needs to be in the sleek yyyy-mm-dd format!";
     }
 
-    /** Displays writing to file error */
+    /**
+     * Displays an error message for an issue with writing to a file.
+     *
+     * @return The error message for file-writing issues.
+     */
     public String showWriteFileError() {
         return "Oops! A gremlin's been tampering with our file-writing equipment!";
     }
 
-    /** Displays invalid command error */
+    /**
+     * Displays an error message for an invalid command.
+     *
+     * @return The error message for an invalid command.
+     */
     public String showInvalidCommand() {
         return " Oops! It seems like an input I can't quite decipher. Please try again!";
     }
 
-    /** Displays all the tasks in the array list in the parameter */
+    /**
+     * Displays a list of tasks as search results.
+     *
+     * @param results The list of tasks that match the search query.
+     * @return A formatted string displaying the search results.
+     */
     public String showSearchResults(ArrayList<Task> results) {
         String response = "";
         for (int i = 0; i < results.size(); i++) {
