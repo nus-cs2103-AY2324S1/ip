@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
 //        welcomeLabel.setText("ui.showWelcome()"); // new
         String welcomeMessage = "Hi, I'm BiuBiu.\nI'm ready to help u!\n" +
                 "\n(u can save your task as todo/deadline/event)\n" +
-                "(can mark/unmark/find/delete/list your tasks)\n" +
+                "(can mark/unmark/find/delete/list/update your tasks)\n" +
                 "(type these keyword to find out more!)\n" +
                 "type 'woof' for surprise><";
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImage));

@@ -23,6 +23,24 @@ public class Event extends Task {
         this.endTime = parseDateTime(endDateTimeString);
     }
 
+    /**
+     * Updates the start time of an Event.
+     *
+     * @param startDateTimeString  A new start time string.
+     */
+    public void updateStartTime(String startDateTimeString) {
+        this.startTime = parseDateTime(startDateTimeString);
+    }
+
+    /**
+     * Updates the end time of an Event.
+     *
+     * @param endDateTimeString  A new end time string.
+     */
+    public void updateEndTime(String endDateTimeString) {
+        this.endTime = parseDateTime(endDateTimeString);
+    }
+
     private LocalDateTime parseDateTime (String dateTimeString) {
         try {
             if (dateTimeString.isEmpty()) {

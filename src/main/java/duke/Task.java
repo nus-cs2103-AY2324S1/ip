@@ -15,6 +15,15 @@ public class Task {
     }
 
     /**
+     * Updates the description of Task.
+     *
+     * @param description A string of new description.
+     */
+    public void updateDescription(String description) {
+        this.description = description;
+    }
+
+    /**
      * Marks the task as done.
      */
     public void markAsDone() {
