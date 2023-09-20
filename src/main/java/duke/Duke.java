@@ -2,7 +2,6 @@ package duke;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.Arrays;
 
 import duke.command.Command;
 import duke.exception.DukeBadInputException;
