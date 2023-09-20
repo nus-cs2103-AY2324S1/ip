@@ -18,6 +18,8 @@ import ui.Ui;
  *
  * This class is designed to work with JavaFX and is part of a Duke chatbot application.
  *
+ * Adapted from CS2103 website on JavaFX (https://se-education.org/guides/tutorials/javaFx.html)
+ *
  * @author raydenlim
  * @version 0.0.0
  */

@@ -17,6 +17,8 @@ import javafx.stage.Stage;
  *
  * This class extends the JavaFX `Application` class and is responsible for launching the GUI.
  *
+ * Adapted from CS2103 website on JavaFX (https://se-education.org/guides/tutorials/javaFx.html)
+ *
  * @author raydenlim
  * @version 0.0.0
  */

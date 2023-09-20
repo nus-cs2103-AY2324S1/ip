@@ -5,6 +5,8 @@ import javafx.application.Application;
 /**
  * A launcher class to workaround classpath issues.
  *
+ * Adapted from CS2103 website on JavaFX (https://se-education.org/guides/tutorials/javaFx.html)
+ *
  * @author raydenlim
  * @version 0.0.0
  */
