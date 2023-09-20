@@ -6,7 +6,7 @@ package exceptions;
  */
 public class WoofException extends RuntimeException {
     /**
-     * Constructs a new WoofException with the specified error message.
+     * Constructs a new `WoofException` with the specified error message.
      *
      * @param message The error message describing the exception.
      */

@@ -6,6 +6,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 import command.Command;
+import command.NullCommand;
 import enums.ExceptionMessage;
 import exceptions.WoofException;
 import parser.Parser;
@@ -15,7 +16,7 @@ import ui.Ui;
 
 /**
  * The `Woof` class is the main class for the Woof CLI application.
- * It handles user interactions and the core functionality of the CLI application.
+ * It handles user interactions and the core functionality of the application.
  */
 public class Woof {
     private static final int CHAT_WIDTH = 60;
@@ -35,20 +36,29 @@ public class Woof {
     public static void runWoofCli() {
         Scanner scanner = new Scanner(System.in);
         System.out.print(Ui.getHelloWorldMessage());
-        boolean isConversing = true;
-        while (isConversing) {
+        converse(scanner);
+        scanner.close();
+    }
+
+    /**
+     * Handles the conversation loop of the Woof CLI application.
+     *
+     * @param scanner The Scanner object for user input.
+     */
+    public static void converse(Scanner scanner) {
+        Command command = new NullCommand("");
+        while (!command.isByeCommand()) {
             TaskList taskList = TaskFileHandler.readFromFile();
 
             System.out.println(Ui.getUserTitle());
             String rawCommand = Ui.getUserInput(scanner);
 
             System.out.println(Ui.getBotTitle());
-            Command command = Parser.parse(rawCommand);
+            command = Parser.parse(rawCommand);
             String response = command.execute(taskList);
-            String wrappedResponse = wrapText(response, "\n" , getChatWidth());
-            System.out.print(wrappedResponse);
+            String wrappedResponse = wrapText(response, "" , getChatWidth());
+            System.out.println(wrappedResponse);
 
-            isConversing = !command.isByeCommand();
             TaskFileHandler.saveToFile(taskList);
         }
     }
@@ -102,13 +112,17 @@ public class Woof {
         for (int i = 0; i < message.length(); i++) {
             char currentChar = message.charAt(i);
             if (currentChar == '\n') {
-                currentLineLength = -1;
-            }
-            if (currentLineLength >= length) {
+                result.append(currentChar);
                 result.append(separator);
+                currentLineLength = -1;
+            } else if (currentLineLength >= length) {
+                result.append('\n');
+                result.append(separator);
+                result.append(currentChar);
                 currentLineLength = 0;
+            } else {
+                result.append(currentChar);
             }
-            result.append(currentChar);
             currentLineLength++;
         }
         return result.toString();

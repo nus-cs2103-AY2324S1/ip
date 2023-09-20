@@ -5,9 +5,9 @@ package enums;
  */
 public enum WoofMessage {
     WOOF_TITLE("Woof Woof"),
-    HI("Woof Woof! I'm Doggo\nWhat can I do for you?"),
+    HI("Woof Woof! I'm Oreo!!!\nWhat can I do for you?\nsend `help` for help."),
     BYE("Bye. Hope to see you again soon!\nOffing myself... woof :("),
-    CONFUSED("OOPS!!! I'm sorry, I don't know what '%s' means :(\nsend `help` for help."),
+    CONFUSED("OOPS!!! I'm sorry, I don't know what is\n'%s'\nsend `help` for help."),
     TASK_LIST_COUNT("You have %s tasks in the task list."),
     TASK_ADDED("Got it. I've added this task:\n%s%s%s"),
     NO_MATCHING_TASKS("No tasks matched your keyword(s)!\n"),
@@ -52,6 +52,7 @@ public enum WoofMessage {
         + "Notes:\n"
         + "- Replace `<description>` with a task description.\n"
         + "- `<date>` should follow the yyyy-mm-dd date format.\n"
+        + "           e.g. 2023-12-31\n"
         + "- `<taskIndex>` should be the index of the task in the list\n"
         + "                you want to manage.\n\n"
         + "Feel free to ask for help using the `help` command if you\n"

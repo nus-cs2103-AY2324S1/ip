@@ -6,7 +6,7 @@ package exceptions;
  */
 public class WoofInvalidCommandException extends WoofException {
     /**
-     * Constructs a new WoofInvalidCommandException with the specified error message.
+     * Constructs a new `WoofInvalidCommandException` with the specified error message.
      *
      * @param message The error message describing the invalid command.
      */

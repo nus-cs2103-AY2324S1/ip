@@ -53,6 +53,6 @@ public class Ui {
      * @return A string representing a horizontal divider line.
      */
     public static String getDividerLine() {
-        return "\n" + "═".repeat(Woof.getChatWidth());
+        return '\n' + "═".repeat(Woof.getChatWidth());
     }
 }

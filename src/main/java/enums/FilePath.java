@@ -22,16 +22,16 @@ public enum FilePath {
     /**
      * Constructs a `FilePath` enum with the given value.
      *
-     * @param value The string representation of the file path.
+     * @param value The string representation of the `FilePath`.
      */
     FilePath(String value) {
         this.value = value;
     }
 
     /**
-     * Gets the string representation of the file path.
+     * Gets the string representation of the `FilePath`.
      *
-     * @return The string representation of the file path.
+     * @return The string representation of the `FilePath`.
      */
     public String toValue() {
         return this.value;

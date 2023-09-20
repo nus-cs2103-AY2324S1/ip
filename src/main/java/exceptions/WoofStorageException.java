@@ -7,7 +7,7 @@ package exceptions;
  */
 public class WoofStorageException extends WoofException {
     /**
-     * Constructs a new WoofStorageException with the specified error message.
+     * Constructs a new `WoofStorageException` with the specified error message.
      *
      * @param message The error message describing the storage-related exception.
      */

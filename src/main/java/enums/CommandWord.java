@@ -49,9 +49,9 @@ public enum CommandWord {
     }
 
     /**
-     * Gets the string representation of the command word.
+     * Gets the string representation of the `CommandWord`.
      *
-     * @return The string representation of the command word.
+     * @return The string representation of the `CommandWord`.
      */
     public String toValue() {
         return this.value;
