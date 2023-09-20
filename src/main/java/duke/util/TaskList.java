@@ -27,7 +27,7 @@ public class TaskList {
     //60 underscores.
     protected static String HORIZONTAL_LINE = "    ____________________________________________________________";
     protected Storage storage;
-    protected ArrayList<Task> listOfTasks;
+    protected  ArrayList<Task> listOfTasks;
 
     /**
      * Instantiates a TaskList with the given storage.
@@ -36,7 +36,7 @@ public class TaskList {
      */
     public TaskList(Storage storage) {
         this.storage = storage;
-        this.listOfTasks = storage.listOfTasks;
+        this.listOfTasks = Storage.listOfTasks;
     }
 
     protected void printHorizontalLine() {
@@ -224,13 +224,13 @@ public class TaskList {
     protected String findTask(String matchingKeyword) {
         if (listOfTasks.isEmpty()) {
             System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
-            return "\t You currently have no tasks so I can't find any matching tasks :/.";
+            return "\t You currently have no tasks so I can't find any matching tasks :(";
         }
         assert !listOfTasks.isEmpty() : "There is no tasks to find.";
 
         int taskCount = 0;
         StringBuilder matchingTasks = new StringBuilder(String.format(
-                "\t Here are your tasks that contains '%s':", matchingKeyword));
+                "Here are your tasks that contains '%s':", matchingKeyword));
         for (Task task : listOfTasks) {
             if (task.getDescription().contains(matchingKeyword)) {
                 matchingTasks.append("\n\t ").append(task);
@@ -250,6 +250,9 @@ public class TaskList {
 
     protected String viewSchedule(String userInput) throws InvalidDateException {
         String[] details = userInput.split("\\s+"); // Split by space
+        if (details.length <= 1) {
+            return "Invalid input. Please key in `view YYYY-MM-DD` format.";
+        }
         String requestedDate = details[1].trim();  // Get requested date
 
         if (!isValidDate(requestedDate)) {
@@ -257,10 +260,14 @@ public class TaskList {
         }
 
         String requestedDateString = LocalDate.parse(requestedDate).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        ArrayList<Task> scheduledTasks = printSchedule(LocalDate.parse(requestedDate));
+        if (scheduledTasks.size() == 0) {
+            return String.format("There is no tasks happening on %s. ", requestedDateString) +
+                    "Please double check your list of tasks.";
+        }
 
         StringBuilder message = new StringBuilder(
                 String.format("Here are your scheduled tasks happening on %s :", requestedDateString));
-        ArrayList<Task> scheduledTasks = printSchedule(LocalDate.parse(requestedDate));
 
         for (Task task : scheduledTasks) {
             message.append("\n\t ").append(task);

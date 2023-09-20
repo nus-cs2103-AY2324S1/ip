@@ -28,14 +28,4 @@ public class EventTest {
                 LocalDate.parse("2023-08-31"));
         assertEquals(event.toString(), "[E][ ] test event (from: Aug 30 2023 to: Aug 31 2023)");
     }
-
-//    @Test
-//    void handleEventTask_excessInputs_exceptionThrown() {
-//
-//    }
-
-//    @Test
-//    void handleEventTask_invalidDateInput_exceptionThrown() {
-//
-//    }
 }
