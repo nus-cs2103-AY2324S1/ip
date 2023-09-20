@@ -1,3 +1,5 @@
+# ___Birdy User Guide___
+
 # User Guide
 
 Birdy is a **desktop chat-bot application for managing your tasks optimised for use on a Command Line Interface (CLI)**
@@ -5,7 +7,7 @@ or on a **Graphical User Interface (GUI)**.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Viewing help: `help`](#viewing-help--help)
+  - [Viewing help: `help`](#viewing-help-help)
   - [Adding a task: `todo`/`deadline`/`event`](#adding-a-task--todo--deadline--event)
   - [Marking a task: `mark`/`unmark`](#marking-a-task--mark--unmark)
   - [Listing tasks: `list`](#listing-tasks--list)
@@ -35,7 +37,8 @@ and feature information.
 
 ___
 ## Features 
-> [!NOTE]
+> **Note**
+> 
 > Notes about the command format:
 > - Commands that do not take in parameters: `help`, `list`, `reminder`
 > 
@@ -70,7 +73,7 @@ Format: `help`
 
     Format: `deadline DEADLINE /by DUE_DATE`
 
-   > [!NOTE]
+   > **Note**
    > 
    > `DEADLINE` is strictly in the format `dd/MM/yyyy HH:mm`.
    
@@ -80,7 +83,7 @@ Format: `help`
 
     Format: `event EVENT /from START /to END`
     
-    > [!NOTE]
+    > **Note**
    > 
    > `START` and `END` are strictly in the format `dd/MM/yyyy HH:mm`. 
    
