@@ -36,7 +36,7 @@ public class Ui {
      * @param keyword  The keyword to search for in task descriptions.
      * @return A formatted string containing matching tasks or appropriate messages.
      */
-    public static String displaySearchResults(TaskList taskList, String keyword) {
+    public static String returnSearchResults(TaskList taskList, String keyword) {
         List<Task> allTasks = taskList.getTasks();
         StringBuilder resultBuilder = new StringBuilder();
 
@@ -47,8 +47,9 @@ public class Ui {
             return resultBuilder.toString();
         }
         TaskList filteredList = new TaskList();
+        keyword = keyword.toLowerCase();
         for (Task task : allTasks) {
-            if (task.contains(keyword)) {
+            if (task.getTask().toLowerCase().contains(keyword)) {
                 filteredList.addTask(task);
             }
         }
