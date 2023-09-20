@@ -3,6 +3,7 @@ package duke;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
+import duke.exceptions.DukeDateTimeOrderException;
 import duke.exceptions.DukeDateTimeParseException;
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeParseException;
@@ -81,11 +82,15 @@ public class Parser {
      * @return Event object.
      * @throws DukeParseException If error is encountered while parsing.
      */
-    public Event parseEvent(String userInput) throws DukeParseException {
+    public Event parseEvent(String userInput) throws DukeParseException, DukeDateTimeOrderException {
         try {
             String eventDescription = userInput.substring(userInput.indexOf(' ') + 1, userInput.indexOf('/') - 1);
             String eventFrom = userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1);
             String eventTo = userInput.substring(userInput.indexOf("/to") + 4);
+            if (LocalDateTime.parse(eventFrom, Duke.TIME_FORMAT)
+                    .isAfter(LocalDateTime.parse(eventTo, Duke.TIME_FORMAT))) {
+                throw new DukeDateTimeOrderException();
+            }
             return new Event(eventDescription, LocalDateTime.parse(eventFrom, Duke.TIME_FORMAT),
                     LocalDateTime.parse(eventTo, Duke.TIME_FORMAT));
         } catch (StringIndexOutOfBoundsException e) {
