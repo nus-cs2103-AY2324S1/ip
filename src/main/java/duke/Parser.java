@@ -1,5 +1,8 @@
 package duke;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
+
 import duke.exceptions.DukeDateTimeParseException;
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeParseException;
@@ -7,9 +10,6 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.Todo;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
 
 /**
  * Implementation for the parser.

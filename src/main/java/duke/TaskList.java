@@ -1,9 +1,9 @@
 package duke;
 
-import duke.tasks.Task;
-
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import duke.tasks.Task;
 
 /**
  * Implementation for the task list

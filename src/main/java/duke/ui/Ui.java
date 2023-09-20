@@ -1,8 +1,8 @@
 package duke.ui;
 
-import duke.exceptions.DukeException;
-
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
 
 /**
  * Implementation for User Interface.

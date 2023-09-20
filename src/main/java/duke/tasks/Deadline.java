@@ -1,8 +1,8 @@
 package duke.tasks;
 
-import duke.Duke;
-
 import java.time.LocalDateTime;
+
+import duke.Duke;
 
 /**
  * Encapsulation for Deadline properties.

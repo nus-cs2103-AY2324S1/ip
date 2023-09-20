@@ -1,12 +1,12 @@
 package duke;
 
+import java.time.format.DateTimeFormatter;
+
 import duke.exceptions.DukeException;
 import duke.exceptions.DukeIndexOutOfBoundsException;
 import duke.tasks.Priority;
 import duke.tasks.Task;
 import duke.ui.Ui;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * The Max bot.
@@ -27,7 +27,7 @@ public class Duke {
      *
      * @param filePath Path of data file from root.
      */
-    public Duke(String filePath) throws DukeException {
+    public Duke(String filePath) {
         this.storage = new Storage(filePath);
         this.parser = new Parser();
     }
