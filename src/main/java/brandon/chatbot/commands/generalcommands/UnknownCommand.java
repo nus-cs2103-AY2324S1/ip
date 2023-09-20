@@ -7,7 +7,7 @@ import brandon.chatbot.commands.CommandResult;
  * Represents commands that the program does not understand.
  */
 public class UnknownCommand extends Command {
-    private String feedback = "I am not intelligent enough to understand what that means...";
+    private String feedback = "I am not intelligent enough to understand what that means...ㅠㅅㅠ";
 
     public UnknownCommand() {
     }

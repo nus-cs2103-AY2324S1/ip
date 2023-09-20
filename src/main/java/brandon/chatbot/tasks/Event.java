@@ -3,8 +3,14 @@ package brandon.chatbot.tasks;
 import brandon.chatbot.tag.Tag;
 import brandon.chatbot.common.DukeException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
+
+import static brandon.chatbot.commands.Feedback.ENDING_TIME_BLANK;
+import static brandon.chatbot.commands.Feedback.STARTING_TIME_BLANK;
 
 /**
  * Represents an Event Task with starting time and end time.
@@ -22,15 +28,24 @@ public class Event extends Task {
      */
     public Event(String title, String startTime, String endTime, Optional<ArrayList<Tag>> tags) throws DukeException {
         super(title, tags);
-        if (startTime.isBlank()) {
-            throw new DukeException("    Start time of an event cannot be blank...\n--------------------------------");
+        if (startTime == null) {
+            throw new DukeException(STARTING_TIME_BLANK);
         }
-        if (endTime.isBlank()) {
-            throw new DukeException("    End time of an event cannot be blank...\n--------------------------------");
+        if (endTime == null) {
+            throw new DukeException(ENDING_TIME_BLANK);
         }
+        try {
+            String inputDateFormat = "yyyy-MM-dd";
+            String outputDateFormat = "MMM d yyyy";
 
-        this.startTime = startTime;
-        this.endTime = endTime;
+            LocalDate startDate = LocalDate.parse(startTime.strip(), DateTimeFormatter.ofPattern(inputDateFormat));
+            LocalDate endDate = LocalDate.parse(endTime.strip(), DateTimeFormatter.ofPattern(inputDateFormat));
+            this.startTime = startDate.format(DateTimeFormatter.ofPattern(outputDateFormat));
+            this.endTime = endDate.format(DateTimeFormatter.ofPattern(outputDateFormat));
+        } catch (DateTimeParseException e) {
+            String wrongDateInputExceptionMessage = "Could you try your date in yyyy-mm-dd format instead...?";
+            throw new DukeException(wrongDateInputExceptionMessage);
+        }
     }
 
     public String getStatus() {

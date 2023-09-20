@@ -1,8 +1,5 @@
 package brandon.chatbot;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.commands.generalcommands.UnknownCommand;
@@ -10,6 +7,9 @@ import brandon.chatbot.parser.Parser;
 import brandon.chatbot.storage.Storage;
 import brandon.chatbot.tag.TagTaskMap;
 import brandon.chatbot.tasks.TaskList;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 /**

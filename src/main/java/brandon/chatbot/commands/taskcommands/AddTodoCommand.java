@@ -1,42 +1,45 @@
 package brandon.chatbot.commands.taskcommands;
 
-import brandon.chatbot.tag.Tag;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.common.DukeException;
+import brandon.chatbot.tag.Tag;
 import brandon.chatbot.tasks.Todo;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static brandon.chatbot.commands.Feedback.ADD_SUCCESS;
+
 /**
  * Represents a command that adds a todo task into the task list.
  */
 public class AddTodoCommand extends Command {
-    public static final String ADD_SUCCESS = "ok... I'm adding..";
-    private Todo todoToAdd;
 
+    private String title;
     private Optional<ArrayList<Tag>> tags;
 
-    public AddTodoCommand(String taskName, Optional<ArrayList<Tag>> tags) throws DukeException {
-        this.todoToAdd = new Todo(taskName, tags);
+    public AddTodoCommand(String title, Optional<ArrayList<Tag>> tags) {
+        this.title = title;
         this.tags = tags;
     }
 
     @Override
-    public CommandResult execute() {
-        assert this.todoToAdd != null: "Todo object should not be empty.";
-
+    public CommandResult execute() throws DukeException {
+        Todo todoToAdd = new Todo(title, tags);
         tasks.addTask(todoToAdd);
 
         if (tags.isPresent()) {
-            for (Tag t : tags.get()) {
-                tagTaskMap.add(t, todoToAdd);
-            }
-//            tagTaskMap.printMap();
+            addTodoItemToMap(todoToAdd);
         }
 
         CommandResult result = new CommandResult(ADD_SUCCESS);
         return result;
+    }
+
+    private void addTodoItemToMap(Todo todoToAdd) {
+        for (Tag t : tags.get()) {
+            tagTaskMap.add(t, todoToAdd);
+        }
     }
 }
