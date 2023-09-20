@@ -277,4 +277,7 @@ public class TaskList {
         Collections.sort(tasks);
         return ui.getSortedMessage() + displayList();
     }
+    public File getFile() {
+        return taskList;
+    }
 }
