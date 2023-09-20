@@ -186,7 +186,7 @@ The third task (*event* task) should be marked with an 'X' next to it.
 
 ```
 OK, I've marked this task as not done yet:
-   [T][ ] learn HTML/CSS one day 
+[T][ ] learn HTML/CSS one day 
 ```
 
 ### `list` - lists down all the tasks in your task-list
