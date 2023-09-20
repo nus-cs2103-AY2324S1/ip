@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import pardiyem.storage.Storage;
 import pardiyem.task.TaskList;
-import pardiyem.ui.Ui;
 
 public class MarkCommand extends Command {
     /**

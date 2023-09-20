@@ -2,7 +2,6 @@ package pardiyem.command;
 
 import pardiyem.storage.Storage;
 import pardiyem.task.TaskList;
-import pardiyem.ui.Ui;
 
 /**
  * Represents a command that ends the running of the program

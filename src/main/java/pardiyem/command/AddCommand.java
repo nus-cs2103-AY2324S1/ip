@@ -8,10 +8,9 @@ import pardiyem.task.Event;
 import pardiyem.task.Task;
 import pardiyem.task.TaskList;
 import pardiyem.task.Todo;
-import pardiyem.ui.Ui;
 
 /**
- * Represents a command that involves adding Task objects to the tasklist
+ * Represents a command that involves adding Task objects to the taskList
  */
 public class AddCommand extends Command {
     private Task toAdd;
@@ -37,6 +36,7 @@ public class AddCommand extends Command {
             break;
         }
         default:
+            assert false: "incorrect type";
             break;
         }
     }
@@ -52,8 +52,8 @@ public class AddCommand extends Command {
 
     /**
      * Inherited method to execute the command.
-     * Will add the constructed Task object to the tasklist,
-     * send a message to the UI, and store the current state of the tasklist
+     * Will add the constructed Task object to the taskList,
+     * send a message to the UI, and store the current state of the taskList
      *
      * @param taskList the TaskList object to modify
      * @param storage the Storage object that will handle the saving to the data file

@@ -59,7 +59,7 @@ public class Deadline extends Task {
     }
 
     private static ArrayList<String> parseDesc(String desc) throws IllegalArgumentException {
-        int i = desc.indexOf("/by");
+         int i = desc.indexOf("/by");
         if (i == -1) {
             throw new IllegalArgumentException(DEADLINE_FORMAT_ERROR);
         }
