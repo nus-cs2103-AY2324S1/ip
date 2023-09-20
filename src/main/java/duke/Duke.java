@@ -2,7 +2,6 @@ package duke;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 
 import duke.commands.Command;
 import duke.tools.Parser;
@@ -102,8 +101,8 @@ public class Duke {
             return c.execute(tasks, ui, storage);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            String unknownCommandReply = "Respironix heard unknown command: " + input + "...";
-            unknownCommandReply += ("\n" + new String(e.getMessage().getBytes(), StandardCharsets.UTF_8));
+            String unknownCommandReply = "I had problems with your command: " + input + "...";
+            unknownCommandReply += ("\n" + e.getMessage());
             return unknownCommandReply;
         }
 

@@ -11,6 +11,6 @@ public class UnknownTimeException extends Exception {
      * @param message The task description for which the time is unknown.
      */
     public UnknownTimeException(String message) {
-        super(String.format("☹ OOPS!!! Sorry but what is that time? %s is missing it", message));
+        super(String.format("\u2639 OOPS!!! Sorry but what is that time? %s is missing it", message));
     }
 }

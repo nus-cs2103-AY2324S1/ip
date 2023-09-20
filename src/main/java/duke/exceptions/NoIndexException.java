@@ -11,6 +11,6 @@ public class NoIndexException extends Exception {
      * @param message The index value that caused the exception.
      */
     public NoIndexException(String message) {
-        super(String.format("☹ OOPS!!! The index %s does not exist.", message));
+        super(String.format("\u2639 OOPS!!! The index %s does not exist.", message));
     }
 }

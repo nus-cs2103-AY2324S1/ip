@@ -12,7 +12,7 @@ public class NoDescriptionException extends Exception {
      * @param message The specific command that requires a description.
      */
     public NoDescriptionException(String message) {
-        super(String.format("☹ OOPS!!! Where is your description for %s?", message));
+        super(String.format("\u2639 OOPS!!! Where is your description for %s?", message));
     }
 
 }

@@ -1,8 +1,0 @@
-T | 0 | leave the library
-T | 0 | do 2103
-T | 0 | borrow book
-T | 0 | sleep
-T | 0 | wake up
-T | 0 | borrow book
-D | 0 | return book | 2019-01-01T00:00
-E | 0 | project meeting | 2023-04-04T14:00--2023-04-05T16:00

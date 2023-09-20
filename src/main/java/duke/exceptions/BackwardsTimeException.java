@@ -10,7 +10,7 @@ public class BackwardsTimeException extends Exception {
      * Constructs a BackwardsTimeException with a default error message.
      */
     public BackwardsTimeException() {
-        super("Sorry... The provided timeframe is impossible as the deadline is earlier than the start...");
+        super("\u2639 Sorry... The provided timeframe is impossible as the deadline is earlier than the start...");
     }
 
 }
