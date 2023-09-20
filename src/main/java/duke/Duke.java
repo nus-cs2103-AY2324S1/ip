@@ -25,10 +25,10 @@ import javafx.stage.Stage;
  */
 
 public class Duke extends Application {
-    private final String filePath;
-    private final Storage storage;
+    private String filePath;
+    private Storage storage;
     private TaskList taskList;
-    private final Ui ui;
+    private Ui ui;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -56,8 +56,8 @@ public class Duke extends Application {
         try {
             ArrayList<String> taskStringList = this.storage.load();
             this.taskList = new TaskList(taskStringList);
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            this.taskList = new TaskList(new ArrayList<>());
         }
 
     }
@@ -141,7 +141,6 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 10.0);
         AnchorPane.setBottomAnchor(userInput, 10.0);
 
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(getResponse("list"), duke));
 
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
