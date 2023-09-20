@@ -1,6 +1,9 @@
 package duke.util;
 
+import javafx.application.Platform;
+
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents a user interface for SeeWhyAre bot.
@@ -29,13 +32,17 @@ public class Ui {
         return HORIZONTAL_LINE;
     }
 
+    public Ui getUi() {
+        return this;
+    }
+
     /**
      * Displays a greeting message to the user.
      */
     public String greet() {
-        StringBuilder message = new StringBuilder("\nStarting SeeWhyAre Bot...\n");
+        StringBuilder message = new StringBuilder();
         message.append(printHorizontalLine()).append("\nHello! I'm SeeWhyAre Bot!")
-                .append("\nWhat can I do for you?")
+                .append("\nWhat can I do for you?\n")
                 .append(printHorizontalLine());
         System.out.println("\nStarting SeeWhyAre Bot...");
         printHorizontalLine();
@@ -69,6 +76,20 @@ public class Ui {
         System.out.println("    Bye bye. Please use me again soon!");
         printHorizontalLine();
         scanner.close();
+        quitProgram();
         return message.toString();
+    }
+
+    protected void quitProgram() {
+        Thread closeProgramThread = new Thread((() -> {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+                Platform.exit();
+                System.exit(0);
+            } catch (InterruptedException e) {
+                e.getMessage();
+            }
+        }));
+        closeProgramThread.start();
     }
 }

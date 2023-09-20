@@ -45,6 +45,10 @@ public class Duke {
         }
     }
 
+    public static String getGreetingMessage() {
+        return ui.greet();
+    }
+
     /**
      * Gets the response from SeeWhyAre bot after parsing the user input.
      */
