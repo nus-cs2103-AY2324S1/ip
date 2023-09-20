@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -11,6 +13,19 @@ public class Duke {
     private static final String FILE_PATH = "./data/duke.txt";
 
     private static ArrayList<Task> tasks = new ArrayList<>();
+
+    private static DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+    private static DateTimeFormatter outputDateTimeFormatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
+
+    private static LocalDateTime parseInputDateTime(String dateTimeString){
+        return LocalDateTime.parse(dateTimeString, inputDateTimeFormatter);
+    }
+
+    private static LocalDateTime parseOutputDateTime(String dateTimeString){
+        return LocalDateTime.parse(dateTimeString, outputDateTimeFormatter);
+    }
+
 
     private static void saveTasks() {
         try {
@@ -62,10 +77,10 @@ public class Duke {
                 tasks.add(new Todo(parts[2], isMarked));
                 break;
             case "D":
-                tasks.add(new Deadline(parts[2], isMarked, parts[3]));
+                tasks.add(new Deadline(parts[2], isMarked, parseOutputDateTime(parts[3])));
                 break;
             case "E":
-                tasks.add(new Event(parts[2], isMarked, parts[3], parts[4]));
+                tasks.add(new Event(parts[2], isMarked, parseOutputDateTime(parts[3]), parseOutputDateTime(parts[4])));
                 break;
             }
         }
@@ -116,19 +131,20 @@ public class Duke {
                 "Now you have " + Duke.tasks.size() + " tasks in the list.");
     }
 
+
     private static void addTodo(String description){
         Todo newTask = new Todo(description);
         Duke.tasks.add(newTask);
         Duke.printAddTaskInfo(newTask);
     }
 
-    private static void addDeadline(String description, String by){
+    private static void addDeadline(String description, LocalDateTime by){
         Deadline newTask = new Deadline(description, by);
         Duke.tasks.add(newTask);
         Duke.printAddTaskInfo(newTask);
     }
 
-    private static void addEvent(String description, String from, String to){
+    private static void addEvent(String description, LocalDateTime from, LocalDateTime to){
         Event newTask = new Event(description, from, to);
         Duke.tasks.add(newTask);
         Duke.printAddTaskInfo(newTask);
@@ -141,9 +157,12 @@ public class Duke {
         String[] inputParts;
         int taskIndex;
         String description;
-        String by;
-        String from;
-        String to;
+        String byString;
+        LocalDateTime by;
+        String fromString;
+        LocalDateTime from;
+        String toString;
+        LocalDateTime to;
         Task deletedTask;
 
         Scanner scanner = new Scanner(System.in);
@@ -208,7 +227,7 @@ public class Duke {
                     raiseMissingValueError("by", "deadline");
                     break;
                 }
-                by = inputParts[1];
+                by = parseInputDateTime(inputParts[1]);
                 Duke.addDeadline(description, by);
                 break;
 
@@ -224,12 +243,12 @@ public class Duke {
                     break;
                 }
                 inputParts = inputParts[1].split(" /to ", 2);
-                from = inputParts[0];
+                from = parseInputDateTime(inputParts[0]);
                 if (inputParts.length == 1) {
                     raiseMissingValueError("to", "event");
                     break;
                 }
-                to = inputParts[1];
+                to = parseInputDateTime(inputParts[1]);
                 Duke.addEvent(description, from, to);
                 break;
 
