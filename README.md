@@ -4,7 +4,7 @@ Duke is a friendly chatbot application for task management. You can interact wit
 
 * Setting up in Intellij
 * Features
-  * [Add a to-do: ```todo```](#Add a to-do: ```todo```)
+  * Add a to-do: ```todo```
   * Add a deadline: ```deadline```
   * Add an event: ```event```
   * List all tasks: ```list```
