@@ -8,7 +8,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import todoify.chatbot.ChatMessage;
 import todoify.chatbot.Chatbot;
 import todoify.util.EpochConverter;
@@ -48,9 +52,22 @@ public class ChatBubble extends HBox {
 
         this.chatbot = chatbot;
         this.message = message;
+
+        this.initUI();
         this.refreshUI();
     }
 
+    /**
+     * Initializes the UI for this instance. Does any setup not doable in FXML.
+     */
+    private void initUI() {
+        // Clip image to a circle.
+        // Modified from https://stackoverflow.com/questions/50093207/javafx-circular-cutout
+        double width = this.senderImageView.getFitWidth();
+        double height = this.senderImageView.getFitHeight();
+        Circle circle = new Circle(width / 2, height / 2, Math.min(width, height) / 2);
+        this.senderImageView.setClip(circle);
+    }
 
     /**
      * Reloads the UI according to the cached message instance.

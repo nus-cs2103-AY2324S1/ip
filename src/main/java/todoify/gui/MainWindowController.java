@@ -63,7 +63,9 @@ public class MainWindowController extends Application {
 
         chatbot.openConversation();
         chatbot.addEventListener(this.chatMessageEventListener);
+
         this.reloadMessageHistory();
+        this.refreshUiState();
     }
 
 
@@ -135,12 +137,14 @@ public class MainWindowController extends Application {
      * is closed.
      */
     private void refreshUiState() {
-        assert this.userMessageTextField != null;
-        assert this.sendMessageButton != null;
         assert this.chatbot != null;
 
-        this.userMessageTextField.setDisable(this.chatbot.isConversationClosed());
-        this.sendMessageButton.setDisable(this.chatbot.isConversationClosed());
+        if (this.userMessageTextField != null) {
+            this.userMessageTextField.setDisable(this.chatbot.isConversationClosed());
+        }
+        if (this.sendMessageButton != null) {
+            this.sendMessageButton.setDisable(this.chatbot.isConversationClosed());
+        }
     }
 
     @Override
@@ -151,6 +155,7 @@ public class MainWindowController extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(Main.class.getResource("/styles/mainwindow.css").toExternalForm());
             stage.setScene(scene);
             stage.setTitle(bot.getName());
             stage.setMinWidth(320);
