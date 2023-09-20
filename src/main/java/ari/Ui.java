@@ -119,7 +119,7 @@ public class Ui {
         System.out.println("\tNow you have " + size + " tasks in the list.");
         printLine();
 
-        return "\t" + removedTask.toString() + "\n"
+        return removedTask.toString() + "\n"
                 + "Now you have " + size + " tasks in the list.";
 
     }

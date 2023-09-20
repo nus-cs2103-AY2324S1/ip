@@ -16,7 +16,7 @@ public class Main extends Application {
 
     {
         try {
-            ari = new Ari("data/duke.txt");
+            ari = new Ari("data/ari.txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
