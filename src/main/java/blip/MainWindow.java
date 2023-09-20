@@ -55,6 +55,6 @@ public class MainWindow extends AnchorPane {
 
     private DialogBox getIntroMessage() {
         String intro = BlipUI.showIntro();
-        return DialogBox.getDukeDialog(intro, dukeImage);
+        return DialogBox.getDukeDialog(intro, blipImage);
     }
 }
