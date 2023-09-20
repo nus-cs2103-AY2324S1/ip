@@ -24,7 +24,7 @@ import javafx.scene.shape.Circle;
 public class DialogBox extends HBox {
     @FXML
     private Label dialog;
-    
+
     @FXML
     private ImageView displayPicture;
 
