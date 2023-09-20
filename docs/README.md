@@ -160,18 +160,5 @@ Exits the program
 
 Format: `bye`
 
-## Command Summary
-| Command     | Format                                                          | Example                                              |
-|-------------|-----------------------------------------------------------------|------------------------------------------------------|
-| list        | `list`                                                          | `list`                                               |
-| todo        | `todo DESCRIPTION`                                              | `todo exampleToDo`                                   |
-| deadline    | `deadline DESCRIPTION /by DATE(yyyy-mm-dd) TIME`                | `deadline exampleDeadline /by 2023-11-11 1800`       |
-| event       | `event DESCRIPTION /from DATE(yyyy-mm-dd) /to DATE(yyyy-mm-dd)` | `event exampleEvent /from 2023-11-11 /to 2023-12-12` |
-| delete      | `delete INDEX`                                                  | `delete 1`                                           |
-| find        | `find KEYWORD [MORE_KEYWORDS]`                                  | `find tutorial`                                      |
-| setPriority | `setPriority INDEX PRIORITY_LEVEL`                              | `setPriority 1 2`                                    |
-| bye         | `bye`                                                           | `bye`                                                |
-
-
 
 
