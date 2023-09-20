@@ -58,54 +58,6 @@ public class Storage {
      *
      * @param taskList The `TaskList` to populate with loaded tasks.
      */
-
-//    public void loadTasksFromFile(TaskList taskList) {
-//        List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
-//
-//        try (Scanner scanner = new Scanner(new File(FILE_PATH))) {
-//            while (scanner.hasNextLine()) {
-//                String line = scanner.nextLine();
-//                String[] parts = line.split(" \\| ");
-//                if (parts.length < 3) {
-//                    continue;
-//                }
-//                String taskType = parts[0];
-//                boolean isDone = Integer.parseInt(parts[1]) == 1;
-//                String taskDescription = parts[2];
-//
-//                // Check if the task is already in duke.Duke.allTasks
-//                if (!Duke.taskList.isTaskInAllTasks(taskType, taskDescription)) { //rewrite method in duke.TaskList class
-//                    Task task;
-//
-//                    if (taskType.equals("T")) {
-//                        task = new Todo(taskDescription, false);
-//                    } else if (taskType.equals("D") && parts.length >= 4) {
-//                        String by = parts[3];
-//                        task = new Deadline(taskDescription, false, by);
-//                    } else if (taskType.equals("E") && parts.length >= 4) {
-//                        String from = parts[3];
-//                        String to = (parts.length > 4) ? parts[4] : "";
-//                        task = new Event(taskDescription, false, from, to);
-//                    } else {
-//                        continue;
-//                    }
-//
-//                    if (isDone) {
-//                        task.setStatus(TaskStatus.DONE);
-//                    }
-//
-//                    loadedTasks.add(task);
-//                }
-//            }
-//
-//            taskList.getTasks().clear();
-//            taskList.getTasks().addAll(loadedTasks);
-//        } catch (FileNotFoundException e) {
-//            System.err.println("File not found: " + e.getMessage());
-//        } catch (DukeException e) {
-//
-//        }
-//    }
     public void loadTasksFromFile(TaskList taskList) {
         List<Task> loadedTasks = new ArrayList<>(); // Create a temporary list
 
@@ -139,7 +91,7 @@ public class Storage {
         taskList.getTasks().clear();
         taskList.getTasks().addAll(loadedTasks);
     }
-    
+
     private Task createTask(String taskType, String taskDescription, String[] parts) throws DukeException {
         Task task;
 
@@ -236,7 +188,6 @@ public class Storage {
             }
 
             file.seek(position);
-
             file.writeBytes(updatedContent);
 
         } catch (IOException e) {
