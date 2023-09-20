@@ -1,5 +1,0 @@
-T | [X] | read book
-D | [X] | return book | 20230608 1500
-T | [X] | join sports club
-D | [ ] | hw | 20230814 1400
-E | [ ] | seminar | 20230808 1600-1700

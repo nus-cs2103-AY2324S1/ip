@@ -11,6 +11,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class StorageTest {
     @Test
@@ -22,7 +24,7 @@ public class StorageTest {
     }
 
     @Test
-    public void textToTask_test2() throws DukeException{
+    public void textToTask_test2() throws DukeException {
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HHmm");
         String from = "20230808 1500";
@@ -34,6 +36,11 @@ public class StorageTest {
         String actual = Storage.textToTask("E | [X] | project meeting | 20230808 1500-1600").toString();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void textToTask_throwDukeException() {
+        assertThrows(DukeException.class, () -> Storage.textToTask("X | [ ] | project meeting | 20230808 1500-1600"));
     }
 
     @Test
@@ -52,8 +59,8 @@ public class StorageTest {
         ArrayList<Task> expectedList = new ArrayList<>();
         expectedList.add(new ToDo("borrow book", true));
         expectedList.add(new ToDo("read book", false));
-        expectedList.add(new Deadline("return book ", dateTimeBy, false));
-        expectedList.add(new Event("project meeting ", dateTimeFrom, dateTimeTo, false));
+        expectedList.add(new Deadline("return book", dateTimeBy, false));
+        expectedList.add(new Event("project meeting", dateTimeFrom, dateTimeTo, false));
 
         String actual = "";
         String expected = "";
@@ -64,5 +71,4 @@ public class StorageTest {
 
         assertEquals(expected, actual);
     }
-
 }

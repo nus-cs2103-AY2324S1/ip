@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * DeadlineCommand class for the command that asks to create a new deadline
+ */
 public class DeadlineCommand extends Command{
 
     private Task deadlineToAdd;

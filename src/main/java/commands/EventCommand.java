@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * EventCommand class for the command that asks to create a new event
+ */
 public class EventCommand extends Command{
     private Task eventToAdd;
 

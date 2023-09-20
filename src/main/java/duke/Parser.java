@@ -17,7 +17,12 @@ import commands.UnmarkCommand;
  * Parser class that makes sense of user command and executes appropriate actions.
  */
 public class Parser {
-
+    /**
+     * Parses the command input by the user for execution
+     * @param command input by the user
+     * @return an appropriate Command object depending on the command
+     * @throws DukeException if command is invalid
+     */
     public static Command parse(String command) throws DukeException{
         if (command.equals("list")) {
             return new ListCommand();

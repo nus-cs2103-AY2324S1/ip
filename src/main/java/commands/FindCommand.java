@@ -8,6 +8,9 @@ import duke.Ui;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * FindCommand class for command that asks to find tasks with given keyword
+ */
 public class FindCommand extends Command {
 
     private String keywordToFind;

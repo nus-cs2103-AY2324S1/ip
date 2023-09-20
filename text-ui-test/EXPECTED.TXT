@@ -9,12 +9,12 @@
 	_______________________________________________________________________
 	_______________________________________________________________________
 	Got it. I've added this task:
-	  [D][ ] return book (by: June 6th)
+	  [D][ ] return book (by: Jun 07 2023 2PM)
 	Now you have 2 tasks in the list.
 	_______________________________________________________________________
 	_______________________________________________________________________
 	Got it. I've added this task:
-	  [E][ ] project meeting (from: Aug 6th 2pm to:4pm)
+	  [E][ ] project meeting (from: Jul 09 2023 4PM to: 6PM)
 	Now you have 3 tasks in the list.
 	_______________________________________________________________________
 	_______________________________________________________________________
@@ -38,33 +38,46 @@
 	_______________________________________________________________________
 	Here are the task in your list:
 	1.[T][X] read book
-	2.[D][ ] return book (by: June 6th)
-	3.[E][ ] project meeting (from: Aug 6th 2pm to:4pm)
+	2.[D][ ] return book (by: Jun 07 2023 2PM)
+	3.[E][ ] project meeting (from: Jul 09 2023 4PM to: 6PM)
 	4.[T][X] join sports club
 	5.[T][ ] borrow book
 	_______________________________________________________________________
 	_______________________________________________________________________
 	Got it. I've added this task:
-	  [D][ ] return book (by: Sunday)
+	  [D][ ] hw (by: Aug 07 2023 2PM)
 	Now you have 6 tasks in the list.
 	_______________________________________________________________________
 	_______________________________________________________________________
 	Got it. I've added this task:
-	  [E][ ] project meeting (from: Mon 2pm to:4pm)
+	  [E][ ] seminar (from: Aug 08 2023 3PM to: 4PM)
 	Now you have 7 tasks in the list.
 	_______________________________________________________________________
 	_______________________________________________________________________
-	Noted. I've removed this task:
-	  [E][ ] project meeting (from: Aug 6th 2pm to:4pm)
-	Now you have 6 tasks in the list.
-	_______________________________________________________________________
 	Here are the task in your list:
 	1.[T][X] read book
-	2.[D][ ] return book (by: June 6th)
-	3.[T][X] join sports club
-	4.[T][ ] borrow book
-	5.[D][ ] return book (by: Sunday)
-	6.[E][ ] project meeting (from: Mon 2pm to:4pm)
+	2.[D][ ] return book (by: Jun 07 2023 2PM)
+	3.[E][ ] project meeting (from: Jul 09 2023 4PM to: 6PM)
+	4.[T][X] join sports club
+	5.[T][ ] borrow book
+	6.[D][ ] hw (by: Aug 07 2023 2PM)
+	7.[E][ ] seminar (from: Aug 08 2023 3PM to: 4PM)
+	_______________________________________________________________________
+	_______________________________________________________________________
+	  [E][ ] project meeting (from: Jul 09 2023 4PM to: 6PM)
+	Now you have 6 tasks in the list.
+	_______________________________________________________________________
+	_______________________________________________________________________
+	Ok, We have postponed the following deadline
+	  [D][ ] return book (by: Jun 08 2023 3PM)
+	_______________________________________________________________________
+	_______________________________________________________________________
+	Ok, We have postponed the following deadline
+	  [D][ ] hw (by: Aug 14 2023 2PM)
+	_______________________________________________________________________
+	_______________________________________________________________________
+	Ok, We have rescheduled the following event
+	  [E][ ] seminar (from: Aug 08 2023 4PM to: 5PM)
 	_______________________________________________________________________
 	_______________________________________________________________________
 	Bye. Hope to see you again soon!
