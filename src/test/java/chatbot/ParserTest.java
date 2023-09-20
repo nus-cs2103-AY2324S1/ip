@@ -24,7 +24,7 @@ public class ParserTest {
     public void parseAdd_missingTodoDescription_exceptionThrown() {
         try {
             Parser parser = new Parser();
-            assertEquals("", parser.parseAdd("add todo"));
+            assertEquals("", parser.parseAdd("add todo  "));
             fail();
         } catch (Exception e) {
             assertEquals("OOPS!!! Please specify the description for this Todo!", e.getMessage());
@@ -45,7 +45,20 @@ public class ParserTest {
     }
 
     @Test
-    public void parseAdd_missingEventDate_exceptionThrown() {
+    public void parseAdd_missingEventStart_exceptionThrown() {
+        try {
+            Parser parser = new Parser();
+            assertEquals("", parser.parseAdd("add event shop /to 2023-10-10"));
+            fail();
+        } catch (Exception e) {
+            assertEquals(
+                    "OOPS!!! Please specify the description, start, and end time in the correct format for this Event!",
+                    e.getMessage());
+        }
+    }
+
+    @Test
+    public void parseAdd_missingEventEnd_exceptionThrown() {
         try {
             Parser parser = new Parser();
             assertEquals("", parser.parseAdd("add event shop /from 2023-09-09 /to "));

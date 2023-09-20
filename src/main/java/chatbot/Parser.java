@@ -70,6 +70,8 @@ public class Parser {
             arr.add(3, end);
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidEventException();
+        } catch (InvalidCommandException e) {
+            throw new InvalidEventException();
         }
     }
 
@@ -95,6 +97,8 @@ public class Parser {
             arr.add(2, deadline);
         } catch (StringIndexOutOfBoundsException e) {
             throw new InvalidDeadlineException();
+        } catch (InvalidCommandException e) {
+            throw new InvalidDeadlineException();
         }
     }
 
@@ -116,6 +120,8 @@ public class Parser {
             arr.add(0, "todo");
             arr.add(1, description);
         } catch (StringIndexOutOfBoundsException e) {
+            throw new InvalidTodoException();
+        } catch (InvalidCommandException e) {
             throw new InvalidTodoException();
         }
     }
