@@ -33,6 +33,7 @@ public class Parser {
 
     // checks if date is in valid format
     private static void validateDate(String date) throws BuddyException {
+        assert !date.isBlank() : "date should not be blank";
         try {
             LocalDate d = LocalDate.parse(date);
         } catch (DateTimeParseException e) {
@@ -49,9 +50,10 @@ public class Parser {
      * @throws BuddyException On invalid input.
      */
     public static Command parse(String fullCommand, TaskList tasks) throws BuddyException {
+        assert tasks.getSize() >= 0 : "size of task list should be more than or equal to 0";
         String[] words = fullCommand.split(" ");
         CommandType commandType = CommandType.valueOf(words[0].toUpperCase());
-
+      
         if (commandType.equals(CommandType.BYE)) {
             return new ExitCommand();
         } else if (commandType.equals(CommandType.LIST)) {

@@ -81,7 +81,7 @@ public class Ui {
      */
     public String printDeleteSuccessMessage(Task deletedTask, TaskList tasks) {
         return "Noted. I've removed this task:\n" + deletedTask.toString()
-                + "Now you have " + tasks.getSize() + " tasks in the list.";
+                + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
     public String readCommand() {
