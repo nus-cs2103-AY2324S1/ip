@@ -24,7 +24,7 @@ public class Parser {
      * @return The corresponding duke.command.Command object.
      */
     public static Command parse(String userInput) throws DukeException {
-        String[] words = userInput.toLowerCase().split("\\s+");
+        String[] words = userInput.trim().toLowerCase().split("\\s+");
         switch (words[0]) {
         case "bye":
             return new ExitCommand();

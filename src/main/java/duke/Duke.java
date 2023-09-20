@@ -37,10 +37,6 @@ public class Duke extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public static void main(String[] args) {
-        Application.launch(Duke.class, args);
-    }
-
     /**
      * Start the program with GUI.
      *

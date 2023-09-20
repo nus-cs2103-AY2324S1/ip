@@ -31,4 +31,18 @@ public class ParserTest {
             assertEquals(true, true);
         }
     }
+
+    @Test
+    public void parse_handleMultipleSpaces() {
+        String[] testInputs = {" bye", " bye  ", "    bye"};
+        String lastInput = testInputs[0];
+        try {
+            for (String command : testInputs) {
+                lastInput = command;
+                Parser.parse(command);
+            }
+        } catch (DukeException e) {
+            fail(lastInput + " command failed to parse");
+        }
+    }
 }

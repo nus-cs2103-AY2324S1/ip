@@ -25,7 +25,7 @@ public class AddCommand implements Command {
      */
     @Override
     public boolean execute(TaskList tasks, Ui ui) throws DukeException {
-        String userInput = ui.getLastMsg();
+        String userInput = ui.getLastMsg().trim();
 
         // Determine the task type based on the message.
         if (userInput.toLowerCase().startsWith("todo")) {
