@@ -61,7 +61,7 @@ public class FileParserTest {
      */
     @Test
     public void parseTask_malformedCombinationTwo_failure() {
-        assertThrows(JukeDataFileParseException.class, () -> FileParser.parseTask("this is obviously wrong"));
+        assertThrows(JukeDataFileParseException.class, () -> FileParser.parseTask("this is | also | obviously wrong"));
     }
 
     /**
