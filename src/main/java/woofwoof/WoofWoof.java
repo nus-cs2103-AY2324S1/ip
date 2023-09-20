@@ -110,6 +110,7 @@ public class WoofWoof extends Application {
                 Woof.wrapText(WoofMessage.HI.toFormattedValue(), "", Woof.getChatWidth()), this.doggo
             )
         );
+        this.dialogArea.prefHeightProperty().bind(this.scrollPane.heightProperty());
     }
 
     /**
@@ -135,9 +136,11 @@ public class WoofWoof extends Application {
             loadCssStyles();
             primaryStage.setScene(this.scene);
             primaryStage.setTitle(WoofMessage.WOOF_TITLE.toFormattedValue());
-            primaryStage.setResizable(false);
+            primaryStage.setMinHeight(290.0);
             fxmlLoader.<WoofWoof>getController().setWoof(this.woof);
             primaryStage.show();
+            primaryStage.maxWidthProperty().bind(primaryStage.widthProperty());
+            primaryStage.minWidthProperty().bind(primaryStage.widthProperty());
         } catch (IOException e) {
             System.out.printf("really oh no\n%s\n", e.getMessage());
         }
