@@ -8,6 +8,11 @@ public class Parser {
     private static Task lastTaskDeleted = null;
     private static int lastIndexChanged;
 
+    /**
+     * Abstraction for exit when user inputs "bye".
+     * @param taskList taskList that stores all tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
     public static String exitCommand(TaskList taskList) {
         try {
             taskList.write();
@@ -17,6 +22,11 @@ public class Parser {
         }
     }
 
+    /**
+     * Abstraction for listing out tasks when user inputs "list".
+     * @param taskList taskList that stores all tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
     public static String listCommand(TaskList taskList) {
         if (taskList.getSize() == 0) {
             lastCommand = "error";
@@ -26,6 +36,37 @@ public class Parser {
         return Ui.listTasks(taskList); //attention
     }
 
+    /**
+     * Abstraction for un-marking a specified done task as undone.
+     * @param taskList taskList that stores all tasks.
+     * @param index int index of the task to be deleted. This is not zero indexed. Hence, the first task has index 1.
+     *             The indexing follows the numbering printed to the user in the GUI when listing out tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
+    public static String unmarkCommand(TaskList taskList, int index) {
+        lastCommand = "unmark";
+        lastIndexChanged = index;
+        return taskList.unmark(index);
+    }
+
+    /**
+     * Abstraction for marking a specified undone task as done.
+     * @param taskList taskList that stores all tasks.
+     * @param index int index of the task to be deleted. This is not zero indexed. Hence, the first task has index 1.
+     *             The indexing follows the numbering printed to the user in the GUI when listing out tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
+    public static String markCommand(TaskList taskList, int index) {
+        lastCommand = "mark";
+        lastIndexChanged = index;
+        return taskList.mark(index);
+    }
+    /**
+     * Abstraction for making a Todo task when user inputs "todo".
+     * @param userInput User input that user types into the GUI. Used to obtain the description of the todo.
+     * @param taskList taskList that stores all tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
     public static String makeTodoCommand(String userInput, TaskList taskList) {
         if (userInput.substring(4).isEmpty()) { //add if there is only space
             lastCommand = "error";
@@ -39,6 +80,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Abstraction for making a Deadline task when user inputs "deadline".
+     * @param userInput User input that user types into the GUI. Used to obtain the description of the deadline.
+     * @param taskList taskList that stores all tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
     public static String makeDeadlineCommand(String userInput, TaskList taskList) {
         if (userInput.substring(8).isEmpty()) { //add if there is only space
             lastCommand = "error";
@@ -53,6 +100,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Abstraction for making an Event task when user inputs "event".
+     * @param userInput User input that user types into the GUI. Used to obtain the description of the event.
+     * @param taskList taskList that stores all tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
     public static String makeEventCommand(String userInput, TaskList taskList) {
         if (userInput.substring(5).isEmpty()) { //add if there is only space
             lastCommand = "error";
@@ -69,6 +122,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Abstraction for deleting a task when user inputs "delete".
+     * @param userInput User input that user types into the GUI. Used to obtain the index of the task in the taskList
+     * to delete.
+     * @param taskList taskList that stores all tasks.
+     * @return A String that outputs gman's response to the user in the GUI.
+     */
     public static String deleteCommand(String userInput, TaskList taskList) {
         String[] segments = userInput.split(" ");
         int indexToDelete = Integer.valueOf(segments[1]) - 1;
@@ -77,6 +137,11 @@ public class Parser {
         return taskList.deleteTask(indexToDelete) + "\n" + Ui.numberOfTasks(taskList);
     }
 
+    /**
+     * Abstraction for undoing the most recent command when user inputs "undo".
+     * @param taskList taskList that stores all tasks.
+     * @return A Stringt that outputs gman's response to the user in the GUI.
+     */
     public static String undoCommand(TaskList taskList) {
         if (!isValidUndo()) {
             return Ui.showError(new GmanException("OOPS! Your last command is not undo-able!"));
@@ -114,6 +179,10 @@ public class Parser {
     }
 
 
+    /**
+     * Method that checks for if the last command given by the user can be undone.
+     * @return boolean indicating if the command can be undone.
+     */
     public static boolean isValidUndo() {
         if (lastCommand.equals("error") || lastCommand.isEmpty()) {
             return false;
@@ -126,17 +195,7 @@ public class Parser {
         }
     }
 
-    public static String unmarkCommand(TaskList taskList, int index) {
-        lastCommand = "unmark";
-        lastIndexChanged = index;
-        return taskList.unmark(index);
-    }
 
-    public static String markCommand(TaskList taskList, int index) {
-        lastCommand = "mark";
-        lastIndexChanged = index;
-        return taskList.mark(index);
-    }
     //instead of just printing it out, return a string to the GUI.
     public static String readInput(String userInput, TaskList taskList) {
         if (userInput.equals(exitWord)) {

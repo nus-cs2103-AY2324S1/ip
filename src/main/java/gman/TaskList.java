@@ -62,8 +62,12 @@ public class TaskList {
     public String unmark(int index) {
         //needed to let tasks remain private
         Task task = tasks.get(index);
-        task.unmark();
-        return Ui.unmark(task.toString()); //i dont like how this is here and not in parser.
+        if (!task.isDone) {
+            return Ui.showError(new GmanException("Hey... this task was never done in the first place!"));
+        } else {
+            task.unmark();
+            return Ui.unmark(task.toString()); //i dont like how this is here and not in parser.
+        }
     }
 
     /**
@@ -74,8 +78,12 @@ public class TaskList {
      */
     public String mark(int index) {
         Task task = tasks.get(index);
-        task.mark();
-        return Ui.mark(task.toString());
+        if (task.isDone) {
+            return Ui.showError(new GmanException("Hahaha nice going... This task is already done, bozo!"));
+        } else {
+            task.mark();
+            return Ui.mark(task.toString());
+        }
     }
 
     /**
