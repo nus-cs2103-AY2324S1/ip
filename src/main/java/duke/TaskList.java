@@ -125,7 +125,7 @@ public class TaskList {
      * Displays the total number of tasks in the TaskList.
      */
     public void printTaskListInString() {
-        System.out.println(String.format("You have %d task(s) currently in the list",
+        System.out.println(String.format("You have %d task(s) currently in this big list",
                 todoList.size()));
     }
 
@@ -133,7 +133,7 @@ public class TaskList {
      * Returns the total number of tasks in the TaskList in String form.
      */
     public String NumberOfTaskListInString() {
-        String s = String.format("You have %d task(s) currently in the list",
+        String s = String.format("Oh my, you have %d task(s) currently in this huge list",
                 todoList.size());
         return s;
     }
