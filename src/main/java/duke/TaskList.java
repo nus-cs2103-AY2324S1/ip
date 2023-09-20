@@ -43,7 +43,7 @@ public class TaskList {
         this.taskList.add(t);
         sb.append("Got it. I've added this task:\n");
         sb.append(t + "\n");
-        sb.append("Now you have " + this.taskList.size() + " in the list." + "\n");
+        sb.append("Now you have " + this.taskList.size() + " tasks in the list." + "\n");
         try {
             storage.writeTasksToFile(this.taskList);
         } catch (IOException e) {
