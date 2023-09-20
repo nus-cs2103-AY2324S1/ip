@@ -17,7 +17,7 @@ public class Ui {
      * Displays a greeting message when the program starts.
      */
     public static String greet() {
-        return (horizontalLine + "Hello! I'm Bot\n"
+        return (horizontalLine + "Hello ┌[-.-]┘! I'm Bot.\n "
                 + "What can I do for you?\n" + horizontalLine);
     }
 
@@ -26,8 +26,12 @@ public class Ui {
      */
     public static String sayBye() {
         return (horizontalLine
-                + "Bye. Hope to see you again soon!\n" + horizontalLine);
+                + "Goodbye Human ┌[-.-]┘. I'll be here recharging, ready to assist you anytime!\n" + horizontalLine);
     }
+
+
+
+
 
     /**
      * Displays search results based on a keyword in the task list.
