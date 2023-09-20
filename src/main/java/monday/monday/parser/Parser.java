@@ -27,7 +27,6 @@ public class Parser {
         EVENT,
         DELETE,
         FIND,
-        HI,
         DEFAULT,
     }
 
@@ -61,8 +60,6 @@ public class Parser {
         }
 
         switch (commandEnum) {
-        case HI:
-            return Ui.greet();
         case BYE:
             return Ui.exit();
         case LIST:

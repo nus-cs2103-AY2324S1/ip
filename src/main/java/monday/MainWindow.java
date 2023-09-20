@@ -1,5 +1,6 @@
 package monday;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import monday.monday.ui.Ui;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -27,6 +33,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.greet(), mondayImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -41,11 +48,29 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
+        if (input.equals("bye")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(Ui.exit(), mondayImage)
+            );
+            userInput.clear();
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> {
+                Stage stage = (Stage) userInput.getScene().getWindow();
+                stage.close();
+            });
+            delay.play();
+            return;
+        }
+
         String response = monday.getResponse(input);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, mondayImage)
         );
+
         userInput.clear();
     }
 }
