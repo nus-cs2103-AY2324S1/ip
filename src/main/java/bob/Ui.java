@@ -3,6 +3,16 @@ package bob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import bob.exceptions.BobEmptyTaskException;
+import bob.exceptions.BobException;
+import bob.exceptions.BobInvalidEventDateException;
+import bob.exceptions.BobInvalidInputException;
+import bob.exceptions.BobInvalidTaskException;
+import bob.tasks.Deadline;
+import bob.tasks.Event;
+import bob.tasks.Task;
+import bob.tasks.Todo;
+
 /**
  * Represents a parser that deals with interactions with the user.
  */
@@ -23,16 +33,16 @@ public class Ui {
      * @param list the TaskList containing the tasks.
      * @param markNo index of the task in the list to be marked.
      * @return the string representation of Bob's response.
+     * @throws BobException when task does not exist.
      */
-    public static String markTask(TaskList list, int markNo) {
+    public static String markTask(TaskList list, int markNo) throws BobException {
         if (markNo > 0 && markNo <= list.size()) {
             System.out.println("Nice! I've marked this task as done:");
             list.get(markNo - 1).markAsDone();
             System.out.println(list.get(markNo - 1).toString());
             return "Nice! I've marked this task as done:\n" + list.get(markNo - 1).toString();
         } else {
-            System.out.println("Sorry, there is no such task!");
-            return "Sorry, there is no such task!";
+            throw new BobInvalidTaskException();
         }
     }
 
@@ -42,16 +52,19 @@ public class Ui {
      * @param list the TaskList containing the tasks.
      * @param deleteNo index of the task in the list to be deleted.
      * @return the string representation of Bob's response.
+     * @throws BobException when task does not exist.
      */
-    public static String deleteTask(TaskList list, int deleteNo) {
-        String response = "Noted. I've removed this task:\n";
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(list.get(deleteNo - 1).toString());
-        response += list.get(deleteNo - 1).toString() + "\n";
-        list.remove(deleteNo - 1);
-        response += "Now you have " + String.valueOf(list.size()) + " tasks in the list.";
-        System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
-        return response;
+    public static String deleteTask(TaskList list, int deleteNo) throws BobException {
+        if (deleteNo > 0 && deleteNo <= list.size()) {
+            String response = "Noted. I've removed this task:\n";
+            response += list.get(deleteNo - 1).toString() + "\n";
+            list.remove(deleteNo - 1);
+            response += "Now you have " + String.valueOf(list.size()) + " tasks in the list.";
+            System.out.println(response);
+            return response;
+        } else {
+            throw new BobInvalidTaskException();
+        }
     }
 
     /**
@@ -60,23 +73,28 @@ public class Ui {
      * @param list the list containing all tasks.
      * @param keyword the keyword used to filter tasks.
      * @return the string representation of Bob's response.
+     * @throws BobException when task does not exist.
      */
-    public static String findTask(TaskList list, String keyword) {
+    public static String findTask(TaskList list, String keyword) throws BobException {
         ArrayList<Task> matches = new ArrayList<Task>();
         String response;
 
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).toString().contains(keyword)) {
+            if (list.get(i).getDescription().contains(keyword)) {
                 matches.add(list.get(i));
             }
         }
 
-        System.out.println("Here are the matching tasks in your list:");
+        if (matches.size() == 0) {
+            throw new BobInvalidTaskException();
+        }
+
         response = "Here are the matching tasks in your list:\n";
         for (int i = 1; i <= matches.size(); i++) {
-            System.out.println(i + ". " + list.get(i - 1).toString());
-            response += i + ". " + list.get(i - 1).toString() + "\n";
+            response += i + ". " + matches.get(i - 1).toString() + "\n";
         }
+
+        System.out.println(response);
         return response;
     }
 
@@ -86,8 +104,9 @@ public class Ui {
      * @param list the list containing all tasks.
      * @param input the user input containing task index and new rescheduled date(s).
      * @return the string representation of Bob's response.
+     * @throws BobException when input is invalid.
      */
-    public static String rescheduleTask(TaskList list, String input) {
+    public static String rescheduleTask(TaskList list, String input) throws BobException {
         int rescheduleNo = parser.getRescheduleDigit(input);
 
         if (list.get(rescheduleNo - 1) instanceof Deadline) {
@@ -111,15 +130,13 @@ public class Ui {
             return printRescheduleMessage(list, rescheduleNo);
         }
 
-        return "";
+        throw new BobInvalidInputException();
     }
 
     private static String printRescheduleMessage(TaskList list, int rescheduleNo) {
-        System.out.println("Noted. I've rescheduled this task:");
-        System.out.println(list.get(rescheduleNo - 1).toString());
-
         String response = "Noted. I've rescheduled this task:\n";
         response += list.get(rescheduleNo - 1).toString();
+        System.out.println(response);
 
         return response;
     }
@@ -134,13 +151,11 @@ public class Ui {
     public static String addTask(TaskList list, Task newTask) {
         String response;
         list.add(newTask);
-        System.out.println("Got it. I've added this task:");
         response = "Got it. I've added this task:\n";
-        System.out.println(newTask.toString());
         response += newTask.toString() + "\n";
-        System.out.println("Now you have " + String.valueOf(list.size()) + " tasks in the list.");
         response += "Now you have " + String.valueOf(list.size()) + " tasks in the list.";
 
+        System.out.println(response);
         return response;
     }
 
@@ -167,7 +182,7 @@ public class Ui {
         }
 
         //not a task
-        throw new BobException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        throw new BobInvalidInputException();
     }
 
     private static String addTodo(TaskList list, String task) throws BobException {
@@ -179,7 +194,7 @@ public class Ui {
         }
 
         if (taskName.isBlank()) {
-            throw new BobException("OOPS!!! The description of a todo cannot be empty.");
+            throw new BobEmptyTaskException("todo");
         } else {
             Todo thisTask = new Todo(taskName);
             return addTask(list, thisTask);
@@ -190,7 +205,7 @@ public class Ui {
         char[] charArray = task.toCharArray();
         String taskName = "";
 
-        String by = "";
+        String dueDate = "";
         int byIndex = charArray.length;
 
         for (int i = 9; i < charArray.length; i++) {
@@ -200,7 +215,7 @@ public class Ui {
             }
 
             if (i > byIndex + 3) {
-                by = by + charArray[i];
+                dueDate = dueDate + charArray[i];
             } else if (i < byIndex - 1) {
                 taskName = taskName + charArray[i];
             }
@@ -208,9 +223,9 @@ public class Ui {
         }
 
         if (taskName.isBlank()) {
-            throw new BobException("OOPS!!! The description of a deadline cannot be empty.");
+            throw new BobEmptyTaskException("deadline");
         } else {
-            LocalDate d1 = LocalDate.parse(by);
+            LocalDate d1 = LocalDate.parse(dueDate);
             Deadline thisTask = new Deadline(taskName, d1);
             return addTask(list, thisTask);
         }
@@ -219,9 +234,8 @@ public class Ui {
     private static String addEvent(TaskList list, String task) throws BobException {
         char[] charArray = task.toCharArray();
         String taskName = "";
-
-        String from = "";
-        String to = "";
+        String startDate = "";
+        String endDate = "";
         int fromIndex = charArray.length;
         int toIndex = charArray.length;
 
@@ -235,9 +249,9 @@ public class Ui {
             }
 
             if (i > fromIndex + 5 && i < toIndex) {
-                from = from + charArray[i];
+                startDate = startDate + charArray[i];
             } else if (i > toIndex + 3) {
-                to = to + charArray[i];
+                endDate = endDate + charArray[i];
             } else if (i < fromIndex - 1) {
                 taskName = taskName + charArray[i];
             }
@@ -245,13 +259,16 @@ public class Ui {
         }
 
         if (taskName.isBlank()) {
-            throw new BobException("OOPS!!! The description of a event cannot be empty.");
-        } else {
-            LocalDate d1 = LocalDate.parse(from);
-            LocalDate d2 = LocalDate.parse(to);
-            Event thisTask = new Event(taskName, d1, d2);
-            return addTask(list, thisTask);
+            throw new BobEmptyTaskException("event");
         }
+
+        LocalDate d1 = LocalDate.parse(startDate);
+        LocalDate d2 = LocalDate.parse(endDate);
+        if (d2.isBefore(d1)) {
+            throw new BobInvalidEventDateException();
+        }
+        Event thisTask = new Event(taskName, d1, d2);
+        return addTask(list, thisTask);
     }
 
     /**
@@ -262,12 +279,12 @@ public class Ui {
      */
     public static String printTasks(TaskList list) {
         String response;
-        System.out.println("Here are the tasks in your list:");
         response = "Here are the tasks in your list:\n";
         for (int i = 1; i <= list.size(); i++) {
-            System.out.println(i + ". " + list.get(i - 1).toString());
             response += i + ". " + list.get(i - 1).toString() + "\n";
         }
+
+        System.out.println(response);
         return response;
     }
 

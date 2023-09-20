@@ -1,4 +1,4 @@
-package bob;
+package bob.tasks;
 
 /**
  * Represents a task that could be a todo, deadline or event

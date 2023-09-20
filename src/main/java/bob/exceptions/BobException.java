@@ -1,7 +1,7 @@
-package bob;
+package bob.exceptions;
 
 /**
- * Represents an exception for Bob
+ * Represents an exception for Bob.
  */
 public class BobException extends Exception {
     protected String message;

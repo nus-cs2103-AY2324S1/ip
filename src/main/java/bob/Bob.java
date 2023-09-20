@@ -2,6 +2,8 @@ package bob;
 
 import java.util.Scanner;
 
+import bob.exceptions.BobException;
+
 /**
  * Represents a bot that can record three types of tasks: todo, deadline and event, as well as
  * mark those tasks as done and delete.
@@ -46,26 +48,26 @@ public class Bob {
         while (true) {
             String input = obj.nextLine();
 
-            if (parser.isMark(input)) {
-                ui.markTask(tasks, parser.getMarkDigit(input));
-            } else if (parser.isDelete(input)) {
-                ui.deleteTask(tasks, parser.getDeleteDigit(input));
-            } else if (parser.isFind(input)) {
-                ui.findTask(tasks, parser.findKeyword(input));
-            } else if (parser.isReschedule(input)) { //reschedule 1 /by 2023-09-09
-                ui.rescheduleTask(tasks, input);
-            } else if (input.equals("bye")) {
-                ui.printGoodbye();
-                storage.saveNewList(tasks);
-                return;
-            } else if (input.equals("list")) {
-                ui.printTasks(tasks);
-            } else {
-                try {
+            try {
+                if (parser.isMark(input)) {
+                    ui.markTask(tasks, parser.getMarkDigit(input));
+                } else if (parser.isDelete(input)) {
+                    ui.deleteTask(tasks, parser.getDeleteDigit(input));
+                } else if (parser.isFind(input)) {
+                    ui.findTask(tasks, parser.findKeyword(input));
+                } else if (parser.isReschedule(input)) { //reschedule 1 /by 2023-09-09
+                    ui.rescheduleTask(tasks, input);
+                } else if (input.equals("bye")) {
+                    ui.printGoodbye();
+                    storage.saveNewList(tasks);
+                    return;
+                } else if (input.equals("list")) {
+                    ui.printTasks(tasks);
+                } else {
                     ui.checkAndAddTask(tasks, input);
-                } catch (BobException e) {
-                    System.out.println(e.toString());
                 }
+            } catch (BobException e) {
+                System.out.println(e.toString());
             }
         }
     }
@@ -77,22 +79,22 @@ public class Bob {
      * @return the string representation of Bob's response.
      */
     public String getResponse(String input) {
-        if (parser.isMark(input)) {
-            return ui.markTask(tasks, parser.getMarkDigit(input));
-        } else if (parser.isDelete(input)) {
-            return ui.deleteTask(tasks, parser.getDeleteDigit(input));
-        } else if (parser.isFind(input)) {
-            return ui.findTask(tasks, parser.findKeyword(input));
-        } else if (input.equals("bye")) {
-            return ui.printGoodbye();
-        } else if (input.equals("list")) {
-            return ui.printTasks(tasks);
-        } else {
-            try {
+        try {
+            if (parser.isMark(input)) {
+                return ui.markTask(tasks, parser.getMarkDigit(input));
+            } else if (parser.isDelete(input)) {
+                return ui.deleteTask(tasks, parser.getDeleteDigit(input));
+            } else if (parser.isFind(input)) {
+                return ui.findTask(tasks, parser.findKeyword(input));
+            } else if (input.equals("bye")) {
+                return ui.printGoodbye();
+            } else if (input.equals("list")) {
+                return ui.printTasks(tasks);
+            } else {
                 return ui.checkAndAddTask(tasks, input);
-            } catch (BobException e) {
-                return e.toString();
             }
+        } catch (BobException e) {
+            return e.toString();
         }
     }
 

@@ -2,6 +2,8 @@ package bob;
 
 import java.util.ArrayList;
 
+import bob.tasks.Task;
+
 /**
  * Represents the list that contains all of the tasks, with methods to add and delete tasks.
  */

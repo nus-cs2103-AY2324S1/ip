@@ -1,5 +1,8 @@
 package bob;
 
+import bob.exceptions.BobException;
+import bob.exceptions.BobInvalidTaskException;
+
 /**
  * Represents a parser that deals with making sense of the user command.
  */
@@ -68,11 +71,7 @@ public class Parser {
      * @return boolean true if input is find command.
      */
     public boolean isFind(String input) {
-        char[] charArray = input.toCharArray();
-        if (input.startsWith("find") && Character.isWhitespace(charArray[4]) && Character.isDigit(charArray[5])) {
-            return true;
-        }
-        return false;
+        return input.startsWith("find");
     }
 
     /**
@@ -80,14 +79,23 @@ public class Parser {
      *
      * @param input the user input.
      * @return String the keyword to find.
+     * @throws BobException when keyword is empty.
      */
-    public String findKeyword(String input) {
+    public String findKeyword(String input) throws BobException {
         assert isFind(input);
         char[] charArray = input.toCharArray();
         String str = "";
 
+        if (charArray.length <= 5) {
+            throw new BobInvalidTaskException();
+        }
+
         for (int i = 5; i < charArray.length; i++) {
             str += charArray[i];
+        }
+
+        if (str.isBlank()) {
+            throw new BobInvalidTaskException();
         }
 
         return str;

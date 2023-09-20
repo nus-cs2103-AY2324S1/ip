@@ -1,5 +1,10 @@
 package bob;
 
+import bob.exceptions.BobException;
+import bob.tasks.Deadline;
+import bob.tasks.Event;
+import bob.tasks.Task;
+import bob.tasks.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
