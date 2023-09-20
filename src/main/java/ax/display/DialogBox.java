@@ -4,9 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 /**
  * A Dialog Box that extends from a HBox
@@ -25,10 +29,20 @@ public class DialogBox extends HBox {
         text = l;
         displayPicture = iv;
 
+
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
+        this.setSpacing(5);
+        Rectangle clip = new Rectangle(displayPicture.getFitWidth(), displayPicture.getFitHeight());
+        clip.setArcWidth(20);
+        clip.setArcHeight(20);
+        SnapshotParameters parameters = new SnapshotParameters();
+        parameters.setFill(Color.TRANSPARENT);
 
+        WritableImage image = displayPicture.snapshot(parameters, null);
+
+        displayPicture.setClip(clip);
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
     }
