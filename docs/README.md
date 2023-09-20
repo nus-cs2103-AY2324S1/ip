@@ -5,7 +5,7 @@ BeeBot is a basic CLI chatbot task manager that helps you keep track of your tas
 ## Quick Start
 
 1. Ensure you have Java `11` or above installed in your Computer.   
-2. Download the latest `beebot.jar` from [here](
+2. Download the latest `beebot.jar` from [here](https://github.com/leezhengjing/ip/releases/tag/v0.2)
 3. Copy the file to the folder you want to use as the home folder for your BeeBot.
 4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
 ![Ui](Ui.png)
