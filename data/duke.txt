@@ -1,4 +1,5 @@
-[E][X] valid event (from: 30-08-2023 10:00 to: 31-08-2023 12:00)
-[D][X] valid deadline (by: 30-08-2023 12:00)
-[T][ ] homework
-[T][ ] 2101 reflection
+[D][ ] assignment (by: 09-03-2024 18:00)
+[D][ ] oa (by: 08-03-2024 17:00)
+[D][ ] submission (by: 01-04-2024 16:00)
+[T][ ] collect laundry
+[E][ ] wedding dinner (from: 08-09-2024 18:00 to: 08-09-2024 20:00)
