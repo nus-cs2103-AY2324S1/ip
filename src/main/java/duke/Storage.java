@@ -28,9 +28,10 @@ public class Storage {
     /**
      * Starts reading the storage
      */
-    public void startStorage() {
+    public void startStorage() throws IOException {
         try {
             reader = new BufferedReader(new FileReader(filepath));
+            Window.welcomeMessage();
             String fileLine;
 
             while ((fileLine = reader.readLine()) != null) {
@@ -44,8 +45,9 @@ public class Storage {
             }
             reader.close();
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("The file named duke.txt does not exist.");
+            writer = new BufferedWriter(new FileWriter("duke.txt"));
+            Window.sendMessage("The file duke.txt does not exist. I've just created that file for you. Please close "
+                    + "and reopen the program.");
         } catch (EmptyDescriptionException e) {
             //Already handled by EmptyDescriptionException
         }

@@ -149,6 +149,16 @@ public class Window {
     }
 
     /**
+     * Sends a custom message
+     */
+    public static void sendMessage(String message) {
+        CircleClip clip = new CircleClip(40, 40, 40);
+        ImageView dukeImageView = new ImageView(duke);
+        clip.clip(dukeImageView);
+        Label welcomeMessage = new Label(message);
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dukeImageView, message));
+    }
+    /**
      * Sends error message
      */
     public static void sendErrorMessage() {

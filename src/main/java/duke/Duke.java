@@ -1,5 +1,8 @@
 package duke;
 
+
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -21,8 +24,9 @@ public class Duke extends Application {
     /**
      * Old constructor
      */
-    public Duke() {
-        String filePath = "../ip/src/main/data/duke.txt";
+    public Duke() throws IOException {
+        //String filePath = "../ip/src/main/data/duke.txt";
+        String filePath = "./duke.txt";
         tasks = new TaskList();
         storage = new Storage(filePath, tasks);
         storage.startStorage();
@@ -47,8 +51,6 @@ public class Duke extends Application {
         Window.formatWindow();
 
         Window.addUserInput();
-
-        Window.welcomeMessage();
 
     }
 
