@@ -69,7 +69,7 @@ public class Message {
     public String showTaskAdded(Task task, int noTasks) {
         String response = "Got it. I've added this task:\n";
         response += task;
-        response += "\nNow you have" + noTasks + " tasks in the list.";
+        response += "\nNow you have " + noTasks + " tasks in the list.";
         return response;
     }
 

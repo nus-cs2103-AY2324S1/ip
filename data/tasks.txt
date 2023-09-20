@@ -1,11 +1,18 @@
-T | 1 | a
-T | 0 | b
-D | 0 | aslo | Dec 12 2023
-E | 0 | lol | Dec 12 2023-Dec 13 2023
-E | 0 | as | Dec 14 2023-Dec 15 2023
+T | 0 | a
+T | 1 | b
+D | 1 | aslo | Dec 12 2023
+E | 1 | lol | Dec 12 2023-Dec 13 2023
+E | 1 | as | Dec 14 2023-Dec 15 2023
 E | 0 | lo | Dec 20 2023-Dec 25 2023
 E | 0 | lo | Dec 20 2023-Dec 25 2023
 E | 0 | lo | Dec 20 2023-Dec 25 2023
-E | 0 | alsdo | Nov 10 2023-Nov 11 2023
+E | 1 | alsdo | Nov 10 2023-Nov 11 2023
 E | 0 | alsdo | Nov 12 2023-Nov 17 2023
 E | 0 | dddwqe | Nov 18 2023-Nov 19 2023
+T | 0 | abc
+E | 0 | lol | Dec 12 2020-Dec 12 2020
+T | 0 | aoskao
+T | 0 | qqq
+T | 0 | lll
+T | 0 | abc
+T | 0 | lol
