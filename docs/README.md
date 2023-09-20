@@ -73,7 +73,7 @@ Expected outcome:
 The Chatbot will instruct users on follow up actions to create a ToDo task
 
 ```
-So you want to add a ToDo task.Tell me what's the task.
+So you want to add a ToDo task. Tell me what's the task.
 ```
 
 User types in the `name of task`
@@ -110,7 +110,7 @@ Expected outcome:
 The Chatbot will prompt for the name of the task.
 
 ```
-So you want to add a task with deadline.Tell me what's the task.
+So you want to add a task with deadline. Tell me what's the task.
 ```
 
 User types in the `name of task`
@@ -169,7 +169,7 @@ Expected outcome:
 The Chatbot will prompt for the name of the task.
 
 ```
-So you want to add an event task.Tell me what's the task.
+So you want to add an event task. Tell me what's the task.
 ```
 
 User types in the `name of task`
@@ -222,6 +222,50 @@ The Chatbot will reply that the task has been inserted
 Got it. I've added this task:
 [E][] NUSBS Dharma Camp (from: 1-Jul-2024 0930 to: 2-Jul-2024 1800)
 Now you have 3 tasks in the list.
+```
+
+### `mark` - Marks a specified task in the list as complete
+
+User has to type `mark` followed by the corresponding index number of the task in the list
+
+Format: `mark INDEX`
+- Deletes the task at the specified `INDEX`
+- `INDEX` must not exceed the size of the list
+- `INDEX` must be a positive number
+
+Example of usage: 
+
+`mark 1`
+
+Expected outcome:
+
+The Chatbot will reply that the task has been successfully marked as done
+
+```
+Nice! I've marked this task as done
+[T][X] Read Book
+```
+
+### `unmark` - Marks a specified task in the list as incomplete
+
+User has to type `unmark` followed by the corresponding index number of the task in the list
+
+Format: `unmark INDEX`
+- Deletes the task at the specified `INDEX`
+- `INDEX` must not exceed the size of the list
+- `INDEX` must be a positive number
+
+Example of usage: 
+
+`unmark 1`
+
+Expected outcome:
+
+The Chatbot will reply that the task has been successfully marked as incomplete
+
+```
+OK! I've marked this task as not done yet:
+[T][] Read Book
 ```
 
 ### `delete` - Delete a specified task in the list
