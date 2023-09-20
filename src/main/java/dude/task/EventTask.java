@@ -60,14 +60,16 @@ public class EventTask extends Task {
        completed: 1, incomplete: 0
        event: E || 1/0 || start || end || description
      */
+        // read sections from text
         String[] splitData = data.split(DELIMITER_REGEX, 5);
-
         if (splitData.length < 5) {
             throw new InvalidTaskDataException();
         }
         String taskType = splitData[0];
         String taskCompleted = splitData[1];
         String taskStartString = splitData[2];
+
+        // convert text to properties
         LocalDateTime taskStart = LocalDateTime.parse(taskStartString);
         String taskEndString = splitData[3];
         LocalDateTime taskEnd = LocalDateTime.parse(taskEndString);

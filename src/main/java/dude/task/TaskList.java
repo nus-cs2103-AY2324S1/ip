@@ -103,6 +103,7 @@ public class TaskList {
      * @return String list of tasks with given keyword.
      */
     public String displaySearch(String substring) {
+        // filter list of tasks and adds matching tasks to string list
         StringBuilder tasksList = new StringBuilder(SEARCH_RESULTS_PREFIX);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -112,6 +113,8 @@ public class TaskList {
                 tasksList.append(taskStr);
             }
         }
+
+        // check if any tasks found
         if (tasksList.toString().equals(SEARCH_RESULTS_PREFIX)) {
             return String.format(NO_SEARCH_RESULTS_MSG, substring);
         } else {
@@ -129,6 +132,7 @@ public class TaskList {
         if (tasks.isEmpty()) {
             return emptyTaskList;
         }
+
         StringBuilder tasksList = new StringBuilder(taskListPrefix);
         for (int i = 0; i < tasks.size(); i++) {
             String taskNumberPrefix = String.format("%3s-", i + 1);

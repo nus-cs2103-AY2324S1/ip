@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+//@@author xenosf-reused
+// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
+// With minor alterations
 public class DialogBox extends HBox {
 
     private final Label text;
@@ -46,3 +49,4 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 }
+//@@author

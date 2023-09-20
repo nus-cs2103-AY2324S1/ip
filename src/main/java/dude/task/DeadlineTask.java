@@ -51,14 +51,17 @@ public class DeadlineTask extends Task {
           completed: 1, incomplete: 0
           deadline: D || 1/0 || deadline || description
         */
-        String[] splitData = data.split(DELIMITER_REGEX, 4);
 
+        // read sections from text
+        String[] splitData = data.split(DELIMITER_REGEX, 4);
         if (splitData.length < 4) {
             throw new InvalidTaskDataException();
         }
         String taskType = splitData[0];
         String taskCompleted = splitData[1];
         String taskDeadlineString = splitData[2];
+
+        // convert text to properties
         LocalDateTime taskDeadline = LocalDateTime.parse(taskDeadlineString);
         String taskDescription = splitData[3];
         if (!taskCompleted.equals("1") && !taskCompleted.equals("0")) {
