@@ -10,8 +10,10 @@ public class InvalidSyntaxException extends BocchiException {
     static final String INVALID_EVENT_DATE_ERROR_MSG =
             "Please use the following syntax when creating an event:\n"
                     + "{activity} /from {start time} /to {end time}";
+    static final String DATE_TIME_FORMAT_MSG =
+            "Please use the format for date and times: YYYY-MM-DD HH:MM:SS";
     static final String UNEXPECTED_ERROR_IN_ERROR_MSG =
-            "Unexpected error occurred in exceptions.InvalidSyntaxException!";
+            "Unexpected error occurred! Please contact the admin.";
 
     /**
      * Constructs a new InvalidSyntaxException with a specific task type.
@@ -31,9 +33,9 @@ public class InvalidSyntaxException extends BocchiException {
     private static String generateErrorMessage(String taskType) {
         switch (taskType) {
         case "deadline":
-            return INVALID_DEADLINE_DATE_ERROR_MSG;
+            return INVALID_DEADLINE_DATE_ERROR_MSG + "\n" + DATE_TIME_FORMAT_MSG;
         case "event":
-            return INVALID_EVENT_DATE_ERROR_MSG;
+            return INVALID_EVENT_DATE_ERROR_MSG + "\n" + DATE_TIME_FORMAT_MSG;
         default:
             return UNEXPECTED_ERROR_IN_ERROR_MSG;
         }

@@ -39,7 +39,7 @@ public class Ui {
      * Displays a greeting message when the application starts.
      */
     public void greet() {
-        this.outputDialogueBox("Hello! I'm bocchi.Bocchi\nWhat can I do for you?");
+        this.outputDialogueBox("Hello! I'm Bocchi\nWhat can I do for you?");
     }
 
     /**
@@ -53,7 +53,7 @@ public class Ui {
      * Displays a message indicating successful loading of data.
      */
     public void loadSuccessful() {
-        this.outputDialogueBox("Previous data has been loaded");
+        this.outputDialogueBox("Your previous data has made a return!");
     }
 
     /**
