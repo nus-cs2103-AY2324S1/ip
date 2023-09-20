@@ -216,7 +216,7 @@ Got it. I've added this task:
 Now you have 6 tasks in the list.
 ```
 
-### `delete` - delete task
+### `delete` - Delete task
 
 Delete and remove task from the list and storage.
 
