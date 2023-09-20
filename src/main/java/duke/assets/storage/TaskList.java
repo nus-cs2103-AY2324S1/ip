@@ -112,7 +112,7 @@ public class TaskList {
      */
     public void writeToFile() {
         try {
-            File myFile = new File("./src/main/java/duke/data/duke.txt");
+            File myFile = new File("./duke.txt");
             FileWriter fw = new FileWriter(myFile);
             PrintWriter pw = new PrintWriter(fw);
             Stream<TaskAbstract> taskStream = this.taskList.stream();

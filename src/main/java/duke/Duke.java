@@ -37,6 +37,7 @@ public class Duke extends Application {
     public void start(Stage stage) {
         setComponents(stage);
         addFunctionality();
+        greetUser();
     }
 
     /**
@@ -152,6 +153,13 @@ public class Duke extends Application {
     private void dukeMessage(String message) {
         Label dukeText = new Label(getResponse(message));
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
+    }
+
+    /**
+     * Greets the user
+     */
+    private void greetUser() {
+        dukeMessage("Hello I'm ChadGPT, what do you want to do today?");
     }
 
     /**

@@ -31,7 +31,7 @@ public class Storage {
      */
     public boolean readFromFile() throws IOException, CorruptDataException {
         try {
-            File myFile = new File("./src/main/java/duke/data/duke.txt");
+            File myFile = new File("./duke.txt");
             myFile.createNewFile();
             Scanner sc = new Scanner(myFile);
             Parser dataParser = new Parser();
