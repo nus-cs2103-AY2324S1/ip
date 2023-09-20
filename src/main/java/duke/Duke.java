@@ -162,8 +162,7 @@ public class Duke {
         assert toBeChanged != null;
 
         toBeChanged.changePriority(Priority.valueOf(userInput.split(" ")[3].toUpperCase()));
-        return "Noted. I've changed the priority of this task:\n" + toBeChanged.toString()
-                + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
+        return "Noted. I've changed the priority of this task:\n" + toBeChanged.toString();
     }
 
     public String getTaskString(String userInput) throws DukeException {

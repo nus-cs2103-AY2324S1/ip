@@ -87,7 +87,7 @@ public class Storage {
      */
     public void writeToFile(TaskList list) throws DukeFileNotFoundException {
         try {
-            FileWriter fw = new FileWriter("data/duke.txt");
+            FileWriter fw = new FileWriter(filePath);
 
             StringBuffer write = new StringBuffer("");
             for (int i = 0; i < list.getNumberOfTasks(); i++) {
