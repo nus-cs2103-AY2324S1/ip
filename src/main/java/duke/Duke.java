@@ -13,7 +13,7 @@ import duke.util.Ui;
  */
 public class Duke {
 
-    private static final String DEFAULT_FILE_NAME = "duke.txt";
+    private static final String DEFAULT_FILE_NAME = "task404bot.txt";
     private static final String FOLD_PATH = "./data";
     private Ui ui;
     private Storage storage;
