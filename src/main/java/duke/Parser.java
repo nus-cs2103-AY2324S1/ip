@@ -29,8 +29,9 @@ public class Parser {
      * the TaskList based on input.
      *
      * @param command User's input in a String Format.
+     * @throws DukeException If there's any error parsing the command
      */
-    public String parse(String command) throws DukeException{
+    public String parse(String command) throws DukeException {
         String[] spacedCommand = command.split(" ");
         String mainCommand = spacedCommand[0];
         String output = null;
@@ -76,6 +77,13 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Parses a command that starts with "mark".
+     * @param spacedCommand The input command split by a spaces.
+     * @param mainCommand The first word of the input command.
+     * @return A String with the Output of the mark command.
+     * @throws DukeException If there's any error parsing the command
+     */
     public String parseMarkCommand(String[] spacedCommand, String mainCommand) throws DukeException{
         if (spacedCommand.length == 1) {
             throw new DukeException("Please specify the task to mark.");
@@ -85,6 +93,13 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Parses a command that starts with "unmark".
+     * @param spacedCommand The input command split by a spaces.
+     * @param mainCommand The first word of the input command.
+     * @return A String with the Output of the command.
+     * @throws DukeException If there's any error parsing the command
+     */
     public String parseUnmarkCommand(String[] spacedCommand, String mainCommand) throws DukeException{
         if (spacedCommand.length == 1) {
             throw new DukeException("Please specify the task to unmark.");
@@ -92,6 +107,13 @@ public class Parser {
         return this.tasks.modifyTask(mainCommand, Integer.parseInt(spacedCommand[1]));
     }
 
+    /**
+     * Parses a command that starts with "delete".
+     * @param spacedCommand The input command split by a spaces.
+     * @param mainCommand The first word of the input command.
+     * @return A String with the Output of the command.
+     * @throws DukeException If there's any error parsing the command
+     */
     public String parseDeleteCommand(String[] spacedCommand, String mainCommand) throws DukeException{
         if (spacedCommand.length == 1) {
             throw new DukeException("Please specify the task to delete.");
@@ -101,6 +123,15 @@ public class Parser {
         return output;
     }
 
+
+    /**
+     * Parses a command that starts with "todo".
+     * @param command The user input from parse function in String.
+     * @param spacedCommand The input command split by a spaces.
+     * @param mainCommand The first word of the input command.
+     * @return A String with the Output of the command.
+     * @throws DukeException If there's any error parsing the command
+     */
     public String parseTodoCommand(String command, String[] spacedCommand, String mainCommand) throws DukeException{
         if (spacedCommand.length == 1) {
             throw new DukeException("☹ Description of todo cannot be empty. ☹");
@@ -111,6 +142,14 @@ public class Parser {
         return output;
     }
 
+    /**
+     * Parses a command that starts with "deadline".
+     * @param command The user input from parse function in String.
+     * @param spacedCommand The input command split by a spaces.
+     * @param mainCommand The first word of the input command.
+     * @return A String with the Output of the command.
+     * @throws DukeException If there's any error parsing the command
+     */
     public String parseDeadlineCommand(String command, String[] spacedCommand, String mainCommand) throws DukeException{
         if (spacedCommand.length == 1) {
             throw new DukeException("☹ Description of deadline cannot be empty. ☹");
@@ -126,6 +165,15 @@ public class Parser {
         return output;
     }
 
+
+    /**
+     * Parses a command that starts with "event".
+     * @param command The user input from parse function in String.
+     * @param spacedCommand The input command split by a spaces.
+     * @param mainCommand The first word of the input command.
+     * @return A String with the Output of the command.
+     * @throws DukeException If there's any error parsing the command
+     */
     public String parseEventCommand(String command, String[] spacedCommand, String mainCommand) throws DukeException{
         if (spacedCommand.length == 1) {
             throw new DukeException("☹ Description of event cannot be empty. ☹");
