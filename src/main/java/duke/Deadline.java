@@ -50,9 +50,12 @@ public class Deadline extends Task {
     }
 
     /**
-     * Prints a message to confirm that the task has been added and displays the updated task count.
+     * Formats the task's information into a user-friendly string representation.
+     * This method is used to generate a message indicating that a task has been added successfully.
+     *
+     * @return A formatted string message indicating the task addition.
      */
-    public String print() {
+    public String printStr() {
         return (Ui.horizontalLine + "Got it. I've added this task:\n "
                 + this.toString()+ "\n" + "Now you have "
                 + Task.getCounter() + " tasks in the list\n" + Ui.horizontalLine);
