@@ -31,18 +31,31 @@ _Examples_:
 <br>
 
 ### Deleting a task: `delete`
-Adds a new task into the task list.
+Deletes the specified task from the task list.
+
+_Format_: `delete INDEX`
+- Deletes the task at the specified _INDEX_.
+- The index refers to the index number shown in the task list.
+> [!NOTE]
+> The index must be a positive integer 1, 2, 3, …​ and must be in the range of the task list.
+
+_Example_: `delete 1`
+- This deletes the first task in the task list.
 
 <br>
 
 ### Adding a task: `mark`
 Adds a new task into the task list.
+_Format_: `mark INDEX`
+_Example_: `mark 1`
 
 <br>
 
 
 ### Adding a task: `unmark`
 Adds a new task into the task list.
+_Format_: `unmark INDEX`
+_Example_: `unmark 1`
 
 <br>
 
@@ -51,10 +64,10 @@ Adds a new task into the task list.
 _Format_: `list`
 <br>
 
-### Adding a task: `find`
+### Searching for tasks by description: `find`
 Adds a new task into the task list.
 tips: description can be partial
-_Format_: `find TASK_DESCRIPTION`
+_Format_: `find KEYWORD`
 <br>
 
 ### Adding a task: `tag`
