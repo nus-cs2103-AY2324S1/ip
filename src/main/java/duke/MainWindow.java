@@ -38,6 +38,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Sets input to be the variable duke.
+     *
      * @param d to be set to the variable duke.
      */
     public void setDuke(Duke d) {

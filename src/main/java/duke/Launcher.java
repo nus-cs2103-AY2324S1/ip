@@ -9,6 +9,7 @@ public class Launcher {
 
     /**
      * The main entry point of the application.
+     *
      * @param args String arguments to be taken in
      */
     public static void main(String[] args) {

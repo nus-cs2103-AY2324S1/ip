@@ -26,7 +26,7 @@ public class Ui {
      * @return A String message.
      */
     public String introMessage() {
-        return "Hello! I'm BaekBot.\nIf you're unsure of the commands available, type /help. "
+        return "Hello! I'm BaekBot."
                 + "\nWhat can I do for you?";
     }
 
