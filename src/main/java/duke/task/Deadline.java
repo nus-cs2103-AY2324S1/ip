@@ -25,7 +25,8 @@ public class Deadline extends Task {
         Pattern pattern = Pattern.compile("(\\d{4}-\\d{2}-\\d{2})");
         Matcher matcher = pattern.matcher(by);
         if (!matcher.find()) {
-            throw new DateTimeParseException("date format is invalid", by, matcher.start());
+            System.out.println("date format is invalid");
+            throw new DateTimeParseException("date format is invalid", by, 0);
         } else {
             this.by = LocalDate.parse(matcher.group(1));
             if (this.by.isBefore(LocalDate.now())) {

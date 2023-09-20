@@ -31,21 +31,31 @@ public class Duke {
         parser = new Parser(tasks);
     }
 
+    /**
+     * Returns the response of the chat robot to the user input.
+     *
+     * @param input the user input.
+     * @return the response of the chat robot.
+     */
     public String getResponse(String input) {
         try {
             String output = parser.parse(input);
             if (!parser.isRunning()) {
-                try {
-                    storage.save(tasks);
-                } catch (IOException e) {
-                    return SAVING_ERROR_MSG;
-                }
-                return BYE_MSG;
+                exit();
             }
             return output;
         } catch (DukeException e) {
             return handleException(e);
         }
+    }
+
+    private String exit() {
+        try {
+            storage.save(tasks);
+        } catch (IOException e) {
+            return SAVING_ERROR_MSG;
+        }
+        return BYE_MSG;
     }
 
     public void close() {
