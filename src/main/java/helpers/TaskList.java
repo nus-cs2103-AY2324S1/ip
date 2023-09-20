@@ -103,7 +103,7 @@ public class TaskList {
             return "No tasks recorded, macho!";
         }
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the list of tasks recorded: \n");
+        sb.append("Here are the list of tasks recorded, macho!\n");
         for (int i = 0; i < this.tasks.size(); i++) {
             int index = i + 1;
             Task task = this.tasks.get(i);
@@ -119,6 +119,7 @@ public class TaskList {
      */
     public String filterTaskList(String regex) {
         StringBuilder sb = new StringBuilder();
+        sb.append("Here are the matching tasks found, macho!\n");
         Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         for (Task t : this.tasks) {
             int index = this.tasks.indexOf(t) + 1;
