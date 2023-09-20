@@ -71,12 +71,12 @@ public class Parser {
     }
 
     private static String validateFind(String input) throws DukeException {
-        String keyword = input.replace("find", "");
-        if (keyword.isEmpty()) {
+        int commandLength = "find".length();
+        String keyWord = input.trim().substring(commandLength).trim();
+        if (keyWord.isEmpty()) {
             throw new DukeException("☹ OOPS!!! Please enter a keyword to find.");
         }
-
-        return keyword;
+        return keyWord;
     }
 
     /**
