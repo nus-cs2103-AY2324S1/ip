@@ -98,8 +98,9 @@ public class Event extends Task {
 
     @Override
     public int compareDeadline(Task task) {
+        int smaller = -1;
         if (task instanceof Todo) {
-            return -1;
+            return smaller;
         }
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
@@ -114,9 +115,10 @@ public class Event extends Task {
 
     @Override
     public int compareCategory(Task task) {
+        int larger = 1;
         if (task instanceof Event) {
             return super.compareTo(task);
         }
-        return 1;
+        return larger;
     }
 }

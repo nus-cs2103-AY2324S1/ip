@@ -59,11 +59,10 @@ public class AliasCommand extends Command {
             return ui.showAliasList();
         }
 
-        String aliasFrom;
+        String[] split = commandBody.split(" ");
+        String aliasFrom = split[0];
         String aliasTo;
         if (isAddAlias) {
-            String[] split = commandBody.split(" ");
-            aliasFrom = split[0];
             aliasTo = commandBody.substring(aliasFrom.length() + 1);
             if (Alias.isAliasPresent(aliasTo)) {
                 throw new DukeException("OOPS!!! Looks like you are trying to make "
@@ -71,12 +70,11 @@ public class AliasCommand extends Command {
             }
             Alias.addAlias(aliasFrom, aliasTo);
         } else {
-            aliasFrom = commandBody;
             if (!Alias.isAliasPresent(aliasFrom)) {
                 throw new DukeException("OOPS!!! The alias is not found!");
             }
-            aliasTo = Alias.getAlias(aliasFrom);
             Alias.removeAlias(aliasFrom);
+            aliasTo = Alias.getAlias(aliasFrom);
         }
 
         storage.saveAlias(Alias.saveAliasFormat());

@@ -1,5 +1,7 @@
 package duke.command;
 
+import java.time.LocalDateTime;
+
 import duke.exception.DeadlineException;
 import duke.exception.DukeException;
 import duke.exception.EventException;
@@ -58,23 +60,11 @@ public class AddCommand extends Command {
             break;
 
         case DEADLINE:
-            String[] deadlineTask = commandBody.split(" /by ");
-            if (deadlineTask.length != 2) {
-                throw new DeadlineException(err);
-            }
-            task = new Deadline(deadlineTask[0], Time.parseDateTime(deadlineTask[1]));
+            task = parseDeadline(err);
             break;
 
         case EVENT:
-            String[] eventTask = commandBody.split(" /from ");
-            if (eventTask.length != 2) {
-                throw new EventException(err);
-            }
-            String[] dates = eventTask[1].split(" /to ");
-            if (dates.length != 2) {
-                throw new EventException(err);
-            }
-            task = new Event(eventTask[0], Time.parseDateTime(dates[0]), Time.parseDateTime(dates[1]));
+            task = parseEvent(err);
             break;
 
         default:
@@ -83,5 +73,44 @@ public class AddCommand extends Command {
         Response respond = taskList.addTask(task, ui);
         storage.save(taskList.saveTaskList());
         return respond;
+    }
+
+    /**
+     * Parses the command body to create a <code>Deadline</code> object.
+     *
+     * @param err the error message to be displayed if the command body is invalid
+     * @return the <code>Deadline</code> object created
+     * @throws DukeException if the command body is invalid
+     */
+    private Task parseDeadline(String err) throws DukeException {
+        String[] deadlineTask = commandBody.split(" /by ");
+        if (deadlineTask.length != 2) {
+            throw new DeadlineException(err);
+        }
+        return new Deadline(deadlineTask[0], Time.parseDateTime(deadlineTask[1]));
+    }
+
+    /**
+     * Parses the command body to create an <code>Event</code> object.
+     *
+     * @param err the error message to be displayed if the command body is invalid
+     * @return the <code>Event</code> object created
+     * @throws DukeException if the command body is invalid
+     */
+    private Task parseEvent(String err) throws DukeException {
+        String[] eventTask = commandBody.split(" /from ");
+        if (eventTask.length != 2) {
+            throw new EventException(err);
+        }
+        String[] dates = eventTask[1].split(" /to ");
+        if (dates.length != 2) {
+            throw new EventException(err);
+        }
+        LocalDateTime start = Time.parseDateTime(dates[0]);
+        LocalDateTime end = Time.parseDateTime(dates[1]);
+        if (start.isAfter(end)) {
+            throw new DukeException("OOPS!!! The start time cannot be after the end time.");
+        }
+        return new Event(eventTask[0], start, end);
     }
 }

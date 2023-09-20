@@ -79,42 +79,30 @@ public class Parser {
         switch (key) {
         case BYE:
             return new ExitCommand();
-
         case LIST:
             return new ListCommand();
-
         case TODO:
             throw new TodoException(err);
-
         case DEADLINE:
             throw new DeadlineException(err);
-
         case EVENT:
             throw new EventException(err);
-
         case MARK: // fall through
         case UNMARK: // fall through
         case DELETE:
             throw new ManipulateException(err, key.getKeyword());
-
         case PRINT_DATE:
             throw new PrintDateException(err);
-
         case FIND:
             throw new FindException(err);
-
         case LOAD:
             return new LoadCommand();
-
         case SORT:
             return new SortCommand();
-
         case ALIAS:
             return new AliasCommand();
-
         case HELP:
             return new HelpCommand();
-
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }
@@ -143,37 +131,27 @@ public class Parser {
                     String.format("OOPS!!! The command for %s is invalid.", key.getKeyword()),
                     String.format("Enter in the form: \"%s\"", key.getKeyword()));
             throw new DukeException(errMessage);
-
         case MARK: // fall through
         case UNMARK:
             return new MarkCommand(key, commandBody);
-
         case DELETE:
             return new DeleteCommand(commandBody);
-
         case TODO: // fall through
         case DEADLINE: // fall through
         case EVENT:
             return new AddCommand(key, commandBody);
-
         case PRINT_DATE:
             return new PrintDateCommand(commandBody);
-
         case FIND:
             return new FindCommand(commandBody);
-
         case LOAD:
             return new LoadCommand(commandBody);
-
         case SORT:
             return new SortCommand(commandBody);
-
         case ALIAS:
             return new AliasCommand(commandBody);
-
         case HELP:
             return new HelpCommand(commandBody);
-
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means.");
         }

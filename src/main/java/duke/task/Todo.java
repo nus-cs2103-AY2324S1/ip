@@ -55,14 +55,16 @@ public class Todo extends Task {
 
     @Override
     public int compareDeadline(Task task) {
+        int larger = 1;
         if (task instanceof Todo) {
             return super.compareTo(task);
         }
-        return 1;
+        return larger;
     }
 
     @Override
     public int compareCategory(Task task) {
+        int smaller = -1;
         if (task instanceof Todo) {
             return super.compareTo(task);
         }
