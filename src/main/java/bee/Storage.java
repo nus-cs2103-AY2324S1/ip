@@ -33,7 +33,7 @@ public class Storage {
      * @param taskData The task data string to parse.
      * @throws BeeException If there's an issue with parsing the task data.
      */
-    private void parseTask(String taskData) throws BeeException {
+    void parseTask(String taskData) throws BeeException {
         assert taskData != null : "Task data string cannot be null."; // Assumption: Task data should not be null
 
         String[] taskDataSplit = taskData.split("]");
