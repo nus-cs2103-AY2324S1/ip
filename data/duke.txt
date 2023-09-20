@@ -1,5 +1,1 @@
-T | 0 | read book
-D | 1 | return book | 2022-06-06
-T | 0 | buy lunch
-T | 0 | sleep
-T | 0 | book
+T | 0 | buy supper

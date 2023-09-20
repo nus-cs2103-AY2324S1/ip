@@ -1,9 +1,9 @@
 package duke;
 
+import duke.task.Task;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import duke.task.Task;
 
 /**
  * The TaskList class represents a collection of tasks.
@@ -89,4 +89,19 @@ public class TaskList {
         }
         return matchingTasks;
     }
+
+    /**
+     * Returns a string representation of the tasks in the TaskList.
+     *
+     * @return A string representation of the tasks in the TaskList.
+     */
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < getSize(); i++) {
+            Task task = getTask(i);
+            result.append(" ").append(i + 1).append(".").append(task.toString()).append("\n");
+        }
+        return result.toString();
+    }
+
 }

@@ -1,10 +1,9 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import duke.task.Task;
 import org.junit.jupiter.api.Test;
 
-import duke.task.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * The TaskListTest class contains unit tests for the TaskList class.
@@ -34,4 +33,5 @@ public class TaskListTest {
         tasks.removeTask(0);
         assertEquals(orgCount - 1, tasks.getAll().size());
     }
+
 }
