@@ -25,9 +25,9 @@ public class Parser {
      * @throws DukeException If the user input is invalid.
      */
     static Command parse(String userInput) throws DukeException {
-        if (userInput.equals("bye") || userInput.equals("exit")) {
+        if (userInput.startsWith("bye") || userInput.startsWith("exit")) {
             return new ExitCommand();
-        } else if (userInput.equals("list")) {
+        } else if (userInput.startsWith("list")) {
             return new ListCommand();
         } else if (userInput.startsWith("mark")) {
             int taskIndex = validateMarkAndDelete(userInput.substring(5));
