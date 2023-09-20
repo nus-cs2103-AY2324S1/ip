@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import kevin.exception.KevinException;
 import kevin.storage.FileStorage;
@@ -38,10 +40,17 @@ public class DeadlineStrategy extends BaseStrategy {
         String name = this.arguments.get(1);
         String deadline = this.arguments.get(2);
 
+        List<String> formatStrings = Arrays.asList("d/MM/yyyy HHmm", "dd/MM/yyyy HHmm");
         if (!isInFile) {
-            LocalDateTime deadlineDate;
+            LocalDateTime deadlineDate = null;
             try {
-                deadlineDate = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern(" d/MM/yyyy HHmm"));
+                for (String formatString : formatStrings) {
+                    try {
+                        deadlineDate = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern(formatString));
+                    } catch (DateTimeParseException e) {
+                        throw new KevinException("Ensure that the deadline is a valid date");
+                    }
+                }
             } catch (DateTimeParseException err) {
                 throw new KevinException("Ensure that the deadline is a valid date");
             }

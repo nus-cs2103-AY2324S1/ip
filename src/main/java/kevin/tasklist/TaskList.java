@@ -1,5 +1,7 @@
 package kevin.tasklist;
 
+import kevin.exception.KevinException;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -77,8 +79,12 @@ public class TaskList {
      * @param toDoIndex This is the index of the task in the TaskList to be updated.
      * @return Returns the updated Task.
      */
-    public Task mark(int toDoIndex) {
-        this.taskList.get(toDoIndex - 1).mark();
+    public Task mark(int toDoIndex) throws KevinException {
+        try {
+            this.taskList.get(toDoIndex - 1).mark();
+        } catch (Exception e) {
+            throw new KevinException("There is no task " + toDoIndex + "!");
+        }
         return this.taskList.get(toDoIndex - 1);
     }
 
@@ -87,8 +93,12 @@ public class TaskList {
      * @param toDoIndex This is the index of the task in the TaskList to be updated.
      * @return Returns the updated Task.
      */
-    public Task unmark(int toDoIndex) {
-        this.taskList.get(toDoIndex - 1).unmark();
+    public Task unmark(int toDoIndex) throws KevinException {
+        try {
+            this.taskList.get(toDoIndex - 1).unmark();
+        } catch (Exception e) {
+            throw new KevinException("There is no task " + toDoIndex + "!");
+        }
         return this.taskList.get(toDoIndex - 1);
     }
 
