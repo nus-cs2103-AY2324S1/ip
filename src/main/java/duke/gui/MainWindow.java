@@ -3,6 +3,7 @@ package duke.gui;
 import java.util.concurrent.CompletableFuture;
 
 import duke.Duke;
+import duke.DukeException;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
 
         // print a welcome message
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(duke.getWelcomeMessage(), dukeImage)
+                DialogBox.getDukeDialog(duke.getWelcomeMessage(), dukeImage, false)
         );
     }
 
@@ -63,7 +63,7 @@ public class MainWindow extends AnchorPane {
         // print an exit message, waits 500ms, then exits the program.
         CompletableFuture.completedFuture(dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(duke.getExitMessage(), dukeImage)
+                DialogBox.getDukeDialog(duke.getExitMessage(), dukeImage, false)
         )).thenRunAsync(() -> {
             try {
                 Thread.sleep(500);
@@ -75,19 +75,30 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * the dialog container. Clears the user input after processing. If there is an error in input, Duke's reply will
+     * be in dark red.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = "";
+        boolean isError = false;
+
+        // try to get a response, else print an error message to be used for Duke's output in the GUI
+        try {
+            response = duke.getResponse(input);
+        } catch (DukeException e) {
+            response = e.toString();
+            isError = true;
+        }
+
         userInput.clear();
 
         // there is a response; do not exit the GUI program
         if (response != null) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getDukeDialog(response, dukeImage, isError)
             );
         } else {
             handleExit(input);

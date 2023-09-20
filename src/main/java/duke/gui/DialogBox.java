@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.SnapshotParameters;
@@ -15,8 +16,12 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -78,13 +83,32 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    /**
+     * Sets the background of the DialogBox with a certain color.
+     * @param paint The color of the background of the DialogBox to set.
+     */
+    private void fill(Paint paint) {
+        BackgroundFill bgFill = new BackgroundFill(paint,
+                CornerRadii.EMPTY, Insets.EMPTY);
+        Background bg = new Background(bgFill);
+        setBackground(bg);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getUserDialog(String text, Image img) {
+        DialogBox db = new DialogBox(text, img);
+        db.fill(Color.SILVER);
+        return db;
+    }
+
+    public static DialogBox getDukeDialog(String text, Image img, boolean isError) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
+
+        // set colour of response to red if there are errors
+        if (isError) {
+            db.dialog.setTextFill(Color.DARKRED);
+        }
+
         return db;
     }
 }
