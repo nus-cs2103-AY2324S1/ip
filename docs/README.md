@@ -87,20 +87,12 @@ Example of usage:
 `delete 1`
 
 
+### `list` - view all tasks
 
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
+Shows all the task in the todo list
 
 Example of usage:
 
-`keyword (optional arguments)`
+`list`
 
-Expected outcome:
 
-Description of the outcome.
-
-```
-expected output
-```
