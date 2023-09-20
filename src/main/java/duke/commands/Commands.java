@@ -106,7 +106,7 @@ public class Commands {
 
         if (!isExistingTask) {
             taskRepeated(input);
-            taskList.tempStoreTask("deadline " + "!" + input + " /by" + dueBy);
+            taskList.tempStoreTask("deadline " + "!" + input + " /by " + dueBy);
         } else if (isSupposedtoProceed) {
             input = input.substring(1);
             Task task = new Deadline(input, dueBy);
@@ -135,7 +135,7 @@ public class Commands {
         if (!isExistingTask) {
             taskRepeated(input);
             taskList.tempStoreTask("event " + "!"
-                    + input + " /from" + from + " /to" + to);
+                    + input + " /from " + from + " /to " + to);
         } else if (isSupposedtoProceed) {
             input = input.substring(1);
             Task task = new Event(input, from, to);

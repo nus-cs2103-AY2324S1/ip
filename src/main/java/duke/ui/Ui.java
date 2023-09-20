@@ -2,16 +2,18 @@ package duke.ui;
 
 import java.util.List;
 
+import duke.exceptions.MyBotExceptions;
 import duke.task.Task;
 import duke.task.TaskList;
-import duke.exceptions.MyBotExceptions;
 
 /**
  * The UI class provides methods for displaying messages and interacting with the user.
  * It handles printing various messages for various contexts.
  */
 public class Ui {
-
+    static final String Greeting = " User guide : https://github.com/mingyu-wan/ip"
+            + "\n\n Hello! I'm MYBOT:)"
+            + "\n What can I do for you?";
     /**
      * Prints greeting message when the application starts.
      */
