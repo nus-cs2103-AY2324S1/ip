@@ -1,7 +1,2 @@
-T | 0 | add
 T | 1 | add
-T | 0 | wake up
 T | 0 | later
-D | 0 | cs | 20 Sep 2023 6:00PM
-D | 0 | cs | 10 Sep 2022 6:00PM
-D | 0 | sleep | 21 Sep 2023 12:32AM
