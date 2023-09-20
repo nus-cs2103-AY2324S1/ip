@@ -1,6 +1,8 @@
-T | 1 | sleeeeeeep la la
 T | 0 | byebye
-T | 0 | gogogo
 D | 0 | sleep meh | 23 Aug 2024 5:00PM
 E | 0 | sleep la sia | 23 Aug 2025 7:00PM | 23 Aug 2023 8:00PM
 T | 0 | maybe just do nothing
+T | 0 | add
+T | 0 | add
+T | 0 | wake up
+T | 0 | later
