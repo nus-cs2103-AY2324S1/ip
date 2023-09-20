@@ -75,6 +75,7 @@ public class Duke {
     public Task addDeadline(String s) throws DukeException {
         //E|1|descr|12/4/2020 1600|12/4/2020 1700
         try {
+
             String[] temp = s.split(" /by ", 2);
             LocalDateTime time = LocalDateTime.parse(temp[1],
                     DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
