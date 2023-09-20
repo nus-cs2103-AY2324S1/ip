@@ -133,7 +133,6 @@ public class DateParser {
      * @return A LocalDateTime object representing the parsed date and time or null if parsing fails.
      */
     public static LocalDateTime parseNaturalDateTime(String input) {
-        System.out.println("input:" + input);
         // Extract day of the week and time using regex
         Pattern pattern = Pattern.compile(
                 "\\b(Today|Tomorrow|Mon|Tue(s)?|Wed(s)|Wed(nes)?|Thu(rs)?|Fri|Sat(ur)?|Sun)(day)?\\s+\\b",
@@ -141,17 +140,12 @@ public class DateParser {
         Matcher matcher = pattern.matcher(input);
         if (matcher.find()) {
             String naturalDateStr = matcher.group(0).toLowerCase();
-            System.out.println("remove: " + naturalDateStr);
             int dayOfWeekStrLength = naturalDateStr.length();
             String potentialTimeStr = input.substring(dayOfWeekStrLength).trim().toUpperCase();
             LocalDate date = parseNaturalDate(naturalDateStr.trim());
-            System.out.println("date: " + date);
-            System.out.println("TimeStr: " + potentialTimeStr);
             LocalTime time = parseTime(potentialTimeStr);
-            System.out.println("Time: " + time);
             if (date != null && time != null) {
                 LocalDateTime dateTime = date.atTime(time);
-                System.out.println("dateTime: " + dateTime);
                 return dateTime;
             }
         }
