@@ -6,14 +6,13 @@ import java.io.FileNotFoundException;
  * It provides methods to manage tasks, mark them as done, and perform various operations on tasks.
  */
 public class Duke {
-    private final Ui ui;
+    private final Ui ui = new Ui();
     private TaskList tasks;
 
     /**
      * Constructs a Duke instance with the specified file path to load task data from.
      */
     public Duke() {
-        this.ui = new Ui();
         String filePath = "./src/main/data/tasklist.txt";
         Storage storage = new Storage(filePath);
         try {
@@ -23,7 +22,7 @@ public class Duke {
         }
     }
 
-    public String getResponse(String userInput) {
+    public String getResponses(String userInput) {
         Parser parser = new Parser();
         parser.setUserInput(userInput);
         try {
@@ -54,5 +53,10 @@ public class Duke {
         } catch (DukeException exception) {
             return exception.getMessage();
         }
+    }
+    public String getResponse(String userInput) {
+        Parser parser = new Parser();
+        parser.setUserInput(userInput);
+        return parser.parse(this.tasks);
     }
 }

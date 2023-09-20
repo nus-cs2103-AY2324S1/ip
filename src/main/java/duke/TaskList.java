@@ -279,6 +279,6 @@ public class TaskList {
      */
     public String sortList() {
         Collections.sort(tasks);
-        return "Okay, I've sorted your lists \n" + displayList();
+        return "Okay, I've sorted your list \n" + displayList();
     }
 }
