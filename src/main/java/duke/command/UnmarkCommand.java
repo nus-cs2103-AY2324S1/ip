@@ -21,11 +21,11 @@ public class UnmarkCommand extends Command {
      * @return the response to the user
      */
     public String[] execute() {
-        assert taskNumToMark >= 0 && taskNumToMark < tasks.size() : "Task number is not valid";
+        assert taskNumToMark >= 0 && taskNumToMark < this.duke.getTasks().size() : "Task number is not valid";
         String[] response = new String[2];
 
         try {
-            Task task = this.tasks.get(taskNumToMark);
+            Task task = this.duke.getTasks().get(taskNumToMark);
             task.unmark();
 
             response[0] = "Ok, I've marked this task as not done yet:";

@@ -4,6 +4,7 @@ import static duke.common.Messages.MESSAGE_FIRST_PROMPT;
 import static duke.common.Messages.MESSAGE_WELCOME;
 
 import duke.Duke;
+import duke.TaskList;
 import duke.storage.DukeStorageException;
 import duke.storage.Storage;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -37,8 +40,25 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
-        showMessage(MESSAGE_WELCOME);
-        showMessage("Is there any specific data file you would like to use? If none, just hit enter:");
+
+        showMessage(MESSAGE_WELCOME, MESSAGE_FIRST_PROMPT);
+
+        try {
+            int tasksLoaded = duke.loadTasks();
+            if (tasksLoaded == 0) {
+                showMessage(String.format("No stored tasks found from %s", Storage.DEFAULT_STORAGE_PATH),
+                        "Starting from an empty task list.");
+            } else {
+                showMessage(String.format(
+                        "%s task%s loaded from %s",
+                        tasksLoaded,
+                        (tasksLoaded == 1) ? "" : "s",
+                        Storage.DEFAULT_STORAGE_PATH));
+            }
+        } catch (DukeStorageException e) {
+            showMessage(String.format("Error loading tasks from %s", Storage.DEFAULT_STORAGE_PATH),
+                    "Starting from an empty task list.");
+        }
     }
 
     /**

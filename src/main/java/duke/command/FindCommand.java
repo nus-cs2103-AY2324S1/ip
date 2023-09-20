@@ -17,7 +17,7 @@ public class FindCommand extends Command {
 
     @Override
     public String[] execute() {
-        TaskList filteredTasks = tasks.filter(task -> task.getDesc().contains(keyword));
+        TaskList filteredTasks = this.duke.getTasks().filter(task -> task.getDesc().contains(keyword));
 
         String[] response;
         if (filteredTasks.size() == 0) {
@@ -27,7 +27,7 @@ public class FindCommand extends Command {
             response = new String[filteredTasks.size() + 1];
             response[0] = "Here are the matching tasks in your list:";
             for (int i = 1; i <= filteredTasks.size(); i++) {
-                response[i] = (i + ". " + this.tasks.get(i));
+                response[i] = (i + ". " + this.duke.getTasks().get(i));
             }
         }
         return response;

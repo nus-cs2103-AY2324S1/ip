@@ -1,21 +1,23 @@
 package duke.command;
 
+import duke.Duke;
 import duke.TaskList;
+import duke.storage.Storage;
 
 /**
  * Represents an executable command.
  */
 public abstract class Command {
-    protected TaskList tasks;
+    protected Duke duke;
 
     /**
      * Sets the context for the command to execute on.
-     * It is required to call this method before executing a command that adds a task to the list.
+     * It is required to call this method before executing a command.
      *
-     * @param tasks the list of tasks for the command to run on
+     * @param duke the Duke object for the command to run on
      */
-    public void setData(TaskList tasks) {
-        this.tasks = tasks;
+    public void setDuke(Duke duke) {
+        this.duke = duke;
     }
 
     public boolean isBye() {
