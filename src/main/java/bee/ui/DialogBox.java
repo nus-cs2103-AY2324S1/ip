@@ -40,6 +40,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.getStyleClass().add("dialog-text"); // Apply the CSS Style
         displayPicture.setImage(img);
     }
 

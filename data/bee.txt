@@ -1,2 +1,3 @@
 [T][ ] Print SFI2014 Essay
 [D][ ] Finalise IP Submission (by: Sep 22 2023 23:59)
+[T][ ] Management Meeting Slides

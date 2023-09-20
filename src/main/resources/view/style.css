@@ -1,0 +1,54 @@
+/* Overall application style */
+.root {
+    -fx-background: #f0f0f0; /* Change the background color to a lighter gray */
+}
+
+/* Style for buttons */
+.button {
+    -fx-background-color: #007bff; /* Primary button color */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-background-color: #0056b3; /* Darker color on hover */
+}
+
+.button:pressed {
+    -fx-background-color: #003380; /* Even darker color when pressed */
+}
+
+/* Style for the dialog text */
+.dialog-text {
+    -fx-text-fill: rgb(0, 0, 0); /* Text color (black in this example) */
+    -fx-font-size: 14px; /* Font size */
+}
+
+/* Style for the dialog image */
+.dialog-image {
+    /* Add any image-related styles here */
+}
+
+/* Style for labels (chat messages) */
+.label {
+    -fx-background-color: #007bff; /* Background color for the chat message bubble */
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-padding: 1px 2px; /* Add some padding to the chat bubble */
+    -fx-background-radius: 5px; /* Rounded corners for the chat bubble */
+}
+
+/* Style for user messages (left-aligned) */
+.user-label {
+    -fx-background-color: #28a745; /* Green for user messages */
+    -fx-background-radius: 10px 10px 10px 0; /* Rounded corners on the left side */
+    -fx-alignment: center-left; /* Align text to the left */
+}
+
+/* Style for bot messages (right-aligned) */
+.bot-label {
+    -fx-background-color: #007bff; /* Blue for bot messages */
+    -fx-background-radius: 10px 10px 0 10px; /* Rounded corners on the right side */
+    -fx-alignment: center-right; /* Align text to the right */
+}

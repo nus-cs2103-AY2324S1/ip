@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            scene.getStylesheets().add("./src/main/resources/view/style.css");
 
             assert fxmlLoader != null : "FXMLLoader failed to load MainWindow.fxml";
 
