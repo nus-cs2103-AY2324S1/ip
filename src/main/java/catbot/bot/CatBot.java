@@ -5,7 +5,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
-import catbot.CatBotCommandPatterns;
 import catbot.internal.CommandMap;
 import catbot.internal.CommandPattern;
 import catbot.internal.NamedParameterMap;
@@ -61,6 +60,20 @@ public class CatBot implements Bot {
     }
 
     private void addSupportedCommandsToCommandMap() {
+        /*
+        * TLDR: this method is a list of commands, and therefore follows list logic.
+        * The following method is really long, but does not compromise readability in my opinion.
+        * It works like a list of entries, and the entries are independent except for biconsumers,
+        * which acts to reduce redundant copy-pasting.
+        * PATTERNS: command patterns are created using generators.
+        * BI-CONSUMERS: bi-consumers are created out of otherwise repetitive combinations of patterns and behaviours.
+        *       eg: runIfValidIndexElseIndicateError uses an integerPattern and runs it through taskList's
+        *           ifValidIndexElse. Such behaviour is necessary for all simple modifications (mark, unmark, delete).
+        * COMMANDS: every command is independent. If a command is giving a problem, look for the string that identifies
+        *           the command, and debug from there. All other commands are irrelevant to the debugging of that
+        *           command, and there is no higher-level interpretation of flow necessary.
+        * */
+
         CommandPattern<Integer> integerPattern = CatBotCommandPatterns.getIntegerPatternGenerator()
                 .generateUsingDefault(io::indicateInvalidInteger);
         CommandPattern<NamedParameterMap> slashPattern = CatBotCommandPatterns.getSlashPatternGenerator()
@@ -72,7 +85,7 @@ public class CatBot implements Bot {
                 .addCommand("bye", args -> io.cleanup())
                 .addCommand("list", args -> io.displayTaskList(taskList));
 
-        // User modifying existing tasks (through IntegerPattern, and Index)
+        // User doing simple modification to existing tasks (through IntegerPattern, and Index)
         // noinspection FunctionalExpressionCanBeFolded for better readability
         BiConsumer<String, Consumer<Integer>> runIfValidIndexElseIndicateError = (args, lambda) ->
                 integerPattern.ifParsableElseDefault(args,
@@ -105,7 +118,6 @@ public class CatBot implements Bot {
             );
 
         // User creating new tasks (with SlashPattern)
-
         BiConsumer<String, BiFunction<
                 NamedParameterMap, BiConsumer<ErrorIndicatorIo.InvalidArgumentState, NamedParameterMap>,
                 Optional<Task>>>
@@ -133,7 +145,6 @@ public class CatBot implements Bot {
             );
 
         // User filtering for tasks
-
         commands.addCommand("find",
                 args -> stringPattern.ifParsableElseDefault(args,
                         str -> io.displayTaskListWithoutNumber(taskList.findInDescriptions(str)))

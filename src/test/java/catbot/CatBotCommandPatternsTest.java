@@ -1,9 +1,9 @@
 package catbot;
 
 
+import catbot.bot.CatBotCommandPatterns;
 import catbot.internal.CommandPattern;
 import catbot.internal.CommandPatternGenerator;
-import catbot.LambdaOutput;
 import catbot.internal.NamedParameterMap;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

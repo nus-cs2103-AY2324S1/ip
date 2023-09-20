@@ -1,4 +1,4 @@
-package catbot;
+package catbot.bot;
 
 import java.util.function.Consumer;
 
@@ -42,14 +42,11 @@ public abstract class CatBotCommandPatterns {
 
         @Override
         public CommandPattern<Integer> generateUsingDefault(Consumer<String> invalidInput) {
-            return new CommandPattern<>() {
-                @Override
-                public void ifParsableElseDefault(String args, Consumer<Integer> consumer) {
-                    try {
-                        consumer.accept(Integer.parseInt(args));
-                    } catch (NumberFormatException nfe) {
-                        invalidInput.accept(args);
-                    }
+            return (args, consumer) -> {
+                try {
+                    consumer.accept(Integer.parseInt(args));
+                } catch (NumberFormatException nfe) {
+                    invalidInput.accept(args);
                 }
             };
         }
@@ -94,12 +91,7 @@ public abstract class CatBotCommandPatterns {
 
         @Override
         public CommandPattern<String> generateUsingDefault(Consumer<String> ignored) {
-            return new CommandPattern<>() {
-                @Override
-                public void ifParsableElseDefault(String args, Consumer<String> consumer) {
-                    consumer.accept(args);
-                }
-            };
+            return (args, consumer) -> consumer.accept(args);
         }
     }
 

@@ -8,13 +8,13 @@ import java.util.Arrays;
 public class Parser {
 
     private final String delimiter;
-    private final boolean emptyArgument;
+    private final boolean willKeepEmptyArgument;
 
     //region Constructor
 
-    private Parser(String delimiter, boolean emptyArgument) {
+    private Parser(String delimiter, boolean willKeepEmptyArgument) {
         this.delimiter = delimiter;
-        this.emptyArgument = emptyArgument;
+        this.willKeepEmptyArgument = willKeepEmptyArgument;
     }
 
     /**
@@ -30,15 +30,15 @@ public class Parser {
     /**
      * Returns a parser that uses the provided String as a delimiter.
      *
-     * @param delimiter String to use as a trigger to start new commands.
-     * @param emptyParameter true if the first parameter should have an empty name.
+     * @param delimiter             String to use as a trigger to start new commands.
+     * @param willKeepEmptyArgument true if the first parameter should have an empty name.
      * @return Parser constructed with the provided delimiter.
      */
-    public static Parser with(String delimiter, boolean emptyParameter) {
+    public static Parser with(String delimiter, boolean willKeepEmptyArgument) {
         if (delimiter == null || delimiter.isEmpty()) {
             return new SingleParser();
         } else {
-            return new Parser(delimiter, emptyParameter);
+            return new Parser(delimiter, willKeepEmptyArgument);
         }
     }
     //endregion
@@ -66,8 +66,9 @@ public class Parser {
     public NamedParameterMap parse(String s) {
         NamedParameterMap map = new NamedParameterMap();
         String[] commandArgumentStrings = s.split(delimiter);
+
         //first command potentially gets the empty argument treatment ("" -> value)
-        parseCommandArgumentString(commandArgumentStrings[0], map, this.emptyArgument);
+        parseCommandArgumentString(commandArgumentStrings[0], map, this.willKeepEmptyArgument);
         Arrays.stream(commandArgumentStrings).skip(1).forEach(segment -> parseCommandArgumentString(segment, map));
         return map;
     }
@@ -88,8 +89,8 @@ public class Parser {
         }
     }
 
-    private static void parseCommandArgumentString(String s, NamedParameterMap map, boolean emptyArgument) {
-        if (emptyArgument) {
+    private static void parseCommandArgumentString(String s, NamedParameterMap map, boolean willKeepEmptyArgument) {
+        if (willKeepEmptyArgument) {
             map.addNamedParameter("", s.trim());
         } else {
             parseCommandArgumentString(s, map);
