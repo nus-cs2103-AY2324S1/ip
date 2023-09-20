@@ -8,7 +8,9 @@ import chatbot.parser.Parser;
 import chatbot.storage.Storage;
 import chatbot.tasks.TaskList;
 import chatbot.ui.Ui;
+
 import javafx.application.Application;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
 import javafx.stage.Stage;
 
 public class Duke extends Application {
