@@ -1,3 +1,5 @@
-false|[T][ ] cry|Todo|cry
 false|[T][ ] tears|Todo|tears
-false|[E][ ]birthday celeb (from: Sep 20 2023 to: Sep 21 2023)|Event|birthday celeb /from 2023-09-20 /to 2023-09-21
+true|[E][X]birthday celeb (from: Sep 20 2023 to: Sep 21 2023)|Event|birthday celeb /from 2023-09-20 /to 2023-09-21
+false|[T][ ] weep|Todo|weep
+false|[D][ ]mug for miderms (by: Sep 20 2023)|Deadline|mug for miderms /by 2023-09-20
+false|[E][ ]loml birthday party (from: Sep 20 2023 to: Sep 21 2023)|Event|loml birthday party /from 2023-09-20 /to 2023-09-21
