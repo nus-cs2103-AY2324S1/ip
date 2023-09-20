@@ -6,7 +6,7 @@ package tasks;
 public class Task {
     private String type;
     private String name;
-    private boolean marked;
+    private boolean isMarked;
     private boolean isEmpty = false;
 
     /**
@@ -15,7 +15,7 @@ public class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.marked = false;
+        this.isMarked = false;
     }
     public Task() {
         this.isEmpty = true;
@@ -31,14 +31,14 @@ public class Task {
      * Marks a task as marked.
      */
     public void markDone() {
-        marked = true;
+        isMarked = true;
     }
 
     /**
      * UnMarks a task.
      */
     public void unmarkDone() {
-        marked = false;
+        isMarked = false;
     }
     /**
      * Represent the task in String.
@@ -48,6 +48,6 @@ public class Task {
     @Override
     public String toString() {
         assert !type.equals(" ") : "Type must be a character related to its task type";
-        return "  [" + type + "]" + "[" + (marked ? "X" : " ") + "] " + name;
+        return "  [" + type + "]" + "[" + (isMarked ? "X" : " ") + "] " + name;
     }
 }

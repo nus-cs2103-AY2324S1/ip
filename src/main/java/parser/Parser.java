@@ -22,9 +22,6 @@ import dukeexception.DukeException;
  * The parser that takes the input data and checks its syntax followed bt execute it.
  */
 public class Parser {
-
-    //final String UNKNOWN_COMMAND = "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
-
     /**
      * Takes the user input and calls the right command for it.
      *

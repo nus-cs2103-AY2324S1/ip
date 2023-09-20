@@ -111,7 +111,6 @@ public class Ui {
      * @param userList The list the task is from.
      */
     public String showList(TaskList userList) {
-        //System.out.println(lineBreak);
         StringBuilder builder = new StringBuilder();
         String top = ("Here are the tasks in your list:");
         for (int i = 0; i < userList.size(); i++) {

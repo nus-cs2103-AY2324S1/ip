@@ -97,7 +97,7 @@ public class TaskList {
     }
 
     /**
-     * UnMark a task as done.
+     * Marking the task as unmarked.
      *
      * @param i The index of the task.
      * @return The task that is unmarked.
