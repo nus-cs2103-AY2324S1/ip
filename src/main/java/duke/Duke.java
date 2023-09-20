@@ -37,20 +37,6 @@ public class Duke {
     }
 
     /**
-     * Runs the Duke application.
-     * It displays a welcome message and continuously reads user input, parsing and executing commands
-     * until there is no more input.
-     */
-    public void run() {
-        ui.showWelcomeMessage();
-        while (ui.isThereNext()) {
-            String input = ui.readLine();
-            Command c = Parser.parseCommand(input);
-            c.runCommand(tasks, ui, storage);
-        }
-    }
-
-    /**
      * * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */

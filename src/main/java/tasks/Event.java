@@ -29,7 +29,7 @@ public class Event extends Task {
      * @return A string representation of the `Event` object in save file format.
      */
     public String toSaveFormat() {
-        return "E" + super.toSaveFormat() + " | " + this.from + "-" + this.to;
+        return "E" + super.toSaveFormat() + " | " + this.from + "to" + this.to;
     }
 
     /**

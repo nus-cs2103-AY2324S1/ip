@@ -101,7 +101,6 @@ public class Ui {
      * @param storage The storage object for saving tasks to a file.
      */
     public String exit(TaskList tasks, Storage storage) {
-        storage.saveTasksToFile(tasks);
         System.exit(0);
         return "Bye. Till the next time.";
     }

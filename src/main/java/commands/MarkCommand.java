@@ -35,6 +35,7 @@ public class MarkCommand extends Command {
     public String runCommand(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(taskNumber - 1);
         task.markAsDone();
+        storage.updateFile(tasks);
         return ui.markMessage(task);
     }
 }

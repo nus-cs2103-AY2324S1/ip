@@ -31,9 +31,8 @@ public class StorageTest {
     public void testSaveTasksToFile() throws IOException {
         Task task1 = new ToDo("Task 1");
         taskList.add(task1);
-
         // Save the tasks to the test file
-        storage.saveTasksToFile(taskList);
+        storage.updateFile(taskList);
 
         List<String> lines = Files.readAllLines(Path.of("testTasks.txt"));
         assertEquals("T | 0 | Task 1", lines.get(0));

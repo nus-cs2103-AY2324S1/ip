@@ -116,23 +116,23 @@ public class Parser {
      * @param split The user input string split into tokens.
      * @return A "MarkCommand" if the input is a valid mark command, otherwise an "IncorrectCommand."
      */
+
     private static Command checkMark(String[] split) {
         if (split.length == 1) {
-            return new IncorrectCommand("You didn't tell me ur task to MARK!");
-        }
-        if (!Character.isDigit(split[1].charAt(split[1].charAt(0)))) {
-            return new IncorrectCommand("Enter task number u wish to MARK");
+            return new IncorrectCommand("You didn't tell me your task to MARK!");
         }
 
-        int taskNumber = Integer.parseInt(split[1]);
-        if (taskNumber <= 0) {
-            return new IncorrectCommand("Enter valid task number.");
-        } else {
-            return new MarkCommand(taskNumber);
+        try {
+            int taskNumber = Integer.parseInt(split[1]);
+            if (taskNumber <= 0) {
+                return new IncorrectCommand("Enter a valid task number.");
+            } else {
+                return new MarkCommand(taskNumber);
+            }
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand("Enter a valid task number.");
         }
-
     }
-
     /**
      * Checks the user input for an "exit" command and returns the corresponding command object.
      *
@@ -209,21 +209,21 @@ public class Parser {
      * @param split The user input string split into tokens.
      * @return An "UnmarkCommand" if the input is a valid unmark command, otherwise an "IncorrectCommand."
      */
-    public static Command checkUnmark(String[] split) {
+    private static Command checkUnmark(String[] split) {
         if (split.length == 1) {
-            return new IncorrectCommand("You didn't tell me ur task to UNMARK!");
-        }
-        if (!Character.isDigit(split[1].charAt(split[1].charAt(0)))) {
-            return new IncorrectCommand("Enter task number u wish to unmark");
+            return new IncorrectCommand("You didn't tell me your task to MARK!");
         }
 
-        int taskNumber = Integer.parseInt(split[1]);
-        if (taskNumber <= 0) {
-            return new IncorrectCommand("Enter valid task number.");
-        } else {
-            return new UnmarkCommand(taskNumber);
+        try {
+            int taskNumber = Integer.parseInt(split[1]);
+            if (taskNumber <= 0) {
+                return new IncorrectCommand("Enter a valid task number.");
+            } else {
+                return new UnmarkCommand(taskNumber);
+            }
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand("Enter a valid task number.");
         }
-
     }
 
 
@@ -235,18 +235,21 @@ public class Parser {
      */
     public static Command checkDelete(String[] split) {
         if (split.length == 1) {
-            return new IncorrectCommand("You didn't tell me ur task to DELETE!");
+            return new IncorrectCommand("You didn't tell me your task to DELETE!");
         }
-        if (!Character.isDigit(split[1].charAt(split[1].charAt(0)))) {
-            return new IncorrectCommand("Enter task number u wish to DELETE");
-        }
-        int taskNumber = Integer.parseInt(split[1]);
-        if (taskNumber <= 0) {
-            return new IncorrectCommand("Enter valid task number FOR DELETE.");
-        } else {
-            return new DeleteCommand(taskNumber);
+
+        try {
+            int taskNumber = Integer.parseInt(split[1]);
+            if (taskNumber <= 0) {
+                return new IncorrectCommand("Enter a valid task number for DELETE.");
+            } else {
+                return new DeleteCommand(taskNumber);
+            }
+        } catch (NumberFormatException e) {
+            return new IncorrectCommand("Enter a valid task number for DELETE.");
         }
     }
+
 
     /**
      * Parses a task in the save file format and returns a corresponding task object.
@@ -258,7 +261,8 @@ public class Parser {
         String[] parts = sf.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+
         String description = parts[2];
         if (type.equals("T")) {
             Task task = new ToDo(description);
@@ -272,7 +276,7 @@ public class Parser {
             return task;
         }
         if (type.equals("E")) {
-            String[] timeline = date.split("-", 2);
+            String[] timeline = date.split("to", 2);
             String from = timeline[0];
             String to = timeline[1];
             Task task = new Event(description,

@@ -79,14 +79,17 @@ public class AddCommand extends Command {
         case "todo":
             task = new ToDo(this.description);
             tasks.add(task);
+            storage.updateFile(tasks);
             return ui.todoMessage(task);
         case "deadline":
             task = new Deadline(this.description, this.to);
             tasks.add(task);
+            storage.updateFile(tasks);
             return ui.deadlineMessage(task);
         case "event":
             task = new Event(this.description, this.from, this.to);
             tasks.add(task);
+            storage.updateFile(tasks);
             return ui.eventMessage(task);
         default:
             return ui.showErrorMessage("idk what u saying.");

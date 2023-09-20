@@ -29,23 +29,6 @@ public class Storage {
     }
 
     /**
-     * Saves a list of tasks to the file in append mode.
-     *
-     * @param taskList The `TaskList` containing the tasks to be saved.
-     */
-    public void saveTasksToFile(TaskList taskList) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-            // Append tasks to the end of the file
-            for (Task task : taskList.getToDos()) {
-                writer.write(task.toSaveFormat());
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Loads tasks from the file and returns a `TaskList` containing the loaded tasks.
      *
      * @return A `TaskList` containing the loaded tasks.
@@ -64,4 +47,20 @@ public class Storage {
         }
         return tasksList;
     }
-}
+
+    /**
+     * Saves tasks to the file.
+     *
+     * @param tasks The `TaskList` containing the tasks to be saved.
+     */
+    public void updateFile(TaskList tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Task task : tasks.getToDos()) {
+                writer.write(task.toSaveFormat());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+ }

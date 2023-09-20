@@ -23,6 +23,7 @@ public class UndoCommand extends Command {
     @Override
     public String runCommand(TaskList taskList, Ui ui, Storage storage) {
         taskList.removeLatest();
+        storage.updateFile(taskList);
         return ui.undoMessage();
     }
 }
