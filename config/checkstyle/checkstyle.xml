@@ -130,11 +130,6 @@
       <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+){0,2}$"/>
     </module>
 
-    <module name="ParameterName">
-      <!-- Validates identifiers for method parameters against the expression "^[a-z][a-zA-Z0-9]*$". -->
-      <property name="severity" value="warning"/>
-    </module>
-
     <module name="LocalFinalVariableName">
       <!-- Validates identifiers for local final variables against the expression "^[a-z][a-zA-Z0-9]*$". -->
       <property name="severity" value="warning"/>
@@ -221,13 +216,6 @@
 
     <module name="MissingSwitchDefault"/>
 
-    <!-- Checks that Class variables should never be declared public. -->
-    <module name="VisibilityModifier">
-      <property name="protectedAllowed" value="true"/>
-      <property name="allowPublicFinalFields" value="true"/>
-      <property name="ignoreAnnotationCanonicalNames" value="RegisterExtension, TempDir"/>
-    </module>
-
     <!--
     ORDER CHECKS
     -->
@@ -236,14 +224,6 @@
          @author, @version, @param, @return, @throws, @exception, @see, @since, @serial, @serialField, @serialData, @deprecated
     -->
     <module name="AtclauseOrder"/>
-
-    <!-- Checks if the Class and Interface declarations is organized in this order
-      1. Class (static) variables. Order: public, protected, package level (no access modifier), private.
-      2. Instance variables. Order: public, protected, package level (no access modifier), private.
-      3. Constructors
-      4. Methods
-    -->
-    <module name ="DeclarationOrder"/>
 
     <!-- Checks that default is after all cases in a switch statement -->
     <module name="DefaultComesLast"/>
