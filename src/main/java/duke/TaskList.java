@@ -2,8 +2,11 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.Locale;
 
+import duke.messages.Messages;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -40,7 +43,8 @@ public class TaskList {
      */
     private Deadline parseDeadlineTask(String taskDescription) {
         String[] deadlineString = taskDescription.substring(8).split("\\(");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy ha");
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                .appendPattern(Messages.DATE_FORMAT.getMessage()).toFormatter(Locale.ENGLISH);
         LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1]
                 .substring(4, deadlineString[1].length() - 1).trim(), formatter);
         return new Deadline(deadlineString[0].trim(), deadlineDate);
@@ -54,7 +58,8 @@ public class TaskList {
     private Event parseEventTask(String taskDescription) {
         String[] eventString = taskDescription.substring(8).split("\\(");
         String[] timelineString = eventString[1].split("to:");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy ha");
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                .appendPattern(Messages.DATE_FORMAT.getMessage()).toFormatter(Locale.ENGLISH);
         LocalDateTime startDate = LocalDateTime.parse(timelineString[0]
                 .substring(6).trim(), formatter);
         LocalDateTime endDate = LocalDateTime.parse(timelineString[1].substring(0,

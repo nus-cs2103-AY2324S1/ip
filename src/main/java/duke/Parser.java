@@ -2,6 +2,8 @@ package duke;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.util.Locale;
 
 import duke.command.AddCommand;
 import duke.command.Command;
@@ -135,8 +137,9 @@ public class Parser {
                 throw new DukeException(ErrorMessages.MISSING_DEADLINE.getMessage());
             } else {
                 // Deal with DateTimeParseException
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Messages.DATE_FORMAT.getMessage());
-                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1].substring(3),
+                DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                        .appendPattern(Messages.DATE_FORMAT.getMessage()).toFormatter(Locale.ENGLISH);
+                LocalDateTime deadlineDate = LocalDateTime.parse(deadlineString[1].substring(3).trim(),
                         formatter);
                 Deadline deadlineTask = new Deadline(deadlineString[0].trim(), deadlineDate);
                 return new AddCommand(deadlineTask);
@@ -163,7 +166,8 @@ public class Parser {
             } else if (eventString.length > 3) {
                 throw new DukeException(ErrorMessages.TOO_MANY_EVENT_TIMINGS.getMessage());
             } else {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Messages.DATE_FORMAT.getMessage());
+                DateTimeFormatter formatter = new DateTimeFormatterBuilder().parseCaseInsensitive()
+                        .appendPattern(Messages.DATE_FORMAT.getMessage()).toFormatter(Locale.ENGLISH);
                 LocalDateTime startDate = LocalDateTime.parse(eventString[1].substring(5).trim(), formatter);
                 LocalDateTime endDate = LocalDateTime.parse(eventString[2].substring(3).trim(), formatter);
                 if (endDate.isBefore(startDate)) {

@@ -15,7 +15,7 @@ public class EventTest {
         LocalDateTime startDate = LocalDateTime.parse("2023-08-31 2PM", formatter);
         LocalDateTime endDate = LocalDateTime.parse("2023-09-01 1PM", formatter);
         String taskName = "project meeting";
-        assertEquals("[E] [ ] project meeting (from: Aug 31 2023 2PM to: Sep 1 2023 1PM)",
+        assertEquals("[E] [ ] project meeting (from: 2023-08-31 2 PM to: 2023-09-01 1 PM)",
                 new Event(taskName, startDate, endDate).toString());
     }
 }
