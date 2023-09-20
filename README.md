@@ -32,9 +32,9 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 1. Items in ```UPPER_CASE``` are parameters to be supplied by the user.
    e.g. in ```todo TASK_DESCRIPTION```, ```TASK_DESCRIPTION``` is a parameter which can be used as todo homework.
 2. Items in square brackets are optional.
-   e.g. ```deadline TASK_DESCRIPTION /by DATE [TIME]``` can be used as ```deadline IS1108 Assignment /by 7/11/2023``` or ```deadline             IS1108 Assignment /by 7/11/2023 1500```
+   e.g. ```deadline TASK_DESCRIPTION /by DATE [TIME]``` can be used as ```deadline IS1108 Assignment /by 7/11/2023``` or ```deadline IS1108 Assignment /by 7/11/2023 1500```
 3. All ```DATE``` parameters can be put in multiple formats.
-   e.g. ```deadline TASK_DESCRIPTION /by DATE [TIME]``` can be used as ```deadline IS1108 Assignment /by 2023-09-08```, ```deadline        IS1108 Assignment /by 8/9/2023``` or  ```deadline IS1108 Assignment /by Mon```
+   e.g. ```deadline TASK_DESCRIPTION /by DATE [TIME]``` can be used as ```deadline IS1108 Assignment /by 2023-09-08```, ```deadline IS1108 Assignment /by 8/9/2023``` or  ```deadline IS1108 Assignment /by Mon```
 4. All weekday abbreviations in ```DATE``` parameters refers to the coming weekday
    e.g. ```deadline IS1108 Assignment /by Mon``` refers to next Monday.
 5. All ```[TIME]``` parameters can be put as either in 12-Hour clock format or 24-Hour clock format.
