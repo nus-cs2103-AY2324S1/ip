@@ -149,6 +149,10 @@ public class TaskList {
                 urgentTasks.add(task);
             }
         }
+
+        if (urgentTasks.size() == 0) {
+            return "";
+        }
         return ui.printUrgentTasks(urgentTasks);
     }
 }

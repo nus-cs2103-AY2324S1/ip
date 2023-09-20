@@ -19,6 +19,8 @@ public class Duke {
      * Constructs the respective components to
      * initialise Duke, namely the UI, Storage,
      * and TaskList.
+     *
+     * @param filePath File path to store data.
      */
     public Duke(String filePath) {
         try {
@@ -55,6 +57,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Prints out reminders for user.
+     *
+     * @return String Reminders of the list of tasks due soon.
+     */
     public String getReminders() {
         return this.tasks.provideReminders(ui);
     }
