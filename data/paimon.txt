@@ -1,7 +1,7 @@
-[T][X] complete daily commissions
-[E][ ] new wish banner (from: 2023-09-04 18:00 to: 2023-09-30 10:00)
+[T][ ] complete daily commissions
+[E][X] new wish banner (from: 2023-09-04 18:00 to: 2023-09-30 10:00)
 [D][X] clear spiral abyss (by: 2023-09-10 12:00)
 [T][X] farm crystals
 [D][ ] use up resin (by: 2022-10-09 12:30)
 [D][ ] level up zhongli (by: 2023-09-10 18:00)
-[E][ ] new fontaine event (from: 2023-09-04 12:00 to: 2023-10-04 18:00)
+[T][ ] complete phototaking event 

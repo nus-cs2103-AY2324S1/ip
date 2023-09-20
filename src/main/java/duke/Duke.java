@@ -33,7 +33,7 @@ public class Duke {
     }
 
     /**
-     * Generate a response to user input.
+     * Returns the response to the user input given.
      *
      * @param input The input of the user.
      * @return The response of paimonbot.
