@@ -77,38 +77,47 @@ public class DukeStorageDatabase {
         database.createNewFile();
         try (FileWriter writer = new FileWriter(database)) {
             for (Task task : this.tasks.getTasks()) {
-                // stringBuilder class to parse the task into a string for database storage
-                StringBuilder taskString = new StringBuilder();
-                if (task instanceof Todo) {
-                    taskString.append("t ");
-                    taskString.append(task.isDone());
-                    taskString.append(" ");
-                    taskString.append(task.getDescription());
-                } else if (task instanceof Deadline) {
-                    taskString.append("d ");
-                    taskString.append(task.isDone());
-                    taskString.append(" ");
-                    taskString.append(task.getDescription());
-                    Deadline temp = (Deadline) task;
-                    taskString.append(" by ");
-                    taskString.append(temp.getBy());
-                } else if (task instanceof Event) {
-                    taskString.append("e ");
-                    taskString.append(task.isDone());
-                    taskString.append(" ");
-                    taskString.append(task.getDescription());
-                    Event temp = (Event) task;
-                    taskString.append(" from ");
-                    taskString.append(temp.getFrom());
-                    taskString.append(" to ");
-                    taskString.append(temp.getTo());
-                } else {
-                    throw new IOException("Bad task type!");
-                }
-                writer.write(taskString.toString());
+                writer.write(getTaskString(task));
                 writer.write(System.getProperty("line.separator"));
             }
             writer.flush();
         }
+    }
+
+    /**
+     * Compiles the task into a standard string for storage in the database
+     * @author Tan Kerway
+     * @param task the task to be added
+     * @return the String version of the task depending on what it is
+     */
+    private String getTaskString(Task task) throws IOException {
+        StringBuilder taskString = new StringBuilder();
+        if (task instanceof Todo) {
+            taskString.append("t ");
+            taskString.append(task.isDone());
+            taskString.append(" ");
+            taskString.append(task.getDescription());
+        } else if (task instanceof Deadline) {
+            taskString.append("d ");
+            taskString.append(task.isDone());
+            taskString.append(" ");
+            taskString.append(task.getDescription());
+            Deadline temp = (Deadline) task;
+            taskString.append(" by ");
+            taskString.append(temp.getBy());
+        } else if (task instanceof Event) {
+            taskString.append("e ");
+            taskString.append(task.isDone());
+            taskString.append(" ");
+            taskString.append(task.getDescription());
+            Event temp = (Event) task;
+            taskString.append(" from ");
+            taskString.append(temp.getFrom());
+            taskString.append(" to ");
+            taskString.append(temp.getTo());
+        } else {
+            throw new IOException("Bad task type!");
+        }
+        return taskString.toString();
     }
 }

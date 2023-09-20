@@ -91,65 +91,18 @@ public class DukeTaskList {
         StringBuilder description = new StringBuilder();
         switch (tokens[0]) {
         case "t":
-            for (int i = 2; i < n; i++) {
-                description.append(tokens[i]);
-                if (i != n - 1) {
-                    description.append(" ");
-                }
-            }
-            currentTask = new Todo(description.toString(), Boolean.parseBoolean(tokens[1]));
+            currentTask = processTodo(tokens, description);
             break;
         case "d": {
-            int i;
-            for (i = 2; i < n; i++) {
-                if (tokens[i].equals("by")) {
-                    i++;
-                    break;
-                }
-                description.append(tokens[i]);
-                if (i != n - 2) {
-                    description.append(" ");
-                }
-            }
             StringBuilder sb = new StringBuilder();
-            for (; i < n; i++) {
-                sb.append(tokens[i]);
-                if (i != n - 1) {
-                    sb.append(" ");
-                }
-            }
-            currentTask = new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
+            currentTask = processDeadline(tokens, description, sb);
             if (((Deadline) currentTask).getBy() == null) {
                 return null;
             }
             break;
         }
         case "e": {
-            int i;
-            for (i = 2; i < n - 2; i++) {
-                if (tokens[i].equals("from")) {
-                    i++;
-                    break;
-                }
-                description.append(tokens[i]);
-                if (i != n - 1) {
-                    description.append(" ");
-                }
-            }
-            StringBuilder sb1 = new StringBuilder();
-            while (!tokens[i].equals("to")) {
-                sb1.append(tokens[i++]);
-                sb1.append(" ");
-            }
-            i++;
-            StringBuilder sb2 = new StringBuilder();
-            for (; i < n; i++) {
-                sb2.append(tokens[i]);
-                sb2.append(" ");
-            }
-            currentTask = new Event(
-                    description.toString().trim(),
-                    Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
+            currentTask = processEvent(tokens, description);
             Event t = (Event) currentTask;
             if (t.getFrom() == null || t.getTo() == null || !t.isValid()) {
                 return null;
@@ -161,6 +114,89 @@ public class DukeTaskList {
         }
         assert currentTask != null;
         return currentTask;
+    }
+
+    /**
+     * Processes a Todo type task.
+     * @author Tan Kerway
+     * @param tokens the string, broken up by spaces
+     * @param description the StringBuilder to append the result to
+     * @return a Todo task
+     */
+    private Todo processTodo(String[] tokens, StringBuilder description) {
+        int n = tokens.length;
+        for (int i = 2; i < n; i++) {
+            description.append(tokens[i]);
+            if (i != n - 1) {
+                description.append(" ");
+            }
+        }
+        return new Todo(description.toString(), Boolean.parseBoolean(tokens[1]));
+    }
+
+    /**
+     * Processes a Deadline type task.
+     * @author Tan Kerway
+     * @param tokens the string array, but broken up
+     * @param description the StringBuilder to build the description on
+     * @param sb the StringBuilder to build the StringBuilder class
+     * @return a Deadline class type
+     */
+    private Deadline processDeadline(String[] tokens, StringBuilder description, StringBuilder sb) {
+        int n = tokens.length;
+        int i;
+        for (i = 2; i < n; i++) {
+            if (tokens[i].equals("by")) {
+                i++;
+                break;
+            }
+            description.append(tokens[i]);
+            if (i != n - 2) {
+                description.append(" ");
+            }
+        }
+        for (; i < n; i++) {
+            sb.append(tokens[i]);
+            if (i != n - 1) {
+                sb.append(" ");
+            }
+        }
+        return new Deadline(description.toString().trim(), Boolean.parseBoolean(tokens[1]), sb.toString());
+    }
+
+    /**
+     * Processes an Event type class.
+     * @author Tan Kerway
+     * @param tokens the array of tokens to process, broken up by space
+     * @param description the StringBuilder that will process the description that the user typed in
+     * @return the Event instance
+     */
+    private Event processEvent(String[] tokens, StringBuilder description) {
+        int n = tokens.length;
+        int i;
+        for (i = 2; i < n - 2; i++) {
+            if (tokens[i].equals("from")) {
+                i++;
+                break;
+            }
+            description.append(tokens[i]);
+            if (i != n - 1) {
+                description.append(" ");
+            }
+        }
+        StringBuilder sb1 = new StringBuilder();
+        while (!tokens[i].equals("to")) {
+            sb1.append(tokens[i++]);
+            sb1.append(" ");
+        }
+        i++;
+        StringBuilder sb2 = new StringBuilder();
+        for (; i < n; i++) {
+            sb2.append(tokens[i]);
+            sb2.append(" ");
+        }
+        return new Event(description.toString().trim(),
+            Boolean.parseBoolean(tokens[1]), sb1.toString().trim(), sb2.toString().trim());
     }
 
     /**
