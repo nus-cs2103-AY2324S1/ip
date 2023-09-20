@@ -33,7 +33,7 @@ public class DeleteCommand extends Command {
         String[] words = this.fullCommand.split(" ", 2);
 
         try {
-            return tasks.deleteTask(Integer.parseInt(words[1]) - 1);
+            return tasks.deleteTask(Integer.parseInt(words[1]) - 1, storage);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new InvalidArgumentException("☹ OOPS!!! I'm sorry, please enter a valid index to mark");
         }

@@ -57,7 +57,7 @@ public class EventCommand extends Command {
                     .strip(), Storage.DATE_TIME_INPUT_FORMATTER);
             Event t = new Event(eventDescription, from, to);
 
-            return tasks.addTask(t);
+            return tasks.addTask(t, storage);
         } catch (DateTimeParseException e) {
             throw new InvalidDateException();
         }

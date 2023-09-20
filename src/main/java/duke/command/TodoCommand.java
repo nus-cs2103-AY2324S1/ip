@@ -33,10 +33,8 @@ public class TodoCommand extends Command {
     public String execute(TaskList tasks , Ui ui, Storage storage) throws InvalidArgumentException {
         String[] words = this.fullCommand.split(" ", 2);
         super.validateArguments(words, "todo");
-
         Todo t = new Todo(words[1]);
-
-        return tasks.addTask(t);
+        return tasks.addTask(t, storage);
     }
 }
 
