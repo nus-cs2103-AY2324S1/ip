@@ -40,7 +40,7 @@ public class Ui {
                     taskArray.printFind(input.getExtracted());
                     break;
                 case "delete":
-                    int deleteIndex = input.processDeleteIndex();
+                    int deleteIndex = input.processRemoveIndex();
                     if (deleteIndex >= 0) {
                         taskArray.removeTask(deleteIndex - 1);
                     } else {
@@ -116,19 +116,23 @@ public class Ui {
         Parser input = new Parser(inputString);
         //Repeating Asking User if Not Equals Bye
         String command = input.getCommand();
-
+        System.out.println(command);
         switch (command) {
             case "help":
                 return helpFunction();
+            case "save":
+                return Duke.saveData();
+            case "clear":
+                return Duke.clearData();
             case "list":
                 return oriTaskArray.printTaskArrayList();
             case "find":
                 return oriTaskArray.printFind(input.getExtracted());
-            case "delete":
-                int deleteIndex = input.processDeleteIndex();
+            case "remove":
+                int removeIndex = input.processRemoveIndex();
 
-                if (deleteIndex >= 0) {
-                    return oriTaskArray.removeTask(deleteIndex - 1);
+                if (removeIndex >= 0) {
+                    return oriTaskArray.removeTask(removeIndex - 1);
                 } else {
                     return printInvalidArgIndex();
                 }
@@ -220,8 +224,8 @@ public class Ui {
      * Displays the list of available commands to the user.
      */
     public String helpFunction() {
-        String output = ("You can visit our product website :\n");
-        output += ("https://github.com/kimshitong/ip\n");
+        String output = ("You can visit our product website :\nhttps://github.com/kimshitong/ip\n");
+        output += ("");
         return output;
     }
 
@@ -271,7 +275,7 @@ public class Ui {
      * Displays an error message for an empty description in a to-do task.
      */
     public String printInsufficientArgToDo() {
-        return "OOPS!!! The description of a deadline cannot be empty.";
+        return "OOPS!!! The description of a ToDo cannot be empty.";
     }
 
     /**

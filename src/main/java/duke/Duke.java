@@ -1,6 +1,7 @@
 package duke;
 
 import duke.storage.Storage;
+import duke.task.Task;
 import duke.task.TaskArray;
 import duke.ui.DialogBox;
 import duke.ui.Ui;
@@ -33,6 +34,7 @@ public class Duke {
 
     private boolean end = false;
 
+    private static Duke globalDuke = new Duke();
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DukeA.jpeg"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DukeB.jpeg"));
 
@@ -46,6 +48,11 @@ public class Duke {
     public Duke() {
         this("./data/tasks.txt");
     }
+
+    public static Duke getGlobalDuke() {
+        return globalDuke;
+    }
+
 
     public static void main(String[] args) {
         Launcher.main(args);
@@ -90,11 +97,24 @@ public class Duke {
             end = true;
         }
 
+        if (output.equals(ui.byeFunction())) {
+            end = true;
+        }
+
         return "KimDuke : " + output;
     }
 
-    public void upload(){
-        storage.upload(taskArrayList);
+    public static String saveData(){
+        globalDuke.storage.upload(globalDuke.taskArrayList);
+        return "Task Data is successfully saved into File Database";
+    }
+    public static String clearData(){
+        globalDuke.taskArrayList = new TaskArray();
+        return "All Tasks is successfully cleared, use command \"save\" to update changes in File Database\n";
+    }
+
+    public static TaskArray getTaskArrayList() {
+        return globalDuke.taskArrayList;
     }
 
     public boolean isEnd(){

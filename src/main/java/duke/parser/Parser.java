@@ -1,13 +1,11 @@
 package duke.parser;
 
 import duke.task.*;
-import duke.ui.Ui;
 
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Scanner;
 
 /**
  *  This Class is mainly dealing with user input and logic process
@@ -239,7 +237,7 @@ public class Parser {
      *
      * @return Integer Index to be deleted
      */
-    public int processDeleteIndex() {
+    public int processRemoveIndex() {
         if (inputArray.length != 2) {
             return -1;
         }

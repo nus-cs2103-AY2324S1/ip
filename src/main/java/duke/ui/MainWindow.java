@@ -56,7 +56,7 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
 
         if(duke.isEnd()){
-            duke.upload();
+            duke.saveData();
             Thread delayThread = new Thread(() -> {
                 try {
                     Thread.sleep(3000);

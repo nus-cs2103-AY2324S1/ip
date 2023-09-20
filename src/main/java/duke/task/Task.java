@@ -135,12 +135,12 @@ public class Task {
 
     public String setTag(String tagName) {
         this.tag = Tag.generateTag(tagName);
-        return "Tag : " + tag.getTagName() + " has been setup!";
+        return "Tag " + tag.getTagName() + " has been setup!";
 
     }
     public String setTag(Tag tag) {
         this.tag = tag;
-        return "Tag : " + tag.getTagName() + " has been setup on "+this.text+" !\n" + getTypeCheckedText() ;
+        return "Tag " + tag.getTagName() + " has been setup on "+this.text+" !\n" + getTypeCheckedText() ;
     }
     public Tag getTag() {
         return getTag();

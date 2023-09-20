@@ -31,7 +31,7 @@ public class TaskArray {
      * Prints the list of tasks along with their indexes.
      */
     public String printTaskArrayList() {
-        String output = "Here is your upcoming tasks (total : " + getTaskCount() + ").";
+        String output = "Here is your upcoming tasks (total : " + getTaskCount() + "):";
 
         for (int i = 0; i < taskArrayList.size(); i++ ) {
             int index = i + 1;
