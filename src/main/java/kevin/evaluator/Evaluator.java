@@ -56,6 +56,8 @@ public class Evaluator {
      * @throws KevinException On the detection of errors.
      */
     public String evaluate(QueryObject queryObject, boolean isInFile) throws KevinException {
+        assert queryObject != null : "queryObject is not supposed to be null";
+
         Command command = queryObject.getCommandType();
         ArrayList<String> arguments = queryObject.getArgs();
         return MAPPER.get(command).apply(taskList, arguments, logger, fileStorage, isInFile);

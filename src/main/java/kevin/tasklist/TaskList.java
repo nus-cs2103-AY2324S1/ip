@@ -80,6 +80,7 @@ public class TaskList {
      * @return Returns the updated Task.
      */
     public Task mark(int toDoIndex) throws KevinException {
+        assert toDoIndex <= 0 : "toDoIndex is not supposed to be less than 0";
         try {
             this.taskList.get(toDoIndex - 1).mark();
         } catch (Exception e) {
@@ -94,6 +95,7 @@ public class TaskList {
      * @return Returns the updated Task.
      */
     public Task unmark(int toDoIndex) throws KevinException {
+        assert toDoIndex <= 0 : "toDoIndex is not supposed to be less than 0";
         try {
             this.taskList.get(toDoIndex - 1).unmark();
         } catch (Exception e) {
@@ -108,6 +110,7 @@ public class TaskList {
      * @return Returns the deleted Task.
      */
     public Task delete(int deleteIndex) throws KevinException {
+        assert deleteIndex <= 0 : "deleteIndex is not supposed to be less than 0";
         Task deletedTask;
         try {
             deletedTask = this.taskList.get(deleteIndex - 1);
@@ -131,6 +134,8 @@ public class TaskList {
      * @return Returns a list of task that contains the keyword.
      */
     public String find(String keyword) {
+        assert keyword != null : "keyword is not supposed to be null";
+
         StringBuilder listOutput = new StringBuilder();
         Integer number = 1;
         listOutput.append("Here are the matching tasks in your list: ");
