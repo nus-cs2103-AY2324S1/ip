@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import monday.monday.ui.Ui;
 
 /**
@@ -31,6 +30,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bai.png"));
     private Image mondayImage = new Image(this.getClass().getResourceAsStream("/images/fa.png"));
 
+    /**
+     * Start the programme and greets the user on start of program.
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(Ui.greet(), mondayImage));

@@ -161,7 +161,7 @@ public class Parser {
 
             return taskList.addToList(new Deadline(description.trim(), date.trim()));
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Invalid Format. "
+            throw new MondayException("Invalid Format. "
                     + "Usage: deadline (task) /by (time)");
         }
     }
@@ -190,7 +190,7 @@ public class Parser {
                     start.trim(),
                     end.trim()));
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Invalid Format. "
+            throw new MondayException("Invalid Format. "
                     + "Usage: event (task) /from (start time) /to (end time)");
         }
     }
@@ -229,7 +229,7 @@ public class Parser {
         String[] keywordDetails = content.split(" ");
 
         if (keywordDetails.length > 1) {
-            throw new IllegalArgumentException("Invalid Format. "
+            throw new MondayException("Invalid Format. "
                     + "Usage: find (keyword), there should only be one keyword.");
         }
 

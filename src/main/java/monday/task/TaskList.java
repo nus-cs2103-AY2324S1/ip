@@ -3,6 +3,7 @@ package monday.task;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import monday.monday.exception.MondayException;
 import monday.monday.ui.Ui;
 import monday.storage.TaskArrayListStorage;
 
@@ -71,12 +72,12 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as done.
      * @return Message after marking the task as done.
-     * @throws IndexOutOfBoundsException If the index is out of range.
+     * @throws MondayException If the index is out of range.
      */
-    public String mark(int index) {
+    public String mark(int index) throws MondayException {
         assert !tasks.isEmpty() : "Your task list is empty, please add more elements.";
         if (index < 1 || index > tasks.size()) {
-            throw new IndexOutOfBoundsException("Task index is out of range. "
+            throw new MondayException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
         }
         Task taskToEdit = tasks.get(index - 1);
@@ -90,12 +91,12 @@ public class TaskList {
      *
      * @param index The index of the task to be marked as not done.
      * @return Message after marking the task as not done.
-     * @throws IndexOutOfBoundsException If the index is out of range.
+     * @throws MondayException If the index is out of range.
      */
-    public String unMark(int index) {
+    public String unMark(int index) throws MondayException {
         assert !tasks.isEmpty() : "Your task list is empty, please add more elements.";
         if (index < 1 || index > tasks.size()) {
-            throw new IndexOutOfBoundsException("Task index is out of range. "
+            throw new MondayException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
         }
         Task taskToEdit = tasks.get(index - 1);
@@ -109,12 +110,12 @@ public class TaskList {
      *
      * @param index The index of the task to be deleted.
      * @return Message after deleting the task.
-     * @throws IndexOutOfBoundsException If the index is out of range.
+     * @throws MondayException If the index is out of range.
      */
-    public String delete(int index) {
+    public String delete(int index) throws MondayException {
         assert !tasks.isEmpty() : "Your task list is empty, please add more elements.";
         if (index < 1 || index > tasks.size()) {
-            throw new IndexOutOfBoundsException("Task index is out of range. "
+            throw new MondayException("Task index is out of range. "
                     + "Check the number of tasks using the 'list' command.");
         }
         Task taskToEdit = tasks.get(index - 1);

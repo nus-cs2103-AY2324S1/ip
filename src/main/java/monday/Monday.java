@@ -38,12 +38,6 @@ public class Monday {
                 System.out.println(p.parseCommands(userInput));
             } catch (MondayException e) {
                 Ui.printErrorMessage("", e);
-            } catch (NumberFormatException e) {
-                Ui.printErrorMessage("Mark/UnMark number error: ", e);
-            } catch (IllegalArgumentException e) {
-                Ui.printErrorMessage("Argument Error: ", e);
-            } catch (IndexOutOfBoundsException e) {
-                Ui.printErrorMessage("Index out of Bound Error: ", e);
             }
             Ui.printSeparator();
         }
