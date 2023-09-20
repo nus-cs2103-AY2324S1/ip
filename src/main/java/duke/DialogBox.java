@@ -30,6 +30,12 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
     private static final Ui ui = new Ui();
 
+    /**
+     * Creates a DialogBox with the specified text and image.
+     *
+     * @param text The text to display in the dialog box.
+     * @param img  The image to display in the dialog box.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -56,14 +62,27 @@ public class DialogBox extends HBox {
         getChildren().setAll(tmp);
     }
 
+    /**
+     * Sets the background of the dialog box to a user-specific color.
+     */
     private void setUserBackground() {
         setBackground(new Background(new BackgroundFill(Color.rgb(173, 216, 230), new CornerRadii(12.00), null)));
     }
 
+    /**
+     * Sets the background of the dialog box to a Duke-specific color.
+     */
     private void setDukeBackground() {
         setBackground(new Background(new BackgroundFill(Color.rgb(230, 230, 250), new CornerRadii(12.00), null)));
     }
 
+    /**
+     * Creates and returns a DialogBox for user messages with the specified text and image.
+     *
+     * @param text The text to display in the user's dialog box.
+     * @param img  The image to display in the user's dialog box.
+     * @return A DialogBox configured for user messages.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         text = ui.formatText(text);
         var db = new DialogBox(text, img);
@@ -71,6 +90,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Creates and returns a DialogBox for Duke's messages with the specified text and image.
+     *
+     * @param text The text to display in Duke's dialog box.
+     * @param img  The image to display in Duke's dialog box.
+     * @return A DialogBox configured for Duke's messages.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         text = ui.formatText(text);
         var db = new DialogBox(text, img);
