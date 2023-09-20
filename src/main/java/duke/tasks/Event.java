@@ -1,6 +1,8 @@
 package duke.tasks;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 
 /**
  * Adapted from Partial Solution given in Level-4 of
@@ -62,5 +64,10 @@ public class Event extends Task {
     public String toFileString() {
         String escapedDescription = description.replace("|", "\\|");
         return "E | " + (isDone ? "1" : "0") + " | " + escapedDescription + " | " + from + " | " + to;
+    }
+
+    @Override
+    public long getDueTime() {
+        return Date.from(from.atStartOfDay(ZoneId.systemDefault()).toInstant()).getTime();
     }
 }

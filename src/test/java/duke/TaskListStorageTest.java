@@ -35,7 +35,7 @@ public class TaskListStorageTest {
             fail("Exception should not have been thrown");
         }
 
-        TaskListStorage storage = new TaskListStorage(filepath);
+        TaskListStorage storage = new TaskListStorage(filepath, true);
         ArrayList<Task> expectedTaskList = new ArrayList<>();
         expectedTaskList.add(new Todo("test todo", false));
         expectedTaskList.add(new Deadline("test deadline", LocalDate.parse("2022-12-31"), false));
@@ -63,7 +63,7 @@ public class TaskListStorageTest {
         taskList.add(new Deadline("test deadline", LocalDate.parse("2022-12-31"), true));
         taskList.add(new Event("test event", LocalDate.parse("2022-12-31"), LocalDate.parse("2023-01-01"), false));
 
-        TaskListStorage storage = new TaskListStorage(filepath);
+        TaskListStorage storage = new TaskListStorage(filepath, true);
         Method writeTaskListToFileMethod;
         try {
             writeTaskListToFileMethod = TaskListStorage.class.getDeclaredMethod("writeTaskListToFile", ArrayList.class,

@@ -43,7 +43,7 @@ public class EventCommand extends TaskCommand {
     @Override
     public String execute(TaskListStorage taskListStorage)
             throws MissingDescriptionException, IncorrectCommandFormatException {
-        return taskListStorage.addEvent(new Event(this.description, this.from, this.to));
+        return taskListStorage.addTask(new Event(this.description, this.from, this.to));
     }
 
     private LocalDate extractFrom() throws IncorrectCommandFormatException, InvalidTimeFormatException {

@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
  * Tasks have a desciption of what the task is and
  * a boolean to indicate if it is done
  */
-public abstract class Task {
+public abstract class Task implements Comparable<Task> {
 
     /**
      * The date/time format of the reading the task input from the user and file.
@@ -100,4 +100,15 @@ public abstract class Task {
      * @return The string representation of the task to be written to the file.
      */
     public abstract String toFileString();
+
+    /**
+     * Returns the due time of the task.
+     * @return The due time of the task.
+     */
+    public abstract long getDueTime();
+
+    @Override
+    public int compareTo(Task other) {
+        return Long.compare(this.getDueTime(), other.getDueTime());
+    }
 }

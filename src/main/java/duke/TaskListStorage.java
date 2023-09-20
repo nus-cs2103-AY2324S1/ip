@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.InvalidIndexException;
@@ -41,13 +42,27 @@ public class TaskListStorage {
     private String filepath;
 
     /**
+     * The priority blocking queue of tasks used for the reminder feature.
+     */
+    private PriorityBlockingQueue<Task> taskQueue;
+
+    /**
+     * The mutex object to prevent concurrent access to the list of tasks.
+     */
+    private final Object mutex;
+
+    /**
      * Creates a TaskListStorage object.
      * This also loads the list of tasks from the file.
      *
      * @param filepath The filepath of the file to save the list of tasks to.
      */
-    public TaskListStorage(String filepath) {
+    public TaskListStorage(String filepath, Object mutex) {
         assert filepath != null : "Filepath is null!";
+
+        this.mutex = mutex;
+        this.taskQueue = new PriorityBlockingQueue<>();
+
         this.filepath = filepath;
         this.file = new File(filepath);
         File parentDir = file.getParentFile();
@@ -89,13 +104,13 @@ public class TaskListStorage {
             try {
                 switch (taskType) {
                 case "T":
-                    taskList.add(new Todo(taskDescription, isDone));
+                    addTask(new Todo(taskDescription, isDone));
                     break;
                 case "D":
-                    taskList.add(new Deadline(taskDescription, LocalDate.parse(taskInfo[3]), isDone));
+                    addTask(new Deadline(taskDescription, LocalDate.parse(taskInfo[3]), isDone));
                     break;
                 case "E":
-                    taskList.add(
+                    addTask(
                             new Event(taskDescription, LocalDate.parse(taskInfo[3]), LocalDate.parse(taskInfo[4]),
                                     isDone));
                     break;
@@ -182,47 +197,23 @@ public class TaskListStorage {
     }
 
     /**
-     * Adds a todo task to the list of tasks.
-     *
-     * @param todo The todo task to add.
-     * @return
-     * @throws MissingDescriptionException If the description is missing.
+     * Method to encompass adding of tasks.
+     * @param newTask
+     * @return String outputString to be printed to the user
+     * @throws MissingDescriptionException
+     * @throws IncorrectCommandFormatException
      */
-    public String addTodo(Todo todo) throws MissingDescriptionException {
-        taskList.add(todo);
+    public String addTask(Task newTask) throws MissingDescriptionException, IncorrectCommandFormatException {
+        taskList.add(newTask);
         writeTaskListToFile(taskList, filepath);
-        String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
-        return outputString;
-    }
 
-    /**
-     * Adds a deadline task to the list of tasks.
-     *
-     * @param deadline The deadline task to add.
-     * @throws MissingDescriptionException If the description is missing.
-     * @throws IncorrectCommandFormatException If the command is in the wrong
-     *             format.
-     */
-    public String addDeadline(Deadline deadline) throws MissingDescriptionException, IncorrectCommandFormatException {
-        taskList.add(deadline);
-        writeTaskListToFile(taskList, filepath);
-        String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
-                + "\nNow you have " + taskList.size() + " tasks in the list.";
-        return outputString;
-    }
+        if (!(newTask instanceof Todo)) { // && newTask.getDueTime() < System.currentTimeMillis()
+            synchronized (mutex) {
+                taskQueue.add(newTask);
+                mutex.notifyAll();
+            }
+        }
 
-    /**
-     * Adds an event task to the list of tasks.
-     *
-     * @param event The event task to add.
-     * @throws MissingDescriptionException If the description is missing.
-     * @throws IncorrectCommandFormatException If the command is in the wrong
-     *             format.
-     */
-    public String addEvent(Event event) throws MissingDescriptionException, IncorrectCommandFormatException {
-        taskList.add(event);
-        writeTaskListToFile(taskList, filepath);
         String outputString = "Got it. I've added this task:\n" + Ui.TAB + taskList.get(taskList.size() - 1)
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
         return outputString;
@@ -264,5 +255,14 @@ public class TaskListStorage {
             outputString += (i + 1) + ". " + matchingTasks.get(i) + "\n";
         }
         return outputString;
+    }
+
+    /**
+     * Returns the queue of tasks.
+     *
+     * @return The queue of tasks.
+     */
+    public PriorityBlockingQueue<Task> getTaskQueue() {
+        return this.taskQueue;
     }
 }

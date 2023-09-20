@@ -39,4 +39,9 @@ public class Todo extends Task {
         String escapedDescription = description.replace("|", "\\|");
         return "T | " + (isDone ? "1" : "0") + " | " + escapedDescription;
     }
+
+    @Override
+    public long getDueTime() {
+        return -1;
+    }
 }

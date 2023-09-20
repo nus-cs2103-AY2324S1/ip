@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 
 import duke.TaskListStorage;
 import duke.commands.TaskCommand;
+import duke.exceptions.IncorrectCommandFormatException;
 import duke.exceptions.MissingDescriptionException;
 import duke.tasks.Todo;
 
@@ -22,7 +23,8 @@ public class TodoCommand extends TaskCommand {
     }
 
     @Override
-    public String execute(TaskListStorage taskListStorage) throws MissingDescriptionException {
-        return taskListStorage.addTodo(new Todo(this.description));
+    public String execute(TaskListStorage taskListStorage)
+            throws MissingDescriptionException, IncorrectCommandFormatException {
+        return taskListStorage.addTask(new Todo(this.description));
     }
 }
