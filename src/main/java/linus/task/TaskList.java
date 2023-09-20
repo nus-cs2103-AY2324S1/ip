@@ -123,7 +123,7 @@ public class TaskList {
      */
     public List<Task> find(String keyword) {
         return tasks.stream()
-                .filter(task -> task.description.contains(keyword))
+                .filter(task -> task.description.toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
     }
 

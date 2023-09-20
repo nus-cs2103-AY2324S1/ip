@@ -29,11 +29,11 @@ public class Ui {
     private static final String NO_TASKS_MESSAGE = "There are no tasks in your list.";
     private static final String LIST_TASK_MESSAGE = "Here are the tasks in your list:\n";
 
-    private static final String STATS_MESSAGE = "Your tasks for the past %d days: \n";
+    private static final String STATS_MESSAGE = "Tasks in the past %d days: \n";
     private static final String LOADING_ERROR_MESSAGE = "The file system experienced an unexpected error.";
 
     private static final String WELCOME_MESSAGE = "Hello from Linus!! \n "
-            + "What can I do for you uwu \n"
+            + "What can I do for you uwu <33 \n"
             + "Type 'help' to see the list of commands.";
     private static final String HELP_MESSAGE = "Here are the list of commands:\n"
             + "todo <description>\n"
