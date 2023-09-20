@@ -64,7 +64,7 @@ Follow-up actions required:
 
 Format: `todo`
 
-Example of usage: 
+Example of usage (2-steps): 
 
 User types `todo`
 
@@ -76,7 +76,7 @@ The Chatbot will instruct users on follow up actions to create a ToDo task
 So you want to add a ToDo task.Tell me what's the task.
 ```
 
-User types in the name of the task
+User types in the `name of task`
 
 Expected outcome:
 
