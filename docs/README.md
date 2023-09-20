@@ -5,10 +5,13 @@ Dommi is a desktop app for managing tasks, optimized for use via a Command Line 
 
 ## Quick Start
 1. Ensure you have `Java 11` or above installed in your Computer.
-1. Download the latest `addressbook.jar` from here (to be added).
-1. Copy the file to the folder you want to use as the home folder for your AddressBook.
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.
-A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+1. Download the latest `dommi.jar` from [here](https://github.com/dom-buri/ip/releases/tag/A-Release).
+1. Copy the file to the folder you want to use as the home folder for your task management.
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar dommi.jar` command to run the application.
+A GUI similar to the below should appear in a few seconds.
+
+![Screenshot of GUI.](./images/GUI.png)
+
 
 ## Usage 
 Here’s how to use Dommi.
