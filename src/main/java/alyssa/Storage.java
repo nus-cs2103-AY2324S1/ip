@@ -38,12 +38,10 @@ public class Storage {
     private void checkSaveFile() {
         File dataDir = new File(dirPath);
         if (!dataDir.exists()) {
-            //System.out.println("data directory doesn't exist");
             dataDir.mkdir();
         }
         saveFile = new File(filePath);
         if (!saveFile.exists()) {
-            //System.out.println("savefile doesn't exist");
             try {
                 saveFile.createNewFile();
                 saveFile.setReadable(true);
