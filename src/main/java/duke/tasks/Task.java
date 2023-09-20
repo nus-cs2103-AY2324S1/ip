@@ -6,7 +6,7 @@ package duke.tasks;
  */
 public class Task {
     protected String taskName;
-    protected boolean done;
+    protected boolean isDone;
     protected String note;
 
     /**
@@ -16,7 +16,7 @@ public class Task {
      */
     public Task(String taskName) {
         this.taskName = taskName;
-        this.done = false;
+        this.isDone = false;
         this.note = null;
     }
 
@@ -26,9 +26,9 @@ public class Task {
      * @param taskName The name of the task.
      * @param done The completion status of the task.
      */
-    public Task(String taskName, boolean done) {
+    public Task(String taskName, boolean isDone) {
         this.taskName = taskName;
-        this.done = done;
+        this.isDone = isDone;
     }
 
     public void addNote(String note) {
@@ -44,21 +44,21 @@ public class Task {
      */
     public Task() {
         this.taskName = "Untitled task";
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
      * Marks the task as done by setting its completion status to true.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Unmarks the task by setting its completion status to false.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -68,7 +68,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        String status = this.done ? "[X]" : "[ ]";
+        String status = this.isDone ? "[X]" : "[ ]";
         return status + " " + taskName;
     }
 
@@ -87,6 +87,6 @@ public class Task {
      * @return True if the task is done, false otherwise.
      */
     public boolean isDone() {
-        return this.done;
+        return this.isDone;
     }
 }
