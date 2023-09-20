@@ -13,7 +13,7 @@ public class Deadline extends Task {
      * Instantiates a new Deadline.
      *
      * @param description the Deadline description
-     * @param deadlineBy  deadline by time
+     * @param deadlineBy  deadline by time yyyy-MM-dd HH:mm
      */
     public Deadline(String description, String deadlineBy) {
         super(description);
@@ -26,7 +26,7 @@ public class Deadline extends Task {
      *
      * @param status      the status
      * @param description the Deadline description
-     * @param deadlineBy  deadline by time
+     * @param deadlineBy  deadline by time yyyy-MM-dd HH:mm
      */
     public Deadline(int status, String description, String deadlineBy) {
         super(description, status != 0); //if 0, return false, else return true

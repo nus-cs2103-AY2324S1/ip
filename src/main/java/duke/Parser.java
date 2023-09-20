@@ -4,7 +4,7 @@ package duke;
  * This class deals with making sense of the user input and carrying out tasks accordingly.
  */
 public class Parser {
-    private enum TaskKeyVal { ToDo, Deadline, Event, Delete, mark, unmark, save, list, find }
+    private enum TaskKeyVal {todo, deadline, event, delete, mark, unmark, save, list, find }
 
     /**
      * Returns a boolean based on the user input choice.
@@ -43,15 +43,15 @@ public class Parser {
         case unmark:
             String userMarkerChoice = userInputList[1];
             return TaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
-        case ToDo:
+        case todo:
             return TaskList.addToDo(userInputList[1]);
-        case Deadline:
+        case deadline:
             String[] deadlineList = userInputList[1].split("/", 2);
             return TaskList.addDeadline(deadlineList[0], deadlineList[1]);
-        case Event:
+        case event:
             String[] eventList = userInputList[1].split("/", 3);
             return TaskList.addEvent(eventList[0], eventList[1], eventList[2]);
-        case Delete:
+        case delete:
             Integer delUserChoice = Integer.parseInt(userInputList[1]);
             return TaskList.deleteTask(delUserChoice);
         case find:

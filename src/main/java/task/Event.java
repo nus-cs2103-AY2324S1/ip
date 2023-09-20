@@ -14,8 +14,8 @@ public class Event extends Task {
      * Instantiates a new Event.
      *
      * @param description the Event description
-     * @param from        the from time
-     * @param to          the to time
+     * @param from        the from time yyyy-MM-dd HH:mm
+     * @param to          the to time yyyy-MM-dd HH:mm
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -29,8 +29,8 @@ public class Event extends Task {
      *
      * @param status     the status
      * @param description the Event description
-     * @param from       the from time
-     * @param to         the to time
+     * @param from       the from time yyyy-MM-dd HH:mm
+     * @param to         the to time yyyy-MM-dd HH:mm
      */
     public Event(int status, String description, String from, String to) {
         super(description, status != 0); //if 0, return false, else return true
@@ -53,7 +53,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: "
+        return "[E] " + super.toString() + " (from: "
                 + printDateTimeFormat(this.fromDateTime) + " to: " + printDateTimeFormat(this.toDateTime) + ")";
     }
 

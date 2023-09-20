@@ -10,7 +10,7 @@ import task.Task;
  * The type Ui.
  */
 public class Ui {
-    private static final String indent = "     ";
+    private static final String INDENT = "     ";
 
     /**
      * Print list string.
@@ -33,8 +33,9 @@ public class Ui {
      *
      * @return the string
      */
-    public static String printNumberOfEntries() {
-        return Ui.indent + "Now you have " + TaskList.getTaskSize() + " tasks in your task scheduler...";
+    public static String printNumberOfEntries(Task task) {
+        String printTask = "Added 1 new task" + "\n" + INDENT + task.toString() + "\n";
+        return printTask + "\n" + "Now you have " + TaskList.getTaskSize() + " tasks in your task scheduler...";
     }
 
     /**
@@ -62,8 +63,8 @@ public class Ui {
      * @return the string
      */
     public static String deleteTaskPrint(Task itemRemoved) {
-        String removedTask = indent + "This task was removed..." + "\n" + itemRemoved + "\n";
-        removedTask = removedTask + indent + "Now you have " + TaskList.getTaskSize()
+        String removedTask = "This task was removed..." + "\n" + itemRemoved + "\n";
+        removedTask = removedTask + "Now you have " + TaskList.getTaskSize()
                 + " tasks in your task scheduler...";
         return removedTask;
     }
@@ -75,21 +76,10 @@ public class Ui {
      * @return the string
      */
     public static String findTaskPrint(ListIterator<Task> ls) {
-        String findString = indent + "Tasks that may match your search result..." + "\n";
+        String findString = "Tasks that may match your search result..." + "\n";
         findString += printList(ls);
         return findString;
     }
-
-    /**
-     * Misc msg print string.
-     *
-     * @param msg the msg
-     * @return the string
-     */
-    public static String miscMsgPrint(String msg) {
-        return msg;
-    }
-
 
     /**
      * Mark task
@@ -100,9 +90,9 @@ public class Ui {
     public static String markStringReturn(Task task) {
         if (!task.getTaskStatus()) {
             task.setFalseStatus();
-            return "Nice! Task completed successfully!" + "\n" + indent + task;
+            return "Nice! Task completed successfully!" + "\n" + INDENT + task;
         } else {
-            return "Task already checked. Please try again..." + "\n" + indent + task;
+            return "Task already checked. Please try again..." + "\n" + INDENT + task;
         }
     }
 
@@ -114,10 +104,10 @@ public class Ui {
      */
     public static String unmarkStringReturn(Task task) {
         if (!task.getTaskStatus()) {
-            return "Task already unmarked! Please try again..." + "\n" + indent + task;
+            return "Task already unmarked! Please try again..." + "\n" + INDENT + task;
         } else {
             task.setFalseStatus();
-            return "Sure! Task status unchecked!" + "\n" + indent + task;
+            return "Sure! Task status unchecked!" + "\n" + INDENT + task;
         }
     }
     /**

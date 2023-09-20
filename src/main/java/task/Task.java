@@ -121,7 +121,7 @@ public class Task {
         if (this.diskStatus() == 1) {
             return "[" + "X" + "] " + this.description;
         } else {
-            return "[" + " " + "]" + this.description;
+            return "[" + " " + "] " + this.description;
         }
     }
 }

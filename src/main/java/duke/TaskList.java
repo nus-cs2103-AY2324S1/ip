@@ -45,8 +45,9 @@ public class TaskList {
      * @param userDescription Description attached to task.
      */
     public static String addToDo(String userDescription) {
-        storeTask.add(new ToDo(userDescription));
-        return Ui.printNumberOfEntries();
+        ToDo td = new ToDo(userDescription);
+        storeTask.add(td);
+        return Ui.printNumberOfEntries(td);
     }
 
     /**
@@ -57,8 +58,9 @@ public class TaskList {
      */
     public static String addDeadline(String userDescription, String deadlineBy) {
         try {
-            storeTask.add(new Deadline(userDescription, deadlineBy));
-            return Ui.printNumberOfEntries();
+            Deadline deadline = new Deadline(userDescription, deadlineBy);
+            storeTask.add(deadline);
+            return Ui.printNumberOfEntries(deadline);
         } catch (DateTimeParseException e) {
             return Ui.invalidDateTimeEntry();
         }
@@ -73,8 +75,9 @@ public class TaskList {
      */
     public static String addEvent(String userDescription, String from, String to) {
         try {
-            storeTask.add(new Event(userDescription, from, to));
-            return Ui.printNumberOfEntries();
+            Event event = new Event(userDescription, from, to);
+            storeTask.add(event);
+            return Ui.printNumberOfEntries(event);
         } catch (DateTimeParseException e) {
             return Ui.invalidDateTimeEntry();
         }
