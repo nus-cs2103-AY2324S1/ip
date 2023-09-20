@@ -30,13 +30,17 @@ public class DeleteCommand extends Command {
      * Will call the delete method from the TaskList class, show the deletion message to the user, and modify the data file accordingly
      *
      * @param taskList the TaskList object to modify
-     * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) throws IOException {
-        String out = taskList.delete(desc);
-        storage.save(taskList);
-        return out;
+        try {
+            int i = Integer.parseInt(desc) - 1;
+            String out = taskList.delete(i);
+            storage.save(taskList);
+            return out;
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Whoops, you need to type in a valid integer");
+        }
     }
 
     /**

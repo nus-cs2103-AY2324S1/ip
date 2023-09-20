@@ -33,7 +33,6 @@ public class ListCommand extends Command {
      * Will show the full tasklist to the user
      *
      * @param taskList the TaskList object to modify
-     * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) {

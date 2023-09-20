@@ -30,19 +30,12 @@ public class MarkCommand extends Command {
      * Will call the markAsDone method on the given Task object, show the execution message to the user, and modify the data file accordingly
      *
      * @param taskList the TaskList object to modify
-     * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) throws IOException {
         try {
             int i = Integer.parseInt(desc) - 1;
-            if (i < 0 || i >= taskList.size()) {
-                throw new ArrayIndexOutOfBoundsException(
-                    "Whoops, that number is not an index in the list. Please select a valid index");
-            }
-            String out = String.format("%s\n%s",
-                    taskList.getTask(i).markAsDone(),
-                    taskList.getTask(i).toString());
+            String out = taskList.mark(i);
             storage.save(taskList);
             return out;
         } catch (NumberFormatException e) {

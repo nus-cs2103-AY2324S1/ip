@@ -56,7 +56,6 @@ public class AddCommand extends Command {
      * send a message to the UI, and store the current state of the tasklist
      *
      * @param taskList the TaskList object to modify
-     * @param ui the Ui object to send the message to
      * @param storage the Storage object that will handle the saving to the data file
      * @throws IOException if the Storage object fails to write to the data file
      */

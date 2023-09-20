@@ -2,11 +2,17 @@ package pardiyem.task;
 
 public class Task {
     protected String description;
+    protected static final String DATETIME_FORMAT_ERROR =
+            "Please input your time in the format of either \"YYYY-MM-DD\" or \"YYYY-MM-DD HH:MM:SS\"";
+    private static final String EMPTY_DESC_ERROR =
+            "Whoops, a task needs to have a non-empty description!";
+    protected static final int INVALID_INDEX = -1;
+
     protected boolean isDone;
 
     public Task(String description, boolean isDone) {
         if (description.isEmpty()) {
-            throw new IllegalArgumentException("Whoops, a task needs to have a non-empty description!");
+            throw new IllegalArgumentException(EMPTY_DESC_ERROR);
         }
         this.description = description;
         this.isDone = isDone;
@@ -55,7 +61,7 @@ public class Task {
      */
     public String markAsUndone() {
         if (!this.isDone) {
-            return "Hey, just letting you know that the task has already been marked as undone previously:)";
+            return "Hey, just letting you know that the task has already been marked as undone previously :)";
         } else {
             this.isDone = false;
             return "Va bene, I've marked this task as undone";

@@ -15,16 +15,7 @@ public class FindCommand extends Command {
     }
 
     public String execute(TaskList taskList, Storage storage) {
-        TaskList out = new TaskList();
-
-        for (int i = 0; i < taskList.size(); i++) {
-            Task curr = taskList.getTask(i);
-            if (curr.getDescription().contains(desc)) {
-               out.add(curr);
-           }
-        }
-
-        return out.toString();
+        return taskList.findAndList(desc);
     }
 
     @Override

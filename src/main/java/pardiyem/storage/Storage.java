@@ -16,6 +16,13 @@ import pardiyem.task.Todo;
 
 public class Storage {
     static final String DEFAULT_PATH = "./data/storagefile.txt";
+    private static final String NEWLINE = "\n";
+    private static final String CORRUPT_MSG = "Whoops, this save file may be corrupted";
+    private static final int STATUS_DESC_INDEX = 4;
+    private static final int TASK_PREFIX_LENGTH = 7;
+    private static final int FROM_ARG_PREFIX_LENGTH = 6;
+    private static final int TO_ARG_PREFIX_LENGTH = 4;
+    private static final int BY_ARG_PREFIX_LENGTH = 4;
     private final File f;
 
     /**
@@ -35,14 +42,13 @@ public class Storage {
      * @throws IOException if the writing process fails
      */
     public void save(TaskList tl) throws IOException {
-        ArrayList<Task> curr = tl.getList();
         FileWriter fw = new FileWriter(f);
         StringBuilder toWrite = new StringBuilder();
-        for (int i = 0; i < curr.size(); i++) {
+        for (int i = 0; i < tl.size(); i++) {
             if (i != 0) {
-                toWrite.append("\n");
+                toWrite.append(NEWLINE);
             }
-            toWrite.append(curr.get(i).toString());
+            toWrite.append(tl.getTask(i).toString());
         }
         fw.write(toWrite.toString());
         fw.close();
@@ -71,25 +77,25 @@ public class Storage {
     }
 
     private Task parseLine(String line) throws IllegalArgumentException {
-        boolean isDone = (line.charAt(4) == 'X');
+        boolean isDone = (line.charAt(STATUS_DESC_INDEX) == 'X');
 
         switch (line.charAt(1)) {
         case 'T':
-            return new Todo(line.substring(7), isDone);
+            return new Todo(line.substring(TASK_PREFIX_LENGTH), isDone);
         case 'E':
             int indFrom = line.indexOf("from:");
             int indTo = line.indexOf("to:");
-            return new Event(line.substring(7, indFrom - 2),
-                    line.substring(indFrom + 6, indTo - 1),
-                    line.substring(indTo + 4, line.length() - 1),
+            return new Event(line.substring(TASK_PREFIX_LENGTH, indFrom - 2),
+                    line.substring(indFrom + FROM_ARG_PREFIX_LENGTH, indTo - 1),
+                    line.substring(indTo + TO_ARG_PREFIX_LENGTH, line.length() - 1),
                     isDone);
         case 'D':
             int indBy = line.indexOf("by:");
-            return new Deadline(line.substring(7, indBy - 2),
-                    line.substring(indBy + 4, line.length() - 1),
+            return new Deadline(line.substring(TASK_PREFIX_LENGTH, indBy - 2),
+                    line.substring(indBy + BY_ARG_PREFIX_LENGTH, line.length() - 1),
                     isDone);
         default:
-            throw new IllegalArgumentException("Whoops, I can't read this text file");
+            throw new IllegalArgumentException(CORRUPT_MSG);
         }
     }
 }
