@@ -1,0 +1,29 @@
+todo read book
+deadline return book /by June 6th
+event project meeting /from Aug 6th 2pm /to 4pm
+todo join sports club
+mark 1
+unmark 1
+mark 2
+mark 4
+delete 1
+list
+
+bye 123
+list 123
+mark 1 1
+mark 12
+mark abc
+todo
+deadline
+deadline return book
+deadline return book /by
+deadline /by June 6th
+event
+event project meeting
+event project meeting /from /to
+event /from Aug 6th 2pm /to 4pm
+delete
+blah
+
+bye
