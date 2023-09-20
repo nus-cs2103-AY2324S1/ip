@@ -17,8 +17,7 @@ Got it! I've added this task:
 [T][ ] Homework
 Now you have 1 task in the list.
 
-
-
+ <br />
 
 ### `deadline` taskDescription /by dd-mm-yyyy HH:MM
 
