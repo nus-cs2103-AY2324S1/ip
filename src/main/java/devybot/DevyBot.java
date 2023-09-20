@@ -44,5 +44,4 @@ public class DevyBot {
 
         return response.toString();
     }
-
 }
