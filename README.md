@@ -97,8 +97,8 @@ Syntax:
 `delete [task]`
 
 To use:
-`find cat`
-- Finding a task called cat
+`find cats`
+- Finding a task called cats
 ---
 ### `delete` - delete the task
 Syntax:
