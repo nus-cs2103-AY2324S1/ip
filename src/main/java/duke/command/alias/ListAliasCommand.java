@@ -1,4 +1,4 @@
-package duke.command.task;
+package duke.command.alias;
 
 import duke.alias.AliasMap;
 import duke.command.Command;
@@ -8,15 +8,15 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- * The `ListTaskCommand` class represents a command to list the tasks in the task list.
+ * The `ListAliasCommand` class represents a command to list the tasks in the task list.
  */
-public class ListTaskCommand extends Command {
+public class ListAliasCommand extends Command {
 
     /**
      * {@inheritDoc}
      */
     @Override
     public String execute(TaskList items, AliasMap aliases, Ui ui, Storage storage) throws DukeException {
-        return ui.list(items.getArrayList());
+        return ui.listAlias(aliases);
     }
 }

@@ -8,6 +8,7 @@ import duke.alias.AliasMap;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.command.alias.AddAliasCommand;
+import duke.command.alias.ListAliasCommand;
 import duke.command.task.DeadlineTaskCommand;
 import duke.command.task.DeleteTaskCommand;
 import duke.command.task.EventTaskCommand;
@@ -204,6 +205,8 @@ public class Parser {
             alias = aliasDescription[0].trim();
             fullCommand = aliasDescription[1].trim();
             return new AddAliasCommand(alias, fullCommand);
+        case "alias_list":
+            return new ListAliasCommand();
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

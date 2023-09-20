@@ -1,6 +1,9 @@
 package duke.ui;
 
+import duke.alias.AliasMap;
+
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -143,5 +146,16 @@ public class Ui {
     public String addAlias(String alias, String fullCommand) {
         return talk("Got it. I've created a new alias `"
                 + alias + "` for the command `" + fullCommand + "`.");
+    }
+
+    /**
+     * Prints out the list of aliases created.
+     */
+    public String listAlias(AliasMap aliases) {
+        StringBuilder list = new StringBuilder();
+        for (Map.Entry<String, String> alias : aliases) {
+            list.append(alias.toString()).append("\n");
+        }
+        return talk(list.toString());
     }
 }
