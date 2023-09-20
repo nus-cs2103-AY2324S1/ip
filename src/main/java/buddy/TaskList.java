@@ -108,7 +108,8 @@ public class TaskList {
     public TaskList findTask(String keyword) {
         TaskList filteredTasks = new TaskList();
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(keyword)) {
+            String lowercaseTask = tasks.get(i).toString().toLowerCase();
+            if (lowercaseTask.contains(keyword.toLowerCase())) {
                 filteredTasks.addTask(tasks.get(i));
             }
         }

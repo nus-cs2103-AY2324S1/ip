@@ -46,7 +46,6 @@ public class Buddy {
         String input;
         // this.tasks = storage.readFile();
 
-        this.ui.printGreeting();
 
         while (true) {
 
