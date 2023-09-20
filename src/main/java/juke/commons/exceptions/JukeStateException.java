@@ -1,4 +1,4 @@
-package juke.exceptions;
+package juke.commons.exceptions;
 
 /**
  * Represents the error when the user tries to illegally modify the state of any

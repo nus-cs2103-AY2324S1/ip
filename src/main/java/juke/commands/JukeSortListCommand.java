@@ -2,7 +2,8 @@ package juke.commands;
 
 import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
-import juke.exceptions.arguments.JukeIllegalArgumentException;
+import juke.commons.exceptions.arguments.JukeIllegalArgumentException;
+import juke.responses.Dialog;
 import juke.responses.Response;
 import juke.tasks.TaskList;
 
@@ -43,11 +44,7 @@ public class JukeSortListCommand extends JukeCommand {
      */
     @Override
     public Response execute(Response response) {
-        try {
-            this.taskList.sort(this.sortOrder, this.sortType);
-            return response.withJuke("Your task list is now sorted!\n\n" + this.taskList);
-        } catch (JukeIllegalArgumentException e) {
-            return response.withJuke(e.toString());
-        }
+        this.taskList.sort(this.sortOrder, this.sortType);
+        return response.with(Dialog.ofJuke("Your task list is now sorted!\n\n" + this.taskList));
     }
 }

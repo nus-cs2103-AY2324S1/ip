@@ -1,4 +1,4 @@
-package juke.exceptions;
+package juke.commons.exceptions;
 
 /**
  * Base Exception class for which all other Juke Exceptions are based on.

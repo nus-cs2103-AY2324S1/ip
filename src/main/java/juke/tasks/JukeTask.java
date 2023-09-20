@@ -2,9 +2,10 @@ package juke.tasks;
 
 import juke.commons.classes.JukeObject;
 import juke.commons.enums.SortTypeEnum;
+import juke.commons.exceptions.JukeStateException;
 import juke.commons.interfaces.Savable;
 import juke.commons.interfaces.TaskSortable;
-import juke.exceptions.JukeStateException;
+
 
 /**
  * Abstract Class that represents a task that the user can add to Juke.

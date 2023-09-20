@@ -10,10 +10,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import juke.commons.classes.JukeObject;
-import juke.exceptions.JukeInitialisationException;
-import juke.exceptions.storage.JukeStorageException;
-import juke.exceptions.storage.JukeStorageReadException;
-import juke.exceptions.storage.JukeStorageWriteException;
+import juke.commons.exceptions.JukeInitialisationException;
+import juke.commons.exceptions.storage.JukeStorageException;
+import juke.commons.exceptions.storage.JukeStorageReadException;
+import juke.commons.exceptions.storage.JukeStorageWriteException;
 import juke.parsers.FileParser;
 import juke.tasks.JukeTask;
 

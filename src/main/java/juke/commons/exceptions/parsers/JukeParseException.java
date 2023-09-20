@@ -1,6 +1,6 @@
-package juke.exceptions.parsers;
+package juke.commons.exceptions.parsers;
 
-import juke.exceptions.JukeException;
+import juke.commons.exceptions.JukeException;
 
 /**
  * Represents an error thrown when any parser encounters an error with parsing
