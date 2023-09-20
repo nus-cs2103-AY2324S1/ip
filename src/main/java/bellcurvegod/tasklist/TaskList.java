@@ -3,8 +3,12 @@ package bellcurvegod.tasklist;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import bellcurvegod.exception.EmptyByTimeException;
 import bellcurvegod.exception.EmptyDescriptionException;
+import bellcurvegod.exception.EmptyFromTimeException;
+import bellcurvegod.exception.EmptyToTimeException;
 import bellcurvegod.exception.InvalidCommandException;
+import bellcurvegod.exception.ToTimeEarlierThanFromTimeException;
 import bellcurvegod.gui.Gui;
 import bellcurvegod.task.Deadline;
 import bellcurvegod.task.Event;
@@ -51,6 +55,9 @@ public class TaskList {
             } else {
                 newTask = Todo.generateTodoFromInput(input);
             }
+        } catch (EmptyByTimeException | EmptyFromTimeException | EmptyToTimeException |
+                 ToTimeEarlierThanFromTimeException e) {
+            return e.getMessage();
         } catch (DateTimeParseException e) {
             return Gui.getWrongDateFormatMessage();
         }

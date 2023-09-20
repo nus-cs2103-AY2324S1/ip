@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import bellcurvegod.exception.EmptyByTimeException;
 import bellcurvegod.exception.EmptyDeadlineDescriptionException;
 
 /**
@@ -42,14 +43,20 @@ public class Deadline extends Task {
      * @param input Input entered by user.
      * @return A Deadline.
      * @throws EmptyDeadlineDescriptionException If deadline is missing.
+     * @throws EmptyByTimeException If by time is missing.
      */
-    public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException {
+    public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException
+        , EmptyByTimeException {
         if (input.split(" ").length == 1) {
             throw new EmptyDeadlineDescriptionException("You did not provide any description to this Deadline.\n"
                 + "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n");
         }
 
         String front = input.split("/")[0];
+        if (front.equals(input)) {
+            throw new EmptyByTimeException("You did not provide a deadline date to this Deadline.\n"
+                + "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n");
+        }
         String[] frontWords = front.split(" ");
         ArrayList<String> desWords = new ArrayList<>(Arrays.asList(frontWords).subList(1, frontWords.length));
         String des = String.join(" ", desWords);

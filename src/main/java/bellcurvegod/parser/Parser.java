@@ -10,6 +10,7 @@ import bellcurvegod.command.UnmarkCommand;
 import bellcurvegod.exception.BellCurveGodException;
 import bellcurvegod.exception.EmptyDescriptionException;
 import bellcurvegod.exception.InvalidCommandException;
+import bellcurvegod.exception.TooManySpacesException;
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
 
@@ -28,6 +29,10 @@ public class Parser {
         ArrayList<Task> tasks = TaskList.getTaskList();
 
         String[] words = input.split(" ");
+        if (hasTooManySpaces(words)) {
+            throw new TooManySpacesException("You've entered too many spaces between each words. "
+                + "Please ensure there is only one space between each word.\n");
+        }
 
         if (input.equals("bye")) {
             return ExitCommand.run();
@@ -44,9 +49,7 @@ public class Parser {
         } else {
             try {
                 return TaskList.addTask(input);
-            } catch (InvalidCommandException e) {
-                return e.getMessage();
-            } catch (EmptyDescriptionException e) {
+            } catch (InvalidCommandException | EmptyDescriptionException e) {
                 return e.getMessage();
             }
         }
@@ -58,5 +61,14 @@ public class Parser {
             taskParams[i] = tasks.get(Integer.parseInt(taskIndicesAsString[i]) - 1);
         }
         return taskParams;
+    }
+
+    private static boolean hasTooManySpaces(String[] words) {
+        for (String word : words) {
+            if (word.equals(" ")) {
+                return true;
+            }
+        }
+        return false;
     }
 }

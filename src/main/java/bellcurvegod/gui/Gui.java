@@ -91,7 +91,8 @@ public class Gui {
         String message = "";
         message += "Please enter your time in the following format:\n"
             + "yyyy-mm-dd\n"
-            + "E.g. 2019-10-15\n";
+            + "E.g. 2019-10-15\n"
+            + "You may also want to check whether your date is valid, e.g. 02-30 does not exist.\n";
         return message;
     }
 }
