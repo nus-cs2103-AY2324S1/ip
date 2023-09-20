@@ -32,7 +32,6 @@ public class Dude {
      * Initializes Dude.
      *
      * @return Output to send to chat.
-     * @throws DudeException If there is an error starting Dude.
      */
     public String initialize() {
         try {
