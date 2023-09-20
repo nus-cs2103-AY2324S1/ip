@@ -101,13 +101,11 @@ public class Storage {
             Scanner fileScanner = new Scanner(new File(filePath));
             int lineCounter = 0;
             while (fileScanner.hasNextLine()) {
-                if (lineCounter == index) {
-                    fileScanner.nextLine();
-                    lineCounter++;
-                    continue;
+                String line = fileScanner.nextLine();
+                if (lineCounter != index) {
+                    history.add(line);
                 }
                 lineCounter++;
-                history.add(fileScanner.nextLine());
             }
 
             FileWriter writer = new FileWriter(filePath);
