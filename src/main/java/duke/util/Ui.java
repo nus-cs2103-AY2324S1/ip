@@ -1,10 +1,11 @@
 package duke.util;
 
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
 import duke.Duke;
 import javafx.application.Platform;
 
-import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Represents a user interface for SeeWhyAre bot.
@@ -31,10 +32,6 @@ public class Ui {
     protected String printHorizontalLine() {
 
         return HORIZONTAL_LINE;
-    }
-
-    public Ui getUi() {
-        return this;
     }
 
     /**

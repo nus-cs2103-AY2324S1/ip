@@ -37,7 +37,7 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         dialog.setMinHeight(Region.USE_PREF_SIZE);
-        Circle circleClip = new Circle(40,30,30);
+        Circle circleClip = new Circle(40, 30, 30);
         displayPicture.setImage(img);
         displayPicture.setClip(circleClip);
     }

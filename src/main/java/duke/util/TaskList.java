@@ -27,7 +27,7 @@ public class TaskList {
     //60 underscores.
     protected static String HORIZONTAL_LINE = "    ____________________________________________________________";
     protected Storage storage;
-    protected  ArrayList<Task> listOfTasks;
+    protected ArrayList<Task> listOfTasks;
 
     /**
      * Instantiates a TaskList with the given storage.
@@ -70,12 +70,11 @@ public class TaskList {
      *
      * @param deleteInput The input representing the delete command.
      *                    It should contain task index to be deleted.
+     * @return The message to indicate which task has been deleted after successful deletion.
      * @throws EmptyDescriptionException If there is no task index provided.
      * @throws IOException If there is an error updating the data file.
-     * @return The message to indicate which task has been deleted after successful deletion.
      */
-    public String deleteTask(String deleteInput)
-            throws EmptyDescriptionException, IOException {
+    public String deleteTask(String deleteInput) throws EmptyDescriptionException, IOException {
         String[] words = deleteInput.split("\\s+"); // Split input by space, put into array
         StringBuilder message = new StringBuilder();
 
@@ -84,31 +83,23 @@ public class TaskList {
             throw new EmptyDescriptionException("Please provide the task index to be deleted.");
         }
 
-        //Try parsing into integer to get deleteIndex
         try {
             int deleteIndex = Integer.parseInt(words[1]) - 1;
             if (deleteIndex >= 0 && deleteIndex < listOfTasks.size()) {
                 Task removedTask = listOfTasks.remove(deleteIndex);
                 storage.clearAllData();
                 storage.updateData();
-              
                 assert !listOfTasks.contains(removedTask) : "Task should have been removed!";
-
                 message.append("Noted. I've removed this task:\n");
                 message.append(String.format("%s\n", removedTask.toString()));
                 message.append(String.format("Now you have %d task(s) in the list.\n", listOfTasks.size()));
-                System.out.println("     Noted. I've removed this Task:");
-                System.out.printf("       %s\n", removedTask);
-                System.out.printf("     Now you have %d task(s) in the list.\n", listOfTasks.size());
             } else {
                 message.append("OOPS!!! The task index is invalid.\n");
                 message.append(String.format("You currently have %d task(s).\n", listOfTasks.size()));
-                System.out.printf("     You currently have %d task(s).\n", listOfTasks.size());
             }
             return message.toString();
         } catch (NumberFormatException e) {
-            message.append("OOPS!!! Please enter the index after 'delete' command.");
-            message.append("For example: delete 5");
+            message.append("OOPS!!! Please enter the index after 'delete' command.\nFor example: delete 5");
             message.append("This will remove Task 5 from your Task List, assuming you have at least 5 tasks.");
             return message.toString();
         }
@@ -120,8 +111,8 @@ public class TaskList {
      * Prints out an error message if index of the task given is out of range or invalid.
      *
      * @param taskIndex The index of the Task to be marked as done.
-     * @throws IOException If there is an issue with updating the data in the storage file.
      * @return The message to indicate that the task is marked as done.
+     * @throws IOException If there is an issue with updating the data in the storage file.
      */
     protected String markTask(int taskIndex) throws IOException {
         StringBuilder message = new StringBuilder();
@@ -130,16 +121,12 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsDone();
-          
             assert listOfTasks.get(taskIndex).getStatus() : "Task must be marked done.";
-          
             storage.clearAllData();
             storage.updateData();
 
             message.append("Nice! I've marked this Task as done:\n");
             message.append(String.format("\t[%s] %s\n", task.getStatusIcon(), task.getDescription()));
-            System.out.println("     Nice! I've marked this Task as done:");
-            System.out.printf("       [%s] %s\n", task.getStatusIcon(), task.getDescription());
         }
         return message.toString();
     }
@@ -150,8 +137,8 @@ public class TaskList {
      * Prints out an error message if index of the task given is out of range or invalid.
      *
      * @param taskIndex The index of the Task to be marked as not done yet.
-     * @throws IOException If there is an issue with updating the data in the storage file.
      * @return The message to indicate that the task is marked as not done yet.
+     * @throws IOException If there is an issue with updating the data in the storage file.
      */
     protected String unmarkTask(int taskIndex) throws IOException {
         StringBuilder message = new StringBuilder();
@@ -160,9 +147,7 @@ public class TaskList {
         } else {
             Task task = listOfTasks.get(taskIndex);
             task.markAsNotDone();
-          
             assert !listOfTasks.get(taskIndex).getStatus() : "Task must be marked NOT done yet.";
-          
             storage.clearAllData();
             storage.updateData();
 
@@ -222,6 +207,9 @@ public class TaskList {
      * @return The message representing the tasks found using the keyword provided.
      */
     protected String findTask(String matchingKeyword) {
+        if (matchingKeyword.trim().isEmpty()) {
+            return "Please provide the keyword you wish to find :)";
+        }
         if (listOfTasks.isEmpty()) {
             System.out.println("\t You currently have no tasks so I can't find any matching tasks :/.");
             return "\t You currently have no tasks so I can't find any matching tasks :(";
@@ -237,7 +225,7 @@ public class TaskList {
                 taskCount++;
             }
         }
-      
+
         //Output matching tasks
         if (taskCount > 0) {
             return matchingTasks.toString();
@@ -253,7 +241,7 @@ public class TaskList {
         if (details.length <= 1) {
             return "Invalid input. Please key in `view YYYY-MM-DD` format.";
         }
-        String requestedDate = details[1].trim();  // Get requested date
+        String requestedDate = details[1].trim(); // Get requested date
 
         if (!isValidDate(requestedDate)) {
             throw new InvalidDateException();
@@ -262,8 +250,8 @@ public class TaskList {
         String requestedDateString = LocalDate.parse(requestedDate).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         ArrayList<Task> scheduledTasks = printSchedule(LocalDate.parse(requestedDate));
         if (scheduledTasks.size() == 0) {
-            return String.format("There is no tasks happening on %s. ", requestedDateString) +
-                    "Please double check your list of tasks.";
+            return String.format("There is no tasks happening on %s. ", requestedDateString)
+                    + "Please double check your list of tasks.";
         }
 
         StringBuilder message = new StringBuilder(

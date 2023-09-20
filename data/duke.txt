@@ -1,5 +1,5 @@
 D | 0 | test dates correct deadline | 2023-10-21 | null
-E | 1 | correct event timings | 2222-11-11 | 2222-11-13
+E | 0 | correct event timings | 2222-11-11 | 2222-11-13
 D | 1 | Dead Package bruh | 1111-11-11 | null
 T | 0 | After Checkstyle | null | null
 D | 0 | VIEWSCHEDULE BRO | 2023-09-14 | null

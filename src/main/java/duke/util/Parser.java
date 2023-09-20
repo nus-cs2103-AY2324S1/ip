@@ -1,9 +1,7 @@
 package duke.util;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
-import duke.Duke;
 import duke.exception.EmptyDescriptionException;
 import duke.exception.InvalidCommandException;
 import duke.exception.InvalidDateException;
@@ -22,8 +20,6 @@ import duke.task.Todo;
  * @author Freddy Chen You Ren
  */
 public class Parser {
-    //60 underscores.
-    private static final String HORIZONTAL_LINE = "    ____________________________________________________________";
     private TaskList taskList;
     private Ui ui;
 
@@ -68,9 +64,10 @@ public class Parser {
      * - find (keyword}: to find the list of tasks that contains the corresponding keyword.
      * - deadline {taskname} /by {time}: to add a new task as a deadline task.
      * - todo {taskname}: to add a new task as a to-do item. (No need to provide time).
-     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event task (with given start time and end time).
+     * - event {taskname} /from {starttime} /to {endtime}: to add a new task as an event task.
      * - view {date}: list down the tasks that are to be done on that day.
-     * Note that the commands are not case-sensitive. For instance: "BYE", "ByE", "bYe" will all be treated as the "bye" command.
+     * Note that the commands are not case-sensitive.
+     * For instance: "BYE", "ByE", "bYe" will all be treated as the "bye" command.
      *
      * @param userInput The user's input to be parsed.
      */
@@ -138,11 +135,12 @@ public class Parser {
     }
     private String handleException(Exception e) {
         if (e instanceof IllegalArgumentException) {
-            InvalidCommandException exception = new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
+            InvalidCommandException exception = new InvalidCommandException(
+                    "I'm sorry, but I don't know what that means :-(");
             return exception.toString();
         }
-        if (e instanceof EmptyDescriptionException ||
-                e instanceof IOException || e instanceof InvalidDateException) {
+        if (e instanceof EmptyDescriptionException || e instanceof IOException
+                || e instanceof InvalidDateException) {
             return e.toString();
         } else {
             return "Very Invalid command! Please enter valid commands";
