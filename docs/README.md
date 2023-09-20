@@ -96,3 +96,18 @@ Exit the application.
 Format:
 
 `bye`
+
+## Command Summary
+
+Action | Format, Examples
+--------|------------------
+**Add Todo** | `todo [TASKCONTENT]` <br> e.g., `todo do 2103t project`
+**Add Event** | `event [TASKCONTENT] /from [FROMDATE] /to [TODATE]` <br> e.g., `event meeting /from today sep 19 /to tmr`
+**Add Deadline** | `deadline [TASKCONTENT] /by [yyyy-MM-dd]` <br> e.g., `deadline 2100 assignment /by 2023-10-23`
+**Add Recurring** | `recurring [TASKCONTENT] /time [HH-mm]` <br> e.g., `recurring meeting my gf /time 17-00`
+**Delete** | `delete [TASKNUMBER]` <br> e.g., `delete 1`
+**List** | `list`
+**Find** | `find [KEYWORD]` <br> e.g., `find do`
+**Mark** | `mark [TASKNUMBER]` <br> e.g., `mark 1`
+**Unmark** | `unmark [TASKNUMBER]` <br> e.g., `unmark 1`
+**Exit** | `bye`
