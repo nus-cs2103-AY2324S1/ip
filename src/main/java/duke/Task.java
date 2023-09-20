@@ -58,6 +58,7 @@ public class Task implements Comparable<Task> {
         return checkbox + task;
     }
 
+    @Override
     public int compareTo(Task otherTask) {
         return this.task.compareTo(otherTask.task);
     }
