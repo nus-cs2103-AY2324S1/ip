@@ -1,9 +1,5 @@
-T | 1 | read book
-E | 1 | project meeting | Aug 6th 2pm | 4pm
-T | 1 | join sports club
-D | 0 | return book | Sunday
-T | 0 | borrow book
-T | 0 | return book
-E | 0 | project meeting | Oct 15 2019 2pm | Sunday 4pm
-E | 0 | project meeting | Oct 15 2019 2pm | Oct 15 2019 4pm
-D | 0 | return book | Feb 12 2019 6pm
+T | 1 | return book
+E | 0 | project meeting | Oct 15 2019 2:00pm | Oct 15 2019 4:00pm
+D | 0 | CS2103T project | Oct 15 2019 6:00pm
+E | 0 | football match | May 15 2019 6:00pm | Oct 15 2019 7:30pm
+D | 0 | finish work | Oct 15 2020 11:59pm

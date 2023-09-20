@@ -32,7 +32,7 @@ public class TaskListTest {
         assertEquals(output1, taskList.addTask(test1));
 
         String test2 = "deadline Finish project /by 2023-12-31 1800";
-        String output2 = "Got it. I've added this task:\n " + "[D][ ] Finish project (by: Dec 31 2023 6pm)"
+        String output2 = "Got it. I've added this task:\n " + "[D][ ] Finish project (by: Dec 31 2023 6:00pm)"
                 + "\nNow you have 2 tasks in the list.";
         assertEquals(output2, taskList.addTask(test2));
 

@@ -1,8 +1,9 @@
 package duke;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -91,7 +92,7 @@ public class TaskList {
                 if (a.length != 2 || a[1].isEmpty()) {
                     throw new EmptyDateException(inputArray[0]);
                 }
-                newTask = new Deadline(a[0], getDate(a[1], false));
+                newTask = new Deadline(a[0], getDate(a[1]));
             } else {
                 assert inputArray[0].equals("event") : "The userInput should start with event";
                 // check if contains both the order is correct
@@ -103,11 +104,11 @@ public class TaskList {
                 if (a.length != 2 || a[1].isEmpty()) {
                     throw new EmptyDateException(inputArray[0]);
                 }
-                String[] fromto = a[1].split("/to ");
+                String[] fromto = a[1].split(" /to ");
                 if (fromto.length != 2 || fromto[1].isEmpty()) {
                     throw new NoEndDateException();
                 }
-                newTask = new Event(a[0], getDate(fromto[0], true), getDate(fromto[1], true));
+                newTask = new Event(a[0], getDate(fromto[0]), getDate(fromto[1]));
             }
         }
 
@@ -117,52 +118,22 @@ public class TaskList {
     /**
      * Change the input date and time to the correct format.
      *
-     * @param inputDate The user's input date.
+     * @param inputDate The user's input date and time.
      * @return The correct date and time format.
+     * @throws DukeException If there's an issue parsing the input date and time.
      */
-    public String getDate(String inputDate, boolean isBothNeeded) throws DukeException {
-        String[] dateTime = inputDate.split(" ");
-        if (isBothNeeded && dateTime.length != 2) {
-            throw new DukeException("O0PS!! Please ensure your FROM and TO are in the correct formats");
+    public String getDate(String inputDate) throws DukeException {
+        try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+            LocalDateTime dateTime = LocalDateTime.parse(inputDate, inputFormatter);
+            return dateTime.format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("O0PS!! Please ensure your date and "
+                    + "time are in the right format (yyyy-MM-dd HHmm).");
         }
-
-        if (!dateTime[0].isEmpty()) {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(
-                    "[M/d/yyyy][MM/dd/yyyy][yyyy-MM-dd]");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
-            if (dateTime[0].contains("-") || dateTime[0].contains("/")) {
-                LocalDate date = LocalDate.parse(dateTime[0], inputFormatter);
-                dateTime[0] = date.format(outputFormatter);
-                inputDate = dateTime[0];
-            }
-        }
-
-        // Time
-        if (dateTime.length == 2 && !dateTime[1].isEmpty()) {
-            inputDate = dateTime[0] + " " + getTime(dateTime[1]);
-        }
-
-        return inputDate;
     }
 
-    /**
-     * Change the input time to the correct format.
-     *
-     * @param time The user's input time.
-     * @return The correct time format.
-     */
-    public String getTime(String time) {
-
-        // check if is integer
-        if (time.matches("^-?\\d+$")) {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("HHmm");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("ha");
-            LocalTime outputTime = LocalTime.parse(time, inputFormatter);
-            time = outputTime.format(outputFormatter);
-        }
-
-        return time;
-    }
 
     /**
      * Deletes the desired task from the task list.

@@ -8,33 +8,19 @@ Chatty is a task management application, that allows you to keep track of you ta
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application. The Chatty GUI should appear in a few seconds.
 4. Similarly, you can download the code and run the application on Intellij. Follow the instructions [here](https://alyssapng.github.io/ip/#setting-up-in-intellij)
 5. Type the command in the command box and press Enter to execute it.  e.g. typing `list` and pressing Enter will display all the tasks in the task list.
-6. Here are example commands:
-    1. `todo read book`: Adds a ToDo task with the description: "read book".
-    2. `deadline return book /by Sunday` : Adds a Deadline task with the description: "project" and the due date: "Sunday"
-    3. `event project meeting /from Mon 2pm /to 4pm`: Adds an Event task with the description: "project meeting", start date/time: "Mon 2pm" and end date/time: "4pm"
-    4. `list`: Displays all the tasks in the task list and their respective task index.
-    5. `delete 1`: Removes the first task in the task list.
-    6. `unmark 2`: Marks the second task in the task list as undone.
-    7. `mark 3`: Marks the third task in the task list as done.
-    8. `find project`: Displays the tasks which description contains the String "project".
-    9. `bye`: Exits the application.
+6. Here are some example commands:
+   1. `todo read book`: Adds a ToDo task with the description: "read book".
+   2. `deadline CS2103T project /by 2019-10-15 1800` : Adds a Deadline task with the description: "CS2103T IP" and the due date: "Oct 15 2019 6:00pm"
+   3. `list`: Displays all the tasks in the task list and their respective task index.
+   4. `delete 1`: Removes the first task in the task list.
+   5. `mark 3`: Marks the third task in the task list as done.
+   6. `find project`: Displays the tasks which description contains the String "project".
+   7. `bye`: Exits the application.
 
 ## Things to Note: 
 1. Chatty automatically saves your task list into a `./data/duke.txt` file which is updated everytime task list is changed.
    1. `./data/duke.txt` file is located in the same directory as your `duke.jar` file
 2. Chatty will tell you if you have already added a task into you task list, preventing duplicates!
-
-## Setting up in Intellij
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-2. Open the project into Intellij as follows:
-    1. Click `Open`.
-    2. Select the project directory, and click `OK`.
-    3. If there are any further prompts, accept the defaults.
-3. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-4. After setting up the environment, locate the `src/main/java/duke/Launcher.java` file, right click it and chose `Run Launcher.main()`.If the setup was successful, the GUI should appear in a few seconds.
 
 ## Features
 ### Adding ToDo Task: `todo`
@@ -52,30 +38,25 @@ Add a Deadline task to the task list with a description and due date.
 
 Format: `deadline DESCRIPTION /by BY`
 * `DESCRIPTION` is the description of the deadline task.
-* `BY` is the due date of the deadline task consisting of:
-    * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * Time(optional to include): String, HHmm
+* `BY` is the due date of the deadline task.
+* The format for input `BY` should be  `yyyy-MM-dd HHmm`
 
 Example(s):
-- `deadline return book /by 2/12/2019 1800`
-- `deadline finish lab /by 4/12/2019 6pm`
-- `deadline finish homework /by Sunday`
+- `deadline finish work /by 2020-10-15 2359`
+- `deadline CS2103T project /by 2019-10-15 1800`
 
 ### Adding Event Task: `event`
 Add a Event task to the task list with a description, start date and end date.
 
 Format: `event DESCRIPTION /from FROM /to TO`
 * `DESCRIPTION` is the description of the event task.
-* `FROM` is the start date of the event task consisting of:
-    * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * **Time**: String, HHmm
-* `TO` is the end date of the event task consisting of:
-    * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * **Time**: String, HHmm
+* `FROM` is the start date of the event task.
+* `TO` is the end date of the event task.
+* The format for inputs `FROM` and `TO` should be  `yyyy-MM-dd HHmm`
 
 Example(s):
 - `event project meeting /from 2019-10-15 1400 /to 2019-10-15 1600`
-- `event football match /from 2019-5-15 1800 /to 2019-10-15 4pm`
+- `event football match /from 2019-05-15 1800 /to 2019-10-15 1930`
 
 ### Deleting a Task: `delete`
 Remove a task from the task list using the task's index.
@@ -114,8 +95,8 @@ Example(s):
 - `find project` will return
 ```
 Here are the matching tasks in your list:
-1.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-2.[E][ ] project call (from: Oct 15 2019 2pm to: 4pm)
+1.[E][ ] project meeting (from: Oct 15 2019 2:00pm to: Oct 15 2019 4:00pm)
+2.[D][ ] CS2103T project (by: Oct 15 2019 6:00pm)
 ```
 
 ### Listing all the tasks: `list`
@@ -127,9 +108,10 @@ Example(s):
 - `list` will return
 ```
 Here are the tasks in your list:
-1.[T][X] read book
-2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
-3.[T][ ] borrow book
+1.[T][X] return book
+2.[E][ ] project meeting (from: Oct 15 2019 2:00pm to: Oct 15 2019 4:00pm)
+3.[D][ ] CS2103T project (by: Oct 15 2019 6:00pm)
+4.[E][ ] football match (from: May 15 2019 6:00pm to: Oct 15 2019 7:30pm)
 ```
 
 ### Exiting the application: `bye`
