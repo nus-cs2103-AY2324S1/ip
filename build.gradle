@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.javaFx.Launcher")
+    mainClass.set("duke.javafx.Launcher")
 }
 
 shadowJar {
