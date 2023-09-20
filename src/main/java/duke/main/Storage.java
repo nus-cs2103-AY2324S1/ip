@@ -139,7 +139,7 @@ public class Storage {
      */
     public void createFile() throws StorageException {
         File file = new File(this.filePath);
-        File rootDirectory = new File(file.getParent());
+        File rootDirectory = file.getParent() == null ? new File("parent") : new File(file.getParent());
         try {
             rootDirectory.mkdir();
             file.createNewFile();
