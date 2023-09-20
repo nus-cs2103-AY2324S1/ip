@@ -6,8 +6,8 @@ import static LogicHandlers.Parsers.DateTimeParser.parseDateTimeForOutput;
 import static LogicHandlers.Parsers.DateTimeParser.parseStringFromDateTime;
 
 public class Event extends Task {
-    LocalDateTime startTime;
-    LocalDateTime endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
     public Event(String name, Boolean marked, LocalDateTime startTime, LocalDateTime endTime) {
         super(name, marked);
         this.startTime = startTime;
