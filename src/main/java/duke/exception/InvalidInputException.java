@@ -11,6 +11,6 @@ public class InvalidInputException extends DukeException {
      *
      */
     public InvalidInputException() {
-        super("☹ OOPS!!! I'm sorry, please provide a keyword to search.");
+        super("OOPS!!! I'm sorry, but I don't know what that means :-(");
     }
 }

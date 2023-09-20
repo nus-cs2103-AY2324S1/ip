@@ -85,8 +85,26 @@ public class Parser {
      * @return True if the input is "delete", "unmark" or "mark" command.
      */
     private static boolean isTaskCommand(String[] words) {
-        return words.length == 2 && (isMarkCommand(words[0])
-                || isUnmarkCommand(words[0]) || isDeleteCommand(words[0]));
+        boolean isCorrectType = (isMarkCommand(words[0]) || isUnmarkCommand(words[0]) || isDeleteCommand(words[0]));
+        boolean isCorrectLength = words.length == 2;
+        return isCorrectLength && isCorrectType;
+    }
+
+    /**
+     * Convert the task index from user input to an Integer.
+     * This is used for 'delete', 'unmakr' and 'mark' commands.
+     *
+     * @param input the task index in user's input.
+     * @return the task index as an Integer.
+     * @throws DukeException if there is an issue parsing the task index into a Integer.
+     */
+    private static Integer convertToInt(String input) throws DukeException {
+        try {
+            Integer index = Integer.parseInt(input);
+            return index;
+        } catch (NumberFormatException e) {
+            throw new DukeException("OOPS!! Invalid task index. Task index should be a number!");
+        }
     }
 
     /**
@@ -101,7 +119,7 @@ public class Parser {
     public static boolean parseCommand(String userInput, TaskList tasks, Ui ui) throws DukeException {
         String[] wordsCli = userInput.split(" ");
         if (isTaskCommand(wordsCli)) {
-            int taskIndex = Integer.parseInt(wordsCli[1]) - 1;
+            Integer taskIndex = convertToInt(wordsCli[1]) - 1;
             String output;
             if (isMarkCommand(wordsCli[0])) {
                 output = tasks.markTaskAsDone(taskIndex);
@@ -122,7 +140,7 @@ public class Parser {
         } else if (isFindCommand(userInput)) {
             String keyword = userInput.replaceFirst("find", "").trim();
             if (keyword.isEmpty()) {
-                throw new InvalidInputException();
+                throw new DukeException("☹ OOPS!!! I'm sorry, please provide a keyword to search.");
             }
             ui.showMessage(tasks.findTasks(keyword));
         } else if (isValidCommand(userInput)) {
@@ -145,7 +163,7 @@ public class Parser {
     public static String parseInput(String userInput, TaskList tasks, Ui ui) throws DukeException {
         String[] wordsGui = userInput.split(" ");
         if (isTaskCommand(wordsGui)) {
-            int taskIndex = Integer.parseInt(wordsGui[1]) - 1;
+            Integer taskIndex = convertToInt(wordsGui[1]) - 1;
             if (isMarkCommand(wordsGui[0])) {
                 return tasks.markTaskAsDone(taskIndex);
             } else if (isUnmarkCommand(wordsGui[0])) {
@@ -163,7 +181,7 @@ public class Parser {
         } else if (isFindCommand(userInput)) {
             String keyword = userInput.replaceFirst("find", "").trim();
             if (keyword.isEmpty()) {
-                throw new InvalidInputException();
+                throw new DukeException("☹ OOPS!!! I'm sorry, please provide a keyword to search.");
             }
             assert !keyword.isEmpty() : "Keyword should not be empty";
             return tasks.findTasks(keyword);

@@ -19,6 +19,11 @@ Chatty is a task management application, that allows you to keep track of you ta
     8. `find project`: Displays the tasks which description contains the String "project".
     9. `bye`: Exits the application.
 
+## Things to Note: 
+1. Chatty automatically saves your task list into a `./data/duke.txt` file which is updated everytime your task list is updated.
+   1. `./data/duke.txt` file is located in the same directory as your `duke.jar` file
+2. Chatty will tell you if you have already added a task into you task list, preventing duplicates!
+
 ## Setting up in Intellij
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
@@ -48,8 +53,8 @@ Add a Deadline task to the task list with a description and due date.
 Format: `deadline DESCRIPTION /by BY`
 * `DESCRIPTION` is the description of the deadline task.
 * `BY` is the due date of the deadline task consisting of:
-    * Date: M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * Time(optional to include): HHmm
+    * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
+    * Time(optional): Sting, HHmm
 
 Example(s):
 - `deadline return book /by 2/12/2019 1800`
@@ -61,14 +66,14 @@ Add a Event task to the task list with a description, start date and end date.
 Format: `event DESCRIPTION /from FROM /to TO`
 * `DESCRIPTION` is the description of the event task.
 * `FROM` is the start date of the event task consisting of:
-    * Date: M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * Time(optional to include): HHmm
+    * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
+    * Time(optional): Sting, HHmm
 * `TO` is the end date of the event task consisting of:
-    * Time: HHmm
+    * **Time**: String, HHmm
 
 Example(s):
 - `event project meeting /from 2019-10-15 1400 /to 1600`
-- `event football match /from 2019-5-15 1800 /to 1930`
+- `event football match /from 2019-5-15 1800 /to 4pm`
 
 ### Deleting a Task: `delete`
 Remove a task from the task list using the task's index.
