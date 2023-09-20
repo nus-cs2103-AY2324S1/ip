@@ -2,17 +2,17 @@
 
 ## Features 
 
-- **Date Command**: Find tasks by a specific date.
-- **Deadline Command**: Create a deadline task.
-- **Event Command**: Create an event with a start and end time.
-- **Todo Command**: Add a simple task.
-- **Delete Command**: Remove a task based on its index.
-- **Find Command**: Search for tasks with a keyword.
-- **List Command**: Show all tasks currently stored.
-- **Mark Command**: Mark a specific task as done.
-- **Unmark Command**: Revert a task to its undone status.
-- **Snooze Command**: Delay a task by a number of minutes.
-- **Sort Command**: Organize tasks chronologically.
+1. [Date - Find tasks by date](#date---find-tasks-by-date)
+2. [Deadline - Create a deadline task](#deadline---create-a-deadline-task)
+3. [Event - Create an event task](#event---create-an-event-task)
+4. [Todo - Create a todo task](#todo---create-a-todo-task)
+5. [Delete - Remove a task from the list](#delete---remove-a-task-from-the-list)
+6. [Find - Search for tasks by keyword](#find---search-for-tasks-by-keyword)
+7. [List - Display all tasks](#list---display-all-tasks)
+8. [Mark - Mark a task as done](#mark---mark-a-task-as-done)
+9. [Unmark - Unmark a task as done](#unmark---unmark-a-task-as-done)
+10. [Snooze - Delay a task](#snooze---delay-a-task)
+11. [Sort - Sort tasks chronologically](#sort---sort-tasks-chronologically)
 
 ## Usage
 
@@ -41,6 +41,8 @@ Tasks on 1 1 2023:
 [E][] Test (from: Jan 01 2023 1500 to: Jan 01 2023 1700)
 ```
 
+---
+
 ### `deadline` - Create a deadline task
 
 Create a new deadline task and add it to the list. Deadlines have a description and a specific due date-time.
@@ -59,6 +61,8 @@ Got it. I've added this task:
 [D][] Homework (by: Jan 01 2023 2359)
 Now you have [total tasks] tasks in the list.
 ```
+
+---
 
 ### `event` - Create an event task
 
@@ -80,6 +84,8 @@ Got it. I've added this task:
 Now you have [total tasks] tasks in the list.
 ```
 
+---
+
 ### `todo` - Create a todo task
 
 Create a new todo task and add it to the list. Todos only have a description.
@@ -99,6 +105,8 @@ Got it. I've added this task:
 [T][] Read a book
 Now you have [total tasks] tasks in the list.
 ```
+
+---
 
 ### `delete` - Remove a task from the list
 
@@ -124,6 +132,8 @@ Noted. I've removed this task:
 Now you have [remaining tasks] tasks in the list.
 ```
 
+---
+
 ### `find` - Search for tasks by keyword
 
 Search for tasks that contain a specified keyword in their descriptions.
@@ -147,6 +157,8 @@ Here are the matching tasks in your list:
 [D][] Submit CS assignment (by: Mar 01 2023 2359)
 ```
 
+---
+
 ### `list` - Display all tasks
 
 Shows a list of all tasks currently in storage.
@@ -169,6 +181,8 @@ Here are the tasks in your list:
 [E][] Team meeting (from: Sep 20 2023 1500 to: Sep 20 2023 1700)
 ```
 
+---
+
 ### `mark` - Mark a task as done
 
 Marks a task at the specified index as completed.
@@ -188,6 +202,8 @@ Nice! I've marked this task as done:
 [T][X] Read a book
 ```
 
+---
+
 ### `unmark` - Unmark a task as done
 
 Unmarks a task at the specified index, setting it back to its incomplete state.
@@ -205,6 +221,8 @@ The specified task is unmarked as done and a confirmation message is displayed.
 OK, I've marked this task as not done yet:
 [T][] Read a book
 ```
+
+---
 
 ### `snooze` - Delay a task
 
@@ -226,6 +244,8 @@ The specified task's deadline or event time is delayed by the given number of mi
 Got it. I've snoozed the task:
 [D][] Homework (by: Jan 02 2023 0019)
 ```
+
+---
 
 ### `sort` - Sort tasks chronologically
 
