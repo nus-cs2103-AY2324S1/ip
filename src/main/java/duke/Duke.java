@@ -90,17 +90,17 @@ public class Duke {
         command.setDuke(this);
         String[] response = command.execute();
 
-        if (command.isBye()) {
-            Platform.exit();
-        }
-
         try {
             storage.save(tasks);
-            return response;
         } catch (IOException e) {
             String[] newResponse = Arrays.copyOf(response, response.length + 1);
             newResponse[newResponse.length - 1] = "Error saving tasks";
             return newResponse;
         }
+
+        if (command.isBye()) {
+            Platform.exit();
+        }
+        return response;
     }
 }
