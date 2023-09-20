@@ -31,18 +31,24 @@ Users can find a particular task they want to see by searching keywords.
 
 ## Usage
 
-### `Keyword` - Describe action
+### `list` - Show the entire list of tasks
 
-Describe the action and its outcome.
+All the user has to type is "list", no arguments required.
+
+Format: `list`
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`list`
 
 Expected outcome:
 
-Description of the outcome.
+The Chatbot will reply with a list of all the tasks that is tracked
 
 ```
-expected output
+Here are the tasks in your list:
+1. [T][] Read Book
+2. [D][X] Finish CS2100 Assignment (by: 18-Sep-2023 1300)
+3. [D][X] Finish CS2103T ip (by: 22-Sep-2023)
+4. [E][] NUSBS Dharma Camp (from: 1 July 2024 to: 2 July 2024)
 ```
