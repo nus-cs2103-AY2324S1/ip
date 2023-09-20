@@ -354,4 +354,18 @@ public class Ui {
         showResponse("Meow! Looks like you did not fill in the name of the task."
                 + " Please try again!");
     }
+
+    /**
+     * Displays an error message if the user inputs the event end time to be before the start time.
+     */
+    public void invalidEventTime() {
+        showResponse("Meow! You cannot set the end time of the event to be before the start time!");
+    }
+
+    /**
+     * Displays an error message if the user inputs a task that already exists.
+     */
+    public void addSameTaskMessage() {
+        showResponse("Meow! You cannot add a task that is completely identical to a previous task!");
+    }
 }

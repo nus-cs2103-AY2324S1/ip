@@ -32,4 +32,16 @@ public class Todo extends Task {
                 this.taskName());
     }
 
+    @Override
+    public boolean equals(Object task) {
+
+        if (!(task instanceof Todo)) {
+            return false;
+        }
+
+        Todo todo = (Todo) task;
+
+        return this.taskName().equals(todo.taskName());
+    }
+
 }

@@ -27,11 +27,26 @@ public class Storage {
      * @param task the given Task to be added to the storage.
      */
     public void add(Task task) {
+        if (checkEquals(task)) {
+            ui.addSameTaskMessage();
+            return;
+        }
+
         this.previousCommands.add(task);
 
         assert this.previousCommands.contains(task) : "Task failed to be added!";
 
         ui.addTaskMessage(task, previousCommands.size());
+    }
+
+    private boolean checkEquals(Task task) {
+        for (Task previousTasks: this.previousCommands) {
+            if (previousTasks.equals(task)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

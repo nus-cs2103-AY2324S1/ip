@@ -45,7 +45,8 @@ public class EventCommand extends Command {
     @Override
     public void execute() {
         if (!this.isCompleteCommand || this.startTime == LocalDateTime.MIN
-                || this.endTime == LocalDateTime.MIN || this.isOverdue() || this.eventName.isBlank()) {
+                || this.endTime == LocalDateTime.MIN || this.isOverdue()
+                || this.eventName.isBlank() || !this.isValid()) {
             return;
         }
 
@@ -68,6 +69,8 @@ public class EventCommand extends Command {
             ui.displayOverdue();
         } else if (this.eventName.isBlank()) {
             ui.incompleteInformation();
+        } else if (!this.isValid()) {
+            ui.invalidEventTime();
         }
     }
 
@@ -75,5 +78,9 @@ public class EventCommand extends Command {
         LocalDateTime currentTime = LocalDateTime.now();
 
         return this.startTime.isBefore(currentTime);
+    }
+
+    private boolean isValid() {
+        return this.startTime.isBefore(this.endTime);
     }
 }

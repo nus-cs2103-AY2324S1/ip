@@ -84,4 +84,16 @@ public class Deadline extends Task {
 
         return this.deadlineTime.isBefore(currentTime);
     }
+
+    @Override
+    public boolean equals(Object task) {
+        if (!(task instanceof Deadline)) {
+            return false;
+        }
+
+        Deadline deadline = (Deadline) task;
+
+        return this.taskName().equals(deadline.taskName())
+                && this.deadlineTime.equals(deadline.deadlineTime);
+    }
 }

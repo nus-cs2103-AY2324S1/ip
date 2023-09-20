@@ -108,4 +108,17 @@ public class Event extends Task {
         return this.startTime.isBefore(currentTime);
     }
 
+    @Override
+    public boolean equals(Object task) {
+        if (!(task instanceof Event)) {
+            return false;
+        }
+
+        Event event = (Event) task;
+
+        return this.taskName().equals(event.taskName())
+                && this.startTime.equals(event.startTime)
+                && this.endTime.equals(event.endTime);
+    }
+
 }
