@@ -43,6 +43,7 @@ public class Store {
             while ((i = fr.read()) != -1) {
                 input += (char) i;
             }
+            System.out.println(input);
             String[] inputStrs = input.split("\n");
             for (String inputStr : inputStrs) {
                 if (inputStr.equals("")) {
@@ -54,14 +55,15 @@ public class Store {
                 int prevTaskCount = tasks.getTaskCount();
                 tasks.addTask(task);
                 assert tasks.getTaskCount() == prevTaskCount + 1 : "task count should increase by 1";
-                System.out.println(taskTypeAndIsMarked[1]);
                 String[] isMarkedAndTagsStr = taskTypeAndIsMarked[1].split("/tags ");
                 if (isMarkedAndTagsStr[0].contains("true")) {
                     tasks.mark(tasks.getTaskCount());
                 }
                 String[] tags = isMarkedAndTagsStr[1].split(",");
                 for (String tag : tags) {
-                    System.out.println(tag);
+                    if (tag.equals("todo") || tag.equals("deadline") || tag.equals("event")) {
+                        continue;
+                    }
                     tasks.addTagToTaskAtIndex(tasks.getTaskCount(), tag);
                 }
             }
@@ -162,8 +164,19 @@ public class Store {
     public String toString() {
         return tasks.toString();
     }
-    public String find(String keyword) throws DukeException {
-        return tasks.findTasksWithKeyword(keyword).toString();
+
+    /**
+     * Finds tasks with the specified keyword.
+     * @param keyword The keyword to be searched for.
+     * @return The tasks with the specified keyword.
+     * @throws DukeException If keyword is invalid.
+     */
+    public String find(String keyword) {
+        Tasklist foundTasks = tasks.findTasksWithKeyword(keyword);
+        if (foundTasks.getTaskCount() == 0) {
+            return "";
+        }
+        return foundTasks.toString();
     }
 
     /**
@@ -187,8 +200,18 @@ public class Store {
         tasks.removeTagFromTaskAtIndex(index, tag);
         write();
     }
-    public String findTasksWithTag(String tag) throws DukeException {
-        return tasks.findTasksWithTag(tag).toString();
+
+    /**
+     * Finds tasks with the specified tag.
+     * @param tag The tag to be searched for.
+     * @return The tasks with the specified tag.
+     */
+    public String findTasksWithTag(String tag) {
+        Tasklist foundTasks = tasks.findTasksWithTag(tag);
+        if (foundTasks.getTaskCount() == 0) {
+            return "";
+        }
+        return foundTasks.toString();
     }
 }
 

@@ -113,32 +113,39 @@ public class Tasklist {
      * @return A tasklist with tasks that contain the keyword in their description.
      * @throws DukeException if the tasklist is full.
      */
-    public Tasklist findTasksWithKeyword(String keyword) throws DukeException {
+    public Tasklist findTasksWithKeyword(String keyword) {
         Tasklist result = new Tasklist();
-
-        for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].hasKeyword(keyword)) {
-                result.addTask(tasks[i]);
+        try {
+            for (int i = 0; i < taskCount; i++) {
+                if (tasks[i].hasKeyword(keyword)) {
+                    result.addTask(tasks[i]);
+                }
             }
+            return result;
+        } catch (DukeException e) {
+            // not possible reaching this line as addTask only throws exception adding when it is full.
+            return null;
         }
-        return result;
     }
-
     /**
      * Returns a tasklist with tasks that contain the tag.
      * @param tag The tag to be searched for, which is a string that does not contain ",".
      * @return A tasklist with tasks that contain the tag.
      * @throws DukeException
      */
-    public Tasklist findTasksWithTag(String tag) throws DukeException {
+    public Tasklist findTasksWithTag(String tag) {
         Tasklist result = new Tasklist();
-        for (int i = 0; i < taskCount; i++) {
-            if (tasks[i].hasTag(tag)) {
-                result.addTask(tasks[i]);
+        try {
+            for (int i = 0; i < taskCount; i++) {
+                if (tasks[i].hasTag(tag)) {
+                    result.addTask(tasks[i]);
+                }
             }
+            return result;
+        } catch (DukeException e) {
+            // not possible reaching this line as addTask only throws exception adding when it is full.
+            return null;
         }
-        return result;
-
     }
 
     /**

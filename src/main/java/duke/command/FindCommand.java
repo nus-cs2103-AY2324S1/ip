@@ -24,6 +24,10 @@ public class FindCommand implements Command {
             throw new InvalidInputException("expected format: find <keyword>");
         }
         String keyword = input.split(" ")[1];
-        return "Here are the matching tasks in your list:\n" + s.find(keyword);
+        String tasksString = s.find(keyword);
+        if (tasksString.equals("")) {
+            return "You have no tasks with this keyword!";
+        }
+        return "Here are the matching tasks in your list:\n" + tasksString;
     }
 }

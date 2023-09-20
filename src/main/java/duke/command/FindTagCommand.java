@@ -24,6 +24,10 @@ public class FindTagCommand implements Command {
             throw new InvalidInputException("expected format: find <keyword>");
         }
         String tag = input.split(" ")[1];
-        return "Here are the matching tasks in your list:\n" + s.findTasksWithTag(tag);
+        String tasksString = s.findTasksWithTag(tag);
+        if (tasksString.equals("")) {
+            return "You have no tasks with this tag!";
+        }
+        return "Here are the matching tasks in your list:\n" + tasksString;
     }
 }

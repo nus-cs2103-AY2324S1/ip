@@ -14,6 +14,9 @@ public class ListCommand implements Command {
     @Override
     public String execute(String input) {
         Store s = Store.getInstance();
+        if (s.getTaskCount() == 0) {
+            return "You have no tasks in your list!";
+        }
         return "Here are the tasks in your list:\n" + s;
     }
 }
