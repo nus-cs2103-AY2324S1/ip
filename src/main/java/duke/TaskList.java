@@ -91,19 +91,23 @@ public class TaskList {
                 if (a.length != 2 || a[1].isEmpty()) {
                     throw new EmptyDateException(inputArray[0]);
                 }
-                newTask = new Deadline(a[0], getDate(a[1]));
+                newTask = new Deadline(a[0], getDate(a[1], false));
             } else {
                 assert inputArray[0].equals("event") : "The userInput should start with event";
+                // check if contains both the order is correct
+                if (userInput.contains("/to") && userInput.indexOf("/from") > userInput.indexOf("/to")) {
+                    throw new DukeException("OOPS!! Please follow the format:\nevent DESCRIPTION /from FROM /to TO");
+                }
+
                 String[] a = inputArray[1].split(" /from ");
                 if (a.length != 2 || a[1].isEmpty()) {
                     throw new EmptyDateException(inputArray[0]);
                 }
-
                 String[] fromto = a[1].split("/to ");
                 if (fromto.length != 2 || fromto[1].isEmpty()) {
                     throw new NoEndDateException();
                 }
-                newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
+                newTask = new Event(a[0], getDate(fromto[0], true), getDate(fromto[1], true));
             }
         }
 
@@ -116,8 +120,12 @@ public class TaskList {
      * @param inputDate The user's input date.
      * @return The correct date and time format.
      */
-    public String getDate(String inputDate) {
+    public String getDate(String inputDate, boolean isBothNeeded) throws DukeException {
         String[] dateTime = inputDate.split(" ");
+        if (isBothNeeded && dateTime.length != 2) {
+            throw new DukeException("O0PS!! Please ensure your FROM and TO are in the correct formats");
+        }
+
         if (!dateTime[0].isEmpty()) {
             DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern(
                     "[M/d/yyyy][MM/dd/yyyy][yyyy-MM-dd]");

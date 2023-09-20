@@ -54,11 +54,11 @@ Format: `deadline DESCRIPTION /by BY`
 * `DESCRIPTION` is the description of the deadline task.
 * `BY` is the due date of the deadline task consisting of:
     * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * Time(optional): String, HHmm
+    * Time(optional to include): String, HHmm
 
 Example(s):
 - `deadline return book /by 2/12/2019 1800`
-- `deadline finish lab /by 4/12/2019`
+- `deadline finish lab /by 4/12/2019 6pm`
 - `deadline finish homework /by Sunday`
 
 ### Adding Event Task: `event`
@@ -68,13 +68,14 @@ Format: `event DESCRIPTION /from FROM /to TO`
 * `DESCRIPTION` is the description of the event task.
 * `FROM` is the start date of the event task consisting of:
     * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
-    * Time(optional): String, HHmm
+    * **Time**: String, HHmm
 * `TO` is the end date of the event task consisting of:
+    * **Date**: String, M/d/yyyy, MM/dd/yyyy or yyyy-MM-dd
     * **Time**: String, HHmm
 
 Example(s):
-- `event project meeting /from 2019-10-15 1400 /to 1600`
-- `event football match /from 2019-5-15 1800 /to 4pm`
+- `event project meeting /from 2019-10-15 1400 /to 2019-10-15 1600`
+- `event football match /from 2019-5-15 1800 /to 2019-10-15 4pm`
 
 ### Deleting a Task: `delete`
 Remove a task from the task list using the task's index.

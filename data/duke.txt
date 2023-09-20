@@ -4,3 +4,6 @@ T | 1 | join sports club
 D | 0 | return book | Sunday
 T | 0 | borrow book
 T | 0 | return book
+E | 0 | project meeting | Oct 15 2019 2pm | Sunday 4pm
+E | 0 | project meeting | Oct 15 2019 2pm | Oct 15 2019 4pm
+D | 0 | return book | Feb 12 2019 6pm
