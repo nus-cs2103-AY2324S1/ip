@@ -100,7 +100,8 @@ public class Parser {
     }
 
     /**
-     * Converts the user input of different type of tasks into ArrayList.
+     * Converts the user input that is in proper structure
+     * of different type of tasks into ArrayList.
      * @param input User input of the tasks.
      * @return Required data of task from the user input in ArrayList.
      * @throws DukeException If user typed invalid tasks commands.
@@ -155,7 +156,7 @@ public class Parser {
         }
         String desc = input.substring(8, input.indexOf("/for") - 1);
         if (desc.isBlank() || desc.isEmpty()) {
-            throw new DukeException("Your Event name is blank");
+            throw new DukeException("Your TodoTime name is blank");
         }
         texts.add(desc);
         String duration = input.substring(input.indexOf("/for") + 5);
