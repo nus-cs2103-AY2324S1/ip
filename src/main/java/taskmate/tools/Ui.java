@@ -106,34 +106,47 @@ public class Ui {
      */
     public void printInputSpecifications(String fileSavePath) {
         String message = "Please enter your commands:\n";
+        message += HORIZONTAL_LINE + "\n";
+
         message += "Adding Tasks:\n";
-        message += "1. Todo tasks: todo <description>\n";
-        message += "2. Deadline tasks: deadline <description> /by <date>\n";
-        message += "3. Event tasks: event <description> /from <date> /to <date>\n\n";
+        message += "1. Todo tasks: todo <name>\n";
+        message += "2. Deadline tasks: deadline <name> /by <date>\n";
+        message += "3. Event tasks: event <name> /from <date> /to <date>\n";
+        message += HORIZONTAL_LINE + "\n";
 
         message += "Marking and Unmarking Tasks:\n";
         message += "1. Marking tasks as completed: mark <integer>\n";
-        message += "2. Unmarking tasks are uncompleted: unmark <integer>\n\n";
+        message += "2. Unmarking tasks as incompleted: unmark <integer>\n";
+        message += HORIZONTAL_LINE + "\n";
 
         message += "Deleting Tasks:\n";
-        message += "1. delete <integer>\n\n";
+        message += "1. delete <integer>\n";
+        message += HORIZONTAL_LINE + "\n";
 
         message += "Updating Tasks:\n";
         message += "1. update <integer> <TAG> <newValue> ...\n\n";
         message += "TAG\n";
-        message += "Todo Task: /name\n";
-        message += "Deadline Task: /name OR /by\n";
-        message += "Event Task: /name OR /from OR /to\n\n";
+        message += "Todo Task: /name newName\n";
+        message += "Deadline Task: /name newName AND/OR /by newBy\n";
+        message += "Event Task: /name newName AND/OR /from newFrom AND/OR /to newTo\n\n";
         message += "newValue\n";
         message += "/name: name of task\n";
         message += "/by, /from, /to: must be of the form 'YYYY-mm-dd'\n";
-        message += "...: More '<TAG> <newValue>' pairs\n\n";
+        message += "...: More '<TAG> <newValue>' pairs\n";
+        message += HORIZONTAL_LINE + "\n";
+
+        message += "Listing Tasks:\n";
+        message += "1. Listing down all your tasks: list\n";
+        message += "2. Listing down tasks that match a specific keyword / keyphrase: find <query>\n";
+        message += HORIZONTAL_LINE + "\n";
 
         message += "Others:\n";
-        message += "1. Quit: bye\n";
-        message += "2. Manual: help\n\n";
+        message += "1. Quit and save data: bye\n";
+        message += "2. Manual: help\n";
+        message += HORIZONTAL_LINE + "\n";
 
-        message += "FYI: Your data is saved locally in: " + fileSavePath;
+        message += "FYI: Your data is saved locally in: " + fileSavePath + "\n";
+        message += HORIZONTAL_LINE + "\n";
         printMessage(message);
     }
 
