@@ -137,6 +137,7 @@ Exits the chatbot, saving your current tasks in your task list to memory, which 
 * `bye`
 
 ## Command Summary
+
 | Command                                                       | Synatax                                                                                                                 | Example                                                                                                           | 
 | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | Add to-do task to task list                                   | `todo <DESCRIPTION>`                                                                                                    | `todo sleep`                                                                                                      |
