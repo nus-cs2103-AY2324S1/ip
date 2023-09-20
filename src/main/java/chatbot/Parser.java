@@ -259,8 +259,8 @@ public class Parser {
      * @throws UserInputException If the input is deemed incomplete.
      */
     public static void validateInput(String str, int minimum) throws UserInputException {
-        if (str.length() <= minimum) {
-            throw new UserInputException("OOPS!!! The description of a " + str + " cannot be empty.");
+        if (str.trim().length() <= minimum) {
+            throw new UserInputException("OOPS!!! The description of a " + str.trim() + " cannot be empty.");
         }
     }
 }

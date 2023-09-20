@@ -31,18 +31,14 @@ dependencies {
 }
 
 shadowJar {
+    archiveFileName = "THE_MEDIC.jar"
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 application {
-    mainClass.set('chatbot.Duke')
-}
-
-javafx {
-    version = "17"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    mainClass.set('chatbot.Launcher')
 }
 
 test {

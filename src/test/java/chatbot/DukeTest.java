@@ -36,6 +36,15 @@ public class DukeTest {
     }
 
     @Test
+    public void updateCostsTest() {
+        Expense expense = new Expense("transport", "$100");
+        assertEquals(" transport : $100", expense.toString());
+
+        expense.updateCosts("$300");
+        assertEquals(" transport : $300", expense.toString());
+    }
+
+    @Test
     public void validateInputTest() {
         Parser parser = new Parser();
 
