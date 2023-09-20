@@ -19,11 +19,13 @@ To install A.R.O.N.A, follow these steps:
 
 ### 1.3 Launching A.R.O.N.A
 
-To run A.R.O.N.A, open your terminal and enter the following command or run the executable file.
+To run A.R.O.N.A, open your terminal and navigate to the directory where the downloaded jar file is and enter the following command.
 
 ```sh
 java -jar arona.jar
 ```
+
+or right-click the executable file.
 
 ## 2. Features
 
@@ -38,7 +40,7 @@ A.R.O.N.A offers a range of features to assist you in various tasks. Here are so
 
 **Usage:**
 - `todo TASK`
-- `deadline TASK /by DEADLINE (YYYY-MM-DD)`
+- `deadline TASK /by DEADLINE (in YYYY-MM-DD)`
 - `event TASK /from FROM /to TO`
 
 Adds the corresponding tasks.
