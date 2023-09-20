@@ -18,11 +18,12 @@ public class EventTask extends Task {
      * 
      * @param name   Name of the task.
      * @param isDone Status of the task.
+     * @param tag Tag of the task.
      * @param start Start of the task.
      * @param end End of the task.
      */
-    public EventTask(String name, boolean isDone, LocalDate start, LocalDate end) {
-        super(name, isDone);
+    public EventTask(String name, boolean isDone, String tag, LocalDate start, LocalDate end) {
+        super(name, isDone, tag);
         this.start = start;
         this.end = end;
     }
@@ -41,13 +42,19 @@ public class EventTask extends Task {
         String endString = formatEnd();
         return "E" + super.stringify()
                 + startString.length() + "/" + startString
-                + endString.length() + "/" + endString;
+                + endString.length() + "/" + endString
+                + this.tag.length() + "/" + this.tag;
     }
 
     @Override
     public String toString() {
+        String tagSuffixString = "";
+        if (!this.tag.equals("")) {
+            tagSuffixString = " #" + this.tag;
+        }
         return "[E]" + super.toString()
-                + " (from: " + formatStart() + " to " + formatEnd() + ")";
+                + " (from: " + formatStart() + " to " + formatEnd() + ")"
+                + tagSuffixString;
     }
 
     @Override
@@ -83,9 +90,13 @@ public class EventTask extends Task {
 
         // Finding end
         int thirdSlashIndex = fileLine.indexOf("/", secondSlashIndex + 1);
-        String endString = fileLine.substring(thirdSlashIndex + 1);
+        String endString = fileLine.substring(thirdSlashIndex + 1, thirdSlashIndex + 12);
         LocalDate end = LocalDate.parse(endString, OUTPUT_DATE_FORMAT);
 
-        return new EventTask(name, isDone, start, end);
+        // Finding tag
+        int fourthSlashIndex = fileLine.indexOf("/", thirdSlashIndex + 1);
+        String tag = fileLine.substring(fourthSlashIndex + 1);
+
+        return new EventTask(name, isDone, tag, start, end);
     }
 }

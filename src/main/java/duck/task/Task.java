@@ -8,6 +8,7 @@ import duck.DuckException;
 public abstract class Task {
     private String name;
     private boolean isDone;
+    protected String tag;
 
     /**
      * Creates a task with the given name and isDone status.
@@ -15,9 +16,10 @@ public abstract class Task {
      * @param name   Name of the task.
      * @param isDone Status of the task.
      */
-    public Task(String name, boolean isDone) {
+    public Task(String name, boolean isDone, String tag) {
         this.name = name;
         this.isDone = isDone;
+        this.tag = tag;
     }
 
     /**
@@ -53,6 +55,28 @@ public abstract class Task {
      */
     public boolean containsKeyword(String keyword) {
         return this.name.contains(keyword);
+    }
+
+    /**
+     * Tags the task.
+     * 
+     * @param tag Tag to be added.
+     */
+    public void tag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Untags the task.
+     * 
+     * @throws DuckException If the task is not tagged.
+     */
+    public void untag() throws DuckException {
+        if (this.tag.equals("")) {
+            throw new DuckException("Error - Task is not tagged.");
+        } else {
+            this.tag = "";
+        }
     }
 
     /**

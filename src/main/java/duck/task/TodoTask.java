@@ -12,18 +12,23 @@ public class TodoTask extends Task {
      * @param name   Name of the task.
      * @param isDone Status of the task.
      */
-    public TodoTask(String name, boolean isDone) {
-        super(name, isDone);
+    public TodoTask(String name, boolean isDone, String tag) {
+        super(name, isDone, tag);
     }
 
     @Override
     public String stringify() {
-        return "T" + super.stringify();
+        return "T" + super.stringify()
+                + this.tag.length() + "/" + this.tag;
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        String tagSuffixString = "";
+        if (!this.tag.equals("")) {
+            tagSuffixString = " #" + this.tag;
+        }
+        return "[T]" + super.toString() + tagSuffixString;
     }
 
     /**
@@ -41,8 +46,13 @@ public class TodoTask extends Task {
 
         // Finding name
         int slashIndex = fileLine.indexOf("/");
-        String name = fileLine.substring(slashIndex + 1);
+        int nameLength = Integer.parseInt(fileLine.substring(2, slashIndex));
+        String name = fileLine.substring(slashIndex + 1, slashIndex + 1 + nameLength);
 
-        return new TodoTask(name, isDone);
+        // Finding tag
+        int tagIndex = fileLine.indexOf("/", slashIndex + 1);
+        String tag = fileLine.substring(tagIndex + 1);
+
+        return new TodoTask(name, isDone, tag);
     }
 }

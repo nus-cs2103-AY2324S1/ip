@@ -17,10 +17,11 @@ public class DeadlineTask extends Task {
      * 
      * @param name   Name of the task.
      * @param isDone Status of the task.
+     * @param tag Tag of the task.
      * @param deadline Deadline of the task.
      */
-    public DeadlineTask(String name, boolean isDone, LocalDate deadline) {
-        super(name, isDone);
+    public DeadlineTask(String name, boolean isDone, String tag, LocalDate deadline) {
+        super(name, isDone, tag);
         this.deadline = deadline;
     }
 
@@ -32,12 +33,17 @@ public class DeadlineTask extends Task {
     public String stringify() {
         String deadlineString = formatDeadline();
         return "D" + super.stringify()
-                + deadlineString.length() + "/" + deadlineString;
+                + deadlineString.length() + "/" + deadlineString
+                + this.tag.length() + "/" + this.tag;
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDeadline() + ")";
+        String tagSuffixString = "";
+        if (!this.tag.equals("")) {
+            tagSuffixString = " #" + this.tag;
+        }
+        return "[D]" + super.toString() + " (by: " + formatDeadline() + ")"  + tagSuffixString;
     }
 
     @Override
@@ -68,9 +74,14 @@ public class DeadlineTask extends Task {
 
         // Finding deadline
         int secondSlashIndex = fileLine.indexOf("/", slashIndex + 1);
-        String deadlineString = fileLine.substring(secondSlashIndex + 1);
+        int deadlineLength = Integer.parseInt(fileLine.substring(slashIndex + 1 + nameLength, secondSlashIndex));
+        String deadlineString = fileLine.substring(secondSlashIndex + 1, secondSlashIndex + 1 + deadlineLength);
         LocalDate deadline = LocalDate.parse(deadlineString, OUTPUT_DATE_FORMAT);
 
-        return new DeadlineTask(name, isDone, deadline);
+        // Finding tag
+        int thirdSlashIndex = fileLine.indexOf("/", secondSlashIndex + 1);
+        String tag = fileLine.substring(thirdSlashIndex + 1);
+
+        return new DeadlineTask(name, isDone, tag, deadline);
     }
 }
