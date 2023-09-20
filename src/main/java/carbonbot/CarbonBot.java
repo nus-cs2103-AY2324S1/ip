@@ -2,8 +2,8 @@ package carbonbot;
 
 import carbonbot.command.Command;
 import carbonbot.control.MainWindow;
+import carbonbot.exception.CarbonDataFileException;
 import carbonbot.exception.CarbonException;
-import carbonbot.exception.CarbonSerializationException;
 import carbonbot.exception.CarbonStorageException;
 
 /**
@@ -12,7 +12,6 @@ import carbonbot.exception.CarbonStorageException;
 
 public class CarbonBot {
     private static final String DEFAULT_DATA_FILE_PATH = "./data/tasks.txt";
-    private final String saveFilePath;
     private final Ui ui;
     private final Storage storage;
     private boolean shouldExit = false;
@@ -31,13 +30,12 @@ public class CarbonBot {
      * @param filePath Path to save file
      */
     public CarbonBot(String filePath, MainWindow mainWindow) {
-        this.saveFilePath = filePath;
         this.ui = new Ui(mainWindow);
         this.storage = new Storage(filePath);
 
         try {
             this.tasks = storage.getTasks();
-        } catch (CarbonStorageException | CarbonSerializationException ex) {
+        } catch (CarbonStorageException | CarbonDataFileException ex) {
             this.ui.showLoadingError();
             this.tasks = new TaskList();
         }
@@ -55,8 +53,9 @@ public class CarbonBot {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes a user input string to generate a response.
+     * @param input The user input string to be processed.
+     * @return A string representing the outcome of processing the input command.
      */
     public String getResponse(String input) {
         try {

@@ -62,8 +62,26 @@ public class TaskList {
     }
 
     /**
+     * Searches for tasks containing the specific keyword within the task list, and
+     * returns the matching tasks with their indexes as a single string.
+     *
+     * @param keyword The keyword to search for within task descriptions.
+     * @return A formatted string containing the indices and details of matching tasks.
+     */
+    public String findTasksFormatted(String keyword) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= tasks.size(); i++) {
+            Task t = this.get(i);
+            if (t.getDescription().contains(keyword)) {
+                sb.append(String.format("%d.%s%n", i, t));
+            }
+        }
+        return sb.toString();
+    }
+
+    /**
      * Sets this task list to contain the tasks from the provided TaskList.
-     * @param taskList TaskList to copy the tasks from
+     * @param taskList TaskList to copy the tasks from.
      */
     public void setTaskList(TaskList taskList) {
         this.tasks = taskList.tasks;
@@ -72,7 +90,7 @@ public class TaskList {
     /**
      * Serializes the tasks in the list to a String.
      *
-     * @return Serialized tasks
+     * @return Serialized task list.
      */
     public String serialize() {
         StringBuilder sb = new StringBuilder();
@@ -82,11 +100,8 @@ public class TaskList {
         return sb.toString();
     }
 
-    /**
-     * Obtains the tasks in the task list as a single string.
-     * @return The tasks in the list labelled with an index
-     */
-    public String getTasks() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         int idx = 1;
         for (Task t : tasks) {
@@ -99,7 +114,7 @@ public class TaskList {
     /**
      * Returns the number of tasks in the list.
      *
-     * @return Size of the list
+     * @return Number of tasks in the list.
      */
     public int size() {
         return this.tasks.size();

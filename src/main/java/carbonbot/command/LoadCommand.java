@@ -3,8 +3,8 @@ package carbonbot.command;
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
+import carbonbot.exception.CarbonDataFileException;
 import carbonbot.exception.CarbonInputParseException;
-import carbonbot.exception.CarbonSerializationException;
 import carbonbot.exception.CarbonStorageException;
 
 /**
@@ -13,7 +13,7 @@ import carbonbot.exception.CarbonStorageException;
 public class LoadCommand extends Command {
     private final String filePath;
     /**
-     * Constructs an LoadCommand object that will load the data file into tasklist.
+     * Constructs an LoadCommand object to load the data file into task list.
      *
      * @param filePath Path to the data file.
      */
@@ -23,7 +23,7 @@ public class LoadCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage)
-            throws CarbonInputParseException, CarbonStorageException, CarbonSerializationException {
+            throws CarbonInputParseException, CarbonStorageException, CarbonDataFileException {
         if (this.filePath.isBlank()) {
             throw new CarbonInputParseException("The path cannot be empty. "
                     + "Example of valid usage: load ./data/my_task.txt");

@@ -1,5 +1,5 @@
 # CarbonBot User Guide
-CarbonBot is a simple chatbot that helps with your tasks maangement.
+CarbonBot is a simple chatbot that helps with your tasks management.
 
 ## Features
 - Add different task types (Todo, Deadline, Event)
@@ -86,7 +86,7 @@ Format: `find KEYWORD`
 - Only the description of the tasks are searched.
 
 Examples:
-- `find lecture` returns task with `cs1234 lecture` and `watch lecture` as the description. 
+- `find lecture` returns task with `cs1234 lecture` and `watch lecture` as the description.
 
 ### Load task list : `load`
 

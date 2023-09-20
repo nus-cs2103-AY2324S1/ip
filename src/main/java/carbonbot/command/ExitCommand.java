@@ -5,12 +5,12 @@ import carbonbot.TaskList;
 import carbonbot.Ui;
 
 /**
- * The command will close the Ui and exit the chat bot.
+ * The command will close the Ui and exit the chatbot.
  */
 public class ExitCommand extends Command {
 
     /**
-     * Constructs a ExitCommand object with isExit set to true.
+     * Constructs a ExitCommand with isExit set to true.
      */
     public ExitCommand() {
         super(true);

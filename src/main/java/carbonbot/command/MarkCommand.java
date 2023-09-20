@@ -15,10 +15,10 @@ public class MarkCommand extends Command {
     private final boolean isMark;
 
     /**
-     * Constructs a MarkCommand object.
+     * Constructs a MarkCommand to mark or unmark a specified task.
      *
-     * @param isMark  The mark status of the task
-     * @param taskIdx The task index to modify the mark status
+     * @param isMark  The mark status of the task.
+     * @param taskIdx The task index to modify the mark status.
      */
     public MarkCommand(int taskIdx, boolean isMark) {
         this.taskIdx = taskIdx;

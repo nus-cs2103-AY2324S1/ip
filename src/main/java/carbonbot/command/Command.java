@@ -28,9 +28,9 @@ public abstract class Command {
     }
 
     /**
-     * Whether the command should cause the bot to exit.
+     * Returns whether the command execution should result in the bot exiting.
      *
-     * @return Boolean value if the bot should exit after the command is executed
+     * @return Returns true if the bot should exit after the command is executed, false otherwise.
      */
     public boolean isExit() {
         return this.isExit;

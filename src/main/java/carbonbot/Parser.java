@@ -34,7 +34,7 @@ public class Parser {
     private static final String LOAD_COMMAND = "load";
 
     /**
-     * Parses the user input and returns the corresponding Command to be executed
+     * Parses the user input and returns the corresponding Command to be executed.
      *
      * @param fullCommand The raw string the user has input
      * @return The Command if the fullCommand string was valid
@@ -156,9 +156,9 @@ public class Parser {
         try {
             return Integer.parseInt(fullCommand.split(" ")[1]);
         } catch (NumberFormatException nfe) {
-            throw new CarbonException("Please provide a valid integer for the index.");
+            throw new CarbonInputParseException("Please provide a valid integer for the index.");
         } catch (ArrayIndexOutOfBoundsException aie) {
-            throw new CarbonException("No index was provided. Please enter the task index to be updated.");
+            throw new CarbonInputParseException("No index was provided. Please enter the task index to be updated.");
         }
     }
 

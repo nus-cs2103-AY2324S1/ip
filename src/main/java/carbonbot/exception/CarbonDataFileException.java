@@ -8,8 +8,7 @@ public class CarbonDataFileException extends CarbonException {
     /**
      * Constructs a CarbonDataFileException.
      */
-    public CarbonDataFileException() {
-        super("The data file is corrupted and could not be read. "
-                + "A new data file will be created.");
+    public CarbonDataFileException(String errorMessage) {
+        super("The data file is corrupted: " + errorMessage);
     }
 }

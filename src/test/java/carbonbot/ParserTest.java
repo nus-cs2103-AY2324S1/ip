@@ -58,7 +58,7 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseUnknown() throws CarbonException {
+    public void testParseUnknown() {
         String fullCommand = "somerubbishcommand 1 2 3";
         try {
             Command c = Parser.parse(fullCommand);

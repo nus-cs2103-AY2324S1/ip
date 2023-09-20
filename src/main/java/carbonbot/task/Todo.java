@@ -1,7 +1,7 @@
 package carbonbot.task;
 
 /**
- * Represents task without any date/time attached to it
+ * Represents a task without any date/time attached to it.
  */
 public class Todo extends Task {
     private static final String TASK_ICON = "[T]";
@@ -9,7 +9,7 @@ public class Todo extends Task {
     /**
      * Constructs a Todo task with the provided description.
      *
-     * @param description Description of the task
+     * @param description Description of the task.
      */
     public Todo(String description) {
         super(description);

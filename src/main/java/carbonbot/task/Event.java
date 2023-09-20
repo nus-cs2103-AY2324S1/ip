@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Represents task that start at a specific date/time and ends at a specific date/time
+ * Represents task that start at a specific date/time and ends at a specific date/time.
  */
 public class Event extends Task {
     private static final String TASK_ICON = "[E]";
@@ -16,9 +16,9 @@ public class Event extends Task {
     /**
      * Constructs an Event task with the provided description, start datetime, and end datetime.
      *
-     * @param description Description of the task
-     * @param from        Start date / time
-     * @param to          End date / time
+     * @param description Description of the task.
+     * @param from        Start datetime.
+     * @param to          End datetime.
      */
     public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);

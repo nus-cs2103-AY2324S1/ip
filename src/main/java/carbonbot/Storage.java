@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import carbonbot.exception.CarbonSerializationException;
+import carbonbot.exception.CarbonDataFileException;
 import carbonbot.exception.CarbonStorageException;
 import carbonbot.task.Task;
 import carbonbot.task.TaskDeserializer;
@@ -46,7 +46,7 @@ public class Storage {
      * Fetches the tasks from the storage.
      * @throws CarbonStorageException If an IO error is encountered while reading from the disk.
      */
-    public TaskList getTasks() throws CarbonStorageException, CarbonSerializationException {
+    public TaskList getTasks() throws CarbonStorageException, CarbonDataFileException {
         List<String> lines;
         try {
             lines = this.load();

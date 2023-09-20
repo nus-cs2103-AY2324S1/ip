@@ -11,9 +11,9 @@ public abstract class Task {
 
 
     /**
-     * Constructs a task that has a completion status
+     * Constructs a task that has a completion status.
      *
-     * @param description Description of the task
+     * @param description Description of the task.
      */
     public Task(String description) {
         this.description = description;
@@ -41,7 +41,7 @@ public abstract class Task {
     /**
      * Serializes the task in a file friendly format.
      *
-     * @return String representation of the task
+     * @return String representation of the task.
      */
     public abstract String serialize();
 

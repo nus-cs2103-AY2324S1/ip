@@ -9,7 +9,7 @@ import carbonbot.Ui;
  */
 public class ListCommand extends Command {
     /**
-     * Constructs a ListCommand object.
+     * Constructs a ListCommand to list all the tasks in the task list.
      */
     public ListCommand() {
 
@@ -18,6 +18,6 @@ public class ListCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ui.bufferMessage("Here are the tasks in your list:");
-        ui.bufferMessage(tasks.getTasks());
+        ui.bufferMessage(tasks.toString());
     }
 }

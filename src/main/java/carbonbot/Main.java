@@ -22,6 +22,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("CarbonBot");
+            stage.setResizable(false);
 
             CarbonBot carbonBot = new CarbonBot(fxmlLoader.<MainWindow>getController());
             fxmlLoader.<MainWindow>getController().setBot(carbonBot);
