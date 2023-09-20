@@ -83,7 +83,6 @@ public class CommandList {
     }
 
     public void addCommandList(List<String[]> list) {
-        int size = list.size();
         for (String[] command : list) {
             saveCommand(command);
         }

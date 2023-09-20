@@ -21,14 +21,6 @@ public class TaskList {
         tasks.add(task);
     }
 
-    public void addNoSaveTask(Task task) {
-        tasks.add(task);
-    }
-
-    public int getNextIndex() {
-        return tasks.size() + 1;
-    }
-
     public Task getTask(int taskIndex) {
         return tasks.get(taskIndex - 1);
     }

@@ -20,7 +20,7 @@ public class DateTimeParser {
         try {
             return LocalDateTime.parse(dateTime, saveFormatter).format(outFormatter);
         } catch (DateTimeParseException e) {
-            throw new KoraException("The date format should be yyyy-MM-dd HH-mm!");
+            throw new KoraException("Omo! The date format should be yyyy-MM-dd HH-mm!");
         }
     }
 
@@ -28,7 +28,7 @@ public class DateTimeParser {
         try {
             return LocalDateTime.parse(dateTime, saveFormatter).format(saveFormatter);
         } catch (DateTimeParseException e) {
-            throw new KoraException("The date format should be yyyy-MM-dd HH-mm!");
+            throw new KoraException("Omo! The date format should be yyyy-MM-dd HH-mm!");
         }
     }
 }

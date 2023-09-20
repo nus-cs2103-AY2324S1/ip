@@ -20,8 +20,6 @@ import duke.task.ToDo;
  * Storage class is to load and save the tasks in the hard disk automatically.
  */
 public class Storage {
-    private static final String DEFAULT_PATH = "./data/savedtask.txt";
-
     private String path;
     private TaskList taskList;
     private Scanner scanner;
@@ -46,7 +44,7 @@ public class Storage {
             File f = new File(path);
             this.scanner = new Scanner(f);
         } catch (IOException e) {
-                throw new KoraException("Unable to scan!");
+                throw new KoraException("I-SangHae! Unable to scan :(");
         }
     }
 
@@ -66,7 +64,7 @@ public class Storage {
                 ff.createNewFile();
             }
         } catch (IOException e) {
-            throw new KoraException("Unable to create file!");
+            throw new KoraException("I-SangHae! Unable to create file :(");
 
         }
     }
@@ -106,7 +104,16 @@ public class Storage {
             taskList.addTask(task);
             fw.write(taskList.saveFormat());
         } catch (IOException e) {
-            throw new KoraException("Couldn't add!");
+            throw new KoraException("I-SangHae! Couldn't add the task :(");
+        }
+    }
+
+    public void saveTaskList(TaskList taskList) throws KoraException {
+        try (FileWriter fw = new FileWriter(path, false)) {
+            this.taskList = taskList;
+            fw.write(taskList.saveFormat());
+        } catch (IOException e) {
+            throw new KoraException("I-SangHae! Couldn't add the task list :(");
         }
     }
 
@@ -126,8 +133,9 @@ public class Storage {
         } else if (array[0].contains("T")) {
             currentTask = new ToDo(array[2]);
         } else {
-            throw new KoraException("Task not valid!");
+            throw new KoraException("Omo! Check if the task is valid!");
         }
+
 
         if (array[1].equals("[X]")) {
             currentTask.setMarked();
@@ -141,9 +149,8 @@ public class Storage {
     /**
      * Loads command list from the txt file.
      * @return list of string arrays containing the command details.
-     * @throws KoraException
      */
-    public List<String[]> loadCommand() throws KoraException {
+    public List<String[]> loadCommand() {
         List<String[]> list = new ArrayList<>();
         String[] array;
         try {
@@ -169,7 +176,7 @@ public class Storage {
         try (FileWriter fw = new FileWriter(path, false)) {
             fw.write(commandList.saveFormat());
         } catch (IOException e) {
-            throw new KoraException("Couldn't add!");
+            throw new KoraException("I-SangHae! Couldn't add the command :(");
         }
     }
 
