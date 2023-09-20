@@ -43,6 +43,6 @@ public class Deadline extends Task {
     @Override
     public String stringInFile() {
         int status = super.isDone ? 1 : 0;
-        return "D | " + status + " | " + this.description + "| " + this.by;
+        return "D | " + status + " | " + this.description + " | " + this.by;
     }
 }

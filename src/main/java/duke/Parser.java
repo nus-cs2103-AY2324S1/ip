@@ -193,6 +193,12 @@ public class Parser {
             System.out.println("Please specify the end time");
             return null;
         }
+
+        //remove the last space of fromDate, toDate and description
+        description = description.substring(0, description.length() - 1);
+        fromDate = fromDate.substring(0, fromDate.length() - 1);
+        toDate = toDate.substring(0, toDate.length() - 1);
+
         return new Event(description, fromDate, toDate);
     }
 
@@ -220,6 +226,9 @@ public class Parser {
             System.out.println("Please specify when is the deadline");
             return null;
         }
+        //remove the last space added in byDate and description
+        description = description.substring(0, description.length() - 1);
+        byDate = byDate.substring(0, byDate.length() - 1);
         return new Deadline(description, byDate);
     }
 

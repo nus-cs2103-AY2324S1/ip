@@ -54,6 +54,6 @@ public class Event extends Task {
     @Override
     public String stringInFile() {
         int status = super.isDone ? 1 : 0;
-        return "E | " + status + " | " + this.description + "| " + this.from + "| " + this.to;
+        return "E | " + status + " | " + this.description + " | " + this.from + " | " + this.to;
     }
 }
