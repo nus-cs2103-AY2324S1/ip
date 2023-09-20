@@ -61,7 +61,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * To display the welcome message in a dialog box when Lemon is activated.
+     * Displays the welcome message in a dialog box when Lemon is activated.
      */
     public void displayGreeting() {
         DialogBox greeting = DialogBox.getDukeDialog(ui.welcomeMessage(), dukeImage);
