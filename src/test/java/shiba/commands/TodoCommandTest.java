@@ -24,7 +24,7 @@ public class TodoCommandTest {
     public void execute_validCommand_spaces() throws ShibaException {
         new TodoCommand(tasks, "todo               Pet a Shiba    ").execute();
         assertEquals(1, tasks.size());
-        assertEquals("[T][ ]               Pet a Shiba    ", tasks.get(0).toString());
+        assertEquals("[T][ ] Pet a Shiba", tasks.get(0).toString());
     }
 
     @Test

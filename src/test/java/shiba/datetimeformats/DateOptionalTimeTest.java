@@ -21,8 +21,20 @@ public class DateOptionalTimeTest {
     }
 
     @Test
+    public void constructor_isoFormatNoTWithSpaces_success() throws InvalidCommandException {
+        DateOptionalTime dateOptionalTime = new DateOptionalTime("     2023-08-28 20:34    ");
+        assertEquals("2023-08-28T20:34", dateOptionalTime.toString());
+    }
+
+    @Test
     public void constructor_isoDateOnly_success() throws InvalidCommandException {
         DateOptionalTime dateOptionalTime = new DateOptionalTime("2023-08-10");
+        assertEquals("2023-08-10", dateOptionalTime.toString());
+    }
+
+    @Test
+    public void constructor_isoDateOnlyWithSpaces_success() throws InvalidCommandException {
+        DateOptionalTime dateOptionalTime = new DateOptionalTime("              2023-08-10  ");
         assertEquals("2023-08-10", dateOptionalTime.toString());
     }
 

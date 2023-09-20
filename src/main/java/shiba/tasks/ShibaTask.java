@@ -19,7 +19,7 @@ public abstract class ShibaTask {
     private final TaskType type;
 
     protected ShibaTask(String name, TaskType type) {
-        this.name = name;
+        this.name = name.strip();
         this.isDone = false;
         this.type = type;
     }

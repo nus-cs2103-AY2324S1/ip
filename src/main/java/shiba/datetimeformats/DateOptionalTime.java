@@ -25,9 +25,11 @@ public class DateOptionalTime implements Comparable<DateOptionalTime> {
      * @throws InvalidCommandException If the string is not in any of the accepted formats.
      */
     public DateOptionalTime(String dateOptionalTime) throws InvalidCommandException {
+        String strippedString = dateOptionalTime.strip();
+
         // Try with the default ISO format first
         try {
-            dateTime = LocalDateTime.parse(dateOptionalTime);
+            dateTime = LocalDateTime.parse(strippedString);
             return;
         } catch (DateTimeParseException ignored) {
             // Ignore exception, try to parse with next format
@@ -35,7 +37,7 @@ public class DateOptionalTime implements Comparable<DateOptionalTime> {
 
         // Try with the T removed
         try {
-            dateTime = LocalDateTime.parse(dateOptionalTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+            dateTime = LocalDateTime.parse(strippedString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
             return;
         } catch (DateTimeParseException ignored) {
             // Ignore exception, try to parse with next format
@@ -43,7 +45,7 @@ public class DateOptionalTime implements Comparable<DateOptionalTime> {
 
         // Try with default ISO date only format
         try {
-            date = LocalDate.parse(dateOptionalTime);
+            date = LocalDate.parse(strippedString);
         } catch (DateTimeParseException e) {
             throw new InvalidCommandException("Invalid date! Must be a valid date in the format"
                     + " YYYY-MM-DD or YYYY-MM-DD HH:mm.");
