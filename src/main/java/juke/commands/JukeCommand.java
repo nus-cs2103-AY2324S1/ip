@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import juke.commons.DateUtils;
 import juke.commons.classes.JukeObject;
 import juke.commons.enums.SortOrderEnum;
 import juke.commons.enums.SortTypeEnum;
@@ -243,7 +244,7 @@ public abstract class JukeCommand extends JukeObject {
             LocalDateTime startTime = DateTimeParser.parse(parsedArguments[1]);
             LocalDateTime endTime = DateTimeParser.parse(parsedArguments[2]);
 
-            if (endTime.isBefore(startTime)) {
+            if (DateUtils.isAfter(startTime, endTime)) {
                 throw new JukeIllegalArgumentException("Oh no! The \"to\" date cannot be before the "
                                                                + "\"from\" date!");
             }

@@ -168,7 +168,7 @@ public class TaskList extends JukeObject {
         try {
             this.tasks.sort((t1, t2) -> t2.sortBy(t1, sortType));
 
-            if (sortOrder.equals(SortOrderEnum.DESCENDING)) {
+            if (sortOrder.equals(SortOrderEnum.ASCENDING)) {
                 this.reverse();
             }
         } catch (IllegalArgumentException | UnsupportedOperationException | ClassCastException ex) {

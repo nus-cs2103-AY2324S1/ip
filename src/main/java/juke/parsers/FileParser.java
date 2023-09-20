@@ -2,6 +2,7 @@ package juke.parsers;
 
 import java.time.LocalDateTime;
 
+import juke.commons.DateUtils;
 import juke.commons.classes.JukeObject;
 import juke.commons.exceptions.parsers.JukeDataFileParseException;
 import juke.tasks.JukeDeadline;
@@ -64,7 +65,7 @@ public abstract class FileParser extends JukeObject {
             LocalDateTime start = DateTimeParser.fromDateTimeString(data[3]);
             LocalDateTime end = DateTimeParser.fromDateTimeString(data[4]);
 
-            if (start.isAfter(end)) {
+            if (DateUtils.isAfter(start, end)) {
                 throw new JukeDataFileParseException("Oh no! Event start date cannot be after the end date!");
             }
 
