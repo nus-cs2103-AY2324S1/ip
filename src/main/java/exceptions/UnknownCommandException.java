@@ -9,6 +9,7 @@ public class UnknownCommandException extends DukeException {
      * Constructor, initializes the error message.
      */
     public UnknownCommandException() {
-        super("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        super("OOPS!!! Your input is either an unknown command, "
+                + "or contains the vertical bar character | .");
     }
 }

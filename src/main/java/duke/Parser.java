@@ -33,6 +33,10 @@ public class Parser {
             InvalidTodoException,
             InvalidDeadlineException,
             InvalidEventException {
+        if (userInput.contains("|")) {
+            throw new UnknownCommandException();
+        }
+
         String[] inputArr = userInput.trim().split(" ");
         if (inputArr.length == 0) {
             throw new UnknownCommandException();
