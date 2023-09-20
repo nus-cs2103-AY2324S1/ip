@@ -37,17 +37,6 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message to the user.
-     */
-    public void showWelcomeMessage() {
-        String logo = "____________________________________________________________\n"
-                + "YO! The name's Bond, James Bond.  \n"
-                + "What can I do for you? \n"
-                + "____________________________________________________________\n";
-        out.println(logo);
-    }
-
-    /**
      * Displays an error message indicating a failed loading operation.
      */
     public void showLoadingError() {

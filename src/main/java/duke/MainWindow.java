@@ -28,6 +28,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("The name's Bond. James Bond. 007\n"
+                + "at your service.", dukeImage));
     }
 
     public void setDuke(Duke d) {
