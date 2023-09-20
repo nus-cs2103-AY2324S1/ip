@@ -66,7 +66,7 @@ To add a deadline task, use the following command:
 
 `deadline <task_description> /by <deadline_date>`
 
-`deadline_date` should be formatted `YYYY-MM-DD HH:MM`
+* `<deadline_date>` should be formatted `YYYY-MM-DD HH:MM`
 
 Expected outcome:
 
@@ -83,8 +83,9 @@ Now you have X tasks in the list.
 To add an event task, use the following command:
 
 `event <task_description> /by <start_date> /to <end_date>`
-`start_date` should be formatted `YYYY-MM-DD HH:MM`
-`end_date` should be formatted `YYYY-MM-DD HH:MM`
+
+* `<start_date>` should be formatted `YYYY-MM-DD HH:MM`
+* `<end_date>` should be formatted `YYYY-MM-DD HH:MM`
 
 Expected outcome:
 
