@@ -98,7 +98,7 @@ public class Ui {
     }
 
     /**
-     * Add tags to a task, displays a message about the details of the task.
+     * Adds tags to a task, displays a message about the details of the task.
      * @param index The index of the task to delete.
      * @param inputs The tags that are to be added to the task.
      */

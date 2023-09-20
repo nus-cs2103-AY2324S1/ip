@@ -111,7 +111,7 @@ public class TaskList {
     }
 
     /**
-     * Add tags to a task and update the storage.
+     * Adds tags to a task and update the storage.
      * @param index The index of the task to delete.
      * @param inputs The tags that are to be added to the task.
      */

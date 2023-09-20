@@ -32,8 +32,9 @@ public class Roo {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response from user.
+     * @param input a String input from user.
+     * @return A String output after running Roo.
      */
     public String getResponse(String input) {
         assert input != null : "Input cannot be null";
