@@ -47,6 +47,6 @@ public class DeleteCommand extends Command {
         storage.archiveFile(task.formatForStorage());
         tasks.remove(index - 1);
         storage.writeFile(tasks.retrieveForStorage());
-        return ui.showDeleteMessage(task, tasks.size());
+        return ui.generateDeleteMessage(task, tasks.size());
     }
 }

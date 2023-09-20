@@ -78,10 +78,11 @@ public class Ui {
      * @param task The added task.
      * @param size The number of tasks after adding.
      */
-    public String showAddMessage(Task task, int size) {
+    public String generateAddMessage(Task task, int size) {
         String str = "Got it!. I've added this task:\n" +
                 INDENTATION + task + "\n" +
                 String.format("Now you have %d tasks in the list", size);
+        System.out.println(str);
         System.out.println(LINE);
         return str;
     }
@@ -92,10 +93,11 @@ public class Ui {
      * @param task The deleted task.
      * @param size The number of tasks after deletion.
      */
-    public String showDeleteMessage(Task task, int size) {
+    public String generateDeleteMessage(Task task, int size) {
         String str = "Noted... I've removed this task:\n" +
                 INDENTATION + task + "\n" +
                 String.format("Now you have %d tasks in the list", size);
+        System.out.println(str);
         System.out.println(LINE);
         return str;
     }

@@ -69,7 +69,7 @@ public class AddCommand extends Command {
         tasks.add(task);
         assert tasks.retrieveForStorage() != null;
         storage.writeFile(tasks.retrieveForStorage());
-        return ui.showAddMessage(task, tasks.size());
+        return ui.generateAddMessage(task, tasks.size());
     }
 
 
