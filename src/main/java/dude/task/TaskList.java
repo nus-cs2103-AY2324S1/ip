@@ -89,6 +89,8 @@ public class TaskList {
     public ArrayList<Task> search(String substring) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
+            assert task != null : "Task should not be null.";
+            assert task.description != null : "Task description should not be null.";
             if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
                 results.add(task);
             }
@@ -107,6 +109,8 @@ public class TaskList {
         StringBuilder tasksList = new StringBuilder(SEARCH_RESULTS_PREFIX);
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
+            assert task != null : "Task should not be null.";
+            assert task.description != null : "Task description should not be null.";
             if (task.description.toLowerCase().contains(substring.strip().toLowerCase())) {
                 String taskNumberPrefix = String.format("%3s-", i + 1);
                 String taskStr = taskNumberPrefix + task + "\n";
@@ -136,7 +140,9 @@ public class TaskList {
         StringBuilder tasksList = new StringBuilder(taskListPrefix);
         for (int i = 0; i < tasks.size(); i++) {
             String taskNumberPrefix = String.format("%3s-", i + 1);
-            String taskStr = taskNumberPrefix + tasks.get(i).toString() + "\n";
+            Task task = tasks.get(i);
+            assert task != null : "Task should not be null.";
+            String taskStr = taskNumberPrefix + task.toString() + "\n";
             tasksList.append(taskStr);
         }
         return tasksList.toString();

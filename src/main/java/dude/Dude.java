@@ -53,6 +53,7 @@ public class Dude {
     public String getResponse(String input) {
         try {
             DudeCommand c = Parser.parse(input);
+            assert c != null : "Parsed command cannot be null";
             return c.execute(tasks, storage);
         } catch (DudeException e) {
             return e.getMessage();

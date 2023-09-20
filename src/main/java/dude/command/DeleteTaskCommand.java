@@ -32,6 +32,7 @@ public class DeleteTaskCommand extends DudeCommand {
     @Override
     public String execute(TaskList taskList, Storage storage) throws DudeException {
         Task removedTask = taskList.remove(taskIndex);
+        assert removedTask != null : "Removed task should not be null.";
         storage.save(taskList.toArrayList());
         return String.format(DELETED_TASK_MSG, removedTask, taskList.getNumTasks());
     }
