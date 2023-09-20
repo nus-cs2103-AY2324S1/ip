@@ -1,8 +1,14 @@
-D | 1 | this | nowD
-T | 0 | thisD
+D | 1 | this | now
+T | 0 | this
 T | 1 | this
 T | 0 | this
 D | 0 | this | now
 D | 0 | this | now
 E | 0 | this | now-then
 T | 0 | that
+T | 0 | hello
+T | 0 | hello
+T | 0 | hello
+T | 0 | hello
+T | 0 | hello
+T | 0 | hello
