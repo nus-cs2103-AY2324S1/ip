@@ -5,14 +5,14 @@ or on a **Graphical User Interface (GUI)**.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Viewing help: `help`](#viewing-help-help)
-  - [Adding a task: `todo`/`deadline`/`event`](#adding-a-task-todo-deadline-event)
-  - [Marking a task: `mark`/`unmark`](#marking-a-task-mark-unmark)
-  - [Listing tasks: `list`](#listing-tasks-list)
-  - [Deleting a task: `delete`](#deleting-a-task-delete)
-  - [Setting a reminder: `remind`](#setting-a-reminder-remind)
-  - [Listing reminders: `reminder`](#listing-reminders-reminder)
-  - [Finding a task by keyword: `find`](#finding-a-task-by-keyword-find)
+  - [Viewing help: `help`](#viewing-help-codehelpcode)
+  - [Adding a task: `todo`/`deadline`/`event`](#adding-a-task-codetodocodecodedeadlinecodecodeeventcode)
+  - [Marking a task: `mark`/`unmark`](#marking-a-task-codemarkcodecodeunmarkcode)
+  - [Listing tasks: `list`](#listing-tasks-codelistcode)
+  - [Deleting a task: `delete`](#deleting-a-task-codedeletecode)
+  - [Setting a reminder: `remind`](#setting-a-reminder-coderemindcode)
+  - [Listing reminders: `reminder`](#listing-reminders-coderemindercode)
+  - [Finding a task by keyword: `find`](#finding-a-task-by-keyword-codefindcode)
 - [Command summary](#command-summary)
 
 <br/> 
@@ -35,7 +35,7 @@ and feature information.
 
 ___
 ## Features 
-> **Note**
+> [!NOTE]
 > 
 > Notes about the command format:
 > - Commands that do not take in parameters: `help`, `list`, `reminder`
@@ -71,7 +71,7 @@ Format: `help`
 
     Format: `deadline DEADLINE /by DUE_DATE`
 
-   > **Note**
+   > [!NOTE]
    > 
    > `DEADLINE` is strictly in the format `dd/MM/yyyy HH:mm`.
    
@@ -81,7 +81,7 @@ Format: `help`
 
     Format: `event EVENT /from START /to END`
     
-    > **Note**
+    > [!NOTE]
    > 
    > `START` and `END` are strictly in the format `dd/MM/yyyy HH:mm`. 
    
@@ -135,9 +135,6 @@ Format: `remind`
 Finds the tasks with description matching the `KEYWORD`
 
 Format: `find KEYWORD`
-
-Example:
-- `find CS2100` returns `CS2100 Quiz 5` and `CS2100 Lecture`
 
 <br/> 
 
