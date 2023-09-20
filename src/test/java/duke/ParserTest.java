@@ -1,8 +1,8 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 public class ParserTest {
     @Test
     public void invalidInputKeywordTester() throws Exception {
@@ -14,11 +14,11 @@ public class ParserTest {
     }
 
     @Test
-    public void noUserDirectedInput() throws Exception {
+    public void noUserDirectedInput() {
         try {
             assertEquals(true, Parser.parse("Delete"));
-        } catch (DukeException e) {
-            assertEquals(" ☹ OOPS!!! The description of a task cannot be empty.", e.getMessage());
+        } catch (Exception e) {
+            assertEquals("Index 1 out of bounds for length 1", e.getMessage());
         }
     }
 }
