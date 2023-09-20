@@ -25,7 +25,7 @@ public class UI {
     public String displayList(ArrayList<Task> list, int numOfTasks) {
         StringBuilder sb = new StringBuilder();
         sb.append(printLine()).append("\n");
-        sb.append("Here are the tasks in your list:\n");
+        sb.append("Here are the tasks in your list. Finish them all so we can beat Messi.\n");
         for (int i = 0; i < numOfTasks; i++) {
             sb.append((i + 1) + ". " + list.get(i)).append("\n");
         }
@@ -38,7 +38,7 @@ public class UI {
     }
 
     public String exit() {
-        return printLine() + "\n" + "Bye. Hope to see you again soon!" + "\n" + printLine();
+        return printLine() + "\n" + "Bye. Hope to see you again in the Saudi League!" + "\n" + printLine();
     }
 
     public String addTask(String taskName, int numOfTasks) {
@@ -66,7 +66,7 @@ public class UI {
 
     public String unMarkTask(String taskName) {
         return printLine() + "\n"
-                + "OK, I've marked this task as not done.\n [ ] " + taskName + "\n"
+                + "OK, I've marked this task as not done. Cheeky boy!!\n [ ] " + taskName + "\n"
                 + printLine();
     }
 
