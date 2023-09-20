@@ -30,6 +30,7 @@ public class TestStorage {
             Stream<String> stream = Files.lines(path, StandardCharsets.UTF_8);
             stream.forEach(s -> contentBuilder.append(s));
             savedJsonString = contentBuilder.toString();
+            stream.close();
 
             Files.deleteIfExists(path);
 
