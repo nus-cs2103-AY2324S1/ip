@@ -9,7 +9,7 @@ public class Ui {
      * Displays a greeting message when the chatbot starts.
      */
     public static void greet() {
-        System.out.println("---------------------------------------------\n Hello! I'm zy\n"
+        System.out.println("---------------------------------------------\n Hello! I'm Doraemon\n"
                 + " What can I do for you?\n---------------------------------------------");
     }
 
