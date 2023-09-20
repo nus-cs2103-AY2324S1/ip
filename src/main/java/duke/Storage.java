@@ -89,7 +89,6 @@ public class Storage {
             dataArray[i] = dataArray[i].trim();
         }
 
-        String taskType = arr[0];
         if (dataArray[0].equals("T")) {
             if (dataArray.length < 3 || dataArray[2].isEmpty()) {
                 throw new EmptyTaskException("todo");

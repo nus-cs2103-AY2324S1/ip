@@ -105,7 +105,6 @@ public class TaskList {
                 }
                 newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
             }
-            newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
         }
 
         return newTask;
