@@ -1,9 +1,75 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
 
+    private static final String FILE_PATH = "./data/duke.txt";
+
     private static ArrayList<Task> tasks = new ArrayList<>();
+
+    private static void saveTasks() {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+
+            for (Task task : tasks) {
+                writer.write(task.toSaveString() + "\n");
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving tasks.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void loadTasks() {
+        File file = new File(FILE_PATH);
+
+        if (!file.exists()) {
+            System.out.println("No save file detected. Attempting to create one...");
+            if (file.getParentFile() != null) {
+                file.getParentFile().mkdirs();  // This creates the directory structure if it doesn't exist
+            }
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("An error occurred while creating a new save file.");
+                e.printStackTrace();
+            }
+            System.out.println("Save file created successfully at " + FILE_PATH);
+        }
+
+        List<String> lines;
+
+        try {
+            lines = Files.readAllLines(file.toPath());
+        } catch (IOException e) {
+            System.out.println("An error occurred while loading tasks.");
+            return;
+        }
+
+        for (String line : lines) {
+            String[] parts = line.split(" \\| ");
+            boolean isMarked = parts[1].equals("1");
+
+            switch (parts[0]) {
+            case "T":
+                tasks.add(new Todo(parts[2], isMarked));
+                break;
+            case "D":
+                tasks.add(new Deadline(parts[2], isMarked, parts[3]));
+                break;
+            case "E":
+                tasks.add(new Event(parts[2], isMarked, parts[3], parts[4]));
+                break;
+            }
+        }
+    }
 
     private static void display(String... text) {
         System.out.println("____________________________________________________________");
@@ -69,6 +135,7 @@ public class Duke {
     }
 
     public static void main(String[] args) {
+        Duke.loadTasks();
         Duke.greet();
 
         String[] inputParts;
@@ -169,6 +236,7 @@ public class Duke {
             default:
                 Duke.display("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
+            saveTasks();
             userInput = scanner.nextLine();
         }
         Duke.farewell();

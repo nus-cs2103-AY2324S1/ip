@@ -3,9 +3,9 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
-    public Task(String description) {
+    public Task(String description, Boolean isDone) {
         this.description = description;
-        this.isDone = false;
+        this.isDone = isDone;
     }
 
     public String getDescription() {
@@ -22,6 +22,10 @@ public class Task {
 
     public void unmarkStatus() {
         this.isDone = false;
+    }
+
+    public String toSaveString() {
+        return (isDone ? "1" : "0") + " | " + this.description;
     }
 
 
