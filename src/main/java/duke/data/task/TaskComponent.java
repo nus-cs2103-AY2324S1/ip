@@ -87,9 +87,15 @@ final class Tags extends TaskComponent {
         if (tag.contains(",")) {
             throw new InvalidInputException("Invalid Input: Tag should not contain \",\"");
         }
+        if (this.tags.contains(tag)) {
+            throw new InvalidInputException("Invalid Input: Tag already exists");
+        }
         this.tags.add(tag);
     }
-    public void removeTag(String tag) {
+    public void removeTag(String tag) throws InvalidInputException {
+        if (!this.tags.contains(tag)) {
+            throw new InvalidInputException("Invalid Input: Tag does not exist");
+        }
         this.tags.remove(tag);
     }
     @Override

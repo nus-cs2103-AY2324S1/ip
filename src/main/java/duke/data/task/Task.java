@@ -16,7 +16,7 @@ public abstract class Task {
     public void addTag(String tag) throws InvalidInputException {
         this.tags.addTag(tag);
     }
-    public void removeTag(String tag) {
+    public void removeTag(String tag) throws InvalidInputException {
         this.tags.removeTag(tag);
     }
     public String getStatusIcon() {
