@@ -31,8 +31,7 @@ public abstract class TaskCommand implements Command {
     }
 
     /**
-     * The following methods are used to extract the description for the task
-     * commands.
+     * Extract the description for the task commands.
      *
      * @param input the raw input string
      * @return the corresponding tasks description, or null if the input is
