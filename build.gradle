@@ -41,7 +41,7 @@ test {
 }
 
 application {
-    mainClass.set("Kniaz")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
