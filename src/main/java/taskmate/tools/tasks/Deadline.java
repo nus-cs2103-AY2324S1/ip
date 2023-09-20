@@ -6,8 +6,6 @@ import java.util.HashMap;
 
 import taskmate.exceptions.InvalidByException;
 import taskmate.exceptions.InvalidDeadlineUpdateException;
-import taskmate.exceptions.InvalidEventUpdateException;
-import taskmate.exceptions.InvalidTodoUpdateException;
 
 /**
  * The Deadline class is a child class of the Task class that represents a 'Deadline' type task specified by the user.
@@ -17,7 +15,7 @@ public class Deadline extends Task {
     private LocalDate by;
 
     /**
-     * Deadline constructor that allows the developer to specify the name of the task, and a date that represents
+     * Constructs a Deadline object that allows the developer to specify the task name, and a date that represents
      * the date that this task must be completed. This date must be a String in the form "YYYY-mm-dd" to be parsed to a
      * `LocalDate` object.
      *
@@ -31,7 +29,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Deadline constructor that allows the developer to specify the name of the task, and a date that represents
+     * Constructs a Deadline object that allows the developer to specify the task name, and a date that represents
      * the date that this task must be completed. This date must be a `LocalDate` instance.
      *
      * @param name the name of the deadline task.
@@ -44,7 +42,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Deadline constructor that allows the developer to specify the name of the task, a date that represents the date
+     * Constructs a Deadline object that allows the developer to specify the task name, a date that represents the date
      * that this task must be completed, and a boolean that represents if the task has been completed. This date must be
      * a String in the form "YYYY-mm-dd" to be parsed to a `LocalDate` object.
      *
@@ -62,6 +60,10 @@ public class Deadline extends Task {
         return "Deadline";
     }
 
+    /**
+     * @return a String object that represents the date of the "by" clause formatted in the "MMM d yyyy" format (E.g.
+     *     Sep 29 2023)
+     */
     String getByFormatted() {
         return this.by.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }

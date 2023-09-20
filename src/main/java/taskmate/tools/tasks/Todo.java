@@ -2,7 +2,6 @@ package taskmate.tools.tasks;
 
 import java.util.HashMap;
 
-import taskmate.exceptions.InvalidToException;
 import taskmate.exceptions.InvalidTodoUpdateException;
 
 /**

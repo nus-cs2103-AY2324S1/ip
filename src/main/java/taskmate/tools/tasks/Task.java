@@ -104,9 +104,23 @@ public abstract class Task {
             InvalidDeadlineUpdateException, InvalidByException, InvalidEventUpdateException, InvalidFromException,
             InvalidToException;
 
-    protected abstract HashMap<String, String> setUpdatesAndReturnSuccessfulUpdates(HashMap<String, String> changes) throws
-            InvalidDeadlineUpdateException, InvalidEventUpdateException;
+    protected abstract HashMap<String, String> setUpdatesAndReturnSuccessfulUpdates(HashMap<String, String> changes)
+            throws InvalidDeadlineUpdateException, InvalidEventUpdateException;
 
+    /**
+     * Updates the task's name and/or by attributes
+     * @param changes a HashMap object containing the changes to be made to the Deadline object
+     * @return a HashMap object containing the successful changes made to the Deadline object
+     * @throws InvalidTodoUpdateException thrown when the user specifies an attribute that is not /name
+     * @throws InvalidDeadlineUpdateException thrown when the user specifies an attribute that is not /name or /by
+     * @throws InvalidEventUpdateException thrown when the user specifies an attribute that is not /name or /from or /to
+     * @throws InvalidByException thrown when the date specified by the user for the "by" clause is not in the
+     *     YYYY-mm-dd format
+     * @throws InvalidFromException thrown when the date specified by the user for the "from" clause is not in the
+     *     YYYY-mm-dd format
+     * @throws InvalidToException thrown when the date specified by the user for the "to" clause is not in the
+     *     YYYY-mm-dd format
+     */
     public abstract HashMap<String, String> update(HashMap<String, String> changes) throws InvalidTodoUpdateException,
             InvalidDeadlineUpdateException, InvalidEventUpdateException, InvalidByException, InvalidFromException,
             InvalidToException;

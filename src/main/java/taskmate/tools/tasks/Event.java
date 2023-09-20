@@ -74,11 +74,19 @@ public class Event extends Task {
         return "Event";
     }
 
-    String getStartDatetimeFormatted() {
+    /**
+     * @return a String object that represents the date of the "from" clause formatted in the "MMM d yyyy" format (E.g.
+     *     Sep 29 2023)
+     */
+    String getFromFormatted() {
         return this.startDatetime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-    String getEndDatetimeFormatted() {
+    /**
+     * @return a String object that represents the date of the "to" clause formatted in the "MMM d yyyy" format (E.g.
+     *     Sep 29 2023)
+     */
+    String getToFormatted() {
         return this.endDatetime.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
@@ -159,7 +167,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + (this.getIsDone() ? 'X' : ' ') + "] " + this.name + " (from: "
-                + this.getStartDatetimeFormatted() + " to: " + this.getEndDatetimeFormatted() + ")";
+                + this.getFromFormatted() + " to: " + this.getToFormatted() + ")";
     }
 
     @Override
