@@ -49,10 +49,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Gives a formatted speech bubble for the user's input.
+     *
+     * @param text Text to be shown in speech bubble.
+     * @param img Default image of the user.
+     * @return Formatted speech bubble for the user's input.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Gives a formatted speech bubble for the chatbot's output.
+     *
+     * @param text Text to be shown in speech bubble.
+     * @param img Default image of the chatbot.
+     * @return Formatted speech bubble for the chatbot's output.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
