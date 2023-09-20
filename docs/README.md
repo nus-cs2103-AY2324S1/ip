@@ -76,3 +76,13 @@ Displays all current tasks in your list:
 ```
 
 ```
+
+### Saving the data
+
+Johnny data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+
+### Editing the data file
+
+Johnny data are saved automatically as a JSON file [JAR file location]/data/johnny.txt. Advanced users are welcome to update data directly by editing that data file.
+
+> :exclamation: Caution: If your changes to the data file makes its format invalid, Johnny will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.
