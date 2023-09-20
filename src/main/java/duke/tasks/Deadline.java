@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import duke.ronaldoSaysDo.TaskType;
 import duke.exceptions.DukeException;
+import duke.ronaldo.TaskType;
 
 /**
  * Class to maintain the deadline tasks entered by user.

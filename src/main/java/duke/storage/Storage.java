@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import duke.exceptions.DukeException;
-import duke.ronaldoSaysDo.TaskType;
+import duke.ronaldo.TaskType;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;

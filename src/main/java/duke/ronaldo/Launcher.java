@@ -1,5 +1,4 @@
-package duke.ronaldoSaysDo;
-
+package duke.ronaldo;
 import javafx.application.Application;
 
 /**

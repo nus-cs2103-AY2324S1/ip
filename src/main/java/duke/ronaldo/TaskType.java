@@ -1,4 +1,4 @@
-package duke.ronaldoSaysDo;
+package duke.ronaldo;
 
 /**
  * Enumeration for task types

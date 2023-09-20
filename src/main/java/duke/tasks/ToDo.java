@@ -1,7 +1,7 @@
 package duke.tasks;
 
-import duke.ronaldoSaysDo.TaskType;
 import duke.exceptions.DukeException;
+import duke.ronaldo.TaskType;
 
 /**
  * Class to handle todo tasks

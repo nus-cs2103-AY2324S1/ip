@@ -1,6 +1,6 @@
 package duke.components;
 
-import duke.ronaldoSaysDo.RonaldoSaysDo;
+import duke.ronaldo.RonaldoSaysDo;
 import duke.ui.Ui;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;

@@ -2,13 +2,13 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.ronaldoSaysDo.RonaldoSaysDo;
-import duke.ronaldoSaysDo.TaskType;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.DukeException;
 import duke.exceptions.InvalidInputExpression;
 import duke.parser.Parser;
+import duke.ronaldo.RonaldoSaysDo;
+import duke.ronaldo.TaskType;
 import duke.tasks.Event;
 
 public class EventTest {

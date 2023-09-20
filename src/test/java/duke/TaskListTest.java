@@ -2,10 +2,10 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.ronaldoSaysDo.RonaldoSaysDo;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.DukeException;
+import duke.ronaldo.RonaldoSaysDo;
 import duke.util.TaskList;
 
 public class TaskListTest {

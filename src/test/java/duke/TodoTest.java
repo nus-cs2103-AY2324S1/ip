@@ -2,10 +2,10 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import duke.ronaldoSaysDo.TaskType;
 import org.junit.jupiter.api.Test;
 
 import duke.exceptions.DukeException;
+import duke.ronaldo.TaskType;
 import duke.tasks.ToDo;
 public class TodoTest {
     @Test
