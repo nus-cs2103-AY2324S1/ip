@@ -20,23 +20,23 @@ public class Storage {
     /**
      * Saves current taskList as a json file.
      */
-    public static void saveAsJson(TaskList taskList) {
+    public static void saveAsJson(TaskList taskList, String location) {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module = 
            new SimpleModule("TaskSerializer", new Version(1, 0, 0, null, null, null));
         module.addSerializer(Task.class, new TaskSerializer());
         mapper.registerModule(module);
         try {
-            mapper.writeValue(new File("./cache/tasks.json"), taskList);
+            mapper.writeValue(new File(location), taskList);
         } catch (IOException e) {
-            new File("./cache/tasks.json");
+            new File(location);
         }
     }
 
     /**
      * Reads json file and save to taskList.
      */
-    public static TaskList readJson(TaskList taskList) {
+    public static TaskList readJson(String location) {
         ObjectMapper mapper = new ObjectMapper();
         SimpleModule module =
             new SimpleModule("TaskDeserializer", new Version(1, 0, 0, null, null, null));
@@ -46,10 +46,10 @@ public class Storage {
         TaskList resultList = new TaskList();
 
         try {
-            resultList.addAll(mapper.readValue(new File("./cache/tasks.json"), new TypeReference<ArrayList<Task>>(){}));
+            resultList.addAll(mapper.readValue(new File(location), new TypeReference<ArrayList<Task>>(){}));
         } catch (IOException e) {
             // If no such file exists
-            new File("./cache/tasks.json");
+            new File(location);
         }
 
         return resultList;
