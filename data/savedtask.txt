@@ -1,6 +1,7 @@
 
 T / [ ] / lecture
 T / [ ] / hw
-T / [ ] / hw
+T / [X] / hw
 T / [ ] / lecture
 T / [ ] / list
+T / [ ] / lecture

@@ -88,7 +88,7 @@ public class Duke {
                 command.printOutput(command.getCommandMessage());
                 isExit = command.isExit();
             } catch (KoraException e) {
-                System.out.println(e.getMessage());
+                ui.koraReply(e.getMessage());
             }
         }
         ui.closeScanner();
@@ -104,12 +104,7 @@ public class Duke {
      * @param args The command-line arguments
      */
     public static void main(String[] args) {
-        try {
-            Duke kora = new Duke();
-            kora.run();
-        } catch (Exception e) {
-            System.out.println("haha,,");
-        }
-
+        Duke kora = new Duke();
+        kora.run();
     }
 }

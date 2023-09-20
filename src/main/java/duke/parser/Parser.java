@@ -87,7 +87,6 @@ public class Parser {
                     command = new InvalidCommand();
             }
         } catch (Exception e) {
-            //throw new KoraException("Please give a valid command!");
             command = new InvalidCommand();
         }
         return command;

@@ -26,7 +26,7 @@ public class MarkCommand extends Command {
     public void execute(TaskList taskList, Storage storage) throws KoraException {
         Task currentTask = taskList.getTask(taskIndex);
         currentTask.setMarked();
-        storage.saveTask(currentTask);
+        storage.saveTaskList(taskList);
         commandMessage = "Wow you are done!" + "\n" + currentTask.toString();
     }
 }
