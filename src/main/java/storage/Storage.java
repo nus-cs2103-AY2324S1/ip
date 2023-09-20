@@ -3,7 +3,10 @@ package storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.nio.file.Path;
 
 import parser.Parser;
 import tasks.Deadlines;
@@ -21,8 +24,8 @@ import tasks.ToDos;
  */
 public class Storage {
     private FileWriter pw;
-    private String currdir;
-    private TaskList tasks;
+    private final String currdir;
+    private final TaskList tasks;
     private FileWriter archive;
 
     /**
@@ -30,7 +33,6 @@ public class Storage {
      *
      * @param dir   The directory where the data is stored.
      * @param tasks The TaskList instance for managing tasks.
-     * @throws IOException
      */
     public Storage(String dir, TaskList tasks) {
         this.currdir = dir;
@@ -45,7 +47,11 @@ public class Storage {
      */
     public String load(Parser parser) throws IOException {
         StringBuilder results = new StringBuilder();
-        try (Scanner fileScanner = new Scanner(new File("../.././src/main/java/OUTPUT.txt"))) {
+        String home = System.getProperty("user.home");
+        Path outputPath = Paths.get(home, "OUTPUT.txt");
+        Path archivePath = Paths.get(home, "Archive.txt");
+
+        try (Scanner fileScanner = new Scanner(new File(outputPath.toString()))) {
             results.append("Your leftover tasks are:\n");
             int i = 0;
             while (fileScanner.hasNextLine()) {
@@ -73,12 +79,12 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            results.append("\nERROR: OUTPUT.txt file is not found in directory ./src/main/java/OUTPUT.txt!\n"
+            results.append("\nERROR: OUTPUT.txt file is not found in directory OUTPUT.txt!\n"
                     + "Creating OUTPUT.txt in the given directory now.");
         } finally {
             // Instance of PrintWriter to write new outputs to the file
-            pw = new FileWriter("../.././src/main/java/OUTPUT.txt", true);
-            archive = new FileWriter("../.././src/main/java/Archive.txt", true);
+            pw = new FileWriter(String.valueOf(outputPath), true);
+            archive = new FileWriter(String.valueOf(archivePath), true);
         }
         return results.toString();
     }
