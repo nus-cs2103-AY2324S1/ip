@@ -128,15 +128,18 @@ public class Storage {
                     loadedTasks.add(task);
                 }
             }
-
-            taskList.getTasks().clear();
-            taskList.getTasks().addAll(loadedTasks);
+            updateTaskList(taskList, loadedTasks);
         } catch (FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         } catch (DukeException e) {
         }
     }
 
+    private void updateTaskList(TaskList taskList, List<Task> loadedTasks) {
+        taskList.getTasks().clear();
+        taskList.getTasks().addAll(loadedTasks);
+    }
+    
     private Task createTask(String taskType, String taskDescription, String[] parts) throws DukeException {
         Task task;
 
