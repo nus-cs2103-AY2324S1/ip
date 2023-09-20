@@ -1,7 +1,8 @@
 plugins {
-    id 'java'
-    id 'application'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id "java"
+    id "application"
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "checkstyle"
 }
 
 repositories {
@@ -9,10 +10,10 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.json', name: 'json', version: '20230618'
+    implementation group: "org.json", name: "json", version: "20230618"
 
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: "5.10.0"
+    testRuntimeOnly group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "5.10.0"
 }
 
 
@@ -25,7 +26,7 @@ run {
     standardInput System.in
 }
 
-defaultTasks 'clean', 'build'
+defaultTasks "clean", "build"
 
 test {
     useJUnitPlatform()
@@ -43,4 +44,8 @@ test {
 
 shadowJar {
     archiveFileName = "cloud.jar"
+}
+
+checkstyle {
+    toolVersion = "10.2"
 }
