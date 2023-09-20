@@ -47,7 +47,7 @@ test {
 }
 
 application {
-    mainClass.set("hong.Hong")
+    mainClass.set("hong.Launcher")
 }
 
 shadowJar {

@@ -36,7 +36,6 @@ public class Storage {
                 boolean isComplete = data.charAt(4) == 'X';
                 String taskDescription = data.substring(7);
                 String[] arrTaskSplit;
-                String constructorInput;
 
                 switch (taskType) {
                 case 'T':
@@ -85,7 +84,6 @@ public class Storage {
             myObj.createNewFile();
 
         } catch (IOException e) {
-
             Ui.print("Error creating file");
         }
 

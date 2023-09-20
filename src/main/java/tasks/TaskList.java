@@ -16,6 +16,13 @@ public class TaskList {
         this.tasks = Storage.readTasks();
     }
 
+
+    /*
+     * Returns the String representation of the entire task list.
+     *
+     *
+     * @return The String representation of the entire task list.
+     */
     public String printTasks() {
         String str = "";
         str += Ui.printLine();
@@ -29,6 +36,12 @@ public class TaskList {
         return str;
     }
 
+    /*
+     * Function to find tasks that match the userInput.
+     *
+     * @param userInput a String that contains the tasks that the user wants to find.
+     * @return a String containing a list of tasks that match the input.
+     */
     public String findTask(String userInput) {
         String str = "";
         str += Ui.printLine();
@@ -46,6 +59,12 @@ public class TaskList {
         return str;
     }
 
+    /*
+     * Marks a specified task as done.
+     *
+     * @param userInput a String that contains the index of the task to be marked.
+     * @return a String confirming that the task has been marked.
+     */
     public String handleMark(String userInput) {
         String str = "";
         String[] arrInput = userInput.split(" ");
@@ -64,6 +83,12 @@ public class TaskList {
 
     }
 
+    /*
+     * Snoozes a task.
+     *
+     * @param userInput a String containing the index of the task to be snoozed.
+     * @return a String informing the user if the task has been successfully snoozed.
+     */
     public String snoozeTask(String userInput) {
         String str = "";
         String[] arrInput = userInput.split(" ");
@@ -79,6 +104,13 @@ public class TaskList {
 
     }
 
+
+    /*
+     * Function to create a deadline task.
+     *
+     * @param userInput a String containing the details of the deadline.
+     * @return a String informing the user if the deadline has been successfully created.
+     */
     public String createDeadline(String userInput) {
         String str = "";
         String newInput = userInput.substring(9);
@@ -94,6 +126,12 @@ public class TaskList {
         return str;
     }
 
+    /*
+     * Function to create a todo task.
+     *
+     * @param userInput a String containing the details of the todo.
+     * @return a String informing the user if the todo has been successfully created.
+     */
     public String createTodo(String userInput) {
         String str = "";
         String newInput = userInput.substring(5);
@@ -103,6 +141,12 @@ public class TaskList {
         return str;
     }
 
+    /*
+     * Function to create an event task.
+     *
+     * @param userInput a String containing the details of the event.
+     * @return a String informing the user if the event has been successfully created.
+     */
     public String createEvent(String userInput) {
         String str = "";
         String newInput = userInput.substring(6);
@@ -125,6 +169,13 @@ public class TaskList {
         str += Ui.printLine();;
         return str;
     }
+
+    /*
+     * Deletes a specified task.
+     *
+     * @param userInput a String containing the index of the task to delete.
+     * @return a String informing the user if the task has been successfully deleted.
+     */
     public String deleteTask(String userInput) {
         String str = "";
         String[] arrInput = userInput.split(" ");

@@ -11,6 +11,67 @@ import ui.Ui;
 
 
 public class Hong{
+
+
+    public static void main(String[] args) {
+        ;
+    }
+    private void run() {
+        boolean isLoopContinuing = true;
+        Ui.sayHello();
+        TaskList taskList = new TaskList();
+        Scanner myObj = new Scanner(System.in);
+        while (isLoopContinuing) {
+            String userInput = myObj.nextLine();
+            Parser parser = new Parser();
+            String parsedCommand = parser.parseCommand(userInput);
+            assert parsedCommand.equals("") : "Parser is not working";
+            switch (parsedCommand) {
+            case "bye":
+                myObj.close();
+                isLoopContinuing = false;
+                break;
+            case "list":
+                taskList.printTasks();
+                break;
+            case "mark":
+                taskList.handleMark(userInput);
+                taskList.storeTasks();
+                break;
+            case "deadline":
+                taskList.createDeadline(userInput);
+                taskList.storeTasks();
+                break;
+            case "event":
+                taskList.createEvent(userInput);
+                taskList.storeTasks();
+                break;
+            case "todo":
+                taskList.createTodo(userInput);
+                taskList.storeTasks();
+                break;
+            case "delete":
+                taskList.deleteTask(userInput);
+                taskList.storeTasks();
+                break;
+            case "find":
+                taskList.findTask(userInput);
+                break;
+            default:
+                Ui.printLine();
+                Ui.print("I do not recognise that command!");
+                Ui.printLine();
+            }
+        }
+        Ui.sayBye();
+    }
+
+    /*
+     * Function to return a response when given the userInput.
+     *
+     * @param userInput a String which represents the input from the user.
+     * @return The String response to print out on the GUI.
+     */
     public String getResponse(String userInput) {
         TaskList taskList = new TaskList();
         String str = "";

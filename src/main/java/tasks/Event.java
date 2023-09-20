@@ -42,6 +42,11 @@ public class Event extends Task {
         return "[E]" + super.toString() + " DATETIME " + this.start.format(format) + " DATETIME_SPLIT " + this.end.format(format);
     }
 
+    /*
+     * Snoozes the event by increasing its end date by 1 day.
+     *
+     * @return A String confirming the snooze along with the old start date and new end date.
+     */
     @Override
     public String snooze() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");

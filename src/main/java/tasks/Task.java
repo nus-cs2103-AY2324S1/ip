@@ -15,7 +15,7 @@ public class Task {
     }
 
     /*
-     * Checks if the task is done and returns a Stirng
+     * Checks if the task is done and returns a String.
      *
      * @return String showing if the task is done or not.
      */

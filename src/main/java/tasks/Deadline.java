@@ -17,6 +17,11 @@ public class Deadline extends Task {
         this.dueDate = dueDate;
     }
 
+    /*
+     * Snoozes the deadline by increasing its due date by 1 day.
+     *
+     * @return A String confirming the snooze along with the new due date.
+     */
     @Override
     public String snooze() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy ha");

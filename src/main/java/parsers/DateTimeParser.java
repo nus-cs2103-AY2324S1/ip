@@ -12,7 +12,6 @@ public class DateTimeParser {
      * @return The LocalDateTime object constructed from the String.
      */
     public static LocalDateTime parseDateTime(String dateTime) {
-        //2019-10-15 1800
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         return LocalDateTime.parse(dateTime, format);
     }
