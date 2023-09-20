@@ -1,4 +1,5 @@
 # DICK chatbot (by wj331)
+![Ui.png](Ui.png)
 
 ## Quick start
 1. Ensure you have Java 11 or above installed in your Computer.
