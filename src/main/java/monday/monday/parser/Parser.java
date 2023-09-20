@@ -31,6 +31,11 @@ public class Parser {
         DEFAULT,
     }
 
+    /**
+     * Constructs a parser object with given task list.
+     *
+     * @param taskList tasklist of the chatbot
+     */
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
@@ -84,6 +89,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Command to mark a task as completed.
+     *
+     * @param content The index of the task to mark as completed.
+     * @return A string indicating the result of the operation.
+     * @throws MondayException If the index is not provided.
+     */
     private String markCommand(String content) throws MondayException {
         if (content == null) {
             throw new MondayException("Mark requires a index to mark the task as completed.");
@@ -93,6 +105,13 @@ public class Parser {
         return taskList.mark(index);
     }
 
+    /**
+     * Command to mark a task as uncompleted.
+     *
+     * @param content The index of the task to mark as uncompleted.
+     * @return A string indicating the result of the operation.
+     * @throws MondayException If the index is not provided.
+     */
     private String unMarkCommand(String content) throws MondayException {
         if (content == null) {
             throw new MondayException("UnMark requires a index to mark the task as uncompleted.");
@@ -103,6 +122,13 @@ public class Parser {
         return taskList.unMark(index);
     }
 
+    /**
+     * Command to add a new todo task to the task list.
+     *
+     * @param content The description of the todo task.
+     * @return A string indicating the result of the operation.
+     * @throws MondayException If the description is empty.
+     */
     private String toDoCommand(String content) throws MondayException {
         if (content == null) {
             throw new MondayException("The description of a todo cannot be empty.\n"
@@ -112,6 +138,13 @@ public class Parser {
         return taskList.addToList(new ToDo(content));
     }
 
+    /**
+     * Command to add a new deadline task to the task list.
+     *
+     * @param content The description and date of the deadline task.
+     * @return A string indicating the result of the operation.
+     * @throws MondayException If the description or date is empty or the format is invalid.
+     */
     private String deadLineCommand(String content) throws MondayException {
         try {
             if (content == null) {
@@ -130,6 +163,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Command to add a new event task to the task list.
+     *
+     * @param content The description, start time, and end time of the event task.
+     * @return A string indicating the result of the operation.
+     * @throws MondayException If the description or timings are empty or the format is invalid.
+     */
     private String eventCommand(String content) throws MondayException {
         try {
             if (content == null) {
@@ -151,7 +191,13 @@ public class Parser {
                     + "Usage: event (task) /from (start time) /to (end time)");
         }
     }
-
+    /**
+     * Command to delete a task from the task list.
+     *
+     * @param content The index of the task to delete.
+     * @return A string indicating the result of the operation.
+     * @throws MondayException If the index is not provided.
+     */
     private String deleteCommand(String content) throws MondayException {
         if (content == null) {
             throw new MondayException("Delete requires a index to delete the task");
@@ -161,6 +207,13 @@ public class Parser {
         return taskList.delete(index);
     }
 
+    /**
+     * Command to find tasks matching a keyword.
+     *
+     * @param content The keyword to search for.
+     * @return A string containing the matched tasks.
+     * @throws MondayException If the keyword is not provided or the format is invalid.
+     */
     private String findCommand(String content) throws MondayException {
         if (content == null) {
             throw new MondayException("Find requires a keyword to find the tasks");

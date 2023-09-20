@@ -28,7 +28,7 @@ public class Ui {
     }
 
     /**
-     * Ui for marking a task as done.
+     * Prints message for marking a task as done.
      *
      * @param task The task  marked as done.
      * @return A string indicating that the task has been marked as done.
@@ -38,7 +38,7 @@ public class Ui {
     }
 
     /**
-     * UI for unMarking a task as not done yet.
+     * Prints message unMarking a task as not done yet.
      *
      * @param task The task marked as not done yet.
      * @return A string indicating that the task has been marked as not done yet.
@@ -48,7 +48,7 @@ public class Ui {
     }
 
     /**
-     * Ui for adding a task to the list.
+     * Prints message for adding a task to the list.
      *
      * @param task The task added to the list.
      * @param size The number of tasks in the list after the new task is added.
@@ -60,7 +60,7 @@ public class Ui {
     }
 
     /**
-     * Ui for deleting a task from the list.
+     * Prints message for deleting a task from the list.
      *
      * @param task The task deleted from the list.
      * @param size The number of tasks in the list after the task is deleted.

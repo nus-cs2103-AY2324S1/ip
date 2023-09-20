@@ -50,6 +50,12 @@ public class Monday {
         scanner.close();
     }
 
+    /**
+     * Gets response based on user input.
+     *
+     * @param input User input to process
+     * @return Response based on user input.
+     */
     public String getResponse(String input) {
         try {
             return p.parseCommands(input);
@@ -59,7 +65,7 @@ public class Monday {
     }
 
     /**
-     * Entry point to Monday.
+     * The entry point to the chatbot.
      *
      * @param args Command line arguments
      */
