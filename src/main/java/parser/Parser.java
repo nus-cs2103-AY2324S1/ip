@@ -131,7 +131,7 @@ public class Parser {
     }
 
     /**
-     * Separating words from a string that has a divider between it and store the words in
+     * Separates words from a string that has a divider between it and store the words in
      * ArrayList.
      * @param text The text to split.
      * @param cutOff The divider to cut the string.

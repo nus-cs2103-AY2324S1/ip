@@ -57,7 +57,7 @@ public class DataFile {
     }
 
     /**
-     * Edit the marks or unmarks of a task in the file.
+     * Edits the marks or unmarks of a task in the file.
      * @param n The line to be edited.
      * @param newChar The mark to be replaced.
      * @throws IOException If any file issues exists.
@@ -107,7 +107,7 @@ public class DataFile {
     }
 
     /**
-     * Read the data from the file and convert it to list of Tasks object.
+     * Reads the data from the file and convert it to list of Tasks object.
      * @return List of Tasks in ArrayList.
      * @throws IOException If any file issues exists.
      */

@@ -34,7 +34,7 @@ public class CustomDate {
     }
 
     /**
-     * Add zero to the front of a string that is 1 in length.
+     * Adds zero to the front of a string that is 1 in length.
      * @param text Text to be edited.
      * @return Text with a zero in front.
      */
