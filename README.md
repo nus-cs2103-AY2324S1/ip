@@ -104,6 +104,6 @@ manually.
 
 ## Editing the data file
 
-Tasklist data are saved automatically as a JSON file [JAR file location]/duke.txt. Advanced users are welcome to update
+Tasklist data are saved automatically as a JSON file [JAR file location]/zac.txt. Advanced users are welcome to update
 data directly by editing that data file.
 

@@ -17,7 +17,7 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        String FILE_PATH = "./duke.txt";
+        String FILE_PATH = "./zac.txt";
         Storage storage = new Storage(FILE_PATH);
 
         try {
