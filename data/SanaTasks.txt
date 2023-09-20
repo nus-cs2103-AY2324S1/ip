@@ -1,5 +1,6 @@
-T | 0 | eat lunch
-T | 0 | red velvet
-D | 0 | frozen  | 2020-12-10
-E | 0 | itzy superior  | 2020-12-12 | 2020-12-12
-E | 0 | yoasobi superior  | 2020-12-12 | 2020-12-12
+T | 0 | do CS2100 Tutorial
+E | 0 | hackathon | 2023-10-02 | 2023-10-04
+D | 0 | CS2103T IP | 2023-09-22
+T | 0 | eat
+D | 0 | eat | 2020-12-12
+E | 0 | today | 2020-12-12 | 2020-12-12
