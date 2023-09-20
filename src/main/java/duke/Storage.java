@@ -1,24 +1,26 @@
+
 package duke;
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.ToDo;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import task.Deadline;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 /**
  * This class handles the data reads from Duke.txt file to load tasks
  */
-
 public class Storage {
     /**
      * Reads data from file and loads into ArrayList if available. Else creates the file.
      *
      * @param pathOfDirectory Path variable provided
-     * @param storeTask ArrayList<Task> which stores tasks when program is running
+     * @param storeTask       ArrayList<Task> which stores tasks when program is running
      * @throws IOException if an I/O error occurs
      */
     public static void readFromDisk(Path pathOfDirectory, ArrayList<Task> storeTask) throws IOException {
@@ -40,9 +42,11 @@ public class Storage {
             if (taskVariablesTemp[0].equals("T")) {
                 storeTask.add(new ToDo(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2]));
             } else if (taskVariablesTemp[0].equals("D")) {
-                storeTask.add(new Deadline(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
+                storeTask.add(new Deadline(Integer.parseInt(
+                        taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
             } else if (taskVariablesTemp[0].equals("E")) {
-                storeTask.add(new Event(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
+                storeTask.add(new Event(Integer.parseInt(
+                        taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
             } else {
 
             }
@@ -59,10 +63,12 @@ public class Storage {
             storeTask.add(new ToDo(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2]));
             break;
         case "D":
-            storeTask.add(new Deadline(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
+            storeTask.add(new Deadline(
+                    Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3]));
             break;
         case "E":
-            storeTask.add(new Event(Integer.parseInt(taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
+            storeTask.add(new Event(Integer.parseInt(
+                    taskVariablesTemp[1]), taskVariablesTemp[2], taskVariablesTemp[3], taskVariablesTemp[4]));
             break;
         default:
             throw new IllegalStateException("Unexpected value: " + taskType);
