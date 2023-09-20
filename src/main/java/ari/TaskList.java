@@ -1,4 +1,4 @@
-package duke;
+package ari;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -60,17 +60,17 @@ public class TaskList {
         return matchingTasks;
     }
 
-    public void postponeDeadline(int index, LocalDateTime newDateTime) throws DukeException {
+    public void postponeDeadline(int index, LocalDateTime newDateTime) throws AriException {
         if (!(this.tasks.get(index) instanceof Deadline)) {
-            throw new DukeException("Wrong type of task");
+            throw new AriException("Wrong type of task");
         }
 
         ((Deadline) this.tasks.get(index)).postpone(newDateTime);
     }
 
-    public void rescheduleEvent(int index, LocalDateTime newStartTime, LocalTime newEndTime) throws DukeException {
+    public void rescheduleEvent(int index, LocalDateTime newStartTime, LocalTime newEndTime) throws AriException {
         if (!(this.tasks.get(index) instanceof Event)) {
-            throw new DukeException("Wrong type of task");
+            throw new AriException("Wrong type of task");
         }
 
         ((Event) this.tasks.get(index)).reschedule(newStartTime, newEndTime);

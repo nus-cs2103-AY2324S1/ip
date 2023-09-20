@@ -1,4 +1,4 @@
-package duke;
+package ari;
 
 /**
  * A task class. Stores information about the description of task and whether it is done or not.

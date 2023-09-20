@@ -1,4 +1,4 @@
-package duke;
+package ari;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +11,6 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-
-
 
 public class TaskListTest {
     @Test
@@ -48,12 +46,12 @@ public class TaskListTest {
         String by = "20230608 1600";
         LocalDateTime dateTimeBy = LocalDateTime.parse(by, formatter);
 
-        assertThrows(DukeException.class, () -> tasks.postponeDeadline(0, dateTimeBy));
+        assertThrows(AriException.class, () -> tasks.postponeDeadline(0, dateTimeBy));
 
     }
 
     @Test
-    public void postponeTask_test() throws IOException, DukeException {
+    public void postponeTask_test() throws IOException, AriException {
         TaskList tasks = new TaskList(new Storage("data/loadTest.txt").load());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
@@ -81,11 +79,11 @@ public class TaskListTest {
         String to = "1600";
         LocalTime dateTimeTo = LocalTime.parse(to, formatter2);
 
-        assertThrows(DukeException.class, () -> tasks.rescheduleEvent(1, dateTimeFrom, dateTimeTo));
+        assertThrows(AriException.class, () -> tasks.rescheduleEvent(1, dateTimeFrom, dateTimeTo));
     }
 
     @Test
-    public void rescheduleTask_test() throws IOException, DukeException{
+    public void rescheduleTask_test() throws IOException, AriException{
         TaskList tasks = new TaskList(new Storage("data/loadTest.txt").load());
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");

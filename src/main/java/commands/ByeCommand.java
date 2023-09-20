@@ -1,9 +1,9 @@
 package commands;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import ari.AriException;
+import ari.Storage;
+import ari.TaskList;
+import ari.Ui;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 public class ByeCommand extends Command {
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AriException {
         return ui.bye();
     }
 }

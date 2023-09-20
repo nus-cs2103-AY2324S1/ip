@@ -1,9 +1,9 @@
 package commands;
 
-import duke.DukeException;
-import duke.TaskList;
-import duke.Ui;
-import duke.Storage;
+import ari.AriException;
+import ari.TaskList;
+import ari.Ui;
+import ari.Storage;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public abstract class Command {
      * @param storage Storage object that manipulates task data in text file
      * @return a response by Ari in String
      * @throws IOException if the text file cannot be opened or located
-     * @throws DukeException if the command cannot be executed
+     * @throws AriException if the command cannot be executed
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AriException;
 }

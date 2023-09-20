@@ -1,4 +1,4 @@
-import duke.DukeException;
+import ari.AriException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Ari ari;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -32,8 +32,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Ari a) {
+        ari = a;
     }
 
     /**
@@ -41,9 +41,9 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws DukeException, IOException {
+    private void handleUserInput() throws AriException, IOException {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = ari.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
