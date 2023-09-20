@@ -81,7 +81,6 @@ public class TaskList {
     public Task createNewTask(String userInput) throws DukeException {
         Task newTask;
         String[] inputArray = userInput.split(" ", 2);
-
         if (inputArray.length != 2 || inputArray[1].isEmpty()) {
             throw new EmptyTaskException(inputArray[0]);
         } else {
@@ -106,6 +105,7 @@ public class TaskList {
                 }
                 newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
             }
+            newTask = new Event(a[0], getDate(fromto[0]), getTime(fromto[1]));
         }
 
         return newTask;
