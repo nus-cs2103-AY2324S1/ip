@@ -199,7 +199,7 @@ public class Parser {
      */
     private static String handleFind(String[] elements) {
         String keyword = elements[1];
-        return Ui.displaySearchResults(Duke.taskList, keyword);
+        return Ui.returnSearchResults(Duke.taskList, keyword);
     }
 
     /**
