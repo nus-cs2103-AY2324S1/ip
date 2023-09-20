@@ -1,6 +1,9 @@
-[D][X] sleep (by: 2000-12-20)
+[D][ ] important homework1 (by: 2000-01-01)
 [E][ ] deepsleep (from: 2020-12-12 to: 2023-12-12)
 [E][ ] party (from: 2022-12-12 to: 2023-12-12)
+[E][ ] assignment1 (from: 2023-09-11 to: 2023-09-13)
+[D][ ] assignment1 (by: 2023-09-12)
 [D][ ] sleep (by: 2023-11-12)
 [T][ ] homework
+[T][ ] practice quiz
 [T][X] saikang

@@ -108,13 +108,13 @@ public class Main extends Application {
     }
 
     private void handleUserInput(Duke duke) {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(duke.getResponse(userInput.getText()));
+        Label userText = new Label("Hi spongebob help me: " + userInput.getText());
+        Label dukeText = new Label("OK patrick\n" + duke.getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(userText, new ImageView(patrick)), 
+            DialogBox.getUserDialog(userText, new ImageView(patrick)),
             DialogBox.getDukeDialog(dukeText, new ImageView(spongebob))
         );
-        if (dukeText.getText().equals("Bye, patrick this window will magically disappear in 3 seconds")) {
+        if (dukeText.getText().equals("OK patrick\n" + "Bye, this window will magically disappear in 3 seconds")) {
             scheduleExitAfterDelay();
         }
         userInput.clear();

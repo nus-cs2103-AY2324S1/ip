@@ -68,7 +68,7 @@ public class Command {
      */
     public static String findCommand(TaskList tasks, String filterWord) {
         String output = "";
-        output += "Here are the matching tasks in your list:";
+        output += "Here are the matching tasks in your list: \n";
         TaskList filteredTaskList = tasks.findmatching(filterWord.substring(5));
         for (int i = 0; i < filteredTaskList.size(); i++) {
             output += ((i + 1) + ". " + filteredTaskList.get(i).toString()) + "\n";
