@@ -10,23 +10,23 @@ import ui.Ui;
 public class ExitCommand extends Command {
 
     /**
-     * Constructs a command.ExitCommand.
+     * Constructs an ExitCommand.
      */
     public ExitCommand() {
         super(null);
     }
 
     /**
-     * Executes the command.ExitCommand, displaying a goodbye message and exiting the application.
+     * Executes the ExitCommand, displaying a goodbye message.
      *
      * @param tasks   The list of tasks (not used in this command).
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving tasks to a file (not used in this command).
+     * @return A goodbye message string.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showGoodbye();
-        System.exit(0);
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     /**

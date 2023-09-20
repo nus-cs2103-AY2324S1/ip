@@ -26,25 +26,32 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the find command, filtering the tasks by the keyword.
+     * Executes the find command, filtering the tasks by the keyword, and returns the result as a string.
      *
-     * @param tasks The list of tasks.
-     * @param ui The user interface.
+     * @param tasks   The list of tasks.
+     * @param ui      The user interface.
      * @param storage The task storage utility.
+     * @return A string representing the list of matching tasks or a message indicating no matches found.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = new ArrayList<>(tasks.getList());
         matchingTasks.removeIf(task -> !task.getDescription().contains(keyword));
 
+        StringBuilder response = new StringBuilder();
+
         if (matchingTasks.isEmpty()) {
-            ui.showNotFound();
+            response.append(ui.showNotFound());
         } else {
-            ui.showTaskListHeader();
+            response.append(ui.showTaskListHeader());
             for (int i = 0; i < matchingTasks.size(); i++) {
-                ui.showTask(i, matchingTasks.get(i));
+                response.append(ui.showTask(i, matchingTasks.get(i)));
+                if (i < matchingTasks.size() - 1) {
+                    response.append("\n");
+                }
             }
         }
+        return response.toString();
     }
 
     /**

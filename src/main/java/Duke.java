@@ -169,12 +169,27 @@ public class Duke extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
-        );
+        String input = userInput.getText();
+
+        // Creating a label for the user input
+        Label userText = new Label(input);
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, new ImageView(user)));
+
+        // Processing the input and adding Duke's response
+        String response;
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
+            if (response == null || response.trim().isEmpty()) {
+                response = "Sorry, I couldn't understand your command or there's no response!";
+            }
+        } catch (DukeException e) {
+            response = Ui.error(e.getMessage());
+        }
+
+        Label dukeText = new Label(response);
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
+
         userInput.clear();
     }
     /**
@@ -182,6 +197,13 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: " + input;
+        String response;
+        try {
+            Command c = Parser.parse(input);
+            response = c.execute(tasks, ui, storage);
+        } catch (DukeException e) {
+            response = Ui.error(e.getMessage());
+        }
+        return response;
     }
 }

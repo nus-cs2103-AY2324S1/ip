@@ -1,14 +1,14 @@
 package command;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import exception.DukeException;
 import storage.Storage;
 import task.Event;
 import task.TaskList;
 import ui.Ui;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Represents a command to add a task.Event task.
@@ -30,10 +30,12 @@ public class AddEvent extends AddCommand {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage handler for saving tasks to a file.
+     * @return A string representation of the task added message and the added task details.
      * @throws DukeException If there is an error in parsing or adding the task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        StringBuilder response = new StringBuilder();
         try {
             // Check if input contains /from and /to
             if (!input.contains("/from") || !input.contains("/to")) {
@@ -58,14 +60,17 @@ public class AddEvent extends AddCommand {
             LocalDateTime formattedTo = parseDateTime(to);
 
             // Create and add task.Event task
-            tasks.add(new Event(description, formattedFrom, formattedTo));
+            Event event = new Event(description, formattedFrom, formattedTo);
+            tasks.add(event);
 
-            // Display message
-            ui.showAddedTask(tasks.getList().get(tasks.size() - 1));
+            // Build response message
+            response.append(ui.showAddedTask(event));
+            response.append("\n").append(event);
 
         } catch (DateTimeParseException e) {
             throw new DukeException("Incorrect date/time for event. Please use 'yyyy-MM-dd HHmm'.");
         }
+        return response.toString();
     }
 
     /**
@@ -75,5 +80,6 @@ public class AddEvent extends AddCommand {
      * @return A LocalDateTime object representing the parsed date and time.
      */
     private LocalDateTime parseDateTime(String dateTimeStr) {
-        return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));    }
+        return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+    }
 }

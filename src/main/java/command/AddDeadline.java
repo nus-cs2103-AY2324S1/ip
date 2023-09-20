@@ -1,15 +1,14 @@
 package command;
 
+import exception.DukeException;
+import storage.Storage;
+import task.Deadline;
+import task.TaskList;
+import ui.Ui;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
-import exception.DukeException;
-import task.Deadline;
-import task.TaskList;
-import storage.Storage;
-import ui.Ui;
-
 
 /**
  * Represents a command to add a task.Deadline task.
@@ -31,10 +30,12 @@ public class AddDeadline extends AddCommand {
      * @param tasks   The list of tasks.
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving tasks to a file.
+     * @return The result string after the execution of the command.
      * @throws DukeException If there is an error in the command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        StringBuilder response = new StringBuilder();
         try {
             // Check if input contains /by
             if (!input.contains("/by")) {
@@ -57,14 +58,17 @@ public class AddDeadline extends AddCommand {
             LocalDateTime deadlineDateTime = parseDateTime(by);
 
             // Create and add task.Deadline task
-            tasks.add(new Deadline(description, deadlineDateTime));
+            Deadline newDeadline = new Deadline(description, deadlineDateTime);
+            tasks.add(newDeadline);
 
-            // Display message
-            ui.showAddedTask(tasks.getList().get(tasks.size() - 1));
+            // Build response message
+            response.append(ui.showAddedTask(newDeadline));
+            response.append("\n").append(newDeadline);
 
         } catch (DateTimeParseException e) {
             throw new DukeException("Incorrect date/time format for deadline. Please use 'yyyy-MM-dd HHmm'.");
         }
+        return response.toString();
     }
 
     /**

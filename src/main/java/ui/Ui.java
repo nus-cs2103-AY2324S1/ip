@@ -20,15 +20,16 @@ public class Ui {
 
     /**
      * Displays the welcome message and logo.
+     *
+     * @return The welcome message and logo.
      */
-    public void showWelcome() {
+    public String showWelcome() {
         String name = "misty";
         String logo = "|\\---/|\n" +
                 "| o_o |\n" +
                 " \\___/";
-        System.out.println(">  Hello from " + name + "\n" + logo);
-        System.out.println(">  What can misty help you with?");
-        showLine();
+        return "Hello from " + name + "\n" + logo +
+                "\nWhat can misty help you with?";
     }
 
     /**
@@ -41,44 +42,46 @@ public class Ui {
     }
 
     /**
-     * Displays the command guide with available commands.
+     * Provides the command guide with available commands.
+     *
+     * @return The command guide.
      */
-    public void showCommandGuide() {
-        System.out.println(">  Commands:");
-        System.out.println("todo [task] - Adds a new ToDo task");
-        System.out.println("deadline [task] /by [YYYY-MM-DD HH:mm] - Adds a new task.Deadline task");
-        System.out.println("event [task] /from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm] - Adds a new task.Event task");
-        System.out.println("list - Shows all tasks");
-        System.out.println("mark [task number] - Marks a task as completed");
-        System.out.println("unmark [task number] - Marks a task as incomplete");
-        System.out.println("delete [task number] - Deletes a task");
-        System.out.println("find - Find a task by searching for a keyword");
-        System.out.println("help - Shows command guide");
-        System.out.println("bye - Exits Duke");
+    public String showCommandGuide() {
+        return "Commands:\n" +
+                "todo [task] - Adds a new ToDo task\n" +
+                "deadline [task] /by [YYYY-MM-DD HH:mm] - Adds a new Deadline task\n" +
+                "event [task] /from [YYYY-MM-DD HH:mm] /to [YYYY-MM-DD HH:mm] - Adds a new Event task\n" +
+                "list - Shows all tasks\n" +
+                "mark [task number] - Marks a task as completed\n" +
+                "unmark [task number] - Marks a task as incomplete\n" +
+                "delete [task number] - Deletes a task\n" +
+                "find - Find a task by searching for a keyword\n" +
+                "help - Shows command guide\n" +
+                "bye - Exits Duke";
     }
 
     /**
-     * Displays an error message related to loading tasks from a file.
+     * Provides an error message related to loading tasks from a file.
      *
      * @param errorMessage The error message to display.
      * @return The formatted error message.
      */
     public static String loadingError(String errorMessage) {
-        return ">  Error occurred when loading the tasks from the file: " + errorMessage;
+        return "Error occurred when loading the tasks from the file: " + errorMessage;
     }
 
     /**
-     * Displays an error message for an invalid task index.
+     * Provides an error message for an invalid task index.
      *
      * @param index The invalid task index.
      * @return The formatted error message.
      */
     public String invalidIndexError(int index) {
-        return ">  task.Task " + index + " not found, please enter a valid task number.";
+        return "Task " + index + " not found, please enter a valid task number.";
     }
 
     /**
-     * Displays a general error message.
+     * Provides a general error message.
      *
      * @param errorMessage The error message to display.
      * @return The formatted error message.
@@ -88,99 +91,111 @@ public class Ui {
     }
 
     /**
-     * Displays the header for the task list.
+     * Provides the header for the task list.
+     *
+     * @return The header for the task list.
      */
-    public void showTaskListHeader() {
-        System.out.println(">  Your tasks: ");
+    public String showTaskListHeader() {
+        return "Your tasks:";
     }
 
     /**
-     * Displays a message indicating an empty task list.
+     * Provides a message indicating an empty task list.
+     *
+     * @return The message indicating an empty task list.
      */
-    public void showEmptyTaskList() {
-        System.out.println(">  You have no tasks :)");
+    public String showEmptyTaskList() {
+        return "You have no tasks :)";
     }
 
     /**
-     * Displays a message indicating an empty search result.
+     * Provides a message indicating an empty search result.
+     *
+     * @return The message indicating an empty search result.
      */
-    public void showNotFound() {
-        System.out.println(">  None of the existing tasks match your search :(");
+    public String showNotFound() {
+        return "None of the existing tasks match your search :(";
     }
 
     /**
-     * Displays a task in the task list.
+     * Provides a task in the task list.
      *
      * @param index The task index.
      * @param task  The task to display.
+     * @return The task in the task list.
      */
-    public void showTask(int index, Task task) {
-        System.out.println((index + 1) + ") " + task);
+    public String showTask(int index, Task task) {
+        return (index + 1) + ") " + task;
     }
 
     /**
-     * Displays a message indicating that a task has been added.
+     * Provides a message indicating that a task has been added.
      *
      * @param task The added task.
+     * @return The message indicating that a task has been added.
      */
-    public void showAddedTask(Task task) {
-        System.out.println(">  Added: " + task);
+    public String showAddedTask(Task task) {
+        return "Added: " + task;
     }
 
     /**
-     * Displays a message indicating that a task has been marked as completed.
+     * Provides a message indicating that a task has been marked as completed.
      *
      * @param index The task index.
      * @param task  The marked task.
+     * @return The message indicating that a task has been marked as completed.
      */
-    public void showMarkedTask(int index, Task task) {
-        System.out.println(">  ok, you have completed task.Task " + (index + 1));
-        System.out.println(task);
+    public String showMarkedTask(int index, Task task) {
+        return "Ok, you have completed task " + (index) + ": " + task;
     }
 
     /**
-     * Displays a message indicating that a task has been marked as incomplete.
+     * Provides a message indicating that a task has been marked as incomplete.
      *
      * @param index The task index.
      * @param task  The unmarked task.
+     * @return The message indicating that a task has been marked as incomplete.
      */
-    public void showUnmarkedTask(int index, Task task) {
-        System.out.println(">  ok, you haven't completed task.Task " + (index + 1));
-        System.out.println(task);
+    public String showUnmarkedTask(int index, Task task) {
+        return "Ok, you haven't completed task " + (index) + ": " + task;
     }
 
     /**
-     * Displays a message indicating that a task has been deleted.
+     * Provides a message indicating that a task has been deleted.
      *
      * @param index       The task index.
      * @param deletedTask The deleted task.
+     * @return The message indicating that a task has been deleted.
      */
-    public void showDeletedTask(int index, Task deletedTask) {
-        System.out.println(">  task.Task " + (index) + " has been removed");
-        System.out.println(">  " + deletedTask + " has been deleted.");
+    public String showDeletedTask(int index, Task deletedTask) {
+        return "Task " + (index) + " has been removed\n" + deletedTask + " has been deleted.";
     }
 
     /**
-     * Displays an error message related to saving tasks to a file.
+     * Provides an error message related to saving tasks to a file.
      *
      * @param errorMessage The error message to display.
      * @return The formatted error message.
      */
     public static String saveError(String errorMessage) {
-        return ">  An error occurred while saving the tasks to a file: " + errorMessage;
+        return "An error occurred while saving the tasks to a file: " + errorMessage;
     }
 
     /**
-     * Displays the goodbye message when exiting the application.
+     * Provides the goodbye message when exiting the application.
+     *
+     * @return The goodbye message.
      */
-    public void showGoodbye() {
-        System.out.println(">  ok thanks bye");
+    public String showGoodbye() {
+        return "Ok, thanks. Bye!";
     }
 
     /**
-     * Displays a horizontal line to separate messages.
+     * Provides a horizontal line to separate messages.
+     *
+     * @return The horizontal line.
      */
-    public void showLine() {
-        System.out.println("------------------------------------------------");
+    public String showLine() {
+        return "------------------------------------------------";
     }
 }
