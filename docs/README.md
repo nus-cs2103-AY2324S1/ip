@@ -73,7 +73,7 @@ Format: ```deadline DEADLINE_NAME /by DEADLINE_BY```
 
 Examples
 * ```deadline math homword /by 2023-09-20 1600```
-* ```deadline report /by 2023-09-20```
+* ```deadline report /by 2023-09-20 2200```
 
 Expected output:
 
