@@ -33,8 +33,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setNexus(Nexus d) {
-        nexus = d;
+    public void setNexus(Nexus nexus) {
+        this.nexus = nexus;
+        dialogContainer.getChildren().add(DialogBox.getNexusDialog(nexus.greetUser(), nexusImage));
+        dialogContainer.getChildren().add(DialogBox.getNexusDialog(nexus.getResponse("list"), nexusImage));
     }
 
     /**
@@ -47,7 +49,7 @@ public class MainWindow extends AnchorPane {
         String response = nexus.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getNexusDialog(response, bongoImage)
+                DialogBox.getNexusDialog(response, nexusImage)
         );
         userInput.clear();
     }

@@ -39,4 +39,8 @@ public class Nexus {
             return e.getMessage();
         }
     }
+
+    public String greetUser() {
+        return ui.showWelcome();
+    }
 }
