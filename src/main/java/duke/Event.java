@@ -27,12 +27,10 @@ public class Event extends Task {
     @Override
     public void mark() {
         super.mark();
-        System.out.println("Okay, I have marked this task as completed!" + "\n" + this.toString());
     }
     @Override
     public void unMark() {
         super.unMark();
-        System.out.println("Okay, I have marked this task as incomplete!" + "\n" + this.toString());
     }
     @Override
     public String toString() {
