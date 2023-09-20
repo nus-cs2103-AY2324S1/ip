@@ -8,7 +8,7 @@ public enum TaskType {
     DEADLINE("D"),
     EVENT("E");
     private String symbol;
-    private TaskType(String symbol) {
+    TaskType(String symbol) {
         this.symbol = symbol;
     }
     public static TaskType getTaskType(String inputSymbol) {

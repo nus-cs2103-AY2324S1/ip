@@ -81,7 +81,7 @@ public class Parser {
         case CHANGEPRIORITY:
             return this.parseAndChangePriority(userArgs, taskList);
         default:
-            throw new EkudIllegalArgException("Error parsing arguments :(");
+            throw new EkudIllegalArgException("Error parsing command :(");
         }
     }
 
