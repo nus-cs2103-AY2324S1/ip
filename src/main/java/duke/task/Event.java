@@ -21,10 +21,14 @@ public class Event extends Task {
      * @param from The starting date of the Event.
      * @param to The ending date of the Event.
      */
-    public Event(String message, LocalDateTime from, LocalDateTime to) {
+    public Event(String message, LocalDateTime from, LocalDateTime to) throws DukeException {
         super(message);
-        this.from = from;
-        this.to = to;
+        if (from.isBefore(to)) {
+            this.from = from;
+            this.to = to;
+        } else {
+            throw new DukeException("Invalid date parameter: From date must be before to date!");
+        }
     }
 
     /**
@@ -42,14 +46,24 @@ public class Event extends Task {
             break;
         case DATE1:
             try {
-                from = LocalDateTime.parse(newValue);
+                LocalDateTime newFrom = LocalDateTime.parse(newValue);
+                if (newFrom.isBefore(to)) {
+                    from = newFrom;
+                } else {
+                    throw new DukeException("Invalid date parameter: From date must be before to date!");
+                }
             } catch (DateTimeParseException e) {
                 throw new DukeException("Cannot parse date/time of new event start date!");
             }
             break;
         case DATE2:
             try {
-                to = LocalDateTime.parse(newValue);
+                LocalDateTime newTo = LocalDateTime.parse(newValue);
+                if (from.isBefore(newTo)) {
+                    to = newTo;
+                } else {
+                    throw new DukeException("Invalid date parameter: From date must be before to date!");
+                }
             } catch (DateTimeParseException e) {
                 throw new DukeException("Cannot parse date/time of new event end date!");
             }
@@ -82,6 +96,12 @@ public class Event extends Task {
 
     @Override
     public Event clone() {
-        return new Event(message, from, to);
+        assert from.isBefore(to) : "Only a valid Event can be cloned.";
+        try {
+            return new Event(message, from, to);
+        } catch (DukeException e) {
+            assert false : "Only a valid Event can be cloned.";
+            return null;
+        }
     }
 }

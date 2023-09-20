@@ -224,10 +224,26 @@ public class Parser {
             throw new DukeException("The description of an event cannot be empty.");
         }
         String[] event = message.substring(6).split(" /to | /from ");
-        if (event.length != 3) {
-            throw new DukeException("An event requires exactly 2 from/to dates.");
+
+        // filter out invalid commands with 2 /to dates or 2 /from dates
+        boolean isValidEventMessage = message.contains(" /to ") && message.contains(" /from ");
+
+        if (event.length != 3 || !isValidEventMessage) {
+            throw new DukeException("An event requires exactly 1 from date and 1 to date.");
         }
-        return new AddCommand(event[0], event[1], event[2]);
+
+        // check the order of the /from and /to markers to order them properly
+        int indexOfFromMarker = message.indexOf(" /from ");
+        int indexOfToMarker = message.indexOf(" /to ");
+
+        if (indexOfFromMarker < indexOfToMarker) {
+            return new AddCommand(event[0], event[1], event[2]);
+        } else if (indexOfFromMarker > indexOfToMarker) {
+            return new AddCommand(event[0], event[2], event[1]);
+        } else {
+            assert false : "/from marker cannot be the same as /to marker";
+            throw new DukeException("/from marker cannot be the same as /to marker");
+        }
     }
 
 
