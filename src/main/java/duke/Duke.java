@@ -61,7 +61,7 @@ public class Duke {
     }
 
     /**
-     * Driver method for CLI version of Duke.
+     * Launches CLI version of SeeWhyAre.
      *
      * @param args not used.
      */

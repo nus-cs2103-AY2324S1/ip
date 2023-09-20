@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a Dialog Box in the Graphic User Interface (GUI) Version of SeeWhyAre bot.
@@ -33,12 +35,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        // Need standardised photos to make better circle clips
         dialog.setText(text);
-        // dialog.setMinHeight(Region.USE_PREF_SIZE);
-        // Circle circleClip = new Circle(30,60,50);
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
+        Circle circleClip = new Circle(40,30,30);
         displayPicture.setImage(img);
-        // displayPicture.setClip(circleClip);
+        displayPicture.setClip(circleClip);
     }
 
     /**
