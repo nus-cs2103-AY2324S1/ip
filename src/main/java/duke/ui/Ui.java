@@ -212,7 +212,6 @@ public class Ui {
     public static String greetFunction(String name) {
 
         String greetings = "Hello! I'm " + name + "\n"
-                + Duke.LOGO
                 + "What can I do for you?";
         return greetings;
     }
@@ -221,14 +220,8 @@ public class Ui {
      * Displays the list of available commands to the user.
      */
     public String helpFunction() {
-        String output = ("You can utilise our functions below :\n");
-        output += "bye\n";
-        output += ("find [task keywords]\n");
-        output += ("list\n");
-        output += ("todo [task]\n");
-        output += ("deadline [task] /by [dd/MM/yyyy]\n");
-        output += ("event [task] /from [dd/MM/yyyy] /to [dd/MM/yyyy]\n");
-        output += ("Note that all input date format will only accepted in format : \n 02/12/2019 1800 dd/MM/yyyy HHmm\n");
+        String output = ("You can visit our product website :\n");
+        output += ("https://github.com/kimshitong/ip\n");
         return output;
     }
 

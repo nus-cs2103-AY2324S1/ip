@@ -138,12 +138,12 @@ public class Storage {
                 return new ToDo(text,checked,tag);
 
             case "E":
-                LocalDateTime startDate = LocalDateTime.parse(parts[3]);
-                LocalDateTime endDate = LocalDateTime.parse(parts[4]);
+                LocalDateTime startDate = LocalDateTime.parse(parts[4]);
+                LocalDateTime endDate = LocalDateTime.parse(parts[5]);
                 return new Event(text,startDate,endDate,checked,tag);
 
             case "D":
-                LocalDateTime dueDate = LocalDateTime.parse(parts[3]);
+                LocalDateTime dueDate = LocalDateTime.parse(parts[4]);
                 return new Deadline(text,dueDate,checked,tag);
         }
 
