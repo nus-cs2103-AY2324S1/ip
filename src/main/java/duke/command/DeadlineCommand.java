@@ -16,7 +16,7 @@ public class DeadlineCommand extends Command {
 
     public DeadlineCommand(String[] details) throws KoraException {
         if (details.length != 2) {
-            throw new KoraException("Deadline needs to have a due date!");
+            throw new KoraException("AiGu! Deadline needs to have a due date!");
         }
         taskDetails = details[0].replace("deadline ", "");
         timeDetails = details[1].replace("by ", "");

@@ -60,7 +60,6 @@ public class Duke {
             } else {
                 command.execute(mainTaskList, storageTask);
             }
-            //command.printOutput(command.getCommandMessage());
             return command.getCommandMessage();
         } catch (KoraException e) {
             return e.getMessage();
