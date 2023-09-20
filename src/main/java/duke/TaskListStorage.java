@@ -47,6 +47,7 @@ public class TaskListStorage {
      * @param filepath The filepath of the file to save the list of tasks to.
      */
     public TaskListStorage(String filepath) {
+        assert filepath != null : "Filepath is null!";
         this.filepath = filepath;
         this.file = new File(filepath);
         File parentDir = file.getParentFile();
@@ -81,6 +82,10 @@ public class TaskListStorage {
             String taskType = taskInfo[0];
             boolean isDone = taskInfo[1].equals("1");
             String taskDescription = taskInfo[2].replace("\\|", "|"); // Unescape
+
+            assert taskType != null : "Task type is null!";
+            assert taskDescription != null : "Task description is null!";
+
             try {
                 switch (taskType) {
                 case "T":
