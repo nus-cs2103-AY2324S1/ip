@@ -66,8 +66,8 @@ Format: `todo`
 
 Example of usage: 
 
-User types `todo`
-
+1. User types `todo`
+<br>
 Expected outcome:
 
 The Chatbot will instruct users on follow up actions to create a ToDo task
