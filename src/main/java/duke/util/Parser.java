@@ -76,32 +76,20 @@ public class Parser {
      */
     public String parseInput(String userInput) {
         try {
-            String firstWord = getCommand(userInput);
-            String[] words = userInput.split("\\s+"); // Split input by space, put into array
-            Command command;
-            try {
-                command = Command.valueOf(firstWord);
-            } catch (IllegalArgumentException e) {
-                command = Command.UNKNOWN;
-            }
-
+            Command command = Command.valueOf(getCommand(userInput));
             switch (command) {
             case BYE:
-                Duke.setIsFinishedToTrue();
                 return ui.farewell();
             case LIST:
                 return taskList.listAllTasks();
             case MARK:
-                int taskIndex = Integer.parseInt(words[1]) - 1;
-                return taskList.markTask(taskIndex);
+                return handleMarkTask(userInput);
             case UNMARK:
-                taskIndex = Integer.parseInt(words[1]) - 1;
-                return taskList.unmarkTask(taskIndex);
+                return handleUnmarkTask(userInput);
             case DELETE:
                 return taskList.deleteTask(userInput);
             case FIND:
-                String keyword = userInput.trim().replaceFirst("find", "").trim();
-                return taskList.findTask(keyword);
+                return handleFindTask(userInput);
             case DEADLINE:
                 return Deadline.handleDeadlineTask(userInput);
             case TODO:
@@ -113,21 +101,51 @@ public class Parser {
             default:
                 throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
             }
-        } catch (IOException e) {
-            System.err.println(HORIZONTAL_LINE + "\n" + e + HORIZONTAL_LINE);
-            return e.toString();
-        } catch (EmptyDescriptionException e) {
-            return e.printExceptionMessage();
-        } catch (InvalidCommandException e) {
-            return e.printExceptionMessage();
-        } catch (InvalidDateException e) {
-            return e.toString();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return "Please enter valid Integer index!\n"
-                    + String.format("You currently have %d task(s)", taskList.listOfTasks.size());
         } catch (Exception e) {
-            return "Very Invalid command! Please enter valid commands";
+            return handleException(e);
         }
     }
 
+    private String handleMarkTask(String userInput) {
+        try {
+            String[] words = userInput.split("\\s+");
+            int taskIndex = Integer.parseInt(words[1]) - 1;
+            return taskList.markTask(taskIndex);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please enter a valid integer index!\n"
+                    + String.format("You currently have %d task(s)", taskList.listOfTasks.size());
+        } catch (IOException e) {
+            return e.toString();
+        }
+    }
+
+    private String handleUnmarkTask(String userInput) {
+        try {
+            String[] words = userInput.split("\\s+");
+            int taskIndex = Integer.parseInt(words[1]) - 1;
+            return taskList.unmarkTask(taskIndex);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Please enter a valid integer index!\n"
+                    + String.format("You currently have %d task(s)", taskList.listOfTasks.size());
+        } catch (IOException e) {
+            return e.toString();
+        }
+    }
+
+    private String handleFindTask(String userInput) {
+        String keyword = userInput.trim().replaceFirst("find", "").trim();
+        return taskList.findTask(keyword);
+    }
+    private String handleException(Exception e) {
+        if (e instanceof IllegalArgumentException) {
+            InvalidCommandException exception = new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
+            return exception.toString();
+        }
+        if (e instanceof EmptyDescriptionException ||
+                e instanceof IOException || e instanceof InvalidDateException) {
+            return e.toString();
+        } else {
+            return "Very Invalid command! Please enter valid commands";
+        }
+    }
 }

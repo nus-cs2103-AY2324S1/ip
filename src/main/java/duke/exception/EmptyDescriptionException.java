@@ -18,7 +18,8 @@ public class EmptyDescriptionException extends Exception {
     /**
      * Prints the exception message, giving us the reason for the error.
      */
-    public String printExceptionMessage() {
+    @Override
+    public String toString() {
         return "OOPS!!! " + this.getMessage();
     }
 }

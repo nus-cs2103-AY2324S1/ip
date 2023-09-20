@@ -21,7 +21,8 @@ public class InvalidCommandException extends Exception {
      * Prints the exception message, giving us the reason for the error.
      * Includes the list of commands that the current version of SeeWhyAre bot supports.
      */
-    public String printExceptionMessage() {
+    @Override
+    public String toString() {
         StringBuilder message = new StringBuilder(String.format("OOPS!!! %s\n", this.getMessage()));
         message.append("Please input valid commands. Currently SeeWhyAre bot supports:\n");
         for (Parser.Command c : Parser.Command.values()) {

@@ -1,5 +1,6 @@
 package duke.util;
 
+import duke.Duke;
 import javafx.application.Platform;
 
 import java.util.Scanner;
@@ -72,11 +73,10 @@ public class Ui {
                         .append(printHorizontalLine());
 
         printHorizontalLine();
-        System.out.println("    You are closing the SeeWhyAre chat bot.");
-        System.out.println("    Bye bye. Please use me again soon!");
         printHorizontalLine();
         scanner.close();
         quitProgram();
+        Duke.setIsFinishedToTrue();
         return message.toString();
     }
 
