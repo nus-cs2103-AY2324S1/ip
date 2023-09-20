@@ -3,6 +3,8 @@ package friday.util;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 
+import friday.exception.InvalidNoteFormatException;
+import friday.exception.InvalidTaskFormatException;
 import friday.item.Deadline;
 import friday.item.Event;
 import friday.item.Note;
@@ -14,6 +16,17 @@ import friday.item.Todo;
  */
 public class Parser {
 
+    private static final String NOTE_CMD = "note";
+    private static final String ADD_CMD = "add";
+    private static final int SPACE_LENGTH = 1;
+    private static final int NOTE_ADD_CMD_LENGTH = NOTE_CMD.length() + ADD_CMD.length() + SPACE_LENGTH;
+    private static final int MIN_NOTE_PARTS = 3;
+    private static final int TASK_NUMBER_POSITION_IN_INPUT = 1;
+    private static final int INDEX_OFFSET_FOR_ZERO_BASED_LIST = 1;
+    private static final int MIN_TASK_INPUT = 2;
+    private static final int DEADLINE_DELIMITER = 3;
+
+
     /**
      * Saves tasks to tasks.txt.
      * If an error occurs during save operation, an error message is printed.
@@ -21,11 +34,11 @@ public class Parser {
      * @param taskList The list of tasks to save.
      * @param storage The storage object to save tasks.
      */
-    private void saveTasks(String taskList, Storage storage) {
+    private void saveTasks(String taskList, Storage storage) throws InvalidTaskFormatException {
         try {
             storage.saveFile(taskList);
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            throw new InvalidTaskFormatException("Save Task Error: " + e.getMessage());
         }
     }
 
@@ -36,11 +49,11 @@ public class Parser {
      * @param noteList The list of notes to save.
      * @param storage  The storage object to save notes.
      */
-    private void saveNotes(String noteList, Storage storage) {
+    private void saveNotes(String noteList, Storage storage) throws InvalidNoteFormatException {
         try {
             storage.saveNoteFile(noteList);
         } catch (IOException e) {
-            System.out.println("SaveNote Error: " + e.getMessage());
+            throw new InvalidNoteFormatException("SaveNote Error: " + e.getMessage());
         }
     }
 
@@ -52,7 +65,8 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    public String processTaskCommand(String userInput, TaskList taskList, Storage storage) {
+    public String processTaskCommand(String userInput, TaskList taskList, Storage storage)
+            throws InvalidTaskFormatException {
         String generalCommandsFunctionResponse = handleGeneralCommands(userInput);
         if (generalCommandsFunctionResponse != null) {
             return generalCommandsFunctionResponse;
@@ -60,7 +74,7 @@ public class Parser {
         try {
             return handleTaskCommands(userInput, taskList, storage);
         } catch (Exception e) {
-            return "HandleTask error occurred: " + e.getMessage();
+            throw new InvalidTaskFormatException("HandleTask error occurred: " + e.getMessage());
         }
     }
 
@@ -72,11 +86,12 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    public String processNoteCommand(String userInput, NoteList noteList, Storage storage) {
+    public String processNoteCommand(String userInput, NoteList noteList, Storage storage)
+            throws InvalidNoteFormatException {
         try {
             return handleNoteCommand(userInput, noteList, storage);
         } catch (Exception e) {
-            return "HandleNote error occurred: " + e.getMessage();
+            throw new InvalidNoteFormatException("HandleNote error occurred: " + e.getMessage());
         }
     }
 
@@ -128,34 +143,50 @@ public class Parser {
      * @param userInput The user's input string.
      * @return A response string for note-related commands.
      */
-    private String handleNoteCommand(String userInput, NoteList noteList, Storage noteStorage) {
+    private String handleNoteCommand(String userInput, NoteList noteList, Storage noteStorage)
+            throws InvalidNoteFormatException {
         NoteCommandType commandType = getNoteCommandType(userInput);
         switch (commandType) {
         case LIST:
-            return "Here are the notes in your list:\n" + noteList.toString();
+            return listNotes(noteList);
         case ADD:
-            String[] addInputParts = userInput.split(" ");
-            if (addInputParts.length < 3) {
-                return "Please provide content for the note.";
-            }
-            String noteContent = userInput.substring(9); // Adjust the substring index
-            Note note = new Note(noteContent);
-            noteList.add(note);
-            saveNotes(noteList.toString(), noteStorage);
-            return "Note added: " + note.toString();
+            return addNote(userInput, noteList, noteStorage);
         case DELETE:
-            String[] deleteInputParts = userInput.split(" ");
-            if (deleteInputParts.length < 3) {
-                return "Please provide a valid note number to delete.";
-            }
-            int deleteNoteNumber = Integer.parseInt(deleteInputParts[2]);
-            String deleteNoteMessage = noteList.delete(deleteNoteNumber - 1);
-            saveNotes(noteList.toString(), noteStorage);
-            return "Note deleted successfully!\n" + deleteNoteMessage;
+            return deleteNote(userInput, noteList, noteStorage);
         default:
-            return "OOPS!!! I'm sorry, but I don't know what that means for notes :-(";
+            throw new InvalidNoteFormatException("OOPS!!! I'm sorry, but I don't know what that means for notes :-(");
         }
     }
+
+    private String listNotes(NoteList noteList) {
+        return "Here are the notes in your list:\n" + noteList.toString();
+    }
+
+    private String addNote(String userInput, NoteList noteList, Storage noteStorage)
+            throws InvalidNoteFormatException {
+        String[] addInputParts = userInput.split(" ");
+        if (addInputParts.length < MIN_NOTE_PARTS) {
+            throw new InvalidNoteFormatException("Please provide content for the note.");
+        }
+        String noteContent = userInput.substring(NOTE_ADD_CMD_LENGTH);
+        Note note = new Note(noteContent);
+        noteList.add(note);
+        saveNotes(noteList.toString(), noteStorage);
+        return "Note added: " + note;
+    }
+
+    private String deleteNote(String userInput, NoteList noteList, Storage noteStorage)
+            throws InvalidNoteFormatException {
+        String[] deleteInputParts = userInput.split(" ");
+        if (deleteInputParts.length < MIN_NOTE_PARTS) {
+            throw new InvalidNoteFormatException("Please provide a valid note number to delete.");
+        }
+        int deleteNoteNumber = Integer.parseInt(deleteInputParts[2]);
+        String deleteNoteMessage = noteList.delete(deleteNoteNumber - 1);
+        saveNotes(noteList.toString(), noteStorage);
+        return "Note deleted successfully!\n" + deleteNoteMessage;
+    }
+
 
     /**
      * Handles task-specific commands.
@@ -165,49 +196,111 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    private String handleTaskCommands(String userInput, TaskList taskList, Storage storage) {
+    private String handleTaskCommands(String userInput, TaskList taskList, Storage storage)
+            throws InvalidTaskFormatException {
         TaskCommandType commandType = getCommandType(userInput);
         switch (commandType) {
         case LIST:
-            return "Here are the tasks in your list:\n" + taskList.toString();
+            return listTasks(taskList);
         case UNMARK:
-            int unmarkTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            String unmarkMessage = taskList.unmark(unmarkTaskNumber - 1);
-            saveTasks(taskList.toString(), storage);
-            return "Nice! I've marked this task as not done yet: \n" + unmarkMessage;
-
+            return unmarkTask(userInput, taskList, storage);
         case MARK:
-            int markTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            String markMessage = taskList.mark(markTaskNumber - 1);
-            saveTasks(taskList.toString(), storage);
-            return "Nice! I've marked this task as done:\n" + markMessage;
-
+            return markTask(userInput, taskList, storage);
         case DELETE:
-            int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            String deleteMessage = taskList.delete(deleteTaskNumber - 1);
-            saveTasks(taskList.toString(), storage);
-            return "Task deleted successfully!\n" + deleteMessage;
-
+            return deleteTask(userInput, taskList, storage);
         case FIND:
-            String[] findInput = userInput.split(" ", 2);
-            if (findInput.length < 2 || findInput[1].trim().isEmpty()) {
-                return "Oops! Please add a keyword to search for!";
-            }
-            TaskList result = taskList.findTasks(findInput[1]);
-            return "Here are the matching tasks in your list:\n" + result.toString();
-
+            return findTask(userInput, taskList);
         case TODO:
             return handleTodoCommand(userInput, taskList, storage);
-
         case DEADLINE:
             return handleDeadlineCommand(userInput, taskList, storage);
-
         case EVENT:
             return handleEventCommand(userInput, taskList, storage);
-
         default:
-            return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+            throw new InvalidTaskFormatException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    /**
+     * Returns a string representation of all tasks in the task list.
+     *
+     * @param taskList The list of tasks.
+     * @return A string detailing all tasks in the task list.
+     */
+    private String listTasks(TaskList taskList) {
+        return "Here are the tasks in your list:\n" + taskList.toString();
+    }
+
+
+    /**
+     * Processes the 'unmark' command to mark a task as incomplete.
+     *
+     * @param userInput The command input by the user.
+     * @param taskList The list of tasks.
+     * @param storage The storage object to save tasks.
+     * @return A response message after unmarking the task.
+     * @throws InvalidTaskFormatException If an error occurs during processing.
+     */
+    private String unmarkTask(String userInput, TaskList taskList, Storage storage) throws InvalidTaskFormatException {
+        int unmarkTaskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_POSITION_IN_INPUT])
+                                - INDEX_OFFSET_FOR_ZERO_BASED_LIST;
+        String unmarkMessage = taskList.unmark(unmarkTaskNumber);
+        saveTasks(taskList.toString(), storage);
+        return "Nice! I've marked this task as not done yet: \n" + unmarkMessage;
+    }
+
+    /**
+     * Processes the 'mark' command to mark a task as complete.
+     *
+     * @param userInput The command input by the user.
+     * @param taskList The list of tasks.
+     * @param storage The storage object to save tasks.
+     * @return A response message after marking the task.
+     * @throws InvalidTaskFormatException If an error occurs during processing.
+     */
+    private String markTask(String userInput, TaskList taskList, Storage storage)
+            throws InvalidTaskFormatException {
+        int markTaskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_POSITION_IN_INPUT]);
+        String markMessage = taskList.mark(markTaskNumber - INDEX_OFFSET_FOR_ZERO_BASED_LIST);
+        saveTasks(taskList.toString(), storage);
+        return "Nice! I've marked this task as done:\n" + markMessage;
+    }
+
+    /**
+     * Processes the 'delete' command to remove a task from the task list.
+     *
+     * @param userInput The command input by the user.
+     * @param taskList The list of tasks.
+     * @param storage The storage object to save tasks.
+     * @return A response message after deleting the task.
+     * @throws InvalidTaskFormatException If an error occurs during processing.
+     */
+    private String deleteTask(String userInput, TaskList taskList, Storage storage)
+            throws InvalidTaskFormatException {
+        int deleteTaskNumber = Integer.parseInt(userInput.split(" ")[TASK_NUMBER_POSITION_IN_INPUT]);
+        String deleteMessage = taskList.delete(deleteTaskNumber - INDEX_OFFSET_FOR_ZERO_BASED_LIST);
+        saveTasks(taskList.toString(), storage);
+        return "Task deleted successfully!\n" + deleteMessage;
+    }
+
+    /**
+     * Processes the 'find' command to search for tasks by a given keyword.
+     *
+     * @param userInput The command input by the user.
+     * @param taskList The list of tasks.
+     * @return A string detailing all tasks that match the search keyword.
+     * @throws InvalidTaskFormatException If an error occurs during processing.
+     */
+    private String findTask(String userInput, TaskList taskList)
+            throws InvalidTaskFormatException {
+        String[] findInput = userInput.split(" ", MIN_TASK_INPUT);
+        if (findInput.length < MIN_TASK_INPUT
+                ||
+                findInput[TASK_NUMBER_POSITION_IN_INPUT].trim().isEmpty()) {
+            throw new InvalidTaskFormatException("Oops! Please add a keyword to search for!");
+        }
+        TaskList result = taskList.findTasks(findInput[1]);
+        return "Here are the matching tasks in your list:\n" + result.toString();
     }
 
     /**
@@ -260,15 +353,18 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    private String handleTodoCommand(String userInput, TaskList taskList, Storage storage) {
-        String[] todoInput = userInput.split(" ", 2);
-        if (todoInput.length < 2 || todoInput[1].trim().isEmpty()) {
-            return "OOPS!!! The description of a todo cannot be empty.";
+    private String handleTodoCommand(String userInput, TaskList taskList, Storage storage)
+            throws InvalidTaskFormatException {
+        String[] todoInput = userInput.split(" ", MIN_TASK_INPUT);
+        if (todoInput.length < MIN_TASK_INPUT
+                ||
+                todoInput[TASK_NUMBER_POSITION_IN_INPUT].trim().isEmpty()) {
+            throw new InvalidTaskFormatException("OOPS!!! The description of a todo cannot be empty.");
         }
         Todo todo = new Todo(todoInput[1]);
         taskList.add(todo);
         saveTasks(taskList.toString(), storage);
-        return "added: " + todo.toString();
+        return "added: " + todo;
     }
 
     /**
@@ -279,13 +375,15 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    private String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage) {
-        String[] commandAndDetails = userInput.split(" ", 2);
-        if (commandAndDetails.length < 2 || !userInput.contains("/by")) {
+    private String handleDeadlineCommand(String userInput, TaskList taskList, Storage storage)
+            throws InvalidTaskFormatException {
+        String[] commandAndDetails = userInput.split(" ", MIN_TASK_INPUT);
+        if (commandAndDetails.length < MIN_TASK_INPUT || !userInput.contains("/by")) {
             return "Incorrect format for 'deadline'. Here is a sample:\ndeadline return book /by Sunday";
         }
-        String[] taskAndDate = commandAndDetails[1].split(" /by ", 2);
-        if (taskAndDate.length < 2) {
+        String[] taskAndDate = commandAndDetails[1]
+                .split(" /by ", MIN_TASK_INPUT);
+        if (taskAndDate.length < MIN_TASK_INPUT) {
             return "Please provide both a task description and a deadline date.";
         }
         String taskDescription = taskAndDate[0];
@@ -294,15 +392,14 @@ public class Parser {
         Deadline deadline;
         try {
             deadline = new Deadline(taskDescription, deadlineDate);
+            taskList.add(deadline);
+            saveTasks(taskList.toString(), storage);
+            return "added: " + deadline;
         } catch (DateTimeParseException e) {
-            return "Invalid date format provided for deadline. "
+            throw new InvalidTaskFormatException("Invalid date format provided for deadline. "
                     +
-                    "Supported formats: M/d/yyyy, MM-dd-yyyy, yyyy/MM/dd";
+                    "Supported formats: M/d/yyyy, MM-dd-yyyy, yyyy/MM/dd");
         }
-
-        taskList.add(deadline);
-        saveTasks(taskList.toString(), storage);
-        return "added: " + deadline.toString();
     }
 
 
@@ -314,16 +411,17 @@ public class Parser {
      * @param storage The storage object to save tasks.
      * @return A string response after processing the command.
      */
-    private String handleEventCommand(String userInput, TaskList taskList, Storage storage) {
-        String[] commandAndDetails = userInput.split(" ", 2);
-        if (commandAndDetails.length < 2 || !userInput.contains("/from") || !userInput.contains("/to")) {
-            return "Incorrect format for 'event'. "
+    private String handleEventCommand(String userInput, TaskList taskList, Storage storage)
+            throws InvalidTaskFormatException {
+        String[] commandAndDetails = userInput.split(" ", MIN_TASK_INPUT);
+        if (commandAndDetails.length < MIN_TASK_INPUT || !userInput.contains("/from") || !userInput.contains("/to")) {
+            throw new InvalidTaskFormatException("Incorrect format for 'event'. "
                     +
-                    "Expected format: event TASK_DESCRIPTION /from START_TIME /to END_TIME";
+                    "Expected format: event TASK_DESCRIPTION /from START_TIME /to END_TIME");
         }
-        String[] taskAndTimes = commandAndDetails[1].split(" /from | /to ", 3);
-        if (taskAndTimes.length < 3) {
-            return "Please provide a task description, start time, and end time.";
+        String[] taskAndTimes = commandAndDetails[1].split(" /from | /to ", DEADLINE_DELIMITER);
+        if (taskAndTimes.length < DEADLINE_DELIMITER) {
+            throw new InvalidTaskFormatException("Please provide a task description, start time, and end time.");
         }
         String taskDescription = taskAndTimes[0];
         String startTime = taskAndTimes[1];
@@ -331,6 +429,6 @@ public class Parser {
         Event event = new Event(taskDescription, startTime, endTime);
         taskList.add(event);
         saveTasks(taskList.toString(), storage);
-        return "added: " + event.toString();
+        return "added: " + event;
     }
 }

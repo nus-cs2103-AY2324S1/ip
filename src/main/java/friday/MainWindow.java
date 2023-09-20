@@ -1,5 +1,7 @@
 package friday;
 
+import friday.exception.InvalidNoteFormatException;
+import friday.exception.InvalidTaskFormatException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -39,7 +41,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InvalidTaskFormatException, InvalidNoteFormatException {
         String input = userInput.getText();
         String response = friday.getResponse(input);
 
