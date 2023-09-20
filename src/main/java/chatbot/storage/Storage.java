@@ -26,6 +26,17 @@ public class Storage {
 
     public Storage(String path) {
         this.path = path;
+        File file = new File(path);
+
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                FileWriter writer = new FileWriter(file);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println("Error creating file:" + e.getMessage());
+            }
+        }
     }
 
     /**
@@ -66,6 +77,7 @@ public class Storage {
                     String[] parts = line.split("\\|");
                     TaskType taskType = TaskType.parseInput(parts[0].trim());
                     switch (taskType) {
+
                     case TODO:
                         loadedList.add(new ToDo(parts[2].trim()));
                         if (Integer.parseInt(parts[1].trim()) == 1) {
@@ -80,6 +92,7 @@ public class Storage {
                             task.done();
                         }
                         break;
+
                     case EVENT:
                         loadedList.add(new Event(parts[2].trim(), parts[3].trim(), parts[4].trim()));
                         if (Integer.parseInt(parts[1].trim()) == 1) {

@@ -1,6 +1,9 @@
 package chatbot;
 
 import chatbot.ui.MainWindow;
+
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -13,13 +16,15 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private ChatBot chatBot = new ChatBot();
+    private ChatBot chatBot;
 
     /**
      * {@inheritDoc}
      */
     @Override
     public void start(Stage stage) {
+
+        chatBot = new ChatBot();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

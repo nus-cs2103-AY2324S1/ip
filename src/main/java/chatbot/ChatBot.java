@@ -13,8 +13,6 @@ import chatbot.ui.Printer;
  */
 public class ChatBot {
 
-    private static final String FILE_PATH = "src/main/java/data/chatBot.txt";
-
     private Storage storage;
     private TaskList tasks;
     private Printer ui;
@@ -24,7 +22,7 @@ public class ChatBot {
      */
     public ChatBot() {
         ui = new Printer();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage("data/chatbot.txt");
         try {
             tasks = new TaskList(storage.load());
         } catch (ChatBotException e) {
