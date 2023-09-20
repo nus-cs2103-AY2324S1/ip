@@ -211,6 +211,10 @@ public class Parser {
             LocalDateTime endTime = LocalDateTime.parse(stringEndTime, Ui.DATE_FORMAT_INPUT);
             Priority priority = parsePriorityFromCommandDetails(commandDetails);
 
+            if (startTime.isAfter(endTime)) {
+                return new Command.InvalidCommand("OOPS!!! The start time cannot be after end time for event tasks.");
+            }
+
             return new Command.AddCommand(new EventTask(taskName, startTime, endTime, priority),
                     CommandType.ADD_EVENT);
 
