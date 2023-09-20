@@ -43,7 +43,6 @@ public class MarkCommand extends Command {
 
         Task task = tasks.get(index - 1);
         task.markDone();
-        ui.showMarkMessage(task);
-        return "Marked " + task;
+        return ui.generateMarkMessage(task);
     }
 }

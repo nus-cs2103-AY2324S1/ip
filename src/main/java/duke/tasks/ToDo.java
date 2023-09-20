@@ -2,7 +2,7 @@ package duke.tasks;
 
 /**
  * A class that encapsulates a todo item in the chat bot.
- * Tasks without any date/time attached.
+ * Todo tasks do not have any date/time attached.
  *
  * @author Rayson
  */

@@ -43,7 +43,6 @@ public class UnmarkCommand extends Command {
 
         Task task = tasks.get(index - 1);
         task.markUndone();
-        ui.showUnmarkMessage(task);
-        return "Unmarked " + task;
+        return ui.generateUnmarkMessage(task);
     }
 }
