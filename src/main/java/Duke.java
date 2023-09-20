@@ -13,13 +13,15 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private GuiResponse guiResponse;
 
     public Duke() {
         ui = new Ui();
         parser = new Parser();
         storage = new Storage("./data/duke.txt");
+        guiResponse = new GuiResponse();
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(storage.loadTask());
         } catch (DukeException e) {
             ui.showLoadingError(e.getMessage());
             tasks = new TaskList();
@@ -33,7 +35,6 @@ public class Duke {
     public String getResponse(String input) {
         String command = parser.parseCommand(input);
         String response = "";
-        GuiResponse guiResponse = new GuiResponse();
         if (command.equals("list")) {
             response = guiResponse.getTaskList(tasks);
         } else if (command.equals("mark")) {

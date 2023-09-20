@@ -25,6 +25,9 @@ public class GuiResponse {
     public String getTaskList(TaskList tasks) {
         String responseString = "";
         int size = tasks.getSize();
+        if (size == 0) {
+            return "The task list is currently empty";
+        }
         for (int i = 0; i < size; i++) {
             Task curr = tasks.getTask(i);
             responseString += (i + 1) + ". " + curr;
@@ -107,4 +110,5 @@ public class GuiResponse {
         getTaskList(results);
         return responseString;
     }
+
 }

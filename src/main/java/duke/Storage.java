@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Storage class to store the task result and load it
+ * Storage class to store the task result and loadTask it
  */
 public class Storage {
 
@@ -28,8 +28,8 @@ public class Storage {
      *
      * @return array list of task
      */
-    public ArrayList<Task> load() throws DukeException {
-        //print error message if cannot load
+    public ArrayList<Task> loadTask() throws DukeException {
+        //print error message if cannot loadTask
         //assume that all file path are ./data/duke.txt for now, change it later
         //if anything happen to the path or to the file, just return a new ArrayList and continue, no exception printed
         Path path = Paths.get("./data/duke.txt");
@@ -41,17 +41,16 @@ public class Storage {
                     String[] parsed_str = line.split("\\s\\|\\s");
                     if (parsed_str[0].equals("T")) {
                         int size = parsed_str.length;
-                        Boolean done = parsed_str[1] == "1" ? true : false;
+                        Boolean done = parsed_str[1].equals("1") ? true : false;
                         String description = parsed_str[2];
                         Todo curr = new Todo(description);
                         if (done) {
                             curr.markAsDone();
                         }
                         loadList.add(curr);
-
                     } else if (parsed_str[0].equals("D")) {
                         //reach the date
-                        Boolean done = parsed_str[1] == "1" ? true : false;
+                        Boolean done = parsed_str[1].equals("1") ? true : false;
                         String description = parsed_str[2];
                         String by_date = parsed_str[3];
                         Deadline curr = new Deadline(description, by_date);
@@ -60,7 +59,7 @@ public class Storage {
                         }
                         loadList.add(curr);
                     } else if (parsed_str[0].equals("E")) {
-                        Boolean done = parsed_str[1] == "1" ? true : false;
+                        Boolean done = parsed_str[1].equals("1") ? true : false;
                         String description = parsed_str[2];
                         String fromDate = parsed_str[3];
                         String toDate = parsed_str[4];
