@@ -58,6 +58,13 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns a dialog box for the user.
+     *
+     * @param text User input.
+     * @param img User display picture.
+     * @return DialogBox
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         // Rounded corners styling for the dialog prop, credits to
@@ -77,6 +84,13 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Returns a dialog box for the chatbot.
+     *
+     * @param text Chatbot response.
+     * @param img Chatbot display picture.
+     * @return DialogBox
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

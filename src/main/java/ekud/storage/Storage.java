@@ -20,6 +20,7 @@ public class Storage {
 
     /**
      * Constructor for Storage, which initialises the directory and file to save tasks in.
+     *
      * @param path Filepath for the saved tasks file.
      * @throws EkudIOException Exception involving the creation of the saved tasks file.
      */
@@ -48,8 +49,10 @@ public class Storage {
      *  T |   | task1 | medium
      *  D | X | task2 | 1st Sep | high
      *  E |   | task3 | 1st Sep 2pm | 3rd Sep 2pm | low
+     *
      * @param taskList The chatbot's TaskList to load tasks into.
-     * @throws EkudIOException Exception involving improper loading of saved tasks into taskList.
+     * @return String response for having loaded data.
+     * @throws EkudIOException If tasks cannot be loaded properly into taskList.
      */
     public String loadData(TaskList taskList) throws EkudIOException {
         taskList.clear();
@@ -91,8 +94,10 @@ public class Storage {
 
     /**
      * Updates the saved task file with the latest tasks when the program ends.
+     *
      * @param taskList The chatbot's TaskList to save tasks from.
-     * @throws EkudIOException Exception involving improper saving of tasks.
+     * @return String response for having saved data.
+     * @throws EkudIOException If tasks cannot be saved properly.
      */
     public String saveData(TaskList taskList) throws EkudIOException {
         try {
@@ -112,10 +117,11 @@ public class Storage {
 
     /**
      * Helper function to craft a string response for the user after loading up saved data.
+     *
      * @param totalTasks Total number of saved tasks loaded into taskList.
      * @param numDoneTasks Total number of loaded tasks which are already done.
      * @param numHighPriorityUndoneTasks Total number of high priority tasks which are not yet done.
-     * @return String response
+     * @return String response for having loaded data.
      */
     private String craftResponse(int totalTasks, int numDoneTasks, int numHighPriorityUndoneTasks) {
         String response;
