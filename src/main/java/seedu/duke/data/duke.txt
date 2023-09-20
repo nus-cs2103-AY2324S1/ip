@@ -1,5 +1,6 @@
 [D][X] sleep (by: 2000-12-20)
 [E][ ] deepsleep (from: 2020-12-12 to: 2023-12-12)
 [E][ ] party (from: 2022-12-12 to: 2023-12-12)
+[D][ ] sleep (by: 2023-11-12)
 [T][ ] homework
 [T][X] saikang
