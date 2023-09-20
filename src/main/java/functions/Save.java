@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 public class Save {
     private TaskList taskList;
     private String saveFilePath;
-    private final String tempFilePath = "temp.txt";
+    private final String TEMP_FILE_PATH = "temp.txt";
 
     /**
      * A public constructor to initialize Save
@@ -41,7 +41,7 @@ public class Save {
             }
 
             if (taskList.size() == 0) {
-                FileWriter fw = new FileWriter(tempFilePath, true);
+                FileWriter fw = new FileWriter(TEMP_FILE_PATH, true);
                 fw.write("");
                 fw.close();
             }
@@ -49,11 +49,11 @@ public class Save {
 
             for (int i = 0; i < taskList.size(); i++) {
                 String message = String.format("%s", taskList.get(i).getTaskAsString());
-                addFileContents(tempFilePath, message);
+                addFileContents(TEMP_FILE_PATH, message);
             };
 
-            Files.copy(Paths.get(tempFilePath), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
-            Files.delete(Paths.get(tempFilePath));
+            Files.copy(Paths.get(TEMP_FILE_PATH), Paths.get(saveFilePath), StandardCopyOption.REPLACE_EXISTING);
+            Files.delete(Paths.get(TEMP_FILE_PATH));
 
         } catch (IOException e) {
             System.out.println("Error in saving");
