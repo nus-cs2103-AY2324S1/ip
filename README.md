@@ -20,9 +20,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
 3. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
    In the same dialog, set the **Project language level** field to the `SDK default` option.
 4. After that, locate the `src/main/java/runner/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello! Welcome to cupid task tracking bot. How can I help you?
-   ```
+   `Hello! Welcome to cupid task tracking bot. How can I help you?`
 5. Alternatively, you can locate the `gradle/wrapper/gradle-wrapper.jar` file, double-click it to launch and you should be able to see the GUI and welcome message as well.
 
 ## Features
