@@ -13,6 +13,7 @@ import java.util.Scanner;
  */
 public class Storage {
     /** Contains path to save file **/
+    private File saveFile;
     private String filePath;
 
     /**
@@ -21,6 +22,15 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.saveFile = new File(filePath);
+        if (!saveFile.exists()) {
+            try {
+                saveFile.getParentFile().mkdirs();
+                saveFile.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**
