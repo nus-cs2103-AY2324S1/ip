@@ -5,14 +5,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Font?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-         prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
+         prefWidth="400.0"
+         style="-fx-background-color: linear-gradient(to left, bisque, floralWhite);
+         -fx-border-color: white; -fx-background-radius: 20 20 20 20;
+         -fx-border-radius: 20 20 20 20; -fx-border-width: 3;"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <TextFlow fx:id="dialogTextFlow"/>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true"
+        <ImageView fx:id="displayPicture" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true"
                    preserveRatio="true" />
+        <Label>
+            <font>
+                <Font name="Arial" size="13.0" />
+            </font>
+        </Label>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
