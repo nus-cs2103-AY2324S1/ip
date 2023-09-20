@@ -35,7 +35,7 @@ public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         String[] split = fullCommand.split(" ", 2);
         String commandAction = split[0];
-        switch (commandAction) {
+        switch (commandAction.toLowerCase()) {
         case "list":
             return new ListCommand();
         case "mark":

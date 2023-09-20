@@ -38,6 +38,7 @@ public class MultipleCommand extends Command {
     public String execute(TaskList taskList, Ui ui, FileStorage fileStorage) throws DukeException {
         Result result = getResult();
         int[] reversedValues = result.reversedValues;
+        int[] values = result.values;
         for (int i = 0; i < reversedValues.length; i++) {
             for (int j = i + 1; j < reversedValues.length; j++) {
                 if (reversedValues[i] == reversedValues[j]) {
@@ -52,14 +53,14 @@ public class MultipleCommand extends Command {
             }
         }
         if (commandType.equals("mark")) {
-            for (int reversedValue : reversedValues) {
-                Task task = taskList.markTask(reversedValue);
+            for (int value : values) {
+                Task task = taskList.markTask(value);
                 result.newList.add(task);
             }
         }
         if (commandType.equals("unmark")) {
-            for (int reversedValue : reversedValues) {
-                Task task = taskList.unmarkTask(reversedValue);
+            for (int value : values) {
+                Task task = taskList.unmarkTask(value);
                 result.newList.add(task);
             }
         }
@@ -88,7 +89,7 @@ public class MultipleCommand extends Command {
         for (int i = 0; i < size; i++) {
             reversedValues[i] = values[size - 1 - i];
         }
-        return new Result(newList, reversedValues);
+        return new Result(newList, reversedValues, values);
     }
 
     /**
@@ -97,10 +98,12 @@ public class MultipleCommand extends Command {
     private static class Result {
         public final TaskList newList;
         public final int[] reversedValues;
+        public final int[] values;
 
-        public Result(TaskList newList, int[] reversedValues) {
+        public Result(TaskList newList, int[] reversedValues, int[] values) {
             this.newList = newList;
             this.reversedValues = reversedValues;
+            this.values = values;
         }
     }
 }

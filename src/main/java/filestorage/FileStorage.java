@@ -61,10 +61,10 @@ public class FileStorage {
                 assert !inputs.trim().startsWith("[ ]") : "There should be a allocated type for the task";
                 if (inputs.trim().startsWith("[T]")) {
                     task = new Todo(info);
-                } else if (inputs.trim().startsWith("  [D]")) {
+                } else if (inputs.trim().startsWith("[D]")) {
                     String[] split = info.split("\\(by: |\\)");
                     task = new Deadline(split[0], split[1]);
-                } else if (inputs.trim().startsWith("  [E]")) {
+                } else if (inputs.trim().startsWith("[E]")) {
                     String[] split = info.split("\\(from: | to: |\\)");
                     task = new Event(split[0], split[1], split[2]);
                 }
