@@ -40,7 +40,9 @@ public abstract class Task {
         Boolean isDone = args[1] == "1" ? true : false;
         String tag = args[2];
         ToDo todo = new ToDo(isDone, args[3]);
-        todo.tag(tag);
+        if (!tag.equals("null")) {
+            todo.tag(tag);
+        }
         return todo;
     }
 
@@ -49,7 +51,9 @@ public abstract class Task {
         Boolean isDone = args[1] == "1" ? true : false;
         String tag = args[2];
         Deadline deadline = new Deadline(isDone, args[3], args[4]);
-        deadline.tag(tag);
+        if (!tag.equals("null")) {
+            deadline.tag(tag);
+        }
         return deadline;
     }
 
@@ -58,7 +62,9 @@ public abstract class Task {
         Boolean isDone = args[1] == "1" ? true : false;
         String tag = args[2];
         Event event = new Event(isDone, args[3], args[4], args[5]);
-        event.tag(tag);
+        if (!tag.equals("null")) {
+            event.tag(tag);
+        }
         return event;
     }
 

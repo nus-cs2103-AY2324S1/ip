@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 /**
@@ -45,10 +46,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = slay.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getSlayDialog(response, slayImage)
-        );
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox slayDialog = DialogBox.getSlayDialog(response, slayImage);
+        dialogContainer.getChildren().addAll(userDialog, slayDialog);
         userInput.clear();
     }
 }
