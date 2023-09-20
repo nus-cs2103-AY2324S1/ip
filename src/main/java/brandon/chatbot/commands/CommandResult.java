@@ -1,9 +1,8 @@
 package brandon.chatbot.commands;
 
-import brandon.chatbot.tasks.TaskList;
-
 import java.util.Optional;
 
+import brandon.chatbot.tasks.TaskList;
 
 /**
  * Represents the result of running the command.
@@ -11,8 +10,15 @@ import java.util.Optional;
 public class CommandResult {
     public final String feedbackToUser;
     private TaskList tasks;
+
+    /**
+     * Constructs a CommandResult that is returned when a command is executed
+     * and holds a feedback to be shown to the user.
+     *
+     * @param feedbackToUser is the feedback to be shown to the user.
+     */
     public CommandResult(String feedbackToUser) {
-        assert feedbackToUser != null: "CommandResult: feedback to user should not be empty.";
+        assert feedbackToUser != null : "CommandResult: feedback to user should not be empty.";
 
         this.feedbackToUser = feedbackToUser;
     }
@@ -24,8 +30,8 @@ public class CommandResult {
      * @param tasks is the instance of TaskList to be printed.
      */
     public CommandResult(String feedbackToUser, TaskList tasks) {
-        assert feedbackToUser != null: "CommandResult: feedback to user should not be empty.";
-        assert tasks != null: "CommandResult: TaskList should not be empty.";
+        assert feedbackToUser != null : "CommandResult: feedback to user should not be empty.";
+        assert tasks != null : "CommandResult: TaskList should not be empty.";
 
         this.feedbackToUser = feedbackToUser;
         this.tasks = tasks;

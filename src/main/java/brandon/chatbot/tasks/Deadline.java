@@ -1,7 +1,6 @@
 package brandon.chatbot.tasks;
 
-import brandon.chatbot.common.DukeException;
-import brandon.chatbot.tag.Tag;
+import static brandon.chatbot.commands.Feedback.DEADLINE_BLANK;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +8,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static brandon.chatbot.commands.Feedback.DEADLINE_BLANK;
+import brandon.chatbot.common.DukeException;
+import brandon.chatbot.tag.Tag;
 
 /**
  * Represents a Task with Deadline date.

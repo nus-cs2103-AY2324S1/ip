@@ -1,16 +1,23 @@
 package brandon.chatbot.parser;
 
-import brandon.chatbot.commands.Command;
-import brandon.chatbot.commands.generalcommands.ExitCommand;
-import brandon.chatbot.commands.generalcommands.HelpCommand;
-import brandon.chatbot.commands.generalcommands.UnknownCommand;
-import brandon.chatbot.commands.taskcommands.*;
-import brandon.chatbot.tag.Tag;
-
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import brandon.chatbot.commands.Command;
+import brandon.chatbot.commands.generalcommands.ExitCommand;
+import brandon.chatbot.commands.generalcommands.HelpCommand;
+import brandon.chatbot.commands.generalcommands.UnknownCommand;
+import brandon.chatbot.commands.taskcommands.AddDeadlineCommand;
+import brandon.chatbot.commands.taskcommands.AddEventCommand;
+import brandon.chatbot.commands.taskcommands.AddTodoCommand;
+import brandon.chatbot.commands.taskcommands.DeleteCommand;
+import brandon.chatbot.commands.taskcommands.FindCommand;
+import brandon.chatbot.commands.taskcommands.ListCommand;
+import brandon.chatbot.commands.taskcommands.MarkCommand;
+import brandon.chatbot.commands.taskcommands.UnmarkCommand;
+import brandon.chatbot.tag.Tag;
 
 /**
  * Represents the parser that parses the user inputs.
@@ -110,7 +117,7 @@ public class Parser {
     private ArrayList<Tag> parseTags(String tagArgs) {
         ArrayList<Tag> tags = new ArrayList<>();
         Matcher m = TAG_ARGS_FORMAT.matcher(tagArgs);
-        while(m.find()) {
+        while (m.find()) {
             tags.add(new Tag(m.group().strip()));
         }
         return tags.size() > 0 ? tags : null;

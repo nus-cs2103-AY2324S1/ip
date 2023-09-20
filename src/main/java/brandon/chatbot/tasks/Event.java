@@ -1,7 +1,7 @@
 package brandon.chatbot.tasks;
 
-import brandon.chatbot.tag.Tag;
-import brandon.chatbot.common.DukeException;
+import static brandon.chatbot.commands.Feedback.ENDING_TIME_BLANK;
+import static brandon.chatbot.commands.Feedback.STARTING_TIME_BLANK;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,8 +9,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static brandon.chatbot.commands.Feedback.ENDING_TIME_BLANK;
-import static brandon.chatbot.commands.Feedback.STARTING_TIME_BLANK;
+import brandon.chatbot.common.DukeException;
+import brandon.chatbot.tag.Tag;
+
 
 /**
  * Represents an Event Task with starting time and end time.

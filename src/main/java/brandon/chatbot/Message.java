@@ -1,13 +1,23 @@
 package brandon.chatbot;
 
-import brandon.chatbot.tasks.Task;
-import brandon.chatbot.tasks.TaskList;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import brandon.chatbot.tasks.Task;
+import brandon.chatbot.tasks.TaskList;
+
+/**
+ * Represents a class with methods that convert task list into a String.
+ */
 public class Message {
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+
+    /**
+     * Converts tasks in the task list to a String value.
+     * Method adapted from se-edu addressbook-2.
+     * @param tasks
+     * @return
+     */
     public static String showTasks(TaskList tasks) {
         final ArrayList<String> formattedTasks = new ArrayList<>();
         for (Task t : tasks.getList()) {

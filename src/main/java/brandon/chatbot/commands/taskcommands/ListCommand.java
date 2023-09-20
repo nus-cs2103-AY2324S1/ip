@@ -1,11 +1,11 @@
 package brandon.chatbot.commands.taskcommands;
 
+import static brandon.chatbot.commands.Feedback.LIST_FAIL;
+import static brandon.chatbot.commands.Feedback.LIST_SUCCESS;
+
 import brandon.chatbot.Message;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
-
-import static brandon.chatbot.commands.Feedback.LIST_FAIL;
-import static brandon.chatbot.commands.Feedback.LIST_SUCCESS;
 
 /**
  * Represents a command that lists the tasks in TaskList.

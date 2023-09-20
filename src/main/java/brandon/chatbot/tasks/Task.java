@@ -1,12 +1,12 @@
 package brandon.chatbot.tasks;
 
-import brandon.chatbot.common.DukeException;
-import brandon.chatbot.tag.Tag;
+import static brandon.chatbot.commands.Feedback.TITLE_BLANK;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
-import static brandon.chatbot.commands.Feedback.TITLE_BLANK;
+import brandon.chatbot.common.DukeException;
+import brandon.chatbot.tag.Tag;
 
 /**
  * Represents a Task to be done by the user.
@@ -31,6 +31,11 @@ public class Task {
         this.tagOptional = tagOptional;
     }
 
+    /**
+     * Checks if a task has a tag given as a parameter.
+     * @param t is tag that the task the method is called upon should have.
+     * @return true if this task has tag t, otherwise returns false.
+     */
     public boolean hasTag(Tag t) {
         if (tagOptional.isPresent()) {
             ArrayList<Tag> tagList = tagOptional.get();
@@ -58,7 +63,7 @@ public class Task {
      * @return status of the task.
      */
     public String getStatus() {
-        String status =  "[" + (this.isDone ? "X" : " ") + "] " + this.title;
+        String status = "[" + (this.isDone ? "X" : " ") + "] " + this.title;
         if (!this.tagOptional.isPresent()) {
             return status;
         }

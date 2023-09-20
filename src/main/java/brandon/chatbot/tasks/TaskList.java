@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
 import brandon.chatbot.tag.Tag;
 
+
+
 /**
  * Represents a list of tasks to be stored by the user.
  */
@@ -71,6 +73,11 @@ public class TaskList {
         target.setDone(false);
     }
 
+    /**
+     * Finds task in the task list with a given title parameter.
+     * @param title is the title of the task that user is searching for.
+     * @return new TaskList that contains the tasks with the given title.
+     */
     public TaskList findTask(String title) {
         TaskList newList = new TaskList();
         for (Task task : tasks) {
@@ -82,15 +89,29 @@ public class TaskList {
         return newList;
     }
 
+    /**
+     * Checks if the TaskList tasks is empty or not.
+     * @return true if the tasks TaskList is empty and false otherwise.
+     */
     public boolean isEmpty() {
         return tasks.isEmpty() || tasks == null;
     }
 
+    /**
+     * Appends a TaskList to another TaskList.
+     * @param targetTaskList is the target TaskList object that are being added to the current TaskList object.
+     * @return this object with the newly appended tasks values.
+     */
     public TaskList appendTaskList(TaskList targetTaskList) {
         this.tasks.addAll(targetTaskList.getList());
         return this;
     }
 
+    /**
+     * Filters the tasks TaskList with the given tag value.
+     * @param tag is the tag value that the user searches for.
+     * @return this TaskList object with the filtered values.
+     */
     public TaskList filterTaskWithTag(Tag tag) {
         tasks = (ArrayList<Task>) tasks.stream()
                 .filter(task -> {

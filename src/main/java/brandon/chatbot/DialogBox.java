@@ -1,5 +1,8 @@
 package brandon.chatbot;
 
+import java.io.IOException;
+import java.util.Collections;
+
 import brandon.chatbot.ui.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-
-import java.io.IOException;
-import java.util.Collections;
-
 
 /**
  * An example of a custom control using FXML.

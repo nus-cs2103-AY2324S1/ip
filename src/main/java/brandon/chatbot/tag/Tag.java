@@ -1,11 +1,16 @@
 package brandon.chatbot.tag;
 
-import java.util.Objects;
-
+/**
+ * Represents the Tag that is relevant to the task that it is attached to.
+ */
 public class Tag {
     private final int hashCode;
     private String title;
 
+    /**
+     * Constructs a tag object with the given title.
+     * @param title of the tag.
+     */
     public Tag(String title) {
         this.title = title;
         this.hashCode = title.hashCode();
