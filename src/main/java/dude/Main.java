@@ -11,11 +11,12 @@ import javafx.stage.Stage;
 //@@author xenosf-reused
 // Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
 // With minor alterations
+
 /**
  * A GUI for Dude using FXML.
  */
 public class Main extends Application {
-    private Dude dude = new Dude("./data/dude.txt");
+    private final Dude dude = new Dude("./data/dude.txt");
 
     @Override
     public void start(Stage stage) {

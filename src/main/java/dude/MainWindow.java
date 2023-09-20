@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 //@@author xenosf-reused
 // Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
 // With minor alterations
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -26,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private Dude dude;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dudeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image dudeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
     public void initialize() {
