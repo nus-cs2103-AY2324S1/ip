@@ -1,7 +1,7 @@
 package emiya;
 
 import emiya.emiyaexception.CreateDirectoryFailException;
-import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.InvalidDateTimeException;
 import emiya.emiyaexception.WrongDateTimeFormatException;
 import emiya.parser.Parser;
 import emiya.storage.Storage;
@@ -65,7 +65,7 @@ public class Emiya {
             storage.createDirectory(dirName);
             storage.createFileInDirectory(fileName, dirName);
             isTaskAddedToList = storage.fillListWithFileContent(taskList, storage.getFileContents(fileName, dirName));
-        } catch (CreateDirectoryFailException | InvalidDateException | WrongDateTimeFormatException e) {
+        } catch (CreateDirectoryFailException | InvalidDateTimeException | WrongDateTimeFormatException e) {
             System.out.println(e.getMessage());
         }
 

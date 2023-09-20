@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import emiya.emiyaexception.CreateDirectoryFailException;
-import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.InvalidDateTimeException;
 import emiya.emiyaexception.WrongDateTimeFormatException;
 import emiya.task.Deadline;
 import emiya.task.Event;
@@ -133,11 +133,11 @@ public class Storage {
      *                    TaskList instance.
      * @throws WrongDateTimeFormatException When the format of the date received from the fileContent
      *     is of the wrong format.
-     * @throws InvalidDateException When the date received from the fileContent
+     * @throws InvalidDateTimeException When the date received from the fileContent
      *     is invalid.
      */
     public boolean fillListWithFileContent(TaskList taskList, String fileContent)
-            throws WrongDateTimeFormatException, InvalidDateException {
+            throws WrongDateTimeFormatException, InvalidDateTimeException {
 
         String[] tasksStrArr = fileContent.split("\n");
 

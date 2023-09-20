@@ -3,7 +3,7 @@ package emiya.task;
 import java.time.LocalDateTime;
 
 import emiya.datehandler.DateHandler;
-import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.InvalidDateTimeException;
 import emiya.emiyaexception.WrongDateTimeFormatException;
 
 /**
@@ -17,7 +17,7 @@ public class Event extends Task {
     private LocalDateTime localDateTimeEnd = null;
 
     public Event(boolean isCompleted, String nameOfTask, String start, String end)
-            throws WrongDateTimeFormatException, InvalidDateException {
+            throws WrongDateTimeFormatException, InvalidDateTimeException {
         super(isCompleted, nameOfTask);
         this.start = start;
         this.end = end;

@@ -1,7 +1,7 @@
 package emiya.commands;
 
 import emiya.emiyaexception.EmptyEventException;
-import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.InvalidDateTimeException;
 import emiya.emiyaexception.NoFromException;
 import emiya.emiyaexception.NoToException;
 import emiya.emiyaexception.UnknownCommandException;
@@ -33,13 +33,13 @@ public class EventCommand implements Command {
      *     does not input in task details.
      * @throws NoFromException An exception that is thrown when the user does not use /from in their event command.
      * @throws NoToException An exception that is thrown when the user does not use /to in their event command.
-     * @throws InvalidDateException An exception that is thrown when the user input contains an invalid date.
+     * @throws InvalidDateTimeException An exception that is thrown when the user input contains an invalid date.
      * @throws WrongDateTimeFormatException An exception that is thrown when the date that the user gives is
      *     in the wrong format.
      */
     public static String createEvent(String taskDetails, Parser parser, TaskList taskList, Storage storage,
                                       Ui ui, String fileName, String dirName) throws EmptyEventException,
-            NoFromException, NoToException, InvalidDateException, WrongDateTimeFormatException,
+            NoFromException, NoToException, InvalidDateTimeException, WrongDateTimeFormatException,
             UnknownCommandException {
         if (taskDetails.equals("")) {
             throw new EmptyEventException();

@@ -1,6 +1,6 @@
 package emiya.datehandler;
 
-import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.InvalidDateTimeException;
 import emiya.emiyaexception.WrongDateTimeFormatException;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +17,7 @@ public class DateHandlerTest {
         String input = "2023-09-01 1200";
         try {
             testObj = determineDateTime(input);
-        } catch (WrongDateTimeFormatException | InvalidDateException e ) {
+        } catch (WrongDateTimeFormatException | InvalidDateTimeException e ) {
             throw new RuntimeException(e);
         }
         assertEquals(LocalDateTime.of(2023, 9,1,12,0), testObj);
@@ -31,7 +31,7 @@ public class DateHandlerTest {
             fail("Expected WrongDateTimeFormatException to be thrown");
         } catch (WrongDateTimeFormatException e) {
             // Test passes
-        } catch (InvalidDateException e) {
+        } catch (InvalidDateTimeException e) {
             fail("Unexpected InvalidDateException thrown");
         }
     }
@@ -44,7 +44,7 @@ public class DateHandlerTest {
             fail("Expected WrongDateTimeFormatException to be thrown");
         } catch (WrongDateTimeFormatException e) {
             // Test passes
-        } catch (InvalidDateException e) {
+        } catch (InvalidDateTimeException e) {
             fail("Unexpected InvalidDateException thrown");
         }
     }
@@ -57,7 +57,7 @@ public class DateHandlerTest {
             fail("Expected InvalidDateException to be thrown");
         } catch (WrongDateTimeFormatException e) {
             fail("Unexpected WrongDateTimeFormatException thrown");
-        } catch (InvalidDateException e) {
+        } catch (InvalidDateTimeException e) {
             // Test passes
         }
     }

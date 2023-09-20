@@ -5,14 +5,12 @@ import static emiya.logic.Logic.isInvalidDateTime;
 import static emiya.logic.Logic.isWrongDateFormat;
 import static emiya.logic.Logic.isWrongTimeFormat;
 
-import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.InvalidDateTimeException;
 import emiya.emiyaexception.NoByException;
 import emiya.emiyaexception.NoFromException;
 import emiya.emiyaexception.NoToException;
 import emiya.emiyaexception.UnknownCommandException;
 import emiya.emiyaexception.WrongDateTimeFormatException;
-import emiya.logic.Logic;
-
 
 
 /**
@@ -113,10 +111,10 @@ public class Parser {
      * Parses input into String objects that can be understood by the rest of the program.
      * @param input A String input that represents a certain date and time.
      * @return A String array that contains sections that can be understood by the rest of the program.
-     * @throws InvalidDateException When the date given is invalid.
+     * @throws InvalidDateTimeException When the date given is invalid.
      * @throws WrongDateTimeFormatException When the date given is in the wrong format.
      */
-    public static String[] parseForDate(String input) throws InvalidDateException, WrongDateTimeFormatException {
+    public static String[] parseForDate(String input) throws InvalidDateTimeException, WrongDateTimeFormatException {
         String[] partsOfDateTime = input.split("\\s+", 2);
 
         // word/no whitespace used
@@ -140,7 +138,7 @@ public class Parser {
         int min = Integer.parseInt(timePart.substring(2, 4));
 
         if (isInvalidDateTime(year, month, day, hour, min)) {
-            throw new InvalidDateException();
+            throw new InvalidDateTimeException();
         }
 
         return new String[] {datePart, hour < 10 ? "0" + hour : hour + "", min < 10 ? "0" + min : min + ""};

@@ -7,7 +7,7 @@ import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-import emiya.emiyaexception.InvalidDateException;
+import emiya.emiyaexception.InvalidDateTimeException;
 import emiya.emiyaexception.WrongDateTimeFormatException;
 
 
@@ -25,10 +25,10 @@ public class DateHandler {
      * @return A LocalDateTime object that contains information about the date and time
      *     specified by the user.
      * @throws WrongDateTimeFormatException If the date given by the user is in the wrong format.
-     * @throws InvalidDateException If the date given by the user is invalid.
+     * @throws InvalidDateTimeException If the date given by the user is invalid.
      */
     public static LocalDateTime determineDateTime(String strFormat)
-            throws WrongDateTimeFormatException, InvalidDateException {
+            throws WrongDateTimeFormatException, InvalidDateTimeException {
         // after parsing, array will be in format: [date, hour, min]
         String[] parsedDate = parseForDate(strFormat);
 
