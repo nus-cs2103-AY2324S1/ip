@@ -1,5 +1,6 @@
 # DuckBot User Guide
 
+<body style="background-color: black; color: white; font-family: Arial, sans-serif; padding: 20px;">
 
 ## <font color = "darkgrey"> Introduction </font>
 
