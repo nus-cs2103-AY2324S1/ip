@@ -121,21 +121,25 @@ public class TaskList {
     public void addSavedTask(TaskType taskType, String description, Priority priority,
                                String[] taskDetails) throws EkudIOException {
         Parser parser = new Parser(); // For parsing dateTime
-        switch (taskType) {
-        case TODO:
-            this.tasks.add(new ToDo(description, priority));
-            break;
-        case DEADLINE:
-            LocalDateTime dateTime = parser.parseSavedDateTime(taskDetails[3]);
-            this.tasks.add(new Deadline(description, dateTime, priority));
-            break;
-        case EVENT:
-            LocalDateTime fromDateTime = parser.parseSavedDateTime(taskDetails[3]);
-            LocalDateTime toDateTime = parser.parseSavedDateTime(taskDetails[4]);
-            this.tasks.add(new Event(description, fromDateTime, toDateTime, priority));
-            break;
-        default:
-            throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
+        try {
+            switch (taskType) {
+            case TODO:
+                this.tasks.add(new ToDo(description, priority));
+                break;
+            case DEADLINE:
+                LocalDateTime dateTime = parser.parseSavedDateTime(taskDetails[3]);
+                this.tasks.add(new Deadline(description, dateTime, priority));
+                break;
+            case EVENT:
+                LocalDateTime fromDateTime = parser.parseSavedDateTime(taskDetails[3]);
+                LocalDateTime toDateTime = parser.parseSavedDateTime(taskDetails[4]);
+                this.tasks.add(new Event(description, fromDateTime, toDateTime, priority));
+                break;
+            default:
+                throw new EkudIOException("Error with parsing saved tasks: Invalid task type");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new EkudIOException("Error with parsing saved tasks: Missing datetime arguments");
         }
     }
 
