@@ -179,8 +179,8 @@ Expected output:
 Format: ```find KEYWORD```
 
 Examples
-* ```find homeword```
-* ```find math homeword```
+* ```find homework```
+* ```find math homework```
 
 Expected output:
 
