@@ -65,10 +65,12 @@ public class Storage {
             Scanner sc = new Scanner(new File(fileLocation));
             StringBuffer buffer = new StringBuffer();
             String toBeReplaced = "";
-            for (int i = 0; i < index; i++) {
-                toBeReplaced = "delete " + sc.nextLine() + System.lineSeparator();
+            for (int i = 0; i < index - 1; i++) {
+                toBeReplaced = sc.nextLine() + System.lineSeparator();
                 buffer.append(toBeReplaced);
             }
+            toBeReplaced = "delete " + sc.nextLine() + System.lineSeparator();
+            buffer.append(toBeReplaced);
             while (sc.hasNextLine()) {
                 buffer.append(sc.nextLine() + System.lineSeparator());
             }
