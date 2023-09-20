@@ -1,9 +1,10 @@
 package bob;
 
-import bob.tasks.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import bob.tasks.Todo;
 
 public class TodoTest {
     @Test

@@ -1,18 +1,21 @@
 package bob;
 
-import bob.exceptions.BobException;
-import bob.tasks.Deadline;
-import bob.tasks.Event;
-import bob.tasks.Task;
-import bob.tasks.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import bob.exceptions.BobException;
+import bob.tasks.Deadline;
+import bob.tasks.Event;
+import bob.tasks.Task;
+import bob.tasks.Todo;
+
+
 
 public class StorageTest {
     private static String testFilePath = "src/test/tasks.txt";
