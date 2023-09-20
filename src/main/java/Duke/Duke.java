@@ -42,7 +42,6 @@ public class Duke {
     }
 
     public boolean hasEnded() {
-
         return parser.isExit();
     }
 
