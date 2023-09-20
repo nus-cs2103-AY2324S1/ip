@@ -20,6 +20,8 @@ import javafx.scene.layout.HBox;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    // @@author tanyyyming-reused
+    // Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modifications
     @FXML
     private Label dialog;
     @FXML
@@ -58,4 +60,5 @@ public class DialogBox extends HBox {
         db.flip();
         return db;
     }
+    // @@ author
 }

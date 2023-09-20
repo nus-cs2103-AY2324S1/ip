@@ -16,6 +16,8 @@ public class Main extends Application {
 
     private Jarvis jarvis = new Jarvis("data/jarvislist.txt");
 
+    // @@author tanyyyming-reused
+    // Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modifications
     @Override
     public void start(Stage stage) {
         try {
@@ -31,4 +33,5 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
+    // @@ author
 }

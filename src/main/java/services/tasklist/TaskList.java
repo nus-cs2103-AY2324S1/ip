@@ -33,8 +33,7 @@ public class TaskList implements ITaskList {
             tasks = repo.load();
             taskCount = tasks.size();
         } catch (JarvisException e) {
-            // Fix the problem here in the future.
-            // System.out.println(e.toString() + "\nA temporary session is opened for you.");
+            // open a temporary session if the data file cannot be loaded.
             tasks = new ArrayList<>();
             taskCount = 0;
         }

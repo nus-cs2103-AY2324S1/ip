@@ -13,6 +13,11 @@ public class Parser {
 
     protected ITaskList taskList;
 
+    /**
+     * Creates a new Command Parser object with the given TaskList object.
+     *
+     * @param taskList the TaskList object that stores the list of tasks.
+     */
     public Parser(ITaskList taskList) {
         this.taskList = taskList;
     }
@@ -113,6 +118,7 @@ public class Parser {
                 return null;
             }
         } catch (NumberFormatException e) {
+            // An exception is thrown if the argument is not an integer.
             throw new InvalidArgumentException(command.name());
         }
     }
@@ -139,6 +145,7 @@ public class Parser {
                 return null;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            // An exception is thrown if the argument number does not match the command.
             throw new InvalidArgumentException(command.name());
         }
     }
@@ -161,6 +168,7 @@ public class Parser {
                 return null;
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            // An exception is thrown if the argument number does not match the command.
             throw new InvalidArgumentException(command.name());
         }
     }
