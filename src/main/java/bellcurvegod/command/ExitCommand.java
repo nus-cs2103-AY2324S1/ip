@@ -24,4 +24,8 @@ public class ExitCommand {
 
         return Gui.getExitMessage();
     }
+
+    public static String getHelpMessage() {
+        return "Type 'bye' and enter, the app will exit.";
+    }
 }

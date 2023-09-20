@@ -19,4 +19,10 @@ public class UnmarkCommand {
         }
         return Gui.getUnmarkMessage(tasks);
     }
+
+    public static String getHelpMessage() {
+        return "Type 'unmark <index>' and enter, the app will mark the task with the given index as not done yet.\n"
+            + "You can also mark multiple tasks as not done by typing 'unmark <index>,<index>,<index>,...' "
+            + "with no spaces between the indices and commas.";
+    }
 }

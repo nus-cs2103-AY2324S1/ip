@@ -19,4 +19,8 @@ public class ListTasksCommand {
         ArrayList<Task> tasks = TaskList.getTaskList();
         return Gui.getListMessage(tasks);
     }
+
+    public static String getHelpMessage() {
+        return "Type 'list' and enter, the app will list all existing tasks.";
+    }
 }

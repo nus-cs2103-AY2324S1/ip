@@ -10,7 +10,8 @@ import bellcurvegod.task.Task;
 public class Gui {
 
     public static String getWelcomeMessage() {
-        return "Hello! I'm Bell Curve God.\n" + "What can I do for you?\n";
+        return "Hello! I'm Bell Curve God.\n" + "What can I do for you?\n"
+            + "Type 'help' to see a list of all the commands.\n";
     }
 
     public static String getExitMessage() {

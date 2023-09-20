@@ -55,8 +55,8 @@ public class TaskList {
             } else {
                 newTask = Todo.generateTodoFromInput(input);
             }
-        } catch (EmptyByTimeException | EmptyFromTimeException | EmptyToTimeException |
-                 ToTimeEarlierThanFromTimeException e) {
+        } catch (EmptyByTimeException | EmptyFromTimeException | EmptyToTimeException
+                 | ToTimeEarlierThanFromTimeException e) {
             return e.getMessage();
         } catch (DateTimeParseException e) {
             return Gui.getWrongDateFormatMessage();

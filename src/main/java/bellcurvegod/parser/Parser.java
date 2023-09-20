@@ -2,8 +2,11 @@ package bellcurvegod.parser;
 
 import java.util.ArrayList;
 
+import bellcurvegod.command.AddTaskCommand;
+import bellcurvegod.command.DeleteTaskCommand;
 import bellcurvegod.command.ExitCommand;
 import bellcurvegod.command.FindCommand;
+import bellcurvegod.command.HelpCommand;
 import bellcurvegod.command.ListTasksCommand;
 import bellcurvegod.command.MarkCommand;
 import bellcurvegod.command.UnmarkCommand;
@@ -36,6 +39,8 @@ public class Parser {
 
         if (input.equals("bye")) {
             return ExitCommand.run();
+        } else if (input.equals("help") | words[0].equals("help")) {
+            return HelpCommand.run(input);
         } else if (input.equals("list")) {
             return ListTasksCommand.run();
         } else if (words[0].equals("find")) {
@@ -45,10 +50,10 @@ public class Parser {
         } else if (words[0].equals("unmark")) {
             return UnmarkCommand.run(getTaskParams(words[1].split(","), tasks));
         } else if (words[0].equals("delete")) {
-            return TaskList.delete(getTaskParams(words[1].split(","), tasks));
+            return DeleteTaskCommand.run(getTaskParams(words[1].split(","), tasks));
         } else {
             try {
-                return TaskList.addTask(input);
+                return AddTaskCommand.run(input);
             } catch (InvalidCommandException | EmptyDescriptionException e) {
                 return e.getMessage();
             }

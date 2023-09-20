@@ -7,7 +7,7 @@ import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
 
 /**
- * Encapsulates the findCommand.
+ * Encapsulates the FindCommand.
  */
 public class FindCommand {
     /**
@@ -28,5 +28,10 @@ public class FindCommand {
         }
 
         return Gui.getFindMessage(matchingTasks);
+    }
+
+    public static String getHelpMessage() {
+        return "Type 'find <keyword>' and enter, "
+            + "the app will list all tasks containing the keyword in the descriptions";
     }
 }

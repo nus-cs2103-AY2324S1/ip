@@ -50,11 +50,11 @@ public class Event extends Task {
      * @param input Input entered by user.
      * @return An Event.
      * @throws EmptyEventDescriptionException If description is missing.
-     * @throws EmptyFromTimeException If from time is missing.
-     * @throws EmptyToTimeException If to time is missing.
+     * @throws EmptyFromTimeException         If from time is missing.
+     * @throws EmptyToTimeException           If to time is missing.
      */
     public static Event generateEventFromInput(String input) throws EmptyEventDescriptionException,
-        EmptyFromTimeException, EmptyToTimeException, ToTimeEarlierThanFromTimeException {
+            EmptyFromTimeException, EmptyToTimeException, ToTimeEarlierThanFromTimeException {
         if (input.split(" ").length == 1) {
             throw new EmptyEventDescriptionException("You did not provide any description to this Event.\n"
                 + "To add an Event, enter \"event <description> /from <startTime> /to <endTime>\".\n");

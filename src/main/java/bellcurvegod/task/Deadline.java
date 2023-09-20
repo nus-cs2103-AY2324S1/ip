@@ -43,10 +43,10 @@ public class Deadline extends Task {
      * @param input Input entered by user.
      * @return A Deadline.
      * @throws EmptyDeadlineDescriptionException If deadline is missing.
-     * @throws EmptyByTimeException If by time is missing.
+     * @throws EmptyByTimeException              If by time is missing.
      */
-    public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException
-        , EmptyByTimeException {
+    public static Deadline generateDeadlineFromInput(String input) throws EmptyDeadlineDescriptionException,
+            EmptyByTimeException {
         if (input.split(" ").length == 1) {
             throw new EmptyDeadlineDescriptionException("You did not provide any description to this Deadline.\n"
                 + "To add a Deadline, enter \"deadline <description> /by <yyyy-mm-dd>\".\n");
