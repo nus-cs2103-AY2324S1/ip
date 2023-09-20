@@ -76,7 +76,7 @@ public class TaskList {
      * @return The list of tasks.
      */
     public ArrayList<Task> getTasks() {
-        return new ArrayList<>(tasks);
+        return tasks;
     }
 
     /**
@@ -149,23 +149,21 @@ public class TaskList {
         switch (task) {
         case TODO:
             try {
-                String editedInput = userInput.substring(5);
-                if (editedInput.isEmpty()) {
+                if (userInput.isEmpty()) {
                     return Ui.returnErrorString(new BeeException("OOPS!! The description of a todo cannot be empty."));
                 }
-                Todo todo = new Todo(editedInput);
+                Todo todo = new Todo(userInput);
                 return this.addTask(todo);
             } catch (StringIndexOutOfBoundsException e) {
                 return Ui.returnErrorString(new BeeException("OOPS!! The description of a todo cannot be empty."));
             }
         case DEADLINE:
             try {
-                String editedInput = userInput.substring(9);
-                if (editedInput.isEmpty()) {
+                if (userInput.isEmpty()) {
                     return Ui.returnErrorString(
                             new BeeException("OOPS!! The description of a deadline cannot be empty."));
                 }
-                String[] splitEditedInput = editedInput.split(" /by ");
+                String[] splitEditedInput = userInput.split(" /by ");
                 String deadlineDescription = splitEditedInput[0];
                 String deadlineDateString = splitEditedInput[1];
 
@@ -184,12 +182,11 @@ public class TaskList {
             }
         case EVENT:
             try {
-                String editedInput = userInput.substring(6);
-                if (editedInput.isEmpty()) {
+                if (userInput.isEmpty()) {
                     return Ui.returnErrorString(
                             new BeeException("OOPS!! The description of an event cannot be empty."));
                 }
-                String[] splitEditedInput = editedInput.split(" /from ");
+                String[] splitEditedInput = userInput.split(" /from ");
                 String[] splitEditedInput2 = splitEditedInput[1].split(" /to ");
                 String eventDescription = splitEditedInput[0];
                 String eventStartDate = splitEditedInput2[0];
@@ -218,7 +215,7 @@ public class TaskList {
         switch (action) {
         case MARK:
             try {
-                int taskIndex = Integer.parseInt(splitInput[1]);
+                int taskIndex = Integer.parseInt(splitInput[0]);
                 return this.setTaskDone(taskIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 return Ui.returnErrorString(new BeeException("OOPS!! The task number cannot be empty."));
@@ -227,7 +224,7 @@ public class TaskList {
             }
         case UNMARK:
             try {
-                int taskIndex = Integer.parseInt(splitInput[1]);
+                int taskIndex = Integer.parseInt(splitInput[0]);
                 return this.setTaskNotDone(taskIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 return Ui.returnErrorString(new BeeException("OOPS!! The task number cannot be empty."));
@@ -236,7 +233,7 @@ public class TaskList {
             }
         case DELETE:
             try {
-                int taskIndex = Integer.parseInt(splitInput[1]);
+                int taskIndex = Integer.parseInt(splitInput[0]);
                 return this.deleteTask(taskIndex);
             } catch (ArrayIndexOutOfBoundsException e) {
                 return Ui.returnErrorString(new BeeException("OOPSS!! Please enter a task number"));

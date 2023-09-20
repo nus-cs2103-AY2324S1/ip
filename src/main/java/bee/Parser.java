@@ -27,30 +27,39 @@ public class Parser {
 
         String[] splitInput = userInput.split(" ");
         String command = splitInput[0].toLowerCase();
+        StringBuilder newUserInput = new StringBuilder();
+        for (int i = 1; i < splitInput.length; i++) {
+            if (i > 1) {
+                newUserInput.append(" ");
+            }
+            newUserInput.append(splitInput[i]);
+        }
+        String recombinedUserInput = newUserInput.toString();
         try {
             switch (command) {
             case "bye":
+                System.exit(0);
                 return ui.farewell();
             case "list":
                 return tasks.listAllTasks();
             case "t": // 't' as an alias for 'todo'
             case "todo":
-                return tasks.createTask(TaskClass.TODO, userInput);
+                return tasks.createTask(TaskClass.TODO, recombinedUserInput);
             case "d": // 'd' as an alias for 'deadline'
             case "deadline":
-                return tasks.createTask(TaskClass.DEADLINE, userInput);
+                return tasks.createTask(TaskClass.DEADLINE, recombinedUserInput);
             case "e": // 'e' as an alias for 'event'
             case "event":
-                return tasks.createTask(TaskClass.EVENT, userInput);
+                return tasks.createTask(TaskClass.EVENT, recombinedUserInput);
             case "m": // 'm' as an alias for 'mark'
             case "mark":
-                return tasks.updateTask(TaskAction.MARK, userInput);
+                return tasks.updateTask(TaskAction.MARK, recombinedUserInput);
             case "u": // 'u' as an alias for 'unmark'
             case "unmark":
-                return tasks.updateTask(TaskAction.UNMARK, userInput);
+                return tasks.updateTask(TaskAction.UNMARK, recombinedUserInput);
             case "del": // 'del' as an alias for 'delete'
             case "delete":
-                return tasks.updateTask(TaskAction.DELETE, userInput);
+                return tasks.updateTask(TaskAction.DELETE, recombinedUserInput);
             case "find":
                 return tasks.findTasksByKeyword(userInput);
             default:
