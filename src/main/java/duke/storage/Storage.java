@@ -18,8 +18,8 @@ import duke.task.ToDo;
  * Storage class to load and save data.
  */
 public class Storage {
-    private final Path filePath;
     private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    private final Path filePath;
 
     /**
      * Constructor for Storage.
@@ -93,15 +93,15 @@ public class Storage {
         String description = parts[2].trim();
 
         switch (type) {
-            case 'T':
-                return createToDoTask(isDone, description);
-            case 'D':
-                return createDeadlineTask(isDone, description);
-            case 'E':
-                return createEventTask(isDone, description);
-            default:
-                System.out.println("Invalid duke.task type found in Hard Disk");
-                return null;
+        case 'T':
+            return createToDoTask(isDone, description);
+        case 'D':
+            return createDeadlineTask(isDone, description);
+        case 'E':
+            return createEventTask(isDone, description);
+        default:
+            System.out.println("Invalid duke.task type found in Hard Disk");
+            return null;
         }
     }
 
