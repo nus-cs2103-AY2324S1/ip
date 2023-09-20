@@ -15,7 +15,7 @@ public class UnmarkCommand extends Command {
         this.index = index;
     }
     @Override
-    public CommandResult execute() throws DukeIndexOutOfBoundsException, IOException {
+    public CommandResult execute() throws DukeIndexOutOfBoundsException {
         tasks.unmark(index);
         return new CommandResult(UNMARK_SUCCESS);
     }

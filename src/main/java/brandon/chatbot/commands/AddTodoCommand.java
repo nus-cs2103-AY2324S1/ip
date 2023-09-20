@@ -8,15 +8,17 @@ import brandon.chatbot.tasks.Todo;
  */
 public class AddTodoCommand extends Command {
     public static final String ADD_SUCCESS = "ok... I'm adding..";
-    private Todo toAdd;
+    private Todo todoToAdd;
 
     public AddTodoCommand(String taskName) throws DukeException {
-        this.toAdd = new Todo(taskName);
+        this.todoToAdd = new Todo(taskName);
     }
 
     @Override
     public CommandResult execute() {
-        tasks.addTask(toAdd);
+        assert this.todoToAdd != null: "Todo object should not be empty.";
+
+        tasks.addTask(todoToAdd);
         CommandResult result = new CommandResult(ADD_SUCCESS);
         return result;
     }

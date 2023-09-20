@@ -33,6 +33,8 @@ public class Command {
      * @param tasks
      */
     public void setData(TaskList tasks) {
+        assert tasks != null: "TaskList parameter should not be empty.";
+
         this.tasks = tasks;
     }
 }

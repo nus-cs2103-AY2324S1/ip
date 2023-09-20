@@ -42,7 +42,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
-        System.out.println(commandWord);
+
         switch (commandWord) {
         case "find":
             return prepareFind(arguments);
@@ -65,9 +65,8 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            break;
+            return new UnknownCommand();
         }
-        return null;
     }
 
     /**
@@ -81,6 +80,7 @@ public class Parser {
         if (!matcher.matches()) {
             return new UnknownCommand();
         }
+
         return new FindCommand(matcher.group("name").strip());
     }
 
@@ -90,34 +90,37 @@ public class Parser {
         if (!matcher.matches()) {
             return new UnknownCommand();
         }
+
         try {
             String grp = matcher.group("name");
-            System.out.println(grp);
             return new AddTodoCommand(grp);
         } catch (DukeException e) {
-            return new UnknownCommand();
+            return new UnknownCommand(e.getMessage());
         }
     }
+
     private Command prepareDeadline(String args) {
         final Matcher matcher = DEADLINE_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new UnknownCommand();
         }
+
         try {
             return new AddDeadlineCommand(matcher.group("name"), matcher.group("deadline").strip());
         } catch (DukeException e) {
-            return new UnknownCommand();
+            return new UnknownCommand(e.getMessage());
         }
     }
+
     private Command prepareEvent(String args) {
         final Matcher matcher = EVENT_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new UnknownCommand();
         }
+
         try {
-            System.out.println("to match: " + matcher.group("to").strip());
             return new AddEventCommand(
                     matcher.group("name"),
                     matcher.group("from").strip(),
@@ -127,6 +130,7 @@ public class Parser {
             return new UnknownCommand();
         }
     }
+
     private Command prepareDelete(String args) {
         final int index = Integer.parseInt(args.trim());
         return new DeleteCommand(index);
