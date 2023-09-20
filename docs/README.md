@@ -18,6 +18,7 @@ Desolute is designed to be **an easy-to-use chatbot for individuals to use to ke
   - [help](#help---shows-help)
   - [bye](#bye---exits-the-application)
 
+<!--Quick Started portion inspired by https://se-education.org/addressbook-level3/UserGuide.html --->
 ## Quick Start
 1. Ensure that you have Java `11` or above installed in your Computer.
 2. Download the latest `chatbot.jar` from [here](https://github.com/rayshawntan/ip/releases).
