@@ -33,7 +33,7 @@ public class UnmarkCommand extends Command {
         if (tasks.isTaskListEmpty()) {
             throw new DukeException("List is empty, nothing to unmark");
         }
-        if (index >= tasks.getSize() || index <= 0) {
+        if (index >= tasks.getSize() || index < 0) {
             throw new DukeException("Unmark out of range");
         }
         Task selTask = tasks.getTask(index);

@@ -113,7 +113,8 @@ Example of usage:
 Format: `find keyword`
 - Keyword is the word/substring to be search for.
 
-Example of usage: 
+Examples of usage:
+
 `find book`
 
 `find bo`
