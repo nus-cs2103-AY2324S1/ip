@@ -1,4 +1,6 @@
-# User Guide
+# IRIS
+
+## User Guide
 
 ## Overview
 
