@@ -1,2 +1,3 @@
-D|N|project |2023-08-01
-T|N|project
+T|Y|iP work
+D|Y|tp |2023-09-21
+E|Y|party |2023-09-21|2023-09-22

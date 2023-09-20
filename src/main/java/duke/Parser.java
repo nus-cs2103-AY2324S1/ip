@@ -33,7 +33,6 @@ public class Parser {
     public String parse(String command) throws DukeException{
         String[] spacedCommand = command.split(" ");
         String mainCommand = spacedCommand[0];
-        Task task;
         String output = null;
         try {
             switch (mainCommand) {
@@ -44,62 +43,22 @@ public class Parser {
                 output = this.tasks.findTask(command.substring(5));
                 break;
             case "mark":
-                if (spacedCommand.length == 1) {
-                    throw new DukeException("Please specify the task to mark.");
-                }
-                output = this.tasks.modifyTask(mainCommand, Integer.parseInt(spacedCommand[1]));
-                this.storage.writeTasks(this.tasks.getTasks());
+                output = parseMarkCommand(spacedCommand, mainCommand);
                 break;
             case "unmark":
-                if (spacedCommand.length == 1) {
-                    throw new DukeException("Please specify the task to unmark.");
-                }
-                output = this.tasks.modifyTask(mainCommand, Integer.parseInt(spacedCommand[1]));
+                output = parseUnmarkCommand(spacedCommand, mainCommand);
                 break;
             case "delete":
-                if (spacedCommand.length == 1) {
-                    throw new DukeException("Please specify the task to delete.");
-                }
-                output = this.tasks.deleteTask(Integer.parseInt(spacedCommand[1]));
-                this.storage.writeTasks(this.tasks.getTasks());
+                output = parseDeleteCommand(spacedCommand, mainCommand);
                 break;
             case "todo":
-                if (spacedCommand.length == 1) {
-                    throw new DukeException("☹ Description of todo cannot be empty. ☹");
-                }
-                task = new Todo(command.substring(5));
-                output = this.tasks.addTask(task);
-                this.storage.writeTasks(this.tasks.getTasks());
+                output = parseTodoCommand(command, spacedCommand, mainCommand);
                 break;
             case "deadline":
-                if (spacedCommand.length == 1) {
-                    throw new DukeException("☹ Description of deadline cannot be empty. ☹");
-                }
-                int spacer = command.indexOf("/");
-                if (spacer == -1) {
-                    throw new DukeException("Please remember to add your deadline! Write /by, " +
-                            "followed by a date in YYYY-MM-DD format.");
-                }
-                task = new Deadline(command.substring(9, spacer), command.substring(spacer + 4));
-                output = this.tasks.addTask(task);
-                this.storage.writeTasks(this.tasks.getTasks());
+                output = parseDeadlineCommand(command, spacedCommand, mainCommand);
                 break;
             case "event":
-                if (spacedCommand.length == 1) {
-                    throw new DukeException("☹ Description of event cannot be empty. ☹");
-                }
-                int startSpacer = command.indexOf("/");
-                int endSpacer = command.lastIndexOf("/");
-                if (startSpacer == -1 || endSpacer == -1) {
-                    throw new DukeException("Please remember to add your start and end dates! In YYYY-MM-DD format.");
-                }
-                task = new Event(command.substring(6, startSpacer),
-                        command.substring(startSpacer + 6, endSpacer - 1), command.substring(endSpacer + 4));
-                output = this.tasks.addTask(task);
-                this.storage.writeTasks(this.tasks.getTasks());
-                break;
-            case "/help":
-                output = this.ui.helpMessage();
+                output = parseEventCommand(command, spacedCommand, mainCommand);
                 break;
             case "":
                 output = this.ui.emptyCommandMessage();
@@ -114,6 +73,72 @@ public class Parser {
         } catch (DukeException e) {
             return "OOPS!" + e.toString().split("DukeException:")[1];
         }
+        return output;
+    }
+
+    public String parseMarkCommand(String[] spacedCommand, String mainCommand) throws DukeException{
+        if (spacedCommand.length == 1) {
+            throw new DukeException("Please specify the task to mark.");
+        }
+        String output = this.tasks.modifyTask(mainCommand, Integer.parseInt(spacedCommand[1]));
+        this.storage.writeTasks(this.tasks.getTasks());
+        return output;
+    }
+
+    public String parseUnmarkCommand(String[] spacedCommand, String mainCommand) throws DukeException{
+        if (spacedCommand.length == 1) {
+            throw new DukeException("Please specify the task to unmark.");
+        }
+        return this.tasks.modifyTask(mainCommand, Integer.parseInt(spacedCommand[1]));
+    }
+
+    public String parseDeleteCommand(String[] spacedCommand, String mainCommand) throws DukeException{
+        if (spacedCommand.length == 1) {
+            throw new DukeException("Please specify the task to delete.");
+        }
+        String output = this.tasks.deleteTask(Integer.parseInt(spacedCommand[1]));
+        this.storage.writeTasks(this.tasks.getTasks());
+        return output;
+    }
+
+    public String parseTodoCommand(String command, String[] spacedCommand, String mainCommand) throws DukeException{
+        if (spacedCommand.length == 1) {
+            throw new DukeException("☹ Description of todo cannot be empty. ☹");
+        }
+        Task task = new Todo(command.substring(5));
+        String output = this.tasks.addTask(task);
+        this.storage.writeTasks(this.tasks.getTasks());
+        return output;
+    }
+
+    public String parseDeadlineCommand(String command, String[] spacedCommand, String mainCommand) throws DukeException{
+        if (spacedCommand.length == 1) {
+            throw new DukeException("☹ Description of deadline cannot be empty. ☹");
+        }
+        int spacer = command.indexOf("/");
+        if (spacer == -1) {
+            throw new DukeException("Please remember to add your deadline! Write /by, " +
+                    "followed by a date in YYYY-MM-DD format.");
+        }
+        Task task = new Deadline(command.substring(9, spacer), command.substring(spacer + 4));
+        String output = this.tasks.addTask(task);
+        this.storage.writeTasks(this.tasks.getTasks());
+        return output;
+    }
+
+    public String parseEventCommand(String command, String[] spacedCommand, String mainCommand) throws DukeException{
+        if (spacedCommand.length == 1) {
+            throw new DukeException("☹ Description of event cannot be empty. ☹");
+        }
+        int startSpacer = command.indexOf("/");
+        int endSpacer = command.lastIndexOf("/");
+        if (startSpacer == -1 || endSpacer == -1 || startSpacer == endSpacer) {
+            throw new DukeException("Please remember to add your start and end dates! In YYYY-MM-DD format.");
+        }
+        Task task = new Event(command.substring(6, startSpacer),
+                command.substring(startSpacer + 6, endSpacer - 1), command.substring(endSpacer + 4));
+        String output = this.tasks.addTask(task);
+        this.storage.writeTasks(this.tasks.getTasks());
         return output;
     }
 }

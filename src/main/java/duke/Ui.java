@@ -159,19 +159,6 @@ public class Ui {
     }
 
     /**
-     * Prints message containing all commands that bot recognizes.
-     *
-     * @return A String message.
-     */
-    public String helpMessage() {
-        return "To view the list of tasks, type list. \nTo add a todo, type todo."
-                + "\nTo add a deadline, type deadline with /by.\nTo add a event, type event with /from and /to."
-                + "\nTo mark/unmark tasks, type mark/unmark followed by the index."
-                + "\nTo delete a task, type delete followed by the index."
-                + "\nTo exit, type bye.";
-    }
-
-    /**
      * Closes the scanner to stop reading input from user.
      */
     public void closeScanner() {
