@@ -236,7 +236,7 @@ public class Command {
      * @return A farewell message.
      */
     public static String byeCommand() {
-        return "Bye, patrick this window will magically disappear in 3 seconds";
+        return "Bye, this window will magically disappear in 3 seconds";
     }
 
 
