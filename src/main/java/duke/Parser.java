@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Parser {
     private static String userInput;
     private static final Scanner scanner = new Scanner(System.in);
+    private final Ui ui = new Ui();
 
     /**
      * Retrieves the user input from the scanner.
@@ -109,11 +110,57 @@ public class Parser {
         return userInput.startsWith("find ");
     }
 
+    /**
+     * Checks if the user wants to find a specific task.
+     *
+     * @return True if the user input starts with "find ", indicating an event command; false otherwise.
+     */
+    public boolean isSort() {
+        return userInput.equals("sort");
+    }
+
 
     /**
      * Closes the scanner used for reading user input.
      */
     public void goodbye() {
         scanner.close();
+    }
+
+    /**
+     * Parses user input to execute various commands and provides a corresponding response.
+     *
+     * @param tasks The task list to be manipulated based on the parsed command.
+     * @return A response message or result of executing the parsed command.
+     */
+    public String parse(TaskList tasks) {
+        try {
+            if (this.isBye()) {
+                goodbye();
+                return ui.goodbye();
+            } else if (this.isList()) {
+                return tasks.printFileContents();
+            } else if (this.isSort()) {
+                return tasks.sortList();
+            } else if (this.isMark()) {
+                return tasks.mark(userInput);
+            } else if (this.isUnmark()) {
+                return tasks.unMark(userInput);
+            } else if (this.isDelete()) {
+                return tasks.delete(userInput);
+            } else if (this.isTodo()) {
+                return tasks.handleTodo(userInput);
+            } else if (this.isDeadline()) {
+                return tasks.handleDeadline(userInput);
+            } else if (this.isEvent()) {
+                return tasks.handleEvent(userInput);
+            } else if (this.isFind()) {
+                return tasks.handleFind(userInput);
+            } else {
+                throw new DukeException("Error: Invalid Command!");
+            }
+        } catch (DukeException exception) {
+            return exception.getMessage();
+        }
     }
 }
