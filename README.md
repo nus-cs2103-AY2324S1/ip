@@ -1,6 +1,5 @@
-# Duke project template
-
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+#Chatty
+![image](https://github.com/Kokseng1/ip/assets/122194789/0cd3b893-9369-464b-beb7-2ec7f60ff677)
 
 ## Setting up in Intellij
 
