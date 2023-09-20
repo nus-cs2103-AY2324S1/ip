@@ -19,8 +19,8 @@ public class Event extends Task {
      */
     public Event(String classname, String startTime, String endTime) {
         super(classname);
-        this.startTime = DateAndTime.dayParse(startTime, "MMM d yyyy");
-        this.endTime = DateAndTime.dayParse(endTime, "MMM d yyyy");
+        this.startTime = DateAndTime.parseDay(startTime, "MMM d yyyy");
+        this.endTime = DateAndTime.parseDay(endTime, "MMM d yyyy");
     }
 
     /**

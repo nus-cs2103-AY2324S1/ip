@@ -17,7 +17,7 @@ public class Deadline extends Task {
      */
     public Deadline(String taskname, String byDate) {
         super(taskname);
-        this.byDate = DateAndTime.dayParse(byDate, "MMM d yyyy");
+        this.byDate = DateAndTime.parseDay(byDate, "MMM d yyyy");
     }
 
     /**
