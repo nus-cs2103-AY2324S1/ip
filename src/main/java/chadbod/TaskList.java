@@ -47,7 +47,7 @@ public class TaskList {
     }
 
     /**
-     * Removes a task from the task list at a specific index.
+     * Returns a task from the task list at a specific index after removing it from the list.
      *
      * @param i The index of the task to remove.
      * @return The removed task.
