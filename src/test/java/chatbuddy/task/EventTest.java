@@ -15,6 +15,6 @@ public class EventTest {
 
     @Test
     public void getInformationForSaving() {
-        assertEquals("E | 0 | event1 | 01/09/2023 1000 | 01/09/2023 1732", event.getInformationForSaving());
+        assertEquals("E | 0 | event1 |  | 01/09/2023 1000 | 01/09/2023 1732", event.getInformationForSaving());
     }
 }

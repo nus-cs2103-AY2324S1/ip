@@ -96,4 +96,14 @@ public class Ui {
     public String showUnmarkTask(Task task) {
         return "OK, I've marked this task as not done yet:\n" + task;
     }
+
+    /**
+     * Returns a confirmation message about a task's tag being updated.
+     *
+     * @param task The task which tag was updated.
+     * @return A confirmation message about a task's tag being updated.
+     */
+    public String showUpdatedTag(Task task) {
+        return "OK, I've updated the tag of this task:\n" + task;
+    }
 }

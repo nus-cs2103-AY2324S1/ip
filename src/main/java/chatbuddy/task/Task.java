@@ -11,6 +11,9 @@ public class Task {
     /** The boolean representing whether the task is done. */
     protected boolean isDone;
 
+    /** The tag associated with the task. */
+    protected String tag;
+
     /**
      * Creates a Task object with a given description.
      * The task object is not done by default.
@@ -20,6 +23,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         isDone = false;
+        tag = "";
     }
 
     /** Marks the task as done. */
@@ -42,6 +46,15 @@ public class Task {
     }
 
     /**
+     * Returns the tag of the task with " #" appended in front of the tag.
+     *
+     * @return The tag of the task with " #" appended in front. Returns an empty string if the tag is an empty string.
+     */
+    public String getTag() {
+        return tag.equals("") ? "" : " #" + tag;
+    }
+
+    /**
      * Returns a boolean representing whether the task is due or an event starts within a week.
      *
      * @return True if task is due or starts within a week, false otherwise.
@@ -52,7 +65,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%1s] %2s", getStatusIcon(), description);
+        return String.format("[%1s] %2s", getStatusIcon(), description) + getTag();
     }
 
     /**
@@ -62,7 +75,7 @@ public class Task {
      * @return The task information in format for saving.
      */
     public String getInformationForSaving() {
-        return String.format("%1s | %2s", isDone ? "1" : "0", description);
+        return String.format("%1s | %2s | ", isDone ? "1" : "0", description) + tag;
     }
 
     /**
@@ -73,5 +86,14 @@ public class Task {
      */
     public boolean containKeyword(String keyword) {
         return description.contains(keyword);
+    }
+
+    /**
+     * Changes the tag of the task to the given tag.
+     *
+     * @param newTag The tag to change to.
+     */
+    public void updateTag(String newTag) {
+        tag = newTag;
     }
 }

@@ -121,6 +121,24 @@ public class TaskList {
     }
 
     /**
+     * Changes the tag of the task with the given task number to the given tag.
+     *
+     * @param taskNum The task number of the task to change the tag.
+     * @param tag The tag to change to.
+     * @return The task which tag was changed.
+     * @throws ChatBuddyException If the task number is invalid.
+     */
+    public Task updateTaskTag(int taskNum, String tag) throws ChatBuddyException {
+        checkValidTaskNumber(taskNum);
+        assert(taskNum > 0 && taskNum <= tasks.size());
+
+        int taskIndex = taskNum - 1;
+        Task task = tasks.get(taskIndex);
+        task.updateTag(tag);
+        return task;
+    }
+
+    /**
      * Returns a list of strings representing the task in the format for saving.
      *
      * @return A list of strings representing the task in the format for saving.
