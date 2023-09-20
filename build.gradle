@@ -11,7 +11,7 @@ checkstyle {
 }
 
 javafx {
-    version = "20"
+    version = "19"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
@@ -71,4 +71,3 @@ run{
     standardInput = System.in
     enableAssertions = true
 }
-

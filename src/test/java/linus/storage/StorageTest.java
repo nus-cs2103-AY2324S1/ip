@@ -1,4 +1,4 @@
-package linus.util;
+package linus.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -10,7 +10,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import linus.exception.LinusException;
-import linus.storage.Storage;
 import linus.task.Task;
 
 public class StorageTest {
