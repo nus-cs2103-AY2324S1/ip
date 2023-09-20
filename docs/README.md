@@ -1,20 +1,18 @@
 # ___Birdy User Guide___
 
-# User Guide
-
 Birdy is a **desktop chat-bot application for managing your tasks optimised for use on a Command Line Interface (CLI)**
 or on a **Graphical User Interface (GUI)**.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
   - [Viewing help: `help`](#viewing-help-help)
-  - [Adding a task: `todo`/`deadline`/`event`](#adding-a-task--todo--deadline--event)
-  - [Marking a task: `mark`/`unmark`](#marking-a-task--mark--unmark)
-  - [Listing tasks: `list`](#listing-tasks--list)
-  - [Deleting a task: `delete`](#deleting-a-task--delete)
-  - [Setting a reminder: `remind`](#setting-a-reminder--remind)
-  - [Listing reminders: `reminder`](#listing-reminders--reminder)
-  - [Finding a task by keyword: `find`](#finding-a-task-by-keyword--find)
+  - [Adding a task: `todo`/`deadline`/`event`](#adding-a-task-todo-deadline-event)
+  - [Marking a task: `mark`/`unmark`](#marking-a-task-mark-unmark)
+  - [Listing tasks: `list`](#listing-tasks-list)
+  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Setting a reminder: `remind`](#setting-a-reminder-remind)
+  - [Listing reminders: `reminder`](#listing-reminders-reminder)
+  - [Finding a task by keyword: `find`](#finding-a-task-by-keyword-find)
 - [Command summary](#command-summary)
 
 <br/> 
