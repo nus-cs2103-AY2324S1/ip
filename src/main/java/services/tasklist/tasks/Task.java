@@ -44,35 +44,15 @@ public abstract class Task implements Taggable {
     @Override
     public void addTags(String[] tagNames) {
         for (String tagName : tagNames) {
-            addTag(tagName);
+            tags.add(Tag.getTag(tagName));
         }
-    }
-
-    private void addTag(String tagName) {
-        Tag newTag;
-        if (Tag.getTag(tagName) != null) {
-            newTag = Tag.getTag(tagName);
-        } else {
-            newTag = new Tag(tagName);
-        }
-
-        tags.add(newTag);
     }
 
     @Override
     public void deleteTags(String[] tagNames) {
         for (String tagName : tagNames) {
-            deleteTag(tagName);
+            tags.remove(Tag.getTag(tagName));
         }
-    }
-
-    private void deleteTag(String tagName) {
-        Tag tagToDelete = Tag.getTag(tagName);
-        if (tagToDelete == null) {
-            return;
-        }
-
-        tags.remove(tagToDelete);
     }
 
     @Override
