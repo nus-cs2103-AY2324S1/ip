@@ -90,6 +90,23 @@ Example of usage:
 
 Expected outcome:
 
+Bart will list out all the task you have. Details of the tasks, such as the type of task, as well as its completion status, will also be visible.
+
+```
+1. [T][] run
+2. [D][] CS2103 (by: Sep 22 2023)
+3. [E][] CS2103 (from: Sep 01 2023 to: Sep 20 2023)
+```
+### `sort` - view all the tasks in the list, sorted by alphabetical order
+
+simply type `sort` and click enter.
+
+Example of usage:
+
+`sort`
+
+Expected outcome:
+
 Bart will list out all the task you have, sorted by alphabetical order. Details of the tasks, such as the type of task, as well as its completion status, will also be visible.
 
 ```
