@@ -34,19 +34,22 @@ public class TaskListTest {
     @Test
     public void addTask_onlyDeadlineTasks_success() {
         Task deadlineTask1 = new Deadline("This is a deadline task", "2024-02-29"); // Leap year
-        Task deadlineTask2 = new Deadline("This is a COMPLETED deadline task", "2023-01-01");
-        Task deadlineTask3 = new Deadline("This is a deadline task", "2100-01-02"); // many years ahead
+        Task deadlineTask2 = new Deadline("by", "2023-01-01");
+        Task deadlineTask3 = new Deadline(".", "2100-01-02"); // many years ahead
+        Task deadlineTask4 = new Deadline("This is a deadline task", "2024-02-29"); // copy of deadlineTask1
 
         TaskList tasks = new TaskList();
         tasks.addTask(deadlineTask1);
         tasks.addTask(deadlineTask2, true);
         tasks.addTask(deadlineTask3, false);
+        tasks.addTask(deadlineTask4);
 
         String tasksFormattedForWritingToDisk = tasks.formatAllTasksForSaving();
         String actualAnswer = """
                 [D][ ] This is a deadline task (by: 2024-02-29)
-                [D][X] This is a COMPLETED deadline task (by: 2023-01-01)
-                [D][ ] This is a deadline task (by: 2100-01-02)
+                [D][X] by (by: 2023-01-01)
+                [D][ ] . (by: 2100-01-02)
+                [D][ ] This is a deadline task (by: 2024-02-29)
                 """;
         assertEquals(tasksFormattedForWritingToDisk, actualAnswer);
     }
