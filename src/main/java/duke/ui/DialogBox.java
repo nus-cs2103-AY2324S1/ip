@@ -67,9 +67,10 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         var dialogBox = new DialogBox(text, img);
-        dialogBox.setBackground(new Background(new BackgroundFill(Color.WHITE,
-                new CornerRadii(20),
-                new Insets(5, 5, 15, 5))));
+        dialogBox.setBackground(new Background(
+                new BackgroundFill(Color.WHITE,
+                new CornerRadii(15),
+                new Insets(5, 5, 15, 40))));
 
         return dialogBox;
     }
@@ -84,9 +85,10 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getDukeDialog(String text, Image img) {
         var dialogBox = new DialogBox(text, img);
-        dialogBox.setBackground(new Background(new BackgroundFill(Color.WHITE,
-                new CornerRadii(20),
-                new Insets(5, 5, 15, 5))));
+        dialogBox.setBackground(new Background(
+                new BackgroundFill(Color.WHITE,
+                new CornerRadii(15),
+                new Insets(5, 40, 15, 5))));
         dialogBox.flip();
 
         return dialogBox;

@@ -66,7 +66,7 @@ public class Ui {
      * @param list The list of tasks to be counted.
      */
     public static String countTasks(TaskList list) {
-        return "Now you have " + list.size() + " tasks in the list.";
+        return "Now you have " + list.size() + " tasks in the list";
     }
 
     /**

@@ -31,11 +31,11 @@ public class Parser {
             return new ListCommand();
         case "mark":
         case "m":
-            if (details.isEmpty()) {
-                throw new DukeException("The task number is missing!");
+            try {
+                return new MarkCommand(Integer.parseInt(details));
+            } catch (NumberFormatException e) {
+                throw new DukeException("Enter an integer as the task number!");
             }
-            assert Integer.parseInt(details) >= 0 : "Task number should be a non-negative integer";
-            return new MarkCommand(Integer.parseInt(details));
         case "find":
         case "f":
             return new FindCommand(details);
@@ -73,11 +73,11 @@ public class Parser {
             }
         case "delete":
         case "del":
-            if (details.isEmpty()) {
-                throw new DukeException("The task number is missing!");
+            try {
+                return new DeleteCommand(Integer.parseInt(details));
+            } catch (NumberFormatException e) {
+                throw new DukeException("Enter an integer as the task number!");
             }
-            assert Integer.parseInt(details) >= 0 : "Task number should be a non-negative integer";
-            return new DeleteCommand(Integer.parseInt(details));
         case "help":
         case "h":
             return new HelpCommand();

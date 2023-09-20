@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.DukeException;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -14,9 +15,12 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(TaskList tasks) {
-        Task task = tasks.get(taskNum - 1);
-        tasks.markAsDone(this.taskNum - 1);
-
-        return Ui.markAsDone(task);
+        try {
+            Task task = tasks.get(taskNum - 1);
+            tasks.markAsDone(this.taskNum - 1);
+            return Ui.markAsDone(task);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Invalid task number...");
+        }
     }
 }
