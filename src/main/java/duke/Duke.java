@@ -36,7 +36,7 @@ public class Duke {
     }
 
     /**
-     * Echos the user's input.
+     * Echos the user input.
      * @param input String that user inpt into the chat bot
      * @return An echo of what the user said
      */
