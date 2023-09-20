@@ -49,32 +49,34 @@ public class ParserTest {
     }
 
     @Test
+    public void testParseFindCommand() {
+        assertEquals(CommandType.FIND, Parser.parse("find Task").getType());
+    }
+
+    @Test
     public void testParseInvalidCommand() {
-        assertEquals(CommandType.INVALID, Parser.parse("invalid").getType());
-    }
+        // Gibberish user input returns invalid command
+        assertEquals(CommandType.INVALID, Parser.parse("aklsdjklajd").getType());
 
-    @Test
-    public void testParseInvalidTodoCommand() {
+        // Missing argument for todo task returns invalid command
         assertEquals(CommandType.INVALID, Parser.parse("todo").getType());
-    }
 
-    @Test
-    public void testParseInvalidDeadlineCommand() {
+        // Missing arguments for deadline task returns invalid command
         assertEquals(CommandType.INVALID, Parser.parse("deadline Task").getType());
-    }
 
-    @Test
-    public void testParseInvalidEventCommand() {
+        // Missing arguments for event task returns invalid command
         assertEquals(CommandType.INVALID, Parser.parse("event Task /from 01/01/2023 1200").getType());
-    }
 
-    @Test
-    public void testParseInvalidMarkCommand() {
+        // Missing argument for mark command returns invalid command
         assertEquals(CommandType.INVALID, Parser.parse("mark").getType());
+
+        // Missing argument for delete command returns invalid command
+        assertEquals(CommandType.INVALID, Parser.parse("delete").getType());
     }
 
     @Test
-    public void testParseInvalidDeleteCommand() {
-        assertEquals(CommandType.INVALID, Parser.parse("delete").getType());
+    public void addEventCommand_startTimeAfterEndTime_returnsInvalidCommand() {
+        assertEquals(CommandType.INVALID,
+                Parser.parse("event Task /from 05/03/2023 1400 /to 01/01/2023 1600").getType());
     }
 }

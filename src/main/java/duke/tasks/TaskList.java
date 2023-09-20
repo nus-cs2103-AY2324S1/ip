@@ -2,6 +2,7 @@ package duke.tasks;
 
 import java.util.ArrayList;
 
+import duke.exception.DukeException;
 import duke.tasks.Task.Priority;
 
 /**
@@ -46,9 +47,9 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      * @return The confirmation message.
      */
-    public String deleteTask(int index) {
+    public String deleteTask(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            return "Please enter a valid number.";
+            throw new DukeException("Please enter a valid number.");
         }
 
         Task task = tasks.get(index);
@@ -64,9 +65,9 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      * @return The confirmation message.
      */
-    public String markTaskAsDone(int index) {
+    public String markTaskAsDone(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            return "Please enter a valid number.";
+            throw new DukeException("Please enter a valid number.");
         }
 
         Task task = tasks.get(index);
@@ -81,9 +82,9 @@ public class TaskList {
      * @param index The index of the task to be marked as not done.
      * @return The confirmation message.
      */
-    public String unmarkTask(int index) {
+    public String unmarkTask(int index) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            return "Please enter a valid number.";
+            throw new DukeException("Please enter a valid number.");
         }
 
         Task task = tasks.get(index);
@@ -99,9 +100,9 @@ public class TaskList {
      * @param priority
      * @return The confirmation message.
      */
-    public String setPriority(int index, Priority priority) {
+    public String setPriority(int index, Priority priority) throws DukeException {
         if (index < 0 || index >= tasks.size()) {
-            return "Please enter a valid number.";
+            throw new DukeException("Please enter a valid number.");
         }
 
         Task task = tasks.get(index);
