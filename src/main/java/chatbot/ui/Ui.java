@@ -12,6 +12,15 @@ import chatbot.tasks.TaskList;
 public class Ui {
     private final Scanner scanner;
 
+    private final String help = "Here is a list of valid commands: \n" +
+            "1. todo \n" +
+            "2. event \n" +
+            "3. deadline \n" +
+            "4. mark \n" +
+            "5. unmark \n" +
+            "6. list \n" +
+            "7. delete \n";
+
     /**
      * Constructor for Ui
      */
@@ -28,7 +37,11 @@ public class Ui {
     }
 
     public String showInvalid(){
-        return "Invalid Command. Please Try Again!";
+        return "Invalid Command. Please Try Again! \n" + help;
+    }
+
+    public String showHelp(){
+        return help;
     }
 
     public String showErrorMessage(String message){
