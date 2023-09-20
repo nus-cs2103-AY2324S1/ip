@@ -12,7 +12,7 @@ public class Ui {
      * Displays a greeting message to the user.
      */
     public static void greet() {
-        System.out.println(LINE + "\nHello, I'm your task manager :)\nWhat can I do for you?\n" + LINE);
+        System.out.println(LINE + "\nHello, I'm KS task manager :)\nWhat can I do for you?\n" + LINE);
     }
 
     /**

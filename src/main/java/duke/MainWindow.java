@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    static final String INITIAL_RESPONSE = "Hello, I'm your task manager :)\nWhat can I do for you?";
+    static final String INITIAL_RESPONSE = "Hello, I'm KS task manager :)\nWhat can I do for you?";
     static final String FINAL_RESPONSE = "Bye. Hope to see you again soon!";
     @FXML
     private ScrollPane scrollPane;

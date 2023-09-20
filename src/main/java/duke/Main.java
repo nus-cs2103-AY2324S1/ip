@@ -21,7 +21,7 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Task Manager");
+        stage.setTitle("KS Task Manager");
         stage.show();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
