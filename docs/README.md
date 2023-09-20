@@ -1,4 +1,3 @@
-# iP
 # BaekBot
 
 BaekBot is a simple **task managing application** running on a graphical user interface(GUI). <br>
