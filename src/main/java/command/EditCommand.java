@@ -56,7 +56,7 @@ public class EditCommand extends Command {
             if (t.get(index - 1) instanceof Deadline) {
                 return editDeadline((Deadline) t.get(index - 1), t);
             }
-            return "Invalid";
+            return "Invalid task";
         } catch (IndexOutOfBoundsException e) {
             return "Please enter the correct task's index number.";
         }
