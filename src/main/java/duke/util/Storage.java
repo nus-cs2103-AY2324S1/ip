@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 public class Storage {
     private File file;
+    private static final String DIR = "./data";
     private static final String PATH = "./data/tasks.txt";
     private Parser parser = new Parser();
 
@@ -53,11 +54,31 @@ public class Storage {
     }
 
     /**
+     * Checks for the presence of ./data/tasks.txt.
+     */
+    private void checkFile() {
+        File dataDir = new File(DIR);
+        if (!dataDir.exists()) {
+            dataDir.mkdir();
+        }
+
+        file = new File(PATH);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                file.setReadable(true);
+                file.setWritable(true);
+            } catch (IOException e) {
+                System.out.println("Something went wrong when creating a new tasks.txt");
+            }
+        }
+    }
+
+    /**
      * Imports tasks from ./data/tasks.txt.
      */
     public ArrayList<Task> loadTasks() throws DukeException {
-        this.file = new File(PATH);
-
+        this.checkFile();
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         try {
