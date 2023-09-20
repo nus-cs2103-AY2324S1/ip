@@ -78,8 +78,8 @@ public class Deadline extends Task {
     @Override
     public boolean isOnDate(LocalDate date) {
         if (this.deadline.isAfter(date)) {
-            return true;
+            return !this.isDone();
         }
-        return !this.isDone();
+        return false;
     }
 }

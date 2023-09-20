@@ -30,7 +30,7 @@ public class DialogBox extends HBox {
      * @param text String associated with the dialogue represented.
      * @param img Image representing the creator of the dialogue.
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String style) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -39,7 +39,7 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        dialog.setStyle(style);
         dialog.setText(text);
         displayPicture.setImage(img);
     }
@@ -61,7 +61,7 @@ public class DialogBox extends HBox {
      * @return Dialogbox representing user's dialogue.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, " -fx-padding: 10;");
     }
 
     /**
@@ -71,7 +71,7 @@ public class DialogBox extends HBox {
      * @return Dialogbox representing Duke's dialogue.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, " -fx-padding: 10;");
         db.flip();
         return db;
     }
