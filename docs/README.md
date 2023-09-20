@@ -92,6 +92,8 @@ The following are examples of errors that could happen to the `todo` command:
 
 * `todo`: When the argument is ommitted, an error will occur
 
+---
+
 ### Add a `Deadline` Task
 
 Create a `Deadline` Task to track completable tasks with a deadline!
@@ -126,6 +128,8 @@ The following are examples of errors that could happen to the `deadline` command
 
 * `deadline`, `deadline /by`: When the arguments are ommitted, an error will occur
 * `deadline error task /by gibberish`: When the date argument is invalid, an error will occur
+
+---
 
 ### Create an `Event` Task
 
@@ -169,6 +173,8 @@ The following are examples of errors that could happen to the `event` command:
 * `event error task /from gibberish /to gibberish 2`: When the date argument is invalid, an error will occur
 * `event error task 2 /from 01/01/2023 /to 01/01/2000`: When the start date is before the end date, an error will occur
 
+---
+
 ### List all Tasks
 
 You may also view all Tasks that you have added so far to your task list!
@@ -202,6 +208,8 @@ The following are examples of errors that could happen to the `list` command:
 * `ls`: Using shortened spellings will result in errors
 * 'list all my tasks`: Adding extra parameters will result in errors
 
+---
+
 ### Delete a Task
 
 You can also delete a Task from `Juke` to remove any unwanted task from your task list!
@@ -234,6 +242,8 @@ The following are examples of errors that could happen to the `mark` command:
 
 * `delete 10000000`, `delete -1`: When attempting to delete a task that don't exist, an error will occur
 * `delete 1` and then `delete 1` again: When attempting to delete a task that is already deleted, an error will occur
+
+---
 
 ### Mark a Task as Done
 
@@ -271,6 +281,8 @@ The following are examples of errors that could happen to the `mark` command:
 * `mark 10000000`, `mark -1`: When attempting to mark a task that don't exist, an error will occur
 * `mark 1` and then `mark 1` again: When attempting to mark a task that is already marked, an error will occur
 
+---
+
 ### Mark a Task as Undone
 
 Conversely, you can also mark a Task as incomplete to help you track your completed tasks!
@@ -307,7 +319,9 @@ The following are examples of errors that could happen to the `mark` command:
 * `unmark 10000000`, `unmark -1`: When attempting to unmark a task that don't exist, an error will occur
 * `unmark 1` and then `unmark 1` again: When attempting to unmark a task that is not marked, an error will occur
 
-### Find your Task
+---
+
+### Find your Tasks
 
 Need help searching for a Task in your Task list? Use the Find feature to help you search 
 for the Task that you are looking for!
@@ -344,6 +358,8 @@ Found them! Here are some of the tasks in your task list that contain the word
 The following are examples of errors that could happen to the `mark` command:
 
 * `find`: If the argument is omitted, an error will occur
+
+---
 
 ### Sort your Tasks
 
@@ -396,6 +412,8 @@ The following are examples of errors that could happen to the `sort` command:
 * `sort`, `sort d`: If the argument is omitted, an error will occur
 * `sort ddescending ddeadline`: If the argument is not in any one of the permitted arguments above,
   an error will occur
+
+---
 
 ### Exit Juke
 
