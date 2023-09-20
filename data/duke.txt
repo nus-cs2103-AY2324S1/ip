@@ -1,0 +1,8 @@
+E | 1 | AI Workshop | from 22 Aug | to 23 Aug
+D | 0 | CS2103T iP task | 22 Sep 2023 | 11.59PM
+T | 0 | buy groceries
+D | 1 | SEP Application | 24 Sep 2023 | 11.59PM
+D | 0 | ES2660 Presentation | 21 Sep 2023 | 10.00AM
+F | 0 | improve GUI | needs 2 hours
+D | 1 | hello | 12 Dec 1212 | 11.49PM
+E | 1 | todo | from 1 | to 1
