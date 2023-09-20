@@ -55,8 +55,10 @@ Here are the tasks in your list:
 
 ### `todo` - Starts a process to add a ToDo entry into the list
 
-All the user has to type is "todo", no arguments required. \n
-Further follow-up actions are required to complete the insertion of the task as instructed by the chatbot:
+All the user has to type is "todo", no arguments required.
+Further follow-up actions are required to complete the insertion of the task as instructed by the chatbot.
+<br>
+Follow-up actions required:
 1. Type in name of the task
 
 
@@ -68,7 +70,7 @@ User types `todo`
 
 Expected outcome:
 
-The Chatbot will reply with a list of all the tasks that is tracked
+The Chatbot will instruct users on follow up actions to create a ToDo task
 
 ```
 Here are the tasks in your list:
