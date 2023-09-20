@@ -296,9 +296,20 @@ public class Ui {
     }
 
     /**
+     * Prints and returns greeting message when user opens application for first time.
+     *
+     * @return the greeting message.
+     */
+    public static String printGreeting() {
+        String response = "Hello! I'm Bob\n" + "What can I do for you?";
+        System.out.println(response);
+        return response;
+    }
+
+    /**
      * Prints and returns goodbye message when user says bye.
      *
-     * @return goodbye message
+     * @return goodbye message.
      */
     public String printGoodbye() {
         System.out.println("Bye. Hope to see you again soon eyy!");

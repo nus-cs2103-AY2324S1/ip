@@ -29,6 +29,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.setStyle("-fx-background-color: #d8bfd8;");
+        dialogContainer.getChildren().addAll(DialogBox.getBobDialog(Ui.printGreeting(), bobImage));
     }
 
     /**
