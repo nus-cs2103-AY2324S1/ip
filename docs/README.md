@@ -223,3 +223,26 @@ Got it. I've added this task:
 [E][] NUSBS Dharma Camp (from: 1-Jul-2024 0930 to: 2-Jul-2024 1800)
 Now you have 3 tasks in the list.
 ```
+
+### `delete` - Delete a specified task in the list
+
+User has to type `delete` followed by the corresponding index number of the task in the list
+
+Format: `delete INDEX`
+- Deletes the task at the specified `INDEX`
+- `INDEX` must not exceed the size of the list
+- `INDEX` must be a positive number
+
+Example of usage: 
+
+`delete 1`
+
+Expected outcome:
+
+The Chatbot will reply that the task has been successfully deleted
+
+```
+Noted. I've removed this task:
+[T][] Read Book
+Now you have 2 tasks in the list
+```
