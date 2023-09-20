@@ -38,7 +38,7 @@ public class Task {
      *
      * @return "X" if task has been marked. " " otherwise.
      */
-    private char getStatusIcon() {
+    public char getStatusIcon() {
         return (this.isDone ? MARKED_TASK : UNMARKED_TASK);
     }
 
@@ -151,6 +151,22 @@ public class Task {
 
     public void translateTime(Period period) {
         throw new UnsupportedOperationException();
+    }
+
+    protected enum TaskType {
+        TODO('T'),
+        DEADLINE('D'),
+        EVENT('E');
+
+        private final char type;
+
+        TaskType(char type) {
+            this.type = type;
+        }
+
+        public char getType() {
+            return type;
+        }
     }
 }
 

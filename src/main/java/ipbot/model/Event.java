@@ -61,8 +61,8 @@ public class Event extends Task {
     @Override
     public String toCommaString() {
         String[] commaStringValues = {
-                "E",
-                this.isDone ? "X" : " ",
+                String.valueOf(TaskType.EVENT.getType()),
+                String.valueOf(this.getStatusIcon()),
                 this.description,
                 this.startTime.format(Task.INPUT_DATE_TIME_FORMATTER),
                 this.endTime.format(Task.INPUT_DATE_TIME_FORMATTER),
@@ -73,7 +73,7 @@ public class Event extends Task {
 
     @Override
     public String toString(){
-        return "[E]" + super.toString()
+        return "[" + TaskType.EVENT.getType() + "]" + super.toString()
                 + " (from: " + this.startTime.format(Task.DISPLAY_DATE_TIME_FORMATTER)
                 + " to: " + this.endTime.format(Task.DISPLAY_DATE_TIME_FORMATTER) + ")";
     }

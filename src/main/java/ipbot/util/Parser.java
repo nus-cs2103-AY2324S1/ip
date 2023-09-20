@@ -34,8 +34,9 @@ public class Parser {
      * @param command The command given by the user.
      * @return A Pair of String and Map.
      * The String is the command String, while the Map contains the arguments given by the user.
+     * @throws CommandArgumentException
      */
-    public static Pair<String, Map<String, String>> parseCommand(String command) {
+    public static Pair<String, Map<String, String>> parseCommand(String command) throws CommandArgumentException {
         assert command != null : "Command is null";
         int commandEndIndex = command.indexOf(" ");
         if (commandEndIndex == -1) {
@@ -46,13 +47,21 @@ public class Parser {
         commandArgs = "/ " + commandArgs;
         String[] splitArgs = commandArgs.split("/");
         Map<String, String> args = new HashMap<>();
+        boolean emptyArg = true;
         for (String currArg: splitArgs) {
+            if (emptyArg) {
+                emptyArg = false;
+                continue;
+            }
             int argEndIndex = currArg.indexOf(" ");
             if (argEndIndex == -1) {
                 argEndIndex = currArg.length();
             }
             String argName = currArg.substring(0, argEndIndex).toLowerCase();
             String argArgs = currArg.substring(argEndIndex).strip();
+            if (args.get(argName) != null) {
+                throw new CommandArgumentException("Repeated argument: " + argName + "!");
+            }
             args.put(argName, argArgs);
         }
         return new Pair<>(commandNameStr, args);

@@ -19,6 +19,7 @@ public class TaskList {
     private static final String MISSING_ARGUMENT_FORMAT = "%s missing a /%s argument!";
     private static final String ARGUMENT_EMPTY_FORMAT = "/%s argument cannot be empty!";
     private static final String EMPTY_TASK_DESCRIPTION = "Task description cannot be empty!";
+    private static final String LIST_TASKS_PREFIX = "Here is the list of tasks:\n";
 
     private List<Task> tasks;
 
@@ -51,7 +52,7 @@ public class TaskList {
      * Returns the list of tasks as a String.
      */
     public String listTasks() {
-        String taskListString = "";
+        String taskListString = LIST_TASKS_PREFIX;
         for (int index = 0; index < tasks.size(); index++) {
             taskListString += Ui.taskListFormatString(tasks.get(index), index + 1);
         }
@@ -82,7 +83,7 @@ public class TaskList {
      * @param queryDate The time to query.
      */
     public String listTasks(LocalDateTime queryDate) {
-        String taskListString = "";
+        String taskListString = LIST_TASKS_PREFIX;
         for (int index = 0; index < tasks.size(); index++) {
             if (queryDate != null && !printTaskForQueryDate(tasks.get(index), queryDate)) {
                 continue;
@@ -96,7 +97,7 @@ public class TaskList {
         if (findStr == null || findStr.isEmpty()) {
             return "Please enter a search term";
         }
-        String taskListString = "";
+        String taskListString = LIST_TASKS_PREFIX;
         for (int index = 0; index < tasks.size(); index++) {
             Task currTask = tasks.get(index);
             if (currTask.getDescription().contains(findStr)) {
@@ -274,7 +275,7 @@ public class TaskList {
             tasks.add(task);
         }
         return "Added recurrence of task " + task.toString() + " for frequency "
-                + year + " years, " + month + " months, " + day + " days, "
+                + year + " years, " + month + " months, " + week + " weeks, " + day + " days, "
                 + numTimes + " times";
     }
 

@@ -83,9 +83,12 @@ public class Duke extends Application {
      * @return The response of the bot to the input given.
      */
     public String getResponse(String input) {
-        Pair<String, Map<String, String>> commandResult = Parser.parseCommand(input);
+        if (input.contains(",")) {
+            return "Sorry, commas are not allowed!";
+        }
         String response;
         try {
+            Pair<String, Map<String, String>> commandResult = Parser.parseCommand(input);
             Command command = stringToCommand(commandResult.getFirst());
             Map<String, String> commandArgs = commandResult.getSecond();
             switch (command) {

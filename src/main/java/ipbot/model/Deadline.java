@@ -48,8 +48,8 @@ public class Deadline extends Task {
     @Override
     public String toCommaString() {
         String[] commaStringValues = {
-                "D",
-                this.isDone ? "X" : " ",
+                String.valueOf(TaskType.DEADLINE.getType()),
+                String.valueOf(this.getStatusIcon()),
                 this.description,
                 this.endTime.format(Task.INPUT_DATE_TIME_FORMATTER),
         };
@@ -59,7 +59,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString(){
-        return "[D]" + super.toString() + " (by: " + this.endTime.format(Task.DISPLAY_DATE_TIME_FORMATTER) + ")";
+        return "[" + TaskType.DEADLINE.getType() + "]" + super.toString()
+                + " (by: " + this.endTime.format(Task.DISPLAY_DATE_TIME_FORMATTER) + ")";
     }
 
     @Override

@@ -18,8 +18,8 @@ public class ToDo extends Task {
     @Override
     public String toCommaString() {
         String[] commaStringValues = {
-                "T",
-                this.isDone ? "X" : " ",
+                String.valueOf(TaskType.TODO.getType()),
+                String.valueOf(this.getStatusIcon()),
                 this.description,
         };
         String commaString = String.join(",", commaStringValues);
@@ -28,7 +28,7 @@ public class ToDo extends Task {
 
     @Override
     public String toString(){
-        return "[T]" + super.toString();
+        return "[" + TaskType.TODO.getType() + "]" + super.toString();
     }
 
     @Override
