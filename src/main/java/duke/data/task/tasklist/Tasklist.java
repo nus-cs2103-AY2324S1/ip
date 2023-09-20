@@ -99,7 +99,6 @@ public class Tasklist {
         }
         return result;
     }
-
     public String getTaskRepresentations() {
         String result = "";
         for (int i = 0; i < taskCount; i++) {
@@ -123,5 +122,51 @@ public class Tasklist {
             }
         }
         return result;
+    }
+
+    /**
+     * Returns a tasklist with tasks that contain the tag.
+     * @param tag The tag to be searched for, which is a string that does not contain ",".
+     * @return A tasklist with tasks that contain the tag.
+     * @throws DukeException
+     */
+    public Tasklist findTasksWithTag(String tag) throws DukeException {
+        Tasklist result = new Tasklist();
+        for (int i = 0; i < taskCount; i++) {
+            if (tasks[i].hasTag(tag)) {
+                result.addTask(tasks[i]);
+            }
+        }
+        return result;
+
+    }
+
+    /**
+     * Adds a tag to the task at the index.
+     * @param index The index of the task to be added with the tag.
+     * @param tag The tag to be added.
+     * @throws DukeException If index is invalid(does not exist) or the tag is invalid(contains ",").
+     */
+    public void addTagToTaskAtIndex(int index, String tag) throws DukeException {
+        if (index > taskCount || index < 1) {
+            throw new InvalidInputException("index out of bounds");
+        }
+        tasks[index - 1].addTag(tag);
+    }
+
+    /**
+     * Removes a tag from the task at the index.
+     * @param index The index of the task to be removed with the tag.
+     * @param tag The tag to be removed.
+     * @throws DukeException If index is invalid(out of bound) or the tag is invalid(does not exist).
+     */
+    public void removeTagFromTaskAtIndex(int index, String tag) throws DukeException {
+        if (index > taskCount || index < 1) {
+            throw new InvalidInputException("index out of bounds");
+        }
+        if (!tasks[index - 1].hasTag(tag)) {
+            throw new InvalidInputException("task does not have the tag");
+        }
+        tasks[index - 1].removeTag(tag);
     }
 }

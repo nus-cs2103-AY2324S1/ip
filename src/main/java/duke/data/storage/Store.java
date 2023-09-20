@@ -48,14 +48,21 @@ public class Store {
                 if (inputStr.equals("")) {
                     continue;
                 }
-                String[] taskTypeAndIsMarked = inputStr.split("/isMarked?");
+                String[] taskTypeAndIsMarked = inputStr.split("/isMarked ");
                 assert taskTypeAndIsMarked.length == 2 : "taskTypeAndIsMarked should have length 2";
                 Task task = taskBuilder.buildFromString(taskTypeAndIsMarked[0]);
                 int prevTaskCount = tasks.getTaskCount();
                 tasks.addTask(task);
                 assert tasks.getTaskCount() == prevTaskCount + 1 : "task count should increase by 1";
-                if (taskTypeAndIsMarked[1].contains("true")) {
+                System.out.println(taskTypeAndIsMarked[1]);
+                String[] isMarkedAndTagsStr = taskTypeAndIsMarked[1].split("/tags ");
+                if (isMarkedAndTagsStr[0].contains("true")) {
                     tasks.mark(tasks.getTaskCount());
+                }
+                String[] tags = isMarkedAndTagsStr[1].split(",");
+                for (String tag : tags) {
+                    System.out.println(tag);
+                    tasks.addTagToTaskAtIndex(tasks.getTaskCount(), tag);
                 }
             }
         } catch (IOException e) {
@@ -155,8 +162,33 @@ public class Store {
     public String toString() {
         return tasks.toString();
     }
-    public Tasklist find(String keyword) throws DukeException {
-        return tasks.findTasksWithKeyword(keyword);
+    public String find(String keyword) throws DukeException {
+        return tasks.findTasksWithKeyword(keyword).toString();
+    }
+
+    /**
+     * Adds a tag to a task at the specified index.
+     * @param index The index of the task to add the tag to.
+     * @param tag The tag to be added.
+     * @throws DukeException If index or tag is invalid.
+     */
+    public void addTagToTaskAtIndex(int index, String tag) throws DukeException {
+        tasks.addTagToTaskAtIndex(index, tag);
+        write();
+    }
+
+    /**
+     * Removes a tag from a task at the specified index.
+     * @param index The index of the task to remove the tag from.
+     * @param tag The tag to be removed.
+     * @throws DukeException If index or tag is invalid.
+     */
+    public void removeTagFromTaskAtIndex(int index, String tag) throws DukeException {
+        tasks.removeTagFromTaskAtIndex(index, tag);
+        write();
+    }
+    public String findTasksWithTag(String tag) throws DukeException {
+        return tasks.findTasksWithTag(tag).toString();
     }
 }
 

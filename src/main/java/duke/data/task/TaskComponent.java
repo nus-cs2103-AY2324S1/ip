@@ -1,6 +1,8 @@
 package duke.data.task;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.HashSet;
 
 import duke.exception.InvalidInputException;
 
@@ -71,3 +73,33 @@ final class To extends TaskComponent {
         return this.to;
     }
 }
+
+final class Tags extends TaskComponent {
+    protected HashSet<String> tags;
+
+    public Tags() {
+        this.tags = new HashSet<String>();
+    }
+    public boolean hasTag(String tag) {
+        return this.tags.contains(tag);
+    }
+    public void addTag(String tag) throws InvalidInputException {
+        if (tag.contains(",")) {
+            throw new InvalidInputException("Invalid Input: Tag should not contain \",\"");
+        }
+        this.tags.add(tag);
+    }
+    public void removeTag(String tag) {
+        this.tags.remove(tag);
+    }
+    @Override
+    public String toString() {
+        String tagsString = "";
+        for (String tag : this.tags) {
+            tagsString += tag + ",";
+        }
+        // Remove the last comma
+        return tagsString.substring(0, tagsString.length() - 1);
+    }
+}
+

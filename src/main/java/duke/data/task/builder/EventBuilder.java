@@ -30,6 +30,7 @@ public class EventBuilder implements Builder<Task> {
             event.setFrom(start);
             event.setTo(end);
             event.setUserInputString(input);
+            event.addTag("event");
             return event;
         } else {
             throw new InvalidInputException("expected format: event <description> /from <start> /to <end>");

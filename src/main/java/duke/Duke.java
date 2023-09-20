@@ -1,11 +1,14 @@
 package duke;
 
+import duke.command.AddTagCommand;
 import duke.command.AddTaskCommand;
 import duke.command.DeleteCommand;
 import duke.command.FindCommand;
+import duke.command.FindTagCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
 import duke.command.UnmarkCommand;
+import duke.command.UntagCommand;
 import duke.data.task.builder.DeadlineBuilder;
 import duke.data.task.builder.EventBuilder;
 import duke.data.task.builder.TodoBuilder;
@@ -32,6 +35,9 @@ public class Duke {
         invoker.setCommand("event", new AddTaskCommand(new EventBuilder()));
         invoker.setCommand("delete", new DeleteCommand());
         invoker.setCommand("find", new FindCommand());
+        invoker.setCommand("tag", new AddTagCommand());
+        invoker.setCommand("untag", new UntagCommand());
+        invoker.setCommand("findtag", new FindTagCommand());
     }
     public static String getWelcomeMessage() {
         return WELCOME_MESSAGE;

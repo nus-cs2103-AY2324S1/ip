@@ -26,6 +26,7 @@ public class TodoBuilder implements Builder<Task> {
             Todo todo = new Todo();
             todo.setDescription(description);
             todo.setUserInputString(input);
+            todo.addTag("todo");
             return todo;
         } else {
             throw new InvalidInputException("expected format: todo <description>");
