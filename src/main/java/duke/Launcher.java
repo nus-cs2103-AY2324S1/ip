@@ -1,6 +1,7 @@
+package duke;
+
 import java.util.Arrays;
 
-import duke.Main;
 import javafx.application.Application;
 
 

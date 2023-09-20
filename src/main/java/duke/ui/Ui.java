@@ -126,6 +126,9 @@ public class Ui {
         }
         case LIST: {
             result = taskList.getTasksAsText(sortType, sortOrder);
+            if (result.isEmpty()) {
+                result = "You have no tasks yet!";
+            }
             break;
         }
         case FIND: {
