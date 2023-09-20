@@ -42,11 +42,15 @@ public class Storage {
      * @param filePath Path of the data file.
      * @throws IOException If unable to create missing file.
      */
-    public static void loadTasks(String filePath) throws IOException {
+    public static void loadTasks(String filePath) {
         try {
             readFile(filePath);
         } catch (FileNotFoundException e) {
-            createMissingFile(filePath);
+            try {
+                createMissingFile(filePath);
+            } catch (IOException ioe) {
+                System.out.println(ioe);
+            }
         }
     }
 
