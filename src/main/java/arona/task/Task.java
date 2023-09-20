@@ -38,6 +38,15 @@ public class Task {
     }
 
     /**
+     * Returns a boolean value indicating whether the task is marked as done.
+     *
+     * @return {@code true} if the task is marked as done, {@code false} otherwise.
+     */
+    public boolean getIsDone() {
+        return isDone;
+    }
+
+    /**
      * Gets the description of the task.
      *
      * @return The task description.

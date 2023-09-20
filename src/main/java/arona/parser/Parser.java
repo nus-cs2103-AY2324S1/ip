@@ -100,6 +100,10 @@ public class Parser {
         String description = String.join(" ", Arrays.copyOfRange(tokens, 1, index));
         String by = String.join(" ", Arrays.copyOfRange(tokens, index + 1, tokens.length));
 
+        if (description.trim().equals("")) {
+            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the task!");
+        }
+
         String[] descriptions = {description, by};
         return descriptions;
     }
@@ -157,6 +161,10 @@ public class Parser {
 
         if (from.substring(5).trim().isEmpty() || to.substring(3).trim().isEmpty()) {
             throw new IllegalArgumentAronaException("Oh no! The start and/or end time cannot be empty.");
+        }
+
+        if (description.trim().equals("")) {
+            throw new IllegalArgumentAronaException("Oh no! You forgot to specify the event!");
         }
 
         String[] descriptions = {description, from, to};

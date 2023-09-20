@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import arona.exception.IllegalArgumentAronaException;
 import arona.task.DeadlineTask;
 import arona.task.EventTask;
 import arona.task.Task;
@@ -261,6 +262,83 @@ public class Storage {
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Saves a task to the storage file at the specified index.
+     *
+     * @param task The task to be saved.
+     * @param taskIndex The index where the task should be saved.
+     */
+    public void saveTaskWithIndex(Task task, int taskIndex) {
+        assert task != null : "Task cannot be null";
+        assert taskIndex >= 0 : "Invalid task index";
+
+        try {
+            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+            BufferedReader br = new BufferedReader(new FileReader(inFile));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile));
+
+            String line;
+            int currentLine = 0;
+            boolean isTaskAppended = false;
+
+            while ((line = br.readLine()) != null) {
+                if (currentLine == taskIndex) {
+                    // Save the new task at the specified index
+                    String taskData = taskToData(task);
+                    bw.write(taskData);
+                    bw.newLine();
+                    isTaskAppended = true;
+                }
+
+                bw.write(line);
+                bw.newLine();
+                currentLine++;
+            }
+
+            // If the taskIndex is equal to the number of lines, append the task as line line
+            if (taskIndex == currentLine && !isTaskAppended) {
+                String taskData = taskToData(task);
+                bw.write(taskData);
+                bw.newLine();
+            }
+
+            br.close();
+            bw.close();
+
+            inFile.delete();
+            tempFile.renameTo(inFile);
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalArgumentAronaException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Converts a task to a data string that can be saved to the storage file.
+     *
+     * @param task The task to be converted to a data string.
+     * @return The data string representing the task.
+     */
+    private String taskToData(Task task) throws IllegalArgumentAronaException {
+        if (task instanceof ToDoTask) {
+            ToDoTask todoTask = (ToDoTask) task;
+            return "T|" + (todoTask.getIsDone() ? "1" : "0") + "|" + todoTask.getDescription();
+        } else if (task instanceof DeadlineTask) {
+            DeadlineTask deadlineTask = (DeadlineTask) task;
+            return "D|" + (deadlineTask.getIsDone() ? "1" : "0") + "|"
+                    + deadlineTask.getDescription() + "|" + deadlineTask.getDate();
+        } else if (task instanceof EventTask) {
+            EventTask eventTask = (EventTask) task;
+            return "E|" + (eventTask.getIsDone() ? "1" : "0") + "|"
+                    + eventTask.getDescription() + "|" + eventTask.getFrom() + "|" + eventTask.getTo();
+        } else {
+            throw new IllegalArgumentAronaException("Ehh... I was unable to get back the deleted task :(");
         }
     }
 }

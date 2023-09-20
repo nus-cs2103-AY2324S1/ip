@@ -59,6 +59,7 @@ public class DeleteCommand extends Command implements UndoableCommand {
     @Override
     public String undo() {
         taskList.getTasks().add(taskIndex, deletedTask);
+        storage.saveTaskWithIndex(deletedTask, taskIndex);
         return ui.showUndoDeleteCommand(deletedTask.toString());
     }
 

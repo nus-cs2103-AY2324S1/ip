@@ -56,16 +56,23 @@ public class UndoCommand extends Command {
                 continue;
             }
 
-            if (lastCommand instanceof MarkCommand
-                    || lastCommand instanceof UnmarkCommand
-                    || lastCommand instanceof DeleteCommand) {
+            if (lastCommand instanceof MarkCommand || lastCommand instanceof UnmarkCommand) {
                 int taskIndex = ((UndoableCommand) lastCommand).getTaskIndex();
 
                 if (taskIndex < 0 || taskIndex >= taskList.getTasks().size()) {
                     continue;
                 }
+                return ((UndoableCommand) lastCommand).undo();
+            } else if (lastCommand instanceof DeleteCommand) {
+                int taskIndex = ((UndoableCommand) lastCommand).getTaskIndex();
+
+                if (taskIndex < 0) {
+                    continue;
+                }
+                return ((UndoableCommand) lastCommand).undo();
+            } else {
+                return ((UndoableCommand) lastCommand).undo();
             }
-            return ((UndoableCommand) lastCommand).undo();
         }
         return ui.showCannotUndo();
     }
