@@ -88,7 +88,6 @@ public class ChatCommand {
         }
 
 
-
         /**
          * Returns a user-friendly high-level description of the operation.
          *
@@ -128,8 +127,8 @@ public class ChatCommand {
          * Returns the syntax allowed for the given command, as a <i>format string</i>.
          *
          * <p>
-         * Specifically, this method returns a string that should be used with {@link String#format} with one
-         * argument to substitute with the command name.
+         * Specifically, this method returns a string that should be used with {@link String#format} with one argument
+         * to substitute with the command name.
          * </p>
          *
          * @return The syntax allowed for the given command as a <i>format string</i>.
@@ -160,7 +159,28 @@ public class ChatCommand {
             }
         }
 
+        /**
+         * Returns whether this operation performs writes to memory or disk.
+         *
+         * @return `true` if this is a write operation, `false` otherwise.
+         */
+        public boolean isWriteOperation() {
+            switch (this) {
+            case LIST:
+            case SEARCH:
+            case HELP:
+            case EXIT:
+            case UNKNOWN:
+                return false;
 
+            default:
+                // Any not listed operations are taken as operations with writes to memory or disk.
+                //
+                // Notably, in case of developer error and there's an operation missed, it is better to assume this
+                // is a write operation than otherwise.
+                return true;
+            }
+        }
     }
 
     private final String name;
@@ -363,6 +383,16 @@ public class ChatCommand {
     }
 
     /**
+     * Obtains the data of the given command as a number, provided it can be parsed.
+     *
+     * @return The data of the given command as a number.
+     * @throws NumberFormatException if the data is not of a number format.
+     */
+    public int getNumericData() throws NumberFormatException {
+        return Integer.parseInt(this.data, 10);
+    }
+
+    /**
      * Obtains the value of the given parameter in the command.
      *
      * @param key the parameter, also known as the key.
@@ -373,15 +403,6 @@ public class ChatCommand {
             key = PARAMETER_PREFIX + key;
         }
         return this.params.get(key);
-    }
-
-    /**
-     * Checks whether the command has parameters.
-     *
-     * @return `true` if there is at least one parameter, `false` otherwise.
-     */
-    public boolean hasParams() {
-        return !this.params.isEmpty();
     }
 
     /**
@@ -397,6 +418,19 @@ public class ChatCommand {
         return this.params.containsKey(key);
     }
 
+    /**
+     * Checks whether the command has parameters. If arguments are provided, also check if the ones provided exist.
+     *
+     * @return `true` if there is at least one parameter and all input values exist, `false` otherwise.
+     */
+    public boolean hasParams(String... keys) {
+        for (String key : keys) {
+            if (!this.hasParam(key)) {
+                return false;
+            }
+        }
+        return !this.params.isEmpty();
+    }
 
     /**
      * Checks whether the given parameter has any <i>useful</i> value.
@@ -413,5 +447,23 @@ public class ChatCommand {
             value = "";
         }
         return !value.isBlank();
+    }
+
+    /**
+     * Checks whether the command has parameters with <i>useful</i> values. If arguments are provided, also check if the
+     * ones provided exist and has useful values as well.
+     *
+     * @param keys the parameters to verify, also known as the keys.
+     * @return `true` if it has any params with non-empty, non-whitespace values, and all provided params satisfy that
+     *         requirement, or `false` otherwise.
+     */
+    public boolean hasParamsWithUsefulValue(String... keys) {
+        for (String key : keys) {
+            if (!this.hasParamWithUsefulValue(key)) {
+                return false;
+            }
+        }
+
+        return this.params.values().stream().anyMatch(v -> v != null && !v.isBlank());
     }
 }

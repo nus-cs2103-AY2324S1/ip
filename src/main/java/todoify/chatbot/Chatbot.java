@@ -2,22 +2,11 @@ package todoify.chatbot;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
-import todoify.chatbot.exception.ChatbotException;
 import todoify.chatbot.exception.ChatbotRuntimeException;
 import todoify.chatbot.exception.command.ChatbotCommandException;
-import todoify.chatbot.exception.command.ChatbotInvalidCommandFormatException;
-import todoify.chatbot.exception.command.ChatbotIrrelevantOperationException;
 import todoify.taskmanager.TaskManager;
-import todoify.taskmanager.task.Deadline;
-import todoify.taskmanager.task.Event;
-import todoify.taskmanager.task.Task;
-import todoify.taskmanager.task.Todo;
-import todoify.util.EpochConverter;
 import todoify.util.events.EventEmitter;
 
 
@@ -73,6 +62,15 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * Returns the task manager instance used in this chatbot.
+     *
+     * @return The task manager used in this chatbot.
+     */
+    public TaskManager getTaskManager() {
+        return this.taskManager;
     }
 
     /**
@@ -163,6 +161,21 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         return this.sendMessage(ChatMessage.SenderType.USER, message);
     }
 
+    /**
+     * Method to send a message to the user from the chatbot.
+     *
+     * <p>
+     * Note that sending as the chatbot may only be invoked from within the chatbot package, and is allowed to bypass
+     * conversation closures.
+     * </p>
+     *
+     * @param message The message string to send.
+     * @return The resulting message sent.
+     */
+    ChatMessage sendMessageFromChatbot(String message) {
+        return this.sendMessage(ChatMessage.SenderType.CHATBOT, message);
+    }
+
 
     /**
      * Internal method to send a message.
@@ -204,56 +217,21 @@ public class Chatbot extends EventEmitter<ChatMessage> {
      */
     private void processCommand(ChatCommand chatCommand) {
         try {
-            switch (chatCommand.getOperation()) {
-            case MARK_COMPLETE:
-            case UNMARK_COMPLETE:
-            case DELETE:
-                this.processCommandAssertNumericData(chatCommand);
-                break;
+            // Execute the command in question.
+            new ChatCommandExecutor(this).execute(chatCommand);
 
-            case ADD_TODO:
-            case ADD_DEADLINE:
-            case ADD_EVENT:
-            case SEARCH:
-                this.processCommandAssertHasData(chatCommand);
-                break;
-
-            case LIST:
-            case HELP:
-            case EXIT:
-                this.processCommandAssertNoData(chatCommand);
-                break;
-
-            case UNKNOWN:
-            default:
-                throw new ChatbotCommandException("Sorry, idgi :(\nYou might wanna try the 'help' command to let me "
-                        + "guide you about all available commands!");
+            // Save any updates if necessary.
+            if (chatCommand.getOperation().isWriteOperation()) {
+                this.taskManager.saveToStorage();
             }
-        } catch (ChatbotIrrelevantOperationException e) {
-            // This will only be thrown if the code path unexpectedly processes data in a format not relevant to the
-            // operation in question. In other words, entering this code block is likely a programmer error.
-            assert false;
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! There was an internal error.");
 
         } catch (ChatbotCommandException e) {
-            // All other errors related to command processing will be caught here, and should be shown to the user.
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, "Oops! " + e.getLocalizedMessage());
+            // All errors related to command processing will be caught here, and should be shown to the user.
+            this.sendMessageFromChatbot("Oops! " + e.getLocalizedMessage());
 
-        } catch (Exception e) {
-            // Any other exceptions are errors unrelated to the command itself. In this case, let the user know anyway.
-            e.printStackTrace();
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
-                    "Oh no, something's wrong! [%s] %s",
-                    e.getClass().getSimpleName(),
-                    e.getLocalizedMessage()
-            ));
-        }
-
-        try {
-            this.taskManager.saveToStorage();
         } catch (IOException e) {
-            this.sendMessage(
-                    ChatMessage.SenderType.CHATBOT,
+            // Upon failure, let the user know.
+            this.sendMessageFromChatbot(
                     "Oops! I'm having problems saving your data to storage. Your data may not be preserved."
                             + String.format(
                             "The error was: [%s] %s",
@@ -261,313 +239,16 @@ public class Chatbot extends EventEmitter<ChatMessage> {
                             e.getLocalizedMessage()
                     )
             );
-        }
-    }
 
-    /**
-     * Internal method to process commands with numeric data as input.
-     *
-     * @param chatCommand The command to process.
-     * @throws ChatbotException if the data field does not have numeric data as input or any command-specific error.
-     */
-    private void processCommandAssertNumericData(ChatCommand chatCommand) throws ChatbotCommandException {
-        switch (chatCommand.getOperation()) {
-        case MARK_COMPLETE:
-        case UNMARK_COMPLETE:
-        case DELETE:
-            break;
-        default:
-            throw new ChatbotIrrelevantOperationException(String.format(
-                    "The command '%s' should not have numeric data only, "
-                            + "but the internal code attempted to assert that it does",
-                    chatCommand.getName()
-            ));
-        }
-
-        int index;
-        Task task;
-
-        // Process the input
-        try {
-            index = Integer.parseInt(chatCommand.getData()) - 1;
-        } catch (NumberFormatException | NullPointerException e) {
-            throw new ChatbotInvalidCommandFormatException((String.format(
-                    "The command '%s' must be followed by a number representing the task number!",
-                    chatCommand.getName()
-            )));
-        }
-
-        try {
-            task = this.taskManager.getTask(index);
-        } catch (IndexOutOfBoundsException e) {
-            throw new ChatbotInvalidCommandFormatException(String.format(
-                    "There is no task in the list numbered %d!",
-                    index + 1
-            ));
-        }
-
-        assert index >= 0 && index < this.taskManager.getTaskCount();
-        assert task != null;
-
-        // Let's see what we should do!
-        if (chatCommand.getOperation() == ChatCommand.Operation.DELETE) {
-
-            // Delete the task accordingly. We already checked the index so it should be correct.
-            this.taskManager.removeTask(index);
-
-            // Send an appropriate reply.
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
-                    "Alright, I've deleted this task:\n   %s\nYou're left with %d tasks now! :)",
-                    task,
-                    this.taskManager.getTaskCount()
+        } catch (Exception e) {
+            // Any other exceptions are errors unrelated to the command itself. In this case, let the user know anyway.
+            e.printStackTrace();
+            this.sendMessageFromChatbot(String.format(
+                    "Oh no, something's wrong! [%s] %s",
+                    e.getClass().getSimpleName(),
+                    e.getLocalizedMessage()
             ));
 
-        } else {
-
-            // Mark the task as done or not accordingly
-            boolean completed = chatCommand.getOperation() == ChatCommand.Operation.MARK_COMPLETE;
-            if (task.isCompleted() == completed) {
-                throw new ChatbotCommandException(completed
-                        ? "The task was already done!"
-                        : "The task was already not done!");
-            }
-            task.setCompleted(completed);
-
-            // Send an appropriate reply
-            if (completed) {
-                this.sendMessage(
-                        ChatMessage.SenderType.CHATBOT,
-                        String.format("Nice! I've marked this task as done:\n   %s", task)
-                );
-            } else {
-                this.sendMessage(
-                        ChatMessage.SenderType.CHATBOT,
-                        String.format("OK, I've marked this task as not done yet:\n   %s", task)
-                );
-            }
-
-        }
-
-    }
-
-    /**
-     * Internal method to process commands with no data nor parameters as input.
-     *
-     * @param chatCommand The command to process.
-     * @throws ChatbotException if the data field in fact has data as input or any command-specific error.
-     */
-    private void processCommandAssertNoData(ChatCommand chatCommand) throws ChatbotCommandException {
-        switch (chatCommand.getOperation()) {
-        case LIST:
-        case HELP:
-        case EXIT:
-            break;
-        default:
-            throw new ChatbotIrrelevantOperationException(String.format(
-                    "The command '%s' should have included data, "
-                            + "but the internal code attempted to assert that it does not.",
-                    chatCommand.getName()
-            ));
-        }
-
-        if (!chatCommand.getData().isBlank() || chatCommand.hasParams()) {
-            throw new ChatbotInvalidCommandFormatException(String.format(
-                    "Hmm, the command '%s' should not have anything following it. Is that a typo?",
-                    chatCommand.getName()
-            ));
-        }
-
-        StringBuilder builder;
-        switch (chatCommand.getOperation()) {
-        case LIST:
-            builder = new StringBuilder();
-
-            if (this.taskManager.getTaskCount() > 0) {
-                builder.append("Here are your tasks, glhf! :)");
-            } else {
-                builder.append("Oh nice! You have no tasks! :>");
-            }
-
-            this.taskManager.getTaskIndexedStream()
-                    .forEach(integerTaskPair -> {
-                        builder.append("\n");
-                        builder.append(integerTaskPair.getKey() + 1);
-                        builder.append(". ");
-                        builder.append(integerTaskPair.getValue().toString());
-                    });
-
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
-            break;
-
-        case HELP:
-            builder = new StringBuilder();
-            builder.append("No problem. Here's a summary of all possible command names and their functions!\n\n");
-
-            for (ChatCommand.Operation op : ChatCommand.Operation.values()) {
-
-                var aliases = op.getSupportedNameAliases();
-                var quotedAliases = Arrays.stream(aliases)
-                        .map(s -> '"' + s + '"')
-                        .collect(Collectors.toList());
-
-                if (quotedAliases.size() == 0) {
-                    continue;
-                }
-
-                String commandTitle = String.join(", ", quotedAliases);
-                String commandDescription = op.getDescription();
-                String commandSyntax = String.format(op.getSyntaxDescriptionAsFormatString(), aliases[0]);
-
-                builder.append(String.format("    %s\n", commandTitle));
-                builder.append(String.format("        %s\n", commandDescription));
-                builder.append(String.format("        Format: \"%s\"\n", commandSyntax));
-                builder.append('\n');
-            }
-
-            builder.append("Commands listed with multiple names above are synonyms and can be used interchangeably.\n");
-
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
-
-
-            this.sendMessage(
-                    ChatMessage.SenderType.CHATBOT,
-                    "Hope the above helps! :) "
-                            + "If you need additional information, please refer to the User Guide at "
-                            + "https://wxwern.github.io/ip/"
-            );
-            break;
-
-        case EXIT:
-            this.closeConversation();
-            break;
-
-        default:
-            break;
-        }
-    }
-
-
-    /**
-     * Internal method to process commands that contain some data as input.
-     *
-     * @param chatCommand The command to process.
-     * @throws ChatbotException if the data field does not have data as input or any command-specific error.
-     */
-    private void processCommandAssertHasData(ChatCommand chatCommand) throws ChatbotCommandException {
-        switch (chatCommand.getOperation()) {
-        case ADD_TODO:
-        case ADD_DEADLINE:
-        case ADD_EVENT:
-        case SEARCH:
-            break;
-        default:
-            throw new ChatbotIrrelevantOperationException(String.format(
-                    "The command '%s' should not have included data, "
-                            + "but the internal code attempted to assert that it does.",
-                    chatCommand.getName()
-            ));
-
-        }
-
-        if (chatCommand.getData().isBlank()) {
-            throw new ChatbotInvalidCommandFormatException(String.format(
-                    "The command '%s' requires some title content after the command name, but none was found!",
-                    chatCommand.getName()
-            ));
-        }
-
-        // Create the appropriate task
-        Task newTask = null;
-        switch (chatCommand.getOperation()) {
-        case ADD_TODO:
-            newTask = new Todo(chatCommand.getData());
-            break;
-
-        case ADD_DEADLINE:
-            if (!chatCommand.hasParamWithUsefulValue("by")) {
-                throw new ChatbotInvalidCommandFormatException(String.format(
-                        "The 'deadline' command requires supplying '%sby <deadline>'!",
-                        ChatCommand.PARAMETER_PREFIX
-                ));
-            }
-
-            long byTimestamp;
-            try {
-                byTimestamp = EpochConverter.getEpochFromIsoDateString(chatCommand.getParam("by"));
-            } catch (DateTimeParseException e) {
-                throw new ChatbotInvalidCommandFormatException(
-                        "The deadline supplied is invalid! It must be a correct date and follow the "
-                                + "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).\n"
-                                + "For example, 2023-01-31T12:34 is one such valid date.");
-            }
-
-            newTask = new Deadline(chatCommand.getData(), byTimestamp);
-            break;
-
-        case ADD_EVENT:
-            if (!chatCommand.hasParamWithUsefulValue("from") || !chatCommand.hasParamWithUsefulValue("to")) {
-
-                throw new ChatbotInvalidCommandFormatException(String.format(
-                        "The 'event' command requires supplying both '%sfrom <date>' and '%sto <date>'!",
-                        ChatCommand.PARAMETER_PREFIX,
-                        ChatCommand.PARAMETER_PREFIX
-                ));
-            }
-
-            long startTimestamp;
-            long endTimestamp;
-            try {
-                startTimestamp = EpochConverter.getEpochFromIsoDateString(chatCommand.getParam("from"));
-                endTimestamp = EpochConverter.getEpochFromIsoDateString(chatCommand.getParam("to"));
-            } catch (DateTimeParseException e) {
-                throw new ChatbotInvalidCommandFormatException(
-                        "The date range supplied is invalid! They must be correct dates and follow the "
-                                + "ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm:ss).\n"
-                                + "For example, 2023-01-31T12:34 is one such valid date.");
-            }
-
-            newTask = new Event(chatCommand.getData(), startTimestamp, endTimestamp);
-            break;
-
-        case SEARCH:
-            StringBuilder builder = new StringBuilder();
-
-            builder.append("Alright, here's the matching tasks I found:");
-
-            this.taskManager.getTaskIndexedStream()
-                    .filter(integerTaskPair -> integerTaskPair.getValue()
-                            .getTitle()
-                            .toLowerCase()
-                            .contains(
-                                    chatCommand.getData().toLowerCase()
-                            )
-                    )
-                    .forEach(integerTaskPair -> {
-                        builder.append("\n");
-                        builder.append(integerTaskPair.getKey() + 1);
-                        builder.append(". ");
-                        builder.append(integerTaskPair.getValue().toString());
-                    });
-
-            builder.append("\nThat's it!");
-
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, builder.toString());
-            break;
-
-        default:
-            // This block should never execute. If it does, it is likely a programmer error.
-            assert false;
-            throw new ChatbotCommandException("Unexpected internal error: task type was not implemented.");
-        }
-
-        // Add the task created
-        if (newTask != null) {
-            this.taskManager.addTask(newTask);
-            this.sendMessage(ChatMessage.SenderType.CHATBOT, String.format(
-                    "Got it. I've added this task:\n  %s\nYou have %d tasks in your list now! :)",
-                    newTask,
-                    this.taskManager.getTaskCount()
-            ));
         }
     }
 
