@@ -29,14 +29,15 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
+    /**
+     * Initializes the main window by instantiating duke and say the greeting words.
+     */
     @FXML
     public void initialize() {
         duke = new Duke();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hey summoner! I'm Otto\n"
-                                    + "What do you want me to do?\n",
+                DialogBox.getDukeDialog(Duke.getWelcomeMessage(),
                             dukeImage)
         );
     }
