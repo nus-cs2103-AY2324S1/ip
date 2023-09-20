@@ -35,6 +35,19 @@ public class TodoCommandTest {
     }
 
     @Test
+    public void run_duplicateTodo_commandExceptionThrown() {
+        try {
+            TaskList tasks = new TaskList();
+            Command command = new TodoCommand("todo read book");
+            command.run(tasks);
+            command = new TodoCommand("todo read book");
+            command.run(tasks);
+        } catch (CommandException e) {
+            assertEquals("A similar todo already exists!", e.getMessage());
+        }
+    }
+
+    @Test
     public void run_missingArgument_commandExceptionThrown() {
         try {
             new TodoCommand("todo");

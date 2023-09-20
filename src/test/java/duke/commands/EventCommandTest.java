@@ -55,6 +55,19 @@ public class EventCommandTest {
     }
 
     @Test
+    public void run_duplicateEvent_commandExceptionThrown() {
+        try {
+            TaskList tasks = new TaskList();
+            Command command = new EventCommand("event meeting /from 2023-09-10T12:00 /to 2023-09-10T15:00");
+            command.run(tasks);
+            command = new EventCommand("event meeting /from 2023-09-10T12:00 /to 2023-09-10T15:00");
+            command.run(tasks);
+        } catch (CommandException e) {
+            assertEquals("A similar event already exists!", e.getMessage());
+        }
+    }
+
+    @Test
     public void run_missingArguments_commandExceptionThrown() {
         try {
             new EventCommand("event");

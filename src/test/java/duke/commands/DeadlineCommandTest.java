@@ -37,6 +37,19 @@ public class DeadlineCommandTest {
     }
 
     @Test
+    public void run_duplicateDeadline_commandExceptionThrown() {
+        try {
+            TaskList tasks = new TaskList();
+            Command command = new DeadlineCommand("deadline assignment /by 2023-09-10T12:00");
+            command.run(tasks);
+            command = new DeadlineCommand("deadline assignment /by 2023-09-10T12:00");
+            command.run(tasks);
+        } catch (CommandException e) {
+            assertEquals("A similar deadline already exists!", e.getMessage());
+        }
+    }
+
+    @Test
     public void run_missingArguments_commandExceptionThrown() {
         try {
             new DeadlineCommand("deadline");
