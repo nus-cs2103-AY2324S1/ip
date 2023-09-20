@@ -33,7 +33,7 @@ public class EventStrategy extends BaseStrategy {
      */
     @Override
     public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
-        Boolean isDone = Boolean.getBoolean(this.arguments.get(0));
+        Boolean isDone = Boolean.parseBoolean(this.arguments.get(0));
         String name = this.arguments.get(1);
         String startTime = this.arguments.get(2);
         String endTime = this.arguments.get(3);

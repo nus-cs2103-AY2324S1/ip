@@ -1,4 +1,2 @@
-Event - true - apa - 1 pm - 4 pm
-Event - false - project meeting - Mon 2pm - 4pm
 Deadline - false - return book - 2019-12-02T18:00
 Deadline - true - cs2103 - 2023-09-22T23:59

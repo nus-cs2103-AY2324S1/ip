@@ -31,7 +31,7 @@ public class ToDoStrategy extends BaseStrategy {
      */
     @Override
     public String evaluate(Logger logger, FileStorage fileStorage, boolean isInFile) throws KevinException {
-        Boolean isDone = Boolean.getBoolean(this.arguments.get(0));
+        Boolean isDone = Boolean.parseBoolean(this.arguments.get(0));
         String toDoName = this.arguments.get(1);
 
         ToDo newToDo = taskList.addToDo(isDone, toDoName);

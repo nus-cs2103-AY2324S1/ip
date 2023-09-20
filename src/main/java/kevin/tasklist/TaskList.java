@@ -107,9 +107,14 @@ public class TaskList {
      * @param deleteIndex This is the index of the task in the TaskList to be deleted.
      * @return Returns the deleted Task.
      */
-    public Task delete(int deleteIndex) {
-        Task deletedTask = this.taskList.get(deleteIndex - 1);
-        this.taskList.remove(deleteIndex - 1);
+    public Task delete(int deleteIndex) throws KevinException {
+        Task deletedTask;
+        try {
+            deletedTask = this.taskList.get(deleteIndex - 1);
+            this.taskList.remove(deleteIndex - 1);
+        } catch (Exception e) {
+            throw new KevinException("There is no task " + deleteIndex + "!");
+        }
         return deletedTask;
     }
 
