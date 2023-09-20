@@ -54,7 +54,7 @@ public class AddEvent extends Command {
     @Override
     public String execute(TaskList lst, UI io, Storage storage) throws DukeException {
         if (str.isEmpty()) {
-            throw new DukeException("The description of a deadline cannot be empty.");
+            throw new DukeException("The description of a event cannot be empty.");
         } else if(str.matches(EVENT_PATTERN)) {
             String[] temp = str.split(" /");
             Task newTask = generateTask(lst, temp);
