@@ -1,29 +1,61 @@
-# User Guide
-
+# Bocchi 🎸
 ## Features 
+- Adding a task - todo / deadline / event
+- Deleting a task - delete
+- Viewing tasks - list
+- Marking a task - mark
+- Unmarking a task - unmark
+- Exit the program - bye
+  
+### Adding a task
+1. Add a task with no stipulated duration.
 
-### Feature-ABC
+    > Format: todo {task name}
+    
+    `todo Sleep`
 
-Description of the feature.
+2. Add a task with a deadline.
 
-### Feature-XYZ
+    > Format: deadline {task name} /by {deadline}
+    
+    `deadline English homework /by 2023-11-22 23:59:59`
 
-Description of the feature.
+3. Add a task with a duration.
 
-## Usage
+    > Format: event {task name} /from {start} /to {end}
 
-### `Keyword` - Describe action
+    ` event Badminton /from 2023-11-23 10:00:00 /to 2023-11-23 12:00:00`
 
-Describe the action and its outcome.
+### Deleting a task
+Delete a task at a specified index.
 
-Example of usage: 
+> Format: delete {index}`
 
-`keyword (optional arguments)`
+`delete 1`
 
-Expected outcome:
+### Viewing your task list
+View your current tasks.
 
-Description of the outcome.
+> Format: list
 
-```
-expected output
-```
+`list`
+
+### Marking a task
+Mark a task at a specified index as done.
+
+> Format: mark {index}
+
+`mark 1`
+
+### Unmarking a task
+Mark a task at a specified index as not done.
+
+> Format: unmark {index}
+
+`unmark 1`
+
+### Exit the program
+
+> Format: bye
+
+`bye`
