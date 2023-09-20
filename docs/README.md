@@ -8,18 +8,18 @@ traditional GUI apps.
 
 ## Features 
 
-### [Viewing help: `help`](#viewing-help-help)
-### [Adding tasks: `todo` `deadline` `event`](#adding-tasks-todo-deadline-event)
-### [Mark and Unmark tasks: `mark` `unmark`](#mark-and-unmark-tasks-mark-unmark)
-### [Listing all tasks: `list`](#listing-all-tasks-list)
-### [Deleting tasks: `delete`](#deleting-tasks-delete)
-### [Print deadline or event on a date: `print_date`](#print-deadline-or-event-on-a-date-print_date)
-### [Finding tasks by keyword: `find`](#finding-tasks-by-keyword-find)
-### [Loading tasks: `load`](#loading-tasks-load)
-### [Sorting tasks: `sort`](#sorting-tasks-sort)
-### [Making aliases: `alias`](#making-aliases-alias)
-### [Saving the data](#saving-the-data)
-### [Exiting the program: `bye`](#exiting-the-program-bye)
+### [Viewing help: `help`](#viewing-help-help-1)
+### [Adding tasks: `todo` `deadline` `event`](#adding-tasks-todo-deadline-event-1)
+### [Mark and Unmark tasks: `mark` `unmark`](#mark-and-unmark-tasks-mark-unmark-1)
+### [Listing all tasks: `list`](#listing-all-tasks-list-1)
+### [Deleting tasks: `delete`](#deleting-tasks-delete-1)
+### [Print deadline or event on a date: `print_date`](#print-deadline-or-event-on-a-date-print_date-1)
+### [Finding tasks by keyword: `find`](#finding-tasks-by-keyword-find-1)
+### [Loading tasks: `load`](#loading-tasks-load-1)
+### [Sorting tasks: `sort`](#sorting-tasks-sort-1)
+### [Making aliases: `alias`](#making-aliases-alias-1)
+### [Saving the data](#saving-the-data-1)
+### [Exiting the program: `bye`](#exiting-the-program-bye-1)
 
 ## Usage
 
