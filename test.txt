@@ -1,0 +1,3 @@
+T|1|borrow book
+E|1|read book|Oct 1 2023|Oct 10 2023
+D|0|return book|Sep 1 2023
