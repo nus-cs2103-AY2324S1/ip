@@ -19,6 +19,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor to create a Deadline.
+     *
      * @param description Description of the deadline.
      * @param by Deadline of the task.
      */
@@ -29,6 +30,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the String representation of the deadline.
+     *
      * @return A String representing the deadline.
      */
     @Override
@@ -38,6 +40,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the String representation of the deadline to be saved in the hard disk.
+     *
      * @return A String representing the deadline.
      */
     @Override
@@ -63,6 +66,11 @@ public class Deadline extends Task {
         return this.toString().equals(c.toString());
     }
 
+    /**
+     * Updates the deadline of the task.
+     *
+     * @param newDate The new deadline.
+     */
     public void updateByDate(LocalDate newDate) {
         by = newDate;
     }

@@ -10,9 +10,9 @@ import java.util.Scanner;
  * @author Teo Kai Sheng
  */
 public class Duke {
+    static final Path FILEPATH = Paths.get(".", "data", "duke.txt"); // Filepath: "./data/duke.txt"
     private Storage storage;
     private TaskList tasks;
-    static final Path FILEPATH = Paths.get(".", "data", "duke.txt"); // Filepath: "./data/duke.txt"
 
     /**
      * Constructor to start the program.
@@ -40,10 +40,19 @@ public class Duke {
         updateTaskList();
     }
 
+    /**
+     * Updates the task list in the storage file.
+     */
     public void updateTaskList() {
         storage.updateTaskList();
     }
 
+    /**
+     * Gets the response from the parser.
+     *
+     * @param input The user input.
+     * @return The response from the parser.
+     */
     public String getResponse(String input) {
         Parser parser = new Parser(tasks);
         String response = parser.parse(input);

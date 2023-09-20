@@ -228,6 +228,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates the indicated task.
+     *
+     * @param input User input.
+     * @return The String representation of the output.
+     */
     public String updateTask(String[] input) {
         try {
             String[] s1 = input[1].split("/", 2);
@@ -257,6 +263,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates the task with the new value.
+     *
+     * @param task The task to be updated.
+     * @param toUpdate The field to be updated.
+     * @param newValue The new value.
+     * @throws DukeException Throws DukeException if the task type is wrong.
+     */
     private void updateTaskValue(Task task, String toUpdate, String newValue) throws DukeException {
         switch (toUpdate) {
         case "desc":

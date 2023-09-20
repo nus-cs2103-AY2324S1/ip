@@ -1,7 +1,6 @@
 package duke;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -11,6 +10,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    static final String INITIAL_RESPONSE = "Hello, I'm your task manager :)\nWhat can I do for you?";
+    static final String FINAL_RESPONSE = "Bye. Hope to see you again soon!";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -18,21 +19,30 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     private Duke duke;
-    static final String INITIAL_RESPONSE = "Hello, I'm your task manager :)\nWhat can I do for you?";
-    static final String FINAL_RESPONSE = "Bye. Hope to see you again soon!";
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the GUI.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(INITIAL_RESPONSE, dukeImage));
     }
 
+    /**
+     * Sets the duke object.
+     *
+     * @param d The duke object.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
+    /**
+     * Gets the exit message from the duke object.
+     */
     public void getExitMessage() {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(FINAL_RESPONSE, dukeImage));
     }
@@ -49,7 +59,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
-
         userInput.clear();
     }
 }

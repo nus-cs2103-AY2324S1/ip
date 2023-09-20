@@ -11,8 +11,15 @@ import org.junit.jupiter.api.Test;
 
 import duke.task.Deadline;
 import duke.task.Task;
+
+/**
+ * Tests the Storage class.
+ */
 public class StorageTest {
 
+    /**
+     * Tests the loadTaskList method.
+     */
     @Test
     public void loadTaskList_savedFile_success() {
         // saved list is loaded
@@ -21,12 +28,20 @@ public class StorageTest {
                 listToString(new Storage(Paths.get(".", "testdata", "testlist.txt")).loadTaskList()));
     }
 
+    /**
+     * Tests the loadTaskList method.
+     */
     @Test
     public void loadTaskList_wrongPath_emptyList() {
         // return empty list if path is wrong
         assertEquals("", listToString(new Storage(null).loadTaskList()));
     }
 
+    /**
+     * Converts an ArrayList of tasks to a String.
+     * @param list The ArrayList of tasks.
+     * @return A String representing the list.
+     */
     public String listToString(ArrayList<Task> list) {
         StringBuilder toWrite = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
@@ -35,6 +50,10 @@ public class StorageTest {
         }
         return toWrite.toString();
     }
+
+    /**
+     * Tests the stringToTask method.
+     */
     @Test
     public void stringToTask_multipleWhitespaceEntry_success() {
         try {
@@ -47,6 +66,9 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Tests the stringToTask method.
+     */
     @Test
     public void stringToTask_markedEntry_success() {
         try {
@@ -61,6 +83,9 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Tests the stringToTask method.
+     */
     @Test
     public void stringToTask_corruptedEntry_exceptionThrown() {
         try {
@@ -74,6 +99,9 @@ public class StorageTest {
         }
     }
 
+    /**
+     * Tests the stringToTask method.
+     */
     @Test
     public void stringToTask_invalidTaskType_exceptionThrown() {
         try {

@@ -32,29 +32,40 @@ public class Parser {
         String command = input[0];
         String output = "";
         Ui.horizontalLine();
-        if (command.equals("list")) {
+        switch (command) {
+        case "list":
             output = tasks.showList(input);
-        } else if (command.equals("mark")) {
+            break;
+        case "mark":
             output = tasks.markTask(input);
-        } else if (command.equals("unmark")) {
+            break;
+        case "unmark":
             output = tasks.unmarkTask(input);
-        } else if (command.equals("delete")) {
+            break;
+        case "delete":
             output = tasks.deleteTask(input);
-        } else if (command.equals("deadline")) {
+            break;
+        case "deadline":
             output = tasks.addDeadline(input);
-        } else if (command.equals("event")) {
+            break;
+        case "event":
             output = tasks.addEvent(input);
-        } else if (command.equals("todo")) {
+            break;
+        case "todo":
             output = tasks.addToDo(input);
-        } else if (command.equals("find")) {
+            break;
+        case "find":
             output = tasks.findTasks(input);
-        } else if (command.equals("update")) {
+            break;
+        case "update":
             output = tasks.updateTask(input);
-        } else if (command.equals("bye")) {
+            break;
+        case "bye":
             this.isFinished = true;
             output = Ui.bye();
             Platform.exit();
-        } else {
+            break;
+        default:
             output = Ui.unknownCommandErrorMessage();
         }
         Ui.horizontalLine();

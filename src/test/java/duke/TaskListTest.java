@@ -8,7 +8,14 @@ import org.junit.jupiter.api.Test;
 
 import duke.task.Task;
 
+/**
+ * Tests the TaskList class.
+ */
 public class TaskListTest {
+
+    /**
+     * Tests the addToDo method.
+     */
     @Test
     public void addToDo_multipleEntries_success() {
         ArrayList<Task> list = new ArrayList<>();
@@ -19,6 +26,9 @@ public class TaskListTest {
         assertEquals("T | N | Midterms\n" + "T | N | Finals\n", listToString(list));
     }
 
+    /**
+     * Tests the addToDo method.
+     */
     @Test
     public void addToDo_emptyEntry_notAdded() {
         ArrayList<Task> list = new ArrayList<>();
@@ -32,6 +42,9 @@ public class TaskListTest {
         assertEquals("", listToString(list));
     }
 
+    /**
+     * Tests the addDeadline method.
+     */
     @Test
     public void addDeadline_multipleEntries_success() {
         ArrayList<Task> list = new ArrayList<>();
@@ -43,6 +56,9 @@ public class TaskListTest {
                listToString(list));
     }
 
+    /**
+     * Tests the addDeadline method.
+     */
     @Test
     public void addDeadline_wrongFormat_notAdded() {
         ArrayList<Task> list = new ArrayList<>();
@@ -62,6 +78,9 @@ public class TaskListTest {
         assertEquals("", listToString(list));
     }
 
+    /**
+     * Tests the addDeadline method.
+     */
     @Test
     public void addDeadline_invalidDate_notAdded() {
         ArrayList<Task> list = new ArrayList<>();
@@ -85,6 +104,9 @@ public class TaskListTest {
         assertEquals("", listToString(list));
     }
 
+    /**
+     * Tests the addEvent method.
+     */
     @Test
     public void addEvent_multipleEntries_success() {
         ArrayList<Task> list = new ArrayList<>();
@@ -97,6 +119,9 @@ public class TaskListTest {
                 listToString(list));
     }
 
+    /**
+     * Tests the addEvent method.
+     */
     @Test
     public void addEvent_wrongFormat_notAdded() {
         ArrayList<Task> list = new ArrayList<>();
@@ -122,6 +147,9 @@ public class TaskListTest {
         assertEquals("", listToString(list));
     }
 
+    /**
+     * Tests the addEvent method.
+     */
     @Test
     public void addEvent_invalidDate_notAdded() {
         ArrayList<Task> list = new ArrayList<>();
@@ -145,6 +173,11 @@ public class TaskListTest {
         assertEquals("", listToString(list));
     }
 
+    /**
+     * Converts an ArrayList of tasks to a String.
+     * @param list The ArrayList of tasks.
+     * @return A String representing the list.
+     */
     public String listToString(ArrayList<Task> list) {
         StringBuilder toWrite = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {

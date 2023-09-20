@@ -18,6 +18,7 @@ public class Task {
 
     /**
      * Constructor to create a task.
+     *
      * @param description The desciption of the task.
      */
     public Task(String description) {
@@ -27,6 +28,7 @@ public class Task {
 
     /**
      * Returns the String representation of the status icon of the task.
+     *
      * @return The status icon.
      */
     public String getStatusIcon() {
@@ -49,6 +51,7 @@ public class Task {
 
     /**
      * Returns the String representation of the task.
+     *
      * @return A String representing the task.
      */
     @Override
@@ -58,12 +61,18 @@ public class Task {
 
     /**
      * Returns the String representation of the task to be saved in the hard disk.
+     *
      * @return A String representing the task to be saved in the hard disk.
      */
     public String taskToString() {
         return String.format("%s | " + this.description, (isDone ? "Y" : "N"));
     }
 
+    /**
+     * Updates the description of the task.
+     *
+     * @param newDesc The new description.
+     */
     public void updateDescription(String newDesc) {
         description = newDesc;
     }

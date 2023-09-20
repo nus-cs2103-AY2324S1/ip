@@ -2,10 +2,6 @@ E | N | Finals | 2023-11-11 | 2023-11-12
 T | Y | read book
 T | N | return book
 D | N | write book | 2023-10-10
-E | N | book fair | 2000-11-11 | 2000-11-11
-T | N | test
-D | N | da | 2020-01-01
-E | N | asdbf | 2020-10-10 | 2020-10-11
-T | N | dao
-T | N | dsih
-T | N | dskjf
+E | N | book fair | 2023-11-10 | 2023-11-11
+T | Y | buy pants
+D | N | project submission | 2023-11-10

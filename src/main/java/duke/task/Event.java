@@ -25,6 +25,7 @@ public class Event extends Task {
 
     /**
      * Constructor to create an Event.
+     *
      * @param description Description of the event.
      * @param from Starting date of the event.
      * @param to Ending date of the event.
@@ -37,6 +38,7 @@ public class Event extends Task {
 
     /**
      * Returns the String representation of the event.
+     *
      * @return A String representing the event.
      */
     @Override
@@ -46,6 +48,7 @@ public class Event extends Task {
 
     /**
      * Returns the String representation of the event to be saved in the hard disk.
+     *
      * @return A String representing the event.
      */
     @Override
@@ -53,10 +56,20 @@ public class Event extends Task {
         return "E | " + super.taskToString() + " | " + from + " | " + to;
     }
 
+    /**
+     * Updates the start date of the event.
+     *
+     * @param newDate The new start date.
+     */
     public void updateFromDate(LocalDate newDate) {
         from = newDate;
     }
 
+    /**
+     * Updates the end date of the event.
+     *
+     * @param newDate The new end date.
+     */
     public void updateToDate(LocalDate newDate) {
         to = newDate;
     }

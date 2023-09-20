@@ -9,6 +9,7 @@ public class ToDo extends Task {
 
     /**
      * Constructor to create a ToDo.
+     *
      * @param description The description of the ToDo.
      */
     public ToDo(String description) {
@@ -17,6 +18,7 @@ public class ToDo extends Task {
 
     /**
      * Returns the String representation of the ToDo.
+     *
      * @return A String representing the ToDo.
      */
     @Override
@@ -26,6 +28,7 @@ public class ToDo extends Task {
 
     /**
      * Returns the String representation of the ToDo to be saved in the hard disk.
+     *
      * @return A String representing the ToDo.
      */
     @Override
