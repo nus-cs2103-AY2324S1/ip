@@ -18,11 +18,7 @@
 - [FAQ](#faq)
 
 ## Introduction
-The Mr. Bear Application is a chatbot designed to assist users with various tasks, made by [Zhu Yufan](https://www.linkedin.com/in/yufan-zhu-36024a225/) under the module CS2103T 2022/23 Sem 2.
-
-This project, Mr. Bear, is based on [Project Duke](https://github.com/nus-cs2103-AY2223S2/ip) and is an educational tool that helps new software developers improve their skills through the gradual construction of the project and the discovery of various software engineering principles.
-
-This is a simple user guide for the usage of Mr. Bear Application.
+This app is designed to help the user with task management. It allow you to add, delete, mark, unmark, tag, untag, find tasks with keywords/tags and list all the tasks in the task list. It also supports saving the tasks in the task list to a file and loading the tasks from the file when you launch the app again.
 
 ## Quick Start
 1. Download the latest  **Duke.jar** file from [todo](https://github.com/Yiwen101/ip/releases)
@@ -33,9 +29,9 @@ This is a simple user guide for the usage of Mr. Bear Application.
         java -jar duke.jar
         ```
 5. You should expect to see a window as shown below:
-![welcome](welcome.png)
-
+![greeting](quickStart.png)
 6. Have fun exploring its features!
+![ui](Ui.png)
 
 ## Features
 
