@@ -1,15 +1,6 @@
 package ally;
 
-import ally.commands.AddDeadlineCommand;
-import ally.commands.AddEventCommand;
-import ally.commands.AddTodoCommand;
-import ally.commands.Commands;
-import ally.commands.DeleteCommand;
-import ally.commands.ExitCommand;
-import ally.commands.FindCommand;
-import ally.commands.ListCommand;
-import ally.commands.MarkCommand;
-import ally.commands.UnmarkCommand;
+import ally.commands.*;
 import ally.exceptions.AllyException;
 
 /**
@@ -48,6 +39,8 @@ public class Parser {
             return new DeleteCommand(Integer.parseInt(split[1]) - 1);
         } else if (split[0].equals(("find"))) {
             return new FindCommand(split[1]);
+        } else if (split[0].equals("sort")) {
+            return new SortCommand();
         } else {
             throw new AllyException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
