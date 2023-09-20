@@ -3,13 +3,13 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="400.0"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" fx:controller="GUI.HelpPopupController">
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="400.0"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" fx:controller="gui.HelpPopupController">
     <children>
         <ScrollPane hbarPolicy="NEVER" prefHeight="600.0" prefWidth="450.0" fx:id="scrollPane">
 
             <VBox  alignment="CENTER" spacing="10">
                 <children>
-                    <Label fx:id="helpLabel" text="Commands:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                    <Label fx:id="helpLabel" text="commands:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
                     <Separator /> <!-- Add a separator after the label -->
 
                     <VBox fx:id="vBox" spacing="10">

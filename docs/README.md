@@ -1,5 +1,20 @@
 # WallE User Guide
 
+## Table of Contents
+
+- [Features](#Features)
+- [commands](#Commands)
+    - [`help`](#help---get-help-pop-up-to-display)
+    - [`list`](#list---list-all-of-your-current-tasks)
+    - [`todo`](#todo-taskname---add-a-todo-to-your-task-list)
+    - [`deadline`](#deadline-taskname-by-deadlinedate---add-a-deadline-with-a-specific-date-to-your-task-list)
+    - [`event`](#event-eventname-from-eventstart-to-eventend---add-an-event-with-a-start-and-end)
+    - [`mark`](#mark-taskid---mark-the-task-with-id-taskid-as-done)
+    - [`unmark`](#unmark-taskid---mark-the-task-with-id-taskid-as-not-done)
+    - [`delete`](#delete-taskid---delete-the-task-with-id-taskid)
+    - [`find`](#find-searchtext---find-all-tasks-that-have-relevant-information-to-searchtext)
+    - [`bye`](#bye---bid-farewell-and-close-the-window)
+
 ## Features
 
 ### Task Tracking
@@ -9,29 +24,18 @@
 ### Help Page
 
 `WallE` also has a useful help pop-up which shows you a list of all the possible commands that `WallE` can recognise.
-## Usage
+
+## commands
 
 ### `help` - Get help pop-up to display.
 
 This command provides a pop-up window with helpful information about using WallE.
 
-Example of Usage:
-
-```
-help
-```
-
-WallE's response:
-
-<img src="https://i.imgur.com/WNVqICQ.png" alt="Alt text" height="300">
-
-
 ### `list` - List all of your current tasks.
 
 This command displays a list of all your current tasks.
 
-<img src="https://imgur.com/hlvDvvt.png" alt="Alt text" height="300">
-
+[Back to Table of Contents](#table-of-contents)
 
 ### `todo {taskName}` - Add a ToDo to your task list.
 
@@ -40,12 +44,12 @@ This command displays a list of all your current tasks.
 This command adds a ToDo task to your task list.
 
 Example of usage:
-
 ```
 todo Learn Tap Dance sequence
 ```
 <img src="https://i.imgur.com/qCYjcQM.png" alt="Alt text" height="300">
 
+[Back to Table of Contents](#table-of-contents)
 
 ### `deadline {taskName} /by {deadlineDate}` - Add a Deadline with a specific date to your task list.
 * `taskName` - The name of the Deadline task, which can be more than 1 word.
@@ -60,6 +64,8 @@ deadline finish iP tasks /by 2023-09-22 2359
 ```
 
 <img src="https://i.imgur.com/QoYypFD.png" alt="Alt text" height="300">
+
+[Back to Table of Contents](#table-of-contents)
 
 
 ### `event {eventName} /from {eventStart} /to {eventEnd}` - Add an event with a start and end.
@@ -76,6 +82,7 @@ event tP meeting /from 9pm /to 10pm
 ```
 <img src="https://i.imgur.com/qN6wYWJ.png" alt="Alt text" height="300">
 
+[Back to Table of Contents](#table-of-contents)
 
 ### `mark {taskId}` - Mark the task with id taskId as done.
 * `taskId` - The id of the task (can be seen when the `list` command is executed).
@@ -89,6 +96,8 @@ mark 1
 ```
 
 <img src="https://i.imgur.com/P8m47wb.png" alt="Alt text" height="300">
+
+[Back to Table of Contents](#table-of-contents)
 
 
 ### `unmark {taskId}` - Mark the task with id taskId as not done.
@@ -104,6 +113,8 @@ unmark 1
 
 <img src="https://i.imgur.com/kZ2PTEJ.png" alt="Alt text" height="300">
 
+[Back to Table of Contents](#table-of-contents)
+
 
 ### `delete {taskId}` - Delete the task with id taskId.
 * `taskId` - The id of the task (can be seen when the `list` command is executed).
@@ -117,6 +128,8 @@ delete 2
 ```
 
 <img src="https://i.imgur.com/CIxo2UO.png" alt="Alt text" height="300">
+
+[Back to Table of Contents](#table-of-contents)
 
 
 ### `find {searchText}` - Find all tasks that have relevant information to searchText.
@@ -132,6 +145,7 @@ find groceries
 
 <img src="https://i.imgur.com/gw46T23.png" alt="Alt text" height="300">
 
+[Back to Table of Contents](#table-of-contents)
 
 ### `bye` - Bid farewell and close the window.
 
@@ -145,7 +159,8 @@ bye
 
 <img src="https://i.imgur.com/2zsDtd8.png" alt="Alt text" height="300">
 
-
 **Note**: Make sure to replace `{taskName}`, `{yyyy-MM-dd HHmm}`, `{eventName}`, `{eventStart}`, `{eventEnd}`, and `{searchText}` with actual values.
 
 This user guide provides you with a comprehensive overview of WallE's capabilities. Use these commands to effectively manage your tasks. If you have any further questions or need additional assistance, feel free to reach out. Happy tasking!
+
+[Back to Table of Contents](#table-of-contents)
