@@ -1,10 +1,9 @@
 package commands;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.Task;
+import ari.AriException;
+import ari.Storage;
+import ari.TaskList;
+import ari.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -28,7 +27,7 @@ public class PostponeCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AriException {
         tasks.postponeDeadline(this.indexToPostpone, this.newDeadline);
         storage.updateFileAfterPostpone(tasks.getTasks().get(this.indexToPostpone),
                 this.indexToPostpone + 1,

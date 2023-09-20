@@ -1,12 +1,12 @@
-package duke;
+package ari;
 
 import java.lang.Exception;
 
 /**
  * DukeException class that throws Exception if the input is not formatted correctly. Inherits Exception class.
  */
-public class DukeException extends Exception{
-    public DukeException(String msg) {
+public class AriException extends Exception{
+    public AriException(String msg) {
         super(msg);
     }
 }

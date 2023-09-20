@@ -1,9 +1,9 @@
 package commands;
 
-import duke.DukeException;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import ari.AriException;
+import ari.Storage;
+import ari.TaskList;
+import ari.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -35,7 +35,7 @@ public class RescheduleCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException, AriException {
         tasks.rescheduleEvent(this.indexToReschedule, this.newFrom, this.newTo);
         storage.updateFileAfterReschedule(tasks.getTasks().get(indexToReschedule),
                 this.indexToReschedule + 1,

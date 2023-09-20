@@ -1,4 +1,4 @@
-package duke;
+package ari;
 
 import commands.ByeCommand;
 import commands.Command;
@@ -21,9 +21,9 @@ public class Parser {
      * Parses the command input by the user for execution
      * @param command input by the user
      * @return an appropriate Command object depending on the command
-     * @throws DukeException if command is invalid
+     * @throws AriException if command is invalid
      */
-    public static Command parse(String command) throws DukeException{
+    public static Command parse(String command) throws AriException{
         if (command.equals("list")) {
             return new ListCommand();
         } else if (command.equals("bye")) {
@@ -55,6 +55,6 @@ public class Parser {
             return new RescheduleCommand(taskInfoInArr);
         }
 
-        throw new DukeException("Invalid command");
+        throw new AriException("Invalid command");
     }
 }

@@ -1,4 +1,4 @@
-package duke;
+package ari;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -58,7 +58,7 @@ public class Storage {
             while (scanner.hasNext()) {
                 lst.add(textToTask(scanner.nextLine()));
             }
-        } catch (DukeException e) {
+        } catch (AriException e) {
             System.out.println(e.getMessage());
         }
 
@@ -69,9 +69,9 @@ public class Storage {
      * Converts text in the String to Task objects
      * @param text a line of text in text file
      * @return a Task object
-     * @throws DukeException if the text is not formatted correctly.
+     * @throws AriException if the text is not formatted correctly.
      */
-    public static Task textToTask(String text) throws DukeException {
+    public static Task textToTask(String text) throws AriException {
         String[] arr = text.split(" [|] ");
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
@@ -114,7 +114,7 @@ public class Storage {
             break;
         }
         if (task == null) {
-            throw new DukeException("Incorrect format of the file :(");
+            throw new AriException("Incorrect format of the file :(");
         } else {
             return task;
         }

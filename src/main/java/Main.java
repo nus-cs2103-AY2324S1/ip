@@ -12,11 +12,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke;
+    private Ari ari;
 
     {
         try {
-            duke = new Duke("data/duke.txt");
+            ari = new Ari("data/duke.txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -29,7 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(ari);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

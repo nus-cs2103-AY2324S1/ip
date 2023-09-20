@@ -1,4 +1,4 @@
-package duke;
+package ari;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StorageTest {
     @Test
-    public void textToTask_test1() throws DukeException {
+    public void textToTask_test1() throws AriException {
         String expected = new ToDo("read book", false).toString();
         String actual = Storage.textToTask("T | [ ] | read book").toString();
 
@@ -24,7 +24,7 @@ public class StorageTest {
     }
 
     @Test
-    public void textToTask_test2() throws DukeException {
+    public void textToTask_test2() throws AriException {
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("yyyyMMdd HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("HHmm");
         String from = "20230808 1500";
@@ -40,7 +40,7 @@ public class StorageTest {
 
     @Test
     public void textToTask_throwDukeException() {
-        assertThrows(DukeException.class, () -> Storage.textToTask("X | [ ] | project meeting | 20230808 1500-1600"));
+        assertThrows(AriException.class, () -> Storage.textToTask("X | [ ] | project meeting | 20230808 1500-1600"));
     }
 
     @Test

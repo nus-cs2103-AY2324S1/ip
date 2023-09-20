@@ -1,9 +1,9 @@
 package commands;
 
-import duke.Storage;
-import duke.Task;
-import duke.TaskList;
-import duke.Ui;
+import ari.Storage;
+import ari.Task;
+import ari.TaskList;
+import ari.Ui;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
 package commands;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
-import duke.Task;
-import duke.Deadline;
+import ari.Storage;
+import ari.TaskList;
+import ari.Ui;
+import ari.Task;
+import ari.Deadline;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
