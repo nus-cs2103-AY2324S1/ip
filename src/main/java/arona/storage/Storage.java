@@ -32,7 +32,19 @@ public class Storage {
         assert filePath != null : "File path cannot be null";
         this.path = Paths.get(filePath);
         this.inFile = path.toFile();
-        assert inFile.exists() : "Storage file does not exist";
+        if (!inFile.exists()) {
+            try {
+                // Create the parent directories if they don't exist
+                File parentDir = inFile.getParentFile();
+                if (parentDir != null && !parentDir.exists()) {
+                    parentDir.mkdirs();
+                }
+                // Create the file
+                inFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating file: " + e.getMessage());
+            }
+        }
     }
 
     /**

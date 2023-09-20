@@ -9,10 +9,9 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
     String javaFxVersion = '17.0.7'
 
@@ -45,16 +44,14 @@ test {
 }
 
 application {
-    mainClass.set("arona.Arona")
+    mainClass.set("arona.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "arona"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'arona.jar'
 }
 
-run{
+run {
     standardInput = System.in
 }
 

@@ -24,7 +24,8 @@ public class Arona {
      */
     public Arona() {
         ui = new Ui();
-        storage = new Storage("./src/main/java/arona/data/arona.txt");
+        String resourcePath = "./data/arona.txt";
+        storage = new Storage(resourcePath);
         tasks = new TaskList(storage);
     }
 

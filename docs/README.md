@@ -80,7 +80,7 @@ Show all tasks that match the TASK keyword.
 
 ### 2.7 Saving the data
 
-Arona data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Task data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### 2.8 Editing the data file
 
@@ -89,6 +89,7 @@ Tasks data are saved automatically as a txt file at `[JAR file location]/data/ar
 ## Known Issues
 
 1. Enlarging the window may cause UI problems.
+2. Resetting the application will also reset the history of commands, potentially affecting the `undo` command.
 
 ## Command Summary
 
