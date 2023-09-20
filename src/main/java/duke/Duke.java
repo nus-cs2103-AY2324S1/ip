@@ -125,6 +125,7 @@ public class Duke {
         //E|1|descr|12/4/2020 1600|12/4/2020 1700
         //event project meeting /from 12/4/2020 1600 /to 12/4/2020 1700
         try {
+
             String[] temp = s.split(" /from ", 2);
             String [] fromto = temp[1].split(" /to ",2);
             LocalDateTime from = LocalDateTime.parse(fromto[0],
