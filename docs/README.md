@@ -25,10 +25,8 @@ Adds a deadline task to the task list
 * `deadline <DESCRIPTION> /by <DATE> <TIME>`
 
 >* DESCRIPTION refers to the information of your task
->* DATE refers to the date your task is due. It should be in the format 
-YYYY-MM-DD or YYYY/MM/DD
->* TIME is an **optional** parameter. It refers to the time your task is due.
-It should be in the 24-Hour format HHMM
+>* DATE refers to the date your task is due. It should be in the format YYYY-MM-DD or YYYY/MM/DD
+>* TIME is an **optional** parameter. It refers to the time your task is due. It should be in the 24-Hour format HHMM
 
 **Examples:**
 * `deadline finish CS2103 /by 2023-09-20`
@@ -39,18 +37,13 @@ Adds a event task to the task list
 
 **Format:**
 * `event <DESCRIPTION> /from <START_DATE> /to <END_DATE>`
-* `event <DESCRIPTION> /from <START_DATE> <START_TIME> /to 
-<END_DATE> <END_TIME>`
+* `event <DESCRIPTION> /from <START_DATE> <START_TIME> /to <END_DATE> <END_TIME>`
 
 >* DESCRIPTION refers to the information of your task
->* START_DATE refers to the date your event starts. It should be in the format
-YYYY-MM-DD or YYYY/MM/DD
->* END_DATE refers to the date your event end. It should be in the format
-YYYY-MM-DD or YYYY/MM/DD
->* START_TIME is an **optional** parameter. It refers to the time your event 
-starts. It should be in the 24-Hour format HHMM
->* END_TIME is an **optional** parameter. It refers to the time your event
-ends. It should be in the 24-Hour format HHMM
+>* START_DATE refers to the date your event starts. It should be in the format YYYY-MM-DD or YYYY/MM/DD
+>* END_DATE refers to the date your event end. It should be in the format YYYY-MM-DD or YYYY/MM/DD
+>* START_TIME is an **optional** parameter. It refers to the time your event starts. It should be in the 24-Hour format HHMM
+>* END_TIME is an **optional** parameter. It refers to the time your event ends. It should be in the 24-Hour format HHMM
 
 **Examples:**
 * `event sleep marathon /from 2023-09-01 /to 2025-09-01`
@@ -130,19 +123,15 @@ lexicographical (by comparing task description) order
 **Format:**
 * `sort <SORT_BY_FLAG> <DESCENDING_FLAG>`
 
->* SORT_BY_FLAG refers to the attribute in which to sort the list by. Use the
--a flag for lexicographical order, or -c for chronological order
->* DESCENDING_FLAG is an **optional** parameter. By default, the sort command
-sorts the list in ascending order, but adding the -d flag to the command 
-will instead sort it in descending order
+>* SORT_BY_FLAG refers to the attribute in which to sort the list by. Use the -a flag for lexicographical order, or -c for chronological order
+>* DESCENDING_FLAG is an **optional** parameter. By default, the sort command sorts the list in ascending order, but adding the -d flag to the command will instead sort it in descending order
 
 **Examples:**
 * `sort -a`
 * `sort -c -d`
 
 ### Exit ChadGPT: `bye`
-Exits the chatbot, saving your current tasks in your task list to memory,
-which will be restored the next time you open the application again
+Exits the chatbot, saving your current tasks in your task list to memory, which will be restored the next time you open the application again
 
 **Format:**
 * `bye`
