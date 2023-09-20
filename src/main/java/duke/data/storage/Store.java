@@ -34,6 +34,8 @@ public class Store {
             }
         }
 
+        assert file.exists() : "file should exist";
+
         FileReader fr = null;
         try {
             fr = new FileReader(fileName);
@@ -48,7 +50,9 @@ public class Store {
                     continue;
                 }
                 Task task = taskBuilder.buildFromString(inputStr);
+                int prevTaskCount = tasks.getTaskCount();
                 tasks.addTask(task);
+                assert tasks.getTaskCount() == prevTaskCount + 1 : "task count should increase by 1";
             }
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
