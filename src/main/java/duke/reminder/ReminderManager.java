@@ -29,10 +29,9 @@ public class ReminderManager extends Thread {
     }
 
     public void start() {
-        // Start the ReminderManager thread itself
         super.start();
 
-        // Also start a scheduler to wake up the ReminderManager occasionally
+        // Start the scheduler to wake up the ReminderManager occasionally
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
             synchronized (mutex) {
