@@ -33,6 +33,7 @@ For all commands, all parts in upper-case are variables you can change! Try it o
 | `unmark INDEX`                                         | Remove the completed status from a task.                                                  |
 | `delete INDEX`                                         | Deletes the task at the specified index in the list of tasks.                             |
 | `find WORD`                                            | Searches and displays all tasks within the list of tasks that contain the specified word. |
+| `bye`                                                  | Quits the application.                                                                    |
 
 ## Main Features
 
@@ -216,4 +217,20 @@ Sure, here are all the tasks that have the word in them:
 /*
     insert details of tasks containing the word
 */
+```
+
+### `bye`
+
+Quits the application.
+
+Example of usage: 
+
+`bye`
+
+Expected outcome:
+
+Prints following message, then quits the application.
+
+```
+Goodbye!
 ```
