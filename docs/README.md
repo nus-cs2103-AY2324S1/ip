@@ -42,6 +42,9 @@ This is useful if you accidentally marked a task as complete or if you need to r
 The "Find Tasks" feature helps you search for specific tasks in your Duke task list. 
 You can use keywords to filter and locate tasks that match your search criteria.
 
+### Detect duplicates
+
+The "Detect duplicates" features help to find and remove duplicate tasks that may have accidentally been created.
 ## Usage
 
 ### todo - Add a to-do task
@@ -189,4 +192,23 @@ Duke will display a list of tasks that match the specified keyword.
 Here are the matching tasks in your list:
 1. [T][ ] <task_description_1>
 2. [D][X] <task_description_2> (by: <deadline>)
+```
+
+### duplicate - Detect and remove duplicate tasks
+
+To detect duplicate tasks and delete them, use the following command:
+
+Duplicate tasks are tasks with the same description and if applicable, dates.
+
+```
+duplicates
+```
+
+Expected outcome:
+
+Duke will display a list of duplicate tasks that have been removed.
+
+```
+The following duplicate tasks were removed:
+0.[T][ ] a
 ```
