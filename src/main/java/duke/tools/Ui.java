@@ -79,9 +79,9 @@ public class Ui {
      * @param size The number of tasks after adding.
      */
     public String generateAddMessage(Task task, int size) {
-        String str = "Got it!. I've added this task:\n" +
-                INDENTATION + task + "\n" +
-                String.format("Now you have %d tasks in the list", size);
+        String str = "Got it!. I've added this task:\n"
+                + INDENTATION + task + "\n"
+                + String.format("Now you have %d tasks in the list", size);
         System.out.println(str);
         System.out.println(LINE);
         return str;
@@ -94,9 +94,9 @@ public class Ui {
      * @param size The number of tasks after deletion.
      */
     public String generateDeleteMessage(Task task, int size) {
-        String str = "Noted... I've removed this task:\n" +
-                INDENTATION + task + "\n" +
-                String.format("Now you have %d tasks in the list", size);
+        String str = "Noted... I've removed this task:\n"
+                + INDENTATION + task + "\n"
+                + String.format("Now you have %d tasks in the list", size);
         System.out.println(str);
         System.out.println(LINE);
         return str;
@@ -108,8 +108,8 @@ public class Ui {
      * @param task The marked task.
      */
     public String generateMarkMessage(Task task) {
-        String str = "Great job completing the task! I've marked it as done." +
-                INDENTATION + task;
+        String str = "Great job completing the task! I've marked it as done."
+                + INDENTATION + task;
         System.out.println(str);
         System.out.println(LINE);
         return str;
@@ -121,8 +121,8 @@ public class Ui {
      * @param task The marked task.
      */
     public String generateUnmarkMessage(Task task) {
-        String str = "Oops... Did you mark it incorrectly?" +
-                INDENTATION + task;
+        String str = "Oops... Did you mark it incorrectly?"
+                + INDENTATION + task;
         System.out.println(str);
         System.out.println(LINE);
         return str;
