@@ -1,9 +1,7 @@
 package duke;
 
-import exceptions.InvalidInputException;
-import exceptions.EmptyTaskException;
-import exceptions.EmptyDateException;
-import exceptions.OutOfRangeException;
+import exceptions.*;
+
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
@@ -24,11 +22,16 @@ public class Parser {
     public static String processUserInput(String userInput, TaskList taskList) {
         try {
             response = parseInput(userInput, taskList);
-        } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException | IOException e) {
-            System.out.println(e);
-            response = e.toString();
+        } catch (InvalidInputException | EmptyTaskException | EmptyDateException | OutOfRangeException | IOException |
+                 NonLinearDateTimeException | InvalidDateTimeFormatException e) {
+            System.out.println(e.getMessage());
+            response = e.getMessage();
         } catch (DateTimeParseException e) {
             response = "Invalid date or time! :(";
+            System.out.println(response);
+        } catch (NumberFormatException e) {
+            response = "Invalid input. Index has to be a number.";
+            System.out.println(response);
         }
         return response;
     }
@@ -45,7 +48,7 @@ public class Parser {
      * @throws EmptyDateException    If the date is missing for a deadline task.
      * @throws IOException           If there is an issue with reading or writing tasks to a file.
      */
-    public static String parseInput(String userInput, TaskList taskList) throws InvalidInputException, EmptyTaskException, OutOfRangeException, EmptyDateException, IOException {
+    public static String parseInput(String userInput, TaskList taskList) throws InvalidInputException, EmptyTaskException, OutOfRangeException, EmptyDateException, IOException, NonLinearDateTimeException, InvalidDateTimeFormatException {
         userInput = userInput.trim();
         if (Objects.equals(userInput, "bye")) {
             response = Ui.sendExitMessage();

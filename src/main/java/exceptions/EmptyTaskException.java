@@ -23,7 +23,7 @@ public class EmptyTaskException extends DukeException {
      * @return A formatted error message indicating that the description of the specified task type cannot be empty.
      */
     @Override
-    public String toString() {
+    public String getMessage() {
         return "☹ OOPS!!! The description of a(n) " + this.msg + " cannot be empty.";
     }
 }

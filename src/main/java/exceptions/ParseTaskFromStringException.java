@@ -22,7 +22,7 @@ public class ParseTaskFromStringException extends DukeException {
      * @return A formatted error message.
      */
     @Override
-    public String toString() {
+    public String getMessage() {
         return "Saved task data has been corrupted. Cannot parse task from: " + this.msg;
     }
 }

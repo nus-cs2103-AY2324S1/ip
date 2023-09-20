@@ -20,7 +20,7 @@ public class InvalidInputException extends DukeException {
      * @return A formatted error message.
      */
     @Override
-    public String toString() {
+    public String getMessage() {
         return "OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 }

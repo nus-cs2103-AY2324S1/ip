@@ -37,7 +37,7 @@ public class Storage {
      * @return The LocalDateTime object representing the date.
      * @throws DateTimeParseException If the date string is invalid.
      */
-    public static LocalDateTime saveAsDate(String by) throws DateTimeParseException {
+    public static LocalDateTime parseDateFromString(String by) throws DateTimeParseException {
         try {
             // Try to parse the input as "yyyy-MM-dd" format
             return LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
@@ -128,13 +128,13 @@ public class Storage {
             setStatus(task, isDone);
             return task;
         } else if (taskType.equals("D") && parts.length == 4) {
-            LocalDateTime by = Storage.saveAsDate(parts[3].trim());
+            LocalDateTime by = Storage.parseDateFromString(parts[3].trim());
             Task task = new Deadline(taskDescription, by);
             setStatus(task, isDone);
             return task;
         } else if (taskType.equals("E") && parts.length == 5) {
-            LocalDateTime start = Storage.saveAsDate(parts[3].trim());
-            LocalDateTime end = Storage.saveAsDate(parts[4].trim());
+            LocalDateTime start = Storage.parseDateFromString(parts[3].trim());
+            LocalDateTime end = Storage.parseDateFromString(parts[4].trim());
             Task task = new Event(taskDescription, start, end);
             setStatus(task, isDone);
             return task;

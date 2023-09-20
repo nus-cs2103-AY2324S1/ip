@@ -23,7 +23,7 @@ public class EmptyDateException extends DukeException {
      * @return A formatted error message indicating that the date of the specified task type cannot be empty.
      */
     @Override
-    public String toString() {
+    public String getMessage() {
         return "☹ OOPS!!! The date of a(n) " + this.msg + " cannot be empty.";
     }
 }

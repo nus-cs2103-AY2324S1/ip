@@ -1,8 +1,6 @@
 package duke;
 
-import exceptions.EmptyTaskException;
-import exceptions.EmptyDateException;
-import exceptions.OutOfRangeException;
+import exceptions.*;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -45,11 +43,11 @@ public class TaskList {
             System.out.println("Here are the tasks in your list:");
             System.out.println(listTasks);
             return "Here are the tasks in your list:\n" + listTasks;
-        } else if (taskArray.isEmpty()){
+        } else {
+            // taskArray is empty
+            assert(taskArray.isEmpty()): "Task array should be empty.";
             System.out.println("There are no tasks in your list at the moment. Add some!");
             return "There are no tasks in your list at the moment. Add some!";
-        } else {
-            return "Something went wrong while listing your task list!";
         }
     }
 
@@ -62,6 +60,9 @@ public class TaskList {
         String inputArrayString = "";
         int num = 1;
         for (Task task : taskArray) {
+            // task should not be null
+            assert(task != null): "Task should not be null";
+
             inputArrayString += num + ". " + task.statusAndTask() + "\n";
             num++;
         }
@@ -79,6 +80,7 @@ public class TaskList {
     public static String markTask(String userInput) throws EmptyTaskException, OutOfRangeException {
         Task currentTask = markOrUnmark(userInput, "Mark");
         currentTask.markDone();
+        assert(currentTask.isDone()): "Current task should be done.";
         printMarkTask(currentTask);
         return "Nice! I've marked this task as done:\n" + currentTask.statusAndTask();
     }
@@ -103,7 +105,7 @@ public class TaskList {
         return taskArray.get(taskIndex);
     }
 
-    private static int getTaskIndexFromMark(String userInput) {
+    private static int getTaskIndexFromMark(String userInput) throws NumberFormatException {
         String[] markAndTaskNum = userInput.split("\\s+");
         markAndTaskNum = trimStringElements(markAndTaskNum);
         int taskNum = Integer.parseInt(markAndTaskNum[1]);
@@ -126,6 +128,7 @@ public class TaskList {
     public static String unmarkTask(String userInput) throws EmptyTaskException, OutOfRangeException {
         Task currentTask = markOrUnmark(userInput, "Unmark");
         currentTask.unmarkDone();
+        assert(!currentTask.isDone()): "Current task should be not done.";
         printUnmarkTask(currentTask);
         return "OK, I've marked this task as not done yet:\n" + currentTask.statusAndTask();
     }
@@ -162,7 +165,7 @@ public class TaskList {
      * @throws EmptyDateException If the user input is missing the task deadline.
      * @throws EmptyTaskException If the user input is missing task details.
      */
-    public static String makeDeadline(String userInput) throws EmptyDateException, EmptyTaskException {
+    public static String makeDeadline(String userInput) throws EmptyDateException, EmptyTaskException, NonLinearDateTimeException {
         if (userInput.equals("deadline")) {
             throw new EmptyTaskException("deadline");
         } else if (userInput.endsWith("/by")) {
@@ -178,10 +181,11 @@ public class TaskList {
         }
 
         String taskName = descriptionAndBy[0];
-        LocalDateTime by = Storage.saveAsDate(descriptionAndBy[1]);
-      
-        // Users should not be able to create deadlines that are already over
-        assert by.isAfter(LocalDateTime.now()): "Deadline should not have passed already.";
+        LocalDateTime by = Storage.parseDateFromString(descriptionAndBy[1]);
+
+        if (by.isBefore(LocalDateTime.now())) {
+            throw new NonLinearDateTimeException("Invalid deadline. Deadline should not be over already.");
+        }
       
         Task newDeadline = new Deadline(taskName, by);
         taskArray.add(newDeadline);
@@ -225,9 +229,11 @@ public class TaskList {
      * @throws EmptyDateException If the user input is missing the event start or end date.
      * @throws EmptyTaskException If the user input is missing task details.
      */
-    public static String makeEvent(String userInput) throws EmptyDateException, EmptyTaskException {
+    public static String makeEvent(String userInput) throws EmptyDateException, EmptyTaskException, NonLinearDateTimeException, InvalidDateTimeFormatException {
         if (userInput.equals("event")) {
             throw new EmptyTaskException("event");
+        } else if (userInput.indexOf("/from") > userInput.indexOf("/to")) {
+            throw new InvalidDateTimeFormatException("/from should be before /to.");
         }
         String description = userInput.substring("event".length()).trim();
         String[] descriptionAndFromTo = trimStringElements(description.split("/from"));
@@ -236,24 +242,29 @@ public class TaskList {
         String[] fromAndTo = trimStringElements(descriptionAndFromTo[1].split("/to"));
         String start = fromAndTo[0];
         String end = fromAndTo[1];
+        checkIfEmptyDateField(start, end);
 
+        String[] eventParts = {taskName, start, end};
+        LocalDateTime startDateTime = Storage.parseDateFromString(eventParts[1]);
+        LocalDateTime endDateTime = Storage.parseDateFromString(eventParts[2]);
+        if (endDateTime.isBefore(LocalDateTime.now())) {
+            throw new NonLinearDateTimeException("Invalid deadline. Deadline should not be over already.");
+        } else if (endDateTime.isBefore(startDateTime)) {
+            throw new NonLinearDateTimeException("Start of event must be before end!");
+        }
+        Event newEvent = new Event(taskName, startDateTime, endDateTime);
+        taskArray.add(newEvent);
+        printMakeTask(newEvent);
+        return makeTaskString(newEvent);
+    }
+
+    private static void checkIfEmptyDateField(String start, String end) throws EmptyDateException {
         boolean hasEmptyStart = start.isEmpty();
         boolean hasEmptyEnd = end.isEmpty();
         boolean hasEmptyDateField = hasEmptyStart || hasEmptyEnd;
         if (hasEmptyDateField) {
             throw new EmptyDateException("event");
         }
-
-        String[] eventParts = {taskName, start, end};
-        LocalDateTime startDateTime = Storage.saveAsDate(eventParts[1]);
-        LocalDateTime endDateTime = Storage.saveAsDate(eventParts[2]);
-      
-        assert endDateTime.isAfter(startDateTime) : "End date should be after start date.";
-
-        Event newEvent = new Event(taskName, startDateTime, endDateTime);
-        taskArray.add(newEvent);
-        printMakeTask(newEvent);
-        return makeTaskString(newEvent);
     }
 
     /**

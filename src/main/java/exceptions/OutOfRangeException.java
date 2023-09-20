@@ -22,7 +22,7 @@ public class OutOfRangeException extends DukeException {
      * @return A formatted error message.
      */
     @Override
-    public String toString() {
+    public String getMessage() {
         return "OOPS!!! " + this.msg + " number out of range. :(";
     }
 }
