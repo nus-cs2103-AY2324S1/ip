@@ -9,14 +9,11 @@ import duke.storage.DukeStorageException;
 import duke.storage.Storage;
 import javafx.application.Platform;
 
-import static duke.common.Messages.MESSAGE_FIRST_PROMPT;
-
 /**
  * The main class for the Duke chatbot.
  */
 public class Duke {
     private final Parser parser;
-    private boolean isAwaitingDataFilePath;
     private Storage storage;
     private TaskList tasks;
 
@@ -25,8 +22,44 @@ public class Duke {
      * Sets up the relevant components required.
      */
     public Duke() {
+        storage = new Storage();
         parser = new Parser();
-        isAwaitingDataFilePath = true;
+    }
+
+    /**
+     * Returns the task list for Duke.
+     *
+     * @return a list of tasks
+     */
+    public TaskList getTasks() {
+        return tasks;
+    }
+
+    /**
+     * Sets a new task list for Duke.
+     *
+     * @param tasks the new task list to be set
+     */
+    public void setTaskList(TaskList tasks) {
+        this.tasks = tasks;
+    }
+
+    /**
+     * Returns the storage object for Duke.
+     *
+     * @return the storage object
+     */
+    public Storage getStorage() {
+        return storage;
+    }
+
+    /**
+     * Sets a new storage for Duke.
+     *
+     * @param storage the new storage object to be set
+     */
+    public void setStorage(Storage storage) {
+        this.storage = storage;
     }
 
     /**
@@ -52,37 +85,8 @@ public class Duke {
      * @return the response from Duke
      */
     public String[] getResponse(String input) {
-        if (isAwaitingDataFilePath) {
-            isAwaitingDataFilePath = false;
-            if (input.isEmpty()) {
-                input = Storage.DEFAULT_STORAGE_PATH;
-            }
-            storage = new Storage(input);
-            try {
-                int tasksLoaded = loadTasks();
-                if (tasksLoaded == 0) {
-                    return new String[]{
-                            String.format("No stored tasks found from %s", input),
-                            "Starting from an empty task list.",
-                            MESSAGE_FIRST_PROMPT
-                    };
-                } else {
-                    return new String[]{
-                            String.format("Tasks loaded from %s", input),
-                            MESSAGE_FIRST_PROMPT
-                    };
-                }
-            } catch (DukeStorageException e) {
-                return new String[]{
-                        String.format("Error loading tasks from %s", input),
-                        "Starting from an empty task list.",
-                        MESSAGE_FIRST_PROMPT
-                };
-            }
-        }
-
         Command command = parser.parseCommand(input);
-        command.setData(tasks);
+        command.setDuke(this);
         String[] response = command.execute();
 
         if (command.isBye()) {
