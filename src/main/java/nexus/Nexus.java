@@ -46,10 +46,6 @@ public class Nexus {
      * Start the bot.
      */
     public void run() {
-        System.out.println(ui.showWelcome());
-        // Show current tasks
-        this.getResponse("list");
-
         Scanner scanner = new Scanner(System.in);
         boolean isExit = false;
         while (!isExit) {
@@ -76,6 +72,10 @@ public class Nexus {
         } catch (InvalidInputException e) {
             return e.getMessage();
         }
+    }
+
+    public String greetUser() {
+        return ui.showWelcome();
     }
 
     public static void main(String[] args) {
