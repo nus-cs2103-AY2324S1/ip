@@ -1,4 +1,4 @@
-package ekud.storage;
+package ekud.tasks;
 
 /**
  * Represents symbols for identifying different task types.
