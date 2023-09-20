@@ -12,10 +12,13 @@ Adds a todo/deadline/event task to the current task list.
 Format: `todo [TASK DESCRIPTION]`, `deadline [TASK DESCRIPTION] /by [DEADLINE DATE AND TIME]`, 
 `event project meeting /from [START DATE AND TIME] /to [END DATE AND TIME]`
 
+> [!IMPORTANT]
+> There must be a spacing between the time entered and the annotation `AM/PM`
+
 Examples: 
 - `todo return book`
-- `deadline return book /by 2023-09-23 4PM`
-- `event project meeting /from 2023-09-22 2PM /to 2023-09-23 4PM`
+- `deadline return book /by 2023-09-23 4 PM`
+- `event project meeting /from 2023-09-22 2 PM /to 2023-09-23 4 PM`
 
 ### Deleting a task: `delete`
 
