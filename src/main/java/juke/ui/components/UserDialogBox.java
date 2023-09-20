@@ -45,10 +45,10 @@ public class UserDialogBox extends DialogBox {
             fxmlLoader.load();
 
             this.textLabel.setText(dialog.getDialogText());
-            this.backgroundRegion.maxHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
-            this.backgroundRegion.minHeightProperty().bind(this.textLabel.heightProperty().add(25.0d));
-            this.backgroundRegion.minWidthProperty().bind(this.textLabel.widthProperty().add(25.0d));
-            this.backgroundRegion.maxWidthProperty().bind(this.textLabel.widthProperty().add(25.0d));
+            this.backgroundRegion.maxHeightProperty().bind(this.textLabel.heightProperty());
+            this.backgroundRegion.minHeightProperty().bind(this.textLabel.heightProperty());
+            this.backgroundRegion.minWidthProperty().bind(this.textLabel.widthProperty());
+            this.backgroundRegion.maxWidthProperty().bind(this.textLabel.widthProperty());
         } catch (Exception e) {
             throw new JukeInitialisationException("I cannot initialise! There was an issue loading the necessary "
                                                           + "FXML files to load up the GUI!");

@@ -44,7 +44,15 @@ Code reused from https://se-education.org/guides/tutorials/javaFxPart4.html, wit
                         </Background>
                     </background>
                 </Region>
-                <Label fx:id="textLabel" wrapText="true"/>
+                <!--
+                Fix for bounded width but unbounded height label is adapted from
+                https://github.com/nus-cs2103-AY1920S2/forum/issues/58
+                -->
+                <Label fx:id="textLabel" wrapText="true" minHeight="-Infinity" maxWidth="300.0">
+                    <padding>
+                        <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+                    </padding>
+                </Label>
             </children>
         </StackPane>
     </children>
@@ -52,7 +60,6 @@ Code reused from https://se-education.org/guides/tutorials/javaFxPart4.html, wit
         <Insets top="10.0" right="5.0" bottom="10.0" left="5.0"/>
     </padding>
 </fx:root>
-
 <!--
 @@author
 -->

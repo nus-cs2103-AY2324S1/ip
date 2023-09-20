@@ -39,6 +39,6 @@ public class JukeMarkTaskDoneCommand extends JukeCommand {
         return response
                 .with(Dialog.ofJuke("Task marked as done: "
                                             + this.taskList.getTaskInformation(this.index)))
-                .with(Dialog.ofJuke("Your current tasks:\n" + this.taskList));
+                .with(Dialog.ofJuke(this.taskList.toString()));
     }
 }
