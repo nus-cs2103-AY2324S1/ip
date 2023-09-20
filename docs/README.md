@@ -1,7 +1,4 @@
----
 # <span style="color: red;">Jeoe Chatbot<span/>
-
----
 
 # User Guide
 
