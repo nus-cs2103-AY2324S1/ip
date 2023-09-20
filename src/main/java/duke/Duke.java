@@ -166,6 +166,9 @@ public class Duke extends Application {
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
+        if (this.isExit) {
+            System.exit(0);
+        }
         userInput.clear();
     }
 

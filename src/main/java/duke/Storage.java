@@ -58,6 +58,9 @@ public class Storage {
                         case "E":
                             task = new Event(description, tokens[3], tokens[4]);
                             break;
+                        case "P":
+                            task = new Period(description, tokens[3], tokens[4]);
+                            break;
                     }
                     if (isDone) {
                         task.markAsDone();
