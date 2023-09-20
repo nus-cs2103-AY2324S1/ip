@@ -47,10 +47,17 @@ public class Parser {
             storage.save(tasks.getTasks());
             break;
         case "event":
-            String[] arr1 = fullCommand.split("\\s*/from\\s*|\\s*/to\\s*");
+            String[] arr1 = fullCommand.substring(6).split("\\s*/from\\s*|\\s*/to\\s*");
             Task event = new Event(arr1[0], arr1[1], arr1[2]);
             tasks.add(event);
             ui.printAdded(event, tasks.getSize());
+            storage.save(tasks.getTasks());
+            break;
+        case "period":
+            String[] arr2 = fullCommand.substring(7).split("\\s*/from\\s*|\\s*/to\\s*");
+            Task period = new Period(arr2[0], arr2[1], arr2[2]);
+            tasks.add(period);
+            ui.printAdded(period, tasks.getSize());
             storage.save(tasks.getTasks());
             break;
         case "delete":
@@ -112,9 +119,14 @@ public class Parser {
             throw new DukeException("☹ OOPS!!! The description of a event must contain /from and /to.");
         }
 
+        if (input.startsWith("period ") && !input.contains("/from") && !input.contains("/to")) {
+            throw new DukeException("☹ OOPS!!! The description of a period must contain /from and /to.");
+        }
+
         if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")
                 && !input.equals("list") && !input.equals("bye") && !input.startsWith("mark ")
-                && !input.startsWith("unmark ") && !input.startsWith("delete ") && !input.startsWith("find ")) {
+                && !input.startsWith("unmark ") && !input.startsWith("delete ") && !input.startsWith("find ")
+                && !input.startsWith("period ")) {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
