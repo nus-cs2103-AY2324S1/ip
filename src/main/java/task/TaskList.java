@@ -52,7 +52,8 @@ public class TaskList {
         this.tasks.add(newTask);
         String reply = "Got it. I've added this task:\n";
         reply += "  " + newTask.toString() + "\n";
-        reply += "Now you have " + Main.getInstance().getTaskList().getCount() +" tasks in the list.";
+        int taskCount = Main.getInstance().getTaskList().getCount();
+        reply += "Now you have " + taskCount +" task" + (taskCount > 1 ? "s" : "") + " in the list.";
         Ui.getInstance().say(reply);
         Storage.saveTasksToFile();
     }
