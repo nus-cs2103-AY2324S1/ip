@@ -1,9 +1,11 @@
 /* styles.css */
+/* styles.css */
 
 /* Style for the user input field */
 #userInput {
     -fx-prompt-text-fill: gray; /* Placeholder text color */
     -fx-font-size: 14px;
+    -fx-font-family: "Trebuchet MS", sans-serif;
 }
 
 /* Style for the send button */
@@ -13,6 +15,7 @@
     -fx-font-size: 14px;
     -fx-padding: 5px;
     -fx-border-radius: 10px;
+    -fx-font-family: "Trebuchet MS", sans-serif;
 }
 
 /* Style for the dialog container (chat messages) */
@@ -27,6 +30,7 @@
     -fx-border-radius: 10px; /* Rounded corners of the bubble */
     -fx-background-radius: 10px; /* Rounded corners of the background */
     -fx-text-fill: black; /* Text color inside the bubble */
+    -fx-font-family: "Trebuchet MS", sans-serif;
 }
 
 .image-view-style {
