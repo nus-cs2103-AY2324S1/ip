@@ -31,15 +31,15 @@
 
 Adds a todo with the specified description to the task list.
 
-Example of usage:
+_Example of usage:_
 
 `todo CS2100 tutorial`
 
-Expected outcome:
+_Expected outcome:_
 
 Adds a Todo to the task list. The Todo is for cs2100 tutorial.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Got it. I've added this task:
@@ -49,17 +49,17 @@ Now you have 1 tasks in the list.
 
 ### `deadline [description] /by [YYYY-MM-DD]` 
 
-Adds a deadline with the specified description and due date to the task list
+Adds a deadline with the specified description and due date to the task list.
 
-Example of usage:
+_Example of usage:_
 
 `deadline cs2100 tutorial /by 2023-10-05`
 
-Expected outcome:
+_Expected outcome:_
 
 Adds a Deadline to the task list. The Deadline is for cs2100 tutorial, due on 5th October.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Got it. I've added this task:
@@ -72,15 +72,15 @@ Now you have 2 tasks in the list.
 Adds an event with the specified description, start time and end time to the list. The [when] field 
 only needs to be a string, with no required format.
 
-Example of usage:
+_Example of usage:_
 
 `event cs2100 tutorial /from 10am /to 12pm`
 
-Expected outcome:
+_Expected outcome:_
 
 Adds an Event to the task list. The event is cs2100 tutorial, starting at 10am and ending at 12pm.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Got it. I've added this task:
@@ -92,15 +92,15 @@ Now you have 3 tasks in the list.
 
 Marks a task at the specified index as done. Indexes start from 1.
 
-Example of usage:
+_Example of usage:_
 
 `mark 1`
 
-Expected outcome:
+_Expected outcome:_
 
 Marks the task at index 1.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Nice! I've marked this task as done:
@@ -111,15 +111,15 @@ Nice! I've marked this task as done:
 
 Unmarks a task at the specified index. Indexes start from 1.
 
-Example of usage:
+_Example of usage:_
 
 `unmark 1`
 
-Expected outcome:
+_Expected outcome:_
 
 Unmarks the task at index 1.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 OK, I've marked this task as not done yet:
@@ -130,15 +130,15 @@ OK, I've marked this task as not done yet:
 
 Lists all existing tasks, with their associated index.
 
-Example of usage:
+_Example of usage:_
 
 `list`
 
-Expected outcome:
+_Expected outcome:_
 
 Lists existing tasks.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Here are the tasks in your list:
@@ -151,15 +151,15 @@ Here are the tasks in your list:
 
 Delete the task at the given index.
 
-Example of usage:
+_Example of usage:_
 
 `delete 1`
 
-Expected outcome:
+_Expected outcome:_
 
 Deletes the first task in the list.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Noted I've removed this task:
@@ -171,15 +171,15 @@ Now you have 2 tasks in the list.
 
 Finds tasks with the specified keyword(s).
 
-Example of usage:
+_Example of usage:_
 
 `find tut`
 
-Expected outcome:
+_Expected outcome:_
 
 Finds tasks with description containing the keyword `tut`.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Here are the matching tasks in your list:
@@ -191,15 +191,15 @@ Here are the matching tasks in your list:
 
 Prevents the program from receiving further inputs. When the user types anything in after entering this command, the GUI closes.
 
-Example of usage:
+_Example of usage:_
 
 `bye`
 
-Expected outcome:
+_Expected outcome:_
 
 Informs user that subsequent messages will close the program.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Bye. Hope to see you again soon! Subsequent messages entered will cause the program to close.
@@ -209,15 +209,15 @@ Bye. Hope to see you again soon! Subsequent messages entered will cause the prog
 
 Prints a list of commands and their syntax.
 
-Example of usage:
+_Example of usage:_
 
 `help`
 
-Expected outcome:
+_Expected outcome:_
 
 Prints a list of commands and their syntax.
 
-Description of the outcome:
+_Description of the outcome:_
 
 ```
 Commands:
