@@ -28,10 +28,9 @@ public class Ui {
         output += "Add event: event {description} /from {date/time} /to {date/time}\n";
         output += "List tasks: list\n";
         output += "Mark task as done: mark {task number}\n";
-        output += "Unmark task: mark {task number}\n";
+        output += "Unmark task: unmark {task number}\n";
         output += "Delete task: delete {task number}\n";
         output += "Find task: find {keyword}\n";
-        output += "Marking: mark {task number}\n";
         output += "Close program: bye\n";
         output += "Help Page: help\n";
         return output;

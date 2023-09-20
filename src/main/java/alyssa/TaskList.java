@@ -68,7 +68,7 @@ public class TaskList {
         assert index >= 1 : "Invalid unmarkTask index";
         Task task = taskList.get(index - 1);
         task.markAsUndone();
-        String output = "OK, I've marked this task as not done yet:";
+        String output = "OK, I've marked this task as not done yet:\n";
         return output + task.toString();
     }
 
