@@ -25,7 +25,7 @@ import buddy.commands.MarkAsUndoneCommand;
 
 public class Parser {
 
-    // returns date in format MMM d yyyy
+    // returns LocalDate in format MMM d yyyy
     private LocalDate parseDate(String dateString) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM d yyyy");
         return LocalDate.parse(dateString, inputFormatter);
@@ -51,10 +51,9 @@ public class Parser {
      */
     public static Command parse(String fullCommand, TaskList tasks) throws BuddyException {
         assert tasks.getSize() >= 0 : "size of task list should be more than or equal to 0";
-
         String[] words = fullCommand.split(" ");
         CommandType commandType = CommandType.valueOf(words[0].toUpperCase());
-
+      
         if (commandType.equals(CommandType.BYE)) {
             return new ExitCommand();
         } else if (commandType.equals(CommandType.LIST)) {
@@ -72,48 +71,57 @@ public class Parser {
             String keyword = fullCommand.replaceFirst("find ", "").trim();
             return new FindCommand(keyword);
         } else if (commandType.equals(CommandType.TODO)) {
-            String[] parts = fullCommand.split(" ", 2);
-            if (parts.length < 2 || parts[1].isEmpty()) {
-                System.out.println("OOPS!!! The description of a todo cannot be empty.");
-            } else {
-                return new AddTodoCommand(parts[1]);
-            }
+            return parseTodo(fullCommand);
         } else if (commandType.equals(CommandType.DEADLINE)) {
-            String[] parts = fullCommand.split(" ", 2);
-            if (parts.length < 2 || parts[1].isEmpty()) {
-                System.out.println("OOPS!!! The description of a deadline cannot be empty.");
-            } else {
-                String[] deadlineParts = parts[1].split("/", 2);
-                if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
-                    throw new BuddyException("OOPS!!! Please include a description and deadline.");
-                }
-                String description = deadlineParts[0].trim();
-                String deadlineBy = deadlineParts[1].replaceFirst("by ", "").trim();
-                validateDate(deadlineBy);
-                LocalDate d = LocalDate.parse(deadlineBy);
-                return new AddDeadlineCommand(description, d);
-            }
+            return parseDeadline(fullCommand);
         } else if (commandType.equals(CommandType.EVENT)) {
-            String[] parts = fullCommand.split(" ", 2);
-            if (parts.length < 2 || parts[1].isEmpty()) {
-                System.out.println("OOPS!!! The description of an event cannot be empty.");
-            } else {
-                String[] eventParts = parts[1].split("/", 3);
-                if (eventParts.length < 3 || eventParts[1].isEmpty() || eventParts[2].isEmpty()) {
-                    throw new BuddyException("OOPS!!! Please include event description, start and end date.");
-                }
-                String description = eventParts[0].trim();
-                String eventStart = eventParts[1].replaceFirst("from ", "").trim();
-                String eventEnd = eventParts[2].replaceFirst("to ", "").trim();
-                validateDate(eventStart);
-                validateDate(eventEnd);
-                LocalDate startDate = LocalDate.parse(eventStart);
-                LocalDate endDate = LocalDate.parse(eventEnd);
-                return new AddEventCommand(description, startDate, endDate);
-            }
+            return parseEvent(fullCommand);
         } else {
             throw new BuddyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
-        return null;
+    }
+
+    private static Command parseTodo(String command) throws BuddyException {
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new BuddyException("OOPS!!! The description of a todo cannot be empty.");
+        }
+        return new AddTodoCommand(parts[1]);
+    }
+
+    private static Command parseDeadline(String command) throws BuddyException {
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new BuddyException("OOPS!!! The description of a deadline cannot be empty.");
+        }
+        String[] deadlineParts = parts[1].split("/", 2);
+        if (deadlineParts.length < 2 || deadlineParts[1].isEmpty()) {
+            throw new BuddyException("OOPS!!! Please include a description and deadline.");
+        }
+        String description = deadlineParts[0].trim();
+        String deadlineBy = deadlineParts[1].replaceFirst("by ", "").trim();
+        validateDate(deadlineBy);
+        LocalDate d = LocalDate.parse(deadlineBy);
+        return new AddDeadlineCommand(description, d);
+    }
+
+    private static Command parseEvent(String command) throws BuddyException {
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new BuddyException("OOPS!!! The description of an event cannot be empty.");
+        } else {
+            String[] eventParts = parts[1].split("/", 3);
+            if (eventParts.length < 3 || eventParts[1].isEmpty() || eventParts[2].isEmpty()) {
+                throw new BuddyException("OOPS!!! Please include event description, start and end date.");
+            }
+            String description = eventParts[0].trim();
+            String eventStart = eventParts[1].replaceFirst("from ", "").trim();
+            String eventEnd = eventParts[2].replaceFirst("to ", "").trim();
+            validateDate(eventStart);
+            validateDate(eventEnd);
+            LocalDate startDate = LocalDate.parse(eventStart);
+            LocalDate endDate = LocalDate.parse(eventEnd);
+            return new AddEventCommand(description, startDate, endDate);
+        }
     }
 }
