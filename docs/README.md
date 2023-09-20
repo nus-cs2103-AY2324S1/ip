@@ -15,7 +15,8 @@ or on a **Graphical User Interface (GUI)**.
   - [Finding a task by keyword: `find`](#finding-a-task-by-keyword--find)
 - [Command summary](#command-summary)
 
-___
+<br/> 
+
 ## Quick Start
 1. Ensure you have Java `11` or above installed on your computer.
 2. Download the latest `Duke.jar` from [here]()
@@ -69,7 +70,9 @@ Format: `help`
 
     Format: `deadline DEADLINE /by DUE_DATE`
 
-   > [!NOTE]: `DEADLINE` is strictly in the format `dd/MM/yyyy HH:mm`.
+   > [!NOTE]
+   > 
+   > `DEADLINE` is strictly in the format `dd/MM/yyyy HH:mm`.
    
 3. **Adding a event task:** `event EVENT /from START /to END`
 
@@ -77,7 +80,9 @@ Format: `help`
 
     Format: `event EVENT /from START /to END`
     
-    > [!NOTE]: `START` and `END` are strictly in the format `dd/MM/yyyy HH:mm`. 
+    > [!NOTE]
+   > 
+   > `START` and `END` are strictly in the format `dd/MM/yyyy HH:mm`. 
    
 Examples:
 - `todo Buy groceries`
@@ -133,16 +138,16 @@ Format: `find KEYWORD`
 Example:
 - `find CS2100` returns `CS2100 Quiz 5` and `CS2100 Lecture`
 
-___
+<br/> 
 
 ## Command Summary
-|      Action       | Format                                                                                |
-|:-----------------:|:--------------------------------------------------------------------------------------|
+|      Action       |                                        Format                                         |
+|:-----------------:|:-------------------------------------------------------------------------------------:|
 |      **Add**      | `todo TODO`<br/>`deadline DEADLINE /by DUEDATE`<br/>`event EVENT /from START /to END` |
-|    **Delete**     | `delete INDEX`                                                                        |
-|     **Find**      | `find KEYWORD`                                                                        |
-|     **Help**      | `help`                                                                                |
-|     **List**      | `list`                                                                                |
-| **Mark / Unmark** | `mark INDEX`<br/> `unmark INDEX`                                                      |
-|   **Reminder**    | `reminder`                                                                            |
-|    **Remind**     | `remind INDEX`                                                                        |
+|    **Delete**     |                                    `delete INDEX`                                     |
+|     **Find**      |                                    `find KEYWORD`                                     |
+|     **Help**      |                                        `help`                                         |
+|     **List**      |                                        `list`                                         |
+| **Mark / Unmark** |                           `mark INDEX`<br/> `unmark INDEX`                            |
+|   **Reminder**    |                                      `reminder`                                       |
+|    **Remind**     |                                    `remind INDEX`                                     |
