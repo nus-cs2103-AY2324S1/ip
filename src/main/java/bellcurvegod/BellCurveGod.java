@@ -1,7 +1,5 @@
 package bellcurvegod;
 
-import java.io.IOException;
-
 import bellcurvegod.exception.BellCurveGodException;
 import bellcurvegod.parser.Parser;
 import bellcurvegod.storage.Storage;
@@ -14,22 +12,21 @@ public class BellCurveGod {
 
     private final String filePath;
 
+    /**
+     * Creates a BellCurveGod with filePath specified.
+     *
+     * @param path filePath.
+     */
     public BellCurveGod(String path) {
         filePath = path;
         Storage.loadTasks(filePath);
     }
 
-    public BellCurveGod()  {
+    public BellCurveGod() {
         this(DATA_FILE_PATH);
     }
 
     public String getResponse(String input) {
-//        try {
-//            Storage.loadTasks(filePath);
-//        } catch (IOException e) {
-//            return e.getMessage();
-//        }
-
         try {
             return Parser.parse(input);
         } catch (BellCurveGodException e) {

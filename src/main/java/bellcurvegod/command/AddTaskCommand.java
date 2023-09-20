@@ -10,9 +10,10 @@ import bellcurvegod.tasklist.TaskList;
 public class AddTaskCommand {
     /**
      * Adds the task specified by the input.
+     *
      * @param input user input.
      * @return message after successfully adding a task.
-     * @throws InvalidCommandException If the input does not start with any of the Task type.
+     * @throws InvalidCommandException   If the input does not start with any of the Task type.
      * @throws EmptyDescriptionException If description is missing.
      */
     public static String run(String input) throws InvalidCommandException, EmptyDescriptionException {

@@ -6,6 +6,7 @@ package bellcurvegod.command;
 public class HelpCommand {
     /**
      * Returns help message corresponding to the input.
+     *
      * @param input user input.
      * @return help message.
      */

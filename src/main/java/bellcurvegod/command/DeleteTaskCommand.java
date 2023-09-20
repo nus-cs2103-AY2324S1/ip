@@ -9,6 +9,7 @@ import bellcurvegod.tasklist.TaskList;
 public class DeleteTaskCommand {
     /**
      * Deletes the task(s).
+     *
      * @param taskParams task(s) to be deleted.
      * @return message after deleting a task.
      */
