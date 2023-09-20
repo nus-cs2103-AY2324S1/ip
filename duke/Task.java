@@ -1,12 +1,13 @@
 package duke;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Task class represents a general task with a description and optional date and time information.
- * It can be marked as done or undone, and it implements the Serializable interface for storage.
+ * Represents a general task with a description and optional date and time information.
+ * Implements the Serializable interface for storage.
  */
 public class Task implements Serializable {
     protected String description;
@@ -36,7 +37,8 @@ public class Task implements Serializable {
     }
 
     /**
-     * Returns the status icon for the task. "X" indicates a completed task, and " " indicates an incomplete task.
+     * Returns the status icon for the task.
+     * "X" indicates a completed task, and " " indicates an incomplete task.
      *
      * @return The status icon as a string.
      */

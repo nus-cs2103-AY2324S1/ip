@@ -1,8 +1,8 @@
 package duke;
 
 /**
- * The CustomException class is a custom exception that extends the base Exception class. It can be used
- * to represent and handle custom exceptions in the Duke chatbot application.
+ * A custom exception class that extends the base Exception class. It can be used to represent and handle
+ * custom exceptions in the Duke chatbot application.
  */
 public class CustomException extends Exception {
 
@@ -22,3 +22,4 @@ public class CustomException extends Exception {
         super(message);
     }
 }
+

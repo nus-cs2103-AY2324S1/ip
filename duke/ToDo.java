@@ -1,8 +1,8 @@
 package duke;
 
 /**
- * The ToDo class represents a task with a description but no specific date and time associated with it.
- * It extends the Task class and is used to represent tasks that do not have a deadline or event time.
+ * Represents a to-do task with a description but no specific date and time associated with it.
+ * Extends the Task class.
  */
 public class ToDo extends Task {
 
@@ -23,7 +23,7 @@ public class ToDo extends Task {
     @Override
     public String toString() {
         String status = "[" + getStatusIcon() + "] ";
-        return " " + "[T]" + status + this.description;
+        return " [T]" + status + description;
     }
 }
 

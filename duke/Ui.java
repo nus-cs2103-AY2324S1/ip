@@ -1,9 +1,11 @@
 package duke;
+
 import java.util.Scanner;
 
 /**
- * The Ui class handles user interface interactions for the Duke chatbot. It provides methods for greeting
- * the user, displaying messages, getting user input, and closing the input scanner.
+ * The Ui class handles user interface interactions for the Duke chatbot.
+ * It provides methods for greeting the user, displaying messages, getting user input,
+ * and closing the input scanner.
  */
 public class Ui {
     private Scanner scanner;
@@ -19,7 +21,8 @@ public class Ui {
      * Displays a greeting message when the chatbot is initialized.
      */
     protected void greeting() {
-        System.out.println("Hello! I'm Lakinta "  + "\nWhat can I do for you?");
+        System.out.println("Hello! I'm Lakinta.");
+        System.out.println("What can I do for you?");
     }
 
     /**
@@ -54,3 +57,4 @@ public class Ui {
         System.out.println(message);
     }
 }
+

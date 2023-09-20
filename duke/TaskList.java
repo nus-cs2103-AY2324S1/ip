@@ -1,4 +1,5 @@
 package duke;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 
@@ -13,7 +14,7 @@ public class TaskList implements Serializable {
      * Constructs an empty TaskList.
      */
     public TaskList() {
-        this.taskArrayList = new ArrayList<>();
+        taskArrayList = new ArrayList<>();
     }
 
     /**
@@ -22,7 +23,7 @@ public class TaskList implements Serializable {
      * @param tasks The list of tasks to initialize the TaskList with.
      */
     public TaskList(ArrayList<Task> tasks) {
-        this.taskArrayList = tasks;
+        taskArrayList = tasks;
     }
 
     /**
@@ -31,7 +32,7 @@ public class TaskList implements Serializable {
     public void listTasks() {
         for (int i = 0; i < taskArrayList.size(); i++) {
             Task task = taskArrayList.get(i);
-            System.out.println((i + 1) + ". " + task.toString());
+            System.out.println((i + 1) + ". " + task);
         }
     }
 
@@ -44,7 +45,7 @@ public class TaskList implements Serializable {
     public String deleteTask(int id) {
         if (id >= 1 && id <= taskArrayList.size()) {
             Task task = taskArrayList.remove(id - 1);
-            return "Noted. I've removed this task:\n" + task.toString()
+            return "Noted. I've removed this task:\n" + task
                     + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
         } else {
             return "Invalid task number. Please enter a valid task number.";
@@ -59,8 +60,8 @@ public class TaskList implements Serializable {
      */
     public String addTask(Task task) {
         taskArrayList.add(task);
-        return "Got it. I've added this task:\n" + taskArrayList.get(taskArrayList.size() - 1).toString()
-                    + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + taskArrayList.get(taskArrayList.size() - 1)
+                + "\nNow you have " + taskArrayList.size() + " tasks in the list.";
     }
 
     /**
@@ -74,9 +75,9 @@ public class TaskList implements Serializable {
             Task task = taskArrayList.get(id - 1);
             if (!task.isDone) {
                 task.markAsDone();
-                return "Nice! I've marked this task as done:\n" + task.toString();
+                return "Nice! I've marked this task as done:\n" + task;
             } else {
-                return "This task is already marked as done:\n" + task.toString();
+                return "This task is already marked as done:\n" + task;
             }
         } else {
             return "Invalid task number. Please enter a valid task number.";
@@ -94,9 +95,9 @@ public class TaskList implements Serializable {
             Task task = taskArrayList.get(id - 1);
             if (task.isDone) {
                 task.markAsUndone();
-                return "OK, I've marked this task as not done yet:\n" + task.toString();
+                return "OK, I've marked this task as not done yet:\n" + task;
             } else {
-                return "This task is already marked as not done:\n" + task.toString();
+                return "This task is already marked as not done:\n" + task;
             }
         } else {
             return "Invalid task number. Please enter a valid task number.";
@@ -109,7 +110,6 @@ public class TaskList implements Serializable {
      * @return The ArrayList of tasks.
      */
     protected ArrayList<Task> getTaskArrayList() {
-        return this.taskArrayList;
+        return taskArrayList;
     }
-
 }

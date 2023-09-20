@@ -1,4 +1,5 @@
 package duke;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +9,6 @@ import java.time.format.DateTimeFormatter;
  * LocalDateTime or LocalDate objects. It also has methods for creating different types of tasks
  * based on user input.
  */
-
 public class Parser {
 
     /**
@@ -50,7 +50,7 @@ public class Parser {
      * Parses a date/time string and converts it into a LocalDateTime object. Supports two date/time formats.
      *
      * @param dateTimeString The date/time string to be parsed.
-     * @return The LocalDateTime object representing the parsed date/time.
+     * @return The LocalDateTime object representing the parsed date/time, or null if parsing fails.
      */
     public LocalDateTime parseCustomDateTime(String dateTimeString) {
         // Try parsing with "dd/MM/yyyy HHmm" format
@@ -76,7 +76,7 @@ public class Parser {
      * Parses a date string and converts it into a LocalDate object. Supports two date formats.
      *
      * @param dateString The date string to be parsed.
-     * @return The LocalDate object representing the parsed date.
+     * @return The LocalDate object representing the parsed date, or null if parsing fails.
      */
     public LocalDate parseCustomDate(String dateString) {
         // Try parsing with "dd/MM/yyyy" format
@@ -153,6 +153,4 @@ public class Parser {
     public ToDo addTodoTask(String description) {
         return new ToDo(description);
     }
-
-
 }

@@ -1,11 +1,12 @@
 package duke;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- * The Event class represents a task that has a start date and time and an end date and time, or just start and end dates.
+ * Represents a task that has a start date and time and an end date and time, or just start and end dates.
  * It extends the Task class and adds fields to store the event's timing information.
  */
 public class Event extends Task {
@@ -18,9 +19,9 @@ public class Event extends Task {
     /**
      * Constructs an Event task with a description and specific start and end date and time.
      *
-     * @param description    The description of the Event task.
-     * @param fromDateTime   The LocalDateTime representing the event's start date and time.
-     * @param toDateTime     The LocalDateTime representing the event's end date and time.
+     * @param description  The description of the Event task.
+     * @param fromDateTime The LocalDateTime representing the event's start date and time.
+     * @param toDateTime   The LocalDateTime representing the event's end date and time.
      */
     public Event(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         super(description);
@@ -31,9 +32,9 @@ public class Event extends Task {
     /**
      * Constructs an Event task with a description and specific start and end dates.
      *
-     * @param description    The description of the Event task.
-     * @param fromDate       The LocalDate representing the event's start date.
-     * @param toDate         The LocalDate representing the event's end date.
+     * @param description The description of the Event task.
+     * @param fromDate    The LocalDate representing the event's start date.
+     * @param toDate      The LocalDate representing the event's end date.
      */
     public Event(String description, LocalDate fromDate, LocalDate toDate) {
         super(description);
@@ -65,3 +66,4 @@ public class Event extends Task {
         }
     }
 }
+

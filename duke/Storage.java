@@ -37,8 +37,6 @@ public class Storage {
             } catch (IOException | ClassNotFoundException e) {
                 // Handle exceptions, e.g., if the file is corrupted
                 tasks = new ArrayList<>();
-                // Throw a CustomException with a custom error message
-                throw new CustomException("Error loading tasks from file: " + e.getMessage());
             }
         } else {
             tasks = new ArrayList<>();

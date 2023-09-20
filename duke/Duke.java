@@ -15,8 +15,6 @@ package duke;
  * - "deadline <description> /by <datetime>": Adds a deadline task with a description and due date.
  * - "delete <task_id>": Deletes a task by its ID.
  */
-
-
 public class Duke {
     private final String filePath = "./data/duke.txt";
     private Storage storage;
@@ -25,7 +23,7 @@ public class Duke {
     private Parser parser;
 
     /**
-     * Constructor for Duke. It loads TaskLists from file and if failed, create a new TaskList.
+     * Constructs a new Duke instance.
      */
     public Duke() {
         ui = new Ui();
@@ -34,7 +32,7 @@ public class Duke {
         try {
             taskList = new TaskList(storage.load());
         } catch (CustomException e) {
-            System.out.println("load error");
+            System.out.println("Error loading tasks: " + e.getMessage());
             taskList = new TaskList();
         }
     }
@@ -58,7 +56,7 @@ public class Duke {
                         try {
                             storage.save(taskList.getTaskArrayList());
                         } catch (CustomException e) {
-                            System.out.println("save error");
+                            System.out.println("Error saving tasks: " + e.getMessage());
                         }
                         return;
                     case LIST:
@@ -118,17 +116,16 @@ public class Duke {
                 try {
                     storage.save(taskList.getTaskArrayList());
                 } catch (CustomException e) {
-                    System.out.println("save error");
+                    System.out.println("Error saving tasks: " + e.getMessage());
                 }
             }
         } catch (Exception e) {
             try {
                 storage.save(taskList.getTaskArrayList());
             } catch (CustomException customException) {
-                System.out.println("save error");
+                System.out.println("Error saving tasks: " + customException.getMessage());
             }
         }
-
     }
 
     public static void main(String[] args) {
@@ -136,4 +133,3 @@ public class Duke {
         myBot.run();
     }
 }
-
