@@ -51,13 +51,14 @@ public class Kevin {
             String output = evaluator.evaluate(queryObject, false);
             if (output.equals("bye")) {
                 Timer timer = new Timer();
-                int fiveSeconds = 5 * 1000;
+                int twoSeconds = 2 * 1000;
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
                         javafx.application.Platform.exit();
+                        System.exit(0);
                     }
-                }, fiveSeconds);
+                }, twoSeconds);
                 return logger.bye();
             }
             return output;
