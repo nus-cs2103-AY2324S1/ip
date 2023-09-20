@@ -1,6 +1,10 @@
 package gman;
 
 import java.io.IOException;
+
+/**
+ * Parser class that handles user inputs.
+ */
 public class Parser {
 
     private static final String exitWord = "bye";

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> tasks;
-    private Storage storage = new Storage(); //take tasks from Duke.Storage.
-
 
     /**
      * Constructor that tries to retrieve any previously stored tasks.
@@ -66,7 +64,7 @@ public class TaskList {
             return Ui.showError(new GmanException("Hey... this task was never done in the first place!"));
         } else {
             task.unmark();
-            return Ui.unmark(task.toString()); //i dont like how this is here and not in parser.
+            return Ui.unmark(task.toString());
         }
     }
 
