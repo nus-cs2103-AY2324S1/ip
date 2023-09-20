@@ -28,7 +28,7 @@ Got it. I've added this task:
  [T][] read book
 Now you have __ tasks in the list.
 ```
-### Adding a deadline task: `todo`
+### Adding a deadline task: `deadline`
 
 Adds a deadline task with description and deadline to the list.
 
