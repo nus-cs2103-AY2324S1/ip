@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("kiera.Kiera")
+    mainClass.set("kiera.Launcher")
 }
 
 shadowJar {

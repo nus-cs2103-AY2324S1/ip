@@ -13,7 +13,8 @@ import kiera.exception.KieraException;
  */
 public class MainWindow {
 
-    protected static String filePath = "./data/storage.txt";
+    protected static String dir = "data";
+    protected static String fileName = "storage.txt";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -30,10 +31,11 @@ public class MainWindow {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+
     public void setKiera() {
         try {
             ui = new Ui(dialogContainer);
-            storage = new Storage(filePath);
+            storage = new Storage(dir, fileName);
             tasks = new TaskList(storage.load());
         } catch (KieraException e) {
             ui.showLoadingError();

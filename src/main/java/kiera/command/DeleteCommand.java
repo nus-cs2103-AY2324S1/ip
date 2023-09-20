@@ -1,5 +1,6 @@
 package kiera.command;
 
+import kiera.Kiera;
 import kiera.Storage;
 import kiera.TaskList;
 import kiera.Ui;
@@ -28,8 +29,10 @@ public class DeleteCommand extends Command {
             tasks.remove(task);
             storage.save(tasks);
             ui.showDeleteNotice(task, tasks.getSize());
-        } catch (IndexOutOfBoundsException | NullPointerException e) {
-            throw new KieraException(e.getMessage());
+        } catch (NullPointerException e) {
+            throw new KieraException("no tasks left!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new KieraException("index not in task list!");
         }
     }
 

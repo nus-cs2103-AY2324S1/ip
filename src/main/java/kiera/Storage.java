@@ -20,8 +20,12 @@ import kiera.task.Todo;
 public class Storage {
     private final String filePath;
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage(String dir, String name) throws KieraException {
+        this.filePath = dir + "/" + name;
+        File d = new File(dir);
+        if (!d.exists()) {
+            d.mkdir();
+        }
     }
 
     /**

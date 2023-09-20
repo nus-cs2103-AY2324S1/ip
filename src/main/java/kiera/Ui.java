@@ -13,8 +13,8 @@ import kiera.tasktype.TaskType;
 public class Ui {
     private final String line = "   --------------------------------------------------------------";
     private VBox dialogBox;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/xbot.png"));
-    private Image kiera = new Image(this.getClass().getResourceAsStream("/images/orange.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/xbot.png"));
+    private final Image kiera = new Image(this.getClass().getResourceAsStream("/images/orange.png"));
     /**
      * Constructor for Ui.
      * @param dialogBox Box displaying user input or bot response.

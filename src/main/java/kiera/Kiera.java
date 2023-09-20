@@ -33,7 +33,7 @@ public class Kiera extends Application {
             fxmlLoader.<MainWindow>getController().setKiera();
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 }
