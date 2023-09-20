@@ -25,15 +25,30 @@ public class Commands {
         this.storage = new Storage();
     }
 
-
+    /**
+     * Actions for when use input "bye"
+     *
+     * @return string output to be shown
+     */
     public String byeCommand() {
         return ui.displayChadBye();
     }
 
+    /**
+     * Actions for when use input "list"
+     *
+     * @return string output to be shown
+     */
     public String listCommand(){
         return ui.displaychadListTask(chad.taskArrayList);
     }
 
+    /**
+     * Action for when use input "mark"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String markCommand(String[] inputArray) {
         try {
             Integer index = Integer.valueOf(inputArray[1]);
@@ -48,6 +63,12 @@ public class Commands {
         }
     }
 
+    /**
+     * Action for when use input "unmark"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String unmarkCommand(String[] inputArray) {
         try {
             Integer index = Integer.valueOf(inputArray[1]);
@@ -61,11 +82,23 @@ public class Commands {
         }
     }
 
+    /**
+     * Action for when use input "find"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String findCommand(String[] inputArray) {
         String name = inputArray[1];
         return tasklist.displayChadFindTask(name);
     }
 
+    /**
+     * Action for when use input "todo"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String todoCommand(String[] inputArray) {
         try {
             if (inputArray.length == 1 || inputArray[1].isEmpty()) {
@@ -81,6 +114,12 @@ public class Commands {
         }
     }
 
+    /**
+     * Action for when use input "deadline"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String deadlineCommand(String[] inputArray) {
         try {
             if (inputArray.length < 2 || inputArray[1].isEmpty()) {
@@ -104,6 +143,12 @@ public class Commands {
         }
     }
 
+    /**
+     * Action for when use input "event"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String eventCommand(String[] inputArray) {
         try {
             if (inputArray.length < 2 || inputArray[1].isEmpty()) {
@@ -129,6 +174,12 @@ public class Commands {
         }
     }
 
+    /**
+     * Action for when use input "delete"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String deleteCommand(String[] inputArray) {
         try {
             Integer index = Integer.valueOf(inputArray[1]);
@@ -142,6 +193,12 @@ public class Commands {
 
     }
 
+    /**
+     * Action for when use input "edit"
+     *
+     * @param inputArray input from user
+     * @return output string after running the actions
+     */
     public String editCommand(String[] inputArray) {
         try {
             String[] details = inputArray[1].split(" ", 4);
@@ -152,8 +209,6 @@ public class Commands {
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             return "Check your command! The command is 'edit (index of task) (type of task: T D E) (command: /name /by /from /to) (update)'";
         }
-
     }
-
 
 }

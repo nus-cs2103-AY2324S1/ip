@@ -8,7 +8,6 @@ import storage.Storage;
 
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke {
 

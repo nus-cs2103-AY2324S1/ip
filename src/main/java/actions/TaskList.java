@@ -11,10 +11,8 @@ import java.util.ArrayList;
 
 public class TaskList {
     private Ui ui;
-    private TaskList tasklist;
-    private Deadline deadline;
     private ArrayList<Task> taskArrayList;
-    String line = "~~*~~*~~*~~*~~*~~*~~*~~*~~*~~\n";
+
     public TaskList(ArrayList<Task> taskArrayList){
         this.taskArrayList = taskArrayList;
         this.ui = new Ui();
@@ -104,6 +102,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates a detail of a task
+     *
+     * @param details input from user
+     * @return output string after updating task
+     */
     public String updateTask(String[] details) {
         int index = Integer.valueOf(details[0]) - 1;
         String type = details[1];
