@@ -12,6 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline.
+     *
      * @param taskName Name of deadline.
      * @param by Date where the task is due.
      */
@@ -22,6 +23,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of the status of the task.
+     *
      * @return Status of the task.
      */
     @Override
@@ -31,6 +33,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return String representation of the task.
      */
     @Override

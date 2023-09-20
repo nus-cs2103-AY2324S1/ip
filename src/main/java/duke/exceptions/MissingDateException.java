@@ -4,7 +4,8 @@ package duke.exceptions;
 public class MissingDateException extends DukeException {
 
     /**
-     * Constructor for Exceptions.MissingDateException.
+     * Constructor for MissingDateException.
+     *
      * @param message Exception message.
      */
     public MissingDateException(String message) {
@@ -13,6 +14,7 @@ public class MissingDateException extends DukeException {
 
     /**
      * Returns the description of the exception.
+     *
      * @return Description of exception.
      */
     @Override

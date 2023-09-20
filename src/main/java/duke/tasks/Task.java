@@ -10,6 +10,7 @@ public class Task {
 
     /**
      * Constructor for Task.
+     *
      * @param taskName Name of task.
      */
     public Task(String taskName, int isDone) {
@@ -19,6 +20,7 @@ public class Task {
 
     /**
      * Returns the string representation of the status of the task.
+     *
      * @return Status of the task.
      */
     public String getTask() {
@@ -28,6 +30,7 @@ public class Task {
 
     /**
      * Marks the status of the task as completed.
+     *
      * @return Dialogue to confirm the completion status of the task.
      */
     public String markAsDone() {
@@ -37,6 +40,7 @@ public class Task {
 
     /**
      * Marks the status of the task as uncompleted.
+     *
      * @return Dialogue to confirm the completion status of the task.
      */
     public String markAsUndone() {
@@ -46,6 +50,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task.
+     *
      * @return String representation of the task.
      */
     @Override

@@ -3,7 +3,6 @@ package duke.utils;
 import java.util.List;
 
 import duke.exceptions.DukeException;
-import duke.notes.Note;
 
 /**
  * User interface for the chatbot.
@@ -17,6 +16,8 @@ public class Ui {
 
     /**
      * Bids farewell to the user.
+     *
+     * @return Farewell message.
      */
     public String farewell() {
         return farewell;
@@ -24,7 +25,9 @@ public class Ui {
 
     /**
      * Displays the type of input error.
+     *
      * @param e The exception thrown.
+     * @return Generic Duke error message.
      */
     public String showDukeError(DukeException e) {
         return e.getMessage();
@@ -32,6 +35,8 @@ public class Ui {
 
     /**
      * Tells user to input the correct date format.
+     *
+     * @return Prompt for proper date format.
      */
     public String showDateError() {
         return "Date cannot be recognised :( please input a valid date format yyyy-mm-dd !";
@@ -39,6 +44,8 @@ public class Ui {
 
     /**
      * Tells user that there has been an error.
+     *
+     * @return General error message.
      */
     public String showGeneralError() {
         return "There has been an internal error. Please try again!";
@@ -46,7 +53,9 @@ public class Ui {
 
     /**
      * Confirms that a task has been added.
+     *
      * @param taskDescription Description of the task added.
+     * @return Confirmation of task added.
      */
     public String showTaskAdded(String taskDescription) {
         return addTask + taskDescription;
@@ -54,7 +63,9 @@ public class Ui {
 
     /**
      * Confirms that a note has been added.
+     *
      * @param noteDescription Description of the note added.
+     * @return Confirmation of note added.
      */
     public String showNoteAdded(String noteDescription) {
         return addNote + noteDescription;
@@ -62,6 +73,8 @@ public class Ui {
 
     /**
      * Displays a message when there are no tasks in the list.
+     *
+     * @return No tasks message.
      */
     public String showNoTasks() {
         return "You have no tasks! Yay :)";
@@ -69,6 +82,8 @@ public class Ui {
 
     /**
      * Displays a message when there are no notes in the list.
+     *
+     * @return No notes message.
      */
     public String showNoNotes() {
         return "There are no notes saved! Add some notes to view them :)";
@@ -77,7 +92,9 @@ public class Ui {
     /**
      * Lists out all the tasks in the list.
      *     0 represents all tasks, other numbers represent matching tasks.
+     *
      * @param tasksDescriptions The list of descriptions of the tasks.
+     * @return String representation of all tasks.
      */
     public String showTasks(List<String> tasksDescriptions, int type) {
         String output = "";
@@ -99,7 +116,9 @@ public class Ui {
 
     /**
      * Lists out all the notes in the list.
+     *
      * @param notesDescriptions The list of descriptions of the notes.
+     * @return String representation of all notes.
      */
     public String showNotes(List<String> notesDescriptions) {
         String output = "";

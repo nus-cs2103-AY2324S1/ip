@@ -25,6 +25,7 @@ public class TaskList {
 
     /**
      * Converts a list of task descriptions to a list of tasks.
+     *
      * @param input List of task descriptions.
      * @return List of tasks.
      */
@@ -46,6 +47,7 @@ public class TaskList {
 
     /**
      * Creates a task based on the input given by the user.
+     *
      * @param input The input given by the user.
      * @param command Type of command in the input
      * @param isDone A field for task created.
@@ -55,7 +57,7 @@ public class TaskList {
      */
     public static Task createTask(String input, Commands command, int isDone)
             throws DukeException, DateTimeParseException {
-        assert command != null: "No command received";
+        assert command != null : "No command received";
         assert !input.isEmpty() : "Wrong command provided";
 
         switch (command) {
@@ -83,6 +85,7 @@ public class TaskList {
 
     /**
      * Checks if the list of tasks is empty.
+     *
      * @return True if list is empty.
      */
     public boolean isEmpty() {
@@ -91,13 +94,14 @@ public class TaskList {
 
     /**
      * Returns a list of task descriptions.
+     *
      * @param typeOfDes The type of description to be returned.
      * @return A list of description to be stored locally if typeOfDes = 0 else
      *     a list of description to be read by the user.
      */
     public List<String> getTasksDes(int typeOfDes) {
 
-        assert typeOfDes != 0 || typeOfDes != 1: "Type of description required not recognised";
+        assert typeOfDes != 0 || typeOfDes != 1 : "Type of description required not recognised";
 
         List<String> output = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
@@ -112,6 +116,7 @@ public class TaskList {
 
     /**
      * Updates the completion status of their task and returns a String as the dialogue.
+     *
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return Dialogue for the bot to confirm status of the task.
@@ -123,7 +128,7 @@ public class TaskList {
      */
     public String changeTaskCompletion(String input, Commands command) throws DukeException {
 
-        assert command != null: "No command received";
+        assert command != null : "No command received";
 
         try {
             int taskNum = Integer.valueOf(input.split(" ")[1]);
@@ -148,6 +153,7 @@ public class TaskList {
 
     /**
      * Deletes a task from the task list and returns a String as the dialogue.
+     *
      * @param input The user input.
      * @return Dialogue to confirm the deletion of the task from the list.
      * @throws DukeException InvalidInputException thrown if input
@@ -169,6 +175,7 @@ public class TaskList {
 
     /**
      * Returns tasks that matches the keyword provided by the user.
+     *
      * @param input The user input.
      * @return The tasks that matched the keyword.
      * @throws DukeException If user did not provide a keyword or if the input was invalid.
@@ -193,6 +200,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list of tasks.
+     *
      * @param task The task to be added.
      */
     public void addTask(Task task) {

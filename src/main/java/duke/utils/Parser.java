@@ -12,6 +12,7 @@ public class Parser {
 
     /**
      * Returns the command that is called by the user.
+     *
      * @param input The user input.
      * @return The type of command called.
      */
@@ -26,6 +27,7 @@ public class Parser {
 
     /**
      * Returns the title of the task.
+     *
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return The title of the task.
@@ -70,6 +72,7 @@ public class Parser {
 
     /**
      * Returns the date specified by the user for their task.
+     *
      * @param input The user input.
      * @param command Type of command given by the user.
      * @return By date of deadlines or From and To date of events.
