@@ -143,7 +143,6 @@ public class Parser {
      * @throws DukeException If there's an issue with the user input or task operations.
      */
     public static String parseInput(String userInput, TaskList tasks, Ui ui) throws DukeException {
-        assert userInput.isEmpty(): "User input should not be empty";
         String[] wordsGui = userInput.split(" ");
         if (isTaskCommand(wordsGui)) {
             int taskIndex = Integer.parseInt(wordsGui[1]) - 1;
