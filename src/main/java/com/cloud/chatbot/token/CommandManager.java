@@ -55,7 +55,9 @@ public class CommandManager extends TokenManager {
 
         while (movingIndex <= lastIndex) {
             Token token = this.tokens.get(movingIndex);
-            if (token.isFlag()) break;
+            if (token.isFlag()) {
+                break;
+            }
 
             movingIndex++;
         }

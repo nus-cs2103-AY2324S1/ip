@@ -119,7 +119,7 @@ public class ItemManager {
     /**
      * Returns the string representation for the Item of the specified number.
      *
-     * @param int The Item's number.
+     * @param number The Item's number.
      */
     public String getString(int number) {
         return this.items
@@ -159,7 +159,7 @@ public class ItemManager {
     /**
      * Sets the completion status for the Item of the specified number.
      *
-     * @param int The Item's number.
+     * @param number The Item's number.
      * @param isComplete The completion status.
      */
     public void setComplete(int number, boolean isComplete) {
@@ -173,7 +173,7 @@ public class ItemManager {
     /**
      * Removes and returns the Item of the specified number.
      *
-     * @param int The Item's number.
+     * @param number The Item's number.
      */
     public Item remove(int number) {
         Item item = this.items.remove(number - 1);

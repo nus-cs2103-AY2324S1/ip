@@ -12,14 +12,14 @@ import com.cloud.chatbot.token.Token;
  * Parent Command class which all runnable Commands inherit from.
  */
 public abstract class Command {
-    CommandManager commandManager;
+    protected CommandManager commandManager;
 
     protected @Nullable Integer verifyNumber() {
-        if (commandManager.getTokenCount() <= 1) {
+        if (this.commandManager.getTokenCount() <= 1) {
             return null;
         }
 
-        Token numberToken = commandManager.getToken(1);
+        Token numberToken = this.commandManager.getToken(1);
         if (!numberToken.isInt()) {
             Ui.say(
                 String.format(
@@ -46,7 +46,7 @@ public abstract class Command {
     /**
      * Creates a Command for an instance of user input.
      *
-     * @param commandManager The input.
+     * @param _commandManager The input.
      */
     public Command(CommandManager _commandManager) {
         this.commandManager = _commandManager;

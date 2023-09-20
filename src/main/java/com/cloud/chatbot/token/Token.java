@@ -51,7 +51,9 @@ public final class Token {
      * @return Defaults to -1 if the token cannot be converted to a valid integer.
      */
     public int toInt() {
-        if (!this.isInt()) return -1;
+        if (!this.isInt()) {
+            return -1;
+        }
 
         return this.toInteger();
     }
@@ -62,7 +64,9 @@ public final class Token {
      * @param count The current number of Items.
      */
     public boolean isValidNumber(int count) {
-        if (!this.isInt()) return false;
+        if (!this.isInt()) {
+            return false;
+        }
 
         int number = this.toInt();
 
@@ -87,7 +91,9 @@ public final class Token {
      * @return Defaults to "" if the token is not actually a flag.
      */
     public String getFlagText() {
-        if (!this.isFlag()) return "";
+        if (!this.isFlag()) {
+            return "";
+        }
 
         return this.token.substring(Token.PREFIX_FLAG.length()).toLowerCase();
     }
