@@ -80,11 +80,11 @@ Shows a list of all tasks in the task list.
 
 Format: `list`
 
-### Marking a task as done: `done`
+### Marking a task as done: `mark`
 
 Marks a task as done in the task list.
 
-Format: `done INDEX`
+Format: `mark INDEX`
 
 * Marks the task at the specified `INDEX` as done.
 * The index refers to the index number shown in the displayed task list.
@@ -93,7 +93,18 @@ Format: `done INDEX`
 
 Example of usage:
 
-`done 2`
+`mark 2`
+
+### Un-marking a task as not yet done: `unmark`
+
+Un-marks a task as not yet done in the task list.
+
+Format: `unmark INDEX`
+
+* Un-marks the task at the specified `INDEX` as not yet done.
+* The index refers to the index number shown in the displayed task list.
+* The index **must be a positive integer** 1, 2, 3, ...
+* The index **must be within the range of the task list**.
 
 ### Deleting a task: `delete`
 
@@ -140,7 +151,8 @@ Action | Format, Examples
 **Add Deadline** | `deadline TASK_NAME /by DATE` e.g., `deadline return book /by 2021-09-17`
 **Add Event** | `event TASK_NAME /at DATE` e.g., `event project meeting /at 2021-09-17`
 **List** | `list`
-**Done** | `done INDEX` e.g., `done 2`
+**Mark** | `mark INDEX` e.g., `mark 2`
+**Unmark** | `unmark INDEX` e.g., `unmark 2`
 **Delete** | `delete INDEX` e.g., `delete 2`
 **Find** | `find KEYWORD [MORE_KEYWORDS]` e.g., `find book`
 **Bye** | `bye`
