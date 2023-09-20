@@ -1,7 +1,3 @@
----
-layout: page
-title: User Guide
----
 
 # User Guide
 **CathyTheChattycat** is all you will ever need as an all in one task manager application.
