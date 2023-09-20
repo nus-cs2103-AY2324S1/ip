@@ -5,7 +5,7 @@ Welcome to Philip, your personal task manager! Philip is designed to help you ke
 ## Quick start
 1. Ensure you have Java `11` installed on your computer.
 2. Download the latest `duke.jar`
-3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+3. Copy the file to the folder you want to use as the home folder for your Philip.
 4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar duke.jar command to run the application. 
 5. Type the command in the command box and press Enter to execute it.
 6. Refer to Features below for details of each command.
