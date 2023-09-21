@@ -64,7 +64,8 @@ public class Parser {
 
         this.addCommand("find", new FindCommand());
 
-        this.addCommand(new String[]{"deadline", "event", "todo"}, new InsertCommand());
+        this.addCommand(new String[]{Deadline.TASK_TYPE, Event.TASK_TYPE, ToDo.TASK_TYPE},
+                new InsertCommand());
         this.addCommand(new String[]{"bye", "exit", "leave", "quit"}, new ExitCommand());
         assert !commandMap.isEmpty() : "Command map cannot be empty";
     }
@@ -77,23 +78,35 @@ public class Parser {
      */
     public static LocalDateTime parseDate(String dateTimeString) {
         for (String format : dateTimeFormats) {
-            try {
-                if (format.contains("HHmm")) {
-                    return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(format));
-                } else {
-                    // input without specifying time will default to 0000
-                    LocalDate date = LocalDate.parse(dateTimeString,
-                            DateTimeFormatter.ofPattern(format));
-                    return LocalDateTime.of(date, LocalTime.MIDNIGHT);
-                }
-            } catch (DateTimeParseException ignored) {
-                // continue attempting all valid formats
+            LocalDateTime dateTime = Parser.parseDateFormat(dateTimeString, format);
+            if (dateTime != null) {
+                return dateTime;
             }
         }
         throw new DateTimeParseException(String.format(Messages.ERROR_PREFIX, String.format(
                 Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)), dateTimeString, 0);
     }
 
+    /**
+     * Parses a date time string to get a local date time object based on a datetime format.
+     *
+     * @param dateTimeString The date time string to be parsed.
+     * @param format         The datetime format.
+     * @return The local date time object based on the string if it is compatible with the format.
+     */
+    private static LocalDateTime parseDateFormat(String dateTimeString, String format) {
+        try {
+            if (format.contains("HHmm")) {
+                return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(format));
+            }
+            // input without specifying time will default to 0000
+            LocalDate date = LocalDate.parse(dateTimeString,
+                    DateTimeFormatter.ofPattern(format));
+            return LocalDateTime.of(date, LocalTime.MIDNIGHT);
+        } catch (DateTimeParseException ignored) {
+            return null;
+        }
+    }
 
     /**
      * Creates a task based on task type and input string.
@@ -109,25 +122,13 @@ public class Parser {
             throw new InsufficientArgumentsException(String.format(
                     Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "description", taskType));
         }
-        String description = input;
-        String[] args;
         switch (taskType) {
-        case "deadline":
-            Parser.validateContainsArgument(input, taskType, "by");
-            args = input.split("/by");
-            description = args[0].trim();
-            LocalDateTime by = Parser.parseDate(args[1].trim());
-            return new Deadline(description, by);
-        case "event":
-            Parser.validateContainsArgument(input, taskType, "from");
-            Parser.validateContainsArgument(input, taskType, "to");
-            args = input.split("/from|/to");
-            description = args[0].trim();
-            LocalDateTime from = Parser.parseDate(args[1].trim());
-            LocalDateTime to = Parser.parseDate(args[2].trim());
-            return new Event(description, from, to);
-        case "todo":
-            return new ToDo(description);
+        case Deadline.TASK_TYPE:
+            return Deadline.parseUserInput(input);
+        case Event.TASK_TYPE:
+            return Event.parseUserInput(input);
+        case ToDo.TASK_TYPE:
+            return ToDo.parseUserInput(input);
         default:
             return null;
         }
@@ -146,19 +147,18 @@ public class Parser {
             throws InsufficientArgumentsException, DateTimeParseException {
         String taskType;
         switch (taskCode) {
-        case "D":
-            taskType = "deadline";
+        case Deadline.TASK_CODE:
+            taskType = Deadline.TASK_TYPE;
             break;
-        case "E":
-            taskType = "event";
+        case Event.TASK_CODE:
+            taskType = Event.TASK_TYPE;
             break;
-        case "T":
-            taskType = "todo";
+        case ToDo.TASK_CODE:
+            taskType = ToDo.TASK_TYPE;
             break;
         default:
             taskType = "";
         }
-
         if (Objects.equals(input, "")) {
             throw new InsufficientArgumentsException(String.format(
                     Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE,
@@ -168,40 +168,13 @@ public class Parser {
             throw new InsufficientArgumentsException(String.format(
                     Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "description", taskType));
         }
-        boolean isDone = input.charAt(0) == '1';
-        String description;
         switch (taskCode) {
-        case "D":
-            input = input.substring(4);
-            description = input.substring(0, input.indexOf(" | "));
-            if (Objects.equals(input.substring(input.indexOf(" | ") + 3), "")) {
-                throw new InsufficientArgumentsException(String.format(
-                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "by", taskType));
-            }
-            LocalDateTime by = Parser.parseDate(input.substring(
-                    input.indexOf(" | ") + 3));
-            return new Deadline(description, isDone, by);
-        case "E":
-            input = input.substring(4);
-            description = input.substring(0, input.indexOf(" | "));
-            input = input.substring(input.indexOf(" | ") + 3);
-            if (input.length() < OUTPUT_DATE_TIME_PATTERN.length()) {
-                throw new InsufficientArgumentsException(String.format(
-                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "from", taskType));
-            }
-            if (input.length() < STORAGE_DATE_TIME_PATTERN.length() * 2 + 1) {
-                throw new InsufficientArgumentsException(String.format(
-                        Messages.INSUFFICIENT_ARGUMENTS_ERROR_MESSAGE, "to", taskType));
-            }
-            // dates in storage should be formatted consistently
-            LocalDateTime from =
-                    Parser.parseDate(input.substring(0, OUTPUT_DATE_TIME_PATTERN.length() - 1));
-            LocalDateTime to =
-                    Parser.parseDate(input.substring(OUTPUT_DATE_TIME_PATTERN.length()));
-            return new Event(description, isDone, from, to);
-        case "T":
-            description = input.substring(4);
-            return new ToDo(description, isDone);
+        case Deadline.TASK_CODE:
+            return Deadline.parseStorageInput(input);
+        case Event.TASK_CODE:
+            return Event.parseStorageInput(input);
+        case ToDo.TASK_CODE:
+            return ToDo.parseStorageInput(input);
         default:
             return null;
         }
@@ -214,8 +187,8 @@ public class Parser {
      * @param parameterName The parameter name to be checked.
      * @throws InsufficientArgumentsException If input is missing arguments from task.
      */
-    private static void validateContainsArgument(String input, String taskType,
-                                                 String parameterName)
+    public static void validateContainsArgument(String input, String taskType,
+                                                String parameterName)
             throws InsufficientArgumentsException {
         if (!input.contains(String.format("/%s", parameterName))) {
             throw new InsufficientArgumentsException(String.format(
