@@ -1,7 +1,7 @@
 package brandon.chatbot.ui;
 
 import brandon.chatbot.DialogBox;
-import brandon.chatbot.ekuD;
+import brandon.chatbot.Ekud;
 import brandon.chatbot.commands.generalcommands.HelpCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private ekuD ekuD;
+    private Ekud ekuD;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/ekuD.png"));
@@ -43,7 +43,7 @@ public class MainWindow extends AnchorPane {
         );
     }
 
-    public void setDuke(ekuD d) {
+    public void setDuke(Ekud d) {
         ekuD = d;
     }
 

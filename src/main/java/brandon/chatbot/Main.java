@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private ekuD ekuD = new ekuD();
+    private Ekud ekuD = new Ekud();
 
     @Override
     public void start(Stage stage) {
