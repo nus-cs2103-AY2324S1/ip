@@ -1,9 +1,0 @@
-/* Set the background color to black */
-.chat-background {
-    -fx-background-color: black;
-}
-
-/* Set the text color to white */
-.chat-text {
-    -fx-text-fill: white;
-}

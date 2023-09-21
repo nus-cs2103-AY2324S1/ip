@@ -38,7 +38,7 @@ public class Storage {
         try {
             File file = new File(this.filePath);
             if (!file.exists()) {
-                return tasks; // If the file doesn't exist yet, no need to load tasks
+                return tasks;
             }
 
             BufferedReader reader = new BufferedReader(new FileReader(file));

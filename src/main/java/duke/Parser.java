@@ -4,6 +4,7 @@ import duke.command.*;
 import duke.task.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into
@@ -104,7 +105,7 @@ public class Parser {
         assert command != null : "Command cannot be null";
         String[] parts = command.split(" ", 2);
         TaskPriority priority;
-        String description = "";
+        String description;
         Task task;
 
         // Check if the command contains "/priority"
@@ -114,10 +115,9 @@ public class Parser {
             priority = TaskPriority.parse(priorityValue); // Parse the priority
 
             // Remove the "/priority" part from the description
-            parts[1] = parts[1].replace(" /priority " + priorityValue, " ").trim();
+            parts[1] = parts[1].replace(" /priority " + priorityValue, "").trim();
         } else {
             priority = TaskPriority.LOW;
-            parts[1] = parts[1].trim();
         }
 
         try {
@@ -177,8 +177,20 @@ public class Parser {
         }
 
         String taskDescription = descriptionParts[0];
-        LocalDate fromDate = LocalDate.parse(dateRange[0].trim());
-        LocalDate toDate = LocalDate.parse(dateRange[1].trim());
+
+        LocalDate fromDate;
+        try {
+            fromDate = LocalDate.parse(dateRange[0].trim());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use YYYY-MM-DD format for dates.");
+        }
+
+        LocalDate toDate;
+        try {
+            toDate = LocalDate.parse(dateRange[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use YYYY-MM-DD format for dates.");
+        }
 
         if (fromDate.isAfter(toDate)) {
             throw new DukeException("OOPS!!! 'From' date cannot be later than 'to' date.");
@@ -203,7 +215,12 @@ public class Parser {
         }
 
         String taskDescription = deadlineParts[0];
-        LocalDate byDate = LocalDate.parse(deadlineParts[1].trim());
+        LocalDate byDate;
+        try {
+            byDate = LocalDate.parse(deadlineParts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use YYYY-MM-DD format for dates.");
+        }
 
         if (taskDescription.isEmpty()) {
             throw new DukeException("OOPS!!! Deadline tasks must have a description.");
@@ -228,7 +245,12 @@ public class Parser {
         }
 
         String taskDescription = eventParts[0];
-        LocalDate atDate = LocalDate.parse(eventParts[1].trim());
+        LocalDate atDate;
+        try {
+            atDate = LocalDate.parse(eventParts[1].trim());
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please use YYYY-MM-DD format for dates.");
+        }
 
         if (taskDescription.isEmpty()) {
             throw new DukeException("OOPS!!! Event tasks must have a description.");
