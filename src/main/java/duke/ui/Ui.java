@@ -16,14 +16,14 @@ public class Ui {
      * Displays a greeting message to the user to introduce ChatterChicken.
      */
     public String displayGreeting() {
-        return INDENT + "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?";
+        return "Hello! I'm ChatterChicken!\n" + INDENT + "What can I do for you?";
     }
 
     /**
      * Displays a farewell message to the user as they exit the ChatterChicken application.
      */
     public String displayFarewell() {
-        return INDENT + "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

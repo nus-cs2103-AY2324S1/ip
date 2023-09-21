@@ -17,8 +17,8 @@ public class MainWindow {
     private TextField userInput;
     private Duke duke;
 
-    private static final Image userImage = new Image(DialogBox.class.getResourceAsStream("/images/DaUser.png"));
-    private static final Image dukeImage = new Image(DialogBox.class.getResourceAsStream("/images/DaDuke.png"));
+    private static final Image userImage = new Image(UserDialogBox.class.getResourceAsStream("/images/User.jpg"));
+    private static final Image dukeImage = new Image(DukeDialogBox.class.getResourceAsStream("/images/Duke.jpg"));
 
     @FXML
     private void initialize() {
@@ -45,8 +45,8 @@ public class MainWindow {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                UserDialogBox.getUserDialog(input, userImage),
+                DukeDialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
     }
