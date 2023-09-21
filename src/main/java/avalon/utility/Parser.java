@@ -8,6 +8,7 @@ import avalon.command.ExitCommand;
 import avalon.command.FindCommand;
 import avalon.command.ListCommand;
 import avalon.command.MarkCommand;
+import avalon.command.PriorityCommand;
 import avalon.command.TodoCommand;
 import avalon.command.UnmarkCommand;
 import avalon.task.TaskList;
@@ -60,6 +61,9 @@ public class Parser {
             case "find":
                 FindCommand find = new FindCommand(input);
                 return find.execute(taskList, storage, ui);
+            case "priority":
+                PriorityCommand priority = new PriorityCommand(input);
+                return priority.execute(taskList, storage, ui);
             default:
                 throw new AvalonException("I humbly apologize, but thy words remain a mystery to me...");
             }

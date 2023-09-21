@@ -19,11 +19,12 @@ public class TaskParser {
     public static Task parse(String line) {
         String[] parts = line.split(" \\| ");
 
-        assert parts.length <= 5 : "Task string should have no more than 5 parts";
+        assert parts.length <= 6 : "Task string should have no more than 6 parts";
 
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
-        String description = parts[2];
+        String description = parts[3];
+        int priority = Integer.parseInt(parts[2]);
         Task task = null;
 
         switch (type) {
@@ -31,17 +32,20 @@ public class TaskParser {
             task = new ToDo(description);
             break;
         case "D":
-            task = new Deadline(description, parts[3]);
+            task = new Deadline(description, parts[4]);
             break;
         case "E":
-            task = new Event(description, parts[3], parts[4]);
+            task = new Event(description, parts[4], parts[5]);
             break;
         }
 
+        assert task != null;
+
         if (isDone) {
-            assert task != null;
             task.markDone();
         }
+
+        task.setPriority(priority);
 
         return task;
     }
@@ -56,16 +60,19 @@ public class TaskParser {
         String doneStatus = task.getIsDone() ? "1" : "0";
 
         if (task instanceof ToDo) {
-            return "T | " + doneStatus + " | " + task.getDescription();
+            return "T | " + doneStatus + " | " + task.getPriority() + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + doneStatus + " | " + task.getDescription() + " | "
-                    + DateTimeParser.dateTimeToString(deadline.getBy());
+            return "D | " + doneStatus + " | " + task.getPriority() + " | "
+                    + task.getDescription() + " | "
+                    + DateTimeParser.dateTimeToString(deadline.getBy()) + " | " + task.getPriority();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + doneStatus + " | " + task.getDescription() + " | "
+            return "E | " + doneStatus + " | " + task.getPriority() + " | "
+                    + task.getDescription() + " | "
                     + DateTimeParser.dateTimeToString(event.getFrom()) + " | "
-                    + DateTimeParser.dateTimeToString(event.getTo());
+                    + DateTimeParser.dateTimeToString(event.getTo()) + " | "
+                    + task.getPriority();
         } else {
             return "Wrong formatting";
         }

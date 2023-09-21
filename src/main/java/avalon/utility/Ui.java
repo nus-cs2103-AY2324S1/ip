@@ -170,4 +170,12 @@ public class Ui {
             printLineSeparator();
         }
     }
+
+    public void showPriorityMessage(TaskList tasks, int taskIndex) {
+        printLineSeparator();
+        printMessage("   Very well. I have marked the priority of the task:\n  "
+                + " [" + tasks.get(taskIndex).getPriority() + "] "
+                + tasks.get(taskIndex).getDescription() + "\n");
+        printLineSeparator();
+    }
 }
