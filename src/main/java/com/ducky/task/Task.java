@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public abstract class Task {
 
     private final String description;
-    private boolean completed;
+    private boolean isComplete;
 
     /**
      * Constructs a task with specified description and incomplete by default.
@@ -16,21 +16,21 @@ public abstract class Task {
      */
     public Task(String desc) {
         this.description = desc;
-        this.completed = false;
+        this.isComplete = false;
     }
 
     /**
      * Sets the task status to complete.
      */
     public void setComplete() {
-        this.completed = true;
+        this.isComplete = true;
     }
 
     /**
      * Sets the task status to incomplete.
      */
     public void setIncomplete() {
-        this.completed = false;
+        this.isComplete = false;
     }
 
     /**
@@ -57,7 +57,7 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (this.completed) {
+        if (this.isComplete) {
             return String.format("[X] %s", this.description);
         }
         return String.format("[  ] %s", this.description);
@@ -70,7 +70,7 @@ public abstract class Task {
     public String getSaveFormat() {
         return String.format(
                 "%d | %s",
-                this.completed ? 1 : 0,
+                this.isComplete ? 1 : 0,
                 this.description
         );
     }
