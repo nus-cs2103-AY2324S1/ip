@@ -11,9 +11,17 @@ public class TaskList {
     public int size() {
         return taskList.size();
     }
+
+    /**
+     * Adds a task to the taskList.
+     * @param task The task to be added.
+     * @param flag The flag to determine if the task is added from the local storage.
+     * @return The message to be printed.
+     */
     public String add(Task task, boolean flag) {
         assert taskList != null : "taskList must be initialized properly";
         taskList.add(task);
+        //flag checks if message needs to be printed (if it is being loaded from local storage, no message needed)
         if (flag) {
             System.out.println("Got it. I've added this task:\n" + task.toString());
             return "Got it. I've added this task:\n" + task;

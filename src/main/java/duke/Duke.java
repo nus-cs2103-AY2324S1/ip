@@ -1,7 +1,5 @@
 package duke;
 
-import java.util.Objects;
-
 public class Duke {
     private Storage storage;
     private TaskList tasks;

@@ -1,12 +1,11 @@
 package duke;
 
-import java.time.LocalDate;
-import java.util.regex.Pattern;
+import place.FoodPlace;
+import place.ShoppingPlace;
+import place.StudyPlace;
 
 public class Parser {
     TaskList taskList;
-    private static final Pattern DATE_PATTERN_DASH = Pattern.compile("^\\d{4}-\\d{2}-\\d{2}$");
-    private static final Pattern DATE_PATTERN_SLASH = Pattern.compile("^\\d{1,2}/\\d{1,2}/\\d{4} .*\\d{4}$");
     public Parser(TaskList taskList) {
         this.taskList = taskList;
     }
@@ -19,31 +18,9 @@ public class Parser {
     public String createTask(String promptText) throws DukeException {
         String returnString;
         if (promptText.startsWith("todo")) {
-            try {
-                Task todo = new Todo(promptText.substring(5));
-                String returnStatement = taskList.add(todo, true);
-                taskList.writeToFile();
-                returnString = returnStatement;
-            } catch (StringIndexOutOfBoundsException s) {
-                throw new DukeException("OOPS!! The description of a todo cannot be empty.");
-            }
-        }
-        else if (promptText.startsWith("deadline")) {
-            try {
-                String[] parts = promptText.split("/", 2);
-                String date = parts[1].substring(3);
-                if (DateParser.isEitherDate(date)) {
-                    Task deadline = new Deadline(parts[0].substring(9),
-                            DateParser.formatDate(date));
-                    returnString = taskList.add(deadline, true);
-                } else {
-                    Task deadline = new Deadline(parts[0].substring(9), parts[1].substring(2));
-                    returnString = taskList.add(deadline, true);
-                }
-                taskList.writeToFile();
-            } catch (StringIndexOutOfBoundsException s) {
-                throw new DukeException("OOPS!! The description of a deadline cannot be empty.");
-            }
+            returnString = parseTodo(promptText);
+        } else if (promptText.startsWith("deadline")) {
+            returnString = parseDeadline(promptText);
         } else {
             try {
                 String[] taskDetails = promptText.split("/", 2);
@@ -68,11 +45,42 @@ public class Parser {
         return returnString;
     }
 
+    private String parseTodo(String promptText) throws DukeException {
+        try {
+            Task todo = new Todo(promptText.substring(5));
+            String returnStatement = taskList.add(todo, true);
+            taskList.writeToFile();
+            return returnStatement;
+        } catch (StringIndexOutOfBoundsException s) {
+            throw new DukeException("OOPS!! The description of a todo cannot be empty.");
+        }
+    }
+
+    private String parseDeadline(String promptText) throws DukeException {
+        String returnStatement;
+        try {
+            String[] parts = promptText.split("/", 2);
+            String date = parts[1].substring(3);
+            if (DateParser.isEitherDate(date)) {
+                Task deadline = new Deadline(parts[0].substring(9),
+                        DateParser.formatDate(date));
+                returnStatement = taskList.add(deadline, true);
+            } else {
+                Task deadline = new Deadline(parts[0].substring(9), parts[1].substring(2));
+                returnStatement = taskList.add(deadline, true);
+            }
+            taskList.writeToFile();
+            return returnStatement;
+        } catch (StringIndexOutOfBoundsException s) {
+            throw new DukeException("OOPS!! The description of a deadline cannot be empty.");
+        }
+    }
+
     /**
      * Marks task as done or undone.
      *
      * @param promptText User's input to mark or unmark a task.
-     * @return
+     * @return The message to be printed.
      * @throws DukeException Exception that is thrown when the task does not exist.
      */
     public String markTask(String promptText) throws DukeException {
@@ -106,5 +114,34 @@ public class Parser {
         System.out.println("Here are the matching tasks in your list: ");
         System.out.println(returnString);
         return "Here are the matching tasks in your list: \n" + returnString;
+    }
+
+    public String createPlace(String promptText) {
+        String[] locationString = promptText.split("/", 3);
+        String name = locationString[0].substring(5);
+        String type = locationString[1].substring(5);
+        String desc = locationString[2].substring(5);
+        if (type.startsWith("food")) {
+            FoodPlace newFoodPlace = new FoodPlace(name, desc);
+            return newFoodPlace.addPlace();
+        } else if (type.startsWith("shopping")) {
+            ShoppingPlace newShoppingPlace = new ShoppingPlace(name, desc);
+            return newShoppingPlace.addPlace();
+        } else {
+            StudyPlace newStudyPlace = new StudyPlace(name, desc);
+            return newStudyPlace.addPlace();
+        }
+    }
+
+    public String taskCommand(String promptText) throws DukeException {
+        if (promptText.startsWith("todo") || promptText.startsWith("deadline") || promptText.startsWith("event")) {
+            return createTask(promptText);
+        } else if (promptText.startsWith("mark") || promptText.startsWith("unmark")) {
+            return markTask(promptText);
+        } else if (promptText.startsWith("find")) {
+            return findTask(promptText);
+        } else {
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        }
     }
 }

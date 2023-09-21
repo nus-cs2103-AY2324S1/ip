@@ -1,6 +1,7 @@
 package duke;
 
-import place.*;
+
+import place.Place;
 
 public class Ui {
 
@@ -8,47 +9,22 @@ public class Ui {
         assert tasks != null : "taskList must be initialized properly";
         Parser parser = new Parser(tasks);
         if (promptText.startsWith("place")) {
-            String[] locationString = promptText.split("/", 3);
-            String name = locationString[0].substring(5);
-            String type = locationString[1].substring(5);
-            String desc = locationString[2].substring(5);
-            if (type.startsWith("food")) {
-                FoodPlace newFoodPlace = new FoodPlace(name, desc);
-                return newFoodPlace.addPlace();
-            } else if (type.startsWith("shopping")) {
-                ShoppingPlace newShoppingPlace = new ShoppingPlace(name, desc);
-                return newShoppingPlace.addPlace();
-            } else {
-                StudyPlace newStudyPlace = new StudyPlace(name, desc);
-                return newStudyPlace.addPlace();
-            }
+            return parser.createPlace(promptText);
         } else if (promptText.startsWith("listplaces")) {
             return Place.list();
         } else if (promptText.equals("bye")) {
             return exit();
-        }
-        else if (promptText.equals("list")) {
+        } else if (promptText.equals("list")) {
             if (tasks.size() == 0) {
                 System.out.println("Your task list is empty!");
                 return "Your task list is empty!";
             } else {
                 return list(tasks);
             }
-        }
-        else if (promptText.startsWith("todo") || promptText.startsWith("deadline") || promptText.startsWith("event")) {
-            return parser.createTask(promptText);
-        }
-        else if (promptText.startsWith("mark") || promptText.startsWith("unmark")) {
-            return parser.markTask(promptText);
-        }
-        else if (promptText.startsWith("delete")) {
+        } else if (promptText.startsWith("delete")) {
             return deleteTask(tasks,Integer.valueOf(promptText.substring(7)) - 1);
-        }
-        else if (promptText.startsWith("find")) {
-            return parser.findTask(promptText);
-        }
-        else {
-            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+        } else {
+            return parser.taskCommand(promptText);
         }
     }
 

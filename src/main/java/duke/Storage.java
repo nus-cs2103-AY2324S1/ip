@@ -7,7 +7,10 @@ import java.io.InputStreamReader;
 import java.io.FileInputStream;
 
 public class Storage {
+
+    String filePath;
     public Storage(String filePath) throws DukeException {
+        this.filePath = filePath;
         String[] splitFile = filePath.split("/",2);
         File dir = new File(splitFile[0]);
         boolean dirExists = dir.exists();
@@ -22,11 +25,16 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes task into Local Storage.
+     * @return The taskList.
+     * @throws DukeException  Exception to be thrown when the input cannot be read.
+     */
     public TaskList load() throws DukeException {
         try {
             TaskList returnList = new TaskList();
             String line;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("./data/duke.txt")));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
             while ((line = reader.readLine()) != null) {
                 if (line.trim().isEmpty()) {
                     return returnList;
@@ -35,31 +43,11 @@ public class Storage {
                     boolean isDone = done.equals('X');
 
                     if (line.startsWith("[T]")) {
-                        Todo todo = new Todo(line.substring(7));
-                        if (isDone) {
-                            todo.mark(false);
-                        }
-                        returnList.add(todo, false);
+                        returnList.add(loadTodo(line, isDone), false);
                     } else if (line.startsWith("[D]")) {
-                        int index = line.indexOf("(");
-                        int endIndex = line.indexOf(")");
-                        Deadline deadline = new Deadline(line.substring(7, index - 1),
-                                line.substring(index + 5, endIndex));
-                        if (isDone) {
-                            deadline.mark(false);
-                        }
-                        returnList.add(deadline, false);
+                        returnList.add(loadDeadline(line, isDone), false);
                     } else {
-                        int index = line.indexOf("(");
-                        int midIndex = line.indexOf("to:");
-                        int endIndex = line.indexOf(")");
-                        Event event = new Event(line.substring(7, index - 1), line.substring(index + 7,
-                                midIndex - 1),
-                                line.substring(midIndex + 4, endIndex));
-                        if (isDone) {
-                            event.mark(false);
-                        }
-                        returnList.add(event, false);
+                        returnList.add(loadEvent(line, isDone), false);
                     }
                 }
             }
@@ -67,5 +55,37 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException("OOPS! File cannot be loaded.");
         }
+    }
+
+    private Task loadTodo(String line, boolean isDone) {
+        Todo todo = new Todo(line.substring(7));
+        if (isDone) {
+            todo.mark(false);
+        }
+        return todo;
+    }
+
+    private Task loadDeadline(String line, boolean isDone) {
+        int index = line.indexOf("(");
+        int endIndex = line.indexOf(")");
+        Deadline deadline = new Deadline(line.substring(7, index - 1),
+                line.substring(index + 5, endIndex));
+        if (isDone) {
+            deadline.mark(false);
+        }
+        return deadline;
+    }
+
+    private Task loadEvent(String line, boolean isDone) {
+        int index = line.indexOf("(");
+        int midIndex = line.indexOf("to:");
+        int endIndex = line.indexOf(")");
+        Event event = new Event(line.substring(7, index - 1), line.substring(index + 7,
+                midIndex - 1),
+                line.substring(midIndex + 4, endIndex));
+        if (isDone) {
+            event.mark(false);
+        }
+        return event;
     }
 }

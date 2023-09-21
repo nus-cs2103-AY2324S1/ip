@@ -9,7 +9,6 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StorageTest {
-    private final PrintStream standardOut = System.out;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
     @BeforeEach
@@ -19,8 +18,7 @@ public class StorageTest {
 
     @Test
     void testExceptionThrown() throws DukeException {
-        Duke duke = new Duke("data/duke.txt");
-        Storage storage = new Storage(duke, "data/duke.txt");
+        Storage storage = new Storage("data/duke.txt");
         File file = new File("data/duke.txt");
         DukeException exception = assertThrows(DukeException.class, () -> {
             file.delete();

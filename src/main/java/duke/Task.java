@@ -1,9 +1,16 @@
 package duke;
 
+/**
+ * Represents a task.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates a new task.
+     * @param description  Description of task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -13,7 +20,13 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Marks a task as done.
+     * @param flag Flag to indicate whether to print out the message.
+     * @return The message to be printed.
+     */
     public String mark(boolean flag) {
+        //flag checks if the message is coming from storage class (loading does not need to print)
         if (!flag) {
             this.isDone = true;
         } else {
