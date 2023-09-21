@@ -1,26 +1,28 @@
 package Duke;
 
 /**
- * Class to parse the input from user.
+ * Class to parse user input and execute corresponding commands.
  */
 public class Parser {
     private boolean isExit;
 
     /**
-     * Default constructor.
+     * Default constructor for the Parser class.
+     * Initializes the isExit flag to false.
      */
-    public Parser(){
-        isExit=false;
+    public Parser() {
+        isExit = false;
     }
 
     /**
-     * static method which takes in instances of other essential classes.
-     * @param str
-     * @param list
-     * @param storage
-     * @param ui
+     * Parses the user input and performs the corresponding actions.
+     *
+     * @param str      The user input to be parsed.
+     * @param list     The TaskList instance to manage tasks.
+     * @param storage  The Storage instance to handle task storage.
+     * @param ui       The Ui instance to manage user interface interactions.
      */
-    public void parse(String str, TaskList list, Storage storage,Ui ui){
+    public void parse(String str, TaskList list, Storage storage, Ui ui) {
         try {
             if (str.equals("bye")) {
                 isExit = true;
@@ -28,7 +30,6 @@ public class Parser {
                 list.list(ui);
             } else if (str.contains("unmark")) {
                 list.mark(false, str, ui, storage);
-
             } else if (str.contains("mark")) {
                 list.mark(true, str, ui, storage);
             } else if (str.startsWith("todo ")) {
@@ -45,9 +46,9 @@ public class Parser {
                 list.sortDeadline(ui);
             } else if (str.startsWith("sort event")) {
                 list.sortEvent(ui);
-            }else {
+            } else {
                 ui.handleError(new DukeException("\n____________________________________________________________\n" +
-                        "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
+                        "OOPS!!! I'm sorry, but I don't know what that means :-(\n" +
                         "____________________________________________________________"));
             }
         } catch (DukeException e) {
@@ -56,10 +57,11 @@ public class Parser {
     }
 
     /**
-     * Checks if program should still run.
-     * @return
+     * Checks if the program should exit.
+     *
+     * @return true if the program should exit, false otherwise.
      */
-    public boolean isExit(){
+    public boolean isExit() {
         return isExit;
     }
 }

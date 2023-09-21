@@ -9,12 +9,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI application for Duke using FXML.
+ * This class launches the Duke chatbot graphical user interface (GUI).
  */
 public class Main extends Application {
 
     private Duke duke = new Duke();
 
+    /**
+     * The entry point for the Duke GUI application.
+     * Initializes the GUI, loads the FXML layout, and sets up the Duke chatbot.
+     *
+     * @param stage The primary stage for the GUI.
+     */
     @Override
     public void start(Stage stage) {
         try {

@@ -1,36 +1,30 @@
 package Duke;
 
-import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-
 /**
- * Main class from which Duke program is run.
+ * Main class for running the Duke program.
  */
 public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-
     private Parser parser;
 
-
-    public Duke(){
-        ui=new Ui();
-        storage=new Storage("file.txt");
-        tasks= new TaskList(storage.load());
-        parser=new Parser();
+    /**
+     * Constructor for the Duke class.
+     * Initializes the user interface, storage, task list, and parser.
+     */
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("file.txt");
+        tasks = new TaskList(storage.load());
+        parser = new Parser();
     }
 
-
-
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets a response to user input and performs necessary actions.
+     *
+     * @param input The user's input.
+     * @return The response generated based on the input.
      */
     public String getResponse(String input) {
         assert !input.isEmpty();
@@ -41,8 +35,12 @@ public class Duke {
         return ui.emptyBuffer();
     }
 
+    /**
+     * Checks if the Duke program has ended (i.e., the user requested an exit).
+     *
+     * @return true if the program has ended, false otherwise.
+     */
     public boolean hasEnded() {
         return parser.isExit();
     }
-
 }

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Stores the list of tasks in ArrayList and carries out the functions.
@@ -107,7 +106,7 @@ public class TaskList {
         str = str.substring(5);
         if (str.isEmpty())
             throw new DukeException("\n____________________________________________________________\n" +
-                    "☹ OOPS!!! The description of a todo cannot be empty.\n" +
+                    "OOPS!!! The description of a todo cannot be empty.\n" +
                     "____________________________________________________________");
         list.add(new Todo(str));
         storage.addToFile("T,0,"+str);
@@ -131,7 +130,7 @@ public class TaskList {
             date = LocalDate.parse(input,format);
         }catch (Exception e){
             throw new DukeException("\n____________________________________________________________\n" +
-                    "☹ OOPS!!! Improper date format.\n" +
+                    "OOPS!!! Improper date format.\n" +
                     "____________________________________________________________");
         }
         return date;
@@ -147,12 +146,12 @@ public class TaskList {
         str = str.substring(9);
         if (str.isEmpty())
             throw new DukeException("\n____________________________________________________________\n" +
-                    "☹ OOPS!!! The description of a deadline cannot be empty.\n" +
+                    "OOPS!!! The description of a deadline cannot be empty.\n" +
                     "____________________________________________________________");
         String[] arr = str.split(" /by ");
         if (arr.length<2)
             throw new DukeException("\n____________________________________________________________\n" +
-                    "☹ OOPS!!! Insufficient parameters passed to deadline.\n" +
+                    "OOPS!!! Insufficient parameters passed to deadline.\n" +
                     "____________________________________________________________");
         LocalDate date=changeDateFormat(arr[1],ui);
         arr[1]=date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
@@ -175,12 +174,12 @@ public class TaskList {
         str = str.substring(6);
         if (str.isEmpty())
             throw new DukeException("\n____________________________________________________________\n" +
-                    "☹ OOPS!!! The description of a event cannot be empty.\n" +
+                    "OOPS!!! The description of a event cannot be empty.\n" +
                     "____________________________________________________________");
         String[] arr = str.split(" /from ");
         if (arr.length<2)
             throw new DukeException("\n____________________________________________________________\n" +
-                    "☹ OOPS!!! Insufficient parameters passed to event.\n" +
+                    "OOPS!!! Insufficient parameters passed to event.\n" +
                     "____________________________________________________________");
         String[] time = arr[1].split(" /to ");
         if (time.length<2)
@@ -212,7 +211,7 @@ public class TaskList {
         int index = Integer.parseInt(val);
         if (str.isEmpty())
             throw new DukeException("\n____________________________________________________________\n" +
-                    "☹ OOPS!!! The description of a delete cannot be empty.\n" +
+                    "OOPS!!! The description of a delete cannot be empty.\n" +
                     "____________________________________________________________");
         ui.showLine();
         ui.print("Noted. I've removed this task:");

@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -29,10 +30,15 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the MainWindow controller.
+     * Binds the scroll pane's vertical value property to the dialog container's height property.
+     * Initializes the user interface and sets the initial state.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        ui=new Ui();
+        ui = new Ui();
         hasEnded = false;
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(ui.getWelcome(), dukeImage)
@@ -41,13 +47,19 @@ public class MainWindow extends AnchorPane {
         dialogContainer.autosize();
     }
 
+    /**
+     * Sets the Duke object for this controller.
+     *
+     * @param d The Duke chatbot.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by processing it with the Duke chatbot.
+     * Creates dialog boxes for user input and Duke's response, appends them to the dialog container,
+     * and checks if the chatbot has ended.
      */
     @FXML
     private void handleUserInput() {
