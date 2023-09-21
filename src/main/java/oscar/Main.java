@@ -26,6 +26,8 @@ public class Main extends Application {
             ap.widthProperty().add(scene.getHeight());
             stage.setTitle("Oscar");
             stage.setScene(scene);
+            stage.setMinHeight(600);
+            stage.setMinWidth(400);
             fxmlLoader.<MainWindow>getController().setOscar(oscar);
             stage.show();
         } catch (IOException e) {
