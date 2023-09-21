@@ -1,5 +1,6 @@
 package duke.stub;
 
+import duke.TaskComparator;
 import duke.TaskList;
 import duke.task.Task;
 
@@ -14,20 +15,27 @@ public class TaskListStub extends TaskList {
     private PriorityQueue<Task> tasks;
 
     /**
+     * Constructs a new empty TaskListStub.
+     */
+    public TaskListStub() {
+        this.tasks = new PriorityQueue<>(new TaskComparator());
+    }
+
+    /**
      * Constructs a new TaskListStub.
      *
-     * @param b If true, the list will be empty.
-     * @param unmarked If true, all the tasks in the list will be unmarked.
+     * @param isEmpty If true, the list will be empty.
+     * @param isUnmarked If true, all the tasks in the list will be unmarked.
      */
-    public TaskListStub(boolean b, boolean unmarked) {
-        if (b) {
-            this.tasks = new PriorityQueue<>();
+    public TaskListStub(boolean isEmpty, boolean isUnmarked) {
+        if (isEmpty) {
+            this.tasks = new PriorityQueue<>(new TaskComparator());
         } else {
-            this.tasks = new PriorityQueue<>();
-            Task t1 = new Task("task1", 0);
-            Task t2 = new Task("task2", 0);
-            Task t3 = new Task("task3", 0);
-            if (!unmarked) {
+            this.tasks = new PriorityQueue<>(new TaskComparator());
+            Task t1 = new Task("task1", 3);
+            Task t2 = new Task("task2", 2);
+            Task t3 = new Task("task3", 1);
+            if (!isUnmarked) {
                 t1.markDone();
                 t2.markDone();
                 t3.markDone();
@@ -38,17 +46,39 @@ public class TaskListStub extends TaskList {
         }
     }
 
-    @Override
+    /**
+     * Returns true if this list contains no elements.
+     */
     public boolean isEmpty() {
-        return tasks.isEmpty();
+        return this.tasks.isEmpty();
     }
 
-    @Override
+    /**
+     * Returns the size of the list.
+     */
     public int size() {
-        return tasks.size();
+        return this.tasks.size();
     }
 
-    @Override
+    /**
+     * Adds the task into the list.
+     *
+     * @param t Task to add.
+     */
+    public void add(Task t) {
+        this.tasks.add(t);
+    }
+
+    /**
+     * Pops the head of the queue.
+     */
+    public Task poll() {
+        return tasks.poll();
+    }
+
+    /**
+     * Returns the ith task in the tasklist.
+     */
     public Task get(int i) {
         ArrayList<Task> tempTasks = new ArrayList<>();
         Task t = tasks.poll();
@@ -61,18 +91,24 @@ public class TaskListStub extends TaskList {
         return t;
     }
 
-    @Override
-    public void add(Task t) {
-        tasks.add(t);
-    }
-
-    @Override
+    /**
+     * Removes the task at the specific position.
+     *
+     * @param t The task to remove.
+     */
     public void remove(Task t) {
-        tasks.remove(t);
+        this.tasks.remove(t);
     }
 
-    @Override
+    /**
+     * Returns a list of string representation of all the tasks for file writing.
+     */
     public ArrayList<String> toStringInFile() {
-        return null;
+        ArrayList<String> strings = new ArrayList<>();
+        assert !tasks.isEmpty() : "Nothing to write to file";
+        for (Task t : tasks) {
+            strings.add(t.convertToStringInFile());
+        }
+        return strings;
     }
 }
