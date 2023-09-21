@@ -1,24 +1,21 @@
-# Duke project template
+## Introduction
+This app is designed to help the user with task management. It allow you to add, delete, mark, unmark, tag, untag, find tasks with keywords/tags and list all the tasks in the task list. It also supports saving the tasks in the task list to a file and loading the tasks from the file when you launch the app again.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Quick Start
+1. Download the latest  **Duke.jar** file from [release page](https://github.com/Yiwen101/ip/releases)
+2. Open terminal and go to the directory where you downloaded the **Duke.jar** file.
+3. Make sure that when you launch it for the first time, there is not data/duke.txt file in the same directory. If there is, please delete it.
+4. In your terminal enter the command:
+        ```
+        java -jar duke.jar
+        ```
+5. You should expect to see a window as shown below:
+![greeting](docs/quickStart.png)
 
-## Setting up in Intellij
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+6. Have fun exploring its features!
+![ui](docs/Ui.png)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+For more details and use cases please refer to the [user documentation](https://yiwen101.github.io/ip/).
+
+
