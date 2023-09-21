@@ -56,4 +56,26 @@ public class Venue implements Serializable {
     public String toString() {
         return String.format("%s (Capacity: %d, Cost: %.2f)", getName(), getCapacity(), getRentalCost());
     }
+
+    /**
+     * Checks if another Venue is equivalent to the current venue.
+     *
+     * @param other The other Venue object we are checking for equivalence
+     * @return if the other Venue object is equivalent to the current object
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        } else if (other instanceof Venue) {
+            Venue otherVenue = (Venue) other;
+            boolean isSameName = this.name.equals(otherVenue.name);
+            boolean isSameAddress = this.address.equals(otherVenue.address);
+            boolean isCapacityEqual = this.capacity == otherVenue.capacity;
+            boolean isRentEqual = this.rentalCost == otherVenue.rentalCost;
+            return (isSameName && isSameAddress && isCapacityEqual && isRentEqual);
+        } else {
+            return false;
+        }
+    }
 }

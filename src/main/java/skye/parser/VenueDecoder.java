@@ -1,6 +1,7 @@
 package skye.parser;
 
 import skye.data.exception.DukeException;
+import skye.data.exception.DukeExceptionType;
 import skye.data.venue.Venue;
 
 /**
@@ -20,7 +21,7 @@ public class VenueDecoder implements Decoder<Venue> {
         assert data.length > 0;
 
         if (data.length != 5) {
-            throw new DukeException("Invalid venue save format!");
+            throw new DukeException(DukeExceptionType.INVALID_VENUE_SAVE_FORMAT);
         }
 
         String name = data[1].trim();
