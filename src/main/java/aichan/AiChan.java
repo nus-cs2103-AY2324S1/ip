@@ -167,7 +167,7 @@ public class AiChan extends Application {
     }
 
     /**
-     * Return response of AiChan according to user's input.
+     * Returns response of AiChan according to user's input.
      *
      * @param input The user input.
      * @return String with AiChan's response.

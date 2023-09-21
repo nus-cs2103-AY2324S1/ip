@@ -45,7 +45,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Return the dialog box of user.
+     * Returns the dialog box of user.
      *
      * @param l The input of user.
      * @param iv The image of user.
@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Return the dialog box of AiChan.
+     * Returns the dialog box of AiChan.
      *
      * @param l The response of AiChan.
      * @param iv The image of AiChan.

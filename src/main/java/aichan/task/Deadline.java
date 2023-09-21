@@ -41,7 +41,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM d yyyy HHmm"); // Dec 25 2019 1800
-        // System.out.println(this.dueDate.format(formatter2));
         return String.format("[D]%s (by: %s)", super.toString(), this.dueDate.format(formatter2));
     }
 
