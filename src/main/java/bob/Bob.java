@@ -55,7 +55,7 @@ public class Bob {
                     ui.deleteTask(tasks, parser.getDeleteDigit(input));
                 } else if (parser.isFind(input)) {
                     ui.findTask(tasks, parser.findKeyword(input));
-                } else if (parser.isReschedule(input)) { //reschedule 1 /by 2023-09-09
+                } else if (parser.isReschedule(input)) {
                     ui.rescheduleTask(tasks, input);
                 } else if (input.equals("bye")) {
                     ui.printGoodbye();
@@ -89,6 +89,7 @@ public class Bob {
             } else if (parser.isReschedule(input)) {
                 return ui.rescheduleTask(tasks, input);
             } else if (input.equals("bye")) {
+                storage.saveNewList(tasks);
                 return ui.printGoodbye();
             } else if (input.equals("list")) {
                 return ui.printTasks(tasks);

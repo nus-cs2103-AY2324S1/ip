@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -40,9 +41,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         dialog.setFont(Font.font("Courier New", FontWeight.BOLD, 13));
-        Circle cir = new Circle(50, 50, 50);
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
+        Circle circle = new Circle(50, 50, 50);
         displayPicture.setImage(img);
-        displayPicture.setClip(cir);
+        displayPicture.setClip(circle);
     }
 
     /**

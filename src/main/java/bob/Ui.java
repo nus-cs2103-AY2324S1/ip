@@ -90,9 +90,9 @@ public class Ui {
             throw new BobInvalidTaskException();
         }
 
-        response = "Here are the matching tasks in your list eyyy:\n";
+        response = "Here are the matching tasks in your list eyyy:";
         for (int i = 1; i <= matches.size(); i++) {
-            response += i + ". " + matches.get(i - 1).toString() + "\n";
+            response += "\n" + i + ". " + matches.get(i - 1).toString();
         }
 
         System.out.println(response);
@@ -111,31 +111,38 @@ public class Ui {
         int rescheduleNo = parser.getRescheduleDigit(input);
 
         if (list.get(rescheduleNo - 1) instanceof Deadline) {
-            //get new due date, change due date, print new task
-            String newDueDate = parser.getNewDueDate(input);
-
-            if (parser.isValidDate(newDueDate)) {
-                LocalDate d1 = LocalDate.parse(newDueDate);
-                ((Deadline) list.get(rescheduleNo - 1)).rescheduleDueDate(d1);
-                return printRescheduleMessage(list, rescheduleNo);
-            }
-            throw new BobInvalidLocalDateException();
+            return rescheduleDeadline(list, input, rescheduleNo);
         }
 
         if (list.get(rescheduleNo - 1) instanceof Event) {
-            String newStartDate = parser.getNewStartDate(input);
-            String newEndDate = parser.getNewEndDate(input);
-
-            if (parser.isValidDate(newStartDate) && parser.isValidDate(newEndDate)) {
-                LocalDate d1 = LocalDate.parse(newStartDate);
-                LocalDate d2 = LocalDate.parse(newEndDate);
-                ((Event) list.get(rescheduleNo - 1)).rescheduleEventDate(d1, d2);
-                return printRescheduleMessage(list, rescheduleNo);
-            }
-            throw new BobInvalidLocalDateException();
+            return rescheduleEvent(list, input, rescheduleNo);
         }
 
         throw new BobInvalidInputException();
+    }
+
+    private static String rescheduleDeadline(TaskList list, String input, int rescheduleNo) throws BobException {
+        String newDueDate = parser.getNewDueDate(input);
+
+        if (parser.isValidDate(newDueDate)) {
+            LocalDate d1 = LocalDate.parse(newDueDate);
+            ((Deadline) list.get(rescheduleNo - 1)).rescheduleDueDate(d1);
+            return printRescheduleMessage(list, rescheduleNo);
+        }
+        throw new BobInvalidLocalDateException();
+    }
+
+    private static String rescheduleEvent(TaskList list, String input, int rescheduleNo) throws BobException {
+        String newStartDate = parser.getNewStartDate(input);
+        String newEndDate = parser.getNewEndDate(input);
+
+        if (parser.isValidDate(newStartDate) && parser.isValidDate(newEndDate)) {
+            LocalDate d1 = LocalDate.parse(newStartDate);
+            LocalDate d2 = LocalDate.parse(newEndDate);
+            ((Event) list.get(rescheduleNo - 1)).rescheduleEventDate(d1, d2);
+            return printRescheduleMessage(list, rescheduleNo);
+        }
+        throw new BobInvalidLocalDateException();
     }
 
     private static String printRescheduleMessage(TaskList list, int rescheduleNo) {
@@ -191,11 +198,10 @@ public class Ui {
     }
 
     private static String addTodo(TaskList list, String task) throws BobException {
-        char[] charArray = task.toCharArray();
-        String taskName = "";
-
-        for (int i = 5; i < charArray.length; i++) {
-            taskName = taskName + charArray[i];
+        String[] str = task.split(" ", -1);
+        String taskName = str[1];
+        for (int i = 2; i < str.length; i++) {
+            taskName += " " + str[i];
         }
 
         if (taskName.isBlank()) {
@@ -207,24 +213,11 @@ public class Ui {
     }
 
     private static String addDeadline(TaskList list, String task) throws BobException {
-        char[] charArray = task.toCharArray();
-        String taskName = "";
-
-        String dueDate = "";
-        int byIndex = charArray.length;
-
-        for (int i = 9; i < charArray.length; i++) {
-            if (i + 1 < charArray.length && charArray[i + 1] == '/') {
-                byIndex = i + 1;
-                continue;
-            }
-
-            if (i > byIndex + 3) {
-                dueDate = dueDate + charArray[i];
-            } else if (i < byIndex - 1) {
-                taskName = taskName + charArray[i];
-            }
-
+        String[] str = task.split(" ", -1);
+        String taskName = str[1];
+        String dueDate = str[str.length - 1];
+        for (int i = 2; i < str.length - 2; i++) {
+            taskName += " " + str[i];
         }
 
         if (taskName.isBlank()) {
@@ -240,30 +233,12 @@ public class Ui {
     }
 
     private static String addEvent(TaskList list, String task) throws BobException {
-        char[] charArray = task.toCharArray();
-        String taskName = "";
-        String startDate = "";
-        String endDate = "";
-        int fromIndex = charArray.length;
-        int toIndex = charArray.length;
-
-        for (int i = 6; i < charArray.length; i++) {
-            if (i + 1 < charArray.length && charArray[i + 1] == '/' && fromIndex == charArray.length) {
-                fromIndex = i + 1;
-                continue;
-            } else if (i + 1 < charArray.length && charArray[i + 1] == '/' && fromIndex != charArray.length) {
-                toIndex = i + 1;
-                continue;
-            }
-
-            if (i > fromIndex + 5 && i < toIndex) {
-                startDate = startDate + charArray[i];
-            } else if (i > toIndex + 3) {
-                endDate = endDate + charArray[i];
-            } else if (i < fromIndex - 1) {
-                taskName = taskName + charArray[i];
-            }
-
+        String[] str = task.split(" ", -1);
+        String taskName = str[1];
+        String startDate = str[str.length - 3];
+        String endDate = str[str.length - 1];
+        for (int i = 2; i < str.length - 4; i++) {
+            taskName += " " + str[i];
         }
 
         if (taskName.isBlank()) {
@@ -291,9 +266,9 @@ public class Ui {
      */
     public static String printTasks(TaskList list) {
         String response;
-        response = "Here are the tasks in your list eyy:\n";
+        response = "Here are the tasks in your list eyy:";
         for (int i = 1; i <= list.size(); i++) {
-            response += i + ". " + list.get(i - 1).toString() + "\n";
+            response += "\n" + i + ". " + list.get(i - 1).toString();
         }
 
         System.out.println(response);
