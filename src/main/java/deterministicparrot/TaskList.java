@@ -1,6 +1,8 @@
 package deterministicparrot;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -198,6 +200,32 @@ class TaskList {
                 results.add(sr);
             }
         }
+        return results;
+    }
+
+    public List<SearchResult> getUpcomingTasks(LocalDateTime time) {
+        List<SearchResult> results = new ArrayList<>();
+        for (int i = 0; i < this.list.size(); i++) {
+            Task t = this.list.get(i);
+            //continue if not deadline
+            if (!(t instanceof Deadline)) {
+                continue;
+            }
+            Deadline d = (Deadline) t;
+            if (d.by.isAfter(time)) {
+                continue;
+            }
+            SearchResult sr = new SearchResult();
+            sr.index = i + 1;
+            sr.task = t;
+            results.add(sr);
+        }
+        //sort by deadline
+        results.sort((a, b) -> {
+            Deadline da = (Deadline) a.task;
+            Deadline db = (Deadline) b.task;
+            return da.by.compareTo(db.by);
+        });
         return results;
     }
 
