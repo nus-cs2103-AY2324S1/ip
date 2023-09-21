@@ -38,7 +38,7 @@ public class TaskList {
      * @throws DukeIndexOutOfBoundsException if the index is bigger than the size of the task.
      */
     public void deleteTask(int index) throws DukeIndexOutOfBoundsException {
-        if (tasks.size() < index) {
+        if (tasks.size() < index || index <= 0) {
             throw new DukeIndexOutOfBoundsException();
         }
         tasks.remove(index - 1);
