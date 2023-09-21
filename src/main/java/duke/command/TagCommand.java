@@ -9,10 +9,25 @@ public class TagCommand implements Command {
     private final String stringIndex;
     private final String tag;
 
+    /**
+     * Initializes Tag command.
+     *
+     * @param stringIndex
+     * @param tag
+     */
     public TagCommand(String stringIndex, String tag) {
         this.stringIndex = stringIndex;
         this.tag = tag;
     }
+
+    /**
+     * Adds a tag to task at specified index.
+     *
+     * @param taskList TaskList containing the list of tasks.
+     * @param ui UI that interacts between the app and the user.
+     * @param storage Storage to save or load data from file.
+     * @throws InvalidParametersException
+     */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidParametersException {
         try {
