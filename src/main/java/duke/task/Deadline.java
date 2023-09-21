@@ -1,4 +1,5 @@
 package duke.task;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -25,15 +26,23 @@ public class Deadline extends Task {
         assert description != null : "Description cannot be null";
         assert dueBy != null : "Deadline cannot be null";
 
-        if (dueBy.contains(",")) {
-            String [] splitBy = dueBy.split(",");
-            date = super.convertStringToDate(splitBy[0]);
-            day = super.convertStringToDay(splitBy[1]);
-            if (splitBy.length == 3) {
-                time = super.convertStringToTime(splitBy[2]);
+        try {
+            if (dueBy.contains(",")) {
+                String[] splitBy = dueBy.split(",");
+                date = super.convertStringToDate(splitBy[0]);
+                day = super.convertStringToDay(splitBy[1]);
+                if (splitBy.length == 3) {
+                    time = super.convertStringToTime(splitBy[2]);
+                }
+            } else {
+                date = super.convertStringToDate(dueBy);
             }
-        } else {
-            date = super.convertStringToDate(dueBy);
+
+            if (date == null || day == null || time == null) {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException e) {
+            super.setInvalidInput();
         }
     }
 
@@ -51,7 +60,7 @@ public class Deadline extends Task {
         assert status != null : "Status cannot be null";
 
         if (dueBy.contains(",")) {
-            String [] splitBy = dueBy.split(", ");
+            String[] splitBy = dueBy.split(", ");
             date = super.convertStringToDate(splitBy[0]);
             day = super.convertStringToDay(splitBy[1]);
             if (splitBy.length == 3) {
@@ -60,7 +69,6 @@ public class Deadline extends Task {
         } else {
             date = super.convertStringToDate(dueBy);
         }
-
         if (status.contains("Y")) {
             super.taskStatusFromFile(true);
         } else {

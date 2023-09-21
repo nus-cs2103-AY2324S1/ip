@@ -159,9 +159,9 @@ public class Parser {
             }
         } catch (MyBotExceptions e) {
             ui.printException(e);
-        } /*catch (StringIndexOutOfBoundsException e) {
-            System.out.println(input);
-        }*/
+        } catch (StringIndexOutOfBoundsException e) {
+            System.out.println("Please enter a space after writing /by");
+        }
     }
 
     /**

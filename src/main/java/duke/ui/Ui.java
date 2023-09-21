@@ -53,6 +53,13 @@ public class Ui {
     }
 
     /**
+     * Prints the task list notifying users their task list is empty.
+     */
+    public void printEmptyTaskList() {
+        System.out.println("There are no tasks in your list!");
+    }
+
+    /**
      * Prints a message indicating a task has been added.
      *
      * @param task The task to be added.

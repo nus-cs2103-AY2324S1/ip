@@ -30,26 +30,35 @@ public class Event extends Task {
         assert from != null : "Start Time cannot be null";
         assert to != null : "End Time cannot be null";
 
-        if (from.contains(",")) {
-            String [] splitFrom = from.split(",");
-            fromDate = super.convertStringToDate(splitFrom[0]);
-            fromDay = super.convertStringToDay(splitFrom[1]);
-            if (splitFrom.length == 3) {
-                fromTime = super.convertStringToTime(splitFrom[2]);
+        try {
+            if (from.contains(",")) {
+                String[] splitFrom = from.split(",");
+                fromDate = super.convertStringToDate(splitFrom[0]);
+                fromDay = super.convertStringToDay(splitFrom[1]);
+                if (splitFrom.length == 3) {
+                    fromTime = super.convertStringToTime(splitFrom[2]);
+                }
+            } else {
+                fromDate = super.convertStringToDate(from);
             }
-        } else {
-            fromDate = super.convertStringToDate(from);
-        }
 
-        if (to.contains(",")) {
-            String [] splitTo = to.split(",");
-            toDate = super.convertStringToDate(splitTo[0]);
-            toDay = super.convertStringToDay(splitTo[1]);
-            if (splitTo.length == 3) {
-                toTime = super.convertStringToTime(splitTo[2]);
+            if (to.contains(",")) {
+                String[] splitTo = to.split(",");
+                toDate = super.convertStringToDate(splitTo[0]);
+                toDay = super.convertStringToDay(splitTo[1]);
+                if (splitTo.length == 3) {
+                    toTime = super.convertStringToTime(splitTo[2]);
+                }
+            } else {
+                toDate = super.convertStringToDate(to);
             }
-        } else {
-            toDate = super.convertStringToDate(to);
+
+            if (fromDate == null || toDate == null || fromDay == null
+                    || toDay == null || fromTime == null || toTime == null) {
+                throw new NullPointerException();
+            }
+        } catch (NullPointerException e) {
+            super.setInvalidInput();
         }
     }
 

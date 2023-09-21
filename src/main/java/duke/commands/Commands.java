@@ -110,10 +110,14 @@ public class Commands {
         } else if (isSupposedtoProceed) {
             input = input.substring(1);
             Task task = new Deadline(input, dueBy);
-            generalAddTasks(task);
+            if (task.getIsValidInput()) {
+                generalAddTasks(task);
+            }
         } else {
             Task task = new Deadline(input, dueBy);
-            generalAddTasks(task);
+            if (task.getIsValidInput()) {
+                generalAddTasks(task);
+            }
         }
     }
 
@@ -139,10 +143,14 @@ public class Commands {
         } else if (isSupposedtoProceed) {
             input = input.substring(1);
             Task task = new Event(input, from, to);
-            generalAddTasks(task);
+            if (task.getIsValidInput()) {
+                generalAddTasks(task);
+            }
         } else {
             Task task = new Event(input, from, to);
-            generalAddTasks(task);
+            if (task.getIsValidInput()) {
+                generalAddTasks(task);
+            }
         }
     }
 
@@ -156,7 +164,11 @@ public class Commands {
 
         List<Task> tasks = taskList.getTaskList();
         int taskCount = taskList.getTaskCount();
-        ui.printTaskList(tasks, taskCount);
+        if (taskCount == 0) {
+            ui.printEmptyTaskList();
+        } else {
+            ui.printTaskList(tasks, taskCount);
+        }
     }
 
     /**

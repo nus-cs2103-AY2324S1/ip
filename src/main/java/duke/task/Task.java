@@ -18,6 +18,7 @@ public class Task {
     private static final List<DateTimeFormatter> TIME_FORMATTERS = new ArrayList<>();
     private String description;
     private boolean isDone;
+    private boolean isValidInput;
 
     static {
         DATE_FORMATTERS.add(DateTimeFormatter.ofPattern("yyyy/MM/d"));
@@ -48,6 +49,7 @@ public class Task {
         assert description != null : "Description cannot be null";
         this.description = description;
         this.isDone = false;
+        this.isValidInput = true;
     }
 
     public String getStatus() {
@@ -64,6 +66,12 @@ public class Task {
 
     public void setTaskDone() {
         isDone = true;
+    }
+    public void setInvalidInput() {
+        isValidInput = false;
+    }
+    public boolean getIsValidInput() {
+        return isValidInput;
     }
 
     /**
@@ -118,9 +126,7 @@ public class Task {
         }
 
         System.out.println("Unrecognised day format: " + day
-                + "\nPlease key in day in format Mon OR Monday "
-                + "\nThe task has been stored without a dueday, "
-                + "remove task and key in correct format to make changes \n");
+                + "\nPlease key in day in format Mon OR Monday.");
         return null;
     }
 
@@ -140,9 +146,7 @@ public class Task {
             }
         }
         System.out.println("Unrecognised time format: " + time
-                + "\nPlease key in time in format Hr.MinAM/PM "
-                + "\nThe task has been stored without a due time, "
-                + "remove task and key in correct format to make changes \n");
+                + "\nPlease key in time in format Hr.MinAM/PM ");
         return null;
     }
 
