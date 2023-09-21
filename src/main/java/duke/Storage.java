@@ -27,6 +27,11 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.FILE_PATH = filePath;
+        String fileDirectory = "./" + FILE_PATH.split("/", 2)[0];
+        File dir = new File(fileDirectory);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
     }
 
     /**
@@ -36,11 +41,6 @@ public class Storage {
      */
     public void writeTasksToFile(ArrayList<Task> taskList) throws IOException {
         //check if file path exists already or not
-        String fileDirectory = "./" + FILE_PATH.split("/", 2)[0];
-        File dir = new File(fileDirectory);
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
         FileWriter fw = new FileWriter(FILE_PATH);
         for (Task task : taskList) {
             fw.write(task.writeFileFormat() + "\n");

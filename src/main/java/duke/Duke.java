@@ -18,7 +18,7 @@ public class Duke {
      */
     public Duke() {
         this.ui = new Ui();
-        this.storage = new Storage("./data/duke.txt");
+        this.storage = new Storage("data/duke.txt");
         try {
             tasks = new TaskList(this.storage.readTasksFromFile());
         } catch (FileNotFoundException e) {
@@ -78,6 +78,3 @@ public class Duke {
         return Ui.greet();
     }
 }
-
-
-
