@@ -1,7 +1,6 @@
 package max;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

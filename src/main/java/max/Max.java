@@ -10,9 +10,9 @@ import max.tasks.TaskList;
 import max.ui.Ui;
 
 /**
- * Initialises the application.
+ * Initialises the Max application.
  */
-public class Max  {
+public class Max {
 
     private Storage storage;
     private TaskList tasks;
@@ -71,11 +71,10 @@ public class Max  {
             Parser parser = new Parser();
             Command c = parser.parse(input);
             return c.execute(tasks, ui, storage);
-        }  catch (MaxException e) {
+        } catch (MaxException e) {
             return ui.showError(e.getMessage());
         } catch (DateTimeParseException e) {
             return ui.showError("Please use yyyy-mm-dd format!");
-//            return "error";
         } catch (IndexOutOfBoundsException e) {
             return ui.showError("Please use proper formats!");
         }

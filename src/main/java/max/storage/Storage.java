@@ -1,17 +1,20 @@
 package max.storage;
 
-import max.commands.*;
-import max.exception.MaxException;
-import max.parser.Parser;
-import max.storage.Storage;
-import max.tasks.TaskList;
-import max.tasks.*;
-import max.ui.Ui;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import max.exception.MaxException;
+import max.tasks.Deadline;
+import max.tasks.Event;
+import max.tasks.Task;
+import max.tasks.TaskList;
+import max.tasks.Todo;
 /**
  * Loads and saves task list to memory.
  */
@@ -41,7 +44,7 @@ public class Storage {
                 loadTask(line, tasks);
             }
         } catch (IOException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
         return tasks;
     }

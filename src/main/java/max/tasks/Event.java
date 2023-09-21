@@ -1,20 +1,13 @@
 package max.tasks;
 
-import max.commands.*;
-import max.exception.MaxException;
-import max.parser.Parser;
-import max.storage.Storage;
-import max.tasks.TaskList;
-import max.tasks.*;
-import max.ui.Ui;
-
 import java.time.LocalDate;
 
 /**
  * Represents event object.
  */
 public class Event extends Task {
-    private LocalDate fromDate, toDate;
+    private LocalDate fromDate;
+    private LocalDate toDate;
     /**
      * Initialises event object with a description, start date, end date and done status.
      *
@@ -43,11 +36,11 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + fromDate.toString() + " to: " + toDate.toString() +")";
+        return "[E]" + super.toString() + " (from: " + fromDate.toString() + " to: " + toDate.toString() + ")";
     }
     @Override
     public String saveItem() {
-        return "E | " + super.saveItem() +
-                " from: " + fromDate.toString() + " to: " + toDate.toString() + "\n";
+        return "E | " + super.saveItem()
+                + " from: " + fromDate.toString() + " to: " + toDate.toString() + "\n";
     }
 }

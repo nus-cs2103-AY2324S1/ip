@@ -1,22 +1,15 @@
 package max.tasks;
 
-import max.commands.*;
-import max.exception.MaxException;
-import max.parser.Parser;
-import max.storage.Storage;
-import max.tasks.TaskList;
-import max.tasks.*;
-import max.ui.Ui;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 
+import max.exception.InvalidArgumentException;
+import max.exception.MaxException;
 /**
  * Manages all tasks.
  */
 public class TaskList {
-    ArrayList<Task> myList = new ArrayList<>();
-    int numOfItems;
+    private ArrayList<Task> myList = new ArrayList<>();
+    private int numOfItems;
 
     /**
      * Initialises a new task list.
@@ -55,7 +48,7 @@ public class TaskList {
      */
     public void delete(int taskNumber) throws MaxException {
         if (taskNumber > myList.size() || taskNumber < 0) {
-            throw new MaxException("     Seems like that number is out of range. Check again!");
+            throw new InvalidArgumentException("Seems like that number is out of range. Check again!");
         }
         Task toDelete = myList.get(taskNumber - 1);
         myList.remove(toDelete);
@@ -70,7 +63,7 @@ public class TaskList {
      */
     public void mark(int taskNumber) throws MaxException {
         if (taskNumber > myList.size() || taskNumber < 0) {
-            throw new MaxException("     Seems like that number is out of range. Check again!");
+            throw new InvalidArgumentException("Seems like that number is out of range. Check again!");
         }
         myList.get(taskNumber - 1).mark();
     }
@@ -82,7 +75,7 @@ public class TaskList {
      */
     public void unmark(int taskNumber) throws MaxException {
         if (taskNumber > myList.size() || taskNumber < 0) {
-            throw new MaxException("     Seems like that number is out of range. Check again!");
+            throw new InvalidArgumentException("Seems like that number is out of range. Check again!");
         }
         myList.get(taskNumber - 1).unmark();
     }

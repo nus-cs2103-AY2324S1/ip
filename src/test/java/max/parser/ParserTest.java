@@ -1,9 +1,11 @@
 package max.parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
 import max.exception.MaxException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.Test;
 public class ParserTest {
     @Test
     public void todo_emptyDescription_exceptionThrown() {
@@ -11,7 +13,7 @@ public class ParserTest {
             Parser parser = new Parser();
             parser.parse("todo ");
         } catch (MaxException e) {
-            assertEquals("     Watch out -- todo description cannot be empty.", e.getMessage());
+            assertEquals("Watch out -- todo description cannot be empty.", e.getMessage());
         }
     }
     @Test
@@ -20,7 +22,7 @@ public class ParserTest {
             Parser parser = new Parser();
             parser.parse("deadline /by");
         } catch (MaxException e) {
-            assertEquals("     Oops... Deadline item or 'by' date cannot be empty.", e.getMessage());
+            assertEquals("Oops... Deadline item or 'by' date cannot be empty.", e.getMessage());
         }
     }
     @Test
@@ -29,7 +31,7 @@ public class ParserTest {
             Parser parser = new Parser();
             parser.parse("event cook dinner");
         } catch (MaxException e) {
-            assertEquals("     Hey! Event must contain '/from' and '/to' tags.", e.getMessage());
+            assertEquals("Hey! Event must contain '/from' and '/to' tags.", e.getMessage());
         }
     }
     @Test

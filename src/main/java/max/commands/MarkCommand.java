@@ -1,10 +1,9 @@
 package max.commands;
-import max.commands.*;
+
 import max.exception.MaxException;
-import max.parser.Parser;
 import max.storage.Storage;
+import max.tasks.Task;
 import max.tasks.TaskList;
-import max.tasks.*;
 import max.ui.Ui;
 
 /**

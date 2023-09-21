@@ -1,9 +1,9 @@
 package max.ui;
 
-import max.tasks.Task;
 import java.util.List;
 import java.util.Scanner;
 
+import max.tasks.Task;
 /**
  * Handles interactions with user.
  */
@@ -20,13 +20,6 @@ public class Ui {
      * Prints greeting message.
      */
     public String showGreeting() {
-//        System.out.println("     Hello from");
-//        System.out.println("       /\\/\\   __ ___  __");
-//        System.out.println("      /    \\ / _` \\ \\/ /");
-//        System.out.println("     / /\\/\\ \\ (_| |>  <");
-//        System.out.println("     \\/    \\/\\__,_/_/\\_\\");
-//        System.out.println("     How may I assist you?");
-//        System.out.println(line);
         return "Helloooo I am Max your favorite chatbot";
     }
 
@@ -115,7 +108,7 @@ public class Ui {
             // Iterate through ArrayList of tasks and enumerate them
             for (int i = 0; i < list.size(); i++) {
                 int index = i + 1;
-                ls += index + ". " + list.get(i) +"\n";
+                ls += index + ". " + list.get(i) + "\n";
             }
             return ls;
         }

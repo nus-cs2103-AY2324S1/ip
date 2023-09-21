@@ -1,20 +1,25 @@
 package max.parser;
 
-import max.commands.*;
-import max.exception.MaxException;
-import max.parser.Parser;
-import max.storage.Storage;
-import max.tasks.TaskList;
-import max.tasks.*;
-import max.ui.Ui;
-
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
-
 import static java.lang.Integer.parseInt;
 
+import java.time.LocalDate;
+
+import max.commands.AddCommand;
+import max.commands.Command;
+import max.commands.DeleteCommand;
+import max.commands.ExitCommand;
+import max.commands.FindCommand;
+import max.commands.HelpCommand;
+import max.commands.ListCommand;
+import max.commands.MarkCommand;
+import max.commands.UnmarkCommand;
+import max.exception.EmptyArgumentException;
+import max.exception.InvalidArgumentException;
+import max.exception.InvalidFormatException;
+import max.exception.MaxException;
+import max.tasks.Deadline;
+import max.tasks.Event;
+import max.tasks.Todo;
 /**
  * Parses user input to return given command.
  */
@@ -66,7 +71,7 @@ public class Parser {
             return handleFind(fullCommand);
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-            case HelpCommand.COMMAND_WORD:
+        case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
         default:
             throw new MaxException("Invalid command sir.");
@@ -83,7 +88,7 @@ public class Parser {
     public Command handleTodo(String fullCommand) throws MaxException {
         // Error checking: empty fields
         if (fullCommand.length() < 6) {
-            throw new MaxException("     Watch out -- todo description cannot be empty.");
+            throw new EmptyArgumentException("Watch out -- todo description cannot be empty.");
         }
         String description = fullCommand.substring(5).trim();
         assert !description.equals("") : "Task description should not be empty";
@@ -101,15 +106,15 @@ public class Parser {
         int toIndex = fullCommand.indexOf("/to");
         // Error checking: no /from or /to tag
         if (fromIndex == -1 || toIndex == -1) {
-            throw new MaxException("     Hey! Event must contain '/from' and '/to' tags.");
+            throw new InvalidFormatException("Hey! Event must contain '/from' and '/to' tags.");
         }
         String item = fullCommand.substring(5, fromIndex - 1).trim();
-        String from = fullCommand.substring(fromIndex + 5, toIndex -1).trim();
+        String from = fullCommand.substring(fromIndex + 5, toIndex - 1).trim();
         String to = fullCommand.substring(toIndex + 3).trim();
 
         // Error checking: empty fields
         if (item.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new MaxException("     Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
+            throw new EmptyArgumentException("Oh no! Event item, 'from' date, or 'to' date cannot be empty.");
         }
 
         assert !item.equals("") : "Event item should not be empty";
@@ -130,13 +135,13 @@ public class Parser {
         int byIndex = fullCommand.indexOf("/by");
         // Error checking: no /by tag
         if (byIndex == -1) {
-            throw new MaxException("     Try again... deadline must include a '/by' tag!");
+            throw new InvalidFormatException("Try again... deadline must include a '/by' tag!");
         }
         String item = fullCommand.substring(8, byIndex - 1).trim();
         String by = fullCommand.substring(byIndex + 3).trim();
         // Error checking: empty fields
         if (item.isEmpty() || by.isEmpty()) {
-            throw new MaxException("     Oops... Deadline item or 'by' date cannot be empty.");
+            throw new EmptyArgumentException("Oops... Deadline item or 'by' date cannot be empty.");
         }
 
         assert !item.equals("") : "Deadline item should not be empty";
@@ -164,10 +169,10 @@ public class Parser {
      * @return MarkCommand Command
      * @throws MaxException If mark number is invalid.
      */
-    public Command handleMark(String fullCommand) {
+    public Command handleMark(String fullCommand) throws MaxException {
         int markNumber = parseInt(fullCommand.substring(5));
         if (markNumber <= 0) {
-            throw new IndexOutOfBoundsException("Make sure you enter a valid integer!");
+            throw new InvalidArgumentException("Make sure you enter a valid integer!");
         }
         assert markNumber > 0 : "Mark number should be positive integer";
 
@@ -180,10 +185,10 @@ public class Parser {
      * @return UnmarkCommand Command
      * @throws MaxException If unmark number is invalid.
      */
-    public Command handleUnmark(String fullCommand) {
+    public Command handleUnmark(String fullCommand) throws MaxException {
         int unmarkNumber = parseInt(fullCommand.substring(7));
         if (unmarkNumber <= 0) {
-            throw new IndexOutOfBoundsException("Make sure you enter a valid integer!");
+            throw new InvalidArgumentException("Make sure you enter a valid integer!");
         }
         assert unmarkNumber > 0 : "Unmark number should be positive integer";
 

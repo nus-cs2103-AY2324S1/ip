@@ -1,7 +1,7 @@
 package max.exception;
 
 /**
- * Represents exceptions associated with the application.
+ * Represents all exceptions associated with the Max application.
  */
 public class MaxException extends Exception {
     public MaxException(String msg) {

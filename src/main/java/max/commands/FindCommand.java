@@ -1,15 +1,13 @@
 package max.commands;
 
-import max.storage.Storage;
-import max.tasks.Task;
-import max.tasks.TaskList;
-import max.ui.Ui;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+import max.storage.Storage;
+import max.tasks.Task;
+import max.tasks.TaskList;
+import max.ui.Ui;
 /**
  * Represents find command.
  */
@@ -35,17 +33,12 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> currList =  tasks.getList();
-        ArrayList<Task> filterList = (ArrayList<Task>) currList.stream().filter((task) -> Arrays.stream(items).anyMatch(item -> task.getItem().contains(item))).collect(Collectors.toList());
+        ArrayList<Task> currList = tasks.getList();
+        ArrayList<Task> filterList = (ArrayList<Task>) currList.stream()
+                .filter((task) -> Arrays.stream(items)
+                        .anyMatch(item -> task.getItem().contains(item)))
+                .collect(Collectors.toList());
 
-//        new ArrayList<>();
-//        for (Task task : currList) {
-//            for (String item : items) {
-//                if (task.getItem().contains(item)) {
-//                    filterList.add(task);
-//                }
-//            }
-//        }
         return ui.showList(filterList);
     }
 

@@ -38,7 +38,7 @@ public class Task {
     public String getItem() {
         return this.item;
     }
-    /** 
+    /**
      * String representation of task.
      * @return String
      */
