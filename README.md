@@ -4,11 +4,12 @@
 Duke is a chatbot which can store tasks such as todos, deadlines and events.
 
 ## Setup
-1. Download Duke [here](https://github.com/jedkohjk/ip/releases).
-2. Find the location of duke.jar in the file explorer.
-3. Copy the file path to duke.jar.
-4. Open the terminal and type ```cd ``` and paste in the file path copied. Enter the command.
-5. Then type ```java -jar duke.java``` and enter the command to start Duke.
+1. Ensure that you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) downloaded.
+2. Download Duke [here](https://github.com/jedkohjk/ip/releases).
+3. Find the location of duke.jar in the file explorer.
+4. Copy the file path to duke.jar.
+5. Open the terminal and type ```cd ``` and paste in the file path copied. Enter the command.
+6. Then type ```java -jar duke.java``` and enter the command to start Duke.
 
 ## Features 
 
