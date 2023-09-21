@@ -105,6 +105,7 @@ public class Storage {
                 stringBuilder.append(taskList.getTask(i).toSaveFormat());
                 stringBuilder.append('\n');
             }
+            assert fileWriter != null : "Ensure that fileWriter is instantiated to be written";
             fileWriter.write(stringBuilder.toString());
             fileWriter.close();
         } catch (IOException e) {

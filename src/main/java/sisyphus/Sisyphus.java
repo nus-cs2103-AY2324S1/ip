@@ -34,6 +34,7 @@ public class Sisyphus {
         while (isChatting) {
             try {
                 String fullCommand = ui.readLine();
+                assert fullCommand != null : "Ensure line was read correctly";
                 parser.runCommand(fullCommand, tasks, storage, ui);
                 isChatting = parser.getActiveStatus();
             } catch (SisyphusException e) {
