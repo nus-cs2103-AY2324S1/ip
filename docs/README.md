@@ -5,9 +5,9 @@ Je-O Chatbot is a desktop app for managing tasks, optimized for use via a Comman
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest jeo.jar from here.
+2. Download the latest jeo.jar from [here](https://github.com/josepholim/ip/releases/tag/A-Release).
 3. Copy the file to the folder you want to use as the home folder for your Je-O Chatbot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.  
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar jeo.jar` command to run the application.  
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
 
 <img src = "Ui.png" width = "300px">
