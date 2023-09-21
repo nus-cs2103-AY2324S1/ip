@@ -1,5 +1,6 @@
 package com.cloud.chatbot.token;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cloud.chatbot.exception.MissingFlagInputException;
@@ -17,9 +18,13 @@ public class FlagManager extends TokenManager {
      * @param flagSet The flag set to manage.
      */
     public FlagManager(List<Token> flagSet) {
-        // Assumption: There is a first token and it is a flag.
-        // Assumption: The passed list will not be mutated externally
-        this.tokens = flagSet;
+        // There must be a first token
+        assert flagSet.size() > 0;
+
+        // The first token must be a flag;
+        assert flagSet.get(0).isFlag();
+
+        this.tokens = new ArrayList<>(flagSet);
     }
 
     /**
