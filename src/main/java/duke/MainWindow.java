@@ -22,8 +22,8 @@ public class MainWindow extends AnchorPane {
 
     private CheeChat duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Screenshot 2023-09-21 at 10.44.54 AM.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Screenshot 2023-09-21 at 10.45.36 AM.png"));
 
     @FXML
     public void initialize() {
