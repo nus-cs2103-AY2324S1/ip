@@ -29,7 +29,7 @@ public class Storage {
         this.client = client;
         this.saveFile = file;
         try {
-            createSaveFile();
+            createSaveFile(client);
             loadSaveFile();
         } catch (StorageException e) {
             client.sendWarning(e.getMessage());
@@ -39,11 +39,12 @@ public class Storage {
      * Creates a save file if one doesn't exist
      * @throws StorageException Thrown if save file directory is unreachable
      */
-    private void createSaveFile() throws StorageException {
+    private void createSaveFile(Rock client) throws StorageException {
         File saveFile = this.saveFile;
         try {
             saveFile.getParentFile().mkdirs();
             if (saveFile.createNewFile()) {
+                client.sendWarning("No save file found! Creating new save file.");
                 saveSaveFile(new TaskList());
             }
         } catch (IOException e) {
