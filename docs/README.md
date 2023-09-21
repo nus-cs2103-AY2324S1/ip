@@ -75,7 +75,7 @@ Format: `mark [task number]`
 
 * The task number must be valid and positive
 
-### 🦆 Mark task: `unmark`
+### 🦆 Unmark task: `unmark`
 
 Marks a task with the specified task number in the list as not done.<br>
 Format: `unmark [task number]`
