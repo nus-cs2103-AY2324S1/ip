@@ -58,6 +58,6 @@ javafx {
 }
 
 run{
-    enableAssertions = true
+    enableAssertions = false
     standardInput = System.in
 }

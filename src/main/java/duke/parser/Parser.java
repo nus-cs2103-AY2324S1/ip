@@ -1,6 +1,6 @@
 package duke.parser;
 
-import duke.command.Command;
+import duke.command.*;
 import duke.data.exception.CCException;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
@@ -26,24 +26,67 @@ public class Parser {
      * @throws CCException If an error occurs during parsing, such as an empty input.
      */
     public Command parseInput(String input) throws CCException {
-        if (input.trim().isEmpty()) {
-            throw new CCException("Empty input detected.");
-        }
-        int space = input.indexOf(' ');
-        String action = "";
-        String description = "";
-        if (space == -1) { //input is a single word
-            action = input;
-        } else {
-            //split input into action and description
-            action = input.substring(0, space);
-            description = input.substring(space + 1, input.length());
+        String action = getActionFromInput(input);
+        String description = getDescriptionFromInput(input, action);
+
+        Command command;
+
+        switch (action) {
+        case "todo":
+        case "deadline":
+        case "event":
+            command = new AddTaskCommand(parseTask(action, description));
+            break;
+        case "list":
+            command = new PrintListCommand();
+            break;
+        case "mark":
+            command = new MarkTaskCommand(description);
+            break;
+        case "unmark":
+            command = new UnmarkTaskCommand(description);
+            break;
+        case "delete":
+            command = new DeleteTaskCommand(description);
+            break;
+        case "find":
+            command = new FindTaskCommand(description);
+            break;
+        case "completed":
+            command = new CountCompletedTasksCommand();
+            break;
+        case "uncompleted":
+            command = new CountUncompletedTasksCommand();
+            break;
+        case "count":
+            command = new CountTaskTypeCommand();
+            break;
+        default:
+            throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
 
         assert action != null : "Action should not be null";
         assert description != null : "Description should not be null";
 
-        return new Command(action, description);
+        return command;
+    }
+
+    private String getActionFromInput(String input) throws CCException {
+        if (input.trim().isEmpty()) {
+            throw new CCException("Empty input detected.");
+        }
+        String[] words = input.split(" ");
+        return words[0];
+    }
+
+    private String getDescriptionFromInput(String input, String action) {
+        int startIndex = input.indexOf(action + " ");
+        if (startIndex >= 0) {
+            startIndex += action.length() + 1; // Add 1 to account for the space
+            return input.substring(startIndex);
+        } else {
+            return input; // Return the entire input if the action is not found
+        }
     }
 
     /**
@@ -56,8 +99,9 @@ public class Parser {
      */
     public Task parseTaskFromFile(String fileLine) throws CCException {
         String input = fileLine.substring(1); //remove completion status character to extract task input
-        Command command = parseInput(input);
-        Task task = parseTask(command.getAction(), command.getTaskDescription());
+        String action = getActionFromInput(input);
+        String description = getDescriptionFromInput(input, action);
+        Task task = parseTask(action, description);
         //Extract the task completion status character from the file line.
         //If it is marked as completed ('X'), set the task as done.
         if (fileLine.charAt(0) == 'X') {

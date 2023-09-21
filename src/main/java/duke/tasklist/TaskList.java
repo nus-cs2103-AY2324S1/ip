@@ -19,7 +19,7 @@ public class TaskList implements Iterable<Task> {
 
     private final ArrayList<Task> taskList;
     private final Ui ui;
-    private int markedCount;
+    private int completedCount;
     private int todoCount;
     private int deadlineCount;
     private int eventCount;
@@ -33,7 +33,7 @@ public class TaskList implements Iterable<Task> {
     public TaskList(ArrayList<Task> taskList, Ui ui) {
         this.taskList = taskList;
         this.ui = ui;
-        this.markedCount = 0;
+        this.completedCount = 0;
         this.todoCount = 0;
         this.deadlineCount = 0;
         this.eventCount = 0;
@@ -46,7 +46,7 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added to the task list.
      * @throws CCException If there is an error in adding the task.
      */
-    public String addTask(Task task) {
+    public void addTask(Task task) {
         assert task != null : "Task should not be null"; // Check that the task is not null
         taskList.add(task);
         if (task instanceof ToDo) {
@@ -56,7 +56,26 @@ public class TaskList implements Iterable<Task> {
         } else {
             eventCount++;
         }
-        return ui.displayAddTask(task, taskList.size());
+    }
+
+    /**
+     * Deletes a task from the task list based on the provided input.
+     * Displays a confirmation message after deleting the task.
+     *
+     * @param input The input containing task information to be deleted.
+     * @throws CCException If there is an error in deleting the task or if the input is invalid.
+     */
+    public Task deleteTask(String input) throws CCException {
+        assert input != null : "Input should not be null"; // Check that the input is not null
+        try {
+            int index = getIndex(input);
+            Task deletedTask = taskList.get(index);
+            assert deletedTask != null : "Task should not be null"; // Check that the task is not null
+            taskList.remove(index);
+            return deletedTask;
+        } catch (IndexOutOfBoundsException e) {
+            throw new CCException("Invalid input for list of length " + taskList.size());
+        }
     }
 
     /**
@@ -66,7 +85,7 @@ public class TaskList implements Iterable<Task> {
      * @param input The input containing task information to mark as done.
      * @throws CCException If there is an error in marking the task or if the input is invalid.
      */
-    public String markTask(String input) throws CCException {
+    public Task markTask(String input) throws CCException {
         assert input != null : "Input should not be null"; // Check that the input is not null
         assert !input.isEmpty() : "Input should not be empty"; // Check that the input is not empty
 
@@ -74,8 +93,8 @@ public class TaskList implements Iterable<Task> {
             Task task = taskList.get(getIndex(input));
             assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(true);
-            markedCount++;
-            return ui.displayMarkTask(task);
+            completedCount++;
+            return task;
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for marking list of length " + taskList.size());
         }
@@ -88,7 +107,7 @@ public class TaskList implements Iterable<Task> {
      * @param input The input containing task information to unmark.
      * @throws CCException If there is an error in unmarking the task or if the input is invalid.
      */
-    public String unmarkTask(String input) throws CCException {
+    public Task unmarkTask(String input) throws CCException {
         assert input != null : "Input should not be null"; // Check that the input is not null
         assert !input.isEmpty() : "Input should not be empty"; // Check that the input is not empty
 
@@ -96,28 +115,8 @@ public class TaskList implements Iterable<Task> {
             Task task = taskList.get(getIndex(input));
             assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(false);
-            markedCount--;
-            return ui.displayUnmarkTask(task);
-        } catch (IndexOutOfBoundsException e) {
-            throw new CCException("Invalid input for list of length " + taskList.size());
-        }
-    }
-
-    /**
-     * Deletes a task from the task list based on the provided input.
-     * Displays a confirmation message after deleting the task.
-     *
-     * @param input The input containing task information to be deleted.
-     * @throws CCException If there is an error in deleting the task or if the input is invalid.
-     */
-    public String deleteTask(String input) throws CCException {
-        assert input != null : "Input should not be null"; // Check that the input is not null
-        try {
-            int index = getIndex(input);
-            Task task = taskList.get(index);
-            assert task != null : "Task should not be null"; // Check that the task is not null
-            taskList.remove(index);
-            return ui.displayDeleteTask(task, taskList.size());
+            completedCount--;
+            return task;
         } catch (IndexOutOfBoundsException e) {
             throw new CCException("Invalid input for list of length " + taskList.size());
         }
@@ -129,42 +128,15 @@ public class TaskList implements Iterable<Task> {
      * @param input The keyword or search query used to find matching tasks.
      * @return A string containing a list of tasks that match the search query.
      */
-    public String find(String input) {
+    public TaskList find(String input) {
         assert input != null : "Input should not be null"; // Check that the input is not null
-        ArrayList<Task> matchingTasks = new ArrayList<>();
+        TaskList matchingTasks = new TaskList(new ArrayList<>(), ui);
         for (Task task : taskList) {
             if(task.getTaskDescription().contains(input)) {
-                matchingTasks.add(task);
+                matchingTasks.addTask(task);
             }
         }
-        return ui.displayMatchingTasks(matchingTasks);
-    }
-
-    public String countTasks(String input) {
-        String response = "";
-        switch (input) {
-        case "completed":
-            response = countCompletedTasks();
-            break;
-        case "uncompleted":
-            response = countUncompletedTasks();
-            break;
-        case "type":
-            response = countTaskType();
-        }
-        return response;
-    }
-
-    private String countCompletedTasks() {
-        return ui.displayCompletedTaskCount(markedCount, taskList.size());
-    }
-
-    private String countUncompletedTasks() {
-        return ui.displayUncompletedTaskCount(taskList.size() - markedCount, taskList.size());
-    }
-
-    private String countTaskType() {
-        return ui.displayTaskTypeCount(todoCount, deadlineCount, eventCount);
+        return matchingTasks;
     }
 
     /**
@@ -180,12 +152,41 @@ public class TaskList implements Iterable<Task> {
     /**
      * Prints the list of tasks with their respective indexes.
      */
-    public String printList() {
-        return ui.displayList(taskList);
+    public String getFormattedList() {
+        String indent = "      ";
+        String result = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            result += "\n" + indent + (i + 1) + "." + taskList.get(i).getTaskForPrinting();
+        }
+        return result;
     }
 
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();
+    }
+
+    public int getSize() {
+        return taskList.size();
+    }
+
+    public int getCompletedCount() {
+        return completedCount;
+    }
+
+    public int getUncompletedCount() {
+        return getSize() - getCompletedCount();
+    }
+
+    public int getTodoCount() {
+        return todoCount;
+    }
+
+    public int getDeadlineCount() {
+        return deadlineCount;
+    }
+
+    public int getEventCount() {
+        return eventCount;
     }
 }
