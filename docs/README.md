@@ -3,6 +3,20 @@
 ChatBot Alpha is a **desktop app that can store, check, uncheck and delete
 events, todos and deadlines via a Command Line Interface (CLI).**
 
+<div markdown="block" class="alert alert-info">
+
+**Notes about the command format:**
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
+  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+
+* Items in square brackets are optional.<br>
+  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+
+
+* If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
+</div>
+
 ## Features 
 
 #### Listing all tasks: ``list``
