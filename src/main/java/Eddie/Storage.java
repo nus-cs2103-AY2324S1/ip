@@ -41,17 +41,17 @@ public class Storage {
     /**
      * Read the file and extract its contents into the Tasklist.
      */
-    public static void readFile() {
+    public static void readFile () throws  FileNotFoundException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy");
-        try {
-            File eddieTaskList = new File("EddieTaskList.txt");
-            Scanner sc = new Scanner(eddieTaskList);
-            while (sc.hasNextLine()) {
-                String t = sc.nextLine();
-                String[] task;
-                task = t.split(" , ");
+        File eddieTaskList = new File("EddieTaskList.txt");
+        Scanner sc = new Scanner(eddieTaskList);
+        while (sc.hasNextLine()) {
+            String t = sc.nextLine();
+            String[] task;
+            task = t.split(" , ");
 
-                if(task[0].equals("T")) {
+            switch (task[0]) {
+                case "T":
                     Todo todo = new Todo(task[2]); //creates new task with name
                     if (task[1].equals("x")) {
                         todo.taskIsDone();
@@ -67,10 +67,10 @@ public class Storage {
                     }
 
                     TaskList.add(todo);
-                } if (task[0].equals("D")) {
+                case "D":
                     Deadline deadline = new Deadline(task[2], LocalDate.parse(task[3], formatter));
 //
-                    if (task[1].equals("x")){
+                    if (task[1].equals("x")) {
                         deadline.taskIsDone();
                     }
 
@@ -81,9 +81,8 @@ public class Storage {
                             deadline.tag(tags[i]);
                         }
                     }
-
                     TaskList.add(deadline);
-                } if (task[0].equals("E")) {
+                case "E":
                     Event event = new Event(task[2], LocalDate.parse(task[3], formatter), LocalDate.parse(task[4], formatter));
 
                     if (task[1].equals("x")) {
@@ -99,10 +98,15 @@ public class Storage {
                     }
 
                     TaskList.add(event);
-                }
             }
+        }
+        sc.close();
 
-            sc.close();
+    }
+
+    public static void read() {
+        try {
+            readFile();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }

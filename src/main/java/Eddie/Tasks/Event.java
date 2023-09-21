@@ -54,6 +54,7 @@ public class Event extends Task {
      * Returns the full description of the task to be listed.
      * @return Type, status, description, start date, end date.
      */
+    @Override
     public String toString() {
         return "[" + this.getType() + "]" + "[" + this.getStatus() + "]" + this.getName()
                 + " (from: " + this.getStartDate() + " to: " + this.getEndDate() + ") " + super.printTags();

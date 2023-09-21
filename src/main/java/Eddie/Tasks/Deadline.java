@@ -43,6 +43,7 @@ public class Deadline extends Task {
      * Prints out the whole task along with the type, status, description and deadline for listing.
      * @return The string to be printed.
      */
+    @Override
     public String toString() {
         return "[" + this.getType() + "]" + "[" + this.getStatus() + "]" + this.getName() + " (by: " + this.getDeadline() + ") " + super.printTags();
     }

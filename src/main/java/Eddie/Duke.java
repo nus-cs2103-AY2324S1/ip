@@ -33,7 +33,7 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         TaskList.clear();
-        Storage.readFile();
+        Storage.read();
 //
 //        Ui.welcome();
         //Step 1. Setting up required components

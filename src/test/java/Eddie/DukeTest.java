@@ -1,4 +1,5 @@
 package Eddie;
+import Eddie.Commands.AddCommand;
 import Eddie.Tasks.Deadline;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ public class DukeTest {
     @Test
     public void addTest() {
         Deadline d = new Deadline("Test", LocalDate.parse("2019-01-01"));
-        Duke.add(d);
+        AddCommand.execute(d);
         assertEquals(TaskList.get(0), d);
     }
 }

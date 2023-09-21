@@ -11,6 +11,6 @@ public class TodoTest {
         Todo t = new Todo(" Test1");
         t.taskIsDone();
 
-        assertEquals(t.toString(), "[T][x] Test1");
+        assertEquals(t.toString(), "[T][x] Test1 ");
     }
 }
