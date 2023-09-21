@@ -1,15 +1,15 @@
-set/ set
-change/ change
-display/ display
-list/ list
-delete/ delete
-unset/ unset
-unmark/ unmark
-bye/ bye
-todo/ todo
-help/ help
-load/ load
-find/ find
-event/ event
-deadline/ deadline
-mark/ mark
+set / set
+change / change
+display / display
+list / list
+delete / delete
+unset / unset
+unmark / unmark
+bye / bye / b / bb
+todo / todo
+help / help
+load / load
+find / find
+event / event
+deadline / deadline
+mark / mark

@@ -8,12 +8,12 @@
 <?import javafx.stage.Stage?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.gui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="940.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.gui.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="329.0" AnchorPane.bottomAnchor="1.0" stylesheets="/styles.css"/>
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="81.0" text="Send" stylesheets="/styles.css"/>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="559.0" prefWidth="410.0" vvalue="1.0">
-            <VBox fx:id="dialogContainer" alignment="TOP_CENTER" minHeight="552.0" VBox.vgrow="ALWAYS" stylesheets="/styles.css"/>
+        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.5" minWidth="720.0" minHeight="40.0" stylesheets="/styles.css"/>
+        <Button fx:id="sendButton" layoutY="558.0" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="1.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="40.0" prefWidth="80.0" text="Send" stylesheets="/styles.css"/>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="900.0" prefWidth="800.0" vvalue="1.0">
+            <VBox fx:id="dialogContainer" alignment="TOP_CENTER" minHeight="900" minWidth="780.0" VBox.vgrow="ALWAYS" stylesheets="/styles.css"/>
         </ScrollPane>
     </children>
 </AnchorPane>
