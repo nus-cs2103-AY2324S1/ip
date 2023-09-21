@@ -24,7 +24,7 @@
             </HBox>
           <StackPane fx:id="rect">
              <children>
-                  <Label fx:id="dialog" minWidth="90.0" text="Label" wrapText="true" alignment="CENTER"/>
+                  <Label fx:id="dialog" minWidth="90.0" maxWidth="350.0" text="Label" wrapText="true" alignment="CENTER"/>
              </children>
           </StackPane>
         </children>
