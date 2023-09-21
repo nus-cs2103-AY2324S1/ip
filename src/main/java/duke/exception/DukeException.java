@@ -4,6 +4,7 @@ package duke.exception;
  * the parent class for all the exception.
  */
 public class DukeException extends Exception {
+
     /**
      * Constructor for the exception.
      *

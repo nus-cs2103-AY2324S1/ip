@@ -24,11 +24,13 @@ public class Deadline extends Task {
      */
     public Deadline(String Description) throws DukeException {
         super(Description);
-        int index = Description.indexOf("/");
         if (Description.split("\\s+").length == 1
-                || index == DEADLINE_PREFIX + 1) {
+                || Description.charAt(DEADLINE_PREFIX + 1) == '/') {
             throw new DukeNoDescriptionException("Deadline");
         }
+
+        Description = Description.replaceAll("\\s+", " ");
+        int index = Description.indexOf("/");
 
         if (index == -1) {
             throw new DukeNoDateException("Deadline");
@@ -49,8 +51,6 @@ public class Deadline extends Task {
         assert !time.isEmpty(): "time should not be empty";
         time = Description.substring(index + 1, index + 3) + ": " + time;
         this.Description = content + "(" + time + ")";
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + this);
     }
 
     /**

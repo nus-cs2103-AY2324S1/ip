@@ -26,7 +26,6 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    private static final Ui UI = new Ui();
 
     private DialogBox(String text, Image img) {
         try {

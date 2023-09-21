@@ -27,6 +27,7 @@ public class TimeProcessor {
      */
     public static String StringToDate(String info)
             throws DukeException {
+        info = info.trim();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
         String reg = "\\d{1,2}/\\d{1,2}/\\d{4}";
         LocalDate current = LocalDate.now();
@@ -63,9 +64,9 @@ public class TimeProcessor {
             }
         }
 
-        assert date != null;
-        return date.format(DateTimeFormatter.ofPattern("MMM d yyyy",
-                        Locale.ENGLISH));
+        return date == null ? info :
+                date.format(DateTimeFormatter.ofPattern(
+                        "MMM d yyyy", Locale.ENGLISH));
     }
 
     private static String twentyfourToTwelve(String info) throws DukeException {
@@ -113,6 +114,10 @@ public class TimeProcessor {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public static void main(String[] args) throws DukeException {
+        System.out.println(StringToDate("tue"));
     }
 
 }

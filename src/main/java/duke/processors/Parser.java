@@ -65,7 +65,8 @@ public class Parser {
             if (isKeyword) {
                 int ind = Integer.parseInt(part[1]) - 1;
                 if (ind >= TASKS.getCount() || ind < 0) {
-                    throw new DukeException("The given index is not in the available range");
+                    throw new DukeException(
+                            "The given index is not in the available range");
                 }
                 switch (part[0]) {
                 case "mark":

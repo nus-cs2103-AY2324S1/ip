@@ -20,8 +20,6 @@ public class ToDo extends Task {
         }
         Description = Description.replaceAll("\\s+", " ");
         this.Description = Description.substring(5);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("    " + this);
     }
 
     /**

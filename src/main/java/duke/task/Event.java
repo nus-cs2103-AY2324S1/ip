@@ -47,15 +47,21 @@ public class Event extends Task {
             throws DukeException {
         String time;
         int index = Description.indexOf("/");
-        String content = Description.substring(EVENT_PREFIX + 1, index);
-        int lastIndex = Description.substring(index + 1).indexOf("/");
-        if (lastIndex != -1) {
-            lastIndex += (index + 1);
-        }
 
-        if (lastIndex == index || Description.length() - lastIndex <  7 || lastIndex == -1) {
+        if (!Description.contains("/") ||
+                !Description.substring(index + 1).contains("/")) {
             throw new DukeNoDateException("Event");
         }
+
+        if (Description.split("\\s+").length == 1) {
+            throw new DukeNoDescriptionException("Event");
+        }
+
+        Description = Description.replaceAll("\\s+", " ");
+        index = Description.indexOf("/");
+        String content = Description.substring(EVENT_PREFIX + 1, index);
+        int lastIndex = Description.substring(index + 1).indexOf("/");
+        lastIndex += (index + 1);
 
         String startTime = Description.substring(index + 6, lastIndex - 1);
         String endTime = Description.substring(lastIndex + 4);
