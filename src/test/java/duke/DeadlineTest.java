@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.Test;
@@ -16,21 +17,21 @@ public class DeadlineTest {
     @Test
     public void testToString() {
         LocalDateTime dateTime = LocalDateTime.of(2023, 12, 1, 18, 0);
-        Deadline deadline = new Deadline("Complete assignment", dateTime);
+        Deadline deadline = new Deadline("Complete badminton training", dateTime);
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
         String formattedDateTime = dateTime.format(formatter);
 
-        String expected = "[D][ ] Complete assignment (by: " + formattedDateTime + ")";
+        String expected = "[D][ ] Complete badminton training (by: " + formattedDateTime + ")";
         assertEquals(expected, deadline.toString());
     }
 
     @Test
-    public void testToFileString() {
-        LocalDateTime dateTime = LocalDateTime.of(2023, 12, 1, 18, 0);
-        Deadline deadline = new Deadline("Complete assignment", dateTime);
+    public void testDeadlineToFileString() {
+        LocalDateTime dateTime = LocalDateTime.of(2023, Month.SEPTEMBER, 24, 23, 59);
+        Deadline deadline = new Deadline("submit transcript to ben", dateTime);
 
-        String expected = "D | 0 | Complete assignment | 01 Dec 2023 6:00PM\n";
+        String expected = "D | 0 | submit transcript to ben | 24 Sep 2023 11:59pm\n";
         assertEquals(expected, deadline.toFileString());
     }
 

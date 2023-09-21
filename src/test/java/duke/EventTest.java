@@ -19,8 +19,7 @@ public class EventTest {
         LocalDateTime fromDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 16, 0);
         LocalDateTime toDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 18, 0);
         Event event = new Event("Meeting", fromDateTime, toDateTime);
-
-        String expected = "[E][ ] Meeting (from: August 30 2023 2PM to: August 30 2023 4PM)";
+        String expected = "[E][ ] Meeting (from: August 30 2023 4pm to: August 30 2023 6pm)";
         assertEquals(expected, event.toString());
     }
 
@@ -30,10 +29,9 @@ public class EventTest {
         LocalDateTime toDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 16, 0);
         Event event = new Event("Meeting", fromDateTime, toDateTime);
 
-        String expected = "E | 0 | Meeting | August 30 2023 2PM - August 30 2023 4PM\n";
+        String expected = "E | 0 | Meeting | August 30 2023 2pm - August 30 2023 4pm\n";
         assertEquals(expected, event.toFileString());
     }
-
     @Test
     public void testEventIsDone() {
         Event event = new Event("Conference", LocalDateTime.now(), LocalDateTime.now().plusHours(2));
