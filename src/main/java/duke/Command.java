@@ -33,29 +33,30 @@ public enum Command {
      * @throws InvalidInputException if the input is invalid
      */
     public static Command getCommand(String input) throws InvalidInputException {
+        String commandWord = input.split(" ")[0];
         if (input.trim().equals("list")) {
             return Command.LIST;
         } else if (input.trim().equals("bye")) {
             return Command.BYE;
-        } else if (input.startsWith("mark")) {
+        } else if (commandWord.equals("mark")) {
             return Command.MARK;
-        } else if (input.startsWith("unmark")) {
+        } else if (commandWord.equals("unmark")) {
             return Command.UNMARK;
-        } else if (input.startsWith("todo")) {
+        } else if (commandWord.equals("todo")) {
             return Command.TODO;
-        } else if (input.startsWith("deadline")) {
+        } else if (commandWord.equals("deadline")) {
             return Command.DEADLINE;
-        } else if (input.startsWith("event")) {
+        } else if (commandWord.equals("event")) {
             return Command.EVENT;
-        } else if (input.startsWith("delete")) {
+        } else if (commandWord.equals("delete")) {
             return Command.DELETE;
-        } else if (input.startsWith("find")) {
+        } else if (commandWord.equals("find")) {
             return Command.FIND;
-        } else if (input.startsWith("tag")) {
+        } else if (commandWord.equals("tag")) {
             return Command.TAG;
         } else if (input.trim().equals("showtags")) {
             return Command.SHOWTAGS;
-        } else if (input.startsWith("removetag")) {
+        } else if (commandWord.equals("removetag")) {
             return Command.REMOVETAG;
         }
         throw new InvalidInputException();
