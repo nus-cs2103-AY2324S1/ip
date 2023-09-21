@@ -9,6 +9,7 @@ AiChan is a desktop application to help you **manage your tasks**.
 
 <!--Quick Start part inspired by https://se-education.org/addressbook-level3/UserGuide.html-->
 ## Quick Start
+
 1. Ensure your computer have Java `11`.
 2. Download the latest `AiChan.jar` from [here](https://github.com/KumChaiYin/ip/releases)
 3. Copy the file to the folder you want to use as the home folder for AiChan.
@@ -217,16 +218,16 @@ Ta-da! It's time to go~ Keep smiling till we reunite!
 ```
 
 ## Command Summary
- Action      | Format
--------------|-------------------------------------------------------------
- todo        | `todo DESCRIPTION`
- deadline    | `deadline DESCRIPTION /by DD/MM/YYYY HHmm`
- event       | `event DESCRIPTION /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`
- list        | `list`
- mark        | `mark TASKID`
- unmark      | `unmark TASKID`
- find        | `find KEYWORDS`
- delete      | `delete TASKID`
- deleteMarked| `deleteMarked`
- bye         | `bye`
 
+| Action   | Format                                        |
+|----------|----------------------------------------------|
+| todo     | `todo DESCRIPTION`                            |
+| deadline | `deadline DESCRIPTION /by DD/MM/YYYY HHmm`   |
+| event    | `event DESCRIPTION /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm` |
+| list     | `list`                                       |
+| mark     | `mark TASKID`                                |
+| unmark   | `unmark TASKID`                              |
+| find     | `find KEYWORDS`                              |
+| delete   | `delete TASKID`                              |
+| deleteMarked | `deleteMarked`                            |
+| bye      | `bye`                                        |
