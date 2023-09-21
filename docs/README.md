@@ -72,8 +72,13 @@ no deadlines, and are represented only by its completion status!
 
 `todo [task name]`
 
-> **⚠️Warning**  
-> The task name you enter **cannot** just be one or more spaces (" ")!
+{% warning %}
+
+**⚠️Warning**    
+
+The task name you enter **cannot** just be one or more spaces (" ")!
+
+{% endwarning %}
 
 #### Examples
 
@@ -86,7 +91,7 @@ no deadlines, and are represented only by its completion status!
 If successful, `Juke` will respond with:
 
 ```
-Task added: [T] [] <YOUR TASK NAME>
+Task added: [T] [ ] <YOUR TASK NAME>
 ```
 
 #### Possible Errors
@@ -125,7 +130,7 @@ Create a `Deadline` Task to track completable tasks with a deadline!
 If successful, `Juke` will respond with:
 
 ```
-Task added: [D] [] <YOUR TASK NAME> by: <TASK DEADLINE>
+Task added: [D] [ ] <YOUR TASK NAME> (by <TASK DEADLINE>)
 ```
 
 #### Possible Errors
@@ -171,7 +176,7 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
 If successful, `Juke` will respond with:
 
 ```
-Task added: [E] [] <YOUR TASK NAME> (from <TASK START DATE> to <TASK END DATE>)
+Task added: [E] [ ] <YOUR TASK NAME> (from <TASK START DATE> to <TASK END DATE>)
 ```
 
 #### Possible Errors
@@ -318,8 +323,13 @@ If successful, `Juke` will respond with:
 Task marked as undone: <TASK>
 ```
 
-> **ℹ️ Note**  
-> The task indicator will turn from `[✓]` to `[]`
+{% note %}
+
+**ℹ️ Note**  
+
+The task indicator will turn from `[✓]` to `[ ]`
+
+{% endnote %}
 
 #### Possible Errors
 
