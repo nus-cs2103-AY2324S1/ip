@@ -3,7 +3,6 @@ package oreo.command;
 import oreo.exception.IllegalCommandException;
 import oreo.task.Task;
 import oreo.task.TaskList;
-import oreo.ui.Ui;
 
 import java.util.Scanner;
 

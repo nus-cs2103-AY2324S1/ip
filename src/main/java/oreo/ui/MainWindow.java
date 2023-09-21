@@ -1,24 +1,27 @@
-package oreo;
+package oreo.ui;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.geometry.Side;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+
+import javafx.scene.text.Font;
+import oreo.Oreo;
 import oreo.command.Command;
 import oreo.command.EditCommand;
 import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 import oreo.parser.Parser;
 import oreo.task.Task;
-import oreo.ui.Ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -30,9 +33,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInputEdit;
     @FXML
-    private Button sendButton;
+    private ImageView sendButton;
     @FXML
-    private Button editButton;
+    private ImageView editButton;
 
     private Oreo oreo;
 
@@ -42,6 +45,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty()); // scroll follows
+//        Font dmSansFont = Font.loadFont(getClass().getResourceAsStream("/fonts/DMSans-Medium.ttf"), 12);
+//        userInput.setFont(dmSansFont);
     }
 
     public void setOreo(Oreo oreo) {
@@ -58,6 +63,7 @@ public class MainWindow extends AnchorPane {
         Command c = Parser.parse(input);
         if (c.isExit()) {
             exit(input);
+            return;
         } else if (c.isEdit()) {
             userToEditHandler(c, input);
             return;
@@ -147,7 +153,12 @@ public class MainWindow extends AnchorPane {
         try {
             oreo.closeProcess();
             setDialogContainer(input, oreo.sayBye());
-            Platform.exit();
+            userInput.clear();
+            new Timer().schedule(new TimerTask() {
+                public void run () {
+                    System.exit(0);
+                }
+            }, 1000);
         } catch (IOException e) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getOreoDialog(e.getMessage(), oreoImage));

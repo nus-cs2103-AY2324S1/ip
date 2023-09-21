@@ -4,7 +4,7 @@ import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 import oreo.task.Task;
 import oreo.task.TaskList;
-import oreo.ui.Ui;
+import oreo.ui.Formatter;
 import java.util.Scanner;
 
 public class AddCommand extends Command {
@@ -23,9 +23,9 @@ public class AddCommand extends Command {
         Task newTask = Task.generateTask(command, tokeniser);
         tasks.modifyTask(index, newTask);
         return "Modified this: \n"
-                + Ui.indentLineBy(oldTask.toString(), 2) + "\n"
+                + Formatter.indentLineBy(oldTask.toString(), 2)
                 + "to this: \n"
-                + Ui.indentLineBy(newTask.toString(), 2);
+                + Formatter.indentLineBy(newTask.toString(), 2);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class AddCommand extends Command {
             Task newTask = Task.generateTask(command, tokeniser);
             tasks.add(newTask);
             return "Gotchu! noted down: \n"
-                    + Ui.indentLineBy(newTask.toString(), 2)
+                    + Formatter.indentLineBy(newTask.toString(), 2)
                     + "Now you have " + tasks.getNumberOfTask()
                     + " tasks in the list!";
         } catch (IllegalCommandException e) {

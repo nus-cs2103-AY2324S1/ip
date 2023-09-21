@@ -1,7 +1,7 @@
 package oreo.task;
 
 import oreo.exception.IllegalCommandException;
-import oreo.ui.Ui;
+import oreo.ui.Formatter;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
