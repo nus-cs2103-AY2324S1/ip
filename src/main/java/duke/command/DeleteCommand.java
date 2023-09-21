@@ -25,8 +25,8 @@ public class DeleteCommand extends Command {
 	 */
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
-		String remaining = storage.getMainRemaining(true);
 		try {
+			String remaining = storage.getMainRemaining(true);
 			Task task = storage.deleteFromMainFile(positionToDelete, true);
 			System.out.println(ui.showDeleteMain(task, remaining, true));
 			return ui.showDeleteMain(task, remaining, true);

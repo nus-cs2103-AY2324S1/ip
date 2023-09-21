@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -44,8 +45,12 @@ public class Storage {
 	 * @param isMain Whether accessing Main or Archive file
 	 * @return String representing remaining task
 	 */
-	public String getMainRemaining(boolean isMain) {
-		return isMain ? Integer.toString(taskList.getRemaining()) : Integer.toString(archiveList.getRemaining());
+	public String getMainRemaining(boolean isMain) throws DukeException{
+		try {
+			return isMain ? Integer.toString(taskList.getRemaining()) : Integer.toString(archiveList.getRemaining());
+		} catch (IndexOutOfBoundsException e) {
+			throw new DukeException("Invalid index");
+		}
 	}
 	public TaskList getArchiveList() {
 		return this.archiveList;
@@ -79,8 +84,8 @@ public class Storage {
 		}
 		try {
 			FileWriter fw = new FileWriter(filePathReference, true);
-				fw.write(task.writeToFile());
-				fw.write("\n");
+			fw.write(task.writeToFile());
+			fw.write("\n");
 			fw.close();
 		} catch (IOException e) {
 			System.out.println("write fail");
@@ -124,6 +129,12 @@ public class Storage {
 		return taskList;
 	}
 
+	public void removeWhiteSpace(String[] stringArray) {
+		for (int i  = 0; i < stringArray.length; i++) {
+			String s = stringArray[i].trim();
+			stringArray[i] = s;
+		}
+	}
 
 	/**
 	 * Converts each line into the format shown to reader.
@@ -134,48 +145,51 @@ public class Storage {
 	 */
 	public void readTaskMain(String fileLine, boolean isMain) throws IOException {
 		String[] str = fileLine.split("\\|");
-		Task temporarytTask;
-		for (int i  = 0; i < str.length; i++) {
-			String s = str[i].trim();
-			str[i] = s;
+		removeWhiteSpace(str);
+		boolean isValid = str.length == 3 || str.length == 4 || str.length == 5;
+		if (!isValid){
+			throw new IOException("Can't read from file");
 		}
-		if (str.length % 3 == 0 && str.length != 0) {
-			StringBuilder br = new StringBuilder();
-			String taskType = str[0];
-			boolean isDone = Integer.parseInt(str[1]) == 1;
-			switch(taskType) {
-				case "T":
-					ToDo toDo = new ToDo(str[2]);
-					if (isDone) {
-						toDo.markAsDone();
-					}
-					temporarytTask = toDo;
-					break;
-				case "D":
-					LocalDateTime startTime = LocalDateTime.parse(str[3]);
-					DeadLine deadLine = new DeadLine(str[2], startTime);
-					if (isDone) {
-						deadLine.markAsDone();
-					}
-					temporarytTask = deadLine;
-					break;
-				case "E":
-					LocalDateTime start = LocalDateTime.parse(str[3]);
-					LocalDateTime end = LocalDateTime.parse(str[4]);
-					Event event = new Event(str[2], start, end);
-					if (isDone) {
-						event.markAsDone();
-					}
-					temporarytTask = event;
-					break;
-				default:
-					throw new IOException("read fail");
-			}
-			if (isMain) {
-				taskList.add(temporarytTask);
-			} else {
-				archiveList.add(temporarytTask);
-			}
+		Task taskReference;
+		String taskDescription = str[2];
+		StringBuilder br = new StringBuilder();
+		String taskType = str[0];
+		LocalDateTime startTime;
+		LocalDateTime endTime;
+
+		boolean isDone = Integer.parseInt(str[1]) == 1;
+		switch(taskType) {
+			case "T":
+				taskReference = new ToDo(taskDescription);
+				break;
+			case "D":
+				try {
+					startTime = LocalDateTime.parse(str[3]);
+				} catch (DateTimeParseException e) {
+					throw new IOException("Cannot parse file");
+				}
+				taskReference = new DeadLine(taskDescription, startTime);
+				break;
+			case "E":
+				try {
+					startTime = LocalDateTime.parse(str[3]);
+					endTime = LocalDateTime.parse(str[4]);
+				} catch (DateTimeParseException e) {
+					throw new IOException("Cannot parse file");
+				}
+				taskReference = new Event(taskDescription, startTime, endTime);
+				break;
+			default:
+				throw new IOException("read fail");
+		}
+
+		if (isDone) {
+			taskReference.markAsDone();
+		}
+		if (isMain) {
+			taskList.add(taskReference);
+		} else {
+			archiveList.add(taskReference);
 		}
 	}
 
@@ -200,8 +214,8 @@ public class Storage {
 			}
 			fw.close();
 			return taskDeleted;
-		} catch (IOException | PositionException e) {
-			throw new DukeException(e.getMessage());
+		} catch (IOException | IndexOutOfBoundsException | PositionException e) {
+			throw new DukeException("Invalid position");
 		}
 	}
 

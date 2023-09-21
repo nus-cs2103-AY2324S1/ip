@@ -27,10 +27,10 @@ public class MarkCommand extends Command {
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 		try {
-			taskList.toMark(isMark, positionToMark, ui);
+			taskList.toMark(isMark, this.positionToMark, ui);
 			storage.updateMainStorage(true);
-			String markComment = isMark ? ui.showMark(taskList.getTask(positionToMark)) :
-					ui.showUnMark(taskList.getTask(positionToMark));
+			String markComment = isMark ? ui.showMark(taskList.getTask(this.positionToMark)) :
+					ui.showUnMark(taskList.getTask(this.positionToMark));
 			return markComment;
 		} catch (DukeException e) {
 			return e.getMessage();

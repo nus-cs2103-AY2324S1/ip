@@ -28,11 +28,9 @@ public class AddCommandTest {
 
         ToDo t = new ToDo("hello");
         String actualToDo = new AddCommand(t).execute(taskList, ui, storage);
-        String expectedToDo = "____________________________________________________________\n" +
-                "Got it. I've added this task:\n" +
+        String expectedToDo = "Got it. I've added this task:\n" +
                 "[T][ ] hello\n" +
-                "Now you have 1 tasks in the list\n" +
-                "____________________________________________________________";
+                "Now you have 1 tasks in the list\n";
         assertEquals(expectedToDo, actualToDo);
     }
     @Test
@@ -41,11 +39,10 @@ public class AddCommandTest {
             storage.clearFile();
             Command deadLine = new AddCommand(Parser.getDeadLine("deadline hello /by 9am 26june"));
             String actualDeadLine = deadLine.execute(taskList, ui, storage);
-            String expectedDeadLine = "____________________________________________________________\n" +
+            String expectedDeadLine =
                     "Got it. I've added this task:\n" +
                     "[D][ ] hello (by: 09:00 2023-06-26)\n" +
-                    "Now you have 1 tasks in the list\n" +
-                    "____________________________________________________________";
+                    "Now you have 1 tasks in the list\n";
             assertEquals(expectedDeadLine, actualDeadLine);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -58,11 +55,10 @@ public class AddCommandTest {
             storage.clearFile();
             Event event = Parser.getEvent("event hello /from 9am 26june /to 10am 26june");
             String actualEvent = new AddCommand(event).execute(taskList, ui, storage);
-            String expectedEvent = "____________________________________________________________\n" +
+            String expectedEvent =
                     "Got it. I've added this task:\n" +
                     "[E][ ] hello (from: 09:00 2023-06-26 to: 10:00 2023-06-26)\n" +
-                    "Now you have 1 tasks in the list\n" +
-                    "____________________________________________________________";
+                    "Now you have 1 tasks in the list\n";
             assertEquals(expectedEvent, actualEvent);
         } catch (Exception e) {
             System.out.println(e.getMessage());

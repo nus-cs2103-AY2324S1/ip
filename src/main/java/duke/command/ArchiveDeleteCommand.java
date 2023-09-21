@@ -26,8 +26,8 @@ public class ArchiveDeleteCommand extends Command {
 	 */
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
-		String remaining = storage.getMainRemaining(false);
 		try {
+			String remaining = storage.getMainRemaining(false);
 			Task task = storage.deleteFromMainFile(positionToDelete, false);
 			storage.updateMainStorage(false);
 			System.out.println(ui.showDeleteMain(task, remaining, false));

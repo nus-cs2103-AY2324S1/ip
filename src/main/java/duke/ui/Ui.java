@@ -236,7 +236,7 @@ public class Ui {
 				"list -list all things\n" +
 				"find keyWord\n" +
 				"archive idx\n" +
-				"unarhive idk\n" +
+				"unarchive idk\n" +
 				"archivelist\n" +
 				"archivedelete idx\n" +
 				"bye -exit system\n";
