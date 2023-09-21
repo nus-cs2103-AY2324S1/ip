@@ -1,4 +1,4 @@
-package avalon;
+package avalon.task;
 
 /**
  * Represents a to-do task, which is a type of task with a description and completion status.

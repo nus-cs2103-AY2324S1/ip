@@ -1,4 +1,4 @@
-package avalon;
+package avalon.utility;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +20,7 @@ public class DateTimeParser {
         try {
             return LocalDateTime.parse(inputDateTime, formatter);
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please follow the format: YYYY-MM-DD hhmm");
+            System.out.println("Invalid date format. Please follow the format: YYYY-MM-DD HHmm");
         }
         return null;
     }
@@ -33,8 +33,7 @@ public class DateTimeParser {
      */
     public static String dateTimeToString(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        String formattedDateTimeString = dateTime.format(formatter);
-        return formattedDateTimeString;
+        return dateTime.format(formatter);
     }
 
     /**
@@ -45,7 +44,6 @@ public class DateTimeParser {
      */
     public static String printDateTimeToString(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
-        String formattedDateTimeString = dateTime.format(formatter);
-        return formattedDateTimeString;
+        return dateTime.format(formatter);
     }
 }

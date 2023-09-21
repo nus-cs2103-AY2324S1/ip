@@ -1,4 +1,6 @@
-package avalon;
+package avalon.task;
+
+import avalon.utility.DateTimeParser;
 
 import java.time.LocalDateTime;
 
@@ -11,12 +13,12 @@ public class Event extends Task {
     /**
      * The start timestamp for the event task.
      */
-    protected LocalDateTime from;
+    private LocalDateTime from;
 
     /**
      * The end timestamp for the event task.
      */
-    protected LocalDateTime to;
+    private LocalDateTime to;
 
     /**
      * Creates a new event task with the given description, start timestamp,
@@ -30,6 +32,14 @@ public class Event extends Task {
         super(description);
         this.from = DateTimeParser.stringToDateTime(from);
         this.to = DateTimeParser.stringToDateTime(to);
+    }
+
+    public LocalDateTime getFrom() {
+        return from;
+    }
+
+    public LocalDateTime getTo() {
+        return to;
     }
 
     /**

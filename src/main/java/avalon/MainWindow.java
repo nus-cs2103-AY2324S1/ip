@@ -1,5 +1,6 @@
 package avalon;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -30,7 +34,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Avalon a) {
+    public void setAvalon(Avalon a) {
         avalon = a;
     }
 
@@ -44,8 +48,18 @@ public class MainWindow extends AnchorPane {
         String response = avalon.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getAvalonDialog(response, dukeImage)
         );
-        userInput.clear();
+
+        if (response.equals("    Farewell. We will meet again!\n")) {
+            PauseTransition wait = new PauseTransition(Duration.seconds(2));
+            wait.setOnFinished((e) -> {
+                Stage stage = (Stage) sendButton.getScene().getWindow();
+                stage.close();
+            });
+            wait.play();
+
+            userInput.clear();
+        }
     }
 }
