@@ -34,7 +34,6 @@ public class Duke {
         this(SAVED_TASKS_FILEPATH);
     }
 
-    
     public static void main(String[] args) {
         Duke luke = new Duke(SAVED_TASKS_FILEPATH);
         luke.run();

@@ -34,10 +34,10 @@ public class Storage {
     public void save(String saveString) throws LukeException {
         try {
             File file = new File(filepath);
-            File parent_directory = file.getParentFile();
+            File parentDirectory = file.getParentFile();
 
-            if (parent_directory != null) {
-                parent_directory.mkdirs();
+            if (parentDirectory != null) {
+                parentDirectory.mkdirs();
             }
 
             FileWriter fw = new FileWriter(file);
