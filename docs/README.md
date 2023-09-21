@@ -10,14 +10,14 @@ Let's get started!
 
 ## Getting Started
 
-As `Juke` is a GUI application, you will need to install the relevant Java GUI libraries on 
+As `Juke` is a GUI application, you will need to install the relevant Java GUI libraries on
 your machine.
 
 ### Setting Up
 
-To use `Juke`, you will need to install `Java 11` on your machine. You can find out more on 
-how you can install `Java 11` on your 
-[Windows machine](https://docs.azul.com/core/zulu-openjdk/install/windows), 
+To use `Juke`, you will need to install `Java 11` on your machine. You can find out more on
+how you can install `Java 11` on your
+[Windows machine](https://docs.azul.com/core/zulu-openjdk/install/windows),
 [MacOS machine](https://docs.azul.com/core/zulu-openjdk/install/macos) or
 [Linux machine](https://docs.azul.com/core/zulu-openjdk/install/debian) by clicking on the hyperlinked
 text.
@@ -25,17 +25,21 @@ text.
 Ensure that you are downloading the latest version of `Java 11` from the websites which contain
 the `JavaFX` library prepackaged in it.
 
-{% include warning.html content="If you decide not to use the above <pre>Java 11</pre> JDKs for 
-any reason, ensure that the JDK you decide to use is at least <pre>Java 11</pre> and you install 
-the relevant <pre>JavaFX</pre> library along with the installation of the JDK!" %}
+{% warning %}
 
-Next, head to [this website](https://github.com/asdfghjkxd/ip/releases) and download the latest JAR file 
+**Warning:** If you decide not to use the above `Java 11` JDKs for any reason, ensure that the JDK you
+decide to use is at least `Java 11` and you install the relevant `JavaFX` library along with
+the installation of the JDK!
+
+{% endwarning %}
+
+Next, head to [this website](https://github.com/asdfghjkxd/ip/releases) and download the latest JAR file
 attached in the latest release of `Juke`.
 
 ### Running `Juke`
 
-Open up your device's terminal or command prompt. Navigate to the location where the JAR file is 
-downloaded into using the `cd` command. Click [here](https://www.educative.io/answers/what-is-cd-in-linux) 
+Open up your device's terminal or command prompt. Navigate to the location where the JAR file is
+downloaded into using the `cd` command. Click [here](https://www.educative.io/answers/what-is-cd-in-linux)
 to learn more about the `cd` command.
 
 Finally, run the command `java -jar juke.jar` to start `Juke`!
@@ -48,7 +52,7 @@ The following image highlights some important aspect of the GUI:
 
 ## Notations
 
-Before delving into the different commands that `Juke` can understand, here are some notations used in this User 
+Before delving into the different commands that `Juke` can understand, here are some notations used in this User
 Guide which you should take note of:
 
 | Notation/Symbols                                          | Description                                                                                      |
@@ -58,21 +62,21 @@ Guide which you should take note of:
 | ( ... OR ... ) **or** [ ... OR ... ] **or** ... OR ...    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by ...) |
 | ( ... AND ... ) **or** [ ... AND ... ] **or** ... AND ... | The "OR" word is used to denote two mandatory <br>input from the two inputs (represented by ...) |
 
-## Features 
+## Features
 
 `Juke` is packed full of features to help you track your tasks!
 
 ### Add a `Todo` Task
 
-You can add a `Todo` Task to help you track the tasks that you need to do! `Todo` tasks have 
+You can add a `Todo` Task to help you track the tasks that you need to do! `Todo` tasks have
 no deadlines, and are represented only by its completion status!
 
 #### Usage
 
 `todo [task name]`
 
-{% include warning.html content="The task name you enter <strong>cannot</strong>
-just be one or more spaces!" %}
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -85,7 +89,7 @@ just be one or more spaces!" %}
 If successful, `Juke` will respond with:
 
 ```
-Task added: [T] [ ] <YOUR TASK NAME>
+Task added: [T] [] <YOUR TASK NAME>
 ```
 
 #### Possible Errors
@@ -105,14 +109,14 @@ Create a `Deadline` Task to track completable tasks with a deadline!
 `deadline [task name] /by [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)MM(- OR /)YYYY)]`
 
 * Note the following
-    * `DD`: 2-digit number representing the day
-    * `MM`: 2-digit number representing the month
-    * `YYYY`: 4-digit number representing the year
-    * `HH`: 2-digit number representing the hour in 24 hours
-    * `MM`: 2-digit number representing the minutes
+  * `DD`: 2 digit number representing the day
+  * `MM`: 2 digit number representing the month
+  * `YYYY`: 4 digit number representing the year
+  * `HH`: 2 digit number representing the hour in 24 hours
+  * `MM`: 2 digit number representing the minutes
 
-{% include warning.html content="The task name you enter <strong>cannot</strong>
-just be one or more spaces!" %}
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -124,7 +128,7 @@ just be one or more spaces!" %}
 If successful, `Juke` will respond with:
 
 ```
-Task added: [D] [ ] <YOUR TASK NAME> (by <TASK DEADLINE>)
+Task added: [D] [] <YOUR TASK NAME> by: <TASK DEADLINE>
 ```
 
 #### Possible Errors
@@ -148,17 +152,17 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
 ```
 
 * Note the following
-    * `DD`: 2-digit number representing the day
-    * `MM`: 2-digit number representing the month
-    * `YYYY`: 4-digit number representing the year
-    * `HH`: 2-digit number representing the hour in 24 hours
-    * `MM`: 2-digit number representing the minutes
+  * `DD`: 2-digit number representing the day
+  * `MM`: 2-digit number representing the month
+  * `YYYY`: 4-digit number representing the year
+  * `HH`: 2-digit number representing the hour in 24 hours
+  * `MM`: 2-digit number representing the minutes
 
-{% include note.html content="The date formats used in <pre>event</pre> follows closely to what 
-<pre>deadline</pre> uses!" %}
+> **ℹ️ Note**  
+> The date formats used in `event` follows closely to what `deadline` uses!
 
-{% include warning.html content="The task name you enter <strong>cannot</strong> 
-just be one or more spaces!" %}
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -170,7 +174,7 @@ just be one or more spaces!" %}
 If successful, `Juke` will respond with:
 
 ```
-Task added: [E] [ ] <YOUR TASK NAME> (from <TASK START DATE> to <TASK END DATE>)
+Task added: [E] [] <YOUR TASK NAME> (from <TASK START DATE> to <TASK END DATE>)
 ```
 
 #### Possible Errors
@@ -228,8 +232,9 @@ You can also delete a Task from `Juke` to remove any unwanted task from your tas
 delete [TASK INDEX]
 ```
 
-{% include note.html content="The task index is relative to the current order of the task list! 
-If you are not sure what the order of the list is, use the <pre>list</pre> command!" %}
+> **ℹ️ Note**  
+> The task index is relative to the current order of the task list! If you are not sure
+> what the order of the list is, use the `list` command!
 
 #### Examples
 
@@ -262,8 +267,9 @@ You can mark a Task as complete to help you track your incomplete tasks!
 mark [TASK INDEX]
 ```
 
-{% include note.html content="The task index is relative to the current order of the task list!
-If you are not sure what the order of the list is, use the <pre>list</pre> command!" %}
+> **ℹ️ Note**  
+> The task index is relative to the current order of the task list! If you are not sure
+> what the order of the list is, use the `list` command!
 
 #### Examples
 
@@ -277,7 +283,8 @@ If successful, `Juke` will respond with:
 Task marked as done: <TASK>
 ```
 
-{% include note.html content="The task indicator will turn from <pre>[ ]</pre> to <pre>[✓]</pre>" %}
+> **ℹ️ Note**  
+> The task indicator will turn from `[ ]` to `[✓]`
 
 #### Possible Errors
 
@@ -298,8 +305,9 @@ Conversely, you can also mark a Task as incomplete to help you track your comple
 unmark [TASK INDEX]
 ```
 
-{% include note.html content="The task index is relative to the current order of the task list! 
-If you are not sure what the order of the list is, use the <pre>list</pre> command!" %}
+> **ℹ️ Note**  
+> The task index is relative to the current order of the task list! If you are not sure
+> what the order of the list is, use the `list` command!
 
 #### Examples
 
@@ -313,7 +321,8 @@ If successful, `Juke` will respond with:
 Task marked as undone: <TASK>
 ```
 
-{% include note.html content="The task indicator will turn from <pre>[✓]</pre> to <pre>[ ]</pre>" %}
+> **ℹ️ Note**  
+> The task indicator will turn from `[✓]` to `[]`
 
 #### Possible Errors
 
@@ -326,7 +335,7 @@ The following are examples of errors that could happen to the `mark` command:
 
 ### Find your Tasks
 
-Need help searching for a Task in your Task list? Use the Find feature to help you search 
+Need help searching for a Task in your Task list? Use the Find feature to help you search
 for the Task that you are looking for!
 
 #### Usage
@@ -335,10 +344,11 @@ for the Task that you are looking for!
 find [QUERY]
 ```
 
-{% include note.html content="The query can be any valid task name String (does not 
-contain the illegal character <pre>|</pre>)!" %}
+> **ℹ️ Note**  
+> The query can be any valid task name String (does not contain the illegal character `|`)!
 
-{% include warning.html content="The task name you enter <strong>cannot</strong> just be one or more spaces!" %}
+> **⚠️Warning**  
+> The task name you enter **cannot** just be one or more spaces (" ")!
 
 #### Examples
 
@@ -368,7 +378,7 @@ The following are examples of errors that could happen to the `mark` command:
 
 ### Sort your Tasks
 
-You can sort your tasks by their description, start date, end date and deadline in ascending 
+You can sort your tasks by their description, start date, end date and deadline in ascending
 or descending order to help you be on task!
 
 #### Usage
@@ -377,21 +387,17 @@ or descending order to help you be on task!
 sort [SORT ORDER] [SORT BY]
 ```
 
-{% include note.html content="The values that <pre>[SORT ORDER]</pre> can take are: <br>
-<ul>
-  <li><pre>a</pre> OR <pre>asc</pre> OR <pre>ascend</pre> OR <pre>ascending</pre>: Sorts the list in ascending order</li>
-  <li><pre>d</pre> OR <pre>desc</pre> OR <pre>descend</pre> OR <pre>descending</pre>: Sorts the list in descending order</li>
-</ul>
-" %}
+> **ℹ️ Note**   
+> The values that `[SORT ORDER]` can take are:
+> * `a` OR `asc` OR `ascend` OR `ascending`: Sorts the list in ascending order
+> * `d` OR `desc` OR `descend` OR `descending`: Sorts the list in descending order
 
-{% include note.html content="The values that <pre>[SORT BY]</pre> can take are:
-<ul>
-  <li><pre>d</pre> OR <pre>des</pre> OR <pre>descript</pre> OR <pre>description</pre>: Sorts the list by task description</li>
-  <li><pre>s</pre> OR <pre>st</pre> OR <pre>start</pre> OR <pre>start date</pre>: Sorts the list by start date</li>
-  <li><pre>e</pre> OR <pre>en</pre> OR <pre>end</pre> OR <pre>end date</pre>: Sorts the list by end date</li>
-  <li><pre>d</pre> OR <pre>dead</pre> OR <pre>deadln</pre> OR <pre>deadline</pre>: Sorts the list by deadline</li>
-</ul>
-" %}
+> **ℹ️ Note**  
+> The values that `[SORT BY]` can take are:
+> * `d` OR `des` OR `descript` OR `description`: Sorts the list by task description
+> * `s` OR `st` OR `start` OR `start date`: Sorts the list by start date
+> * `e` OR `en` OR `end` OR `end date`: Sorts the list by end date
+> * `d` OR `dead` OR `deadln` OR `deadline`: Sorts the list by deadline
 
 #### Examples
 
