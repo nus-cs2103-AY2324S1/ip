@@ -22,15 +22,6 @@ public abstract class Command {
     }
 
     /**
-     * Checks if the command is an exit command.
-     *
-     * @return True if the command is an exit command, false otherwise.
-     */
-    public Boolean isExit() {
-        return this.isExit;
-    }
-
-    /**
      * Executes the command on the specified task list, storage, and user interface.
      *
      * @param taskList The task list to operate on.

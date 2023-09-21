@@ -32,7 +32,7 @@ public class Duke {
      */
     public void run() {
         ui = new Ui();
-        storage = new Storage("duke.txt", "data");
+        storage = new Storage("johnny.txt", "data");
         tasks = new TaskList();
     }
 
