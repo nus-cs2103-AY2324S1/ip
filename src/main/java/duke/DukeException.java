@@ -1,7 +1,13 @@
 package duke;
 
 public class DukeException extends RuntimeException {
-    public DukeException(String errorMessage) {
+    private final String errorCode;
+    public DukeException(String errorMessage, String errorCode) {
         super(errorMessage);
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorCode() {
+        return errorCode;
     }
 }

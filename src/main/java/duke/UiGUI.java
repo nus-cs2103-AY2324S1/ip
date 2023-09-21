@@ -44,6 +44,15 @@ public class UiGUI {
     }
 
     /**
+     * Tells the user that he has entered in valid query for the specified type
+     *
+     * @param info string, the type of task
+     */
+    public String showExError(String info) {
+        return info;
+    }
+
+    /**
      * Tells the user the number of tasks left
      *
      * @param i the number of tasks left

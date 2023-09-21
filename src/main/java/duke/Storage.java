@@ -50,7 +50,7 @@ public class Storage {
             bufferedWriter.flush();
             bufferedWriter.close();
         } catch (IOException e) {
-            Ui.Error(e);
+            UiGUI.Error(e);
         }
     }
 
@@ -89,7 +89,7 @@ public class Storage {
                     } else if (key == 1) {
                         input.add(new Deadline(splitted[2], LocalDate.parse(splitted[3]), (splitted[1] == "1")));
                     } else {
-                        Ui.badDateLoaded();
+                        UiGUI.badDateLoaded();
                     }
                     break;
                 }
@@ -97,7 +97,7 @@ public class Storage {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            Ui.Error(e);
+            UiGUI.Error(e);
         }
         return input;
     }
