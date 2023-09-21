@@ -4,17 +4,21 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    /** Start time of Event. */
+    /**
+     * Start time of Event.
+     */
     protected LocalDate start;
-    /** End time of Event. */
+    /**
+     * End time of Event.
+     */
     protected LocalDate end;
 
     /**
      * Constructor for Event.
      *
      * @param description Description of task.
-     * @param start Start time of event.
-     * @param end End time of event.
+     * @param start       Start time of event.
+     * @param end         End time of event.
      */
     public Event(String description, String start, String end) {
         super(description);
@@ -26,8 +30,8 @@ public class Event extends Task {
      * Constructor for Event loaded from Storage.
      *
      * @param description Description of task.
-     * @param start Start time of event as LocalDate.
-     * @param end End time of event as LocalDate.
+     * @param start       Start time of event as LocalDate.
+     * @param end         End time of event as LocalDate.
      */
     public Event(String description, LocalDate start, LocalDate end) {
         super(description);
@@ -43,6 +47,6 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + start.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " to: "+ end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+                + " to: " + end.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

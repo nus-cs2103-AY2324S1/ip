@@ -1,15 +1,17 @@
 package chatbot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import chatbot.exception.InvalidCommandException;
 import chatbot.exception.InvalidTaskNumberException;
 import chatbot.task.Task;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TaskList {
-    /** TaskList for the Chatbot. */
-    private List<Task> taskList;
+    /**
+     * TaskList for the Chatbot.
+     */
+    private final List<Task> taskList;
 
     /**
      * Constructor for the TaskList.
@@ -111,9 +113,9 @@ public class TaskList {
      * Adds a tag to the task.
      *
      * @param taskNum The task number.
-     * @param desc The description of the tag to add.
+     * @param desc    The description of the tag to add.
      * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
-     * @throws InvalidCommandException If the input does not include a task number.
+     * @throws InvalidCommandException    If the input does not include a task number.
      */
     public void addTaskTag(String taskNum, String desc) throws InvalidTaskNumberException, InvalidCommandException {
         try {

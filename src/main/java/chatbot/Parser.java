@@ -1,13 +1,12 @@
 package chatbot;
 
-import chatbot.exception.InvalidTodoException;
-import chatbot.exception.InvalidEventException;
-import chatbot.exception.InvalidDeadlineException;
-import chatbot.exception.InvalidCommandException;
-import chatbot.exception.InvalidTaskNumberException;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import chatbot.exception.InvalidCommandException;
+import chatbot.exception.InvalidDeadlineException;
+import chatbot.exception.InvalidEventException;
+import chatbot.exception.InvalidTodoException;
 
 public class Parser {
     /**
@@ -15,11 +14,11 @@ public class Parser {
      * description, and other parameters, in that order.
      *
      * @param input The command inputted by the user.
-     * @returns An array containing the type and details of the task.
-     * @throws InvalidTodoException If format of todo entered is invalid.
+     * @throws InvalidTodoException     If format of todo entered is invalid.
      * @throws InvalidDeadlineException If format of deadline entered is invalid.
-     * @throws InvalidEventException If format of event entered is invalid.
-     * @throws InvalidCommandException If format of command entered is invalid.
+     * @throws InvalidEventException    If format of event entered is invalid.
+     * @throws InvalidCommandException  If format of command entered is invalid.
+     * @returns An array containing the type and details of the task.
      */
     public List<String> parseAdd(String input) throws InvalidTodoException,
             InvalidDeadlineException, InvalidEventException, InvalidCommandException {
@@ -49,9 +48,9 @@ public class Parser {
      * Parses user input. If input is appropriate, modifies the array to contain the type of task, description,
      * start and end time, in that order.
      *
-     * @param arr The array to modify.
+     * @param arr       The array to modify.
      * @param nextInput The user input.
-     * @throws InvalidEventException If format of event entered is invalid.
+     * @throws InvalidEventException   If format of event entered is invalid.
      * @throws InvalidCommandException If format of command entered is invalid.
      */
     private void parseEventInput(List<String> arr, String nextInput) throws InvalidCommandException, InvalidEventException {
@@ -76,13 +75,13 @@ public class Parser {
     }
 
     /**
-     *  Parses user input. If input is appropriate, modifies the array to contain the type of task, description,
-     *  and deadline, in that order.
+     * Parses user input. If input is appropriate, modifies the array to contain the type of task, description,
+     * and deadline, in that order.
      *
-     * @param arr The array to modify.
+     * @param arr       The array to modify.
      * @param nextInput The user input.
      * @throws InvalidDeadlineException If format of deadline entered is invalid.
-     * @throws InvalidCommandException If format of command entered is invalid.
+     * @throws InvalidCommandException  If format of command entered is invalid.
      */
     private void parseDeadlineInput(List<String> arr, String nextInput) throws InvalidCommandException, InvalidDeadlineException {
         try {
@@ -92,7 +91,7 @@ public class Parser {
 
             checkInputIsNotEmpty(description, deadline);
 
-            arr.add(0,"deadline");
+            arr.add(0, "deadline");
             arr.add(1, description);
             arr.add(2, deadline);
         } catch (StringIndexOutOfBoundsException e) {
@@ -103,12 +102,12 @@ public class Parser {
     }
 
     /**
-     *  Parses user input. If input is appropriate, modifies the array to contain the type of task and description
-     *  in that order.
+     * Parses user input. If input is appropriate, modifies the array to contain the type of task and description
+     * in that order.
      *
-     * @param arr The array to modify.
+     * @param arr       The array to modify.
      * @param nextInput The user input.
-     * @throws InvalidTodoException If format of todo entered is invalid.
+     * @throws InvalidTodoException    If format of todo entered is invalid.
      * @throws InvalidCommandException If format of command entered is invalid.
      */
     private void parseTodoInput(List<String> arr, String nextInput) throws InvalidCommandException, InvalidTodoException {
@@ -131,8 +130,8 @@ public class Parser {
      * representing the number of the task to be marked.
      *
      * @param input The user input.
-     * @returns The number of the task.
      * @throws InvalidCommandException If format of command entered is invalid.
+     * @returns The number of the task.
      */
     public int parseMarkTaskStatusTrue(String input) throws InvalidCommandException {
         int taskIndex;
@@ -153,8 +152,8 @@ public class Parser {
      * representing the number of the task to be unmarked.
      *
      * @param input The user input.
-     * @returns The number of the task.
      * @throws InvalidCommandException If format of command entered is invalid.
+     * @returns The number of the task.
      */
     public int parseMarkTaskStatusFalse(String input) throws InvalidCommandException {
         int taskIndex;
@@ -174,8 +173,8 @@ public class Parser {
      * Parses input for the find method. If input is appropriate, returns a String of the keyword to match with.
      *
      * @param input The user input.
-     * @returns The String keyword to search for.
      * @throws InvalidCommandException If format of command entered is invalid.
+     * @returns The String keyword to search for.
      */
     public String parseFind(String input) throws InvalidCommandException {
         String keyword;
@@ -193,8 +192,8 @@ public class Parser {
      * containing the number of the task to be tagged and the description of the tag.
      *
      * @param input The user input.
-     * @returns A list containing the number of the task and the tag description.
      * @throws InvalidCommandException If format of command entered is invalid.
+     * @returns A list containing the number of the task and the tag description.
      */
     public List<String> parseAddTaskTag(String input) throws InvalidCommandException {
         List<String> arr = new ArrayList<>();
@@ -224,8 +223,8 @@ public class Parser {
      * representing the number of the task to be deleted.
      *
      * @param input The user input.
-     * @returns The number of the task.
      * @throws InvalidCommandException If format of command entered is invalid.
+     * @returns The number of the task.
      */
     public int parseDelete(String input) throws InvalidCommandException {
         int taskIndex;

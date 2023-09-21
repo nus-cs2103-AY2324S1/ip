@@ -4,14 +4,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    /** LocalDate deadline for Deadline. */
+    /**
+     * LocalDate deadline for Deadline.
+     */
     protected LocalDate by;
 
     /**
      * Constructor for Deadline.
      *
      * @param description Description of task.
-     * @param by Deadline for Deadline.
+     * @param by          Deadline for Deadline.
      */
     public Deadline(String description, String by) {
         super(description);
@@ -22,7 +24,7 @@ public class Deadline extends Task {
      * Constructor for Deadline loaded from Storage.
      *
      * @param description Description of task.
-     * @param by Deadline for Deadline as LocalDate.
+     * @param by          Deadline for Deadline as LocalDate.
      */
     public Deadline(String description, LocalDate by) {
         super(description);

@@ -1,20 +1,26 @@
 package chatbot.task;
 
 public class Task {
-    /** The description of the task. */
+    /**
+     * The description of the task.
+     */
     protected String description;
 
-    /** The done status of the task. */
+    /**
+     * The done status of the task.
+     */
     protected boolean isDone;
 
-    /** The tag of the task. */
+    /**
+     * The tag of the task.
+     */
     protected Tag tag;
 
     /**
      * Constructor for a task.
      *
      * @param description The task description.
-     * */
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -30,8 +36,8 @@ public class Task {
         return (isDone ? "X" : " ");
     }
 
-    /** Prints out task done status along with the task description.
-     *
+    /**
+     * Prints out task done status along with the task description.
      */
     @Override
     public String toString() {

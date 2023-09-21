@@ -1,16 +1,19 @@
 package chatbot;
 
-import chatbot.exception.InvalidTaskNumberException;
-import chatbot.task.Task;
-
 import java.util.Scanner;
 
-public class Ui {
-    /** Name of the Chatbot associated with the Ui instance. */
-    private String name;
+import chatbot.exception.InvalidTaskNumberException;
 
-    /** Scanner for the Ui. */
-    private Scanner scanner;
+public class Ui {
+    /**
+     * Name of the Chatbot associated with the Ui instance.
+     */
+    private final String name;
+
+    /**
+     * Scanner for the Ui.
+     */
+    private final Scanner scanner;
 
     /**
      * Constructor for the Chatbot.
@@ -49,7 +52,7 @@ public class Ui {
     /**
      * Prints confirmation after marking task done status as true.
      *
-     * @param i The index of the task that is marked as done.
+     * @param i        The index of the task that is marked as done.
      * @param taskList The TaskList containing the task.
      * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
@@ -61,7 +64,7 @@ public class Ui {
     /**
      * Prints confirmation after marking task done status as false.
      *
-     * @param i The index of the task that is marked as undone.
+     * @param i        The index of the task that is marked as undone.
      * @param taskList The TaskList containing the task.
      * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
@@ -73,7 +76,7 @@ public class Ui {
     /**
      * Prints confirmation after deleting task.
      *
-     * @param i The index of the task that is deleted.
+     * @param i        The index of the task that is deleted.
      * @param taskList The TaskList containing the task.
      * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */
@@ -107,7 +110,7 @@ public class Ui {
     /**
      * Lists out the matching tasks in the taskList.
      *
-     * @param keyword The keyword to match with.
+     * @param keyword  The keyword to match with.
      * @param taskList The TaskList to print.
      * @throws InvalidTaskNumberException If there is no task with the given index in the taskList.
      */

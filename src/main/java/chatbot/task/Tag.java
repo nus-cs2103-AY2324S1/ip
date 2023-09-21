@@ -1,7 +1,9 @@
 package chatbot.task;
 
 public class Tag {
-    /** The description of the tag of the task. */
+    /**
+     * The description of the tag of the task.
+     */
     private String desc;
 
     /**

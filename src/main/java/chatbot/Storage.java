@@ -1,12 +1,5 @@
 package chatbot;
 
-import chatbot.exception.InvalidCommandException;
-import chatbot.exception.InvalidFileFormatException;
-import chatbot.exception.InvalidTaskNumberException;
-import chatbot.task.Deadline;
-import chatbot.task.Event;
-import chatbot.task.Todo;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -15,11 +8,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import chatbot.exception.InvalidFileFormatException;
+import chatbot.exception.InvalidTaskNumberException;
+import chatbot.task.Deadline;
+import chatbot.task.Event;
+import chatbot.task.Todo;
+
 public class Storage {
     /**
      * Loads file input and adds respective tasks into chatbot taskList.
      */
-    public void loadTasksFromFile(TaskList taskList) throws FileNotFoundException, InvalidFileFormatException,
+    public void loadTasksFromFile(TaskList taskList) throws InvalidFileFormatException,
             IOException, SecurityException {
         File directory = new File("data");
         if (!directory.exists()) {

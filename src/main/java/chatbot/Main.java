@@ -2,7 +2,6 @@ package chatbot;
 
 import java.io.IOException;
 
-import chatbot.Chatbot;
 import chatbot.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Chatbot chatbot = new Chatbot();
+    private final Chatbot chatbot = new Chatbot();
 
     @Override
     public void start(Stage stage) {
