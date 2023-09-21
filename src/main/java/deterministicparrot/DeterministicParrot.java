@@ -3,6 +3,7 @@ package deterministicparrot;
 
 import java.io.FileNotFoundException;
 import java.io.StringWriter;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -73,6 +74,9 @@ public class DeterministicParrot {
         });
         parser.registerHandler("find", args -> {
             findTask(args);
+        });
+        parser.registerHandler("upcoming", args -> {
+            getUpcomingTasks(args);
         });
     }
 
@@ -286,18 +290,34 @@ public class DeterministicParrot {
         this.ui.println(sb.toString());
     }
 
+    private void getUpcomingTasks(String[] args) throws Exception {
+        if (args.length < 2) {
+            throw new DeterministicParrotException("Please provide a time.");
+        }
+        String timeString = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        LocalDateTime beforeTime = DPUtils.dPTryParseDateTime(timeString);
+        List<TaskList.SearchResult> results = this.taskList.getUpcomingTasks(beforeTime);
+        this.ui.println("     " + "Here are the upcoming deadlines in your list:");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < results.size(); i++) {
+            sb.append("     " + results.get(i).index + ". " + results.get(i).task + "\n");
+        }
+        this.ui.println(sb.toString());
+    }
+
+
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
     String getResponse(String input) {
-        this.ui.printDash();
+        //this.ui.printDash();
         try {
             this.parser.handleCommand(input);
         } catch (Exception e) {
             this.ui.printError(e);
         }
-        this.ui.printDash();
+        //this.ui.printDash();
         String output = this.ui.flushWriter();
         System.out.println(output);
         return output;
