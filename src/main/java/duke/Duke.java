@@ -6,10 +6,19 @@ package duke;
 public class Duke {
 
     /**
+     * Enclosing exception class for all exceptions that arise when running the program.
+     */
+    public static class DukeRuntimeException extends RuntimeException {
+        public DukeRuntimeException(String message) {
+            super(message);
+        }
+    }
+
+    /**
      * All exceptions that arise when parsing user input.
      */
-    public static class ParserException extends RuntimeException {
-        public ParserException(String message) {
+    public static class DukeParserException extends DukeRuntimeException {
+        public DukeParserException(String message) {
             super(message);
         }
     }
@@ -17,7 +26,7 @@ public class Duke {
     /**
      * Exceptions that arise when the user input is not a valid command.
      */
-    public static class WrongCommandException extends ParserException {
+    public static class WrongCommandException extends DukeParserException {
         public WrongCommandException(String message) {
             super(message);
         }
@@ -26,7 +35,7 @@ public class Duke {
     /**
      * Exceptions that arise when the user input is not in the correct format.
      */
-    public static class WrongFormatException extends ParserException {
+    public static class WrongFormatException extends DukeParserException {
         public WrongFormatException(String message) {
             super(message);
         }
@@ -35,7 +44,7 @@ public class Duke {
     /**
      * Exceptions that arise when the file is corrupted.
      */
-    public static class InvalidFileException extends RuntimeException {
+    public static class InvalidFileException extends DukeRuntimeException {
         public InvalidFileException(String message) {
             super(message);
         }
