@@ -4,11 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Text?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-            <Label fx:id="dialog" text="Label" textFill="BLACK" wrapText="true" HBox.hgrow="ALWAYS" minHeight="-Infinity"/>
+            <Label fx:id="dialog" minHeight="-Infinity" text="Label" textFill="WHITE" wrapText="true" HBox.hgrow="ALWAYS" />
             <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
