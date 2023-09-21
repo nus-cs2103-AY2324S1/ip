@@ -91,7 +91,7 @@ public class Parser {
                 throw new BarbieNoDeadlineException();
             }
             desc = parts2[0];
-            LocalDate by = LocalDate.parse(parts2[1]);
+            LocalDate by = LocalDate.parse(parts2[1].strip());
             return new DeadlineCommand(desc, by);
 
 
@@ -119,19 +119,24 @@ public class Parser {
      * @throws BarbieException exception when there is no task number
      */
     private Command parseEditTasks(String[] inputArr) throws BarbieException {
+        if (inputArr.length < 2) {
+            throw new BarbieTaskNumberException();
+        }
+
         int taskNumber;
         try {
             taskNumber = Integer.parseInt(inputArr[1]) - 1;
+            switch(inputArr[0].toLowerCase()) {
+            case "mark": return new MarkCommand(taskNumber);
+            case "unmark": return new UnmarkCommand(taskNumber);
+            default: return new DeleteCommand(taskNumber);
+            }
         } catch (NumberFormatException e) {
             throw new BarbieTaskNumberException();
         }
 
-        switch(inputArr[0].toLowerCase()) {
-        case "mark": return new MarkCommand(taskNumber);
-        case "unmark": return new UnmarkCommand(taskNumber);
-        default: return new DeleteCommand(taskNumber);
 
-        }
+
 
     }
 

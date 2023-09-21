@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import barbie.Storage;
 import barbie.Ui;
+import barbie.exceptions.BarbieException;
 import barbie.exceptions.BarbieListEmptyException;
+import barbie.exceptions.BarbieTaskNumberException;
 import barbie.types.Task;
 
 /**
@@ -29,9 +31,12 @@ public class DeleteCommand extends Command {
      * @return String to return to user
      */
     @Override
-    public String run(ArrayList<Task> taskList) {
+    public String run(ArrayList<Task> taskList) throws BarbieException {
+        if (taskList.size() < taskNumber) {
+            throw new BarbieTaskNumberException();
+        }
         if (taskList.size() == 0) {
-            return new BarbieListEmptyException().getMessage();
+            throw new BarbieListEmptyException();
         }
 
         String taskToDel = taskList.get(taskNumber).toString();

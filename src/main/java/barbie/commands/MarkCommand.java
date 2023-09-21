@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import barbie.Storage;
 import barbie.Ui;
+import barbie.exceptions.BarbieException;
+import barbie.exceptions.BarbieTaskNumberException;
 import barbie.types.Task;
 
 /**
@@ -30,7 +32,10 @@ public class MarkCommand extends Command {
      * @return String to be returned to user
      */
     @Override
-    public String run(ArrayList<Task> taskList) {
+    public String run(ArrayList<Task> taskList) throws BarbieException {
+        if (taskList.size() < taskNumber) {
+            throw new BarbieTaskNumberException();
+        }
         Task task = taskList.get(taskNumber);
         task.mark();
         Storage.changeLineStatus("1", taskNumber);

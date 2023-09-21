@@ -1,16 +1,6 @@
-T,0,do, work,
-T,0,do, work,
-T,0,do, work,
-T,0,do, work,
-T,0,do, work,
-T,0,do, work,
-T,0,buy bread
-T,0,buy bread
-T,0,buy milk
-T,0,buy detergent
-D,0,buy milk ,2023-12-12
-D,0,party ,2023-12-12
-T,0,sleep
-T,0,eat
-T,0,do, work,
-T,0,do, work,
+D,1,party ,2023-12-12
+T,1,do, work
+P,1,make banana bread ,2023-12-12,2023-11-10
+D,0,go buy dinner ,2023-09-20
+P,0,shannon's baby shower ,2023-12-12,2023-12-12
+D,0,buy groceries ,2023-09-20

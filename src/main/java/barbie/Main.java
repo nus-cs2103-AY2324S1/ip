@@ -31,9 +31,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            fxmlLoader.<StageController>getController().setBarbie(barbie);
             stage.setScene(scene);
             stage.show();
+            stage.setTitle("Barbie's World");
         } catch (IOException e) {
             e.printStackTrace();
         }

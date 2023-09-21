@@ -2,6 +2,7 @@ package barbie.commands;
 
 import java.util.ArrayList;
 
+import barbie.exceptions.BarbieException;
 import barbie.types.Task;
 
 /**
@@ -17,5 +18,6 @@ public abstract class Command {
      * @param taskList current list of tasks
      * @return barbie's output in a String format
      */
-    public abstract String run(ArrayList<Task> taskList);
+    public abstract String run(ArrayList<Task> taskList) throws BarbieException;
+
 }

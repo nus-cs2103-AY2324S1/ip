@@ -38,9 +38,9 @@ public class StageController {
     @FXML
     private VBox scheduleContainer;
 
-    private Barbie barbie;
+    private Barbie barbie = new Barbie();
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Elizabeth.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Mochi.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Barbie.png"));
 
     public void switchToScene1(ActionEvent event) throws IOException {
