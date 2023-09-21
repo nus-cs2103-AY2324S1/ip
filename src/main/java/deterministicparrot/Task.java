@@ -1,14 +1,11 @@
 package deterministicparrot;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-
 /**
  * Represents a task in the Deterministic Parrot application.
  * This is an abstract class that serves as the base for different types of tasks.
  */
 abstract public class Task {
-    private String name;
+    private final String name;
     private boolean isDone;
 
     /**

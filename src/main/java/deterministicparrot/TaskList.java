@@ -7,11 +7,7 @@ import java.util.List;
  * Represents a list of tasks that can be managed and manipulated.
  */
 class TaskList {
-    public class SearchResult{
-        public int index;
-        public Task task;
-    }
-    private List<Task> list;
+    private final List<Task> list;
 
     /**
      * Constructs an empty TaskList.
@@ -27,6 +23,47 @@ class TaskList {
      */
     public TaskList(List<Task> tasks) {
         this.list = tasks;
+    }
+
+    /**
+     * Deserializes a string representation to create a TaskList.
+     *
+     * @param rawData The serialized string representing the TaskList.
+     * @return A deserialized TaskList object.
+     * @throws Exception If there's an error during deserialization.
+     */
+    public static TaskList deserialize(String rawData) throws Exception {
+        List<Task> tasks = new ArrayList<>();
+        String[] lines = rawData.split("\n");
+
+        for (String line : lines) {
+            String[] data = line.split(" \\| ");
+            switch (data[0]) {
+            case "T":
+                ToDo todo = new ToDo(data[2]);
+                if (data[1].equals("1")) {
+                    todo.markAsDone();
+                }
+                tasks.add(todo);
+                break;
+            case "D":
+                Deadline deadline = new Deadline(data[2], data[3]);
+                if (data[1].equals("1")) {
+                    deadline.markAsDone();
+                }
+                tasks.add(deadline);
+                break;
+            case "E":
+                String[] time = data[3].split(" ");
+                Event event = new Event(data[2], time[0], time[1]);
+                if (data[1].equals("1")) {
+                    event.markAsDone();
+                }
+                tasks.add(event);
+                break;
+            }
+        }
+        return new TaskList(tasks);
     }
 
     /**
@@ -51,51 +88,20 @@ class TaskList {
         StringBuilder sb = new StringBuilder();
         for (Task task : this.list) {
             if (task instanceof ToDo) {
-                sb.append("T | ").append(task.getIsDone() ? "1" : "0").append(" | ").append(task.getName()).append("\n");
+                sb.append("T | ").append(task.getIsDone() ? "1" : "0").append(" | ").append(task.getName())
+                    .append("\n");
             } else if (task instanceof Deadline) {
                 Deadline deadline = (Deadline) task;
-                sb.append("D | ").append(task.getIsDone() ? "1" : "0").append(" | ").append(task.getName()).append(" | ").append(DPUtils.saveFormatDateTime(deadline.by)).append("\n");
+                sb.append("D | ").append(task.getIsDone() ? "1" : "0").append(" | ").append(task.getName())
+                    .append(" | ").append(DPUtils.saveFormatDateTime(deadline.by)).append("\n");
             } else if (task instanceof Event) {
                 Event event = (Event) task;
-                sb.append("E | ").append(task.getIsDone() ? "1" : "0").append(" | ").append(task.getName()).append(" | ").append(DPUtils.saveFormatDateTime(event.timeStart)).append(" ").append(DPUtils.saveFormatDateTime(event.timeEnd)).append("\n");
+                sb.append("E | ").append(task.getIsDone() ? "1" : "0").append(" | ").append(task.getName())
+                    .append(" | ").append(DPUtils.saveFormatDateTime(event.timeStart)).append(" ")
+                    .append(DPUtils.saveFormatDateTime(event.timeEnd)).append("\n");
             }
         }
         return sb.toString();
-    }
-
-    /**
-     * Deserializes a string representation to create a TaskList.
-     *
-     * @param rawData The serialized string representing the TaskList.
-     * @return A deserialized TaskList object.
-     * @throws Exception If there's an error during deserialization.
-     */
-    public static TaskList deserialize(String rawData) throws Exception {
-        List<Task> tasks = new ArrayList<>();
-        String[] lines = rawData.split("\n");
-
-        for (String line : lines) {
-            String[] data = line.split(" \\| ");
-            switch (data[0]) {
-                case "T":
-                    ToDo todo = new ToDo(data[2]);
-                    if (data[1].equals("1")) todo.markAsDone();
-                    tasks.add(todo);
-                    break;
-                case "D":
-                    Deadline deadline = new Deadline(data[2], data[3]);
-                    if (data[1].equals("1")) deadline.markAsDone();
-                    tasks.add(deadline);
-                    break;
-                case "E":
-                    String[] time = data[3].split(" ");
-                    Event event = new Event(data[2], time[0], time[1]);
-                    if (data[1].equals("1")) event.markAsDone();
-                    tasks.add(event);
-                    break;
-            }
-        }
-        return new TaskList(tasks);
     }
 
     /**
@@ -180,17 +186,23 @@ class TaskList {
         t.markAsUndone();
         return t;
     }
-    public List<SearchResult> findTask(String keyword){
+
+    public List<SearchResult> findTask(String keyword) {
         List<SearchResult> results = new ArrayList<>();
-        for(int i = 0; i < this.list.size(); i++){
+        for (int i = 0; i < this.list.size(); i++) {
             Task t = this.list.get(i);
-            if(t.getName().contains(keyword)){
+            if (t.getName().contains(keyword)) {
                 SearchResult sr = new SearchResult();
-                sr.index = i+1;
+                sr.index = i + 1;
                 sr.task = t;
                 results.add(sr);
             }
         }
         return results;
+    }
+
+    public class SearchResult {
+        public int index;
+        public Task task;
     }
 }

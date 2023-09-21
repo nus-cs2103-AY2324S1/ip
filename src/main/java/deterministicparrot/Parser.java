@@ -7,21 +7,11 @@ import java.util.Map;
  * Parser class for handling user commands in the Deterministic Parrot application.
  */
 public class Parser {
+    private final Map<String, CheckedConsumer<String[]>> commandHandlers = new HashMap<>();
+
     public Parser() {
 
     }
-
-    /**
-     * Functional interface for a checked consumer that can throw exceptions.
-     *
-     * @param <T> The type of input to the consumer.
-     */
-    @FunctionalInterface
-    interface CheckedConsumer<T> {
-        void accept(T t) throws Exception;
-    }
-
-    private Map<String, CheckedConsumer<String[]>> commandHandlers = new HashMap<>();
 
     /**
      * Registers a command handler for a specific command.
@@ -47,5 +37,15 @@ public class Parser {
         } else {
             throw new DeterministicParrotException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    /**
+     * Functional interface for a checked consumer that can throw exceptions.
+     *
+     * @param <T> The type of input to the consumer.
+     */
+    @FunctionalInterface
+    interface CheckedConsumer<T> {
+        void accept(T t) throws Exception;
     }
 }
