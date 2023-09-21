@@ -26,7 +26,7 @@ public class DukeStorage implements Storage {
     }
 
     /**
-     * Reads the tasks from the storage file.
+     * Reads the tasks from the storage file, and removes duplicates from storage.
      * If the storage file and directory does not exist, it will be created.
      *
      * @throws InsufficientArgumentsException If there are not enough arguments to create tasks.
@@ -42,12 +42,20 @@ public class DukeStorage implements Storage {
         String storagePath = String.format("./%s/%s", DIRECTORY_PATH, FILE_PATH);
         File file = new File(storagePath);
         Scanner scanner = new Scanner(file);
+        boolean hasDuplicates = false;
         while (Objects.requireNonNull(scanner).hasNext()) {
             String input = scanner.nextLine();
             String taskCode = input.substring(0, 1);
             String taskInput = input.length() > 4 ? input.substring(4) : "";
             Task task = Parser.parse(taskCode, taskInput);
+            if (tasks.contains(task)) {
+                hasDuplicates = true;
+                continue;
+            }
             tasks.add(task);
+        }
+        if (hasDuplicates) {
+            this.updateStorage(tasks);
         }
         return tasks;
     }

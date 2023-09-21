@@ -83,8 +83,8 @@ public class Parser {
                 return dateTime;
             }
         }
-        throw new DateTimeParseException(String.format(Messages.ERROR_PREFIX, String.format(
-                Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)), dateTimeString, 0);
+        throw new DateTimeParseException(String.format(Messages.INVALID_DATE_TIME_FORMAT,
+                dateTimeString), dateTimeString, 0);
     }
 
     /**
