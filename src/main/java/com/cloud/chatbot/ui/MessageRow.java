@@ -2,6 +2,7 @@ package com.cloud.chatbot.ui;
 
 import com.cloud.chatbot.Cloud;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,6 +26,9 @@ public class MessageRow extends HBox {
      * @param isUser Whether the message is by the user.
     */
     public MessageRow(Label text, boolean isUser) {
+        this.setPadding(new Insets(Ui.PADDING));
+
+        text.setPadding(new Insets(Ui.PADDING));
         text.setWrapText(true);
 
         ImageView picture = new ImageView(

@@ -10,8 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,21 +20,21 @@ import javafx.stage.Stage;
  * Handles the user interface (UI).
  */
 public class Ui extends Application {
-    private static final double WIDTH = 400;
+    public static final double WIDTH = 400;
     /** Lost width to account for on Windows 11. */
-    private static final double WIDTH_OS_LOSS = 15;
-    private static final double HEIGHT = 600;
+    public static final double WIDTH_OS_LOSS = 15;
+    public static final double HEIGHT = 600;
     /** Lost width to account for on Windows 11. */
-    private static final double HEIGHT_OS_LOSS = 40;
-    private static final double PADDING = 5;
+    public static final double HEIGHT_OS_LOSS = 40;
+    public static final double PADDING = 5;
 
-    private static final double WIDTH_SCROLL = Ui.WIDTH - (Ui.PADDING * 2);
-    private static final double HEIGHT_SCROLL = Ui.HEIGHT - (Ui.PADDING * 3) - Ui.HEIGHT_BOTTOM;
+    public static final double WIDTH_SCROLL = Ui.WIDTH - (Ui.PADDING * 2);
+    public static final double HEIGHT_SCROLL = Ui.HEIGHT - (Ui.PADDING * 3) - Ui.HEIGHT_BOTTOM;
 
-    private static final double WIDTH_SEND = 50;
-    private static final double WIDTH_INPUT = Ui.WIDTH - (Ui.PADDING * 3) - Ui.WIDTH_SEND;
+    public static final double WIDTH_SEND = 50;
+    public static final double WIDTH_INPUT = Ui.WIDTH - (Ui.PADDING * 3) - Ui.WIDTH_SEND;
     /** Default height of the input & button. */
-    private static final double HEIGHT_BOTTOM = 25;
+    public static final double HEIGHT_BOTTOM = 25;
 
     @Override
     public void start(Stage stage) {
