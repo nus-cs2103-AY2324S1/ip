@@ -1,5 +1,2 @@
 T|0|something 1
-T|1|something else 2
-T|0|3
-T|0|somehting
-D|0|something else |2023-09-19 15:30:00
+T|0|something

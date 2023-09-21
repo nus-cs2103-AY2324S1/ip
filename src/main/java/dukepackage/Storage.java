@@ -19,8 +19,8 @@ public class Storage {
      * The list of tasks.
      */
     protected ArrayList<Task> taskList;
-    protected final String MATCHING_STRING = "     Here are the matching tasks in your list:";
-    protected final String filePathRelativeFromJar = "../../data/duke.txt";
+    protected final String MATCHING_STRING = "     Here are the matching tasks in your list:\n";
+    protected final String filePathRelativeFromJar = "../data/duke.txt";
 
     /**
      * Constructs a Storage object with an empty task list.
@@ -120,22 +120,29 @@ public class Storage {
      * Loads the task list from a file.
      */
     public void loadListFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePathRelativeFromJar))) {
+        try {
             File file = new File(filePathRelativeFromJar);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
             if (!file.exists()) {
-                file.createNewFile();
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    System.out.printf("Error creating file: ", e);
+                }
             }
             FileReader fileReader = new FileReader(file); // append mode
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
-            while ((line = reader.readLine()) != null) {
+            while ((line = bufferedReader.readLine()) != null) {
                 // Assuming your line contains comma-separated values
                 String[] values = line.split("\\|");
                 Task obj = initTaskFromLine(values); // Instantiate with appropriate arguments
                 obj.setStatus(!(values[1].equals("0")));
                 // Store the object in your storage instance
                 addList(obj);
-                bufferedReader.close();
+//                bufferedReader.close();
             }
             bufferedReader.close();
         } catch (IOException e) {

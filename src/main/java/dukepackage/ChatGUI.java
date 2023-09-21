@@ -100,8 +100,8 @@ public class ChatGUI {
         return result;
     }
 
-    public String handleHelp(String result) {
-        result += "Welcome to iPbot Help\n" +
+    public static String handleHelp(String result) {
+        result += "Welcome to iPbot\n" +
                 "\n" +
                 "Here are the features supported by iPbot:\n" +
                 "\n" +
