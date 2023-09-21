@@ -20,7 +20,6 @@ public class DateTimeParser {
     public String outFormatted(String dateTime) throws KoraException {
         String dT = "";
         String[] strArray = dateTime.trim().split(" ");
-        System.out.println(Arrays.toString(strArray));
         if (strArray.length != 2) {
             for (int i = 0; i < strArray.length; i++) {
                 if (!strArray[i].contains(" ") && !strArray[i].equals("")) {
@@ -35,7 +34,7 @@ public class DateTimeParser {
         try {
             return LocalDateTime.parse(dT, saveFormatter).format(outFormatter);
         } catch (DateTimeParseException e) {
-            throw new KoraException("Omo! The date format should be yyyy-MM-dd HH-mm!" + dT + " " + Arrays.toString(strArray) + strArray[2].trim());
+            throw new KoraException("Omo! The date format should be yyyy-MM-dd HH-mm!");
         }
     }
 
@@ -56,7 +55,7 @@ public class DateTimeParser {
         try {
             return LocalDateTime.parse(dT, saveFormatter).format(saveFormatter);
         } catch (DateTimeParseException e) {
-            throw new KoraException("Omo! The date format should be yyyy-MM-dd HH-mm!" + dT + " " + Arrays.toString(strArray) + strArray[2].trim());
+            throw new KoraException("Omo! The date format should be yyyy-MM-dd HH-mm!");
         }
     }
 }
