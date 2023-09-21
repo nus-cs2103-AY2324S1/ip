@@ -2,7 +2,7 @@
 
 ## Features 
 
-list, mark, unmark, delete, todo, deadline, event, find, sort
+list, mark, unmark, delete, todo, deadline, event, find, sort, bye
 
 ### Feature-list
 lists out the tasks in your todo list
@@ -172,5 +172,20 @@ Here are the tasks in your list
 2. [D][ ] assignment1 (/by 2023-09-12)
 3. [T][ ] practice quiz
 ```
+
+### `bye` - closes the application after 3 seconds
+Example of usage:
+
+`bye`
+
+Expected outcome:
+after saying bye
+window will close itself after a 3 seconds delay
+```
+OK patrick
+Bye, this window will magically disappear in 3 seconds
+```
+
+
 
 
