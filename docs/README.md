@@ -70,6 +70,7 @@ Format: `deadline DESCRIPTION /by DATE`
 > [!NOTE]
 > It is possible to key in only the time, e.g. `/by HH:mm`
 > However, our chatbot will assume the date as the date you added the task.
+
 Example of usage: `deadline CS2103T IP /by: 2023-09-22 2359`
 
 Expected outcome: 
