@@ -10,7 +10,7 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Searches for all the tasks containing the input keyword.\n"
-            + "Example: " + COMMAND_WORD + "study\n";
+            + "Example: " + COMMAND_WORD + " study\n";
 
     public static final String MESSAGE_TASK_NOT_FOUND = "Sorry, there are no relevant tasks in the list.";
     public static final String MESSAGE_FIND_TASK_SUCCESS_PREFIX = "Are you looking for these tasks?";
