@@ -1,8 +1,8 @@
-# Capt. Price Bot - User GuideG
+# Capt. Price Bot - User Guide
 
 *Created by: Raman Gupta*
 
-![Capt. Price Ready for Mission](https://github.com/eyelessrhyme7/ip/blob/master/docs/CaptPrice.jpg)
+![Capt. Price Ready for Mission](https://www.google.com.sg/url?sa=i&url=https%3A%2F%2Fwww.greenmangaming.com%2Fblog%2Fthe-history-of-call-of-dutys-captain-price%2F&psig=AOvVaw2eEoOBM1SZwLmhamV4oH00&ust=1695418292903000&source=images&cd=vfe&opi=89978449&ved=0CBAQjRxqFwoTCKCYxLrTvIEDFQAAAAAdAAAAABAE)
 
 ## Introduction
 
