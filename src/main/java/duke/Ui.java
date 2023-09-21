@@ -1,5 +1,7 @@
 package duke;
 
+import java.util.Random;
+
 /**
  * The `Ui` class handles user interface-related functionality, including displaying messages and greetings.
  */
@@ -7,6 +9,15 @@ public class Ui {
     private String greeting;
     private String exitGreeting;
     private String horizontalBar;
+    private String[] quotes = {"Soldier, your mission is clear: Conquer your tasks and bring order to the chaos.",
+            "In the war against procrastination, we'll fight tooth and nail to victory, soldier!",
+            "Time waits for no one, soldier. Move swiftly and conquer your to-do list.",
+            "In the battle of productivity, we lead from the front, taking down tasks one by one.",
+            "With you in the battlefield of life, against task enemies!",
+            "No retreat, no surrender! We tackle tasks head-on, like true warriors.",
+            "Task enemies beware! We're on a relentless mission to accomplish it all.",
+            "Every completed task is a step closer to victory. Keep pushing forward!"
+    };
     private String logo;
 
     /**
@@ -84,5 +95,11 @@ public class Ui {
      */
     public void displayMessage(String message) {
         System.out.println(botMessage(message));
+    }
+
+    public String getQuote() {
+        Random random = new Random();
+        int randomIndex = random.nextInt(quotes.length);
+        return "\n\n `" + quotes[randomIndex] + "` \n     ~ Capt. Price";
     }
 }
