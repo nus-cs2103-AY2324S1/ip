@@ -26,8 +26,8 @@ public class Duke {
     /**
      * Exceptions that arise when the user input is not a valid command.
      */
-    public static class WrongCommandException extends DukeParserException {
-        public WrongCommandException(String message) {
+    public static class DukeInvalidCommandException extends DukeParserException {
+        public DukeInvalidCommandException(String message) {
             super(message);
         }
     }
@@ -35,8 +35,8 @@ public class Duke {
     /**
      * Exceptions that arise when the user input is not in the correct format.
      */
-    public static class WrongFormatException extends DukeParserException {
-        public WrongFormatException(String message) {
+    public static class DukeWrongCommandFormatException extends DukeParserException {
+        public DukeWrongCommandFormatException(String message) {
             super(message);
         }
     }
@@ -44,8 +44,8 @@ public class Duke {
     /**
      * Exceptions that arise when the file is corrupted.
      */
-    public static class InvalidFileException extends DukeRuntimeException {
-        public InvalidFileException(String message) {
+    public static class DukeInvalidFileException extends DukeRuntimeException {
+        public DukeInvalidFileException(String message) {
             super(message);
         }
     }

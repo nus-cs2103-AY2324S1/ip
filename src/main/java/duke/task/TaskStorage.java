@@ -27,7 +27,7 @@ public class TaskStorage {
         this.file = new File(filePath);
         try {
             this.loadFromFile();
-        } catch (FileNotFoundException | Duke.WrongFormatException | Duke.InvalidFileException e) {
+        } catch (FileNotFoundException | Duke.DukeWrongCommandFormatException | Duke.DukeInvalidFileException e) {
             try {
                 this.file.getParentFile().mkdirs();
                 this.file.createNewFile();
@@ -46,7 +46,7 @@ public class TaskStorage {
         this.file = new File(newFilePath);
         try {
             this.loadFromFile();
-        } catch (FileNotFoundException | Duke.WrongFormatException | Duke.InvalidFileException e) {
+        } catch (FileNotFoundException | Duke.DukeWrongCommandFormatException | Duke.DukeInvalidFileException e) {
             try {
                 this.file.getParentFile().mkdirs();
                 this.file.createNewFile();
@@ -66,7 +66,7 @@ public class TaskStorage {
         try {
             assert(input != null);
             task = Task.createTask(input);
-        } catch (Duke.WrongCommandException | Duke.WrongFormatException e) {
+        } catch (Duke.DukeInvalidCommandException | Duke.DukeWrongCommandFormatException e) {
             return e.getMessage();
         }
 
@@ -160,7 +160,8 @@ public class TaskStorage {
         }
     }
 
-    private void loadFromFile() throws FileNotFoundException, Duke.WrongFormatException, Duke.InvalidFileException {
+    private void loadFromFile()
+            throws FileNotFoundException, Duke.DukeWrongCommandFormatException, Duke.DukeInvalidFileException {
         Scanner sc = new Scanner(file);
         while (sc.hasNextLine()) {
             String fileTask = sc.nextLine();

@@ -17,13 +17,14 @@ public abstract class Task implements Comparable<Task> {
      * Creates a new {@code Task}
      * @param task String representation of a task
      * @return Task
-     * @throws Duke.WrongCommandException if the command is invalid
-     * @throws Duke.WrongFormatException if the format is invalid
+     * @throws Duke.DukeInvalidCommandException if the command is invalid
+     * @throws Duke.DukeWrongCommandFormatException if the format is invalid
      */
-    public static Task createTask(String task) throws Duke.WrongCommandException, Duke.WrongFormatException {
+    public static Task createTask(String task)
+            throws Duke.DukeInvalidCommandException, Duke.DukeWrongCommandFormatException {
         TaskType taskType = getTaskType(task);
         if (taskType == null) {
-            throw new Duke.WrongCommandException("Whopsie daisies! I don't understand that command!");
+            throw new Duke.DukeInvalidCommandException("Whopsie daisies! I don't understand that command!");
         }
 
         switch (taskType) {
@@ -42,10 +43,11 @@ public abstract class Task implements Comparable<Task> {
      * Loads a task from a file
      * @param fileTask String representation of a task
      * @return Task
-     * @throws Duke.WrongFormatException if the file is corrupted
-     * @throws Duke.InvalidFileException if the file is corrupted
+     * @throws Duke.DukeWrongCommandFormatException if the file is corrupted
+     * @throws Duke.DukeInvalidFileException if the file is corrupted
      */
-    public static Task loadTask(String fileTask) throws Duke.WrongFormatException, Duke.InvalidFileException {
+    public static Task loadTask(String fileTask)
+            throws Duke.DukeWrongCommandFormatException, Duke.DukeInvalidFileException {
         String[] taskDetails = fileTask.split(" \\| ");
         try {
             TaskType taskType = TaskType.valueOf(taskDetails[0]);
@@ -63,7 +65,7 @@ public abstract class Task implements Comparable<Task> {
                 return null;
             }
         } catch (NullPointerException | IllegalArgumentException | DateTimeException e) {
-            throw new Duke.InvalidFileException("File is corrupted!");
+            throw new Duke.DukeInvalidFileException("File is corrupted!");
         }
     }
 

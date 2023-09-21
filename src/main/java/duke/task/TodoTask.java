@@ -9,12 +9,12 @@ public final class TodoTask extends Task {
     /**
      * Creates a todo task.
      * @param task The input string.
-     * @throws Duke.WrongFormatException If the input string is in the wrong format.
+     * @throws Duke.DukeWrongCommandFormatException If the input string is in the wrong format.
      */
-    public TodoTask(String task) throws Duke.WrongFormatException {
+    public TodoTask(String task) throws Duke.DukeWrongCommandFormatException {
         String description = getDescription(task);
         if (description == null) {
-            throw new Duke.WrongFormatException("Whopsie daisies! I don't understand that format!");
+            throw new Duke.DukeWrongCommandFormatException("Whopsie daisies! I don't understand that format!");
         }
         this.description = description;
     }
