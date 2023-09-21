@@ -9,7 +9,6 @@ import duke.TaskList.TaskList;
  * Collection of the Ui
  */
 public class Ui {
-    private final String BORDER = "______________________________________";
 
     /**
      * Prints a chat with specified message.
@@ -17,14 +16,14 @@ public class Ui {
      */
     public String printChat(String chat) {
 
-        return BORDER + "\n" + chat + "\n" + BORDER;
+        return "Undertsand \n" + chat;
     }
 
     /**
      * Prints introduction.
      */
     public String hello() {
-        return printChat("Hello! I'm Chrainx\n" + "What can I do for you?" );
+        return "Hello! I'm Chrainx\n" + "What can I do for you?";
     }
 
     /**

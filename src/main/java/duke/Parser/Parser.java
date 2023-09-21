@@ -2,10 +2,7 @@ package duke.Parser;
 
 import duke.DukeException.DukeException;
 import duke.Storage.Storage;
-import duke.Task.Deadlines;
-import duke.Task.Events;
-import duke.Task.Task;
-import duke.Task.ToDos;
+import duke.Task.*;
 import duke.TaskList.TaskList;
 import duke.Ui.Ui;
 
@@ -74,6 +71,17 @@ public class Parser {
                     return ui.addTask(targetTask, tasks.getNumberOfTask());
                 } else {
                     throw new DukeException("This event is invalid");
+                }
+            } else if (command.equals("PERIOD")) {
+                if (Periods.isPeriod(input)) {
+                    targetTask = new Periods(
+                            input.substring(7, input.indexOf("/between ")),
+                            input.substring(input.indexOf("/between ") + 9)
+                    );
+                    tasks.addTask((targetTask));
+                    return ui.addTask(targetTask, tasks.getNumberOfTask());
+                } else {
+                    throw new DukeException("This period is invalid");
                 }
             } else if (command.equals("MARK")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
