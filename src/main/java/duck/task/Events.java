@@ -24,7 +24,7 @@ public class Events extends Task {
         this.end = end;
     }
 
-    public String getExact() {
+    public String getExactDate() {
         String mmmDdYyyy = "";
         if (start.toLocalDate().equals(end.toLocalDate())) {
             mmmDdYyyy = getMmmDdYyyy();
@@ -39,7 +39,7 @@ public class Events extends Task {
     private String getMmmDdYyyy() {
         String mmmDdYyyy;
         mmmDdYyyy = start.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " "
-            + start.format(DateTimeFormatter.ofPattern("hh:mm a")) + " "
+            + start.format(DateTimeFormatter.ofPattern("hh:mm a")) + " to: "
             + end.format(DateTimeFormatter.ofPattern("hh:mm a"));
         return mmmDdYyyy;
     }
@@ -47,7 +47,8 @@ public class Events extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString().substring(3) + " (from: " + getExact() + ")";
+        return "[E]" + super.toString().substring(3) + " (from: " + getExactDate()
+            + ")";
     }
 
     public String type() {

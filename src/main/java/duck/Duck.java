@@ -28,12 +28,11 @@ public class Duck extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private Ui ui;
-    private final IoHandler ioHandler = new IoHandler();
+    private final Ui ui = new Ui();
     private final TaskList taskList;
     private Parser parser = new Parser();
 
-    private final String FILE_PATH = "data/duck.txt";
+    private final String filePath = "data/duck.txt";
     private final Storage storage;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duckbot = new Image(this.getClass().getResourceAsStream("/images/duckbot.jpeg"));
@@ -42,16 +41,34 @@ public class Duck extends Application {
      * Constructs a simple Duck Object..
      */
     public Duck() {
-        ui = new Ui();
-        this.storage = new Storage(FILE_PATH);
+        this.storage = new Storage(filePath);
         this.taskList = new TaskList(storage.load());
     }
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
-
         //The container for the content of the chat to scroll.
+        setElementProperties();
+        stage.setScene(scene);
+        stage.show();
+
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setBottomAnchor(sendButton, 1.0);
+        AnchorPane.setRightAnchor(sendButton, 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
+        AnchorPane.setBottomAnchor(userInput, 1.0);
+        setElementActions();
+    }
+
+    /**
+     * Sets properties of all elements in the GUI
+     */
+    private void setElementProperties() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         dialogContainer.setSpacing(10);
@@ -61,37 +78,26 @@ public class Duck extends Application {
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-        stage.setScene(scene);
-        stage.show();
-
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         userInput.setPrefWidth(325.0);
         sendButton.setPrefWidth(55.0);
 
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        mainLayout.setPrefSize(400.0, 600.0);
+        scene = new Scene(mainLayout);
+    }
 
+    /**
+     * Sets actions for all the elements in the GUI
+     */
+    private void setElementActions() {
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
@@ -114,11 +120,11 @@ public class Duck extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
+     * Creates a label with the specified text and configures it for word wrapping.
+     * The created label is suitable for adding to the dialog container.
      *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * @param text The text to be displayed on the label.
+     * @return A label with the specified text and word wrap enabled.
      */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
@@ -129,9 +135,8 @@ public class Duck extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes: one for echoing user input and another for Duke's reply.
+     * These dialog boxes are then appended to the dialog container, and user input is cleared.
      */
     private void handleUserInput() {
         if (userInput.getText().isBlank()) {
@@ -149,6 +154,6 @@ public class Duck extends Application {
      */
     @FXML
     public String getResponse(String input) {
-        return parser.parse(input, ioHandler, taskList, storage).replace("\n", "\n\n");
+        return parser.parse(input, ui, taskList, storage).replace("\n", "\n\n");
     }
 }

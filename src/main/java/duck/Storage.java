@@ -32,11 +32,6 @@ public class Storage {
     }
 
     /**
-     * Constructs a Storage Object.
-     */
-    public Storage() {}
-
-    /**
      * Creates a File if it is not there
      * @throws FileIoException If unsuccessful in creating directory.
      */
@@ -48,7 +43,6 @@ public class Storage {
                     + parent);
             }
             System.out.println(file.createNewFile());
-            //file.createNewFile();
         } catch (IOException e) {
             throw new FileIoException(e.getMessage());
         }
@@ -67,31 +61,37 @@ public class Storage {
             FileWriter fileWriter = new FileWriter(file);
             for (int i = 0; i < list.size(); i++) {
                 Task task = list.get(i);
-                switch (task.type()) {
-                case "D":
-                    Deadline deadline = (Deadline) task;
-                    fileWriter.write(deadline.type()
-                        + " | " + (deadline.getStatusIcon().isBlank() ? "0" : "1")
-                        + " | " + deadline.getDescription() + " | " + deadline.getBy());
-                    break;
-                case "E":
-                    Events events = (Events) task;
-                    fileWriter.write(events.type() + " | " + (events.getStatusIcon().isBlank() ? "0" : "1")
-                        + " | " + events.getDescription() + " | " + events.getDate());
-                    break;
-                case "T":
-                    ToDo toDo = (ToDo) task;
-                    fileWriter.write(toDo.type() + " | " + (toDo.getStatusIcon().isBlank() ? "0" : "1")
-                        + " | " + toDo.getDescription());
-                    break;
-                default:
-                    throw new FileIoException("Error in file loading");
-                }
+                fileWriter.write(taskToString(task));
                 fileWriter.write("\n");
             }
             fileWriter.close();
         } catch (IOException e) {
             throw new FileIoException(e.getMessage());
+        }
+    }
+
+    /**
+     * Converts Task object to String to be stored in file
+     * @param task a Task object
+     * @return a String line to write to file
+     */
+    private String taskToString(Task task) {
+        switch (task.type()) {
+        case "D":
+            Deadline deadline = (Deadline) task;
+            return (deadline.type()
+                + " | " + (deadline.getStatusIcon().isBlank() ? "0" : "1")
+                + " | " + deadline.getDescription() + " | " + deadline.getBy());
+        case "E":
+            Events events = (Events) task;
+            return (events.type() + " | " + (events.getStatusIcon().isBlank() ? "0" : "1")
+                + " | " + events.getDescription() + " | " + events.getDate());
+        case "T":
+            ToDo toDo = (ToDo) task;
+            return (toDo.type() + " | " + (toDo.getStatusIcon().isBlank() ? "0" : "1")
+                + " | " + toDo.getDescription());
+        default:
+            return "";
         }
     }
 
@@ -110,41 +110,48 @@ public class Storage {
             Scanner sc = new Scanner(fr);
             while (sc.hasNext()) {
                 String line = sc.nextLine();
-                String[] split = line.split(" \\| ");
-                switch (split[0]) {
-                case "D":
-                    Deadline tempDeadline = new Deadline(split[2],
-                        LocalDateTime.parse(split[3], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
-                    if (split[1].equals("1")) {
-                        tempDeadline.markAsDone();
-                    }
-                    list.add(tempDeadline);
-                    break;
-                case "E":
-                    String[] startEnd = split[3].split("-");
-                    Events tempEvent =
-                        new Events(LocalDateTime.parse(startEnd[0], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")),
-                            LocalDateTime.parse(startEnd[1], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")),
-                            split[2]);
-                    if (split[1].equals("1")) {
-                        tempEvent.markAsDone();
-                    }
-                    list.add(tempEvent);
-                    break;
-                case "T":
-                    ToDo tempToDo = new ToDo(split[2]);
-                    if (split[1].equals("1")) {
-                        tempToDo.markAsDone();
-                    }
-                    list.add(tempToDo);
-                    break;
-                default:
-                    throw new FileIoException("Unable to load");
-                }
+                list.add(stringToTask(line));
             }
         } catch (IOException | FileIoException e) {
             System.out.println(e.getMessage());
         }
         return list;
+    }
+
+    /**
+     * Converts a given line from text file to a Task object
+     * @param str line from text file
+     * @return a created Task Object from String
+     * @throws FileIoException if File data is corrupted
+     */
+    private Task stringToTask(String str) throws FileIoException {
+        String[] split = str.split(" \\| ");
+        switch (split[0]) {
+        case "D":
+            Deadline tempDeadline = new Deadline(split[2],
+                LocalDateTime.parse(split[3], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
+            if (split[1].equals("1")) {
+                tempDeadline.markAsDone();
+            }
+            return tempDeadline;
+        case "E":
+            String[] startEnd = split[3].split("-");
+            Events tempEvent =
+                new Events(LocalDateTime.parse(startEnd[0], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")),
+                    LocalDateTime.parse(startEnd[1], DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")),
+                    split[2]);
+            if (split[1].equals("1")) {
+                tempEvent.markAsDone();
+            }
+            return tempEvent;
+        case "T":
+            ToDo tempToDo = new ToDo(split[2]);
+            if (split[1].equals("1")) {
+                tempToDo.markAsDone();
+            }
+            return tempToDo;
+        default:
+            throw new FileIoException("Unable to load");
+        }
     }
 }
