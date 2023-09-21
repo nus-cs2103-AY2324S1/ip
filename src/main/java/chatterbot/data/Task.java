@@ -9,6 +9,7 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
+        assert !description.isEmpty() : "Description cannot be blank.";
         this.isDone = false;
     }
 

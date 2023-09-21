@@ -27,6 +27,8 @@ public class Parser {
 
         String response = "";
 
+        assert userMessage != null && !userMessage.isEmpty() : "User message cannot be null or empty.";
+
         if (userMessage.toLowerCase().equals("bye")) {
             response = ui.showGoodbyeMessage();
         } else if (userMessage.toLowerCase().equals("list")) {
@@ -57,6 +59,7 @@ public class Parser {
                     String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
                     String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
                     Deadline d = new Deadline(deadlineDescription, deadlineBy);
+                    assert d != null : "Deadline to add cannot be null.";
                     list.add(d);
                     taskList.addTask(d, storage, file);
                     response = ui.showAddedDeadline(d);
@@ -74,6 +77,7 @@ public class Parser {
 //                        System.out.println("Unable to append to file!");
 //                    }
                     Todo td = new Todo(userMessage.substring(5));
+                    assert td != null : "Todo to add cannot be null.";
                     list.add(td);
                     taskList.addTask(td, storage, file);
                     response = ui.showAddedTodo(td);
@@ -95,6 +99,7 @@ public class Parser {
                     String eventTo = eventSplit[1].substring(5);
                     String eventFrom = eventSplit[2].substring(3);
                     Event e = new Event(eventDescription, eventTo, eventFrom);
+                    assert e != null : "Event to add cannot be null.";
                     list.add(e);
                     taskList.addTask(e, storage, file);
                     response = ui.showAddedEvent(e);

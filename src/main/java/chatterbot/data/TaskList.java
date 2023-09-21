@@ -48,8 +48,8 @@ public class TaskList {
     }
 
     public String addTask(Task task, Storage storage, String filePath) {
+        assert task != null : "Task to add cannot be null.";
         list.add(task);
-        System.out.println(list);
         try {
             // Save the updated task list to the storage file.
             storage.appendToFile(filePath, task.formatForFile());
@@ -64,6 +64,7 @@ public class TaskList {
 //            return "Invalid task index. No task removed.";
 //        }
         try {
+            assert taskIndex >= 0 && taskIndex < list.size() : "Task index must be within list range.";
             list.remove(taskIndex);
         } catch (Exception e) {
             return "Error, task not removed.";
