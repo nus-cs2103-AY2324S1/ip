@@ -70,12 +70,10 @@ public class TaskList {
      */
     public Task deleteTask(int input) throws DukeException {
         assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
-        if (input < 1 || input + 1 > tasklist.size()) {
+        if (input < 1 || input > tasklist.size()) {
             throw new DukeException("☹ OOPS!!! The task number is invalid.");
         }
-        Task task = tasklist.get(input - 1);
-        tasklist.remove(input);
-        return task;
+        return tasklist.remove(input - 1);
     }
 
     /**

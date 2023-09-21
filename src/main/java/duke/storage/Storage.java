@@ -65,17 +65,26 @@ public class Storage {
      * @param tasklist ArrayList of tasks to write to file.
      */
     public void rewriteFile(ArrayList<Task> tasklist) {
-        try {
-            writeToFile(tasklist.get(0).saveString() + System.lineSeparator());
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
-        for (int i = 1; i < tasklist.size(); i++) {
+        if (tasklist.size() > 0) {
             try {
-                appendToFile(tasklist.get(i).saveString() + System.lineSeparator());
+                writeToFile(tasklist.get(0).saveString() + System.lineSeparator());
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
+            for (int i = 1; i < tasklist.size(); i++) {
+                try {
+                    appendToFile(tasklist.get(i).saveString() + System.lineSeparator());
+                } catch (IOException e) {
+                    System.out.println("Something went wrong: " + e.getMessage());
+                }
+            }
+        } else {
+            try {
+                writeToFile("");
+            } catch (IOException e) {
+                System.out.println("Something went wrong: " + e.getMessage());
+            }
+
         }
     }
 
