@@ -4,7 +4,6 @@ import duke.data.exception.DukeException;
 import duke.data.task.Task;
 import duke.data.task.ToDo;
 import duke.data.task.Deadline;
-import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -17,7 +16,6 @@ import java.util.Iterator;
 public class TaskList implements Iterable<Task> {
 
     private final ArrayList<Task> taskList;
-    private final Ui ui;
     private int completedCount;
     private int todoCount;
     private int deadlineCount;
@@ -27,11 +25,9 @@ public class TaskList implements Iterable<Task> {
      * Constructs a new TaskList with the provided list of tasks and a UI component for user interactions.
      *
      * @param taskList The initial list of tasks.
-     * @param ui The user interface component for displaying messages and user interactions.
      */
-    public TaskList(ArrayList<Task> taskList, Ui ui) {
+    public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
-        this.ui = ui;
         this.completedCount = 0;
         this.todoCount = 0;
         this.deadlineCount = 0;
@@ -129,7 +125,7 @@ public class TaskList implements Iterable<Task> {
      */
     public TaskList find(String input) {
         assert input != null : "Input should not be null"; // Check that the input is not null
-        TaskList matchingTasks = new TaskList(new ArrayList<>(), ui);
+        TaskList matchingTasks = new TaskList(new ArrayList<>());
         for (Task task : taskList) {
             if(task.getTaskDescription().contains(input)) {
                 matchingTasks.addTask(task);
