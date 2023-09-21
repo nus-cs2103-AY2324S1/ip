@@ -7,6 +7,7 @@ import chatbot.exceptions.DukeException;
 import chatbot.parser.Parser;
 import chatbot.storage.Storage;
 import chatbot.tasks.TaskList;
+import chatbot.ui.DialogBox;
 import chatbot.ui.Ui;
 
 import javafx.application.Application;
@@ -36,7 +37,7 @@ public class Duke extends Application {
     private Button sendButton;
 
     private Image user = new Image(this.getClass().getResourceAsStream("/images/gudetama1.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/gudetama2.jpg"));
+    private Image chatbot = new Image(this.getClass().getResourceAsStream("/images/gudetama2.jpg"));
 
     public Duke(String filePath) {
         this.storage = new Storage(filePath);
@@ -49,7 +50,6 @@ public class Duke extends Application {
         this.storage = new Storage("./data/duke.txt");
         this.tasklist = storage.readFromFile();
     }
-
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -104,6 +104,10 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        Label welcomeMessage = new Label(ui.showWelcome());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(welcomeMessage, new ImageView(chatbot)));
+
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
             userInput.clear();
@@ -148,19 +152,24 @@ public class Duke extends Application {
     private void handleUserInput() throws DukeException {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
+
+        dialogContainer.setSpacing(10);
+
         dialogContainer.getChildren().addAll(
                 new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                new DialogBox(dukeText, new ImageView(chatbot))
         );
+
         userInput.clear();
     }
+
 
     private void close(){
         storage.saveToFile(tasklist.retrieveList());
         System.exit(0);
     }
 
-    private String getResponse(String input) throws DukeException {
+    public String getResponse(String input) throws DukeException {
         String response = input;
         Command command = Parser.parse(input);
         String output = command.execute(tasklist, ui, storage);
