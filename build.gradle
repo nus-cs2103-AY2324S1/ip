@@ -49,11 +49,11 @@ checkstyle {
 }
 
 application {
-    mainClass.set("Pardiyem")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "pardiyem"
+    archiveFileName = "pardiyem.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
