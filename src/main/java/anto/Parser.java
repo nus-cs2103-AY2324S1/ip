@@ -95,7 +95,7 @@ public class Parser {
 
         assert this.taskList != null;
         // Throw error if there is no task at index
-        if (index >= this.taskList.getLength()) {
+        if (index >= this.taskList.getLength() || index < 0) {
             throw new InvalidIndexException("OOPS!!! There is no task at that index.");
         }
 
@@ -119,7 +119,7 @@ public class Parser {
 
         int index = Integer.parseInt(strIndex) - 1;
         // Throw error if there is no task at index
-        if (index >= this.taskList.getLength()) {
+        if (index >= this.taskList.getLength() || index < 0) {
             throw new InvalidIndexException("OOPS!!! There is no task at that index.");
         }
 
@@ -203,7 +203,7 @@ public class Parser {
 
         int index = Integer.parseInt(strIndex) - 1;
         // Throw error if there is no task at index
-        if (index >= this.taskList.getLength()) {
+        if (index >= this.taskList.getLength() || index < 0) {
             throw new InvalidIndexException("OOPS!!! There is no task at that index.");
         }
 

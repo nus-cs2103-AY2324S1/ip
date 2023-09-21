@@ -46,6 +46,9 @@ public class Storage {
             // If file doesn't exist
             ArrayList<Task> taskList;
             if (!antoFile.exists()) {
+                if (!antoFile.getParentFile().exists()) {
+                    antoFile.getParentFile().mkdirs();
+                }
                 antoFile.createNewFile();
                 taskList = new ArrayList<>();
                 this.ui.printNoSavedFile();
@@ -53,7 +56,6 @@ public class Storage {
                 taskList = this.loadFileIntoArrayList(calendar);
                 this.ui.printSavedFileFound(taskList);
             }
-
             return taskList;
         } catch (java.io.IOException e) {
             throw new AntoException("OOPS!!! IOException");
@@ -105,7 +107,9 @@ public class Storage {
      */
     public void addTaskToStorage(Task task) throws AntoException {
         try {
-            FileWriter writer = new FileWriter(antoFile, true);
+            assert antoFile.exists();
+
+            FileWriter writer = new FileWriter(antoFile.getPath(), true);
             if (task instanceof Todo) {
                 // It is safe to type cast because the type is checked before
                 Todo todo = (Todo) task;
@@ -121,7 +125,7 @@ public class Storage {
             }
             writer.close();
         } catch (IOException e) {
-            throw new AntoException("OOPS!!! IOException");
+            throw new AntoException("OOPS!!! " + e);
         }
     }
 
