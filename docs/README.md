@@ -231,3 +231,10 @@ The chatbot application is closed.
 ```
 Bye! Hope to see you again soon.
 ```
+
+## Acknowledgements
+
+Reused syntax for User Guide from AB3, written by NUS CS2103/T AY23/24 Team.
+Special thanks to:
+- Krista Yeo github.com/kristayeo for some bug fixes.
+- Tembusu Coffeehouse for the much needed fuel to complate this project.
