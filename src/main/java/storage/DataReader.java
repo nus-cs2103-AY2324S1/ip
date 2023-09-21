@@ -17,7 +17,7 @@ public class DataReader {
      */
     public static ArrayList<Task> readTasksFromFile() {
         ArrayList<Task> tasksList = new ArrayList<>();
-        
+
         File dataDirectory = new File(DATA_DIRECTORY_PATH);
         if (!dataDirectory.exists()) {
             if (dataDirectory.mkdirs()) {
