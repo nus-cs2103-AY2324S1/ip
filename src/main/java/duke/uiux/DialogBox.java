@@ -1,4 +1,3 @@
-
 package duke.uiux;
 
 import java.io.IOException;
@@ -12,11 +11,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+
 
 /**
  * An example of a custom control using FXML.
@@ -38,11 +36,10 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         profile.setFill(new ImagePattern(img));
-        profile.setStyle("-fx-padding: 20 20 20 20;");
     }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
@@ -58,25 +55,26 @@ public class DialogBox extends HBox {
 
     /**
      * Returns a DialogBox with the user's text and image
-     * @param text  the user's text
-     * @param img   the user's image
+     * @param text the user's text
+     * @param img the user's image
      * @return  a DialogBox with the user's text and image
      */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox user = new DialogBox(text, img);
-        user.dialog.setStyle("-fx-padding: 30 15 30 15; -fx-background-color: lightgreen;");
+        String dialogStyle = "-fx-padding: 30 15 30 15; -fx-background-color: lightgreen;";
+        user.dialog.setStyle(dialogStyle);
         return user;
     }
-
     /**
      * Returns a DialogBox with Duke's text and image
-     * @param text  Duke's text
-     * @param img   Duke's image
-     * @return  a DialogBox with Duke's text and image
+     * @param text Duke's text
+     * @param img  Duke's image
+     * @return a DialogBox with Duke's text and image
      */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
-        db.dialog.setStyle("-fx-background-color: lightgrey; -fx-padding: 0 10 0 10;");
+        String dialogStyle = "-fx-padding: 30 15 30 15; -fx-background-color: lightblue;";
+        db.dialog.setStyle(dialogStyle);
         db.flip();
         return db;
     }

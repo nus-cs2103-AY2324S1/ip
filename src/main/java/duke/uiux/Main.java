@@ -15,6 +15,10 @@ public class Main extends Application {
 
     private Gui gui = new Gui();
 
+    /**
+     * Starts the GUI
+     * @param stage the primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {

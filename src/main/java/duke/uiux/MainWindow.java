@@ -1,8 +1,6 @@
 package duke.uiux;
 import duke.ModelViewController;
 import duke.Response;
-import duke.uiux.DialogBox;
-import duke.uiux.Gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -25,15 +23,29 @@ public class MainWindow extends AnchorPane {
 
     private Gui gui;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
+    // Attribution for userImage
+    //<a href="https://www.freepik.com/free-photo/vertical-shot-cute-deer-with-long-antlers-blurred-background
+    // _8281082.htm#query=moose&position=4&from_view=search&track=sph">Image by wirestock</a> on Freepik
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
 
+    // Attribution for dukeImage
+    // Image by <a href="https://www.freepik.com/free-photo/creative-assortment-delicious-food_13819431.htm#
+    // query=benedict%20cucumber&position=0&from_view=search&track=ais">Freepik</a>
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Bot.jpg"));
+
+    /**
+     * Initializes the MainWindow
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         createWelcomeMessage();
     }
 
+    /**
+     * Sets the gui for the MainWindow
+     * @param g the gui to set
+     */
     public void setGui(Gui g) {
         gui = g;
     }
