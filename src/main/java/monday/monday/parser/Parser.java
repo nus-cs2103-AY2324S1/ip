@@ -27,7 +27,6 @@ public class Parser {
         EVENT,
         DELETE,
         FIND,
-        DEFAULT,
     }
 
     /**
@@ -56,7 +55,8 @@ public class Parser {
         try {
             commandEnum = Command.valueOf(command.toUpperCase());
         } catch (IllegalArgumentException e) {
-            commandEnum = Command.DEFAULT;
+            throw new MondayException("Sorry, I do not understand what that means.\n"
+                    + "Please provide a valid input/command. e.g todo read book");
         }
 
         switch (commandEnum) {
@@ -78,9 +78,6 @@ public class Parser {
             return deleteCommand(content);
         case FIND:
             return findCommand(content);
-        case DEFAULT:
-            throw new MondayException("Sorry, I do not understand what that means.\n"
-                    + "Please provide a valid input/command. e.g todo read book");
         default:
             throw new MondayException("Sorry the ChatBot, please kindly wait for update.");
         }
