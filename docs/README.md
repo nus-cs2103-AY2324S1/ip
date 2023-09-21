@@ -62,7 +62,7 @@ Expected outcome:
 
 Till adds the Event task to your task list.
 
-```Added: [E][✘] Birthday party (from: Sep 30 2023, 06:00 PM to: Sep 30 2023, 10:00 PM)```
+```Added: [E][✘] Birthday party (from: 2023-09-30 18:00 to: 2023-09-30 22:00)```
 
 ### `list` - List all tasks
 
