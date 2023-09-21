@@ -136,4 +136,3 @@ Action | Format, Examples
 **Delete** | `delete TASK_NUMBER`<br> e.g., `delete 3`
 **Mark as done** | `done TASK_NUMBER`<br> e.g.,`done 3`
 **Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find assignment`
---------|------------------
