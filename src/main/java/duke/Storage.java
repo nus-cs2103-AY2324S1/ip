@@ -19,8 +19,13 @@ public class Storage {
      */
     public static TaskList load(String filepath) {
         TaskList taskList = new TaskList();
-        File file = new File(filepath);
+        File directory = new File(filepath);
         try {
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+            File file = new File(directory, "duke.txt");
+            file.createNewFile();
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String text = scanner.nextLine();
@@ -29,8 +34,7 @@ public class Storage {
                 }
                 Parser.handleInput(text, taskList, true);
             }
-        } catch (FileNotFoundException ex) {
-            //ignore;
+        } catch (IOException ignored) {
         }
         return taskList;
     }

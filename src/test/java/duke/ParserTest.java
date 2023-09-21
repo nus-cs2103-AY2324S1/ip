@@ -16,12 +16,12 @@ public class ParserTest {
     @Test
     public void test_InvalidDate_ValidTime() {
         String InvalidDateValidTime = "2020-13-13 12:30";
-        assertThrows(DateTimeParseException.class, () -> Parser.dateFormatter(InvalidDateValidTime));
+        assertNull(Parser.dateFormatter(InvalidDateValidTime));
     }
 
     @Test
     public void test_ValidDate_InvalidTime() {
         String ValidDateInvalidTime = "2020-12-13 40:10";
-        assertThrows(DateTimeParseException.class, () -> Parser.dateFormatter(ValidDateInvalidTime));
+        assertNull(Parser.dateFormatter(ValidDateInvalidTime));
     }
 }

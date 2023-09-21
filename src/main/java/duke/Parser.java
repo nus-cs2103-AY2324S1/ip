@@ -90,10 +90,12 @@ public class Parser {
                 Task thisTask = taskList.getTask(index - 1);
                 if (parts[0].equals("mark")) {
                     thisTask.setDone();
+                    Storage.save(taskList); // save in file
                     return Ui.printDone(thisTask);
                 }
                 if (parts[0].equals("unmark")) {
                     thisTask.setNotDone();
+                    Storage.save(taskList); // save in file
                     return Ui.printNotDone(thisTask);
                 }
                 Storage.save(taskList);
@@ -227,14 +229,12 @@ public class Parser {
 
     public static String AddTask(Task task, TaskList taskList, Boolean isLoading) {
         // detect duplicates
+        boolean hasDuplicate = false;
         if (taskList.size() != 0) {
-            for (int i = 0; i < taskList.size(); i++) {
-                String newTask = task.toString();
-                String oldTask = taskList.getTask(i).toString();
-                if (newTask.equals(oldTask)) {
-                    return Ui.duplicate();
-                }
-            }
+            hasDuplicate = CheckDuplicates(task, taskList, hasDuplicate);
+        }
+        if (hasDuplicate) {
+            return Ui.duplicate();
         }
         taskList.add(task);
         Storage.save(taskList);
@@ -242,6 +242,24 @@ public class Parser {
             return Ui.printAddTask(task, taskList);
         }
         return "";
+    }
+
+    /**
+     * Check for identical task string representation in the task list.
+     *
+     * @param task includes event, todo and deadline
+     * @param taskList an array of tasks
+     * @param hasDuplicate a flag to check if there is a duplicate task
+     */
+    private static boolean CheckDuplicates(Task task, TaskList taskList, boolean hasDuplicate) {
+            for (int i = 0; i < taskList.size(); i++) {
+                String newTask = task.toString();
+                String oldTask = taskList.getTask(i).toString();
+                if (newTask.equals(oldTask)) {
+                     hasDuplicate = true;
+                }
+            }
+        return hasDuplicate;
     }
 
     /**

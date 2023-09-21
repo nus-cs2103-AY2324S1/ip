@@ -23,7 +23,7 @@ public class Duke {
      * Public Constructor for Duke.
      */
     public Duke() {
-        this.taskList = Storage.load("data/duke.txt");
+        this.taskList = Storage.load("./data");
     }
 
     /**
