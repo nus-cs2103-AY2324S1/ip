@@ -1,4 +1,4 @@
-# User Guide
+# Dukduk🦆 User Guide
 
 Dukduk🦆 is a desktop chatbot application for managing and storing tasks,
 with a Graphical User Interface (GUI).
