@@ -41,7 +41,7 @@ Find tasks with descriptions that match the specified keyword.
 
 ### `list` - List all tasks.
 
-Add a todo task.
+List all tasks.
 
 Example of usage:
 

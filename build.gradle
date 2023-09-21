@@ -55,7 +55,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "lemon-ip"
+    archiveBaseName = "lemon-ip-v0.2"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
