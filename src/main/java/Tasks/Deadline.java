@@ -11,11 +11,20 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private LocalDate deadline;
+
+    /**
+     * Creates a new Deadline object.
+     * @param description The description of the Deadline.
+     * @throws DukeException If the description is empty or the deadline is empty.
+     */
     public Deadline(String description) throws DukeException {
         super(description);
         initializeDeadline();
     }
 
+    /** Initializes the Deadline task.
+     * @throws DukeException If the task description is empty or the deadline date is invalid.
+     */
     private void initializeDeadline() throws DukeException{
         String[] splitString = description.split("/by", 2);
         if (splitString.length != 2) throw new InvalidTaskFormatException();
