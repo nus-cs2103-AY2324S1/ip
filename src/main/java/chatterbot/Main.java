@@ -33,6 +33,7 @@ public class Main extends Application {
             Ui ui = new Ui(list);
             Storage storage = new Storage(file, list);
 
+
             File f = new File(file);
             if (!f.exists()) {
                 System.out.println("Error! Data file not found: " + file);

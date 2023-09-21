@@ -1,11 +1,3 @@
-todo c
 todo 0
 todo a
 todo 8
-todo charge macbook
-deadline this /by 2023-09-22
-deadline this /by 2023-09-22
-deadline this /by 2023-09-02
-deadline that /by 2019-11-11
-deadline that /by 2019-11-11
-deadline ttotootot /by 2020-03-03

@@ -49,7 +49,9 @@ public class TaskList {
 
     public String addTask(Task task, Storage storage, String filePath) {
         assert task != null : "Task to add cannot be null.";
+        int initialSize = list.size();
         list.add(task);
+        assert list.size() == initialSize + 1 : "Task list size did not increase after adding a task.";
         try {
             storage.appendToFile(filePath, task.formatForFile());
         } catch (IOException e) {
@@ -61,7 +63,9 @@ public class TaskList {
     public String deleteTask(int taskIndex, Storage storage, String filePath) {
         try {
             assert taskIndex >= 0 && taskIndex < list.size() : "Task index must be within list range.";
+            int initialSize = list.size();
             list.remove(taskIndex);
+            assert list.size() == initialSize - 1 : "Task list size did not decrease after removing a task.";
         } catch (Exception e) {
             return "Error, task not removed.";
         }
