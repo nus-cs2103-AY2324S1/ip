@@ -20,6 +20,8 @@ import java.util.List;
  * Finds dates that have free time slot of specified time duration in a date duration
  */
 public class FindFreeTimeCommand extends Command {
+    private static final int WORKING_HOUR_START = 8;
+    private static final int WORKING_HOUR_END = 18;
     private int freeTimeDuration;
     private LocalDate startingDate;
     private LocalDate endingDate;
@@ -27,7 +29,7 @@ public class FindFreeTimeCommand extends Command {
     /**
      * Constructs the FindTimeCommand class.
      *
-     * @param freeTimeDuration Time duration of free time.
+     * @param freeTimeDuration Time duration of free time in minutes.
      * @param startingDate Starting date of the date range.
      * @param endingDate Ending date of the date range.
      */
@@ -66,8 +68,8 @@ public class FindFreeTimeCommand extends Command {
                 }
             }
 
-            LocalDateTime startTime = currentDate.atTime(8, 0); // Starting working hour
-            LocalDateTime endTime = currentDate.atTime(18, 0); // Ending working hour
+            LocalDateTime startTime = currentDate.atTime( WORKING_HOUR_START, 0); // Starting working hour
+            LocalDateTime endTime = currentDate.atTime(WORKING_HOUR_END, 0); // Ending working hour
 
             if (taskOfTheDay.isEmpty()) {
                 if (Duration.between(startTime, endTime).toMinutes() >= freeTimeDuration) {
