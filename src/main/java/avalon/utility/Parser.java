@@ -12,7 +12,20 @@ import avalon.command.TodoCommand;
 import avalon.command.UnmarkCommand;
 import avalon.task.TaskList;
 
+/**
+ * The `Parser` class is responsible for processing user commands and executing the corresponding actions.
+ * It converts user input into executable commands and handles exceptions when necessary.
+ */
 public class Parser {
+    /**
+     * Processes the user's input, determines the command type, and executes the corresponding action.
+     *
+     * @param input    The user's input command.
+     * @param taskList The TaskList to which tasks are added or manipulated.
+     * @param storage  The storage handler for loading and saving tasks.
+     * @param ui       The user interface for displaying information to the user.
+     * @return A response message generated as a result of executing the command.
+     */
     public static String processCommand(String input, TaskList taskList, Storage storage, Ui ui) {
 
         String[] inputStr = input.split(" ");

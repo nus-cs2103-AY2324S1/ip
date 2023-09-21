@@ -21,14 +21,27 @@ public class Ui {
         this.output = new StringBuilder();
     }
 
+    /**
+     * Appends a message to the output buffer.
+     *
+     * @param message The message to be appended.
+     */
     public void printMessage(String message) {
         this.output.append(message);
     }
 
+    /**
+     * Retrieves the contents of the output buffer as a string.
+     *
+     * @return The contents of the output buffer.
+     */
     public String getOutput() {
         return this.output.toString();
     }
 
+    /**
+     * Clears the contents of the output buffer.
+     */
     public void clearOutput() {
         this.output = new StringBuilder();
     }
