@@ -51,12 +51,11 @@ public class Parser {
                 this.isEnd = true;
                 return Ui.farewellMessage();
             } else {
-                throw new DukeException(" OOPS!!! I'm sorry, but I don't know what that means :-(");
+                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (DukeException e) {
-            Ui.printException(e);
+            return Ui.printException(e);
         }
-        return "Invalid command.";
     }
 
     /**
@@ -92,7 +91,11 @@ public class Parser {
      */
     protected Deadline createDeadlineFromCommand() {
         if (command.indexOf("/by") == -1) {
-            throw new DukeException(" Please specify the deadline using /by");
+            throw new DukeException("Please specify the deadline using /by");
+        }
+
+        if (command.split("/by")[0].strip().equals("deadline")) {
+            throw new DukeException("The description of a deadline cannot be empty.");
         }
 
         LocalDate deadline = LocalDate.parse(command.split(" /by ", 2)[1]);
@@ -108,7 +111,7 @@ public class Parser {
      */
     protected ToDo createToDoFromCommand() {
         if (command.split(" ", 2).length == 1) {
-            throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
 
         ToDo newToDo = new ToDo(command.split(" ", 2)[1]);

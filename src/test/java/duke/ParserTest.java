@@ -55,7 +55,7 @@ public class ParserTest {
             Parser p = new Parser("todo");
             String response = p.parse();
         } catch (DukeException e) {
-            String errorMessage = " OOPS!!! The description of a todo cannot be empty.";
+            String errorMessage = "OOPS!!! The description of a todo cannot be empty.";
             assertEquals(errorMessage, e.getMessage());
         }
     }
@@ -81,7 +81,22 @@ public class ParserTest {
             Parser p = new Parser("deadline read article 2022-02-02");
             String response = p.parse();
         } catch (DukeException e) {
-            String errorMessage = " Please specify the deadline using /by";
+            String errorMessage = "Please specify the deadline using /by";
+            assertEquals(errorMessage, e.getMessage());
+        }
+    }
+
+    /**
+     * Tests createDeadlineFromCommand with empty description.
+     */
+    @Test
+    public void createDeadlineFromCommand_emptyDescription_exceptionThrown() {
+        try {
+            String date = "2022-02-02";
+            Parser p = new Parser("deadline /by " + date);
+            String response = p.parse();
+        } catch (DukeException e) {
+            String errorMessage = "The description of a deadline cannot be empty.";
             assertEquals(errorMessage, e.getMessage());
         }
     }
