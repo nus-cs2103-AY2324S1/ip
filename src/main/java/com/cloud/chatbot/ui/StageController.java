@@ -30,7 +30,7 @@ public class StageController extends Stage {
      * controller. This is before that loader's load() gets called, meaning this
      * instance's @FXML fields would not have been populated yet.
      *
-     * Therefore, code that manipulates nodes needs to be here and not in a
+     * Therefore, code that manipulates Nodes needs to be here and not in a
      * constructor.
      */
     @FXML public void initialize() {
