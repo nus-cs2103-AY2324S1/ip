@@ -203,6 +203,23 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("Sidtacphi: You now have " + this.size() + " tasks in your list.");
     }
 
+    public void findTask(String input) throws SidException {
+        if (input.length() < 5) {
+            throw new SidInvalidFormatException("Please input the task ID number to delete.");
+        } else if (input.charAt(4) != ' ') {
+            throw new SidException("\"" + input + "\" is not a valid command.");
+        } 
+
+        String name = input.substring(5);
+        System.out.println("\nSidtacphi: These are the tasks in your list.");
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).getName().contains(name)) {        
+                System.out.println("" + (i + 1) + ". " + this.get(i));
+            }
+
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof TaskList)) {
