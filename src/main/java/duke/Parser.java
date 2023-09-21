@@ -217,6 +217,14 @@ public class Parser {
         int index = Integer.parseInt(tokens[0].trim());
         String tag = tokens[1].trim();
 
+        if (checkInvalidIndex(index)) {
+            throw new DukeException("Chewie can't assign the tag");
+        }
+
+        if (Duke.getList().getList().get(index - 1).hasTag(tag)) {
+            throw new DukeException("The task already has this tag.");
+        }
+
         return new AssignTagCommand(index - 1,tag);
     }
 
@@ -230,6 +238,14 @@ public class Parser {
         int index = Integer.parseInt(tokens[0].trim());
         String tag = tokens[1].trim();
 
+        if (checkInvalidIndex(index)) {
+            throw new DukeException("Chewie can't assign the tag");
+        }
+
+        if (!Duke.getList().getList().get(index - 1).hasTag(tag)) {
+            throw new DukeException("The task does not have this tag.");
+        }
+
         return new RemoveTagCommand(index - 1,tag);
     }
 
@@ -237,7 +253,7 @@ public class Parser {
         String[] tokens = prompt.split(" #");
 
         if (tokens.length != 2 || tokens[1].isBlank()) {
-            throw new DukeException("Chewie can't remove the tag");
+            throw new DukeException("Chewie can't find the tag");
         }
 
         String tag = tokens[1].trim();

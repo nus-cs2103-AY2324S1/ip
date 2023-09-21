@@ -32,4 +32,22 @@ public class RemoveTagCommand extends Command{
         Storage.instance.save(list);
         return Ui.instance.removeTagPrompt(list.getList().get(index));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof RemoveTagCommand)) {
+            return false;
+        }
+
+        RemoveTagCommand temp = (RemoveTagCommand) o;
+        return tag.equals(temp.getTag()) && index == temp.getIndex();
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getTag() {
+        return tag;
+    }
 }

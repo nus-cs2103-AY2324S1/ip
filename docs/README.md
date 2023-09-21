@@ -3,6 +3,8 @@ Duke is a chat-bot application where user can note down their task.
 
 The chat-bot is named **Chewbacca, son of Attichukk**, also known as `Chewie`.
 
+![Ui.png](Ui.png)
+
 ## Features 
 
 ### Adding To-Do - `ToDo` 

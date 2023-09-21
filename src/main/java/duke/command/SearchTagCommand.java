@@ -30,4 +30,18 @@ public class SearchTagCommand extends Command{
         return Ui.instance.findTaskWithTagPrompt(result);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(!(o instanceof SearchTagCommand)) {
+            return false;
+        }
+
+        SearchTagCommand temp = (SearchTagCommand) o;
+        return tag.equals(temp.getTag());
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
 }

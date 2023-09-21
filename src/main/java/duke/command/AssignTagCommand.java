@@ -32,4 +32,22 @@ public class AssignTagCommand extends Command{
         Storage.instance.save(list);
         return Ui.instance.assignTagPrompt(list.getList().get(index));
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof AssignTagCommand)) {
+            return false;
+        }
+
+        AssignTagCommand temp = (AssignTagCommand) o;
+        return tag.equals(temp.getTag()) && index == temp.getIndex();
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public String getTag() {
+        return tag;
+    }
 }

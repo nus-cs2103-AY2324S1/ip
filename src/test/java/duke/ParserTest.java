@@ -58,7 +58,7 @@ public class ParserTest {
             CreateToDoCommand expected = new CreateToDoCommand("run");
             assertEquals(expected, result);
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -83,7 +83,7 @@ public class ParserTest {
 
             assertEquals(expected, result);
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -107,7 +107,7 @@ public class ParserTest {
         } catch (DateTimeParseException e) {
             return;
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -132,7 +132,7 @@ public class ParserTest {
 
             assertEquals(expected,result);
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -178,7 +178,7 @@ public class ParserTest {
 
             assertEquals(expected,result);
         } catch (DukeException ignored) {
-
+            fail();
         }
 
     }
@@ -192,7 +192,7 @@ public class ParserTest {
 
             assertEquals(expected,result);
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -227,7 +227,7 @@ public class ParserTest {
 
             assertEquals(expected,result);
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -262,7 +262,7 @@ public class ParserTest {
 
             assertEquals(expected,result);
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -299,7 +299,7 @@ public class ParserTest {
 
             assertEquals(result,expected);
         } catch (DukeException ignored) {
-
+            fail();
         }
     }
 
@@ -313,6 +313,143 @@ public class ParserTest {
             fail();
         } catch (DukeException e) {
             assertEquals("There is no keyword", e.getMessage());
+        }
+    }
+
+    @Test
+    public void readInput_validAssignTag_success() {
+        Duke.getList().add(new ToDo("run"));
+        String command = "assign 1 #fast";
+
+        try {
+            AssignTagCommand result = (AssignTagCommand) parser.readInput(command);
+            AssignTagCommand expected = new AssignTagCommand(0, "fast");
+            assertEquals(result,expected);
+        } catch (DukeException ignored) {
+            fail();
+        }
+    }
+
+    @Test
+    public void readInput_assignEmptyTag_exceptionThrown() {
+        Duke.getList().add(new ToDo("run"));
+        String command = "assign 1 ";
+
+        try {
+            AssignTagCommand result = (AssignTagCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals(e.getMessage(), "Chewie can't assign the tag");
+        }
+    }
+
+    @Test
+    public void readInput_assignWrongIndex_exceptionThrown() {
+        Duke.getList().add(new ToDo("run"));
+        String command = "assign 9 #fast ";
+
+        try {
+            AssignTagCommand result = (AssignTagCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals(e.getMessage(), "Chewie can't assign the tag");
+        }
+    }
+    @Test
+    public void readInput_assignDuplicateTag_exceptionThrown() {
+        Duke.getList().add(new ToDo("run"));
+        Duke.getList().assignTaskWithTag(0, "fast");
+        String command = "assign 1 #fast ";
+
+        try {
+            AssignTagCommand result = (AssignTagCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals(e.getMessage(), "The task already has this tag.");
+        }
+    }
+
+    @Test
+    public void readInput_validRemoveTag_success() {
+        Duke.getList().add(new ToDo("run"));
+        Duke.getList().assignTaskWithTag(0, "fast");
+        String command = "remove 1 #fast";
+
+        try {
+            RemoveTagCommand result = (RemoveTagCommand) parser.readInput(command);
+            RemoveTagCommand expected = new RemoveTagCommand(0, "fast");
+            assertEquals(result,expected);
+        } catch (DukeException ignored) {
+            fail();
+        }
+    }
+
+    @Test
+    public void readInput_removeEmptyTag_exceptionThrown() {
+        Duke.getList().add(new ToDo("run"));
+        String command = "remove 1 ";
+
+        try {
+            RemoveTagCommand result = (RemoveTagCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals(e.getMessage(), "Chewie can't remove the tag");
+        }
+    }
+
+    @Test
+    public void readInput_removeWrongIndex_exceptionThrown() {
+        Duke.getList().add(new ToDo("run"));
+        Duke.getList().assignTaskWithTag(0, "fast");
+        String command = "remove 9 #fast";
+
+        try {
+            RemoveTagCommand result = (RemoveTagCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals(e.getMessage(), "Chewie can't assign the tag");
+        }
+    }
+
+    @Test
+    public void readInput_removeWrongTag_exceptionThrown(){
+        Duke.getList().add(new ToDo("run"));
+        Duke.getList().assignTaskWithTag(0, "fast");
+        String command = "remove 1 #jump";
+
+        try {
+            RemoveTagCommand result = (RemoveTagCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals(e.getMessage(), "The task does not have this tag.");
+        }
+    }
+    @Test
+    public void readInput_validSearchTag_success() {
+        Duke.getList().add(new ToDo("run"));
+        Duke.getList().assignTaskWithTag(0, "fast");
+        String command = "search 1 #fast";
+
+        try {
+            SearchTagCommand result = (SearchTagCommand) parser.readInput(command);
+            SearchTagCommand expected = new SearchTagCommand("fast");
+            assertEquals(result,expected);
+        } catch (DukeException ignored) {
+            fail();
+        }
+    }
+
+    @Test
+    public void readInput_emptySearch_exceptionThrown() {
+        Duke.getList().add(new ToDo("run"));
+        Duke.getList().assignTaskWithTag(0, "fast");
+        String command = "search 1 ";
+
+        try {
+            SearchTagCommand result = (SearchTagCommand) parser.readInput(command);
+            fail();
+        } catch (DukeException e) {
+            assertEquals(e.getMessage(), "Chewie can't find the tag");
         }
     }
 }
