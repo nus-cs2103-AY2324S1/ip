@@ -143,7 +143,7 @@ public class Parser {
     /**
      * Abstraction for undoing the most recent command when user inputs "undo".
      * @param taskList taskList that stores all tasks.
-     * @return A Stringt that outputs gman's response to the user in the GUI.
+     * @return A String that outputs gman's response to the user in the GUI.
      */
     public static String undoCommand(TaskList taskList) {
         if (!isValidUndo()) {
