@@ -7,6 +7,7 @@ import com.mimi.ui.Ui;
 
 /**
  * A class which represents the tasks previously executed and their status.
+ *
  * @author Yuheng
  */
 public class Storage {
@@ -16,6 +17,7 @@ public class Storage {
 
     /**
      * Creates an instance of the Storage
+     *
      * @param ui the Ui needed for the ui responses
      */
     public Storage(Ui ui) {
@@ -24,6 +26,7 @@ public class Storage {
 
     /**
      * Adds a task to the storage.
+     *
      * @param task the given Task to be added to the storage.
      */
     public void add(Task task) {
@@ -40,6 +43,7 @@ public class Storage {
     }
 
     private boolean checkEquals(Task task) {
+
         for (Task previousTasks: this.previousCommands) {
             if (previousTasks.equals(task)) {
                 return true;
@@ -50,8 +54,8 @@ public class Storage {
     }
 
     /**
-     * Adds a task without any ui response. This is used during initialisation
-     * when data is read from the hard disk.
+     * Adds a task without any ui response. This is used during initialisation.
+     *
      * @param task the Task to be added to the storage.
      */
     public void addWithoutPrinting(Task task) {
@@ -79,6 +83,7 @@ public class Storage {
 
     /**
      * Marks the task represented with the given number.
+     *
      * @param taskNumber an integer that denotes the position of the task to be marked.
      */
     public void mark(int taskNumber) {
@@ -102,6 +107,7 @@ public class Storage {
 
     /**
      * Un-marks the task represented with the given number.
+     *
      * @param taskNumber an integer that denotes the position of the task to be un-marked.
      */
     public void unmark(int taskNumber) {
@@ -125,6 +131,7 @@ public class Storage {
 
     /**
      * Deletes the task represented with the given number from the storage.
+     *
      * @param taskNumber an integer that denotes the position of the task to be deleted.
      */
     public void delete(int taskNumber) {
@@ -141,6 +148,7 @@ public class Storage {
 
     /**
      * Updates the hard disk with all the current tasks in the storage along with their status.
+     *
      * @param writer an instance of ReadWriteData to write the information to the hard disk.
      */
     public void updateAll(ReadWriteData writer) {
@@ -151,6 +159,7 @@ public class Storage {
 
     /**
      * Searches the previous tasks with the given string.
+     *
      * @param searchTerm The string that should match descriptions from previous tasks.
      */
     public void search(String searchTerm) {

@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * Representation of the Event task.
+ *
  * @author Yuheng
  */
 public class Event extends Task {
@@ -14,6 +15,7 @@ public class Event extends Task {
 
     /**
      * Creates an instance of the event task.
+     *
      * @param taskName the string representation of the event name.
      * @param startTime the start time of the event.
      * @param endTime the end time of the event.
@@ -27,6 +29,7 @@ public class Event extends Task {
     }
     /**
      * Returns the string representation of the task type.
+     *
      * @return a string that represents what kind of task this is.
      */
     @Override
@@ -48,6 +51,7 @@ public class Event extends Task {
 
     /**
      * A string representation of the start time of the task, if any.
+     *
      * @return a formatted string that shows the start time of the task.
      */
     @Override
@@ -64,6 +68,7 @@ public class Event extends Task {
 
     /**
      * A string representation of the end time of the task, if any.
+     *
      * @return a formatted string that shows the end time of the task.
      */
     @Override
@@ -80,7 +85,8 @@ public class Event extends Task {
     }
 
     /**
-     * A string that is used to store the task content into the hard drive
+     * A string that is used to store the task content into the hard drive.
+     *
      * @return string representation of the task for storage.
      */
     @Override

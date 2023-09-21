@@ -9,6 +9,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the deadline Command.
+ *
  * @author Yuheng
  */
 public class DeadlineCommand extends Command {
@@ -20,7 +21,8 @@ public class DeadlineCommand extends Command {
     private LocalDateTime deadlineTime;
 
     /**
-     * Creates an instance of the deadline Command
+     * Creates an instance of the deadline Command.
+     *
      * @param isCompleteCommand true if the given input has all the necessary components.
      * @param taskName the string representation of the deadline task name.
      * @param deadlineTime the deadline time of the task.
@@ -54,6 +56,7 @@ public class DeadlineCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override

@@ -16,6 +16,7 @@ import com.mimi.ui.Ui;
 
 /**
  * A class that reads from and writes data to the hard drive.
+ *
  * @author Yuheng
  */
 public class ReadWriteData {
@@ -24,7 +25,8 @@ public class ReadWriteData {
     private Ui ui;
 
     /**
-     * creates a new instance of ReadWriteData
+     * creates a new instance of ReadWriteData.
+     *
      * @param datafile The file to be read/written into
      * @param previousCommands an instance of Storage that keeps track of what tasks have been recorded
      * @param ui the Ui responsible for displaying messages
@@ -40,46 +42,54 @@ public class ReadWriteData {
      */
     public void initialise() {
         try {
-            Scanner fileReader = new Scanner(dataFile);
-
-            while (fileReader.hasNextLine()) {
-                String task = fileReader.nextLine();
-                if (task.equals("")) {
-                    continue;
-                }
-
-                int i = task.indexOf('|');
-
-                String taskCode = task.substring(0, i);
-                String taskWithoutCode = task.substring(i + 1);
-                int j = taskWithoutCode.indexOf('|');
-                String isCompletedTask = taskWithoutCode.substring(0, j);
-
-                String taskDescription = taskWithoutCode.substring(j + 1);
-
-                switch(taskCode) {
-                case "T":
-                    initialiseTodo(isCompletedTask.equals("X"), taskDescription);
-                    break;
-
-                case "D":
-                    initialiseDeadline(isCompletedTask.equals("X"), taskDescription);
-                    break;
-
-                case "E":
-                    initialiseEvent(isCompletedTask.equals("X"), taskDescription);
-                    break;
-
-                default:
-                }
-
-            }
-            fileReader.close();
-
+            readData();
         } catch (FileNotFoundException e) {
             ui.unableToLoadFromMemory();
         }
 
+    }
+
+    private void readData() throws FileNotFoundException {
+        Scanner fileReader = new Scanner(dataFile);
+
+        while (fileReader.hasNextLine()) {
+            String task = fileReader.nextLine();
+            if (task.equals("")) {
+                continue;
+            }
+
+            int i = task.indexOf('|');
+
+            String taskCode = task.substring(0, i);
+            String taskWithoutCode = task.substring(i + 1);
+            int j = taskWithoutCode.indexOf('|');
+            String isCompletedTask = taskWithoutCode.substring(0, j);
+
+            String taskDescription = taskWithoutCode.substring(j + 1);
+
+            considerTaskCode(taskCode, isCompletedTask, taskDescription);
+
+        }
+
+        fileReader.close();
+    }
+
+    private void considerTaskCode(String taskCode, String isCompletedTask, String taskDescription) {
+        switch (taskCode) {
+        case "T":
+            initialiseTodo(isCompletedTask.equals("X"), taskDescription);
+            break;
+
+        case "D":
+            initialiseDeadline(isCompletedTask.equals("X"), taskDescription);
+            break;
+
+        case "E":
+            initialiseEvent(isCompletedTask.equals("X"), taskDescription);
+            break;
+
+        default:
+        }
     }
 
 

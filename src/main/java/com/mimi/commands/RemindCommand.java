@@ -5,6 +5,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the Remind Command.
+ *
  * @author Yuheng
  */
 public class RemindCommand extends Command {
@@ -12,6 +13,7 @@ public class RemindCommand extends Command {
 
     /**
      * Creates a new instance of the Remind Command.
+     *
      * @param storage an instance of Storage.
      */
     public RemindCommand(Storage storage) {

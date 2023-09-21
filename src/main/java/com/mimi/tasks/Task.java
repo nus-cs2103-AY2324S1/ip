@@ -2,6 +2,7 @@ package com.mimi.tasks;
 
 /**
  * The parent class of all Tasks. Represents some basic information common to all Tasks.
+ *
  * @author Yuheng
  */
 public class Task {
@@ -27,6 +28,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task status.
+     *
      * @return a string that represents the status of the task based on whether it has been marked as done.
      */
 
@@ -36,6 +38,7 @@ public class Task {
 
     /**
      * Returns true if the task is done and false otherwise.
+     *
      * @return a boolean value that represents if the task is done.
      */
     public boolean isDone() {
@@ -44,6 +47,7 @@ public class Task {
 
     /**
      * Returns the string representation of the task type.
+     *
      * @return a string that represents what kind of task this is.
      */
     public String eventCode() {
@@ -52,6 +56,7 @@ public class Task {
 
     /**
      * Gives a string representation of the task name.
+     *
      * @return a string that represents the task name.
      */
     public String taskName() {
@@ -60,6 +65,7 @@ public class Task {
 
     /**
      * A string representation of the start time of the task, if any.
+     *
      * @return a formatted string that shows the start time of the task.
      */
     public String taskStartTime() {
@@ -68,6 +74,7 @@ public class Task {
 
     /**
      * A string representation of the end time of the task, if any.
+     *
      * @return a formatted string that shows the end time of the task.
      */
     public String taskEndTime() {
@@ -75,7 +82,8 @@ public class Task {
     }
 
     /**
-     * A string that is used to store the task content into the hard drive
+     * A string that is used to store the task content into the hard drive.
+     *
      * @return string representation of the task for storage.
      */
     public String writeFormat() {
@@ -84,6 +92,7 @@ public class Task {
 
     /**
      * Checks if the task is urgent by seeing if it is due in less than a week.
+     *
      * @return a boolean value indicating if the task is due/happening in less than a week.
      */
     public boolean isUrgent() {
@@ -92,6 +101,7 @@ public class Task {
 
     /**
      * Checks if the given task is already overdue.
+     *
      * @return A boolean value indicating if the task is already overdue.
      */
     public boolean isOverdue() {

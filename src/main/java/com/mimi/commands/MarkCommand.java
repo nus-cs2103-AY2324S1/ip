@@ -6,6 +6,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the Mark Command.
+ *
  * @author Yuheng
  */
 public class MarkCommand extends Command {
@@ -19,6 +20,7 @@ public class MarkCommand extends Command {
 
     /**
      * Creates an instance of the mark Command.
+     *
      * @param isCompleteCommand true if the input has all the necessary components.
      * @param taskNumber the index of the task that is stored in Storage.
      * @param storage an instance of Storage.
@@ -44,6 +46,7 @@ public class MarkCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override

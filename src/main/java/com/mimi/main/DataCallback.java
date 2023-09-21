@@ -1,7 +1,9 @@
 package com.mimi.main;
 
 /**
- * A method used to send data between the Ui and classes that implement this interface.
+ * An interface used to send data between the Ui and classes that implement this interface.
+ *
+ * @author Yuheng
  */
 @FunctionalInterface
 public interface DataCallback {

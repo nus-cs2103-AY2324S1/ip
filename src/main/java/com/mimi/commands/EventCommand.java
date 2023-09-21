@@ -9,6 +9,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the Event Command.
+ *
  * @author Yuheng
  */
 public class EventCommand extends Command {
@@ -21,6 +22,7 @@ public class EventCommand extends Command {
 
     /**
      * Creates an instance of the event Command.
+     *
      * @param isCompleteCommand true if the input given had all the necessary fields.
      * @param eventName The string representation of the name of the event.
      * @param startTime The start time of the event
@@ -57,6 +59,7 @@ public class EventCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override

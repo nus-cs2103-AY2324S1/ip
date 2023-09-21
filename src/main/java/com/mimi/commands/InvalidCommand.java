@@ -4,6 +4,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of Invalid Commands.
+ *
  * @author Yuheng
  */
 public class InvalidCommand extends Command {
@@ -15,6 +16,7 @@ public class InvalidCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override

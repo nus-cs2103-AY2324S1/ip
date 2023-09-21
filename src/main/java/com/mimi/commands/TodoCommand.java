@@ -6,6 +6,8 @@ import com.mimi.tasks.Todo;
 import com.mimi.ui.Ui;
 /**
  * Representation of the todo Command.
+ *
+ * @author Yuheng
  */
 public class TodoCommand extends Command {
     private String taskTodo;
@@ -14,6 +16,7 @@ public class TodoCommand extends Command {
 
     /**
      * Creates an instance of the Todo Command.
+     *
      * @param taskTodo String representation of the task to be done.
      * @param storage an instance of Storage.
      * @param readWriteData an instance of ReadWriteData.
@@ -42,6 +45,7 @@ public class TodoCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override
