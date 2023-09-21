@@ -1,5 +1,8 @@
 package tasks;
 
+import exceptions.IncorrectDeadlineUpdateArgException;
+import exceptions.IncorrectInputException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -43,10 +46,17 @@ public class Deadline extends Task {
      * Takes in the new details and edit the details of the task instance.
      *
      * @param newDetails contains the user input.
+     * @throws IncorrectInputException when newDetails is wrongly formatted or contain missing inputs.
      */
-    public void edit(String newDetails) {
-        String newDescription = newDetails.split(" ")[0];
-        String newBy = newDetails.split(" /by ")[1];
+    public void edit(String newDetails) throws IncorrectInputException {
+        String[] splitDetails = newDetails.split(" /by ");
+
+        if (splitDetails.length < 2) {
+            throw new IncorrectDeadlineUpdateArgException("");
+        }
+
+        String newDescription = splitDetails[0];
+        String newBy = splitDetails[1];
 
         super.editDescription(newDescription);
         this.by = newBy;

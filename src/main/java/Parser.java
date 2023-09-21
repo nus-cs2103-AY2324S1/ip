@@ -1,4 +1,7 @@
+import exceptions.IncorrectDeadlineInputException;
+import exceptions.IncorrectEventInputException;
 import exceptions.IncorrectInputException;
+import exceptions.IncorrectToDoInputException;
 import exceptions.NoDescriptionException;
 import exceptions.SavedDataFormatException;
 import tasks.Deadline;
@@ -163,7 +166,7 @@ public class Parser {
         final String[] splitArgs = decomposeIntoWords(args);
 
         if (splitArgs.length < 2) {
-            throw new NoDescriptionException("");
+            throw new IncorrectToDoInputException("");
         }
 
         final String description = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING);
@@ -177,15 +180,14 @@ public class Parser {
         final String separator = " /by ";
 
         if (args.replace(WHITE_SPACE, EMPTY_STRING).equals(type)) {
-            throw new IncorrectInputException(
-                    "Please input the right order: deadline <Description> /by <due date>");
+            throw new IncorrectDeadlineInputException("");
         }
 
         String detail = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING);
         String[] splitDetails = detail.split(separator);
 
         if (splitDetails.length < 2) {
-            throw new IncorrectInputException("Please input the right order: deadline <Description> /by <due date>");
+            throw new IncorrectDeadlineInputException("");
         }
 
         return new Deadline(splitDetails[0], splitDetails[1]);
@@ -197,23 +199,21 @@ public class Parser {
         final String separatorTo = " /to ";
 
         if (args.replace(WHITE_SPACE, EMPTY_STRING).equals(type)) {
-            throw new NoDescriptionException("");
+            throw new IncorrectEventInputException("");
         }
 
         final String detail = args.replaceFirst(type + WHITE_SPACE, EMPTY_STRING); //Remove type
         String[] splitDetails = detail.split(separatorFrom); //Split remaining args into description + (from and to)
 
         if (splitDetails.length < 2) {
-            throw new IncorrectInputException("Correct usage: \n" +
-                    "event {description} /from {dd/mm/yyyy HHmm} /to {dd/mm/yyyy HHmm}");
+            throw new IncorrectEventInputException("");
         }
 
         String description = splitDetails[0];
         String[] timeFromTo = splitDetails[1].split(separatorTo);
 
         if (timeFromTo.length < 2) {
-            throw new IncorrectInputException("Correct usage: \n" +
-                    "event {description} /from {dd/mm/yyyy HHmm} /to {dd/mm/yyyy HHmm}");
+            throw new IncorrectEventInputException("");
         }
 
         String from = timeFromTo[0];

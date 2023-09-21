@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import exceptions.IncorrectInputException;
 import exceptions.SavedDataFormatException;
 import exceptions.UpdateDataException;
 import tasks.Deadline;
@@ -180,12 +181,11 @@ public class TaskList {
      * @param index is the index of the task we are editing.
      * @param newDetails is the new details of the task that we are editing.
      * @return a String containing the new task details.
+     * @throws IndexOutOfBoundsException when the index is not within the range of the list.
      */
-    public String editTask(int index, String newDetails) {
+    public String editTask(int index, String newDetails) throws IndexOutOfBoundsException {
         if (newDetails.trim().equals("")) {
             return "Please key in the new details of the task!";
-        } else if (index < 0 || index >= tasks.size()) {
-            return "Task index cannot be found!";
         }
 
         final int offset = 1;
@@ -194,19 +194,19 @@ public class TaskList {
 
         if (task instanceof ToDo) {
             ((ToDo) task).edit(newDetails);
-
         } else if (task instanceof Event) {
             ((Event) task).edit(newDetails);
-
         } else if (task instanceof Deadline) {
             ((Deadline) task).edit(newDetails);
         }
 
         try {
             assert storage != null : "Storage is not assigned to anything yet";
+
             storage.updateData(tasks, false);
 
             return message + task;
+
         } catch (IOException e) {
             return "Error writing to file.";
         } catch (UpdateDataException e) {

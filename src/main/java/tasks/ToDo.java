@@ -1,5 +1,8 @@
 package tasks;
 
+import exceptions.IncorrectToDoInputException;
+import exceptions.IncorrectToDoUpdateArgException;
+
 /**
  * ToDos are tasks that have no date/time attached to them.
  *
@@ -20,8 +23,13 @@ public final class ToDo extends Task {
      * Return a new task with the updated description but same completion status.
      *
      * @param newDescription is the description that the task is to be updated with.
+     * @throws exceptions.IncorrectInputException when the newDescription is empty.
      */
-    public void edit(String newDescription) {
+    public void edit(String newDescription) throws exceptions.IncorrectInputException {
+        if (newDescription.trim().equals("")) {
+            throw new IncorrectToDoUpdateArgException("");
+        }
+
         super.editDescription(newDescription);
     }
 

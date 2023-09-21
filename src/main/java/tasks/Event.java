@@ -3,6 +3,7 @@ package tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import exceptions.IncorrectEventUpdateArgException;
 import exceptions.IncorrectInputException;
 
 /**
@@ -55,16 +56,20 @@ public class Event extends Task {
      * Takes in the new details and edit the details of the task instance.
      *
      * @param newDetails contains the user input.
+     * @throws IncorrectInputException when newDetails is wrongly formatted or contain missing inputs.
      */
-    public void edit(String newDetails) {
+    public void edit(String newDetails) throws IncorrectInputException {
         String[] splitDetails = newDetails.split(" /from "); //Split remaining args into description + (from and to)
+
+        if (splitDetails.length < 2) {
+            throw new IncorrectEventUpdateArgException("");
+        }
+
         final String newDescription = splitDetails[0];
         String[] timeFromTo = splitDetails[1].split(" /to ");
 
-        if (splitDetails.length < 2) {
-            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/from\"");
-        } else if (timeFromTo.length < 2) {
-            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/to\"");
+        if (timeFromTo.length < 2) {
+            throw new IncorrectEventUpdateArgException("");
         }
 
         super.editDescription(newDescription);
