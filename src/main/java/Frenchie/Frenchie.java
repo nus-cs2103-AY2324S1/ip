@@ -70,6 +70,11 @@ public class Frenchie {
                         tasks.addTask(event);
                         ui.addTask(event, tasks);
                         break;
+                    case find:
+                        String keyword = details;
+                        ui.findMessage();
+                        tasks.returnMatchTasks(keyword);
+                        break;
                     case invalid:
                         throw new FrenchieException("____________________________________________________________\n" +
                                 "OOPS!!! I'm sorry but I don't know what that means! :-(\n" +

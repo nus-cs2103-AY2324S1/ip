@@ -22,6 +22,8 @@ public class Parser {
                 return Command.bye;
             case "delete":
                 return Command.delete;
+            case "find":
+                return Command.find;
             default:
                 return Command.invalid;
 

@@ -61,6 +61,10 @@ public class Ui {
                 "____________________________________________________________");
     }
 
+    public void findMessage() {
+        System.out.println("____________________________________________________________\n" +
+                "Here are the matching tasks in your list: \n");
+    }
     public void closeScanner() {
         scanner.close();
     }
