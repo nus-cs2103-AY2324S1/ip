@@ -2,21 +2,23 @@
 
 ## Features 
 
-### Task Management
+#### Task Management
 
 You can add various types of tasks (Todo, Deadline, Event), view tasks, delete tasks and mark them as complete/incomplete.
 
-### Filter
+#### Filter
 
 You can filter tasks (deadlines) by name, or fall on a certain date.
 
-### Data Persistence
+#### Data Persistence
 
 Data will automatically be saved at the end of each session. Data will be stored as a `tasks.txt` file in the active directory.
 
 ## Usage
 
-### `todo` - Adding to-do
+### Adding tasks
+
+#### `todo` - Adding to-do
 
 Adds a to-do to the task manager.
 
@@ -36,7 +38,7 @@ Okay! I've added this task:
 There is now 1 task in your list.
 ```
 
-### `deadline` - Adding deadline
+#### `deadline` - Adding deadline
 
 Adds a deadline to the task manager.
 
@@ -58,7 +60,7 @@ Okay! I've added this task:
 There are now 2 tasks in your list.
 ```
 
-### `event` - Adding event
+#### `event` - Adding event
 
 Adds an event to the task manager.
 
@@ -78,7 +80,9 @@ Okay! I've added this task:
 There are now 3 tasks in your list.
 ```
 
-### `list` - Listing all tasks
+### Viewing tasks
+
+#### `list` - Listing all tasks
 
 Shows a list of all tasks in the task manager.
 
@@ -95,7 +99,7 @@ Here are the tasks in your list:
 3. [EVENT] [ ] week 6 (from: Monday to: Sunday)
 ```
 
-### `find` - Locating tasks by name
+#### `find` - Locating tasks by name
 
 Finds tasks with descriptions that contain the specified keyword.
 
@@ -116,7 +120,7 @@ Here are the task(s) that contain "cs2103t":
 2. [DEADLINE] [ ] cs2103t user guide (by: Sep 22 2023)
 ```
 
-### `schedule` - Locating tasks by date
+#### `schedule` - Locating tasks by date
 
 Finds tasks (particularly deadlines) containing the specified date.
 
@@ -139,7 +143,9 @@ Here are the task(s) scheduled for Sep 22 2023:
 2. [DEADLINE] [ ] cs2103t user guide (by: Sep 22 2023)
 ```
 
-### `mark` - Marking task as complete
+### Modifying tasks
+
+#### `mark` - Marking task as complete
 
 Marks the task with the specified index as complete.
 
@@ -160,7 +166,7 @@ Okay! I've marked this task as complete:
 [DEADLINE] [X] cs2103t user guide (by: Sep 22 2023)
 ```
 
-### `unmark` - Marking task as incomplete
+#### `unmark` - Marking task as incomplete
 
 Marks the task with the specified index as incomplete.
 
@@ -181,7 +187,9 @@ Okay! I've marked this task as incomplete:
 [DEADLINE] [ ] cs2103t user guide (by: Sep 22 2023)
 ```
 
-### `delete` - Deleting a task
+### Deleting tasks
+
+#### `delete` - Deleting a task
 
 Deleting the task with the specified index from the task manager.
 
