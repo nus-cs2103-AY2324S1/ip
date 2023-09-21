@@ -34,7 +34,8 @@ public class Ui {
      * Displays an exit message to the user.
      */
     public static String exit() {
-        return "Bye! Hope to see you again soon!";
+        return "Bye! Hope to see you again soon!\n"
+                +"Bot is leaving in 3 seconds...";
     }
 
     /**
