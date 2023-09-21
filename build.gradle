@@ -1,9 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 repositories {
@@ -14,20 +12,23 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
-    String javaFxVersion = '17.0.7'
+    // JavaFX 17.0.7 dependencies for macOS on ARM64
+    implementation 'org.openjfx:javafx-base:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-controls:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:mac-aarch64'
 
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    // JavaFX 17.0.7 dependencies for Linux
+    implementation 'org.openjfx:javafx-base:17.0.7:linux'
+    implementation 'org.openjfx:javafx-controls:17.0.7:linux'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:linux'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:linux'
+
+    // JavaFX 17.0.7 dependencies for Windows
+    implementation 'org.openjfx:javafx-base:17.0.7:win'
+    implementation 'org.openjfx:javafx-controls:17.0.7:win'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:win'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:win'
 }
 
 test {
@@ -44,10 +45,6 @@ test {
     }
 }
 
-checkstyle {
-    toolVersion = '10.2'
-}
-
 application {
     mainClass.set("Launcher")
 }
@@ -56,11 +53,6 @@ shadowJar {
     archiveFileName = "pardiyem.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-}
-
-
-javafx {
-    version = "20"
 }
 
 run{
