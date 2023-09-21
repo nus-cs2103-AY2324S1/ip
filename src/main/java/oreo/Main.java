@@ -20,8 +20,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
             MainWindow gui = fxmlLoader.getController();
-            Oreo oreo = new Oreo("/Users/daniel/Desktop/CS2103T/iP/src/main/java/data/oreo.txt",
+            Oreo oreo = new Oreo("./oreo.txt",
                     gui);
             stage.setTitle("Oreo");
             stage.setScene(scene);
