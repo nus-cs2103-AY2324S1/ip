@@ -76,7 +76,7 @@ public class Parser {
             System.out.println("You have enter a non-integer number\n"
                     + "Enter a valid task number that is a integer shown in list");
         } catch (WrongInputException e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         } catch (IndexOutOfBoundsException e) {
             System.out.println("You have entered a task number outside the valid range\n"
                     + "Please enter a valid task number from list");
