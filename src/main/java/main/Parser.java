@@ -159,8 +159,8 @@ public class Parser {
         } else {
             String[] splitEvent = input.split("/");
             assert splitEvent.length >= 3 : "Input should have at least 3 parts separated by '/'";
-
-            if (splitEvent[1].startsWith("from") && splitEvent[2].startsWith("to")) {
+            if (splitEvent[1].startsWith("from") && splitEvent[2].startsWith("to") &&
+                    splitEvent[1].length() > EVENT_FROM_IDX && splitEvent[2].length() > EVENT_TO_IDX) {
                 Event event = Event.makeEvent(splitEvent[0].substring(EVENT_DESC_IDX),
                         splitEvent[1].substring(EVENT_FROM_IDX),
                         splitEvent[2].substring(EVENT_TO_IDX));
@@ -172,8 +172,7 @@ public class Parser {
             } else {
                 throw new InvalidFormatException("Invalid Format!", TaskException.TaskType.EVENT);
             }
-        }
-    }
+        }}
 
     /**
      * Returns a Command that adds a ToDo based on an input.

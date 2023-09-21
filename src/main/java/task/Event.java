@@ -53,6 +53,7 @@ public class Event extends Task {
         String trimmedDescription = description.trim();
         String trimmedStart = start.trim();
         String trimmedEnd = end.trim();
+        System.out.println(start + end);
         String[] splitStart = trimmedStart.split(" ");
         String[] splitEnd = trimmedEnd.split(" ");
         if (trimmedDescription.length() == 0) {
@@ -71,7 +72,7 @@ public class Event extends Task {
         } else if (splitStart.length == 1 && splitEnd.length == 1) {
             return new Event(trimmedDescription, LocalDate.parse(splitStart[0]), LocalDate.parse(splitEnd[0]));
         } else {
-            return null;
+            throw new InvalidFormatException("Missing start or end time!", TaskException.TaskType.EVENT);
         }
     }
 

@@ -3,6 +3,15 @@
 ChatBot Alpha is a **desktop app that can store, check, uncheck and delete
 events, todos and deadlines via a Command Line Interface (CLI).**
 
+Quick start
+
+1. Ensure you have Java 11 or above installed in your Computer.
+2. Download the latest addressbook.jar from [here](https://github.com/PetrichorPrecipice/ip/releases/tag/A-Release).
+3. Copy the file to the folder you want to use as the home folder for your AddressBook.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the java -jar ``alpha.jar``
+command to run the application.
+5. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
+![Screenshot of Chatbot Alpha!](https://petrichorprecipice.github.io/ip/Ui.png)
 <div markdown="block" class="alert alert-info">
 
 **Notes about the command format:**
@@ -108,8 +117,4 @@ Examples:
 
 ### Saving the data
 
-Task list data is automatically stored on the hard disk in the file ``alpha.txt`` in the ``/data/`` directory.
-
-### Editing the data
-
-Task list data can be edited through manipulation of the ``alpha.txt`` in the ``/data`` directory. Ensure that you follow correct formatting or the program will be unable to read the file and crash.
+Task list data is automatically stored on the hard disk in the program itself.
