@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root fx:id="stage" resizable="false" title="Cloud" type="Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="stage" resizable="false" title="Cloud" type="Stage" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene fx:id="scene">
             <AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="400.0">
