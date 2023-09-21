@@ -55,10 +55,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "ekud"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = "duke.jar"
+    archiveFileName = "ekud.jar"
 }
 
 run{
