@@ -83,6 +83,7 @@ public class Deadline extends Task {
         if (deadlineDate != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
             deadline = deadlineDate.format(formatter);
+            assert !deadline.isEmpty() : "Error occurred whilst formatting deadlineDateTime";
         } else {
             deadline = deadlineString;
         }
