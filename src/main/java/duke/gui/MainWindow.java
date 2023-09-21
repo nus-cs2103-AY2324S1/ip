@@ -34,9 +34,17 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
+        dialogContainer.setStyle("-fx-background-color: #333;");
+
+        // Set font and text color for the user input field
+        userInput.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
+
+        // Set a prompt text (placeholder text) for user input field
+        userInput.setPromptText("Type your message...");
+
         // Display a hello message when the GUI starts
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Hello! I'm Axela. What can I do for you?\n\nIf unsure of what to do just type in 'help' to see all the command possible", dukeImage)
+                DialogBox.getDukeDialog("Hello! I'm Axela. What can I do for you?\n\nIf unsure of what to do just type in 'help' to see all the command possible",  dukeImage, "-fx-background-color: #3498db; -fx-text-fill: black;")
         );
     }
 
@@ -60,8 +68,8 @@ public class MainWindow extends AnchorPane {
 
         // Create user and Duke dialogs and add them to the container
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userInput.getText(), userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getUserDialog(userInput.getText(), userImage, "-fx-background-color: #777;"),
+                DialogBox.getDukeDialog(response, dukeImage, "-fx-background-color: #3498db;")
         );
 
         if (input.equalsIgnoreCase("bye")) {
