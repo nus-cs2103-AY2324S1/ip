@@ -39,4 +39,35 @@ public abstract class Command {
     public boolean isExitMode() {
         return this instanceof ExitModeCommand;
     }
+
+    /**
+     * Utility method to check if str is an integer input for commands that
+     * take in index input.
+     *
+     * @param str input
+     * @return true if integer, false if not
+     */
+    public boolean isInteger(String str) {
+        if (str == null) {
+            return false;
+        }
+        int length = str.length();
+        if (length == 0) {
+            return false;
+        }
+        int i = 0;
+        if (str.charAt(0) == '-') {
+            if (length == 1) {
+                return false;
+            }
+            i = 1;
+        }
+        for (; i < length; i++) {
+            char c = str.charAt(i);
+            if (c < '0' || c > '9') {
+                return false;
+            }
+        }
+        return true;
+    }
 }

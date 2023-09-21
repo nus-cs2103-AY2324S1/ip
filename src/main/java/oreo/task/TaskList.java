@@ -31,6 +31,9 @@ public class TaskList {
      * @param task Task to be added.
      */
     public void add(Task task) {
+        if (task.isComplete()) {
+            numberOfCompletedTasks++;
+        }
         taskList.add(task);
     }
 
@@ -88,7 +91,7 @@ public class TaskList {
      */
     public String list() {
         if (taskList.size() == 0) {
-            return "list looks empty to me!";
+            return "List looks empty to me!";
         } else {
             StringBuilder displayList = new StringBuilder();
             if (isAllComplete()) {
@@ -107,42 +110,31 @@ public class TaskList {
         }
     }
 
-    /**
-     * Handles the unmark/mark command input by user
-     *
-     * @param command mark or unmark
-     * @param tokeniser number for which task is to be mark/unmark
-     * @return String of whether mark/unmark was succesful or if all task is complete
-     * @throws IllegalCommandException task if command is in invalid format
-     */
-    public String changeMark(String command, Scanner tokeniser) throws IllegalCommandException {
-        // nothing specified after command
-        if (!tokeniser.hasNext()) {
-            throw new IllegalCommandException("do that without specifying a task number");
+    public String markDone(int index) {
+        Task task = get(index);
+        if (task.isComplete()) {
+            return "That was done already...\n" +
+                    "are you sure you wanted to mark that?\n"
+                    + task.toString();
+        } else {
+            task.switchMark();
+            numberOfCompletedTasks++;
+            return "Yay! One step closer to playing with me!\n"
+                    + task.toString();
         }
-        // specified content is not an integer
-        String content = tokeniser.next();
-        if (!isInteger(content)) {
-            if (content.equals("all")) {
-                return command.equals("mark") ? markAll() : unmarkAll();
-            }
-            throw new IllegalCommandException("do that... try a number instead");
-        }
-        // if number of task does not exist
-        int id = Integer.parseInt(content);
-        if (id > getNumberOfTask() || id <= 0) {
-            throw new IllegalCommandException("do that... this task does not exist :(");
-        }
-        // checks which mark command it is
-        String message;
-        switch (command) {
-        case "mark":
-            return message = isAllComplete() ? markDone(id - 1) + list()
-                    : markDone(id - 1);
-        case "unmark":
-            return markNotDone(id - 1);
-        default:
-            throw new IllegalCommandException("help mark or unmark that");
+    }
+
+    public String markNotDone(int index) {
+        Task task = get(index);
+        if (!task.isComplete()) {
+            return "Don't worry it's still not done\n"
+                    + "What are you doing? Let's get it done now!\n"
+                    + task.toString();
+        } else {
+            task.switchMark();
+            numberOfCompletedTasks--;
+            return "Oh no... what happened :(\n"
+                    + task.toString();
         }
     }
 
@@ -175,148 +167,8 @@ public class TaskList {
         }
     }
 
-    /**
-     * Handles the main logic of delete task command input by user
-     *
-     * @param tokeniser input of user behind delete command
-     * @return Message if task has been successful or not and if all task are complete
-     * @throws IllegalCommandException invalid format of command
-     */
-    public String deleteTask(String command, Scanner tokeniser) throws IllegalCommandException {
-        if (command.equals("clear")) {
-            clearAll();
-            return "Cleared all your task for you! Play time?";
-        }
-        // nothing specified after command
-        if (!tokeniser.hasNext()) {
-            throw new IllegalCommandException("do that without specifying a task number");
-        }
-        // specified content is not an integer
-        String content = tokeniser.next();
-        if (!isInteger(content)) {
-            if (content.equals("all")) {
-                clearAll();
-                return "Cleared all your task for you! Play time?";
-            }
-            throw new IllegalCommandException("do that... try a number instead");
-        }
-        // if number of task does not exist
-        int id = Integer.parseInt(content);
-        if (id > getNumberOfTask() || id <= 0) {
-            throw new IllegalCommandException("do that... this task does not exist :(");
-        }
-        Task removedTask = remove(id - 1);
-        assert removedTask != null: "removed task must exist";
-        String message = "Happily scratched this off your list:\n"
-                + Ui.indentLineBy(removedTask.toString(), 2) + "Now you have "
-                + getNumberOfTask() + " tasks in the list!";
-        if (isAllComplete()) {
-            message += list();
-        }
-        return message;
-    }
-
-    private String markDone(int index) {
-        Task task = get(index);
-        if (task.isComplete()) {
-            return "That was done already...\n" +
-                    "are you sure you wanted to mark that?\n"
-                    + task.toString();
-        } else {
-            task.switchMark();
-            numberOfCompletedTasks++;
-            return "Yay! One step closer to playing with me!\n"
-                    + task.toString();
-        }
-    }
-
-    private String markNotDone(int index) {
-        Task task = get(index);
-        if (!task.isComplete()) {
-            return "Don't worry it's still not done\n"
-                    + "What are you doing? Let's get it done now!\n"
-                    + task.toString();
-        } else {
-            task.switchMark();
-            numberOfCompletedTasks--;
-            return "Oh no... what happened :(\n"
-                    + task.toString();
-        }
-    }
-
-    /**
-     * Finds task in tasklist with keyword specified in tokeniser
-     *
-     * @param tokeniser input by user after command
-     * @return list of results
-     * @throws IllegalCommandException if input by user is invalid
-     */
-    public String findTasksWith(Scanner tokeniser) throws IllegalCommandException {
-        if (!tokeniser.hasNext()) {
-            throw new IllegalCommandException("do that without specifying a keyword");
-        }
-        String keyword = tokeniser.next();
-        TaskList toPrint = new TaskList();
-        for (int i = 0; i < getNumberOfTask(); i++) {
-            Task ref = taskList.get(i);
-            if (ref.contains(keyword)) {
-                toPrint.add(ref);
-            }
-        }
-        return toPrint.listResults(keyword);
-    }
-
-    public Task getEditTask(Scanner tokeniser) {
-        // nothing specified after command
-        if (!tokeniser.hasNext()) {
-            throw new IllegalCommandException("do that without specifying a task number");
-        }
-        // specified content is not an integer
-        String content = tokeniser.next();
-        if (!isInteger(content)) {
-            throw new IllegalCommandException("do that... try a number instead");
-        }
-        // if number of task does not exist
-        int id = Integer.parseInt(content);
-        if (id > getNumberOfTask() || id <= 0) {
-            System.out.println("hello");
-            throw new IllegalCommandException("do that... this task does not exist :(");
-        }
-        return get(id - 1);
-    }
-
     public void modifyTask(int index, Task task) {
         if (taskList.get(index).isComplete()) numberOfCompletedTasks--;
         taskList.set(index, task);
-    }
-
-    /**
-     * Utility method to check if str is an integer input
-     *
-     * @param str input
-     * @return true if integer, false if not
-     */
-    public static boolean isInteger(String str) {
-        if (str == null) {
-            return false;
-        }
-        int length = str.length();
-        if (length == 0) {
-            return false;
-        }
-        int i = 0;
-        if (str.charAt(0) == '-') {
-            if (length == 1) {
-                return false;
-            }
-            i = 1;
-        }
-        for (; i < length; i++) {
-            char c = str.charAt(i);
-            if (c < '0' || c > '9') {
-                return false;
-            }
-        }
-        return true;
     }
 }

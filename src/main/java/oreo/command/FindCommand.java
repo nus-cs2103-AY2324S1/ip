@@ -13,6 +13,21 @@ public class FindCommand extends Command {
         this.tokeniser = tokeniser;
     }
 
+    public String actOn(TaskList tasks) throws IllegalCommandException{
+        if (!tokeniser.hasNext()) {
+            throw new IllegalCommandException("do that without specifying a keyword");
+        }
+        String keyword = tokeniser.next();
+        TaskList toPrint = new TaskList();
+        for (int i = 0; i < tasks.getNumberOfTask(); i++) {
+            Task ref = tasks.get(i);
+            if (ref.contains(keyword)) {
+                toPrint.add(ref);
+            }
+        }
+        return toPrint.listResults(keyword);
+    }
+
     @Override
     public String executeEditMode(TaskList tasks, int index, Task oldTask) {
         return execute(tasks);
@@ -21,7 +36,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks) {
         try {
-            return tasks.findTasksWith(tokeniser);
+            return actOn(tasks);
         } catch (IllegalCommandException e) {
             return e.getMessage();
         }
