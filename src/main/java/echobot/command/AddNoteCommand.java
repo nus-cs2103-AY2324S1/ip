@@ -39,7 +39,8 @@ public class AddNoteCommand extends Command<Note> {
 
         notes.add(newNote);
 
-        responseText = "Note added: " + title;
+        responseText = "Note added: " + title + "\n";
+        responseText += "Now you have " + notes.size() + " notes in the list.\n";
 
         storage.saveNotes(notes, dialogContainer);
 

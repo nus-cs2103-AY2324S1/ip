@@ -4,6 +4,7 @@ import echobot.command.AddCommand;
 import echobot.command.AddNoteCommand;
 import echobot.command.Command;
 import echobot.command.DeleteCommand;
+import echobot.command.DeleteNoteCommand;
 import echobot.command.FindCommand;
 import echobot.command.ListCommand;
 import echobot.command.ListNoteCommand;
@@ -59,7 +60,8 @@ public class EchoBot extends Application {
         MARK,
         DELETE,
         LIST_TASK,
-        LIST_NOTE
+        LIST_NOTE,
+        DELETE_NOTE
     }
 
     /**
@@ -175,7 +177,7 @@ public class EchoBot extends Application {
         String responseText = "";
 
         if (input.equalsIgnoreCase("bye")) {
-            handleByeCommand();
+            handleBye();
             return;
         }
 
@@ -214,6 +216,8 @@ public class EchoBot extends Application {
             return CommandType.ADD_NOTE;
         } else if (command.startsWith("list note")) {
             return CommandType.LIST_NOTE;
+        } else if (command.startsWith("remove")) {
+            return CommandType.DELETE_NOTE;
         } else {
             return null;
         }
@@ -222,25 +226,27 @@ public class EchoBot extends Application {
     private String handleCommand(CommandType commandType, String input) {
         switch (commandType) {
         case ADD_TODO:
-            return handleAddTaskCommand(Command.TaskType.TODO, input);
+            return handleAddTask(Command.TaskType.TODO, input);
         case ADD_DEADLINE:
-            return handleAddTaskCommand(Command.TaskType.DEADLINE, input);
+            return handleAddTask(Command.TaskType.DEADLINE, input);
         case ADD_EVENT:
-            return handleAddTaskCommand(Command.TaskType.EVENT, input);
+            return handleAddTask(Command.TaskType.EVENT, input);
         case FIND:
-            return handleFindCommand();
+            return handleFind();
         case UNMARK:
-            return handleUnmarkCommand();
+            return handleUnmark();
         case MARK:
-            return handleMarkCommand();
+            return handleMark();
         case DELETE:
-            return handleDeleteCommand();
+            return handleDelete();
         case LIST_TASK:
-            return handleListTaskCommand();
+            return handleListTask();
         case ADD_NOTE:
-            return handleAddNoteCommand(input);
+            return handleAddNote(input);
         case LIST_NOTE:
             return handleListNote();
+        case DELETE_NOTE:
+            return handleDeleteNote();
         default:
             return "Unsupported command type.";
         }
@@ -249,7 +255,7 @@ public class EchoBot extends Application {
     /**
      * Handles the "bye" command, allowing the user to exit the application.
      */
-    private void handleByeCommand() {
+    private void handleBye() {
         String userMessage = userInput.getText();
         displayUserMessage(userMessage);
 
@@ -273,7 +279,7 @@ public class EchoBot extends Application {
      *
      * @return A string containing the list of task.
      */
-    private String handleListTaskCommand() {
+    private String handleListTask() {
         ListCommand listCommand = new ListCommand();
         return listCommand.doCommand(tasks, storage, dialogContainer);
     }
@@ -285,7 +291,7 @@ public class EchoBot extends Application {
      * @param input    The user input containing task details.
      * @return A response message indicating the result of the command.
      */
-    private String handleAddTaskCommand(Command.TaskType taskType, String input) {
+    private String handleAddTask(Command.TaskType taskType, String input) {
         String taskDescription = Command.extractDesc(input, taskType.toString().toLowerCase());
         AddCommand addCommand = null;
 
@@ -318,7 +324,7 @@ public class EchoBot extends Application {
      *
      * @return A response message indicating the result of the command.
      */
-    private String handleMarkCommand() {
+    private String handleMark() {
         String input = userInput.getText();
         int taskNum = Command.extractTaskNum(input, "mark");
         MarkCommand markCommand = new MarkCommand(taskNum);
@@ -331,7 +337,7 @@ public class EchoBot extends Application {
      *
      * @return A response message indicating the result of the command.
      */
-    private String handleUnmarkCommand() {
+    private String handleUnmark() {
         String input = userInput.getText();
         int taskNum = Command.extractTaskNum(input, "unmark");
         UnmarkCommand unmarkCommand = new UnmarkCommand(taskNum);
@@ -344,7 +350,7 @@ public class EchoBot extends Application {
      *
      * @return A response message indicating the result of the command.
      */
-    private String handleDeleteCommand() {
+    private String handleDelete() {
         String input = userInput.getText();
         int taskNum = Command.extractTaskNum(input, "delete");
 
@@ -361,7 +367,7 @@ public class EchoBot extends Application {
      *
      * @return A response message listing the tasks that match the keyword.
      */
-    private String handleFindCommand() {
+    private String handleFind() {
         String input = userInput.getText();
         String keyword = Command.extractDesc(input, "find");
         FindCommand findCommand = new FindCommand(keyword);
@@ -375,7 +381,7 @@ public class EchoBot extends Application {
      * @param input The user input containing the note details.
      * @return A response message indicating the result of the command.
      */
-    private String handleAddNoteCommand(String input) {
+    private String handleAddNote(String input) {
         String description = Command.extractDesc(input, "note");
         String[] noteParts = description.split("::", 2);
         if (noteParts.length < 2) {
@@ -399,6 +405,23 @@ public class EchoBot extends Application {
     private String handleListNote() {
         ListNoteCommand listNoteCommand = new ListNoteCommand();
         return listNoteCommand.doCommand(notes, storage, dialogContainer);
+    }
+
+    /**
+     * Handles the "remove" command, deleting a note from the task list.
+     *
+     * @return A response message indicating the result of the command.
+     */
+    private String handleDeleteNote() {
+        String input = userInput.getText();
+        int taskNum = Command.extractTaskNum(input, "remove");
+
+        // Assert that taskNum is within valid bounds
+        assert taskNum >= 1 && taskNum <= tasks.size() : "Task number is out of bounds";
+
+        DeleteNoteCommand deleteNoteCommand = new DeleteNoteCommand(taskNum);
+        deleteNoteCommand.doCommand(notes, storage, dialogContainer);
+        return deleteNoteCommand.getResponse();
     }
 
     /**

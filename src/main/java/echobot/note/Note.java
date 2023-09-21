@@ -62,4 +62,14 @@ public class Note {
         return content;
     }
 
+    /**
+     * Displays the note details.
+     *
+     * @return The note title and content.
+     */
+    public String display() {
+        return "Title: " + getTitle() + "\n"
+                + "  Content: " + getContent();
+    }
+
 }

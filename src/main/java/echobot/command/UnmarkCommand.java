@@ -43,7 +43,8 @@ public class UnmarkCommand extends Command<Task> {
             task.unmark();
 
             responseText = "OK, I've marked this task as not done yet:\n";
-            responseText += "[" + task.getStatusIcon() + "] " + task.getDescription();
+            responseText += "[" + task.getStatusIcon() + "] "
+                    + task.getDescription();
             getDateTimeInfo(task);
 
             storage.saveTasks(tasks, dialogContainer); // Save after unmarking

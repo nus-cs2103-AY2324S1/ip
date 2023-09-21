@@ -75,6 +75,7 @@ public class Storage {
             logError("Invalid data: " + formattedTask, e);
         }
     }
+
     /**
      * Saves the list of tasks to the tasks file.
      *

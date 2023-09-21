@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 public class DeleteCommand extends Command<Task> {
     private int taskNum;
     private String responseText;
+    private String indent2Spaces = "  ";
 
     /**
      * Constructs a DeleteCommand instance.
@@ -30,7 +31,7 @@ public class DeleteCommand extends Command<Task> {
             Task deletedTask = tasks.remove(taskNum - 1);
 
             responseText = "Noted. I've removed this task:\n";
-            responseText += deletedTask.display() + "\n";
+            responseText += indent2Spaces + deletedTask.display() + "\n";
             responseText += "Now you have " + tasks.size() + " tasks in the list.\n";
 
             storage.saveTasks(tasks, dialogContainer); // Save after deleting

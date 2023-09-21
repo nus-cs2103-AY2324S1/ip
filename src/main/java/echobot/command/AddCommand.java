@@ -21,6 +21,7 @@ public class AddCommand extends Command<Task> {
     private final String dateTimeInfo1;
     private final String dateTimeInfo2;
     private String responseText;
+    private String indent2Spaces = "  ";
 
     /**
      * Constructs an AddCommand instance.
@@ -69,7 +70,7 @@ public class AddCommand extends Command<Task> {
             tasks.add(newTask);
 
             responseText = "Got it. I've added this task:\n";
-            responseText += newTask.display() + "\n";
+            responseText += indent2Spaces + newTask.display() + "\n";
             responseText += "Now you have " + tasks.size() + " tasks in the list.\n";
 
             storage.saveTasks(tasks, dialogContainer);

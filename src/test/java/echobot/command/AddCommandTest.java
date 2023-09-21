@@ -30,7 +30,7 @@ public class AddCommandTest {
 
         // Verify the response message
         String expectedResponse = "Got it. I've added this task:\n";
-        expectedResponse += "[T] [ ] Attend lecture\n";
+        expectedResponse += "  [T] [ ] Attend lecture\n";
         expectedResponse += "Now you have 1 tasks in the list.\n";
         assertEquals(expectedResponse, response);
     }
@@ -51,7 +51,7 @@ public class AddCommandTest {
 
         // Verify the response message
         String expectedResponse = "Got it. I've added this task:\n";
-        expectedResponse += "[D] [ ] Return book (by: Sep 01 2023)\n";
+        expectedResponse += "  [D] [ ] Return book (by: Sep 01 2023)\n";
         expectedResponse += "Now you have 1 tasks in the list.\n";
         assertEquals(expectedResponse, response);
     }
