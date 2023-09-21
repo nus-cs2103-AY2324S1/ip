@@ -1,0 +1,5 @@
+T|X|watch 2103/T lecture
+E| |3230 exam|2023-10-05|2023-10-10
+D| |buy Darren a birthday gift|2023-10-08
+T| |find a possum
+T| |think about cats for a long time
