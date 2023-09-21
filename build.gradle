@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("gbot.GBot")
+    mainClass.set("gbot.Main")
 }
 
 shadowJar {
