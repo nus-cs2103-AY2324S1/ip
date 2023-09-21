@@ -67,8 +67,10 @@ Expected outcome:
 Format: `deadline DESCRIPTION /by DATE`
 * Deadline task is a task with strict time deadline.
 * DATE can be entered in these three format: `yyyy-MM-dd HH:mm` `yyyy-MM-dd` `HH:mm`.
-> [!NOTE] It is possible to key in only the time, e.g. `/from HH:mm`
-However, our chatbot will assume the date as the date your added the task.
+> [!NOTE]
+> It is possible to key in only the time, e.g. `/by HH:mm`
+> However, our chatbot will assume the date as the date you added the task.
+
 Example of usage: `deadline CS2103T IP /by: 2023-09-22 2359`
 
 Expected outcome: 
@@ -86,8 +88,9 @@ Expected outcome:
 Format: `event DESCRIPTION /from DATE /to DATE`
 * Event task is a task with a starting date and/or time and an ending date and/or time
 * DATE can be entered in these three format: `yyyy-MM-dd HH:mm` `yyyy-MM-dd` `HH:mm`.
-> [!NOTE] It is possible to key in only the time, e.g. `/from HH:mm`
-           However, our chatbot will assume the date as the date your added the task.
+> [!NOTE]
+> It is possible to key in only the time, e.g. `/from HH:mm`
+> However, our chatbot will assume the date as the date you added the task.
 
 Example of usage: `event career fair /from 2023-09-20 16:00 /to 2023-09-20 18:00`
 
@@ -213,7 +216,7 @@ Expected outcome:
 ### `findFreeTime` - Find the date with free time duration during the working hours
 Format: `findFreeTime TIME_DURATION /from DATE /to DATE`
 * The chatbot only finds your free time based on the events.
-* The chatbot only finds your free times within your working hours (8am to 6pm daily).
+* The chatbot only finds your free time within your working hours (8am to 6pm daily).
 * TIME_DURATION should be pure number in **minutes**.
 * DATE can be entered in **only one** format: `yyyy-MM-dd`.
 * It is possible to enter the same DATE for `/from` and `/to` since DATEs are **inclusive**.
