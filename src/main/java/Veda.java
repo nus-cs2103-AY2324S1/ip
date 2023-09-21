@@ -58,9 +58,6 @@ public class Veda {
         final String errorInputResponse = ui.getUnrecognisedInputMessage();
 
         switch (method) {
-        case -1:
-            return errorInputResponse;
-
         case 0:
             return ui.getExitMessage();
 
@@ -147,13 +144,17 @@ public class Veda {
 
     private String editTask(String input) {
         if (input.trim().equals("update")) {
-            return "Please key in the new details!";
+            return "Please key in the task index and new details!";
         }
 
-        final int taskIndex = Parser.getTargetIndex(input);
-        final String newDetails = Parser.removeMethodType(input).replaceFirst((taskIndex + 1) + " ", "");
+        try {
+            final int taskIndex = Parser.getTargetIndex(input);
+            final String newDetails = Parser.parseEditNewDetails(input);
 
-        return tasks.editTask(taskIndex, newDetails);
+            return tasks.editTask(taskIndex, newDetails);
+        } catch (IncorrectInputException | NumberFormatException e) {
+            return e.toString();
+        }
     }
 
     public static void main(String[] args) {

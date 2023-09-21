@@ -266,6 +266,19 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes in the user input and remove the task index and command type.
+     *
+     * @param input is the user input for edit commands.
+     * @return a String containing the new details of the to-be-updated task.
+     */
+    public static String parseEditNewDetails(String input) {
+        final int offset = 1;
+        String index = String.valueOf(Parser.getTargetIndex(input) + offset);
+
+        return removeMethodType(input).replaceFirst( index, EMPTY_STRING);
+    }
+
     private static String[] decomposeIntoWords(String arg) {
         return arg.split(WHITE_SPACE);
     }

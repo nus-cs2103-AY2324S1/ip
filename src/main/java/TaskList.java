@@ -182,6 +182,12 @@ public class TaskList {
      * @return a String containing the new task details.
      */
     public String editTask(int index, String newDetails) {
+        if (newDetails.trim().equals("")) {
+            return "Please key in the new details of the task!";
+        } else if (index < 0 || index >= tasks.size()) {
+            return "Task index cannot be found!";
+        }
+
         final int offset = 1;
         Task task = tasks.get(index);
         final String message = "Successfully updated task at index " + (index + offset) + " to:\n";
@@ -194,7 +200,6 @@ public class TaskList {
 
         } else if (task instanceof Deadline) {
             ((Deadline) task).edit(newDetails);
-
         }
 
         try {
