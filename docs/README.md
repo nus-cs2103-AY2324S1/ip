@@ -93,7 +93,7 @@ Edits a task field to a new input
      
 - Example:
   
-  - `edit 1 taskdesc fetch John` Edits the task description of the first task to `fetch John`.
+  - `edit 1 taskdesc laundries` Edits the task description of the first task to `sleep`.
   
   - `edit 2 fromdate 23/08/2023 1900` Edits the from date for the second task (an Events) to 23/08/2023 1900
  
