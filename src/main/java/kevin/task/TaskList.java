@@ -33,7 +33,8 @@ public class TaskList {
         try {
             tasks.remove(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new CommandDetailException("OOPS!!! There is no such task!");
+            throw new CommandDetailException(
+                    "OOPS!!! Deletion failed because there is no such task indexed at " + (index + 1) + "!");
         }
     }
 
@@ -42,7 +43,7 @@ public class TaskList {
         try {
             return tasks.get(index);
         } catch (IndexOutOfBoundsException e) {
-            throw new CommandDetailException("OOPS!!! There is no such task!");
+            throw new CommandDetailException("OOPS!!! I can't see that task!");
         }
     }
 

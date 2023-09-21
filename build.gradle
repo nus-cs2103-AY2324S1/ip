@@ -41,7 +41,7 @@ run{
 }
 
 javadoc {
-    title = "Shuyao's Kevin (Formerly known as Duke)"
+    title = "Shuyao's Kevin (Formerly Duke)"
     source = sourceSets.main.allJava
 }
 
