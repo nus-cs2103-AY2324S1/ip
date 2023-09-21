@@ -25,6 +25,7 @@ public class AddTaskCommand extends Command {
 
     /**
      * Constructs a command that adds the specified type of task with additional arguments.
+     *
      * @param type Type of task.
      * @param args Arguments specific to the given type of task.
      */

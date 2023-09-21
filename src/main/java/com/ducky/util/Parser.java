@@ -28,6 +28,7 @@ public class Parser {
 
     /**
      * Parses the specified input and returns its Command representation, if applicable.
+     *
      * @param cmd Command to be parsed.
      * @return Command representation of specified input.
      * @throws DuckyInvalidCommandException If the command does not exist.
@@ -65,6 +66,7 @@ public class Parser {
     /**
      * Parses the specified date given as a string (yyyy-mm-dd format)
      * and returns it as LocalDate.
+     *
      * @param date String representation of date to be parsed.
      * @return LocalDate representation of specified date.
      * @throws DateTimeParseException If the input date format is not valid.
@@ -75,6 +77,7 @@ public class Parser {
 
     /**
      * Parses the given Task string (in saved format) and returns it as a Task.
+     *
      * @param line Task string in saved format
      * @return Task representation of the saved task.
      * @throws DateTimeParseException If the task includes an invalid date format.

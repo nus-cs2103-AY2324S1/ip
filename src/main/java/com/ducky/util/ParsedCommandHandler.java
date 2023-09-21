@@ -19,6 +19,7 @@ public class ParsedCommandHandler {
 
     /**
      * Validates event addition command parsed by parser and repackages it into a command object.
+     *
      * @param argumentString Parsed argument string.
      * @return Repackaged command object for adding parsed event.
      * @throws DuckyInvalidCommandFormatException If the command is not in the correct format.
@@ -47,6 +48,7 @@ public class ParsedCommandHandler {
 
     /**
      * Validates deadline addition command parsed by parser and repackages it into a command object.
+     *
      * @param argumentString Parsed argument string.
      * @return Repackaged command object for adding parsed deadline.
      * @throws DuckyInvalidCommandFormatException If the command is not in the correct format.
@@ -71,6 +73,7 @@ public class ParsedCommandHandler {
 
     /**
      * Validates todotask addition command parsed by parser and repackages it into a command object.
+     *
      * @param argumentString Parsed argument string.
      * @return Repackaged command object for adding parsed todotask.
      * @throws DuckyInvalidCommandFormatException If the command is not in the correct format.
@@ -88,6 +91,7 @@ public class ParsedCommandHandler {
 
     /**
      * Validates task completion status update command parsed by parser and repackages it into command object.
+     *
      * @param argumentString Parsed argument string.
      * @param isCompleted Whether the specified task is complete.
      * @return Repackaged command object for updating task completion.

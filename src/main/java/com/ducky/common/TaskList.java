@@ -32,6 +32,7 @@ public class TaskList {
 
     /**
      * Adds the specified task into the list.
+     *
      * @param t Task to be added into the list.
      */
     public void addTask(Task t) {
@@ -41,6 +42,7 @@ public class TaskList {
 
     /**
      * Marks the task in the list with the specified index as complete.
+     *
      * @param index Index of completed task in the list.
      * @return Task to be marked as complete.
      * @throws DuckyInvalidTaskIndexException If specified index does not exist.
@@ -56,6 +58,7 @@ public class TaskList {
 
     /**
      * Marks the task in the list with the specified index as incomplete.
+     *
      * @param index Index of incomplete task in the list.
      * @return Task to be marked as incomplete.
      * @throws DuckyInvalidTaskIndexException If specified index does not exist.
@@ -71,6 +74,7 @@ public class TaskList {
 
     /**
      * Deletes the task in the list with the specified index.
+     *
      * @param index Index of task to be deleted.
      * @return Task to be deleted.
      * @throws DuckyInvalidTaskIndexException If specified index does not exist.
@@ -87,6 +91,7 @@ public class TaskList {
     /**
      * Returns a string representation of tasks in the task list
      * that contain the specified query string.
+     *
      * @param query Substring to find in the task list.
      * @return String representation of tasks that match the query.
      */
@@ -107,6 +112,7 @@ public class TaskList {
     /**
      * Returns a string representation of tasks in the task list
      * that contain the specified query date.
+     *
      * @param queryDate Date to find in the task list.
      * @return String representation of tasks that match the query.
      */
@@ -137,6 +143,7 @@ public class TaskList {
 
     /**
      * Returns a string representation of the list for printing to user interface.
+     *
      * @return Representation of the list meant for printing.
      */
     public String getPrintableList() {
@@ -156,6 +163,7 @@ public class TaskList {
 
     /**
      * Returns a string representation of the list for saving to file system.
+     *
      * @return Representation of the file meant for saving.
      */
     public String getSaveableList() {
@@ -168,6 +176,7 @@ public class TaskList {
 
     /**
      * Returns a string representation of the number of tasks in the list.
+     *
      * @return Representation of task count.
      */
     public String getListLengthStatus() {

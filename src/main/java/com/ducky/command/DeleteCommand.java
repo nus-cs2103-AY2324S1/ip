@@ -15,6 +15,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Constructs a command that deletes task with the specified index from Ducky's task list.
+     *
      * @param inputIndex Index of task in task list to be deleted.
      */
     public DeleteCommand(int inputIndex) {

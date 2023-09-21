@@ -13,6 +13,7 @@ public class DuckyInvalidCommandFormatException extends DuckyException {
     /**
      * Constructs an invalid format exception that contains a preset message
      * and appends a specified custom message.
+     *
      * @param message Custom error information to be appended to the error message.
      */
     public DuckyInvalidCommandFormatException(String message) {

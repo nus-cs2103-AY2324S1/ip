@@ -19,6 +19,7 @@ public class UpdateTaskCompletionCommand extends Command {
 
     /**
      * Constructs a command that changes completion status of the task with specified index.
+     *
      * @param inputIndex Index of task in task list to be changed.
      * @param isCompleted Whether the specified task is completed.
      */

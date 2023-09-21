@@ -21,6 +21,7 @@ public class Storage {
 
     /**
      * Constructs a Storage instance that saves and loads the specified file path.
+     *
      * @param filePath File path to load persistent data from.
      */
     public Storage(String filePath) {
@@ -29,6 +30,7 @@ public class Storage {
 
     /**
      * Saves data in the specified TaskList to previously specified file path.
+     *
      * @param taskList TaskList with data to be stored.
      */
     public void save(TaskList taskList) {

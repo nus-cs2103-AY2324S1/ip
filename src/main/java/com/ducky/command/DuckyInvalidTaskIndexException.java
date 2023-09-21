@@ -14,6 +14,7 @@ public class DuckyInvalidTaskIndexException extends DuckyException {
     /**
      * Constructs an invalid index exception with an error message detailing
      * the invalid index given and the number of tasks currently in the list.
+     *
      * @param index Invalid index given by user.
      * @param size Size of the task list.
      */

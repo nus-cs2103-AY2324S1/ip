@@ -7,6 +7,7 @@ public class TodoTask extends Task {
 
     /**
      * Constructs a task with the specified description.
+     *
      * @param desc Description of task.
      */
     public TodoTask(String desc) {

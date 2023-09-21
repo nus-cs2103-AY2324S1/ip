@@ -19,6 +19,7 @@ public class ViewScheduleCommand extends Command {
     private final String dateString;
     /**
      * Constructs a command that retrieves list of tasks on the specified day.
+     *
      * @param dateString String of date to retrieve tasks for.
      */
     public ViewScheduleCommand(String dateString) {
@@ -27,6 +28,7 @@ public class ViewScheduleCommand extends Command {
 
     /**
      * Parses the specified date string and retrieves list of tasks on that date.
+     *
      * @param taskList TaskList of Ducky chatbot instance.
      * @param storage  Storage module of Ducky chatbot instance.
      * @return String with list of tasks that fulfil the date query.

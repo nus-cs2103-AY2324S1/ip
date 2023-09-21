@@ -12,6 +12,7 @@ public class FindTaskCommand extends Command {
 
     /**
      * Constructs a command to find tasks containing the specified query.
+     *
      * @param queryString Query to find tasks in task list.
      */
     public FindTaskCommand(String queryString) {

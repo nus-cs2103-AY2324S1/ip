@@ -13,6 +13,7 @@ public class Ducky {
 
     /**
      * Constructs a Ducky chatbot instance with the specified file path for persistent data.
+     *
      * @param filePath File path for persistent data to be saved in.
      */
     public Ducky(String filePath) {
@@ -33,6 +34,7 @@ public class Ducky {
 
     /**
      * Loads saved tasks from specified file path into Ducky's task list.
+     *
      * @return String indicating result of loading operation.
      */
     public String loadSavedTasks() {

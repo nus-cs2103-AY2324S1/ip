@@ -10,6 +10,7 @@ public class EventTask extends Task {
 
     /**
      * Constructs a task with the specified start time and end time.
+     *
      * @param desc Description of task.
      * @param startTime Start time of task.
      * @param endTime End time of task.

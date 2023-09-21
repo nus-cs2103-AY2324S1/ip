@@ -12,6 +12,7 @@ public abstract class Task {
 
     /**
      * Constructs a task with specified description and incomplete by default.
+     *
      * @param desc Description of task.
      */
     public Task(String desc) {
@@ -35,6 +36,7 @@ public abstract class Task {
 
     /**
      * Returns whether task description contains the given string as a substring.
+     *
      * @param s String to check in description.
      * @return True if description contains specified string.
      */
@@ -44,6 +46,7 @@ public abstract class Task {
 
     /**
      * Returns whether task falls on the specified date.
+     *
      * @param queryDate Date to check against the task's date.
      * @return True if task falls on the specified date.
      */
@@ -53,6 +56,7 @@ public abstract class Task {
 
     /**
      * Returns a representation of the task for printing to user interface.
+     *
      * @return Representation of the task meant for printing.
      */
     @Override
@@ -65,6 +69,7 @@ public abstract class Task {
 
     /**
      * Returns a representation of the task for saving to file system.
+     *
      * @return Representation of the task meant for saving.
      */
     public String getSaveFormat() {
