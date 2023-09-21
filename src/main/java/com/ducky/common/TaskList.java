@@ -146,9 +146,9 @@ public class TaskList {
         StringBuilder builder = new StringBuilder(TASK_LIST_INTRO_MSG);
         for (int i = 0; i < tasks.size(); i++) {
             if (i == tasks.size() - 1) {
-                builder.append(String.format("%d.%s", i + 1, this.tasks.get(i)));
+                builder.append(String.format("%d. %s", i + 1, this.tasks.get(i)));
             } else {
-                builder.append(String.format("%d.%s\n", i + 1, this.tasks.get(i)));
+                builder.append(String.format("%d. %s\n", i + 1, this.tasks.get(i)));
             }
         }
         return builder.toString();
