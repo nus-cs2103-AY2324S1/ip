@@ -74,14 +74,20 @@ public class Database {
     }
 
     private static File getDataDirectory() {
-        String userHome = System.getProperty("user.home");
-        File directory = new File(userHome + File.separator + "EvanData");
+        String jarPath = Database.class
+                .getProtectionDomain()
+                .getCodeSource()
+                .getLocation()
+                .getPath();
+        File jarFile = new File(jarPath);
+        File parentDirectory = jarFile.getParentFile();
+        File dataDirectory = new File(parentDirectory, "save_data");
 
         // Check if the directory exists. If not, create it.
-        if (!directory.exists()) {
-            directory.mkdirs(); // This will create the directory.
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs(); // This will create the directory.
         }
-        return directory;
+        return dataDirectory;
     }
 
     private static File getDataFile() {
