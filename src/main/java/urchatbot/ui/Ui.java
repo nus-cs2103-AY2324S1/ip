@@ -9,6 +9,7 @@ import java.util.Scanner;
 import urchatbot.exception.URChatBotException;
 import urchatbot.common.Messages;
 import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Task;
 
 /**
  * Deals with interactions with the user
@@ -95,21 +96,31 @@ public class Ui {
             listTasks.append("\n").append(i + 1).append(".").append(tasks.getTasks().get(i).toString());
         }
 
-        return Messages.MESSAGE_LIST + listTasks.toString();
+        return Messages.MESSAGE_LIST + listTasks;
     }
     /**
      * Shows print message for PrintCommand.
      */
-    public String showPrintMessage(int count, String formattedDate) {
+    public String showPrintMessage(int count, String formattedDate, List<Task> printList) {
+        StringBuilder listTasks = new StringBuilder();
+
+        for (int i = 0; i < printList.size(); i++) {
+            listTasks.append("\n").append(i + 1).append(".").append(printList.get(i).toString());
+        }
         return (Messages.MESSAGE_PRINT + count
-                + Messages.MESSAGE_PRINT_TWO + formattedDate);
+                + Messages.MESSAGE_PRINT_TWO + formattedDate + listTasks);
     }
     /**
      * Shows print message for PrintCommand if there are more than 1 task to print.
      */
-    public String showPrintMessagePlural(int count, String formattedDate) {
+    public String showPrintMessagePlural(int count, String formattedDate, List<Task> printList) {
+        StringBuilder listTasks = new StringBuilder();
+
+        for (int i = 0; i < printList.size(); i++) {
+            listTasks.append("\n").append(i + 1).append(".").append(printList.get(i).toString());
+        }
         return (Messages.MESSAGE_PRINT + count
-                + Messages.MESSAGE_PRINT_TWO_PLURAL + formattedDate);
+                + Messages.MESSAGE_PRINT_TWO_PLURAL + formattedDate + listTasks);
     }
     /**
      * Shows find message for FindCommand.

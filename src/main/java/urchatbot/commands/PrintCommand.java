@@ -2,7 +2,11 @@ package urchatbot.commands;
 import urchatbot.exception.URChatBotException;
 import urchatbot.storage.Storage;
 import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Task;
 import urchatbot.ui.Ui;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Finds and lists all tasks in tasklist which the date matches the input date.
@@ -23,16 +27,18 @@ public class PrintCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws URChatBotException {
         int count = 0;
+        List<Task> printList = new ArrayList<>();
         for (int i = 0; i < tasks.getTasks().size(); i++) {
-            if (tasks.getTasks().get(i).toString().contains(formattedDate)) {
+            Task task = tasks.getTasks().get(i);
+            if (task.toString().contains(formattedDate)) {
                 count++;
-                System.out.println(tasks.getTasks().get(i).toString() + "\n");
+                printList.add(task);
             }
         }
         if (count <= 1) {
-            return ui.showPrintMessage(count, formattedDate);
+            return ui.showPrintMessage(count, formattedDate, printList);
         } else {
-            return ui.showPrintMessagePlural(count, formattedDate);
+            return ui.showPrintMessagePlural(count, formattedDate, printList);
         }
     }
 }
