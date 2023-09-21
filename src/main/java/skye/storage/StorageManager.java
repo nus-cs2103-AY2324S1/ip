@@ -1,9 +1,11 @@
 package skye.storage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import skye.data.exception.DukeException;
@@ -17,7 +19,7 @@ import skye.parser.VenueDecoder;
  */
 public class StorageManager {
 
-    private static final String HELP_GUIDE_DIRECTORY = "src/main/java/skye/guide/help.txt";
+    private static final String HELP_GUIDE_DIRECTORY = "/guide/help.txt";
     private static final String TASKS_SAVE_FILE_NAME = "tasks.txt";
     private static final String VENUES_SAVE_FILE_NAME = "venues.txt";
 
@@ -46,7 +48,20 @@ public class StorageManager {
      * @throws IOException Signifies that loading the file has failed
      */
     public List<String> loadHelpGuide() throws IOException {
-        return Files.readAllLines(Paths.get(HELP_GUIDE_DIRECTORY));
+        ArrayList<String> lines = new ArrayList<>();
+        InputStream inputStream = this.getClass().getResourceAsStream(HELP_GUIDE_DIRECTORY);
+        assert inputStream != null;
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            lines.add(line);
+        }
+
+        reader.close();
+
+        return lines;
     }
 
     /**
