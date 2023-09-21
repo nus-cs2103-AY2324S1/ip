@@ -12,13 +12,14 @@ Includes features such as:
 - Find
 
 ### Task storage
-Automatically stores all tasks in current task list to a file.<p>
+Automatically stores all tasks in current task list to a file. 
+
 Tasks in the file will be automatically loaded when the program is restarted.
 
 ## Usage
 > **Note about the command format:**
-> - Words in `UPPER_CASE` are parameters to be supplied by the user. <p> 
-> in `add todo TODO_DESCRIPTION`, `TODO_DESCRIPTION` is a parameter which can be used as `add todo read`.
+> - Words in `UPPER_CASE` are parameters to be supplied by the user.
+>   - eg. in `add todo TODO_DESCRIPTION`, `TODO_DESCRIPTION` is a parameter which can be used as `add todo read`.
 
 ### `add todo` - Adds a todo
 
@@ -42,7 +43,8 @@ Now you have 1 tasks in the list.
 Adds a deadline task to the task list.
 
 Format: `add deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE`
-> **Note:** Dates must be in `YYYY-MM-DD` format.
+> **Note:** 
+> - Dates must be in `YYYY-MM-DD` format.
 
 Example of usage:
 
@@ -60,7 +62,8 @@ Now you have 2 tasks in the list.
 Adds an event task to the task list.
 
 Format: `add event EVENT_DESCRIPTION /from EVENT_STARTDATE /to EVENT_ENDDATE`
-> **Note:** Dates must be in `YYYY-MM-DD` format.
+> **Note:** 
+> - Dates must be in `YYYY-MM-DD` format.
 
 Example of usage:
 
@@ -79,7 +82,8 @@ Lists out all the tasks in the current task list, in order of creation.
 
 Format: `list`
 
-Example of usage:<p> 
+Example of usage:
+
 `list`
 
 Expected outcome:
@@ -97,7 +101,8 @@ Deletes the task with the specified task number from the task list.
 
 Format: `delete /TASK_NUMBER`
 
-Example of usage:<p>
+Example of usage:
+
 `delete 3`
 
 Expected outcome:
@@ -111,7 +116,8 @@ Marks the task with the specified task number as done.
 
 Format: `mark /TASK_NUMBER`
 
-Example of usage:<p>
+Example of usage:
+
 `mark 2`
 
 Expected outcome:
@@ -126,7 +132,8 @@ Marks the task with the specified task number as undone.
 
 Format: `unmark /TASK_NUMBER`
 
-Example of usage:<p>
+Example of usage:
+
 `unmark 2`
 
 Expected outcome:
@@ -137,12 +144,14 @@ OK, I've marked this task as not done yet:
 
 ### `tag` - Tags a task
 
-Tags the task with the specified task number, with the given tag. <p>
+Tags the task with the specified task number, with the given tag.
+
 Each task can only have one tag. Tagging an already-tagged task will replace the previous tag.
 
 Format: `tag /TASK_NUMBER /TAG`
 
-Example of usage:<p>
+Example of usage:
+
 `tag 1 fun`
 
 Expected outcome:
@@ -155,10 +164,12 @@ Noted. I've tagged the task!
 Finds all the tasks containing the specified string in the task details (includes description, dates, and tag).
 
 Format: `find /STRING_TO_CHECK`
-> **Note:** Dates are stored in task details using the `MMM d yyyy` format.<p>
-> (eg. trying to find tasks with the associated date `2023-09-25` should be done using any part of `Sep`, `25`, and `2023`.)
+> **Note:** 
+> - Dates are stored in task details using the `MMM d yyyy` format.
+>   - eg. trying to find tasks with the associated date `2023-09-25` should be done using any part of `Sep`, `25`, and `2023`.
 
-Example of usage:<p>
+Example of usage:
+
 `find Sep`
 
 Expected outcome:
