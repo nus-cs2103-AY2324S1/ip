@@ -1,6 +1,7 @@
 package bellcurvegod.task;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -103,6 +104,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        return "[E]" + super.toString() + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+            + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 }

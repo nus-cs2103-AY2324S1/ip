@@ -44,7 +44,7 @@ public class TaskList {
 
         if (!(cmd.equals("todo") || cmd.equals("deadline") || cmd.equals("event"))) {
             throw new InvalidCommandException("You have entered an invalid command word!\n"
-                + "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n");
+                + "To add a new Task, use \"todo\", \"deadline\", or \"event\".\n");
         }
 
         try {
