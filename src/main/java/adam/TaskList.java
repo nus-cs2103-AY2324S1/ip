@@ -91,7 +91,7 @@ public class TaskList {
         String sentence =  ui.list() + "\n";
         int count = 1;
         for (Task item: tasks) {
-            String task = count + ". " + item.toString()+"\n";
+            String task = count + ". " + item.toString()+" | ";
             sentence = sentence + task;
             count++;
         }
