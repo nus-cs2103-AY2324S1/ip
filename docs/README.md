@@ -55,6 +55,7 @@ deadline Finish report /by 2023-09-30
 ```
 event Team meeting /from 14:00 /to 15:30
 ```
+
 ### Deleting Tasks
 If you want to remove a task from your list, use the delete command.
 Replace <task-number> with the number of the task you want to delete:
