@@ -31,13 +31,12 @@ public class Events extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() +
-                " (from: " + from.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm")) + ")";
+                " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy HHmm")) + ")";
     }
 
     @Override
     public String makeFormat() {
-        //E|1|descr|12/4/2020 1600|12/4/2020 1700
         return String.format("%s|%d|%s|%s|%s\n", "E", (isDone) ? 1 :0
                 ,description, this.from.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")),
                         this.to.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm")));

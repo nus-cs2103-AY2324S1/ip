@@ -95,7 +95,7 @@ Mark a task as completed.
 
 ```
 > mark 3
-I've marked this task as done!
+Nice! I've marked this task as done!
 	[E][X] Codeforces Div2 (from 22 09 2023 2235 to 23 11 2023 0035)
 ```
 
@@ -110,7 +110,7 @@ Mark a task as undone.
 
 ```
 > done 3
-I've marked this task as not done yet!
+OK, I've marked this task as not done yet!
 	[E][ ] Codeforces Div2 (from 22 09 2023 2235 to 23 11 2023 0035)
 ```
 

@@ -75,7 +75,6 @@ public class Duke {
      * @return the Deadline Tasked added
      */
     public Task addDeadline(String s) throws DukeException {
-        //E|1|descr|12/4/2020 1600|12/4/2020 1700
         try {
 
             String[] temp = s.split(" /by ", 2);
@@ -126,8 +125,6 @@ public class Duke {
      * @throws DukeException If there are not enough parameters provided in the description.
      */
     public Task addEvent(String s) throws DukeException {
-        //E|1|descr|12/4/2020 1600|12/4/2020 1700
-        //event project meeting /from 12/4/2020 1600 /to 12/4/2020 1700
         try {
 
             String[] temp = s.split(" /from ", 2);
