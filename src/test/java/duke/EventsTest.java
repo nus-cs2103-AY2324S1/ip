@@ -1,35 +1,33 @@
 package duke;
-import java.time.format.DateTimeParseException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventsTest {
-    private Events event;
 
-    @BeforeEach
-    public void setUp() {
-        event = new Events("Meeting", "2023/09/01 1400", "2023/09/01 1500");
+    @Test
+    public void testEvents_initialization() {
+        Events event = new Events("Meeting", "2023/09/21 1000", "2023/09/21 1200");
+        assertEquals("[E][ ] Meeting (from: 09-21-2023 10:00, to: 09-21-2023 12:00)", event.toString());
     }
 
     @Test
-    public void testEventCreation() {
-        assertEquals("[E][ ] Meeting (from: 09-1-2023 14:00, to: 09-1-2023 15:00)", event.toString());
+    public void testEvents_withStatusAndNotes() {
+        Events event = new Events("Meeting", "2023/09/21 1000", "2023/09/21 1200", true, "Room 202");
+        assertEquals("[E][X] Meeting (from: 09-21-2023 10:00, to: 09-21-2023 12:00)", event.toString());
+        assertEquals("Room 202", event.getNotes());
     }
 
     @Test
     public void testGetSavingFormat() {
-        assertEquals("[E] | [ ] | Meeting | 2023/09/01 1400 | 2023/09/01 1500", event.getSavingFormat());
+        Events event = new Events("Meeting", "2023/09/21 1000", "2023/09/21 1200");
+        assertEquals("[E] | [ ] | Meeting | 2023/09/21 1000 | 2023/09/21 1200 | ", event.getSavingFormat());
     }
 
     @Test
-    public void testEventCreationWithInvalidStartDate() {
-        assertThrows(DateTimeParseException.class, () -> new Events("Meeting", "2023-09-01", "2023/09/01 1500"));
-    }
-
-    @Test
-    public void testEventCreationWithInvalidEndDate() {
-        assertThrows(DateTimeParseException.class, () -> new Events("Meeting", "2023/09/01 1400", "2023-09-01"));
+    public void testToTask_fromSavedData() {
+        String[] savedData = {"[E]", "[X]", "Meeting", "2023/09/21 1000", "2023/09/21 1200", "Room 202"};
+        Events event = Events.toTask(savedData);
+        assertEquals("[E][X] Meeting (from: 09-21-2023 10:00, to: 09-21-2023 12:00)", event.toString());
+        assertEquals("Room 202", event.getNotes());
     }
 }

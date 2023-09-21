@@ -7,13 +7,33 @@ import java.util.ArrayList;
  */
 public class TaskList {
     /** An ArrayList storing all the Task instances */
-    protected ArrayList<Task> tasks = new ArrayList<>();
+    protected ArrayList<Task> tasks;
     /** Parameter keeping track of the number of Task instances in the Arraylist */
-    protected int counter = 0;
+    protected int counter;
+
+    /**
+     * Initializes an empty TaskList.
+     */
+    public TaskList() {
+        this.tasks = new ArrayList<>();
+        this.counter = 0;
+    }
+
+    /**
+     * Initializes a TaskList using an existing list of tasks.
+     *
+     * @param old An ArrayList of tasks to be added to the TaskList.
+     */
+    public TaskList(ArrayList<Task> old) {
+        this.tasks = old;
+        this.counter = this.tasks.size();
+    }
 
     /**
      * Marks a task as done based on its index.
      * @param i The index (1-based) of the task to be marked as done.
+     *
+     * @return A message of confirmation.
      */
     public String mark(int i) {
         assert i > 0 && i <= tasks.size() : "Task index out of bounds!";
@@ -26,6 +46,8 @@ public class TaskList {
     /**
      * Marks a task as not done based on its index.
      * @param i The index (1-based) of the task to be marked as not done.
+     *
+     * @return A message of confirmation.
      */
     public String unmark(int i) {
         assert i > 0 && i <= tasks.size() : "Task index out of bounds!";
@@ -37,6 +59,8 @@ public class TaskList {
 
     /**
      * Lists all the tasks currently in the TaskList.
+     *
+     * @return A message of confirmation.
      */
     public String list() {
         assert counter == tasks.size() : "Mismatch between counter and task list size!";
@@ -54,14 +78,15 @@ public class TaskList {
 
     /**
      * Adds a task to the TaskList.
+     *
      * @param t The task to be added.
+     * @return A message of confirmation.
      */
     public String addTask(Task t) {
         assert t != null : "Task should not be null!";
 
         tasks.add(t);
         counter += 1;
-        saveTask(t);
         return "Got it. I've added this task:\n  "
                 + t + "\nNow you have " + counter + " tasks in the list.\n";
     }
@@ -69,6 +94,8 @@ public class TaskList {
     /**
      * Removes a task from the TaskList based on its index.
      * @param index The index (1-based) of the task to be removed.
+     *
+     * @return A message of confirmation.
      */
     public String removeTask(int index) {
         assert index > 0 && index <= tasks.size() : "Task index out of bounds!";
@@ -81,18 +108,10 @@ public class TaskList {
     }
 
     /**
-     * Saves a task to the storage.
-     * @param t The task to be saved.
-     */
-    public String saveTask(Task t) {
-        assert t != null : "Task should not be null!";
-
-        return TaskMaster.storage.write(t.getSavingFormat());
-    }
-
-    /**
      * Finds a task from the ArrayList based on a key.
      * @param key The keyword to search for within the ArrayList.
+     *
+     * @return A message of confirmation.
      */
     public String findTask(String key) {
         assert key != null && !key.trim().isEmpty() : "Search key should not be null or empty!";
@@ -106,7 +125,7 @@ public class TaskList {
         if (lines.isEmpty()) {
             return "There is no matching task in your list!\n";
         } else {
-            String ans = "This are the matching tasks in your list:\n";
+            String ans = "These are the matching tasks in your list:\n";
             for (int i = 1; i <= lines.size(); ++i) {
                 ans += (i + "." + lines.get(i - 1) + '\n');
             }
@@ -115,30 +134,10 @@ public class TaskList {
     }
 
     /**
-     * Reads a task from the storage based on a key.
-     * @param key The keyword to search for within the storage.
-     */
-    public String readTask(String key) {
-        assert key != null && !key.trim().isEmpty() : "Search key should not be null or empty!";
-
-        if (TaskMaster.storage == null) {
-            return "There is no previously saved task!\n";
-        } else {
-            ArrayList<String> lines = TaskMaster.storage.read(key);
-            if (!lines.isEmpty()) {
-                String ans = "This are the matching tasks in your list:\n";
-                for (int i = 1; i <= lines.size(); ++i) {
-                    ans += (i + "." + lines.get(i - 1) + '\n');
-                }
-                return ans;
-            }
-            return "There is no previously saved task!\n";
-        }
-    }
-
-    /**
      * Peek the notes for a task from the TaskList based on its index.
      * @param index The index (1-based) of the task to be removed.
+     *
+     * @return A message of confirmation.
      */
     public String peekNotes(int index) {
         assert index > 0 && index <= tasks.size() : "Task index out of bounds!";
@@ -156,6 +155,8 @@ public class TaskList {
      * Add notes for a task from the TaskList based on its index.
      * @param index The index (1-based) of the task to be removed.
      * @param notes The notes of the task to be added.
+     *
+     * @return A message of confirmation.
      */
     public String editNotes(int index, String notes) {
         assert index > 0 && index <= tasks.size() : "Task index out of bounds!";
@@ -170,4 +171,12 @@ public class TaskList {
                 + "\n is successfully updated! Current notes:\n" + targetTask.getNotes();
     }
 
+    /**
+     * Returns the list of tasks in the TaskList.
+     *
+     * @return An ArrayList of tasks.
+     */
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
+    }
 }

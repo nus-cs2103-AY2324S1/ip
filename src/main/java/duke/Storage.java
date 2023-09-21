@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -13,9 +16,6 @@ import java.util.ArrayList;
  * This class handles IO operations with the file to store and retrieve user data.
  */
 public class Storage {
-    /** The file name of the user data file. */
-    protected String fileName = "userData.txt";
-
     /** The instance of the user data file. */
     protected File file;
 
@@ -28,79 +28,93 @@ public class Storage {
     public Storage(String filePath) {
         assert filePath != null && !filePath.trim().isEmpty() : "File path should not be null or empty!";
 
-        this.file = new File(filePath, fileName);
-        //Making a new dir if the specified one does not exit
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
+        Path path = Paths.get(filePath);
+        this.file = path.toFile();
+        if (!file.exists()) {
+            try {
+                Files.createFile(path);
+                System.out.println("File created: " + path);
+                TaskMaster.setPastData(false);
+            } catch (IOException e) {
+                System.err.println("Failed to create file: " + e.getMessage());
+            }
+        } else {
+            System.out.println("File already exists: " + path);
+            TaskMaster.setPastData(true);
         }
     }
 
     /**
-     * Writes the given inputs to the storage file.
-     * If an exception occurs, the stack trace will be printed.
+     * Retrieves the past saved tasks from the user data file.
      *
-     * @param inputs The string to be written to the file.
+     * @return An ArrayList of tasks retrieved from the file.
      */
-    public String write(String inputs) {
-        assert inputs != null : "Input to write should not be null!";
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            writer.write(inputs);
-            return "write successful !!\n";
-        } catch (IOException e) {
-            return e.getMessage();
-        }
-    }
-
-    /**
-     * Reads a line from the storage file that contains the specified key.
-     * Returns a string representation of the line, or an error message if the key is not found.
-     *
-     * @param key The keyword to search for within the file.
-     * @return The line from the file containing the key, or an error message.
-     */
-    public ArrayList<String> read(String key) {
-        assert key != null && !key.trim().isEmpty() : "Search key should not be null or empty!";
-
+    public ArrayList<Task> getPastData() {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            ArrayList<String> lines = new ArrayList<>();
+            ArrayList<Task> tasks = new ArrayList<>();
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.contains(key)) {
-                    lines.add(line);
-                }
+                tasks.add(stringToTask(line));
             }
-            if (lines.isEmpty()) {
-                System.out.println("Keyword not found, please try again!");
-                return null;
-            }
-            return convertToDisplayFormat(lines);
+            return tasks;
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private ArrayList<String> convertToDisplayFormat(ArrayList<String> lines) {
-        assert lines != null && !lines.isEmpty() : "Lines to convert should not be null or empty!";
+    /**
+     * Stores the updated list of tasks to the user data file.
+     *
+     * @param tasks The list of tasks to be stored.
+     */
+    public void storeNewData(ArrayList<Task> tasks) {
+        clearFile();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+            for (Task task : tasks) {
+                writer.write(taskToString(task));
+                writer.newLine();
+            }
+            System.out.println("Successfully store updated tasks");
+        } catch (IOException e) {
+            System.out.println("Failed to store tasks to file.\n" + e.getMessage());
+        }
+    }
 
-        ArrayList<String> ans = new ArrayList<>();
-        for (String line : lines) {
-            String[] split = line.split("|");
-            assert split.length >= 4 : "Each line should have at least 4 parts separated by '|'";
-
-            if (split[0].equals("[T]")) {
-                ans.add("[T]" + split[2] + " " + split[4]);
-            } else if (split[0].equals("[D]")) {
-                assert split.length >= 7 : "Deadline lines should have at least 7 parts separated by '|'";
-                ans.add("[D]" + split[2] + " " + split[4]
-                        + " (by: " + split[6] + ")");
-            } else {
-                assert split.length >= 9 : "Event lines should have at least 9 parts separated by '|'";
-                ans.add("[D]" + split[2] + " " + split[4]
-                        + " (from: " + split[6] + ", to: " + split[8] + ")");
+    /**
+     * Converts a string representation of a task from the file into a Task object.
+     *
+     * @param line The string representation of the task.
+     * @return The corresponding Task object.
+     */
+    private Task stringToTask(String line) {
+        String[] split = line.split(" \\| ");
+        switch (split[0]) {
+            case "[T]": {
+                return Todos.toTask(split);
+            }
+            case "[D]": {
+                return Deadlines.toTask(split);
+            }
+            case "[E]": {
+                return Events.toTask(split);
+            }
+            default: {
+                System.out.println("File contains illegal task format!");
+                return null;
             }
         }
-        return ans;
+    }
+
+    private String taskToString(Task task) {
+        return task.getSavingFormat();
+    }
+
+    private void clearFile() {
+        try (FileWriter fileWriter = new FileWriter(file, false)) {
+            // clear the file
+        } catch (IOException e) {
+            System.err.println("Error clearing the file: " + e.getMessage());
+        }
     }
 }

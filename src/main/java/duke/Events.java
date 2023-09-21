@@ -37,6 +37,28 @@ public class Events extends Task {
     }
 
     /**
+     * Initializes an Events task with the given description, start time, end time, completion status, and notes.
+     *
+     * @param description The description of the event task.
+     * @param start The starting time of the event.
+     * @param end The ending time of the event.
+     * @param isDone The completion status of the event task.
+     * @param notes Additional notes associated with the event task.
+     */
+    public Events(String description, String start, String end, Boolean isDone, String notes) {
+        super(description, isDone, notes);
+
+        assert description != null && !description.trim().isEmpty() : "Description should not be null or empty";
+        assert start != null && !start.trim().isEmpty() : "Start time should not be null or empty";
+        assert end != null && !end.trim().isEmpty() : "End time should not be null or empty";
+
+        this.start = start;
+        this.end = end;
+        this.dtStart = new DateTime(start);
+        this.dtEnd = new DateTime(end);
+    }
+
+    /**
      * Returns the formatted string used for saving this event task to storage.
      *
      * @return The formatted string representation for saving.
@@ -48,7 +70,18 @@ public class Events extends Task {
         assert end != null && !end.trim().isEmpty() : "End time should not be null or empty when saving";
 
         return "[E] | [" + getStatusIcon() + "] | "
-                + description + " | " + start + " | " + end;
+                + description + " | " + start + " | " + end + " | " + getNotes();
+    }
+
+    /**
+     * Converts a split string array into an Events object.
+     * This method is typically used for parsing saved data from storage to recreate an Events task.
+     *
+     * @param split The split string array containing the task data.
+     * @return An Events object constructed from the provided split string.
+     */
+    public static Events toTask(String[] split) {
+        return new Events(split[2], split[3], split[4], split[1].contains("[X]"), split.length == 6 ? split[5] : "");
     }
 
     /**

@@ -51,7 +51,7 @@ public class Duke extends Application {
 
         scene = new Scene(mainLayout);
 
-        TaskMaster.initialStorage("Data");
+        TaskMaster.initialStorage("userData.txt");
 
         stage.setScene(scene);
         stage.show();
@@ -170,6 +170,7 @@ public class Duke extends Application {
     private String getResponse(String input) {
         assert input != null && !input.trim().isEmpty() : "Input command is null or empty.";
         if (input.equals("bye")) {
+            TaskMaster.storeTasks();
             return this.ui.saybye();
         }
         TaskMaster.masterTasks(input);

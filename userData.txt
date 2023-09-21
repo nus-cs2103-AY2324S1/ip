@@ -1,0 +1,4 @@
+[T] | [X] | AAAA AA | jjjjjjjjjjjjjjjj
+[D] | [X] | BBB BB | 2000/11/11 1212 | 
+[T] | [ ] | Read a book | time
+[D] | [ ] | Read a book | 2000/11/11 2359 | 

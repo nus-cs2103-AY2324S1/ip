@@ -214,6 +214,11 @@ public abstract class Parser {
         Parser.response = TaskMaster.editNotes(Integer.parseInt(split[1]), notes);
     }
 
+    /**
+     * Retrieves the returned response from method called.
+     *
+     * @return a returned response from method called.
+     */
     public static String getResponse() {
         return response;
     }

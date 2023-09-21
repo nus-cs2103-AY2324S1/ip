@@ -7,14 +7,18 @@ package duke;
 public class Ui {
 
     /**
-     * Prints the greeting message to the user.
+     * Retrieve the greeting message to the user.
+     *
+     * @return the greeting message to the user.
      */
     public String sayhi() {
         return "Hello! I'm LimBay.\nWhat can I do for you?\n";
     }
 
     /**
-     * Prints the goodbye message to the user.
+     * Retrieve the goodbye message to the user.
+     *
+     * @return the goodbye message to the user.
      */
     public String saybye() {
         return "Bye. Hope to see you again soon!";

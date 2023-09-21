@@ -1,26 +1,33 @@
 package duke;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlinesTest {
-    private Deadlines deadline;
 
-    @BeforeEach
-    public void setUp() {
-        deadline = new Deadlines("Finish homework", "2023/09/01 1600");
+    @Test
+    public void testDeadlines_initialization() {
+        Deadlines deadline = new Deadlines("Submit Report", "2023/09/21");
+        assertEquals("[D][ ] Submit Report (by: 09-21-2023)", deadline.toString());
     }
 
     @Test
-    public void testGetSavingFormat_NotCompleted() {
-        String expected = "[D] | [ ] | Finish homework | 2023/09/01 1600";
-        assertEquals(expected, deadline.getSavingFormat());
+    public void testDeadlines_withStatusAndNotes() {
+        Deadlines deadline = new Deadlines("Submit Report", "2023/09/21", true, "Important");
+        assertEquals("[D][X] Submit Report (by: 09-21-2023)", deadline.toString());
+        assertEquals("Important", deadline.getNotes());
     }
 
     @Test
-    public void testToString_NotCompleted() {
-        // Assuming DateTime's toString outputs the string in the format: "2023-09-01 16:00"
-        String expected = "[D][ ] Finish homework (by: 09-1-2023 16:00)";
-        assertEquals(expected, deadline.toString());
+    public void testGetSavingFormat() {
+        Deadlines deadline = new Deadlines("Submit Report", "2023/09/21");
+        assertEquals("[D] | [ ] | Submit Report | 2023/09/21 | ", deadline.getSavingFormat());
+    }
+
+    @Test
+    public void testToTask_fromSavedData() {
+        String[] savedData = {"[D]", "[X]", "Submit Report", "2023/09/21", "Important"};
+        Deadlines deadline = Deadlines.toTask(savedData);
+        assertEquals("[D][X] Submit Report (by: 09-21-2023)", deadline.toString());
+        assertEquals("Important", deadline.getNotes());
     }
 }
