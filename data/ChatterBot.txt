@@ -1,19 +1,5 @@
-todo eat bugs
-event this /from today /to tomrrow
-event go home /from all day /to everyday
-deadline this assignment /by 2023-09-18
-event eat egg party /from tdy /to tmr
-todo eat eggs
-todo eat eggs 
-todo eat eggs 
-todo eat eggs
-todo eat eggs
-todo eat eggs
-todo eat eggs
-todo eat eggs
-todo dum
-todo eat dinner
-todo eat dinner
-todo eat dinner
-todo eat jackfruit
-todo hi
+todo c
+todo 0
+todo a
+todo 8
+todo charge macbook

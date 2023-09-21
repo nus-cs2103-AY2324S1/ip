@@ -2,6 +2,7 @@ package chatterbot.data;
 
 import chatterbot.storage.Storage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,26 +49,31 @@ public class TaskList {
 
     public String addTask(Task task, Storage storage, String filePath) {
         list.add(task);
+        System.out.println(list);
         try {
             // Save the updated task list to the storage file.
-            storage.writeToFile(filePath, convertToString(list));
+            storage.appendToFile(filePath, task.formatForFile());
         } catch (IOException e) {
             return "Error: File not found.";
         }
-        return "Got it. I've added this task:\n" + task.toString() + "\nNow you have " + list.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task.formatForFile() + "\nNow you have " + list.size() + " tasks in the list.";
     }
 
     public String deleteTask(int taskIndex, Storage storage, String filePath) {
-        if (taskIndex < 0 || taskIndex >= list.size()) {
-            return "Invalid task index. No task removed.";
+//        if (taskIndex < 0 || taskIndex >= list.size()) {
+//            return "Invalid task index. No task removed.";
+//        }
+        try {
+            list.remove(taskIndex);
+        } catch (Exception e) {
+            return "Error, task not removed.";
         }
-        Task removedTask = list.remove(taskIndex);
         try {
             // Save the updated task list to the storage file.
             storage.writeToFile(filePath, convertToString(list));
         } catch (IOException e) {
             return "Error: File not found.";
         }
-        return "Noted. I've removed this task:\n" + removedTask.toString() + "\nNow you have " + list.size() + " tasks in the list.";
+        return "Noted. I've removed this task:\n" + list.get(taskIndex).formatForFile() + "\nNow you have " + list.size() + " tasks in the list.";
     }
 }

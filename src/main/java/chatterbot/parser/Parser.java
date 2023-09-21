@@ -29,10 +29,8 @@ public class Parser {
 
         if (userMessage.toLowerCase().equals("bye")) {
             response = ui.showGoodbyeMessage();
-            System.out.println(response);
         } else if (userMessage.toLowerCase().equals("list")) {
             response = ui.showTaskList(taskList.getList());
-            System.out.println(response);
         } else if (userMessage.startsWith("mark") && isInteger(userMessage.substring(5))) {
             String toMark = userMessage.substring(5);
             list.get(Integer.parseInt(toMark) - 1).setDone();
@@ -70,11 +68,11 @@ public class Parser {
                     if (userMessage.length() <= 5) {
                         throw new IllegalArgumentException("No task description");
                     }
-                    try {
-                        storage.appendToFile(file, userMessage);
-                    } catch (IOException e) {
-                        System.out.println("Unable to append to file!");
-                    }
+//                    try {
+//                        storage.appendToFile(file, userMessage);
+//                    } catch (IOException e) {
+//                        System.out.println("Unable to append to file!");
+//                    }
                     Todo td = new Todo(userMessage.substring(5));
                     list.add(td);
                     taskList.addTask(td, storage, file);
@@ -107,11 +105,11 @@ public class Parser {
                 response = ui.showDeleted(userMessage);
                 list.remove((Integer.parseInt(userMessage.substring(7))) - 1);
                 taskList.deleteTask(((Integer.parseInt(userMessage.substring(7))) - 1), storage, file);
-                try {
-                    storage.writeToFile(file, taskList.convertToString(list));
-                } catch (IOException e) {
-                    System.out.println("Error!");
-                }
+//                try {
+//                    storage.writeToFile(file, taskList.convertToString(list));
+//                } catch (IOException e) {
+//                    System.out.println("Error!");
+//                }
             } else {
                 response = ui.showUnknownCommand(userMessage);
             }
