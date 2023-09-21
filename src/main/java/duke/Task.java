@@ -77,7 +77,7 @@ public class Task {
     public void save(String filepath) {
         try {
             FileWriter myWriter = new FileWriter(filepath, true);
-            myWriter.write(this.getInput() + "\n");
+            myWriter.write(String.format("%s%s\n", this.getInput(), this.getDone() ? "1" : "0"));
             myWriter.close();
         } catch (IOException ex) {
             System.out.println("Error saving to file");

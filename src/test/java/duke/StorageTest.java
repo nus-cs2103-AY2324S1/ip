@@ -20,7 +20,7 @@ public class StorageTest {
         Storage.save(taskList);
         try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
             for (int i = 0; i < 5; i++) {
-                assertEquals("todo read book", br.readLine());
+                assertEquals("todo read book0", br.readLine());
             }
         } catch (IOException e) {
             fail();

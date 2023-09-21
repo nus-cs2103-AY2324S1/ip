@@ -17,20 +17,26 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
     public static String handleInput(String input, TaskList taskList, Boolean isLoading) {
+        boolean isMarked = false;
+        if (isLoading) {
+            String marker = input.substring(input.length() - 1);
+            isMarked = marker.equals("1");
+            input = input.substring(0, input.length() - 1);
+        }
         if (input.equals("bye")) {
             return Ui.printBYE();
         }
         if (input.startsWith("mark") || input.startsWith("unmark ")) {
-            return handleMark(input, taskList, isLoading);
+            return handleMark(input, taskList);
         }
         if (input.startsWith("todo")) {
-            return handleTodo(input, taskList, isLoading);
+            return handleTodo(input, taskList, isLoading, isMarked);
         }
         if (input.startsWith("deadline")) {
-            return handleDeadline(input, taskList, isLoading);
+            return handleDeadline(input, taskList, isLoading, isMarked);
         }
         if (input.startsWith("event")) {
-            return handleEvent(input, taskList, isLoading);
+            return handleEvent(input, taskList, isLoading, isMarked);
         }
         if (input.startsWith("delete")) {
             return handleDelete(input, taskList);
@@ -78,10 +84,9 @@ public class Parser {
      *
      * @param input the input that user entered
      * @param taskList an array of tasks
-     * @param isLoading a flag to check if the application is restoring
      */
 
-    public static String handleMark(String input, TaskList taskList, Boolean isLoading) {
+    public static String handleMark(String input, TaskList taskList) {
         assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] parts = input.split(" ");
         if (parts.length == 2) {
@@ -90,15 +95,14 @@ public class Parser {
                 Task thisTask = taskList.getTask(index - 1);
                 if (parts[0].equals("mark")) {
                     thisTask.setDone();
-                    Storage.save(taskList); // save in file
+                    Storage.save(taskList);
                     return Ui.printDone(thisTask);
                 }
                 if (parts[0].equals("unmark")) {
                     thisTask.setNotDone();
-                    Storage.save(taskList); // save in file
+                    Storage.save(taskList);
                     return Ui.printNotDone(thisTask);
                 }
-                Storage.save(taskList);
             } catch (IndexOutOfBoundsException ex) {
                 Ui.outOfBounds();
             } catch (NumberFormatException e) {
@@ -139,14 +143,14 @@ public class Parser {
      * @param taskList an array of tasks
      * @param isLoading a flag to check if the application is restoring
      */
-    public static String handleTodo(String input, TaskList taskList, Boolean isLoading) {
+    public static String handleTodo(String input, TaskList taskList, Boolean isLoading, Boolean isMarked) {
         assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] arr0 = input.split("todo ");
         if (arr0.length == 1) {
             return Ui.toDoExcept();
         } else {
             Task todo = new Todo(arr0[1], input);
-            return AddTask(todo, taskList, isLoading);
+            return AddTask(todo, taskList, isLoading, isMarked);
         }
     }
 
@@ -158,13 +162,13 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
 
-    public static String handleEvent(String input, TaskList taskList, Boolean isLoading) {
+    public static String handleEvent(String input, TaskList taskList, Boolean isLoading, Boolean isMarked) {
         try {
             String[] arr1 = input.split("/from "); // [0]: event + name, [1]: timeframe
             String[] arr2 = arr1[1].split("/to "); // [0] from:..., [1] to:...
             String[] arr3 = arr1[0].split("event ");
             Task event = new Event(arr3[1], arr2[0], arr2[1], input);
-            return AddTask(event, taskList, isLoading);
+            return AddTask(event, taskList, isLoading, isMarked);
         } catch (ArrayIndexOutOfBoundsException ex) {
             return Ui.eventExcept();
         }
@@ -178,7 +182,7 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
 
-    public static String handleDeadline(String input, TaskList taskList, Boolean isLoading) {
+    public static String handleDeadline(String input, TaskList taskList, Boolean isLoading, Boolean isMarked) {
         assert !input.equals("") : "inputs shouldn't be empty string!";
         try {
             String[] arr1 = input.split("/by "); // 0: deadline + name , 1: date
@@ -189,7 +193,7 @@ public class Parser {
                 return Ui.dateFormatExcept();
             }
             Task deadline = new Deadline(arr2[1], formattedDate, input);
-            return AddTask(deadline, taskList, isLoading);
+            return AddTask(deadline, taskList, isLoading, isMarked);
         } catch (ArrayIndexOutOfBoundsException ex) {
             return Ui.deadlineExcept();
         } catch (DateTimeParseException ex) {
@@ -227,7 +231,7 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
 
-    public static String AddTask(Task task, TaskList taskList, Boolean isLoading) {
+    public static String AddTask(Task task, TaskList taskList, Boolean isLoading, Boolean isMarked) {
         // detect duplicates
         boolean hasDuplicate = false;
         if (taskList.size() != 0) {
@@ -235,6 +239,9 @@ public class Parser {
         }
         if (hasDuplicate) {
             return Ui.duplicate();
+        }
+        if (isMarked) {
+            task.setDone();
         }
         taskList.add(task);
         Storage.save(taskList);
