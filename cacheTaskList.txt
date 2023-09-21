@@ -1,1 +1,1 @@
-{"tasks":[{"type":"Todo","description":"read book ","isDone":false,"taskType":"TODO"}]}
+{"tasks":[{"type":"ren.task.ToDo","description":"read book ","isDone":true,"taskType":"TODO"},{"type":"ren.task.Deadline","description":"finish assignment ","isDone":false,"taskType":"DEADLINE","deadline":[2023,11,11]},{"type":"ren.task.Event","description":"mid autumn festival ","isDone":false,"taskType":"EVENT","startTime":"2023-11-21 ","endTime":"2023-12-21 "}]}
