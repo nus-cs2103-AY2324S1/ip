@@ -8,7 +8,7 @@ Screenshot of Smolbrain Chatbot:
 <br><br>
 ## Quick start
 1. Ensure that Java `11` or above installed in your Computer.
-2. Download the latest `smolbrain.jar` from [here](https://github.com/pzl111/ip/releases/tag/v0.2-Release).
+2. Download the latest `smolbrain.jar` from [here](https://github.com/pzl111/ip/releases/tag/v0.3-Release).
 3. Copy the file to the folder you want to use as the _home folder_ for your Smolbrain Chatbot.
 4. To run the application, open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar smolbrain.jar` command to run the application.
 5. Type the command in the command box and press Enter or click the SEND button to execute it. e.g. typing `list` and pressing Enter will list out all the current tasks saved.
