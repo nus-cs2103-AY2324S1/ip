@@ -29,16 +29,7 @@ public class Phi  {
         this.parser = new Parser(tasks);
     }
 
-    public static void main(String[] args) {
-        new Phi().run();
-    }
-
-    private void run() {
-        System.out.println(ui.greeting());
-        takeInput();
-        System.out.println(ui.goodbye());
-    }
-
+    
     /**
      * Abstraction for the user-input handling process, which will continue running until the input "bye" is received
      */
