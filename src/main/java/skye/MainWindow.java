@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import skye.ui.DialogBox;
+import skye.ui.UI;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -42,6 +43,10 @@ public class MainWindow extends AnchorPane {
         AnchorPane.setRightAnchor(userInput, sendButton.getPrefWidth());
         // Set spacing of 10 between children of dialogContainer
         dialogContainer.setSpacing(10);
+        // Send welcome message
+        dialogContainer.getChildren().addAll(
+                DialogBox.getSkyeDialog(UI.showWelcome(), skyeImage)
+        );
     }
 
     public void setSkye(Skye s) {
@@ -59,7 +64,7 @@ public class MainWindow extends AnchorPane {
             String response = skye.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, skyeImage)
+                    DialogBox.getSkyeDialog(response, skyeImage)
             );
             userInput.clear();
         }

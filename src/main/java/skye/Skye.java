@@ -1,10 +1,12 @@
 package skye;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import skye.commands.Command;
 import skye.data.ListManager;
 import skye.data.exception.DukeException;
+import skye.data.exception.DukeExceptionType;
 import skye.parser.Parser;
 import skye.storage.StorageManager;
 import skye.ui.UI;
@@ -56,6 +58,8 @@ public class Skye {
             return command.execute(listManager, ui, storageManager);
         } catch (DukeException | IOException e) {
             return e.getMessage();
+        } catch (DateTimeParseException e) {
+            return DukeExceptionType.INVALID_DATETIME_FORMAT.getMessage();
         }
     }
 }

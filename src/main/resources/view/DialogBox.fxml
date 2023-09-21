@@ -6,11 +6,20 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" stylesheets="@../stylesheets/styles.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root
+        alignment="TOP_RIGHT"
+        maxHeight="1.7976931348623157E308"
+        maxWidth="1.7976931348623157E308"
+        prefWidth="400.0"
+        stylesheets="@../stylesheets/styles.css"
+        type="javafx.scene.layout.HBox"
+        xmlns="http://javafx.com/javafx/20.0.1"
+        xmlns:fx="http://javafx.com/fxml/1"
+>
     <children>
         <Label fx:id="dialog" styleClass="dialog-box" text="Label" wrapText="true">
             <font>
-                <Font size="14.0" />
+                <Font name="Courier New" size="16.0" />
             </font>
             <opaqueInsets>
                 <Insets />

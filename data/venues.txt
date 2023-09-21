@@ -1,2 +1,5 @@
-V | SR1 | Computing Drive | 250 | 10.990000
-V | LT19 | Business Link | 300 | 12.990000
+V | LT19 | Computing Drive | 250 | 10.990000
+V | LT27 | Lower Kent Ridge Road | 400 | 20.990000
+V | SR1 | Computing Drive | 300 | 15.990000
+V | UT-AUD1 | College Ave | 300 | 15.990000
+V | MPSH2 | Sports Drive | 1000 | 99.990000
