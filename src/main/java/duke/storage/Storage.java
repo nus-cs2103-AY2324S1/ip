@@ -116,6 +116,22 @@ public class Storage {
         if (split.length < 3) {
             throw new DukeException(PARSE_ERROR);
         }
+        
+
+        return getTodoTask(split);
+    }
+
+    /**
+     * Parses the task into a Task object.
+     * @param taskType the type of task. Can be "T", "D", or "E"
+     * @param id the task ID
+     * @param taskDescription the task description
+     * @param split the arguments saved in the text file
+     * @param isDone whether the task is done
+     * @return the created Task object
+     * @throws DukeException if there is any error
+     */
+    private static Task getTodoTask(String[] split) throws DukeException {
         String taskType = split[1];
         String isDoneStr = split[2];
         String taskDescription = split[3];
@@ -127,36 +143,18 @@ public class Storage {
             isDone = isDoneStr.equals("1");
         }
 
-
         Task task;
         switch (taskType) {
         case "T": {
-            task = new TodoTask(id, taskDescription);
+            task = getTodoTask(id, taskDescription);
             break;
         }
         case "D": {
-            // get the deadline, which is 4th element
-            if (split.length < 4) {
-                throw new DukeException(PARSE_ERROR);
-            }
-            String deadlineStr = split[4];
-
-            LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineStr);
-
-            task = new DeadlineTask(id, taskDescription, deadlineDateTime);
+            task = getDeadlineTask(split, id, taskDescription);
             break;
         }
         case "E": {
-            // get the start date, which is 4th element
-            // get the end date, which is 5th element
-            if (split.length < 6) {
-                throw new DukeException(PARSE_ERROR);
-            }
-            String from = split[4];
-            LocalDateTime dateTimeStart = LocalDateTime.parse(from);
-            String to = split[5];
-            LocalDateTime dateTimeEnd = LocalDateTime.parse(to);
-            task = new EventTask(id, taskDescription, dateTimeStart, dateTimeEnd);
+            task = getEventTask(split, id, taskDescription);
             break;
         }
         default:
@@ -166,6 +164,41 @@ public class Storage {
         if (isDone) {
             task.setDone();
         }
+        return task;
+    }
+
+    private static Task getEventTask(String[] split, int id, String taskDescription) throws DukeException {
+        Task task;
+        // get the start date, which is 4th element
+        // get the end date, which is 5th element
+        if (split.length < 6) {
+            throw new DukeException(PARSE_ERROR);
+        }
+        String from = split[4];
+        LocalDateTime dateTimeStart = LocalDateTime.parse(from);
+        String to = split[5];
+        LocalDateTime dateTimeEnd = LocalDateTime.parse(to);
+        task = new EventTask(id, taskDescription, dateTimeStart, dateTimeEnd);
+        return task;
+    }
+
+    private static Task getDeadlineTask(String[] split, int id, String taskDescription) throws DukeException {
+        Task task;
+        // get the deadline, which is 4th element
+        if (split.length < 4) {
+            throw new DukeException(PARSE_ERROR);
+        }
+        String deadlineStr = split[4];
+
+        LocalDateTime deadlineDateTime = LocalDateTime.parse(deadlineStr);
+
+        task = new DeadlineTask(id, taskDescription, deadlineDateTime);
+        return task;
+    }
+
+    private static Task getTodoTask(int id, String taskDescription) {
+        Task task;
+        task = new TodoTask(id, taskDescription);
         return task;
     }
 }
