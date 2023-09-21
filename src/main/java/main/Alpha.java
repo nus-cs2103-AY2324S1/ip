@@ -33,7 +33,6 @@ public class Alpha extends Application{
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
-    private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
@@ -43,9 +42,9 @@ public class Alpha extends Application{
     public Alpha() {
         ui = new UI();
         fileHandler = new FileHandler();
+        fileHandler.checkAndCreate();
         taskList = fileHandler.readFromFile();
         parser = new Parser(fileHandler, taskList, ui);
-        fileHandler.checkAndCreate();
     }
 
     @Override

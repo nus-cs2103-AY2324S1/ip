@@ -21,7 +21,7 @@ import java.io.BufferedReader;
 public class FileHandler {
 
     private boolean isCreated = false;
-    private File alphaTxt = new File(new File(System.getProperty("user.dir")) +
+    private final File alphaTxt = new File(new File(System.getProperty("user.dir")) +
             File.separator + "data" + File.separator + "alpha.txt");
     private FileWriter writer;
     private BufferedReader reader;
