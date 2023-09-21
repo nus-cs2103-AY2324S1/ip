@@ -35,7 +35,11 @@ public class FindCommand extends Command {
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) {
-        return taskList.findAndList(desc);
+        String out = taskList.findAndList(desc);
+        if (out.isEmpty()) {
+            return "Scusa mi. I cannot find any task with a matching description";
+        }
+        return out;
     }
 
     /**

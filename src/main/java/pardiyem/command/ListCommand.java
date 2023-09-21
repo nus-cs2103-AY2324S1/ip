@@ -35,6 +35,9 @@ public class ListCommand extends Command {
      * @param storage the Storage object that will handle the saving to the data file
      */
     public String execute(TaskList taskList, Storage storage) {
+        if (taskList.toString().isEmpty()) {
+            return "There are no tasks in your current list, mio amico";
+        }
         return taskList.toString();
     };
 
