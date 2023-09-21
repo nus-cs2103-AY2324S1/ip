@@ -18,7 +18,7 @@ public class Parser {
      */
     public static String handleInput(String input, TaskList taskList, Boolean isLoading) {
         if (input.equals("bye")) {
-            return "";
+            return Ui.printBYE();
         }
         if (input.startsWith("mark") || input.startsWith("unmark ")) {
             return handleMark(input, taskList, isLoading);

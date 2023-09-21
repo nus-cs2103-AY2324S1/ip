@@ -20,16 +20,18 @@ public class Ui {
 
     /**
      * Prints to standard output a greeting message.
+     *
+     * @return
      */
-    public static void printGreetings() {
-        System.out.println("Hello! I'm lippy the wombat\n" + "What can I do for you?");
+    public static String printGreetings() {
+        return "Hello! I'm lippy the cute bear\n" + "What can I do for you?";
     }
 
     /**
      * Prints to an input bye.
      */
-    public static void printBYE() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public static String printBYE() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
