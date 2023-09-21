@@ -31,6 +31,11 @@ public enum DukeExceptionType {
     FIND_NO_RESOURCE_SPECIFIED("You did not specify the resource type!\n\n"
             + "Correct usage: find <resource type> /q <keyword>\n"
             + "Example: find tasks /q Assignment"),
+    INVALID_DATETIME_FORMAT(
+            "Invalid Datetime Format!\n"
+                + "Correct format: dd-mm-yyyy hh:mm\n"
+                + "Example: 27-09-2023 23:59"
+    ),
     INVALID_DEADLINE_FORMAT(
             "Invalid deadline format!\n"
             + "Correct usage: deadline <description> /by <dd-mm-yyyy hh:mm>"

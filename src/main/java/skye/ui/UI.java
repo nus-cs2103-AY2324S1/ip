@@ -14,6 +14,16 @@ import skye.data.venue.Venue;
 public class UI {
 
     /**
+     * Display the welcome message used at the start of the program.
+     */
+    public static String showWelcome() {
+        String message = "Hello! I'm Skye, your personal task assistant, "
+                + "ready to help you conquer your to-do list and vanquish procrastination.\n"
+                + "How may I be of service to you today?";
+        return message;
+    }
+
+    /**
      * Display the exit message shown when exiting the program.
      *
      * @return Farewell message
@@ -42,7 +52,6 @@ public class UI {
                 .append(System.lineSeparator());
         if (!tasks.isEmpty()) {
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.printf("%d.%s%n", i + 1, tasks.get(i));
                 stringBuilder
                         .append(String.format("%d. %s", i + 1, tasks.get(i)))
                         .append(System.lineSeparator());
@@ -186,7 +195,6 @@ public class UI {
                 .append(System.lineSeparator());
         if (!venues.isEmpty()) {
             for (int i = 0; i < venues.size(); i++) {
-                System.out.printf("%d.%s%n", i + 1, venues.get(i));
                 stringBuilder
                         .append(String.format("%d. %s", i + 1, venues.get(i)))
                         .append(System.lineSeparator());
@@ -228,7 +236,7 @@ public class UI {
         if (!venues.isEmpty()) {
             for (int i = 0; i < venues.size(); i++) {
                 stringBuilder
-                        .append(String.format("%d.%s%n", i + 1, venues.get(i)))
+                        .append(String.format("%d.%s", i + 1, venues.get(i)))
                         .append(System.lineSeparator());
             }
         } else {
