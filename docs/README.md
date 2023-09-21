@@ -3,7 +3,7 @@
 ChatBot Alpha is a **desktop app that can store, check, uncheck and delete
 events, todos and deadlines via a Command Line Interface (CLI).**
 
-Quick start
+### Quick start
 
 1. Ensure you have Java 11 or above installed in your Computer.
 2. Download the latest addressbook.jar from [here](https://github.com/PetrichorPrecipice/ip/releases/tag/A-Release).
