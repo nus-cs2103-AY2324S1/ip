@@ -1,4 +1,11 @@
-package duke;
+package duke.parser;
+
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.TaskList;
+import duke.tasks.Todo;
+import duke.ui.Ui;
 
 /**
  * Parses user command and executes tasks based on user commands.

@@ -1,4 +1,6 @@
-package duke;
+package duke.ui;
+
+import duke.tasks.TaskList;
 
 /**
  * Deals with user interactions.

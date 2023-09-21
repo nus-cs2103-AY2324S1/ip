@@ -2,6 +2,8 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import duke.exceptions.DukeException;
+import duke.parser.Parser;
 import org.junit.jupiter.api.Test;
 
 

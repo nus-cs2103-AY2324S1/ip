@@ -1,4 +1,8 @@
-package duke;
+package duke.tasks;
+
+import duke.exceptions.DukeException;
+import duke.storage.Storage;
+import duke.ui.Ui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +13,7 @@ import java.util.stream.Collectors;
  * Contains all current tasks and contain methods to add/delete/mark/unmark a specific task.
  */
 public class TaskList {
-    protected static ArrayList<Task> toDo;
+    public static ArrayList<Task> toDo;
 
     /**
      * Constructs a new <code>TaskList</code> object.

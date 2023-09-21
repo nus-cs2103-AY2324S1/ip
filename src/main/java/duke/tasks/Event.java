@@ -1,4 +1,4 @@
-package duke;
+package duke.tasks;
 
 /**
  * Represents a <code>Event</code> object that extends from <code>Task</code>.

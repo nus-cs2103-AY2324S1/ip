@@ -5,16 +5,22 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.shape.Circle?>
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="true">
+        <Label fx:id="dialog" style="-fx-background-color: FFDBAA; -fx-border-radius: 10;" text="Label" wrapText="true">
          <padding>
             <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
-         </padding></Label>
-        <ImageView fx:id="displayPicture" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+         </padding>
          <HBox.margin>
-            <Insets />
-         </HBox.margin></ImageView>
+            <Insets right="5.0" />
+         </HBox.margin>
+        </Label>
+        <ImageView fx:id="displayPicture" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+         <HBox.margin>
+            <Insets right="5.0" />
+         </HBox.margin>
+        </ImageView>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />

@@ -1,4 +1,4 @@
-package duke;
+package duke.exceptions;
 
 /**
  * Catches checked exceptions during the execution of Duke.
