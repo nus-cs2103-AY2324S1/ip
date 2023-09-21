@@ -17,9 +17,9 @@ import javafx.stage.Stage;
 
 
 /**
- * Handles the user interface (UI).
+ * Custom subclass for launching as the JavaFX Application.
  */
-public class Ui extends Application {
+public class CloudApp extends Application {
     public static final double WIDTH = 400;
     /** Lost width to account for on Windows 11. */
     public static final double WIDTH_OS_LOSS = 15;
@@ -28,11 +28,11 @@ public class Ui extends Application {
     public static final double HEIGHT_OS_LOSS = 40;
     public static final double PADDING = 5;
 
-    public static final double WIDTH_SCROLL = Ui.WIDTH - (Ui.PADDING * 2);
-    public static final double HEIGHT_SCROLL = Ui.HEIGHT - (Ui.PADDING * 3) - Ui.HEIGHT_BOTTOM;
+    public static final double WIDTH_SCROLL = CloudApp.WIDTH - (CloudApp.PADDING * 2);
+    public static final double HEIGHT_SCROLL = CloudApp.HEIGHT - (CloudApp.PADDING * 3) - CloudApp.HEIGHT_BOTTOM;
 
     public static final double WIDTH_SEND = 50;
-    public static final double WIDTH_INPUT = Ui.WIDTH - (Ui.PADDING * 3) - Ui.WIDTH_SEND;
+    public static final double WIDTH_INPUT = CloudApp.WIDTH - (CloudApp.PADDING * 3) - CloudApp.WIDTH_SEND;
     /** Default height of the input & button. */
     public static final double HEIGHT_BOTTOM = 25;
 
@@ -56,14 +56,14 @@ public class Ui extends Application {
         input.setPrefWidth(WIDTH_INPUT);
         sendButton.setPrefWidth(WIDTH_SEND);
 
-        AnchorPane.setTopAnchor(scrollPane, Ui.PADDING);
-        AnchorPane.setLeftAnchor(scrollPane , Ui.PADDING);
+        AnchorPane.setTopAnchor(scrollPane, CloudApp.PADDING);
+        AnchorPane.setLeftAnchor(scrollPane , CloudApp.PADDING);
 
-        AnchorPane.setLeftAnchor(input , Ui.PADDING);
-        AnchorPane.setBottomAnchor(input, Ui.PADDING);
+        AnchorPane.setLeftAnchor(input , CloudApp.PADDING);
+        AnchorPane.setBottomAnchor(input, CloudApp.PADDING);
 
-        AnchorPane.setBottomAnchor(sendButton, Ui.PADDING);
-        AnchorPane.setRightAnchor(sendButton, Ui.PADDING);
+        AnchorPane.setBottomAnchor(sendButton, CloudApp.PADDING);
+        AnchorPane.setRightAnchor(sendButton, CloudApp.PADDING);
 
         // Set handler callbacks
         EventHandler<Event> handleSend = (event) -> {
@@ -88,8 +88,8 @@ public class Ui extends Application {
 
         // Show when done
         stage.setTitle("Cloud");
-        stage.setWidth(Ui.WIDTH + Ui.WIDTH_OS_LOSS);
-        stage.setHeight(Ui.HEIGHT + Ui.HEIGHT_OS_LOSS);
+        stage.setWidth(CloudApp.WIDTH + CloudApp.WIDTH_OS_LOSS);
+        stage.setHeight(CloudApp.HEIGHT + CloudApp.HEIGHT_OS_LOSS);
         stage.setResizable(false);
 
         stage.setScene(scene);

@@ -12,7 +12,7 @@ import com.cloud.chatbot.annotation.Nullable;
 import com.cloud.chatbot.exception.IllegalTimestampException;
 import com.cloud.chatbot.file.FileStorage;
 import com.cloud.chatbot.file.Key;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -71,7 +71,7 @@ public class ItemManager {
                     Instant.ofEpochMilli(endEpoch)
                 );
             } catch (IllegalTimestampException e) {
-                Ui.error(
+                CloudApp.error(
                     "Could not import JSON event with illegal timestamp",
                     json
                 );
@@ -81,7 +81,7 @@ public class ItemManager {
             break;
         }
         default: {
-            Ui.error(
+            CloudApp.error(
                 "Could not import JSON item with unknown type",
                 json
             );

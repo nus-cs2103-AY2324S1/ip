@@ -2,7 +2,7 @@ package com.cloud.chatbot.command;
 
 import com.cloud.chatbot.exception.MissingInputException;
 import com.cloud.chatbot.token.CommandManager;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -48,7 +48,7 @@ public final class Dispatcher {
             new ExitCommand(commandManager).run();
             break;
         default:
-            Ui.say(
+            CloudApp.say(
                 String.format(
                     "\"%s\" is not a valid command.",
                     command

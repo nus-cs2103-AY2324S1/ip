@@ -26,9 +26,9 @@ public class MessageRow extends HBox {
      * @param isUser Whether the message is by the user.
     */
     public MessageRow(Label text, boolean isUser) {
-        this.setPadding(new Insets(Ui.PADDING));
+        this.setPadding(new Insets(CloudApp.PADDING));
 
-        text.setPadding(new Insets(Ui.PADDING));
+        text.setPadding(new Insets(CloudApp.PADDING));
         text.setWrapText(true);
 
         ImageView picture = new ImageView(

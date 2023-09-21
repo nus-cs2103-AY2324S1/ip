@@ -4,7 +4,7 @@ import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.annotation.Nullable;
 import com.cloud.chatbot.item.Item;
 import com.cloud.chatbot.token.CommandManager;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -24,7 +24,7 @@ public class DeleteCommand extends Command {
         }
 
         Item item = Cloud.ITEM_MANAGER.remove(number);
-        Ui.say("Yeeted:");
-        Ui.say(item.toString(number));
+        CloudApp.say("Yeeted:");
+        CloudApp.say(item.toString(number));
     }
 }

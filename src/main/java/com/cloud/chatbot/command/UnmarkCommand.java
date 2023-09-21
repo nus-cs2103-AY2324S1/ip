@@ -3,7 +3,7 @@ package com.cloud.chatbot.command;
 import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.annotation.Nullable;
 import com.cloud.chatbot.token.CommandManager;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -23,7 +23,7 @@ public class UnmarkCommand extends Command {
         }
 
         Cloud.ITEM_MANAGER.setComplete(number, false);
-        Ui.say(
+        CloudApp.say(
             Cloud.ITEM_MANAGER.getString(number)
         );
     }

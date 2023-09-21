@@ -1,7 +1,7 @@
 package com.cloud.chatbot.command;
 
 import com.cloud.chatbot.token.CommandManager;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
 
     @Override
     public void run() {
-        Ui.say("\\o");
+        CloudApp.say("\\o");
         System.exit(0);
     }
 }

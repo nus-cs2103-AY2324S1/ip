@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 import org.json.JSONObject;
 
 import com.cloud.chatbot.annotation.Nullable;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -58,7 +58,7 @@ public final class FileStorage {
         try {
             writer = new FileWriter(this.getFile());
         } catch (IOException e) {
-            Ui.error(
+            CloudApp.error(
                 "Could not create FileWriter",
                 e
             );
@@ -68,7 +68,7 @@ public final class FileStorage {
         try {
             writer.write(json.toString(4));
         } catch (IOException e) {
-            Ui.error(
+            CloudApp.error(
                 "Could not write to file",
                 e
             );
@@ -78,7 +78,7 @@ public final class FileStorage {
         try {
             writer.close();
         } catch (IOException e) {
-            Ui.error(
+            CloudApp.error(
                 "Could not close FileWriter",
                 e
             );

@@ -4,7 +4,7 @@ import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.annotation.Nullable;
 import com.cloud.chatbot.token.CommandManager;
 import com.cloud.chatbot.token.Token;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -21,7 +21,7 @@ public abstract class Command {
 
         Token numberToken = this.commandManager.getToken(1);
         if (!numberToken.isInt()) {
-            Ui.say(
+            CloudApp.say(
                 String.format(
                     "\"%s\" is not a valid number.",
                     numberToken.toString()
@@ -31,7 +31,7 @@ public abstract class Command {
         }
 
         if (!numberToken.isValidNumber(Cloud.ITEM_MANAGER.getCount())) {
-            Ui.say(
+            CloudApp.say(
                 String.format(
                     "Item #%d does not exist.",
                     numberToken.toInt()

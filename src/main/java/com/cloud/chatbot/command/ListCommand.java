@@ -2,7 +2,7 @@ package com.cloud.chatbot.command;
 
 import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.token.CommandManager;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -17,12 +17,12 @@ public class ListCommand extends Command {
     @Override
     public void run() {
         if (Cloud.ITEM_MANAGER.getCount() <= 0) {
-            Ui.say("Your list is empty.");
+            CloudApp.say("Your list is empty.");
             return;
         }
 
         for (int number = 1; number <= Cloud.ITEM_MANAGER.getCount(); number++) {
-            Ui.say(
+            CloudApp.say(
                 Cloud.ITEM_MANAGER.getString(number)
             );
         }

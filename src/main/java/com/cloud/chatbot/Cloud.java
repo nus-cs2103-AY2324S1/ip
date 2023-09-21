@@ -1,7 +1,7 @@
 package com.cloud.chatbot;
 
 import com.cloud.chatbot.item.ItemManager;
-import com.cloud.chatbot.ui.Ui;
+import com.cloud.chatbot.ui.CloudApp;
 
 import javafx.application.Application;
 
@@ -21,6 +21,6 @@ public final class Cloud {
      */
     public static void main(String[] args) {
         System.out.println("Launching...");
-        Application.launch(Ui.class, args);
+        Application.launch(CloudApp.class, args);
     }
 }
