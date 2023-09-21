@@ -10,12 +10,9 @@ import java.util.Set;
  * It contains details of a task
  */
 
-@SuppressWarnings("checkstyle:Regexp")
 public class Task {
-
     private String taskName;
     private boolean isDone;
-
     private Set<String> tags;
 
     /**
@@ -34,7 +31,6 @@ public class Task {
     public void completeTask() {
         this.isDone = true;
         System.out.println("Nice! I've marked this task as done:");
-        // Double space to maintain consistency with rubrics
         System.out.println("  " + this.toString());
     }
 
@@ -45,25 +41,24 @@ public class Task {
         this.isDone = true;
     }
     /**
-     * Mark a task as undone by setting done as false
+     * Mark a task as undone
      */
     public void undoTask() {
         this.isDone = false;
         System.out.println("OK, I've marked this task as not done yet:");
-        // Double space to maintain consistency with rubrics
         System.out.println("  " + this.toString());
     }
 
     /**
-     * Checks whether a task is completed and return an X if done
+     * Gives a string denoting whether a task is completed
      * @return String X if done, a blank space string if not
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**
-     * Checks whether a task is done through a string
+     * Checks whether a task is done
      * @return  a string containing whether the task is done
      */
     public String isDone() {

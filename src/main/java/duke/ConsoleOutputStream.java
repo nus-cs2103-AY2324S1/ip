@@ -1,6 +1,5 @@
 package duke;
 
-import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -13,10 +12,9 @@ public class ConsoleOutputStream extends OutputStream {
     /**
      * Writes the specified byte to this output stream.
      * @param b the byte to be written.
-     * @throws IOException
      */
     @Override
-    public void write(int b) throws IOException {
+    public void write(int b) {
         content.append((char) b);
     }
 

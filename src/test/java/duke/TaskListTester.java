@@ -39,8 +39,9 @@ public class TaskListTester {
 
 
     /**
-    * Testing the deleteTask method
-    */
+     * Testing the delete Task method for invalid input
+     * @throws WrongInputException  if the input is invalid
+     */
     @Test
     public void deleteTask_validInput_success() {
         // Always clear file to start a-fresh
@@ -57,7 +58,7 @@ public class TaskListTester {
      * @throws WrongInputException if the input is invalid however should not occur at all
      */
     @Test
-    public void parseTask_validInput_success() throws WrongInputException {
+    public void parseTask_validInput_success() {
         try {
             // Always clear file to start a-fresh
             testStorage.clearFile();

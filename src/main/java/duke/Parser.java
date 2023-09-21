@@ -28,14 +28,11 @@ public class Parser {
      * @param command   the command to be executed
      */
     public void parse(String input, Command command) {
-        int totalItemNumber = this.taskList.length();
-        // Using string blank = " "; and splitting by blank will give parsing error later on
         String[] splitStringByBlanks = input.split(" ");
         try {
             switch (command) {
             case BYE:
-                this.ui.terminate();
-                hasCommands = false;
+                bye();
                 break;
             case LIST:
                 this.ui.list(this.taskList);
@@ -43,79 +40,172 @@ public class Parser {
             case SHOWTAGS:
                 this.ui.showTags(this.taskList);
                 break;
-            case UNMARK: // Order matters, if we check for marks first, unmark falls under mark loop
-                // Throw NumberFormatException if not the right number
-                int taskNumberUnmark = Integer.parseInt(splitStringByBlanks[1]);
-                this.taskList.unmarkTask(taskNumberUnmark - 1, storage);
+            case UNMARK: // unmark needs to come before mark because we use startsWith to check for command
+                unmark(splitStringByBlanks[1]);
                 break;
             case MARK:
-                // The above should throw a NumberFormatException if not the right number
-                int taskNumberMark = Integer.parseInt(splitStringByBlanks[1]);
-                this.taskList.markTask(taskNumberMark - 1, storage);
+                mark(splitStringByBlanks[1]);
                 break;
             case TODO:
-                // Test whether a ToDos input is valid
-                ToDos.taskValidator(input);
-                Task toDo = ToDos.createTaskFromInput(input);
-                totalItemNumber++;
-                this.taskList.addTask(toDo, totalItemNumber, storage);
+                createToDoTask(input);
                 break;
             case DEADLINE:
-                // Test whether a deadline's input is valid
-                Deadline.taskValidator(input);
-                Task deadlineTask = Deadline.createTaskFromInput(input);
-                totalItemNumber++;
-                this.taskList.addTask(deadlineTask, totalItemNumber, storage);
+                createDeadlineTask(input);
                 break;
             case EVENT:
-                // Test whether an event's input is valid
-                Event.taskValidator(input);
-                Task event = Event.createTaskFromInput(input);
-                totalItemNumber++;
-                this.taskList.addTask(event, totalItemNumber, storage);
+                createEventTask(input);
                 break;
             case DELETE:
-                int taskNumberDelete = Integer.parseInt(splitStringByBlanks[1]);
-                totalItemNumber--;
-                this.taskList.deleteTask(taskNumberDelete - 1, totalItemNumber, storage);
+                deleteTask(splitStringByBlanks[1]);
                 break;
             case FIND:
-                searchEngine.searchValidator(input);
-                String keyword = input.split(" ")[1];
-                TaskList searchResult = this.searchEngine.search(keyword);
-                this.ui.showSearchResult(searchResult);
+                findTask(input, splitStringByBlanks[1]);
                 break;
             case TAG:
-                Task.tagValidator(input);
-                int taskNumberTag = Integer.parseInt(splitStringByBlanks[1]);
-                String tag = splitStringByBlanks[2];
-                this.taskList.updateTags(taskNumberTag - 1, tag, storage);
+                tagTask(input, splitStringByBlanks[1], splitStringByBlanks[2]);
                 break;
             case REMOVETAG:
-                Task.tagValidator(input);
-                int taskNumberRemoveTag = Integer.parseInt(splitStringByBlanks[1]);
-                String tagToRemove = splitStringByBlanks[2];
-                this.taskList.removeTag(taskNumberRemoveTag - 1, tagToRemove, storage);
+                removeTagTask(input, splitStringByBlanks[1], splitStringByBlanks[2]);
                 break;
             default:
                 // WHY: If it has reach the default statement, the command is not valid, program should be stopped
                 assert false : "Invalid command";
             }
-        } catch (NullPointerException e) {
-            // If we mark a task number outside the range
-            System.out.println(e + "\nPlease enter a valid task number from list");
         } catch (NumberFormatException e) {
-            // If we mark a non int task number
-            System.out.println("Enter a valid task number that is a integer shown in list");
+            // If we mark, unmark or delete  a non int task number
+            System.out.println("You have enter a non-integer number\n"
+                    + "Enter a valid task number that is a integer shown in list");
         } catch (WrongInputException e) {
             System.out.println(e);
         } catch (IndexOutOfBoundsException e) {
-            // To catch invalid number inputs for delete
-            System.out.println("Please enter a valid task number from the range in list");
+            System.out.println("You have entered a task number outside the valid range\n"
+                    + "Please enter a valid task number from list");
         }
     }
+    /**
+     * Returns whether the chatbot should continue running
+     * @return whether the chatbot should continue running
+     */
     public boolean shouldContinue() {
         return this.hasCommands;
     }
 
+    /**
+     * Terminates the chatbot
+     */
+    public void bye() {
+        this.ui.terminate();
+        this.hasCommands = false;
+    }
+
+    /**
+     * Marks the task with the given task number
+     * @param taskNumber  the task number
+     */
+    public void unmark(String taskNumber) throws NumberFormatException, NullPointerException {
+        int taskNumberUnmark = Integer.parseInt(taskNumber);
+        this.taskList.unmarkTask(taskNumberUnmark - 1, this.storage);
+    }
+    /**
+     * Unmarks the task with the given task number
+     * @param taskNumber  the task number
+     * @throws NumberFormatException if the task number is not a number
+     * @throws NullPointerException if the task number is null
+     */
+    public void mark(String taskNumber) throws NumberFormatException, NullPointerException {
+        int taskNumberMark = Integer.parseInt(taskNumber);
+        this.taskList.markTask(taskNumberMark - 1, this.storage);
+    }
+
+    /**
+     * Creates a To-Do task
+     * @param input the user's input
+     * @throws WrongInputException if the input is invalid
+     */
+    public void createToDoTask(String input) throws WrongInputException {
+        ToDos.taskValidator(input);
+        Task toDo = ToDos.createTaskFromInput(input);
+        int totalItemNumber = this.taskList.length();
+        totalItemNumber++;
+        this.taskList.addTask(toDo, totalItemNumber, this.storage);
+    }
+
+    /**
+     * Creates a Deadline task
+     * @param input the user's input
+     * @throws WrongInputException if the input is invalid
+     */
+    public void createDeadlineTask(String input) throws WrongInputException {
+        Deadline.taskValidator(input);
+        Task deadlineTask = Deadline.createTaskFromInput(input);
+        int totalItemNumber = this.taskList.length();
+        totalItemNumber++;
+        this.taskList.addTask(deadlineTask, totalItemNumber, this.storage);
+    }
+
+    /**
+     * Creates an Event task
+     * @param input the user's input
+     * @throws WrongInputException if the input is invalid
+     */
+    public void createEventTask(String input) throws WrongInputException {
+        Event.taskValidator(input);
+        Task event = Event.createTaskFromInput(input);
+        int totalItemNumber = this.taskList.length();
+        totalItemNumber++;
+        this.taskList.addTask(event, totalItemNumber, this.storage);
+    }
+
+    /**
+     * Deletes the task with the given task number
+     * @param taskNumber the task number
+     * @throws NumberFormatException if the task number is not a number
+     * @throws NullPointerException if the task number is null
+     * @throws IndexOutOfBoundsException if the task number is out of bounds
+     */
+    public void deleteTask(String taskNumber) throws NumberFormatException, NullPointerException,
+            IndexOutOfBoundsException {
+        int taskNumberDelete = Integer.parseInt(taskNumber);
+        int totalItemNumber = this.taskList.length();
+        totalItemNumber--;
+        this.taskList.deleteTask(taskNumberDelete - 1, totalItemNumber, this.storage);
+    }
+
+    /**
+     * Finds the tasks with the given keyword
+     * @param input the user's input
+     * @param keyword the keyword to search for
+     * @throws WrongInputException if the input is invalid
+     */
+    public void findTask(String input, String keyword) throws WrongInputException {
+        this.searchEngine.searchValidator(input);
+        TaskList searchResult = this.searchEngine.search(keyword);
+        this.ui.showSearchResult(searchResult);
+    }
+
+    /**
+     * Tags the task with the given task number
+     * @param input the user's input
+     * @param taskNumber the task number
+     * @param tag  the tag to be added
+     * @throws WrongInputException if the input is invalid
+     */
+    public void tagTask(String input, String taskNumber, String tag) throws WrongInputException {
+        Task.tagValidator(input);
+        int taskNumberTag = Integer.parseInt(taskNumber);
+        this.taskList.updateTags(taskNumberTag - 1, tag, this.storage);
+    }
+
+    /**
+     * Removes the tag from the task with the given task number
+     * @param input the user's input
+     * @param taskNumber the task number
+     * @param tagToRemove the tag to be removed
+     * @throws WrongInputException if the input is invalid
+     */
+    public void removeTagTask(String input, String taskNumber, String tagToRemove) throws WrongInputException {
+        Task.tagValidator(input);
+        int taskNumberRemoveTag = Integer.parseInt(taskNumber);
+        this.taskList.removeTag(taskNumberRemoveTag - 1, tagToRemove, this.storage);
+    }
 }

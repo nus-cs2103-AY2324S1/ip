@@ -22,6 +22,7 @@ public class ModelViewController {
      * @return  a response object that stores the response string.
      */
     public Response getResponse(String input) {
+        // Solution here does use some reference from CHATGPT
         ConsoleOutputStream consoleOutputStream = new ConsoleOutputStream();
 
         // Original System.out object

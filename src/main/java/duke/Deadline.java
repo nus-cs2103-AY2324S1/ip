@@ -22,7 +22,7 @@ public class Deadline extends Task {
     /**
      * Constructor for creating a task based on whether its done or not
      * @param taskName  name of task.
-     * @param isDone    whether the task is done or not
+     * @param isDone whether the task is done or not
      * @param dateTime the date and time of the deadline stored in a DateTime object
      */
     public Deadline(String taskName, boolean isDone, DateTime dateTime) {
@@ -35,8 +35,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
-     * if inputs are invalid
+     * Validates the user's input for a deadline task
      * @param input the user's string input
      * @throws WrongInputException which informs the user of the error and actions to take
      */
@@ -50,19 +49,29 @@ public class Deadline extends Task {
         // Test whether a deadline's input has a non-blank name
         try {
             String taskNameDeadline = segementedString[0].substring(NAME_OFFSET);
-            if (taskNameDeadline.trim().isEmpty()) {
-                throw new WrongInputException("Task name cannot be blank",
-                        "Enter a non-blank deadline task name");
-            } else if (deadline.trim().isEmpty()) {
-                throw new WrongInputException("for /by <time>, time cannot be blank",
-                        "Please input valid text that are not space");
-            } else if (!DateTimeParser.isValidDateTime(deadline)) {
-                throw new WrongInputException("Invalid date and time format",
-                        DateTimeParser.getValidDateTimeFormat());
-            }
+            checkForValidFields(taskNameDeadline, deadline);
         } catch (StringIndexOutOfBoundsException e) {
             throw new WrongInputException("Task name cannot be blank",
                     "Enter a non-blank deadline task name");
+        }
+    }
+
+    /**
+     * Checks for the validity of the fields of a deadline task
+     * @param taskNameDeadline the name of the deadline task
+     * @param deadline  the deadline of the deadline task
+     * @throws WrongInputException which informs the user of the error and actions to take
+     */
+    private static void checkForValidFields(String taskNameDeadline, String deadline) throws WrongInputException {
+        if (taskNameDeadline.trim().isEmpty()) {
+            throw new WrongInputException("Task name cannot be blank",
+                    "Enter a non-blank deadline task name");
+        } else if (deadline.trim().isEmpty()) {
+            throw new WrongInputException("for /by <time>, time cannot be blank",
+                    "Please input valid text that are not space");
+        } else if (!DateTimeParser.isValidDateTime(deadline)) {
+            throw new WrongInputException("Invalid date and time format",
+                    DateTimeParser.getValidDateTimeFormat());
         }
     }
 

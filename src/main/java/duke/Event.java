@@ -41,8 +41,7 @@ public class Event extends Task {
     }
 
     /**
-     * taskValidator does nothing if there are no wrong inputs but throws a WrongInputException
-     * if inputs are invalid
+     * Validates the user's input for an event task
      * @param input the user's string input
      * @throws WrongInputException which informs the user of the error and actions to take
      */
@@ -61,24 +60,36 @@ public class Event extends Task {
             }
             String start = segmentedViaTo[0];
             String end = segmentedViaTo[1];
-            if (taskNameEvent.trim().isEmpty()) {
-                throw new WrongInputException("Task name cannot be blank", "Enter a non-blank name");
-            } else if (start.trim().isEmpty()) {
-                throw new WrongInputException("/from <content>, content cannot be blank",
-                        "Enter non-blank text after /from ");
-            } else if (end.trim().isEmpty()) {
-                throw new WrongInputException("/to <content>, content cannot be blank", "Enter text after /to ");
-            } else if (!DateTimeParser.isValidDateTime(start)) {
-                throw new WrongInputException("Invalid date and time format for /from <datetime>",
-                        DateTimeParser.getValidDateTimeFormat());
-            } else if (!DateTimeParser.isValidDateTime(end)) {
-                throw new WrongInputException("Invalid date and time format for /to <datetime>",
-                        DateTimeParser.getValidDateTimeFormat());
-            }
+            checkForValidFields(taskNameEvent, start, end);
         } catch (StringIndexOutOfBoundsException e) {
             throw new WrongInputException("Task name cannot be blank", "Enter a non-blank name");
         }
     }
+
+    /**
+     * Checks for the validity of the fields of an event task
+     * @param taskNameEvent the name of the event task
+     * @param start the start time of the event task
+     * @param end the end time of the event task
+     * @throws WrongInputException which informs the user of the error and actions to take
+     */
+    private static void checkForValidFields(String taskNameEvent, String start, String end) throws WrongInputException {
+        if (taskNameEvent.trim().isEmpty()) {
+            throw new WrongInputException("Task name cannot be blank", "Enter a non-blank name");
+        } else if (start.trim().isEmpty()) {
+            throw new WrongInputException("/from <content>, content cannot be blank",
+                    "Enter non-blank text after /from ");
+        } else if (end.trim().isEmpty()) {
+            throw new WrongInputException("/to <content>, content cannot be blank", "Enter text after /to ");
+        } else if (!DateTimeParser.isValidDateTime(start)) {
+            throw new WrongInputException("Invalid date and time format for /from <datetime>",
+                    DateTimeParser.getValidDateTimeFormat());
+        } else if (!DateTimeParser.isValidDateTime(end)) {
+            throw new WrongInputException("Invalid date and time format for /to <datetime>",
+                    DateTimeParser.getValidDateTimeFormat());
+        }
+    }
+
 
     /**
      * Creates an Event task from the user's input

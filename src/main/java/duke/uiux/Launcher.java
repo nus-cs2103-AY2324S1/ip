@@ -1,6 +1,5 @@
 package duke.uiux;
 
-import duke.uiux.Main;
 import javafx.application.Application;
 
 /**
