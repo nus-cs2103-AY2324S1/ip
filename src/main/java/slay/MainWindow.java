@@ -1,5 +1,6 @@
 package slay;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,5 +53,16 @@ public class MainWindow extends AnchorPane {
         DialogBox slayDialog = DialogBox.getSlayDialog(response, slayImage);
         dialogContainer.getChildren().addAll(userDialog, slayDialog);
         userInput.clear();
+
+        if (input.equals("bye")) {
+            new Thread(() -> {
+                try {
+                    Thread.sleep(2000);
+                    Platform.exit();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
     }
 }
