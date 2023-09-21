@@ -10,7 +10,7 @@ import duke.tasks.Task;
 import duke.tasks.Todo;
 
 public class TaskListTest {
-    private Task test = new Todo("test");
+    private Task test = new Todo("test", false, new ArrayList<>());
     private ArrayList<Task> list = new ArrayList<>();
     @Test
     public void testAddTask() {
@@ -51,7 +51,7 @@ public class TaskListTest {
     public void testFilter() throws DukeException {
         TaskList tasks = new TaskList(list);
         tasks.addTask(test);
-        tasks.addTask(new Todo("fake"));
+        tasks.addTask(new Todo("fake", false, new ArrayList<>()));
         assertEquals("Here are the tasks in your list containing test:\n1. [T][ ] test\n",
                 tasks.filter("test"));
         assertEquals("There is nothing on your list currently that matches the keyword \"keyword\". "

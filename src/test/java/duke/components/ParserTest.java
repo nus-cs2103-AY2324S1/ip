@@ -27,7 +27,7 @@ public class ParserTest {
         Command command = Parser.parse("list");
         assertTrue(command instanceof ModifyCommand);
         assertEquals("L", ((ModifyCommand) command).getType());
-        assertEquals(-1, ((ModifyCommand) command).getIndex());
+        assertEquals(0, ((ModifyCommand) command).getIndex());
     }
 
     @Test

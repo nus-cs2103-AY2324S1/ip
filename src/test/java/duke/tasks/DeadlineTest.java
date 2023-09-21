@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ public class DeadlineTest {
     public void testConstructorAndGetters() {
         LocalDateTime by = LocalDateTime.of(2023, 9, 1, 14, 0);
 
-        Deadline deadline = new Deadline("Submit report", by);
+        Deadline deadline = new Deadline("Submit report", by, false, new ArrayList<>());
         assertEquals("Submit report", deadline.getDescription());
         assertFalse(deadline.getIsDone());
         assertEquals(by, deadline.getBy());
@@ -24,10 +25,10 @@ public class DeadlineTest {
         LocalDateTime by = LocalDateTime.of(2023, 9, 1, 14, 0);
 
 
-        Deadline deadline = new Deadline("Submit report", by);
+        Deadline deadline = new Deadline("Submit report", by, false, new ArrayList<>());
         assertEquals("[D][ ] Submit report (by: Sep 1 2023, 2:00 PM)", deadline.toString());
 
-        Deadline completedDeadline = new Deadline("Finish project", by, true);
+        Deadline completedDeadline = new Deadline("Finish project", by, true, new ArrayList<>());
         assertEquals("[D][X] Finish project (by: Sep 1 2023, 2:00 PM)", completedDeadline.toString());
 
         LocalDateTime wrongTime = LocalDateTime.of(2023, 9, 1, 14, 0);
@@ -37,10 +38,10 @@ public class DeadlineTest {
     public void testWrite() {
         LocalDateTime by = LocalDateTime.of(2023, 9, 1, 14, 0);
 
-        Deadline deadline = new Deadline("Submit report", by);
+        Deadline deadline = new Deadline("Submit report", by, false, new ArrayList<>());
         assertEquals("D | 0 | Submit report | 1/9/2023 1400", deadline.write());
 
-        Deadline completedDeadline = new Deadline("Finish project", by, true);
+        Deadline completedDeadline = new Deadline("Finish project", by, true, new ArrayList<>());
         assertEquals("D | 1 | Finish project | 1/9/2023 1400", completedDeadline.write());
     }
 }
