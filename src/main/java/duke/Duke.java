@@ -17,11 +17,9 @@ public class Duke {
     public Duke() {
         storage = new Storage("./data/duke.txt");
         try {
-            // Initialize the tasks by loading data from storage.
             tasks = new TaskList(storage.load());
         } catch (DukeException e) {
             Ui.showLoadingError(e);
-            // If there's an error loading tasks, create a new empty task list.
             List<Task> newTaskList = new ArrayList<>();
             tasks = new TaskList(newTaskList);
         }

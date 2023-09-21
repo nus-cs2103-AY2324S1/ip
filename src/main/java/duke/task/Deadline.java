@@ -8,7 +8,7 @@ import duke.DukeException;
 
 
 /**
- * The task.Deadline class represents a task with a specific deadline.
+ * The Deadline class represents a task with a specific deadline.
  * It is a subclass of the Task class.
  */
 public class Deadline extends Task {
@@ -51,7 +51,7 @@ public class Deadline extends Task {
     /**
      * Returns a formatted string representation of the Deadline task for saving to a file.
      *
-     * @return A string in the format "[D] | [X] | Description | duke.task.Deadline".
+     * @return A string in the format "[D] | [X] | Description | Deadline".
      */
     @Override
     public String toTxtString() {

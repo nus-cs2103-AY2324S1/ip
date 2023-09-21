@@ -4,9 +4,15 @@ package duke;
  * The Ui class handles user interactions and displays messages to the user.
  */
 public class Ui {
+    /**
+     * The application's logo.
+     */
     private static String logo = "Wiz";
+
     /**
      * Displays a welcome message to the user.
+     *
+     * @return The welcome message.
      */
     public static String showWelcomeMessage() {
         showLine();
@@ -22,6 +28,9 @@ public class Ui {
 
     /**
      * Displays a loading error message to the user.
+     *
+     * @param e The DukeException that occurred during loading.
+     * @return The loading error message.
      */
     public static String showLoadingError(DukeException e) {
         System.out.println(e);
