@@ -14,6 +14,7 @@ mark
 mark 1
 mark 3
 list
+find book
 unmark
 unmark 1
 list

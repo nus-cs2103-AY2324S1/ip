@@ -3,6 +3,7 @@ package jarvis.ui;
 import jarvis.task.Task;
 import jarvis.tasklist.TaskList;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -59,6 +60,24 @@ public class Ui {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println((i + 1) + "." + tasks.get(i));
+        }
+        System.out.println("____________________________________________________________");
+    }
+
+    /**
+     * Displays tasks that match a search query.
+     *
+     * @param tasks The list of tasks that match the search query.
+     */
+    public void displayMatchingTasks(ArrayList<Task> tasks) {
+        System.out.println("____________________________________________________________");
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks matched your search query.");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + "." + tasks.get(i));
+            }
         }
         System.out.println("____________________________________________________________");
     }

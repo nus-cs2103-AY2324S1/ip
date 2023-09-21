@@ -39,6 +39,8 @@ public class Parser {
             return parseMark(parts);
         case "unmark":
             return parseUnmark(parts);
+        case "find":
+            return parseFind(parts);
         default:
             throw new JarvisUnrecognisedCommandException();
         }
@@ -111,5 +113,10 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new JarvisException("Please provide a valid task index.");
         }
+    }
+
+    private Command parseFind(String[] parts) throws JarvisException {
+        ensureValidParts(parts, "keyword", "find");
+        return new FindCommand(parts[1]);
     }
 }
