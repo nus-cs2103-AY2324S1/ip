@@ -6,6 +6,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the Delete Command.
+ *
  * @author Yuheng
  */
 public class DeleteCommand extends Command {
@@ -16,6 +17,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Creates an instance of the delete command.
+     *
      * @param isCompleteCommand true if the input has all the necessary components.
      * @param taskNumber the position that the task is stored in the Storage.
      * @param storage an instance of Storage that stores the previous tasks.
@@ -40,6 +42,7 @@ public class DeleteCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override

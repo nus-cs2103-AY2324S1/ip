@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 /**
  * A class that is responsible for the user interface.
+ *
  * @author Yuheng
  */
 public class Ui {
@@ -34,6 +35,7 @@ public class Ui {
 
     /**
      * Creates a new instance of the Ui.
+     *
      * @param window the Stage for the program to run in.
      * @param viewModel an implemented class for DataCallBack to receive the aata from the ui.
      */
@@ -45,6 +47,7 @@ public class Ui {
 
     /**
      * Displays the given string on the stage.
+     *
      * @param s The input string.
      */
     public void showResponse(String s) {
@@ -128,6 +131,7 @@ public class Ui {
 
     /**
      * Displays a confirmation message when a task is added successfully.
+     *
      * @param task The task added to the storage.
      * @param size The size of the storage containing previous tasks.
      */
@@ -138,6 +142,7 @@ public class Ui {
 
     /**
      * Displays every task previously stored.
+     *
      * @param index the index of the task in the storage.
      * @param task the task to be displayed.
      */
@@ -163,6 +168,7 @@ public class Ui {
 
     /**
      * Displays a message to confirm that a task is marked as done successfully.
+     *
      * @param task the task to be marked as done.
      */
     public void markTask(Task task) {
@@ -181,6 +187,7 @@ public class Ui {
 
     /**
      * Displays a message when the user successfully marks a task as not done.
+     *
      * @param task the task to be un-marked.
      */
     public void unmarkTask(Task task) {
@@ -216,6 +223,7 @@ public class Ui {
 
     /**
      * Displays the task that matches the description given by the user.
+     *
      * @param task the task displayed
      * @param index the count of the task number being displayed.
      */
@@ -251,11 +259,7 @@ public class Ui {
      * Initialises the Ui.
      */
     public void initialise() {
-        this.window.setTitle("Mimi");
-
-        window.setResizable(false);
-        window.setMinHeight(600.0);
-        window.setMinWidth(400.0);
+        this.configureWindow();
 
         this.scrollPane = new ScrollPane();
 
@@ -263,12 +267,7 @@ public class Ui {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
-        this.scrollPane.setContent(dialogContainer);
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
+        this.configureScrollPane();
 
         this.userInputField = new TextField();
         this.userInputField.setMinWidth(350);
@@ -276,6 +275,34 @@ public class Ui {
 
         this.configureButton();
         this.configureUserInputField();
+
+        AnchorPane mainLayout = createAnchorPane();
+
+        window.setScene(new Scene(mainLayout));
+        window.show();
+
+        this.welcomeMessage();
+    }
+
+    private void configureScrollPane() {
+        this.scrollPane.setContent(dialogContainer);
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+    }
+
+    private void configureWindow() {
+        this.window.setTitle("Mimi");
+
+        window.setResizable(false);
+        window.setMinHeight(600.0);
+        window.setMinWidth(400.0);
+
+    }
+
+    private AnchorPane createAnchorPane() {
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInputField, sendButton);
@@ -290,13 +317,9 @@ public class Ui {
         AnchorPane.setLeftAnchor(userInputField , 1.0);
         AnchorPane.setBottomAnchor(userInputField, 1.0);
 
-
-
-        window.setScene(new Scene(mainLayout));
-        window.show();
-
-        this.welcomeMessage();
+        return mainLayout;
     }
+
 
     private void configureUserInputField() {
         this.userInputField.setOnAction(

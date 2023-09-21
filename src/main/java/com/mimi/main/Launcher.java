@@ -3,7 +3,8 @@ package com.mimi.main;
 import javafx.application.Application;
 
 /**
- * A class that contains the entry point of the application
+ * A class that contains the entry point of the application.
+ *
  * @author Yuheng
  */
 public class Launcher {

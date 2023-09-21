@@ -5,6 +5,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the find Command.
+ *
  * @author Yuheng
  */
 public class FindCommand extends Command {
@@ -19,6 +20,7 @@ public class FindCommand extends Command {
 
     /**
      * Creates an instance of the find Command.
+     *
      * @param searchTerm the string that is used to find matching descriptions in Storage.
      * @param storage an instance of Storage.
      */

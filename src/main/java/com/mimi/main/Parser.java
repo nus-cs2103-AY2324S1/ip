@@ -19,6 +19,7 @@ import com.mimi.commands.UnmarkCommand;
 
 /**
  * A class that takes given inputs from the user and interprets it for a Command.
+ *
  * @author Yuheng
  */
 public class Parser {
@@ -34,7 +35,8 @@ public class Parser {
     }
 
     /**
-     * Creates an instance of Parser
+     * Creates an instance of Parser.
+     *
      * @param input the string input to be interpreted
      * @param storage an instance of the Storage class
      * @param readWriteData an instance of the ReadWriteData class
@@ -46,7 +48,8 @@ public class Parser {
     }
 
     /**
-     * Parses the given string input and returns the appropriate command
+     * Parses the given string input and returns the appropriate command.
+     *
      * @return a Command instance represented by the given input
      */
     public Command parse() {
@@ -70,44 +73,48 @@ public class Parser {
 
 
         if (isValidCommand) {
-            switch (cmd) {
-            case "bye":
-                return new ExitCommand();
-
-            case "list":
-                return new ListCommand(this.storage);
-
-            case "mark":
-                return markCommand();
-
-            case "unmark":
-                return unmarkCommand();
-
-            case "delete":
-                return deleteCommand();
-
-            case "todo":
-                return todoCommand();
-
-            case "deadline":
-                return deadlineCommand();
-
-            case "event":
-                return eventCommand();
-
-            case "find":
-                return findCommand();
-
-            case "remind":
-                return new RemindCommand(this.storage);
-
-            default:
-                return new InvalidCommand();
-
-            }
+            return makeCommand(cmd);
         }
 
         return new InvalidCommand();
+    }
+
+
+    private Command makeCommand(String cmd) {
+        switch (cmd) {
+        case "bye":
+            return new ExitCommand();
+
+        case "list":
+            return new ListCommand(this.storage);
+
+        case "mark":
+            return markCommand();
+
+        case "unmark":
+            return unmarkCommand();
+
+        case "delete":
+            return deleteCommand();
+
+        case "todo":
+            return todoCommand();
+
+        case "deadline":
+            return deadlineCommand();
+
+        case "event":
+            return eventCommand();
+
+        case "find":
+            return findCommand();
+
+        case "remind":
+            return new RemindCommand(this.storage);
+
+        default:
+            return new InvalidCommand();
+        }
     }
 
     private Command findCommand() {
@@ -158,8 +165,6 @@ public class Parser {
             return new EventCommand(true, taskName,
                     LocalDateTime.MIN, LocalDateTime.MIN, this.storage, this.readWriteData);
         }
-
-
 
     }
 

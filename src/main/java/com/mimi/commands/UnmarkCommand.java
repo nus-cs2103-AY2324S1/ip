@@ -6,6 +6,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the un-mark Command.
+ *
  * @author Yuheng
  */
 public class UnmarkCommand extends Command {
@@ -16,6 +17,7 @@ public class UnmarkCommand extends Command {
 
     /**
      * Creates an instance of the un-mark Command.
+     *
      * @param isCompleteCommand true if the input has all the necessary components.
      * @param taskNumber the index of the task in the Storage.
      * @param storage an instance of Storage
@@ -39,6 +41,7 @@ public class UnmarkCommand extends Command {
     }
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override

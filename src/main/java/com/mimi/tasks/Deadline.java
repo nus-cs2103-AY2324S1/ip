@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 
 /**
  * Representation of the Deadline Task.
+ *
  * @author Yuheng
  */
 public class Deadline extends Task {
@@ -13,6 +14,7 @@ public class Deadline extends Task {
 
     /**
      * Creates an instance of the deadline Task.
+     *
      * @param taskName the string representation of the task name.
      * @param deadlineTime the deadline time of the task.
      */
@@ -25,6 +27,7 @@ public class Deadline extends Task {
 
     /**
      * Returns the string representation of the task type.
+     *
      * @return a string that represents what kind of task this is.
      */
     @Override
@@ -44,6 +47,7 @@ public class Deadline extends Task {
 
     /**
      * A string representation of the end time of the task, if any.
+     *
      * @return a formatted string that shows the end time of the task.
      */
     @Override
@@ -59,7 +63,8 @@ public class Deadline extends Task {
 
     }
     /**
-     * A string that is used to store the task content into the hard drive
+     * A string that is used to store the task content into the hard drive.
+     *
      * @return string representation of the task for storage.
      */
     @Override

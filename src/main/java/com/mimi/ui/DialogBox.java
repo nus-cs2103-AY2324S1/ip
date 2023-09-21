@@ -18,6 +18,7 @@ import javafx.scene.text.FontWeight;
 
 /**
  * A container that represents messages being created.
+ *
  * @author Yuheng
  */
 public class DialogBox extends HBox {
@@ -48,6 +49,7 @@ public class DialogBox extends HBox {
 
     /**
      * Creates an instance of DialogBox representing the user.
+     *
      * @param label represents the text to be displayed in the dialog box.
      * @param displayPicture represents the user icon.
      * @return an instance of DialogBox.
@@ -65,6 +67,7 @@ public class DialogBox extends HBox {
 
     /**
      * Creates an instance of DialogBox representing the bot.
+     *
      * @param label represents the text to be displayed in the dialog box.
      * @param displayPicture represents Mimi's icon.
      * @return an instance of DialogBox.

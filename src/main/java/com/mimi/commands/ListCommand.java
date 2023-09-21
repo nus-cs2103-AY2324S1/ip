@@ -5,6 +5,7 @@ import com.mimi.ui.Ui;
 
 /**
  * Representation of the List Command.
+ *
  * @author Yuheng
  */
 public class ListCommand extends Command {
@@ -12,6 +13,7 @@ public class ListCommand extends Command {
 
     /**
      * Creates an instance of the List Command.
+     *
      * @param storage an instance of Storage.
      */
     public ListCommand(Storage storage) {
@@ -28,6 +30,7 @@ public class ListCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override

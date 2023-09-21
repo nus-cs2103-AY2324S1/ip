@@ -14,6 +14,7 @@ public class ExitCommand extends Command {
 
     /**
      * Calls the ui to give the appropriate response based on the type of command.
+     *
      * @param ui Ui class instance
      */
     @Override
@@ -23,6 +24,7 @@ public class ExitCommand extends Command {
 
     /**
      * Checks if the command given is the command to exit.
+     *
      * @return returns true if the command is the exit command and false otherwise
      */
     @Override
