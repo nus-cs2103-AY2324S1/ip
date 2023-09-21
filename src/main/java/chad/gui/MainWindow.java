@@ -2,6 +2,7 @@ package chad.gui;
 
 import chad.Chad;
 import chad.util.Ui;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -53,5 +54,9 @@ public class MainWindow extends AnchorPane {
                 ChadDialogBox.getChadDialog(response, dukeImage)
         );
         userInput.clear();
+
+        if (input.equals("bye")) {
+            Platform.exit();
+        }
     }
 }
