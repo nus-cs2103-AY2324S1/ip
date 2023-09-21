@@ -1,5 +1,41 @@
 # User Guide for Hong
 
+I am your personal assistant and will help you to keep track of your tasks!
+
+## Features 
+
+### List all tasks `list`
+
+Lists all the tasks that are currently stored.
+
+### add a todo task `todo`
+
+Adds a todo task
+
+### add an event task `event`
+
+A event task will be added to the task list. DateTimes are processed in YYYY-MM-DD 24HRS format.
+
+### add a deadline task `deadline`
+
+A deadline task will be added to the task list. DateTimes are processed in YYYY-MM-DD 24HRS format.
+
+### snooze an event/deadline `snooze`
+
+Snoozes a deadline or event. For deadlines, the due date is increased by 1 day. For events, the end date is increased by 1 day.
+
+### delete a task `delete`
+
+Deletes the task at that specific index.
+
+### mark a task as done `mark`
+
+Marks a task as done.
+
+### find a task `find`
+
+Find all the similar tasks.
+
 ## Features 
 
 ### List all tasks `list`
