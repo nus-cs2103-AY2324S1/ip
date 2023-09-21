@@ -20,6 +20,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
+/**
+ * Duke class that extends Application, This Duke class is the central and
+ * handles the user input, and output to the user through GUI
+ * Credit to: https://se-education.org/guides/tutorials/javaFx.html
+ */
 public class Duke extends Application {
 
     private ScrollPane scrollPane;
