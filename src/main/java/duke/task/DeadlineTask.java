@@ -3,7 +3,7 @@ package duke.task;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import duke.Duke;
+import duke.exception.DukeWrongCommandFormatException;
 
 /**
  * A task with a deadline.
@@ -14,12 +14,12 @@ public final class DeadlineTask extends Task {
     /**
      * Creates a deadline task.
      * @param task The input string.
-     * @throws Duke.DukeWrongCommandFormatException If the input string is in the wrong format.
+     * @throws DukeWrongCommandFormatException If the input string is in the wrong format.
      */
-    public DeadlineTask(String task) throws Duke.DukeWrongCommandFormatException {
+    public DeadlineTask(String task) throws DukeWrongCommandFormatException {
         String description = getDescription(task);
         if (description == null) {
-            throw new Duke.DukeWrongCommandFormatException("Whopsie daisies! I don't understand that format!");
+            throw new DukeWrongCommandFormatException("Whopsie daisies! I don't understand that format!");
         }
         this.description = description;
     }

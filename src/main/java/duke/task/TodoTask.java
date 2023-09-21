@@ -1,6 +1,6 @@
 package duke.task;
 
-import duke.Duke;
+import duke.exception.DukeWrongCommandFormatException;
 
 /**
  * A task that needs to be done.
@@ -9,12 +9,12 @@ public final class TodoTask extends Task {
     /**
      * Creates a todo task.
      * @param task The input string.
-     * @throws Duke.DukeWrongCommandFormatException If the input string is in the wrong format.
+     * @throws DukeWrongCommandFormatException If the input string is in the wrong format.
      */
-    public TodoTask(String task) throws Duke.DukeWrongCommandFormatException {
+    public TodoTask(String task) throws DukeWrongCommandFormatException {
         String description = getDescription(task);
         if (description == null) {
-            throw new Duke.DukeWrongCommandFormatException("Whopsie daisies! I don't understand that format!");
+            throw new DukeWrongCommandFormatException("Whopsie daisies! I don't understand that format!");
         }
         this.description = description;
     }

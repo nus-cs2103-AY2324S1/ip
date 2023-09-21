@@ -3,7 +3,9 @@ package duke.task;
 import java.time.DateTimeException;
 import java.time.format.DateTimeFormatter;
 
-import duke.Duke;
+import duke.exception.DukeInvalidCommandException;
+import duke.exception.DukeInvalidFileException;
+import duke.exception.DukeWrongCommandFormatException;
 
 /**
  * Abstract implementation of {@code Task}
@@ -17,14 +19,14 @@ public abstract class Task implements Comparable<Task> {
      * Creates a new {@code Task}
      * @param task String representation of a task
      * @return Task
-     * @throws Duke.DukeInvalidCommandException if the command is invalid
-     * @throws Duke.DukeWrongCommandFormatException if the format is invalid
+     * @throws DukeInvalidCommandException if the command is invalid
+     * @throws DukeWrongCommandFormatException if the format is invalid
      */
     public static Task createTask(String task)
-            throws Duke.DukeInvalidCommandException, Duke.DukeWrongCommandFormatException {
+            throws DukeInvalidCommandException, DukeWrongCommandFormatException {
         TaskType taskType = getTaskType(task);
         if (taskType == null) {
-            throw new Duke.DukeInvalidCommandException("Whopsie daisies! I don't understand that command!");
+            throw new DukeInvalidCommandException("Whopsie daisies! I don't understand that command!");
         }
 
         switch (taskType) {
@@ -43,11 +45,11 @@ public abstract class Task implements Comparable<Task> {
      * Loads a task from a file
      * @param fileTask String representation of a task
      * @return Task
-     * @throws Duke.DukeWrongCommandFormatException if the file is corrupted
-     * @throws Duke.DukeInvalidFileException if the file is corrupted
+     * @throws DukeWrongCommandFormatException if the file is corrupted
+     * @throws DukeInvalidFileException if the file is corrupted
      */
     public static Task loadTask(String fileTask)
-            throws Duke.DukeWrongCommandFormatException, Duke.DukeInvalidFileException {
+            throws DukeWrongCommandFormatException, DukeInvalidFileException {
         String[] taskDetails = fileTask.split(" \\| ");
         try {
             TaskType taskType = TaskType.valueOf(taskDetails[0]);
@@ -65,7 +67,7 @@ public abstract class Task implements Comparable<Task> {
                 return null;
             }
         } catch (NullPointerException | IllegalArgumentException | DateTimeException e) {
-            throw new Duke.DukeInvalidFileException("File is corrupted!");
+            throw new DukeInvalidFileException("File is corrupted!");
         }
     }
 
