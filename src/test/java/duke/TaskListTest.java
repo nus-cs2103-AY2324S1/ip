@@ -22,5 +22,6 @@ public class TaskListTest {
         tl.addTask(t);
         assertEquals(numOfTasks + 1, tl.tasks.size());
         assertEquals(t, tl.tasks.get(tl.tasks.size() - 1));
+        tl.deleteTask(tl.tasks.size() - 1);
     }
 }

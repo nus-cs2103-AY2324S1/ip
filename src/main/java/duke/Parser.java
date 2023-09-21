@@ -31,16 +31,16 @@ public class Parser {
             } else if (command.startsWith("mark")) {
                 return this.taskList.markTask(Integer.valueOf(command.split(" ")[1]) - 1);
             } else if (command.startsWith("todo")) {
-                ToDo newToDo = createToDoFromCommand();
+                ToDo newToDo = this.createToDoFromCommand();
                 return this.taskList.addTask(newToDo);
             } else if (command.startsWith("deadline")) {
-                Deadline newDeadline = createDeadlineFromCommand();
+                Deadline newDeadline = this.createDeadlineFromCommand();
                 return this.taskList.addTask(newDeadline);
             } else if (command.startsWith("event")) {
-                Event newEvent = createEventFromCommand();
+                Event newEvent = this.createEventFromCommand();
                 return this.taskList.addTask(newEvent);
             } else if (command.startsWith("fixedduration")) {
-                FixedDurationTask newFixedDurationTask = createFixedDurationTaskFromCommand();
+                FixedDurationTask newFixedDurationTask = this.createFixedDurationTaskFromCommand();
                 return this.taskList.addTask(newFixedDurationTask);
             } else if (command.startsWith("delete")) {
                 return this.taskList.deleteTask(Integer.valueOf(command.split(" ")[1]) - 1);
@@ -64,7 +64,7 @@ public class Parser {
      *
      * @return The new FixedDurationTask.
      */
-    private FixedDurationTask createFixedDurationTaskFromCommand() {
+    protected FixedDurationTask createFixedDurationTaskFromCommand() {
         String name = command.split(" /for ", 2)[0].split(" ", 2)[1];
         String duration = command.split(" /for ", 2)[1];
         FixedDurationTask newFixedDurationTask = new FixedDurationTask(name, duration);
@@ -76,7 +76,7 @@ public class Parser {
      *
      * @return The new Event.
      */
-    private Event createEventFromCommand() {
+    protected Event createEventFromCommand() {
         LocalDate startTime = LocalDate.parse(command.split(" /from ", 2)[1]
                 .split(" /to ", 2)[0]);
         LocalDate endTime = LocalDate.parse(command.split(" /to ", 2)[1]);
@@ -90,7 +90,11 @@ public class Parser {
      *
      * @return The new Deadline.
      */
-    private Deadline createDeadlineFromCommand() {
+    protected Deadline createDeadlineFromCommand() {
+        if (command.indexOf("/by") == -1) {
+            throw new DukeException(" Please specify the deadline using /by");
+        }
+
         LocalDate deadline = LocalDate.parse(command.split(" /by ", 2)[1]);
         String name = command.split(" /by ", 2)[0].split(" ", 2)[1];
         Deadline newDeadline = new Deadline(name, deadline);
@@ -102,10 +106,11 @@ public class Parser {
      *
      * @return The new ToDo.
      */
-    private ToDo createToDoFromCommand() {
+    protected ToDo createToDoFromCommand() {
         if (command.split(" ", 2).length == 1) {
             throw new DukeException(" OOPS!!! The description of a todo cannot be empty.");
         }
+
         ToDo newToDo = new ToDo(command.split(" ", 2)[1]);
         return newToDo;
     }
