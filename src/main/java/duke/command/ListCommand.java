@@ -13,8 +13,8 @@ public class ListCommand extends Command {
     private static final String COMMAND_RESPONSE = "Here are the list of tasks:\n";
 
     @Override
-    public String execute(TaskList tasks, Storage storage) {
-        return COMMAND_RESPONSE + tasks.getFormattedList();
+    public CommandResult execute(TaskList tasks, Storage storage) {
+        return new CommandResult(COMMAND_RESPONSE + tasks.getFormattedList());
     }
 
 }

@@ -19,10 +19,10 @@ public class MarkCommand extends ModifyTaskCommand {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = tasks.mark(taskIndex);
         storage.save(tasks);
-        return COMMAND_RESPONSE + task;
+        return new CommandResult(COMMAND_RESPONSE + task);
     }
 
 }

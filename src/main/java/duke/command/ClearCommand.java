@@ -14,10 +14,10 @@ public class ClearCommand extends Command {
     private static final String COMMAND_RESPONSE = "Got it. I've cleared all tasks.";
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
         tasks.clear();
         storage.save(tasks);
-        return COMMAND_RESPONSE;
+        return new CommandResult(COMMAND_RESPONSE);
     }
 
 }

@@ -19,6 +19,6 @@ public abstract class Command {
      * @return The response by the bot.
      * @throws DukeException If there is any issue with the constructed command.
      */
-    public abstract String execute(TaskList tasks, Storage storage) throws DukeException;
+    public abstract CommandResult execute(TaskList tasks, Storage storage) throws DukeException;
 
 }

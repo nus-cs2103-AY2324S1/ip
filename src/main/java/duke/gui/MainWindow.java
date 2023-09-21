@@ -1,7 +1,8 @@
 package duke.gui;
 
 import duke.Duke;
-import duke.parser.Parser;
+import duke.command.CommandResult;
+import duke.data.exception.DukeException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -43,17 +44,31 @@ public class MainWindow extends AnchorPane {
         if (input.trim().isEmpty()) {
             return;
         }
-
-        String response = duke.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input),
-                DialogBox.getDukeDialog(response)
-        );
         userInput.clear();
+        addUserDialog(input);
 
-        if (Parser.isExitCommand(input)) {
-            userInput.setDisable(true);
-            sendButton.setDisable(true);
+        try {
+            CommandResult commandResult = duke.getResponse(input);
+            addDukeDialog(commandResult.getResponseToUser());
+
+            if (commandResult.isExit()) {
+                handleExit();
+            }
+        } catch (DukeException e) {
+            addDukeDialog(e.getMessage());
         }
+    }
+
+    private void addUserDialog(String message) {
+        dialogContainer.getChildren().add(DialogBox.getUserDialog(message));
+    }
+
+    private void addDukeDialog(String message) {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(message));
+    }
+
+    private void handleExit() {
+        userInput.setDisable(true);
+        sendButton.setDisable(true);
     }
 }

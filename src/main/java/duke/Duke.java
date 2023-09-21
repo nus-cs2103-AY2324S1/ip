@@ -1,6 +1,7 @@
 package duke;
 
 import duke.command.Command;
+import duke.command.CommandResult;
 import duke.data.exception.DukeException;
 import duke.data.exception.StorageLoadException;
 import duke.data.task.TaskList;
@@ -44,13 +45,9 @@ public class Duke {
      * @param input The input by the user.
      * @return The response by the chatbot.
      */
-    public String getResponse(String input) {
-        try {
-            Command command = Parser.parse(input);
-            return command.execute(tasks, storage);
-        } catch (DukeException e) {
-            return e.getMessage();
-        }
+    public CommandResult getResponse(String input) throws DukeException {
+        Command command = Parser.parse(input);
+        return command.execute(tasks, storage);
     }
 
 }

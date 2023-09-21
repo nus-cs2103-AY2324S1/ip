@@ -13,8 +13,8 @@ public class ExitCommand extends Command {
     private static final String COMMAND_RESPONSE = "Bye. Hope to see you again soon!";
 
     @Override
-    public String execute(TaskList tasks, Storage storage) {
-        return COMMAND_RESPONSE;
+    public CommandResult execute(TaskList tasks, Storage storage) {
+        return new CommandResult(COMMAND_RESPONSE, true);
     }
 
 }

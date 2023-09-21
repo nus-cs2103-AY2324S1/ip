@@ -19,10 +19,10 @@ public class DeleteCommand extends ModifyTaskCommand {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
         Task task = tasks.remove(taskIndex);
         storage.save(tasks);
-        return COMMAND_RESPONSE_SUCCESS + task;
+        return new CommandResult(COMMAND_RESPONSE_SUCCESS + task);
     }
 
 }

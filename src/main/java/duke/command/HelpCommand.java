@@ -12,8 +12,8 @@ public class HelpCommand extends Command {
     public static final String COMMAND_DESCRIPTION = COMMAND_WORD + ": Displays all commands.";
 
     @Override
-    public String execute(TaskList tasks, Storage storage) {
-        return ClearCommand.COMMAND_DESCRIPTION
+    public CommandResult execute(TaskList tasks, Storage storage) {
+        String responseToUser = ClearCommand.COMMAND_DESCRIPTION
                 + "\n" + AddDeadlineCommand.COMMAND_DESCRIPTION
                 + "\n" + DeleteCommand.COMMAND_DESCRIPTION
                 + "\n" + ExitCommand.COMMAND_DESCRIPTION
@@ -23,6 +23,7 @@ public class HelpCommand extends Command {
                 + "\n" + MarkCommand.COMMAND_DESCRIPTION
                 + "\n" + AddTodoCommand.COMMAND_DESCRIPTION
                 + "\n" + UnmarkCommand.COMMAND_DESCRIPTION;
+        return new CommandResult(responseToUser);
     }
 
 }

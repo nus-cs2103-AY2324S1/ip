@@ -27,9 +27,9 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) {
         TaskList filteredTasks = tasks.filter(keyword);
-        return COMMAND_RESPONSE + filteredTasks.getFormattedList();
+        return new CommandResult(COMMAND_RESPONSE + filteredTasks.getFormattedList());
     }
 
 }

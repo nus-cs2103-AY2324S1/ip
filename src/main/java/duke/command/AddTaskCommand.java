@@ -20,9 +20,9 @@ public abstract class AddTaskCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Storage storage) throws DukeException {
+    public CommandResult execute(TaskList tasks, Storage storage) throws DukeException {
         tasks.add(toAdd);
         storage.save(tasks);
-        return getCommandResponse(tasks);
+        return new CommandResult(getCommandResponse(tasks));
     }
 }

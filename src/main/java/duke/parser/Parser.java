@@ -188,22 +188,5 @@ public class Parser {
         return new FindCommand(matcher.group("keyword"));
     }
 
-    /**
-     * Returns true if the input matches an exit command,
-     * else returns false.
-     *
-     * @param input The user input.
-     * @return true if the input matches an exit command, false otherwise.
-     */
-    public static boolean isExitCommand(String input) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(input.trim());
-        if (!matcher.matches()) {
-            return false;
-        }
-
-        final String commandWord = matcher.group("commandWord");
-        return commandWord.equals(ExitCommand.COMMAND_WORD);
-    }
-
 }
 
