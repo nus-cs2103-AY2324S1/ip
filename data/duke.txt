@@ -1,0 +1,4 @@
+D | 0 | return book | 2023-09-11T13:30
+E | 0 | project meeting | 2023-09-11T10:30 | 2023-09-11T12:30
+T | 1 | join sports club
+T | 1 | read book
