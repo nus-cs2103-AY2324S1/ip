@@ -53,7 +53,8 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of the task, including its completion status icon and description.
+     * Returns a string representation of the task, including its completion status icon 
+     * and description.
      *
      * @return A formatted string representing the task.
      */
@@ -79,7 +80,7 @@ public abstract class Task {
     public static Task createTaskFromDataString(String dataString) throws DukdukException {
         String[] parts = dataString.split(" \\| ");
         if (parts.length < 3) {
-            throw new DukdukException("Invalid task data format: " + dataString);
+            throw new DukdukException("QUACK!!! Invalid task data format: " + dataString);
         }
         String type = parts[0];
         String description = parts[2];
@@ -92,17 +93,19 @@ public abstract class Task {
                     String byString = parts[3];
                     return createDeadlineTask(description, byString);
                 } else {
-                    throw new DukdukException("Invalid Deadline task data format: " + dataString);
+                    throw new DukdukException("QUACK!!! Invalid Deadline task data format: " +
+                            dataString);
                 }
             case "E":
                 if (parts.length >= 4) {
                     String eventTiming = parts[3];
                     return createEventTask(description, eventTiming, dataString);
                 } else {
-                    throw new DukdukException("Invalid Event task data format: " + dataString);
+                    throw new DukdukException("QUACK!!! Invalid Event task data format: " + 
+                            dataString);
                 }
             default:
-                throw new DukdukException("Invalid task type in data string: " + type);
+                throw new DukdukException("QUACKKK!!! Invalid task type in data string: " + type);
         }
     }
 
@@ -150,8 +153,7 @@ public abstract class Task {
                     DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
             return new Event(description, fromDateTime, toDateTime);
         } else {
-            throw new DukdukException("Invalid Event task data format: " + dataString);
+            throw new DukdukException("QUACKKK!!! Invalid Event task data format: " + dataString);
         }
     }
 }
-
