@@ -9,7 +9,7 @@ public class Deadline extends Task {
 
     public Deadline(String d, String date, String time) {
         super(d);
-        this.date = date;
+        this.date = (date == null) ? TimeParser.getTodayString() : date;
         this.time = time;
     }
 
@@ -26,24 +26,25 @@ public class Deadline extends Task {
         if (this.isComplete) {
             marker = "☑";
         }
-        String timeString;
-        timeString = (this.time == null) ? "" : (" " + this.time);
-        return  "DEADLINE:" + " " + this.description
-                + " (by: " + this.date + timeString + ") "
+        String dateString = (this.date == null) ? "" : (" " + this.date);
+        String timeString = (this.time == null) ? "" : (" " + this.time);
+        return  "\uD83C\uDD73:" + " " + this.description
+                + " (by: " + dateString + timeString + ") "
                 + marker + "\n";
     }
 
     @Override
     public String writeToFile() {
         int mark = isComplete ? 1 : 0;
-        String data = 2 + " " + mark + description + "/" + TimeParser.parseDateForFile(this.date)
-                + TimeParser.parseTimeForFile(this.time) + System.lineSeparator();
+        String timeString = (this.time == null) ? "" : (", " + TimeParser.parseTimeForFile(this.time));
+        String data = 2 + " " + mark + description + "/" + TimeParser.parseDateForFile(this.date) + timeString
+                + System.lineSeparator();
         return data;
     }
 
     @Override
     public String getTaskInEditFormat() {
-        return "deadline" + description + " /by " + TimeParser.parseDateForFile(this.date)
-                + TimeParser.parseTimeForFile(this.time);
+        String timeString = (this.time == null) ? "" : (", " + TimeParser.parseTimeForFile(this.time));
+        return "deadline" + description + " /by " + TimeParser.parseDateForFile(this.date) + timeString;
     }
 }
