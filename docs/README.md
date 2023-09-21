@@ -1,4 +1,4 @@
-# User Guide
+# Chat Bot User Guide
 
 ## Features 
 

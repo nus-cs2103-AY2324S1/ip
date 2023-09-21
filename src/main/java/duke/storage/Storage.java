@@ -1,10 +1,9 @@
 package duke.storage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import duke.Duke;
 import duke.dates.Dates;
 import duke.task.ItemList;
@@ -23,7 +22,7 @@ public class Storage {
     public Storage() {
         try {
             this.items = loadAll();
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             this.items = new ItemList(new File(Duke.LISTPATH));
             UI.printMessage("List not found, empty list will be created");
         }
@@ -86,9 +85,8 @@ public class Storage {
     public ItemList getItems() {
         return this.items;
     }
-    private static ItemList loadAll() throws FileNotFoundException {
-        File file = new File(Duke.LISTPATH);
-        assert file.isFile() : "The provided path does not point to a valid file: " + Duke.LISTPATH;
+    private static ItemList loadAll() throws IOException {
+        File file = getFile();
         ArrayList<Task> items = new ArrayList<>();
         int noOfItems = 0;
         Scanner s = new Scanner(file);
@@ -113,5 +111,18 @@ public class Storage {
         }
         s.close();
         return new ItemList(file, noOfItems, items);
+    }
+
+    private static File getFile() throws IOException {
+        File file = new File(Duke.LISTPATH);
+        if (!file.exists()) {
+            File parentDirectory = file.getParentFile();  // get the parent directory, which is 'data' in this case
+            if (!parentDirectory.exists()) {
+                parentDirectory.mkdirs();  // create the directory if it doesn't exist
+            }
+            file.createNewFile();  // create the file inside the directory
+        }
+        assert file.isFile() : "The provided path does not point to a valid file: " + Duke.LISTPATH;
+        return file;
     }
 }
