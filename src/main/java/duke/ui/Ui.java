@@ -107,7 +107,7 @@ public class Ui {
 
 	public String greet() {
 		String greeting = String.format(
-				LOGO + "\n" +
+//				LOGO + "\n" +
 						"Hello! I'm %s\n" +
 						"What can I do for you?\n" +
 						"Type help into the console to find out what you can do!", this.name);
@@ -121,9 +121,7 @@ public class Ui {
 	 * @return String representation of goodbye.
 	 */
 	public String showGoodBye() {
-		String bye = "____________________________________________________________\n" +
-				"Bye. Hope to see you again soon!\n" +
-				"____________________________________________________________";
+		String bye = "Bye. Hope to see you again soon!\n";
 		return bye;
 	}
 
@@ -136,11 +134,11 @@ public class Ui {
 	 */
 
 	public String showDelete(Task task, String remainingCount) {
-		String echo = String.format("____________________________________________________________\n" +
+		String echo = String.format(
 				"Noted. I've removed this task:\n" +
 				"%s\n" +
-				"Now you have %s tasks in the list.\n" +
-				"____________________________________________________________", task.toString(), remainingCount);
+				"Now you have %s tasks in the list.\n"
+				, task.toString(), remainingCount);
 		return echo;
 	}
 
@@ -153,11 +151,11 @@ public class Ui {
 	 */
 
 	public String showAddTask(Task task, String taskCount) {
-		String echo = String.format("____________________________________________________________\n" +
+		String echo = String.format(
 				"Got it. I've added this task:\n" +
 				"%s\n" +
-				"Now you have %s tasks in the list\n" +
-				"____________________________________________________________", task.toString(), taskCount);
+				"Now you have %s tasks in the list\n"
+				, task.toString(), taskCount);
 		return echo;
 	}
 

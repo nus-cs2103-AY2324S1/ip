@@ -175,12 +175,14 @@ public class Parser {
 
 	public static DeadLine getDeadLine(String fullCommand) throws DukeException, TimeFormatException {
 		String[] items = fullCommand.split("/");
+		if (items.length == 1) {
+			throw new DukeException("Remember to indicate time /by");
+		}
 		String[] descriptionWords = items[0].split(" ");
 		String description = Parser.getDescription(items[0]);
 		String timePhrase = items[1];
 		String[] timeDate = timePhrase.split(" ");
 		boolean isValidFormat = items.length == 2 && timePhrase.split(" ")[0].equals("by") && descriptionWords.length >= 1 && timeDate.length == 3;
-
 		if (!isValidFormat) {
 			throw new DukeException("enter deadline like this, deadline description /by:");
 		}

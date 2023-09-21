@@ -84,7 +84,7 @@ public class TimeFormat {
 			dateFormatBuilder.append(year).append("-").append(monthValue(month)).append("-").append(day).append("T").append(formatTime);
 			return LocalDateTime.parse(dateFormatBuilder.toString());
 		} catch (ParseException | IllegalArgumentException | DateTimeParseException e) {
-			throw new TimeFormatException("format of time is not right, enter it as /by 630pm 18june\n" + e.getMessage());
+			throw new TimeFormatException("format of time is not right \n" + e.getMessage());
 		}
 	}
 	/**

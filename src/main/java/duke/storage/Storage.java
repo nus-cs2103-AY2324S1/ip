@@ -36,8 +36,6 @@ public class Storage {
 		this.filePathArchive = filePathArchive;
 		this.taskList = new TaskList();
 		this.archiveList = new TaskList();
-//		this.taskList = new ArrayList<Task>(100);
-//		this.archiveList = new ArrayList<>(100);
 	}
 
 	/**
@@ -194,8 +192,9 @@ public class Storage {
 
 		try {
 			Task taskDeleted = taskListReference.remove(i);
-			FileWriter fw = new FileWriter(filePathReference, true);
-			for (Task task: taskList.getTaskList()) {
+			// don't want to append
+			FileWriter fw = new FileWriter(filePathReference);
+			for (Task task: taskListReference.getTaskList()) {
 				fw.write(task.writeToFile());
 				fw.write("\n");
 			}
