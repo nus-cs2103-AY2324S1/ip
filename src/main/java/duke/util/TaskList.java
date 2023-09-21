@@ -212,7 +212,7 @@ public class TaskList {
             }
         }
 
-        if(filteredList.isEmpty()) {
+        if (filteredList.isEmpty()) {
             filteredList.add("No results match your filter");
         }
 
