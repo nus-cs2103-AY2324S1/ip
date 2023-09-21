@@ -45,7 +45,7 @@ public class Ui {
     }
 
     public String showErrorMessage(String message){
-        return "You have keyed in the wrong value. Please try again.";
+        return message;
     }
 
     /**

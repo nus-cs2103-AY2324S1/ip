@@ -1,17 +1,6 @@
 package chatbot.parser;
 
-import chatbot.commands.Command;
-import chatbot.commands.DeadlineCommand;
-import chatbot.commands.DeleteCommand;
-import chatbot.commands.EventCommand;
-import chatbot.commands.ExitCommand;
-import chatbot.commands.FindCommand;
-import chatbot.commands.HelpCommand;
-import chatbot.commands.InvalidCommand;
-import chatbot.commands.ListCommand;
-import chatbot.commands.MarkCommand;
-import chatbot.commands.TodoCommand;
-import chatbot.commands.UnmarkCommand;
+import chatbot.commands.*;
 
 import chatbot.exceptions.DukeException;
 
@@ -26,26 +15,31 @@ public class Parser {
      * @throws DukeException If the user input is not valid
      */
     public static boolean isValid (String command) throws DukeException {
+        String firstString = command.split(" ")[0];
+
         if (command.equals("list") || command.equals("bye")) {
             return true;
-        } else if (command.split(" ")[0].equals("todo") && command.split(" ")[1].length() < 1) {
-            throw new DukeException("Error! Please include a description of the todo. Eg. todo run");
-        } else if (command.split(" ")[0].equals("deadline") && command.split(" ")[1].length() < 1
+        } else if (firstString.equals("todo") && command.split(" ").length < 2) {
+            throw new DukeException("Error! Please include a description of the todo.\n" +
+                    "Eg. todo run");
+        } else if (firstString.equals("deadline") && command.split(" ").length < 2
                 && !command.contains("/by")) {
-            throw new DukeException("Error! Input should have a description and date. " +
+            throw new DukeException("Error! Input should have a description and date.\n" +
                     "Eg. deadline assignment /by dd-MM-yyyy HH:mm:ss");
-        } else if (command.split(" ")[0].equals("event") && command.split(" ")[1].length() < 1){
-            throw new DukeException("Error! Input should have a description.");
-        } else if (command.split(" ")[0].equals("event") && !command.contains("/from")) {
-            throw new DukeException("Error! Input should have a start date." +
+        } else if (firstString.equals("event") && command.split(" ").length < 2){
+            throw new DukeException("Error! Input should have a description.\n" +
                     "Eg. event sports day /from dd-MM-yyyy HH:mm:ss /to dd-MM-yyyy HH:mm:ss");
-        } else if (command.split(" ")[0].equals("event") && !command.contains("/to")) {
-            throw new DukeException("Error! Input should have an end date." +
+        } else if (firstString.equals("event") && !command.contains("/from")) {
+            throw new DukeException("Error! Input should have a start date.\n" +
                     "Eg. event sports day /from dd-MM-yyyy HH:mm:ss /to dd-MM-yyyy HH:mm:ss");
-        } else if (command.split(" ")[0].equals("mark") && command.split(" ")[1].length() < 1) {
-            throw new DukeException("Error! Please include a description of the task to be marked.");
-        } else if (command.split(" ")[0].equals("unmark") && command.split(" ")[1].length() < 1) {
-            throw new DukeException("Error! Please include a description of the task to be unmarked");
+        } else if (firstString.equals("event") && !command.contains("/to")) {
+            throw new DukeException("Error! Input should have an end date.\n" +
+                    "Eg. event sports day /from dd-MM-yyyy HH:mm:ss /to dd-MM-yyyy HH:mm:ss");
+        } else if (firstString.equals("mark") && command.split(" ").length < 2) {
+            throw new DukeException("Error! Please include the index of the task to be marked. " +
+                    "Index starts from 0.");
+        } else if (firstString.equals("unmark") && command.split(" ").length < 2) {
+            throw new DukeException("Error! Please include the index of the task to be unmarked. Index starts from 0.");
         } else {
             return true;
         }
@@ -59,7 +53,11 @@ public class Parser {
      */
     public static Command parse(String command) throws DukeException {
 
-        isValid(command);
+        try {
+            isValid(command);
+        } catch (DukeException e){
+            return new ErrorCommand(e.getMessage());
+        }
 
         if (command.equals("bye")) {
             return new ExitCommand();

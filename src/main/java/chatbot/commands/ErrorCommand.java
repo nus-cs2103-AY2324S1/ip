@@ -4,7 +4,13 @@ import chatbot.storage.Storage;
 import chatbot.tasks.TaskList;
 import chatbot.ui.Ui;
 
-public class InvalidCommand extends Command{
+public class ErrorCommand extends Command{
+
+    private String message;
+
+    public ErrorCommand(String message){
+        this.message = message;
+    }
 
     /**
      * Returns a boolean value to indicate whether to exit the program
@@ -23,6 +29,6 @@ public class InvalidCommand extends Command{
      */
     @Override
     public String execute(TaskList tasksList, Ui ui, Storage storage) {
-        return ui.showInvalid();
+        return ui.showErrorMessage(message);
     }
 }
