@@ -105,8 +105,8 @@ public class Parser {
         String type = "E";
         String[] task = getTask(type, input);
         ArrayList<String> tags = new ArrayList<>();
-        String[] tagsList = task[1].split(" ");
-        if (!tagsList[3].equals("")) {
+        String[] tagsList = task[3].split(" ");
+        if (!tagsList[0].equals("")) {
             tags.addAll(Arrays.asList(tagsList));
         }
         return new AddCommand(type, task[0], parseDateTime(task[1]), parseDateTime(task[2]), tags);
