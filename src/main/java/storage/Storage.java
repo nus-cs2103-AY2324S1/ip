@@ -16,6 +16,8 @@ public class Storage {
 
     private DataWriter dataWriter;
 
+
+
     /**
      * Constructs a Storage instance with the specified file path.
      *
@@ -23,8 +25,8 @@ public class Storage {
      */
     public Storage(String path) {
         Storage.path = path;
-        this.dataReader = new DataReader(path);
-        this.dataWriter = new DataWriter(path);
+        this.dataReader = new DataReader();
+        this.dataWriter = new DataWriter();
     }
 
     /**

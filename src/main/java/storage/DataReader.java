@@ -1,28 +1,15 @@
 package storage;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 import parser.DataParser;
 import tasks.Task;
+import parser.TaskParser;
 
-/**
- * The DataReader class is responsible for reading task data from a storage file and converting it into Task objects.
- */
 public class DataReader {
 
-    private static String path;
-
-    /**
-     * Constructs a DataReader instance with the specified file path.
-     *
-     * @param path The file path of the storage file to be read.
-     */
-    public DataReader(String path) {
-        DataReader.path = path;
-    }
+    private static final String FILE_PATH = "src" + File.separator + "data" + File.separator + "tasks.txt";
 
     /**
      * Reads tasks from the storage file and converts them into an ArrayList of Task objects.
@@ -31,18 +18,34 @@ public class DataReader {
      */
     public static ArrayList<Task> readTasksFromFile() {
         ArrayList<Task> tasksList = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(DataReader.path))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = DataParser.parseLineToTask(line);
-                if (task != null) {
-                    tasksList.add(task);
+
+        // Read the file line by line
+        File file = new File(FILE_PATH);
+        try {
+            if (!file.exists()) {
+                System.out.println("The file does not exist. Creating a new one.");
+                if (file.createNewFile()) {
+                    System.out.println("File created: " + FILE_PATH);
+                } else {
+                    System.out.println("Failed to create the file.");
                 }
+            } else {
+                // File exists, read its content
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Task task = DataParser.parseLineToTask(line);
+                    if (task != null) {
+                        tasksList.add(task);
+                    }
+                }
+                reader.close();
+                return tasksList;
             }
         } catch (IOException e) {
-            System.out.println("Error reading the file or the file doesn't exist.");
-            System.out.println("Please try again after ensuring the correctness of the file.");
+            System.out.println("Error: " + e.getMessage());
         }
+
         return tasksList;
     }
 }
