@@ -1,0 +1,12 @@
+a -> alias
+d -> deadline
+del -> delete
+e -> event
+exit -> bye
+f -> find
+ld -> load
+ls -> list
+m -> mark
+pd -> print_date
+s -> sort
+um -> unmark

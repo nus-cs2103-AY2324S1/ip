@@ -46,25 +46,6 @@ public class Response {
     }
 
     /**
-     * Connects multiple responses into one. The message of the new
-     * response is the concatenation of the messages of the given responses.
-     * If any of the given responses is an error response, the new response
-     * is also an error response.
-     *
-     * @param responses The responses to be connected.
-     * @return The connected response.
-     */
-    public static Response connectResponses(Response... responses) {
-        StringBuilder stringBuilder = new StringBuilder();
-        boolean isError = false;
-        for (Response response : responses) {
-            stringBuilder.append(response.message);
-            isError = isError || response.isError;
-        }
-        return new Response(stringBuilder.toString(), isError);
-    }
-
-    /**
      * Returns whether the response is an error response.
      *
      * @return True if the response is an error response, false otherwise.
