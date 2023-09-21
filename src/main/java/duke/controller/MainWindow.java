@@ -20,15 +20,13 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
     private Cleo cleo;
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.png")));
     private final Image errorImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/sleeping_cleo.gif")));
     private final Image questionMarkImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/question_mark.png")));
     private final Image cleoImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/dancing_cleo.gif")));
 
-    private final AudioClip plonkSound = new AudioClip(getClass().getResource("/audio/click.mp3").toExternalForm());
+    private final AudioClip plonkSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/click.mp3")).toExternalForm());
 
     @FXML
     public void initialize() {

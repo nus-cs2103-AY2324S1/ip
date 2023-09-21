@@ -1,6 +1,8 @@
 package duke.controller;
 
 import java.io.IOException;
+import java.util.Objects;
+
 import duke.main.Cleo;
 
 import javafx.application.Application;
@@ -15,7 +17,7 @@ import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private Cleo cleo = new Cleo("tasks.json");
+    private final Cleo cleo = new Cleo("tasks.json");
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +25,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            String css = this.getClass().getResource("/css/main.css").toExternalForm();
+            String css = Objects.requireNonNull(this.getClass().getResource("/css/main.css")).toExternalForm();
             scene.getStylesheets().add(css);
             stage.setScene(scene);
             stage.setTitle("Budget Cleo");

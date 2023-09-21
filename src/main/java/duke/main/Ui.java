@@ -26,15 +26,6 @@ public class Ui {
     }
 
     /**
-     * Prints out message with string wrapper.
-     *
-     * @param message Message to be printed.
-     */
-    public void showMessage(String message) {
-        System.out.println("     " + message);
-    }
-
-    /**
      * Prints out error message with string wrapper.
      *
      * @param error Error message to be printed.
