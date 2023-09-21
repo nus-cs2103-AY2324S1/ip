@@ -25,10 +25,9 @@ text.
 Ensure that you are downloading the latest version of `Java 11` from the websites which contain
 the `JavaFX` library prepackaged in it.
 
-> **⚠️Warning**  
-> If you decide not to use the above `Java 11` JDKs for any reason, ensure that the JDK you 
-> decide to use is at least `Java 11` and you install the relevant `JavaFX` library along with
-> the installation of the JDK!
+{% include warning.html content="If you decide not to use the above <pre>Java 11</pre> JDKs for 
+any reason, ensure that the JDK you decide to use is at least <pre>Java 11</pre> and you install 
+the relevant <pre>JavaFX</pre> library along with the installation of the JDK!" %}
 
 Next, head to [this website](https://github.com/asdfghjkxd/ip/releases) and download the latest JAR file 
 attached in the latest release of `Juke`.
@@ -72,13 +71,8 @@ no deadlines, and are represented only by its completion status!
 
 `todo [task name]`
 
-{% warning %}
-
-**⚠️Warning**    
-
-The task name you enter **cannot** just be one or more spaces (" ")!
-
-{% endwarning %}
+{% include warning.html content="The task name you enter <strong>cannot</strong>
+just be one or more spaces!" %}
 
 #### Examples
 
@@ -111,14 +105,14 @@ Create a `Deadline` Task to track completable tasks with a deadline!
 `deadline [task name] /by [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)MM(- OR /)YYYY)]`
 
 * Note the following
-    * `DD`: 2 digit number representing the day
-    * `MM`: 2 digit number representing the month
-    * `YYYY`: 4 digit number representing the year
-    * `HH`: 2 digit number representing the hour in 24 hours
-    * `MM`: 2 digit number representing the minutes
+    * `DD`: 2-digit number representing the day
+    * `MM`: 2-digit number representing the month
+    * `YYYY`: 4-digit number representing the year
+    * `HH`: 2-digit number representing the hour in 24 hours
+    * `MM`: 2-digit number representing the minutes
 
-> **⚠️Warning**  
-> The task name you enter **cannot** just be one or more spaces (" ")!
+{% include warning.html content="The task name you enter <strong>cannot</strong>
+just be one or more spaces!" %}
 
 #### Examples
 
@@ -160,11 +154,11 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
     * `HH`: 2-digit number representing the hour in 24 hours
     * `MM`: 2-digit number representing the minutes
 
-> **ℹ️ Note**  
-> The date formats used in `event` follows closely to what `deadline` uses!
+{% include note.html content="The date formats used in <pre>event</pre> follows closely to what 
+<pre>deadline</pre> uses!" %}
 
-> **⚠️Warning**  
-> The task name you enter **cannot** just be one or more spaces (" ")!
+{% include warning.html content="The task name you enter <strong>cannot</strong> 
+just be one or more spaces!" %}
 
 #### Examples
 
@@ -234,9 +228,8 @@ You can also delete a Task from `Juke` to remove any unwanted task from your tas
 delete [TASK INDEX]
 ```
 
-> **ℹ️ Note**  
-> The task index is relative to the current order of the task list! If you are not sure
-> what the order of the list is, use the `list` command!
+{% include note.html content="The task index is relative to the current order of the task list! 
+If you are not sure what the order of the list is, use the <pre>list</pre> command!" %}
 
 #### Examples
 
@@ -269,9 +262,8 @@ You can mark a Task as complete to help you track your incomplete tasks!
 mark [TASK INDEX]
 ```
 
-> **ℹ️ Note**  
-> The task index is relative to the current order of the task list! If you are not sure
-> what the order of the list is, use the `list` command!
+{% include note.html content="The task index is relative to the current order of the task list!
+If you are not sure what the order of the list is, use the <pre>list</pre> command!" %}
 
 #### Examples
 
@@ -285,8 +277,7 @@ If successful, `Juke` will respond with:
 Task marked as done: <TASK>
 ```
 
-> **ℹ️ Note**  
-> The task indicator will turn from `[ ]` to `[✓]`
+{% include note.html content="The task indicator will turn from <pre>[ ]</pre> to <pre>[✓]</pre>" %}
 
 #### Possible Errors
 
@@ -307,9 +298,8 @@ Conversely, you can also mark a Task as incomplete to help you track your comple
 unmark [TASK INDEX]
 ```
 
-> **ℹ️ Note**  
-> The task index is relative to the current order of the task list! If you are not sure
-> what the order of the list is, use the `list` command!
+{% include note.html content="The task index is relative to the current order of the task list! 
+If you are not sure what the order of the list is, use the <pre>list</pre> command!" %}
 
 #### Examples
 
@@ -323,13 +313,7 @@ If successful, `Juke` will respond with:
 Task marked as undone: <TASK>
 ```
 
-{% note %}
-
-**ℹ️ Note**  
-
-The task indicator will turn from `[✓]` to `[ ]`
-
-{% endnote %}
+{% include note.html content="The task indicator will turn from <pre>[✓]</pre> to <pre>[ ]</pre>" %}
 
 #### Possible Errors
 
@@ -351,11 +335,10 @@ for the Task that you are looking for!
 find [QUERY]
 ```
 
-> **ℹ️ Note**  
-> The query can be any valid task name String (does not contain the illegal character `|`)!
+{% include note.html content="The query can be any valid task name String (does not 
+contain the illegal character <pre>|</pre>)!" %}
 
-> **⚠️Warning**  
-> The task name you enter **cannot** just be one or more spaces (" ")!
+{% include warning.html content="The task name you enter <strong>cannot</strong> just be one or more spaces!" %}
 
 #### Examples
 
@@ -394,17 +377,21 @@ or descending order to help you be on task!
 sort [SORT ORDER] [SORT BY]
 ```
 
-> **ℹ️ Note**   
-> The values that `[SORT ORDER]` can take are:
-> * `a` OR `asc` OR `ascend` OR `ascending`: Sorts the list in ascending order
-> * `d` OR `desc` OR `descend` OR `descending`: Sorts the list in descending order
+{% include note.html content="The values that <pre>[SORT ORDER]</pre> can take are: <br>
+<ul>
+  <li><pre>a</pre> OR <pre>asc</pre> OR <pre>ascend</pre> OR <pre>ascending</pre>: Sorts the list in ascending order</li>
+  <li><pre>d</pre> OR <pre>desc</pre> OR <pre>descend</pre> OR <pre>descending</pre>: Sorts the list in descending order</li>
+</ul>
+" %}
 
-> **ℹ️ Note**  
-> The values that `[SORT BY]` can take are:
-> * `d` OR `des` OR `descript` OR `description`: Sorts the list by task description
-> * `s` OR `st` OR `start` OR `start date`: Sorts the list by start date
-> * `e` OR `en` OR `end` OR `end date`: Sorts the list by end date
-> * `d` OR `dead` OR `deadln` OR `deadline`: Sorts the list by deadline
+{% include note.html content="The values that <pre>[SORT BY]</pre> can take are:
+<ul>
+  <li><pre>d</pre> OR <pre>des</pre> OR <pre>descript</pre> OR <pre>description</pre>: Sorts the list by task description</li>
+  <li><pre>s</pre> OR <pre>st</pre> OR <pre>start</pre> OR <pre>start date</pre>: Sorts the list by start date</li>
+  <li><pre>e</pre> OR <pre>en</pre> OR <pre>end</pre> OR <pre>end date</pre>: Sorts the list by end date</li>
+  <li><pre>d</pre> OR <pre>dead</pre> OR <pre>deadln</pre> OR <pre>deadline</pre>: Sorts the list by deadline</li>
+</ul>
+" %}
 
 #### Examples
 
