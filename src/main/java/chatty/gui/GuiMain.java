@@ -6,6 +6,7 @@ import chatty.utils.Duke;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -14,7 +15,10 @@ import javafx.stage.Stage;
  */
 public class GuiMain extends Application {
 
-    private final Duke duke = new Duke();
+    private Duke duke = new Duke();
+
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image d = new Image(this.getClass().getResourceAsStream("/images/duke.png"));
 
     @Override
     public void start(Stage stage) {
@@ -32,3 +36,4 @@ public class GuiMain extends Application {
         }
     }
 }
+
