@@ -48,7 +48,7 @@ public class ButlerBot {
     }
 
     /**
-     * Method scans for user input and terminates on command "bye".
+     * Scans for user input and terminates on command "bye".
      */
     public void run() {
         ui.greet();

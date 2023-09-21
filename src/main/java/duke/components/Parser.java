@@ -145,7 +145,7 @@ public class Parser {
     }
 
     /**
-     * Further parses the input if the command is to add a new task.
+     * Parses the input further if the command is to add a new task.
      *
      * @param type Type of Command, Todo, Deadline or Event.
      * @param input User input, containing details of task.
@@ -192,7 +192,7 @@ public class Parser {
     }
 
     /**
-     * Further parses the input if the input contains the String for dateTime.
+     * Parses the input further if the input contains the String for dateTime.
      *
      * @param dateTimeStr String of the dateTime to be converted.
      * @return LocalDateTime object to be used to construct the Task.
