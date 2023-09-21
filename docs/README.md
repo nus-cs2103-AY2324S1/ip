@@ -1,8 +1,8 @@
 # ChadBod User Guide
 
-ChadBod is a **personal assistant chat-bot** that can help
-manage your tasks easily, from to-dos to deadlines and
-even events, utilising a Graphical User Interface (GUI).
+ChadBod is a Java application with a Graphical User Interface (GUI) that aids you in keeping track of your tasks
+as well as their associated details and dates. You can ask the tool to add and delete tasks to/from a list,
+display all tasks in said list, mark tasks as done or not done, or even search tasks containing a keyword.
 
 ___
 ## Features 
