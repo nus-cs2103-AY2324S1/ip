@@ -52,9 +52,9 @@ public class TaskList {
     }
 
     /**
-     * The saving string representation of the list of tasks.
+     * Returns the string representation of the list of tasks for saving
      *
-     * @return Saving string representation of the list of tasks
+     * @return the string representation of the list of tasks for saving
      */
     public String toSaveString() {
         String inputTxt = "";
@@ -70,7 +70,7 @@ public class TaskList {
      * Returns a list of tasks whose names contain the specified substring
      *
      * @param command Command specifying the substring to search for
-     * @return ArrayList of tasks whose names has the substring
+     * @return an arrayList of tasks whose names has the substring
      */
     public String find(String command) {
         Matcher matcher = PATTERN_COMMAND_FIND.matcher(command);
@@ -103,7 +103,7 @@ public class TaskList {
      * Creates and adds a type of task to tasks
      *
      * @param command String command specifying the type of task and associated values to add
-     * @return Task created
+     * @return the task created
      * @throws LukeException If the first word in the command is not a recognised command
      */
     public Task add(String command) throws LukeException {
@@ -133,10 +133,10 @@ public class TaskList {
     }
 
     /**
-     * Deletes and Returns a specified task from tasks
+     * Deletes  a specified task from the tasks
      *
      * @param command String command specifying which task to delete
-     * @return Deleted task
+     * @return the deleted task
      * @throws LukeException If the command is of invalid format, or the number specified is an invalid number.
      */
     public Task delete(String command) throws LukeException {
@@ -161,10 +161,10 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as done
+     * Marks a task as done
      *
      * @param command String command specifying which task to mark as done
-     * @return Task that is successfully marked as done
+     * @return the task that is successfully marked as done
      * @throws LukeException If task is already marked as done
      */
     public Task markAsDone(String command) throws LukeException {
@@ -175,10 +175,10 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as undone
+     * Marks a task as undone
      *
      * @param command String command specifying which task to mark as undone
-     * @return Task that is successfully marked as undone
+     * @return the task that is successfully marked as undone
      * @throws LukeException If the task is already marked as undone
      */
     public Task markAsUndone(String command) throws LukeException {

@@ -34,11 +34,7 @@ public class Duke {
         this(SAVED_TASKS_FILEPATH);
     }
 
-    /**
-     * The entry point of the Duke application.
-     *
-     * @param args The command-line arguments (not used)
-     */
+    
     public static void main(String[] args) {
         Duke luke = new Duke(SAVED_TASKS_FILEPATH);
         luke.run();
