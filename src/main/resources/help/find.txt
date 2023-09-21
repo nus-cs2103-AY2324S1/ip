@@ -1,0 +1,9 @@
+THE "find" COMMAND:
+
+finds any relevant task with a description that matches the keyword specified.
+
+HOW TO USE:
+"find <keyword>" - finds task with description that matches the keyword and displays it.
+
+EXAMPLE USE:
+"find oreo" (displays all task with keyword of oreo)

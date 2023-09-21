@@ -1,0 +1,15 @@
+THE "deadline" COMMAND:
+
+Creates a time sensitive deadline with a specified end datetime.
+
+HOW TO USE:
+"deadline <description> /by <datetime>" - creates a deadline task with description specified by a datetime.
+
+<datetime> - can either be date only, time only or both. (e.g. "1 Jan, 8am" - is allowed together or in its elements: "1 Jan", "8am")
+
+for accepted date time formats, type "help datetime" to see all accepted datetime formats
+
+EXAMPLE USE:
+"deadline feed oreo /by 01/01/2023, 1800" (creates a deadline task to feed oreo by 1st Jan 2023 6:00 PM)
+"deadline buy oreo toy /by 1 Jan" (creates a deadline task to get oreo a toy by 1st Jan 2023)
+"deadline bathe oreo /by 6:30pm" (creates a deadline task with today's date to by done by 6:30 PM)

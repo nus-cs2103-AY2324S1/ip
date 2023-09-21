@@ -1,0 +1,32 @@
+Seems like you need help with some date time formats! Oreo knows the time well so don't worry!
+
+ACCEPTED DATE FORMATS:
+d/M/yyy (e.g. 1/1/2023, 01-12-2023) *dashes are accepted too
+d/M/yy (e.g. 1/1/23, 01-12-23) *dashes are accepted too
+MMM d yyyy (e.g. Jan 1 2023)
+MMM d yy (e.g. Jan 1 23)
+d MMM yyyy (e.g. 1 Jan 2023)
+d MMM yy (e.g. 1 Jan 24)
+
+ACCEPTED TIME FORMATS:
+HHmm (e.g. 1800)
+h a (e.g. 6 pm, 6 PM)
+ha (e.g. 6pm 6PM)
+HH:mm (e.g. 18:00, 18.00) *periods are accepted too
+h:mm a (e.g. 6:00 pm, 6:00 PM, 6.00 PM) *periods are accepted too
+h:mma (e.g. 6:00pm, 6:00PM, 6.00PM) *periods are accepted too
+
+✓ A GOOD EXAMPLE (BOTH DATE AND TIME):
+"1 Jan 2023, 6pm"
+
+✗ BAD EXAMPLES:
+"1 /0 1/2023" - unnecessary blank space
+"1 Jan 2023 6pm" - missing comma
+
+ADDITIONAL INFO:
+1. Any combination of date time inputs. Only date, only time or both.
+2. Time after date must be separated with a ", " (e.g. 1 Jan 2023, 6pm)
+3. If no date is specified, default date will be set as date which task was added.
+4. Date specified without a given year will be assigned the next instance of this date.
+5. For event datetime inputs, to date must be after from date.
+6. For event to datetime input, an unspecified to date will set to date to the specified from date.
