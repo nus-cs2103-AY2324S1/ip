@@ -59,7 +59,7 @@ public class Parser {
      */
     public static Task parseSaveString(String taskSave) throws TasketException {
         String[] taskElements = taskSave.split(" \\| ");
-        Task task;
+        Task task = null;
         switch (taskElements[0]) {
         case "T":
             if (taskElements.length < 3) {
@@ -82,6 +82,8 @@ public class Parser {
         default:
             throw new TasketException("Error while retrieving task. The task will not be loaded");
         }
+
+        assert task != null;
 
         if (taskElements[1].equals("1")) {
             task.markAsDone();

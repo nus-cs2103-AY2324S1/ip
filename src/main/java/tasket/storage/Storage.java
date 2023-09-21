@@ -29,6 +29,7 @@ public class Storage {
      * @param filePath The file path for saving the tasks.
      */
     public Storage(String filePath) {
+        assert !filePath.isEmpty();
         this.filePath = filePath;
         dataFile = new File(filePath);
     }
@@ -77,6 +78,8 @@ public class Storage {
      * @throws TasketException If IO error occurs.
      */
     public void append(String taskSave) throws TasketException {
+        assert !taskSave.isEmpty();
+
         FileWriter fw = null;
 
         try {
@@ -103,6 +106,8 @@ public class Storage {
      * @throws TasketException If IO error occurs.
      */
     public void rewriteSaveFile(TaskList taskList) throws TasketException {
+        assert taskList != null;
+
         FileWriter fw = null;
         BufferedWriter bw = null;
 

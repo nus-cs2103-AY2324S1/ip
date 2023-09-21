@@ -68,6 +68,8 @@ public class Ui {
      * @param tasks The tasks to be shown in string format.
      */
     public String showTaskList(String[] tasks) {
+        assert tasks != null;
+
         StringBuilder sb = new StringBuilder();
         sb.append(TEXT_LIST + "\n");
         for (int i = 1; i <= tasks.length; i++) {
@@ -111,6 +113,8 @@ public class Ui {
      * @param tasks The matching tasks in string format.
      */
     public String showMatchingTasks(String[] tasks) {
+        assert tasks != null;
+
         StringBuilder sb = new StringBuilder();
         sb.append(TEXT_MATCHING_TASKS + "\n");
         for (String taskString : tasks) {
