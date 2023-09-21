@@ -3,6 +3,7 @@ package duke.command;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
+import javafx.application.Platform;
 
 /**
  * A class that represents the user command to exit the program.
@@ -23,6 +24,7 @@ public class ExitCommand extends Command {
      * @params storage Storage object that houses database of the program.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        Platform.exit();
         return "Bye. Hope to see you again soon!\n";
     }
 }

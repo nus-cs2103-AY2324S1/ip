@@ -34,16 +34,18 @@ public class Storage {
     public ArrayList<Task> load() throws Exception {
         ArrayList<Task> arr = new ArrayList<>();
         File f = new File(filePath);
-        try {
-            f.createNewFile();
-            Scanner dataSc = new Scanner(f);
-            while (dataSc.hasNextLine()) {
-                addStoredTask(arr, dataSc);
-            }
-            dataSc.close();
-        } catch (Exception e) {
-            throw e;
+        File parent = new File(f.getParent());
+        if (!parent.isDirectory()) {
+            parent.mkdirs();
         }
+        if (!f.exists()) {
+            f.createNewFile();
+        }
+        Scanner dataSc = new Scanner(f);
+        while (dataSc.hasNextLine()) {
+            addStoredTask(arr, dataSc);
+        }
+        dataSc.close();
         return arr;
     }
 

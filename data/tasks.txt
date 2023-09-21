@@ -1,2 +1,1 @@
-T | 1 | eat milo drink coffee
-D | 0 | eat milo | 2001-02-12
+
