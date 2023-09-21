@@ -38,7 +38,7 @@ public class EventCommand extends Command {
             Task event = new Event(this.description, this.from, this.to);
             tasks.addTask(event);
             storage.saveList(tasks);
-            return ui.formatTaskResponse(event, tasks);
+            return ui.addTaskResponse(event, tasks);
         } catch (ChatException e) {
             return ui.showLoadingError(e);
         }

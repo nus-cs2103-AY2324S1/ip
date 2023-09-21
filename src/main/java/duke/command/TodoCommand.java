@@ -31,7 +31,7 @@ public class TodoCommand extends Command {
             Task todo = new Task(this.description);
             tasks.addTask(todo);
             storage.saveList(tasks);
-            return ui.formatTaskResponse(todo, tasks);
+            return ui.addTaskResponse(todo, tasks);
         } catch (ChatException e) {
             return ui.showLoadingError(e);
         }

@@ -1,13 +1,13 @@
 package duke.command;
 
+import java.time.LocalDate;
+
 import duke.exception.ChatException;
 import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
-
-import java.time.LocalDate;
 
 /**
  * Prompts the program to create a new task with deadline.
@@ -37,7 +37,7 @@ public class DeadlineCommand extends Command {
             Task deadline = new Deadline(this.description, this.by);
             tasks.addTask(deadline);
             storage.saveList(tasks);
-            return ui.formatTaskResponse(deadline, tasks);
+            return ui.addTaskResponse(deadline, tasks);
         } catch (ChatException e) {
             return ui.showLoadingError(e);
         }

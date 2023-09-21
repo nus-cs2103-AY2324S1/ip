@@ -8,7 +8,7 @@ import duke.ui.Ui;
 /**
  * Prompts program to mark a task as done.
  */
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
     private int taskNumber;
 
     /**

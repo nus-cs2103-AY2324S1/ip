@@ -9,7 +9,7 @@ import duke.ui.Ui;
 /**
  * Prompts the program to delete a task that has been saved.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     private int taskNumber;
 
     /**
