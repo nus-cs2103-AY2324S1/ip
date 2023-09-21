@@ -62,7 +62,7 @@ public class MainWindow extends AnchorPane {
 	public void initialize() {
 		scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 		dialogContainer.getChildren().addAll(
-			DialogBox.getDukeDialog(ui.greet(), dukeImage)
+				DialogBox.getDukeDialog(ui.greet(), dukeImage)
 		);
 	}
 
@@ -80,8 +80,9 @@ public class MainWindow extends AnchorPane {
 		String input = userInput.getText();
 		// with input i use ui to execute and get a response!
 		String response = duke.getResponse(input);
+		dialogContainer.setStyle("");
 		dialogContainer.getChildren().addAll(
-				DialogBox.getUserDialog(input, userImage),
+     DialogBox.getUserDialog(input, userImage),
 				DialogBox.getDukeDialog(response, dukeImage)
 		);
 		userInput.clear();

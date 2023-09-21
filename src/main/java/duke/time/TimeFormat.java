@@ -4,6 +4,7 @@ import duke.Duke;
 import duke.exception.DukeException;
 import duke.exception.TimeFormatException;
 
+import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -54,9 +55,23 @@ public class TimeFormat {
 	// this is actually the amPmFormat
 	public static LocalDateTime amPmFormat(String[] timeDateNoFormat) throws TimeFormatException {
 		String[] timeDate = Arrays.copyOfRange(timeDateNoFormat, 1, timeDateNoFormat.length);
-		SimpleDateFormat inputTime = new SimpleDateFormat("ha");
+		SimpleDateFormat inputTime;
+//		= new SimpleDateFormat("hhmma");
 		SimpleDateFormat outputTime = new SimpleDateFormat("HH:mm:ss");
 		String year = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+		int timeLength = timeDate[0].length();
+		if (timeLength == 3) {
+			inputTime = new SimpleDateFormat("ha");
+		} else if (timeLength == 4) {
+			inputTime = new SimpleDateFormat("hha");
+		} else if (timeLength == 5) {
+			inputTime = new SimpleDateFormat("hmma");
+		} else if (timeLength == 6) {
+			inputTime = new SimpleDateFormat("hhmma");
+		} else {
+			throw new TimeFormatException("Not sure what format is that");
+		}
+
 		try {
 			Date time = inputTime.parse(timeDate[0]);
 			String formatTime = outputTime.format(time);

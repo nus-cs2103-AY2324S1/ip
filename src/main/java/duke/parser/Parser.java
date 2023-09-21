@@ -1,4 +1,5 @@
 package duke.parser;
+import duke.Duke;
 import duke.command.*;
 import duke.exception.DukeException;
 import duke.exception.InvalidActionException;
@@ -261,6 +262,9 @@ public class Parser {
 	 */
 	public static Command parse(String fullCommand) throws DukeException {
 		String[] item = fullCommand.split(" ");
+		if (item.length == 0) {
+			throw new DukeException("Space is not a valid command");
+		}
 		String commandWord = item[0];
 		assert commandWord.length() <= 11 : "unknown command";
 		try {

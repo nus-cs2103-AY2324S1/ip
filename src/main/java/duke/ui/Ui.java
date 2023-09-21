@@ -17,7 +17,7 @@ public class Ui {
 	private static final String COMMENT_LINE_REGEX = "#.";
 
 	private static final String LOGO =
-			        "          .--.\n" +
+			"          .--.\n" +
 					"         |o_o |\n" +
 					"         |:_/ |\n" +
 					"        //   \\ \\\n" +
@@ -108,9 +108,9 @@ public class Ui {
 	public String greet() {
 		String greeting = String.format(
 				LOGO + "\n" +
-				"Hello! I'm %s\n" +
-				"What can I do for you?\n" +
-				"Type help into the console to find out what you can do!", this.name);
+						"Hello! I'm %s\n" +
+						"What can I do for you?\n" +
+						"Type help into the console to find out what you can do!", this.name);
 		return greeting;
 	}
 
@@ -173,10 +173,10 @@ public class Ui {
 	}
 
 	public String showList(StringBuilder br) {
-		String echo = String.format("____________________________________________________________\n"
-				+ "Here are the task in your list:\n"
-				+ "%s"
-				+ "____________________________________________________________", br.toString());
+		String echo = String.format(
+				"Here are the task in your list:\n"
+						+ "%s"
+				, br.toString());
 		return echo;
 	}
 
@@ -188,10 +188,10 @@ public class Ui {
 	 */
 
 	public String showMark(Task task) {
-		String echo = String.format("____________________________________________________________\n" +
+		String echo = String.format(
 				"Nice! I've marked this task as done:\n" +
-				task.toString() + "\n" +
-				"____________________________________________________________");
+						task.toString() + "\n"
+		);
 		return echo;
 	}
 
@@ -201,10 +201,10 @@ public class Ui {
 	 * @param task the task which is unmarked.
 	 */
 	public String showUnMark(Task task) {
-		String echo = String.format("____________________________________________________________\n" +
+		String echo = String.format(
 				"Nice! I've marked this task as not done yet:\n" +
-				task.toString() + "\n" +
-				"____________________________________________________________");
+						task.toString() + "\n"
+		);
 		return echo;
 	}
 
@@ -216,6 +216,7 @@ public class Ui {
 	public String showHelp() {
 		return "These are the commands that are permissible\n" +
 				"list -list all things\n" +
+				"find keyWord\n" +
 				"bye -exit system\n" +
 				"mark/unmark idx i.e mark 1, marks a given task\n" +
 				"delete idx i.e delete 1\n" +
