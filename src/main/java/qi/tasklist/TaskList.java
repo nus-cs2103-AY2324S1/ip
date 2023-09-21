@@ -68,6 +68,13 @@ public class TaskList {
         return this.taskList.size();
     }
 
+    /**
+     * Returns all the tasks whose description match
+     * an input keyword.
+     *
+     * @param keyWord String representing the keyword being examined.
+     * @return String representation of all the matching tasks.
+     */
     public String matchingKeyWord(String keyWord) {
         StringBuilder ans = new StringBuilder();
         for (int i = 0; i < this.size(); i++) {

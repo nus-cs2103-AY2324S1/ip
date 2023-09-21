@@ -88,31 +88,20 @@ public class Storage {
     }
 
     private void loadDeadline(String task, TaskList list) {
-        int idx = 0;
-        while (task.charAt(idx) != ':') {
-            idx++;
-        }
-
-        list.addTask(new Deadline(task.substring(7, idx - 4),
-                LocalDate.parse(task.substring(idx + 2, task.length() - 1),
+        int idx = task.indexOf("(by:");
+        list.addTask(new Deadline(task.substring(7, idx - 1),
+                LocalDate.parse(task.substring(idx + 5, task.length() - 1),
                         DateTimeFormatter.ofPattern("MMM dd yyyy"))));
         list.mark(list.size(), isDone(task));
     }
 
     private void loadEvent(String task, TaskList list) {
-        int idx1 = 0;
-        while (task.charAt(idx1) != ':') {
-            idx1++;
-        }
+        int idx1 = task.indexOf("(from:");
+        int idx2 = task.indexOf("to:", idx1);
 
-        int idx2 = idx1 + 1;
-        while (task.charAt(idx2) != ':') {
-            idx2++;
-        }
-
-        list.addTask(new Event(task.substring(7, idx1 - 6),
-                task.substring(idx1 + 2, idx2 - 3),
-                task.substring(idx2 + 2, task.length() - 1)));
+        list.addTask(new Event(task.substring(7, idx1 - 1),
+                task.substring(idx1 + 7, idx2 - 1),
+                task.substring(idx2 + 4, task.length() - 1)));
         list.mark(list.size(), isDone(task));
     }
 

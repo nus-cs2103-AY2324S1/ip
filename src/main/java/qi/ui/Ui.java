@@ -7,21 +7,25 @@ import qi.tasklist.TaskList;
  * Represents the interactions of the chatbot with users.
  */
 public class Ui {
+
     /**
-     * Prints welcoming message on the screen.
+     * Shows welcoming message.
+     *
+     * @return String message to users.
      */
     public String showWelcome() {
         return "Hello! I'm Qi\n"
             + "What can I do for you? \n"
-                + "\nNot sure what to do?\n" +
-                "Type: help";
+                + "\nNot sure what to do?\n"
+                + "Type: help";
     }
 
     /**
-     * Shows the task added to the list on the screen.
+     * Shows the task added to the list.
      *
      * @param task Task added to the list.
      * @param list Current TaskList.
+     * @return String message to users.
      */
     public String showTaskAdded(Task task, TaskList list) {
         return "Got it. I've added this task:\n"
@@ -30,10 +34,11 @@ public class Ui {
     }
 
     /**
-     * Shows the task removed from the list on the screen.
+     * Shows the task removed from the list.
      *
      * @param taskId Id of the task removed.
      * @param list Current TaskList.
+     * @return String message to users.
      */
     public String showTaskDeleted(int taskId, TaskList list) {
         return "Noted. I've removed this task:\n"
@@ -42,10 +47,11 @@ public class Ui {
     }
 
     /**
-     * Shows the task marked as done on the screen.
+     * Shows the task marked as done.
      *
      * @param taskId Id of the task marked as done.
      * @param list Current TaskList.
+     * @return String message to users.
      */
     public String showTaskMarked(int taskId, TaskList list) {
         list.mark(taskId, true);
@@ -54,10 +60,11 @@ public class Ui {
     }
 
     /**
-     * Shows the task unmarked on the screen.
+     * Shows the task unmarked.
      *
      * @param taskId Id of the task unmarked.
      * @param list Current TaskList.
+     * @return String message to users.
      */
     public String showTaskUnmarked(int taskId, TaskList list) {
         list.mark(taskId, false);
@@ -66,15 +73,23 @@ public class Ui {
     }
 
     /**
-     * Shows the content of the list on the screen.
+     * Shows the content of the list.
      *
      * @param list Current TaskList.
+     * @return String message to users.
      */
     public String showList(TaskList list) {
         return "Here are the tasks in your list:\n"
             + list;
     }
 
+    /**
+     * Shows the tasks in the list that match
+     * a certain keyword.
+     *
+     * @param matchingTasks String representation of the matching tasks.
+     * @return String message to users.
+     */
     public String showMatching(String matchingTasks) {
         return "Here are the matching tasks in your list:\n"
             + matchingTasks;
@@ -82,26 +97,37 @@ public class Ui {
 
 
     /**
-     * Prints a message that the input is invalid.
+     * Shows a message that the input is invalid.
+     *
+     * @return String message to users.
      */
     public String showInvalid() {
         return "OOPS!!! I'm sorry, but I don't know what that means :<";
     }
 
     /**
-     * Prints goodbye message on the screen.
+     * Shows goodbye message.
+     *
+     * @return String message to users.
      */
     public String showGoodbye() {
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints message that the file cannot be loaded.
+     * Shows message that the file cannot be loaded.
+     *
+     * @return String message to users.
      */
     public String showLoadingError() {
         return "Cannot load file!";
     }
 
+    /**
+     * Shows the guidance to users.
+     *
+     * @return String of the guide.
+     */
     public String showGuidance() {
         String guide = "I am supposed to help you managing your tasks!\n"
                 + "Here is the format of all the command you can use:\n"

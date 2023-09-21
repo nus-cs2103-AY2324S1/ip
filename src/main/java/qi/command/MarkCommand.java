@@ -31,6 +31,7 @@ public class MarkCommand extends Command {
      * @param tasks TaskList recording the current task in the list.
      * @param ui Ui representing the current User Interface (UI).
      * @param storage Storage updating data if necessary.
+     * @return String notification created by Ui.
      * @throws QiException If the file storing the data cannot be written.
      */
     @Override

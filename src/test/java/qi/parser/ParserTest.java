@@ -13,7 +13,7 @@ public class ParserTest {
             Parser.parse("todo");
             fail();
         } catch (QiException e) {
-            assertEquals("☹ OOPS!!! The description of a todo cannot be empty.",
+            assertEquals("OOPS!!! The description of a todo cannot be empty!",
                     e.getMessage());
         }
     }
@@ -24,7 +24,7 @@ public class ParserTest {
             Parser.parse("mark");
             fail();
         } catch (QiException e) {
-            assertEquals("☹ OOPS!!! Please specify which task you want to mark.",
+            assertEquals("OOPS!!! Please specify which task you want to mark!",
                     e.getMessage());
         }
     }

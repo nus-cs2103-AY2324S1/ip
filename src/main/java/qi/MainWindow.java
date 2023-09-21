@@ -32,6 +32,11 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private final Image qiImage = new Image(this.getClass().getResourceAsStream("/images/Qi.png"));
 
+    /**
+     * Sets the width and the height property of the dialogContainer to scale
+     * accordingly with the scrollPane. Sets the scrollPane to automatically
+     * scroll down to the latest messages
+     */
     @FXML
     public void initialize() {
         dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty().multiply(0.96));
