@@ -9,10 +9,12 @@ import java.util.EnumSet;
 public class Parser {
     private final TaskList taskList;
     private final Ui ui;
+    private final Storage storage;
 
-    public Parser(Ui ui, TaskList taskList) {
+    public Parser(Ui ui, TaskList taskList, Storage storage) {
         this.ui = ui;
         this.taskList = taskList;
+        this.storage = storage;
     }
 
     /**
@@ -55,24 +57,30 @@ public class Parser {
             return "Bye! Hope to see you soon!";
         } else if (cmd.equals(Command.list)) {
             ui.showTaskList(taskList);
-            return taskList.toString();
+            return "Here's the list of tasks you have!\n" + taskList;
         } else if (cmd.equals(Command.mark)) {
             try {
-                return taskList.markTask(Integer.parseInt(input.split(" ")[1]));
+                String message = taskList.markTask(Integer.parseInt(input.split(" ")[1]));
+                storage.saveTasks(taskList);
+                return message;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.showInvalidIndexError();
                 return "Invalid task index!";
             }
         } else if (cmd.equals(Command.unmark)) {
             try {
-                return taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
+                String message = taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
+                storage.saveTasks(taskList);
+                return message;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.showInvalidIndexError();
                 return "Invalid task index!";
             }
         } else if (cmd.equals(Command.delete)) {
             try {
-                return taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
+                String message = taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
+                storage.saveTasks(taskList);
+                return message;
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 ui.showInvalidIndexError();
                 return "Invalid task index!";
@@ -85,7 +93,9 @@ public class Parser {
             return taskList.find(input.split(" ", 2)[1]).toString();
         } else if (Command.taskTypes().contains(cmd)) {
             try {
-                return createTask(cmd, input);
+                String message = createTask(cmd, input);
+                storage.saveTasks(taskList);
+                return message;
             } catch (DukeInvalidDateException e) {
                 ui.showAddTaskError(e.getMessage());
                 return e.getMessage();
