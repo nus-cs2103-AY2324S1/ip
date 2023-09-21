@@ -52,8 +52,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Function that can be called when the MainWindow ui is rendered to display chatbot's introductory
-     * message
+     * Display chatbot introductory message upon application start
      */
     public void onStart() {
         String message = evan.getIntro();

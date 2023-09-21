@@ -27,11 +27,11 @@ public abstract class Task {
     }
 
     /**
-     * get display icon for its status
+     * Churns out a string 'X' if its complete and ' ' otherwise
      * @return display icon
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     /**

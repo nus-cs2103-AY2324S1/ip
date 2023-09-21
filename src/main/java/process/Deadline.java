@@ -54,7 +54,7 @@ public class Deadline implements ComplexProcess {
             return e.toString();
         }
         stage = Stage.THIRD;
-        return "Indicate a start time in ranging from 0000 - 2359. "
+        return "Indicate a start time ranging from 0000 - 2359. "
                 + "You may enter 'Skip' to not indicate a time";
     }
 
@@ -65,8 +65,7 @@ public class Deadline implements ComplexProcess {
             } catch (InvalidTimeException | InvalidDateException e) {
                 return e.toString();
             } catch (NumberFormatException e) {
-                return "Non-numerical characters detected. Please enter numbers only. "
-                        + "Returning to homepage...";
+                return "Non-numerical characters detected. Please enter numbers only.";
             }
         }
         isComplete = true;

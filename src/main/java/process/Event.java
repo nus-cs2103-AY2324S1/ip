@@ -49,7 +49,7 @@ public class Event implements ComplexProcess {
 
     @Override
     public String firstInstruction() {
-        return "So you want to add a event task. Tell me what's the task.";
+        return "So you want to add an event task. Tell me what's the task.";
     }
 
     @Override
@@ -70,7 +70,7 @@ public class Event implements ComplexProcess {
             return e.toString();
         }
         stage = Stage.THIRD;
-        return "Indicate a start time in ranging from 0000 - 2359. "
+        return "Indicate a start time ranging from 0000 - 2359. "
                 + "You may enter 'Skip' to not indicate a time";
     }
 
@@ -81,7 +81,7 @@ public class Event implements ComplexProcess {
             return e.toString();
         }
         stage = Stage.FIFTH;
-        return "Indicate a start time in ranging from 0000 - 2359. "
+        return "Indicate an end time ranging from 0000 - 2359. "
                 + "You may enter 'Skip' to not indicate a time";
     }
 

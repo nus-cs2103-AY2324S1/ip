@@ -80,14 +80,15 @@ public class Evan {
     public String getIntro() {
         StringBuilder stringBuilder = new StringBuilder("Hello! I'm Evan, your personal task planning assistant\n")
                 .append("What can I do for you?\n\n")
-                .append("List of available commands:\n")
+                .append("Available commands:\n")
                 .append("todo: create a new todo task\n")
                 .append("deadline: create a new deadline task\n")
                 .append("event: create a new event task\n")
                 .append("mark: mark a task as complete\n")
                 .append("unmark: mark a task as incomplete\n")
                 .append("delete: delete a task from the list\n")
-                .append("find: find a task from the list\n");
+                .append("find: find a task from the list\n")
+                .append("list: show a list of all the tasks saved\n");
         return stringBuilder.toString();
     }
 }
