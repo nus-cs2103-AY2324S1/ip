@@ -153,6 +153,9 @@ public class Storage {
     }
 
     private static ArrayList<String> tagsStringToArrayList(String tagsString) {
+        if (tagsString.isEmpty()) {
+            return new ArrayList<>();
+        }
         String[] tagsArray = tagsString.split(", ");
         ArrayList<String> tags = new ArrayList<>();
         Collections.addAll(tags, tagsArray);
