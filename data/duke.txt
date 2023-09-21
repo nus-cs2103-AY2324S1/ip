@@ -1,7 +1,5 @@
 [T] | [X] | read book
-[T] | [X] | join sports club
 [T] | [ ] | dleklre
-[T] | [ ] | kejr
 [T] | [ ] | e43
 [T] | [ ] | ef
 [T] | [ ] | 34
