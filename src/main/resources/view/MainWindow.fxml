@@ -12,14 +12,16 @@
     <children>
         <Label fx:id="welcomeLabel" style="-fx-font-size: 14pt;" />
 
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" style="-fx-background-color: #d8c3ab;" AnchorPane.bottomAnchor="1.0">
+              <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" style="-fx-background-color: #d8c3ab;" AnchorPane.bottomAnchor="1.0">
          <font>
             <Font name="Arial" size="12.0" />
-         </font></TextField>
+         </font>
+      </TextField>
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" textFill="#53301b">
          <font>
             <Font name="HGSoeiKakupoptai" size="14.0" />
-         </font></Button>
+         </font>
+      </Button>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" style="-fx-background-color: grey; -fx-background-radius: 20;" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" prefHeight="558.0" prefWidth="386.0" style="-fx-background-color: #f1e3c1; -fx-region-border: red;" />

@@ -1,3 +1,3 @@
-TODO | read book
-DEADLINE | project | 2023-09-21
-EVENT | meeting | 2023-10-10 1400 | 2023-10-10 1800
+TODO | finish ip
+DEADLINE | assignment | 2023-09-21
+EVENT | meeting | 2023-09-22 1400 | 2023-09-22 1800
