@@ -1,0 +1,7 @@
+todo a
+todo b
+list
+mark 1
+list
+deadline do homework /by no idea :-p
+event project meeting /from Mon 2pm /to 4pm
