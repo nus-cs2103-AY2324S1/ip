@@ -32,8 +32,7 @@ Read from previously saved tasklist
 
 A ToDo task will be created and added to the task list
 
-Example of usage: 
-
+Format: 
 `todo <Task Description>`
 
 Expected output:
@@ -49,8 +48,7 @@ A Deadline task will be created and added to the task list
 Enter a proper Date in the deadline to enable checking for overdue tasks or tasks to be done by a certain date
 Possible formats: YYYY-MM-DD, DD-MM-YYYY, DD-MMM-YYYY, YYYY-MMM-DD, separated by either '-' or '/'
 
-Example of usage: 
-
+Format: 
 `deadline <Task Description> /by <Deadline>`
 
 Expected output:
@@ -64,8 +62,7 @@ There are now <Size of taskList> tasks left to complete
 
 An event task will be created and added to the task list
 
-Example of usage: 
-
+Format: 
 `event <Task Description> /from <Start Time> /to <End Time>`
 
 Expected output:
@@ -79,8 +76,7 @@ There are now <Size of taskList> tasks left to complete
 
 All the tasks in the list will be displayed
 
-Example of usage: 
-
+Format: 
 `list`
 
 Expected output:
@@ -94,8 +90,7 @@ Expected output:
 
 A task will be marked as completed with a [X]
 
-Example of usage: 
-
+Format: 
 `mark <index>`
 
 Expected output:
@@ -108,8 +103,7 @@ The Mind sees that this task is completed
 
 A task will be unmarked and will not display with [X]
 
-Example of usage: 
-
+Format: 
 `unmark <index>`
 
 Expected output:
@@ -122,8 +116,7 @@ The Mind sees that this task is not yet completed
 
 The task will be removed from the list
 
-Example of usage: 
-
+Format: 
 `delete <index>`
 
 Expected output:
@@ -137,8 +130,7 @@ There are now <Size of new list> tasks left to complete
 
 Displays tasks that are both past the deadline and not completed
 
-Example of usage: 
-
+Format: 
 `overdue`
 
 Expected output:
@@ -152,8 +144,7 @@ Expected output:
 Displays tasks that both have to be done by the time stated and not yet completed
 Possible formats: YYYY-MM-DD, DD-MM-YYYY, DD-MMM-YYYY, YYYY-MMM-DD, separated by either '-' or '/'
 
-Example of usage: 
-
+Format: 
 `dueby <DateTime>`
 
 Expected output:
@@ -166,8 +157,7 @@ Expected output:
 
 Displays tasks that contain the keyword specified
 
-Example of usage: 
-
+Format: 
 `find <Keyword>`
 
 Expected output:
@@ -180,8 +170,7 @@ Expected output:
 
 Saves task list to the specified file path. If a txt file is specified, rewrites that txt file. Else will create an EpochMind.txt file at the directory
 
-Example of usage: 
-
+Format: 
 `save <FilePath>`
 
 Expected output:
@@ -193,8 +182,8 @@ The Mind has saved the tasks to
 ### `load` - Load task list from the text file
 
 Loads task list from the specified file path.
-Example of usage: 
 
+Format: 
 `load <FilePath>`
 
 Expected output:
