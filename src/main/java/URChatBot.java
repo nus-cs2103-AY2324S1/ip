@@ -10,7 +10,7 @@ import urchatbot.ui.Ui;
 /**
  * The main entry point to the application.
  */
-public class URChatBot{
+public class URChatBot {
 
     private Storage storage;
     private TaskList tasks;

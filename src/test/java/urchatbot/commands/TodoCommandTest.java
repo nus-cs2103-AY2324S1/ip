@@ -30,6 +30,4 @@ public class TodoCommandTest {
         assertEquals(false, taskList.getTasks().get(0).getIsDone());
 
     }
-
-    // You can add more test cases for different scenarios here
 }

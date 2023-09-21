@@ -11,8 +11,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import urchatbot.common.Messages;
 
-import static urchatbot.common.Messages.MESSAGE_WELCOME;
 
 /**
  * An example of a custom control using FXML.
@@ -50,7 +50,7 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox showWelcomeMessage(Image img) {
-        return new DialogBox(MESSAGE_WELCOME, img);
+        return new DialogBox(Messages.MESSAGE_WELCOME, img);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

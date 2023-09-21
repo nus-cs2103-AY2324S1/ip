@@ -24,6 +24,10 @@ import urchatbot.exception.URChatBotException;
  * Parses input arguments and creates a new AddCommand object
  */
 public class Parser {
+    private static final int MIN_LENGTH_TODO = 4;
+    private static final int MIN_LENGTH_DEADLINE = 8;
+    private static final int MIN_LENGTH_EVENT = 5;
+    private static final int MIN_LENGTH_FIND_FREE_TIME = 12;
 
     /**
      * Categorises and returns subclass of Command type based on entered command.
@@ -60,7 +64,7 @@ public class Parser {
         case "BYE":
             return parseExitCommand(command);
         default:
-            assert false : commandType;
+            //assert false : commandType;
             throw new URChatBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
@@ -96,12 +100,12 @@ public class Parser {
     }
 
     private static Command parseTodoCommand(String command) throws URChatBotException {
-        validateCommandNotEmpty(command, 4);
+        validateCommandNotEmpty(command, MIN_LENGTH_TODO);
         String task = extractTask(command, "todo");
         return new TodoCommand(task);
     }
     private static Command parseDeadlineCommand(String command) throws URChatBotException {
-        validateCommandNotEmpty(command, 8);
+        validateCommandNotEmpty(command, MIN_LENGTH_DEADLINE);
         validateKeywordsExistenceForDeadline(command);
 
         String task = extractTask(command, "deadline", "/by");
@@ -112,7 +116,7 @@ public class Parser {
     }
 
     private static Command parseEventCommand(String command) throws URChatBotException {
-        validateCommandNotEmpty(command, 5);
+        validateCommandNotEmpty(command, MIN_LENGTH_EVENT);
         validateKeywordsExistenceForEvent(command);
 
         String task = extractTask(command, "event", "/from");
@@ -131,13 +135,12 @@ public class Parser {
 
         return new EventCommand(task, timeFrom, timeTo);
     }
-  
     private static Command parseClearCommand(String command) {
-        assert !command.isBlank(): "Command should not be blank!";
+        assert !command.isBlank() : "Command should not be blank!";
         return new ClearCommand(command);
     }
     private static Command parseListCommand(String command) {
-        assert !command.isBlank(): "Command should not be blank!";
+        assert !command.isBlank() : "Command should not be blank!";
         return new ListCommand(command);
     }
 
@@ -145,13 +148,15 @@ public class Parser {
         int value;
         try {
             value = Integer.parseInt(command.replaceAll("[^0-9]", ""));
-            assert value > -1: "Task number should be more than -1!";
+            assert value > -1 : "Task number should be more than -1!";
         } catch (NumberFormatException e) {
-            throw new URChatBotException("OOPS!!! Please provide a valid numeric value for the " + commandName + " command.");
+            throw new URChatBotException("OOPS!!! Please provide a valid numeric value for the "
+                    + commandName + " command.");
         }
 
         if (value < 1) {
-            throw new URChatBotException("OOPS!!! The numeric value for the " + commandName + " command must be greater than zero.");
+            throw new URChatBotException("OOPS!!! The numeric value for the "
+                    + commandName + " command must be greater than zero.");
         }
 
         switch (commandName) {
@@ -167,7 +172,7 @@ public class Parser {
     }
 
     private static Command parsePrintCommand(String command) throws URChatBotException {
-        assert !command.isBlank(): "Command should not be blank!";
+        assert !command.isBlank() : "Command should not be blank!";
 
         String date = extractTask(command, "print");
 
@@ -188,10 +193,10 @@ public class Parser {
         return new ExitCommand(command);
     }
     private static Command parseFindFreeTimeCommand(String command) throws URChatBotException {
-        validateCommandNotEmpty(command, 12);
+        validateCommandNotEmpty(command, MIN_LENGTH_FIND_FREE_TIME);
         validateKeywordsExistenceForEvent(command);
         String timeDurationString = extractTask(command, "findFreeTime", "/from");
-        int timeDuration =  Integer.parseInt(timeDurationString.replaceAll("[^0-9]", ""));
+        int timeDuration = Integer.parseInt(timeDurationString.replaceAll("[^0-9]", ""));
         String from = extractField(command, "/from", "/to");
         String to = extractField(command, "/to");
 
@@ -264,7 +269,7 @@ public class Parser {
         return command.substring(command.indexOf(keyword) + keyword.length()).trim();
     }
     private static String extractTask(String command, String commandType, String keyword) {
-        int startIndex = command.indexOf(commandType) + keyword.length();
+        int startIndex = command.indexOf(commandType) + commandType.length();
         int endIndex = command.indexOf(keyword);
         return command.substring(startIndex, endIndex).trim();
     }
@@ -294,7 +299,8 @@ public class Parser {
         }
     }
 
-    private static void validateDateRange(LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) throws URChatBotException {
+    private static void validateDateRange(LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo)
+            throws URChatBotException {
         if (dateTimeFrom.isAfter(dateTimeTo)) {
             throw new URChatBotException("OOPS!!! The /from date must be before the /to date.");
         }

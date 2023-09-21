@@ -6,34 +6,44 @@ import urchatbot.parser.Parser;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+import urchatbot.commands.*;
+import urchatbot.exception.URChatBotException;
+
 public class ParserTest {
 
     @Test
-    public void parse_ValidTodoCommand_ReturnsTodoCommand() throws URChatBotException {
-        String command = "todo Buy groceries";
-        Command parsedCommand = Parser.parse(command);
-        assertTrue(parsedCommand instanceof TodoCommand);
-        // Add more assertions here if needed
+    public void testParseTodoCommand() throws URChatBotException {
+        Command command = Parser.parse("todo Buy groceries");
+        assertTrue(command instanceof TodoCommand);
+        assertEquals("Buy groceries", ((TodoCommand) command).getTaskDescription());
     }
 
     @Test
-    public void parse_ValidDeadlineCommand_ReturnsDeadlineCommand() throws URChatBotException {
-        String command = "deadline Submit report /by 2023-08-31 14:00";
-        Command parsedCommand = Parser.parse(command);
-        assertTrue(parsedCommand instanceof DeadlineCommand);
-        // Add more assertions here if needed
+    public void testParseDeadlineCommand() throws URChatBotException {
+        Command command = Parser.parse("deadline Submit report /by 2023-12-31 23:59");
+        assertTrue(command instanceof DeadlineCommand);
+        DeadlineCommand deadlineCommand = (DeadlineCommand) command;
+        assertEquals("Submit report", deadlineCommand.getTaskDescription());
+        assertEquals("31 12 2023 23:59", deadlineCommand.getBy());
     }
 
     @Test
-    public void parse_InvalidCommand_ThrowsURChatBotException() {
-        String command = "invalid command";
-        assertThrows(URChatBotException.class, () -> Parser.parse(command));
+    public void testParseEventCommand() throws URChatBotException {
+        Command command = Parser.parse("event Team meeting /from 2023-10-01 14:00 /to 2023-10-01 15:30");
+        assertTrue(command instanceof EventCommand);
+        EventCommand eventCommand = (EventCommand) command;
+        assertEquals("Team meeting", eventCommand.getTaskDescription());
+        assertEquals("01 10 2023 14:00", eventCommand.getFrom());
+        assertEquals("01 10 2023 15:30", eventCommand.getTo());
     }
 
-    // Add more test methods for other parsing scenarios
 
-    // Test cases for error handling (e.g., invalid date format) if applicable
-
-    // Test cases for edge cases and boundary conditions
-
+    @Test
+    public void testParseInvalidCommand() {
+        assertThrows(URChatBotException.class, () -> {
+            Parser.parse("invalidCommand");
+        });
+    }
 }

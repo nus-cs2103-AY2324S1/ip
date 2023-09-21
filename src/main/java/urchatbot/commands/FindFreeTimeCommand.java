@@ -1,11 +1,5 @@
 package urchatbot.commands;
 
-import urchatbot.storage.Storage;
-import urchatbot.taskList.TaskList;
-import urchatbot.tasks.Event;
-import urchatbot.tasks.Task;
-import urchatbot.ui.Ui;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +9,14 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import urchatbot.storage.Storage;
+import urchatbot.taskList.TaskList;
+import urchatbot.tasks.Event;
+import urchatbot.tasks.Task;
+import urchatbot.ui.Ui;
+
+
 
 /**
  * Finds dates that have free time slot of specified time duration in a date duration
@@ -68,7 +70,7 @@ public class FindFreeTimeCommand extends Command {
                 }
             }
 
-            LocalDateTime startTime = currentDate.atTime( WORKING_HOUR_START, 0); // Starting working hour
+            LocalDateTime startTime = currentDate.atTime(WORKING_HOUR_START, 0); // Starting working hour
             LocalDateTime endTime = currentDate.atTime(WORKING_HOUR_END, 0); // Ending working hour
 
             if (taskOfTheDay.isEmpty()) {

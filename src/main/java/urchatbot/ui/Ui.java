@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import urchatbot.exception.URChatBotException;
+import urchatbot.common.Messages;
 import urchatbot.taskList.TaskList;
-
-import static urchatbot.common.Messages.*;
-
 
 /**
  * Deals with interactions with the user
@@ -41,7 +39,7 @@ public class Ui {
      * Generates and prints the welcome message upon the start of the application.
      */
     public String showWelcome() {
-        return MESSAGE_WELCOME;
+        return Messages.MESSAGE_WELCOME;
     }
 
     /**
@@ -79,13 +77,13 @@ public class Ui {
      * Shows goodbye message for ExitCommand.
      */
     public String showByeMessage() {
-        return MESSAGE_GOODBYE;
+        return Messages.MESSAGE_GOODBYE;
     }
     /**
      * Shows cleared message for ClearCommand.
      */
     public String showClearMessage() {
-        return MESSAGE_CLEAR;
+        return Messages.MESSAGE_CLEAR;
     }
     /**
      * Shows list message for ListCommand.
@@ -97,21 +95,21 @@ public class Ui {
             listTasks.append("\n").append(i + 1).append(".").append(tasks.getTasks().get(i).toString());
         }
 
-        return MESSAGE_LIST + listTasks.toString();
+        return Messages.MESSAGE_LIST + listTasks.toString();
     }
     /**
      * Shows print message for PrintCommand.
      */
     public String showPrintMessage(int count, String formattedDate) {
-        return (MESSAGE_PRINT + count
-                + MESSAGE_PRINT_TWO + formattedDate);
+        return (Messages.MESSAGE_PRINT + count
+                + Messages.MESSAGE_PRINT_TWO + formattedDate);
     }
     /**
      * Shows print message for PrintCommand if there are more than 1 task to print.
      */
     public String showPrintMessagePlural(int count, String formattedDate) {
-        return (MESSAGE_PRINT + count
-                + MESSAGE_PRINT_TWO_PLURAL + formattedDate);
+        return (Messages.MESSAGE_PRINT + count
+                + Messages.MESSAGE_PRINT_TWO_PLURAL + formattedDate);
     }
     /**
      * Shows find message for FindCommand.
@@ -126,78 +124,78 @@ public class Ui {
             }
         }
 
-        return MESSAGE_FIND + foundTasks.toString();
+        return Messages.MESSAGE_FIND + foundTasks.toString();
     }
 
     /**
      * Shows mark message for MarkCommand.
      */
     public String showMarkMessage(String taskName) {
-        return (MESSAGE_MARK + taskName);
+        return (Messages.MESSAGE_MARK + taskName);
     }
     /**
      * Shows unmark message for UnmarkCommand.
      */
     public String showUnmarkMessage(String taskName) {
-        return (MESSAGE_UNMARK + taskName);
+        return (Messages.MESSAGE_UNMARK + taskName);
     }
     /**
      * Shows delete message for DeleteCommand.
      */
     public String showDeleteMessage(String deletedTask, int taskSize) {
-        return (MESSAGE_DELETE + deletedTask + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_TASK_IN_THE_LIST);
+        return (Messages.MESSAGE_DELETE + deletedTask + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_TASK_IN_THE_LIST);
     }
 
     /**
      * Shows delete message for DeleteCommand if there are more 1 task in tasklist.
      */
     public String showDeleteMessagePlural(String deletedTask, int taskSize) {
-        return (MESSAGE_DELETE + deletedTask + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
+        return (Messages.MESSAGE_DELETE + deletedTask + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
     /**
      * Shows todo task message for TodoCommand.
      */
     public String showTodoMessage(String taskDescription, int taskSize) {
-        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_TASK_IN_THE_LIST);
+        return (Messages.MESSAGE_ADD + taskDescription + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_TASK_IN_THE_LIST);
     }
     /**
      * Shows todo task message for TodoCommand if there are more 1 task in tasklist.
      */
     public String showTodoMessagePlural(String taskDescription, int taskSize) {
-        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
+        return (Messages.MESSAGE_ADD + taskDescription + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
 
     /**
      * Shows deadline task message for DeadlineCommand.
      */
     public String showDeadlineMessage(String taskDescription, int taskSize) {
-        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_TASK_IN_THE_LIST);
+        return (Messages.MESSAGE_ADD + taskDescription + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_TASK_IN_THE_LIST);
     }
     /**
      * Shows deadline task message for DeadlineCommand if there are more 1 task in tasklist.
      */
     public String showDeadlineMessagePlural(String taskDescription, int taskSize) {
-        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
+        return (Messages.MESSAGE_ADD + taskDescription + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
     /**
      * Shows event task message for EventCommand.
      */
     public String showEventMessage(String taskDescription, int taskSize) {
-        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_TASK_IN_THE_LIST);
+        return (Messages.MESSAGE_ADD + taskDescription + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_TASK_IN_THE_LIST);
     }
     /**
      * Shows event task message for EventCommand if there are more 1 task in tasklist.
      */
     public String showEventMessagePlural(String taskDescription, int taskSize) {
-        return (MESSAGE_ADD + taskDescription + MESSAGE_NOW_YOU_HAVE
-                + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
+        return (Messages.MESSAGE_ADD + taskDescription + Messages.MESSAGE_NOW_YOU_HAVE
+                + taskSize + Messages.MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
 
     /**
@@ -208,13 +206,13 @@ public class Ui {
         for (LocalDate slot : freeTimeSlots) {
             result.append(slot.toString()).append("\n");
         }
-        return (MESSAGE_FIND_FREE_TIME + ("\n") + result);
+        return (Messages.MESSAGE_FIND_FREE_TIME + ("\n") + result);
     }
     /**
      * Shows no free time slot is found.
      */
     public String showNoFreeTimeFoundMessage() {
-        return (MESSAGE_NO_FREE_TIME);
+        return (Messages.MESSAGE_NO_FREE_TIME);
     }
     /**
      * Shows dot line.
@@ -226,7 +224,7 @@ public class Ui {
      * Shows loading error message.
      */
     public String showLoadingError() {
-        return MESSAGE_LOADING_ERROR;
+        return Messages.MESSAGE_LOADING_ERROR;
     }
     /**
      * Shows error message.

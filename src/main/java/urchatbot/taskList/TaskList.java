@@ -33,7 +33,7 @@ public class TaskList {
      */
     public void addTask(Task task) {
         tasks.add(task);
-        assert tasks.size() > 0: "Number of tasks should be more than zero!";
+        assert tasks.size() > 0 : "Number of tasks should be more than zero!";
     }
 
     /**
@@ -45,7 +45,7 @@ public class TaskList {
         if (index >= 0 && index < tasks.size()) {
             tasks.remove(index);
         }
-        assert tasks.size() > -1: "Number of tasks should be more than -1!";
+        assert tasks.size() > -1 : "Number of tasks should be more than -1!";
     }
 
     /**
@@ -53,7 +53,7 @@ public class TaskList {
      */
     public void clearTask() {
         tasks.clear();
-        assert tasks.size() == 0: "Number of tasks should be zero!";
+        assert tasks.size() == 0 : "Number of tasks should be zero!";
     }
     public ArrayList<Task> getTasks() {
         return tasks;
