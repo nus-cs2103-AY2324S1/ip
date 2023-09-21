@@ -7,15 +7,8 @@ import tasket.exception.TasketException;
 import tasket.storage.Storage;
 import tasket.ui.Ui;
 
-/**
- * The class for find command.
- */
 public class FindCommand extends Command {
 
-    /**
-     * The constructor for find command.
-     * @param description The keyword.
-     */
     public FindCommand(String description) {
         super(description);
     }
