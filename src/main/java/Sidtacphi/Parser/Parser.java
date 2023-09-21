@@ -38,6 +38,8 @@ public class Parser {
                     taskList.addTask(TaskType.DEADLINE, input);
                 } else if (input.startsWith("delete")) {
                     taskList.deleteTask(input);
+                }  else if (input.startsWith("find")) {
+                    taskList.findTask(input);
                 } else {
                     throw new SidException("\"" + input + "\" is not a valid command.");
                 }
