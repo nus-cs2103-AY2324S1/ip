@@ -94,112 +94,93 @@ public class Parser {
     }
 
     public static Todo parseFileTodo(String command) {
-        Task.Prioritylist priority;
         String description = command.substring(4);
-        String name;
-        Todo task;
-        if (description.startsWith("HIGH")) {
-            priority = Task.Prioritylist.HIGH;
-            name = command.substring(9);
-            task = new Todo(name);
-            task.setPriority(priority);
-        } else if (description.startsWith("LOW")) {
-            priority = Task.Prioritylist.LOW;
-            name = command.substring(8);
-            task = new Todo(name);
-            task.setPriority(priority);
-        } else if (description.startsWith("NORMAL")) {
-            priority = Task.Prioritylist.NORMAL;
-            name = command.substring(11);
-            task = new Todo(name);
-            task.setPriority(priority);
+        if (description.startsWith("HIGH") && command.startsWith("[X]")) {
+            return createPrioritisedTodo(command, true, 9, Task.Prioritylist.HIGH);
+        } else if (description.startsWith("HIGH") && command.startsWith("[ ]")) {
+            return createPrioritisedTodo(command, false, 9, Task.Prioritylist.HIGH);
+        } else if (description.startsWith("NORMAL") && command.startsWith("[X]")) {
+            return createPrioritisedTodo(command, true, 11, Task.Prioritylist.NORMAL);
+        } else if (description.startsWith("NORMAL") && command.startsWith("[ ]")) {
+            return createPrioritisedTodo(command, false, 11, Task.Prioritylist.NORMAL);
+        } else if (description.startsWith("LOW") && command.startsWith("[X]")) {
+            return createPrioritisedTodo(command, true, 8, Task.Prioritylist.LOW);
+        } else if (description.startsWith("LOW") && command.startsWith("[ ]")) {
+            return createPrioritisedTodo(command, false, 8, Task.Prioritylist.LOW);
         } else {
-            name = "";
-            task = null;
+            return null;
         }
-        assert name.length() > 0 : "description should not be empty";
-        if (description.startsWith("[X]")) {
-            task.setStatus(true);
-            assert task.getStatusIcon().equals("X") : "task should be marked";
-        } else {
-            task.setStatus(false);
-            assert task.getStatusIcon().equals(" ") : "task should be unmarked";
-        }
+    }
+
+    public static Todo createPrioritisedTodo(String command, boolean mark, int stringIndex, Task.Prioritylist priority) {
+        String name = command.substring(stringIndex);
+        Todo task = new Todo(name);
+        task.setStatus(mark);
+        task.setPriority(priority);
         return task;
     }
 
     public static Deadline parseFileDeadline(String command) {
-        int endDescription = command.indexOf("(by: ");
-        int length = command.length();
-        String time = command.substring(endDescription + 5, length - 1);
-        assert time.equals("") : "time should not be empty";
-        LocalDate date = LocalDate.parse(time);
-        String name;
         String description = command.substring(4);
-        Deadline task;
-        if (description.startsWith("HIGH")) {
-            name = description.substring(5, endDescription - 5);
-            task = new Deadline(name, date);
-            task.setPriority(Task.Prioritylist.HIGH);
-        } else if (description.startsWith("NORMAL")) {
-            name = description.substring(7, endDescription - 5);
-            task = new Deadline(name, date);
-            task.setPriority(Task.Prioritylist.NORMAL);
+        if (description.startsWith("HIGH") && command.startsWith("[X]")) {
+            return createPrioritisedDeadline(description, true, 5, Task.Prioritylist.HIGH);
+        } else if (description.startsWith("HIGH") && command.startsWith("[ ]")) {
+            return createPrioritisedDeadline(description, false, 5, Task.Prioritylist.HIGH);
+        } else if (description.startsWith("NORMAL") && command.startsWith("[X]")) {
+            return createPrioritisedDeadline(description, true, 7, Task.Prioritylist.NORMAL);
+        } else if (description.startsWith("NORMAL") && command.startsWith("[ ]")) {
+            return createPrioritisedDeadline(description, false, 7, Task.Prioritylist.NORMAL);
+        } else if (description.startsWith("LOW") && command.startsWith("[X]")) {
+            return createPrioritisedDeadline(description, true, 4, Task.Prioritylist.LOW);
+        } else if (description.startsWith("LOW") && command.startsWith("[ ]")) {
+            return createPrioritisedDeadline(description, false, 4, Task.Prioritylist.LOW);
         } else {
-            name = description.substring(4, endDescription - 5);
-            task = new Deadline(name, date);
-            task.setPriority(Task.Prioritylist.LOW);
+            return null;
         }
+    }
 
-        if (command.startsWith("[X]")) {
-            task.setStatus(true);
-            assert task.getStatusIcon().equals("X") : "task should be marked";
-        } else {
-            task.setStatus(false);
-            assert task.getStatusIcon().equals(" ") : "task should be unmarked";
-        }
+    public static Deadline createPrioritisedDeadline(String command, boolean mark, int stringIndex, Task.Prioritylist priority) {
+        int endDescription = command.indexOf("(by: ");
+        String description = command.substring(stringIndex, endDescription);
+        String time = command.substring(endDescription + 5, command.length() - 1);
+        assert time.equals("") : "time should not be empty";
+        Deadline task = new Deadline(description, LocalDate.parse(time));
+        task.setStatus(mark);
+        task.setPriority(priority);
         return task;
     }
 
     public static Event parseFileEvent(String command) {
-        Event event;
-        Task.Prioritylist priority;
-        String name;
-        String end;
+        String description = command.substring(4);
+        if (description.startsWith("HIGH") && command.startsWith("[X]")) {
+            return createPrioritisedEvent(description, true, 5, Task.Prioritylist.HIGH);
+        } else if (description.startsWith("HIGH") && command.startsWith("[ ]")) {
+            return createPrioritisedEvent(description, false, 5, Task.Prioritylist.HIGH);
+        } else if (description.startsWith("NORMAL") && command.startsWith("[X]")) {
+            return createPrioritisedEvent(description, true, 7, Task.Prioritylist.NORMAL);
+        } else if (description.startsWith("NORMAL") && command.startsWith("[ ]")) {
+            return createPrioritisedEvent(description, false, 7, Task.Prioritylist.NORMAL);
+        } else if (description.startsWith("LOW") && command.startsWith("[X]")) {
+            return createPrioritisedEvent(description, true, 4, Task.Prioritylist.LOW);
+        } else if (description.startsWith("LOW") && command.startsWith("[ ]")) {
+            return createPrioritisedEvent(description, false, 4, Task.Prioritylist.LOW);
+        } else {
+            return null;
+        }
+    }
+
+    public static Event createPrioritisedEvent(String command, boolean mark, int stringIndex, Task.Prioritylist priority) {
         int endDescription = command.indexOf("(from: ");
+        String description = command.substring(stringIndex, endDescription);
         int endFrom = command.indexOf("to: ");
         String from = command.substring(endDescription + 7, endFrom - 1);
         assert from.equals("") : "from value should not be empty";
         String to = command.substring(endFrom + 4, command.length() - 1);
         assert to.equals("") : "to value should not be empty";
-        LocalDate startDate = LocalDate.parse(from);
-        LocalDate endDate = LocalDate.parse(to);
-        String description = command.substring(4);
-        if (description.startsWith("HIGH")) {
-            priority = Task.Prioritylist.HIGH;
-            name = description.substring(5, endDescription - 4);
-            event = new Event(name, startDate, endDate);
-            event.setPriority(priority);
-        } else if (description.startsWith("NORMAL")) {
-            priority = Task.Prioritylist.NORMAL;
-            name = description.substring(7, endDescription - 4);
-            event = new Event(name, startDate, endDate);
-            event.setPriority(priority);
-        } else {
-            priority = Task.Prioritylist.LOW;
-            name = description.substring(4, endDescription - 4);
-            event = new Event(name, startDate, endDate);
-            event.setPriority(priority);
-        }
-
-        if (command.startsWith("[X]")) {
-            event.setStatus(true);
-            assert event.getStatusIcon().equals("X") : "task should be marked";
-        } else {
-            event.setStatus(false);
-            assert event.getStatusIcon().equals(" ") : "task should be unmarked";
-        }
-        return event;
+        Event task = new Event(description, LocalDate.parse(from), LocalDate.parse(to));
+        task.setStatus(mark);
+        task.setPriority(priority);
+        return task;
     }
 
 }
