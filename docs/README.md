@@ -87,6 +87,8 @@ Event accepts two timeformats as specified above.
 Note that start time should be before end time.
 
 
+
+
 ### Delete a task: delete
 
 Example of usage:
@@ -107,6 +109,8 @@ Description of the outcome:
 Deletes task in list at specified position.
 
 Note that we can only delete from the list.
+
+
 
 
 ### Mark and unmark a task: mark, unmark
@@ -135,6 +139,8 @@ Mark task in list at specified position.
 Note that we can only mark and unmark from the list.
 
 
+
+
 ### List all tasks: list
 
 Example of usage:
@@ -155,6 +161,9 @@ Description of the outcome:
 
 Lists all task in task list.
 
+
+
+
 ### Find a task: find
 
 Example of usage:
@@ -170,6 +179,8 @@ Expected outcome:
 Description of the outcome:
 
 Finds all tasks containing an exact match for keyword provided.
+
+
 
 
 ### Archvie and Unarchive a task: archive, unarchive
@@ -199,6 +210,8 @@ Archive task into a list for later.
 Unarchive task from archive to retrieve the task.
 
 
+
+
 ### List all tasks in archive: archivelist
 
 Example of usage:
@@ -217,6 +230,8 @@ Expected outcome:
 Description of the outcome:
 
 Lists all tasks in the archive.
+
+
 
 
 ### Delete task in archive: archivedelete
@@ -242,6 +257,8 @@ Deletes task in list at specified position.
 Note that we can only delete from the list.
 
 
+
+
 ### Exit system: bye
 
 Example of usage:
@@ -255,6 +272,8 @@ Expected outcome:
 Description of the outcome:
 
 Exits the system.
+
+
 
 
 ### Summary
