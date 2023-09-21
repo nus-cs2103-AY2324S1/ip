@@ -3,12 +3,6 @@ Jarvis is a chat bot for maintaining tasks.
 
 ## Features
 
-### Auto saving and loading
-
-Automatically saves your tasks and loads them next time.
-
-## Usage
-
 ### `list` - Listing all tasks
 
 Shows a list of all tasks.
@@ -72,3 +66,13 @@ Example of usage:
 Finds the tasks in the list with a specific keyword.
 
 `find KEYWORD`
+
+### `bye` - Exiting
+
+Exits the chat bot.
+
+## Usage
+
+### Auto saving and loading
+
+Automatically saves your tasks and loads them next time.
