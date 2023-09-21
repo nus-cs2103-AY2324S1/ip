@@ -45,6 +45,7 @@ public class MarkCommand implements Command {
      */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+        assert index <= tasks.getTasks().size() : "Task list now does not have enough tasks";
         String message = isMarked ? MESSAGE_MARK : MESSAGE_UNMARK;
         ui.showMessage(message);
         TaskList newTasks = isMarked ? tasks.mark(index) : tasks.unmark(index);
