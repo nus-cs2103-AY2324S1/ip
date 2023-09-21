@@ -1,7 +1,5 @@
 package duke;
 
-import java.io.IOException;
-
 import duke.command.Command;
 import duke.management.NotesList;
 import duke.management.Parser;
