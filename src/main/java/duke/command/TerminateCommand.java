@@ -3,6 +3,8 @@ package duke.command;
 import duke.Storage;
 import duke.Ui;
 import duke.task.TaskList;
+import javafx.application.Application;
+import javafx.application.Platform;
 
 /**
  * Command to terminate program
@@ -21,6 +23,7 @@ public class TerminateCommand extends Command {
     public String execute(TaskList list) {
         Storage storage = new Storage();
         storage.save(list);
+        Platform.exit();
         return Ui.instance.endPrompt();
     }
 

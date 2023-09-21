@@ -33,16 +33,17 @@ public class Storage {
         SaveData save = new SaveData(list.getList().toArray(new Task[0]));
         String json = gson.toJson(save);
 
+        String path = System.getProperty("user.home") + "\\" + fileName;
+
         assert save != null : "The save data should exists";
         try {
-            File saveFile = new File(fileName);
-            FileWriter fw = new FileWriter(saveFile);
+            FileWriter fw = new FileWriter(path);
 
             fw.write(json);
             fw.close();
 
         } catch (IOException e) {
-            System.out.print("Chewie have difficulty remembering your tasks.");
+            e.printStackTrace();
         }
     }
 
@@ -52,8 +53,10 @@ public class Storage {
      * @param list TaskList to load our save.
      */
     public void load(TaskList list) {
+        String path = System.getProperty("user.home") + "\\" + fileName;
+
         try {
-            JsonReader reader = new JsonReader(new FileReader(fileName));
+            JsonReader reader = new JsonReader(new FileReader(path));
             save = gson.fromJson(reader, SaveData.class);
 
         } catch (FileNotFoundException e) {
@@ -65,7 +68,7 @@ public class Storage {
     }
 
     /**
-     * Overloaded method of load.
+     * Overloaded method of load to use for testing.
      *
      * @param list TaskList to load our save.
      * @param filePath filePath to load from.
