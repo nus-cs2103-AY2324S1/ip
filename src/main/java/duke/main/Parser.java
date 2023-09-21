@@ -15,6 +15,7 @@ import duke.task.ToDo;
 
 /** Deals with making sense of user command, manages error handling based on user input */
 public class Parser {
+    private static String[] lowerCaseSplitText;
     private static String[] splitText;
 
     /**
@@ -34,10 +35,11 @@ public class Parser {
             InvalidParametersException, InvalidDateFormatException, MissingCommandException {
         // Split text into two.
         // With index 0 be the first word of user input, and index 1 containing the rest of the string.
-        inputString = inputString.toLowerCase();
+        String lowerCaseInputString = inputString.toLowerCase();
+        lowerCaseSplitText = lowerCaseInputString.split(" ", 2);
         splitText = inputString.split(" ", 2);
 
-        String command = splitText[0];
+        String command = lowerCaseSplitText[0];
         String task;
 
         switch (command) {
@@ -53,36 +55,36 @@ public class Parser {
             return new PauseCommand();
         case "delete":
             checkAtLeast2();
-            return new DeleteCommand(splitText[1]);
+            return new DeleteCommand(lowerCaseSplitText[1]);
         case "todo":
             checkAtLeast2();
             return new AddCommand(new ToDo(splitText[1]));
         case "event":
             checkAtLeast2();
-            LocalDate from = getDateWithCommand(splitText[1], "from");
-            LocalDate to = getDateWithCommand(splitText[1], "to");
+            LocalDate from = getDateWithCommand(lowerCaseSplitText[1], "from");
+            LocalDate to = getDateWithCommand(lowerCaseSplitText[1], "to");
             task = getTask(splitText[1]);
             return new AddCommand(new Event(task, from, to));
         case "deadline":
             checkAtLeast2();
-            LocalDate by = getDateWithCommand(splitText[1], "by");
+            LocalDate by = getDateWithCommand(lowerCaseSplitText[1], "by");
             task = getTask(splitText[1]);
             return new AddCommand(new Deadline(task, by));
         case "mark":
             checkAtLeast2();
-            return new ChangeMarkCommand(splitText[1], true);
+            return new ChangeMarkCommand(lowerCaseSplitText[1], true);
         case "unmark":
             checkAtLeast2();
-            return new ChangeMarkCommand(splitText[1], false);
+            return new ChangeMarkCommand(lowerCaseSplitText[1], false);
         case "find":
             checkAtLeast2();
-            return new FindCommand(splitText[1]);
+            return new FindCommand(lowerCaseSplitText[1]);
         case "tags":
             checkAtLeast2();
-            return new ViewTagsCommand(splitText[1]);
+            return new ViewTagsCommand(lowerCaseSplitText[1]);
         case "tag":
             checkAtLeast2();
-            String[] params = getParams(splitText[1], 2);
+            String[] params = getParams(lowerCaseSplitText[1], 2);
             return new TagCommand(params[0], params[1]);
         default:
             throw new InvalidCommandException("zzzzzzzz huh? I only understand the following commands.");
@@ -121,7 +123,7 @@ public class Parser {
         }
 
         if (!isFound) {
-            throw new MissingCommandException("Command " + command + "could not be isFound");
+            throw new MissingCommandException("Command " + command + " could not be found");
         } else if (date == null) {
             throw new MissingParametersException("Command " + command + " does not contain any parameters");
         }
@@ -178,7 +180,7 @@ public class Parser {
      * @throws MissingParametersException Throws if there are no parameters found after the command.
      */
     private static void checkAtLeast2() throws MissingParametersException {
-        if (splitText.length < 2) {
+        if (lowerCaseSplitText.length < 2) {
             throw new MissingParametersException("You need to add something after the command LOL");
         }
     }
