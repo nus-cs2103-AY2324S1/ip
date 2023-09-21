@@ -65,62 +65,6 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Marks a task as done.
-     *
-     * @param index The index of the task to be marked as done.
-     */
-    public void markAsDone(int index) {
-        assert index >= 0 && index < tasks.size() : "Task index out of range";
-        tasks.get(index).markAsDone();
-    }
-
-    /**
-     * Unmarks a task as done.
-     *
-     * @param index The index of the task to be unmarked.
-     */
-    public void unmarkAsDone(int index) {
-        assert index >= 0 && index < tasks.size() : "Task index out of range";
-        tasks.get(index).unmarkAsDone();
-    }
-
-    /**
-     * Processes a task based on user input.
-     *
-     * @param userInput The user's input.
-     * @param tasks The list of tasks.
-     * @param mark Whether to mark the task as done.
-     */
-    public static void processTask(String userInput, ArrayList<Task> tasks, boolean mark) {
-        assert userInput != null : "User input cannot be null";
-        assert tasks != null : "Task list cannot be null";
-        int taskNumber;
-        try {
-            taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-            if (taskNumber <= 0 || taskNumber > tasks.size()) {
-                throw new IndexOutOfBoundsException();
-            }
-
-            Task task = tasks.get(taskNumber - 1);
-            if (mark) {
-                task.markAsDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("Nice! I've marked this task as done:");
-            } else {
-                task.unmarkAsDone();
-                System.out.println("____________________________________________________________");
-                System.out.println("OK, I've marked this task as not done yet:");
-            }
-            System.out.println("  [" + task.getStatusIcon() + "] " + task.description);
-            System.out.println("____________________________________________________________");
-        } catch (NumberFormatException e) {
-            System.out.println("Please provide a valid task number.");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("That task doesn't exist!");
-        }
-    }
-
-    /**
      * Returns an iterator over the elements in the task list.
      *
      * @return An iterator over the tasks.

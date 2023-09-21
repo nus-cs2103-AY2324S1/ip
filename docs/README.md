@@ -112,12 +112,32 @@ Deletes the specified task from the task list.
 
 Format: `delete INDEX`
 
-* Deletes the list at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
+* Deletes the task at the specified `INDEX`.
+* The index refers to the index number shown in the displayed task list.
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
+* `list` followed by `delete 2` deletes the 2nd task in the task list.
+
+### Marking a task as done : `mark`
+
+Marks the specified task as done from the task list
+
+Format: `mark INDEX`
+
+* Marks the test at the specified `INDEX` as done.
+* The index refers to the index number shown in the displayed task list.
+* The index **must be a positive integer** 1, 2, 3, …​
+
+### Marking a task as not done : `unmark`
+
+Marks the specified task as not done from the task list
+
+Format: `unmark INDEX`
+
+* Marks the test at the specified `INDEX` as not done.
+* The index refers to the index number shown in the displayed task list.
+* The index **must be a positive integer** 1, 2, 3, …​
 
 ### Exiting the program : `bye`
 
@@ -138,6 +158,8 @@ AddressBook data are saved in the hard disk automatically after any command that
 | **Deadline** | `deadline NAME /by DDMMYYYY HHMM`<br> e.g., `deadline group project /by 1/11/2023 0123`                                    |
 | **Event**    | `event NAME /from DDMMYYYY HHMM /to DDMMYYYY HHMM`<br> e.g.,`event Dad's birthday /from 17/8/2023 0000 /to 17/8/2023 2359` |
 | **Delete**   | `delete INDEX`<br> e.g., `delete 3`                                                                                        |
+| **Mark**     | `mark INDEX`<br> e.g., `mark 2`                                                                                            |
+| **Unmark**   | `unmark INDEX`<br> e.g., `unmark 2`                                                                                        |
 | **Find**     | `find KEYWORD`<br> e.g., `find homework`                                                                                   |
 | **List**     | `list`                                                                                                                     |
 | **Bye**      | `bye`                                                                                                                      |

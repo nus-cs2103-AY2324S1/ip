@@ -1,7 +1,8 @@
 package duke;
 
-import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents an event task in the Duke application.
  * Each event has a description, start time, and end time.

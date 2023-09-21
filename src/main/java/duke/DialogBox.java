@@ -25,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * Constructor to create a dialog box with given text and image.
+     *
+     * @param text The text to be displayed in the dialog box.
+     * @param img  The image to be used as the speaker's avatar.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -35,8 +41,10 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
         dialog.setText(text);
         displayPicture.setImage(img);
+        this.setMaxWidth(USE_PREF_SIZE);
     }
 
     /**
@@ -49,10 +57,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Factory method to create a user dialog box.
+     *
+     * @param text The text spoken by the user.
+     * @param img  The user's avatar.
+     * @return A DialogBox with the user's avatar and text.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Factory method to create a Duke dialog box.
+     * This dialog box has Duke's avatar on the left and the text on the right.
+     *
+     * @param text The text spoken by Duke.
+     * @param img  Duke's avatar.
+     * @return A DialogBox with Duke's avatar and text.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

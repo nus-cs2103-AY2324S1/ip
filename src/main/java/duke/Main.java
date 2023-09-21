@@ -15,6 +15,12 @@ public class Main extends Application {
 
     private Duke duke = new Duke();
 
+    /**
+     * The main entry point for the JavaFX application.
+     * It sets up the main chat interface and displays it to the user.
+     *
+     * @param stage The primary stage/window of the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

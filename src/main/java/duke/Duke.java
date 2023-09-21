@@ -1,5 +1,8 @@
 package duke;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import duke.command.Command;
 import javafx.application.Application;
 import javafx.fxml.FXML;
@@ -7,20 +10,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.Region;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
- * The main Duke class that represents the chatbot.
- * It initializes the application and interacts with the user.
+ * The main Duke application class representing the chatbot.
+ * It initializes the application components, including the GUI, and handles interactions with the user.
  */
 public class Duke extends Application {
 
@@ -42,7 +40,8 @@ public class Duke extends Application {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
-     * Constructs a Duke object and initializes the UI, Storage, and TaskList.
+     * Default constructor for the Duke class.
+     * Initializes the user interface, storage mechanism, and task list.
      */
     public Duke() {
         ui = new Ui();
@@ -55,7 +54,12 @@ public class Duke extends Application {
         }
     }
 
-
+    /**
+     * The main entry point for the JavaFX application.
+     * This method sets up the GUI elements and the initial visual appearance for the application.
+     *
+     * @param stage The primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -101,15 +105,11 @@ public class Duke extends Application {
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
 
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
+        userInput.setOnAction((event) -> handleUserInput());
 
-        String welcomeMessage = ui.showWelcome();
+        String welcomeMessage = Ui.showWelcome();
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, duke));
 
         //Scroll down to the end every time dialogContainer's height changes.
@@ -117,9 +117,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user's command input, processes the command, and displays the result in the dialog box.
      */
     @FXML
     private void handleUserInput() {
@@ -135,8 +133,12 @@ public class Duke extends Application {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the user's command input and returns a response.
+     * This method takes in the user's command, parses it, and executes the appropriate command.
+     * If there are any issues, it handles them gracefully by returning an error message.
+     *
+     * @param input The user's command input string.
+     * @return The response after processing the command.
      */
     public String getResponse(String input) {
         try {
@@ -150,7 +152,8 @@ public class Duke extends Application {
     }
 
     /**
-     * The main method for the Duke chatbot application.
+     * The main method for launching the Duke chatbot application.
+     * This method launches the JavaFX application.
      *
      * @param args Command line arguments.
      */

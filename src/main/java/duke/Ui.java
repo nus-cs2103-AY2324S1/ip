@@ -52,8 +52,8 @@ public class Ui {
     /**
      * Displays a loading error message.
      */
-    public String showLoadingError() {
-        return showError("There was an error loading saved tasks.");
+    public void showLoadingError() {
+        showError("There was an error loading saved tasks.");
     }
 
     /**
@@ -77,7 +77,7 @@ public class Ui {
         builder.append("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
-            builder.append((i + 1) + "." + task).append("\n");
+            builder.append(i + 1).append(".").append(task).append("\n");
         }
         return builder.toString();
     }
@@ -164,7 +164,7 @@ public class Ui {
         builder.append("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
             Task task = matchingTasks.get(i);
-            builder.append((i + 1) + "." + task).append("\n");
+            builder.append(i + 1).append(".").append(task).append("\n");
         }
         builder.append("____________________________________________________________\n");
 
