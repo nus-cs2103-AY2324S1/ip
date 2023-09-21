@@ -4,7 +4,11 @@ import com.cloud.chatbot.annotation.Nullable;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 
@@ -13,10 +17,60 @@ import javafx.stage.Stage;
  * Handles the user interface (UI).
  */
 public final class Ui extends Application {
+    private static final double WIDTH = 400;
+    /** Lost width to account for on Windows 11. */
+    private static final double WIDTH_OS_LOSS = 15;
+    private static final double HEIGHT = 600;
+    /** Lost width to account for on Windows 11. */
+    private static final double HEIGHT_OS_LOSS = 40;
+    private static final double PADDING = 5;
+
+    private static final double WIDTH_SCROLL = Ui.WIDTH - (Ui.PADDING * 2);
+    private static final double HEIGHT_SCROLL = Ui.HEIGHT - (Ui.PADDING * 3) - Ui.HEIGHT_BOTTOM;
+
+    private static final double WIDTH_SEND = 50;
+    private static final double WIDTH_INPUT = Ui.WIDTH - (Ui.PADDING * 3) - Ui.WIDTH_SEND;
+    /** Default height of the input & button. */
+    private static final double HEIGHT_BOTTOM = 25;
+
     @Override
     public void start(Stage stage) {
-        Label helloWorld = new Label("o/");
-        Scene scene = new Scene(helloWorld);
+        // Create node structure
+        VBox messagesHolder = new VBox();
+        ScrollPane scrollPane = new ScrollPane(messagesHolder);
+
+        TextField input = new TextField();
+        Button sendButton = new Button("Send");
+
+        AnchorPane anchorPane = new AnchorPane(scrollPane, input, sendButton);
+
+        Scene scene = new Scene(anchorPane);
+
+        // Format nodes
+        scrollPane.setPrefSize(WIDTH_SCROLL, HEIGHT_SCROLL);
+        // scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        // scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        // scrollPane.setVvalue(1.0);
+        // scrollPane.setFitToWidth(true);
+
+        input.setPrefWidth(WIDTH_INPUT);
+        sendButton.setPrefWidth(WIDTH_SEND);
+
+        AnchorPane.setTopAnchor(scrollPane, Ui.PADDING);
+        AnchorPane.setLeftAnchor(scrollPane , Ui.PADDING);
+
+        AnchorPane.setLeftAnchor(input , Ui.PADDING);
+        AnchorPane.setBottomAnchor(input, Ui.PADDING);
+
+        AnchorPane.setBottomAnchor(sendButton, Ui.PADDING);
+        AnchorPane.setRightAnchor(sendButton, Ui.PADDING);
+
+        // Show when done
+        stage.setTitle("Cloud");
+        stage.setWidth(Ui.WIDTH + Ui.WIDTH_OS_LOSS);
+        stage.setHeight(Ui.HEIGHT + Ui.HEIGHT_OS_LOSS);
+        stage.setResizable(false);
 
         stage.setScene(scene);
         stage.show();
