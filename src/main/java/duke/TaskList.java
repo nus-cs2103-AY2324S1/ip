@@ -15,7 +15,7 @@ import duke.task.Task;
 public class TaskList {
     public static final int DAYS_IN_A_WEEK = 7;
     public static final int DAYS_IN_A_MONTH = 30;
-    private ArrayList<Task> taskArrayList;
+    public ArrayList<Task> taskArrayList;
 
     /**
      * Constructs an empty `TaskList`.

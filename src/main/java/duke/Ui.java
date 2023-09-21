@@ -16,7 +16,11 @@ public class Ui {
             "With you in the battlefield of life, against task enemies!",
             "No retreat, no surrender! We tackle tasks head-on, like true warriors.",
             "Task enemies beware! We're on a relentless mission to accomplish it all.",
-            "Every completed task is a step closer to victory. Keep pushing forward!"
+            "Every completed task is a step closer to victory. Keep pushing forward!",
+            "No excuses, soldier! You are the commander of your tasks, and victory is the only option.",
+            "With every task you complete, you weaken the forces of chaos and strengthen the fortress of productivity.",
+            "A true warrior of productivity knows that success is achieved through discipline and relentless effort. Keep charging forward!",
+            "Stay vigilant, soldier, for the enemy of progress is cunning. But with diligence, you shall overcome."
     };
     private String logo;
 

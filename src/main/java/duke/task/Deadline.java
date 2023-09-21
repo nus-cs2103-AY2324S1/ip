@@ -66,4 +66,10 @@ public class Deadline extends Task {
         String formattedDate = this.by.format(Task.OUTPUT_FORMATTER);
         return "[D]" + super.toString() + " (by: " + formattedDate + ")";
     }
+
+    @Override
+    public String toFileOutput() {
+        String isDoneString = this.isDone ? "1" : "0";
+        return "D|" + isDoneString + "|" + this.description + "|" + this.by;
+    }
 }

@@ -92,136 +92,183 @@ public class Duke {
         // Check for various user commands and generate responses accordingly.
         if (userInput.equalsIgnoreCase(Command.START)) {
             botOutput = botOutput + this.ui.getEntryGreeting();
-        } else if (userInput.equalsIgnoreCase(Command.LIST)) {
+        } else if (userInput.strip().equalsIgnoreCase(Command.LIST)) {
             // Generate a list of tasks and display it to the user.
             botOutput = botOutput + "Here are the tasks in your list: \n    " + this.tasks.toString();
 
-        } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_WEEK)) {
+        } else if (userInput.strip().equalsIgnoreCase(Command.LIST_WITHIN_WEEK)) {
             // Generate a list of tasks due within a week and display it to the user.
             TaskList listWeek = this.tasks.dueWithinWeek();
             botOutput = botOutput + "Here are the tasks in your list that start/due within one week: \n    "
                     + listWeek.toString();
 
-        } else if (userInput.equalsIgnoreCase(Command.LIST_WITHIN_MONTH)) {
+        } else if (userInput.strip().equalsIgnoreCase(Command.LIST_WITHIN_MONTH)) {
             // Generate a list of tasks due within a month and display it to the user.
             TaskList monthWeek = this.tasks.dueWithinMonth();
             botOutput = botOutput + "Here are the tasks in your list that start/due within one month: \n    "
                     + monthWeek.toString();
 
-        } else if (userInput.startsWith(Command.MARK)) {
-            // Process a command to mark a task as done and display the result.
-            botOutput = botOutput + "Nice! I've marked this task as done: \n    ";
-            try {
-                int taskNo = parser.parseMark(userInput, this.tasks);
-                Task x = this.tasks.getTask(taskNo - 1);
-
-                assert x != null : "retrieved task x cannot be null";
-
-                x.markAsDone();
-                botOutput += x;
-            } catch (ParserException p) {
-                // Handle parsing exceptions.
-                botOutput = p.getMessage();
-            }
-        } else if (userInput.startsWith(Command.UNMARK)) {
-            // Process a command to mark a task as not done and display the result.
-            botOutput = botOutput + "Ok, I've marked this task as not done yet: \n    ";
-            try {
-                int taskNo = parser.parseUnmark(userInput, this.tasks);
-                Task x = this.tasks.getTask(taskNo - 1);
-
-                assert x != null : "retrieved task x cannot be null";
-
-                x.markAsUndone();
-                botOutput += x;
-            } catch (ParserException p) {
-                // Handle parsing exceptions.
-                botOutput = p.getMessage();
-            }
-        } else if (userInput.startsWith(Command.DELETE)) {
-            // Process a command to delete a task and display the deleted task.
-            botOutput = botOutput + "Noted. I've removed this task: \n    ";
-            try {
-                int taskNo = parser.parseDelete(userInput, this.tasks);
-                Task x = this.tasks.deleteTask(taskNo - 1);
-
-                assert x != null : "retrieved task x cannot be null";
-
-                botOutput += x;
-            } catch (ParserException p) {
-                // Handle parsing exceptions.
-                botOutput = p.getMessage();
-            }
-        } else if (userInput.startsWith(Command.TAG)) {
-            botOutput = botOutput + "Noted. I've added tags to this task: \n    ";
-            try {
-                Pair<Integer, String[]> p = parser.parseTag(userInput, this.tasks);
-                int taskNo = p.getKey();
-                String[] tags = p.getValue();
-                Task x = this.tasks.getTask(taskNo - 1);
-                x.addTags(tags);
-
-                assert x != null : "retrieved task x cannot be null";
-
-                botOutput += x;
-            } catch (ParserException p) {
-                // Handle parsing exceptions.
-                botOutput = p.getMessage();
-            }
-
-        } else if (userInput.startsWith(Command.DOAFTER)) {
-            botOutput = botOutput + "Noted. I've added dependency to this task: \n    ";
-            try {
-                Pair<Integer, Integer> p = parser.parseDoAfter(userInput, this.tasks);
-                int childTaskNo = p.getKey();
-                int parentTaskNo = p.getValue();
-                Task child = this.tasks.getTask(childTaskNo - 1);
-                Task parent = this.tasks.getTask(parentTaskNo - 1);
-                child.setParentTask(parent);
-                assert child != null : "retrieved task child cannot be null";
-                assert parent != null : "retrieved task parent cannot be null";
-
-                botOutput += child;
-            } catch (ParserException p) {
-                // Handle parsing exceptions.
-                botOutput = p.getMessage();
-            }
-        } else if (userInput.startsWith(Command.FIND)) {
-            try {
-                String[] queryString = parser.parseFind(userInput, this.tasks);
-                TaskList listSearchMatches = this.tasks.searchMatches(queryString);
-                botOutput = botOutput + "Here are the matching tasks in your list: \n    "
-                        + listSearchMatches.toString();
-            } catch (ParserException p) {
-                botOutput = p.getMessage();
-            }
-        } else if (userInput.equalsIgnoreCase("BYE")) {
+        } else if (userInput.strip().startsWith(Command.MARK)) {
+            botOutput = markResponse(userInput.strip(), botOutput);
+        } else if (userInput.strip().startsWith(Command.UNMARK)) {
+            botOutput = unmarkResponse(userInput.strip(), botOutput);
+        } else if (userInput.strip().startsWith(Command.DELETE)) {
+            botOutput = deleteResponse(userInput.strip(), botOutput);
+        } else if (userInput.strip().startsWith(Command.TAG)) {
+            botOutput = tagResponse(userInput.strip(), botOutput);
+        } else if (userInput.strip().startsWith(Command.DOAFTER)) {
+            botOutput = doafterResponse(userInput.strip(), botOutput);
+        } else if (userInput.strip().startsWith(Command.FIND)) {
+            botOutput = findResponse(userInput.strip(), botOutput);
+        } else if (userInput.strip().equalsIgnoreCase(Command.EXIT)) {
             botOutput = this.ui.getExitGreeting();
         } else {
-            try {
-                // Attempt to create a new task based on the user input.
-                Task t = Task.taskCon(userInput);
-
-                assert t != null : "created task t cannot be null";
-
-                this.tasks.addTask(t);
-                    botOutput = botOutput + "added: " + t + "\n    Now you have " + this.tasks.getSize() + " tasks in the list.";
-            } catch (InvalidCommandException e) {
-                // Handle invalid commands.
-                botOutput = "OOPS!!! I'm sorry, but I'm afraid I don't comprehend Major!";
-            } catch (InvalidTaskCreationException t) {
-                // Handle invalid task creation.
-                botOutput = t.getMessage();
-            } catch (DateTimeParseException d) {
-                // Handle date and time format exceptions.
-                botOutput = "Please specify deadlines and dates in the following format, " + Task.DATE_TIME_FORMAT;
-            }
+            botOutput = taskCreationResponse(userInput.strip(), botOutput);
         }
 
         assert botOutput.isEmpty() == false : "botOutput message cannot be empty";
 
         botOutput = botOutput + this.ui.getQuote();
+
+        try {
+            // Write the updated taskList into file
+            this.storage.saveTasksToFile(this.tasks);
+
+        } catch (IOException | InvalidFileFormatException e) {
+            // Handle exceptions related to file loading.
+            System.out.println(e.getMessage());
+            botOutput += "\n\n Task file was not written successfully.";
+        }
+
         // Return the generated bot response to run() method.
+        return botOutput;
+    }
+
+    private String taskCreationResponse(String userInput, String botOutput) {
+        try {
+            // Attempt to create a new task based on the user input.
+            Task t = Task.taskCon(userInput);
+
+            assert t != null : "created task t cannot be null";
+
+            this.tasks.addTask(t);
+                botOutput = botOutput + "added: " + t + "\n    Now you have " + this.tasks.getSize() + " tasks in the list.";
+        } catch (InvalidCommandException e) {
+            // Handle invalid commands.
+            botOutput = "OOPS!!! I'm sorry, but I'm afraid I don't comprehend Major!";
+        } catch (InvalidTaskCreationException t) {
+            // Handle invalid task creation.
+            botOutput = t.getMessage();
+        } catch (DateTimeParseException d) {
+            // Handle date and time format exceptions.
+            botOutput = "Please specify deadlines and dates in the following format, " + Task.DATE_TIME_FORMAT;
+        }
+        return botOutput;
+    }
+
+    private String findResponse(String userInput, String botOutput) {
+        try {
+            String[] queryString = parser.parseFind(userInput, this.tasks);
+            TaskList listSearchMatches = this.tasks.searchMatches(queryString);
+            botOutput = botOutput + "Here are the matching tasks in your list: \n    "
+                    + listSearchMatches.toString();
+        } catch (ParserException p) {
+            botOutput = p.getMessage();
+        }
+        return botOutput;
+    }
+
+    private String doafterResponse(String userInput, String botOutput) {
+        botOutput = botOutput + "Noted. I've added dependency to this task: \n    ";
+        try {
+            Pair<Integer, Integer> p = parser.parseDoAfter(userInput, this.tasks);
+            int childTaskNo = p.getKey();
+            int parentTaskNo = p.getValue();
+            Task child = this.tasks.getTask(childTaskNo - 1);
+            Task parent = this.tasks.getTask(parentTaskNo - 1);
+            child.setParentTask(parent);
+            assert child != null : "retrieved task child cannot be null";
+            assert parent != null : "retrieved task parent cannot be null";
+
+            botOutput += child;
+        } catch (ParserException p) {
+            // Handle parsing exceptions.
+            botOutput = p.getMessage();
+        }
+        return botOutput;
+    }
+
+    private String tagResponse(String userInput, String botOutput) {
+        botOutput = botOutput + "Noted. I've added tags to this task: \n    ";
+        try {
+            Pair<Integer, String[]> p = parser.parseTag(userInput, this.tasks);
+            int taskNo = p.getKey();
+            String[] tags = p.getValue();
+            Task x = this.tasks.getTask(taskNo - 1);
+            if (tags.length == 0) {
+                throw new ParserException("Please enter valid tags in the format: 'tag 4 fun sport'");
+            }
+            x.addTags(tags);
+            assert x != null : "retrieved task x cannot be null";
+
+            botOutput += x;
+        } catch (ParserException p) {
+            // Handle parsing exceptions.
+            botOutput = p.getMessage();
+        }
+        return botOutput;
+    }
+
+    private String deleteResponse(String userInput, String botOutput) {
+        // Process a command to delete a task and display the deleted task.
+        botOutput = botOutput + "Noted. I've removed this task: \n    ";
+        try {
+            int taskNo = parser.parseDelete(userInput, this.tasks);
+            Task x = this.tasks.deleteTask(taskNo - 1);
+
+            assert x != null : "retrieved task x cannot be null";
+
+            botOutput += x;
+        } catch (ParserException p) {
+            // Handle parsing exceptions.
+            botOutput = p.getMessage();
+        }
+        return botOutput;
+    }
+
+    private String unmarkResponse(String userInput, String botOutput) {
+        // Process a command to mark a task as not done and display the result.
+        botOutput = botOutput + "Ok, I've marked this task as not done yet: \n    ";
+        try {
+            int taskNo = parser.parseUnmark(userInput, this.tasks);
+            Task x = this.tasks.getTask(taskNo - 1);
+
+            assert x != null : "retrieved task x cannot be null";
+
+            x.markAsUndone();
+            botOutput += x;
+        } catch (ParserException p) {
+            // Handle parsing exceptions.
+            botOutput = p.getMessage();
+        }
+        return botOutput;
+    }
+
+    private String markResponse(String userInput, String botOutput) {
+        // Process a command to mark a task as done and display the result.
+        botOutput = botOutput + "Nice! I've marked this task as done: \n    ";
+        try {
+            int taskNo = parser.parseMark(userInput, this.tasks);
+            Task x = this.tasks.getTask(taskNo - 1);
+
+            assert x != null : "retrieved task x cannot be null";
+
+            x.markAsDone();
+            botOutput += x;
+        } catch (ParserException p) {
+            // Handle parsing exceptions.
+            botOutput = p.getMessage();
+        }
         return botOutput;
     }
 
