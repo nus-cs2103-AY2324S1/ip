@@ -78,7 +78,7 @@ public class Evan {
      * @return string introduction of the chatbot and its commands
      */
     public String getIntro() {
-        StringBuilder stringBuilder = new StringBuilder("Hello! I'm Evan, your personal task planning assistant\n")
+        StringBuilder stringBuilder = new StringBuilder("Hello! I'm Evan, your personal task planning assistant.\n")
                 .append("What can I do for you?\n\n")
                 .append("Available commands:\n")
                 .append("todo: create a new todo task\n")
