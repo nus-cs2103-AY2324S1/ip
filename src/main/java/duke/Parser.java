@@ -37,6 +37,10 @@ public class Parser {
             }
             int indexFrom = str.lastIndexOf("/from");
             int indexTo = str.lastIndexOf("/to");
+            if (indexTo < indexFrom) {
+                throw new DukeException("'from' comes before 'to'... "
+                        + "(eg. Holiday /from 2023-12-07 1800 /to 2023-12-20 1800)");
+            }
             try {
                 return new AddEventCommand(str.substring(6, indexFrom - 1),
                         LocalDateTime.parse(str.substring(indexFrom + 6, indexTo - 1),
