@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 // with minor modifications
 public class Main extends Application {
 
-    private TehO tehO = new TehO("/Users/loomeilinzann/ip/text-ui-test/data/teho.txt");
+    private TehO tehO = new TehO("teho.txt");
 
     @Override
     public void start(Stage stage) {

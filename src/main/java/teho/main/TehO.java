@@ -9,6 +9,8 @@ import teho.exceptions.TehOException;
 
 import static java.lang.Integer.parseInt;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.time.LocalDate;
 
