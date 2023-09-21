@@ -1,29 +1,131 @@
-# User Guide
+# Bot User Guide
 
-## Features 
+## Getting Started
+1. Check that you are using Java 11
+2. Download the latest JAR file
+3. Navigate to the directory containing the JAR file downloaded
+4. Run java -jar duke.jar to start the application
 
-### Feature-ABC
+## Features
 
-Description of the feature.
+### Creating a new task: `todo`, `deadline`, `event`
+Add a new task to your task list.
 
-### Feature-XYZ
+**Format:**
+1. `todo [TASK]`
+2. `deadline [TASK] /by [DD/MM/YYYY HHmm]`
+3. `event [TASK] /from [DD/MM/YYYY HHmm] /to [DD/MM/YYYY HHmm]`
 
-Description of the feature.
+**Examples:**
+- `todo buy lunch`
+- `deadline submit report /by 30/09/2023 2359`
+- `event attend workshop /from 28/09/2023 1000 /to 28/09/2023 1800`
 
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+**Expected Bot output:**
 ```
-expected output
+Got it. I've added this task:
+[T][] buy lunch
+Now you have 1 tasks in the list
 ```
+
+### Deleting a task: `delete`
+
+Delete an existing task from your task list.
+
+**Format:** `delete [TASK_NUMBER]`
+
+**Example:** `delete 1`
+
+**Expected Bot output:**
+```
+Noted. I've removed this task:
+[T][] buy lunch
+Now you have 0 tasks in the list
+```
+
+### Listing all tasks: `list`
+
+List all the tasks you have added to your task list.
+
+**Format:** `list`
+
+**Expected Bot output:**
+```
+Here are the tasks in your list:
+1. [T][] buy lunch
+2. [D][] submit report (by: Sep 30 2023 23:59)
+3. [E][] attend workshop (from: Sep 28 2023 10:00, to: Sep 28 2023 18:00)
+```
+
+### Marking a task: `mark`
+
+Mark an existing task from your task list as done as indicated by X.
+
+**Format:** `mark [TASK_NUMBER]`
+
+**Example:** `mark 1`
+
+**Expected Bot output:**
+```
+Nice! I've marked this task as done:
+[T][X] buy lunch
+```
+
+### Finding a task: `find`
+
+Find a specified task from the tasklist containing the keyword entered.
+
+**Format:** `find [KEYWORD]`
+
+**Example:** `find report`
+
+**Expected Bot output:**
+```
+Here are the matching tasks in your list:
+1. [D][] submit report (by: Sep 30 2023 23:59)
+```
+
+### Getting help: `help`
+
+List all commands Bot understands.
+
+**Format:** `help`
+
+**Expected Bot output:**
+```
+Here are the commands I understand:
+1. list
+2. todo [TASK]
+3. deadline [TASK] /by [DD/MM/YYYY HHmm]
+4. event [TASK] /from [DD/MM/YYYY HHmm] /to [DD/MM/YYYY HHmm]
+5. mark [TASK_NUMBER]
+6. delete [TASK_NUMBER]
+7. find [KEYWORD]
+8. bye
+9. help
+```
+
+### Exiting the application: `bye`
+
+Exit the application.
+
+**Format:** `bye`
+
+**Expected Bot output:**
+```
+Bye! Hope to see you again soon!
+```
+
+## Command Summary
+
+Command | Format
+--------|------------------
+**Todo** | `todo [TASK]`
+**Deadline** | `deadline [TASK] /by [DD/MM/YYYY HHmm]` 
+**Event** | `event [TASK] /from [DD/MM/YYYY HHmm] /to [DD/MM/YYYY HHmm]`
+**Delete** | `delete [TASK_NUMBER]`
+**List** | `list`
+**Mark** | `mark [TASK_NUMBER]` 
+**Find** | `find [KEYWORD]` 
+**Help** | `help` 
+**Exit** | `bye`
