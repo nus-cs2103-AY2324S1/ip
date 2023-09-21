@@ -81,6 +81,7 @@ public class Storage {
         String taskType = input.split(" \\| ")[0];
         boolean isComplete = input.split(" \\| ")[1].equals("1");
         String description = input.split(" \\| ")[2];
+
         if (taskType.equals("T")) {
             return new ToDo(description, isComplete);
         } else if (taskType.equals("D")) {
@@ -103,7 +104,8 @@ public class Storage {
      * @param isComplete Whether the FixedDurationTask is completed.
      * @return The Event.
      */
-    private FixedDurationTask createFixedDurationTaskFromStorage(String input, String description, boolean isComplete) {
+    private FixedDurationTask createFixedDurationTaskFromStorage(String input,
+                                                                 String description, boolean isComplete) {
         String duration = input.split(" \\| ")[3];
         return new FixedDurationTask(description, isComplete, duration);
     }

@@ -1,7 +1,7 @@
 package duke;
 
 /**
- * Encapsulates tasks for the chatbot.
+ * Encapsulates tasks for the chat bot.
  */
 public class Task {
     protected String description;
@@ -21,7 +21,7 @@ public class Task {
 
     /**
      * Constructs a Task with specified description and whether
-     * it is completed.
+     * it is done.
      */
     public Task(String description, boolean isDone) {
         assert !description.isEmpty();
@@ -57,6 +57,7 @@ public class Task {
      * Returns a String representation of the task for storage.
      */
     public String toTxt() {
+        // 1 for done task
         return (this.isDone ? "1" : "0") + " | " + this.description;
     }
 

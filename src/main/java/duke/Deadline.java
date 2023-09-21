@@ -21,7 +21,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline with specified description, deadline, and
-     * whether it is completed.
+     * whether it is done.
      */
     public Deadline(String description, boolean isDone, LocalDate by) {
         super(description, isDone);

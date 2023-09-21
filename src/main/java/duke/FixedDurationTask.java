@@ -16,7 +16,7 @@ public class FixedDurationTask extends Task {
 
     /**
      * Constructs a FixedDurationTask with specified description, duration, and
-     * whether it is completed.
+     * whether it is done.
      */
     public FixedDurationTask(String description, boolean isDone, String duration) {
         super(description, isDone);

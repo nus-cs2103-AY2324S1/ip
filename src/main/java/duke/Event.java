@@ -13,7 +13,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event with specified description, start time, end time,
-     * and whether it is completed.
+     * and whether it is done.
      */
     public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);

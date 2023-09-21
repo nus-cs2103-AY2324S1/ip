@@ -87,13 +87,13 @@ public class Ui {
      * @param e The exception printed.
      */
     public static String printException(DukeException e) {
-        return " " + e.getMessage();
+        return e.getMessage();
     }
 
     /**
      * Returns farewell message.
      */
     public static String farewellMessage() {
-        return " Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!";
     }
 }
