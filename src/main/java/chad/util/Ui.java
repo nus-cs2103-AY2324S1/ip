@@ -6,7 +6,6 @@ import chad.task.Task;
  * Represents user interface of the chatbot.
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "____________________________________________________________\n";
     private String message;
 
     /**
@@ -17,12 +16,11 @@ public class Ui {
     }
 
     /**
-     * Prints the entry message of the chatbot.
+     * Returns the welcome message of the Chad.
      */
     public static String getWelcomeMessage() {
-        String entryMessage = "Hello! I'm Chad \n"
+        return "Hello! I'm Chad \n"
                 + "What can I do for you? \n";
-        return entryMessage;
     }
 
     /**
@@ -81,7 +79,7 @@ public class Ui {
     }
 
     /**
-     * Adds the error message from a given Exeception.
+     * Adds the error message from a given Exception.
      *
      * @param e The Exception thrown from the execution of a method.
      */
@@ -113,7 +111,7 @@ public class Ui {
     public void addTaskMessage(Task task) {
         assert task != null : "Task cannot be null";
 
-        this.message += task.toString() + "\n";
+        this.message += task + "\n";
     }
 
     /**
