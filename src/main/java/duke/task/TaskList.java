@@ -33,18 +33,17 @@ public class TaskList {
      */
     public String listAllTask() {
 
-        String result = Ui.showLine();
+        String result;
         if (this.tasks.size() == 0) {
-            result += "There is not any task yet...";
+            result = "There is not any task yet...";
         } else {
-            result += "\n Here " + (tasks.size() > 1 ? "are" : "is") +
+            result = "\n Here " + (tasks.size() > 1 ? "are" : "is") +
                     " the " + (tasks.size() > 1 ? "tasks" : "task") + " in your list: ";
             for (int i = 1; i < tasks.size() + 1; i++) {
                 result += "\n" + i + "." + tasks.get(i - 1).toString();
             }
             result += "\n";
         }
-        result += Ui.showLine();
         return result;
     }
 

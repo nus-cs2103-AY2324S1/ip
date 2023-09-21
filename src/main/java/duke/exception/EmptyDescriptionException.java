@@ -20,8 +20,6 @@ public class EmptyDescriptionException extends Exception {
      */
     @Override
     public String toString() {
-
-        String result = "\nOOPS! The description of the " + getMessage() + " cannot be empty.";
-        return Ui.showLine() + result + " \n" + Ui.showLine();
+        return "OOPS! The description of the " + getMessage() + " cannot be empty.";
     }
 }

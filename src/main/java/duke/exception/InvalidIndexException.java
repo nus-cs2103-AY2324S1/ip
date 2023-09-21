@@ -11,8 +11,6 @@ public class InvalidIndexException extends Exception {
      */
     @Override
     public String toString() {
-
-        String result = "\nOOPS! Please choose a proper index.";
-        return Ui.showLine() + result + "\n" + Ui.showLine();
+        return "OOPS! Please choose a proper index.";
     }
 }

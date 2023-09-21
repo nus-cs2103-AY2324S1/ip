@@ -35,6 +35,6 @@ public class UnmatchedArgumentException extends Exception {
 
         String result = "\nOOPS! The argument passed does not match the requirement.";
         result += "\nExpected " + this.actual + " , got " + this.got + "\n";
-        return Ui.showLine() + result + " \n" + Ui.showLine();
+        return result;
     }
 }
