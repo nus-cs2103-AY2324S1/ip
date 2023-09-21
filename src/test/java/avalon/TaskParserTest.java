@@ -1,5 +1,9 @@
 package avalon;
 
+import avalon.task.Deadline;
+import avalon.task.Task;
+import avalon.utility.TaskParser;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,8 +18,8 @@ public class TaskParserTest {
         Task task = TaskParser.parse(input);
 
         assertTrue(task instanceof Deadline);
-        assertTrue(task.isDone);
-        assertEquals("return book", task.description);
+        assertTrue(task.getIsDone());
+        assertEquals("return book", task.getDescription());
     }
 
     @Test

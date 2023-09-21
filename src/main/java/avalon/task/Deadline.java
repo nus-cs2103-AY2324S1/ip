@@ -1,4 +1,6 @@
-package avalon;
+package avalon.task;
+
+import avalon.utility.DateTimeParser;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +13,7 @@ public class Deadline extends Task {
     /**
      * The deadline timestamp for the task.
      */
-    protected LocalDateTime by;
+    private LocalDateTime by;
 
     /**
      * Creates a new deadline task with the given description and
@@ -23,6 +25,10 @@ public class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = DateTimeParser.stringToDateTime(by);
+    }
+
+    public LocalDateTime getBy() {
+        return by;
     }
 
     /**

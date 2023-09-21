@@ -1,4 +1,7 @@
-package avalon;
+package avalon.utility;
+
+import avalon.task.Task;
+import avalon.task.TaskList;
 
 import java.util.Scanner;
 
@@ -8,27 +11,46 @@ import java.util.Scanner;
 public class Ui {
     private Scanner scanner;
 
+    private StringBuilder output;
+
     /**
      * Constructs a new UI instance with a scanner for user input.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
+        this.output = new StringBuilder();
     }
 
     /**
-     * Gets user input from the console.
+     * Appends a message to the output buffer.
      *
-     * @return The user's input as a string.
+     * @param message The message to be appended.
      */
-    public String getUserInput() {
-        return this.scanner.nextLine();
+    public void printMessage(String message) {
+        this.output.append(message);
+    }
+
+    /**
+     * Retrieves the contents of the output buffer as a string.
+     *
+     * @return The contents of the output buffer.
+     */
+    public String getOutput() {
+        return this.output.toString();
+    }
+
+    /**
+     * Clears the contents of the output buffer.
+     */
+    public void clearOutput() {
+        this.output = new StringBuilder();
     }
 
     /**
      * Prints a line separator to the console.
      */
-    public void linePrint() {
-        System.out.print("   _________________________________________"
+    public void printLineSeparator() {
+        printMessage("   _________________________________________"
                 + "________________________________________\n");
 
     }
@@ -39,9 +61,9 @@ public class Ui {
      * @param message The message to be styled and printed.
      */
     public void styleMessage(String message) {
-        linePrint();
-        System.out.print(message);
-        linePrint();
+        printLineSeparator();
+        printMessage(message);
+        printLineSeparator();
     }
 
     /**
@@ -55,7 +77,7 @@ public class Ui {
      * Displays a farewell message.
      */
     public void byeMessage() {
-        styleMessage("    Farewell. We will meet again!\n");
+        printMessage("    Farewell. We will meet again!\n");
     }
 
     /**
@@ -67,12 +89,12 @@ public class Ui {
         if (tasks.isEmpty()) {
             styleMessage("    You haven't added anything, my sire.\n");
         } else {
-            linePrint();
-            System.out.println("   Here are the quests in thy list:");
+            printLineSeparator();
+            printMessage("   Here are the quests in thy list:" + "\n");
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println("    " + (i + 1) + "." + tasks.get(i));
+                printMessage("    " + (i + 1) + "." + tasks.get(i) + "\n");
             }
-            linePrint();
+            printLineSeparator();
         }
     }
 
@@ -83,11 +105,11 @@ public class Ui {
      * @param taskIndex The index of the marked task.
      */
     public void showMarkMessage(TaskList tasks, int taskIndex) {
-        linePrint();
-        System.out.println("   Very well. I have marked this task as accomplished:\n  " + "  "
+        printLineSeparator();
+        printMessage("   Very well. I have marked this task as accomplished:\n  " + "  "
                 + tasks.get(taskIndex).getStatusIcon() + " "
-                + tasks.get(taskIndex).description);
-        linePrint();
+                + tasks.get(taskIndex).getDescription() + "\n");
+        printLineSeparator();
     }
 
     /**
@@ -97,11 +119,11 @@ public class Ui {
      * @param taskIndex The index of the unmarked task.
      */
     public void showUnmarkMessage(TaskList tasks, int taskIndex) {
-        linePrint();
-        System.out.println("   By the heavens! I have declared this task as yet to be completed:\n  "
+        printLineSeparator();
+        printMessage("   By the heavens! I have declared this task as yet to be completed:\n  "
                 + "  " + tasks.get(taskIndex).getStatusIcon()
-                + " " + tasks.get(taskIndex).description);
-        linePrint();
+                + " " + tasks.get(taskIndex).getDescription() + "\n");
+        printLineSeparator();
     }
 
     /**
@@ -110,11 +132,11 @@ public class Ui {
      * @param tasks The task list containing the newly added task.
      */
     public void showAddTaskMessage(TaskList tasks) {
-        linePrint();
-        System.out.println("   Understood. I have included this quest:\n  "
-                + "  " + tasks.get(tasks.size() - 1));
-        System.out.println("   Now you have " + tasks.size() + " task(s) in the list.");
-        linePrint();
+        printLineSeparator();
+        printMessage("   Understood. I have included this quest:\n  "
+                + "  " + tasks.get(tasks.size() - 1) + "\n");
+        printMessage("   Now you have " + tasks.size() + " task(s) in the list.\n");
+        printLineSeparator();
     }
 
     /**
@@ -124,11 +146,11 @@ public class Ui {
      * @param deletedTask The deleted task.
      */
     public void showDeleteTaskMessage(TaskList tasks, Task deletedTask) {
-        linePrint();
-        System.out.println("   Noted. I've removed this quest:");
-        System.out.println("    " + deletedTask);
-        System.out.println("   Now you have " + tasks.size() + " task(s) in the list.");
-        linePrint();
+        printLineSeparator();
+        printMessage("   Noted. I've removed this quest:\n");
+        printMessage("    " + deletedTask + "\n");
+        printMessage("   Now you have " + tasks.size() + " task(s) in the list.\n");
+        printLineSeparator();
     }
 
     /**
@@ -140,12 +162,12 @@ public class Ui {
         if (matchingTasks.isEmpty()) {
             styleMessage("    No matching tasks found.\n");
         } else {
-            linePrint();
-            System.out.println("    Here are the matching tasks in your list:\n");
+            printLineSeparator();
+            printMessage("    Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
-                System.out.println("    " + (i + 1) + "." + matchingTasks.get(i));
+                printMessage("    " + (i + 1) + "." + matchingTasks.get(i) + "\n");
             }
-            linePrint();
+            printLineSeparator();
         }
     }
 }
