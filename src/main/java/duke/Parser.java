@@ -7,13 +7,15 @@ import java.time.LocalDate;
  */
 public class Parser {
     private String command;
-    private Storage storage;
     private TaskList taskList;
     private boolean isEnd = false;
 
-    public Parser(String command, Storage storage, TaskList taskList) {
+    public Parser(String command) {
         this.command = command;
-        this.storage = storage;
+    }
+
+    public Parser(String command, TaskList taskList) {
+        this.command = command;
         this.taskList = taskList;
     }
 

@@ -43,7 +43,7 @@ public class Duke {
         Scanner userInput = new Scanner(System.in);
         while (true) {
             String command = userInput.nextLine();
-            Parser p = new Parser(command, this.storage, this.tasks);
+            Parser p = new Parser(command, this.tasks);
             p.parse();
             if (p.isEnd()) {
                 break;
@@ -60,7 +60,7 @@ public class Duke {
      * Returns the response String given the input.
      */
     protected String getResponse(String input) {
-        Parser parser = new Parser(input, this.storage, this.tasks);
+        Parser parser = new Parser(input, this.tasks);
         String response = parser.parse();
         return response;
     }

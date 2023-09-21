@@ -1,5 +1,2 @@
-D | 0 | submit homework | Sep 30 2023
-F | 1 | clean room | one hour
-T | 0 | buy lunch
-T | 0 | li
-T | 0 | list
+T | 1 | ldf 
+E | 0 | daf | Jan 01 2022 | Mar 03 20220 | test
