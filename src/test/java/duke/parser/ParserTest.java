@@ -4,13 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import duke.data.exception.DukeException;
 import org.junit.jupiter.api.Test;
 
 import duke.data.task.Task;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.ToDo;
-import duke.data.exception.CCException;
 
 public class ParserTest {
 
@@ -19,7 +19,7 @@ public class ParserTest {
         Parser parser = new Parser();
         try {
             parser.parseTask("invalid", "taskDescription");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("Task was successfully constructed with empty description.");
@@ -30,7 +30,7 @@ public class ParserTest {
         Parser parser = new Parser();
         try {
             parser.parseTask("todo", "");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("ToDo was successfully constructed with empty description.");
@@ -42,7 +42,7 @@ public class ParserTest {
         Task task;
         try {
             task = parser.parseTask("todo", "read book");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             fail(e.getMessage());
             return;
         }
@@ -55,7 +55,7 @@ public class ParserTest {
         Parser parser = new Parser();
         try {
             parser.parseTask("deadline", "");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("Deadline was successfully constructed with empty description.");
@@ -66,7 +66,7 @@ public class ParserTest {
         Parser parser = new Parser();
         try {
             parser.parseTask("deadline", "return book /by ");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("Deadline was successfully constructed with empty end date.");
@@ -78,7 +78,7 @@ public class ParserTest {
         Task task;
         try {
             task = parser.parseTask("deadline", "return book /by 2023-01-09");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             fail(e.getMessage());
             return;
         }
@@ -91,7 +91,7 @@ public class ParserTest {
         Parser parser = new Parser();
         try {
             parser.parseTask("event", "");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("Event was successfully constructed with empty description.");
@@ -102,7 +102,7 @@ public class ParserTest {
         Parser parser = new Parser();
         try {
             parser.parseTask("event", "holiday /from /to 2023-12-25");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("Event was successfully constructed with empty start date.");
@@ -113,7 +113,7 @@ public class ParserTest {
         Parser parser = new Parser();
         try {
             parser.parseTask("event", "holiday /from 2023-12-02 /to ");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("Event was successfully constructed with empty end date.");
@@ -125,7 +125,7 @@ public class ParserTest {
         Task task;
         try {
             task = parser.parseTask("event", "holiday /from 2023-12-02 /to 2023-12-25");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             fail(e.getMessage());
             return;
         }

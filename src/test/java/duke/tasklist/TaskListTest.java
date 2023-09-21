@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import duke.data.task.Task;
 import duke.data.task.ToDo;
-import duke.data.exception.CCException;
+import duke.data.exception.DukeException;
 import duke.parser.Parser;
 import duke.ui.Ui;
 
@@ -20,7 +20,7 @@ public class TaskListTest {
         TaskList taskList = new TaskList(new ArrayList<>(), new Ui());
         try {
             taskList.deleteTask("-1");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             return;
         }
         fail("Invalid index was deleted from task list.");
@@ -37,7 +37,7 @@ public class TaskListTest {
         taskList.addTask(new ToDo("read book 3"));
         try {
             taskList.deleteTask("3");
-        } catch (CCException e) {
+        } catch (DukeException e) {
             fail(e.getMessage());
         }
         for (Task task : taskList) {

@@ -1,8 +1,8 @@
 package duke.storage;
 
 import duke.Duke;
+import duke.data.exception.DukeException;
 import duke.parser.Parser;
-import duke.data.exception.CCException;
 import duke.data.task.Task;
 import duke.tasklist.TaskList;
 
@@ -59,7 +59,7 @@ public class Storage {
             return taskList;
         } catch (IOException e) {
             System.err.println("An error occurred while loading tasks from file: " + e.getMessage());
-        } catch (CCException e) {
+        } catch (DukeException e) {
             System.err.println("An error occurred while adding tasks: " + e.getMessage());
         }
         System.out.println("HERE");

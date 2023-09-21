@@ -1,6 +1,6 @@
 package duke.command;
 
-import duke.data.exception.CCException;
+import duke.data.exception.DukeException;
 import duke.tasklist.TaskList;
 import duke.data.task.Task;
 
@@ -22,7 +22,7 @@ public class MarkTaskCommand extends Command {
         try {
             Task markedTask = tasks.markTask(taskIndex);
             return response(markedTask);
-        } catch (CCException e) {
+        } catch (DukeException e) {
             System.err.println(e.getMessage());
         }
         return null;

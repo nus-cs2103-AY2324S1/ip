@@ -1,7 +1,7 @@
 package duke.parser;
 
 import duke.command.*;
-import duke.data.exception.CCException;
+import duke.data.exception.DukeException;
 import duke.data.task.Deadline;
 import duke.data.task.Event;
 import duke.data.task.Task;
@@ -23,9 +23,9 @@ public class Parser {
      *
      * @param input The input command provided by the user.
      * @return A Command object representing the parsed command.
-     * @throws CCException If an error occurs during parsing, such as an empty input.
+     * @throws DukeException If an error occurs during parsing, such as an empty input.
      */
-    public Command parseInput(String input) throws CCException {
+    public Command parseInput(String input) throws DukeException {
         String action = getActionFromInput(input);
         String description = getDescriptionFromInput(input, action);
 
@@ -62,7 +62,7 @@ public class Parser {
             command = new CountTaskTypeCommand();
             break;
         default:
-            throw new CCException("OOPS!!! I'm sorry, but I don't know what that means :<");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
 
         assert action != null : "Action should not be null";
@@ -71,9 +71,9 @@ public class Parser {
         return command;
     }
 
-    private String getActionFromInput(String input) throws CCException {
+    private String getActionFromInput(String input) throws DukeException {
         if (input.trim().isEmpty()) {
-            throw new CCException("Empty input detected.");
+            throw new DukeException("Empty input detected.");
         }
         String[] words = input.split(" ");
         return words[0];
@@ -95,9 +95,9 @@ public class Parser {
      *
      * @param fileLine The input line from the data file containing task details.
      * @return A Task object representing the parsed task.
-     * @throws CCException If an error occurs during parsing.
+     * @throws DukeException If an error occurs during parsing.
      */
-    public Task parseTaskFromFile(String fileLine) throws CCException {
+    public Task parseTaskFromFile(String fileLine) throws DukeException {
         String input = fileLine.substring(1); //remove completion status character to extract task input
         String action = getActionFromInput(input);
         String description = getDescriptionFromInput(input, action);
@@ -116,9 +116,9 @@ public class Parser {
      * @param type  The type of the task (todo, deadline, event).
      * @param input The input containing task details.
      * @return A Task object representing the parsed task.
-     * @throws CCException If an error occurs during parsing or task creation.
+     * @throws DukeException If an error occurs during parsing or task creation.
      */
-    public Task parseTask(String type, String input) throws CCException {
+    public Task parseTask(String type, String input) throws DukeException {
         Task task = null;
         switch (type) {
         case "todo":
@@ -131,7 +131,7 @@ public class Parser {
             task = parseEvent(input);
             break;
         default:
-            throw new CCException("Invalid task type.");
+            throw new DukeException("Invalid task type.");
         }
         return task;
     }
@@ -141,11 +141,11 @@ public class Parser {
      *
      * @param taskDescription The description of the ToDo task.
      * @return A new ToDo task object created from the provided description.
-     * @throws CCException If the description is empty.
+     * @throws DukeException If the description is empty.
      */
-    private ToDo parseToDo (String taskDescription) throws CCException {
+    private ToDo parseToDo (String taskDescription) throws DukeException {
         if (taskDescription.isEmpty()) {
-            throw new CCException("OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
 
         assert taskDescription != null : "TaskDescription should not be null";
@@ -158,17 +158,17 @@ public class Parser {
      *
      * @param taskDescription The description and due date of the Deadline task.
      * @return A new Deadline task object created from the provided description.
-     * @throws CCException If the input format is incorrect or if there are empty fields.
+     * @throws DukeException If the input format is incorrect or if there are empty fields.
      */
-    private Deadline parseDeadline(String taskDescription) throws CCException {
+    private Deadline parseDeadline(String taskDescription) throws DukeException {
         String[] fields = taskDescription.split("/by");
         if (fields.length != 2) {
-            throw new CCException("OOPS!!! Incorrect format for deadline.");
+            throw new DukeException("OOPS!!! Incorrect format for deadline.");
         }
         String name = fields[0].trim();
         String dueDate = fields[1].trim();
         if (name.isEmpty() || dueDate.isEmpty()) {
-            throw new CCException("OOPS!!! Empty field for deadline detected.");
+            throw new DukeException("OOPS!!! Empty field for deadline detected.");
         }
 
         assert taskDescription != null : "TaskDescription should not be null";
@@ -183,18 +183,18 @@ public class Parser {
      *
      * @param taskDescription The description, start date, and end date of the Event task.
      * @return A new Event task object created from the provided description.
-     * @throws CCException If the input format is incorrect or if there are empty fields.
+     * @throws DukeException If the input format is incorrect or if there are empty fields.
      */
-    private Event parseEvent(String taskDescription) throws CCException {
+    private Event parseEvent(String taskDescription) throws DukeException {
         String[] fields = taskDescription.split("/from|/to");
         if (fields.length != 3) {
-            throw new CCException("OOPS!!! Incorrect format for event.");
+            throw new DukeException("OOPS!!! Incorrect format for event.");
         }
         String name = fields[0].trim();
         String start = fields[1].trim();
         String end = fields[2].trim();
         if (name.isEmpty() || start.isEmpty() || end.isEmpty()) {
-            throw new CCException("OOPS!!! Empty field for event detected.");
+            throw new DukeException("OOPS!!! Empty field for event detected.");
         }
 
         assert taskDescription != null : "TaskDescription should not be null";

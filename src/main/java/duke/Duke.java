@@ -1,7 +1,7 @@
 package duke;
 
 import duke.command.Command;
-import duke.data.exception.CCException;
+import duke.data.exception.DukeException;
 import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasklist.TaskList;
@@ -46,7 +46,7 @@ public class Duke {
                 storage.saveTasksToFile(tasks);
                 return response;
             }
-        } catch (CCException e) {
+        } catch (DukeException e) {
             System.err.println(e.getMessage());
         }
         return "";

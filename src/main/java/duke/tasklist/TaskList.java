@@ -1,10 +1,9 @@
 package duke.tasklist;
 
-import duke.data.exception.CCException;
+import duke.data.exception.DukeException;
 import duke.data.task.Task;
 import duke.data.task.ToDo;
 import duke.data.task.Deadline;
-import duke.data.task.Event;
 import duke.ui.Ui;
 
 import java.util.ArrayList;
@@ -44,7 +43,7 @@ public class TaskList implements Iterable<Task> {
      * Displays a confirmation message with the added task's details.
      *
      * @param task The task to be added to the task list.
-     * @throws CCException If there is an error in adding the task.
+     * @throws DukeException If there is an error in adding the task.
      */
     public void addTask(Task task) {
         assert task != null : "Task should not be null"; // Check that the task is not null
@@ -63,9 +62,9 @@ public class TaskList implements Iterable<Task> {
      * Displays a confirmation message after deleting the task.
      *
      * @param input The input containing task information to be deleted.
-     * @throws CCException If there is an error in deleting the task or if the input is invalid.
+     * @throws DukeException If there is an error in deleting the task or if the input is invalid.
      */
-    public Task deleteTask(String input) throws CCException {
+    public Task deleteTask(String input) throws DukeException {
         assert input != null : "Input should not be null"; // Check that the input is not null
         try {
             int index = getIndex(input);
@@ -74,7 +73,7 @@ public class TaskList implements Iterable<Task> {
             taskList.remove(index);
             return deletedTask;
         } catch (IndexOutOfBoundsException e) {
-            throw new CCException("Invalid input for list of length " + taskList.size());
+            throw new DukeException("Invalid input for list of length " + taskList.size());
         }
     }
 
@@ -83,9 +82,9 @@ public class TaskList implements Iterable<Task> {
      * Displays a confirmation message with the marked task's details.
      *
      * @param input The input containing task information to mark as done.
-     * @throws CCException If there is an error in marking the task or if the input is invalid.
+     * @throws DukeException If there is an error in marking the task or if the input is invalid.
      */
-    public Task markTask(String input) throws CCException {
+    public Task markTask(String input) throws DukeException {
         assert input != null : "Input should not be null"; // Check that the input is not null
         assert !input.isEmpty() : "Input should not be empty"; // Check that the input is not empty
 
@@ -96,7 +95,7 @@ public class TaskList implements Iterable<Task> {
             completedCount++;
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new CCException("Invalid input for marking list of length " + taskList.size());
+            throw new DukeException("Invalid input for marking list of length " + taskList.size());
         }
     }
 
@@ -105,9 +104,9 @@ public class TaskList implements Iterable<Task> {
      * Displays a confirmation message with the unmarked task's details.
      *
      * @param input The input containing task information to unmark.
-     * @throws CCException If there is an error in unmarking the task or if the input is invalid.
+     * @throws DukeException If there is an error in unmarking the task or if the input is invalid.
      */
-    public Task unmarkTask(String input) throws CCException {
+    public Task unmarkTask(String input) throws DukeException {
         assert input != null : "Input should not be null"; // Check that the input is not null
         assert !input.isEmpty() : "Input should not be empty"; // Check that the input is not empty
 
@@ -118,7 +117,7 @@ public class TaskList implements Iterable<Task> {
             completedCount--;
             return task;
         } catch (IndexOutOfBoundsException e) {
-            throw new CCException("Invalid input for list of length " + taskList.size());
+            throw new DukeException("Invalid input for list of length " + taskList.size());
         }
     }
 
