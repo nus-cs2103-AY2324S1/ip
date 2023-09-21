@@ -2,9 +2,6 @@
 .gradle/
 build/
 
-# Tests
-tests/ACTUAL.txt
-
 # VSCode
 bin/
 
