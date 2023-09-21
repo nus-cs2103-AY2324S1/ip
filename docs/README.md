@@ -23,6 +23,16 @@ Example of usage:
 
 `todo taskDescription`
 
+`deadline taskDescription /by 630am 29june`
+
+`deadline taskDescription /by 06:30:00 2023-04-24`
+
+`event taskDescription /from 630am 29june /to 730am 29june`
+
+`event taskDescription /from 06:30:00 2015-04-24 /to 07:30:00 2023-06-29`
+
+
+
 Expected outcome:
 
 `Got it. I've added this task:`
@@ -31,19 +41,6 @@ Expected outcome:
 
 `Now you have 1 tasks in the list`
 
-Description of the outcome:
-
-Adds task to list
-
-[T] denotes task
-
-Example of usage:
-
-`deadline taskDescription /by 630am 29june`
-
-`deadline taskDescription /by 06:30:00 2023-04-24`
-
-Expected outcome:
 
 `Got it. I've added this task:`
 
@@ -51,23 +48,6 @@ Expected outcome:
 
 `Now you have 1 tasks in the list`
 
-
-Description of the outcome:
-
-Adds deadline to the list. 
-
-[D] denotes deadline
-
-Deadline accepts two timeformats as specified above.
-
-
-Example of usage:
-
-`event taskDescription /from 630am 29june /to 730am 29june`
-
-`event taskDescription /from 06:30:00 2015-04-24 /to 07:30:00 2023-06-29`
-
-Expected outcome:
 
 `Got it. I've added this task:`
 
@@ -78,15 +58,11 @@ Expected outcome:
 
 Description of the outcome:
 
-Adds an event to the list. 
+Adds task to list
 
-[E] denotes event
+[T] denotes task, [D] denotes deadline, [E] denotes event
 
-Event accepts two timeformats as specified above.
-
-Note that start time should be before end time.
-
-
+Deadline and Event accepts two timeformats as specified above.
 
 
 ### Delete a task: delete
@@ -128,8 +104,8 @@ Expected outcome:
 `[T][X] taskDescription`
 
 `Nice! I've marked this task as not done yet:`
-`
-[T][ ] taskDescription`
+
+`[T][ ] taskDescription`
 
 
 Description of the outcome:
@@ -137,8 +113,6 @@ Description of the outcome:
 Mark task in list at specified position.
 
 Note that we can only mark and unmark from the list.
-
-
 
 
 ### List all tasks: list
@@ -150,18 +124,16 @@ Example of usage:
 
 Expected outcome:
 
-`Here are the task in your list:
+Here are the task in your list:
 
 1. [T][ ] taskDescription1
 
-2. [T][ ] taskDescription2`
+2. [T][ ] taskDescription2
 
 
 Description of the outcome:
 
 Lists all task in task list.
-
-
 
 
 ### Find a task: find
@@ -196,7 +168,7 @@ Expected outcome:
 
 `Stored task into archive folder (archive)`
 
-[`T][ ] taskDescription`
+`[T][ ] taskDescription`
 
 `Retrieved task from folder (unarchive)`
 
@@ -243,7 +215,7 @@ Example of usage:
 
 Expected outcome:
 
-`Noted. I've removed this task:
+Noted. I've removed this task:
 
 [T][ ] taskDescription
 
@@ -277,19 +249,19 @@ Exits the system.
 
 
 ### Summary
-Action | Format, Examples 
+Action | Format
 ------ | -------
-todo | format, examples
-deadline |
-event |
-delete |
-mark |
-unmark |
-list |
-find |
-archive |
-unarchive |
-archivelist |
-archivedelete |
-bye |
+todo | todo taskDescription
+deadline | deadline taskDescription /by 630am 29june
+event | event taskDescription /from 630am 29june /to 9am 30june
+delete | delete idx
+mark | mark idx
+unmark | unmark idx
+list | list
+find | find keyword
+archive | archive idx
+unarchive | unarchive idx
+archivelist | archivelist
+archivedelete | archivedelete idx
+bye | bye
 
