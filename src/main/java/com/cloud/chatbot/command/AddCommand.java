@@ -2,9 +2,7 @@ package com.cloud.chatbot.command;
 
 import java.time.format.DateTimeParseException;
 
-import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.DateConverter;
-import com.cloud.chatbot.Ui;
 import com.cloud.chatbot.annotation.Nullable;
 import com.cloud.chatbot.exception.IllegalTimestampException;
 import com.cloud.chatbot.exception.MissingFlagInputException;
@@ -15,6 +13,7 @@ import com.cloud.chatbot.item.Item;
 import com.cloud.chatbot.item.Task;
 import com.cloud.chatbot.token.CommandManager;
 import com.cloud.chatbot.token.FlagManager;
+import com.cloud.chatbot.ui.CloudApp;
 
 
 
@@ -27,7 +26,7 @@ public class AddCommand extends Command {
         try {
             description = this.commandManager.getDetails();
         } catch (MissingInputException e) {
-            Ui.say("Please enter a description for your item.");
+            CloudApp.CONTROLLER.sayBot("Please enter a description for your item.");
             return null;
         }
 
@@ -50,7 +49,7 @@ public class AddCommand extends Command {
                 );
             }
         } catch (MissingFlagInputException e) {
-            Ui.say(
+            CloudApp.CONTROLLER.sayBot(
                 String.format(
                     "Please enter a description for the \"%s\" flag.",
                     e.getFlagText()
@@ -58,10 +57,10 @@ public class AddCommand extends Command {
             );
             return null;
         } catch (DateTimeParseException e) {
-            Ui.say("Please use a valid timestamp format.");
+            CloudApp.CONTROLLER.sayBot("Please use a valid timestamp format.");
             return null;
         } catch (IllegalTimestampException e) {
-            Ui.say("Please enter a logical timestamp range.");
+            CloudApp.CONTROLLER.sayBot("Please enter a logical timestamp range.");
             return null;
         }
 
@@ -79,7 +78,7 @@ public class AddCommand extends Command {
             return;
         }
 
-        Cloud.ITEM_MANAGER.add(item);
-        Ui.say(item.toString(Cloud.ITEM_MANAGER.getCount()));
+        CloudApp.ITEM_MANAGER.add(item);
+        CloudApp.CONTROLLER.sayBot(item.toString(CloudApp.ITEM_MANAGER.getCount()));
     }
 }

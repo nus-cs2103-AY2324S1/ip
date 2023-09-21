@@ -1,9 +1,9 @@
 package com.cloud.chatbot;
 
-import java.util.Scanner;
+import com.cloud.chatbot.annotation.Nullable;
+import com.cloud.chatbot.ui.CloudApp;
 
-import com.cloud.chatbot.command.Dispatcher;
-import com.cloud.chatbot.item.ItemManager;
+import javafx.application.Application;
 
 
 
@@ -11,25 +11,36 @@ import com.cloud.chatbot.item.ItemManager;
  * The bot's entry point.
  */
 public final class Cloud {
-    private static final Scanner SCANNER = new Scanner(System.in);
-
-    /** Manages the user's Items. */
-    public static final ItemManager ITEM_MANAGER = new ItemManager();
-
     /**
-     * The bot's main loop.
+     * The main method which launches the JavaFX UI.
      *
      * @param args Java arguments.
      */
     public static void main(String[] args) {
-        Ui.say("Cloud online.");
-        Ui.inputMarker();
+        System.out.println("Launching...");
+        Application.launch(CloudApp.class, args);
+    }
 
-        while (Cloud.SCANNER.hasNextLine()) {
-            String input = Cloud.SCANNER.nextLine();
-            Dispatcher.handle(input);
+    public static void error(String message) {
+        error(message, null);
+    }
 
-            Ui.inputMarker();
+    /**
+     * Prints an error message to standard error, alongside an optional object.
+     *
+     * @param message The error.
+     * @param object The object to print.
+     */
+    public static void error(String message, @Nullable Object object) {
+        System.err.println(
+            String.format(
+                "ERR %s!",
+                message
+            )
+        );
+
+        if (object != null) {
+            System.err.println(object);
         }
     }
 }
