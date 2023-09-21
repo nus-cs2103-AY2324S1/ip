@@ -85,7 +85,7 @@ public class Ui {
 
         return new Response(String.format("Noted. I've removed this task:\n"
                            + "  %s\n"
-                           + "Now you have %d tasks in the list.%n",
+                           + "Now you have %d tasks in the list.\n",
                  removedTask, taskListSize));
     }
 
