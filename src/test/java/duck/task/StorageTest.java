@@ -20,6 +20,7 @@ public class StorageTest {
 
     @Test
     public void givenNewSave_whenSaveCalled_thenCreateFile() throws FileIoException {
+        taskList.setListOfTasks(new ArrayList<>());
         storage.saveInFile(taskList);
         assertTrue(file.exists());
     }
