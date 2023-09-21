@@ -4,6 +4,11 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructor to initialize Task.
+     *
+     * @param description Description of the event.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

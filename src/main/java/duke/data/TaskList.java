@@ -11,13 +11,23 @@ import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.data.task.ToDo;
 
+/**
+ * The TaskList class stores an array of tasks.
+ * It is updated whenever the user modifies tasks.
+ */
 public class TaskList {
     private ArrayList<Task> tasklist;
 
+    /**
+     * Constructor to initialize TaskList.
+     *
+     * @param tasklist Array of tasks that currently exists.
+     */
     public TaskList(ArrayList<Task> tasklist) {
         this.tasklist = tasklist;
     }
 
+    /** Constructor to initialize TaskList. */
     public TaskList() {
         this.tasklist = new ArrayList<>();
     }
@@ -122,6 +132,12 @@ public class TaskList {
         return result;
     }
 
+    /**
+     * Searches the Tasklist for tasks with a specific date, such as Events or Deadline Tasks.
+     *
+     * @param date Date of the Tasks to be found.
+     * @return A new ArrayList of the Tasks found in the search.
+     */
     public ArrayList<Task> viewSchedule(String date) {
         assert this.tasklist.size() >= 0 : "TaskList size is less than 0";
         ArrayList<Task> result = new ArrayList<>();

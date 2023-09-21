@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Deadline class is a child class of Task that represents tasks
+ * with a specific deadline date.
+ */
 public class Deadline extends Task {
     private String deadline;
 

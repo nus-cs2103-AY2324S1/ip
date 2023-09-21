@@ -18,11 +18,19 @@ import duke.data.task.ToDo;
 
 
 
-
+/**
+ * The Storage class reads a .txt file and loads the data into TaskList
+ * and writes tasks in TaskList into a .txt file.
+ */
 public class Storage {
     public final Path filepath;
     public final String path;
 
+    /**
+     * Constructor to initialize Storage.
+     *
+     * @param filePath the path of the .txt file.
+     */
     public Storage(String filePath) {
         this.filepath = Paths.get(filePath);
         this.path = filePath;
@@ -134,6 +142,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Marks a Task if it's status is read to be 1.
+     *
+     * @param t The task to be marked.
+     * @param status The current status of the task.
+     */
     public void markTask(Task t, String status) {
         if (!status.equals("0")) {
             t.mark();

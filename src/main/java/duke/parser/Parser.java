@@ -2,6 +2,10 @@ package duke.parser;
 
 import duke.data.exception.DukeException;
 
+/**
+ * The Parser class takes in the command entered by the user and
+ * splits it into the relevant sections for further method calls.
+ */
 public class Parser {
 
     /**
@@ -15,11 +19,23 @@ public class Parser {
         return command[0];
     }
 
+    /**
+     * Obtains description from the user input.
+     *
+     * @param input the user input.
+     * @return The description.
+     */
     public String getDescription(String input) {
         String[] command = input.split(" ");
         return command[1];
     }
 
+    /**
+     * Splits text from the input file by the character "|".
+     *
+     * @param input the user input.
+     * @return The separated text in an array.
+     */
     public String[] splitInputFromFile(String input) {
         return input.split(" \\| ");
     }

@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+
+/**
+ * The Event class is a child class of Task that represents tasks
+ * with a specific start and end date.
+ */
 public class Event extends Task {
     private String start;
     private String end;
