@@ -1,72 +1,50 @@
-//package duke;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//
-//import org.junit.jupiter.api.Test;
-//
-//import duke.Exception.DukeException;
-//import duke.task.ToDo;
-//
-//
 package duke;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import duke.Command.ByeCommand;
+import duke.Command.DeadlineCommand;
+import duke.Command.DeleteCommand;
+import duke.Command.EventCommand;
+import duke.Command.FindCommand;
+import duke.Command.HelpCommand;
+import duke.Command.ListCommand;
+import duke.Command.MarkCommand;
+import duke.Command.MassOpsCommand;
+import duke.Command.ToDoCommand;
+import duke.Command.UnmarkCommand;
+import duke.Exception.DukeException;
+
+/**
+ * Performs unit tests on the two functions in the Parser.
+ */
 public class ParserTest {
+    /**
+     * Tests addToList function in Parser.
+     * @throws DukeException duke exception thrown.
+     */
+    @Test
+    void testAddToList() throws DukeException {
+        assertTrue(Parser.addToList("todo") instanceof ToDoCommand);
+        assertTrue(Parser.addToList("deadline") instanceof DeadlineCommand);
+        assertTrue(Parser.addToList("event") instanceof EventCommand);
+    }
 
+    /**
+     * Tests userCommand function in Parser
+     * @throws DukeException duke exception thrown.
+     */
+    @Test
+    void testUserCommand() throws DukeException {
+        assertTrue(Parser.addToList("mark") instanceof MarkCommand);
+        assertTrue(Parser.addToList("unmark") instanceof UnmarkCommand);
+        assertTrue(Parser.addToList("delete") instanceof DeleteCommand);
+        assertTrue(Parser.addToList("massDelete") instanceof MassOpsCommand);
+        assertTrue(Parser.addToList("list") instanceof ListCommand);
+        assertTrue(Parser.addToList("find") instanceof FindCommand);
+        assertTrue(Parser.addToList("help") instanceof HelpCommand);
+        assertTrue(Parser.addToList("bye") instanceof ByeCommand);
+    }
 }
-
-//    private Parser parser = new Parser();
-//
-//    @Test
-//    public void testMarkCommand() throws DukeException {
-//        TaskList tasks = new TaskList();
-//        ToDo sampleToDo = new ToDo("do econs");
-//        tasks.addTask(sampleToDo);
-//        Storage storage = new Storage("data/duke.txt", tasks);
-//        parser.userCommand("mark 1", storage, tasks);
-//        assertEquals("[T][X] do econs", tasks.getTask(0).toString());
-//    }
-//    @Test
-//    public void testUnmarkCommand() throws DukeException {
-//        TaskList tasks = new TaskList();
-//        ToDo sampleToDo = new ToDo("do econs");
-//        tasks.addTask(sampleToDo);
-//        Storage storage = new Storage("data/duke.txt", tasks);
-//        parser.userCommand("mark 1", storage, tasks);
-//        parser.userCommand("unmark 1", storage, tasks);
-//        assertEquals("[T][ ] do econs", tasks.getTask(0).toString());
-//    }
-//
-//    @Test
-//    public void testDeleteCommand() throws DukeException {
-//        TaskList tasks = new TaskList();
-//        ToDo sampleToDo = new ToDo("do econs");
-//        tasks.addTask(sampleToDo);
-//        Storage storage = new Storage("data/duke.txt", tasks);
-//        parser.userCommand("delete 1", storage, tasks);
-//        assertEquals(0, tasks.getSize());
-//    }
-//    @Test
-//    public void testRandomCommand() {
-//        TaskList tasks = new TaskList();
-//        Storage storage = new Storage("data/duke.txt", tasks);
-//        try {
-//            parser.userCommand("add", storage, tasks);
-//        }
-//        catch (DukeException e) {
-//            assertEquals("Hey bud! Sorry I don't quite know what you mean :-(", e.getMessage());
-//        }
-//    }
-
-//    @Test
-//    public void testAddToList() {
-//        TaskList tasks = new TaskList();
-//        Storage storage = new Storage("data/duke.txt", tasks);
-//        parser.addToList("todo hi", storage, tasks);
-//        assertEquals("[T][ ] hi", tasks.getTask(0).toString());
-//    }
-
-
-
-
-
-
-

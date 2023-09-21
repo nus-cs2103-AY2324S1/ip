@@ -8,10 +8,7 @@ import duke.Exception.DukeException;
 
 
 /**
- * The Duke program is a chatbot named Beep Boop Bot that
- * executes commands to create and edit a tasklist.
- *
- * @author Inez Kok
+ *  Main class of the chatbot.
  */
 public class Duke {
     private Storage storage;
@@ -19,7 +16,7 @@ public class Duke {
     private Ui ui;
 
     /**
-     * The constructor for a Duke.
+     * The Duke constructor.
      */
     public Duke() {
         this.storage = new Storage("data/duke.txt");
@@ -32,16 +29,20 @@ public class Duke {
         }
     }
 
+    //  @@author inezkok - reused.
+    //  modified the author's getResponse method and made use of their output methods.
+    //  (ie. resetting and appending strings to the output in the ui class) to display buddy's response on the gui.
+    //  I viewed this person's method when referring to the gui forum thread for help when my gui would not
+    //  show the duke's response though the functionalities worked.
     /**
-     * Returns the String representation of the Duke response to a given input.
-     *
-     * @param input The user input given.
-     * @return The String representation of the Duke response.
+     * Returns the Duke response to a given input.
+     * @param input The user input that is passed in.
+     * @return The Duke response.
      */
     public String getResponse(String input) {
         try {
             ui.resetOutput();
-            Command c = Parser.addToList(input, storage, tasks);
+            Command c = Parser.addToList(input);
             c.execute(ui, storage, tasks);
             return ui.getOutput();
         } catch (DukeException e) {
@@ -52,4 +53,5 @@ public class Duke {
             return Parser.handleException(e);
         }
     }
+    //  @@author
 }

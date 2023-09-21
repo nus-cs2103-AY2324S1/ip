@@ -3,7 +3,18 @@ package duke;
 import java.io.IOException;
 import java.time.DateTimeException;
 
-import duke.Command.*;
+import duke.Command.ByeCommand;
+import duke.Command.Command;
+import duke.Command.DeadlineCommand;
+import duke.Command.DeleteCommand;
+import duke.Command.EventCommand;
+import duke.Command.FindCommand;
+import duke.Command.HelpCommand;
+import duke.Command.ListCommand;
+import duke.Command.MarkCommand;
+import duke.Command.MassOpsCommand;
+import duke.Command.ToDoCommand;
+import duke.Command.UnmarkCommand;
 import duke.Exception.DukeException;
 
 
@@ -20,13 +31,11 @@ public class Parser {
      * command.
      *
      * @param input what the user is typing in.
-     * @param storage the storage that is being used.
-     * @param tasks the TaskList that is being used to store the tasks.
      * @throws DukeException
      * @throws NumberFormatException
      */
 
-    public static Command userCommand(String input, Storage storage, TaskList tasks) throws DukeException,
+    public static Command userCommand(String input) throws DukeException,
             NumberFormatException {
         if (input.startsWith("mark")) {
             return new MarkCommand(input);
@@ -56,10 +65,8 @@ public class Parser {
      * method.
      *
      * @param input what the user is typing in.
-     * @param storage the storage that is being used.
-     * @param tasks the TaskList that is being used to store the tasks.
      */
-    public static Command addToList(String input, Storage storage, TaskList tasks) throws DukeException {
+    public static Command addToList(String input) throws DukeException {
         if (input.startsWith("todo")) {
             return new ToDoCommand(input);
         } else if (input.startsWith("deadline")) {
@@ -67,7 +74,7 @@ public class Parser {
         } else if (input.startsWith("event")) {
             return new EventCommand(input);
         } else {
-            return userCommand(input, storage, tasks);
+            return userCommand(input);
         }
     }
 

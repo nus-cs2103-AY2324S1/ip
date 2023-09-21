@@ -9,12 +9,10 @@ import duke.Ui;
 import duke.task.Task;
 import duke.task.ToDo;
 
-
 /**
  * Class that handles the todo command.
  */
 public class ToDoCommand extends Command {
-    private String description;
     private String input;
 
     public ToDoCommand(String input) {

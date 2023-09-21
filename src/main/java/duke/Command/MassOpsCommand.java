@@ -1,15 +1,16 @@
 package duke.Command;
 
-import duke.Duke;
+import java.io.IOException;
+
 import duke.Exception.DukeException;
 import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
-import duke.task.Task;
-import duke.task.ToDo;
 
-import java.io.IOException;
 
+/**
+ * Class that handles the MassOps command.
+ */
 public class MassOpsCommand extends Command {
     private String input;
 

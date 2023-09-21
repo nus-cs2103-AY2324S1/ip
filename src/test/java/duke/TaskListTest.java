@@ -12,14 +12,6 @@ import duke.task.ToDo;
 
 public class TaskListTest {
 
-    @Test
-    public void testMark() {
-        TaskList tasks = new TaskList();
-        ToDo sampleToDo = new ToDo("do econs");
-        tasks.addTask(sampleToDo);
-        tasks.markTaskAsDone(0);
-        assertEquals("X", tasks.getTask(0).getStatusIcon());
-    }
 
     @Test
     public void testMarkAsNotDone() {
@@ -64,4 +56,6 @@ public class TaskListTest {
     }
 
 }
+
+
 

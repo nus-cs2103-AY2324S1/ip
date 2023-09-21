@@ -1,6 +1,5 @@
 package duke;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import duke.task.Task;
@@ -57,7 +56,7 @@ public class TaskList {
     }
 
     /**
-     *
+     * Deletes many tasks from the taskList at once
      * @param indices
      */
     public void deleteManyTasks(int[] indices) {
@@ -85,7 +84,6 @@ public class TaskList {
      * @param index the index of the task that is to be marked.
      */
     public void markTaskAsDone(int index) {
-        assert index > 0 && index < tasks.size();
         this.tasks.get(index).markAsDone();
     }
 

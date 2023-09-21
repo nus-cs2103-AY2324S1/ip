@@ -72,7 +72,7 @@ public class Ui {
                 message.append(i + ". " + tasks.getTask(i - 1).toString()).append("\n");
             }
         } catch (DukeException e) {
-            e.printMessage();
+            return showError(e);
         }
         return message.toString();
     }
@@ -119,7 +119,7 @@ public class Ui {
     }
 
     /**
-     * * prints what tasks have been found.
+     ** Prints what tasks have been found.
      * @param foundTasks the array used to store the tasks that match.
      */
     public String printFindTask(TaskList foundTasks) {
@@ -141,18 +141,34 @@ public class Ui {
         append("No tasks found containing the keyword: " + keyword);
         return message.toString();
     }
+
+    /**
+     * Resets output.
+     */
     public void resetOutput() {
         message.setLength(0);
     }
 
+    /**
+     * Returns output.
+     * @return String output.
+     */
     public String getOutput() {
         return message.toString();
     }
 
+    /**
+     * Appends output to message.
+     * @param str the string that will be appended.
+     */
     public void append(String str) {
         message.append(str);
     }
 
+    /**
+     * Returns the help message.
+     * @return String representation of the help message.
+     */
     public String printHelpMessage() {
         append("Sure buddy I'm always here for you! These are the commands I have and what they do! \n");
         append("1. todo: Type this to add a todo to your list!\n");
