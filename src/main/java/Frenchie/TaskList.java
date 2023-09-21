@@ -35,6 +35,15 @@ public class TaskList {
         this.tasks.get(index).setIsCompleted();
     }
 
+    public void returnMatchTasks(String keyword) {
+        int counter = 1;
+        for (Task task: tasks) {
+            if (task.toString().contains(keyword)) {
+                System.out.println(counter + ". " + task.toString());
+                counter += 1;
+            }
+        } System.out.println("____________________________________________________________");
+    }
     public void markTaskAsIncomplete(int index) {
         this.tasks.get(index).setIsIncomplete();
     }

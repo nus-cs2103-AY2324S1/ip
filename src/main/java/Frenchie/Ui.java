@@ -105,6 +105,12 @@ public class Ui {
     /**
      * This method closes the Scanner of the Ui object when the chatbot should be closed.
      */
+
+    public void findMessage() {
+        System.out.println("____________________________________________________________\n" +
+                "Here are the matching tasks in your list: \n");
+    }
+
     public void closeScanner() {
         scanner.close();
     }

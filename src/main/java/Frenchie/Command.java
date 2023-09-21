@@ -9,6 +9,7 @@ public enum Command {
     deadline,
     event,
     invalid,
+    find,
     bye
 
 }
