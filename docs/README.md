@@ -202,16 +202,14 @@ For more advanced users who would like to edit the data file manually, here is t
 
 ----
 
-## Command Summary
-|------|------|
-| **Action**       | **Format, Examples**                                                                                            |
-| List         | `list`                                                                                                           |
- | Add todo     | `todo [desc]` (e.g. `todo Study for exam`)                                                                       |
-| Add deadline | `deadline [desc] /by [date]`<br/>(e.g. `deadline Assignment /by 2023-10-10T23:59:59`)                            |
-| Add event    | `event [desc] /from [start] /to [end]`<br/>(e.g. `event Exam /from 2023-10-05T11:00:00 /to 2023-10-05T13:00:00`) |
-| Mark         | `mark [pos]` (e.g. `mark 3`)                                                                                     |
-| Unmark       | `unmark [pos]` (e.g. `unmark 4`)                                                                                 |
-| Find         | `find [msg]` (e.g. `find Tutorial`)                                                                              |
-| Clone        | `clone [pos]` (e.g. `clone 3`)                                                                                   |
-| Update       | `update [pos] [command] [newdata]`<br/>(e.g. `update 2 msg Hello world!`)                                        |
-| Exit         | `bye`                                                                                                            |
+## Command Summary                                                                                    |
+1. List - `list`
+2. Add todo - `todo [desc]` (e.g. `todo Study for exam`)                                                                       
+3. Add deadline - `deadline [desc] /by [date]`<br/>(e.g. `deadline Assignment /by 2023-10-10T23:59:59`)                            
+4. Add event - `event [desc] /from [start] /to [end]`<br/>(e.g. `event Exam /from 2023-10-05T11:00:00 /to 2023-10-05T13:00:00`) 
+5. Mark - `mark [pos]` (e.g. `mark 3`)                                                                                     
+6. Unmark - `unmark [pos]` (e.g. `unmark 4`)                                                                               
+7. Find - `find [msg]` (e.g. `find Tutorial`)                                                                             
+8. Clone - `clone [pos]` (e.g. `clone 3`)                                                                                  
+9. Update - `update [pos] [command] [newdata]`<br/>(e.g. `update 2 msg Hello world!`)                                        
+10. Exit - `bye`                                                                                                            
