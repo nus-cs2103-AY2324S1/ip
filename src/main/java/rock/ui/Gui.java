@@ -20,6 +20,7 @@ import rock.client.Rock;
  * for the bot to interact with user
  *
  * @author Alvis Ng (supermii2)
+ * Heavily adapted from https://se-education.org/guides/tutorials/javaFx.html
  */
 public class Gui extends Application {
     private ScrollPane scrollPane;

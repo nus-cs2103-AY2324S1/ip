@@ -36,3 +36,9 @@ Tagged inputs can be placed in any order!
 | listbydate |                              Lists all task whose by date is the one given                               |          By date in YYYY-MM-DD format.          |                                               None                                                |
 |    find    |                         Lists all task which have the same name as the one given                         |           Name of task to search for            |                                               None                                                |
 |    bye     | Terminates the program. Program is left open for user to see logs but no further commands can be entered |                      None                       |                                               None                                                |
+
+## Acknowledgements
+This project was built upon the base [Duke](https://github.com/nus-cs2103-AY2324S1/ip) provided by the CS2103T team!
+Much of the GUI was heavily adapted from [se-education](https://se-education.org/guides/tutorials/javaFx.html)
+
+Thank you to [Gracia](https://twitter.com/Hyrchurn/) and Jeremy for kindly providing me with user and bot avatars to use!

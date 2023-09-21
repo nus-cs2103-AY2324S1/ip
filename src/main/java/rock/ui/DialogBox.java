@@ -13,7 +13,8 @@ import javafx.scene.layout.HBox;
  * Represents a dialog box in
  * the bot GUI
  *
- * @author Alvis Ng (PsineWave)
+ * @author Alvis Ng (supermii2)
+ * Heavily adapted from https://se-education.org/guides/tutorials/javaFx.html
  */
 public class DialogBox extends HBox {
 
