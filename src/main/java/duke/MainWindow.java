@@ -28,10 +28,10 @@ public class MainWindow extends AnchorPane {
 
     //User Image
     private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
-            .getResourceAsStream("/images/bossmanAvatar.jpeg")));
+            .getResourceAsStream("/images/npc.png")));
     //Duke Image
     private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
-            .getResourceAsStream("/images/npc.png")));
+            .getResourceAsStream("/images/bossmanAvatar.jpeg")));
 
     /**
      * Initialises GUI

@@ -166,7 +166,7 @@ public class TaskList {
             assert temp != null;
             return ui.showComplete("Noted. I've removed this task:"
                     + temp
-                    + "Now you have " + this.tasks.size() + " task(s) in the list");
+                    + ". Now you have " + this.tasks.size() + " task(s) in the list");
         }
     }
 

@@ -57,7 +57,7 @@ public class Ui {
      * @return string containing response message
      */
     public String showTaskAdded(Task task, int count) {
-        return "Got it. I've added this task:" + "\n" + "  " + task.toString() + "\n + "
+        return "Got it. I've added this task:" + "\n" + "  " + task.toString() + "\n . "
                 + "Now you have " + (count) + " tasks in the list.";
     }
 
@@ -73,7 +73,6 @@ public class Ui {
             s += count + ". " + task + "\n";
             count++;
         }
-        System.out.println(s);
         return s;
     }
 
