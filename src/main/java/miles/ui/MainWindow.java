@@ -1,5 +1,9 @@
 package miles.ui;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -47,6 +51,22 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Sets the exit for the MainWindow.
+     */
+    public void setExit() {
+        int delayInMillis = 1500;
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.exit();
+                System.exit(0);
+            }
+        }, delayInMillis);
+    }
+
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -59,5 +79,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getMilesDialog(response, milesImage)
         );
         userInput.clear();
+
+        if (input.equalsIgnoreCase("bye")) {
+            setExit();
+        }
     }
 }
