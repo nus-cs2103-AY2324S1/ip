@@ -15,6 +15,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class is responsible for saving and loading the task list to and from the hard disk.
+ */
 public class Storage {
 
     private static LocalDateTime parseSavedDateTime(String dateTimeString){
@@ -22,10 +25,20 @@ public class Storage {
     }
     private String filePath;
 
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath The path to the save file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the task list to the save file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasks(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(this.filePath);
@@ -41,6 +54,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the save file.
+     *
+     * @return The list of tasks loaded from the save file.
+     */
     public ArrayList<Task> loadTasks() {
         File file = new File(this.filePath);
 
@@ -59,14 +77,16 @@ public class Storage {
         }
 
         List<String> lines;
-
         try {
             lines = Files.readAllLines(file.toPath());
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks.");
             return null;
         }
+        return getTasks(lines); // Return the loaded list of tasks.
+    }
 
+    private static ArrayList<Task> getTasks(List<String> lines) {
         ArrayList<Task> tasks = new ArrayList<>();
 
         for (String line : lines) {
@@ -85,8 +105,6 @@ public class Storage {
                 break;
             }
         }
-        return tasks; // Return the loaded list of tasks.
+        return tasks;
     }
-
-    // ... Other storage-related methods ...
 }

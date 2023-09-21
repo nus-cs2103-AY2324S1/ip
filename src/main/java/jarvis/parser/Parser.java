@@ -13,11 +13,26 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class is responsible for interpreting user inputs
+ * and converting them into executable Command objects for the Jarvis application.
+ *
+ * <p>It recognizes specific keywords in the user input (such as "todo", "deadline",
+ * "event", etc.) and creates the corresponding Command objects with the necessary
+ * information extracted from the input.</p>
+ */
 public class Parser {
 
 
     private static final DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    /**
+     * Parses user input into a recognizable Command object.
+     *
+     * @param fullCommand The entire user input string.
+     * @return The Command object corresponding to the user input.
+     * @throws JarvisException If the user input is not recognized or has an incorrect format.
+     */
     public Command parse(String fullCommand) throws JarvisException {
         String[] parts = fullCommand.split(" ", 2);
         String commandType = parts[0];
@@ -54,7 +69,6 @@ public class Parser {
         ensureValidParts(parts, "description", "todo");
         return new AddCommand(new Todo(parts[1]));
     }
-
 
     private Command parseDeadline(String[] parts) throws JarvisException {
         ensureValidParts(parts, "description", "deadline");
