@@ -1,3 +1,8 @@
+package commands;
+
+import ui.UI;
+import data.Actions;
+
 public class ByeCommand extends Command {
     @Override
     public void executeCommand(UI ui, Actions actionList) {

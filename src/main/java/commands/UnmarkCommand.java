@@ -1,4 +1,11 @@
-public class UnmarkCommand extends Command{
+package commands;
+
+import ui.UI;
+import data.Actions;
+import tasks.Task;
+import duke.DukeException;
+
+public class UnmarkCommand extends Command {
     private int taskNumber;
 
     public UnmarkCommand(int taskNumber) {
@@ -7,11 +14,11 @@ public class UnmarkCommand extends Command{
 
     @Override
     public void executeCommand(UI ui, Actions actionList) throws DukeException {
-        Task resultingTask = actionList.mark(taskNumber);
+        Task resultingTask = actionList.unmark(taskNumber);
         if (resultingTask != null) {
             ui.lineSandwich(" Well, you changed your mind :(. Just this once:\n " + resultingTask);
         } else {
-            ui.lineSandwich(" Task number does not exist, review input.");
+            ui.lineSandwich(" tasks.Task number does not exist, review input.");
         }
     }
 }

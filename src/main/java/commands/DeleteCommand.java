@@ -1,3 +1,10 @@
+package commands;
+
+import ui.UI;
+import data.Actions;
+import tasks.Task;
+import duke.DukeException;
+
 public class DeleteCommand extends Command {
     private int deleteTaskNumber;
 
@@ -9,9 +16,10 @@ public class DeleteCommand extends Command {
     public void executeCommand(UI ui, Actions actionList) throws DukeException {
         Task deletedTask = actionList.delete(deleteTaskNumber);
         if (deletedTask != null) {
-            ui.lineSandwich(" Noted. I've removed this task:\n  " + deletedTask + "\n Now you have " + actionList.size() + " tasks in the list.");
+            ui.lineSandwich(" Noted. I've removed this task:\n  " + deletedTask + "\n Now you have "
+                    + actionList.size() + " tasks in the list.");
         } else {
-            throw new DukeException(" Task does not exist, please review input");
+            throw new DukeException(" tasks.Task does not exist, please review input");
         }
     }
 }

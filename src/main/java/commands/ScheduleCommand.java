@@ -1,6 +1,12 @@
+package commands;
+
+import ui.UI;
+import data.Actions;
+import tasks.Task;
+import duke.DukeException;
+
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ScheduleCommand extends Command {
     private String dateInput;

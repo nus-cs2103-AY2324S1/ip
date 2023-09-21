@@ -1,3 +1,10 @@
+package data;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.Task;
+import duke.DukeException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
@@ -33,7 +40,7 @@ public class Actions {
     public Task getAction(int idx) throws DukeException {
         if (idx < actions.size() && idx > -1) {
             return actions.get(idx);
-        } throw new DukeException(" Task number invalid; please re-examine input.");
+        } throw new DukeException(" tasks.Task number invalid; please re-examine input.");
     }
 
     public Task mark(int idx) throws DukeException {
@@ -52,7 +59,7 @@ public class Actions {
         return actions.size();
     }
 
-    public Task delete(int idx) throws DukeException{
+    public Task delete(int idx) throws DukeException {
         getAction(idx);
         return actions.remove(idx);
     }

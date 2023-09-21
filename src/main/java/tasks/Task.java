@@ -1,3 +1,5 @@
+package tasks;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -9,7 +11,7 @@ public class Task {
         this.isDone = false;
     }
 
-    protected LocalDateTime stringToDate(String dateTimeString) {
+    public LocalDateTime stringToDate(String dateTimeString) {
         DateTimeFormatter formatter;
         dateTimeString = dateTimeString.trim();
         if (dateTimeString.contains("T")) {
@@ -20,7 +22,7 @@ public class Task {
         return LocalDateTime.parse(dateTimeString, formatter);
     }
 
-    protected String dateToString(LocalDateTime dateTime) {
+    public String dateToString(LocalDateTime dateTime) {
         return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 

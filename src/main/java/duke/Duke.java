@@ -1,3 +1,12 @@
+package duke;
+
+import commands.Command;
+import data.Actions;
+import data.Save;
+import tasks.Task;
+import ui.UI;
+import parser.Parser;
+
 import java.util.ArrayList;
 
 public class Duke {

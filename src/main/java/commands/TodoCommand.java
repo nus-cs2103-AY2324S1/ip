@@ -1,4 +1,11 @@
-public class TodoCommand extends Command{
+package commands;
+
+import ui.UI;
+import data.Actions;
+import tasks.Todo;
+import duke.DukeException;
+
+public class TodoCommand extends Command {
     private final String description;
 
     public TodoCommand(String description) {
