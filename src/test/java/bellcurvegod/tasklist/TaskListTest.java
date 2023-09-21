@@ -13,7 +13,7 @@ public class TaskListTest {
             fail();
         } catch (Exception e) {
             assertEquals("You have entered an invalid command word!\n"
-                + "To add a new Task, use \"todo\", \" deadline\", or \"event\".\n", e.getMessage());
+                + "To add a new Task, use \"todo\", \"deadline\", or \"event\".\n", e.getMessage());
         }
     }
 }
