@@ -56,6 +56,9 @@ public class Event extends Task {
         }
         if (o instanceof Event) {
             Event event = (Event) o;
+            if (this.from.compareTo(event.from) == 0) {
+                return this.to.compareTo(event.to);
+            }
             return this.from.compareTo(event.from);
         }
         return 0;
