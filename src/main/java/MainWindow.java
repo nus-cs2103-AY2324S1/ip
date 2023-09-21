@@ -22,7 +22,7 @@ public class MainWindow extends AnchorPane {
 
     private Veda veda;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/setsuna.png"));
     private Image vedaImage = new Image(this.getClass().getResourceAsStream("/images/Veda.png"));
 
     @FXML
@@ -48,10 +48,8 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
-        //Parse and handle the user input and get a response from the system
         String response = veda.getResponse(input.trim());
 
-        //Update frontend to reflect the new convo
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getVedaDialog(response, vedaImage)
@@ -60,7 +58,7 @@ public class MainWindow extends AnchorPane {
         //Clear the text field for the next input text
         userInput.clear();
 
-        if (response.equals("Bye. All the best for your mission!")) {
+        if (response.equals(Veda.END_CHAT_MESSAGE)) {
             Platform.exit();
         }
     }

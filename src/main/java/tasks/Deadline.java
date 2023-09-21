@@ -1,10 +1,10 @@
 package tasks;
 
-import exceptions.IncorrectDeadlineUpdateArgException;
-import exceptions.IncorrectInputException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import exceptions.IncorrectDeadlineUpdateArgException;
+import exceptions.IncorrectInputException;
 
 /**
  * Tasks that need to be done before a specific date/time.
@@ -72,7 +72,7 @@ public class Deadline extends Task {
     public String toString() {
         return "[" + SYMBOL + "]"
                 + super.toString()
-                + "(by: " + this.deadline.format(DateTimeFormatter.ofPattern("dd MMMM yyyy HHmm")) + "H)";
+                + " (by: " + this.deadline.format(DateTimeFormatter.ofPattern("dd MMMM yyyy HHmm")) + "H)";
     }
 
     @Override

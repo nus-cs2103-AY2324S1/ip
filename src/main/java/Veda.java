@@ -18,6 +18,7 @@ public class Veda {
     private static final Ui ui = new Ui();
 
     private static boolean hasNotRetrieveTask = true;
+    public static final String END_CHAT_MESSAGE = ui.getExitMessage();
 
     /**
      * Initialises the logic and cached data of the system.

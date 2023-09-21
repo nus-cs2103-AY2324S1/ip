@@ -6,7 +6,7 @@ package exceptions;
  * @author Sebastian Tay
  */
 public class IncorrectDeadlineInputException extends IncorrectInputException {
-    public  IncorrectDeadlineInputException(String message) {
+    public IncorrectDeadlineInputException(String message) {
         super(message);
     }
 

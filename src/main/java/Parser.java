@@ -276,7 +276,7 @@ public class Parser {
         final int offset = 1;
         String index = String.valueOf(Parser.getTargetIndex(input) + offset);
 
-        return removeMethodType(input).replaceFirst( index, EMPTY_STRING);
+        return removeMethodType(input).replaceFirst(index, EMPTY_STRING);
     }
 
     private static String[] decomposeIntoWords(String arg) {

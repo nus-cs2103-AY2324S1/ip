@@ -1,6 +1,5 @@
 package tasks;
 
-import exceptions.IncorrectToDoInputException;
 import exceptions.IncorrectToDoUpdateArgException;
 
 /**

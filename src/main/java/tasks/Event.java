@@ -88,7 +88,7 @@ public class Event extends Task {
     public String toString() {
         return "[" + SYMBOL + "][" + getStatusIcon() + "] "
                 + super.getDescription()
-                + "(from: "
+                + " (from: "
                 + this.start.format(DateTimeFormatter.ofPattern("dd MMMM yyyy HHmm"))
                 + "H to: "
                 + this.end.format(DateTimeFormatter.ofPattern("dd MMMM yyyy HHmm"))
