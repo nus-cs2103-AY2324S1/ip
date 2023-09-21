@@ -26,6 +26,7 @@ public class Main extends Application {
             duke.getTasksData();
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             fxmlLoader.<MainWindow>getController().setStage(stage);
+            stage.setTitle("ADJ Task Manager Chatbot");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

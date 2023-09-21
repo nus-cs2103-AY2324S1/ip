@@ -35,6 +35,7 @@ public class Ui {
             response += (line + "\n");
         }
 
+        System.out.println(response);
         return response;
     }
 

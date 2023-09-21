@@ -155,7 +155,6 @@ public class TaskList {
             lines[i] = linesToPrint.get(i);
         }
 
-        Ui.printLines(lines);
         return Ui.getResponse(lines);
     }
 
@@ -170,7 +169,7 @@ public class TaskList {
                 tasksList += ("\t " + i + "." + getTask(i) + "\n");
             }
 
-            tasksList += ("\t Keep up the good work!");
+            tasksList += ("Keep up the good work!");
         } else {
             tasksList = "You currently have no tasks :)";
         }
