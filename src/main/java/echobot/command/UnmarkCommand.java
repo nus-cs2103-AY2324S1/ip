@@ -1,5 +1,6 @@
 package echobot.command;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import echobot.storage.Storage;
@@ -34,21 +35,36 @@ public class UnmarkCommand extends Command<Task> {
      * @return The response message indicating the task was marked as not done.
      */
     public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
-        if (taskNum >= 1 && taskNum <= tasks.size()) {
+        if (taskNum <= 0) {
+            responseText = "Sorry, the task doesn't exist.";
+        } else if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
 
             task.unmark();
 
             responseText = "OK, I've marked this task as not done yet:\n";
             responseText += "[" + task.getStatusIcon() + "] " + task.getDescription();
-
-            if (task instanceof Event) {
-                responseText += " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")";
-            } else if (task instanceof Deadline) {
-                responseText += " (by: " + ((Deadline) task).getDueDate() + ")";
-            }
+            getDateTimeInfo(task);
 
             storage.saveTasks(tasks, dialogContainer); // Save after unmarking
+        } else {
+            responseText = "Sorry, you only have " + tasks.size() + " tasks in your list.\n";
+        }
+
+        return responseText;
+    }
+
+    private String getDateTimeInfo(Task task) {
+        // Use type casting for specific task types to access additional information
+        if (task instanceof Event) {
+            responseText += " (from: "
+                    + ((Event) task).getStart().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                    + " to: "
+                    + ((Event) task).getEnd().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                    + ")";
+        } else if (task instanceof Deadline) {
+            responseText += " (by: "
+                    + ((Deadline) task).getDueDate().format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
 
         return responseText;

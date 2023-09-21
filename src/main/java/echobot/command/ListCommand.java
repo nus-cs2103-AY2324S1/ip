@@ -12,6 +12,10 @@ import javafx.scene.layout.VBox;
 public class ListCommand extends Command<Task> {
     @Override
     public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
+        if (tasks.isEmpty()) {
+            return "You don't have any tasks yet.";
+        }
+
         StringBuilder responseText = new StringBuilder();
 
         responseText.append("Here are the tasks in your list:\n");

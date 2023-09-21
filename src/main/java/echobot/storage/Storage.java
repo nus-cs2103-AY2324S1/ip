@@ -32,7 +32,6 @@ public class Storage {
         this.tasksFilePath = tasksFilePath;
         this.notesFilePath = notesFilePath;
     }
-
     /**
      * Loads tasks from the file and returns them as a list.
      *
@@ -43,100 +42,39 @@ public class Storage {
         File file = new File(tasksFilePath);
         File folder = file.getParentFile();
 
-        // Create the parent folder if it doesn't exist
-        if (!folder.exists() && !folder.mkdirs()) {
-            return tasks; // Return an empty list
-        }
-
-        try {
-            if (!file.exists() && !file.createNewFile()) {
-                return tasks; // Return an empty list
-            }
-
-            Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String formattedTask = scanner.nextLine();
-
-                if (formattedTask.isEmpty()) {
-                    continue; // Skip empty lines
-                }
-
-                try {
-                    Task task = Task.fromFileString(formattedTask);
-                    tasks.add(task);
-                } catch (NumberFormatException e) {
-                    // Handle corrupted data - logging the issue
-                    Logger logger = Logger.getLogger(Storage.class.getName());
-                    logger.log(Level.SEVERE, "Corrupted data: " + formattedTask, e);
-                } catch (IllegalArgumentException e) {
-                    Logger logger = Logger.getLogger(Storage.class.getName());
-                    logger.log(Level.SEVERE, "Invalid data: " + formattedTask);
-                }
-            }
-            scanner.close();
-        } catch (IOException e) {
-            Logger logger = Logger.getLogger(Storage.class.getName());
-            logger.log(Level.SEVERE, "An error occurred while handling file operations: ", e);
-        } catch (Exception e) {
-            Logger logger = Logger.getLogger(Storage.class.getName());
-            logger.log(Level.SEVERE, "An error occurred while loading tasks: ", e);
+        if (createFolderIfNotExist(folder) && createFileIfNotExist(file)) {
+            readTasksFromFile(file, tasks);
         }
 
         return tasks;
     }
 
-    /**
-     * Loads notes from the notes file and returns them as a list.
-     *
-     * @return The list of notes.
-     */
-    public ArrayList<Note> loadNotes() {
-        ArrayList<Note> notes = new ArrayList<>();
-        File file = new File(notesFilePath);
-        File folder = file.getParentFile();
-
-        // Create the parent folder if it doesn't exist
-        if (!folder.exists() && !folder.mkdirs()) {
-            return notes; // Return an empty list
-        }
-
+    private void readTasksFromFile(File file, ArrayList<Task> tasks) {
         try {
-            if (!file.exists() && !file.createNewFile()) {
-                return notes; // Return an empty list
-            }
-
             Scanner scanner = new Scanner(file);
             while (scanner.hasNextLine()) {
                 String formattedTask = scanner.nextLine();
 
-                if (formattedTask.isEmpty()) {
-                    continue; // Skip empty lines
-                }
-
-                try {
-                    Note note = Note.fromFileString(formattedTask);
-                    notes.add(note);
-                } catch (NumberFormatException e) {
-                    // Handle corrupted data - logging the issue
-                    Logger logger = Logger.getLogger(Storage.class.getName());
-                    logger.log(Level.SEVERE, "Corrupted data: " + formattedTask, e);
-                } catch (IllegalArgumentException e) {
-                    Logger logger = Logger.getLogger(Storage.class.getName());
-                    logger.log(Level.SEVERE, "Invalid data: " + formattedTask);
+                if (!formattedTask.isEmpty()) {
+                    processTasks(formattedTask, tasks);
                 }
             }
             scanner.close();
         } catch (IOException e) {
-            Logger logger = Logger.getLogger(Storage.class.getName());
-            logger.log(Level.SEVERE, "An error occurred while handling file operations: ", e);
-        } catch (Exception e) {
-            Logger logger = Logger.getLogger(Storage.class.getName());
-            logger.log(Level.SEVERE, "An error occurred while loading tasks: ", e);
+            logError("An error occurred while reading from the file: ", e);
         }
-
-        return notes;
     }
 
+    private void processTasks(String formattedTask, ArrayList<Task> tasks) {
+        try {
+            Task task = Task.fromFileString(formattedTask);
+            tasks.add(task);
+        } catch (NumberFormatException e) {
+            logError("Corrupted data: " + formattedTask, e);
+        } catch (IllegalArgumentException e) {
+            logError("Invalid data: " + formattedTask, e);
+        }
+    }
     /**
      * Saves the list of tasks to the tasks file.
      *
@@ -150,6 +88,50 @@ public class Storage {
             }
         } catch (FileNotFoundException e) {
             dialogContainer.getChildren().add(new Label("Error saving tasks: " + e.getMessage()));
+        }
+    }
+
+    /**
+     * Loads notes from the notes file and returns them as a list.
+     *
+     * @return The list of notes.
+     */
+    public ArrayList<Note> loadNotes() {
+        ArrayList<Note> notes = new ArrayList<>();
+        File file = new File(notesFilePath);
+        File folder = file.getParentFile();
+
+        if (createFolderIfNotExist(folder) && createFileIfNotExist(file)) {
+            readNotesFromFile(file, notes);
+        }
+
+        return notes;
+    }
+
+    private void readNotesFromFile(File file, ArrayList<Note> notes) {
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNextLine()) {
+                String formattedNote = scanner.nextLine();
+
+                if (!formattedNote.isEmpty()) {
+                    processNotes(formattedNote, notes);
+                }
+            }
+            scanner.close();
+        } catch (IOException e) {
+            logError("An error occurred while reading from the file: ", e);
+        }
+    }
+
+    private void processNotes(String formattedNote, ArrayList<Note> notes) {
+        try {
+            Note note = Note.fromFileString(formattedNote);
+            notes.add(note);
+        } catch (NumberFormatException e) {
+            logError("Corrupted data: " + formattedNote, e);
+        } catch (IllegalArgumentException e) {
+            logError("Invalid data: " + formattedNote, e);
         }
     }
 
@@ -168,6 +150,30 @@ public class Storage {
         } catch (FileNotFoundException e) {
             dialogContainer.getChildren().add(new Label("Error saving tasks: " + e.getMessage()));
         }
+    }
+
+    private boolean createFolderIfNotExist(File folder) {
+        if (!folder.exists() && !folder.mkdirs()) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean createFileIfNotExist(File file) {
+        try {
+            if (!file.exists() && !file.createNewFile()) {
+                return false;
+            }
+            return true;
+        } catch (IOException e) {
+            logError("An error occurred while creating a new file: ", e);
+            return false;
+        }
+    }
+
+    private void logError(String message, Exception e) {
+        Logger logger = Logger.getLogger(Storage.class.getName());
+        logger.log(Level.SEVERE, message, e);
     }
 }
 

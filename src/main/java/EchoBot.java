@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -48,6 +49,19 @@ public class EchoBot extends Application {
     private ArrayList<Task> tasks = new ArrayList<>();
     private ArrayList<Note> notes = new ArrayList<>();
 
+    private enum CommandType {
+        ADD_TODO,
+        ADD_EVENT,
+        ADD_DEADLINE,
+        ADD_NOTE,
+        FIND,
+        UNMARK,
+        MARK,
+        DELETE,
+        LIST_TASK,
+        LIST_NOTE
+    }
+
     /**
      * The main entry point for the EchoBot application.
      *
@@ -57,70 +71,86 @@ public class EchoBot extends Application {
         launch(args);
     }
 
-    /**
-     * Initializes and sets up the user interface for the EchoBot application.
-     *
-     * @param stage The primary stage of the JavaFX application.
-     */
     @Override
     public void start(Stage stage) {
+        initializeUI(stage);
+        setupUserInputHandlers();
+        loadWelcomeMessage();
+    }
+
+    private void initializeUI(Stage stage) {
         ui = new Ui();
         storage = new Storage("./data/duke.txt", "./data/notes.txt");
         tasks = storage.loadTasks();
         notes = storage.loadNotes();
 
-        Platform.runLater(() -> {
-            String welcomeMessage = ui.showWelcomeMessage();
-            displayEchoBotMessage(welcomeMessage);
-        });
+        VBox mainLayout = createMainLayout();
+        scene = new Scene(mainLayout);
 
-        //Step 1. Setting up required components
-        //The container for the content of the chat to scroll.
+        configureStage(stage);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private VBox createMainLayout() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
 
+        VBox.setVgrow(dialogContainer, Priority.ALWAYS);
+
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        AnchorPane inputLayout = createInputLayout();
 
-        scene = new Scene(mainLayout);
+        VBox mainLayout = new VBox(scrollPane, inputLayout);
 
-        stage.setScene(scene);
-        stage.show();
+        configureScrollPane();
+        configureInputLayout();
 
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("EchoBot");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        return mainLayout;
+    }
 
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
+    private AnchorPane createInputLayout() {
+        AnchorPane inputLayout = new AnchorPane();
+        inputLayout.getChildren().addAll(userInput, sendButton);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
-        //Step 3. Add functionality to handle user input.
+        AnchorPane.setTopAnchor(dialogContainer, 1.0); // Set the top anchor
+
+        return inputLayout;
+    }
+
+    private void configureScrollPane() {
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+    }
+
+    private void configureInputLayout() {
+        userInput.setPrefWidth(325.0);
+        sendButton.setPrefWidth(55.0);
+    }
+
+    private void configureStage(Stage stage) {
+        stage.setTitle("EchoBot");
+        stage.setResizable(false);
+        stage.setMinHeight(500.0);
+        stage.setMinWidth(400.0);
+    }
+
+    private void setupUserInputHandlers() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -129,39 +159,29 @@ public class EchoBot extends Application {
             handleUserInput();
         });
 
-        //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
 
+    private void loadWelcomeMessage() {
+        Platform.runLater(() -> {
+            String welcomeMessage = ui.showWelcomeMessage();
+            displayEchoBotMessage(welcomeMessage);
+        });
     }
 
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().trim();
         assert input != null : "User input should not be null";
         String responseText = "";
 
         if (input.equalsIgnoreCase("bye")) {
             handleByeCommand();
             return;
-        } else if (input.equalsIgnoreCase("list tasks")) {
-            responseText = handleListTasksCommand();
-        } else if (input.toLowerCase().startsWith("todo")) {
-            responseText = handleAddTaskCommand(Command.TaskType.TODO, input);
-        } else if (input.toLowerCase().startsWith("deadline")) {
-            responseText = handleAddTaskCommand(Command.TaskType.DEADLINE, input);
-        } else if (input.toLowerCase().startsWith("event")) {
-            responseText = handleAddTaskCommand(Command.TaskType.EVENT, input);
-        } else if (input.toLowerCase().startsWith("mark")) {
-            responseText = handleMarkCommand();
-        } else if (input.toLowerCase().startsWith("unmark")) {
-            responseText = handleUnmarkCommand();
-        } else if (input.toLowerCase().startsWith("delete")) {
-            responseText = handleDeleteCommand();
-        } else if (input.toLowerCase().startsWith("find")) {
-            responseText = handleFindCommand();
-        } else if (input.toLowerCase().startsWith("note")) {
-            responseText = handleNoteCommand(input);
-        } else if (input.toLowerCase().startsWith("list notes")) {
-            responseText = handleListNotes();
+        }
+
+        CommandType commandType = getCommandType(input);
+        if (commandType != null) {
+            responseText = handleCommand(commandType, input);
         } else {
             responseText = "Sorry, I don't understand that command.";
         }
@@ -170,6 +190,60 @@ public class EchoBot extends Application {
         displayUserAndEchoBotMessages(input, responseText);
 
         userInput.clear();
+    }
+
+    private CommandType getCommandType(String input) {
+        String command = input.toLowerCase();
+        if (command.startsWith("todo")) {
+            return CommandType.ADD_TODO;
+        } else if (command.startsWith("event")) {
+            return CommandType.ADD_EVENT;
+        } else if (command.startsWith("deadline")) {
+            return CommandType.ADD_DEADLINE;
+        } else if (command.startsWith("find")) {
+            return CommandType.FIND;
+        } else if (command.startsWith("unmark")) {
+            return CommandType.UNMARK;
+        } else if (command.startsWith("mark")) {
+            return CommandType.MARK;
+        } else if (command.startsWith("delete")) {
+            return CommandType.DELETE;
+        } else if (command.startsWith("list task")) {
+            return CommandType.LIST_TASK;
+        } else if (command.startsWith("note")) {
+            return CommandType.ADD_NOTE;
+        } else if (command.startsWith("list note")) {
+            return CommandType.LIST_NOTE;
+        } else {
+            return null;
+        }
+    }
+
+    private String handleCommand(CommandType commandType, String input) {
+        switch (commandType) {
+        case ADD_TODO:
+            return handleAddTaskCommand(Command.TaskType.TODO, input);
+        case ADD_DEADLINE:
+            return handleAddTaskCommand(Command.TaskType.DEADLINE, input);
+        case ADD_EVENT:
+            return handleAddTaskCommand(Command.TaskType.EVENT, input);
+        case FIND:
+            return handleFindCommand();
+        case UNMARK:
+            return handleUnmarkCommand();
+        case MARK:
+            return handleMarkCommand();
+        case DELETE:
+            return handleDeleteCommand();
+        case LIST_TASK:
+            return handleListTaskCommand();
+        case ADD_NOTE:
+            return handleAddNoteCommand(input);
+        case LIST_NOTE:
+            return handleListNote();
+        default:
+            return "Unsupported command type.";
+        }
     }
 
     /**
@@ -182,7 +256,9 @@ public class EchoBot extends Application {
         String byeMessage = ui.showByeMessage();
         displayEchoBotMessage(byeMessage);
 
-        Duration delay = Duration.seconds(1);
+        userInput.clear();
+
+        Duration delay = Duration.seconds(0.5);
         KeyFrame keyFrame = new KeyFrame(delay, event -> {
             Platform.exit();
             System.exit(0);
@@ -193,11 +269,11 @@ public class EchoBot extends Application {
     }
 
     /**
-     * Handles the "list tasks" command, listing all tasks.
+     * Handles the "list task" command, listing all tasks.
      *
-     * @return A string containing the list of tasks.
+     * @return A string containing the list of task.
      */
-    private String handleListTasksCommand() {
+    private String handleListTaskCommand() {
         ListCommand listCommand = new ListCommand();
         return listCommand.doCommand(tasks, storage, dialogContainer);
     }
@@ -235,7 +311,6 @@ public class EchoBot extends Application {
         } else {
             return "Sorry, I couldn't process the task.";
         }
-
     }
 
     /**
@@ -300,11 +375,13 @@ public class EchoBot extends Application {
      * @param input The user input containing the note details.
      * @return A response message indicating the result of the command.
      */
-    private String handleNoteCommand(String input) {
+    private String handleAddNoteCommand(String input) {
         String description = Command.extractDesc(input, "note");
         String[] noteParts = description.split("::", 2);
         if (noteParts.length < 2) {
-            return "Please provide both a title and content for your note.";
+            return "Please provide both a title and content for your note!";
+        } else if (noteParts[1].trim().isEmpty()) {
+            return "Please provide a content for your note!";
         } else {
             String title = noteParts[0].trim();
             String content = noteParts[1].trim();
@@ -315,11 +392,11 @@ public class EchoBot extends Application {
     }
 
     /**
-     * Handles the "list notes" command, listing all saved notes.
+     * Handles the "list note" command, listing all saved notes.
      *
      * @return A response message listing all saved notes.
      */
-    private String handleListNotes() {
+    private String handleListNote() {
         ListNoteCommand listNoteCommand = new ListNoteCommand();
         return listNoteCommand.doCommand(notes, storage, dialogContainer);
     }

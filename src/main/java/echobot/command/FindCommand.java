@@ -42,14 +42,15 @@ public class FindCommand extends Command<Task> {
     public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
         ArrayList<Task> matchingTasks = findTasks(tasks, keyword);
 
-        if (!matchingTasks.isEmpty()) {
+        if (keyword.isEmpty()) {
+            responseText = "Please specify a keyword to search for!\n";
+        } else if (!matchingTasks.isEmpty()) {
             responseText = "Here are the matching tasks in your list:\n";
 
             for (int i = 0; i < matchingTasks.size(); i++) {
                 Task task = matchingTasks.get(i);
                 responseText += "    " + (i + 1) + ". " + task.display() + "\n";
             }
-
         } else {
             responseText = "No tasks match the keyword: " + keyword + "\n";
         }

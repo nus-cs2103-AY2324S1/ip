@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
@@ -39,7 +40,11 @@ public class MarkCommandTest {
 
         // Verify the response message
         String expectedResponse = "Nice! I've marked this task as done:\n";
-        expectedResponse += "[X] Finish homework (by: " + dueDate.toString() + ")";
+        expectedResponse += "[X] Finish homework ";
+        expectedResponse += "(by: "
+                + dueDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + ")";
+
         Assertions.assertEquals(expectedResponse, response);
     }
 
@@ -67,6 +72,7 @@ public class MarkCommandTest {
         // Verify the response message
         String expectedResponse = "Nice! I've marked this task as done:\n";
         expectedResponse += "[X] Buy groceries";
+
         Assertions.assertEquals(expectedResponse, response);
     }
 }

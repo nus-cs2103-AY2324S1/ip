@@ -1,5 +1,0 @@
-T | 0 | take shower
-T | 1 | clean bedroom
-D | 0 | return book | 2023-09-16
-T | 0 | eat cake
-D | 0 | return pencil | 2023-10-10

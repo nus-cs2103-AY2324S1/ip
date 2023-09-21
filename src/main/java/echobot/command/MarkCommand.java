@@ -1,5 +1,6 @@
 package echobot.command;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import echobot.storage.Storage;
@@ -26,23 +27,36 @@ public class MarkCommand extends Command<Task> {
 
     @Override
     public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
-        if (taskNum >= 1 && taskNum <= tasks.size()) {
+        if (taskNum <= 0) {
+            responseText = "Sorry, the task doesn't exist.";
+        } else if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task task = tasks.get(taskNum - 1);
 
             task.mark();
 
             responseText = "Nice! I've marked this task as done:\n";
             responseText += "[" + task.getStatusIcon() + "] " + task.getDescription();
-
-            // Use type casting for specific task types to access additional information
-            if (task instanceof Event) {
-                responseText += " (from: " + ((Event) task).getStart() + " to: " + ((Event) task).getEnd() + ")";
-            } else if (task instanceof Deadline) {
-                responseText += " (by: " + ((Deadline) task).getDueDate() + ")";
-            }
-
+            getDateTimeInfo(task);
             assert storage != null : "Storage should not be null.";
             storage.saveTasks(tasks, dialogContainer); // Save after marking
+        } else {
+            responseText = "Sorry, you only have " + tasks.size() + " tasks in your list.\n";
+        }
+
+        return responseText;
+    }
+
+    private String getDateTimeInfo(Task task) {
+        // Use type casting for specific task types to access additional information
+        if (task instanceof Event) {
+            responseText += " (from: "
+                    + ((Event) task).getStart().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                    + " to: "
+                    + ((Event) task).getEnd().format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"))
+                    + ")";
+        } else if (task instanceof Deadline) {
+            responseText += " (by: "
+                    + ((Deadline) task).getDueDate().format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
         }
 
         return responseText;

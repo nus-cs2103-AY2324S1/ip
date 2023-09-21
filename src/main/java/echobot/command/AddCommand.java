@@ -40,8 +40,10 @@ public class AddCommand extends Command<Task> {
 
     @Override
     public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
-        if (taskDescription.isBlank()) {
-            responseText = "Unable to add a new todo since the description is empty";
+        String errorMessage = validateInput();
+
+        if (errorMessage != null) {
+            responseText = errorMessage;
         } else {
             Task newTask;
 
@@ -74,6 +76,15 @@ public class AddCommand extends Command<Task> {
         }
 
         return responseText;
+    }
+
+    private String validateInput() {
+        if ((taskType == TaskType.TODO && taskDescription.isBlank() || taskDescription.isEmpty())) {
+            return "Unable to add a new " + taskType.toString().toLowerCase()
+                    + " since the description is empty";
+        }
+
+        return null; // Input is valid
     }
 
     public String getResponse() {

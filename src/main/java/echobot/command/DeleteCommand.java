@@ -24,7 +24,9 @@ public class DeleteCommand extends Command<Task> {
 
     @Override
     public String doCommand(ArrayList<Task> tasks, Storage storage, VBox dialogContainer) {
-        if (taskNum >= 1 && taskNum <= tasks.size()) {
+        if (taskNum <= 0) {
+            responseText = "Sorry, the task doesn't exist.";
+        } else if (taskNum >= 1 && taskNum <= tasks.size()) {
             Task deletedTask = tasks.remove(taskNum - 1);
 
             responseText = "Noted. I've removed this task:\n";
@@ -32,6 +34,8 @@ public class DeleteCommand extends Command<Task> {
             responseText += "Now you have " + tasks.size() + " tasks in the list.\n";
 
             storage.saveTasks(tasks, dialogContainer); // Save after deleting
+        } else {
+            responseText = "Sorry, you only have " + tasks.size() + " tasks in your list.\n";
         }
 
         return responseText;
