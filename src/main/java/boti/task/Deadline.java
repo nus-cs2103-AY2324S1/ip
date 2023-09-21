@@ -68,8 +68,8 @@ public class Deadline extends Task {
         String deadlineMonth = deadline.getMonth().toString().substring(0, 3);
         String deadlineDay = deadline.toString().split("-")[2];
         String deadlineYear = deadline.toString().split("-")[0];
-        return "[D]" + super.toString() + " (by: " + deadlineMonth + " "
-                + deadlineDay + " " + deadlineYear + " )";
+        return "[D]" + super.toString() + "(by: " + deadlineMonth + " "
+                + deadlineDay + " " + deadlineYear + ")";
     }
 
     @Override

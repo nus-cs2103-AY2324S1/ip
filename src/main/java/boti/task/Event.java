@@ -79,9 +79,9 @@ public class Event extends Task {
         String endMonth = end.getMonth().toString().substring(0, 3);
         String endDay = end.toString().split("-")[2];
         String endYear = end.toString().split("-")[0];
-        return "[E]" + super.toString() + " (from: "
+        return "[E]" + super.toString() + "(from: "
                 + startMonth + " " + startDay + " " + startYear
-                + " to: " + endMonth + " " + endDay + " " + endYear + " )";
+                + " to: " + endMonth + " " + endDay + " " + endYear + ")";
     }
 
     @Override

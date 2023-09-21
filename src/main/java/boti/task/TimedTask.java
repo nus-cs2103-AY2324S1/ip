@@ -93,14 +93,14 @@ public class TimedTask extends Task {
     public String toString() {
         switch (durationType) {
         case "day":
-            return "[D]" + super.toString() + " (in: " + duration.toDays() + " days)";
+            return "[TT]" + super.toString() + "(in: " + duration.toDays() + " days)";
         case "hour":
-            return "[D]" + super.toString() + " (in: " + duration.toHours() + " hours)";
+            return "[TT]" + super.toString() + "(in: " + duration.toHours() + " hours)";
         case "minute":
-            return "[D]" + super.toString() + " (in: " + duration.toMinutes() + " minutes)";
+            return "[TT]" + super.toString() + "(in: " + duration.toMinutes() + " minutes)";
         default:
             assert durationType == "seconds" : "The only case left possible is when the duration is in second";
-            return "[D]" + super.toString() + " (in: " + duration.toSeconds() + " seconds)";
+            return "[TT]" + super.toString() + "(in: " + duration.toSeconds() + " seconds)";
         }
     }
 

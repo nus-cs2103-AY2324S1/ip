@@ -40,22 +40,22 @@
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this deadline:
-    [D][ ] CS2103 Individual Project  (by: SEP 01 2023 )
+    [D][ ] CS2103 Individual Project (by: SEP 01 2023)
     Now you have 2 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][ ] CS2103 Individual Project  (by: SEP 01 2023 )
+    2. [D][ ] CS2103 Individual Project (by: SEP 01 2023)
     ____________________________________________________________
     ____________________________________________________________
     Nice! I've marked this task as done:
-    [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
+    [D][X] CS2103 Individual Project (by: SEP 01 2023)
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but the input Event is invalid :-(
@@ -78,25 +78,25 @@
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but the input Event is invalid :-(
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this event:
-    [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     Now you have 3 tasks in the list.
     ____________________________________________________________
     ____________________________________________________________
     OK, I've unmarked this task as not done yet:
-    [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    3. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    3. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -145,8 +145,8 @@
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    3. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    3. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -154,8 +154,8 @@
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    3. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    3. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -163,8 +163,8 @@
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    3. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    3. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -172,8 +172,8 @@
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    3. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    3. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -181,8 +181,8 @@
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    3. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    3. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
@@ -190,8 +190,8 @@
     ____________________________________________________________
     Here are the tasks in your list:
     1. [T][ ] CS2101 Presentation
-    2. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    3. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    2. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    3. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     Noted. I've removed this task:
@@ -200,8 +200,8 @@
     ____________________________________________________________
     ____________________________________________________________
     Here are the tasks in your list:
-    1. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
-    2. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
+    1. [D][X] CS2103 Individual Project (by: SEP 01 2023)
+    2. [E][ ] September (from: SEP 01 2023 to: SEP 30 2023)
     ____________________________________________________________
     ____________________________________________________________
     Got it. I've added this todo:
@@ -222,7 +222,7 @@
     ____________________________________________________________
     ____________________________________________________________
     The list of tasks containing the keyword is:
-    1. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
+    1. [D][X] CS2103 Individual Project (by: SEP 01 2023)
     2. [T][ ] CS2103 Materials
 
     ____________________________________________________________
