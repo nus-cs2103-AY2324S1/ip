@@ -20,14 +20,14 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome message at the start of the program.
+     * Returns a String of a welcome message at the start of the program.
      */
     public String welcome() {
          return "What's up I am Adam\n" + "so like what do you want?";
     }
 
     /**
-     * Prints the amount of tasks you have inside your list.
+     * Returns a String message of the amount of tasks you have inside your list.
      *
      * @param size Size of the list.
      */
@@ -36,7 +36,7 @@ public class Ui {
     }
 
     /**
-     * Prints out the delete message when you delete a Task.
+     * Returns the delete message when you delete a Task as a String.
      *
      * @param curr Current Task.
      * @param size Size of the list.
@@ -47,7 +47,7 @@ public class Ui {
     }
 
     /**
-     * Prints out a message whenever you add a todo Task to your list.
+     *Returns a message whenever you add a todo Task to your list as a String.
      *
      * @param curr Current Task.
      * @param size Size of the list.
@@ -58,7 +58,7 @@ public class Ui {
     }
 
     /**
-     * Prints out a message whenever you add a event Task to your list.
+     * Returns a message whenever you add a event Task to your list as a String.
      *
      * @param curr Current Task.
      * @param size Size of the list.
@@ -69,7 +69,7 @@ public class Ui {
     }
 
     /**
-     * Prints out a message whenever you add a deadline Task to your list.
+     * Returns a message whenever you add a deadline Task to your list as a String.
      *
      * @param curr Current Task.
      * @param size Size of the list.
@@ -80,21 +80,21 @@ public class Ui {
     }
 
     /**
-     * Lists out all the task in your list.
+     * Lists out all the task in your list as a String.
      */
     public String list() {
         return "Here are the amount of hard labor you have in your lists:";
     }
 
     /**
-     * Prints a goodbye message when you end the program.
+     * Returns a goodbye message when you end the program as a String.
      */
     public String bye() {
         return "Bye. Hope we don't see each other too often";
     }
 
     /**
-     * Prints out a message to indicate that you have completed a Task.
+     * Returns a String message to indicate that you have completed a Task.
      */
     public String mark() {
         return "Congrats on getting one step closer to achieving true happines," +
@@ -102,14 +102,14 @@ public class Ui {
     }
 
     /**
-     * Prints out a message to indicate that you have uncompleted a Task.
+     * Returns a String message to indicate that you have uncompleted a Task.
      */
     public String unmark() {
         return "turns out you still got more work to do, I have unmarked it";
     }
 
     /**
-     * Prints out error messages that has been thrown inside the program.
+     * Returns a String error messages that has been thrown inside the program.
      *
      * @param message Message of the specific error.
      */
@@ -118,19 +118,24 @@ public class Ui {
     }
 
     /**
-     * Prints out whenever the find method couldnt find a match.
+     * Returns a String whenever the find method couldnt find a match.
      */
     public String apologize() {
         return "I couldn't find anything are you sure its here?";
     }
 
     /**
-     * Prints when you find a match using the find method.
+     * Returns a String when you find a match using the find method.
      */
     public String search() {
         return "Here are some of the tasks I found:";
     }
 
+    /**
+     * Returns a String specifying what you have tagged this item as.
+     *
+     * @param item String of the tag.
+     */
     public String tag(String item) {
     return "I have tagged this task as " + item;
     }

@@ -30,6 +30,7 @@ public class TaskList {
     /**
      * Deletes the Task object from the ArrayList according to its index.
      *
+     * @return String message saying whixh item was deleted.
      */
     public String deleteTask( String[] tokens) {
         if (tokens.length != 2) {
@@ -84,7 +85,7 @@ public class TaskList {
     }
 
     /**
-     * Prints all the existing tasks inside the list.
+     * Lists all the existing tasks inside the task list as a String.
      */
     public String list() {
         String sentence =  ui.list() + "\n";
@@ -99,6 +100,8 @@ public class TaskList {
 
     /**
      * Marks the intended Tasks as complete according to their index.
+     *
+     * @return String message saying which item was marked.
      */
     public String markAsDone(String[] tokens) {
         if (tokens.length != 2) {
@@ -120,6 +123,7 @@ public class TaskList {
     /**
      * Unmarks the intended Tasks as uncomplete according to their index.
      *
+     * @return String message saying which item was unmarked.
      */
     public String unmarkAsDone(String[] tokens) {
         if (tokens.length != 2) {
@@ -177,6 +181,7 @@ public class TaskList {
      * Finds the task that contains the same word as the param.
      *
      * @param item String that is being searched.
+     * @return  String listing out all the items that match the find input.
      */
     public String find(String item) {
         ArrayList<Task> matches = new ArrayList<>();
@@ -199,6 +204,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Tags the specified item to have the tag of the input.
+     *
+     * @param tokens an array of Strings from the user input separated by empty space.
+     * @return String message saying which item was tagged what it was tagged with.
+     */
     public String tagTask(String[] tokens) {
         if(tokens.length < 3) {
             throw new NoTagException();

@@ -34,6 +34,9 @@ public class MainWindow extends AnchorPane {
         adam = d;
     }
 
+    /**
+     * Greets the user whenever the program was launched at the start of the program.
+     */
     public void greet() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getAdamDialog(adam.getGreeting(),adamImage)

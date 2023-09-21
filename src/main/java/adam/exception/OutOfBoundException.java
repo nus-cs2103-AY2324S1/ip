@@ -1,7 +1,7 @@
 package adam.exception;
 
 /**
- * This exception is used when a edit command is used to edit something outside of the list.
+ * This exception is used when an edit command is used to edit something outside of the list.
  */
 public class OutOfBoundException extends AdamException {
     @Override

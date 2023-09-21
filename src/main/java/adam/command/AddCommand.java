@@ -32,6 +32,12 @@ public class AddCommand implements Command {
         this.input = input;
     }
 
+    /**
+     * Checks the input for any user errors and then calls the addDeadline method.
+     *
+     * @param tasks The Tasks list.
+     * @return String message for when you add a deadline.
+     */
     public String checkDeadline(TaskList tasks) {
         String[] by = item.split(" /by ");
         if (by.length == 0) {
@@ -51,6 +57,12 @@ public class AddCommand implements Command {
         return  tasks.addDeadline(by[0], by[1]);
     }
 
+    /**
+     * Checks the input for any user errors and then calls the addEvent method.
+     *
+     * @param tasks The Tasks list.
+     * @return String message for when you add an Event.
+     */
     public String checkEvent(TaskList tasks) {
         String[] divide1 = item.split(" /from ");
         if (divide1.length == 0) {
@@ -81,6 +93,7 @@ public class AddCommand implements Command {
         }
         return tasks.addEvent(text, from, to);
     }
+
     /**
      * Calls the right add method for each kinds of Task while also checking for input errors.
      *
