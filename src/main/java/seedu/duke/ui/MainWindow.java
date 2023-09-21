@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.duke.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import seedu.duke.ui.Ui;
+import seedu.duke.Duke;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -53,8 +53,8 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                Ui.DialogBox.getUserDialog(input, userImage),
+                Ui.DialogBox.getDukeDialog(response, dukeImage)
         );
 
         userInput.clear();
@@ -64,7 +64,7 @@ public class MainWindow extends AnchorPane {
      * Displays the welcome message in a dialog box when Lemon is activated.
      */
     public void displayGreeting() {
-        DialogBox greeting = DialogBox.getDukeDialog(ui.welcomeMessage(), dukeImage);
+        Ui.DialogBox greeting = Ui.DialogBox.getDukeDialog(ui.welcomeMessage(), dukeImage);
         dialogContainer.getChildren().add(greeting);
     }
 }
