@@ -13,6 +13,7 @@ import urchatbot.commands.DeleteCommand;
 import urchatbot.commands.EventCommand;
 import urchatbot.commands.ExitCommand;
 import urchatbot.commands.FindCommand;
+import urchatbot.commands.FindFreeTimeCommand;
 import urchatbot.commands.ListCommand;
 import urchatbot.commands.MarkCommand;
 import urchatbot.commands.PrintCommand;
@@ -54,6 +55,8 @@ public class Parser {
             return parsePrintCommand(command);
         case "FIND":
             return parseFindCommand(command);
+        case "FINDFREETIME":
+            return parseFindFreeTimeCommand(command);
         case "BYE":
             return parseExitCommand(command);
         default:
@@ -147,7 +150,7 @@ public class Parser {
             throw new URChatBotException("OOPS!!! Please provide a valid numeric value for the " + commandName + " command.");
         }
 
-        if (value <= 0) {
+        if (value < 1) {
             throw new URChatBotException("OOPS!!! The numeric value for the " + commandName + " command must be greater than zero.");
         }
 
@@ -183,6 +186,26 @@ public class Parser {
     }
     private static Command parseExitCommand(String command) {
         return new ExitCommand(command);
+    }
+    private static Command parseFindFreeTimeCommand(String command) throws URChatBotException {
+        validateCommandNotEmpty(command, 12);
+        validateKeywordsExistenceForEvent(command);
+        String timeDurationString = extractTask(command, "findFreeTime", "/from");
+        int timeDuration =  Integer.parseInt(timeDurationString.replaceAll("[^0-9]", ""));
+        String from = extractField(command, "/from", "/to");
+        String to = extractField(command, "/to");
+
+        validateFieldsNotEmpty(timeDurationString, from, to);
+
+        validateTimeFormat(from);
+        validateTimeFormat(to);
+
+        LocalDateTime dateTimeFrom = parseDateTime(from);
+        LocalDateTime dateTimeTo = parseDateTime(to);
+
+        validateDateRange(dateTimeFrom, dateTimeTo);
+
+        return new FindFreeTimeCommand(timeDuration, dateTimeFrom.toLocalDate(), dateTimeTo.toLocalDate());
     }
     private static void validateCommandNotEmpty(String command, int minLength) throws URChatBotException {
         if (command.trim().length() <= minLength) {
@@ -262,6 +285,13 @@ public class Parser {
             throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'.");
         }
         return formattedTime;
+    }
+
+    private static void validateTimeFormat(String time) throws URChatBotException {
+        String formattedTime = changeTimeFormat(time);
+        if (formattedTime == null) {
+            throw new URChatBotException("Wrong DateTime format. Please enter 'yyyy-MM-dd HH:mm' or 'yyyy-MM-dd'.");
+        }
     }
 
     private static void validateDateRange(LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) throws URChatBotException {

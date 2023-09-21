@@ -1,28 +1,15 @@
 package urchatbot.ui;
 
-import static urchatbot.common.Messages.MESSAGE_ADD;
-import static urchatbot.common.Messages.MESSAGE_CLEAR;
-import static urchatbot.common.Messages.MESSAGE_DELETE;
-import static urchatbot.common.Messages.MESSAGE_FIND;
-import static urchatbot.common.Messages.MESSAGE_GOODBYE;
-import static urchatbot.common.Messages.MESSAGE_LIST;
-import static urchatbot.common.Messages.MESSAGE_LOADING_ERROR;
-import static urchatbot.common.Messages.MESSAGE_MARK;
-import static urchatbot.common.Messages.MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL;
-import static urchatbot.common.Messages.MESSAGE_NOW_YOU_HAVE;
-import static urchatbot.common.Messages.MESSAGE_PRINT;
-import static urchatbot.common.Messages.MESSAGE_PRINT_TWO;
-import static urchatbot.common.Messages.MESSAGE_PRINT_TWO_PLURAL;
-import static urchatbot.common.Messages.MESSAGE_TASK_IN_THE_LIST;
-import static urchatbot.common.Messages.MESSAGE_UNMARK;
-import static urchatbot.common.Messages.MESSAGE_WELCOME;
-
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import urchatbot.exception.URChatBotException;
 import urchatbot.taskList.TaskList;
+
+import static urchatbot.common.Messages.*;
 
 
 /**
@@ -213,6 +200,22 @@ public class Ui {
                 + taskSize + MESSAGE_MESSAGE_TASK_IN_THE_LIST_PLURAL);
     }
 
+    /**
+     * Shows free time slots found.
+     */
+    public String showFindFreeTimeMessage(List<LocalDate> freeTimeSlots) {
+        StringBuilder result = new StringBuilder();
+        for (LocalDate slot : freeTimeSlots) {
+            result.append(slot.toString()).append("\n");
+        }
+        return (MESSAGE_FIND_FREE_TIME + ("\n") + result);
+    }
+    /**
+     * Shows no free time slot is found.
+     */
+    public String showNoFreeTimeFoundMessage() {
+        return (MESSAGE_NO_FREE_TIME);
+    }
     /**
      * Shows dot line.
      */

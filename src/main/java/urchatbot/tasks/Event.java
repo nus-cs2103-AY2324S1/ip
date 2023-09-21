@@ -1,5 +1,8 @@
 package urchatbot.tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Represents a Event task.
  */
@@ -31,6 +34,14 @@ public class Event extends Task {
             return "E | 0 | " + description
                     + " | " + from + "-" + to;
         }
+    }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public String getTo() {
+        return this.to;
     }
 
     @Override

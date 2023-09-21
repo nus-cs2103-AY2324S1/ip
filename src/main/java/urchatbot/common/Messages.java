@@ -26,4 +26,6 @@ public class Messages {
     public static final String MESSAGE_PRINT_TWO = " task on ";
     public static final String MESSAGE_PRINT_TWO_PLURAL = " tasks on ";
     public static final String MESSAGE_LOADING_ERROR = "Loading failed";
+    public static final String MESSAGE_FIND_FREE_TIME = "Free time slots within the specified date range:";
+    public static final String MESSAGE_NO_FREE_TIME = "No free time slots found within the specified date range.";
 }
