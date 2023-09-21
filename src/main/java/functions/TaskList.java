@@ -106,8 +106,7 @@ public class TaskList {
         }
         if (second != null) {
             t = new Event(desc, first, second);
-        }
-        if (first != null) {
+        } else if (first != null) {
             t = new Deadline(desc, first);
         }
         this.tasks.add(t);
