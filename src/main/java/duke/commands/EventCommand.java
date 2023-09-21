@@ -4,6 +4,9 @@ import duke.exceptions.DukeException;
 import duke.tasks.Event;
 import duke.tasks.TaskList;
 
+/**
+ * EventCommand class.
+ */
 public class EventCommand extends Command {
 
     /**
@@ -12,12 +15,12 @@ public class EventCommand extends Command {
      * @param message the default response.
      * @return success message upon successful adding of event.
      * @throws DukeException when no description or no start time
-     * or no end time is provided for the event.
+     *      or no end time is provided for the event.
      */
     @Override
     public String execute(String[] parsedInput, String message) throws DukeException {
         if (parsedInput.length <= 1) {
-            throw new DukeException("Please provide a description for this deadline! (⋟﹏⋞)");
+            throw new DukeException("Please provide a description for this deadline! (>_<)");
         } else {
             message = addEvent(parsedInput[1], message);
         }
@@ -25,17 +28,17 @@ public class EventCommand extends Command {
         return message;
     }
 
-    public String addEvent(String details, String msg) throws DukeException{
+    public String addEvent(String details, String msg) throws DukeException {
         String[] eventTask = details.split("/from");
         if (eventTask.length == 1) {
-            throw new DukeException("Please provide a start time! (⋟﹏⋞)");
+            throw new DukeException("Please provide a start time! (>_<)");
         } else if (eventTask[0].equals("")) {
-            throw new DukeException("Please provide a description! (⋟﹏⋞)");
+            throw new DukeException("Please provide a description! (>_<)");
         } else {
             String eventDescription = eventTask[0];
             String[] startEnd = eventTask[1].split("/to");
             if (startEnd.length == 1) {
-                throw new DukeException("Please provide an end time! (⋟﹏⋞)");
+                throw new DukeException("Please provide an end time! (>_<)");
             } else {
                 String eventStart = startEnd[0];
                 String eventEnd = startEnd[1];

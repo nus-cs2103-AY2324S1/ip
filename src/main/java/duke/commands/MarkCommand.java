@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 
-public class MarkCommand extends Command{
+public class MarkCommand extends Command {
 
     /**
      * Marks the task indicated as completed

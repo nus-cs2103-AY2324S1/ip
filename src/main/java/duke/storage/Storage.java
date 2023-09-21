@@ -1,13 +1,14 @@
 package duke.storage;
 
-import duke.exceptions.DukeException;
-import duke.tasks.*;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
+import duke.tasks.*;
+
 
 /**
  * Deals with loading tasks from the file in the user's hard disk and saving tasks in the file.

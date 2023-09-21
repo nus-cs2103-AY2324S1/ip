@@ -12,12 +12,12 @@ public class DeadlineCommand extends Command {
      * @param message the default response.
      * @return success message upon successful adding of deadline.
      * @throws DukeException when no description or
-     * no deadline is provided for the deadline.
+     *      no deadline is provided for the deadline.
      */
     @Override
     public String execute(String[] parsedInput, String message) throws DukeException {
         if (parsedInput.length <= 1) {
-            throw new DukeException("Please provide a description for this deadline! (⋟﹏⋞)");
+            throw new DukeException("Please provide a description for this deadline! (>_<)");
         } else {
             message = addDeadline(parsedInput[1], message);
         }
@@ -27,9 +27,9 @@ public class DeadlineCommand extends Command {
     public String addDeadline(String details, String msg) throws DukeException {
         String[] deadTask = details.split("/by");
         if (deadTask.length == 1) {
-            throw new DukeException("Please provide a deadline! (⋟﹏⋞)");
+            throw new DukeException("Please provide a deadline! (>_<)");
         } else if (deadTask[0].equals("")) {
-            throw new DukeException("Please provide a description! (⋟﹏⋞)");
+            throw new DukeException("Please provide a description! (>_<)");
         } else {
             String deadDescription = deadTask[0];
             String deadTime = deadTask[1];

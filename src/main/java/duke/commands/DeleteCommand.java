@@ -11,12 +11,12 @@ public class DeleteCommand extends Command {
      * @param message the default response.
      * @return success message upon successful deletion of the task.
      * @throws DukeException when the task index given is
-     * larger than the total number of tasks in the list.
+     *      larger than the total number of tasks in the list.
      */
     @Override
     public String execute(String[] parsedInput, String message) throws DukeException {
         if (parsedInput.length <= 1) {
-            throw new DukeException("You do not have that many tasks! (⋟﹏⋞)");
+            throw new DukeException("You do not have that many tasks! (>_<)");
         } else {
             int target = Integer.parseInt(parsedInput[1]);
             message = TaskList.delete(target);

@@ -39,7 +39,7 @@ public class Ui {
      * @param description the description of the task marked.
      */
     public static String markMsg(String description) {
-        return lines + "\nNice! I've marked this task as done: (≧▽≦)\n\n"
+        return lines + "\nNice! I've marked this task as done: (>w<)\n\n"
                 + description + "\n\n"
                 + lines;
     }
@@ -50,7 +50,7 @@ public class Ui {
      */
     public static String unmarkMsg(String description) {
         return lines
-                + "\nOK, I've marked this task as not done yet: (≧▽≦)\n\n"
+                + "\nOK, I've marked this task as not done yet: (>w<)\n\n"
                 + description + "\n\n"
                 + lines;
     }

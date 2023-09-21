@@ -5,4 +5,3 @@ D | 0 | finish 2103t | 2023-09-22
 T | 0 | whooo
 E | 0 | festival | 2pm - 10pm
 T | 0 | project work
-D | 0 | finish 2103t | 2023-09-22

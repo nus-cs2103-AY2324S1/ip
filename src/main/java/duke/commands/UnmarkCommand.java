@@ -3,7 +3,7 @@ package duke.commands;
 import duke.exceptions.DukeException;
 import duke.tasks.TaskList;
 
-public class UnmarkCommand extends Command{
+public class UnmarkCommand extends Command {
 
     /**
      * Unmarks the task indicated as uncompleted

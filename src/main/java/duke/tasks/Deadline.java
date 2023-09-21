@@ -1,9 +1,10 @@
 package duke.tasks;
 
-import duke.exceptions.DukeException;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import duke.exceptions.DukeException;
+
 
 /**
  * Represents a <code>Deadline</code> object that extends from <code>Task</code>.

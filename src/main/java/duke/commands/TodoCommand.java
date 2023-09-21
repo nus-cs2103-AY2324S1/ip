@@ -16,7 +16,7 @@ public class TodoCommand extends Command {
     @Override
     public String execute(String[] parsedInput, String message) throws DukeException {
         if (parsedInput.length <= 1 || parsedInput[1].equals("")) {
-            throw new DukeException("Please provide a description for this todo! (⋟﹏⋞)");
+            throw new DukeException("Please provide a description for this todo! (>_<)");
         } else {
             String todoTask = parsedInput[1];
             Todo newTodo = new Todo(todoTask);

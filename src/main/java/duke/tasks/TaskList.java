@@ -1,13 +1,13 @@
 package duke.tasks;
 
-import duke.Duke;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Represents a task list.
@@ -27,7 +27,7 @@ public class TaskList {
      * Checks if the task to be added is a duplicate of a task already in the current list.
      * @param task task to be added.
      * @return true if there is a duplicate in the current list,
-     * false if there is no duplicate in the current list.
+     *      false if there is no duplicate in the current list.
      */
     public static boolean isDuplicate(Task task) {
         String description = task.getDescription();
@@ -152,7 +152,7 @@ public class TaskList {
      * Searches for a task in the task list.
      * @param searchTerm the term to search for in the task list.
      */
-    public static String searchFor(String searchTerm) throws DukeException{
+    public static String searchFor(String searchTerm) throws DukeException {
         String searchResult = "";
         List<Task> result = toDo.stream()
                 .filter(task -> task.checkTerm(searchTerm))

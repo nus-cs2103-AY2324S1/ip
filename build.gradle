@@ -19,21 +19,28 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
     testImplementation 'org.mockito:mockito-core:3.12.4'
 
-    String javaFxVersion = '17.0.7'
+    dependencies {
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+        testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-    implementation 'org.openjfx:javafx-controls:17.0.7'
+        // JavaFX 17.0.7 dependencies for macOS on ARM64
+        implementation 'org.openjfx:javafx-base:17.0.7:mac-aarch64'
+        implementation 'org.openjfx:javafx-controls:17.0.7:mac-aarch64'
+        implementation 'org.openjfx:javafx-fxml:17.0.7:mac-aarch64'
+        implementation 'org.openjfx:javafx-graphics:17.0.7:mac-aarch64'
+
+        // JavaFX 17.0.7 dependencies for Linux
+        implementation 'org.openjfx:javafx-base:17.0.7:linux'
+        implementation 'org.openjfx:javafx-controls:17.0.7:linux'
+        implementation 'org.openjfx:javafx-fxml:17.0.7:linux'
+        implementation 'org.openjfx:javafx-graphics:17.0.7:linux'
+
+        // JavaFX 17.0.7 dependencies for Windows
+        implementation 'org.openjfx:javafx-base:17.0.7:win'
+        implementation 'org.openjfx:javafx-controls:17.0.7:win'
+        implementation 'org.openjfx:javafx-fxml:17.0.7:win'
+        implementation 'org.openjfx:javafx-graphics:17.0.7:win'
+    }
 }
 
 test {
@@ -55,15 +62,16 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "dukeyJAR"
+    archiveBaseName = "dukeyBOT"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
+
 
 repositories {
     mavenCentral()
 }
 
-run{
+run {
     standardInput = System.in
 }

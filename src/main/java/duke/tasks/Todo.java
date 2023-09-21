@@ -1,7 +1,5 @@
 package duke.tasks;
 
-import duke.tasks.Task;
-
 /**
  * Represents a <code>Todo</code> object that extends from <code>Task</code>.
  * A <code>Todo</code> object contains a description.

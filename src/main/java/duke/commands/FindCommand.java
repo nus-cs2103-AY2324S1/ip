@@ -15,7 +15,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(String[] parsedInput, String message) throws DukeException {
         if (parsedInput.length <= 1) {
-            throw new DukeException("Please provide a term to search for! (⋟﹏⋞)");
+            throw new DukeException("Please provide a term to search for! (>_<)");
         } else {
             String searchTerm = parsedInput[1];
             message = TaskList.searchFor(searchTerm);

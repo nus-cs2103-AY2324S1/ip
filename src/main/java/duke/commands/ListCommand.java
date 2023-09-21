@@ -2,7 +2,7 @@ package duke.commands;
 
 import duke.ui.Ui;
 
-public class ListCommand extends Command{
+public class ListCommand extends Command {
 
     /**
      * Lists the current tasks in the list.

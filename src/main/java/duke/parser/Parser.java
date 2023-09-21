@@ -1,8 +1,15 @@
 package duke.parser;
 
-import duke.commands.*;
+import duke.commands.DeadlineCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.FindCommand;
+import duke.commands.EventCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkCommand;
+import duke.commands.TodoCommand;
+import duke.commands.UnmarkCommand;
+
 import duke.exceptions.DukeException;
-import duke.tasks.TaskList;
 
 /**
  * Parses user command and executes tasks based on user commands.
@@ -47,7 +54,7 @@ public class Parser {
         case "delete":
             return new DeleteCommand().execute(splitted, response);
         case "bye":
-            return "Bye bye! Hope to see you again! o(^◇^)o";
+            return "Bye bye! Hope to see you again! o(^w^)o";
         default:
             return response;
         }
