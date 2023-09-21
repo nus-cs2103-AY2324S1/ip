@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 import duke.main.Cleo;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +15,7 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.stage.Stage;
 
+/** Create and setup stage for application */
 public class Main extends Application {
     private final Cleo cleo = new Cleo("tasks.json");
 
@@ -32,9 +32,9 @@ public class Main extends Application {
             stage.setTitle("Budget Cleo");
             stage.getIcons().add(new Image("/images/title.png"));
             scene.setFill(new LinearGradient(
-                    0, 0, 1, 1, true,                      //sizing
-                    CycleMethod.NO_CYCLE,                  //cycling
-                    new Stop(0, Color.web("#BA4D00")),     //colors
+                    0, 0, 1, 1, true,
+                    CycleMethod.NO_CYCLE,
+                    new Stop(0, Color.web("#BA4D00")),
                     new Stop(1, Color.web("#FFC800")))
             );
 

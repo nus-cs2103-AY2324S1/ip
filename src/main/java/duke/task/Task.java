@@ -1,10 +1,10 @@
 package duke.task;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.util.Arrays;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /** Task class that contains a task string */
 @JsonTypeInfo(
@@ -37,7 +37,7 @@ public class Task {
     }
 
     /**
-     * Sets boolean done to false;
+     * Sets boolean done to false.
      */
     public void unmark() {
         isDone = false;
@@ -47,6 +47,11 @@ public class Task {
         return task;
     }
 
+    /**
+     * Add tag to task.
+     *
+     * @param tag Tag.
+     */
     public void addTag(String tag) {
         boolean found = false;
         for (String tempTag : tags) {

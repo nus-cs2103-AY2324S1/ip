@@ -5,6 +5,7 @@ import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
 
+/** Adds a tag to a task at specified index */
 public class TagCommand implements Command {
     private final String stringIndex;
     private final String tag;
@@ -46,7 +47,7 @@ public class TagCommand implements Command {
      * @param string String to be replaced.
      */
     private void setOutput(String string) {
-        output.delete(0, output.length());
-        output.append(string);
+        OUTPUT.delete(0, OUTPUT.length());
+        OUTPUT.append(string);
     }
 }

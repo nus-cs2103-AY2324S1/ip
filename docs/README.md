@@ -1,14 +1,19 @@
-# User Guide
+# Budget Cleo Task List User Guide
 
-## Features 
+## Features
 
-### Feature-ABC
-
-Description of the feature.
-
-### Feature-XYZ
+### Managing Tasks
 
 Description of the feature.
+
+### Completing tasks
+
+
+### Tag management
+Description of the feature.
+
+### Hidden surprises
+:eyes:
 
 ## Usage
 

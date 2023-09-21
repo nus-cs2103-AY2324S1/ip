@@ -46,7 +46,7 @@
 }
 
 .increment-button, .decrement-button {
-    -fx-background-color: rgb(255, 0, 0,0.3);
+    -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 

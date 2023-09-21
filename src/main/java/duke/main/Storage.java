@@ -1,13 +1,5 @@
 package duke.main;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
-import duke.exception.InvalidFileException;
-import duke.task.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,14 +8,21 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import duke.exception.InvalidFileException;
+import duke.task.Task;
+
 /**
  * Storage to store tasks to a specified filepath.
  */
 public class Storage {
-    private final String filepath;
-
     // Mapper to map from Object to JSON format.
     private static final ObjectMapper MAPPER = new ObjectMapper();
+    private final String filepath;
 
     // Setting Mapper to serialize LocalDate to JSON.
     static {
@@ -36,7 +35,7 @@ public class Storage {
      *
      * @param filepath Filepath to save and load tasks
      */
-    public Storage (String filepath) {
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
 

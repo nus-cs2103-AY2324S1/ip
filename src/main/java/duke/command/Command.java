@@ -7,7 +7,7 @@ import duke.main.Ui;
 
 /** Command interface **/
 public interface Command {
-    StringBuilder output = new StringBuilder();
+    StringBuilder OUTPUT = new StringBuilder();
 
     /**
      * Executes code related to the nature of command.
@@ -30,6 +30,6 @@ public interface Command {
     }
 
     default String getOutput() {
-        return output.toString();
+        return OUTPUT.toString();
     }
 }

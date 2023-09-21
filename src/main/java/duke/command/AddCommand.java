@@ -38,7 +38,7 @@ public class AddCommand implements Command {
      * @param string String to be replaced.
      */
     private void setOutput(String string) {
-        output.delete(0, output.length());
-        output.append(string);
+        OUTPUT.delete(0, OUTPUT.length());
+        OUTPUT.append(string);
     }
 }

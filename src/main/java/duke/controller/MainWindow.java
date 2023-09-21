@@ -1,17 +1,17 @@
 package duke.controller;
 
+import java.util.Objects;
+
 import duke.main.Cleo;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
-import java.util.Objects;
-
-
+/** Create and setup MainWindow with related nodes */
 public class MainWindow extends AnchorPane {
     @FXML
     private ScrollPane scrollPane;
@@ -20,12 +20,16 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     private Cleo cleo;
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.png")));
-    private final Image errorImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/sleeping_cleo.gif")));
-    private final Image questionMarkImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/question_mark.png")));
-    private final Image cleoImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/dancing_cleo.gif")));
-
-    private final AudioClip plonkSound = new AudioClip(Objects.requireNonNull(getClass().getResource("/audio/click.mp3")).toExternalForm());
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/user.png")));
+    private final Image errorImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/sleeping_cleo.gif")));
+    private final Image questionMarkImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/question_mark.png")));
+    private final Image cleoImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/dancing_cleo.gif")));
+    private final AudioClip plonkSound = new AudioClip(Objects.requireNonNull(getClass()
+            .getResource("/audio/click.mp3")).toExternalForm());
 
     @FXML
     public void initialize() {

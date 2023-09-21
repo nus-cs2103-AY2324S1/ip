@@ -22,7 +22,7 @@ public class FindCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         String[] splitString = stringToSearch.split(" ");
-        output.delete(0, output.length());
-        output.append(taskList.print(splitString));
+        OUTPUT.delete(0, OUTPUT.length());
+        OUTPUT.append(taskList.print(splitString));
     }
 }

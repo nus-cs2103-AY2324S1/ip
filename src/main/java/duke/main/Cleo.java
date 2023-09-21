@@ -1,7 +1,9 @@
 package duke.main;
 
 import duke.command.Command;
-import duke.exception.*;
+import duke.exception.DukeException;
+import duke.exception.InvalidCommandException;
+import duke.exception.InvalidFileException;
 
 /**
  * Main entry point for application to run.
@@ -9,14 +11,13 @@ import duke.exception.*;
  * Able to store task data.
  */
 public class Cleo {
+    public static final int ERROR_MESSAGE_TYPE = 0;
+    public static final int INVALID_MESSAGE_TYPE = -1;
+    public static final int NORMAL_MESSAGE_TYPE = 1;
+    private int messageType = INVALID_MESSAGE_TYPE;
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-
-    private int messageType = INVALID_MESSAGE_TYPE;
-    public static final int ERROR_MESSAGE_TYPE = 0;
-    public static final int NORMAL_MESSAGE_TYPE = 1;
-    public static final int INVALID_MESSAGE_TYPE = -1;
 
     /**
      * Initializes Duke class. Initializes filepath to load and save data,
@@ -70,8 +71,7 @@ public class Cleo {
         } catch (InvalidCommandException e) {
             messageType = ERROR_MESSAGE_TYPE;
             return e.getMessage() + "\n" + ui.showCommands();
-        }
-        catch (DukeException e) {
+        } catch (DukeException e) {
             messageType = ERROR_MESSAGE_TYPE;
             return "Error: " + e.getMessage();
         }

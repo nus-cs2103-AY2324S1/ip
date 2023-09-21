@@ -6,6 +6,7 @@ import duke.main.Storage;
 import duke.main.TaskList;
 import duke.main.Ui;
 
+/** Command to Pause music */
 public class PauseCommand implements Command {
     /**
      * Pause music.
@@ -18,7 +19,7 @@ public class PauseCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidParametersException {
         Music.pauseMusic();
-        output.delete(0, output.length());
-        output.append(":o");
+        OUTPUT.delete(0, OUTPUT.length());
+        OUTPUT.append(":o");
     }
 }

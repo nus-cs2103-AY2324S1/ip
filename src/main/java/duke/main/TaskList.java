@@ -95,6 +95,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Prints tags of task at specified index.
+     *
+     * @param index Index of task.
+     * @return List of tags for specified task.
+     */
     public String printTags(int index) {
         if (tasks.isEmpty()) {
             return "You have no tasks added yet :(\n";
