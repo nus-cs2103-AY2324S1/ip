@@ -3,7 +3,6 @@ package adam.command;
 import adam.Storage;
 import adam.TaskList;
 import adam.Ui;
-import adam.exception.NumberException;
 
 /**
  * This class is used to call the appropriate methods to edit a Task inside the list
@@ -35,13 +34,6 @@ public class EditCommand implements Command {
     public String execute(TaskList tasks, Storage storage, Ui ui) {
         int length = tasks.getSize();
         String respond = "Something went wrong";
-        if (tokens.length < 2) {
-            throw new NumberException();
-        }
-        if (!tokens[1].matches("[0-9]+")) {
-            throw new NumberException();
-        }
-
         switch (text) {
         case "mark":
             respond = tasks.markAsDone(tokens);

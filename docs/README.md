@@ -29,10 +29,10 @@ Adds a task that has a deadline to the task list.
 
 ### Adding an Event task:`event`
 Adds a task that specifies when an event starts and ends to the task list. <br/>
-Format: `event TEST /start YYYY-MM-DD /end YYYY-MM-DD`
+Format: `event TEST /from YYYY-MM-DD /to YYYY-MM-DD`
 <br/> Examples:
-- `event career fair /start 2023-09-17 /end 2023-09-20`
-- `event midterms /start 2023-09-27 /end 2023-09-30`
+- `event career fair /from 2023-09-17 /to 2023-09-20`
+- `event midterms /from 2023-09-27 /to 2023-09-30`
 
 ### Marking a task to make it complete: `mark`
 Marks a task as completed when the mark command is followed by the index of the task.

@@ -32,8 +32,11 @@ public class TaskList {
      *
      */
     public String deleteTask( String[] tokens) {
-        int number = Integer.valueOf(tokens[1]);
         if (tokens.length != 2) {
+            throw new NumberException();
+        }
+        int number = Integer.valueOf(tokens[1]);
+        if (!tokens[1].matches("[0-9]+")) {
             throw new NumberException();
         }
         if (number > getSize()) {
@@ -98,8 +101,11 @@ public class TaskList {
      * Marks the intended Tasks as complete according to their index.
      */
     public String markAsDone(String[] tokens) {
-        int number = Integer.valueOf(tokens[1]);
         if (tokens.length != 2) {
+            throw new NumberException();
+        }
+        int number = Integer.valueOf(tokens[1]);
+        if (!tokens[1].matches("[0-9]+")) {
             throw new NumberException();
         }
         if (number > getSize()) {
@@ -116,10 +122,13 @@ public class TaskList {
      *
      */
     public String unmarkAsDone(String[] tokens) {
-        int number = Integer.valueOf(tokens[1]);
         if (tokens.length != 2) {
             throw new NumberException();
         }
+        if (!tokens[1].matches("[0-9]+")) {
+            throw new NumberException();
+        }
+        int number = Integer.valueOf(tokens[1]);
         if (number > getSize()) {
             throw new OutOfBoundException();
         }
@@ -191,10 +200,13 @@ public class TaskList {
     }
 
     public String tagTask(String[] tokens) {
-        int number = Integer.valueOf(tokens[1]);
         if(tokens.length < 3) {
             throw new NoTagException();
         }
+        if (!tokens[1].matches("[0-9]+")) {
+            throw new NumberException();
+        }
+        int number = Integer.valueOf(tokens[1]);
         if (number > getSize()) {
             throw new OutOfBoundException();
         }
