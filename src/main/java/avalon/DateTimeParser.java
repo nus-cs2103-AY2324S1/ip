@@ -18,7 +18,9 @@ public class DateTimeParser {
     public static LocalDateTime stringToDateTime(String inputDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
         try {
-            return LocalDateTime.parse(inputDateTime, formatter);
+            LocalDateTime dateTime = LocalDateTime.parse(inputDateTime, formatter);
+            assert dateTime != null : "Parsing result should not be null";
+            return dateTime;
         } catch (DateTimeParseException e) {
             System.out.println("Invalid date format. Please follow the format: YYYY-MM-DD hhmm");
         }
@@ -46,6 +48,7 @@ public class DateTimeParser {
     public static String printDateTimeToString(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         String formattedDateTimeString = dateTime.format(formatter);
+        assert formattedDateTimeString != null : "Formatted date-time string should not be null";
         return formattedDateTimeString;
     }
 }

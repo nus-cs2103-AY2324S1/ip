@@ -14,20 +14,27 @@ public class TaskParser {
     public static Task parse(String line) {
         String[] parts = line.split(" \\| ");
 
+        assert parts.length <= 5 : "Task string should have no more than 5 parts";
+
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
         Task task = null;
 
-        if (type.equals("T")) {
+        switch (type) {
+        case "T":
             task = new ToDo(description);
-        } else if (type.equals("D")) {
+            break;
+        case "D":
             task = new Deadline(description, parts[3]);
-        } else if (type.equals("E")) {
+            break;
+        case "E":
             task = new Event(description, parts[3], parts[4]);
+            break;
         }
 
         if (isDone) {
+            assert task != null;
             task.markDone();
         }
 

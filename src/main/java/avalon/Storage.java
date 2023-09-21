@@ -53,6 +53,8 @@ public class Storage {
      */
     public void saveTasks(TaskList taskList) {
         try {
+            File file = new File(filePath);
+            assert file.canWrite() : "Cannot write to tasks file";
             FileWriter writer = new FileWriter(filePath);
             for (Task task : taskList.tasks()) {
                 String taskData = TaskParser.serialize(task);
