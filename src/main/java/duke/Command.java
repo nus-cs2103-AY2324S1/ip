@@ -62,4 +62,10 @@ public class Command {
     public static final String TAG = "tag ";
 
     public static final String DOAFTER = "doafter ";
+
+    /**
+     * Represents the "start" system command, which allows the ui to intialize
+     * the starting message. If by chance used by user, it will just display the greeting.
+     */
+    public static final String START = "SystemCode247890Start";
 }

@@ -1,5 +1,5 @@
     -------------------------------------------------
-    Hello, I'm Capt. Price! What can I do for you today, Sergeant?
+    Hello, I'm Capt. Price! What can I do for you today, Major?
     -------------------------------------------------
     -------------------------------------------------
     added: [T][ ] quiz

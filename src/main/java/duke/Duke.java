@@ -90,7 +90,9 @@ public class Duke {
         String botOutput = "";
 
         // Check for various user commands and generate responses accordingly.
-        if (userInput.equalsIgnoreCase(Command.LIST)) {
+        if (userInput.equalsIgnoreCase(Command.START)) {
+            botOutput = botOutput + this.ui.getEntryGreeting();
+        } else if (userInput.equalsIgnoreCase(Command.LIST)) {
             // Generate a list of tasks and display it to the user.
             botOutput = botOutput + "Here are the tasks in your list: \n    " + this.tasks.toString();
 
@@ -206,7 +208,7 @@ public class Duke {
                     botOutput = botOutput + "added: " + t + "\n    Now you have " + this.tasks.getSize() + " tasks in the list.";
             } catch (InvalidCommandException e) {
                 // Handle invalid commands.
-                botOutput = "OOPS!!! I'm sorry, but I'm afraid I don't comprehend Sergeant!";
+                botOutput = "OOPS!!! I'm sorry, but I'm afraid I don't comprehend Major!";
             } catch (InvalidTaskCreationException t) {
                 // Handle invalid task creation.
                 botOutput = t.getMessage();
