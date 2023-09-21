@@ -63,7 +63,7 @@ public class UI {
      */
     public String showAddedTask(Task task, List<Task> tasks) {
         return String.format(
-                "Got it. I've added this task:\n %s\nNow you have %d task(s) in the list.",
+                "Got it. I've added the following task:\n %s\nNow you have %d task(s) in the list.",
                 task.toString(),
                 tasks.size()
         );
@@ -208,7 +208,7 @@ public class UI {
      */
     public String showAddedVenue(Venue venue, List<Venue> venues) {
         return String.format(
-                "Got it. I've added this venue:\n %s\nNow you have %d task(s) in the list.",
+                "Got it. I've added this venue:\n %s\nNow you have %d venue(s) in the list.",
                 venue,
                 venues.size()
         );
@@ -249,7 +249,7 @@ public class UI {
      */
     public String showRemovedVenue(Venue removedVenue, List<Venue> venues) {
         return String.format(
-                "Noted. I've removed this venue:\n %s\nNow you have %d tasks in the list",
+                "Noted. I've removed this venue:\n %s\nNow you have %d venue(s) in the list",
                 removedVenue,
                 venues.size()
         );
