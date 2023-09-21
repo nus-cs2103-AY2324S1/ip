@@ -56,6 +56,6 @@ public class Event extends Task {
      * @return True if the event has started, false otherwise.
      */
     public boolean hasPassed() {
-        return this.from.isBefore(LocalDateTime.now()) && !this.isCompleted();
+        return this.from.isBefore(LocalDateTime.now());
     }
 }

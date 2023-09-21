@@ -1,4 +1,4 @@
 T | O | eat apple
-D | O | Complete CS2100 Assignment | Sep 18 2023 01:15 PM
+D | X | Complete CS2100 Assignment | Sep 18 2023 01:15 PM
 E | O | Play Tennis | Sep 25 2023 05:00 PM - Sep 25 2023 07:00 PM
 T | O | Learn JavaFX

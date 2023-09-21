@@ -117,10 +117,10 @@ public class TaskList {
         for (Task t : this.tasks) {
             if (t instanceof Todo) {
                 continue;
-            } else if (t.hasPassed()) {
+            } else if (t.hasPassed() && !t.isCompleted()) {
                 passedTasks.append(passedCount + 1).append(") ").append(t).append("\n");
                 passedCount++;
-            } else if (!t.hasPassed()) {
+            } else if (!t.hasPassed() && !t.isCompleted()) {
                 currentTasks.append(currentCount + 1).append(") ").append(t).append("\n");
                 currentCount++;
             }

@@ -48,6 +48,6 @@ public class Deadline extends Task {
      * @return True if the deadline has passed, false otherwise.
      */
     public boolean hasPassed() {
-        return this.deadline.isBefore(LocalDateTime.now()) && !this.isCompleted();
+        return this.deadline.isBefore(LocalDateTime.now());
     }
 }
