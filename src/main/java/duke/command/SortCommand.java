@@ -15,12 +15,14 @@ public class SortCommand extends Command {
     public SortCommand(String detail) {
         super(detail);
     }
+
     @Override
     public String execute(TaskList tasks, Storage storage) throws EmptyDescriptionException, NoSuchCommandException {
 
         String result = Ui.showLine() + "\n";
         Comparator<Task> c;
-        switch (this.detail) {
+
+        switch (this.detail.replace(" ", "")) {
         case "a":
             c = new Comparator<Task>() {
                 @Override

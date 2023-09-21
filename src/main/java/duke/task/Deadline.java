@@ -51,7 +51,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Convert the date and time provided into another format.
+     * Converts the date and time provided into another format.
      *
      * @param l The date and time to be changed.
      * @return The date and time in "dd/MMM/yyyy HH:mm" format.

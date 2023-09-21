@@ -14,7 +14,7 @@ public class UnmatchedArgumentException extends Exception {
     private int actual;
 
     /**
-     * Construct an UnmatchedArgumentException object with provided number of arguments.
+     * Constructs an UnmatchedArgumentException object with provided number of arguments.
      *
      * @param got The amount of argument inputted by the user.
      * @param actual The actual amount of argument required by the command.

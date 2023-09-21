@@ -47,7 +47,6 @@ public class Duke {
     public String getResponse(String input) {
 
         String result;
-        boolean isExit = false;
 
         try {
             Command c = Parser.parse(input, this.tasks.size());
@@ -57,7 +56,10 @@ public class Duke {
         } catch (NoSuchCommandException e) {
             result = e.toString();
         } catch (InvalidIndexException | NumberFormatException e) {
-            result = e.toString();
+
+            result = Ui.showLine() + "\nPlease enter a valid index, e.g. a number in the list.";
+            result += "\n";
+            result += Ui.showLine();
         } catch (UnmatchedArgumentException e) {
             result = e.toString();
         } catch (EmptyDescriptionException e) {

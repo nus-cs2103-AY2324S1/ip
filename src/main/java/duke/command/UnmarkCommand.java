@@ -6,6 +6,9 @@ import duke.task.TaskList;
 
 public class UnmarkCommand extends Command {
 
+    /*
+        The index of task to be unmarked.
+     */
     private int index;
 
     public UnmarkCommand(int index) {

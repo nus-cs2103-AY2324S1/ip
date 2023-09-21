@@ -6,6 +6,9 @@ import duke.task.TaskList;
 
 public class MarkCommand extends Command {
 
+    /*
+        The index of task to be marked.
+     */
     private int index;
 
     public MarkCommand(int index) {

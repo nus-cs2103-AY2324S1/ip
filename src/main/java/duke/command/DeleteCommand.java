@@ -6,6 +6,9 @@ import duke.task.TaskList;
 
 public class DeleteCommand extends Command {
 
+    /*
+        The index of task to be deleted.
+     */
     private int index;
 
     public DeleteCommand(int index) {
