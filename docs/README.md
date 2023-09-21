@@ -20,7 +20,7 @@ Todoify is easy to use for users with experience of the CLI. It:
 3. **Download** the latest `.jar` file, and move it to the *home folder* where you want to use Todoify.
 
 4. **Launch** the JAR file by doing one of the following:
-    - **Open a terminal** and **`cd` into the directory of the JAR file**. Then, **run `java -jar todoify-v1.0.jar`**.
+    - **Open a terminal** and **`cd` into the directory of the JAR file**. Then, **run `java -jar todoify-1.0.jar`**.
         - *Note:* The version number may not be the same. Change the version number if it's not the version you downloaded.
 
     - **Navigate to the folder containing the JAR file** in your file manager, then **double-click to open** it.
@@ -71,7 +71,7 @@ For very advanced users, you can launch Todoify in both **GUI** and **TUI** mode
 
 **To launch in GUI mode**, either:
 
-- Navigate to the directory of the JAR file in your terminal via `cd`, then run: `java -jar todoify-v1.0.jar`.
+- Navigate to the directory of the JAR file in your terminal via `cd`, then run: `java -jar todoify-1.0.jar`.
 - Navigate to where the JAR file is stored in your file manager, then double-click the JAR file.
 
 You will see the following:
@@ -84,19 +84,19 @@ To interact with Todoify, click the text box at the bottom, type your message, a
 
 !> Some Java versions may not open correctly via double-click. In which case, please try opening via the terminal instead.
 
-?> *Note:* For terminal invocations, you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
+?> *Note:* For terminal invocations, you might need to replace `todoify-1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
 #### Text-only User Interface (TUI)
 
 **To launch in TUI mode**, navigate to the directory of the JAR file in your terminal, then run:
 
-- `java -jar todoify-v1.0.jar --text-ui`, or
-- `java -jar todoify-v1.0.jar -t` as a shortcut.
+- `java -jar todoify-1.0.jar --text-ui`, or
+- `java -jar todoify-1.0.jar -t` as a shortcut.
 
 You will see the following:
 
 ```shell
-$ java -jar todoify-v1.0.jar -t
+$ java -jar todoify-1.0.jar -t
 [Todoify]:
   Hello! I'm Todoify, your friendly task helper.
 
@@ -112,7 +112,7 @@ $ java -jar todoify-v1.0.jar -t
 
 To send a message, simply type your message and press Enter.
 
-?> *Note:* You might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
+?> *Note:* You might need to replace `todoify-1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
 ## Commands
 
