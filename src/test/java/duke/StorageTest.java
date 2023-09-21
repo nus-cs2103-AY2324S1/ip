@@ -1,6 +1,5 @@
 package duke;
 
-import duke.exception.DukeFileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -14,12 +13,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exception.DukeFileNotFoundException;
+import duke.stub.StorageStub;
+
 public class StorageTest {
     @Test
-    public void load_validFile_contentLoaded() {
-
+    public void loadFromFile_validFile_contentLoaded() {
         // test on non-existing file
-        
         File f = new File("./dukeTest.txt");
         try {
             f.createNewFile();
@@ -40,7 +40,7 @@ public class StorageTest {
 
         //ensures that there is a file so that the constructor of Storage is most likely to not encounter any bugs
         Storage s = new Storage("./dukeTest.txt");
-        ArrayList<String> strings = s.load();
+        ArrayList<String> strings = s.loadFromFile();
         Scanner sc = null;
 
         try {
@@ -50,21 +50,20 @@ public class StorageTest {
         }
 
         for (int i=0; i<strings.size(); i++) {
-            if (!sc.hasNextLine()) {        //array has more lines than the file
+            if (!sc.hasNextLine()) {             //array has more lines than the file
                 fail();
             }
             String line = sc.nextLine();
             assertEquals(strings.get(i), line);
         }
 
-        if (sc.hasNextLine()) {             //file has more lines than the array
+        if (sc.hasNextLine()) {                 //file has more lines than the array
             fail();
         }
 
         // test on existing file
-
         Storage s2 = new Storage("./dukeTest2.txt");
-        ArrayList<String> strings2 = s2.load();
+        ArrayList<String> strings2 = s2.loadFromFile();
         Scanner sc2 = null;
 
         try {
@@ -83,6 +82,17 @@ public class StorageTest {
 
         if (sc2.hasNextLine()) {             //file has more lines than the array
             fail();
+        }
+    }
+
+    @Test
+    public void loadFromFile_invalidFile_dukeFileNotFoundExceptionThrown() {
+        StorageStub s = new StorageStub();
+        try {
+            s.loadFromFile();
+            fail();
+        } catch (DukeFileNotFoundException e) {
+            assertEquals("No available file", e.getMessage());
         }
     }
 }

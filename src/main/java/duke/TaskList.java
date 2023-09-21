@@ -83,6 +83,41 @@ public class TaskList {
     }
 
     /**
+     * Returns true if a task has the same rank.
+     *
+     * @param rank Rank of the task.
+     */
+    public boolean hasRank(int rank) {
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        boolean isFound = false;
+        while (!tasks.isEmpty()) {
+            Task t = tasks.poll();
+            if (t.getPriority() == rank) {
+                isFound = true;
+            }
+            tempTasks.add(t);
+        }
+        tasks.addAll(tempTasks);
+        return isFound;
+    }
+
+    /**
+     * Returns the highest rank in the task list.
+     */
+    public int getHighestRank() {
+        int rank = 0;
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        while (!tasks.isEmpty()) {
+            Task t = tasks.poll();
+            if (t.getPriority() > rank) {
+                rank = t.getPriority();
+            }
+            tempTasks.add(t);
+        }
+        tasks.addAll(tempTasks);
+        return rank;
+    }
+    /**
      * Removes the task at the specific position.
      *
      * @param t The task to remove.

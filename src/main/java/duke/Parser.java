@@ -222,7 +222,8 @@ public class Parser {
         if (!hasToDoDescription(details)) {
             throw new LackDescriptionException("todo");
         }
-        Todo t = new Todo(details, 0);
+
+        Todo t = new Todo(details, tasks.getHighestRank() + 1);
         tasks.add(t);
         return confirmAddedTask(details);
     }
@@ -289,9 +290,9 @@ public class Parser {
         Deadline d;
 
         if (time == null) {
-            d = new Deadline(description, date, 0);
+            d = new Deadline(description, date, tasks.getHighestRank() + 1);
         } else {
-            d = new Deadline(description, date, time, 0);
+            d = new Deadline(description, date, time, tasks.getHighestRank() + 1);
         }
         return d;
     }
@@ -312,7 +313,7 @@ public class Parser {
         String description = s[0];
 
         if (!hasFromInformation(s)) {
-            throw new LackInformationException("\"from\"");
+            throw new LackInformationException("\"/from\"");
         }
         String fromto = s[1];
         String[] ft = fromto.split(" /to ");
@@ -373,13 +374,13 @@ public class Parser {
         Event e;
 
         if (startTime == null && endTime == null) {
-            e = new Event(description, startDate, endDate, 0);
+            e = new Event(description, startDate, endDate, tasks.getHighestRank() + 1);
         } else if (startTime == null) {
-            e = new Event(description, startDate, endDate, endTime, 0);
+            e = new Event(description, startDate, endDate, endTime, tasks.getHighestRank() + 1);
         } else if (endTime == null) {
-            e = new Event(description, startDate, startTime, endDate, 0);
+            e = new Event(description, startDate, startTime, endDate, tasks.getHighestRank() + 1);
         } else {
-            e = new Event(description, startDate, startTime, endDate, endTime, 0);
+            e = new Event(description, startDate, startTime, endDate, endTime, tasks.getHighestRank() + 1);
         }
         return e;
     }
@@ -520,7 +521,7 @@ public class Parser {
             return ui.sendMessage("No matching found");
         } else {
             return String.join("", res + "\n",
-                    ui.sendMessage("You have " + (counter-1) + " matching tasks in your list"));
+                    ui.sendMessage("You have " + (counter-1) + " matching task(s) in your list"));
         }
     }
 
@@ -531,7 +532,6 @@ public class Parser {
         if (details == null || details.trim().isEmpty()) {
             throw new InvalidRankingException("Missing target task");
         }
-
         String[] strings = details.split(" /level ");
         int idxTask;
         try {
@@ -540,23 +540,23 @@ public class Parser {
         } catch (NumberFormatException e) {
             throw new InvalidRankingException("Please provide a valid index for task");
         }
-
         if (idxTask - 1 > tasks.size() - 1 || idxTask - 1 < 0) {
             throw new InvalidRankingException("There is no corresponding task in the list");
         }
-
         int rank;
         try {
             rank = Integer.parseInt(strings[1]);
         } catch (RuntimeException e) {
-            throw new InvalidRankingException("Please provide a valid index for ranking");
+            throw new InvalidRankingException("Please provide a valid number for ranking");
         }
-
+        if (rank < 0) {
+            throw new InvalidRankingException("Please provide a valid number for ranking");
+        }
+        if (tasks.hasRank(rank)) {
+            throw new InvalidRankingException("There is a task with the same priority level, please use another one");
+        }
         Task t = tasks.get(idxTask - 1);
         t.setPriority(rank);
-        tasks.remove(t);
-        tasks.add(t);
-
         return this.ui.sendMessage("Priority of task has been updated successfully");
     }
 }
