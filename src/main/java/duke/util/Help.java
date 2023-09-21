@@ -37,7 +37,7 @@ public class Help {
      */
     public static String byeHelp() {
         return "bye\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Exits the program.\n";
     }
 
@@ -48,7 +48,7 @@ public class Help {
      */
     public static String listHelp() {
         return "list\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Lists all the tasks.\n";
     }
 
@@ -60,7 +60,7 @@ public class Help {
     public static String markHelp() {
         return "mark <task number>\n"
                 + "mark all\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Marks the task as done.\n"
                 + "- The task number should be a positive integer.\n"
                 + "- The task number should not be empty.\n"
@@ -75,7 +75,7 @@ public class Help {
     public static String unmarkHelp() {
         return "unmark <task number>\n"
                 + "unmark all\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Unmarks the task as done.\n"
                 + "- The task number should be a positive integer.\n"
                 + "- The task number should not be empty.\n"
@@ -90,7 +90,7 @@ public class Help {
     public static String deleteHelp() {
         return "delete <task number>\n"
                 + "delete all\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Deletes the task.\n"
                 + "- The task number should be a positive integer.\n"
                 + "- The task number should not be empty.\n"
@@ -104,7 +104,7 @@ public class Help {
      */
     public static String todoHelp() {
         return "todo <task description>\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Adds a todo task.\n"
                 + "- The task description should not be empty.\n";
     }
@@ -116,7 +116,7 @@ public class Help {
      */
     public static String eventHelp() {
         return "event <task description> /from <task time> /to <task time>\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Adds an event task.\n"
                 + "- The task time should be in the format of dd/MM/yyyy HH:mm.\n"
                 + "For example: 01/01/2023 12:00\n"
@@ -132,7 +132,7 @@ public class Help {
      */
     public static String deadlineHelp() {
         return "deadline <task description> /by <task time>\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Adds a deadline task.\n"
                 + "- The task time should be in the format of dd/MM/yyyy HH:mm.\n"
                 + "For example: 01/01/2023 12:00\n"
@@ -145,8 +145,9 @@ public class Help {
      * @return The print_date help message.
      */
     public static String printDateHelp() {
-        return "print_date [deadline/event] /on <date>\n"
-                + "==================\n"
+        return "print_date deadline /on <date>\n"
+                + "print_date event /on <date>\n"
+                + "================================\n"
                 + "- Lists all the deadlines/events on the date.\n"
                 + "- The date should be in the format of dd/MM/yyyy.\n"
                 + "For example: 01/01/2023\n"
@@ -161,7 +162,7 @@ public class Help {
      */
     public static String findHelp() {
         return "find <search word>\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Finds all the tasks that contain the search word.\n"
                 + "- The search word should not be empty.\n";
     }
@@ -174,7 +175,7 @@ public class Help {
     public static String loadHelp() {
         return "load <file name>\n"
                 + "load\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Loads the task list from the file in data folder.\n"
                 + "- If the file name is not provided, the default file will be loaded.\n"
                 + "- If the file is not found, a new file will be created. But not loaded.\n";
@@ -188,7 +189,7 @@ public class Help {
     public static String sortHelp() {
         return "sort <sort type>\n"
                 + "sort\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Sorts the task list.\n"
                 + "- The sort type should be: 'name' | 'deadline' | 'category'.\n"
                 + "- If the sort type is not provided, the task list will be sorted by name.\n";
@@ -200,10 +201,10 @@ public class Help {
      * @return The alias help message.
      */
     public static String aliasHelp() {
-        return "alias <alias from> <alias to>\n"
-                + "alias <alias from>\n"
+        return "alias <from> <to>\n"
+                + "alias <from>\n"
                 + "alias\n"
-                + "==================\n"
+                + "================================\n"
                 + "- Adds an alias.\n"
                 + "E.g. alias t todo (Adds the alias t -> todo)\n"
                 + "- If only the alias from is provided, the alias will be removed.\n"
