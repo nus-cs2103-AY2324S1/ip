@@ -3,6 +3,9 @@ package rua.task;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Contains the task list and it has operations to add/delete tasks in the list.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
@@ -126,6 +129,12 @@ public class TaskList {
         return tasksOnThatDate.toString();
     }
 
+    /**
+     * Searches the tasks with given keyword.
+     *
+     * @param keyword The keyword to be searched.
+     * @return A string represents all the tasks with the keywords.
+     */
     public String search(String keyword) {
         StringBuilder targetTasks = new StringBuilder();
         int index = 1;

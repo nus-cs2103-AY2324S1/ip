@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a Deadline Task.
+ */
 public class Deadline extends Task {
     private final LocalDate due;
 
@@ -100,8 +103,7 @@ public class Deadline extends Task {
     /**
      * Returns a string to represent this Deadline task.
      *
-     * @return A string representing this Deadline task in the format:
-     * [D][ marked indicator ] description.
+     * @return A string representing this Deadline task in the format: [D][ marked indicator ] description.
      */
     @Override
     public String toString() {

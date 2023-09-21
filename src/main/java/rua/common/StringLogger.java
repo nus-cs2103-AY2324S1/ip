@@ -1,17 +1,33 @@
 package rua.common;
 
+/**
+ * Logs String from different classes for future use
+ */
 public class StringLogger {
-    static public String log = "";
+    private static String log = "";
 
-    static public void append(String str) {
+    /**
+     * Appends a string to the string logger.
+     *
+     * @param str The string to be appended to the logger.
+     */
+    public static void append(String str) {
         log = log + str;
     }
 
-    static public void clear() {
+    /**
+     * Clears the string logger.
+     */
+    public static void clear() {
         log = "";
     }
 
-    static public String getLog() {
+    /**
+     * Gets the stored string in the string logger.
+     *
+     * @return The string in the logger.
+     */
+    public static String getLog() {
         return log;
     }
 }

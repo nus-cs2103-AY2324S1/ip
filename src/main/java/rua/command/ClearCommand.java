@@ -1,9 +1,13 @@
 package rua.command;
 
-import rua.task.TaskList;
-import rua.common.Ui;
 import rua.common.Storage;
+import rua.common.Ui;
+import rua.task.TaskList;
 
+
+/**
+ * Represents Command for clearing existing tasks.
+ */
 public class ClearCommand implements Command {
     /**
      * {@inheritDoc}
@@ -20,7 +24,7 @@ public class ClearCommand implements Command {
      *
      * @param tasks Current TaskList.
      * @param ui A UI to show messages to the user.
-     * @param storage A Storage to save and load tasks
+     * @param storage A Storage to save and load tasks.
      * @return The empty TaskList after execution.
      */
     @Override

@@ -4,6 +4,9 @@ import rua.common.Storage;
 import rua.common.Ui;
 import rua.task.TaskList;
 
+/**
+ * Represents parent interface which all runnable Command class implements
+ */
 public interface Command {
     /**
      * Runs the corresponding command and returns the updated TaskList after the execution.

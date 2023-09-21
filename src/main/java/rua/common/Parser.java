@@ -3,26 +3,27 @@ package rua.common;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 
 import rua.command.AddCommand;
 import rua.command.ClearCommand;
+import rua.command.Command;
 import rua.command.DateSearchCommand;
 import rua.command.DeleteCommand;
 import rua.command.ExitCommand;
 import rua.command.ListCommand;
 import rua.command.MarkCommand;
-import rua.command.Command;
 import rua.command.SearchCommand;
 import rua.command.TagCommand;
-import rua.task.Deadline;
-import rua.task.Event;
 import rua.exception.EmptyDescriptionException;
 import rua.exception.InvalidCommandException;
+import rua.task.Deadline;
+import rua.task.Event;
 import rua.task.Todo;
 
 
-
+/**
+ * Deals with making sense of the user command.
+ */
 public class Parser {
     /**
      * Translates the input message into a Command object.
@@ -90,13 +91,13 @@ public class Parser {
     }
 
     private static void checkEmptyDescription(String[] inputs, String commandType)
-            throws EmptyDescriptionException{
+            throws EmptyDescriptionException {
         if (inputs.length == 1) {
             throw new EmptyDescriptionException(commandType);
         }
     }
 
-    private static AddCommand createAddTodoCommand(String[] inputs) throws EmptyDescriptionException{
+    private static AddCommand createAddTodoCommand(String[] inputs) throws EmptyDescriptionException {
         checkEmptyDescription(inputs, "Todo");
         String[] tagInfos = inputs[1].split(" #");
         Todo newTodo;
@@ -109,7 +110,7 @@ public class Parser {
     }
 
     private static AddCommand createAddDeadlineCommand(String[] inputs)
-            throws EmptyDescriptionException{
+            throws EmptyDescriptionException {
         checkEmptyDescription(inputs, "Deadline");
         String[] infos = inputs[1].split(" /by ", 2);
         checkEmptyDescription(infos, "Deadline");
@@ -127,7 +128,7 @@ public class Parser {
     }
 
     private static AddCommand createAddEventCommand(String[] inputs)
-            throws EmptyDescriptionException{
+            throws EmptyDescriptionException {
         checkEmptyDescription(inputs, "Event");
         String[] infosEvent = inputs[1].split(" /from ", 2);
         checkEmptyDescription(infosEvent, "Event");
@@ -148,14 +149,14 @@ public class Parser {
     }
 
     private static MarkCommand createMarkEventCommand(String[] inputs, Boolean willMark)
-            throws EmptyDescriptionException{
+            throws EmptyDescriptionException {
         checkEmptyDescription(inputs, willMark ? "mark" : "unmark");
         int indexMark = Integer.parseInt(inputs[1]);
         return new MarkCommand(indexMark, willMark);
     }
 
     private static TagCommand createTagCommand(String[] inputs, String command)
-            throws EmptyDescriptionException{
+            throws EmptyDescriptionException {
         String[] validCommand = {"add", "delete", "clear"};
         assert Arrays.asList(validCommand).contains(command) : "Invalid command for tagging operation";
         checkEmptyDescription(inputs, command + "Tag");

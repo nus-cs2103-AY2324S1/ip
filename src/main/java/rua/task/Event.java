@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Represents a Event Task.
+ */
 public class Event extends Task {
     private final LocalDate from;
     private final LocalDate to;
@@ -120,8 +123,7 @@ public class Event extends Task {
     /**
      * Returns a string to represent this Event task.
      *
-     * @return A string representing this Event task in the format:
-     * [E][ marked indicator ] description.
+     * @return A string representing this Event task in the format: [E][ marked indicator ] description.
      */
     @Override
     public String toString() {

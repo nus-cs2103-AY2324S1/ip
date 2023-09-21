@@ -59,8 +59,14 @@ public class DialogBox extends HBox {
         return db;
     }
 
+    /**
+     * Shows the welcome message in dialog box.
+     *
+     * @param img The profile picture of the chatbot.
+     * @return A dialog box with welcome message said by the chatbot.
+     */
     public static DialogBox showWelcome(Image img) {
-        var db =  new DialogBox(" Hello! I'm Rua, your ChatBot\n"
+        var db = new DialogBox(" Hello! I'm Rua, your ChatBot\n"
                 + " What can I do for you?\n", img);
         db.flip();;
         return db;

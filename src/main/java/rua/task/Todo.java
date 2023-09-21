@@ -2,6 +2,9 @@ package rua.task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an Event Task.
+ */
 public class Todo extends Task {
     private static final String TYPE = "T";
 
@@ -71,8 +74,7 @@ public class Todo extends Task {
     /**
      * Returns a string to represent this Todo task.
      *
-     * @return A string representing this Todo task in the format:
-     * [T][ marked indicator ] description.
+     * @return A string representing this Todo task in the format: [T][ marked indicator ] description.
      */
     @Override
     public String toString() {

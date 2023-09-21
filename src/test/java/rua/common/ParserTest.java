@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,11 +17,13 @@ import rua.task.Todo;
 public class ParserTest {
     @Test
     public void parseStringTest() throws Exception {
-        Command expectedAddTodo = new AddCommand(new Todo("play"));
+        ArrayList<String> tags = new ArrayList<String>();
+        tags.add("#fun");
+        Command expectedAddTodoWithTag = new AddCommand(new Todo("play", false, tags));
         Command expectedAddDeadline = new AddCommand(new Deadline("quiz", LocalDate.parse("2020-12-12")));
         Command expectedAddEvent = new AddCommand(new Event("project", LocalDate.parse("2020-12-10"),
                 LocalDate.parse("2020-12-31")));
-        assertEquals(expectedAddTodo, Parser.parse("todo play"));
+        assertEquals(expectedAddTodoWithTag, Parser.parse("todo play #fun"));
         assertEquals(expectedAddDeadline, Parser.parse("deadline quiz /by 2020-12-12"));
         assertEquals(expectedAddEvent, Parser.parse("event project /from 2020-12-10 /to 2020-12-31"));
     }

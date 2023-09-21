@@ -3,20 +3,24 @@ package rua.common;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Scanner;
 
+import rua.exception.InvalidTypeException;
 import rua.task.Deadline;
 import rua.task.Event;
 import rua.task.Task;
 import rua.task.TaskList;
-import rua.exception.InvalidTypeException;
 import rua.task.Todo;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file.
+ */
 public class Storage {
     private final String filePath;
 
@@ -37,7 +41,8 @@ public class Storage {
      * @throws InvalidTypeException if the task type is not supported.
      */
     static Task stringToTask(String str) throws InvalidTypeException {
-        String[] features = str.split(" \\| ");
+        String[] features = Arrays.stream(str.split(" \\|",
+                Integer.MAX_VALUE)).map(String::trim).toArray(String[]::new);
         Task output;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");
         final boolean isMarked = features[1].equals("1");
@@ -72,7 +77,7 @@ public class Storage {
      * @throws InvalidTypeException if the task type is not supported.
      */
     static String taskToString(Task task) throws InvalidTypeException {
-        String tagsString = task.getTags().toString().replace("[","").replace("]","");
+        String tagsString = task.getTags().toString().replace("[", "").replace("]", "");
         String output = task.getType() + " | " + (task.isMarked() ? 1 : 0)
                 + " | " + task.getDescription()
                 + " | " + tagsString;

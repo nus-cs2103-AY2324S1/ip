@@ -1,20 +1,28 @@
 package rua.command;
 
 import rua.common.Storage;
-import rua.common.StringLogger;
 import rua.common.Ui;
 import rua.task.TaskList;
 
+/**
+ * Represents Command for marking and unmarking a Task.
+ */
 public class MarkCommand implements Command {
-    private final Boolean marked;
+    private final Boolean isMarked;
     private final int index;
 
     private static final String MESSAGE_MARK = "Nice! I've marked this task as done:\n";
     private static final String MESSAGE_UNMARK = "OK, I've marked this task as not done yet:\n";
 
-    public MarkCommand(int index, Boolean marked) {
+    /**
+     * Constructs the MarkCommand.
+     *
+     * @param index The index to be marked or unmarked.
+     * @param isMarked A boolean to indicate whether to mark or unmark.
+     */
+    public MarkCommand(int index, Boolean isMarked) {
         this.index = index;
-        this.marked = marked;
+        this.isMarked = isMarked;
     }
 
     /**
@@ -37,9 +45,9 @@ public class MarkCommand implements Command {
      */
     @Override
     public TaskList execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
-        String message = marked ? MESSAGE_MARK : MESSAGE_UNMARK;
+        String message = isMarked ? MESSAGE_MARK : MESSAGE_UNMARK;
         ui.showMessage(message);
-        TaskList newTasks = marked ? tasks.mark(index) : tasks.unmark(index);
+        TaskList newTasks = isMarked ? tasks.mark(index) : tasks.unmark(index);
         ui.showMessage("    " + tasks.getTasks().get(index - 1));
         storage.save(tasks);
         return newTasks;
@@ -62,6 +70,6 @@ public class MarkCommand implements Command {
         }
 
         MarkCommand c = (MarkCommand) o;
-        return c.marked.equals(this.marked) && c.index == this.index;
+        return c.isMarked.equals(this.isMarked) && c.index == this.index;
     }
 }

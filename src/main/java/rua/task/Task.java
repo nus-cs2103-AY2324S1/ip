@@ -1,14 +1,10 @@
 package rua.task;
 
-import rua.common.Ui;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Represents a Task. A Task object corresponds to
- * a task represented by a String description and a boolean
- * to indicate whether it is marked.
+ * Represents a generic Task.
  */
 public class Task {
     protected final String description;
@@ -117,21 +113,29 @@ public class Task {
         return this;
     }
 
-    public Task addTags(ArrayList<String> newTags) {
+    /**
+     * Adds tags to a task.
+     *
+     * @param newTags Tags to be added.
+     */
+    public void addTags(ArrayList<String> newTags) {
         this.tags.addAll(newTags);
-        return this;
     }
 
-    public Task clearTags() {
+    /**
+     * Clears all tags of a task.
+     */
+    public void clearTags() {
         this.tags.clear();
-        return this;
     }
 
-    public Task deleteTags(ArrayList<String> discardedTags) {
+    /**
+     * Deletes a set of tags from a task.
+     */
+    public void deleteTags(ArrayList<String> discardedTags) {
         for (String tag : discardedTags) {
             this.tags.remove(tag);
         }
-        return this;
     }
 
     /**
@@ -159,8 +163,7 @@ public class Task {
     /**
      * Returns a string to represent this task.
      *
-     * @return A string representing this task in the format:
-     * [ marked indicator ] description.
+     * @return A string representing this task in the format: [ marked indicator ] description.
      */
     @Override
     public String toString() {

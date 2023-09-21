@@ -4,6 +4,9 @@ import rua.common.Storage;
 import rua.common.Ui;
 import rua.task.TaskList;
 
+/**
+ * Represents Command for deleting existing Task at a given index.
+ */
 public class DeleteCommand implements Command {
     private final int index;
 

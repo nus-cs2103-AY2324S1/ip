@@ -4,6 +4,9 @@ import rua.common.Storage;
 import rua.common.Ui;
 import rua.task.TaskList;
 
+/**
+ * Represents Command for searching Tasks based on description.
+ */
 public class SearchCommand implements Command {
     private final String keyword;
 

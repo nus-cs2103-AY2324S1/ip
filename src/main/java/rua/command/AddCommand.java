@@ -5,7 +5,9 @@ import rua.common.Ui;
 import rua.task.Task;
 import rua.task.TaskList;
 
-
+/**
+ * Represents Command for adding new Tasks.
+ */
 public class AddCommand implements Command {
     private final Task task;
 

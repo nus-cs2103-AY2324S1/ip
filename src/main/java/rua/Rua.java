@@ -1,18 +1,5 @@
 package rua;
 
-import javafx.application.Application;
-import javafx.scene.layout.Region;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
-
 import rua.command.Command;
 import rua.common.Parser;
 import rua.common.Storage;
@@ -20,11 +7,17 @@ import rua.common.StringLogger;
 import rua.common.Ui;
 import rua.task.TaskList;
 
+/**
+ * A chatbot that helps manage tasks.
+ */
 public class Rua {
-     private final Storage storage;
+    private final Storage storage;
     private final Ui ui;
     private TaskList tasks;
 
+    /**
+     * Initialises the chatbot.
+     */
     public Rua() {
         ui = new Ui();
         storage = new Storage("src/main/data/tasks.txt");
@@ -89,8 +82,10 @@ public class Rua {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets response of the chatbot from the String Logger
+     *
+     * @param input The string input by the user.
+     * @return A string represents the response from the chatbot.
      */
     public String getResponse(String input) {
         StringLogger.clear();
@@ -102,5 +97,4 @@ public class Rua {
         }
         return StringLogger.getLog();
     }
-
 }

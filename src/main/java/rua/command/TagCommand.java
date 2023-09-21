@@ -1,13 +1,16 @@
 package rua.command;
 
+import java.util.ArrayList;
+
 import rua.common.Storage;
 import rua.common.Ui;
 import rua.exception.InvalidCommandException;
-import rua.task.TaskList;
 import rua.task.Task;
+import rua.task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents Command for tagging related operation (add, delete, clear).
+ */
 public class TagCommand implements Command {
     private final ArrayList<String> tags;
     private final int index;
@@ -17,6 +20,13 @@ public class TagCommand implements Command {
     static final String MESSAGE_ADD = "Successfully add all required tags:\n";
     static final String MESSAGE_CLEAR = "Successfully clear all tags:\n";
 
+    /**
+     * Constructs a TagCommand.
+     *
+     * @param index The index of task to be edited.
+     * @param tags The new list of tags.
+     * @param command A string to indicate the type of the command.
+     */
     public TagCommand(int index, ArrayList<String> tags, String command) {
         this.index = index;
         this.tags = tags;

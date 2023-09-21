@@ -4,6 +4,9 @@ import rua.common.Storage;
 import rua.common.Ui;
 import rua.task.TaskList;
 
+/**
+ * Represents Command for listing all Tasks.
+ */
 public class ListCommand implements Command {
     /**
      * {@inheritDoc}

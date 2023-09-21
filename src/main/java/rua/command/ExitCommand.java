@@ -4,7 +4,9 @@ import rua.common.Storage;
 import rua.common.Ui;
 import rua.task.TaskList;
 
-
+/**
+ * Represents Command for exiting the programme.
+ */
 public class ExitCommand implements Command {
     /**
      * {@inheritDoc}

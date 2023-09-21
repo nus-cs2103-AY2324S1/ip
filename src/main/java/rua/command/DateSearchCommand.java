@@ -6,7 +6,9 @@ import rua.common.Storage;
 import rua.common.Ui;
 import rua.task.TaskList;
 
-
+/**
+ * Represents Command for searching Tasks based on date.
+ */
 public class DateSearchCommand implements Command {
     private final LocalDate date;
 
