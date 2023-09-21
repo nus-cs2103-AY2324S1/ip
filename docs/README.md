@@ -88,7 +88,7 @@ A list of all tasks, along with their status.
 
 Example of usage with date:
 
-`list` 2023-09-20
+`list 2023-09-20`
 
 Expected outcome:
 
