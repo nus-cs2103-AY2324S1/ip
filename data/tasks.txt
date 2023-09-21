@@ -1,3 +1,2 @@
-T | 0 | borrow book
-E | 0 | holiday | 2023-12-05 | 2023-12-12E | 0 | holiday | 2023-12-05 | 2023-12-12
-T | 0 | read book
+T | 0 | borrow this book
+E | 0 | holiday | 2023-12-06 | 2023-12-13

@@ -1,5 +1,7 @@
 package buddy;
 
+import java.time.LocalDate;
+
 /**
  * The task class represents a task in the tasklist.
  */
@@ -48,6 +50,23 @@ public class Task {
     }
 
     /**
+     * Updates the task description.
+     * @param newDescription The new description of the task
+     */
+    public void updateTaskDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    /**
+     * Updates a date field of task.
+     *
+     * @param fieldToUpdate Field that is to be updated.
+     * @param newDate New date of task.
+     */
+    public void updateDate(String fieldToUpdate, LocalDate newDate) {
+    }
+
+    /**
      * Converts this task to a format to be saved in the data file.
      * @return A string representing this task in the format to be saved in
      */
@@ -60,6 +79,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] "+ this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description;
     }
 }

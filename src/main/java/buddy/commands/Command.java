@@ -19,5 +19,5 @@ public abstract class Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
         throw new BuddyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-    };
+    }
 }

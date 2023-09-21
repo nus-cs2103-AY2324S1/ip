@@ -15,6 +15,11 @@ public class Todo extends Task {
     }
 
     @Override
+    public void updateTaskDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    @Override
     public String getTaskType() {
         return "T";
     }
