@@ -36,7 +36,7 @@ public class UI {
     public String startProgram() {
         // System.out.println(MESSAGE_WELCOME);
         String output = storage.load() + "\n" + MESSAGE_WELCOME;
-        return MESSAGE_WELCOME;
+        return output;
     }
 
     /**

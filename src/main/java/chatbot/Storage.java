@@ -12,14 +12,17 @@ import java.util.Scanner;
  * Handles the loading and writing of text files.
  */
 public class Storage {
-    /** The string representation of the directory */
+    /** The string representation of the directory to text file */
     private String filePath;
+    /** The string representation of the directory*/
+    private String dataFolderPath;
 
     /**
      * Constructor for Storage. Initialises the filepath.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
+        this.dataFolderPath = "./data";
     }
     /** 
      * Checks if the file path exists and
@@ -27,20 +30,18 @@ public class Storage {
      * @throws FileNotFoundException If file path is invalid.
      */
     public String load() {
-        File file = new File(filePath);
         String outputStr = "";
-
         try {
+            File file = new File(filePath);
             Scanner printSC = new Scanner(file);
             while (printSC.hasNextLine()) {
                 outputStr += printSC.nextLine() + "\n";
-                System.out.println(printSC.nextLine());
             }
             printSC.close();
 
         } catch (FileNotFoundException e) {
-            System.out.println("No file found!");
-        }
+            outputStr = "No file found!";
+        } 
         return outputStr;
     }
     /** 
@@ -49,20 +50,31 @@ public class Storage {
      * @throws IOException If the input/output is interrupted.
      */
     public void write(List<Task> taskForce) {
-        String toBeSaved = "";
-        for (int i = 0; i < taskForce.size(); i++) {
-            toBeSaved = toBeSaved + taskForce.get(i) + "\n";
-        }
-
         File path = new File(filePath);
+        File dataFolder = new File(dataFolderPath);
 
         try {
+            if (!path.exists()) {
+                dataFolder.mkdir();
+            }
+            
+            String toBeSaved = "";
+            Scanner printSC = new Scanner(path);
+            while (printSC.hasNextLine()) {
+                toBeSaved += printSC.nextLine() + "\n";
+            }
+            printSC.close();
+
+            for (int i = 0; i < taskForce.size(); i++) {
+                toBeSaved = toBeSaved + taskForce.get(i) + "\n";
+            }
+
             FileWriter wr = new FileWriter(path);
             wr.write(toBeSaved);
             wr.flush();
             wr.close();
         } catch (IOException e) {
-            System.out.println("This will never occur.");
+            System.out.println("This may occur.");
         }
     }
 }

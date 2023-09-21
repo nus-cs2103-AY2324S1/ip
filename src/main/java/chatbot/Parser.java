@@ -33,13 +33,14 @@ public class Parser {
      * @return The value to determine if the program ends. 
      */
     public String runInput(String input) {
+        input = input.toLowerCase();
         if (input.equals("bye")) {
             return endCommand();
         } else if (input.equals("list")) {
             return printStorageList();
         } else if (input.equals("report")) {
             return printExpenseReport();
-        } else if (input.toUpperCase().equals("MEDIC!")) {
+        } else if (input.equals("medic!")) {
             return callMedicCommand();
         } else if (input.startsWith("unmark")) {
             return unmarkCommand(input);

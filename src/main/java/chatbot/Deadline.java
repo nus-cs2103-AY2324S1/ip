@@ -8,7 +8,6 @@ import java.time.format.DateTimeFormatter;
   */
 public class Deadline extends Task {
     private String input;
-    private String time;
 
     /**
      * Constructor for Deadline. Initialises the description + extras.
@@ -28,9 +27,7 @@ public class Deadline extends Task {
         String[] dateDetails = input.split(" ", 2);
 
         LocalDate localDate = LocalDate.parse(dateDetails[0]);
-        time = " " + dateDetails[1];
-        return " (by: " + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                            + time + ")";
+        return " (by: " + localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
     }
 
     @Override
