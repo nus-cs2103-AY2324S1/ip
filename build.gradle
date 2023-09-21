@@ -33,15 +33,15 @@ dependencies {
 
 
 
+defaultTasks "clean", "build"
+
 application {
     mainClass = "com.cloud.chatbot.Cloud"
 }
 
 run {
-    standardInput System.in
+    enableAssertions true
 }
-
-defaultTasks "clean", "build"
 
 test {
     useJUnitPlatform()
@@ -58,6 +58,8 @@ test {
 }
 
 shadowJar {
+    dependsOn "distZip", "distTar"
+
     archiveFileName = "cloud.jar"
 }
 
