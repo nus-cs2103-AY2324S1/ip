@@ -30,8 +30,8 @@ public class ArchiveDeleteCommand extends Command {
 		try {
 			Task task = storage.deleteFromMainFile(positionToDelete, false);
 			storage.updateMainStorage(false);
-			System.out.println(ui.showDelete(task, remaining));
-			return ui.showDelete(task, remaining);
+			System.out.println(ui.showDeleteMain(task, remaining, false));
+			return ui.showDeleteMain(task, remaining, false);
 		} catch (IndexOutOfBoundsException | DukeException e) {
 			return e.getMessage();
 		}

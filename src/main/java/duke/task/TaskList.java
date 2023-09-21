@@ -57,15 +57,16 @@ public class TaskList {
 	/**
 	 * Shows all tasks in the list.
 	 *
-	 * @param ui outputs task list to user.
+	 * @param ui     outputs task list to user.
+	 * @param isMain
 	 */
-	public String listAsString(Ui ui) {
+	public String mainListAsString(Ui ui, Boolean isMain) {
 		StringBuilder br = new StringBuilder();
 		for (int i = 0; i < taskList.size(); i++) {
 			br.append(i + 1).append(". ");
 			br.append((taskList.get(i)).toString()).append("\n");
 		}
-		return ui.showList(br);
+		return isMain ? ui.showList(br): ui.showArchiveList(br);
 	}
 
 	/**

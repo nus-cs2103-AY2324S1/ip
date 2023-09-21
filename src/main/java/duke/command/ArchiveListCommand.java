@@ -4,8 +4,6 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Command representing list or Archive task.
  */
@@ -22,7 +20,7 @@ public class ArchiveListCommand extends Command {
 	@Override
 	public String execute(TaskList taskList, Ui ui, Storage storage) {
 			TaskList archiveList = storage.getArchiveList();
-			System.out.println(archiveList.listAsString(ui));
-			return archiveList.listAsString(ui);
+			System.out.println(archiveList.mainListAsString(ui, false));
+			return archiveList.mainListAsString(ui, false);
 	}
 }

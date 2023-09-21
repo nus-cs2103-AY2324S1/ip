@@ -28,8 +28,8 @@ public class DeleteCommand extends Command {
 		String remaining = storage.getMainRemaining(true);
 		try {
 			Task task = storage.deleteFromMainFile(positionToDelete, true);
-			System.out.println(ui.showDelete(task, remaining));
-			return ui.showDelete(task, remaining);
+			System.out.println(ui.showDeleteMain(task, remaining, true));
+			return ui.showDeleteMain(task, remaining, true);
 		} catch (IndexOutOfBoundsException | DukeException e) {
 			return e.getMessage();
 		}

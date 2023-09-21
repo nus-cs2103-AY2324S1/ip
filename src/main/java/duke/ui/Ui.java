@@ -1,6 +1,5 @@
 package duke.ui;
 import duke.task.Task;
-import duke.task.TaskList;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -128,18 +127,24 @@ public class Ui {
 	/**
 	 * Outputs to user a delete message.
 	 *
-	 * @param task the task to be done.
+	 * @param task           the task to be done.
 	 * @param remainingCount the remaining task after deletion.
+	 * @param isMain
 	 * @return an Output to the user.
 	 */
 
-	public String showDelete(Task task, String remainingCount) {
-		String echo = String.format(
+	public String showDeleteMain(Task task, String remainingCount, Boolean isMain) {
+		String showMain = String.format(
 				"Noted. I've removed this task:\n" +
 				"%s\n" +
 				"Now you have %s tasks in the list.\n"
 				, task.toString(), remainingCount);
-		return echo;
+		String showArchive = String.format(
+				"Noted. I've removed this task:\n" +
+						"%s\n" +
+						"Now you have %s tasks in the archive.\n"
+				, task.toString(), remainingCount);
+		return isMain ? showMain : showArchive;
 	}
 
 	/**
@@ -173,6 +178,13 @@ public class Ui {
 	public String showList(StringBuilder br) {
 		String echo = String.format(
 				"Here are the task in your list:\n"
+						+ "%s"
+				, br.toString());
+		return echo;
+	}
+	public String showArchiveList(StringBuilder br) {
+		String echo = String.format(
+				"Here are the task in your archive list:\n"
 						+ "%s"
 				, br.toString());
 		return echo;
@@ -213,19 +225,21 @@ public class Ui {
 	 */
 	public String showHelp() {
 		return "These are the commands that are permissible\n" +
-				"list -list all things\n" +
-				"find keyWord\n" +
-				"bye -exit system\n" +
-				"mark/unmark idx i.e mark 1, marks a given task\n" +
-				"delete idx i.e delete 1\n" +
 				"todo description i.e todo math assignment, adds a todo task\n" +
 				"deadline aa /by 630am 29june\n" +
 				"deadline aa /by 06:30:00 2015-04-24\n" +
 				"event aa /from 6am 26june /to 9am 29june\n" +
+				"event aa /from 06:30:00 2015-04-24 /to 07:30:00 2015-04-24\n" +
+				"delete idx i.e delete 1\n" +
+				"mark idx i.e mark 1, marks a given task\n" +
+				"unmark idx i.e unmark 1, unmarks a given task\n" +
+				"list -list all things\n" +
+				"find keyWord\n" +
 				"archive idx\n" +
 				"unarhive idk\n" +
 				"archivelist\n" +
-				"archivedelete idx\n";
+				"archivedelete idx\n" +
+				"bye -exit system\n";
 	}
 
 	public String showClear() {
@@ -240,7 +254,7 @@ public class Ui {
 	 */
 
 	public String showUnArchive(Task task) {
-		return "Retrieved file from folder (unarchive) " + task.toString();
+		return "Retrieved task from folder (unarchive) \n" + task.toString();
 	}
 
 	/**
@@ -250,6 +264,6 @@ public class Ui {
 	 * @return String representation of unArchiving a task
 	 */
 	public String showArchive(Task task) {
-		return "Stored task into archive folder (archive) " + task.toString();
+		return "Stored task into archive folder (archive) \n" + task.toString();
 	}
 }
