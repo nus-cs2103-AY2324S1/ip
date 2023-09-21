@@ -16,7 +16,7 @@ public class Ui {
      */
     public String printChat(String chat) {
 
-        return "Undertsand \n" + chat;
+        return chat;
     }
 
     /**
