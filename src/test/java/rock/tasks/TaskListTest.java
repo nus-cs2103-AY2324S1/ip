@@ -2,11 +2,7 @@ package rock.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
-
-import rock.tasks.Task;
-import rock.tasks.TaskList;
 import org.junit.jupiter.api.Test;
-
 
 public class TaskListTest {
     class TaskStub extends Task {

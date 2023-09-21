@@ -37,7 +37,7 @@ public abstract class Task implements Serializable {
      * @param completed State to change completion state
      *     of task to.
      */
-    public void setCompleted(boolean completed) {
+    public void setCompleted(boolean completed) throws IllegalArgumentException {
         if (this.isCompleted() == completed) {
             if (completed) {
                 throw new IllegalArgumentException("Task is already marked!");
