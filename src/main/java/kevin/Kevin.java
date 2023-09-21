@@ -11,8 +11,7 @@ import kevin.ui.Ui;
 
 //varargs inclusion seems to be not applicable.
 /**
- * Represents the main class for the Duke application.
- * Responsible for initializing the application and handling the user input.
+ * Represents the main class for the Duke CLI application.
  */
 public class Kevin {
 
@@ -24,10 +23,8 @@ public class Kevin {
 
     /**
      * The main entry point for the Duke application.
-     * Initializes the user interface, loads stored tasks from storage,
-     * and then continuously waits for user input until the exit command is received.
      *
-     * @param args Command-line arguments (unused).
+     * @param args
      */
     public static void main(String[] args) {
 
@@ -83,5 +80,9 @@ public class Kevin {
         } catch (StorageException e) {
             return ui.showErrorGui(e) + ui.showLoadingErrorGui();
         }
+    }
+
+    public String getWelcome() {
+        return ui.showWelcomeGui();
     }
 }

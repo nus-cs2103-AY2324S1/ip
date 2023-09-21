@@ -24,7 +24,9 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
     private Kevin kevin;
-
+    /**
+     * Initializes the MainWindow.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -32,10 +34,11 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Kevin d) {
         kevin = d;
+        showGreeting();
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Kevin's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -47,5 +50,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+    }
+    @FXML
+    private void showGreeting() {
+        String response = kevin.getWelcome();
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
     }
 }

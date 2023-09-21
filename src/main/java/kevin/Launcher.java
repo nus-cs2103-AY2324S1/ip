@@ -4,7 +4,7 @@ import javafx.application.Application;
 
 //@@author se-edu-reused
 /**
- * A launcher class to launch the Duke application.
+ * A launcher class to launch the Duke GUI application.
  */
 public class Launcher {
     public static void main(String[] args) {

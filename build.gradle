@@ -29,11 +29,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("kevin.Main")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "Kevin"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
@@ -43,7 +43,7 @@ run{
 }
 
 javadoc {
-    title = "Shuyao's Duke"
+    title = "Shuyao's Kevin (Formerly known as Duke)"
     source = sourceSets.main.allJava
 }
 
