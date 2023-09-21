@@ -2,6 +2,7 @@ package duke.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -25,8 +26,8 @@ import duke.task.ToDo;
  */
 public class Storage {
 
-    private final String dataFilePath;
-    private final String aliasFilePath;
+    private final File dataFile;
+    private final File aliasFile;
 
     /**
      * Constructs a `Storage` object with the specified file path.
@@ -34,8 +35,33 @@ public class Storage {
      * @param folderPath The path to the data file used for storage.
      */
     public Storage(String folderPath) {
-        this.dataFilePath = folderPath + "/data.txt";
-        this.aliasFilePath = folderPath + "/alias.txt";
+        File dataFile = new File(folderPath + "/data.txt");
+        File aliasFile = new File(folderPath + "/alias.txt");
+
+        if (!dataFile.exists()) {
+            dataFile = createFile(dataFile);
+        }
+        if (!aliasFile.exists()) {
+            aliasFile = createFile(aliasFile);
+        }
+
+        this.dataFile = dataFile;
+        this.aliasFile = aliasFile;
+    }
+
+    private File createFile(File file) {
+        File parent = file.getParentFile();
+
+        if (!parent.exists()) {
+            parent.mkdirs();
+        }
+
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Error while creating file: " + e);
+        }
+        return file;
     }
 
     /**
@@ -49,7 +75,7 @@ public class Storage {
     public ArrayList<Task> loadData() throws DukeException {
         ArrayList<Task> items = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(dataFilePath));
+            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] lineArr = line.split("\\|");
@@ -92,7 +118,7 @@ public class Storage {
     public HashMap<String, String> loadAlias() throws DukeException {
         HashMap<String, String> aliasMap = new HashMap<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(aliasFilePath));
+            BufferedReader reader = new BufferedReader(new FileReader(aliasFile));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] lineArr = line.split("=");
@@ -116,7 +142,7 @@ public class Storage {
      */
     public void writeData(TaskList items) throws DukeException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFilePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
             for (Task t : items) {
                 writer.write(t.toDataString());
                 writer.newLine();
@@ -136,7 +162,7 @@ public class Storage {
      */
     public void writeAlias(AliasMap aliasMap) throws DukeException {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(aliasFilePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(aliasFile));
 
             for (Map.Entry<String, String> entry : aliasMap) {
                 String alias = entry.getKey();
