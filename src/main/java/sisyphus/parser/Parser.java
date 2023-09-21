@@ -110,6 +110,7 @@ public class Parser {
                         + "todo Roll Boulder");
             }
             ToDo todoTask = new ToDo(params);
+            assert todoTask != null : "Ensure that deadline is created";
             taskList.addTask(todoTask);
             storage.writeFile(taskList);
             output = ui.printAddTodo(taskList);
@@ -129,6 +130,7 @@ public class Parser {
             }
 
             Deadline deadlineTask = new Deadline(description, deadlineDate);
+            assert deadlineTask != null : "Ensure that deadline is created";
             taskList.addTask(deadlineTask);
             storage.writeFile(taskList);
             output = ui.printAddDeadline(taskList);
@@ -150,6 +152,7 @@ public class Parser {
             }
 
             Event eventTask = new Event(description, from, to);
+            assert eventTask != null : "Ensure that event is created";
             taskList.addTask(eventTask);
             storage.writeFile(taskList);
             output = ui.printAddEvent(taskList);
