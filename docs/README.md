@@ -5,6 +5,7 @@ __Thorndike__ is a chat-bot application for keeping track of your tasks.
 ![Sample screenshot](Ui.png)
 
 <br>
+
 ## Usage
 
 ### Notes about the format
