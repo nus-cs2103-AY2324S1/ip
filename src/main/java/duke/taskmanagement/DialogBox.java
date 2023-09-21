@@ -71,7 +71,7 @@ public class DialogBox extends HBox {
         var dialogBox = new DialogBox(text, img);
         dialogBox.setBackground(new Background(new BackgroundFill(Color.WHITE,
                 new CornerRadii(20),
-                new Insets(5, 5, 15, 5))));
+                new Insets(5, 10, 15, 10))));
         return dialogBox;
     }
 
@@ -87,7 +87,7 @@ public class DialogBox extends HBox {
         var dialogBox = new DialogBox(text, img);
         dialogBox.setBackground(new Background(new BackgroundFill(Color.WHITE,
                 new CornerRadii(20),
-                new Insets(5, 5, 15, 5))));
+                new Insets(5, 10, 15, 10))));
         dialogBox.flip();
         return dialogBox;
     }
