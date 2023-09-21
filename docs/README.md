@@ -25,13 +25,10 @@ text.
 Ensure that you are downloading the latest version of `Java 11` from the websites which contain
 the `JavaFX` library prepackaged in it.
 
-{% warning %}
-
-**Warning:** If you decide not to use the above `Java 11` JDKs for any reason, ensure that the JDK you
-decide to use is at least `Java 11` and you install the relevant `JavaFX` library along with
-the installation of the JDK!
-
-{% endwarning %}
+> **⚠️Warning**  
+> If you decide not to use the above `Java 11` JDKs for any reason, ensure that the JDK you
+> decide to use is at least `Java 11` and you install the relevant `JavaFX` library along with
+> the installation of the JDK!
 
 Next, head to [this website](https://github.com/asdfghjkxd/ip/releases) and download the latest JAR file
 attached in the latest release of `Juke`.
