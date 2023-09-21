@@ -1,4 +1,7 @@
-package avalon;
+package avalon.utility;
+
+import avalon.task.Task;
+import avalon.task.TaskList;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,7 +12,7 @@ import java.util.Scanner;
  * Handles the loading and saving of tasks to/from a file.
  */
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
     /**
      * Constructs a new Storage instance with the specified file path.
@@ -24,9 +27,8 @@ public class Storage {
      * Loads tasks from the file into the provided TaskList.
      *
      * @param taskList The TaskList to which tasks will be loaded.
-     * @return The TaskList with loaded tasks.
      */
-    public TaskList loadTasks(TaskList taskList) {
+    public void loadTasks(TaskList taskList) {
         try {
             File file = new File(filePath);
             Scanner scanner = new Scanner(file);
@@ -43,7 +45,6 @@ public class Storage {
             System.exit(1);
         }
         System.out.println("Tasks loaded successfully!");
-        return taskList;
     }
 
     /**

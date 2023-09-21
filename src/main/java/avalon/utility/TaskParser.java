@@ -1,4 +1,9 @@
-package avalon;
+package avalon.utility;
+
+import avalon.task.Deadline;
+import avalon.task.Event;
+import avalon.task.Task;
+import avalon.task.ToDo;
 
 /**
  * Utility class for parsing and serializing tasks.
@@ -48,19 +53,19 @@ public class TaskParser {
      * @return The string representation of the serialized task.
      */
     public static String serialize(Task task) {
-        String doneStatus = task.isDone ? "1" : "0";
+        String doneStatus = task.getIsDone() ? "1" : "0";
 
         if (task instanceof ToDo) {
-            return "T | " + doneStatus + " | " + task.description;
+            return "T | " + doneStatus + " | " + task.getDescription();
         } else if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return "D | " + doneStatus + " | " + task.description + " | "
-                    + DateTimeParser.dateTimeToString(deadline.by);
+            return "D | " + doneStatus + " | " + task.getDescription() + " | "
+                    + DateTimeParser.dateTimeToString(deadline.getBy());
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return "E | " + doneStatus + " | " + task.description + " | "
-                    + DateTimeParser.dateTimeToString(event.from) + " | "
-                    + DateTimeParser.dateTimeToString(event.to);
+            return "E | " + doneStatus + " | " + task.getDescription() + " | "
+                    + DateTimeParser.dateTimeToString(event.getFrom()) + " | "
+                    + DateTimeParser.dateTimeToString(event.getTo());
         } else {
             return "Wrong formatting";
         }

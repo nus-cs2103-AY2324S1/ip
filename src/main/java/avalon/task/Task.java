@@ -1,4 +1,4 @@
-package avalon;
+package avalon.task;
 
 /**
  * Represents a task with a description and completion status.
@@ -6,21 +6,14 @@ package avalon;
 public class Task {
 
     /**
-     * Enumerates the types of tasks: TODO, DEADLINE, EVENT.
-     */
-    enum TaskType {
-        TODO, DEADLINE, EVENT
-    }
-
-    /**
      * The description of the task.
      */
-    protected String description;
+    private String description;
 
     /**
      * Indicates whether the task is done (true) or not done (false).
      */
-    protected boolean isDone;
+    private boolean isDone;
 
     /**
      * Creates a new task with the given description and sets its initial completion status to false.
@@ -30,6 +23,14 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
     }
 
     /**

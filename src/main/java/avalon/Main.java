@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -13,7 +14,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Avalon avalon = new Avalon();
+    private final Avalon avalon = new Avalon();
 
     @Override
     public void start(Stage stage) {
@@ -22,7 +23,8 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(avalon);
+            stage.setTitle("Avalon");
+            fxmlLoader.<MainWindow>getController().setAvalon(avalon);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
