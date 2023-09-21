@@ -74,10 +74,6 @@ public class Storage {
             System.out.println("Save file created successfully at " + this.filePath);
         }
 
-<<<<<<< HEAD
-=======
-        List<String> lines;
->>>>>>> branch-A-JavaDoc
         try {
             List<String>  lines = Files.readAllLines(file.toPath());
             return getTasks(lines);
@@ -85,7 +81,6 @@ public class Storage {
             System.out.println("An error occurred while loading tasks.");
             return null;
         }
-<<<<<<< HEAD
     }
 
     private LocalDateTime parseSavedDateTime(String dateTimeString){
@@ -93,12 +88,6 @@ public class Storage {
     }
 
     private ArrayList<Task> getTasks(List<String> lines) {
-=======
-        return getTasks(lines); // Return the loaded list of tasks.
-    }
-
-    private static ArrayList<Task> getTasks(List<String> lines) {
->>>>>>> branch-A-JavaDoc
         ArrayList<Task> tasks = new ArrayList<>();
 
         for (String line : lines) {

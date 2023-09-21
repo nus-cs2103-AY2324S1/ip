@@ -38,10 +38,10 @@ public class TaskList {
     }
 
     /**
-     * Retrieves a task from the list based on its index.
+     * Removes a task from the list based on its index.
      *
-     * @param index The index of the task to be retrieved.
-     * @return The task at the specified index.
+     * @param index The index of the task to be removed.
+     * @return The task that was removed.
      */
     public Task remove(int index){
         return tasks.remove(index);
