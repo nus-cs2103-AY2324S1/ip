@@ -33,7 +33,7 @@ public class Parser {
                 // Handling of List
             } else if (input.startsWith("list")) {
                 if (!input.equals("list")) {
-                    return ("Nice job did you mean \"list\" coz what you gave wasn't an accepted input");
+                    return ("Nice job genius did you mean \"list\" coz what you gave wasn't an accepted input");
                 } else {
                     return tasks.printList();
                 }
@@ -61,9 +61,9 @@ public class Parser {
                 if (input.equals("deadline")) {
                     return "You gotta put an actual message in...";
                 } else if (!input.startsWith("deadline ")) {
-                    return String.format("Hey genius, did you mean \"deadline %s\"...", input.substring(8));
+                    return String.format("Oi nerd, did you mean \"deadline %s\"...", input.substring(8));
                 } else if (!input.contains("/by")) {
-                    return "Look at which moron didn't add a deadline with the \"/by\" flag";
+                    return "Look at which genius didn't add a deadline with the \"/by\" flag";
                 }
                 int byFlag = input.indexOf("/by");
                 if (byFlag == 9) {
@@ -82,11 +82,11 @@ public class Parser {
                 } else if (!input.startsWith("event ")) {
                     return String.format("Hey genius, did you mean \"event %s\"...", input.substring(5));
                 } else if (!input.contains("/from") && !input.contains("/to")) {
-                    return "Congratulations you're the only idiot who would leave out both \"/from\" and \"/to\" flags";
+                    return "Congratulations you're the only one who would leave out both \"/from\" and \"/to\" flags";
                 } else if (!input.contains("/from")) {
-                    return "You're missing a ' \"/from\" flag, halfwit";
+                    return "You're missing a ' \"/from\" flag, nerd";
                 } else if (!input.contains("/to")) {
-                    return "You're missing a \"/to\" flag, dimwit";
+                    return "You're missing a \"/to\" flag, nerd";
                 }
                 int fromFlagStart = input.indexOf("/from");
                 int fromFlagEnd = fromFlagStart + 6;
@@ -123,9 +123,9 @@ public class Parser {
                 return tasks.findTasks(keyword);
             }
 
-        } catch (IllegalArgumentException e) {
+        } catch (PhiException e) {
             return e.getMessage();
         }
-        return ("SIKE I can't process that! Try again or say \"help\" to see a list of all available commands");
+        return ("what are you doing... say \"help\" to see a list of all available commands");
     }
 }

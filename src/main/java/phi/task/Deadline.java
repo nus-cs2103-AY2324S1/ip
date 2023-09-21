@@ -19,16 +19,17 @@ public class Deadline extends Task {
      */
     public Deadline(String msg, boolean isDone, String deadline) {
         super(Type.D, isDone, msg);
-        this.deadlineString = deadline;
         LocalDate deadlineDate;
+
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
         try {
-            deadlineDate = LocalDate.parse(deadlineString, inputFormat);
+            deadlineDate = LocalDate.parse(deadline, inputFormat);
             this.deadlineString = deadlineDate.format(outputFormat);
         } catch (DateTimeParseException e) {
             //System.out.println("Can't find a proper date format, using deadline as a String");
+            this.deadlineString = deadline;
         }
     }
 

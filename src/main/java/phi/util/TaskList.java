@@ -1,5 +1,6 @@
 package phi.util;
 
+import phi.Phi;
 import phi.task.Deadline;
 import phi.task.Event;
 import phi.task.Task;
@@ -18,9 +19,9 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    private Task getTask(int i) {
+    private Task getTask(int i) throws PhiException {
         if (i <= 0 || i > tasks.size()) {
-            throw new IllegalArgumentException("this task does not exist, genius..");
+            throw new PhiException("this task does not exist, genius..");
         } else {
             return tasks.get(i - 1);
         }
@@ -33,7 +34,7 @@ public class TaskList {
      * @param input User-inputted string to be parsed
      * @return      String response
      */
-    public String doTask(String input) {
+    public String doTask(String input) throws PhiException {
         try {
             int number = Integer.parseInt(input.substring(5));
             Task t = getTask(number);
@@ -41,8 +42,6 @@ public class TaskList {
             return "ALRIGHT NICE I'll mark this as completed :)\n" + t;
         } catch (NumberFormatException | StringIndexOutOfBoundsException n) {
             return "OI open ur eyes and give a proper input ITS \"mark\" AND A NUMBER";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
         }
     }
 
@@ -53,7 +52,7 @@ public class TaskList {
      * @param input User-inputted string to be parsed
      * @return      String response
      */
-    public String undoTask(String input) {
+    public String undoTask(String input) throws PhiException {
         try {
             int number = Integer.parseInt(input.substring(7));
             Task t = getTask(number);
@@ -61,8 +60,6 @@ public class TaskList {
             return "Oh nooo I will mark this undone then :(\n" + t;
         } catch (NumberFormatException n) {
             return "OI open ur eyes and give a proper input ITS \"unmark\" AND A NUMBER";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
         }
     }
 
@@ -83,7 +80,7 @@ public class TaskList {
      * @param input User-inputted string to be parsed
      * @return      String response
      */
-    public String deleteTask(String input) {
+    public String deleteTask(String input) throws PhiException {
         try {
             int number = Integer.parseInt(input.substring(7));
             Task t = getTask(number);
@@ -93,8 +90,6 @@ public class TaskList {
             return String.format("There's %d task(s) in the list now.%n", tasks.size());
         } catch (NumberFormatException n) {
             return "Ugh to delete stuff, you have to input \"delete\" and the number...";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
         }
     }
 

@@ -21,25 +21,24 @@ public class Event extends Task {
      */
     public Event(String msg, boolean isDone, String start, String end) {
         super(Type.E, isDone, msg);
-        this.start = start;
-        this.end = end;
-        LocalDate startDate;
-        LocalDate endDate;
+
         DateTimeFormatter inputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter outputFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
 
         try {
-            startDate = LocalDate.parse(start, inputFormat);
+            LocalDate startDate = LocalDate.parse(start, inputFormat);
             this.start = startDate.format(outputFormat);
         } catch (DateTimeParseException e) {
-            //System.out.println("Can't find a proper date format, using /from input as a String");
+            // Stores input directly as string
+            this.start = start;
         }
 
         try {
-            endDate = LocalDate.parse(end, inputFormat);
+            LocalDate endDate = LocalDate.parse(end, inputFormat);
             this.end = endDate.format(outputFormat);
         } catch (DateTimeParseException e) {
-            //System.out.println("Can't find a proper date format, using /to input as a String");
+            // Stores input directly as string
+            this.end = end;
         }
     }
 
