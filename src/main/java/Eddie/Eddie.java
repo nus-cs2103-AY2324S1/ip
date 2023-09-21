@@ -1,8 +1,6 @@
 package Eddie;
 
 import Eddie.GUI.DialogBox;
-import Eddie.GUI.Ui;
-import Eddie.Tasks.Task;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -20,7 +18,7 @@ import javafx.scene.image.ImageView;
 /**
  * The central control point for the chatbot Eddie.
  */
-public class Duke extends Application {
+public class Eddie extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -53,7 +51,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("Eddie");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
