@@ -12,6 +12,7 @@ import chatbot.ui.Ui;
 
 import javafx.application.Application;
 
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -105,8 +106,9 @@ public class Duke extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         Label welcomeMessage = new Label(ui.showWelcome());
-        dialogContainer.getChildren().addAll(
-                new DialogBox(welcomeMessage, new ImageView(chatbot)));
+        welcomeMessage.setPadding(new Insets(10));
+        DialogBox chatbotDialog = DialogBox.getChatbotDialog(welcomeMessage, new ImageView(chatbot));
+        dialogContainer.getChildren().addAll(chatbotDialog);
 
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
@@ -137,7 +139,6 @@ public class Duke extends Application {
         stage.setScene(scene);
         stage.show();
 
-        // more code to be added here later
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
     }
@@ -150,19 +151,22 @@ public class Duke extends Application {
     }
 
     private void handleUserInput() throws DukeException {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String userMessage = userInput.getText();
 
+        Label userText = new Label(userMessage);
+        Label chatbotText = new Label(getResponse(userMessage));
+
+        DialogBox userDialog = DialogBox.getUserDialog(userText, new ImageView(user));
+        DialogBox chatbotDialog = DialogBox.getChatbotDialog(chatbotText, new ImageView(chatbot));
+
+        chatbotText.setPadding(new Insets(10));
+        userText.setPadding(new Insets(10));
         dialogContainer.setSpacing(10);
 
-        dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(chatbot))
-        );
+        dialogContainer.getChildren().addAll(userDialog, chatbotDialog);
 
         userInput.clear();
     }
-
 
     private void close(){
         storage.saveToFile(tasklist.retrieveList());
@@ -170,7 +174,6 @@ public class Duke extends Application {
     }
 
     public String getResponse(String input) throws DukeException {
-        String response = input;
         Command command = Parser.parse(input);
         String output = command.execute(tasklist, ui, storage);
         if (command.isExit()){

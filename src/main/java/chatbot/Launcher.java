@@ -1,6 +1,5 @@
 package chatbot;
 
-import com.sun.tools.javac.Main;
 import javafx.application.Application;
 
 public class Launcher {
