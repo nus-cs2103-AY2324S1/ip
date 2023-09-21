@@ -1,7 +1,7 @@
 package chad.exception;
 
 /**
- * Represents an error that occurred during the loading of local file.
+ * Represents an error that occurred during the saving of local file.
  */
 public class SaveException extends ChadException {
 
