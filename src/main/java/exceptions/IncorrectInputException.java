@@ -12,6 +12,6 @@ public class IncorrectInputException extends RuntimeException {
 
     @Override
     public String toString() {
-        return "Please ensure that you key in your arguments correctly.";
+        return super.getMessage();
     }
 }

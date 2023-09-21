@@ -16,6 +16,7 @@ public class Event extends Task {
     protected String from;
     protected LocalDateTime start;
     protected String to;
+    protected LocalDateTime end;
 
     /**
      * Constructor for event class, using user input.
@@ -30,6 +31,7 @@ public class Event extends Task {
         this.to = to;
 
         this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.end = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
 
     }
 
@@ -46,6 +48,7 @@ public class Event extends Task {
         this.to = period.split("-")[1];
 
         this.start = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.end = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
     /**
@@ -68,6 +71,7 @@ public class Event extends Task {
         this.from = timeFromTo[0];;
         this.to = timeFromTo[1];;
         this.start = LocalDateTime.parse(this.from, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
+        this.end = LocalDateTime.parse(this.to, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
 
     @Override
@@ -82,7 +86,7 @@ public class Event extends Task {
                 + "(from: "
                 + this.start.format(DateTimeFormatter.ofPattern("dd MMMM yyyy HHmm"))
                 + "H to: "
-                + this.to
+                + this.end.format(DateTimeFormatter.ofPattern("dd MMMM yyyy HHmm"))
                 + "H)";
     }
 

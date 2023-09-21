@@ -1,12 +1,22 @@
+# Veda
+
 # User Guide
 
 ## Features 
 
-### Feature-ABC
+### View task
 
 Description of the feature.
 
-### Feature-XYZ
+### Edit task
+
+Description of the feature.
+
+### Delete task
+
+Description of the feature.
+
+### Add task
 
 Description of the feature.
 

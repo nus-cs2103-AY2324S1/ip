@@ -49,7 +49,7 @@ public class MainWindow extends AnchorPane {
         }
 
         //Parse and handle the user input and get a response from the system
-        String response = veda.getResponse(input);
+        String response = veda.getResponse(input.trim());
 
         //Update frontend to reflect the new convo
         dialogContainer.getChildren().addAll(

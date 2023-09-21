@@ -146,6 +146,10 @@ public class Veda {
     }
 
     private String editTask(String input) {
+        if (input.trim().equals("update")) {
+            return "Please key in the new details!";
+        }
+
         final int taskIndex = Parser.getTargetIndex(input);
         final String newDetails = Parser.removeMethodType(input).replaceFirst((taskIndex + 1) + " ", "");
 

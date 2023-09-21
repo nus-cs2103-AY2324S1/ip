@@ -185,7 +185,7 @@ public class Parser {
         String[] splitDetails = detail.split(separator);
 
         if (splitDetails.length < 2) {
-            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/by\"");
+            throw new IncorrectInputException("Please input the right order: deadline <Description> /by <due date>");
         }
 
         return new Deadline(splitDetails[0], splitDetails[1]);
@@ -204,14 +204,16 @@ public class Parser {
         String[] splitDetails = detail.split(separatorFrom); //Split remaining args into description + (from and to)
 
         if (splitDetails.length < 2) {
-            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/from\"");
+            throw new IncorrectInputException("Correct usage: \n" +
+                    "event {description} /from {dd/mm/yyyy HHmm} /to {dd/mm/yyyy HHmm}");
         }
 
         String description = splitDetails[0];
         String[] timeFromTo = splitDetails[1].split(separatorTo);
 
         if (timeFromTo.length < 2) {
-            throw new IncorrectInputException("Please ensure a single white spacing in front and behind \"/to\"");
+            throw new IncorrectInputException("Correct usage: \n" +
+                    "event {description} /from {dd/mm/yyyy HHmm} /to {dd/mm/yyyy HHmm}");
         }
 
         String from = timeFromTo[0];
