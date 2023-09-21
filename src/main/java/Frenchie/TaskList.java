@@ -32,11 +32,11 @@ public class TaskList {
     }
 
     public void markTaskAsCompleted(int index) {
-        this.tasks.get(index).mark_as_completed();
+        this.tasks.get(index).setIsCompleted();
     }
 
     public void markTaskAsIncomplete(int index) {
-        this.tasks.get(index).mark_as_incomplete();
+        this.tasks.get(index).setIsIncomplete();
     }
     // Other methods for updating tasks
 }
