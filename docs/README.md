@@ -9,7 +9,8 @@ Je-O Chatbot is a desktop app for managing tasks, optimized for use via a Comman
 3. Copy the file to the folder you want to use as the home folder for your Je-O Chatbot.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.  
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
-   ![Screenshot](/docs/Ui.png)
+
+<img src = "Ui.png" width = "300px">
 
 ## Features 
 
@@ -33,7 +34,7 @@ Je-O Chatbot is a desktop app for managing tasks, optimized for use via a Comman
 Add a todo task to the task list.
 
 Format: `todo <TASK_NAME>`
-- TASK_NAME should not be empty
+- `<TASK_NAME>` should not be empty
 
 Example: 
 - `todo Read a book`
@@ -45,8 +46,8 @@ Example:
 Add a task with deadline to the task list.
 
 Format: `deadline <TASK_NAME> /by <DEADLINE>`
-- TASK_NAME should not be empty
-- DEADLINE should be in the format YYYY-MM-DD
+- `<TASK_NAME>` should not be empty
+- `<DEADLINE>` should be in the format `YYYY-MM-DD`
   
 Example:
 - `deadline Assignment /by 2023-10-10`
@@ -58,8 +59,8 @@ Example:
 Add an event to the task list.
 
 Format: `event <TASK_NAME> /from <START_DATE> /to <END_DATE>`
-- TASK_NAME should not be empty
-- START_DATE and END_DATE should be in the format YYYY-MM-DD
+- `<TASK_NAME>` should not be empty
+- `<START_DATE>` and `<END_DATE>` should be in the format `YYYY-MM-DD`
   
 Example:
 - `event Final Exam /from 2023-12-01 /to 2023-12-07`
@@ -71,7 +72,7 @@ Example:
 Mark a specified task in the task list as done. 
 
 Format: `mark <TASK_NUMBER>`
-- TASK_NUMBER should be between 1 and the number of tasks in the task list.
+- `<TASK_NUMBER>` should be between 1 and the number of tasks in the task list.
   
 Example:
 - `mark 1`
@@ -81,7 +82,7 @@ Example:
 Mark a specified task in the task list as not done. 
 
 Format: `unmark <TASK_NUMBER>`
-- TASK_NUMBER should be between 1 and the number of tasks in the task list.
+- `<TASK_NUMBER>` should be between 1 and the number of tasks in the task list.
   
 Example:
 - `unmark 1`
@@ -91,7 +92,7 @@ Example:
 Delete a specified task from the task list. 
 
 Format: `delete <TASK_NUMBER>`
-- TASK_NUMBER should be between 1 and the number of tasks in the task list.
+- `<TASK_NUMBER>` should be between 1 and the number of tasks in the task list.
   
 Example:
 - `delete 1`
@@ -107,7 +108,7 @@ Format: `list`
 List the tasks that contains a specified keyword. 
 
 Format: `find <KEYWORD>`
-- KEYWORD should not be empty.
+- `<KEYWORD>` should not be empty.
   
 Example:
 - `find Read`
