@@ -13,15 +13,23 @@ class TaskTest {
     @Test
     void taskDoneTest() {
         Task task = new Task("sleep");
+        assertEquals(" ", task.getStatus());
         task.setTaskDone();
         assertEquals("X", task.getStatus());
     }
 
     @Test
-    void taskStatusFromFileTest() {
+    void taskStatusTrueFromFileTest() {
         Task task = new Task("sleep");
         task.taskStatusFromFile(true);
         assertEquals("X", task.getStatus());
+    }
+
+    @Test
+    void taskStatusFalseFromFileTest() {
+        Task task = new Task("sleep");
+        task.taskStatusFromFile(false);
+        assertEquals(" ", task.getStatus());
     }
 
     @Test
@@ -44,6 +52,13 @@ class TaskTest {
         Task task = new Task("sleep");
         LocalDate date = LocalDate.of(2020, 12, 12);
         assertEquals(date, task.convertStringToDate("2020/12/12"));
+    }
+
+    @Test
+    void convertStringToDateTest3() {
+        Task task = new Task("sleep");
+        LocalDate date = LocalDate.of(2023, 9, 23);
+        assertEquals(date, task.convertStringToDate("23.09.2023"));
     }
 
     @Test
