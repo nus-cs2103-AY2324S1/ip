@@ -37,6 +37,8 @@ public class MainWindow extends AnchorPane {
 
     public void setPhi(Phi p) {
         this.phi = p;
+        // adds the storage loading text
+        dialogContainer.getChildren().add(DialogBox.getPhiDialog(phi.getStorageMsg(), phiImage));
     }
 
     /**

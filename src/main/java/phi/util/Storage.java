@@ -1,7 +1,5 @@
 package phi.util;
 
-import phi.util.TaskList;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -17,6 +15,7 @@ import java.util.Scanner;
 public class Storage {
     private File txtFile;
     private Path filePath;
+    private String msg;
 
     /**
      * Constructor for a new Storage instance.
@@ -33,9 +32,9 @@ public class Storage {
             try {
                 Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
-                System.out.println("No file found, new .txt file created!");
+                msg = "No file found, new .txt file created!";
             } catch (IOException e) {
-                System.out.println(e.getMessage());
+                msg = e.getMessage();
             }
         }
     }
@@ -53,9 +52,9 @@ public class Storage {
                 tasks.addFromTxt(txtScanner.nextLine());
             }
             txtScanner.close();
-            System.out.println("Text file has been scanned!\n" + tasks.getSize() + " items in the list");
+            msg = String.format("There's %d items in the list\nSay \"list\" to see them", tasks.getSize());
         } catch (FileNotFoundException e) {
-            System.out.println("Something went wrong... There's still no file to be found");
+            msg = "Something went wrong... There's still no file to be found, creating a new one now";
             return new TaskList();
         }
         return tasks;
@@ -74,6 +73,10 @@ public class Storage {
         } catch (Exception e) {
             e.getStackTrace();
         }
+    }
+
+    public String getMsg() {
+        return this.msg;
     }
 
 }

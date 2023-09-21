@@ -58,8 +58,8 @@ public class Parser {
                 return handleFind(input);
             }
 
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
+        } catch (PhiException p) {
+            return p.getMessage();
         }
         return ("I have no idea what you mean... Say \"help\" to see a list of all available commands");
     }

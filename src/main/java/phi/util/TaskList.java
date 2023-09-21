@@ -18,9 +18,9 @@ public class TaskList {
         this.tasks = new ArrayList<>();
     }
 
-    private Task getTask(int i) {
+    private Task getTask(int i) throws PhiException {
         if (i <= 0 || i > tasks.size()) {
-            throw new IllegalArgumentException("this task does not exist, genius..");
+            throw new PhiException("this task does not exist, genius..");
         } else {
             return tasks.get(i - 1);
         }
@@ -33,7 +33,7 @@ public class TaskList {
      * @param input User-inputted string to be parsed
      * @return      String response
      */
-    public String doTask(String input) {
+    public String doTask(String input) throws PhiException {
         assert input.startsWith("mark"): "Invalid input for mark";
         try {
             int number = Integer.parseInt(input.substring(5));
@@ -42,8 +42,6 @@ public class TaskList {
             return "ALRIGHT NICE I'll mark this as completed :)\n" + t;
         } catch (NumberFormatException | StringIndexOutOfBoundsException n) {
             return "OI open ur eyes and give a proper input ITS \"mark\" AND A NUMBER";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
         }
     }
 
@@ -54,7 +52,7 @@ public class TaskList {
      * @param input User-inputted string to be parsed
      * @return      String response
      */
-    public String undoTask(String input) {
+    public String undoTask(String input) throws PhiException {
         assert input.startsWith("unmark"): "Invalid input for unmark";
         try {
             int number = Integer.parseInt(input.substring(7));
@@ -63,8 +61,6 @@ public class TaskList {
             return "Oh nooo I will mark this undone then :(\n" + t;
         } catch (NumberFormatException n) {
             return "OI open ur eyes and give a proper input ITS \"unmark\" AND A NUMBER";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
         }
     }
 
@@ -85,19 +81,17 @@ public class TaskList {
      * @param input User-inputted string to be parsed
      * @return      String response
      */
-    public String deleteFromInput(String input) {
+    public String deleteFromInput(String input) throws PhiException {
         assert input.startsWith("delete"): "Invalid input for delete";
         try {
             int number = Integer.parseInt(input.substring(7));
             return deleteTask(number);
         } catch (NumberFormatException n) {
             return "Ugh to delete stuff, you have to input \"delete\" and the number...";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
         }
     }
 
-    private String deleteTask(int i) {
+    private String deleteTask(int i) throws PhiException {
         String output = "";
         Task t = getTask(i);
         output += String.format("Alright say bye bye to task %d!\n%s\n", i, t.toString());

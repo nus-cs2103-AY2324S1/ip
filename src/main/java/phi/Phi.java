@@ -8,7 +8,7 @@ import phi.util.TaskList;
 
 
 /**
- * Represents the core of the PHI chatbot. The root of the program will run from here.
+ * Represents the core of the PHI chatbot
  *
  * @author phiphi-tan
  */
@@ -42,6 +42,10 @@ public class Phi  {
             input = sc.nextLine().trim();
         }
         sc.close();
+    }
+
+    public String getStorageMsg() {
+        return this.taskStorage.getMsg();
     }
 
     /**
