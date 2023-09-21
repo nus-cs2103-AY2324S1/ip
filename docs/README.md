@@ -203,9 +203,7 @@ For more advanced users who would like to edit the data file manually, here is t
 ----
 
 ## Command Summary
-| Action       | Format, Examples                                                                                                 |
-|--------------|------------------------------------------------------------------------------------------------------------------|
-
+| **Action**       | **Format, Examples**                                                                                            |
 | List         | `list`                                                                                                           |
  | Add todo     | `todo [desc]` (e.g. `todo Study for exam`)                                                                       |
 | Add deadline | `deadline [desc] /by [date]`<br/>(e.g. `deadline Assignment /by 2023-10-10T23:59:59`)                            |
