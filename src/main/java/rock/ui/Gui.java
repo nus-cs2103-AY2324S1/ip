@@ -1,8 +1,6 @@
 package rock.ui;
 
-import rock.client.Rock;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,14 +9,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import rock.client.Response;
+import rock.client.Rock;
 
 /**
  * Represents the graphical user interface
@@ -35,13 +30,12 @@ public class Gui extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/Rock.png"));
     private Rock rock;
+
     @Override
     public void start(Stage stage) {
-        this.rock = new Rock();
 
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
-        scrollPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
@@ -93,6 +87,7 @@ public class Gui extends Application {
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
+        this.rock = new Rock(this);
     }
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
@@ -106,7 +101,7 @@ public class Gui extends Application {
         } else {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, new ImageView(user)),
-                    DialogBox.getDukeDialog(responseText, new ImageView(duke))
+                    DialogBox.getRockDialog(responseText, new ImageView(duke))
             );
         }
         userInput.clear();
@@ -129,9 +124,11 @@ public class Gui extends Application {
      */
     public void sendWarning(Response response) {
         assert response.isError() : "Warnings cannot be normal messages";
+
         Label responseText = new Label(response.getMessage());
+        WarningBox wb = WarningBox.getWarning(responseText);
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(responseText, new ImageView(duke))
+                WarningBox.getWarning(responseText)
         );
     }
 }

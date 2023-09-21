@@ -39,16 +39,7 @@ public class TaskEvent extends Task {
         assert this.startTime != null : "Start Time cannot be null";
         return this.startTime;
     }
-    /**
-     * String representation of Event
-     * @return String representation of Event
-     */
-    @Override
-    public String toString() {
-        assert this.startTime != null && this.endTime != null : "Start and End Time cannot be null";
-        return super.toString()
-            + " (from: " + this.startTime + " to: " + this.endTime + ")";
-    }
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof TaskEvent) {
@@ -59,5 +50,16 @@ public class TaskEvent extends Task {
         } else {
             return false;
         }
+    }
+
+    /**
+     * String representation of Event
+     * @return String representation of Event
+     */
+    @Override
+    public String toString() {
+        assert this.startTime != null && this.endTime != null : "Start and End Time cannot be null";
+        return super.toString()
+                + String.format(" (from: %s to: %s)", this.startTime.toString(), this.endTime.toString());
     }
 }

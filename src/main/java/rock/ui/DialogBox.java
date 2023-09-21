@@ -47,11 +47,25 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Returns a dialog box that
+     * represents user input
+     * @param l Text user inputted
+     * @param iv User profile image
+     * @return Dialog Box
+     */
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    /**
+     * Returns a dialog box that
+     * represents bot response
+     * @param l Response text
+     * @param iv Image of bot
+     * @return Dialog Box
+     */
+    public static DialogBox getRockDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

@@ -27,10 +27,11 @@ public class CommandTaskDelete extends Command {
     public String apply(Parser input) {
         String inputString = input.getDefaultString();
         try {
-            int taskIdx = Integer.parseInt(inputString);
-            Task removedTask = client.getTaskList().removeTask(taskIdx - 1);
+            // Displayed task list is 1-indexed but internal stored as 0-indexed
+            int taskIdx = Integer.parseInt(inputString) - 1;
+            Task removedTask = client.getTaskList().removeTask(taskIdx);
             this.client.saveFile();
-            return ("Task successfully removed!\n" + removedTask);
+            return String.format("Task successfully removed!\n%s", removedTask.toString());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid index given!");
         } catch (IndexOutOfBoundsException e) {

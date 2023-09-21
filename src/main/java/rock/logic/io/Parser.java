@@ -19,14 +19,15 @@ public class Parser {
      * @param input
      */
     public Parser(String input) {
-        taggedInputs = new Hashtable<>();
+        this.taggedInputs = new Hashtable<>();
         String[] phrases = input.split("/");
-        this.defaultInput = phrases[0];
+        this.defaultInput = phrases[0].trim();
         for (int i = 1; i < phrases.length; i++) {
             String[] words = phrases[i].split(" ", 2);
-            taggedInputs.put(words[0], words[1]);
+            taggedInputs.put(words[0], words[1].trim());
         }
     }
+
     /**
      * Get the untagged input
      * @return Untagged input of parsed message
@@ -34,6 +35,7 @@ public class Parser {
     public String getDefaultString() {
         return defaultInput;
     }
+
     /**
      * Get the tagged input with the
      * given tag

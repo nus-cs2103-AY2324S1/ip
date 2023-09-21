@@ -15,6 +15,7 @@ public class Invoker {
     public Invoker(Commands commands) {
         this.commands = commands;
     }
+
     /**
      * Helper function used to obtain the rest of a sentence sans keyword.
      * @param sentence String to be trimmed.
@@ -24,12 +25,13 @@ public class Invoker {
         String[] words = sentence.split(" ", 2);
         return words.length > 1 ? words[1] : "";
     }
+
     /**
      * Used to handle a given user input and call the corresponding method.
      * @param inputString User's input.
      */
     public String handle(String inputString) throws RockException {
-        //Removes the command name from the string, such that the rest of the string can be parsed.
+        // Removes the command name from the string, such that the rest of the string can be parsed.
         Parser input = new Parser(removeFirstWord(inputString));
         String keyword = inputString.split(" ")[0];
         try {

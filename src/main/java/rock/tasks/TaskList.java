@@ -8,12 +8,14 @@ import java.util.function.Predicate;
  */
 public class TaskList implements Serializable {
     private ArrayList<Task> items;
+
     /**
      * Creates a new empty task list
      */
     public TaskList() {
         this.items = new ArrayList<>();
     }
+
     /**
      * Adds the given task to the task list
      * @param t Task to be added
@@ -21,6 +23,7 @@ public class TaskList implements Serializable {
     public void addTask(Task t) {
         this.items.add(t);
     }
+
     /**
      * Gets the task at the given index
      * @param index Index of requested task
@@ -33,6 +36,7 @@ public class TaskList implements Serializable {
             return null;
         }
     }
+
     /**
      * Removes the task at the given index
      * @param index Index of removed task
@@ -42,6 +46,7 @@ public class TaskList implements Serializable {
     public Task removeTask(int index) throws IndexOutOfBoundsException {
         return this.items.remove(index);
     }
+
     /**
      * Returns the size of the task list
      * @return size of task list as int
@@ -49,12 +54,14 @@ public class TaskList implements Serializable {
     public int size() {
         return this.items.size();
     }
+
     /**
      * Clears the task list
      */
     public void reset() {
         this.items = new ArrayList<>();
     }
+
     /**
      * Returns the taskList as an array
      * @return
@@ -63,6 +70,7 @@ public class TaskList implements Serializable {
         Task[] lst = new Task[this.size()];
         return items.toArray(lst);
     }
+
     /**
      * Marks the given task as the given state
      * @param index Index of marked task
@@ -73,6 +81,7 @@ public class TaskList implements Serializable {
     public void mark(int index, boolean completed) throws IllegalArgumentException, IndexOutOfBoundsException {
         items.get(index).setCompleted(completed);
     }
+
     /**
      * Perform a filtered search on the task list
      * @param condition Condition to return tasks if true
@@ -98,16 +107,14 @@ public class TaskList implements Serializable {
      */
     @Override
     public String toString() {
-        String response = "";
         if (items.size() == 0) {
-            response = "No tasks found!";
-        } else {
-            int counter = 1;
-            response = "Task List: ";
-            for (Task task:this.toArray()) {
-                response += "\n" + Integer.toString(counter) + ". " + task.toString();
-                counter++;
-            }
+            return "No tasks found!";
+        }
+        String response = "Task List: ";
+        int counter = 1;
+        for (Task task:this.toArray()) {
+            response += String.format("\n%d. %s", counter, task);
+            counter++;
         }
         return response;
     }

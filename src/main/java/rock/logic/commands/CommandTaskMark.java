@@ -31,16 +31,11 @@ public class CommandTaskMark extends Command {
     public String apply(Parser input) throws IllegalArgumentException, StorageException {
         String inputString = input.getDefaultString();
         try {
-            int taskIdx = Integer.parseInt(inputString);
-            client.getTaskList().mark(taskIdx - 1, this.isMarking);
+            // Displayed task list is 1-indexed but internal stored as 0-indexed
+            int taskIdx = Integer.parseInt(inputString) - 1;
+            client.getTaskList().mark(taskIdx, this.isMarking);
             this.client.saveFile();
-            String response = "";
-            if (this.isMarking) {
-                response += "Task marked successfully\n";
-            } else {
-                response += "Task unmarked successfully\n";
-            }
-            return (response);
+            return isMarking ? "Task marked successfully\n" : "Task unmarked successfully\n";
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid index given!");
         } catch (IndexOutOfBoundsException e) {

@@ -8,6 +8,7 @@ import rock.logic.io.Invoker;
 import rock.storage.Storage;
 import rock.storage.exceptions.StorageException;
 import rock.tasks.TaskList;
+import rock.ui.Gui;
 
 /**
  * Rock is the name of and the main program used
@@ -18,6 +19,7 @@ public class Rock {
     /** Default Filepath to save data if no filepath is specified*/
     private static final Path DEFAULT_FILEPATH = Paths.get("data/tasks.ser");
 
+    private Gui gui;
     private TaskList taskList;
     private Storage storage;
     private Invoker invoker;
@@ -26,21 +28,22 @@ public class Rock {
     /**
      * Initialises Rock with default file path
      */
-    public Rock() {
-        this(DEFAULT_FILEPATH);
+    public Rock(Gui gui) {
+        this(gui, DEFAULT_FILEPATH);
     }
 
     /**
      * Initialises Rock
      * @param path Path to save and load Rock data
      */
-    public Rock(Path path) {
+    public Rock(Gui gui, Path path) {
+        this.gui = gui;
         this.taskList = new TaskList();
         this.invoker = new Invoker(new Commands(this));
         try {
             this.storage = new Storage(path.toAbsolutePath().toFile(), this);
         } catch (StorageException e) {
-            System.out.println(e.getMessage());
+            gui.sendWarning(Response.createErrorResponse(e.getMessage()));
         }
     }
 
@@ -60,6 +63,14 @@ public class Rock {
         }
     }
 
+    /**
+     * Sends warning given an exception
+     * to be displayed on gui
+     * @param msg Warning message
+     */
+    public void sendWarning(String msg) {
+        gui.sendWarning(Response.createErrorResponse(msg));
+    }
     /**
      * Sets existing task list to tl
      * @param tl Task List to be set
@@ -83,7 +94,7 @@ public class Rock {
         try {
             storage.saveSaveFile(tl);
         } catch (StorageException e) {
-
+            gui.sendWarning(Response.createErrorResponse(e.getMessage()));
         }
     }
 

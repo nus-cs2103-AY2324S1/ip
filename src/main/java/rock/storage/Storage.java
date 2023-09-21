@@ -32,7 +32,7 @@ public class Storage {
             createSaveFile();
             loadSaveFile();
         } catch (StorageException e) {
-            System.out.println(e.getMessage());
+            client.sendWarning(e.getMessage());
         }
     }
     /**

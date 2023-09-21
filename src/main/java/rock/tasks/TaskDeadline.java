@@ -10,6 +10,7 @@ import java.time.format.DateTimeParseException;
 public class TaskDeadline extends Task {
     /** Deadline time of the task */
     private LocalDate deadlineTime;
+
     /**
      * Creates a deadline task.
      * @param taskName Name of task
@@ -24,6 +25,7 @@ public class TaskDeadline extends Task {
             throw new IllegalArgumentException("Illegal Date/Time");
         }
     }
+
     /**
      * Used to get the date of the task object.
      * @return Date of Deadline
@@ -33,6 +35,7 @@ public class TaskDeadline extends Task {
         assert this.deadlineTime != null : "Deadline time cannot be null";
         return this.deadlineTime;
     }
+
     /**
      * String representation of Deadline
      * @return String representation of deadline
@@ -51,6 +54,6 @@ public class TaskDeadline extends Task {
     public String toString() {
         assert deadlineTime != null : "Deadline Time cannot be null";
         return super.toString()
-            + " (by: " + this.deadlineTime + ")";
+            + String.format(" (by: %s)", this.deadlineTime.toString());
     }
 }

@@ -29,20 +29,29 @@ public class WarningBox extends HBox {
         ImageView warningImageLeft = new ImageView(i);
         ImageView warningImageRight = new ImageView(i);
 
+        // Set the size of each warning box
         warningImageLeft.setFitWidth(50.0);
         warningImageLeft.setFitHeight(50.0);
         warningImageRight.setFitWidth(50.0);
         warningImageRight.setFitHeight(50.0);
 
+        // Format Text of Warning Box
         l.setMinWidth(150.0);
         l.setMinHeight(50.0);
         l.setMaxHeight(50.0);
-
         l.setAlignment(Pos.CENTER);
         this.setAlignment(Pos.TOP_CENTER);
+
+        // Add items to HBox
         this.getChildren().addAll(warningImageLeft, text, warningImageRight);
     }
 
+    /**
+     * Creates a warning label with
+     * the given text
+     * @param l Text of warning
+     * @return WarningBox object
+     */
     public static WarningBox getWarning(Label l) {
         return new WarningBox(l);
     }

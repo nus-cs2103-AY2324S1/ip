@@ -13,6 +13,7 @@ public abstract class Task implements Serializable {
     protected String oneLetterAbbrev;
     /** Whether the task has been completed */
     private boolean isCompleted;
+
     /**
      * Creates a task with the given name
      * @param taskName Name of task
@@ -21,6 +22,7 @@ public abstract class Task implements Serializable {
         this.taskName = taskName;
         isCompleted = false;
     }
+
     /**
      * Checks if a task is completed
      * @return State of completeness of task
@@ -28,6 +30,7 @@ public abstract class Task implements Serializable {
     public boolean isCompleted() {
         return this.isCompleted;
     }
+
     /**
      * Sets the completion state of task
      * to the given boolean
@@ -44,10 +47,20 @@ public abstract class Task implements Serializable {
         }
         this.isCompleted = completed;
     }
+
+    /**
+     * Get name of task
+     * @return Name of task
+     */
     public String getName() {
         assert this.taskName != "" : "Task Name cannot be empty";
         return this.taskName;
     }
+
+    /**
+     * Gets date of task
+     * @return Date of task
+     */
     public abstract LocalDate getDate();
     /**
      * String representation of Task

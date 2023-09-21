@@ -52,45 +52,51 @@ public class CommandTaskCreate extends Command {
         switch (this.taskType) {
         case TODO:
             task = new TaskTodo(taskName);
-            if (taskList.isPresent(task)) {
-                return ("Task already exists!");
-            } else {
-                taskList.addTask(task);
-                this.client.saveFile();
-                return ("Todo Task added!");
-            }
+            checkExistence(taskList, task);
+            taskList.addTask(task);
+            this.client.saveFile();
+            return ("Todo Task added!");
+
         case DEADLINE:
             try {
                 String deadlineTime = input.getTaggedInput("by");
                 task = new TaskDeadline(taskName, deadlineTime);
-                if (taskList.isPresent(task)) {
-                    return ("Task already exists!");
-                } else {
-                    taskList.addTask(task);
-                    this.client.saveFile();
-                    return ("Deadline Task added!");
-                }
+                checkExistence(taskList, task);
+                taskList.addTask(task);
+                this.client.saveFile();
+                return ("Deadline Task added!");
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No deadline given. Indicate deadline with tag: /by");
             }
+
         case EVENT:
             try {
                 String startTime = input.getTaggedInput("from");
                 String endTime = input.getTaggedInput("to");
                 task = new TaskEvent(taskName, startTime, endTime);
-                if (taskList.isPresent(task)) {
-                    return ("Task already exists!");
-                } else {
-                    taskList.addTask(task);
-                    this.client.saveFile();
-                    return ("Event Task added!");
-                }
+                checkExistence(taskList, task);
+                taskList.addTask(task);
+                this.client.saveFile();
+                return ("Event Task added!");
             } catch (NoSuchElementException e) {
                 throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
             }
         default:
             // SHOULD NEVER REACH HERE
             throw new IllegalArgumentException("Invalid Task Type given");
+        }
+    }
+
+    /**
+     * Throws an error if task list
+     * does not contain task
+     * @param tl Task List to check against
+     * @param task Task to check for
+     * @throws IllegalArgumentException
+     */
+    private void checkExistence(TaskList tl, Task task) throws IllegalArgumentException {
+        if (!tl.isPresent(task)) {
+            throw new IllegalArgumentException("Unable to add! Task already exists!");
         }
     }
 }

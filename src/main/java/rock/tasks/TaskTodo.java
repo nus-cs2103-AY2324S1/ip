@@ -15,10 +15,12 @@ public class TaskTodo extends Task {
         super(taskName);
         super.oneLetterAbbrev = "T";
     }
+
     @Override
     public LocalDate getDate() {
         return null;
     }
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof TaskTodo) {
