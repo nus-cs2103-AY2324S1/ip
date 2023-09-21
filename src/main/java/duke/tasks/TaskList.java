@@ -25,6 +25,15 @@ public class TaskList {
     }
 
     /**
+     * Get the list of tasks.
+     *
+     * @return the current list of tasks
+     */
+    public ArrayList<Task> getTasks() {
+        return this.list;
+    }
+
+    /**
      * Adds an item to the list.
      *
      * @param task The user's task
@@ -100,12 +109,6 @@ public class TaskList {
         return this.list.size();
     }
 
-    /**
-     * Gets all tasks.
-     */
-    public ArrayList<Task> getTasks() {
-        return this.list;
-    }
 
     /**
      * Encodes the current Duke. Tasks in a string, each task separated by a newline.
@@ -154,51 +157,40 @@ public class TaskList {
         // assume ASC by default
         ArrayList<Task> result = new ArrayList<>();
 
+        result = getSortedTasks(sortType, sortOrder, result);
+
+
+        StringBuilder resultMsg = new StringBuilder();
+
+        for (int i = 0; i < result.size(); i++) {
+            Task task = result.get(i);
+            resultMsg.append(task);
+            resultMsg.append("\n");
+        }
+
+
+        return resultMsg.toString();
+    }
+
+    private ArrayList<Task> getSortedTasks(SortType sortType, SortOrder sortOrder, ArrayList<Task> result) {
         switch (sortType) {
         case ID: {
             // default case: sorted by ID
             // don't do anything
-            result = new ArrayList<>(this.list);
+            result = getTasksSortedByID();
             break;
         }
         case NAME: {
             // sort by name
-            result = new ArrayList<>(this.list);
-            result.sort(Comparator.comparing(Task::getName));
+            result = getTasksSortedByName();
             break;
         }
         case TYPE: {
-            // sort by type: todos first, then deadlines, then events
-            for (Task t : this.list) {
-                if (t instanceof TodoTask) {
-                    result.add(t);
-                }
-            }
-            for (Task t : this.list) {
-                if (t instanceof DeadlineTask) {
-                    result.add(t);
-                }
-            }
-            for (Task t : this.list) {
-                if (t instanceof EventTask) {
-                    result.add(t);
-                }
-            }
+            result = getTasksSortedByType();
             break;
         }
         case DEADLINE: {
-            // sort by todos first, then events and deadlines by the start time
-            ArrayList<TimedTask> nonTodos = new ArrayList<>();
-            for (Task t : this.list) {
-                if (t instanceof TimedTask) {
-                    nonTodos.add((TimedTask) t);
-                } else {
-                    result.add(t);
-                }
-            }
-
-            Collections.sort(nonTodos);
-            result.addAll(nonTodos);
+            result = getTasksSortedByDeadline();
 
 
             break;
@@ -212,18 +204,60 @@ public class TaskList {
             // reverse the array
             Collections.reverse(result);
         }
+        return result;
+    }
 
-
-        StringBuilder resultMsg = new StringBuilder();
-
-        for (int i = 0; i < result.size(); i++) {
-            Task task = result.get(i);
-            resultMsg.append(task);
-            resultMsg.append("\n");
+    private ArrayList<Task> getTasksSortedByDeadline() {
+        // sort by todos first, then events and deadlines by the start time
+        ArrayList<Task> result = new ArrayList<>();
+        ArrayList<TimedTask> nonTodos = new ArrayList<>();
+        for (Task t : this.list) {
+            if (t instanceof TimedTask) {
+                nonTodos.add((TimedTask) t);
+            } else {
+                result.add(t);
+            }
         }
 
+        Collections.sort(nonTodos);
+        result.addAll(nonTodos);
 
-        return resultMsg.toString();
+        return result;
+    }
+
+    private ArrayList<Task> getTasksSortedByType() {
+        ArrayList<Task> result = new ArrayList<>();
+        // sort by type: todos first, then deadlines, then events
+        for (Task t : this.list) {
+            if (t instanceof TodoTask) {
+                result.add(t);
+            }
+        }
+        for (Task t : this.list) {
+            if (t instanceof DeadlineTask) {
+                result.add(t);
+            }
+        }
+        for (Task t : this.list) {
+            if (t instanceof EventTask) {
+                result.add(t);
+            }
+        }
+
+        return result;
+    }
+
+    private ArrayList<Task> getTasksSortedByName() {
+        ArrayList<Task> result;
+        result = new ArrayList<>(this.list);
+        result.sort(Comparator.comparing(Task::getName));
+        return result;
+    }
+
+    private ArrayList<Task> getTasksSortedByID() {
+        ArrayList<Task> result;
+        result = new ArrayList<>(this.list);
+        return result;
     }
 
 }

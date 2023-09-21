@@ -65,7 +65,7 @@ public class Duke {
     }
 
     /**
-     * Get the task list assigned to this Duke.
+     * Gets the task list assigned to this Duke.
      *
      * @return
      */
