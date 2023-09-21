@@ -22,6 +22,32 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.DATA_FILE_PATH = filePath;
+        ensureDataFolderExists();
+        ensureDataFileExists();
+    }
+
+    /**
+     * Creates a folder of the given filepath if the folder does not exist.
+     */
+    private void ensureDataFolderExists() {
+        File folder = new File(DATA_FILE_PATH).getParentFile();
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+    }
+
+    /**
+     * Creates a file of the given file path if the file doesn't exist.
+     */
+    private void ensureDataFileExists() {
+        File file = new File(DATA_FILE_PATH);
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
