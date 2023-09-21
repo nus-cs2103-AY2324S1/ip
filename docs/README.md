@@ -27,15 +27,21 @@ Three types of tasks are handles by DuckBot :
 
 1) **<font color = "darkcyan">Deadline</font>** - These tasks have specific due dates or deadlines. DuckBot helps you keep track of them.
 
-
-
-2) **<font color = "darkcyan">ToDo</font>**  - These tasks don't have specific due dates or deadlines.
+example- Returning a book on 23rd September 2023 by 12:15.
 
 
 
-3) **<font color = "darkcyan">Events</font>**  - These are the events that happen on a prticular date-time and have an end date-time also. eg - 
+3) **<font color = "darkcyan">ToDo</font>**  - These tasks don't have specific due dates or deadlines.
 
-Attending a meeting.
+example- Todo laundry
+    
+
+
+
+5) **<font color = "darkcyan">Events</font>**  - These are the events that happen on a prticular date-time and have an end date-time also.
+
+example- Go on a holiday from 25th September 2023 1200 to 28th September 2023 1200
+
 
 
 
