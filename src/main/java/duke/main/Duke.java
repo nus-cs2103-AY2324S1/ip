@@ -20,6 +20,9 @@ public class Duke {
     private static TaskListStorage taskListStorage;
     private static ReminderManager reminderManager;
 
+    /**
+     * Creates a Duke object.
+     */
     public Duke() {
         Object mutex = new Object();
 
