@@ -29,9 +29,9 @@ public class Storage {
             if (t.getType() == "T") {
                 eddieTaskList.write("T , " + t.getStatus() + " , " + t.getName() + " ,  " + t.printTags() + " , \n");
             } else if (t.getType() == "D") {
-                eddieTaskList.write("D , " + t.getStatus() + " , " + t.getName() + " ,  " + t.getDeadline() + " , " + t.printTags() + " , \n");
+                eddieTaskList.write("D , " + t.getStatus() + " , " + t.getName() + " , " + t.getDeadline() + " ,  " + t.printTags() + " , \n");
             } else if (t.getType() == "E") {
-                eddieTaskList.write("E , " + t.getStatus() + " , " + t.getName() + " ,  " + t.getStartDate() + " , "
+                eddieTaskList.write("E , " + t.getStatus() + " , " + t.getName() + " , " + t.getStartDate() + " ,  "
                         + t.getEndDate() + " , " + t.printTags() + " , \n");
             }
         }
