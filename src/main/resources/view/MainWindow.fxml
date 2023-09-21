@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="702.0" prefWidth="502.0" style="fx-background-colour: blue" xmlns="http://javafx.com/javafx/19.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="602.0" prefWidth="402.0" style="fx-background-colour: blue" xmlns="http://javafx.com/javafx/19.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainWindow">
     <children>
-        <HBox layoutY="650.0" style="-fx-background-color: #FFFFF0;-fx-border-color: #FFFFF0;">
-        <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="50.0" prefWidth="400.0" style="-fx-background-radius: 30 30 30 30; -fx-background-color: #FAEBDB; -fx-border-radius: 30 30 30 30; -fx-border-color: #835B5B;" AnchorPane.bottomAnchor="1.0" />
-        <Button fx:id="sendButton" layoutX="400.0" layoutY="650.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="50.0" prefWidth="100" style="-fx-border-radius: 20 20 20 20; -fx-background-radius: 20 20 20 20; -fx-background-color: #FBE1CB; -fx-border-color: #835B5B;" text="Send" />
+        <HBox layoutY="550.0" style="-fx-background-color: #FFFFF0;-fx-border-color: #FFFFF0;">
+        <TextField fx:id="userInput" layoutY="400.0" onAction="#handleUserInput" prefHeight="50.0" prefWidth="325.0" style="-fx-background-radius: 30 30 30 30; -fx-background-color: #FAEBDB; -fx-border-radius: 30 30 30 30; -fx-border-color: #835B5B;" AnchorPane.bottomAnchor="1.0" />
+        <Button fx:id="sendButton" layoutX="400.0" layoutY="500.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="50.0" prefWidth="75" style="-fx-border-radius: 20 20 20 20; -fx-background-radius: 20 20 20 20; -fx-background-color: #FBE1CB; -fx-border-color: #835B5B;" text="Send" />
         </HBox>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="650.0" prefWidth="500.0" style="-fx-background: #FFFFF0;-fx-background-color:transparent;" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="550.0" prefWidth="400.0" style="-fx-background: #FFFFF0;-fx-background-color:transparent;" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" prefWidth="500.0" />
             </content>
