@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for GBot using FXML.
+ *
+ * Adapted from https://se-education.org/guides/tutorials/javaFxPart4.html
  */
 public class Main extends Application {
     private final GBot gbot = new GBot("./data/tasks.txt");

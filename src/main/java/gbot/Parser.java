@@ -49,37 +49,28 @@ public class Parser {
      * @throws GBotException If user command is invalid.
      */
     private static String checkPrefix(String message, TaskList tasks) throws RuntimeException {
+        assert !message.isBlank();
         String prefix = message.split(" ")[0];
-        String response;
         switch (prefix) {
         case "help":
             return Ui.getHelpMessage();
         case "mark":
-            response = parseMark(message, tasks);
-            break;
+            return parseMark(message, tasks);
         case "unmark":
-            response = parseUnmark(message, tasks);
-            break;
+            return parseUnmark(message, tasks);
         case "todo":
-            response = parseTodo(message, tasks);
-            break;
+            return parseTodo(message, tasks);
         case "deadline":
-            response = parseDeadline(message, tasks);
-            break;
+            return parseDeadline(message, tasks);
         case "event":
-            response = parseEvent(message, tasks);
-            break;
+            return parseEvent(message, tasks);
         case "delete":
-            response = parseDelete(message, tasks);
-            break;
+            return parseDelete(message, tasks);
         case "find":
-            response = parseFind(message, tasks);
-            break;
+            return parseFind(message, tasks);
         default: // if invalid command provided
             throw new GBotException();
         }
-        assert !response.isBlank();
-        return response;
     }
 
     /**
@@ -219,16 +210,16 @@ public class Parser {
      * @param tasks The task list provided and to be updated.
      */
     public static void loadTaskFromFile(String taskInFile, ArrayList<Task> tasks) {
-        String[] taskArr = taskInFile.split(" \\| ");
-        switch (taskArr[0]) {
+        String[] fields = taskInFile.split(" \\| ");
+        switch (fields[0]) {
         case "T":
-            tasks.add(new Todo(taskArr[1], taskArr[2]));
+            tasks.add(new Todo(fields[1], fields[2]));
             break;
         case "D":
-            tasks.add(new Deadline(taskArr[1], taskArr[2], taskArr[3]));
+            tasks.add(new Deadline(fields[1], fields[2], fields[3]));
             break;
         case "E":
-            tasks.add(new Event(taskArr[1], taskArr[2], taskArr[3], taskArr[4]));
+            tasks.add(new Event(fields[1], fields[2], fields[3], fields[4]));
             break;
         default:
             break;
