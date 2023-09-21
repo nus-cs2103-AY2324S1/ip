@@ -26,7 +26,7 @@ public class Sisyphus {
     }
 
     /**
-     * Driver function to run all components.
+     * Run all components as the driver function.
      */
     public void run() {
         ui.greet();
@@ -45,7 +45,7 @@ public class Sisyphus {
     }
 
     /**
-     * Old driver code to run CLI version of Sisyphus.
+     * Runs CLI version of Sisyphus.
      * @param args
      */
     public static void main(String[] args) {
