@@ -34,7 +34,7 @@ public class Bot {
      */
     public Bot() {
         this.ui = new Ui();
-        this.storage = new Storage("/data/tasks.txt");
+        this.storage = new Storage("data/tasks.txt");
         try {
             tasks = new TaskList(storage.load());
         } catch (LoadingException e) {
