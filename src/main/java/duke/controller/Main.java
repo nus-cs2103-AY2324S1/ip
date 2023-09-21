@@ -41,7 +41,7 @@ public class Main extends Application {
             stage.maxWidthProperty().bind(stage.widthProperty());
             stage.minWidthProperty().bind(stage.widthProperty());
 
-            fxmlLoader.<MainWindow>getController().setDuke(cleo);
+            fxmlLoader.<MainWindow>getController().setCleo(cleo);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

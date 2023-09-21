@@ -85,7 +85,7 @@ public class Parser {
             String[] params = getParams(splitText[1], 2);
             return new TagCommand(params[0], params[1]);
         default:
-            throw new InvalidCommandException("I don't understand.");
+            throw new InvalidCommandException("zzzzzzzz huh? I only understand the following commands.");
         }
     }
 

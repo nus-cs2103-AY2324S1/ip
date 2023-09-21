@@ -2,7 +2,6 @@ package duke.controller;
 
 import duke.main.Cleo;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -33,7 +32,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Cleo d) {
+    public void setCleo(Cleo d) {
         cleo = d;
     }
 
@@ -46,17 +45,20 @@ public class MainWindow extends AnchorPane {
         int messageType = cleo.getMessageType();
 
         Image cleoImage;
+        boolean isError = false;
         if (messageType == Cleo.ERROR_MESSAGE_TYPE) {
             cleoImage = errorImage;
+            isError = true;
         } else if (messageType == Cleo.NORMAL_MESSAGE_TYPE) {
             cleoImage = this.cleoImage;
         } else {
             cleoImage = questionMarkImage;
+            isError = true;
         }
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, cleoImage)
+                DialogBox.getDukeDialog(response, cleoImage, isError)
         );
 
         userInput.clear();

@@ -12,6 +12,10 @@
     -fx-background-radius:1em;
 }
 
+.error-label {
+    -fx-background-color: rgba(255, 176, 179, 0.5);
+}
+
 .scroll-pane .viewport {
     -fx-background-color:transparent;
 }

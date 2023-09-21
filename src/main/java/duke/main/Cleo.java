@@ -69,7 +69,7 @@ public class Cleo {
             return c.getOutput();
         } catch (InvalidCommandException e) {
             messageType = ERROR_MESSAGE_TYPE;
-            return ui.showCommands();
+            return e.getMessage() + "\n" + ui.showCommands();
         }
         catch (DukeException e) {
             messageType = ERROR_MESSAGE_TYPE;
