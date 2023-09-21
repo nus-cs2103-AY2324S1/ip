@@ -22,7 +22,7 @@
 - `unmark <task_index>`: mark the (task_index)th task as not done yet
 - `find <task_keyword>`: find and list all the tasks that contain the keyword
 - `delete <task_index>`: delete the (task_index)th task in the list
-- `update <task_index> </parts> </new_info>`: update the certain part of the (task_index)th task(/parts: /decsr, /time, /start_time, /end_time)
+- `update <task_index> </parts> </new_info>`: update the certain part of the (task_index)th task (/parts: /decsr, /time, /start_time, /end_time)
 - `list`: list out all the tasks in your TaskList.
 
 ### All you need to do is,
