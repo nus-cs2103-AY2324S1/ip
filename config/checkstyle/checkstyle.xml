@@ -125,9 +125,15 @@
         </module>
 
         <module name="MethodName">
-            <!-- Validates identifiers for method names against the supplied expression. -->
-            <metadata name="altname" value="MethodName"/>
-            <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+){0,2}$"/>
+            <!-- Validates identifiers for method names. -->
+            <metadata name="altname" value="MethodName" />
+            <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+){0,2}$" />
+        </module>
+
+        <module name="ParameterName">
+            <!-- Validates identifiers for method parameters. -->
+            <property name="severity" value="warning" />
+            <property name="format" value="^_?[a-z][a-zA-Z0-9]*$" />
         </module>
 
         <module name="LocalFinalVariableName">
