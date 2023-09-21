@@ -193,12 +193,18 @@ public class Storage {
      * @throws DukeException If the file is not found or corrupted.
      */
     public void loadAlias() throws DukeException {
+        File configFolder = new File("./config");
+        if (!configFolder.exists() && !configFolder.mkdirs()) {
+            throw new DukeException("OOPS!!! The config folder cannot be created.\n\n"
+                    + "Please try again later.");
+        }
         File aliasFile = new File("./config/alias.txt");
         if (!aliasFile.exists()) {
             createFile(folder, aliasFile, aliasFile.getPath());
             Alias.initAlias();
-            throw new DukeException("OOPS!!! The alias file is not found.\n"
-                    + "Default alias is loaded!\n");
+            saveAlias(Alias.saveAliasFormat());
+            throw new DukeException("OOPS!!! The alias file is not found.\n\n"
+                    + "Default alias is loaded!");
         }
 
         try {
@@ -224,8 +230,9 @@ public class Storage {
             if (split.length != 2) {
                 Alias.initAlias();
                 clearFile(aliasFile.getPath());
-                throw new DukeException("OOPS!!! The alias file is corrupted.\n"
-                        + "Default alias is loaded!\n");
+                saveAlias(Alias.saveAliasFormat());
+                throw new DukeException("OOPS!!! The alias file is corrupted.\n\n"
+                        + "Default alias is loaded!");
             }
             Alias.addAlias(split[0], split[1]);
         }

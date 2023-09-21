@@ -49,9 +49,11 @@ public class MainWindow extends AnchorPane {
 
         BotDialogBox initializeDialog = BotDialogBox.getBotDialog(initalBotRespond, initialBotImage);
         dialogContainer.getChildren().add(initializeDialog);
-        if (initalBotRespond.isErrorResponse()) {
-            BotDialogBox greetDialog = BotDialogBox.getBotDialog(duke.initialize(), botImage);
-            dialogContainer.getChildren().add(greetDialog);
+        while (initalBotRespond.isErrorResponse()) {
+            initalBotRespond = duke.initialize();
+            initialBotImage = initalBotRespond.isErrorResponse() ? botWaringImage : botImage;
+            initializeDialog = BotDialogBox.getBotDialog(initalBotRespond, initialBotImage);
+            dialogContainer.getChildren().add(initializeDialog);
         }
     }
 
