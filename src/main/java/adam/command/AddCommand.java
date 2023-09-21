@@ -1,5 +1,8 @@
 package adam.command;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 import adam.Storage;
 import adam.TaskList;
 import adam.Ui;
@@ -7,9 +10,6 @@ import adam.exception.DateException;
 import adam.exception.DeadlineException;
 import adam.exception.DescriptionException;
 import adam.exception.EventException;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 /**
  * This class is used to call the appropriate methods to add a Task to the list

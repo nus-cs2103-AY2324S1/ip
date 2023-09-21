@@ -1,8 +1,8 @@
 package adam;
 
-import adam.tasks.Task;
-
 import java.util.Scanner;
+
+import adam.tasks.Task;
 
 /**
  * This Class is responsible for the print statements of the program and shows the personality of the program.

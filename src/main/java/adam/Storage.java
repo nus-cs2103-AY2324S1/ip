@@ -1,10 +1,10 @@
 package adam;
 
-import adam.exception.NoFileException;
-import adam.tasks.Task;
-
 import java.io.*;
 import java.util.ArrayList;
+
+import adam.exception.NoFileException;
+import adam.tasks.Task;
 
 /**
  * This class is used to store and read the array of tasks inside the hard disk.

@@ -1,5 +1,7 @@
 package adam;
 
+import java.util.ArrayList;
+
 import adam.exception.NoTagException;
 import adam.exception.NumberException;
 import adam.exception.OutOfBoundException;
@@ -7,8 +9,6 @@ import adam.tasks.Deadline;
 import adam.tasks.Event;
 import adam.tasks.Task;
 import adam.tasks.ToDo;
-
-import java.util.ArrayList;
 
 /**
  * This class holds all the methods that is realted to the task list such as adding and deleting tasks.
