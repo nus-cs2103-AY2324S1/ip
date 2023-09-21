@@ -46,124 +46,103 @@ public class Parser {
         case "unmark":
             return new UnmarkCommand(Integer.parseInt(splitInput[1]) - 1);
         case "todo":
-            if (splitInput.length == 1) {
-                throw new DukeIllegalArgumentsException("The description of a todo cannot be empty\n");
-            }
-
-            assert splitInput.length == 2 : "The description of a todo cannot be empty";
-
-            return new AddCommand(new Todo(splitInput[1].trim()));
+            return createTodo(splitInput);
         case "timed":
-            if (splitInput.length == 1) {
-                throw new DukeIllegalArgumentsException("The description of a timed task cannot be empty\n");
-            }
-
-            assert splitInput.length == 2 : "The description of a timed task cannot be empty";
-
-            String[] splitInputDuration = fullCommand.split("/duration", 2);
-            String[] splitTimedDescription = splitInputDuration[0].split(" ", 2);
-            if (splitTimedDescription.length == 1 || splitTimedDescription[1].equals("")) {
-                throw new DukeIllegalArgumentsException("The description of a timed task cannot be empty\n");
-            }
-
-            assert splitTimedDescription.length == 2 : "The description of a timed task cannot be empty";
-
-            if (splitInputDuration.length == 1 || splitInputDuration[1].equals("")) {
-                throw new DukeIllegalArgumentsException(
-                        "The duration of the timed task must be specified! (after /duration)\n");
-            }
-
-            assert splitInputDuration.length == 2
-                    : "The duration of the timed task must be specified! (after /duration)";
-
-            try {
-                return new AddCommand(new Timed(splitTimedDescription[1].trim(),
-                        Float.parseFloat(splitInputDuration[1].trim())));
-            } catch (NumberFormatException e) {
-                throw new DukeIllegalArgumentsException(
-                        "The duration provided must be a number (no characters other than \".\")\n");
-            }
+            return createTimed(splitInput, fullCommand);
         case "deadline":
-            if (splitInput.length == 1) {
-                throw new DukeIllegalArgumentsException("The description of an deadline cannot be empty\n");
-            }
-
-            assert splitInput.length == 2 : "The description of an deadline cannot be empty";
-
-            String[] splitInputBy = fullCommand.split("/by", 2);
-            String[] splitDeadlineDescription = splitInputBy[0].split(" ", 2);
-            if (splitDeadlineDescription.length == 1 || splitDeadlineDescription[1].equals("")) {
-                throw new DukeIllegalArgumentsException("The description of an deadline cannot be empty\n");
-            }
-
-            assert splitDeadlineDescription.length == 2 : "The description of an deadline cannot be empty";
-
-            if (splitInputBy.length == 1 || splitInputBy[1].equals("")) {
-                throw new DukeIllegalArgumentsException(
-                        "The deadline date must be specified! (after /by)\n");
-            }
-
-            assert splitInputBy.length == 2 : "The deadline date must be specified! (after /by)";
-
-            try {
-                return new AddCommand(new Deadline(splitDeadlineDescription[1].trim(),
-                        LocalDateTime.parse(splitInputBy[1].trim(), dateTimeFormat)));
-            } catch (DateTimeParseException e) {
-                throw new DukeIllegalArgumentsException(
-                        "The deadline date provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
-            }
+            return createDeadline(splitInput, fullCommand);
         case "event":
-            if (splitInput.length == 1) {
-                throw new DukeIllegalArgumentsException("The description of an event cannot be empty\n");
-            }
-
-            assert splitInput.length == 2 : "The description of an event cannot be empty";
-
-            String[] splitInputFrom = fullCommand.split("/from", 2);
-            String[] splitEventDescription = splitInputFrom[0].split(" ", 2);
-            if (splitEventDescription.length == 1 || splitEventDescription[1].equals("")) {
-                throw new DukeIllegalArgumentsException("The description of an event cannot be empty\n");
-            }
-
-            assert splitEventDescription.length == 2 : "The description of an event cannot be empty";
-
-            if (splitInputFrom.length == 1 || splitInputFrom[1].equals("")) {
-                throw new DukeIllegalArgumentsException(
-                        "The start time of the event must be specified! (after /from)\n");
-            }
-
-            assert splitInputFrom.length == 2 : "The start time of the event must be specified! (after /from)";
-
-            String[] splitInputTo = splitInputFrom[1].split("/to", 2);
-
-            if (splitInputTo.length == 1 || splitInputTo[1].equals("")) {
-                throw new DukeIllegalArgumentsException(
-                        "The end time of the event must be specified! (after /to)\n");
-            }
-
-            assert splitInputTo.length == 2 : "The end time of the event must be specified! (after /to)";
-
-            try {
-                return new AddCommand(
-                        new Event(splitInputFrom[0].trim(),
-                                LocalDateTime.parse(splitInputTo[0].trim(), dateTimeFormat),
-                                LocalDateTime.parse(splitInputTo[1].trim(), dateTimeFormat)));
-            } catch (DateTimeParseException e) {
-                throw new DukeIllegalArgumentsException(
-                        "The event dates provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
-            }
+            return createEvent(splitInput, fullCommand);
         case "delete":
             return new DeleteCommand(Integer.parseInt(splitInput[1]) - 1);
         case "find":
-            if (splitInput.length == 1) {
-                throw new DukeIllegalArgumentsException("The keyword to search for cannot be empty!\n");
-            }
-
-            assert splitInput.length == 2 : "The keyword to search for cannot be empty!";
-
-            return new FindCommand(splitInput[1].trim());
+            return createFind(splitInput);
         default:
             throw new DukeUnknownCommandException();
         }
+    }
+
+    private static AddCommand createTodo(String[] splitInput) throws DukeIllegalArgumentsException {
+        handleMissingArguments(splitInput, "The description of a todo cannot be empty");
+
+        return new AddCommand(new Todo(splitInput[1].trim()));
+    }
+
+    private static AddCommand createTimed(String[] splitInput, String fullCommand)
+            throws DukeIllegalArgumentsException {
+        handleMissingArguments(splitInput, "The description of a timed task cannot be empty!");
+
+        String[] splitInputDuration = fullCommand.split("/duration", 2);
+        String[] splitTimedDescription = splitInputDuration[0].split(" ", 2);
+
+        handleMissingArguments(splitTimedDescription, "The description of a timed task cannot be empty");
+        handleMissingArguments(splitInputDuration,
+                "The duration of the timed task must be specified! (after /duration)");
+
+        try {
+            return new AddCommand(new Timed(splitTimedDescription[1].trim(),
+                    Float.parseFloat(splitInputDuration[1].trim())));
+        } catch (NumberFormatException e) {
+            throw new DukeIllegalArgumentsException(
+                    "The duration provided must be a number (no characters other than \".\")\n");
+        }
+    }
+
+    private static AddCommand createDeadline(String[] splitInput, String fullCommand)
+            throws DukeIllegalArgumentsException {
+        handleMissingArguments(splitInput, "The description of a deadline cannot be empty");
+
+        String[] splitInputBy = fullCommand.split("/by", 2);
+        String[] splitDeadlineDescription = splitInputBy[0].split(" ", 2);
+
+        handleMissingArguments(splitDeadlineDescription, "The description of a deadline cannot be empty");
+        handleMissingArguments(splitInputBy, "The deadline date must be specified! (after /by)");
+
+        try {
+            return new AddCommand(new Deadline(splitDeadlineDescription[1].trim(),
+                    LocalDateTime.parse(splitInputBy[1].trim(), dateTimeFormat)));
+        } catch (DateTimeParseException e) {
+            throw new DukeIllegalArgumentsException(
+                    "The deadline date provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
+        }
+    }
+
+    private static AddCommand createEvent(String[] splitInput, String fullCommand)
+            throws DukeIllegalArgumentsException {
+        handleMissingArguments(splitInput, "The description of an event cannot be empty");
+
+        String[] splitInputFrom = fullCommand.split("/from", 2);
+        String[] splitEventDescription = splitInputFrom[0].split(" ", 2);
+
+        handleMissingArguments(splitEventDescription, "The description of an event cannot be empty");
+        handleMissingArguments(splitInputFrom,
+                "The start time of the event must be specified! (after /from)");
+
+        String[] splitInputTo = splitInputFrom[1].split("/to", 2);
+
+        handleMissingArguments(splitInputTo, "The end time of the event must be specified! (after /to)");
+
+        try {
+            return new AddCommand(new Event(splitInputFrom[0].trim(),
+                    LocalDateTime.parse(splitInputTo[0].trim(), dateTimeFormat),
+                    LocalDateTime.parse(splitInputTo[1].trim(), dateTimeFormat)));
+        } catch (DateTimeParseException e) {
+            throw new DukeIllegalArgumentsException(
+                    "The event dates provided must be in the format: dd/mm/yyyy HHmm (in 24h format)\n");
+        }
+    }
+
+    private static FindCommand createFind(String[] splitInput) throws DukeIllegalArgumentsException {
+        handleMissingArguments(splitInput, "The keyword to search for cannot be empty!");
+
+        return new FindCommand(splitInput[1].trim());
+    }
+
+    private static void handleMissingArguments(String[] splitInput, String message)
+            throws DukeIllegalArgumentsException {
+        if (splitInput.length == 1) {
+            throw new DukeIllegalArgumentsException(message + "\n");
+        }
+        assert splitInput.length == 2 : message;
     }
 }
