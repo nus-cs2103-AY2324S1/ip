@@ -2,7 +2,6 @@ package com.cloud.chatbot.command;
 
 import java.time.format.DateTimeParseException;
 
-import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.DateConverter;
 import com.cloud.chatbot.annotation.Nullable;
 import com.cloud.chatbot.exception.IllegalTimestampException;
@@ -27,7 +26,7 @@ public class AddCommand extends Command {
         try {
             description = this.commandManager.getDetails();
         } catch (MissingInputException e) {
-            CloudApp.say("Please enter a description for your item.");
+            CloudApp.CONTROLLER.sayBot("Please enter a description for your item.");
             return null;
         }
 
@@ -50,7 +49,7 @@ public class AddCommand extends Command {
                 );
             }
         } catch (MissingFlagInputException e) {
-            CloudApp.say(
+            CloudApp.CONTROLLER.sayBot(
                 String.format(
                     "Please enter a description for the \"%s\" flag.",
                     e.getFlagText()
@@ -58,10 +57,10 @@ public class AddCommand extends Command {
             );
             return null;
         } catch (DateTimeParseException e) {
-            CloudApp.say("Please use a valid timestamp format.");
+            CloudApp.CONTROLLER.sayBot("Please use a valid timestamp format.");
             return null;
         } catch (IllegalTimestampException e) {
-            CloudApp.say("Please enter a logical timestamp range.");
+            CloudApp.CONTROLLER.sayBot("Please enter a logical timestamp range.");
             return null;
         }
 
@@ -79,7 +78,7 @@ public class AddCommand extends Command {
             return;
         }
 
-        Cloud.ITEM_MANAGER.add(item);
-        CloudApp.say(item.toString(Cloud.ITEM_MANAGER.getCount()));
+        CloudApp.ITEM_MANAGER.add(item);
+        CloudApp.CONTROLLER.sayBot(item.toString(CloudApp.ITEM_MANAGER.getCount()));
     }
 }

@@ -1,6 +1,5 @@
 package com.cloud.chatbot.command;
 
-import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.annotation.Nullable;
 import com.cloud.chatbot.token.CommandManager;
 import com.cloud.chatbot.ui.CloudApp;
@@ -22,9 +21,9 @@ public class UnmarkCommand extends Command {
             return;
         }
 
-        Cloud.ITEM_MANAGER.setComplete(number, false);
-        CloudApp.say(
-            Cloud.ITEM_MANAGER.getString(number)
+        CloudApp.ITEM_MANAGER.setComplete(number, false);
+        CloudApp.CONTROLLER.sayBot(
+            CloudApp.ITEM_MANAGER.getString(number)
         );
     }
 }

@@ -15,7 +15,7 @@ public class ExitCommand extends Command {
 
     @Override
     public void run() {
-        CloudApp.say("\\o");
+        CloudApp.CONTROLLER.sayBot("\\o");
         System.exit(0);
     }
 }

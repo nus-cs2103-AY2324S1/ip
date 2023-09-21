@@ -1,5 +1,7 @@
 package com.cloud.chatbot.ui;
 
+import com.cloud.chatbot.command.Dispatcher;
+
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -44,11 +46,31 @@ public class StageController extends Stage {
     }
 
     @FXML private void handleSend() {
-        messagesHolder.getChildren().addAll(
-            new MessageRow(input.getText(), true),
-            new MessageRow("OK.", false)
-        );
-
+        String inputString = input.getText();
         input.clear();
+
+        Dispatcher.handle(inputString);
+    }
+
+    /**
+     * Sends a message as the user.
+     *
+     * @param text The message text.
+     */
+    public void sayUser(String text) {
+        messagesHolder.getChildren().add(
+            new MessageRow(text, true)
+        );
+    }
+
+    /**
+     * Sends a message as the bot.
+     *
+     * @param text The message text.
+     */
+    public void sayBot(String text) {
+        messagesHolder.getChildren().add(
+            new MessageRow(text, false)
+        );
     }
 }

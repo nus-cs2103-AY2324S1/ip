@@ -41,7 +41,11 @@ public class MessageRow extends HBox {
         try {
             loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Cloud.error(
+                "Could not load MessageRow.fxml",
+                e
+            );
+            return;
         }
 
         // After load(), @FXML fields are populated

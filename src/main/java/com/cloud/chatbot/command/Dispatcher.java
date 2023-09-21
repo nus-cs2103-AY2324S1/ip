@@ -25,6 +25,8 @@ public final class Dispatcher {
             return;
         }
 
+        CloudApp.CONTROLLER.sayUser(input);
+
         switch (CommandType.fromString(command)) {
         case ADD:
             new AddCommand(commandManager).run();
@@ -48,7 +50,7 @@ public final class Dispatcher {
             new ExitCommand(commandManager).run();
             break;
         default:
-            CloudApp.say(
+            CloudApp.CONTROLLER.sayBot(
                 String.format(
                     "\"%s\" is not a valid command.",
                     command

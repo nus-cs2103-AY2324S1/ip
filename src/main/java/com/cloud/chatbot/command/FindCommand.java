@@ -2,7 +2,6 @@ package com.cloud.chatbot.command;
 
 import java.util.List;
 
-import com.cloud.chatbot.Cloud;
 import com.cloud.chatbot.exception.MissingInputException;
 import com.cloud.chatbot.token.CommandManager;
 import com.cloud.chatbot.ui.CloudApp;
@@ -23,13 +22,13 @@ public class FindCommand extends Command {
         try {
             query = this.commandManager.getDetails();
         } catch (MissingInputException e) {
-            CloudApp.say("Please enter a phrase to search for.");
+            CloudApp.CONTROLLER.sayBot("Please enter a phrase to search for.");
             return;
         }
 
-        List<String> matches = Cloud.ITEM_MANAGER.findStrings(query);
+        List<String> matches = CloudApp.ITEM_MANAGER.findStrings(query);
         if (matches.size() <= 0) {
-            CloudApp.say(
+            CloudApp.CONTROLLER.sayBot(
                 String.format(
                     "No matches were found for \"%s\". Please try a different query.",
                     query
@@ -39,7 +38,7 @@ public class FindCommand extends Command {
         }
 
         for (int i = 0; i < matches.size(); i++) {
-            CloudApp.say(
+            CloudApp.CONTROLLER.sayBot(
                 matches.get(i)
             );
         }
