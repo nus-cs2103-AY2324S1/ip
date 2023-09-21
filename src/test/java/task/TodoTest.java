@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Test;
 
 public class TodoTest {
     @Test
+    public void createTodo() throws Exception {
+        Todo todo = new Todo("borrow book");
+        assertEquals("[T][ ] borrow book", todo.toString());
+    }
+
+    @Test
     public void mark_success() throws Exception {
         Todo todo = new Todo("borrow book");
         Todo markedTodo = todo.mark();
@@ -15,7 +21,8 @@ public class TodoTest {
     @Test
     public void unmark_success() throws Exception {
         Todo todo = new Todo("borrow book");
-        Todo unmarkedTodo = todo.unmark();
+        Todo markedTodo = todo.mark();
+        Todo unmarkedTodo = markedTodo.unmark();
         assertEquals("[T][ ] borrow book", unmarkedTodo.toString());
     }
 
