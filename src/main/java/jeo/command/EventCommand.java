@@ -45,7 +45,7 @@ public class EventCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws JeoException {
         try {
-            Task task = new Event(this.description, this.from, this.to);
+            Task task = new Event(description, from, to);
             tasks.addTask(task);
             return ui.addTask(task, tasks.getCountTasks());
         } catch (DateTimeParseException e) {

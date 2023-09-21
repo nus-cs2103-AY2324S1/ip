@@ -42,7 +42,7 @@ public class DeadlineCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws JeoException {
         try {
-            Task task = new Deadline(this.description, this.by);
+            Task task = new Deadline(description, by);
             tasks.addTask(task);
             return ui.addTask(task, tasks.getCountTasks());
         } catch (DateTimeParseException e) {

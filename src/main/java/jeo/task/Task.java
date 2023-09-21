@@ -24,7 +24,7 @@ public abstract class Task implements Comparable<Task> {
      *
      * @return The status icon of the task.
      */
-    public String getStatusIcon() {
+    private String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
@@ -32,14 +32,14 @@ public abstract class Task implements Comparable<Task> {
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Marks the task as not done yet.
      */
     public void unmarkAsDone() {
-        this.isDone = false;
+        isDone = false;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Task implements Comparable<Task> {
      * @return A boolean indicating whether the task description contains the keyword.
      */
     public boolean contains(String keyword) {
-        return this.description.contains(keyword);
+        return description.contains(keyword);
     }
 
     /**
@@ -59,6 +59,6 @@ public abstract class Task implements Comparable<Task> {
      */
     @Override
     public String toString() {
-        return String.format("[%s] %s", this.getStatusIcon(), this.description);
+        return String.format("[%s] %s", getStatusIcon(), description);
     }
 }

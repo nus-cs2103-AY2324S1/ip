@@ -34,7 +34,7 @@ public class ToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        Task task = new ToDo(this.description);
+        Task task = new ToDo(description);
         tasks.addTask(task);
         return ui.addTask(task, tasks.getCountTasks());
     }

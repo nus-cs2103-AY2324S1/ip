@@ -25,14 +25,14 @@ public class Jeo {
      * Constructs an instance of Je-O chatbot.
      */
     public Jeo() {
-        this.sc = new Scanner(System.in);
-        this.ui = new Ui();
-        this.storage = new Storage();
+        sc = new Scanner(System.in);
+        ui = new Ui();
+        storage = new Storage();
         try {
-            this.storage.initialize();
-            this.tasks = this.storage.readFile();
+            storage.initialize();
+            tasks = storage.readFile();
         } catch (JeoException e) {
-            this.ui.errorMessage(e);
+            ui.errorMessage(e);
         }
     }
 
@@ -46,9 +46,9 @@ public class Jeo {
         try {
             Command command = Parser.parse(input);
             systemStatus = command.getSystemStatus();
-            return command.execute(this.tasks, this.ui, this.storage);
+            return command.execute(tasks, ui, storage);
         } catch (JeoException e) {
-            return this.ui.errorMessage(e);
+            return ui.errorMessage(e);
         }
     }
 

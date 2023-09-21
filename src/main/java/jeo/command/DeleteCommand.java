@@ -39,8 +39,8 @@ public class DeleteCommand extends Command {
         if (!validIndex) {
             throw new JeoException("The index number is invalid!");
         }
-        Task task = tasks.getTask(this.index);
-        tasks.removeTask(this.index);
+        Task task = tasks.getTask(index);
+        tasks.removeTask(index);
         return ui.deleteTask(task, tasks.getCountTasks());
     }
 }

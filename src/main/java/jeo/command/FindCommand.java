@@ -36,7 +36,7 @@ public class FindCommand extends Command {
         TaskList findTasks = new TaskList();
         for (int i = 0; i < tasks.getCountTasks(); i++) {
             Task task = tasks.getTask(i);
-            if (task.contains(this.keyword)) {
+            if (task.contains(keyword)) {
                 findTasks.addTask(task);
             }
         }

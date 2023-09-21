@@ -33,7 +33,7 @@ public class TaskList {
      * @param task The Task to be added.
      */
     public void addTask(Task task) {
-        this.tasks.add(task);
+        tasks.add(task);
     }
 
     /**
@@ -44,7 +44,7 @@ public class TaskList {
      */
     public Task getTask(int index) {
         assert index >= 1 : "Task number should be a positive integer";
-        return this.tasks.get(index);
+        return tasks.get(index);
     }
 
     /**
@@ -54,7 +54,7 @@ public class TaskList {
      */
     public void removeTask(int index) {
         assert index >= 1 : "Task number should be a positive integer";
-        this.tasks.remove(index);
+        tasks.remove(index);
     }
 
     /**
@@ -63,13 +63,13 @@ public class TaskList {
      * @return The number of tasks in the TaskList.
      */
     public int getCountTasks() {
-        return this.tasks.size();
+        return tasks.size();
     }
 
     /**
      * Sorts the deadline tasks chronologically.
      */
     public void sort() {
-        Collections.sort(this.tasks);
+        Collections.sort(tasks);
     }
 }

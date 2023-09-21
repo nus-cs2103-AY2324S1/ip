@@ -39,7 +39,7 @@ public class UnmarkCommand extends Command {
         if (!validIndex) {
             throw new JeoException("The index number is invalid!");
         }
-        Task task = tasks.getTask(this.index);
+        Task task = tasks.getTask(index);
         task.unmarkAsDone();
         return ui.unmarkAsDone(task);
     }
