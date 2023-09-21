@@ -16,7 +16,6 @@ import duke.task.ToDo;
 /** Deals with making sense of user command, manages error handling based on user input */
 public class Parser {
     private static String[] lowerCaseSplitText;
-    private static String[] splitText;
 
     /**
      * Interprets user input, returns Command class if found.
@@ -37,7 +36,7 @@ public class Parser {
         // With index 0 be the first word of user input, and index 1 containing the rest of the string.
         String lowerCaseInputString = inputString.toLowerCase();
         lowerCaseSplitText = lowerCaseInputString.split(" ", 2);
-        splitText = inputString.split(" ", 2);
+        String[] splitText = inputString.split(" ", 2);
 
         String command = lowerCaseSplitText[0];
         String task;
