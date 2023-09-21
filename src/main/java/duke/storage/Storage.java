@@ -72,6 +72,67 @@ public class Storage {
     }
 
     /**
+     * Processes the task components to add the new Todo Task.
+     *
+     * @param taskComponents The String Array that contains the task components.
+     * @throws DukeException If the array is not of the correct length.
+     */
+    private void processTodoData(String[] taskComponents) throws DukeException {
+        String isCompleted = taskComponents[1];
+        String desc = taskComponents[2];
+        Task item = new ToDo(desc);
+        if (isCompleted.equals("X")) {
+            item.markTask();
+        }
+        store.add(item);
+    }
+
+    /**
+     * Processes the task components to add the new Deadline Task.
+     *
+     * @param taskComponents The String Array that contains the task components.
+     * @throws DukeException If the array is not of the correct length.
+     */
+    private void processDeadlineData(String[] taskComponents) throws DukeException {
+        String isCompleted = taskComponents[1];
+        String desc = taskComponents[2];
+        if (taskComponents.length < 3) {
+            throw new DukeException("Invalid Deadline Format!");
+        }
+        LocalDateTime buffer = LocalDateTime.parse(taskComponents[3], storeTimeFormatter);
+        Task item = new Deadline(desc, buffer.format(inputFormatter));
+        if (isCompleted.equals("X")) {
+            item.markTask();
+        }
+        store.add(item);
+    }
+
+    /**
+     * Processes the task components to add the new Event Task.
+     *
+     * @param taskComponents The String Array that contains the task components.
+     * @throws DukeException If the array is not of the correct length.
+     */
+    private void processEventData(String[] taskComponents) throws DukeException {
+        String isCompleted = taskComponents[1];
+        String desc = taskComponents[2];
+        if (taskComponents.length < 3) {
+            throw new DukeException("Invalid Event Format!");
+        }
+        String[] timeComponents = taskComponents[3].split("-", 2);
+        if (timeComponents.length != 2) {
+            throw new DukeException("Invalid Event Format!");
+        }
+        LocalDateTime bufferStart = LocalDateTime.parse(timeComponents[0], storeTimeFormatter);
+        LocalDateTime bufferEnd = LocalDateTime.parse(timeComponents[1], storeTimeFormatter);
+        Task item = new Event(desc, bufferStart.format(inputFormatter), bufferEnd.format(inputFormatter));
+        if (isCompleted.equals("X")) {
+            item.markTask();
+        }
+        store.add(item);
+    }
+
+    /**
      * Loads the task data from the data file.
      *
      * @return The Task List from the data file.
@@ -85,47 +146,13 @@ public class Storage {
                 // Process file line input
                 String newLine = s.nextLine();
                 String[] taskComponents = newLine.split(" \\| ");
-
                 String type = taskComponents[0];
-                String isCompleted = taskComponents[1];
-                String desc = taskComponents[2];
                 if (type.equals("T")) {
-
-                    Task item = new ToDo(taskComponents[2]);
-                    if (isCompleted.equals("X")) {
-                        item.markTask();
-                    }
-                    store.add(item);
-
+                    processTodoData(taskComponents);
                 } else if (type.equals("D")) {
-
-                    if (taskComponents.length < 3) {
-                        throw new DukeException("Invalid Deadline Format!");
-                    }
-                    LocalDateTime buffer = LocalDateTime.parse(taskComponents[3], storeTimeFormatter);
-                    Task item = new Deadline(desc, buffer.format(inputFormatter));
-                    if (isCompleted.equals("X")) {
-                        item.markTask();
-                    }
-                    store.add(item);
-
+                    processDeadlineData(taskComponents);
                 } else if (type.equals("E")) {
-
-                    if (taskComponents.length < 3) {
-                        throw new DukeException("Invalid Event Format!");
-                    }
-                    String[] timeComponents = taskComponents[3].split("-", 2);
-                    if (taskComponents.length < 2) {
-                        throw new DukeException("Invalid Event Format!");
-                    }
-                    LocalDateTime bufferStart = LocalDateTime.parse(timeComponents[0], storeTimeFormatter);
-                    LocalDateTime bufferEnd = LocalDateTime.parse(timeComponents[1], storeTimeFormatter);
-                    Task item = new Event(desc, bufferStart.format(inputFormatter), bufferEnd.format(inputFormatter));
-                    if (isCompleted.equals("X")) {
-                        item.markTask();
-                    }
-                    store.add(item);
-
+                    processEventData(taskComponents);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -134,5 +161,4 @@ public class Storage {
 
         return store;
     }
-
 }
