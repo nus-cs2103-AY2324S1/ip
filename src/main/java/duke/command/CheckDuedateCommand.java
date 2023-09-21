@@ -39,7 +39,6 @@ public class CheckDuedateCommand extends Command {
         for (Task t : dueDateList) {
             result += t + "\n";
         }
-        result += Ui.showLine();
         result += "\n";
         return result;
     }

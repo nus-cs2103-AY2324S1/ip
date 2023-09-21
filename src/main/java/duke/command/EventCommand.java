@@ -36,10 +36,9 @@ public class EventCommand extends Command {
         Event e = new Event(arr[0], false, start, end);
         tasks.add(e);
         storage.writeInto(tasks);
-        String result =  Ui.showLine() + "\n" + "Got it. I've added this task: " + "\n" + " " + e + "\n";
+        String result = "Got it. I've added this task: " + "\n" + " " + e + "\n";
         result += "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task") + " in the list.";
         result += "\n";
-        result += Ui.showLine();
         return result;
     }
 }

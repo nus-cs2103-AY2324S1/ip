@@ -28,7 +28,6 @@ public class FindCommand extends Command {
         for (int i = 0; i < contain.size(); i++) {
             result += (i + 1) + ". " + contain.get(i) + "\n";
         }
-        result += Ui.showLine();
         result += "\n";
         return result;
     }

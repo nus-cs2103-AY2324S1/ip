@@ -8,33 +8,14 @@ public class Ui {
      * Displays the information of the application and greet the user.
      */
     public static String showWelcomeMessage() {
-
-        String logo = "____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-
-        String result = "\nHello from\n" + logo + showLine() + "\n Hello! I'm YOLO \n What can I do for you? \n" + showLine();
-        return result;
+        return "Hello! I'm YOLO \n What can I do for you?";
     }
 
     /**
      * Displays the showFarewell message when the application is terminated.
      */
     public static String showFarewell() {
-
-        String result = showLine() + "\n Bye. Hope to see you again soon! \n" + showLine();
-        return result;
-    }
-
-    /**
-     * Returns a string of '-' that acts a divider.
-     *
-     * @return A string of dashes that looks like a line.
-     */
-    public static String showLine() {
-        return "----------------------------------------------------";
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

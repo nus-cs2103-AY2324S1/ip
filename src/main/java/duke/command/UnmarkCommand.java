@@ -20,9 +20,8 @@ public class UnmarkCommand extends Command {
 
         String result = "";
         tasks.get(this.index - 1).unmark();
-        result += Ui.showLine() + "\n" + " Ok! I've marked this task as not done yet:" + "\n" + " " + tasks.get(this.index - 1).toString();
+        result += "Ok! I've marked this task as not done yet:" + "\n" + " " + tasks.get(this.index - 1).toString();
         result += "\n";
-        result += Ui.showLine();
         storage.writeInto(tasks);
         return result;
     }

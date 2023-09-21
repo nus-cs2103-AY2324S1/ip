@@ -57,18 +57,16 @@ public class Duke {
             result = e.toString();
         } catch (InvalidIndexException | NumberFormatException e) {
 
-            result = Ui.showLine() + "\nPlease enter a valid index, e.g. a number in the list.";
+            result = "Please enter a valid index, e.g. a number in the list.";
             result += "\n";
-            result += Ui.showLine();
         } catch (UnmatchedArgumentException e) {
             result = e.toString();
         } catch (EmptyDescriptionException e) {
             result = e.toString();
         } catch (StringIndexOutOfBoundsException | DateTimeException e) {
 
-            result = Ui.showLine() + "\n\tPlease enter a proper date." + "\n\t" + e.getMessage();
+            result = "Please enter a proper date." + "\n\t" + e.getMessage();
             result += "\n";
-            result += Ui.showLine();
         }
         return result;
     }

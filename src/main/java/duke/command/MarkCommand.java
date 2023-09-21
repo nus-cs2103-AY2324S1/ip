@@ -20,9 +20,8 @@ public class MarkCommand extends Command {
 
         String result = "";
         tasks.get(this.index - 1).mark();
-        result += Ui.showLine() + "\n" + " Nice! I've marked this task as done:" + "\n" + " " + tasks.get(this.index - 1).toString();
+        result += "Nice! I've marked this task as done:" + "\n" + " " + tasks.get(this.index - 1).toString();
         result += "\n";
-        result += Ui.showLine();
         storage.writeInto(tasks);
         return result;
     }

@@ -19,7 +19,7 @@ public class SortCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws EmptyDescriptionException, NoSuchCommandException {
 
-        String result = Ui.showLine() + "\n";
+        String result;
         Comparator<Task> c;
 
         switch (this.detail.replace(" ", "")) {
@@ -30,7 +30,7 @@ public class SortCommand extends Command {
                     return t1.getDescription().compareTo(t2.getDescription());
                 }
             };
-            result += "Your tasks are sorted alphabetically. \n";
+            result = "Your tasks are sorted alphabetically. \n";
             break;
         case "ra":
             c = new Comparator<Task>() {
@@ -39,7 +39,7 @@ public class SortCommand extends Command {
                     return t2.getDescription().compareTo(t1.getDescription());
                 }
             };
-            result += "Your tasks are sorted reverse-alphabetically. \n";
+            result = "Your tasks are sorted reverse-alphabetically. \n";
             break;
         case "":
             throw new EmptyDescriptionException("sort");
@@ -48,7 +48,6 @@ public class SortCommand extends Command {
         }
         Collections.sort(tasks.getTasks(), c);
         storage.writeInto(tasks);
-        result += Ui.showLine();
         return result;
     }
 }
