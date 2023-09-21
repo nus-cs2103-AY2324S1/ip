@@ -8,17 +8,50 @@ import java.util.ArrayList;
  */
 public class Storage {
 
+    private static final String FILE_PATH = "src/main/java/data/duke.txt";
+
+    /**
+     * Creates the data storage directory and file if they do not exist.
+     * If the directory or file creation fails, appropriate error messages are displayed.
+     */
+    public static void createDataLocation() {
+        File dir = new File("src/main/java/data");
+
+        if (!dir.exists()) {
+            if (dir.mkdirs()) {
+                System.out.println("Directory created: " + dir.getAbsolutePath());
+            } else {
+                System.err.println("Failed to create directory: "
+                        + dir.getAbsolutePath());
+                return;
+            }
+        }
+
+        File db = new File(FILE_PATH);
+        if (!db.exists()) {
+            try {
+                if (db.createNewFile()) {
+                    System.out.println("File created: "
+                            + db.getAbsolutePath());
+                } else {
+                    System.err.println("Failed to create file: "
+                            + db.getAbsolutePath());
+                }
+            } catch (IOException e) {
+                System.out.println("Error when creating the data storage!");
+            }
+        }
+    }
+
     /**
      * Loads tasks from a specified file.
      *
-     * @param filePath The file path from which to load tasks.
      * @return An ArrayList of tasks loaded from the file.
      */
-    public static ArrayList<Task> loadTasksFromFile(String filePath) {
-        assert filePath != null : "File path cannot be null";
+    public static ArrayList<Task> loadTasksFromFile() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(filePath);
+            File file = new File(FILE_PATH);
             if (!file.exists()) {
                 System.out.println("No existing tasks file found. Starting with an empty task list.");
                 return tasks;
@@ -59,12 +92,10 @@ public class Storage {
     /**
      * Saves tasks to a specified file.
      *
-     * @param filePath The file path to which tasks will be saved.
      * @param tasks    An ArrayList of tasks to be saved to the file.
      */
-    public static void saveTasksToFile(String filePath, ArrayList<Task> tasks) {
-        assert filePath != null : "File path cannot be null";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+    public static void saveTasksToFile(ArrayList<Task> tasks) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             for (Task task : tasks) {
                 writer.write(task.toDataString());
                 writer.newLine();
@@ -75,4 +106,3 @@ public class Storage {
         }
     }
 }
-
