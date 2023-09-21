@@ -33,32 +33,29 @@ public enum Command {
      * @throws InvalidInputException if the input is invalid
      */
     public static Command getCommand(String input) throws InvalidInputException {
-        String[] inputtedWords = input.split(" ");
-        // Command word should always be first word without space
-        String commandWord = inputtedWords[0];
-        if (commandWord.equals("list")) {
+        if (input.trim().equals("list")) {
             return Command.LIST;
-        } else if (commandWord.equals("bye")) {
+        } else if (input.trim().equals("bye")) {
             return Command.BYE;
-        } else if (commandWord.startsWith("mark")) {
+        } else if (input.startsWith("mark")) {
             return Command.MARK;
-        } else if (commandWord.startsWith("unmark")) {
+        } else if (input.startsWith("unmark")) {
             return Command.UNMARK;
-        } else if (commandWord.startsWith("todo")) {
+        } else if (input.startsWith("todo")) {
             return Command.TODO;
-        } else if (commandWord.startsWith("deadline")) {
+        } else if (input.startsWith("deadline")) {
             return Command.DEADLINE;
-        } else if (commandWord.startsWith("event")) {
+        } else if (input.startsWith("event")) {
             return Command.EVENT;
-        } else if (commandWord.startsWith("delete")) {
+        } else if (input.startsWith("delete")) {
             return Command.DELETE;
-        } else if (commandWord.startsWith("find")) {
+        } else if (input.startsWith("find")) {
             return Command.FIND;
-        } else if (commandWord.startsWith("tag")) {
+        } else if (input.startsWith("tag")) {
             return Command.TAG;
-        } else if (commandWord.startsWith("showtags")) {
+        } else if (input.trim().equals("showtags")) {
             return Command.SHOWTAGS;
-        } else if (commandWord.startsWith("removetag")) {
+        } else if (input.startsWith("removetag")) {
             return Command.REMOVETAG;
         }
         throw new InvalidInputException();

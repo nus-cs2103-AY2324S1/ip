@@ -62,10 +62,10 @@ public class Parser {
                 findTask(input);
                 break;
             case TAG:
-                tagTask(input, splitStringByBlanks[1], splitStringByBlanks[2]);
+                tagTask(input, splitStringByBlanks[1]);
                 break;
             case REMOVETAG:
-                removeTagTask(input, splitStringByBlanks[1], splitStringByBlanks[2]);
+                removeTagTask(input, splitStringByBlanks[1]);
                 break;
             default:
                 // WHY: If it has reach the default statement, the command is not valid, program should be stopped
@@ -187,11 +187,12 @@ public class Parser {
      * Tags the task with the given task number
      * @param input the user's input
      * @param taskNumber the task number
-     * @param tag  the tag to be added
      * @throws WrongInputException if the input is invalid
      */
-    public void tagTask(String input, String taskNumber, String tag) throws WrongInputException {
+    public void tagTask(String input, String taskNumber) throws WrongInputException {
         Task.tagValidator(input);
+        String[] splitStringByBlanks = input.split(" ");
+        String tag = splitStringByBlanks[2];
         int taskNumberTag = Integer.parseInt(taskNumber);
         this.taskList.updateTags(taskNumberTag - 1, tag, this.storage);
     }
@@ -200,11 +201,12 @@ public class Parser {
      * Removes the tag from the task with the given task number
      * @param input the user's input
      * @param taskNumber the task number
-     * @param tagToRemove the tag to be removed
      * @throws WrongInputException if the input is invalid
      */
-    public void removeTagTask(String input, String taskNumber, String tagToRemove) throws WrongInputException {
+    public void removeTagTask(String input, String taskNumber) throws WrongInputException {
         Task.tagValidator(input);
+        String[] splitStringByBlanks = input.split(" ");
+        String tagToRemove = splitStringByBlanks[2];
         int taskNumberRemoveTag = Integer.parseInt(taskNumber);
         this.taskList.removeTag(taskNumberRemoveTag - 1, tagToRemove, this.storage);
     }

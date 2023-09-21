@@ -28,12 +28,10 @@ public class Storage {
      */
     public static Storage createStorage(String filePath) {
         if (!isValidFile(filePath)) {
-            System.out.println("File not detected, creating file");
             createDirectory("./data");
             File file = createFile(filePath);
             return new Storage(filePath);
         }
-        System.out.println("File detected, loading file");
         return new Storage(filePath);
     }
 
