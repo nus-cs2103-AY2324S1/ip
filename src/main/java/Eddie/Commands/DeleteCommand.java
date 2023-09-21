@@ -5,6 +5,9 @@ import Eddie.Storage;
 import Eddie.TaskList;
 import Eddie.Tasks.Task;
 
+/**
+ * Command to delete a task from the task list.
+ */
 public class DeleteCommand {
     public static String execute(int num) {
         Task t = TaskList.get(num - 1);

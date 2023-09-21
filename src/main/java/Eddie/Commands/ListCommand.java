@@ -4,6 +4,9 @@ import Eddie.GUI.Ui;
 import Eddie.TaskList;
 import Eddie.Tasks.Task;
 
+/**
+ * Command to display an indexed list of tasks currently in the list.
+ */
 public class ListCommand {
     public static String execute() {
         int listSize = TaskList.size();

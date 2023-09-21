@@ -34,8 +34,6 @@ public class Duke extends Application {
     public void start(Stage stage) {
         TaskList.clear();
         Storage.read();
-//
-//        Ui.welcome();
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -107,7 +105,6 @@ public class Duke extends Application {
         return textToAdd;
     }
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -122,13 +119,7 @@ public class Duke extends Application {
     }
 
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     private String getResponse(String input) {
-        //return "hello";
-
         return Parser.parse(input);
     }
 

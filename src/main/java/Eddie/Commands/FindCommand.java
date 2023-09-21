@@ -3,6 +3,9 @@ package Eddie.Commands;
 import Eddie.TaskList;
 import Eddie.Tasks.Task;
 
+/**
+ * Command to search for a task by name, given a string.
+ */
 public class FindCommand {
     public static String execute(String s) {
         String output = "Search for tasks with:<" + s + ">\n";
