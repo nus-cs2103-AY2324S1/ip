@@ -41,7 +41,7 @@ Added: [T][✘] Buy groceries
 Adds a Deadline task to your task list with a specified deadline.
 
 Example of usage:
-`deadline Complete project /by 2023/12/31 23:59`
+`deadline Complete project /by 2023/12/31 2359`
 
 Expected outcome:
 
@@ -62,7 +62,7 @@ Expected outcome:
 
 Till adds the Event task to your task list.
 
-```Added: [E][✘] Birthday party (from: Sep 30 2023, 06:00 PM to: Sep 30 2023, 10:00 PM)```
+```Added: [E][✘] Birthday party (from: 2023-09-30 18:00, to: 2023-09-30 22:00)```
 
 ### `list` - List all tasks
 
