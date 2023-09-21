@@ -10,6 +10,12 @@ import jeo.ui.Ui;
  * @author Joseph Oliver Lim
  */
 public class SortCommand extends Command {
+    /**
+     * Constructs a SortCommand.
+     */
+    public SortCommand() {
+        super(true);
+    }
 
     /**
      * Executes the SortCommand.

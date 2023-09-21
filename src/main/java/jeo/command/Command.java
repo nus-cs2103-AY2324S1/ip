@@ -11,6 +11,16 @@ import jeo.ui.Ui;
  * @author Joseph Oliver Lim
  */
 public abstract class Command {
+    private boolean systemStatus;
+
+    /**
+     * Constructs a command.
+     *
+     * @param systemStatus A boolean value to indicate whether the system has exited.
+     */
+    protected Command(boolean systemStatus) {
+        this.systemStatus = systemStatus;
+    }
     /**
      * Executes the command.
      *
@@ -21,4 +31,13 @@ public abstract class Command {
      * @throws JeoException If the execution of the command fails.
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws JeoException;
+
+    /**
+     * Returns the system status.
+     *
+     * @return The system status.
+     */
+    public boolean getSystemStatus() {
+        return systemStatus;
+    }
 }

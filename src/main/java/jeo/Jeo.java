@@ -19,6 +19,7 @@ public class Jeo {
     private Scanner sc;
     private Ui ui;
     private Storage storage;
+    private boolean systemStatus;
 
     /**
      * Constructs an instance of Je-O chatbot.
@@ -37,10 +38,13 @@ public class Jeo {
 
     /**
      * Runs the Je-O chatbot.
+     *
+     * @return A String to be shown to the user.
      */
     public String run(String input) {
         try {
             Command command = Parser.parse(input);
+            systemStatus = command.getSystemStatus();
             return command.execute(this.tasks, this.ui, this.storage);
         } catch (JeoException e) {
             return this.ui.errorMessage(e);
@@ -49,8 +53,19 @@ public class Jeo {
 
     /**
      * Gets a response from the Je-O chatbot.
+     *
+     * @return A String representing the response from the chatbot.
      */
     public String getResponse(String input) {
         return run(input);
+    }
+
+    /**
+     * Gets the system status of the Je-O chatbot.
+     *
+     * @return A boolean value representing the system status.
+     */
+    public boolean getSystemStatus() {
+        return systemStatus;
     }
 }

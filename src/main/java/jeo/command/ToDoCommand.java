@@ -20,6 +20,7 @@ public class ToDoCommand extends Command {
      * @param description A String describing the todo.
      */
     public ToDoCommand(String description) {
+        super(true);
         this.description = description;
     }
 

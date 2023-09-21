@@ -27,6 +27,7 @@ public class EventCommand extends Command {
      * @param to A string describing the end date.
      */
     public EventCommand(String description, String from, String to) {
+        super(true);
         this.description = description;
         this.from = from;
         this.to = to;

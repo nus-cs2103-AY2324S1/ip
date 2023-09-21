@@ -57,6 +57,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getJeoDialog(response, jeoImage)
         );
         userInput.clear();
+        if (!jeo.getSystemStatus()) {
+            System.exit(0);
+        }
     }
 }
 

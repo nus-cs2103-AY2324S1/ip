@@ -11,6 +11,13 @@ import jeo.ui.Ui;
  */
 public class ListCommand extends Command {
     /**
+     * Constructs a ListCommand.
+     */
+    public ListCommand() {
+        super(true);
+    }
+
+    /**
      * Executes the ListCommand.
      *
      * @param tasks The TaskList where the command is to be executed.

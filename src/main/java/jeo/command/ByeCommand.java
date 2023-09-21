@@ -11,6 +11,12 @@ import jeo.ui.Ui;
  * @author Joseph Oliver Lim
  */
 public class ByeCommand extends Command {
+    /**
+     * Constructs a ByeCommand.
+     */
+    public ByeCommand() {
+        super(false);
+    }
 
     /**
      * Executes the ByeCommand.

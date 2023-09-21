@@ -25,6 +25,7 @@ public class DeadlineCommand extends Command {
      * @param by A string describing the deadline date.
      */
     public DeadlineCommand(String description, String by) {
+        super(true);
         this.description = description;
         this.by = by;
     }

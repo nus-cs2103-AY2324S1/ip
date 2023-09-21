@@ -20,6 +20,7 @@ public class UnmarkCommand extends Command {
      * @param index The index of the task to be marked as not done yet.
      */
     public UnmarkCommand(int index) {
+        super(true);
         this.index = index;
     }
 

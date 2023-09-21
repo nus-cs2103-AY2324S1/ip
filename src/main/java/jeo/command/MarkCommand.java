@@ -20,6 +20,7 @@ public class MarkCommand extends Command {
      * @param index The index of the task to be marked as done.
      */
     public MarkCommand(int index) {
+        super(true);
         this.index = index;
     }
 
