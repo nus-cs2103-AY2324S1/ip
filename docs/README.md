@@ -16,7 +16,7 @@ Automatically stores all tasks in current task list to a file.<p>
 Tasks in the file will be automatically loaded when the program is restarted.
 
 ## Usage
-> [!NOTE] **Note about the command format:**
+> **Note about the command format:**
 > - Words in `UPPER_CASE` are parameters to be supplied by the user. <p> 
 > in `add todo TODO_DESCRIPTION`, `TODO_DESCRIPTION` is a parameter which can be used as `add todo read`.
 
@@ -42,7 +42,7 @@ Now you have 1 tasks in the list.
 Adds a deadline task to the task list.
 
 Format: `add deadline DEADLINE_DESCRIPTION /by DEADLINE_DATE`
-> [!NOTE] **Note:** Dates must be in `YYYY-MM-DD` format.
+> **Note:** Dates must be in `YYYY-MM-DD` format.
 
 Example of usage:
 
@@ -60,7 +60,7 @@ Now you have 2 tasks in the list.
 Adds an event task to the task list.
 
 Format: `add event EVENT_DESCRIPTION /from EVENT_STARTDATE /to EVENT_ENDDATE`
-> [!NOTE] **Note:** Dates must be in `YYYY-MM-DD` format.
+> **Note:** Dates must be in `YYYY-MM-DD` format.
 
 Example of usage:
 
@@ -155,7 +155,7 @@ Noted. I've tagged the task!
 Finds all the tasks containing the specified string in the task details (includes description, dates, and tag).
 
 Format: `find /STRING_TO_CHECK`
-> [!NOTE] **Note:** Dates are stored in task details using the `MMM d yyyy` format.<p>
+> **Note:** Dates are stored in task details using the `MMM d yyyy` format.<p>
 > (eg. trying to find tasks with the associated date `2023-09-25` should be done using any part of `Sep`, `25`, and `2023`.)
 
 Example of usage:<p>
