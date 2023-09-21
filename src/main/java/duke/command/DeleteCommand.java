@@ -47,14 +47,14 @@ public class DeleteCommand extends Command {
                 taskNum = Integer.parseInt(commandBody);
             } else {
                 taskList.manipulateAllTask(Keyword.DELETE);
-                storage.save(taskList.saveTaskList());
+                storage.saveTasks(taskList.saveTaskList());
                 return ui.showManipulateAllTask(Keyword.DELETE.getKeyword());
             }
         } catch (NumberFormatException e) {
             throw new ManipulateException(err, Keyword.DELETE.getKeyword());
         }
         Response respond = taskList.deleteTask(taskNum - 1, ui);
-        storage.save(taskList.saveTaskList());
+        storage.saveTasks(taskList.saveTaskList());
         return respond;
     }
 }

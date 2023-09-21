@@ -71,7 +71,7 @@ public class AddCommand extends Command {
             throw new DukeException("Sorry, the command is invalid.");
         }
         Response respond = taskList.addTask(task, ui);
-        storage.save(taskList.saveTaskList());
+        storage.saveTasks(taskList.saveTaskList());
         return respond;
     }
 

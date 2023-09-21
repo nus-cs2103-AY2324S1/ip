@@ -79,7 +79,7 @@ public class SortCommand extends Command {
             }
         }
 
-        storage.save(taskList.saveTaskList());
+        storage.saveTasks(taskList.saveTaskList());
         return ui.showSort(isDefaultSort, commandBody);
     }
 }

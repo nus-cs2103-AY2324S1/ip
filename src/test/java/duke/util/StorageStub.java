@@ -25,6 +25,6 @@ public class StorageStub extends Storage {
     }
 
     @Override
-    public void save(String[] tasks) {
+    public void saveTasks(String[] tasks) {
     }
 }

@@ -170,9 +170,10 @@ public class Storage {
      * @param fileFormattedTaskList The task list in file format.
      * @throws DukeException If the file is not found.
      */
-    public void save(String[] fileFormattedTaskList) throws DukeException {
-        assert file.exists() : "File should exist";
-
+    public void saveTasks(String[] fileFormattedTaskList) throws DukeException {
+        if (!file.exists()) {
+            createFile(folder, file, filePath);
+        }
         try {
             FileWriter fw = new FileWriter(this.filePath);
             fw.write(""); // Clear the file
@@ -193,11 +194,8 @@ public class Storage {
      * @throws DukeException If the file is not found or corrupted.
      */
     public void loadAlias() throws DukeException {
-        File configFolder = new File("./config");
-        if (!configFolder.exists() && !configFolder.mkdirs()) {
-            throw new DukeException("OOPS!!! The config folder cannot be created.\n\n"
-                    + "Please try again later.");
-        }
+        checkAndCreateConfigFolder();
+
         File aliasFile = new File("./config/alias.txt");
         if (!aliasFile.exists()) {
             createFile(folder, aliasFile, aliasFile.getPath());
@@ -246,6 +244,8 @@ public class Storage {
      * @throws DukeException If the file is not found.
      */
     public void saveAlias(List<String> aliasList) throws DukeException {
+        checkAndCreateConfigFolder();
+
         try {
             FileWriter fw = new FileWriter("./config/alias.txt");
             fw.write(""); // Clear the file
@@ -255,6 +255,19 @@ public class Storage {
             fw.close();
         } catch (IOException e) {
             throw new DukeException();
+        }
+    }
+
+    /**
+     * Checks if the config folder exists. If not, it will create the folder.
+     *
+     * @throws DukeException If the folder cannot be created.
+     */
+    private static void checkAndCreateConfigFolder() throws DukeException {
+        File configFolder = new File("./config");
+        if (!configFolder.exists() && !configFolder.mkdirs()) {
+            throw new DukeException("OOPS!!! The config folder cannot be created.\n\n"
+                    + "Please try again later.");
         }
     }
 }

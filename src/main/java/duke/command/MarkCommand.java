@@ -51,14 +51,14 @@ public class MarkCommand extends Command {
                 taskNum = Integer.parseInt(commandBody);
             } else {
                 taskList.manipulateAllTask(key);
-                storage.save(taskList.saveTaskList());
+                storage.saveTasks(taskList.saveTaskList());
                 return ui.showManipulateAllTask(key.getKeyword());
             }
         } catch (NumberFormatException e) {
             throw new ManipulateException(err, key.getKeyword());
         }
         Response respond = taskList.markTask(taskNum - 1, key, ui);
-        storage.save(taskList.saveTaskList());
+        storage.saveTasks(taskList.saveTaskList());
         return respond;
     }
 }
