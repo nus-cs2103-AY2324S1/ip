@@ -1,4 +1,4 @@
-# User Guide
+# CC ChatBot User Guide
 
 ## Features
 
