@@ -2,12 +2,26 @@ package com.cloud.chatbot;
 
 import com.cloud.chatbot.annotation.Nullable;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 
 
 /**
  * Handles the user interface (UI).
  */
-public final class Ui {
+public final class Ui extends Application {
+    @Override
+    public void start(Stage stage) {
+        Label helloWorld = new Label("o/");
+        Scene scene = new Scene(helloWorld);
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /**
      * Prints the specified message.
      *
