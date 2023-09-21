@@ -1,5 +1,8 @@
 package grumpygordon.controllers;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import grumpygordon.GrumpyGordon;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -68,9 +71,21 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getGordonDialog(gordonText, gordonImage)
         );
         userInput.clear();
+
+        // @@author craigtonlian-reused
+        // Reused from https://github.com/ktzy0305/ip/blob/master/src/main/java/skye/MainWindow.java
+        // Sets a 2sec timer before exiting the program
         if (userText.equals("bye")) {
-            System.exit(0);
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            };
+            Timer timer = new Timer();
+            timer.schedule(timerTask, 2000);
         }
+        //@@author
     }
 
     @FXML

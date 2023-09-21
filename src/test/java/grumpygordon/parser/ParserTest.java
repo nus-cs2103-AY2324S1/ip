@@ -1,5 +1,6 @@
 package grumpygordon.parser;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -44,5 +45,13 @@ public class ParserTest {
         } catch (Exception e) {
             assertEquals("Invalid date 'FEBRUARY 31'", e.getMessage());
         }
+    }
+    /**
+     * Tests the parseDeadlineInfo method of Parser.
+     */
+    @Test
+    public void parseDeadlineInfo_validDeadlineInfo_success() {
+        assertArrayEquals(new String[] {"Bake cake", "2021-09-01 19:32"}, Parser.parseDeadlineInfo("Bake cake /by 2021-09-01 19:32"));
+        assertArrayEquals(new String[] {"Sleep", "1995-02-28 00:00"}, Parser.parseDeadlineInfo("Sleep /by 1995-02-28 00:00"));
     }
 }

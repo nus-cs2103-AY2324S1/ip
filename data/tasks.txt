@@ -1,6 +1,7 @@
+T | 0 | Buy toilet paper
 E | 1 | Dance class | 2023-10-16T18:00 | 2023-10-16T21:00
-T | 1 | Go gym
-D | 0 | Submit 2100 assignment | 2023-09-23T13:00
-T | 1 | Buy toilet paper
-T | 0 | sleep
+D | 1 | Submit 2100 assignment | 2023-09-23T13:00
 D | 0 | eat | 2022-10-10T10:00
+T | 0 | go tutorial
+T | 0 | sleep
+T | 0 | ewoijfoeiwjafoaewjodjewajdlewjodjewoljdaoewjodaijewodjoaewjdjewoidjoeiwjdoieawjodjew
