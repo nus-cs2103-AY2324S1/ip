@@ -13,7 +13,7 @@ import bobi.task.Task;
 public class Ui {
     private static final String SEPARATOR = "_______________________________________________________________________\n";
     private static final String GREETING = "Hello! I'm Bobi >.<, what can I do for you?\n";
-    private static final String EXIT = "Bye! Hope you have a good day today :)\n";
+    private static final String EXIT = "Bye! Hope you have a good day today. :)\n";
     private static final String ADD_TASK = "New task added to your list:\n";
     private static final String LIST_TASKS = "Things you need to do: \n";
     private static final String UPDATE_TASK = "OK! Your task has now been updated to: \n";
