@@ -16,7 +16,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
 
-    private static final DateTimeFormatter inputDateTimeFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     public Command parse(String fullCommand) throws JarvisException {
         String[] parts = fullCommand.split(" ", 2);
@@ -61,7 +61,7 @@ public class Parser {
         String[] deadlineParts = parts[1].split(" /by ", 2);
         ensureValidParts(deadlineParts, "deadline time", "deadline");
         try {
-            LocalDateTime by = LocalDateTime.parse(deadlineParts[1], inputDateTimeFormatter);
+            LocalDateTime by = LocalDateTime.parse(deadlineParts[1], INPUT_DATE_TIME_FORMATTER);
             return new AddCommand(new Deadline(deadlineParts[0], by));
         } catch (DateTimeParseException e) {
             throw new JarvisWrongDateFormatException();
@@ -75,8 +75,8 @@ public class Parser {
         String[] timeParts = eventParts[1].split(" /to ", 2);
         ensureValidParts(timeParts, "end time", "event");
         try {
-            LocalDateTime from = LocalDateTime.parse(timeParts[0], inputDateTimeFormatter);
-            LocalDateTime to = LocalDateTime.parse(timeParts[1], inputDateTimeFormatter);
+            LocalDateTime from = LocalDateTime.parse(timeParts[0], INPUT_DATE_TIME_FORMATTER);
+            LocalDateTime to = LocalDateTime.parse(timeParts[1], INPUT_DATE_TIME_FORMATTER);
             return new AddCommand(new Event(eventParts[0], from, to));
         } catch (DateTimeParseException e) {
             throw new JarvisWrongDateFormatException();

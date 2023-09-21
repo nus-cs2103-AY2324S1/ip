@@ -16,10 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Storage {
+    private static final DateTimeFormatter SAVE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
 
-    private static LocalDateTime parseSavedDateTime(String dateTimeString){
-        return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("MMM d yyyy HHmm"));
-    }
     private String filePath;
 
     public Storage(String filePath) {
@@ -58,15 +56,20 @@ public class Storage {
             System.out.println("Save file created successfully at " + this.filePath);
         }
 
-        List<String> lines;
-
         try {
-            lines = Files.readAllLines(file.toPath());
+            List<String>  lines = Files.readAllLines(file.toPath());
+            return getTasks(lines);
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks.");
             return null;
         }
+    }
 
+    private LocalDateTime parseSavedDateTime(String dateTimeString){
+        return LocalDateTime.parse(dateTimeString, SAVE_DATE_TIME_FORMATTER);
+    }
+
+    private ArrayList<Task> getTasks(List<String> lines) {
         ArrayList<Task> tasks = new ArrayList<>();
 
         for (String line : lines) {
@@ -85,7 +88,7 @@ public class Storage {
                 break;
             }
         }
-        return tasks; // Return the loaded list of tasks.
+        return tasks;
     }
 
     // ... Other storage-related methods ...
