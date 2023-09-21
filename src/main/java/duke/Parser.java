@@ -59,7 +59,7 @@ public class Parser {
                 deleteTask(splitStringByBlanks[1]);
                 break;
             case FIND:
-                findTask(input, splitStringByBlanks[1]);
+                findTask(input);
                 break;
             case TAG:
                 tagTask(input, splitStringByBlanks[1], splitStringByBlanks[2]);
@@ -177,9 +177,10 @@ public class Parser {
      * @param keyword the keyword to search for
      * @throws WrongInputException if the input is invalid
      */
-    public void findTask(String input, String keyword) throws WrongInputException {
+    public void findTask(String input) throws WrongInputException {
         this.searchEngine.searchValidator(input);
-        TaskList searchResult = this.searchEngine.search(keyword);
+        String[] splitStringByBlanks = input.split(" ");
+        TaskList searchResult = this.searchEngine.search(splitStringByBlanks[1]);
         this.ui.showSearchResult(searchResult);
     }
 
