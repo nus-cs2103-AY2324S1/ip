@@ -16,6 +16,11 @@ public class Duke {
         this("data/tasks.txt");
     }
 
+    /**
+     * Constructs the chat bot with storage using the file path.
+     *
+     * @param filePath The path for the storage file.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);

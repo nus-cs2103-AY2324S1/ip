@@ -7,9 +7,13 @@ import java.util.Locale;
 /**
  * Encapsulates events which are Tasks with start and end.
  */
-public class Event extends Task{
+public class Event extends Task {
     private LocalDate startTime;
     private LocalDate endTime;
+
+    /**
+     * Constructs an Event with specified description, start time and end time.
+     */
     public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
         this.startTime = startTime;

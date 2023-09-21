@@ -23,7 +23,7 @@ public class Parser {
      * @return The resulting message.
      */
     public String parse() {
-        try{
+        try {
             if (command.startsWith("list")) {
                 return this.taskList.listTasks();
             } else if (command.startsWith("mark")) {

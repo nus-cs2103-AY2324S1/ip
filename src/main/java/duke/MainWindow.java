@@ -52,6 +52,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Starts the Ui interface with the welcome message.
+     */
     public void start() {
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog(Ui.welcomeMessage(), dukeImage)

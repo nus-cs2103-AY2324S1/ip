@@ -1,3 +1,5 @@
 D | 0 | submit homework | Sep 30 2023
 F | 1 | clean room | one hour
 T | 0 | buy lunch
+T | 0 | li
+T | 0 | list

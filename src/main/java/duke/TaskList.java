@@ -9,11 +9,17 @@ public class TaskList {
     protected ArrayList<Task> tasks;
     private Storage storage;
 
+    /**
+     * Constructs an empty Tasklist with specified Storage.
+     */
     public TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
         this.storage = storage;
     }
 
+    /**
+     * Constructs a Tasklist with specified tasks and Storage.
+     */
     public TaskList(ArrayList<Task> tasks, Storage storage) {
         this.tasks = tasks;
         this.storage = storage;
@@ -25,7 +31,7 @@ public class TaskList {
      * @return The message for listing.
      */
     public String listTasks() {
-         return Ui.listTasks(this.tasks);
+        return Ui.listTasks(this.tasks);
     }
 
     /**

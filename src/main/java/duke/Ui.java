@@ -77,7 +77,7 @@ public class Ui {
      */
     public static String deleteTask(Task t, ArrayList<Task> taskList) {
         return " Noted. I've removed this task:\n"
-                + "   " + t.toString() +"\n"
+                + "   " + t.toString() + "\n"
                 + " Now you have " + taskList.size() + " tasks in the list.";
     }
 

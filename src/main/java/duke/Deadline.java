@@ -10,6 +10,10 @@ import java.util.Locale;
  */
 public class Deadline extends Task {
     private LocalDate by;
+
+    /**
+     * Constructs a Deadline with specified description and deadline.
+     */
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
