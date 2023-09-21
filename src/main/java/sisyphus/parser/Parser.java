@@ -94,6 +94,16 @@ public class Parser {
 
     }
 
+    /**
+     * Returns an output string after marking a task from the taskList and storage based on the params.
+     *
+     * @param params
+     * @param taskList
+     * @param storage
+     * @param ui
+     * @return an output string after marking a task from the taskList and storage based on the params
+     * @throws SisyphusException
+     */
     public String runMarkCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         int index;
         try {
@@ -107,6 +117,16 @@ public class Parser {
         return ui.printMarkTask(taskList, index);
     }
 
+    /**
+     * Returns an output string after unmarking a task from the taskList and storage based on the params.
+     *
+     * @param params
+     * @param taskList
+     * @param storage
+     * @param ui
+     * @return an output string after unmarking a task from the taskList and storage based on the params.
+     * @throws SisyphusException
+     */
     public String runUnmarkCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         int index;
         try {
@@ -120,6 +140,16 @@ public class Parser {
         return ui.printUnmarkTask(taskList, index);
     }
 
+    /**
+     * Returns an output string after deleting a task from the taskList and storage.
+     *
+     * @param params
+     * @param taskList
+     * @param storage
+     * @param ui
+     * @return an output string after deleting a task from the taskList and storage.
+     * @throws SisyphusException
+     */
     public String runDeleteCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         int index;
         try {
@@ -133,6 +163,16 @@ public class Parser {
         return ui.printDeleteTask(taskList, index);
     }
 
+    /**
+     * Returns an output string after adding a ToDo to the taskList and storage based on the params.
+     *
+     * @param params
+     * @param taskList
+     * @param storage
+     * @param ui
+     * @return an output string after adding a ToDo to the taskList and storage based on the params
+     * @throws SisyphusException
+     */
     public String runTodoCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         if (params == "" || params == null) {
             throw new SisyphusException("Include a description for the sisyphus.task.ToDo. \nHere is an example: "
@@ -145,6 +185,16 @@ public class Parser {
         return ui.printAddTodo(taskList);
     }
 
+    /**
+     * Returns an output string after adding an event into the taskList and storage.
+     *
+     * @param params
+     * @param taskList
+     * @param storage
+     * @param ui
+     * @return an output string after adding an event into the taskList and storage
+     * @throws SisyphusException
+     */
     public String runEventCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         String description;
         String fromAndToTime;
@@ -167,6 +217,16 @@ public class Parser {
         return ui.printAddEvent(taskList);
     }
 
+    /**
+     * Returns an output string after adding a deadline into the taskList and storage based on the params.
+     *
+     * @param params
+     * @param taskList
+     * @param storage
+     * @param ui
+     * @return an output string after adding a deadline into the taskList and storage based on the params
+     * @throws SisyphusException
+     */
     public String runDeadlineCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         String description;
         String deadline;
@@ -187,6 +247,14 @@ public class Parser {
         return ui.printAddDeadline(taskList);
     }
 
+    /**
+     * Returns an output string of a list of matching tasks based on the params.
+     *
+     * @param params
+     * @param taskList
+     * @param ui
+     * @return an output string of a list of matching tasks based on the params
+     */
     public String runFindCommand(String params, TaskList taskList, Ui ui) {
         TaskList matchingTaskList = taskList.findMatchingTasks(params);
         return ui.printMatchingTasks(matchingTaskList, params);
