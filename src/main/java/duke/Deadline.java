@@ -18,7 +18,11 @@ public class Deadline extends Task {
         super(description);
         this.by = LocalDateTime.parse(by);
     }
-
+    /**
+     * Gets the full description of the deadline task.
+     * The message here is used to be printed for the user.
+     * @return Message for the description of the deadline task.
+     */
     @Override
     public String printDesc() {
         try {
@@ -28,7 +32,11 @@ public class Deadline extends Task {
             return "Please key in the dates in the format of YYYY-MM-ddThh:mm:ss";
         }
     }
-
+    /**
+     * Gets the full description of the deadline task.
+     * The message here is used to be stored in the duke.txt.
+     * @return Message for the description of the deadline task.
+     */
     @Override
     public String getDescription() {
         return "D~" + super.getDescription() + "~" + this.by;

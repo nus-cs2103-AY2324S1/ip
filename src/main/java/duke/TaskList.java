@@ -250,6 +250,10 @@ public class TaskList {
             return message;
         }
     }
+    /**
+     * Provides the list of commands that POPOOH can execute.
+     * @return The full list of commands and their formats.
+     */
     public String getHelp() {
         String message = "Here are some of the commands that I can execute!:\n"
                 + "1. List out the all the tasks\n"

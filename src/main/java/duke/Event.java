@@ -21,14 +21,22 @@ public class Event extends Task {
         this.from = LocalDateTime.parse(from);
         this.to = LocalDateTime.parse(to);
     }
-
+    /**
+     * Gets the full description of the event task.
+     * The message here is used to be printed for the user.
+     * @return Message for the description of the event task.
+     */
     @Override
     public String printDesc() {
         String fromMessage = this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm"));
         String toMessage = this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy H:mm"));
         return "[E]" + super.printDesc() + " (from: " + fromMessage + " to: " + toMessage + ")";
     }
-
+    /**
+     * Gets the full description of the event task.
+     * The message here is used to be stored in the duke.txt.
+     * @return Message for the description of the event task.
+     */
     @Override
     public String getDescription() {
         return "E~" + super.getDescription() + "~" + this.from + " - " + this.to;

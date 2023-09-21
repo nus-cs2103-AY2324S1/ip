@@ -88,10 +88,18 @@ public class Task {
     public String getDesc() {
         return this.description;
     }
+    /**
+     * Updates the task as a reminder.
+     * This task will then be printed out everytime the charbot is first launched.
+     * @return Message for the progress of the task.
+     */
     public String makeReminder() {
         this.isReminder = true;
         return "OK, I will remind you of this task the next time I see you!\n";
     }
+    /**
+     * Updates the task as a reminder without printing any messages.
+     */
     public void updateReminder() {
         this.isReminder = true;
     }
