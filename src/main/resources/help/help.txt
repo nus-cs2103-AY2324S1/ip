@@ -1,0 +1,12 @@
+THE "help" COMMAND:
+
+Provides a simple guide to user on how to use the application.
+
+HOW TO USE:
+"help" - provides a list of all the commands and a brief description of what they do
+
+"help <command>" - provides detailed description of the <command> specified, use this to learn more about the command and the proper syntax to use it
+
+EXAMPLE USE:
+"help" (shows list of all commands)
+"help delete" (shows detailed explanation of delete command)

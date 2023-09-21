@@ -1,0 +1,8 @@
+@font-face {
+    src: url('/fonts/DMSans-Medium.ttf');
+}
+
+.dmSans {
+    -fx-font-family: 'DM Sans Medium';
+    -fx-font-size: 11;
+}

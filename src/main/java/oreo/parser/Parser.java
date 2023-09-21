@@ -49,6 +49,12 @@ public class Parser {
         case "modify" :
         case "update" :
             return new EditCommand(command,tokeniser);
+        case "help" :
+        case "hello" :
+        case "hi" :
+            return new HelpCommand(command, tokeniser);
+        case "save" :
+            return new SaveCommand();
         default:
             return new InvalidCommand();
         }

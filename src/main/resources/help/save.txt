@@ -1,0 +1,9 @@
+THE "save" COMMAND:
+
+Saves all task as of current state to file.
+
+HOW TO USE:
+"bye" - save current list of task
+
+EXAMPLE USE:
+see above
