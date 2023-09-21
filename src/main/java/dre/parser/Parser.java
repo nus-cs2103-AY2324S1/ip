@@ -163,12 +163,4 @@ public class Parser {
                 throw new DreException("I'm sorry, but I don't know what that means :-(");
         }
     }
-
-    public static void main(String... args) {
-        try {
-            Command command = parse("edit 1 description something");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

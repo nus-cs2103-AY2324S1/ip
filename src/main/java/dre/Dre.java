@@ -37,8 +37,8 @@ public class Dre extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
-    private Image dre = new Image(this.getClass().getResourceAsStream("/images/DaDre.jpg"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.jpg"));
+    private final Image dre = new Image(this.getClass().getResourceAsStream("/images/DaDre.jpg"));
 
     private final String DEFAULT_FILE_PATH = "data/dre.txt";
 
@@ -58,26 +58,6 @@ public class Dre extends Application {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Runs the main loop of the application, repeatedly reading user commands,
-     * parsing them, and executing the corresponding actions until the user exits.
-     */
-    public void run() {
-        Ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (DreException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     /**
      * Runs the main loop of the application, repeatedly reading user commands,
@@ -198,14 +178,5 @@ public class Dre extends Application {
             e.printStackTrace();
             return e.getMessage();
         }
-    }
-
-    /**
-     * The main method serves as the application's entry point.
-     *
-     * @param args The command-line arguments.
-     */
-    public static void main(String[] args) {
-        new Dre().run();
     }
 }

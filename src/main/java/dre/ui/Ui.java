@@ -40,6 +40,8 @@ public class Ui {
 
     /**
      * Displays the goodbye message to the user upon exiting the application.
+     *
+     * @return String A goodbye message.
      */
     public String showGoodbye() {
         return "Bye. Hope to see you again soon!";
@@ -119,6 +121,12 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Generates a message displaying the newly edited task.
+     *
+     * @param task The edited task.
+     * @return String Representation of the edited task.
+     */
     public String generateEditSuccessMessage(Task task) {
         return "The following task has been successfully updated:\n" + task;
     }
