@@ -2,14 +2,13 @@ package storage;
 
 import java.io.*;
 import java.util.ArrayList;
-
-import parser.DataParser;
 import tasks.Task;
-import parser.TaskParser;
+import parser.DataParser;
 
 public class DataReader {
 
-    private static final String FILE_PATH = "src" + File.separator + "data" + File.separator + "tasks.txt";
+    private static final String DATA_DIRECTORY_PATH = "src" + File.separator + "data";
+    private static final String FILE_PATH = DATA_DIRECTORY_PATH + File.separator + "tasks.txt";
 
     /**
      * Reads tasks from the storage file and converts them into an ArrayList of Task objects.
@@ -18,8 +17,16 @@ public class DataReader {
      */
     public static ArrayList<Task> readTasksFromFile() {
         ArrayList<Task> tasksList = new ArrayList<>();
+        
+        File dataDirectory = new File(DATA_DIRECTORY_PATH);
+        if (!dataDirectory.exists()) {
+            if (dataDirectory.mkdirs()) {
+                System.out.println("Data directory created: " + DATA_DIRECTORY_PATH);
+            } else {
+                System.out.println("Failed to create the data directory.");
+            }
+        }
 
-        // Read the file line by line
         File file = new File(FILE_PATH);
         try {
             if (!file.exists()) {
@@ -30,7 +37,6 @@ public class DataReader {
                     System.out.println("Failed to create the file.");
                 }
             } else {
-                // File exists, read its content
                 BufferedReader reader = new BufferedReader(new FileReader(file));
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -45,7 +51,6 @@ public class DataReader {
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
-
         return tasksList;
     }
 }

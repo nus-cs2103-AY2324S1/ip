@@ -1,6 +1,7 @@
 package ui;
 
 import core.Duke;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -58,5 +59,10 @@ public class MainWindow extends AnchorPane {
             DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (response.equals("Bye")) {
+            PauseTransition pause = new PauseTransition(javafx.util.Duration.seconds(1));
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
+        }
     }
 }

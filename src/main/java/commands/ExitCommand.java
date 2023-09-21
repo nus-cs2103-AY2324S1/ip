@@ -18,6 +18,6 @@ public class ExitCommand implements Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        return ui.exit(); // Instruct the user interface to exit the application
+        return "Bye";
     }
 }
