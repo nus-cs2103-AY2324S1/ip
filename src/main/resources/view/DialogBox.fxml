@@ -5,12 +5,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <StackPane maxHeight="-Infinity" maxWidth="300.0" minWidth="-Infinity" style="-fx-background-color: #8afbff;-fx-border-width: 1;-fx-border-color: black;-fx-border-radius: 10px;-fx-background-radius: 10px; -fx-padding: 10px;">
+        <StackPane maxHeight="-Infinity" maxWidth="300.0" minWidth="-Infinity" style="-fx-background-color: #8afbff; -fx-border-width: 1.5; -fx-border-color: black; -fx-border-radius: 10px; -fx-background-radius: 10px; -fx-padding: 10px;">
             <children>
-                <Label fx:id="dialog" alignment="TOP_LEFT" text="Label" textAlignment="JUSTIFY" wrapText="true" maxWidth="280.0" minWidth="180.0" minHeight="-Infinity"/>
+                <Label fx:id="dialog" alignment="TOP_LEFT" maxWidth="280.0" minHeight="-Infinity" minWidth="180.0" text="Label" textAlignment="JUSTIFY" wrapText="true">
+               <font>
+                  <Font name="Toppan Bunkyu Gothic Demibold" size="14.0" />
+               </font></Label>
             </children>
         </StackPane>
         <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />

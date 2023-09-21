@@ -31,10 +31,10 @@ public class DeleteCommand extends Command {
     public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         String result = this.printCommand(taskList);
         this.deletedTask = taskList.getTask(this.index - 1);
+        taskList.removeTask(this.index - 1);
         if (write) {
-            taskList.removeTask(this.index - 1);
-            commandList.addCommand(this);
             storage.writeData(taskList.convertToFileContent());
+            commandList.addCommand(this);
             storage.previousCommandsWriter(commandList.convertToFileContent());
         }
         return result;

@@ -75,8 +75,8 @@ public class AddCommand extends Command {
             }
         }
         this.addedTask = temp;
+        taskList.addTask(this.addedTask);
         if (write) {
-            taskList.addTask(this.addedTask);
             commandList.addCommand(this);
             storage.writeData(taskList.convertToFileContent());
             storage.previousCommandsWriter(commandList.convertToFileContent());

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import duke.command.AddCommand;
 import duke.command.CommandList;
+import duke.command.DeleteCommand;
 import duke.exception.DukeException;
 import duke.task.Deadline;
 import duke.task.Event;
@@ -26,14 +27,22 @@ public class ParserTest {
         taskList.addTask(task3);
         Parser parser = new Parser();
         try {
+            TaskList initTaskList = storage.loadData();
+            CommandList initCommandList = storage.previousCommandsLoader();
             AddCommand comm = (AddCommand) parser.parse(new String[] {"todo", "walk to school"}, taskList);
-            comm.execute(taskList, storage, commandList, true);
+            comm.execute(taskList, storage, commandList, false);
             assertEquals(taskList.getTask(taskList.size() - 1).printTask(), "[T][ ] walk to school");
-            assertEquals(commandList.getCommand(commandList.size() - 1), comm);
+            assertEquals(commandList.size(), 0);
+            for (int i = 0; i < 4; i++) {
+                DeleteCommand revertChange = (DeleteCommand) parser.parse(new String[] {"delete",
+                        Integer.toString(taskList.size() - i)}, taskList);
+                revertChange.execute(taskList, storage, commandList, false);
+            }
+            assertEquals(taskList.size() - 1, 0);
+            storage.writeData(initTaskList.convertToFileContent());
+            storage.previousCommandsWriter(initCommandList.convertToFileContent());
         } catch (DukeException e) {
             System.out.println("Please check your test cases.");
         }
-        storage.writeData("");
-        storage.previousCommandsWriter("");
     }
 }
