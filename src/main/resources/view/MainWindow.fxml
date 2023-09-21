@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?> <!-- Add import for HBox -->
 <?import javafx.scene.layout.VBox?>
 
 <?import java.net.URL?>
@@ -18,8 +19,12 @@
                 </VBox>
             </content>
         </ScrollPane>
-        <TextField fx:id="userInput" layoutY="520.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0"
-                   style="-fx-padding: 5px; -fx-font-size: 14px;"/> <!-- Added wrapText and adjusted styling -->
-        <Button fx:id="sendButton" layoutX="324.0" layoutY="520.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+        <HBox layoutX="10.0" layoutY="520.0" spacing="5.0"> <!-- Add HBox to contain TextField and Button -->
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0"
+                           style="-fx-padding: 5px; -fx-font-size: 14px;" /> <!-- Added wrapText and adjusted styling -->
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+            </children>
+        </HBox>
     </children>
 </AnchorPane>
