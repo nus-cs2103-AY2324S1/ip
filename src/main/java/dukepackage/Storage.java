@@ -20,7 +20,7 @@ public class Storage {
      */
     protected ArrayList<Task> taskList;
     protected final String MATCHING_STRING = "     Here are the matching tasks in your list:\n";
-    protected final String filePathRelativeFromJar = "../data/duke.txt";
+    protected final String filePathRelativeFromJar = "./data/duke.txt";
 
     /**
      * Constructs a Storage object with an empty task list.

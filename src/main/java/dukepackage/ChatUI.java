@@ -14,7 +14,7 @@ public class ChatUI {
      * Constructs a new ChatUI object.
      */
     public ChatUI() {
-        // Constructor body (if needed)
+        // Constructor body (if needed), not necessary in this case
     }
 
     /**

@@ -38,7 +38,7 @@ public class ChatGUI {
         try {
             storage.changeTaskMarking(id, isDone);
             result += storage.printTaskMarking(id);
-        } catch (Exception e) {
+        } catch (DukeException e) {
             result += e.getMessage();
         }
         return result;
