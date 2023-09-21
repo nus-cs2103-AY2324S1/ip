@@ -6,7 +6,6 @@ import javax.swing.Timer;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,7 +18,6 @@ import oscar.command.ExitCommand;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
-    public Button sendButton;
     @FXML
     private ScrollPane scrollPane;
     @FXML
