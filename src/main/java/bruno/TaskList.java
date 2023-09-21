@@ -221,7 +221,7 @@ public class TaskList {
      * @param task The user input for the task.
      */
     public String findTasks(String task) {
-        assert task != "" : "Search keyword must not be empty";
+        assert !task.substring(task.indexOf("find") + 5).equals("") : "Search keyword must not be empty";
         String taskInfo = "";
         String keyWord = task.split(" ")[1];
         int counter = 0;
