@@ -37,6 +37,8 @@ public class Task {
     }
 
     /**
+     * Gets the name of the task.
+     * 
      * @return Name of the task
      */
     public String getName() {
@@ -75,6 +77,9 @@ public class Task {
         jsonGenerator.writeEndObject();
     }
 
+    /**
+     * Checks if obj is equal to to the Task object.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Task)) {

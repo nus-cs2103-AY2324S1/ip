@@ -25,10 +25,20 @@ public class Event extends Task {
         this.end = end;
     }
 
+    /**
+     * Gets the starting date of the object.
+     * 
+     * @return Start date of Event object
+     */
     public LocalDate getStart() {
         return start;
     }
 
+    /**
+     * Gets the ending date of the object.
+     * 
+     * @return End date of Event object
+     */
     public LocalDate getEnd() {
         return end;
     }
@@ -57,6 +67,9 @@ public class Event extends Task {
         jsonGenerator.writeEndObject();
     }
 
+    /**
+     * Checks if obj is equal to to the Event object.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Event)) {

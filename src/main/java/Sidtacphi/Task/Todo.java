@@ -41,6 +41,9 @@ public class Todo extends Task {
         jsonGenerator.writeEndObject();
     }
 
+    /**
+     * Checks if obj is equal to to the Todo object.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Todo)) {

@@ -6,7 +6,7 @@ package Sidtacphi.Exception;
 public class SidException extends Exception {
 
     /**
-     * Constructor for SidException.
+     * Constructs a SidException exception.
      * 
      * @param errorMessage
      */

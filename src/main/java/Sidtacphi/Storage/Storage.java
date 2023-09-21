@@ -16,12 +16,18 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import Sidtacphi.Task.Task;
 import Sidtacphi.Task.TaskList;
 
+/**
+ * Storage is the class that loads and saves tasks into a file.
+ */
 public class Storage {
     private Storage() {
     }
 
     /**
-     * Saves current taskList as a json file.
+     * Saves taskList parameter as a json file.
+     * 
+     * @param taskList
+     * @param location Location of the file to be saved
      */
     public static void saveAsJson(TaskList taskList, String location) {
         ObjectMapper mapper = new ObjectMapper();
@@ -40,7 +46,10 @@ public class Storage {
     }
 
     /**
-     * Reads json file and save to taskList.
+     * Reads json file storing a TaskList object.
+     * 
+     * @param location Location of the file to be read
+     * @return TaskList object represented by file read
      */
     public static TaskList readJson(String location) {
         ObjectMapper mapper = new ObjectMapper();

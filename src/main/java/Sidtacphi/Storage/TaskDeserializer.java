@@ -15,14 +15,25 @@ import Sidtacphi.Task.Task;
 import Sidtacphi.Task.Todo;
 
 public class TaskDeserializer extends StdDeserializer<Task> {
+    /**
+     * Constructs TaskDeserializer object.
+     */
     public TaskDeserializer() {
         this(null);
     }
 
+    /**
+     * Constructs TaskDeserializer object.
+     */
     public TaskDeserializer(Class<?> vc) {
         super(vc);
     }
 
+    /**
+     * Deserializes a Task object.
+     * 
+     * @return Task object after deserialising
+     */
     @Override
     public Task deserialize(JsonParser parser, DeserializationContext deserializer) throws IOException {
         ObjectCodec codec = parser.getCodec();
