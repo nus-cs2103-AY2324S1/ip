@@ -60,7 +60,7 @@ public abstract class Task {
         if (this.completed) {
             return String.format("[X] %s", this.description);
         }
-        return String.format("[ ] %s", this.description);
+        return String.format("[  ] %s", this.description);
     }
 
     /**

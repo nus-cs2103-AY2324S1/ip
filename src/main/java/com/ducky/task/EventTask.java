@@ -22,7 +22,7 @@ public class EventTask extends Task {
 
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.startTime, this.endTime);
+        return String.format("[EVENT] %s (from: %s to: %s)", super.toString(), this.startTime, this.endTime);
     }
 
     @Override
