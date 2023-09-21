@@ -70,9 +70,8 @@ public class TaskList {
         if (index < 0 || index >= list.size()) {
             return null;
         }
-        Task taskRemoved = this.list.remove(index);
 
-        return taskRemoved;
+        return this.list.remove(index);
     }
 
     /**
