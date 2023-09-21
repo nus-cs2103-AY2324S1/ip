@@ -25,6 +25,15 @@ public class TaskList {
     }
 
     /**
+     * Get the list of tasks.
+     *
+     * @return the current list of tasks
+     */
+    public ArrayList<Task> getTasks() {
+        return this.list;
+    }
+
+    /**
      * Adds an item to the list.
      *
      * @param task The user's task
@@ -148,7 +157,7 @@ public class TaskList {
         // assume ASC by default
         ArrayList<Task> result = new ArrayList<>();
 
-        result = getTasks(sortType, sortOrder, result);
+        result = getSortedTasks(sortType, sortOrder, result);
 
 
         StringBuilder resultMsg = new StringBuilder();
@@ -163,7 +172,7 @@ public class TaskList {
         return resultMsg.toString();
     }
 
-    private ArrayList<Task> getTasks(SortType sortType, SortOrder sortOrder, ArrayList<Task> result) {
+    private ArrayList<Task> getSortedTasks(SortType sortType, SortOrder sortOrder, ArrayList<Task> result) {
         switch (sortType) {
         case ID: {
             // default case: sorted by ID

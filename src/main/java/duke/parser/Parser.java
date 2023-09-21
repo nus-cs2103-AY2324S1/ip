@@ -158,8 +158,8 @@ public class Parser {
      * Processes the inputted create new Event command
      * @param inputString The user input
      * @param taskList The active tasks
-     * @throws InvalidFormatException if the input format is incorrect
      * @return the task that was added
+     * @throws InvalidFormatException if the input format is incorrect
      */
     private static ArrayList<Task> processEventCommand(
             String inputString, TaskList taskList) throws InvalidFormatException {
@@ -215,8 +215,8 @@ public class Parser {
      * Processes the inputted create Deadline command
      * @param inputString The user input
      * @param taskList The active tasks
-     * @throws InvalidFormatException if the input format is incorrect
      * @return the task that was added
+     * @throws InvalidFormatException if the input format is incorrect
      */
     private static ArrayList<Task> processDeadlineCommand(
             String inputString, TaskList taskList) throws InvalidFormatException {
@@ -261,8 +261,8 @@ public class Parser {
      * Processes the inputted create Todo command
      * @param inputString The user input
      * @param taskList The active tasks
-     * @throws InvalidFormatException if the input format is incorrect
      * @return the task that was added
+     * @throws InvalidFormatException if the input format is incorrect
      */
     private static ArrayList<Task> processTodoCommand(
             String inputString, TaskList taskList) throws InvalidFormatException {
@@ -287,9 +287,9 @@ public class Parser {
      * Processes the inputted Delete task command
      * @param inputString The user input
      * @param taskList The active tasks
+     * @return the task that was deleted
      * @throws InvalidFormatException if the input format is incorrect
      * @throws NotFoundException if the target task was not found
-     * @return the task that was deleted
      */
     private static ArrayList<Task> processDeleteCommand(
             String inputString, TaskList taskList) throws InvalidFormatException, NotFoundException {
@@ -309,9 +309,9 @@ public class Parser {
      * Processes the inputted Unmark task command
      * @param inputString The user input
      * @param taskList The active tasks
+     * @return the task that was unmarked
      * @throws InvalidFormatException if the input format is incorrect
      * @throws NotFoundException if the target task was not found
-     * @return the task that was unmarked
      */
     private static ArrayList<Task> processUnmarkCommand(
             String inputString, TaskList taskList) throws InvalidFormatException, NotFoundException {
@@ -331,9 +331,9 @@ public class Parser {
      * Processes the inputted Mark task command
      * @param inputString The user input
      * @param taskList The active tasks
+     * @return the task that was marked
      * @throws InvalidFormatException if the input format is incorrect
      * @throws NotFoundException if the target task was not found
-     * @return the task that was marked
      */
     private static ArrayList<Task> processMarkCommand(
             String inputString, TaskList taskList) throws InvalidFormatException, NotFoundException {

@@ -18,8 +18,6 @@ import duke.tasks.TaskList;
 import duke.tasks.TodoTask;
 
 
-
-
 /**
  * Controls the storage and retrieving of saved data on the hard disk.
  */
@@ -116,22 +114,19 @@ public class Storage {
         if (split.length < 3) {
             throw new DukeException(PARSE_ERROR);
         }
-        
 
-        return getTodoTask(split);
+
+        return getEncodedTask(split);
     }
 
     /**
      * Parses the task into a Task object.
-     * @param taskType the type of task. Can be "T", "D", or "E"
-     * @param id the task ID
-     * @param taskDescription the task description
+     *
      * @param split the arguments saved in the text file
-     * @param isDone whether the task is done
      * @return the created Task object
      * @throws DukeException if there is any error
      */
-    private static Task getTodoTask(String[] split) throws DukeException {
+    private static Task getEncodedTask(String[] split) throws DukeException {
         String taskType = split[1];
         String isDoneStr = split[2];
         String taskDescription = split[3];
@@ -146,15 +141,15 @@ public class Storage {
         Task task;
         switch (taskType) {
         case "T": {
-            task = getTodoTask(id, taskDescription);
+            task = getTodoTaskObject(id, taskDescription);
             break;
         }
         case "D": {
-            task = getDeadlineTask(split, id, taskDescription);
+            task = getDeadlineTaskObject(split, id, taskDescription);
             break;
         }
         case "E": {
-            task = getEventTask(split, id, taskDescription);
+            task = getEventTaskObject(split, id, taskDescription);
             break;
         }
         default:
@@ -167,7 +162,7 @@ public class Storage {
         return task;
     }
 
-    private static Task getEventTask(String[] split, int id, String taskDescription) throws DukeException {
+    private static Task getEventTaskObject(String[] split, int id, String taskDescription) throws DukeException {
         Task task;
         // get the start date, which is 4th element
         // get the end date, which is 5th element
@@ -182,7 +177,7 @@ public class Storage {
         return task;
     }
 
-    private static Task getDeadlineTask(String[] split, int id, String taskDescription) throws DukeException {
+    private static Task getDeadlineTaskObject(String[] split, int id, String taskDescription) throws DukeException {
         Task task;
         // get the deadline, which is 4th element
         if (split.length < 4) {
@@ -196,7 +191,7 @@ public class Storage {
         return task;
     }
 
-    private static Task getTodoTask(int id, String taskDescription) {
+    private static Task getTodoTaskObject(int id, String taskDescription) {
         Task task;
         task = new TodoTask(id, taskDescription);
         return task;
