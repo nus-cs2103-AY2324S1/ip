@@ -29,6 +29,11 @@ E.g. To add an exam which happens on 11 Oct 2023 from 1000 to 1200hrs, the comma
 ### Listing your tasks
 List your tasks with a simple `list` command. That's all.
 
+## Find tasks
+Find your tasks by description with the `find` command.
+Format: `find <item>`.
+Gives a list of items that contains the item in the description.
+
 ### Mark / Unmark tasks
 Mark and unmark your tasks with the `mark` and `unmark` command.
 Format: `mark <index in the list>` or `unmark <index in the list>`
