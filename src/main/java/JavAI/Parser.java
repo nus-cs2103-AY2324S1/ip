@@ -134,6 +134,9 @@ public class Parser {
         try {
             int iden = Integer.parseInt(words[1]) - 1;
             assert tasks.get(iden) != null : "Task should not be null";
+            if (tasks.get(iden).isDone) {
+                throw new JavAiException("☹ OOPS!!! This task is already marked complete.");
+            }
             tasks.get(iden).markAsDone();
             return ui.printDone(tasks.get(iden));
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -149,6 +152,9 @@ public class Parser {
         try {
             int iden = Integer.parseInt(words[1]) - 1;
             assert tasks.get(iden) != null : "Task should not be null";
+            if (!tasks.get(iden).isDone) {
+                throw new JavAiException("☹ OOPS!!! This task is already unmarked.");
+            }
             tasks.get(iden).markAsUndone();
             return ui.printUndone(tasks.get(iden));
         } catch (ArrayIndexOutOfBoundsException e) {

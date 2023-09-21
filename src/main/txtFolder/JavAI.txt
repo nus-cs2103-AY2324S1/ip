@@ -1,1 +1,3 @@
-
+[T][X] Sample todo 
+[D][ ] Sample Deadline  ( by: Sep 23 2023 20:00 )
+[E][ ] Sample Event  ( from: today to: tomorrow )
