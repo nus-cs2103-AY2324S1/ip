@@ -95,7 +95,7 @@ public class CommandTaskCreate extends Command {
      * @throws IllegalArgumentException
      */
     private void checkExistence(TaskList tl, Task task) throws IllegalArgumentException {
-        if (!tl.isPresent(task)) {
+        if (tl.isPresent(task)) {
             throw new IllegalArgumentException("Unable to add! Task already exists!");
         }
     }
