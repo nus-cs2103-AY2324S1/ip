@@ -32,7 +32,11 @@ Mark a task as undone in the tasklist based on given index.
 
 ### Find a task containing a keyword `find`
 
-Find a task that has description matching the `keyword` entered by user.
+Find task(s) that have description matching the `keyword` entered by user.
+
+### Find a task containing a keyword `reminder`
+
+Find task(s) that have their deadlines in the next 3 days.
 
 ## Usages
 
