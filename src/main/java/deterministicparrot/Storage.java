@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private static final String DATA_FILE_PATH = "./data/data.txt";
+    private static final String DATA_FILE_PATH = "data/data.txt";
 
     /**
      * Constructs a new Storage object.
@@ -27,6 +27,8 @@ public class Storage {
     public String load() throws FileNotFoundException {
         File file = new File(DATA_FILE_PATH);
         StringBuilder rawData = new StringBuilder();
+        //print rawdata
+        System.out.println(rawData.toString());
 
         if (file.exists()) {
             try (Scanner fileScanner = new Scanner(file)) {

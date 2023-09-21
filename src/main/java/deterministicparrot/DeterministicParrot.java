@@ -24,6 +24,12 @@ public class DeterministicParrot {
      */
     public DeterministicParrot() {
         this.taskList = new TaskList();
+        try {
+            this.taskList = TaskList.deserialize(storage.load());
+        } catch (Exception e) {
+            System.out.println("     " + "No saved task list found. Starting with empty task list.");
+            this.taskList = new TaskList();
+        }
         this.initCommandHandlers();
     }
 
@@ -33,7 +39,12 @@ public class DeterministicParrot {
      */
     public DeterministicParrot(Scanner s, StringWriter sw) {
         this.ui = new Ui(s, sw);
-        this.taskList = new TaskList();
+        try {
+            this.taskList = TaskList.deserialize(storage.load());
+        } catch (Exception e) {
+            System.out.println("     " + "No saved task list found. Starting with empty task list.");
+            this.taskList = new TaskList();
+        }
         this.initCommandHandlers();
     }
 
