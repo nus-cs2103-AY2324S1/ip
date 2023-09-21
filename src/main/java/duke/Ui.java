@@ -281,7 +281,6 @@ public class Ui {
                     "2./time: for 'Deadline' only.\n" +
                     "3./start_time, /end_time: for 'Event' only.";
         }
-        String commandType = parts[0].toLowerCase();
         String[] updateParts = parts[1].split(" /");
         String updateType = updateParts[1].toLowerCase();
         String output = "";

@@ -4,7 +4,6 @@ import javafx.application.Application;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -55,8 +54,6 @@ public class Duke extends Application {
 
     @Override
     public void start (Stage stage) {
-//        Label helloWorld = new Label("Hello World!");
-//        Scene scene = new Scene(helloWorld);
         // Step 1
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -115,13 +112,6 @@ public class Duke extends Application {
         dialogContainer.heightProperty().addListener((observable -> scrollPane.setVvalue(1.0)));
     }
 
-    private Label getDialogLabel (String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
     private void handleUserInput() {
         String userText = userInput.getText();
         String dukeText = getResponse(userInput.getText());
@@ -143,9 +133,3 @@ public class Duke extends Application {
         return ui.handleCommand(input, tasks, storage);
     }
 }
-
-/*
-TODO | read book
-DEADLINE | project | 2022-10-10
-EVENT | meeting | 2023-06-12 1400 | 2023-06-12 1800
- */

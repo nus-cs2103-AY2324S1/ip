@@ -25,6 +25,7 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
     private Ui ui;
+    private TaskList tasks = new TaskList();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/BiuBiu.jpg"));
@@ -32,7 +33,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-//        welcomeLabel.setText("ui.showWelcome()"); // new
         String welcomeMessage = "Hi, I'm BiuBiu.\nI'm ready to help u!\n" +
                 "\n(u can save your task as todo/deadline/event)\n" +
                 "(can mark/unmark/find/delete/list/update your tasks)\n" +
