@@ -65,10 +65,15 @@ public class Parser {
             throw new BotException("OOPS!!! The description of a todo cannot be empty.");
         }
         assert input != null : "input should not be null";
-        String inputWithoutLocation = input.split(" /at ")[0];
-        String todoDescription = inputWithoutLocation.split(" ", 2)[1];
-        assert todoDescription != null : "todoDescription should not be null";
-        return todoDescription;
+        try {
+            String inputWithoutLocation = input.split(" /at ")[0];
+            String todoDescription = inputWithoutLocation.split(" ", 2)[1];
+            assert todoDescription != null : "todoDescription should not be null";
+            return todoDescription;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BotException("OOPS!!! The description of a todo cannot be empty. " +
+                    "It should be in the format 'todo *** /at ***'");
+        }
     }
 
     /**
@@ -84,10 +89,15 @@ public class Parser {
                     + " it should be in the format 'deadline *** /by ***'");
         }
         assert input != null : "input should not be null";
-        String inputWithoutLocation = input.split(" /at ")[0];
-        String deadlineDescription = inputWithoutLocation.split(" ", 2)[1].split(" /by ")[0];
-        assert deadlineDescription != null : "deadlineDescription should not be null";
-        return deadlineDescription;
+        try {
+            String inputWithoutLocation = input.split(" /at ")[0];
+            String deadlineDescription = inputWithoutLocation.split(" ", 2)[1].split(" /by ")[0];
+            assert deadlineDescription != null : "deadlineDescription should not be null";
+            return deadlineDescription;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BotException("OOPS!!! The description the deadline is incomplete,"
+                    + " it should be in the format 'deadline *** /by ***'");
+        }
     }
 
     /**
@@ -105,9 +115,14 @@ public class Parser {
         }
         assert input != null : "input should not be null";
         String inputWithoutLocation = input.split(" /at ")[0];
-        String by = inputWithoutLocation.split(" ", 2)[1].split(" /by ")[1];
-        assert by != null : "by should not be null";
-        return by;
+        try {
+            String by = inputWithoutLocation.split(" ", 2)[1].split(" /by ")[1];
+            assert by != null : "by should not be null";
+            return by;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BotException("OOPS!!! The description the deadline is incomplete,"
+                    + " it should be in the 'format deadline *** /by ***'");
+        }
     }
 
     /**
@@ -124,9 +139,14 @@ public class Parser {
         }
         assert input != null : "input should not be null";
         String inputWithoutLocation = input.split(" /at ")[0];
-        String eventDescription = inputWithoutLocation.split(" ", 2)[1].split(" /from")[0];
-        assert eventDescription != null : "eventDescription should not be null";
-        return eventDescription;
+        try {
+            String eventDescription = inputWithoutLocation.split(" ", 2)[1].split(" /from")[0];
+            assert eventDescription != null : "eventDescription should not be null";
+            return eventDescription;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BotException("OOPS!!! The description the event is incomplete."
+                    + "it should be in the format 'event *** /from *** /to ***'");
+        }
     }
 
     /**
@@ -143,9 +163,14 @@ public class Parser {
         }
         assert input != null : "input should not be null";
         String inputWithoutLocation = input.split(" /at ")[0];
-        String beginning = inputWithoutLocation.split(" ", 2)[1].split(" /from ")[1].split(" /")[0];
-        assert beginning != null : "beginning should not be null";
-        return beginning;
+        try {
+            String beginning = inputWithoutLocation.split(" ", 2)[1].split(" /from ")[1].split(" /")[0];
+            assert beginning != null : "beginning should not be null";
+            return beginning;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BotException("OOPS!!! The description the event is incomplete."
+                    + "it should be in the format 'event *** /from *** /to ***'");
+        }
     }
 
     /**
@@ -161,9 +186,13 @@ public class Parser {
         }
         assert input != null : "input should not be null";
         String inputWithoutLocation = input.split(" /at ")[0];
-        String to = inputWithoutLocation.split(" ", 2)[1].split(" /from ")[1].split("/to ")[1];
-        assert to != null : "to should not be null";
-        return to;
+        try {
+            String to = inputWithoutLocation.split(" ", 2)[1].split(" /from ")[1].split("/to ")[1];
+            assert to != null : "to should not be null";
+            return to;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new BotException("OOPS!!! The description of the event is incomplete.");
+        }
     }
 
     /**
@@ -178,7 +207,7 @@ public class Parser {
             throw new BotException("OOPS!!! PLease use the format of 'find *keyword*'");
         }
         assert input != null : "input should not be null";
-        String keyword = input.split(" ")[1];
+        String keyword = input.split(" ", 2)[1];
         assert keyword != null : "keyword should not be null";
         return keyword;
     }
@@ -214,7 +243,7 @@ public class Parser {
         try {
             return input.split(" /at ")[1];
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new BotException("You did not input your location.");
+            throw new BotException("You did not input your location. It should be in the format '*** /at ***'");
         }
     }
 }
