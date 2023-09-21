@@ -1,6 +1,8 @@
 package duke;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.util.Duration;
 
 /**
  * Used to parse user input into appropriate commands.
@@ -63,13 +65,15 @@ public class Parser {
         case "bye":
             this.isFinished = true;
             output = Ui.bye();
-            Platform.exit();
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
             break;
         default:
             output = Ui.unknownCommandErrorMessage();
         }
         Ui.horizontalLine();
-        assert output != null;
+        assert output != null : "Output should not be null";
         return output;
     }
 

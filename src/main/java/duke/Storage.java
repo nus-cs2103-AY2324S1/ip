@@ -43,13 +43,11 @@ public class Storage {
             Path parentDirectory = filePath.getParent();
             if (!Files.exists(parentDirectory)) {
                 Files.createDirectories(parentDirectory);
-                System.out.println("Parent directories created: " + parentDirectory.toAbsolutePath());
             }
 
             // Create the file if it doesn't exist
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
-                System.out.println("File created: " + filePath);
             }
 
             // Read the existing content from the file
@@ -80,12 +78,10 @@ public class Storage {
             Path parentDirectory = filePath.getParent();
             if (!Files.exists(parentDirectory)) {
                 Files.createDirectories(parentDirectory);
-                System.out.println("Parent directories created: " + parentDirectory.toAbsolutePath());
             }
             // Create the file if it doesn't exist
             if (!Files.exists(filePath)) {
                 Files.createFile(filePath);
-                System.out.println("File created: " + filePath);
             }
             // Write new content to the file
             StringBuilder toWrite = new StringBuilder();

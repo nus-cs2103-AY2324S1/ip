@@ -19,7 +19,7 @@ public class Duke {
      */
     public Duke() {
         storage = new Storage(FILEPATH);
-        assert storage != null;
+        assert storage != null : "Storage should not be null";
         tasks = new TaskList(storage.loadTaskList());
     }
 
@@ -31,7 +31,7 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         Parser parser = new Parser(tasks);
-        assert input != null;
+        assert input != null : "Input should not be null";
         parser.parse(input);
         while (!parser.isDone()) {
             input = scanner.nextLine();
@@ -56,7 +56,7 @@ public class Duke {
     public String getResponse(String input) {
         Parser parser = new Parser(tasks);
         String response = parser.parse(input);
-        assert response != null;
+        assert response != null : "Response should not be null";
         return response;
     }
 
