@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Storage {
     private File txtFile;
     private Path filePath;
-    private String msg;
+    private String msg = "";
 
     /**
      * Constructor for a new Storage instance.
@@ -32,7 +32,8 @@ public class Storage {
             try {
                 Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
-                msg = "No file found, new .txt file created!";
+                msg = "No file found, new .txt file created with sample data!";
+                loadSampleData();
             } catch (IOException e) {
                 msg = e.getMessage();
             }
@@ -52,9 +53,9 @@ public class Storage {
                 tasks.addFromTxt(txtScanner.nextLine());
             }
             txtScanner.close();
-            msg = String.format("There's %d items in the list\nSay \"list\" to see them", tasks.getSize());
+            msg = msg + "\n" + String.format("There's %d items in the list\nSay \"list\" to see them", tasks.getSize());
         } catch (FileNotFoundException e) {
-            msg = "Something went wrong... There's still no file to be found, creating a new one now";
+            msg = msg + "\n" + "Something went wrong... There's still no file to be found, creating a new one now";
             return new TaskList();
         }
         return tasks;
@@ -79,4 +80,20 @@ public class Storage {
         return this.msg;
     }
 
+    private void loadSampleData() {
+        String sampleData = "T|false|coding homework\n"
+        + "D|true|get better at coding|ASAP\n"
+        + "E|false|more coding|now|end of time\n"
+        + "T|false|code\n"
+        + "D|true|cry|Dec 25 2023";
+
+        try {
+            FileWriter output = new FileWriter(txtFile);
+            output.write(sampleData);
+            output.close();
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+
+    }
 }

@@ -22,7 +22,6 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
 
-    private final Ui ui = new Ui();
     private Phi phi;
 
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpeg"));
@@ -32,7 +31,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         // add the greeting
-        dialogContainer.getChildren().add(DialogBox.getPhiDialog(ui.greeting(), phiImage));
+        dialogContainer.getChildren().add(DialogBox.getPhiDialog(Ui.greeting(), phiImage));
     }
 
     public void setPhi(Phi p) {

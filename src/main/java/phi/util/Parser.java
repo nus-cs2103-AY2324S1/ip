@@ -10,11 +10,9 @@ import phi.ui.Ui;
  */
 public class Parser {
     private final TaskList tasks;
-    private final Ui ui;
 
     public Parser(TaskList tasks) {
         this.tasks = tasks;
-        this.ui = new Ui();
     }
 
     /**
@@ -28,7 +26,7 @@ public class Parser {
         try {
             // Handling of Bye
             if (input.equals("bye")) {
-                return ui.goodbye();
+                return Ui.goodbye();
                 // Handling of List
             } else if (input.startsWith("list")) {
                 return handleList(input);

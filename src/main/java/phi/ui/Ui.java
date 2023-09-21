@@ -7,7 +7,7 @@ public class Ui {
     /**
      * Greeting message procedure
      */
-    public String greeting() {
+    public static String greeting() {
         String logo = " ___ _  _ ___\n"
                 + "| _ \\ || |_ _|\n"
                 + "|  _/ __ || | \n"
@@ -20,7 +20,7 @@ public class Ui {
     /**
      * Exit message procedure
      */
-    public String goodbye() {
+    public static String goodbye() {
         return "okay see ya later, nerd";
     }
 
@@ -28,7 +28,7 @@ public class Ui {
      * List of all accepted user commands
      */
     public static String helpMsg() {
-        return "Here's a list of commands:\n"
+        return "Here's a list of stuff I can do:\n"
                 + "1. list (prints out a list of all tasks)\n"
                 + "2. todo [TASK] (creates a task with body \"TASK\")\n"
                 + "3. deadline [TASK] /by [yyyy-MM-dd]\n"
@@ -41,4 +41,5 @@ public class Ui {
                 + "8. find [KEYWORD] (searches for tasks that contain corresponding KEYWORD)\n"
                 + "9. bye (exits the program)";
     }
+
 }
