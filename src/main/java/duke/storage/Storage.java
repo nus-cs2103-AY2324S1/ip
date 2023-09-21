@@ -3,6 +3,7 @@ package duke.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,10 +83,10 @@ public class Storage {
             } else if (n == 5) {
                 t = Task.of(temp[2], LocalDate.parse(temp[3]), LocalDate.parse(temp[4]));
             } else {
-                throw new DukeException("Error in parsing loading tasks");
+                throw new DukeException("Error in parsing loading tasks.");
             }
-        } catch ( DukeException e) {
-            throw new DukeException(e.getMessage());
+        } catch ( DateTimeException e) {
+            throw new DukeException("Error in parsing loading tasks");
         }
 
         hasMarked(temp[0], t);
