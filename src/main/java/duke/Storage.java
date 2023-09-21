@@ -30,6 +30,7 @@ public class Storage {
      */
     //CHECKSTYLE.OFF: Indentation
     public ArrayList<Task> load() throws IOException, InvalidFileFormatException {
+        System.out.println("1");
         BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
         String line;
         ArrayList<Task> taskList = new ArrayList<>();

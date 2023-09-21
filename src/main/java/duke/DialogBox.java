@@ -57,17 +57,7 @@ public class DialogBox extends HBox {
 
         // Padding and Setting for DialogBox
         this.setAlignment(Pos.TOP_RIGHT);
-        this.setPadding(new Insets(10)); //Padding around DialogBox
-
-        // Add margins to the text and displayPicture elements
-//        HBox.setMargin(dialog, new Insets(5, 10, 5, 10)); // Adjust the values as needed
-//        HBox.setMargin(displayPicture, new Insets(5, 10, 5, 10)); // Adjust the values as needed
-
-        //Sets background for circle+text
-//        this.setBackground(new Background(new BackgroundFill(bgColor, null, null)));
-
-        //Background for text-part only
-        this.dialog.setBackground(new Background(new BackgroundFill(Color.CYAN, null, null)));
+        this.setPadding(new Insets(20)); //Padding around DialogBox
     }
 
     /**
@@ -81,12 +71,19 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db =  new DialogBox(text, img);
+
+        //Background for text-part only
+        db.dialog.setBackground(new Background(new BackgroundFill(Color.web("#ABEB9B"), null, null)));
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+
+        //Background for text-part only
+        db.dialog.setBackground(new Background(new BackgroundFill(Color.web("#BFD2EF"), null, null)));
         return db;
     }
 }

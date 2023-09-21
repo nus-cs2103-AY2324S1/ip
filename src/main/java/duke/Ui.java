@@ -13,8 +13,8 @@ public class Ui {
      * Constructs a new `Ui` instance with default greetings, horizontal bar, and logo.
      */
     public Ui() {
-        this.greeting = "Hello, I'm Capt. Price! What can I do for you today, Sergeant?";
-        this.exitGreeting = "Over and out. See you next mission!";
+        this.greeting = "Hello, I'm Capt. Price! What can I do for you today, Major?";
+        this.exitGreeting = "Over and out. See you next mission Major!";
         this.horizontalBar = "-------------------------------------------------";
         this.logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -61,6 +61,13 @@ public class Ui {
      */
     public void displayExitGreeting() {
         System.out.println(this.botMessage(this.exitGreeting));
+    }
+
+    /**
+     * Returns the entry greeting message.
+     */
+    public String getEntryGreeting() {
+        return this.greeting;
     }
 
     /**

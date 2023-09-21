@@ -125,7 +125,7 @@ public class Task {
 
     public String printDoAfter() {
         if (this.parentTask == null) {
-            return "DoAfter : " + "NO DEPENDENCY";
+            return "DoAfter : " + "NONE";
         } else {
             return "DoAfter : " + this.parentTask.description;
         }

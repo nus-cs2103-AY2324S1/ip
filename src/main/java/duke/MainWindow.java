@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image captainImage = new Image(this.getClass().getResourceAsStream("/images/DaCaptain.jpg"));
 
     @FXML
     public void initialize() {
@@ -32,6 +32,12 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+
+        //Initialize Greeting from Bot
+        String input = Command.START;
+        String response = duke.generateResponse(input);
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(response, captainImage));
+        userInput.clear();
     }
 
     /**
@@ -44,7 +50,7 @@ public class MainWindow extends AnchorPane {
         String response = duke.generateResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, captainImage)
         );
         userInput.clear();
     }
