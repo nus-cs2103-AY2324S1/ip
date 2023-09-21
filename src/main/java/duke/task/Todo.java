@@ -9,9 +9,10 @@ public class Todo extends Task {
      * Creates a todo instance.
      *
      * @param description The description of the task.
+     * @param rank The priority of the task.
      */
-    public Todo(String description) {
-        super(description);
+    public Todo(String description, int rank) {
+        super(description, rank);
     }
 
     /**
@@ -20,8 +21,8 @@ public class Todo extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toString() {
-        return "[T] " + super.toString();
+    public String convertToString() {
+        return "[T] " + super.convertToString() + " (Priority: " + getPriority() + ")";
     }
 
     /**
@@ -30,7 +31,7 @@ public class Todo extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toStringInFile() {
-        return "[T] /" + super.toStringInFile();
+    public String convertToStringInFile() {
+        return "[T] /" + super.convertToStringInFile() + " / " + getPriority();
     }
 }

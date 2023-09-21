@@ -1,7 +1,7 @@
 package duke.exception;
 
 /**
- * An exception that arises when the description of the task is not provided.
+ * An exception thrown when the description of the task is not provided.
  */
 public class LackDescriptionException extends DukeException {
     /**

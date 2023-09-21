@@ -1,22 +1,32 @@
 package duke.stub;
 
-import duke.TaskArray;
 import duke.TaskList;
 import duke.task.Task;
+
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 
-public class TaskListStub implements TaskArray {
+/**
+ * A stub for the TaskList class.
+ */
+public class TaskListStub extends TaskList {
+    /** A list to store the tasks. */
+    private PriorityQueue<Task> tasks;
 
-    private ArrayList<Task> tasks;
-
+    /**
+     * Constructs a new TaskListStub.
+     *
+     * @param b If true, the list will be empty.
+     * @param unmarked If true, all the tasks in the list will be unmarked.
+     */
     public TaskListStub(boolean b, boolean unmarked) {
         if (b) {
-            this.tasks = new ArrayList<>();
+            this.tasks = new PriorityQueue<>();
         } else {
-            this.tasks = new ArrayList<>();
-            Task t1 = new Task("task1");
-            Task t2 = new Task("task2");
-            Task t3 = new Task("task3");
+            this.tasks = new PriorityQueue<>();
+            Task t1 = new Task("task1", 0);
+            Task t2 = new Task("task2", 0);
+            Task t3 = new Task("task3", 0);
             if (!unmarked) {
                 t1.markDone();
                 t2.markDone();
@@ -40,16 +50,25 @@ public class TaskListStub implements TaskArray {
 
     @Override
     public Task get(int i) {
-        return tasks.get(i);
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        Task t = tasks.poll();
+        for (int j = 0; j < i; j++) {
+            tempTasks.add(t);
+            t = tasks.poll();
+        }
+        tempTasks.add(t);
+        tasks.addAll(tempTasks);
+        return t;
     }
 
     @Override
     public void add(Task t) {
         tasks.add(t);
     }
+
     @Override
-    public void remove(int i) {
-        tasks.remove(i);
+    public void remove(Task t) {
+        tasks.remove(t);
     }
 
     @Override

@@ -8,10 +8,10 @@ import java.time.format.DateTimeFormatter;
  * A task that has a starting and ending time.
  */
 public class Event extends Task {
-    private final LocalDate start;
-    private final LocalTime startTime;
-    private final LocalDate end;
-    private final LocalTime endTime;
+    private LocalDate startDate;
+    private LocalTime startTime;
+    private LocalDate endDate;
+    private LocalTime endTime;
 
     /**
      * Creates an event task instance.
@@ -20,33 +20,33 @@ public class Event extends Task {
      * @param start Starting time of the task.
      * @param end Ending time of the task.
      */
-    public Event(String description, LocalDate start, LocalDate end) {
-        super(description);
-        this.start = start;
-        this.end = end;
+    public Event(String description, LocalDate start, LocalDate end, int rank) {
+        super(description, rank);
+        this.startDate = start;
+        this.endDate = end;
         this.startTime = null;
         this.endTime = null;
     }
 
-    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end) {
-        super(description);
-        this.start = start;
-        this.end = end;
+    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end, int rank) {
+        super(description, rank);
+        this.startDate = start;
+        this.endDate = end;
         this.startTime = startTime;
         this.endTime = null;
     }
 
-    public Event(String description, LocalDate start, LocalDate end, LocalTime endTime) {
-        super(description);
-        this.start = start;
-        this.end = end;
+    public Event(String description, LocalDate start, LocalDate end, LocalTime endTime, int rank) {
+        super(description, rank);
+        this.startDate = start;
+        this.endDate = end;
         this.startTime = null;
         this.endTime = endTime;
     }
-    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end, LocalTime endTime) {
-        super(description);
-        this.start = start;
-        this.end = end;
+    public Event(String description, LocalDate start, LocalTime startTime, LocalDate end, LocalTime endTime, int rank) {
+        super(description, rank);
+        this.startDate = start;
+        this.endDate = end;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -57,22 +57,25 @@ public class Event extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toString() {
+    public String convertToString() {
+        assert this.startDate != null : "Start date should not be empty";
+        assert this.endDate != null : "End date should not be empty";
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM d yyyy");
-        return "[E] " + super.toString() + " (from: " + this.start.format(dateFormat)
-                + this.startTimeString() + " to: "
-                + this.end.format(dateFormat) + this.endTimeString()+ ")";
+        return "[E] " + super.convertToString() + " (from:" + convertDateToString(this.startDate)
+                + convertTimeToString(this.startTime) + " to:"
+                + convertDateToString(this.endDate) + convertTimeToString(this.endTime)+ ")"
+                + " (Priority: " + getPriority() + ")";
     }
 
-    private String startTimeString() {
-        return (this.startTime != null)
-                ? " " + this.startTime.format(DateTimeFormatter.ofPattern("h:mma"))
+    private String convertDateToString(LocalDate d) {
+        return (d != null)
+                ? " " + d.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 : "";
     }
 
-    private String endTimeString() {
-        return (this.endTime != null)
-                ? " " + this.endTime.format(DateTimeFormatter.ofPattern("h:mma"))
+    private String convertTimeToString(LocalTime t) {
+        return (t != null)
+                ? " " + t.format(DateTimeFormatter.ofPattern("h:mma"))
                 : "";
     }
 
@@ -82,21 +85,21 @@ public class Event extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toStringInFile() {
-        return "[E] /" + super.toStringInFile() + " / " + this.start
-                + this.startTimeStringInFile() + " / " + this.end
-                + this.endTimeStringInFile();
+    public String convertToStringInFile() {
+        assert this.startDate != null : "Start date should not be empty";
+        assert this.endDate != null : "End date should not be empty";
+        return "[E] /" + super.convertToStringInFile() + " / " + convertDateToStringInFile(this.startDate)
+                + convertTimeToStringInFile(this.startTime) + " / " + convertDateToStringInFile(this.endDate)
+                + convertTimeToStringInFile(this.endTime) + " / " + getPriority();
     }
 
-    private String startTimeStringInFile() {
-        return this.startTime != null
-                ? " / " + this.startTime.format(DateTimeFormatter.ofPattern("HH:mm"))
-                : "";
+    private String convertDateToStringInFile(LocalDate d) {
+        return d.toString();
     }
 
-    private String endTimeStringInFile() {
-        return this.endTime != null
-                ? " / " + this.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+    private String convertTimeToStringInFile(LocalTime t) {
+        return t != null
+                ? " / " + t.format(DateTimeFormatter.ofPattern("HH:mm"))
                 : "";
     }
 }

@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
  * A task that has a deadline.
  */
 public class Deadline extends Task {
-    private final LocalDate date;
-    private final LocalTime time;
+    private LocalDate endDate;
+    private LocalTime endTime;
 
     /**
      * Creates a deadline task instance.
@@ -17,10 +17,10 @@ public class Deadline extends Task {
      * @param description Description of the task.
      * @param date duke.task.Deadline date of the task.
      */
-    public Deadline(String description, LocalDate date) {
-        super(description);
-        this.date = date;
-        this.time = null;
+    public Deadline(String description, LocalDate date, int rank) {
+        super(description, rank);
+        this.endDate = date;
+        this.endTime = null;
     }
 
     /**
@@ -30,10 +30,10 @@ public class Deadline extends Task {
      * @param date duke.task.Deadline date of the task.
      * @param time duke.task.Deadline time of the task.
      */
-    public Deadline(String description, LocalDate date, LocalTime time) {
-        super(description);
-        this.date = date;
-        this.time = time;
+    public Deadline(String description, LocalDate date, LocalTime time, int rank) {
+        super(description, rank);
+        this.endDate = date;
+        this.endTime = time;
     }
 
     /**
@@ -42,15 +42,22 @@ public class Deadline extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toString() {
-        return "[D] " + super.toString() + " (by: "
-                + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + this.timeString() + ")";
+    public String convertToString() {
+        assert this.endDate != null : "End date should not be empty";
+        return "[D] " + super.convertToString() + " (by:"
+                + convertEndDateToString() + convertEndTimeToString() + ")" + " (Priority: "
+                + getPriority() + ")";
     }
 
-    private String timeString() {
-        return (this.time != null)
-                ? " " + this.time.format(DateTimeFormatter.ofPattern("h:mma"))
+    private String convertEndDateToString() {
+        return (this.endDate != null)
+                ? " " + this.endDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                : "";
+    }
+
+    private String convertEndTimeToString() {
+        return (this.endTime != null)
+                ? " " + this.endTime.format(DateTimeFormatter.ofPattern("h:mma"))
                 : "";
     }
 
@@ -60,14 +67,19 @@ public class Deadline extends Task {
      * @return Desired string representation of the task.
      */
     @Override
-    public String toStringInFile() {
-        return "[D] /" + super.toStringInFile() + " / " + this.date
-                + this.timeStringInFile();
+    public String convertToStringInFile() {
+        assert this.endDate != null : "End date should not be empty";
+        return "[D] /" + super.convertToStringInFile() + " / " + this.convertEndDateToStringInFile()
+                + this.convertEndTimeToStringInFile() + " / " + getPriority();
     }
 
-    private String timeStringInFile() {
-        return this.time != null
-                ? " / " + this.time.format(DateTimeFormatter.ofPattern("HH:mm"))
+    private String convertEndDateToStringInFile() {
+        return this.endDate.toString();
+    }
+
+    private String convertEndTimeToStringInFile() {
+        return this.endTime != null
+                ? " / " + this.endTime.format(DateTimeFormatter.ofPattern("HH:mm"))
                 : "";
     }
 }
