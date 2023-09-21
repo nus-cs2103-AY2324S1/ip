@@ -89,6 +89,7 @@ public class TaskList {
     public TaskList findMatchingTasks(String keyword) {
         TaskList matchingTaskList = new TaskList();
         for (int i = 0; i < getSize(); i++) {
+            // This is C-BetterSearch by using contains
             if (this.getTask(i).hasKeyword(keyword)) {
                 matchingTaskList.addTask(this.getTask(i));
             }
