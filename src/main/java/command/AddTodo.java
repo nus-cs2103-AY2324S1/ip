@@ -12,6 +12,8 @@ import ui.Ui;
  */
 public class AddTodo extends AddCommand {
 
+    private static final int DESCRIPTION_START_INDEX = 5;
+
     /**
      * Initializes a command.AddTodo command with the specified input.
      *
@@ -32,30 +34,29 @@ public class AddTodo extends AddCommand {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        StringBuilder response = new StringBuilder();
-
-        try {
-            // Check if the description is empty or too short
-            if (input.length() <= 5 || input.substring(5).trim().isEmpty()) {
-                throw new DukeException("The description of a To-Do task cannot be empty.");
-            }
-
-            // Extract the description from the user input
-            String description = input.substring(5).trim();
-
-            // Create a new To-Do task and add it to the task list
-            Todo todo = new Todo(description);
-            tasks.add(todo);
-
-            // Build response message
-            response.append(ui.showAddedTask(todo));
-            response.append("\n").append(todo);
-
-        } catch (DukeException e) {
-            // Handle exception.DukeException by rethrowing it
-            throw e;
+        if (isDescriptionEmptyOrTooShort(input)) {
+            throw new DukeException("The description of a To-Do task cannot be empty.");
         }
 
+        String description = extractDescriptionFromInput(input);
+        Todo todo = new Todo(description);
+        tasks.add(todo);
+
+        return buildResponseMessage(ui, todo);
+    }
+
+    private boolean isDescriptionEmptyOrTooShort(String input) {
+        return input.length() <= DESCRIPTION_START_INDEX || input.substring(DESCRIPTION_START_INDEX).trim().isEmpty();
+    }
+
+    private String extractDescriptionFromInput(String input) {
+        return input.substring(DESCRIPTION_START_INDEX).trim();
+    }
+
+    private String buildResponseMessage(Ui ui, Todo todo) {
+        StringBuilder response = new StringBuilder();
+        response.append(ui.showAddedTask(todo));
+        response.append("\n").append(todo);
         return response.toString();
     }
 }

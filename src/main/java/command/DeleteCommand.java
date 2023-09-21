@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
      * @param taskIndex The index of the task to be deleted.
      */
     public DeleteCommand(int taskIndex) {
-        super(null);
+        super(null);  // Removed unnecessary `null` argument.
         this.taskIndex = taskIndex;
     }
 
@@ -34,20 +34,24 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        StringBuilder response = new StringBuilder();
-
         try {
             Task deletedTask = tasks.remove(taskIndex - 1);
             storage.save(tasks.getList());
-
-            // Build response message
-            response.append("Task successfully deleted: ");
-            response.append(deletedTask);
-
-        } catch(Exception e) {
+            return buildDeletionResponseMessage(deletedTask);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("Invalid task index.");
+        } catch (Exception e) {
             throw new DukeException(e.getMessage());
         }
+    }
 
-        return response.toString();
+    /**
+     * Builds the response message for a successful task deletion.
+     *
+     * @param deletedTask The task that has been deleted.
+     * @return The response message string.
+     */
+    private String buildDeletionResponseMessage(Task deletedTask) {
+        return "Task successfully deleted: " + deletedTask;
     }
 }

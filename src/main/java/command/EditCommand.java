@@ -6,30 +6,32 @@ import task.Task;
 import task.TaskList;
 import ui.Ui;
 
-import java.util.Objects;
-
 /**
  * Represents a command to edit a task's properties, either by marking it as
  * complete or incomplete.
  */
 public class EditCommand extends Command {
     private final int taskIndex;
-    private final String description;
+    private final EditOperation operation;
 
-    /**
-     * Initializes an EditCommand with the given description and task index.
-     *
-     * @param description A string that determines the type of edit to be performed.
-     * @param taskIndex The index of the task in the task list that is to be edited.
-     */
-    public EditCommand(String description, int taskIndex) {
-        super(null);
-        this.taskIndex = taskIndex;
-        this.description = description;
+    enum EditOperation {
+        MARK, UNMARK
     }
 
     /**
-     * Executes the command to edit a task's properties based on the given description
+     * Initializes an EditCommand with the given operation type and task index.
+     *
+     * @param operation   The type of edit to be performed.
+     * @param taskIndex The index of the task in the task list that is to be edited.
+     */
+    public EditCommand(EditOperation operation, int taskIndex) {
+        super(null);
+        this.taskIndex = taskIndex;
+        this.operation = operation;
+    }
+
+    /**
+     * Executes the command to edit a task's properties based on the given operation
      * and task index.
      *
      * @param tasks   The list of tasks.
@@ -40,23 +42,31 @@ public class EditCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-        try {
-            if (taskIndex <= 0 || taskIndex > tasks.size()) {
-                throw new DukeException(ui.invalidIndexError(taskIndex));
-            }
+        validateTaskIndex(tasks.size(), ui);
+        Task currTask = tasks.getList().get(taskIndex - 1);
 
-            Task currTask = tasks.getList().get(taskIndex - 1);
-            if (Objects.equals(description, "mark")) {
+        switch (operation) {
+            case MARK:
                 currTask.setCompleted();
                 return ui.showMarkedTask(taskIndex, currTask);
-            } else if (Objects.equals(description, "unmark")) {
+            case UNMARK:
                 currTask.setNotCompleted();
                 return ui.showUnmarkedTask(taskIndex, currTask);
-            } else {
-                throw new DukeException("Invalid edit description provided.");
-            }
-        } catch (DukeException e) {
-            throw new DukeException(e.getMessage());
+            default:
+                throw new DukeException("Invalid edit operation provided.");
+        }
+    }
+
+    /**
+     * Validates the task index.
+     *
+     * @param taskSize The total number of tasks.
+     * @param ui       The user interface interactions.
+     * @throws DukeException If the task index is invalid.
+     */
+    private void validateTaskIndex(int taskSize, Ui ui) throws DukeException {
+        if (taskIndex <= 0 || taskIndex > taskSize) {
+            throw new DukeException(ui.invalidIndexError(taskIndex));
         }
     }
 }

@@ -6,39 +6,39 @@ import task.TaskList;
 import ui.Ui;
 
 /**
- * Represents a command to list all tasks.
+ * Represents a command that lists all tasks.
  */
 public class ListCommand extends Command {
 
     /**
-     * Constructs a command.ListCommand.
+     * Constructs a ListCommand instance.
      */
     public ListCommand() {
         super(null);
     }
 
     /**
-     * Executes the ListCommand, generating a string representation of the list of tasks.
+     * Executes the ListCommand by generating a formatted string of all tasks.
      *
-     * @param tasks   The list of tasks to be represented as a string.
-     * @param ui      The user interface utility to format task messages.
-     * @param storage The storage utility for saving tasks to a file (not used in this command).
-     * @return A string representation of the tasks list.
+     * @param tasks   The collection of tasks to be displayed.
+     * @param ui      The user interface utility for formatting messages.
+     * @param storage The storage mechanism for tasks. Not utilized in the context of the ListCommand.
+     * @return A formatted string representing the list of tasks.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder response = new StringBuilder();
 
         if (tasks.size() == 0) {
-            response.append(ui.showEmptyTaskList());
-        } else {
-            response.append(ui.showTaskListHeader());
-            for (int i = 0; i < tasks.size(); i++) {
-                Task currTask = tasks.getList().get(i);
-                response.append(ui.showTask(i, currTask)).append("\n"); // Assuming each task is on a new line
-            }
+            return ui.showEmptyTaskList();  // Early return for clarity
         }
 
-        return response.toString().trim();  // Trim to remove any trailing newline
+        response.append(ui.showTaskListHeader());
+        int index = 1;
+        for (Task currTask : tasks.getList()) {
+            response.append(ui.showTask(index++, currTask)).append("\n");
+        }
+
+        return response.toString().trim();  // Remove any trailing whitespace or newline
     }
 }

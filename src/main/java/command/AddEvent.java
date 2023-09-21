@@ -15,6 +15,11 @@ import java.time.format.DateTimeParseException;
  */
 public class AddEvent extends AddCommand {
 
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HHmm";
+    private static final String FROM_PREFIX = "/from";
+    private static final String TO_PREFIX = "/to";
+    private static final int DESCRIPTION_START_INDEX = 6;
+
     /**
      * Initializes a command.AddEvent command with the specified input.
      *
@@ -36,40 +41,33 @@ public class AddEvent extends AddCommand {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         StringBuilder response = new StringBuilder();
+
+        if (!input.contains(FROM_PREFIX) || !input.contains(TO_PREFIX)) {
+            throw new DukeException("An Event task should have a '/from' and '/to' with respective times.");
+        }
+
+        String[] sections = input.split(FROM_PREFIX + "|" + TO_PREFIX);
+
+        if (sections.length < 3 || sections[0].trim().length() <= DESCRIPTION_START_INDEX ||
+                sections[1].trim().isEmpty() || sections[2].trim().isEmpty()) {
+            throw new DukeException("Incorrect format for event.");
+        }
+
+        String description = sections[0].substring(DESCRIPTION_START_INDEX).trim();
+        String from = sections[1].trim();
+        String to = sections[2].trim();
+
         try {
-            // Check if input contains /from and /to
-            if (!input.contains("/from") || !input.contains("/to")) {
-                throw new DukeException("An task.Event task should have a '/from' and '/to' with respective times.");
-            }
-
-            // Split the input into sections
-            String[] sections = input.split("/from|/to");
-
-            // Check if there are at least three sections and validate each one
-            if (sections.length < 3 || sections[0].trim().length() <= 6 || sections[1].trim().isEmpty() || sections[2].trim().isEmpty()) {
-                throw new DukeException("Incorrect date/time for event. Please use 'yyyy-MM-dd HHmm'.");
-            }
-
-            // Get description, from, and to parts
-            String description = sections[0].substring(6).trim();
-            String from = sections[1].trim();
-            String to = sections[2].trim();
-
-            // Parse date and time to LocalDateTime
             LocalDateTime formattedFrom = parseDateTime(from);
             LocalDateTime formattedTo = parseDateTime(to);
-
-            // Create and add task.Event task
             Event event = new Event(description, formattedFrom, formattedTo);
             tasks.add(event);
-
-            // Build response message
             response.append(ui.showAddedTask(event));
             response.append("\n").append(event);
-
         } catch (DateTimeParseException e) {
-            throw new DukeException("Incorrect date/time for event. Please use 'yyyy-MM-dd HHmm'.");
+            throw new DukeException("Incorrect date/time format for event. Please use '" + DATE_TIME_PATTERN + "'.");
         }
+
         return response.toString();
     }
 
@@ -80,6 +78,6 @@ public class AddEvent extends AddCommand {
      * @return A LocalDateTime object representing the parsed date and time.
      */
     private LocalDateTime parseDateTime(String dateTimeStr) {
-        return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
     }
 }

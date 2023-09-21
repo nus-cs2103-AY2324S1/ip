@@ -14,6 +14,9 @@ import java.time.format.DateTimeParseException;
  * Represents a command to add a task.Deadline task.
  */
 public class AddDeadline extends AddCommand {
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HHmm";
+    private static final String DEADLINE_PREFIX = "/by";
+    private static final int DESCRIPTION_START_INDEX = 8;
 
     /**
      * Creates a command.AddDeadline command.
@@ -36,38 +39,29 @@ public class AddDeadline extends AddCommand {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         StringBuilder response = new StringBuilder();
+        if (!input.contains(DEADLINE_PREFIX)) {
+            throw new DukeException("A Deadline task should have a '/by' followed by the deadline time.");
+        }
+
+        String[] sections = input.split(DEADLINE_PREFIX);
+
+        if (sections.length < 2 || sections[0].trim().isEmpty() || sections[1].trim().isEmpty()) {
+            throw new DukeException("Incorrect format for deadline.");
+        }
+
+        String description = sections[0].trim().substring(DESCRIPTION_START_INDEX);
+        String by = sections[1].trim();
+
         try {
-            // Check if input contains /by
-            if (!input.contains("/by")) {
-                throw new DukeException("A task.Deadline task should have a '/by' followed by the deadline time.");
-            }
-
-            // Split the input into sections
-            String[] sections = input.split("/by");
-
-            // Check if there are at least two sections & validate each one
-            if (sections.length < 2 || sections[0].trim().isEmpty() || sections[1].trim().isEmpty()) {
-                throw new DukeException("Incorrect format for deadline.");
-            }
-
-            // Get description and deadline parts
-            String description = sections[0].trim().substring(8);
-            String by = sections[1].trim();
-
-            // Parse date and time to LocalDateTime
             LocalDateTime deadlineDateTime = parseDateTime(by);
-
-            // Create and add task.Deadline task
             Deadline newDeadline = new Deadline(description, deadlineDateTime);
             tasks.add(newDeadline);
-
-            // Build response message
             response.append(ui.showAddedTask(newDeadline));
             response.append("\n").append(newDeadline);
-
         } catch (DateTimeParseException e) {
-            throw new DukeException("Incorrect date/time format for deadline. Please use 'yyyy-MM-dd HHmm'.");
+            throw new DukeException("Incorrect date/time format for deadline. Please use '" + DATE_TIME_PATTERN + "'.");
         }
+
         return response.toString();
     }
 
@@ -78,6 +72,6 @@ public class AddDeadline extends AddCommand {
      * @return A LocalDateTime object representing the parsed date and time.
      */
     private LocalDateTime parseDateTime(String dateTimeStr) {
-        return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
     }
 }

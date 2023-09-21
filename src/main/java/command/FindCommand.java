@@ -5,7 +5,8 @@ import task.TaskList;
 import storage.Storage;
 import ui.Ui;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents a command that finds tasks by a given keyword.
@@ -23,6 +24,9 @@ public class FindCommand extends Command {
     public FindCommand(String input) {
         super(input);
         this.keyword = input.substring(5).trim();
+        if (this.keyword.isEmpty()) {
+            throw new IllegalArgumentException("Search keyword cannot be empty.");
+        }
     }
 
     /**
@@ -35,22 +39,23 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> matchingTasks = new ArrayList<>(tasks.getList());
-        matchingTasks.removeIf(task -> !task.getDescription().contains(keyword));
-
-        StringBuilder response = new StringBuilder();
+        List<Task> matchingTasks = tasks.getList()
+                .stream()
+                .filter(task -> task.getDescription().contains(keyword))
+                .collect(Collectors.toList());
 
         if (matchingTasks.isEmpty()) {
-            response.append(ui.showNotFound());
-        } else {
-            response.append(ui.showTaskListHeader());
-            for (int i = 0; i < matchingTasks.size(); i++) {
-                response.append(ui.showTask(i, matchingTasks.get(i)));
-                if (i < matchingTasks.size() - 1) {
-                    response.append("\n");
-                }
+            return ui.showNotFound();
+        }
+
+        StringBuilder response = new StringBuilder(ui.showTaskListHeader());
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            response.append(ui.showTask(i + 1, matchingTasks.get(i))); // Index starts from 1 for user-friendly display
+            if (i < matchingTasks.size() - 1) {
+                response.append("\n");
             }
         }
+
         return response.toString();
     }
 
