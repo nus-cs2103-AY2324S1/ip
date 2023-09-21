@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import duke.exceptions.DuplicateTaskException;
 import duke.exceptions.InsufficientArgumentsException;
 import duke.exceptions.StorageCreationException;
 import duke.tasks.Task;
@@ -70,9 +71,14 @@ public class TaskList {
      * Inserts a task into the list of items.
      *
      * @param task The item to be added.
-     * @throws IOException If saving tasks to file failed.
+     * @throws IOException            If saving tasks to file failed.
+     * @throws DuplicateTaskException If the task is a duplicate.
      */
-    public void insertTask(Task task) throws IOException {
+    public void insertTask(Task task) throws IOException, DuplicateTaskException {
+        if (this.tasks.contains(task)) {
+            throw new DuplicateTaskException(String.format(
+                    Messages.DUPLICATE_TASKS_ERROR_MESSAGE, task));
+        }
         this.tasks.add(task);
         this.saveTasks();
     }

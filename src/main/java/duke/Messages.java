@@ -37,4 +37,5 @@ public class Messages {
     public static final String FAILED_TO_CREATE_FOLDER_ERROR_MESSAGE = "We couldn't create a new "
             + "data/duke.txt file.";
     public static final String INVALID_DATE_TIME_FORMAT = "\"%s\" is not a valid date time format.";
+    public static final String DUPLICATE_TASKS_ERROR_MESSAGE = "Task \"%s\" already exists!";
 }
