@@ -8,7 +8,7 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <HBox alignment="TOP_RIGHT" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" style="-fx-border-radius: 30; -fx-border-color: red; -fx-background-color: yellow; -fx-background-radius: 30;">
+      <HBox alignment="TOP_RIGHT" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" style="-fx-border-radius: 30; -fx-border-color: #640469; -fx-background-radius: 30; -fx-background-color: #f4a8f7">
          <children>
               <Label fx:id="dialog" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" style="-fx-opacity: 1;" text="Label" wrapText="true">
                <cursor>
