@@ -6,7 +6,7 @@
     ☹ OOPS!!! I'm sorry, but the input ToDo is invalid :-(
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this todo:
     [T][ ] CS2101 Presentation
     Now you have 1 tasks in the list.
     ____________________________________________________________
@@ -39,7 +39,7 @@
     ☹ OOPS!!! I'm sorry, but the Deadline input is invalid :-(
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this deadline:
     [D][ ] CS2103 Individual Project  (by: SEP 01 2023 )
     Now you have 2 tasks in the list.
     ____________________________________________________________
@@ -84,7 +84,7 @@
     ☹ OOPS!!! I'm sorry, but the input Event is invalid :-(
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this event:
     [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
     Now you have 3 tasks in the list.
     ____________________________________________________________
@@ -204,7 +204,7 @@
     2. [E][ ] September  (from: SEP 01 2023 to: SEP 30 2023 )
     ____________________________________________________________
     ____________________________________________________________
-    Got it. I've added this task:
+    Got it. I've added this todo:
     [T][ ] CS2103 Materials
     Now you have 3 tasks in the list.
     ____________________________________________________________

@@ -1,9 +1,9 @@
 package boti.ui;
 
+import java.sql.Time;
 import java.util.Scanner;
 
-import boti.task.Task;
-import boti.task.TaskList;
+import boti.task.*;
 
 /**
  * The Ui class for the user interaction of the program
@@ -121,7 +121,18 @@ public class Ui {
      * @return the message of the add task command
      */
     public String printAddTask(Task task, int size) {
-        String addTaskMessage = SPACE + "Got it. I've added this task:\n"
+        String type;
+        if (task instanceof ToDo) {
+            type = "todo";
+        } else if (task instanceof Deadline) {
+            type = "deadline";
+        } else if (task instanceof Event) {
+            type = "event";
+        } else {
+            assert task instanceof  TimedTask: "The task must be a timed task";
+            type = "timed task";
+        }
+        String addTaskMessage = SPACE + "Got it. I've added this " + type + ":\n"
                                 + SPACE + task + "\n"
                                 + SPACE + "Now you have " + size + " tasks in the list.";
         System.out.println(SPACE + DASH);
