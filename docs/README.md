@@ -28,7 +28,7 @@ Duke is a chatbot designed to be a task manager and assistant for users.
 ## Quick Start
 
 1. Ensure that you have Java 11 installed.
-2. Download the latest `duke.jar`.
+2. Download the latest jar file [here](https://github.com/dickongwd/ip/releases/tag/A-Release).
 3. Run `java -jar duke.jar`
 4. Start managing your tasks!
 
