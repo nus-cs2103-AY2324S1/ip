@@ -2,28 +2,48 @@
 
 ## Features 
 
-### Feature-ABC
+### Add Commands
 
-Description of the feature.
+Add commands should only begin with "todo", "event", "deadline"
 
-### Feature-XYZ
+Formats:
 
-Description of the feature.
+a) todo [task description]
+  - eg. todo read book
 
-## Usage
+b) event [task description] /from [day time] /to [time]
+  - eg. event project meeting /from Mon 2pm /to 4pm
 
-### `Keyword` - Describe action
+c) deadline [task description] /by [date]
+  - eg. deadline return book /by Sunday
 
-Describe the action and its outcome.
+Expected output: chatbot notifies that the task is added and the number of tasks in the list.
 
-Example of usage: 
+### Delete Commands
 
-`keyword (optional arguments)`
+Format: delete [index]
 
-Expected outcome:
+Parameter constraints: index should be from 1-n, where n refers to the size of list.
 
-Description of the outcome.
+Expected output: chatbot notifies that the task is deleted and the number of tasks left.
 
-```
-expected output
-```
+### Mark/ Unmark Commands
+
+Format: mark/ unmark [index]
+
+Expected output: chatbot notifies that the task is marked/ unmarked.
+
+### list Command
+
+Format: list
+
+Expected output: chatbot returns a list of tasks.
+
+### find Command
+
+Format: find [keyword]
+
+Parameter constaints: keyword is in the form of string
+
+Expected output: chatbot returns tasks that contains the keyword.
+
