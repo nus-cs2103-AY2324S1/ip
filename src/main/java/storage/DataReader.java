@@ -42,7 +42,6 @@ public class DataReader {
         } catch (IOException e) {
             System.out.println("Error reading the file or the file doesn't exist.");
             System.out.println("Please try again after ensuring the correctness of the file.");
-            System.exit(1);
         }
         return tasksList;
     }
