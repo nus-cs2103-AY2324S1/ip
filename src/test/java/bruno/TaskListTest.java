@@ -204,4 +204,59 @@ public class TaskListTest {
         taskList.setList(tasks);
         assertThrows(BrunoNegativeArgException.class, () -> taskList.deleteTask("delete -1"));
     }
+
+    @Test void testFindTask_normalInput_correctOutputGenerated() {
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
+        String res = taskList.findTasks("find fair");
+        assertEquals("Here are the tasks matching your search:\n1. [E][ ] career fair (from: 29 August 2023"
+                + " 17:00 to: 31 August 2023 17:00)\n", res);
+    }
+
+    @Test void testAddNote_normalInput_correctOutputGenerated() {
+        try {
+            List<Task> tasks = taskList.getList();
+            tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
+            String res = taskList.addNote("note 1 urgent");
+            assertEquals("I have added note to the task:\n[E][ ] career fair (urgent) (from: 29 August 2023 "
+                    + "17:00 to: 31 August 2023 17:00)", res);
+        } catch (BrunoException e) {
+            fail();
+        }
+    }
+
+    @Test void testAddNote_indexOutOfBounds_exceptionThrown() {
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
+        assertThrows(BrunoIndexOutOfBoundsException.class, () -> taskList.addNote("note 2 "
+                + "urgent"));
+    }
+
+    @Test void testAddNote_stringArg_exceptionThrown() {
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
+        assertThrows(BrunoIntegerMismatchException.class, () -> taskList.addNote("note abc "
+                + "urgent"));
+    }
+
+    @Test void testAddNote_negativeArg_exceptionThrown() {
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
+        assertThrows(BrunoNegativeArgException.class, () -> taskList.addNote("note -1 "
+                + "urgent"));
+    }
+
+    @Test void testShowSchedule_normalInput_correctOutputGenerated() {
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
+        String res = taskList.showSchedule("schedule 2023-08-30");
+        assertEquals("Here is the schedule for the given date:\n"
+                + "1. [E][ ] career fair (from: 29 August 2023 17:00 to: 31 August 2023 17:00)\n", res);
+    }
+
+    @Test void testShowSchedule_incorrectDateFormat_exceptionThrown() {
+        List<Task> tasks = taskList.getList();
+        tasks.add(new Event("career fair", "2023-08-29 17:00", "2023-08-31 17:00", ""));
+        assertThrows(DateTimeException.class, () -> taskList.showSchedule("schedule 30-08-2023"));
+    }
 }
