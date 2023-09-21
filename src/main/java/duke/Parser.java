@@ -76,7 +76,7 @@ public class Parser {
                     "c...cannot be empty!!!°(°ˊДˋ°) °");
         }
         int taskNum = Integer.parseInt(parts[1]);
-        if (taskNum > tasks.totalTaskNum()) {
+        if (taskNum > tasks.totalTaskNum() ||  taskNum <= 0) {
             throw new DukeException("AAA...AGHHH!!! You...you don't have sooo many tasks\n" +
                     "y...yyet!!!°(°ˊДˋ°) °");
         }
@@ -99,7 +99,7 @@ public class Parser {
                     "c...cannot be empty!!!°(°ˊДˋ°) °");
         }
         int taskNum = Integer.parseInt(parts[1]);
-        if (taskNum > tasks.totalTaskNum()) {
+        if (taskNum > tasks.totalTaskNum() || taskNum <= 0) {
             throw new DukeException("AAA...AGHHH!!! You...you don't have sooo many tasks\n" +
                     "y...yyet!!!°(°ˊДˋ°) °");
         }
@@ -154,15 +154,15 @@ public class Parser {
                     "c...cannot be empty!!!°(°ˊДˋ°) °");
         }
 
-        String removeFrom = removeEvent.replace("from", "");
-        String removeTo = removeFrom.replace("to", "");
-        String[] event = removeTo.split("/");
-        Event x = new Event(event[0], event[1], event[2]);
-        tasks.addToList(x);
+            String removeFrom = removeEvent.replace("from", "");
+            String removeTo = removeFrom.replace("to", "");
+            String[] event = removeTo.split("/");
+            Event x = new Event(event[0], event[1], event[2]);
+            tasks.addToList(x);
 
-        assert Ui.line() != null;
-        return Ui.line() + "Okk... I've... I've added this task:\n" + x.toString() + "\n"
-                + tasks.numOfTask() + Ui.line();
+            assert Ui.line() != null;
+            return Ui.line() + "Okk... I've... I've added this task:\n" + x.toString() + "\n"
+                    + tasks.numOfTask() + Ui.line();
     }
 
     /**
@@ -202,7 +202,7 @@ public class Parser {
             throw new DukeException("AAA...AGHHH!!! The list... " +
                     "is already empty!!!°(°ˊДˋ°) °");
         }
-        if (Integer.parseInt(parts[1]) > tasks.totalTaskNum()) {
+        if (Integer.parseInt(parts[1]) > tasks.totalTaskNum() || Integer.parseInt(parts[1]) < 0) {
             throw new DukeException("AAA...AGHHH!!! You do not have so many tasks... " +
                     "in the list!!!°(°ˊДˋ°) °");
         }
@@ -238,6 +238,11 @@ public class Parser {
         return Ui.line() + "Here are the matching tasks in your list:\n" + store.printList() + Ui.line();
     }
 
+    /**
+     * Generates a help message listing the available commands and their descriptions.
+     *
+     * @return A string containing the help message with command descriptions.
+     */
     public String printHelp() {
         return Ui.line() + "Here are the commands for Bocchi-chan:\n"
                 + "help: Prints out the help page for various commands.\n"
@@ -250,6 +255,7 @@ public class Parser {
                 + "mark <number>: Marks task <number> in the list of tasks as done.\n"
                 + "unmark <number>: Unmarks task <number> in the list of tasks and it becomes undone.\n"
                 + "find <keyword>: Finds the task with the exact <keyword> inputted.\n"
+                + "delete <index>: Deletes the task of task number <index> from the task list\n"
                 + "bye: Bocchi chan says bye to you♥\n";
     }
 }
