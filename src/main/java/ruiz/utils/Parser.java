@@ -71,8 +71,8 @@ public class Parser {
             assert todoDescription != null : "todoDescription should not be null";
             return todoDescription;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new BotException("OOPS!!! The description of a todo cannot be empty. " +
-                    "It should be in the format 'todo *** /at ***'");
+            throw new BotException("OOPS!!! The description of a todo cannot be empty. "
+                    + "It should be in the format 'todo *** /at ***'");
         }
     }
 
