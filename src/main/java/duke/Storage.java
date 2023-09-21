@@ -32,6 +32,7 @@ public class Storage {
     public void save(TaskList taskList) throws IOException {
         String txt = taskList.getTasksTxt();
         if (txt.isEmpty()) {
+            new File(FILE_PATH).delete();
             return;
         }
         assert !txt.isEmpty() : "tasks.txt should not be empty";

@@ -1,6 +1,7 @@
 package duke.gui;
 
 import duke.Duke;
+import duke.DukeException;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,6 +19,8 @@ public class MainWindow extends AnchorPane {
     private static final String WELCOME_MSG = "Hi! This is your intelligent friend L.\n\"Dream big.\"\n"
             + "What can I do for you today?";
     private static final String BYE_MSG = "Bye!\n\"Beware the barrenness of a busy life.\"";
+
+    private static final String ERROR_MSG = "⚠ Oops! Something wrong when reading the data:(";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -35,14 +38,20 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(WELCOME_MSG, dukeImage)
-        );
-    }
-
-    public void setDuke(Duke d) {
-        duke = d;
+        try {
+            this.duke = new Duke();
+            scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(WELCOME_MSG, dukeImage)
+            );
+        } catch (DukeException e) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getDukeDialog(ERROR_MSG, dukeImage)
+            );
+            PauseTransition pause = new PauseTransition(Duration.seconds(3));
+            pause.setOnFinished(event -> System.exit(0));
+            pause.play();
+        }
     }
 
     /**
@@ -61,7 +70,7 @@ public class MainWindow extends AnchorPane {
         if (response.equals(BYE_MSG)) {
             // Close the window after 5 seconds
             PauseTransition pause = new PauseTransition(Duration.seconds(3));
-            pause.setOnFinished(event -> duke.close());
+            pause.setOnFinished(event -> System.exit(0));
             pause.play();
         }
     }

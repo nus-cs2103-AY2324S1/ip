@@ -67,11 +67,11 @@ public class TaskList {
                 + size + taskInTotal + "\n\"Be here now.\"";
     }
 
-    private Task addTask(String description) {
+    private Task addTask(String description) throws DukeException {
         Pattern pattern = Pattern.compile("(TODO|DEADLINE|EVENT) \\| (0|1) \\| (.+)");
         Matcher matcher = pattern.matcher(description);
         if (!matcher.find()) {
-            return null;
+            throw new DukeException("reading error");
         }
         TaskType taskType = TaskType.valueOf(matcher.group(1));
         boolean isDone = matcher.group(2).equals("1");
@@ -82,17 +82,17 @@ public class TaskList {
         case DEADLINE:
             Matcher deadlineMatcher = Pattern.compile("(.+) \\| (.+)").matcher(taskDescription);
             if (!deadlineMatcher.find()) {
-                return null;
+                throw new DukeException("reading error");
             }
             return new Deadline(deadlineMatcher.group(1), deadlineMatcher.group(2), isDone);
         case EVENT:
             Matcher eventMatcher = Pattern.compile("(.+) \\| (.+) \\| (.+)").matcher(taskDescription);
             if (!eventMatcher.find()) {
-                return null;
+                throw new DukeException("reading error");
             }
             return new Event(eventMatcher.group(1), eventMatcher.group(2), eventMatcher.group(3), isDone);
         default:
-            return null;
+            throw new DukeException("reading error");
         }
     }
 

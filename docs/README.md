@@ -118,7 +118,7 @@ Bye!
 
 After starting the chatbot, L will automatically read previous data saved on the hard disk. If no such data is found, L 
 will start a new session.
-> **_❗CAUTION:_** If data is changed into invalid format, L will not include that data in the task list.
+> **_❗CAUTION:_** If data is changed into invalid format, L will not be able to read and write it in the task list.
 
 ### 🔐 Saving the data
 

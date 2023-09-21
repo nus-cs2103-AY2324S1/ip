@@ -1,7 +1,7 @@
 package duke;
 
 import java.io.IOException;
-import duke.gui.MainWindow;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,8 +23,6 @@ public class Main extends Application {
             stage.setMinWidth(515);
             stage.setScene(scene);
             stage.setTitle("L");
-            Duke duke = new Duke(stage);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
             assert stage != null : "stage should not be null";
             stage.show();
         } catch (IOException e) {

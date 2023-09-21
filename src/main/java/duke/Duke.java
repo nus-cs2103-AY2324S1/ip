@@ -1,7 +1,6 @@
 package duke;
 
 import duke.task.TaskList;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -14,19 +13,21 @@ public class Duke {
     private final Parser parser;
     private final Storage storage;
     private final TaskList tasks;
-    private final Stage stage;
+    private boolean isRunning;
 
     /**
      * Initializes the chat robot. Establishes task list and parser.
      */
-    public Duke(Stage stage) {
-        this.stage = stage;
+    public Duke() throws DukeException {
+        this.isRunning = true;
         storage = new Storage();
         tasks = new TaskList();
         try {
             tasks.addTasks(storage.loadFile());
+        } catch (DukeException e) {
+            throw new DukeException("reading error");
         } catch (Exception e) {
-            // do nothing, no file to load
+            // no nothing, use empty taskList
         }
         parser = new Parser(tasks);
     }
@@ -59,10 +60,6 @@ public class Duke {
             return SAVING_ERROR_MSG;
         }
         return BYE_MSG;
-    }
-
-    public void close() {
-        this.stage.close();
     }
 
     private String handleException(DukeException e) {
