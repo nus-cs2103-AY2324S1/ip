@@ -124,7 +124,7 @@ Nice! I've marked this task as done:
 
 ### Unmark a task `unmark`
 
-**Example of usage:** `umark 2`
+**Example of usage:** `unmark 2`
 
 **Expected outcome:**
 
