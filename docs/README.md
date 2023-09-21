@@ -203,6 +203,7 @@ For more advanced users who would like to edit the data file manually, here is t
 ----
 
 ## Command Summary
+|------|------|
 | **Action**       | **Format, Examples**                                                                                            |
 | List         | `list`                                                                                                           |
  | Add todo     | `todo [desc]` (e.g. `todo Study for exam`)                                                                       |
