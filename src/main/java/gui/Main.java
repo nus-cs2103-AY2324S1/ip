@@ -28,6 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             scene.getStylesheets().add("/view/Style.css");
+            stage.setTitle("YOURS");
             stage.setScene(scene);
             fxmlLoader.<gui.MainWindow>getController().setDuke(duke);
             stage.show();
