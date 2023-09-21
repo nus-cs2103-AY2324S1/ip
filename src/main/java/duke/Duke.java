@@ -52,7 +52,7 @@ public class Duke {
             try {
                 return invoker.execute(input);
             } catch (DukeException e) {
-                return e.getMessage();
+                return "error: " + e.getMessage();
             }
         }
     }

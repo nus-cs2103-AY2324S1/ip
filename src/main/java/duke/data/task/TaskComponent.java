@@ -15,7 +15,10 @@ public abstract class TaskComponent {
 final class Description extends TaskComponent {
     protected String description;
 
-    public Description(String description) {
+    public Description(String description) throws InvalidInputException {
+        if (description.equals("")) {
+            throw new InvalidInputException("Description cannot be empty");
+        }
         this.description = description;
     }
 
@@ -85,16 +88,16 @@ final class Tags extends TaskComponent {
     }
     public void addTag(String tag) throws InvalidInputException {
         if (tag.contains(",")) {
-            throw new InvalidInputException("Invalid Input: Tag should not contain \",\"");
+            throw new InvalidInputException("Tag should not contain \",\"");
         }
         if (this.tags.contains(tag)) {
-            throw new InvalidInputException("Invalid Input: Tag already exists");
+            throw new InvalidInputException("Tag already exists");
         }
         this.tags.add(tag);
     }
     public void removeTag(String tag) throws InvalidInputException {
         if (!this.tags.contains(tag)) {
-            throw new InvalidInputException("Invalid Input: Tag does not exist");
+            throw new InvalidInputException("Tag does not exist");
         }
         this.tags.remove(tag);
     }

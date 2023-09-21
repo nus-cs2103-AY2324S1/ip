@@ -14,7 +14,7 @@ public class DeadlineBuilderTest {
     public void buildFromStringTest() throws DukeException {
         DeadlineBuilder deadlineBuilder = new DeadlineBuilder();
         Task t = deadlineBuilder.buildFromString("deadline return book /by 2020-02-02");
-        assertEquals("[D][ ] return book (by: Feb 02 2020)", t.toString());
+        assertEquals("[D][ ] return book.  (tags: deadline) (by: Feb 02 2020)", t.toString());
         try {
             deadlineBuilder.buildFromString("deadline return book /by 2020-02-02 12:00");
         } catch (DukeException e) {
