@@ -35,8 +35,8 @@ public class Duke {
     private boolean end = false;
 
     private static Duke globalDuke = new Duke();
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DukeA.jpeg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DukeB.jpeg"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Kim.jpg"));
 
 
     private ScrollPane scrollPane;

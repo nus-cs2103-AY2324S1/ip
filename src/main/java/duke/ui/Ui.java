@@ -116,7 +116,6 @@ public class Ui {
         Parser input = new Parser(inputString);
         //Repeating Asking User if Not Equals Bye
         String command = input.getCommand();
-        System.out.println(command);
         switch (command) {
             case "help":
                 return helpFunction();
