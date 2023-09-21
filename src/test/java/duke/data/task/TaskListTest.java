@@ -10,22 +10,23 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import duke.data.exception.DukeException;
+import duke.data.exception.InvalidTaskIndexException;
 
 public class TaskListTest {
 
     @Test
-    public void removeTask_invalidIndex_throwsDukeException() {
+    public void remove_invalidIndex_throwsInvalidTaskIndexException() {
         TaskList taskList = new TaskList(
                 new Todo("todo"),
                 new Deadline("deadline", LocalDate.now()),
                 new Event("event", LocalDate.now(), LocalDate.now())
         );
-        assertThrows(DukeException.class, () -> taskList.remove(-1));
-        assertThrows(DukeException.class, () -> taskList.remove(4));
+        assertThrows(InvalidTaskIndexException.class, () -> taskList.remove(-1));
+        assertThrows(InvalidTaskIndexException.class, () -> taskList.remove(4));
     }
 
     @Test
-    public void removeTask_validIndexIndex_taskNotInList() {
+    public void remove_validIndexIndex_taskNotInList() {
         Task toRemove = new Todo("toRemove");
         TaskList taskList = new TaskList(
                 new Todo("todo"),

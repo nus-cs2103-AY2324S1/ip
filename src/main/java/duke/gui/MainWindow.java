@@ -1,5 +1,7 @@
 package duke.gui;
 
+import static duke.Duke.WELCOME_MESSAGE;
+
 import duke.Duke;
 import duke.command.CommandResult;
 import duke.data.exception.DukeException;
@@ -25,9 +27,13 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
+    /**
+     * Initializes the main window with the given welcome message.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        addDukeDialog(WELCOME_MESSAGE);
     }
 
     public void setDuke(Duke d) {

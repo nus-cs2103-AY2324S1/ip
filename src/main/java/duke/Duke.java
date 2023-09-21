@@ -14,9 +14,10 @@ import duke.storage.Storage;
  */
 public class Duke {
 
+    public static final String WELCOME_MESSAGE = "Hello! I'm Duke. What would you like to do today?";
+
     /** The file path where the data of the chatbot is stored */
     private static final String FILE_PATH = "data/tasks.txt";
-
 
     private final Storage storage;
     private final TaskList tasks;
