@@ -1,5 +1,7 @@
 package duke;
 public class Parser {
+
+    // allows bot to process the command and acts accordingly
     public static Command parseCommand(String userInput) {
         String[] inputParts = userInput.split(" ", 2); // Split input into two parts: command and arguments
         String command = inputParts[0].toUpperCase(); // Convert command to uppercase for case-insensitivity
@@ -33,6 +35,7 @@ public class Parser {
 
     }
 
+    //allows bot to process the description of any command
     public static String parseDescription(String userInput) {
         String[] parts = userInput.split(" ", 2); // Split input into command and arguments
         if (parts.length > 1) {

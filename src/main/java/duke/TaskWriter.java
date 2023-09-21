@@ -2,6 +2,8 @@ package duke;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
+
+// writes the tasks into a txt file given a tasklist of tasks
 public class TaskWriter {
     public static void writeTasksToFile(TaskList tasks, String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {

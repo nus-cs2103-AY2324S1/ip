@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
+// reads the task in from the stored txt file and returns it as a TaskList
 public class TaskReader {
     public static TaskList readTasksFromFile(String filename) {
         TaskList tasks = new TaskList();
@@ -23,7 +24,7 @@ public class TaskReader {
 
         return tasks;
     }
-
+    //parses the task from each line in the txt file depending on if they are a todo, event or deadline
     private static Task parseTaskFromLine(String line) {
         // Parse a task from a line of text
         if (line.startsWith("[T]")) {
@@ -52,21 +53,21 @@ public class TaskReader {
         return null; // Return null for unsupported task formats
     }
 
-
+    //extracts the deadline of a deadline task
     private static String extractDeadline(String line) {
         // Extract the deadline from the line
         int startIndex = line.indexOf("(by:") + 5;
         int endIndex = line.lastIndexOf(")");
         return line.substring(startIndex, endIndex).trim();
     }
-
+    //extract the start time of an event
     private static String extractStartTime(String line) {
         // Extract the start time from the line
         int startIndex = line.indexOf("(from:") + 7;
         int endIndex = line.indexOf("to:");
         return line.substring(startIndex, endIndex).trim();
     }
-
+    //extracts the end time of an event task
     private static String extractEndTime(String line) {
         // Extract the end time from the line
         int startIndex = line.indexOf("to:") + 4;

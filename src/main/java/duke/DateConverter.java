@@ -3,7 +3,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class DateConverter {
+    // converts the input string from MMM dd yyyy to a Date object with "YYYY/MM/DD"
     public static String convertDate(String inputDateStr) {
         try {
             // Define a SimpleDateFormat for parsing the input date
