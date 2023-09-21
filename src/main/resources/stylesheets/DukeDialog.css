@@ -1,0 +1,11 @@
+#dialog {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+    -fx-min-height: 50px;
+    -fx-background-radius: 30px;
+    -fx-text-fill: black;
+    -fx-background-color: rgb(144, 238, 144);
+    -fx-padding: 10px;
+}
