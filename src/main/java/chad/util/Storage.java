@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import chad.exception.LoadException;
+import chad.exception.SaveException;
 import chad.task.Task;
 
 /**
@@ -65,7 +66,7 @@ public class Storage {
      *
      * @param taskList The given TaskList to be saved locally.
      */
-    public void save(TaskList taskList) {
+    public void save(TaskList taskList) throws SaveException {
         assert taskList != null : "TaskList cannot be null";
 
         String newData = Parser.parseTaskListToData(taskList);
@@ -75,7 +76,7 @@ public class Storage {
             fw.write(newData);
             fw.close();
         } catch (IOException e) {
-            System.out.println("Error: Unable to save list");
+            throw new SaveException();
         }
     }
 

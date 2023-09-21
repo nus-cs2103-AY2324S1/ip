@@ -1,5 +1,6 @@
 package chad.command;
 
+import chad.exception.SaveException;
 import chad.util.Storage;
 import chad.util.TaskList;
 import chad.util.Ui;
@@ -18,7 +19,11 @@ public class ExitCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
-        storage.save(taskList);
+        try {
+            storage.save(taskList);
+        } catch (SaveException e) {
+            ui.addErrorMessage(e);
+        }
         ui.addExitMessage();
     }
 }

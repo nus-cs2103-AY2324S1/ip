@@ -1,5 +1,6 @@
 package chad.command;
 
+import chad.exception.SaveException;
 import chad.task.Task;
 import chad.util.Storage;
 import chad.util.TaskList;
@@ -30,9 +31,13 @@ public class AddCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         taskList.add(this.task);
-        storage.save(taskList);
         ui.addAddMessage();
         ui.addTaskMessage(this.task);
         ui.addTaskListSizeMessage(taskList);
+        try {
+            storage.save(taskList);
+        } catch (SaveException e) {
+            ui.addErrorMessage(e);
+        }
     }
 }

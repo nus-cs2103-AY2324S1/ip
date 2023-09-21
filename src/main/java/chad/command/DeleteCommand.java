@@ -1,5 +1,6 @@
 package chad.command;
 
+import chad.exception.SaveException;
 import chad.task.Task;
 import chad.util.Storage;
 import chad.util.TaskList;
@@ -30,9 +31,13 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.remove(this.index);
-        storage.save(taskList);
         ui.addDeleteMessage();
         ui.addTaskMessage(task);
         ui.addTaskListSizeMessage(taskList);
+        try {
+            storage.save(taskList);
+        } catch (SaveException e) {
+            ui.addErrorMessage(e);
+        }
     }
 }

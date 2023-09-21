@@ -1,5 +1,6 @@
 package chad.command;
 
+import chad.exception.SaveException;
 import chad.task.Task;
 import chad.util.Storage;
 import chad.util.TaskList;
@@ -30,9 +31,13 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) {
         Task task = taskList.unmark(this.index);
-        storage.save(taskList);
         ui.addUnmarkMessage();
         ui.addTaskMessage(task);
         ui.addTaskListSizeMessage(taskList);
+        try {
+            storage.save(taskList);
+        } catch (SaveException e) {
+            ui.addErrorMessage(e);
+        }
     }
 }
