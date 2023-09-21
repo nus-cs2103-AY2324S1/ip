@@ -30,6 +30,9 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File f = new File("data/duke.txt");
+            if (!f.exists()) {
+                return tasks;
+            }
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String[] task = s.nextLine().split("\\|");
@@ -71,6 +74,17 @@ public class Storage {
      * Write the task list to file.
      */
     public void saveTasksToFile(ArrayList<Task> tasks) throws DukeException {
+
+        File file = new File("data/duke.txt");
+        if (!file.exists()) {
+            file.getParentFile().mkdir();
+            try {
+                file.createNewFile();
+            } catch (IOException e){
+                throw new DukeException("Error creating file!", e);
+            }
+        }
+
         try {
             FileWriter fw = new FileWriter("data/duke.txt");
             for (Task i : tasks) {
