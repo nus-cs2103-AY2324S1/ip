@@ -10,7 +10,7 @@ public class Duke {
     
     public Duke() {
         String savedString = "";
-        storage = new Storage("src/main/java/seedu/duke/data/duke.txt");
+        storage = new Storage("./data/duke.txt");
         savedString = storage.load();
         tasks = new TaskList(savedString);
     }
