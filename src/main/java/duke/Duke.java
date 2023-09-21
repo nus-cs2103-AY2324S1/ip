@@ -57,7 +57,6 @@ public class Duke {
         if (isChatEnd) {
             Platform.exit();
         }
-
         Parser parseLine = new Parser(input);
         Command command = parseLine.getCommand();
 
@@ -66,41 +65,50 @@ public class Duke {
         }
 
         try {
-            switch (command) {
-            case BYE:
-                isChatEnd = true;
-                return END_CHAT_MESSAGE;
-            case LIST:
-                return tasks.formatList();
-            case MARK:
-            case UNMARK:
-                return tasks.handleMarking(parseLine.getArguments(), command.getCommandName());
-            case DELETE:
-                return tasks.handleDelete(parseLine.getArguments());
-            case TODO:
-                String todoData = parseLine.parseToDoArguments();
-                return tasks.handleToDo(todoData);
-            case DEADLINE:
-                String[] deadlineData = parseLine.parseDeadlineArguments();
-                return tasks.handleDeadline(deadlineData[0], deadlineData[1]);
-            case EVENT:
-                String[] eventData = parseLine.parseEventArguments();
-                return tasks.handleEvent(eventData[0], eventData[1], eventData[2]);
-            case FIND:
-                String findQuery = parseLine.parseFindQuery();
-                return tasks.findTasks(findQuery).formatList();
-            case EDIT:
-                String[] editArgs = parseLine.parseEditArguments();
-                for (String item : editArgs) {
-                    System.out.println(item);
-                }
-                return tasks.editTask(editArgs[0], editArgs[1], editArgs[2]);
-
-            default:
-                return INVALID_ERROR_MESSAGE;
-            }
+            String res = executeCommand(parseLine, command);
+            return res;
         } catch (DukeException e) {
             return e.getMessage();
+        }
+    }
+
+    /**
+     * Executes the command from the Parser.
+     *
+     * @param parseLine The Parser for the String input.
+     * @param command The command for the input from the Parser.
+     * @return The String response from the command.
+     * @throws DukeException If a problem occurs when executing the command.
+     */
+    private String executeCommand(Parser parseLine, Command command) throws DukeException {
+        switch (command) {
+        case BYE:
+            isChatEnd = true;
+            return END_CHAT_MESSAGE;
+        case LIST:
+            return tasks.formatList();
+        case MARK:
+        case UNMARK:
+            return tasks.handleMarking(parseLine.getArguments(), command.getCommandName());
+        case DELETE:
+            return tasks.handleDelete(parseLine.getArguments());
+        case TODO:
+            String todoData = parseLine.parseToDoArguments();
+            return tasks.handleToDo(todoData);
+        case DEADLINE:
+            String[] deadlineData = parseLine.parseDeadlineArguments();
+            return tasks.handleDeadline(deadlineData[0], deadlineData[1]);
+        case EVENT:
+            String[] eventData = parseLine.parseEventArguments();
+            return tasks.handleEvent(eventData[0], eventData[1], eventData[2]);
+        case FIND:
+            String findQuery = parseLine.parseFindQuery();
+            return tasks.findTasks(findQuery).formatList();
+        case EDIT:
+            String[] editArgs = parseLine.parseEditArguments();
+            return tasks.editTask(editArgs[0], editArgs[1], editArgs[2]);
+        default:
+            return INVALID_ERROR_MESSAGE;
         }
     }
 
