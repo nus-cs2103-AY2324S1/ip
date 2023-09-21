@@ -17,26 +17,26 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
     public static String handleInput(String input, TaskList taskList, Boolean isLoading) {
-        boolean isMarked = false;
+        boolean isDone = false;
         if (isLoading) {
-            String marker = input.substring(input.length() - 1);
-            isMarked = marker.equals("1");
+            String flag = input.substring(input.length() - 1);
+            isDone = flag.equals("1");
             input = input.substring(0, input.length() - 1);
         }
         if (input.equals("bye")) {
             return Ui.printBYE();
         }
-        if (input.startsWith("mark") || input.startsWith("unmark ")) {
+        if (input.startsWith("mark") || input.startsWith("unmark")) {
             return handleMark(input, taskList);
         }
         if (input.startsWith("todo")) {
-            return handleTodo(input, taskList, isLoading, isMarked);
+            return handleTodo(input, taskList, isLoading, isDone);
         }
         if (input.startsWith("deadline")) {
-            return handleDeadline(input, taskList, isLoading, isMarked);
+            return handleDeadline(input, taskList, isLoading, isDone);
         }
         if (input.startsWith("event")) {
-            return handleEvent(input, taskList, isLoading, isMarked);
+            return handleEvent(input, taskList, isLoading, isDone);
         }
         if (input.startsWith("delete")) {
             return handleDelete(input, taskList);
@@ -52,9 +52,10 @@ public class Parser {
 
     /**
      * Handles input that starts with find.
-     * @param input
-     * @param taskList
-     * @return matching tasks that contains the prefix that the user entered
+     *
+     * @param input input that contains the find command word and the keyword
+     * @param taskList an array of tasks
+     * @return tasks that contains the prefix that the user entered
      */
 
     private static String handleFind(String input, TaskList taskList) {
@@ -87,7 +88,7 @@ public class Parser {
      */
 
     public static String handleMark(String input, TaskList taskList) {
-        assert !input.equals("") : "inputs shouldn't be empty string!";
+        assert !input.equals("") : "input shouldn't be empty string!";
         String[] parts = input.split(" ");
         if (parts.length == 2) {
             try {
@@ -143,14 +144,14 @@ public class Parser {
      * @param taskList an array of tasks
      * @param isLoading a flag to check if the application is restoring
      */
-    public static String handleTodo(String input, TaskList taskList, Boolean isLoading, Boolean isMarked) {
+    public static String handleTodo(String input, TaskList taskList, Boolean isLoading, Boolean isDone) {
         assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] arr0 = input.split("todo ");
         if (arr0.length == 1) {
             return Ui.toDoExcept();
         } else {
             Task todo = new Todo(arr0[1], input);
-            return AddTask(todo, taskList, isLoading, isMarked);
+            return AddTask(todo, taskList, isLoading, isDone);
         }
     }
 
@@ -162,13 +163,13 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
 
-    public static String handleEvent(String input, TaskList taskList, Boolean isLoading, Boolean isMarked) {
+    public static String handleEvent(String input, TaskList taskList, Boolean isLoading, Boolean isDone) {
         try {
             String[] arr1 = input.split("/from "); // [0]: event + name, [1]: timeframe
             String[] arr2 = arr1[1].split("/to "); // [0] from:..., [1] to:...
             String[] arr3 = arr1[0].split("event ");
             Task event = new Event(arr3[1], arr2[0], arr2[1], input);
-            return AddTask(event, taskList, isLoading, isMarked);
+            return AddTask(event, taskList, isLoading, isDone);
         } catch (ArrayIndexOutOfBoundsException ex) {
             return Ui.eventExcept();
         }
@@ -182,7 +183,7 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
 
-    public static String handleDeadline(String input, TaskList taskList, Boolean isLoading, Boolean isMarked) {
+    public static String handleDeadline(String input, TaskList taskList, Boolean isLoading, Boolean isDone) {
         assert !input.equals("") : "inputs shouldn't be empty string!";
         try {
             String[] arr1 = input.split("/by "); // 0: deadline + name , 1: date
@@ -193,7 +194,7 @@ public class Parser {
                 return Ui.dateFormatExcept();
             }
             Task deadline = new Deadline(arr2[1], formattedDate, input);
-            return AddTask(deadline, taskList, isLoading, isMarked);
+            return AddTask(deadline, taskList, isLoading, isDone);
         } catch (ArrayIndexOutOfBoundsException ex) {
             return Ui.deadlineExcept();
         } catch (DateTimeParseException ex) {
@@ -231,16 +232,16 @@ public class Parser {
      * @param isLoading a flag to check if the application is restoring
      */
 
-    public static String AddTask(Task task, TaskList taskList, Boolean isLoading, Boolean isMarked) {
+    public static String AddTask(Task task, TaskList taskList, Boolean isLoading, Boolean isDone) {
         // detect duplicates
         boolean hasDuplicate = false;
         if (taskList.size() != 0) {
-            hasDuplicate = CheckDuplicates(task, taskList, hasDuplicate);
+            hasDuplicate = CheckDuplicates(task, taskList, false);
         }
         if (hasDuplicate) {
             return Ui.duplicate();
         }
-        if (isMarked) {
+        if (isDone) {
             task.setDone();
         }
         taskList.add(task);
