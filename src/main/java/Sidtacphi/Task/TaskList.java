@@ -123,8 +123,8 @@ public class TaskList extends ArrayList<Task> {
      * @param isToMark to mark the task as done when true, and to unmark when false
      * @param input 
      */
-    public void markTaskAs(boolean isToMark, String input) throws SidException {
-        if (!isToMark) {
+    public void markTaskAs(boolean isToMarkAsCompleted, String input) throws SidException {
+        if (!isToMarkAsCompleted) {
             if (input.length() < 7) {
                 throw new SidInvalidFormatException("Please input the task ID number to unmark.");
             } else if (input.charAt(6) != ' ') {
