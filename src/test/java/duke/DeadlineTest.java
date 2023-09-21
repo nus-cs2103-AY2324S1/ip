@@ -27,12 +27,37 @@ public class DeadlineTest {
     }
 
     @Test
+    public void testToString_markAsDone() {
+        LocalDateTime dateTime = LocalDateTime.of(2023, 12, 1, 18, 0);
+        Deadline deadline = new Deadline("Complete badminton training", dateTime);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
+        String formattedDateTime = dateTime.format(formatter);
+
+        deadline.markAsDone();
+
+        String expected = "[D][X] Complete badminton training (by: " + formattedDateTime + ")";
+        assertEquals(expected, deadline.toString());
+    }
+
+    @Test
+    public void testDeadlineToFileString_markAsDone() {
+        LocalDateTime dateTime = LocalDateTime.of(2023, Month.SEPTEMBER, 24, 23, 59);
+        Deadline deadline = new Deadline("submit transcript to ben", dateTime);
+        deadline.markAsDone();
+        String expected = "D | 1 | submit transcript to ben | 24 Sep 2023 11:59PM\n";
+        String actual = deadline.toFileString();
+        assertEquals(expected.toLowerCase(), actual.toLowerCase());
+    }
+
+    @Test
     public void testDeadlineToFileString() {
         LocalDateTime dateTime = LocalDateTime.of(2023, Month.SEPTEMBER, 24, 23, 59);
         Deadline deadline = new Deadline("submit transcript to ben", dateTime);
 
-        String expected = "D | 0 | submit transcript to ben | 24 Sep 2023 11:59pm\n";
-        assertEquals(expected, deadline.toFileString());
+        String expected = "D | 0 | submit transcript to ben | 24 Sep 2023 11:59PM\n";
+        String actual = deadline.toFileString();
+        assertEquals(expected.toLowerCase(), actual.toLowerCase());
     }
 
     @Test

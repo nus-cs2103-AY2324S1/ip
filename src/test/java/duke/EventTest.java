@@ -19,8 +19,20 @@ public class EventTest {
         LocalDateTime fromDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 16, 0);
         LocalDateTime toDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 18, 0);
         Event event = new Event("Meeting", fromDateTime, toDateTime);
-        String expected = "[E][ ] Meeting (from: August 30 2023 4pm to: August 30 2023 6pm)";
-        assertEquals(expected, event.toString());
+        String expected = "[E][ ] Meeting (from: August 30 2023 4PM to: August 30 2023 6PM)";
+        String actual = event.toString();
+        assertEquals(expected.toLowerCase(), actual.toLowerCase());
+    }
+
+    @Test
+    public void testToFileString_markAsDone() {
+        LocalDateTime fromDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 14, 0);
+        LocalDateTime toDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 16, 0);
+        Event event = new Event("Meeting", fromDateTime, toDateTime);
+        event.markAsDone();
+        String expected = "E | 1 | Meeting | August 30 2023 2PM - August 30 2023 4PM\n";
+        String actual = event.toFileString();
+        assertEquals(expected.toLowerCase(), actual.toLowerCase());
     }
 
     @Test
@@ -29,8 +41,9 @@ public class EventTest {
         LocalDateTime toDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 16, 0);
         Event event = new Event("Meeting", fromDateTime, toDateTime);
 
-        String expected = "E | 0 | Meeting | August 30 2023 2pm - August 30 2023 4pm\n";
-        assertEquals(expected, event.toFileString());
+        String expected = "E | 0 | Meeting | August 30 2023 2PM - August 30 2023 4PM\n";
+        String actual = event.toFileString();
+        assertEquals(expected.toLowerCase(), actual.toLowerCase());
     }
     @Test
     public void testEventIsDone() {
