@@ -7,7 +7,7 @@ public class Ui {
     /**
      * The application's logo.
      */
-    private static String logo = "Wiz";
+    private static String logo = "Ms Frizzle";
 
     /**
      * Displays a welcome message to the user.
@@ -16,8 +16,8 @@ public class Ui {
      */
     public static String showWelcomeMessage() {
         showLine();
-        return "Hello from " + logo
-                + "\nWhat can I do for you?";
+        return "Hello Class! " + logo
+                + " here!\nWhat adventure shall we go on today?";
     }
     /**
      * Displays a line separator.
@@ -33,7 +33,7 @@ public class Ui {
      * @return The loading error message.
      */
     public static String showLoadingError(DukeException e) {
-        System.out.println(e);
+        System.out.println(e.toString());
         return e.getMessage();
     }
 
@@ -43,7 +43,7 @@ public class Ui {
      */
     public static void showByeMessage() {
         showLine();
-        System.out.println("Bye!");
+        System.out.println("Bye Class!");
     }
     public static void showMessage(String result) {
         System.out.println(result);
@@ -55,6 +55,6 @@ public class Ui {
      * @param errorMessage The error message to display.
      */
     public static void showError(String errorMessage) {
-        System.out.println("☹ OOPS!!! " + errorMessage);
+        System.out.println("☹ Sorry class! OOPS!!! " + errorMessage);
     }
 }
