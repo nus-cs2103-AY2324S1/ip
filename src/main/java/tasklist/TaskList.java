@@ -80,6 +80,9 @@ public class TaskList {
      * @param pos The position of the task to be deleted.
      */
     public String delete(int pos) {
+        if (pos < 0 || pos >= ls.size()) {
+            return "Sorry, invalid index. Please make sure you are deleting the correct item";
+        }
         System.out.println("Noted. I've removed this task:");
         System.out.println(" " + ls.get(pos - 1));
         String temp = ls.get(pos - 1).toString();
