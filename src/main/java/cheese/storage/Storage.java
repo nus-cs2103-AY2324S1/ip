@@ -1,4 +1,4 @@
-package cheese.Storage;
+package cheese.storage;
 
 import java.util.ArrayList; 
 import java.util.List;
@@ -13,9 +13,9 @@ import java.io.IOException;
 
 import java.time.LocalDate;
 
-import cheese.Task.Task;
-import cheese.Parser.Parser;
-import cheese.TaskList.TaskList;
+import cheese.task.Task;
+import cheese.parser.Parser;
+import cheese.tasklist.TaskList;
 
 /**
  * Storage class that handles the loading and saving of tasks

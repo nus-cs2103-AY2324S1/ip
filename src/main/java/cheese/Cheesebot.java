@@ -1,10 +1,10 @@
 package cheese;
 
-import cheese.Ui.Ui;
-import cheese.TaskList.TaskList;
-import cheese.Storage.Storage;
-import cheese.Parser.Parser;
-import cheese.Task.Task;
+import cheese.ui.Ui;
+import cheese.tasklist.TaskList;
+import cheese.storage.Storage;
+import cheese.parser.Parser;
+import cheese.task.Task;
 import cheese.dialogbox.DialogBox;
 
 import java.util.Scanner;
@@ -100,7 +100,7 @@ public class Cheesebot  extends Application{
         if (taskIndex >= 0 && taskIndex < taskList.getSize()) {
           Task task = this.taskList.getTask(taskIndex);
           task.markAsDone();
-          ui.showMessage("Nice! I've marked this task as done:\n" + task);
+          ui.showMessage("Nice! Cheese has marked this task as done:\n" + task);
         } else {
           ui.showMessage("Task not found!");
         }
@@ -111,7 +111,7 @@ public class Cheesebot  extends Application{
         Task someTask = parser.parseTask(input);
         if (someTask != null) {
           taskList.addTask(someTask);
-          ui.showMessage("Got it. I've added this task:\n  " + taskList.getTask(taskList.getSize() - 1)
+          ui.showMessage("Got it. Cheese has added this task:\n  " + taskList.getTask(taskList.getSize() - 1)
             + "\nNow you have " + taskList.getSize() + " tasks in the list.");
         } else {
           ui.showMessage("☹ OOPS!!! Task formatting is weird.");
@@ -122,7 +122,7 @@ public class Cheesebot  extends Application{
         if (taskNumber >= 0 && taskNumber < taskList.getSize()) {
           Task removedTask = taskList.getTask(taskNumber);
           taskList.deleteTask(taskNumber);
-          ui.showMessage("Noted. I've removed this task:\n  " + removedTask
+          ui.showMessage("Noted. Cheese has removed this task:\n  " + removedTask
             + "\nNow you have " + taskList.getSize() + " tasks in the list.");
         } else {
           ui.showMessage("Task not found!");
@@ -141,10 +141,10 @@ public class Cheesebot  extends Application{
         }
         break;
         default:
-        ui.showMessage("I'm sorry, but I don't know what that means :-(");
+        ui.showMessage("Cheese is sorry, but Cheese don't know what that means :-(");
       }
     } else {
-      ui.showMessage("I'm sorry, but I don't know what that means :-(");
+      ui.showMessage("Cheese is sorry, but Cheese don't know what that means :-(");
     }
   }
 
@@ -281,7 +281,7 @@ public class Cheesebot  extends Application{
         if (taskIndex >= 0 && taskIndex < taskList.getSize()) {
           Task task = this.taskList.getTask(taskIndex);
           task.markAsDone();
-          response.append("Nice! I've marked this task as done:\n").append(task).append("\n");
+          response.append("Nice! Cheese has marked this task as done:\n").append(task).append("\n");
         } else {
           response.append("Task not found!\n");
         }
@@ -292,7 +292,7 @@ public class Cheesebot  extends Application{
         Task someTask = parser.parseTask(input);
         if (someTask != null) {
           taskList.addTask(someTask);
-          response.append("Got it. I've added this task:\n").append(taskList.getTask(taskList.getSize() - 1))
+          response.append("Got it. Cheese has added this task:\n").append(taskList.getTask(taskList.getSize() - 1))
             .append("\nNow you have ").append(taskList.getSize()).append(" tasks in the list.\n");
         } else {
           response.append("☹ OOPS!!! Task formatting is weird.\n");
@@ -303,7 +303,7 @@ public class Cheesebot  extends Application{
         if (taskNumber >= 0 && taskNumber < taskList.getSize()) {
           Task removedTask = taskList.getTask(taskNumber);
           taskList.deleteTask(taskNumber);
-          response.append("Noted. I've removed this task:\n").append(removedTask).append("\n")
+          response.append("Noted. Cheese has removed this task:\n").append(removedTask).append("\n")
             .append("Now you have ").append(taskList.getSize()).append(" tasks in the list.\n");
         } else {
           response.append("Task not found!\n");
@@ -321,11 +321,21 @@ public class Cheesebot  extends Application{
           response.append("No matching tasks found!\n");
         }
         break;
+        case "help":
+        response.append("Here are the commands Cheese understand:\n")
+          .append("bye - exits the program\n")
+          .append("list - lists all tasks\n")
+          .append("todo <description> - adds a todo task\n")
+          .append("deadline <description> /by <date> - adds a deadline task\n")
+          .append("event <description> /at <date> - adds an event task\n")
+          .append("delete <task number> - deletes the specified task\n")
+          .append("find <keyword> - finds tasks with the specified keyword\n")
+          .append("help - shows this help message\n");
         default:
-        response.append("I'm sorry, but I don't know what that means :-(");
+        response.append("Cheese is sorry, but Cheese don't know what that means :-(");
       }
     } else {
-      response.append("I'm sorry, but I don't know what that means :-(");
+      response.append("Cheese is sorry, but Cheese don't know what that means :-(");
     }
 
     return response.toString();

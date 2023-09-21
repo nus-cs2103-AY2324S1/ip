@@ -1,4 +1,4 @@
-package cheese.Parser;
+package cheese.parser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-import cheese.Task.Task;
+import cheese.task.Task;
 
 /**
  * Parser class to parse user input
@@ -157,6 +157,7 @@ public class Parser {
       case "deadline":
       case "event":
       case "delete":
+      case "help":
       return true;
       default:
       return false;

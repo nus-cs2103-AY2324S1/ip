@@ -1,4 +1,4 @@
-package cheese.Ui;
+package cheese.ui;
 
 import java.util.Scanner;
 
@@ -23,17 +23,18 @@ public class Ui {
    */
   public void showWelcome() {
     System.out.println("-----------------------------------------------");
-    System.out.println("\tHello! I'm Cheese");
-    System.out.println("\tWhat can I do for you?");
+    System.out.println("\tHello! Cheese is Cheese");
+    System.out.println("\tWhat can Cheese do for you?");
     System.out.println("\tCommands:"+ 
-      "\n\ttodo <task>,"+
-      "\n\tdeadline <task> /by dd-MM-yyyy,"+
-      "\n\tevent <task> /from <day> /to <day>,"+
-      "\n\tlist,"+
-      "\n\tdelete <task number>,"+
-      "\n\tmark <task number>,"+
-      "\n\tfind <keyword>,"+
-      "\n\tbye");
+      "\n\t1. todo <task>,"+
+      "\n\t2. deadline <task> /by dd-MM-yyyy,"+
+      "\n\t3. event <task> /from <day> /to <day>,"+
+      "\n\t4. list,"+
+      "\n\t5. delete <task number>,"+
+      "\n\t6. mark <task number>,"+
+      "\n\t7. find <keyword>,"+
+      "\n\t8. bye,"+
+      "\n\t9. help");
 
     System.out.println("-----------------------------------------------");
   }
@@ -44,17 +45,18 @@ public class Ui {
    */
   public String welcomeMessage() {
 
-    String firstLine = "\tHello! I'm Cheese\n";
-    String secondLine = "\tWhat can I do for you?\n";
+    String firstLine = "\tHello! Cheese is Cheese\n";
+    String secondLine = "\tWhat can Cheese do for you?\n";
     String thirdLine = "\tCommands:"+ 
-      "\n\ttodo <task>,"+
-      "\n\tdeadline <task> /by dd-MM-yyyy,"+
-      "\n\tevent <task> /from <day> /to <day>,"+
-      "\n\tlist,"+
-      "\n\tdelete <task number>,"+
-      "\n\tmark <task number>,"+
-      "\n\tfind <keyword>,"+
-      "\n\tbye";
+      "\n\t1. todo <task>,"+
+      "\n\t2. deadline <task> /by dd-MM-yyyy,"+
+      "\n\t3. event <task> /from <day> /to <day>,"+
+      "\n\t4. list,"+
+      "\n\t5. delete <task number>,"+
+      "\n\t6. mark <task number>,"+
+      "\n\t7. find <keyword>,"+
+      "\n\t8. bye,"+
+      "\n\t9. help\n";
 
     return firstLine + secondLine + thirdLine;
   }
@@ -65,7 +67,7 @@ public class Ui {
    */
   public void showBye() {
     System.out.println("-----------------------------------------------");
-    System.out.println("\tBye. Hope to see you again soon!");
+    System.out.println("\tBye. Cheese hope to see you again soon!");
     System.out.println("-----------------------------------------------");
   }
 
