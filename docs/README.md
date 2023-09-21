@@ -9,7 +9,7 @@ Todoify is easy to use for users with experience of the CLI. It:
 - available via your preferred [DE](https://en.wikipedia.org/wiki/Desktop_environment) or even your [terminal](https://en.wikipedia.org/wiki/Computer_terminal).
 - uses Unix- and POSIX-like CLI syntax, so experienced users can pick it up quickly.
 
-?> **Tip:** Use the ***sidebar*** on the left (if hidden, tap the menu button at the bottom left to reveal it) to browse the **Table of Contents**, or even **search for information**!
+?> *Tip:* Use the **sidebar** on the left (if hidden, tap the menu button at the bottom left to reveal it) to browse the **Table of Contents**, or even **search for information**!
 
 ## Getting Started
 
@@ -26,7 +26,7 @@ Todoify is easy to use for users with experience of the CLI. It:
     - **Navigate to the folder containing the JAR file** in your file manager, then **double-click to open** it.
         - *Note:* Some systems might prevent you from launching Todoify like this directly as it is not code-signed - see the notice at the [Launch Modes > Graphical User Interface](#graphical-user-interface-gui) section for information.
 
-5. You will see [a GUI like above](#todoify-user-guide). See alternative [launch modes](#launch-modes) if you prefer to use the TUI.
+5. You will see [a GUI like above](#todoify-user-guide). See alternative [launch modes](#launch-modes-and-usage) if you prefer to use the TUI.
 
 6. **Talk to Todoify** to manage your tasks!
     - To learn how to communicate with Todoify, simply send a `help` message to list available commands.
@@ -49,7 +49,7 @@ This evaluates:
 - the command `commandname`,
 - with input `long input text`,
 - while it sets `--parameter1` to `first value`,
-- and sets `--parameter 2` set to `second value`.
+- and sets `--parameter 2` to `second value`.
 
 #### Detailed Command Formatting Notes
 
@@ -63,7 +63,7 @@ This evaluates:
 #### Miscellaneous
 - In help sheets, when a command format description contains stuff in `<>`, it refers to an inline explanatory description that should be replaced with actual command info.
 
-### Launch Modes
+### Launch Modes and Usage
 
 For very advanced users, you can launch Todoify in both **GUI** and **TUI** modes. While the former requires a [desktop environment (DE)](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems with no DE - like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
 
@@ -71,15 +71,20 @@ For very advanced users, you can launch Todoify in both **GUI** and **TUI** mode
 
 **To launch in GUI mode**, either:
 
-- Navigate to where the JAR file is stored in your file manager, then double-click the JAR file.
 - Navigate to the directory of the JAR file in your terminal via `cd`, then run: `java -jar todoify-v1.0.jar`.
-- You will see the following:
+- Navigate to where the JAR file is stored in your file manager, then double-click the JAR file.
 
-    ![Todoify Screenshot](first-launch.png ':size=400')
+You will see the following:
+
+![Todoify Screenshot](first-launch.png ':size=400')
+
+To interact with Todoify, click the text box at the bottom, type your message, and press Enter to Send.
 
 !> As Todoify is not [code-signed](https://en.wikipedia.org/wiki/Code_signing), some platforms have security measures in place that prevent you from opening them via a simple double-click. You may thus need to temporarily bypass these protections to launch Todoify. ([Windows](https://support.microsoft.com/en-us/windows/add-an-exclusion-to-windows-security-811816c0-4dfd-af4a-47e4-c301afe13b26), [macOS](https://support.apple.com/en-gb/guide/mac-help/mh40616/mac))
 
-?> Note that for terminal invocations, you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
+!> Some Java versions may not open correctly via double-click. In which case, please try opening via the terminal instead.
+
+?> *Note:* For terminal invocations, you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
 #### Text-only User Interface (TUI)
 
@@ -87,23 +92,27 @@ For very advanced users, you can launch Todoify in both **GUI** and **TUI** mode
 
 - `java -jar todoify-v1.0.jar --text-ui`, or
 - `java -jar todoify-v1.0.jar -t` as a shortcut.
-- You will see the following:
-    ```shell
-    $ java -jar todoify-v1.0.jar -t
-    [Todoify]:
-      Hello! I'm Todoify, your friendly task helper.
 
-    [Todoify]:
-      You have no tasks right now! :)
+You will see the following:
 
-    [Todoify]:
-      What can I do for you?
+```shell
+$ java -jar todoify-v1.0.jar -t
+[Todoify]:
+  Hello! I'm Todoify, your friendly task helper.
 
-    [You]:
-     >
-    ```
+[Todoify]:
+  You have no tasks right now! :)
 
-?> Note that you might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
+[Todoify]:
+  What can I do for you?
+
+[You]:
+ >
+```
+
+To send a message, simply type your message and press Enter.
+
+?> *Note:* You might need to replace `todoify-v1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
 ## Commands
 
@@ -127,19 +136,18 @@ You can add a task with a title and a deadline.
 
 - Format: `deadline <task title> --by <task deadline in ISO8601>`
 
-We use the [ISO8601 format specifications](https://en.wikipedia.org/wiki/ISO_8601). You must provide a valid date, though we allow you to **omit** any of the following:
+We use the [ISO8601 format specifications](https://en.wikipedia.org/wiki/ISO_8601) of `yyyy-mm-ddThh:mm:ss` without timezone. You must provide a valid date, though we allow you to **omit** any of the following:
 
-- The entire time component (e.g., `hh:mm:ssZ`)
+- The entire time component (e.g., `hh:mm:ss`)
 - The seconds component (e.g., `:ss`)
-- The timezone component (e.g., `Z`, `+hh:mm`)
 
-For example:
+For example, these are valid inputs:
 
 - `deadline CS2103T Project --by 2023-09-22T16:00`
 - `deadline Christmas Prep --by 2023-12-23`
 - `deadline Homework --by 2023-11-11T23:59:59`
 
-are valid inputs.
+Note that custom timezone inputs are not supported - we'll always use your system timezone. Existing tasks will however correctly show their displayed dates according to system timezone changes during the time of message response.
 
 ### Adding an Event: `event`
 
@@ -147,18 +155,17 @@ You can add an event with a title and a date range.
 
 - Format: `event <title> --from <start date in ISO8601> --to <end date in ISO8601>`
 
-We use the [ISO8601 format specifications](https://en.wikipedia.org/wiki/ISO_8601). You must provide a valid date, though we allow you to **omit** any of the following:
+We use the [ISO8601 format specifications](https://en.wikipedia.org/wiki/ISO_8601) of `yyyy-mm-ddThh:mm:ss` without timezone. You must provide a valid date, though we allow you to **omit** any of the following:
 
-- The entire time component (e.g., `hh:mm:ssZ`)
+- The entire time component (e.g., `hh:mm:ss`)
 - The seconds component (e.g., `:ss`)
-- The timezone component (e.g., `Z`, `+hh:mm`)
 
-For example:
+For example, these are valid inputs:
 
 - `event Birthday Party --from 2023-10-01T16:00 --to 2023-10-01T21:00`
 - `event Holiday --from 2023-12-01 --to 2024-01-01`
 
-are valid inputs.
+Note that custom timezone inputs are not supported - we'll always use your system timezone. Existing tasks will however correctly show their displayed dates according to system timezone changes during the time of message response.
 
 ### List all tasks: `list`
 
@@ -227,7 +234,29 @@ For example:
 - `delete 1` deletes the task numbered 1.
 - `remove 3` removes the task numbered 3.
 
-!> **Warning:** Note that deleting a task will change numbering for all tasks after it. Be careful when you are planning to deleting multiple tasks.
+!> **Warning:** This action is permanent and cannot be undone.
+
+!> **Important Note:** Deleting a task will change numbering for all tasks after it. Be careful when you are planning to deleting multiple tasks.
+
+### Saving data: `save`
+
+You can tell Todoify to immediately save your data.
+
+?> *Note:* This is usually not needed as Todoify **autosaves data** after all commands that modify your data.
+
+This may be useful in some situations, like retrying the save after fixing an issue causing a failed automatic save (such as insufficient permissions).
+
+- Format: `save`
+
+### Loading data: `load`
+
+You can tell Todoify to immediately reload all data from storage.
+
+?> *Note:* This is usually not needed by most users.
+
+If the data files were updated by an external software while the app is open, Todoify may not realise that. Hence, this may be useful to reload all data from disk.
+
+- Format: `load`
 
 ### Closing the conversation: `bye`, `exit`
 
@@ -235,10 +264,9 @@ This terminates the conversation with Todoify. Simply run the `bye` or `exit` co
 
 - Format: `bye` or `exit`
 
-It has two distinct behaviours depending on your [Launch Mode](#launch-modes):
+In the **GUI** (default), this halts further input. It does not close the app, so you can refer to a read-only transcript of your conversation. To restart, you must close and reopen the app.
 
-- In the **GUI**, this halts further input. It does not close the app, so you can refer to a read-only transcript of your conversation. To restart, you must close and reopen the app.
-- In the **TUI**, this exits the program. You can use your terminal scrollback if you need to refer to the transcript.
+If you are an advanced user using the **TUI**, this exits the program. You can use your terminal scrollback if you need to refer to the transcript.
 
 ## Command Summary
 
@@ -271,6 +299,12 @@ A summary of all commands is accessible via the `help` command within Todoify. A
 - `help`, `tutorial`
     - Shows the help sheet for all commands.
     - Format: `help`
+- `save`
+    - Saves your data to disk. Usually not necessary thanks to auto-save.
+    - Format: `save`
+- `load`
+    - Loads the data from disk and replaces the contents in memory to it.
+    - Format: `load`
 - `bye`, `exit`
     - Stops the conversation.
     - Format: `bye`

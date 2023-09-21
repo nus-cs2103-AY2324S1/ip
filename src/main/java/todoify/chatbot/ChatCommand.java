@@ -118,9 +118,9 @@ public class ChatCommand {
             case HELP:
                 return "Shows the help sheet for all commands.";
             case SAVE:
-                return "Initiates a data save from disk. Usually not necessary thanks to auto-save.";
+                return "Saves your data to disk. Usually not necessary thanks to auto-save.";
             case LOAD:
-                return "Loads the data from disk and replaces the contents in memory.";
+                return "Loads the data from disk and replaces the contents in memory to it.";
             case EXIT:
                 return "Stops the conversation.";
             case UNKNOWN:
