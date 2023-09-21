@@ -1,4 +1,4 @@
-# User Guide
+# Johnny User Guide
 Johnny is an intelligent chatbot that can help you manage your tasks. Simply input
 the proper commands and enjoy your saved time!
 
