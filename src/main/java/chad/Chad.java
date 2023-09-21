@@ -21,8 +21,8 @@ public class Chad {
      */
     public Chad() {
         this.ui = new Ui();
-        this.storage = new Storage("data/duke.txt");
         try {
+            this.storage = new Storage("data/duke.txt");
             this.taskList = new TaskList(storage.load());
         } catch (LoadException e) {
             ui.addErrorMessage(e);
