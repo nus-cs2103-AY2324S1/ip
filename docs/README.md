@@ -54,4 +54,4 @@ find <keyword> // To find all tasks with the specified keyword
 
 ## Feel free to use Fong Task Manager!
 1. Download the jar executable file in the release
-2. Run the command: `java -jar dukeGUI.jar`
+2. Run the command: `java -jar duke.jar`
