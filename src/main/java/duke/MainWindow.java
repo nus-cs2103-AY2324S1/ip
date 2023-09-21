@@ -19,7 +19,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
 
     private Ui ui;
-    private Gui gui;
+    private Duke duke;
     private DtFormat dtf;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -35,8 +35,8 @@ public class MainWindow extends AnchorPane {
     /**
      * Sets the Gui for the window.
      */
-    public void setGui(Gui g) {
-        gui = g;
+    public void setDuke(Duke g) {
+        duke = g;
     }
 
     /**
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = gui.getResponse(input);
+        String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
