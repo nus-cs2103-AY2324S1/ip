@@ -1,6 +1,10 @@
 package dukduk;
 
 import java.util.ArrayList;
+import javafx.stage.Stage;
+import javafx.application.Platform;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 
 /**
  * The main class used for the Dukduk chatbot.
@@ -29,17 +33,22 @@ public class Dukduk {
     /**
      * Manages the reply for inputs to dukduk chatbot.
      */
-    public String reply(String input) {
+    public String reply(String input, Stage stage) {
         try {
             Parser parser = new Parser(input);
             String firstInput = parser.getCommand();
             switch (firstInput) {
                 case "bye":
                     Storage.saveTasksToFile(filePath, this.tasks.getTasks());
+                    PauseTransition delay = new PauseTransition(Duration.seconds(1));
+                    delay.setOnFinished(event -> {
+                        Platform.runLater(() -> stage.close());
+                    });
+                    delay.play();
                     return this.ui.printExit();
                 case "list":
                     if (this.tasks.getTaskCount() == 0) {
-                        System.out.println(" No tasks added yet.");
+                        System.out.println(" QUACKKK!!! No tasks has been added yet.");
                     } else {
                         return this.ui.printTasks(this.tasks.getTasks());
                     }
@@ -52,7 +61,7 @@ public class Dukduk {
                     return this.ui.addTask(this.tasks.getTasks());
                 case "mark":
                     if (input.length() <= firstInput.length()) {
-                        throw new DukdukException("OOPS!!! Please provide additional information for the '" + firstInput + "' command.");
+                        throw new DukdukException("QUACKKK!!! Please provide additional information for the '" + firstInput + "' command.");
                     }
                     int taskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     this.tasks.markTaskAsDone(taskIndex);
@@ -60,7 +69,7 @@ public class Dukduk {
                     return this.ui.markAsDone(this.tasks.getTasks(), taskIndex);
                 case "unmark":
                     if (input.length() <= firstInput.length()) {
-                        throw new DukdukException("OOPS!!! Please provide additional information for the '" + firstInput + "' command.");
+                        throw new DukdukException("QUACKKK!!! Please provide additional information for the '" + firstInput + "' command.");
                     }
                     int unmarkTaskIndex = Integer.parseInt(input.split(" ")[1]) - 1;
                     this.tasks.unMarkTask(unmarkTaskIndex);
@@ -69,13 +78,13 @@ public class Dukduk {
                 case "delete":
                     String[] parts = input.split(" ");
                     if (parts.length != 2) {
-                            throw new DukdukException("OOPS!!! Please specify the task number to delete.");
+                            throw new DukdukException("QUACKKK!!! Please specify the task number to delete.");
                     }
                     int deleteTaskIndex = Integer.parseInt(parts[1]) - 1;
                     return this.tasks.deleteTask(deleteTaskIndex);
                 case "find":
                     if (input.length() <= firstInput.length()) {
-                        throw new DukdukException("OOPS!!! Please provide additional information for the '" + firstInput + "' command.");
+                        throw new DukdukException("QUACKKK!!! Please provide additional information for the '" + firstInput + "' command.");
                     }
                     String keyword = input.substring(5).trim();
                     ArrayList<Task> matchingTasks = this.tasks.findTasks(keyword);
@@ -88,3 +97,4 @@ public class Dukduk {
         }
     }
 }
+

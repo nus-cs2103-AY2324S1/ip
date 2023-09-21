@@ -18,7 +18,6 @@ public class Parser {
      */
     public Parser(String input) {
         assert input != null : "Input cannot be null";
-        // Split string into first word and remaining words
         this.words = input.split(" ", 2);
     }
 
@@ -48,7 +47,7 @@ public class Parser {
         } else if (input.startsWith("event")) {
             return parseEventTask(input);
         } else {
-            throw new DukdukException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukdukException("QUACKKK!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 
@@ -61,7 +60,7 @@ public class Parser {
      */
     private static Task parseToDoTask(String input) throws DukdukException {
         if (input.length() <= 5) {
-            throw new DukdukException("OOPS!!! The description cannot be empty.");
+            throw new DukdukException("QUACKKK!!! The description cannot be empty.");
         }
         return new ToDo(input.substring(5));
     }
@@ -76,7 +75,7 @@ public class Parser {
     private static Task parseDeadlineTask(String input) throws DukdukException {
         int byIndex = input.indexOf("/by");
         if (byIndex == -1) {
-            throw new DukdukException("OOPS!!! The deadline format is incorrect. " +
+            throw new DukdukException("QUACKKK!!! The deadline format is incorrect. " +
                     "Use '/by' to specify the deadline.");
         }
         String description = input.substring(9, byIndex).trim();
@@ -85,7 +84,7 @@ public class Parser {
             LocalDateTime by = LocalDateTime.parse(byString, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             return new Deadline(description, by);
         } catch (DateTimeParseException e) {
-            throw new DukdukException("OOPS!!! The date/time format is incorrect. " +
+            throw new DukdukException("QUACKKK!!! The date/time format is incorrect. " +
                     "Please use 'yyyy-MM-dd HHmm' format.");
         }
     }
@@ -101,7 +100,7 @@ public class Parser {
         int fromIndex = input.indexOf("/from");
         int toIndex = input.indexOf("/to");
         if (fromIndex == -1 || toIndex == -1) {
-            throw new DukdukException("OOPS!!! The event format is incorrect. Use '/from' " +
+            throw new DukdukException("QUACKKK!!! The event format is incorrect. Use '/from' " +
                     "and '/to' to specify the timings.");
         }
         String description = input.substring(6, fromIndex).trim();
@@ -111,12 +110,12 @@ public class Parser {
             LocalDateTime fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             if (!toDateTime.isAfter(fromDateTime)) {
-                throw new DukdukException("OOPS!!! The 'to' date/time must be " +
+                throw new DukdukException("QUACKKK!!! The 'to' date/time must be " +
                         "after the 'from' date/time.");
             }
             return new Event(description, fromDateTime, toDateTime);
         } catch (DateTimeParseException e) {
-            throw new DukdukException("OOPS!!! The date/time format is incorrect. " +
+            throw new DukdukException("QUACKKK!!! The date/time format is incorrect. " +
                     "Please use 'yyyy-MM-dd HHmm' format.");
         }
     }

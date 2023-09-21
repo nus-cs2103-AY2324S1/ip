@@ -113,10 +113,11 @@ public class TaskList {
         assert isValidTaskIndex(taskIndex) : "Invalid task index";
         if (isValidTaskIndex(taskIndex)) {
             Task removedTask = tasks.remove(taskIndex);
-            return String.format("Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+            return String.format("Quack, noted. I've removed this task:\n%s\n" +
+                            "Now you have %d tasks in the list.",
                     removedTask, tasks.size());
         } else {
-            throw new DukdukException("OOPS!!! Task not found. Please provide a valid task number.");
+            throw new DukdukException("QUACKKK!!! Task not found. Please provide a valid task number.");
         }
     }
 
