@@ -15,7 +15,7 @@ import bob.tasks.Task;
 import bob.tasks.Todo;
 
 /**
- * Represents a parser that deals with interactions with the user.
+ * Represents a class that deals with interactions with the user.
  */
 public class Ui {
 
