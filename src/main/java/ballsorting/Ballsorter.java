@@ -57,25 +57,6 @@ public class Ballsorter extends Application {
         }
     }
 
-    /**
-     * Creates a new instance of the chatbot.
-     * @param filePath Takes in a filePath String that stores the chatbot information.
-     */
-    public Ballsorter(String filePath) {
-        tmpDir = new File(filePath);
-        //check for storage
-        storage = new Storage(tmpDir);
-        try {
-            if (tmpDir.createNewFile()) {
-                taskList = new TaskList();
-            } else {
-                storage.loadFile(taskList);
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
-
     public static void main(String[] args) {
         launch();
     }
