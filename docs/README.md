@@ -4,18 +4,18 @@ Bob the chatbot was created with user interaction in mind and offers a wide rang
 features and task management capabilities.
 
 ## Quick Start
-1. Download duke.jar here
-2. Move the installation files to your desired directory
-3. Run using the command in your terminal: java -jar duke.jar.
-4. Ensure that you have Java 11 installed on your machine, or try deleting the duke.txt file
-error persists.
-5. Refer to Usage below for details of each command.
+1. Ensure that you have Java 11 installed on your machine
+2. Download bob.jar [here](https://github.com/leontan2/ip/releases)
+3. Move the installation files to your desired directory
+4. Open your terminal and change into directory with the file using `cd`.
+5. Run using the command in your terminal: java -jar bob.jar.
+6. Refer to Usage below for details of each command.
 
 ## Features
 
 ### Add Task
 
-Adds a task to the list. There are 3 tasks. Todos, Events, Deadlines
+Adds a task to the list. There are 3 types of tasks. Todos, Events, Deadlines
 * Todos which contain a description
 * Events which contain a description with a start and end time.
 * Deadlines which contains a description with a due date.
@@ -178,7 +178,7 @@ Example of usage:
 Expected Outcome:
 
 Deletes the task at the specified index. The Ui would display a successful message with
-the task description, the total number of tasks currently in the list.
+the task description and the total number of tasks left in the list.
 
 ```
 Noted. I've removed this task:
