@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 /**
  * Handles the mapping of TaskList to JSON and vice versa.
@@ -79,7 +78,6 @@ public final class RenObjectMapper {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
             }
-
             Path cachePath = Path.of(cacheFileAddress);
             assert Files.exists(cachePath) : "Cache file should exist";
             File myObj = cachePath.toFile();
@@ -90,17 +88,8 @@ public final class RenObjectMapper {
             sc.close();
             return taskList;
         } catch (java.io.FileNotFoundException e) {
-            try (java.io.InputStream inputStream = RenObjectMapper.class.getResourceAsStream("/cacheTaskList.txt");
-                 java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(inputStream))) {
-                String contents = reader.lines()
-                        .collect(Collectors.joining(System.lineSeparator()));
-                taskList = objectMapper.readValue(contents, TaskList.class);
-                System.out.println("Successfully read from the file.");
-                return taskList;
-            } catch (java.io.IOException ioException) {
-                System.out.println("Can't read from cache file");
-                ioException.printStackTrace();
-            }
+            System.out.println("File not found.");
+            e.printStackTrace();
         } catch (JsonMappingException e) {
             System.out.println("Can't Map");
             e.printStackTrace();
@@ -114,7 +103,6 @@ public final class RenObjectMapper {
             System.out.println("An IO error occurred.");
             e.printStackTrace();
         }
-
         return taskList;
     }
 }
