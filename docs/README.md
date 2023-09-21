@@ -217,16 +217,16 @@ Ta-da! It's time to go~ Keep smiling till we reunite!
 ```
 
 ## Command Summary
-| Action       | Format                                                      |
-|--------------|-------------------------------------------------------------|
-| todo         | `todo DESCRIPTION`                                            |
-| deadline     | `deadline DESCRIPTION /by DD/MM/YYYY HHmm`                    |
-| event        | `event DESCRIPTION /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm` |
-| list         | `list`                                                        |
-| mark         | `mark TASKID`                                                 |
-| unmark       | `unmark TASKID`                                               |
-| find         | `find KEYWORDS`                                               |
-| delete       | `delete TASKID`                                               |
-| deleteMarked | `deleteMarked`                                                |
-| bye          | `bye`                                                         |
+ Action      | Format
+-------------|-------------------------------------------------------------
+ todo        | `todo DESCRIPTION`
+ deadline    | `deadline DESCRIPTION /by DD/MM/YYYY HHmm`
+ event       | `event DESCRIPTION /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm`
+ list        | `list`
+ mark        | `mark TASKID`
+ unmark      | `unmark TASKID`
+ find        | `find KEYWORDS`
+ delete      | `delete TASKID`
+ deleteMarked| `deleteMarked`
+ bye         | `bye`
 
