@@ -39,7 +39,7 @@ public class Deadline extends Task {
     /**
      * Compares the Deadline Task to another task.
      *
-     * @param o the object to be compared.
+     * @param o The object to be compared with.
      * @return The comparison value.
      */
     @Override

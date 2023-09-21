@@ -6,7 +6,7 @@ import jeo.task.TaskList;
 import jeo.ui.Ui;
 
 /**
- * Represents a command for the Je-O application.
+ * Represents a command for the Je-O chatbot.
  *
  * @author Joseph Oliver Lim
  */

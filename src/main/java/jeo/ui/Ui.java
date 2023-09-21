@@ -55,8 +55,7 @@ public class Ui {
      */
     public String taskList(TaskList tasks, int countTasks) {
         if (countTasks == 0) {
-            String output = "There are no tasks in the list.";
-            return output;
+            return "There are no tasks in the list.";
         }
         String output = "";
         for (int i = 0; i < countTasks; i++) {

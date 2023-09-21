@@ -47,10 +47,10 @@ public class Parser {
     /**
      * Parses Delete Command.
      *
+     * @param input A String representing the user input.
      * @return A DeleteCommand representing the user input.
-     * @throws JeoException If the input is invalid.
      */
-    private static Command parseDeleteCommand(String input) throws JeoException {
+    private static Command parseDeleteCommand(String input) {
         return new DeleteCommand(Integer.parseInt(input.split(" ")[1]) - 1);
     }
 
@@ -66,30 +66,30 @@ public class Parser {
     /**
      * Parses Mark Command.
      *
+     * @param input A String representing the user input.
      * @return A MarkCommand representing the user input.
-     * @throws JeoException If the input is invalid.
      */
-    private static Command parseMarkCommand(String input) throws JeoException {
+    private static Command parseMarkCommand(String input) {
         return new MarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
     }
 
     /**
      * Parses Unmark Command.
      *
+     * @param input A String representing the user input.
      * @return A UnmarkCommand representing the user input.
-     * @throws JeoException If the input is invalid.
      */
-    private static Command parseUnmarkCommand(String input) throws JeoException {
+    private static Command parseUnmarkCommand(String input) {
         return new UnmarkCommand(Integer.parseInt(input.split(" ")[1]) - 1);
     }
 
     /**
      * Parses Find Command.
      *
+     * @param input A String representing the user input.
      * @return A FindCommand representing the user input.
-     * @throws JeoException If the input is invalid.
      */
-    private static Command parseFindCommand(String input) throws JeoException {
+    private static Command parseFindCommand(String input) {
         return new FindCommand(input.split(" ", 2)[1].trim());
     }
 
@@ -97,15 +97,15 @@ public class Parser {
      * Parses Sort Command.
      *
      * @return A SortCommand representing the user input.
-     * @throws JeoException If the input is invalid.
      */
-    private static Command parseSortCommand(String input) throws JeoException {
+    private static Command parseSortCommand() {
         return new SortCommand();
     }
 
     /**
      * Parses ToDo Command.
      *
+     * @param input A String representing the user input.
      * @return A ToDoCommand representing the user input.
      * @throws JeoException If the input is invalid.
      */
@@ -120,6 +120,7 @@ public class Parser {
     /**
      * Parses Deadline Command.
      *
+     * @param input A String representing the user input.
      * @return A DeadlineCommand representing the user input.
      * @throws JeoException If the input is invalid.
      */
@@ -135,6 +136,7 @@ public class Parser {
     /**
      * Parses Event Command.
      *
+     * @param input A String representing the user input.
      * @return A EventCommand representing the user input.
      * @throws JeoException If the input is invalid.
      */
@@ -171,7 +173,7 @@ public class Parser {
             case FIND:
                 return parseFindCommand(input);
             case SORT:
-                return parseSortCommand(input);
+                return parseSortCommand();
             case TODO:
                 return parseToDoCommand(input);
             case DEADLINE:

@@ -43,7 +43,7 @@ public class Event extends Task {
     /**
      * Compares the Event Task to another task.
      *
-     * @param o the object to be compared.
+     * @param o The object to be compared.
      * @return The comparison value.
      */
     @Override

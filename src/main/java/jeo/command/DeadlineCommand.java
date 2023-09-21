@@ -21,8 +21,8 @@ public class DeadlineCommand extends Command {
     /**
      * Constructs a DeadlineCommand with a specified description and date.
      *
-     * @param description A string describing the deadline task.
-     * @param by A string describing the deadline date.
+     * @param description A String describing the deadline task.
+     * @param by A String describing the deadline date.
      */
     public DeadlineCommand(String description, String by) {
         super(true);

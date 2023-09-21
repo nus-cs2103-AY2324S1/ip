@@ -22,9 +22,9 @@ public class EventCommand extends Command {
     /**
      * Constructs an EventCommand with a specified description, start date and end date.
      *
-     * @param description A string describing the event name.
-     * @param from A string describing the start date.
-     * @param to A string describing the end date.
+     * @param description A String describing the event name.
+     * @param from A String describing the start date.
+     * @param to A String describing the end date.
      */
     public EventCommand(String description, String from, String to) {
         super(true);

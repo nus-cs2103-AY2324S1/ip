@@ -31,6 +31,7 @@ public class MarkCommand extends Command {
      * @param ui The Ui that functions as user interface.
      * @param storage The Storage that functions to store data.
      * @return A String to be shown to the user after the command is executed.
+     * @throws JeoException If the index number is invalid.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws JeoException {

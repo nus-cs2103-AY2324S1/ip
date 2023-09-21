@@ -19,7 +19,7 @@ public class Jeo {
     private Scanner sc;
     private Ui ui;
     private Storage storage;
-    private boolean systemStatus;
+    private boolean systemStatus = true;
 
     /**
      * Constructs an instance of Je-O chatbot.
@@ -39,6 +39,7 @@ public class Jeo {
     /**
      * Runs the Je-O chatbot.
      *
+     * @param input A String representing the user input.
      * @return A String to be shown to the user.
      */
     public String run(String input) {
@@ -54,6 +55,7 @@ public class Jeo {
     /**
      * Gets a response from the Je-O chatbot.
      *
+     * @param input A String representing the user input.
      * @return A String representing the response from the chatbot.
      */
     public String getResponse(String input) {

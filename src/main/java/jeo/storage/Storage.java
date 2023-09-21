@@ -20,7 +20,7 @@ import jeo.task.ToDo;
  */
 public class Storage {
     private String directoryString = "./data";
-    private String filePathString = directoryString + "/jeo.txt";
+    private String filePath = directoryString + "/jeo.txt";
     private File file;
 
     /**
@@ -34,7 +34,7 @@ public class Storage {
             if (!directory.exists()) {
                 directory.mkdir();
             }
-            file = new File(filePathString);
+            file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile();
             }
