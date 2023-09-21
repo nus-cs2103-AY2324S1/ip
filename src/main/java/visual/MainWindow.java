@@ -28,9 +28,10 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        AnchorPane.setBottomAnchor(dialogContainer, 30.0);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setStyle("-fx-background-color: red;");
         dialogContainer.setStyle("-fx-background-color: #C1E1C1;");
-        scrollPane.setStyle("-fx-background-color: green;");
     }
 
     public void setDuke(Duke d) {

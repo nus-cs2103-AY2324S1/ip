@@ -20,13 +20,6 @@ public class TaskManager {
     }
 
     /**
-     * Default constructor. Initializes an empty TaskList.
-     */
-    public TaskManager() {
-        this.tasks = new TaskList();
-    }
-
-    /**
      * Deletes a task based on the given user command.
      *
      * @param userCommand Command to specify which task to delete.
@@ -44,7 +37,7 @@ public class TaskManager {
                 throw new DukeException("invalid delete command (this task number does not exist)");
             }
             removedTask = tasks.deleteTask(num - 1);
-            return "Noted. I've removed this task:" + removedTask.toString() + updateNumMessage(tasks.size());
+            return "Woohoo. I've removed this task:" + removedTask.toString() + updateNumMessage(tasks.size());
         } catch (Exception e) {
             return e.getMessage();
         }
@@ -76,7 +69,7 @@ public class TaskManager {
                 }
                 Task task = tasks.getTask(num - 1);
                 task.toggleCompleted();
-                return "Nice! I've marked this task as done:" + task;
+                return "Wow! Good job clearing this task:" + task;
             } else {
                 throw new DukeException("invalid mark command");
             }
@@ -120,7 +113,7 @@ public class TaskManager {
         try {
             Task task = p.parseTaskFromCommand(userCommand);
             tasks.addTask(task);
-            return "Got it I have added this task:" + "\n" + task + updateNumMessage(tasks.size());
+            return "Okay another task added:" + "\n" + task + updateNumMessage(tasks.size());
         } catch (DukeException e) {
             return e.getMessage();
         }
@@ -145,6 +138,6 @@ public class TaskManager {
 
     public String clearTasks() {
         tasks.clear();
-        return "Successfully cleared tasks from current task list";
+        return "Success! I've cleared all the tasks from the current list";
     }
 }

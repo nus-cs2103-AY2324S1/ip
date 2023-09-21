@@ -48,6 +48,10 @@ public class Events extends Task {
         if (endDate == null) {
             throw new DukeException("end date of event cannot be empty");
         }
+
+        if (startDate.compareTo(endDate) > 0) {
+            throw new DukeException("start date cannot be later than end date.");
+        }
         this.startDate = startDate;
         this.endDate = endDate;
         this.isCompleted = isCompleted;

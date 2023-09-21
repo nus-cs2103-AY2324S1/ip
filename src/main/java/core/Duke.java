@@ -73,18 +73,16 @@ public class Duke extends Application {
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
-        mainLayout.setPrefSize(400.0, 600.0);
-
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        AnchorPane.setTopAnchor(scrollPane, 0.0);
-        AnchorPane.setLeftAnchor(scrollPane, 0.0);
-        AnchorPane.setRightAnchor(scrollPane, 0.0);
-        AnchorPane.setBottomAnchor(scrollPane, 40.0);
+        AnchorPane.setTopAnchor(dialogContainer, 0.0);
+        AnchorPane.setLeftAnchor(dialogContainer, 0.0);
+        AnchorPane.setRightAnchor(dialogContainer, 0.0);
+        AnchorPane.setBottomAnchor(dialogContainer, 40.0);
 
         AnchorPane.setLeftAnchor(userInput , 0.0);
         AnchorPane.setRightAnchor(userInput, 60.0);  // leave space for sendButton
@@ -207,7 +205,7 @@ public String getResponse(String input) {
             response += storage.clearFile();
             break;
         case UNKNOWN:
-            response += "Unknown command. Make sure you speak my language!";
+            response += "What do you mean? Make sure you speak my language asdfjkasd!";
             break;    
         
     }

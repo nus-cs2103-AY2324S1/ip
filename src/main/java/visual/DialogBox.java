@@ -55,6 +55,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        setAlignment(Pos.TOP_LEFT);
 
         HBox.setMargin(displayPicture, new Insets(0, 10, 0, 0));
     }

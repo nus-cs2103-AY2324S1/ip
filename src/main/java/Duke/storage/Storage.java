@@ -89,26 +89,45 @@ public class Storage {
         }
     }
 
+    public String generateTaskStringForFile(Task task) {
+        if (task instanceof ToDos) {
+           return ("T | ");
+        } else if (task instanceof Deadlines) {
+            return ("D | ");
+        } else if (task instanceof Events) {
+            return ("E | ");
+        }
+        return "";
+    }
+
+    public String generateTaskDatesForFile(Task task) {
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String res ="";
+        if (task instanceof Deadlines) {
+            res += " | " + (((Deadlines) task).getDate().format(outputFormatter));
+        } else if (task instanceof Events) {
+            res += " | " + ((Events) task).getStartDate().format(outputFormatter)
+            + " | " + ((Events) task).getEndDate().format(outputFormatter);
+        }
+        return res;
+    }
+
     public String taskToFileString(Task task) {
         StringBuilder sb = new StringBuilder();
 
-        if (task instanceof ToDos) {
-            sb.append("T | ");
-        } else if (task instanceof Deadlines) {
-            sb.append("D | ");
-        } else if (task instanceof Events) {
-            sb.append("E | ");
-        }
+        //append task string
+        String taskString = generateTaskStringForFile(task);
+        sb.append(taskString);
 
+        //append task completion status
         sb.append(task.isCompleted() ? "1" : "0").append(" | ");
+
+        //append task description
         sb.append(task.getDescription());
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        if (task instanceof Deadlines) {
-            sb.append(" | ").append(((Deadlines) task).getDate().format(outputFormatter));
-        } else if (task instanceof Events) {
-            sb.append(" | ").append(((Events) task).getStartDate().format(outputFormatter))
-                    .append(" | ").append(((Events) task).getEndDate().format(outputFormatter));
-        }
+
+        //append task dates
+        String dateString = generateTaskDatesForFile(task);
+        sb.append(dateString);
 
         return sb.toString();
     }

@@ -2,6 +2,8 @@ package Duke.parser;
 import core.Duke;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 import Duke.tasks.Deadlines;
 import Duke.tasks.Events;
@@ -37,6 +39,17 @@ public class Parser {
         }
     }
 
+    public List<LocalDateTime> parseDatesFromCommand(String[] parts) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime date = (parts.length >= 4 && !parts[3].isEmpty()) ? LocalDateTime.parse(parts[3], formatter)
+                : null;
+        LocalDateTime startDate = (parts.length >= 5 && !parts[4].isEmpty()) ? LocalDateTime.parse(parts[4], formatter)
+                : null;
+        LocalDateTime endDate = (parts.length == 6 && !parts[5].isEmpty()) ? LocalDateTime.parse(parts[5], formatter)
+                : null;
+        return Arrays.asList(date, startDate, endDate);
+    }
+
     public Task parseTaskFromFile(String line) throws DukeException {
         String[] parts = line.split("\\|");
 
@@ -48,13 +61,11 @@ public class Parser {
         String taskType = parts[0];
         boolean isCompleted = "1".equals(parts[1]);
         String description = parts[2];
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime date = (parts.length >= 4 && !parts[3].isEmpty()) ? LocalDateTime.parse(parts[3], formatter)
-                : null;
-        LocalDateTime startDate = (parts.length >= 5 && !parts[4].isEmpty()) ? LocalDateTime.parse(parts[4], formatter)
-                : null;
-        LocalDateTime endDate = (parts.length == 6 && !parts[5].isEmpty()) ? LocalDateTime.parse(parts[5], formatter)
-                : null;
+
+        List<LocalDateTime> dates = parseDatesFromCommand(parts);
+        LocalDateTime date = dates.get(0);
+        LocalDateTime startDate = dates.get(1);
+        LocalDateTime endDate = dates.get(2);
 
         try {
             switch (taskType) {
@@ -81,18 +92,6 @@ public class Parser {
         return task;
     }
 
-    public Duke.TaskType getTaskType(String str) {
-        if (str.startsWith("T")) {
-            return Duke.TaskType.TODO;
-        } else if (str.startsWith("D")) {
-            return Duke.TaskType.DEADLINE;
-        } else if (str.startsWith("E")) {
-            return Duke.TaskType.EVENT;
-        } else {
-            return Duke.TaskType.UNKNOWN;
-        }
-    }
-
     public Task parseEvent(DateTimeFormatter formatter, String[] parts) throws DukeException{
         if (parts.length < 2) {
             throw new DukeException("Description for the event cannot be empty.");
@@ -100,7 +99,7 @@ public class Parser {
 
         String[] eventParts = parts[1].split(" /from ", 2);
         if (eventParts.length < 2) {
-            throw new DukeException("Event timing is missing.");
+            throw new DukeException("Start time for event is missing.");
         }
 
         String[] eventTimes = eventParts[1].split(" /to ", 2);
