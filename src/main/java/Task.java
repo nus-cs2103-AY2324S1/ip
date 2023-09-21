@@ -1,9 +1,27 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Task {
     protected String description;
     protected boolean isDone;
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+    }
+
+    protected LocalDateTime stringToDate(String dateTimeString) {
+        DateTimeFormatter formatter;
+        dateTimeString = dateTimeString.trim();
+        if (dateTimeString.contains("T")) {
+            formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+        } else {
+            formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        }
+        return LocalDateTime.parse(dateTimeString, formatter);
+    }
+
+    protected String dateToString(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
     }
 
     public String getStatusIcon() {

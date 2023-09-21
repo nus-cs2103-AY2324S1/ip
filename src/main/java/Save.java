@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Save {
     private static final String DIRECTORY_PATH = "./data";
@@ -57,7 +59,7 @@ public class Save {
                 if (parts[1].equals("1")) deadline.markAsDone();
                 return deadline;
             case "E":
-                String[] timeParts = parts[3].split("-");
+                String[] timeParts = parts[3].split(" - ");
                 Event event = new Event(parts[2], timeParts[0].trim(), timeParts[1].trim());
                 if (parts[1].equals("1")) event.markAsDone();
                 return event;

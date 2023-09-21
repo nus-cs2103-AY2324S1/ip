@@ -1,6 +1,6 @@
 public class Parser {
     public enum Command {
-        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, UNKNOWN;
+        BYE, LIST, MARK, UNMARK, TODO, DEADLINE, EVENT, DELETE, SCHEDULE, UNKNOWN;
         public static Command translate(String input) {
             String lowerInput = input.toLowerCase();
             String command = lowerInput.split(" ")[0];
@@ -21,6 +21,8 @@ public class Parser {
                     return EVENT;
                 case "delete":
                     return DELETE;
+                case "schedule":
+                    return SCHEDULE;
                 default:
                     return UNKNOWN;
             }

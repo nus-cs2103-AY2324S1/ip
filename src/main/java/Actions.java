@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 public class Actions {
     private final ArrayList<Task> actions = new ArrayList<>();
@@ -17,6 +19,10 @@ public class Actions {
     }
 
     public String stringList() {
+        return stringList(this.actions);
+    }
+
+    public String stringList(ArrayList<Task> actions) {
         List<String> formattedTasks = new ArrayList<>();
         for (int i = 0; i < actions.size(); i++) {
             String formattedIndex = String.format("%2d", i + 1);
@@ -38,7 +44,7 @@ public class Actions {
 
     public Task unmark(int idx) throws DukeException {
         Task toUnmark = getAction(idx);
-        toUnmark.markAsDone();
+        toUnmark.unMark();
         return toUnmark;
     }
 
@@ -49,5 +55,13 @@ public class Actions {
     public Task delete(int idx) throws DukeException{
         getAction(idx);
         return actions.remove(idx);
+    }
+
+    public List<Task> tasksOnDate(LocalDateTime date) {
+        return actions.stream()
+                .filter(task -> task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date.toLocalDate()) ||
+                        task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date.toLocalDate()) ||
+                                ((Event) task).getTo().toLocalDate().equals(date.toLocalDate())))
+                .collect(Collectors.toList());
     }
 }

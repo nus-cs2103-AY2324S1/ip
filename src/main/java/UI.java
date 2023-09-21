@@ -2,7 +2,7 @@ import java.util.Scanner;
 public class UI {
     private final Scanner scanner = new Scanner(System.in);
     public void horizontalLines() {
-        System.out.println("____________________________________________________________"); //length taken from sample
+        System.out.println("__________________________________________________________________");
     }
 
     public void lineSandwich(String message) {
