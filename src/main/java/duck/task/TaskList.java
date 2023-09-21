@@ -25,6 +25,13 @@ public class TaskList {
     public TaskList(List<Task> t) {
         this.listOfTasks = t;
     }
+    public List<Task> getListOfTasks() {
+        return listOfTasks;
+    }
+
+    public void setListOfTasks(List<Task> listOfTasks) {
+        this.listOfTasks = listOfTasks;
+    }
 
     public void addTask(Task t) {
         this.listOfTasks.add(t);
@@ -34,11 +41,31 @@ public class TaskList {
         return this.listOfTasks.remove(index);
     }
 
-    public void markTask(int index) {
+    /**
+     * Marks a task at index
+     * @param index index to mark
+     * @throws SemanticException if index invalid
+     */
+    public void markTask(int index) throws SemanticException {
+        if (index < 0) {
+            throw new SemanticException("Index must be positive");
+        } else if (index >= this.size()) {
+            throw new SemanticException("Index must be less than size of Task List");
+        }
         this.listOfTasks.get(index).markAsDone();
     }
 
-    public void unmarkTask(int index) {
+    /**
+     * Unmarks a task at index
+     * @param index index to mark
+     * @throws SemanticException if index invalid
+     */
+    public void unmarkTask(int index) throws SemanticException {
+        if (index < 0) {
+            throw new SemanticException("Index must be positive");
+        } else if (index >= this.size()) {
+            throw new SemanticException("Index must be less than size of Task List");
+        }
         this.listOfTasks.get(index).markUndone();
     }
 
@@ -148,14 +175,25 @@ public class TaskList {
     }
 
     public ToDo setToDo(String str) throws DuckException {
-        String[] todo = str.strip().split("todo ?+");
-        if (todo.length > 0 && !todo[0].isBlank()) {
-            return new ToDo(todo[0]);
+        String todo = str.strip();
+        if (!todo.isBlank()) {
+            return new ToDo(todo);
         } else {
-            throw new DuckException("☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new DuckException("OOPS!!! The description of a todo cannot be empty.");
         }
     }
-    public ArrayList<Task> find(String command) {
+
+    /**
+     * Searches for tasks in the list that contains a specific keyword in their description.
+     * This method iterates through the list of tasks and checks if each task's description contains
+     * that particular keyword or phrase.
+     * @param command The keyword or phrase to search for within the task descriptions.
+     * @return An ArrayList containing the tasks that match the search criteria.
+     */
+    public ArrayList<Task> find(String command) throws SyntaxException {
+        if (command.isBlank()) {
+            throw new SyntaxException("find keyword can not be blank");
+        }
         ArrayList<Task> searchedTasks = new ArrayList<>();
         for (int i = 0; i < listOfTasks.size(); i++) {
             if (listOfTasks.get(i).getDescription().contains(command)) {
@@ -164,10 +202,22 @@ public class TaskList {
         }
         return searchedTasks;
     }
-    public ArrayList<Task> checkSchedule(String cmd) {
+
+    /**
+     * Searches for the tasks scheduled on a specific date based on a given date command.
+     * This method parses the provided date command in the "yyyy-MM-DD" to search for tasks scheduled on that date.
+     * Iterates through the list to find tasks that matches the specified date.
+     * @param cmd The date command in the "yyyy-MM-dd" format to search for tasks scheduled on that date.
+     * @return  An ArrayList containing tasks scheduled for the specified date.
+     * @throws IllegalDateFormatException If the provided date command is in an invalid format.
+     */
+    public ArrayList<Task> checkSchedule(String cmd) throws SyntaxException {
+        if (cmd.isBlank()) {
+            throw new SyntaxException("Date must be provided");
+        }
         ArrayList<Task> searchTaskOnSpecificDate = new ArrayList<>();
         try {
-            LocalDate target = LocalDate.parse(cmd, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate target = LocalDate.parse(cmd.strip(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             for (int i = 0; i < listOfTasks.size(); i++) {
                 Task task = listOfTasks.get(i);
                 if (task instanceof Events) {

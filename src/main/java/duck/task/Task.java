@@ -32,6 +32,10 @@ public class Task {
         isDone = true;
     }
 
+    public boolean checkDone() {
+        return isDone;
+    }
+
 
     public void markUndone() {
         isDone = false;
