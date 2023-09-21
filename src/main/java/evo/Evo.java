@@ -56,9 +56,9 @@ public class Evo extends Application {
      * Constructor for the Evo class. Initializes the user interface (UI),
      * storage, and task list components of the Evo application.
      */
-    public Evo() {
+    public Evo(String filePath) {
         ui = new Ui();
-        storage = new Storage("./data/evo.txt");
+        storage = new Storage(filePath);
         try {
             tasksList = new TaskList(storage.loadTasksFromFile());
         } catch (EvoException e) {

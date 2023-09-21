@@ -12,8 +12,9 @@ import javafx.stage.Stage;
  * A GUI for Evo using FXML.
  */
 public class Main extends Application {
+    private static final String FILE_PATH = "./data/evo.txt";
     /** An instance of the Evo application */
-    private Evo evo = new Evo();
+    private Evo evo = new Evo(FILE_PATH);
 
     /**
      * The entry point for starting the JavaFX application.

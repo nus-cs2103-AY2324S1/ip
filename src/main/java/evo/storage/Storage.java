@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 import evo.exceptions.EvoException;
 import evo.exceptions.InvalidDateAndTimeInputException;
-import evo.exceptions.NoDataFileFoundException;
-import evo.exceptions.NoFolderFoundException;
 import evo.exceptions.UnexpectedTaskTypeException;
 import evo.tasks.Deadline;
 import evo.tasks.Event;
@@ -52,7 +50,11 @@ public class Storage {
      */
     public void saveTasksInFile(TaskList tasksList) throws IOException {
         // Creates a File object representing the target file path
-        File file = new File("./data/evo.txt");
+        File file = new File(filePath);
+        File parentDirectory = file.getParentFile();
+        if (!parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
         // Creates a BufferedWriter to write to the file
         BufferedWriter writer = new BufferedWriter(new FileWriter(file));
         try {
@@ -83,13 +85,9 @@ public class Storage {
         try {
             this.tasksList = new ArrayList<Task>();
             // Loads the data from the file when the chatbot starts up
-            File folder = new File(this.filePath);
-            if (!folder.exists()) {
-                throw new NoFolderFoundException();
-            }
-            File file = new File(this.filePath);
+            File file = new File(filePath);
             if (!file.exists()) {
-                throw new NoDataFileFoundException();
+                return tasksList;
             }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String line;
@@ -122,12 +120,6 @@ public class Storage {
                     // Fallthrough
                 }
             }
-        } catch (NoFolderFoundException noFolderFoundException) {
-            // Catches the exception when the required folder does not exist
-            System.out.println("The folder does not exist.\n");
-        } catch (NoDataFileFoundException noDataFileFoundException) {
-            // Catches the exception when the data file does not exist while you run
-            System.out.println("The required data file does not exist.\n");
         } catch (UnexpectedTaskTypeException unexpectedTaskTypeException) {
             // Catches the exception when an unexpected task type was encountered when loading the task from txt file
             System.out.println("Unexpected task type encountered when loading the task from txt file.\n");
