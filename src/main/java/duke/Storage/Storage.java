@@ -1,10 +1,7 @@
 package duke.Storage;
 
 import duke.DukeException.DukeException;
-import duke.Task.Deadlines;
-import duke.Task.Events;
-import duke.Task.Task;
-import duke.Task.ToDos;
+import duke.Task.*;
 import duke.TaskList.TaskList;
 
 import java.io.File;
@@ -59,6 +56,8 @@ public class Storage {
                     tasks.addTask(new Deadlines(taskName, input.split(",")[3]));
                 } else if (taskType.equals("E")) {
                     tasks.addTask(new Events(taskName, input.split(",")[3],input.split(",")[4]));
+                } else if (taskType.equals("P")) {
+                    tasks.addTask(new Periods(taskName, input.split(",")[3]));
                 } else {
                     throw new DukeException(" OOPS!!! Failed to load tasks from file.");
                 }
