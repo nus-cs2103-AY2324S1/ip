@@ -237,17 +237,17 @@ Bye Bye! Hope to see you again soon!
 
 <table>
 <tr><th>Action</th><th>Format, Example</th></tr>
-<tr><td>TODO</td><td>todo TASK<br></br>Eg: todo laundry</td></tr>
-<tr><td>DEADLINE</td><td>deadline TASK /by YYYY-MM-DD HH:MM<br></br>Eg: deadline ip tasks 
+<tr><td>TODO</td><td>todo TASK<br>Eg: todo laundry</td></tr>
+<tr><td>DEADLINE</td><td>deadline TASK /by YYYY-MM-DD HH:MM<br>Eg: deadline ip tasks 
 /by 2023-09-22 23:59</td></tr>
-<tr><td>EVENT</td><td>event TASK /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM<br></br>Eg: event hackathon 
+<tr><td>EVENT</td><td>event TASK /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM<br>Eg: event hackathon 
 /from 2023-09-29 18:00 /to 2023-10-01 10:00
 </td></tr>
-<tr><td>MARK</td><td>mark INDEX<br></br>Eg: mark 1</td></tr>
-<tr><td>UNMARK</td><td>unmark INDEX<br></br>Eg: unmark 1</td></tr>
-<tr><td>DELETE</td><td>DELETE INDEX<br></br>Eg: delete 1</td></tr>
-<tr><td>FIND</td><td>find KEYWORD<br></br>Eg: find laundry</td></tr>
-<tr><td>LIST</td><td>list<br></br>Eg: list</td></tr>
-<tr><td>SCHEDULE</td><td>schedule YYYY-MM-DD<br></br>Eg: schedule 2023-09-29</td></tr>
-<tr><td>NOTE</td><td>note INDEX NOTE<br></br>Eg: note 1 difficult</td></tr>
-<tr><td>BYE</td><td>bye<br></br>Eg: bye</td></tr></table>
+<tr><td>MARK</td><td>mark INDEX<br>Eg: mark 1</td></tr>
+<tr><td>UNMARK</td><td>unmark INDEX<br>Eg: unmark 1</td></tr>
+<tr><td>DELETE</td><td>DELETE INDEX<br>Eg: delete 1</td></tr>
+<tr><td>FIND</td><td>find KEYWORD<br>Eg: find laundry</td></tr>
+<tr><td>LIST</td><td>list<br>Eg: list</td></tr>
+<tr><td>SCHEDULE</td><td>schedule YYYY-MM-DD<br>Eg: schedule 2023-09-29</td></tr>
+<tr><td>NOTE</td><td>note INDEX NOTE<br>Eg: note 1 difficult</td></tr>
+<tr><td>BYE</td><td>bye<br>Eg: bye</td></tr></table>
