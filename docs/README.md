@@ -1,4 +1,4 @@
-# User Guide
+# Bob the Chatbot | User Guide
 
 ## Overview
 Bob is a chatbot that helps people track different types of tasks by typing simple commands.
