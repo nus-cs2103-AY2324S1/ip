@@ -13,8 +13,7 @@ public class TaskList {
     //The path directory to test.s
     private String path;
     //The DataSaver class used to transmit and store information during the use of the Duke class
-    private Storage middleman;
-
+    private Storage storage;
     /**
      * Instantiates a new TaskList.
      * @param path path directory for the test.s file.
@@ -22,8 +21,8 @@ public class TaskList {
     public TaskList(String path) {
         this.path = path;
         try {
-            this.middleman = new Storage(path);
-            this.tasks = middleman.load();
+            this.storage = new Storage(path);
+            this.tasks = storage.loadTasks();
         } catch (IOException | ClassNotFoundException e) {
             Ui.errorMessage(e.getMessage());
         }
@@ -33,7 +32,7 @@ public class TaskList {
      * Saves the data stored in the DukeList into the data.s file.
      */
     public void save() {
-        middleman.store(this.tasks);
+        storage.storeTasks(this.tasks);
     }
 
 
@@ -50,7 +49,7 @@ public class TaskList {
 
 
     /**
-     * Displays all contents of the list stored within an instance of DukeList.
+     * Displays all contents of the list stored within an instance of TaskList.
      */
     public String display() {
         if (tasks.size() == 0) {
@@ -67,7 +66,7 @@ public class TaskList {
      */
     public String mark(int i) {
 
-        assert i <= tasks.size(): "Ehh? Make sure the index is valid";
+        assert i <= tasks.size() : "Ehh? Make sure the index is valid";
         Task task = tasks.get(i - 1);
         task.done();
 
@@ -79,7 +78,7 @@ public class TaskList {
      * @param i takes in the index of the task to be set as undone.
      */
     public String unmark(int i) {
-        assert i <= tasks.size(): "Ehh? Make sure the index is valid";
+        assert i <= tasks.size() : "Ehh? Make sure the index is valid";
 
         Task task = tasks.get(i - 1);
         task.undo();
@@ -92,7 +91,7 @@ public class TaskList {
      * @param i takes in the index of the task to be removed.
      */
     public String delete(int i) {
-        assert i <= tasks.size(): "Ehh? Make sure the index is valid";
+        assert i <= tasks.size() : "Ehh? Make sure the index is valid";
 
         Task task = tasks.remove(i - 1);
         int index = tasks.size();
@@ -118,7 +117,7 @@ public class TaskList {
         if (foundTasks.length == 0) {
             return Ui.emptyListMessage();
         } else {
-            return Ui.showMatchesMessage() + "\n"+ Ui.display(foundTasks);
+            return Ui.showMatchesMessage() + "\n" + Ui.display(foundTasks);
         }
     }
 }

@@ -101,42 +101,44 @@ public class Ui {
     public static String inputErrorMessage(String type) {
         String errorMessage = new String();
         switch (type) {
-            case "todo":
-                errorMessage = "Whoops, wrong format! Type todo <task>\n";
-                break;
-            case "deadline":
-                errorMessage = "Whoops, wrong format! Type deadline <task> /by YYYY-MM-DD\n";
-                break;
-            case "event":
-                errorMessage = "Whoops, wrong format! "
-                        + "Type event <task> /from YYYY-MM-DD /to YYYY-MM-DD\n";
-                break;
-            case "mark":
-                errorMessage = "Ehh? What do you want to mark? Type mark <index>\n";
-                break;
-            case "unmark":
-                errorMessage = "Ehh? What do you want to unmark? Type unmark <index>\n";
-                break;
-            case "delete":
-                errorMessage = "Ehh? What do you want to delete? Type remove <index>\n";
-                break;
-            default:
-                errorMessage = "I dunno what you're saying...\n";
-                break;
+        case "todo":
+            return "Whoops, wrong format! Type todo <task>\n";
+        case "deadline":
+            return "Whoops, wrong format! Type deadline <task> /by YYYY-MM-DD\n";
+        case "event":
+            return "Whoops, wrong format! "
+                    + "Type event <task> /from YYYY-MM-DD /to YYYY-MM-DD\n";
+        case "mark":
+            return"Ehh? What do you want to mark? Type mark <index>\n";
+        case "unmark":
+            return "Ehh? What do you want to unmark? Type unmark <index>\n";
+        case "delete":
+            return "Ehh? What do you want to delete? Type remove <index>\n";
+        case "addtrivia":
+            return "Ehhhh? Type addtrivia <question> /answer <answer>";
+        case "edittrivia":
+            return "Ehhh? Type edittrivia <question> /answer <answer>";
+        default:
+            return "I dunno what you're saying...\n";
         }
-
-        return errorMessage;
     }
 
-    /**
-     * Returns a message if a given index is beyond the DukeList's size.
-     * @param listSize The size of the DukeList
-     * @return Error message.
-     */
-    public static String indexError(int listSize) {
-        return "Ehh? I can't find the task. You have " + listSize +  (listSize != 1 ? " tasks" : " task");
+    public static String triviaAdd(String message, String answer) {
+        return "Woooaahhh... I didn't know that!\n"
+                + message + "?\n"
+                + answer + "!";
     }
 
+    public static String triviaEdit(String message, String answer) {
+        return "Ohhhh...\n"
+                + message + "?\n"
+                + "It's actually " + answer + "!";
+    }
+
+    public static String triviaDelete(String message) {
+        return message + "?\n"
+               + "... Guess we don't need to know now, huh";
+    }
 
 }
 

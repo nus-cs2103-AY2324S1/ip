@@ -6,14 +6,17 @@ package duke;
 public class Bye extends Command {
 
     //The tasklist used to save all tasks.
-    private TaskList taskList;
+    private TaskList tasks;
+
+    private TriviaList trivia;
 
     /**
      * Instantiates a Bye command
-     * @param taskList the tasklist used to save tasks.
+     * @param tasks the tasklist used to save tasks.
      */
-    public Bye(TaskList taskList) {
-        this.taskList = taskList;
+    public Bye(TaskList tasks, TriviaList trivia) {
+        this.tasks = tasks;
+        this.trivia = trivia;
     }
 
     /**
@@ -22,7 +25,8 @@ public class Bye extends Command {
      */
     @Override
     public String execute() {
-        taskList.save();
+        tasks.save();
+        trivia.save();
         return Ui.bye();
     }
 }

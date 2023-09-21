@@ -8,13 +8,16 @@ public class Parser {
     //The DukeList to store all tasks given to the Duke bot.
     private TaskList tasks;
 
+    private TriviaList trivia;
+
 
     /**
      * Instantiates a new Parser class
      * @param list the DukeList that contains all tasks at hand.
      */
-    public Parser(TaskList list) {
+    public Parser(TaskList list, TriviaList trivia) {
         this.tasks = list;
+        this.trivia = trivia;
     }
 
     /**
@@ -33,7 +36,7 @@ public class Parser {
         case "search":
             return new TaskSearcher(restOfCommand, this.tasks);
         case "bye":
-            return new Bye(tasks);
+            return new Bye(tasks, trivia);
         case "todo":
         case "deadline":
         case "event":
@@ -42,6 +45,11 @@ public class Parser {
         case "unmark":
         case "delete":
             return this.editTask(comd, restOfCommand);
+        case "addtrivia":
+        case "edittrivia":
+        case "removetrivia":
+        case "ask":
+            return this.handleTrivia(comd, restOfCommand);
         default:
             return new TaskError("other");
         }
@@ -117,6 +125,37 @@ public class Parser {
 
         default:
             return new TaskError("other");
+        }
+    }
+
+    private Command handleTrivia(String type, String triviafacts) {
+        switch (type) {
+        case "addtrivia":
+            try {
+                String[] facts = triviafacts.split(" /answer ", 2);
+                String question = facts[0];
+                String answer = facts[1];
+
+                return new TriviaAdd(question, answer, trivia);
+            } catch (NullPointerException e) {
+                return new TaskError("trivia");
+            }
+        case "edittrivia":
+            try {
+                String[] newFacts = triviafacts.split(" /answer ", 2);
+                String newQuestion = newFacts[0];
+                String newAnswer = newFacts[1];
+
+                return new TriviaAdd(newQuestion, newAnswer, trivia);
+            } catch (NullPointerException e) {
+                return new TaskError("trivia");
+            }
+        case "removetrivia":
+            return new TriviaDelete(triviafacts, trivia);
+        case "ask":
+            return new Ask(triviafacts, trivia);
+        default:
+            return new TaskError("trivia");
         }
     }
 }

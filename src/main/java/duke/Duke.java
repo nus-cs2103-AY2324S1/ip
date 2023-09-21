@@ -17,7 +17,8 @@ public class Duke {
         final String dataDirectory = "data";
         String projectRoot = System.getProperty("user.dir");
         String dataPath = projectRoot + "/" + dataDirectory + "/tasks.s";
-        this.parser = new Parser(new TaskList(dataPath));
+        String triviaPath = projectRoot + "/" + dataDirectory + "/trivia.s";
+        this.parser = new Parser(new TaskList(dataPath), new TriviaList(triviaPath));
     }
 
     /**
@@ -26,7 +27,11 @@ public class Duke {
      * @return the message string after parsing and executing the command.
      */
     public String messageHandler(String message) {
-        return this.parser.messageHandler(message).execute();
+        try {
+            return this.parser.messageHandler(message).execute();
+        } catch (NullPointerException e) {
+            return Ui.inputErrorMessage(" ");
+        }
     }
 
 
