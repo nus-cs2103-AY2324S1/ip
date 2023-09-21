@@ -49,7 +49,7 @@ public class Parser {
             return new ByeCommand();
         } else if (userInput.equalsIgnoreCase("list")) {
             return new ListCommand();
-        } else if (splitUserInput[0].startsWith("sort")) {
+        } else if (userInput.equalsIgnoreCase("sort")) {
             return new SortCommand();
         } else if (splitUserInput[0].startsWith("mark")) {
             return new MarkCommand(userInput);

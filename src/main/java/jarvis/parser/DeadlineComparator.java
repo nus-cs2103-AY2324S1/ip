@@ -15,9 +15,15 @@ public class DeadlineComparator implements Comparator<Task> {
     public int compare(Task task1, Task task2) {
         LocalDateTime dueDate1 = task1.getDueDate();
         LocalDateTime dueDate2 = task2.getDueDate();
-        if (dueDate1 == null || dueDate2 == null) {
+        if (dueDate1 == null && dueDate2 == null) {
             return 0;
+        } else if (dueDate1 == null) { // Task2 has a deadline while Task1 doesn't, so Task2 comes first.
+            return 1;
+        } else if (dueDate2 == null) { // Task1 has a deadline while Task2 doesn't, so Task1 comes first.
+            return -1;
+        } else {
+            // Compare tasks based on their deadlines.
+            return dueDate1.compareTo(dueDate2);
         }
-        return dueDate1.compareTo(dueDate2);
     }
 }

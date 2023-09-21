@@ -25,7 +25,7 @@ import javafx.scene.text.Text;
 public class DialogBox extends HBox {
     private static final int MESSAGE_BOX_WIDTH = 350;
     private static final int ARC_VALUE = 40;
-    private static final int MAX_TEXT_LEN = 60;
+    private static final int MAX_TEXT_LEN = 50;
     private static final int PFP_SIZE = 30;
 
     /**
@@ -150,14 +150,15 @@ public class DialogBox extends HBox {
 
     private Rectangle createMessageBox(Text formattedText) {
         assert formattedText != null : "Text cannot be null.";
-        Rectangle messageBox = getTextHeight(formattedText);
+        Rectangle messageBox = createCustomMessageBox(formattedText);
         styleMessageBox(messageBox);
         return messageBox;
     }
 
-    private static Rectangle getTextHeight(Text formattedText) {
-        double messageBubbleHeight = formattedText.getBoundsInLocal().getHeight() + 40;
-        return new Rectangle(MESSAGE_BOX_WIDTH, messageBubbleHeight);
+    private static Rectangle createCustomMessageBox(Text formattedText) {
+        double messageBoxWidth = formattedText.getBoundsInLocal().getWidth() + 80;
+        double messageBoxHeight = formattedText.getBoundsInLocal().getHeight() + 20;
+        return new Rectangle(messageBoxWidth, messageBoxHeight);
     }
 
     private static void styleMessageBox(Rectangle messageBox) {

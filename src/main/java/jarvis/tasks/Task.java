@@ -69,7 +69,7 @@ public class Task {
      * @return The due date of the task.
      */
     public LocalDateTime getDueDate() {
-        return dueDate;
+        return (dueDate != null) ? dueDate : null;
     }
 
     /**

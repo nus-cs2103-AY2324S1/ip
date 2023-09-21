@@ -79,13 +79,9 @@ public class TaskList {
     /**
      * Sorts the tasks in the task list based on their deadlines, if applicable.
      * Tasks without deadlines are placed at the end of the list.
-     *
-     * @return An ArrayList of tasks sorted by their deadlines (if applicable).
      */
-    public ArrayList<Task> sortTasks() {
-        ArrayList<Task> tasks = this.taskList;
-        tasks.sort(new DeadlineComparator());
-        return tasks;
+    public void sortTasks() {
+        taskList.sort(new DeadlineComparator());
     }
 
     /**
