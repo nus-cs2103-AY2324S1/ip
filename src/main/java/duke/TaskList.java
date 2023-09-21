@@ -83,6 +83,18 @@ public class TaskList {
     }
 
     /**
+     * Updates the tasklist.
+     */
+    public void update() {
+        ArrayList<Task> tempTasks = new ArrayList<>();
+        while (!tasks.isEmpty()) {
+            Task t = tasks.poll();
+            tempTasks.add(t);
+        }
+        tasks.addAll(tempTasks);
+    }
+
+    /**
      * Returns true if a task has the same rank.
      *
      * @param rank Rank of the task.

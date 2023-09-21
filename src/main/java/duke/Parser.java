@@ -424,6 +424,7 @@ public class Parser {
 
         Task t = tasks.get(j-1);
         t.markDone();
+        tasks.update();
 
         return ui.sendMessage("Task marked as done.");
     }
@@ -455,6 +456,7 @@ public class Parser {
 
         Task t = tasks.get(j-1);
         t.markUndone();
+        tasks.update();
 
         return ui.sendMessage("Task marked as undone.");
     }
@@ -485,6 +487,7 @@ public class Parser {
 
         Task t = tasks.get(j - 1);
         tasks.remove(t);
+        tasks.update();
 
         String res = String.join("", "I've removed this task:\n", t.convertToString());
         res = String.join("", res + "\n", "Now you have " + tasks.size() + (tasks.size() > 1 ? " tasks" : " task")
@@ -516,6 +519,8 @@ public class Parser {
                 counter += 1;
             }
         }
+
+        tasks.update();
 
         if (counter == 1) {
             return ui.sendMessage("No matching found");
@@ -557,6 +562,7 @@ public class Parser {
         }
         Task t = tasks.get(idxTask - 1);
         t.setPriority(rank);
+        tasks.update();
         return this.ui.sendMessage("Priority of task has been updated successfully");
     }
 }
