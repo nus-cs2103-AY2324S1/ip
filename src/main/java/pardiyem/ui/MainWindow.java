@@ -31,6 +31,9 @@ public class MainWindow extends AnchorPane {
 
     public void setPardiyem(Pardiyem p) {
         pardiyem = p;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(pardiyem.greet(), dukeImage)
+        );
     }
 
     /**

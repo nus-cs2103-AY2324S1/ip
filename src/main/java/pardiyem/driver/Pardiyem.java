@@ -15,6 +15,10 @@ public class Pardiyem {
         tasks = storage.load();
     }
 
+    public String greet() {
+        return "Salve, I'm Pardiyem! How can I help you today?";
+    }
+
     public String getResponse(String input) {
         try {
             return Parser.parseCommand(input).execute(tasks, storage);
