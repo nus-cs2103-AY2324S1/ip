@@ -1,11 +1,11 @@
-package duke.task;
+package duke.exception;
 
 /**
- * Represents an error that occurred during the initialisation of a Deadline object.
+ * Represents an error that occurred during the initialisation of a command.
  */
-public class TaskException extends Exception {
+public class CommandException extends DukeException {
 
-    public TaskException(String format) {
-        super("Oops! Invalid input for your task.\nValid Format: " + format);
+    public CommandException(String format) {
+        super("Oops! Invalid input for your command.\nValid Format: " + format);
     }
 }
