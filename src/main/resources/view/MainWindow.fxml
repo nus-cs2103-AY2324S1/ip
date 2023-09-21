@@ -10,7 +10,7 @@
     <children>
         <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
-        <!-- Reused the scrollPane node from https://yufannnn.github.io/ip/,to solve the issue of user need to scroll up to see the welcoming message-->
+        <!-- Reused the scrollPane node from https://yufannnn.github.io/ip/,@author Zhu Yufan, to solve the issue of user need to scroll up to see the welcoming message-->
         <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="600.0" vvalue="1.0" AnchorPane.bottomAnchor="42.39999999999998" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="620.0" />
         </ScrollPane>
