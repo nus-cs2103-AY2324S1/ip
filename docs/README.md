@@ -4,6 +4,8 @@
 1. Add tasks such as todos, events, or deadlines to Dialogix.
 2. View list of added tasks.
 3. Mark tasks as completed/incomplete.
+4. Delete a task.
+5. Find tasks that have given keyword.
 
 **Notes about the command format**:
 - Words in `UPPER_CASE` are the parameters to be supplied by the user. For example, in `todo DESCRIPTION`, `DESCRIPTION` is a parameter that can be used as `todo READBOOK`.
@@ -63,4 +65,26 @@ Example:
 
 ```
 done 3
+```
+
+### Finding a task: `find`
+Finds a task with a keyword.
+
+**Format**: `find KEYWORD`
+
+Example:
+
+```
+find homework
+```
+
+### Deleting a task: `delete`
+Deletes a task in the list with its task number.
+
+**Format**: `delete TASK_NUMBER`
+
+Example:
+
+```
+delete 3
 ```
