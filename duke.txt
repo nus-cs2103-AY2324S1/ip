@@ -1,5 +1,8 @@
-T | 0 | sleep
+T | 1 | sleep
 T | 0 | something
 E | 0 | women in tech | 3pm - 5pm
 D | 0 | finish 2103t | 2023-09-22
-T | 0 | eat food
+T | 1 | some stuff
+T | 0 | whooo
+T | 0 | wheeee
+T | 0 | woahah

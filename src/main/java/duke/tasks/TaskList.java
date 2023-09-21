@@ -1,5 +1,6 @@
 package duke.tasks;
 
+import duke.Duke;
 import duke.exceptions.DukeException;
 import duke.storage.Storage;
 import duke.ui.Ui;
@@ -151,9 +152,8 @@ public class TaskList {
      * Searches for a task in the task list.
      * @param searchTerm the term to search for in the task list.
      */
-    public static String searchFor(String searchTerm) {
-        String searchResult = "_____________________________________"
-                + "\nHere are the matching tasks in your list: (≧▽≦)\n\n";
+    public static String searchFor(String searchTerm) throws DukeException{
+        String searchResult = "";
         List<Task> result = toDo.stream()
                 .filter(task -> task.checkTerm(searchTerm))
                 .collect(Collectors.toList());
@@ -163,6 +163,12 @@ public class TaskList {
             assert description != null : "description should not be empty";
             searchResult += (i + 1) + "." + description + "\n\n";
         }
-        return searchResult + "_____________________________________";
+
+        if (searchResult.equals("")) {
+            throw new DukeException("Can't find anything matching that ╥﹏╥");
+        }
+
+        return "_____________________________________" + "\nHere are the matching tasks in your list: (≧▽≦)\n\n"
+                + searchResult + "_____________________________________";
     }
 }
