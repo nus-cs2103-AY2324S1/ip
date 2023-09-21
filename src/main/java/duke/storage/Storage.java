@@ -120,7 +120,7 @@ public class Storage {
         String isDoneStr = split[2];
         String taskDescription = split[3];
 
-        // id is the last item in the list;
+        // id is the last item in the list
         int id = Integer.parseInt((split[0]));
         Boolean isDone = false;
         if (Objects.equals(isDoneStr, "1") || Objects.equals(isDoneStr, "0")) {
