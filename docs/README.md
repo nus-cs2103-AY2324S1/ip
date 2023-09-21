@@ -2,7 +2,7 @@
 
 *Created by: Raman Gupta*
 
-![Capt. Price Ready for Mission](https://github.com/eyelessrhyme7/ip/docs/CaptPrice.jpg)
+![Capt. Price Ready for Mission](https://github.com/eyelessrhyme7/ip/blob/master/docs/CaptPrice.jpg)
 
 ## Introduction
 
