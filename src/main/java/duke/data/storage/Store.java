@@ -40,8 +40,7 @@ public class Store {
     private void initPathToDataFile() {
         String rootPath = Paths.get("").toAbsolutePath().toString();
         this.dataFilePath = Paths.get(rootPath, "data/tasks.txt").toString();
-        Path path = Paths.get(dataFilePath);
-        this.dataFolderPath = Paths.get(rootPath, path.subpath(0, path.getNameCount() - 1).toString());
+        this.dataFolderPath = Paths.get(rootPath, "data");
         this.dataFile = new File(this.dataFilePath);
     }
     private void loadTasklist() throws DukeException {

@@ -52,11 +52,11 @@ test {
 }
 
 application {
-    mainClass.set('duke.Launcher')
+    mainClass.set('duke.ui.Launcher')
 }
 
 shadowJar {
-    mainClassName = 'duke.Launcher'
+    mainClassName = 'duke.ui.Launcher'
     archiveBaseName = "duke"
     archiveClassifier = null
 }
