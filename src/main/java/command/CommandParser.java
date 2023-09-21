@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import exceptions.EndBeforeStartException;
 import exceptions.InvalidDateTimeFormat;
 import exceptions.InvalidIndexException;
 import exceptions.InvalidPriorityException;
@@ -172,6 +173,10 @@ public abstract class CommandParser {
         if (arguments.containsKey("priority")) {
             int priority = parsePriority(arguments.get("priority"));
             res.setPriority(priority);
+        }
+
+        if (from.isAfter(to)) {
+            throw new EndBeforeStartException();
         }
 
         return new CmdAddTask(res);

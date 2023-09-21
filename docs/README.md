@@ -31,6 +31,7 @@ Add to a new to-do task that you would like to keep track of.
 
 Format: 
 `todo <description> [/priority <priority>]`
+* `<priority>` can any integer between 0 to 5 inclusive.
 
 Example of usage: 
 `todo eat dinner`, `todo eat dinner /priority 1`
@@ -43,6 +44,7 @@ Add to a new task with a deadline that you would like to keep track of.
 
 Format: 
 `deadline <description> /by <deadline> [/priority <priority>]`
+* `<priority>` can any integer between 0 to 5 inclusive.
 
 Example of usage: 
 `deadline submit UG /by 10-10-2020 0900 /priority 1`
@@ -55,6 +57,7 @@ Add to a new task with a start and end date that you would like to keep track of
 
 Format: 
 `event <description> /from <start date> /to <end date> [/priority <priority>]`
+* `<priority>` can any integer between 0 to 5 inclusive.
 
 Example of usage: 
 `event attend wedding /from 10-10-2020 0900 /to 11-10-2020 1200`
@@ -115,6 +118,7 @@ Change the priority of a task.
 
 Format: 
 `priority <index of task in list> /set <priority>`
+* `<priority>` can any integer between 0 to 5 inclusive.
 
 Example of usage: 
 `priority 2 /set 3`

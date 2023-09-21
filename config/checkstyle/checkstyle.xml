@@ -8,10 +8,6 @@
 
 <module name="Checker">
 
-  <module name="NoExplicitConstructor">
-    <property name="checkExplicitConstructor" value="true" />
-  </module>
-
   <module name="FileTabCharacter">
     <!-- Checks that there are no tab characters in the file. -->
   </module>

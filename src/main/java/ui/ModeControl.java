@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 
 /**
  * The abstract base class for controlling the application's display mode.
- * 
+ *
  * @author Ho Khee Wei
  */
 public abstract class ModeControl {

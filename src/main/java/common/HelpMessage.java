@@ -12,7 +12,7 @@ public class HelpMessage {
             + "Priority = Any integer from 0-5.\n\n"
             + "Example: todo Find food for Thorndike.\n\n"
             + "Example: todo Find food for Thorndike /priority 2.";
-            
+
     public static final String DEADLINE = "Function: Add a task with deadline to the tasklist.\n\n"
             + "Syntax: deadline [Description] /by [Date] /priority(optional) [Priority]\n\n"
             + "Priority = Any integer from 0-5.\n\n"
