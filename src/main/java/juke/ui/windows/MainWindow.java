@@ -99,7 +99,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleInput() {
         String inputCommand = this.inputField.getText();
-        Response response = Response.of(Dialog.ofUser(inputCommand));
+        Response response = Response.of(Dialog.ofUser(inputCommand.strip()));
 
         try {
             JukeCommand action = JukeCommand.of(inputCommand, this.taskList);
