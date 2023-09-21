@@ -19,6 +19,8 @@ public class TaskParser {
     public static Task parse(String line) {
         String[] parts = line.split(" \\| ");
 
+        assert parts.length <= 5 : "Task string should have no more than 5 parts";
+
         String type = parts[0];
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
@@ -37,6 +39,7 @@ public class TaskParser {
         }
 
         if (isDone) {
+            assert task != null;
             task.markDone();
         }
 
