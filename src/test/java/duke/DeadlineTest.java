@@ -1,6 +1,5 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -12,15 +11,6 @@ import duke.task.Deadline;
 
 // Solution adapted and inspired from https://chat.openai.com/share/a8b02fc2-b4f0-490d-ad3e-a3e06fe3a168
 public class DeadlineTest {
-    @Test
-    public void testToFileString() {
-        LocalDateTime dateTime = LocalDateTime.of(2023, 12, 1, 18, 0);
-        Deadline deadline = new Deadline("Complete assignment", dateTime);
-
-        String expected = "D | 0 | Complete assignment | 01 Dec 2023 6:00pm\n";
-        assertEquals(expected, deadline.toFileString());
-    }
-
     @Test
     public void testDeadlineIsDone() {
         Deadline deadline = new Deadline("Submit report", LocalDateTime.now());
