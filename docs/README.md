@@ -24,7 +24,9 @@ You can update or delete tasks if you made a mistake.
 
 Adds a ToDo task to the task list.
 
-Format: `todo <description>`
+Format: `todo <description>` 
+
+Acceptable values: `<description>`: String
 
 Example of usage:
 
@@ -45,6 +47,8 @@ Adds a Deadline task to the task list.
 
 Format: `deadline <description> /by <YYYY-MM-DD>`
 
+Acceptable values: `<description>`: String, `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
+
 Example of usage:
 
 `deadline return book /by 2020-09-20`
@@ -63,6 +67,8 @@ Number of tasks: 2
 Adds an Event task to the task list.
 
 Format: `event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>`
+
+Acceptable values: `<description>`: String, `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
 
 Example of usage:
 
@@ -103,6 +109,8 @@ Marks a task as done.
 
 Format: `mark <task index>`
 
+Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list
+
 Example of usage:
 
 `mark 1`
@@ -120,6 +128,8 @@ Nice! I've marked this task as done:
 Marks a task as not done.
 
 Format: `unmark <task index>`
+
+Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list
 
 Example of usage:
 
@@ -139,6 +149,8 @@ Deletes a task from the task list.
 
 Format: `delete <task index>`
 
+Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list
+
 Example of usage:
 
 `delete 1`
@@ -157,6 +169,8 @@ Number of tasks: 2
 Find tasks by searching for a keyword.
 
 Format: `find <keyword>`
+
+Acceptable values: `<keyword>`: String
 
 Example of usage:
 
@@ -183,6 +197,8 @@ Format:
 `update <task index> /from <YYYY-MM-DD>`
 
 `update <task index> /to <YYYY-MM-DD>`
+
+Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list, `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
 
 Example of usage:
 
