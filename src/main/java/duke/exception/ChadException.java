@@ -3,9 +3,9 @@ package duke.exception;
 /**
  * Represents an error that occurred during operation of Chad.
  */
-public class DukeException extends Exception {
+public class ChadException extends Exception {
 
-    public DukeException(String message) {
+    public ChadException(String message) {
         super(message);
     }
 }
