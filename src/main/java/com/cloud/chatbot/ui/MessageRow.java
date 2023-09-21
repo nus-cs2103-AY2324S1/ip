@@ -1,9 +1,11 @@
 package com.cloud.chatbot.ui;
 
+import java.io.IOException;
+
 import com.cloud.chatbot.Cloud;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,26 +14,33 @@ import javafx.scene.layout.HBox;
 
 
 /**
- * A custom JavaFX node for displaying chat messages.
+ * Custom JavaFX node for displaying chat messages. Has its own self-contained
+ * FXMLLoader process where this instance is also the controller and root of the
+ * view.
  */
 public class MessageRow extends HBox {
-    public static final double PICTURE_WIDTH = 100;
-    public static final double PICTURE_HEIGHT = 100;
+    @FXML private ImageView picture;
+    @FXML private Label text;
 
     /**
-     * Constructs a MessageRow from the user's perspective (profile picture on
-     * right).
+     * Uses FXMLLoader to set up this node.
      *
-     * @param text The Label for the message text.
+     * @param textString The message text.
      * @param isUser Whether the message is by the user.
     */
-    public MessageRow(Label text, boolean isUser) {
-        this.setPadding(new Insets(CloudApp.PADDING));
+    public MessageRow(String textString, boolean isUser) {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/view/MessageRow.fxml"));
+        loader.setController(this);
+        loader.setRoot(this);
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        text.setPadding(new Insets(CloudApp.PADDING));
-        text.setWrapText(true);
-
-        ImageView picture = new ImageView(
+        // After load(), @FXML fields are populated
+        text.setText(textString);
+        picture.setImage(
             new Image(
                 Cloud.class.getResourceAsStream(
                     isUser
@@ -40,15 +49,14 @@ public class MessageRow extends HBox {
                 )
             )
         );
-        picture.setFitWidth(MessageRow.PICTURE_WIDTH);
-        picture.setFitHeight(MessageRow.PICTURE_HEIGHT);
 
-        if (isUser) {
-            this.setAlignment(Pos.TOP_RIGHT);
-            this.getChildren().addAll(text, picture);
-        } else {
-            this.setAlignment(Pos.TOP_LEFT);
-            this.getChildren().addAll(picture, text);
-        }
+        //TODO background colour, flipping
+        // if (isUser) {
+        //     this.setAlignment(Pos.TOP_RIGHT);
+        //     this.getChildren().addAll(textString, picture);
+        // } else {
+        //     this.setAlignment(Pos.TOP_LEFT);
+        //     this.getChildren().addAll(picture, textString);
+        // }
     }
 }
