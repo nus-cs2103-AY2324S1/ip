@@ -19,7 +19,7 @@ public class ReminderManager extends Thread {
 
     /**
      * Creates a ReminderManager object.
-     * 
+     *
      * @param taskQueue
      * @param mutex
      */
@@ -28,6 +28,9 @@ public class ReminderManager extends Thread {
         this.mutex = mutex;
     }
 
+    /**
+     * Starts the ReminderManager thread.
+     */
     public void start() {
         super.start();
 
@@ -37,7 +40,7 @@ public class ReminderManager extends Thread {
             synchronized (mutex) {
                 mutex.notifyAll();
             }
-        }, 0, 10, TimeUnit.MINUTES);  // Wakes up every 10 minutes
+        }, 0, 10, TimeUnit.MINUTES); // Wakes up every 10 minutes
     }
 
     @Override
