@@ -90,6 +90,7 @@ public class Storage {
         boolean fileExists = Files.exists(filePath);
         try {
             if (!fileExists) {
+                Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
             } else {
                 List<String> contents = Files.readAllLines(filePath);
@@ -113,11 +114,12 @@ public class Storage {
         boolean fileExists = Files.exists(filePath);
         try {
             if (!fileExists) {
+                Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
-            } else {
-                List<String> lines = tasks.getSavedStrings();
-                Files.write(filePath, lines);
             }
+
+            List<String> lines = tasks.getSavedStrings();
+            Files.write(filePath, lines);
         } catch (IOException e) {
             System.err.println("Cannot write tasks to file!");
             e.printStackTrace();

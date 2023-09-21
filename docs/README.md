@@ -10,8 +10,7 @@ through a simple, easy-to-use interface.
 2. Download the latest `duke.jar` from [here](https://github.com/brein62/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for your personal Bob chatbot.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to
-   run the application. A GUI similar to the below should appear in a few seconds. The chatbot will contain some sample
-   data, as `list`ed out in the screenshot below:
+   run the application. A GUI similar to the below should appear in a few seconds.
    ![A screenshot of Bob the Chatbot](Ui.png)
 5. Type the command in the command box and press Enter to execute it. e.g. typing `list` and pressing Enter will list 
    out all the current tasks.
@@ -22,7 +21,10 @@ Here are some example commands you can try:
    - `unmark 3`: Bob will mark the 3rd task shown in the list as not completed yet.
    - `delete 2`: Bob will delete the 2nd task shown in the list.
    - `bye`: Exits the app *Bob the Chatbot*.
-6. Refer to the [Features](#features) section below for more detailed information on each command.
+6. Once you have closed the app for the first time, there will be a file that stores all tasks in
+   `[JAR file location]/data/dukeGui.txt`. Refer to the [saving the data](#saving-the-data) section for more information
+   about the save file.
+7. Refer to the [Features](#features) section below for more detailed information on each command.
 
 ## Features 
 
@@ -199,6 +201,10 @@ For more advanced users who would like to edit the data file manually, here is t
 1. The app has not been configured to be resized. If you resize the window containing the app, the app may not look as
    expected. However, the app will function as normal, just with the components weirdly placed. The chat window will
    still be the same size. It is best to use the app in its optimal screen resolution.
+2. Due to how Java interprets relative paths, make sure you `cd` into the folder containing the `duke.jar` before you 
+   run the `java -jar duke.jar` command to launch Bob the Chatbot. Otherwise, the data files `/data/dukeGui.txt` will be
+   saved in the folder you ran the command instead of the intended **JAR file location**. This also ensures that you
+   will know why Bob suddenly forgets your tasks...
 
 ----
 
