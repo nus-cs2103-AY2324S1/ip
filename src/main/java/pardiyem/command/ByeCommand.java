@@ -1,5 +1,7 @@
 package pardiyem.command;
 
+import javafx.application.Platform;
+
 import pardiyem.storage.Storage;
 import pardiyem.task.TaskList;
 

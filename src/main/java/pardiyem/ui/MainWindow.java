@@ -46,5 +46,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (input.equals("bye")) {
+            userInput.setDisable(true);
+            userInput.setPromptText("Pardiyem has been terminated. You may close this window.");
+            sendButton.setDisable(true);
+        }
     }
 }
