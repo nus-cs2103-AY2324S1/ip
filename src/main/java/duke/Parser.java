@@ -36,7 +36,7 @@ public class Parser {
         try {
             String[] separateCommand = command.split(" ");
             System.out.println("--------------------------");
-            if (command.equals("list")) {
+            if (command.equals("list") || (command.equals("l"))) {
                 result += parseList(taskList);
             } else if (command.startsWith("mark") || command.startsWith("unmark")) {
                 result += parseEditTask(command, separateCommand, taskList);
@@ -110,15 +110,16 @@ public class Parser {
     public static String parseTasksCommand(String command, String[] separateCommand,
                                            TaskList taskList) throws DukeException {
         assert command != null;
-        if (command.startsWith("find")) {
+        String firstCommand = separateCommand[0];
+        if (command.startsWith("find") || firstCommand.equals("f")) {
             return parseFindTask(separateCommand, taskList);
-        } else if (command.startsWith("todo")) {
+        } else if (command.startsWith("todo") || (firstCommand.equals("t"))) {
             return parseToDoCommand(command, taskList);
-        } else if (command.startsWith("deadline")) {
+        } else if (command.startsWith("deadline") || (firstCommand.equals("d"))) {
             return parseDeadlineCommand(command, taskList);
-        } else if (command.startsWith("event")) {
+        } else if (command.startsWith("event") || (firstCommand.equals("e"))) {
             return parseEventCommand(command, taskList);
-        } else if (command.startsWith("delete")) {
+        } else if (command.startsWith("delete") || (firstCommand.equals("del"))) {
             return parseDeleteCommand(command, separateCommand, taskList);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -255,7 +256,7 @@ public class Parser {
             }
             int taskNumber = Integer.parseInt(separateCommand[1]);
             Task task = taskList.getTaskItem(taskNumber - 1);
-            if (command.startsWith("delete")) {
+            if (command.startsWith("delete") || separateCommand[0].equals("del")) {
                 result += " Noted. I've removed this task:\n";
                 result += task.toString();
                 taskList.deleteTask(taskNumber - 1);
