@@ -1,23 +1,21 @@
 package deterministicparrot;
-import java.io.IOException;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Scanner;
-
 /**
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 
-    private StringWriter stringWriter = new StringWriter();
-    private DeterministicParrot duke = new DeterministicParrot(new Scanner(System.in), stringWriter);
+    private final StringWriter stringWriter = new StringWriter();
+    private final DeterministicParrot duke = new DeterministicParrot(new Scanner(System.in), stringWriter);
 
     @Override
     public void start(Stage stage) {

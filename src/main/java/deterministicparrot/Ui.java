@@ -2,8 +2,6 @@ package deterministicparrot;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.io.Writer;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -12,7 +10,7 @@ import java.util.Scanner;
 public class Ui {
     private Scanner s;
     private StringWriter sw;
-    private PrintWriter pw;
+    private final PrintWriter pw;
 
     /**
      * Constructs a Ui instance with the provided Scanner and PrintWriter.

@@ -17,7 +17,7 @@ public class Event extends Task {
      * @param name      The name of the event.
      * @param timeStart The start time of the event in string format.
      * @param timeEnd   The end time of the event in string format.
-     * @throws DateTimeParseException If the input time strings are not in the expected format.
+     * @throws DateTimeParseException   If the input time strings are not in the expected format.
      * @throws IllegalArgumentException If the start time is after the end time.
      */
     public Event(String name, String timeStart, String timeEnd) throws DateTimeParseException {
@@ -46,6 +46,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), DPUtils.dPFormatDateTime(this.timeStart), DPUtils.dPFormatDateTime(this.timeEnd));
+        return String.format("[E]%s (from: %s to: %s)", super.toString(), DPUtils.dPFormatDateTime(this.timeStart),
+            DPUtils.dPFormatDateTime(this.timeEnd));
     }
 }

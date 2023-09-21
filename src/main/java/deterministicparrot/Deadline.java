@@ -16,7 +16,7 @@ public class Deadline extends Task {
      * Constructs a Deadline object with the given task description and deadline.
      *
      * @param description The description of the task.
-     * @param by The deadline of the task in string format.
+     * @param by          The deadline of the task in string format.
      * @throws DateTimeParseException If the provided deadline is in an invalid date format.
      */
     public Deadline(String description, String by) throws DateTimeParseException {

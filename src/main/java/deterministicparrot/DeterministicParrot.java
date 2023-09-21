@@ -2,9 +2,10 @@ package deterministicparrot;
 
 
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Main class for the Deterministic Parrot task management application.
@@ -12,8 +13,8 @@ import java.util.*;
 public class DeterministicParrot {
     private Ui ui = new Ui();
     private TaskList taskList;
-    private Parser parser = new Parser();
-    private Storage storage = new Storage();
+    private final Parser parser = new Parser();
+    private final Storage storage = new Storage();
     private boolean endParrot = false;
 
     /**
@@ -24,6 +25,7 @@ public class DeterministicParrot {
         this.taskList = new TaskList();
         this.initCommandHandlers();
     }
+
     /**
      * Constructs a DeterministicParrot object.
      * Initializes the task list and sets up command handlers.
@@ -32,6 +34,17 @@ public class DeterministicParrot {
         this.ui = new Ui(s, sw);
         this.taskList = new TaskList();
         this.initCommandHandlers();
+    }
+
+    /**
+     * Main method to start the Deterministic Parrot application.
+     *
+     * @param args Command line arguments (not used).
+     */
+    public static void main(String[] args) {
+        DeterministicParrot parrot = new DeterministicParrot();
+        System.out.println(parrot.getResponse("list"));
+        parrot.poll();
     }
 
     /**
@@ -73,7 +86,6 @@ public class DeterministicParrot {
         storage.save(this.taskList.serialize());
     }
 
-
     /**
      * Adds a task to the list and updates the UI.
      *
@@ -94,7 +106,7 @@ public class DeterministicParrot {
      * @param args The arguments passed to the mark command.
      * @throws Exception If an error occurs while marking the task.
      */
-    private void markAsDone(String args[]) throws Exception {
+    private void markAsDone(String[] args) throws Exception {
         if (args.length < 2) {
             throw new DeterministicParrotException("Please provide a task number.");
         }
@@ -116,7 +128,7 @@ public class DeterministicParrot {
      * @param toks The arguments passed to the unmark command.
      * @throws Exception If an error occurs while marking the task as undone.
      */
-    private void markAsUndone(String toks[]) throws Exception {
+    private void markAsUndone(String[] toks) throws Exception {
         if (toks.length < 2) {
             throw new DeterministicParrotException("Please provide a task number.");
         }
@@ -191,7 +203,7 @@ public class DeterministicParrot {
      * @param args The arguments passed to the delete command.
      * @throws Exception If an error occurs while deleting the task.
      */
-    private void deleteTask(String args[]) throws Exception {
+    private void deleteTask(String[] args) throws Exception {
         if (args.length < 2) {
             throw new DeterministicParrotException("Please provide a task number.");
         }
@@ -235,7 +247,8 @@ public class DeterministicParrot {
         this.ui.greet();
         try {
             this.taskList = TaskList.deserialize(storage.load());
-            assert this.taskList != null : "TaskList should be initialized after loading from storage or creating a new one.";
+            assert this.taskList != null :
+                "TaskList should be initialized after loading from storage or creating a new one.";
         } catch (Exception e) {
             this.ui.println("     " + "No saved task list found. Starting with empty task list.");
             this.taskList = new TaskList();
@@ -288,16 +301,5 @@ public class DeterministicParrot {
         String output = this.ui.flushWriter();
         System.out.println(output);
         return output;
-    }
-
-    /**
-     * Main method to start the Deterministic Parrot application.
-     *
-     * @param args Command line arguments (not used).
-     */
-    public static void main(String[] args) {
-        DeterministicParrot parrot = new DeterministicParrot();
-        System.out.println(parrot.getResponse("list"));
-        parrot.poll();
     }
 }
