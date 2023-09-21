@@ -32,7 +32,7 @@ public class Ui {
     public static String getResponse(String ...lines) {
         String response = "";
         for (String line : lines) {
-            response += ("\t " + line + "\n");
+            response += (line + "\n");
         }
 
         return response;
