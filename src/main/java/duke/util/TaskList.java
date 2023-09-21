@@ -166,7 +166,7 @@ public class TaskList {
             assert temp != null;
             return ui.showComplete("Noted. I've removed this task:"
                     + temp
-                    + "Now you have " + this.tasks.size() + " task(s) in the list");
+                    + ". Now you have " + this.tasks.size() + " task(s) in the list");
         }
     }
 
@@ -212,7 +212,7 @@ public class TaskList {
             }
         }
 
-        if(filteredList.isEmpty()) {
+        if (filteredList.isEmpty()) {
             filteredList.add("No results match your filter");
         }
 
