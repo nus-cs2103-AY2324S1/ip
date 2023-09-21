@@ -2,9 +2,20 @@ package duke.taskmanagement;
 
 import java.time.LocalDate;
 
+/**
+ * Represents a task with a deadline, which is a subtype of Task.
+ * Contains information about the task's description, deadline, and completion status.
+ */
 public class Deadline extends Task {
     protected String by;
 
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param description The description of the task.
+     * @param by          The deadline of the task.
+     * @param isDone      A boolean indicating whether the task is done or not.
+     */
     public Deadline(String description, String by, boolean isDone) {
         super(description, isDone);
         this.by = by;

@@ -1,9 +1,22 @@
 package duke.taskmanagement;
 
+/**
+ * Event represents a task with a specific event duration, which is a subtype of Task.
+ * It contains information about the task's description, event start time, event end time,
+ * and completion status.
+ */
 public class Event extends Task {
     protected String from;
     protected String till;
 
+    /**
+     * Constructor for the Event class.
+     *
+     * @param description The description of the event task.
+     * @param from        The start time of the event.
+     * @param till        The end time of the event.
+     * @param isDone      A boolean indicating whether the task is done or not.
+     */
     public Event(String description, String from, String till, boolean isDone) {
         super(description, isDone);
         this.from = from;

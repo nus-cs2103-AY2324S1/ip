@@ -1,5 +1,11 @@
 package duke.taskmanagement;
 
+/**
+ * DukeException is a custom exception class used to handle exceptions
+ * specific to the Duke application. It provides error messages for various
+ * situations, such as empty descriptions, invalid inputs, and general errors.
+ */
+
 public class DukeException {
     protected String typeOfTask;
 

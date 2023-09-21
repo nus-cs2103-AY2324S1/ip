@@ -2,6 +2,10 @@ package duke.taskmanagement;
 
 import javafx.stage.Stage;
 
+/**
+ * Duke is a chatbot application that manages tasks. It interacts with the user
+ * to create, read, update, and delete tasks, and it stores task data in a file.
+ */
 public class Duke {
     String PATH = "./data/duke.txt";
     private Ui ui = new Ui();
@@ -9,6 +13,11 @@ public class Duke {
     private Storage storage = new Storage(PATH);
     private Stage stage;
 
+    /**
+     * Constructor for the Duke class.
+     *
+     * @param stage The JavaFX stage for the graphical user interface.
+     */
     public Duke (Stage stage) {
         this.stage = stage;
         tasks = new TaskList(this.ui, storage.loadData(), storage);
@@ -33,10 +42,18 @@ public class Duke {
             return messageToUser;
     }
 
+    /**
+     * Closes the application by closing the JavaFX stage.
+     */
     public void close() {
         stage.close();
     }
 
+    /**
+     * The main method that launches the Duke application.
+     *
+     * @param args Command-line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         Launcher.main(args);
     }

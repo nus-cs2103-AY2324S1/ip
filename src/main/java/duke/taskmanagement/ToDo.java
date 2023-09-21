@@ -1,4 +1,9 @@
 package duke.taskmanagement;
+
+/**
+ * The ToDo class represents a task without a specific deadline or event time.
+ * It is a subclass of the Task class.
+ */
 public class ToDo extends Task {
 
     /**

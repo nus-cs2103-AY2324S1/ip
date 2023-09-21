@@ -1,4 +1,8 @@
 package duke.taskmanagement;
+
+/**
+ * The Task class represents a task with a description and a completion status.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
@@ -53,6 +57,12 @@ public class Task {
         return getStatusIcon() + " | " + this.isDone + " | " + this.description;
     }
 
+    /**
+     * Checks if the task description contains a specified string.
+     *
+     * @param str The string to check for within the task description.
+     * @return True if the description contains the specified string, false otherwise.
+     */
     public boolean contains(String str) {
         return this.description.contains(str);
     }

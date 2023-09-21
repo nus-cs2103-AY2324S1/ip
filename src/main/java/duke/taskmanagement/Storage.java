@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class is responsible for managing data storage and file operations
+ * in the Duke application.
+ */
 public class Storage {
     private String filePath;
     private List<Task> listOfTask = new ArrayList<>();

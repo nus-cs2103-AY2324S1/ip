@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Parser class handles user input parsing and command execution within the Duke application.
+ */
 public class Parser {
     public Ui ui;
     public TaskList taskList;
@@ -212,5 +215,4 @@ public class Parser {
         String keyword = parts[1];
         return ui.printFilterList(list.find(keyword));
     }
-
 }

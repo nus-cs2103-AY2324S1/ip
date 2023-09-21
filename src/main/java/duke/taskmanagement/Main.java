@@ -15,6 +15,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    /**
+     * The main method to start the Duke GUI application.
+     *
+     * @param stage The primary stage for the Duke application's GUI.
+     */
     @Override
     public void start(Stage stage) {
         assert stage != null : "stage should not be null when starting an application on javaFx";
@@ -32,5 +37,4 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 }

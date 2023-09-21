@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The TaskList class manages a list of tasks and provides methods for performing operations on the list,
+ * such as adding, deleting, marking as done, and finding tasks.
+ */
 public class TaskList {
     final String PATH = "./data/duke.txt";
     private List<Task> listOfTasks = new ArrayList<>();
@@ -117,6 +121,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds tasks containing a specified string in their descriptions.
+     *
+     * @param str The string to search for.
+     * @return A list of tasks containing the specified string.
+     */
     public List<Task> find(String str) {
         List<Task> tmpList = new ArrayList<>();
         tmpList = listOfTasks;

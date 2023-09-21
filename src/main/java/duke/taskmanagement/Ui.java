@@ -3,6 +3,10 @@ package duke.taskmanagement;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The Ui class is responsible for user interactions.
+ * It handles reading user inputs and printing messages to the user.
+ */
 public class Ui {
     public Scanner sc = new Scanner(System.in);
 
@@ -87,6 +91,12 @@ public class Ui {
         return "Got it. I've added this task:\n" + str + "\n" + "Now you have " + size + " tasks in the list.\n";
     }
 
+    /**
+     * Prints a filtered list of tasks to the user.
+     *
+     * @param filteredList The list of tasks that match the filter.
+     * @return A formatted list of matching tasks.
+     */
     public String printFilterList(List<Task> filteredList) {
         String header = "Here are the matching tasks in your list: ";
         String printList = "";
@@ -97,6 +107,11 @@ public class Ui {
         return header + printList;
     }
 
+    /**
+     * Provides a help message to the user with a list of available commands.
+     *
+     * @return A help message with available commands.
+     */
     public String help() {
         String header = "Hello! I am glad to help you! \n";
         String listHelp = "To get overview of your list --> type: list \n";
