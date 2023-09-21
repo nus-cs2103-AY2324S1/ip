@@ -19,11 +19,9 @@ public class Ui {
     /**
      * Prints the entry message of the chatbot.
      */
-    public String printEntryMessage() {
-        String entryMessage = HORIZONTAL_LINE
-                + "Hello! I'm Chad \n"
-                + "What can I do for you? \n"
-                + HORIZONTAL_LINE;
+    public static String getWelcomeMessage() {
+        String entryMessage = "Hello! I'm Chad \n"
+                + "What can I do for you? \n";
         return entryMessage;
     }
 
