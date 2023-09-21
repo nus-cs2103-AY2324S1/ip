@@ -2,6 +2,7 @@ package qi.tasklist;
 
 import java.util.ArrayList;
 
+import qi.qiexception.QiException;
 import qi.task.Task;
 
 /**
@@ -33,8 +34,12 @@ public class TaskList {
      *           of the task in the list.
      * @param isDone Boolean representing whether a task is done or not.
      */
-    public void mark(int id, boolean isDone) {
-        this.taskList.get(id - 1).mark(isDone);
+    public void mark(int id, boolean isDone) throws QiException {
+        try {
+            this.taskList.get(id - 1).mark(isDone);
+        } catch (IndexOutOfBoundsException e) {
+            throw new QiException("Please specify a valid task ID!");
+        }
     }
 
     /**
@@ -55,8 +60,12 @@ public class TaskList {
      *               of the task in the list.
      * @return Task deleted.
      */
-    public Task deleteTask(int taskId) {
-        return this.taskList.remove(taskId - 1);
+    public Task deleteTask(int taskId) throws QiException {
+        try {
+            return this.taskList.remove(taskId - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new QiException("Please specify a valid task ID!");
+        }
     }
 
     /**
@@ -105,3 +114,4 @@ public class TaskList {
         return ans.toString();
     }
 }
+

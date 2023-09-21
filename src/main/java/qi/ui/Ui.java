@@ -1,5 +1,6 @@
 package qi.ui;
 
+import qi.qiexception.QiException;
 import qi.task.Task;
 import qi.tasklist.TaskList;
 
@@ -41,9 +42,13 @@ public class Ui {
      * @return String message to users.
      */
     public String showTaskDeleted(int taskId, TaskList list) {
-        return "Noted. I've removed this task:\n"
-            + "  " + list.deleteTask(taskId) + '\n'
-            + "Now you have " + list.size() + " tasks in the list.";
+        try {
+            return "Noted. I've removed this task:\n"
+                    + "  " + list.deleteTask(taskId) + '\n'
+                    + "Now you have " + list.size() + " tasks in the list.";
+        } catch (QiException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -54,9 +59,13 @@ public class Ui {
      * @return String message to users.
      */
     public String showTaskMarked(int taskId, TaskList list) {
-        list.mark(taskId, true);
-        return "Nice! I've marked this task as done:\n"
-            + "  " + list.showTask(taskId);
+        try {
+            list.mark(taskId, true);
+            return "Nice! I've marked this task as done:\n"
+                    + "  " + list.showTask(taskId);
+        } catch (QiException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -67,9 +76,13 @@ public class Ui {
      * @return String message to users.
      */
     public String showTaskUnmarked(int taskId, TaskList list) {
-        list.mark(taskId, false);
-        return "OK, I've marked this task as not done yet:\n"
-            + "  " + list.showTask(taskId);
+        try {
+            list.mark(taskId, false);
+            return "OK, I've marked this task as not done yet:\n"
+                    + "  " + list.showTask(taskId);
+        } catch (QiException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -144,3 +157,4 @@ public class Ui {
         return guide;
     }
 }
+

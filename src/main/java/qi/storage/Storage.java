@@ -17,7 +17,7 @@ import qi.tasklist.TaskList;
  * Represents the I/O process with a specific file.
  */
 public class Storage {
-    private File file;
+    private final File file;
 
     /**
      * Takes in the path to file which needs to be read from and written to.
@@ -82,9 +82,20 @@ public class Storage {
         return task.charAt(4) == 'X';
     }
 
+    private void markTask(TaskList list, String task) {
+        try {
+            list.mark(list.size(), isDone(task));
+        } catch (QiException e) {
+            /*
+             * This line will never be reach since
+             * the task ID is within bound
+             */
+        }
+    }
+
     private void loadTodo(String task, TaskList list) {
         list.addTask(new Todo(task.substring(7)));
-        list.mark(list.size(), isDone(task));
+        markTask(list, task);
     }
 
     private void loadDeadline(String task, TaskList list) {
@@ -92,7 +103,7 @@ public class Storage {
         list.addTask(new Deadline(task.substring(7, idx - 1),
                 LocalDate.parse(task.substring(idx + 5, task.length() - 1),
                         DateTimeFormatter.ofPattern("MMM dd yyyy"))));
-        list.mark(list.size(), isDone(task));
+        markTask(list, task);
     }
 
     private void loadEvent(String task, TaskList list) {
@@ -102,7 +113,7 @@ public class Storage {
         list.addTask(new Event(task.substring(7, idx1 - 1),
                 task.substring(idx1 + 7, idx2 - 1),
                 task.substring(idx2 + 4, task.length() - 1)));
-        list.mark(list.size(), isDone(task));
+        markTask(list, task);
     }
 
     /**
@@ -126,3 +137,6 @@ public class Storage {
         fw.close();
     }
 }
+
+
+
