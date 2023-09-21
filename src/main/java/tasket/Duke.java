@@ -1,6 +1,7 @@
 package tasket;
 
 import tasket.command.Command;
+import tasket.command.CommandResult;
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
 import tasket.parser.Parser;
@@ -32,6 +33,21 @@ public class Duke {
     }
 
     /**
+     * The constructor of Duke.
+     * This is used by javafx.
+     */
+    public Duke() {
+        ui = new Ui();
+        storage = new Storage("data/tasks.txt");
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (TasketException e) {
+            ui.showError(e.getMessage());
+            taskList = new TaskList();
+        }
+    }
+
+    /**
      * Runs the duke program.
      * Shows welcome message, Gets the user input and executes commands until exits.
      * When there's error in the command, show error message.
@@ -48,6 +64,29 @@ public class Duke {
             } catch (TasketException e) {
                 ui.showError(e.getMessage());
             }
+        }
+    }
+
+    public String greet() {
+        return ui.showWelcome();
+    }
+
+    public void exit() {
+        System.exit(0);
+    }
+
+    /**
+     * Returns a response according to user input.
+     * @param input The user input.
+     * @return The response.
+     */
+    public CommandResult getResponse(String input) {
+        try {
+            Command c = Parser.parseInput(input);
+            String response = c.execute(taskList, ui, storage);
+            return new CommandResult(response, c.isExit());
+        } catch (TasketException e) {
+            return new CommandResult(ui.showError(e.getMessage()), false);
         }
     }
 

@@ -27,10 +27,11 @@ public class FindCommand extends Command {
      * @param taskList The task list instance of duke.
      * @param ui The ui instance of duke.
      * @param storage The storage instance of duke.
+     * @return List of matching tasks
      * @throws TasketException Does not throw the exception.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         ArrayList<String> matchingTasks = new ArrayList<>();
 
         for (int i = 0; i < taskList.size(); i++) {
@@ -40,6 +41,6 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.showMatchingTasks(matchingTasks.toArray(new String[0]));
+        return ui.showMatchingTasks(matchingTasks.toArray(new String[0]));
     }
 }

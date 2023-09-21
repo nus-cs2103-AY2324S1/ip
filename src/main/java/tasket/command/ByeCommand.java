@@ -23,11 +23,12 @@ public class ByeCommand extends Command {
      * @param taskList The task list instance of duke.
      * @param ui The ui instance of duke.
      * @param storage The storage instance of duke.
+     * @return Goodbye message.
      * @throws TasketException Does not throw the exception.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
-        ui.showGoodBye();
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+        return ui.showGoodBye();
     }
 
     /**
