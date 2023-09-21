@@ -8,7 +8,7 @@
          prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17">
     <children>
         <Label fx:id="dialog" text="Label" wrapText="true"
-               style="-fx-background-color: #ecf0f1; -fx-padding: 10px; -fx-background-radius: 10;" maxWidth="280.0"/>
+               style="-fx-background-color: #ecf0f1; -fx-padding: 10px; -fx-background-radius: 10;" maxWidth="280.0" minHeight="-Infinity"/>
         <ImageView fx:id="displayPicture" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true"
                    HBox.hgrow="NEVER"/>
     </children>
