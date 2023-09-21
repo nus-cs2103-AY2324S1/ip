@@ -40,6 +40,7 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        d.initialise();
     }
 
     /**

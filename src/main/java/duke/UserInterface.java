@@ -111,6 +111,7 @@ public class UserInterface {
         switch (cmd) {
         case bye:
             this.save();
+            System.exit(0);
             return TERMINATE_READER_STRING;
         case list:
             response = list.toString();

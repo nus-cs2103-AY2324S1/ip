@@ -24,13 +24,15 @@ public abstract class DateTimeOptional {
      * @throws DukeException.DukeDateTimeException If the string cannot be parsed.
      */
     public static DateTimeOptional parseDateTime(String s) throws DukeException {
-        TemporalAccessor temp = standardDateTimeParser.parse(s);
+        TemporalAccessor temp;
         try {
+            temp = standardDateTimeParser.parse(s);
             LocalDateTime dateTime = LocalDateTime.parse(s, standardDateTimeParser);
             return new DateTimeOnly(dateTime);
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException ignored) {
         }
         try {
+            temp = standardDateTimeParser.parse(s);
             LocalDate date = LocalDate.parse(s, standardDateTimeParser);
             return new DateOnly(date);
         } catch (DateTimeParseException e) {
