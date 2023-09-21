@@ -15,6 +15,9 @@ public class Parser {
      * @throws DukeException if there is an error parsing the user input
      */
     public String parse(String s, TaskList taskList) throws DukeException {
+        if (s.matches(".*\\bhi\\b.*")) {
+            return "Hello ah how you doing?";
+        }
         if (s.matches(".*\\bdelete\\b.*")) {
             String[] parts = s.split(" ");
             if (parts.length < 2) {

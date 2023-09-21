@@ -28,7 +28,6 @@ public class Duke  {
             System.out.println(e.getMessage());
             tasks = new TaskList();
         }
-        //ui.getInput(tasks, storage);
     }
     public static void main(String[] args) {
         new Duke();
