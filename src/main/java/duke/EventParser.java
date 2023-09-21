@@ -21,13 +21,13 @@ public class EventParser {
      */
     public static AddCommand parseEventCommand(String input) throws DukeException {
 
-        if (input.isEmpty() || !input.contains("/from")) {
+        if (input.isEmpty()) {
             throw new DukeException.EventException();
         }
 
         String[] splitTheArgumentsE = input.split("/from", 2);
 
-        if (splitTheArgumentsE.length != 2 || !splitTheArgumentsE[1].contains("/to")) {
+        if (!input.contains("/from") || !splitTheArgumentsE[1].contains("/to")) {
             throw new DukeException.EventFormatException();
         }
 

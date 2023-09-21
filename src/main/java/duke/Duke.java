@@ -80,6 +80,8 @@ public class Duke {
             return ui.printEventFormatException();
         } catch (DukeException.SearchException e) {
             return ui.printSearchException();
+        } catch (DukeException.EmptyException e) {
+            return ui.printEmptyCommandException();
         } catch (DukeException e) {
             throw new RuntimeException(e);
         }

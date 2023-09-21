@@ -1,4 +1,4 @@
-D | 1 | testing hello ok | 12 Dec 2023 3:00pm
-T | 0 | drink water
-E | 0 | switch | December 22 2023 3pm - December 23 2023 5pm
-E | 0 |  | December 22 2023 3pm - December 23 2023 5pm
+T | 0 | buy chicken rice
+T | 1 | cs2101 presentation
+E | 0 | noc meeting | September 25 2023 3pm - September 25 2023 5pm
+D | 0 | noc resume update | 24 Sep 2023 11:59pm

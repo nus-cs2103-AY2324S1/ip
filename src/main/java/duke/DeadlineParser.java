@@ -29,11 +29,16 @@ public class DeadlineParser {
         // Split the input and perform parsing here
         String[] splitTheArgumentsD = input.split("/by", 2);
 
-        if (splitTheArgumentsD.length != 2) {
+        if (!input.contains("/by")) {
             throw new DukeException.DeadlineFormatException();
         }
 
         String theDescriptionD = splitTheArgumentsD[0].trim();
+
+        if (theDescriptionD.isEmpty()) {
+            throw new DukeException.DeadlineException();
+        }
+
         String[] theDateTimeD = splitTheArgumentsD[1].trim().split(" ", 2);
 
         String date = theDateTimeD[0];

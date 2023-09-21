@@ -178,4 +178,11 @@ public class Ui {
         return SEPARATORS + "\n" + "☹ OOPS!!! Enter in the format: \n event (task) /from yyyy/MM/dd HHmm /to "
             + "yyyy/MM/dd HHmm" + "\n" + SEPARATORS;
     }
+
+    /**
+     * Displays an error message for an empty command.
+     */
+    public String printEmptyCommandException() {
+        return "Please enter a valid command!!";
+    }
 }

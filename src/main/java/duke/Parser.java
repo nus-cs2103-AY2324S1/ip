@@ -41,7 +41,7 @@ public class Parser {
         case "mark":
             return MarkParser.parseMarkCommand(arguments);
         default:
-            throw new DukeException.NoSuchItemException();
+            throw new DukeException.EmptyException();
         }
     }
 }

@@ -80,5 +80,8 @@ public abstract class Task {
     }
 
     public abstract String toFileString();
-}
 
+    public boolean isDone() {
+        return this.isDone;
+    }
+}

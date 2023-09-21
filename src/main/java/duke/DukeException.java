@@ -34,6 +34,16 @@ public class DukeException extends Exception {
     }
 
     /**
+     * An exception class for handling cases where the user does not enter anything.
+     */
+    public static class EmptyException extends DukeException {
+        public EmptyException() {
+            super("Please enter a command");
+        }
+    }
+
+
+    /**
      * An exception class for handling cases where the user attempts to create an event task with an empty description.
      */
     public static class EventException extends DukeException {
@@ -96,4 +106,3 @@ public class DukeException extends Exception {
         }
     }
 }
-
