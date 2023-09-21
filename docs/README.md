@@ -15,7 +15,7 @@ your machine.
 
 ### Setting Up
 
-To use `Juke`, you will need to install `Java 11` () on your machine. You can find out more on
+To use `Juke`, you will need to install `Java 11` on your machine. You can find out more on
 how you can install `Java 11` on your
 [Windows machine](https://docs.azul.com/core/zulu-openjdk/install/windows),
 [MacOS machine](https://docs.azul.com/core/zulu-openjdk/install/macos) or
