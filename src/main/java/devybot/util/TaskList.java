@@ -16,21 +16,44 @@ import devybot.tasks.EventTask;
 import devybot.tasks.Task;
 import devybot.tasks.TodoTask;
 
+/**
+ * The TaskList class manages a list of tasks and provides methods for adding,
+ * deleting, listing, and marking tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with an existing list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.taskList = tasks;
     }
 
+    /**
+     * Retrieves a task at the specified index.
+     *
+     * @param index The index of the task to retrieve.
+     * @return The task at the specified index.
+     */
     public Task getTask(int index) {
         return this.taskList.get(index);
     }
 
+    /**
+     * Deletes a task at the specified index.
+     *
+     * @param index The index of the task to delete.
+     */
     public void deleteTask(int index) {
         try {
             if (index >= this.taskList.size() || index < 0) {
@@ -46,10 +69,18 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns the number of tasks in the TaskList.
+     *
+     * @return The number of tasks in the TaskList.
+     */
     public int size() {
         return this.taskList.size();
     }
 
+    /**
+     * Lists all tasks in the TaskList and display on UI.
+     */
     public void listTasks() {
         if (taskList.size() == 0) {
             Ui.showMessage("Currently no tasks available.");
@@ -63,6 +94,12 @@ public class TaskList {
         Ui.showMessage(outpString);
     }
 
+    /**
+     * Adds a TodoTask to the TaskList.
+     *
+     * @param userInput The user's input containing the TodoTask description.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
     public void addTodoTask(String userInput) throws EmptyDescriptionException {
         String description = userInput.substring(4).trim();
         if (description.isEmpty()) {
@@ -78,6 +115,12 @@ public class TaskList {
         Ui.showMessage(outpString);
     }
 
+    /**
+     * Adds a DeadlineTask to the TaskList.
+     *
+     * @param userInput The user's input containing the DeadlineTask details.
+     * @throws EmptyDescriptionException If the description or deadline is empty.
+     */
     public void addDeadlineTask(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.split(" /by ");
         String description = parts[0].substring(8).trim();
@@ -112,6 +155,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds an EventTask to the TaskList.
+     *
+     * @param userInput The user's input containing the EventTask details.
+     * @throws EmptyDescriptionException If the description or event details are
+     *                                   empty.
+     */
     public void addEventTask(String userInput) throws EmptyDescriptionException {
         String[] parts = userInput.split(" /from | /to ");
         String description = parts[0].substring(5).trim();
@@ -137,10 +187,16 @@ public class TaskList {
                     + " tasks in the list.";
             Ui.showMessage(outpString);
         } catch (DateTimeParseException e) {
-            Ui.showMessage("Invald date/tim frmat. Please use 'd/M/yyyy HHmm'.");
+            Ui.showMessage("Invalid date/time format. Please use 'd/M/yyyy HHmm'.");
         }
     }
 
+    /**
+     * Marks a task at the specified index as done.
+     *
+     * @param index The index of the task to mark as done.
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds.
+     */
     public void markTaskAsDone(int index) throws TaskIndexOutOfBoundsException {
         if (index >= taskList.size() || index < 0) {
             throw new TaskIndexOutOfBoundsException(index);
@@ -154,6 +210,12 @@ public class TaskList {
         Ui.showMessage(outpString);
     }
 
+    /**
+     * Marks a task at the specified index as undone.
+     *
+     * @param index The index of the task to mark as undone.
+     * @throws TaskIndexOutOfBoundsException If the index is out of bounds.
+     */
     public void markTaskAsUndone(int index) throws TaskIndexOutOfBoundsException {
         if (index >= taskList.size() || index < 0) {
             throw new TaskIndexOutOfBoundsException(index);
@@ -167,6 +229,12 @@ public class TaskList {
         Ui.showMessage(outpString);
     }
 
+    /**
+     * Finds tasks containing a specific description and displays them.
+     *
+     * @param userInput The user's input containing the description to search for.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
     public void findTasks(String userInput) throws EmptyDescriptionException {
         String description = userInput.substring(4).trim();
         if (description.isEmpty()) {
@@ -185,6 +253,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Searches for tasks containing a specific description and displays them.
+     *
+     * @param userInput The user's input containing the description to search for.
+     * @throws EmptyDescriptionException If the description is empty.
+     */
     public void searchTasks(String userInput) throws EmptyDescriptionException {
         String description = userInput.substring(6).trim();
         if (description.isEmpty()) {

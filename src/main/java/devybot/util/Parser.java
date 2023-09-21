@@ -5,11 +5,26 @@ import devybot.exceptions.EmptyDescriptionException;
 import devybot.exceptions.NonIntegerInputException;
 import devybot.exceptions.UnknownCommandException;
 
+/**
+ * The Parser class is responsible for parsing user input and executing
+ * corresponding commands.
+ */
 public class Parser {
+
+    /**
+     * Enumerates the supported command types.
+     */
     private static enum CommandType {
         TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, LIST, BYE, UNKNOWN, FIND, SEARCH
     }
 
+    /**
+     * Determines the type of command based on the user input.
+     *
+     * @param command The user's input.
+     * @return The CommandType corresponding to the input or UNKNOWN if not
+     *         recognized.
+     */
     public static CommandType getCommandType(String command) {
         try {
             return CommandType.valueOf(command.toUpperCase());
@@ -18,6 +33,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input and executes the corresponding command.
+     *
+     * @param userInput The user's input.
+     * @param taskList  The TaskList object to perform operations on.
+     * @throws DevyBotException If an error occurs during command execution.
+     */
     public static void parseInputs(String userInput, TaskList taskList) throws DevyBotException {
         String[] wordsArray = userInput.split("\\s+");
         CommandType commandType = getCommandType(wordsArray[0]);
@@ -61,6 +83,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Extracts and returns the task index from the user input.
+     *
+     * @param wordsArray The array of words from the user input.
+     * @return The index of the task to operate on.
+     * @throws EmptyDescriptionException If the task index is missing.
+     * @throws NonIntegerInputException  If the task index is not a valid integer.
+     */
     public static int getIndex(String[] wordsArray) throws EmptyDescriptionException, NonIntegerInputException {
         try {
             if (wordsArray.length <= 1) {

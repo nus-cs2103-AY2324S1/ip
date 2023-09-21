@@ -20,15 +20,29 @@ import devybot.tasks.EventTask;
 import devybot.tasks.Task;
 import devybot.tasks.TodoTask;
 
+/**
+ * The Storage class handles loading and saving tasks to a file.
+ */
 public class Storage {
     private String filePath;
     private File file;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file for storing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(filePath);
     }
 
+    /**
+     * Loads tasks from a file and returns them as a list of Task objects.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws DevyBotException If an error occurs during loading.
+     */
     public ArrayList<Task> loadTasksFromFile() throws DevyBotException {
         ArrayList<Task> taskList = new ArrayList<>();
 
@@ -45,6 +59,13 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Creates a Task object from a string representation.
+     *
+     * @param taskString The string representation of the task.
+     * @return A Task object representing the task.
+     * @throws DevyBotException If the task string is in an invalid format.
+     */
     public Task createTaskFromLine(String taskString) throws DevyBotException {
         String[] taskParts = taskString.split(" \\| ");
 
@@ -77,6 +98,14 @@ public class Storage {
         return loadedTask;
     }
 
+    /**
+     * Creates a TodoTask object from a description and status.
+     *
+     * @param description The description of the task.
+     * @param status      The status of the task (1 for done, 0 for undone).
+     * @return A TodoTask object.
+     * @throws DevyBotException If an error occurs during creation.
+     */
     public Task createTodoTask(String description, String status) throws DevyBotException {
         Task task = new TodoTask(description);
         if (status.equals("1")) {
@@ -85,6 +114,15 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Creates a DeadlineTask object from a description, taskBy, and status.
+     *
+     * @param description The description of the task.
+     * @param taskBy      The task's deadline or due date.
+     * @param status      The status of the task (1 for done, 0 for undone).
+     * @return A DeadlineTask object.
+     * @throws DevyBotException If an error occurs during creation.
+     */
     public Task createDeadlineTask(String description, String taskBy, String status) throws DevyBotException {
         Task task;
         if (taskBy.contains(" ")) {
@@ -103,6 +141,16 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Creates an EventTask object from a description, taskFrom, taskTo, and status.
+     *
+     * @param description The description of the task.
+     * @param taskFrom    The starting date and time of the event.
+     * @param taskTo      The ending date and time of the event.
+     * @param status      The status of the task (1 for done, 0 for undone).
+     * @return An EventTask object.
+     * @throws DevyBotException If an error occurs during creation.
+     */
     public Task createEventTask(String description, String taskFrom, String taskTo, String status)
             throws DevyBotException {
         LocalDateTime fromDateTime = LocalDateTime.parse(taskFrom, DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
@@ -114,6 +162,11 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Saves tasks from a TaskList to the file.
+     *
+     * @param taskList The TaskList containing tasks to be saved.
+     */
     public void saveTasksToFile(TaskList taskList) {
         try {
             File dataDir = new File("./data");

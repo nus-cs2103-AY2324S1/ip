@@ -1,5 +1,8 @@
 package devybot.util;
 
+/**
+ * The Ui class handles user interface interactions and messages.
+ */
 public class Ui {
     private static StringBuilder outputBuffer = new StringBuilder();
 
