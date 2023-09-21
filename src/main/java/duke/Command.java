@@ -73,4 +73,5 @@ public class Command {
      * the starting message. If by chance used by user, it will just display the greeting.
      */
     public static final String START = "SystemCode247890Start";
+    public static final String MOTIVATE = "motivate";
 }

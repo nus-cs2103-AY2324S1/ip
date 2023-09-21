@@ -122,6 +122,8 @@ public class Duke {
             botOutput = findResponse(userInput.strip(), botOutput);
         } else if (userInput.strip().equalsIgnoreCase(Command.EXIT)) {
             botOutput = this.ui.getExitGreeting();
+        } else if (userInput.strip().equalsIgnoreCase(Command.MOTIVATE)) {
+            botOutput = "Here's your dose of motivation, Sergeant!";
         } else {
             botOutput = taskCreationResponse(userInput.strip(), botOutput);
         }
