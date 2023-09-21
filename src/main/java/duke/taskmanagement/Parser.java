@@ -2,6 +2,7 @@ package duke.taskmanagement;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     public Ui ui;
@@ -154,21 +155,48 @@ public class Parser {
     }
 
 
+//    private String deadline(TaskList list, String cmd) {
+//        String[] parts = cmd.split("/by");
+//        if (parts.length == 2) {
+//            String description = parts[0].replace("deadline", "").trim(); // Remove "deadline"
+//            String deadline = parts[1].trim();
+//            LocalDate d1 = LocalDate.parse(deadline);
+//            String formattedDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+//            Task task = new Deadline(description, formattedDate, false);
+//            return list.addDeadlineTask(task);
+//        } else {
+//            DukeException exp = new DukeException("deadline");
+//            return exp.toString();
+//        }
+//    }
+
+
     private String deadline(TaskList list, String cmd) {
         String[] parts = cmd.split("/by");
         if (parts.length == 2) {
             String description = parts[0].replace("deadline", "").trim(); // Remove "deadline"
             String deadline = parts[1].trim();
-            LocalDate d1 = LocalDate.parse(deadline);
-            String formattedDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-            Task task = new Deadline(description, formattedDate, false);
-            return list.addDeadlineTask(task);
+            return invalidDate(deadline, description, list);
         } else {
-            DukeException exp = new DukeException("deadline");
-            return exp.toString();
+            return "please follow the format: deadline /by yyyy-mm-dd";
         }
     }
 
+    private String invalidDate(String deadline, String description, TaskList list) {
+        try {
+            if (!deadline.isEmpty()) {
+                LocalDate d1 = LocalDate.parse(deadline);
+                String formattedDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+                Task task = new Deadline(description, formattedDate, false);
+                return list.addDeadlineTask(task);
+            } else {
+                DukeException exp = new DukeException("deadline");
+                return exp.toString();
+            }
+        } catch (DateTimeParseException e) {
+            return "Invalid date. Please use a valid date!";
+        }
+    }
     private String todo(TaskList list, String cmd) {
         String[] parts = cmd.split(" ", 2);
         if (parts.length == 2) {

@@ -49,10 +49,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
-    mainClassName = 'seedu.duke.Main'
-//    mainClass.set("duke.taskmanagement.Duke")
-//    mainClassName = 'duke.taskmanagement.Main'
+    mainClass.set("duke.taskmanagement.Launcher")
 }
 
 shadowJar {
