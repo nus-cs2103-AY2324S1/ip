@@ -7,6 +7,10 @@ import jarvis.storage.Storage;
 import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
 
+/**
+ * Represents the main Jarvis application.
+ * Initializes the application and starts the interaction with the user.
+ */
 public class Jarvis {
 
     private Ui ui;
@@ -14,7 +18,11 @@ public class Jarvis {
     private Parser parser;
     private TaskList tasks;
 
-    // Initialize the classes in the Duke constructor.
+    /**
+     * Constructs a Jarvis object.
+     *
+     * @param filePath The file path of the file to store the tasks.
+     */
     public Jarvis(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
@@ -22,6 +30,9 @@ public class Jarvis {
         this.parser = new Parser();
     }
 
+    /**
+     * Runs the Jarvis application until the user exits the application.
+     */
     public void run() {
         ui.greet();
         boolean isExit = false;
@@ -37,6 +48,11 @@ public class Jarvis {
         }
     }
 
+    /**
+     * The main method to launch the Jarvis application.
+     *
+     * @param args The command-line arguments. Not used in this application.
+     */
     public static void main(String[] args) {
         new Jarvis("./data/jarvis.txt").run();
     }

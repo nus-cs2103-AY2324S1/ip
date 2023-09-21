@@ -15,15 +15,28 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Storage class is responsible for saving and loading the task list to and from the hard disk.
+ */
 public class Storage {
     private static final DateTimeFormatter SAVE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
 
     private String filePath;
 
+    /**
+     * Constructs a Storage object.
+     *
+     * @param filePath The path to the save file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Saves the task list to the save file.
+     *
+     * @param tasks The list of tasks to be saved.
+     */
     public void saveTasks(TaskList tasks) {
         try {
             FileWriter writer = new FileWriter(this.filePath);
@@ -39,6 +52,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the task list from the save file.
+     *
+     * @return The list of tasks loaded from the save file.
+     */
     public ArrayList<Task> loadTasks() {
         File file = new File(this.filePath);
 
@@ -56,6 +74,10 @@ public class Storage {
             System.out.println("Save file created successfully at " + this.filePath);
         }
 
+<<<<<<< HEAD
+=======
+        List<String> lines;
+>>>>>>> branch-A-JavaDoc
         try {
             List<String>  lines = Files.readAllLines(file.toPath());
             return getTasks(lines);
@@ -63,6 +85,7 @@ public class Storage {
             System.out.println("An error occurred while loading tasks.");
             return null;
         }
+<<<<<<< HEAD
     }
 
     private LocalDateTime parseSavedDateTime(String dateTimeString){
@@ -70,6 +93,12 @@ public class Storage {
     }
 
     private ArrayList<Task> getTasks(List<String> lines) {
+=======
+        return getTasks(lines); // Return the loaded list of tasks.
+    }
+
+    private static ArrayList<Task> getTasks(List<String> lines) {
+>>>>>>> branch-A-JavaDoc
         ArrayList<Task> tasks = new ArrayList<>();
 
         for (String line : lines) {
@@ -90,6 +119,4 @@ public class Storage {
         }
         return tasks;
     }
-
-    // ... Other storage-related methods ...
 }
