@@ -1,5 +1,5 @@
-todo c
 todo 0
 todo a
 todo 8
 todo charge macbook
+todo 6
