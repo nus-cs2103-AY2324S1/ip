@@ -28,8 +28,7 @@ public class Phi  {
         tasks = taskStorage.readFromFile();
         this.parser = new Parser(tasks);
     }
-
-    
+  
     /**
      * Abstraction for the user-input handling process, which will continue running until the input "bye" is received
      */

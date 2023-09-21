@@ -25,6 +25,7 @@ public class Storage {
      * @param pathString File path for the saved tasklist.txt file (to be read and written to)
      */
     public Storage(String pathString) {
+        assert pathString.equals("./data/tasklist.txt") : "Wrong path for this project";
         this.txtFile = new File(pathString);
         this.filePath = Paths.get(pathString);
 
