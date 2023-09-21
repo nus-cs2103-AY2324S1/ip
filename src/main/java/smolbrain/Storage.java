@@ -67,53 +67,15 @@ public class Storage {
      * @return ArrayList of tasks from the save file.
      */
     public ArrayList<Task> load() {
-
         File f = new File(filePath);
         ArrayList<Task> tasklist = new ArrayList<>();
         ArrayList<String> strings = new ArrayList<>();
-
         try {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 strings.add(s.nextLine());
             }
-
-            for (int i = 0; i < strings.size(); i++) {
-                String type = strings.get(i).substring(0, 1);
-                String marked = strings.get(i).substring(1, 2);
-                int priorityLevel = parseInt(strings.get(i).substring(2, 3));
-                String remain = strings.get(i).substring(3);
-                String txt = "";
-
-                switch (type) {
-                case "T":
-                    txt = "todo " + remain;
-                    break;
-
-                case "D":
-                    txt = "deadline " + remain;
-                    break;
-
-                case "E":
-                    txt = "event " + remain;
-                    break;
-
-                default:
-                    break;
-                }
-
-                try {
-                    Task task = Parser.parseLoading(txt);
-                    tasklist.add(task);
-                    if (marked.equals("1")) {
-                        task.mark();
-                    }
-                    task.setPriorityLevel(priorityLevel);
-                } catch (InvalidNumberException | InvalidRangeException | MissingTimeException
-                         | InvalidDateTimeException | MissingDescriptionException e) {
-                    ui.showError(e);
-                }
-            }
+            processString(strings, tasklist);
         } catch (FileNotFoundException e) {
             try {
                 f.createNewFile();
@@ -125,4 +87,41 @@ public class Storage {
         return tasklist;
     }
 
+    private void processString(ArrayList<String> strings, ArrayList<Task> tasklist) {
+        for (int i = 0; i < strings.size(); i++) {
+            String type = strings.get(i).substring(0, 1);
+            String marked = strings.get(i).substring(1, 2);
+            int priorityLevel = parseInt(strings.get(i).substring(2, 3));
+            String remain = strings.get(i).substring(3);
+            String txt = "";
+            switch (type) {
+            case "T":
+                txt = "todo " + remain;
+                break;
+            case "D":
+                txt = "deadline " + remain;
+                break;
+            case "E":
+                txt = "event " + remain;
+                break;
+            default:
+                break;
+            }
+            run(txt, tasklist, marked, priorityLevel);
+        }
+    }
+
+    private void run(String txt, ArrayList<Task> tasklist, String marked, int priorityLevel) {
+        try {
+            Task task = Parser.parseLoading(txt);
+            tasklist.add(task);
+            if (marked.equals("1")) {
+                task.mark();
+            }
+            task.setPriorityLevel(priorityLevel);
+        } catch (InvalidNumberException | InvalidRangeException | MissingTimeException
+                 | InvalidDateTimeException | MissingDescriptionException e) {
+            ui.showError(e);
+        }
+    }
 }

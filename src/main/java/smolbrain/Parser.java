@@ -127,6 +127,21 @@ public class Parser {
         descr = "";
         String fromText = "";
         String toText = "";
+        String[] val = parseEventText(words, isFrom, isTo, fromText, toText);
+        descr = descr.substring(0, descr.length() - 1);
+        fromText = val[0].substring(0, val[0].length() - 1);
+        toText = val[1].substring(0, val[1].length() - 1);
+        try {
+            dateTime = LocalDateTime.parse(fromText, formatter);
+            dateTime2 = LocalDateTime.parse(toText, formatter);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        }
+        return new Event(descr, dateTime, dateTime2);
+    }
+
+    private static String[] parseEventText(String[] words, boolean isFrom, boolean isTo, String fromText,
+                String toText) throws MissingDescriptionException, MissingTimeException {
         for (int i = 1; i < words.length; i++) {
             if (words[i].equals("/from")) {
                 isFrom = true;
@@ -150,17 +165,8 @@ public class Parser {
         } else if (toText.equals("")) {
             throw new MissingTimeException("event", "end");
         }
-        descr = descr.substring(0, descr.length() - 1);
-        fromText = fromText.substring(0, fromText.length() - 1);
-        toText = toText.substring(0, toText.length() - 1);
-        try {
-            dateTime = LocalDateTime.parse(fromText, formatter);
-            dateTime2 = LocalDateTime.parse(toText, formatter);
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException();
-        }
-
-        return new Event(descr, dateTime, dateTime2);
+        String[] val = {fromText, toText};
+        return val;
     }
 
     /**
