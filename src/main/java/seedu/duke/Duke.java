@@ -1,5 +1,8 @@
 package seedu.duke;
 
+/**
+ * a duke handles the logic behind the application
+ */
 public class Duke {
 
     private TaskList tasks;

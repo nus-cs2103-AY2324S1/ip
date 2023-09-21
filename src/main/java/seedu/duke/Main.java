@@ -17,7 +17,9 @@ import javafx.scene.image.ImageView;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * A main class that connects the UI with the duke
+ */
 public class Main extends Application {
 
     private ScrollPane scrollPane;
@@ -107,6 +109,11 @@ public class Main extends Application {
         return textToAdd;
     }
 
+    /**
+     * used to handle userInput and write the output into the Label
+     *
+     * @param Duke the main duke class
+     */
     private void handleUserInput(Duke duke) {
         Label userText = new Label("Hi spongebob help me: " + userInput.getText());
         Label dukeText = new Label("OK patrick\n" + duke.getResponse(userInput.getText()));
@@ -120,6 +127,10 @@ public class Main extends Application {
         userInput.clear();
     }
 
+    /**
+     * used to close the program window when bye command is detected
+     *
+     */
     private void scheduleExitAfterDelay() {
         ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.schedule(() -> Platform.exit(), 3, TimeUnit.SECONDS); // Change the delay as needed (2 seconds in this example)
