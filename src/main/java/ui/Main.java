@@ -23,6 +23,7 @@ public class Main extends Application {
             assert fxmlLoader != null : "Empty FxmlLoader";
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Botty");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBotty(botty);
             stage.show();

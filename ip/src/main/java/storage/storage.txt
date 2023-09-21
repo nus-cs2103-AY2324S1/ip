@@ -1,5 +1,6 @@
 T | 0 | go home
-T | 0 | cry
 T | 0 | cs2100
 T | 0 | cs2103
 T | 0 | cs2101
+T | 0 | ma2001
+T | 0 | ma1521
