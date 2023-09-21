@@ -28,6 +28,8 @@ Je-O Chatbot is a desktop app for managing tasks, optimized for use via a Comman
 #### Notes about the command format:
 - Words inside `<>` are the parameters to be supplied by the user.  
   e.g. in `todo <TASK_NAME>`, `<TASK_NAME>` is a parameter which can be used as `todo Read`.
+- Extraneous parameters for commands that do not take in parameters (such as `list`, `sort` and `bye`) will be ignored.  
+  e.g. if the command specifies `list 123`, it will be interpreted as `list`.
 
 ### Add a todo task: `todo`
 
