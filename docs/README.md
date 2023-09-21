@@ -54,7 +54,7 @@ Removes tasks from your task list when they are no longer relevant or needed.
    
 - Example:
    - `delete 1` Delete the first task of the list.
- ![Local Image](./assets/images/delete.png)
+     ![Local Image](./assets/images/delete.png)
 
 
 ### Listing all tasks - `list`
@@ -65,14 +65,15 @@ Displays all the tasks in the task list.
 
 - Example:
   
-![Local Image](./assets/images/list.png)
+    ![Local Image](./assets/images/list.png)
 
-  - The task display in this format: [Type][Completeness] Task description
-      - **Type**:
+
+- The task display in this format: `[Type][Completeness] Task description`
+    - **Type**:
         - `[T]` = `todo`
         - `[E]` = `event`
         - `[D]` = `deadline`
-      - **Completeness**:
+    - **Completeness**:
          - `[X]` = `done`
          - `[ ]` = `not done`
 
@@ -111,7 +112,7 @@ Marks a task as completed.
 - Example:
    - `mark 1`, Mark the first task of the list as done.
  
-![Local Image](./assets/images/mark.png)
+  ![Local Image](./assets/images/mark.png)
 
 
 ### Mark not done -`unmark`
@@ -124,7 +125,7 @@ Marks a task as not complete.
 - Example:
    - `unmark 1` Mark the first task of the list as not done.
  
-![Local Image](./assets/images/unmark.png)
+  ![Local Image](./assets/images/unmark.png)
 
   
 ### Find a task - `find`
@@ -135,7 +136,7 @@ Finds tasks that match the given keyword.
    
 - Example: `find fetch` Find tasks with a description contained fetch.
 
-![Local Image](./assets/images/find.png)
+  ![Local Image](./assets/images/find.png)
 
   
 ### Exiting the program - `bye`
