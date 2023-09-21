@@ -5,3 +5,12 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+____________________________________________________________
+Hello! I'm Nichbot, a task planning bot that will help you record your tasks.
+If you require help on the commands you can key in, type "help"
+____________________________________________________________
+
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
+
