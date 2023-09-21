@@ -61,6 +61,10 @@ public enum DukeExceptionType {
             "Invalid venue format!\n"
             + "Correct usage: venue <name> /address <address> /size <capacity> /rent <rent>"
     ),
+    INVALID_VENUE_SAVE_FORMAT(
+            "Invalid venue save format!\n"
+            + "Correct format: V | Auditorium | ABC Road | 300 | 12.00"
+    ),
     INVALID_RANGE("The task number you've entered is out of the valid range."),
     LIST_NO_RESOURCE_SPECIFIED("You did not specify the resource type!\n\n"
             + "Correct usage: list <resource type>\n"),

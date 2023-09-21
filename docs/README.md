@@ -266,8 +266,3 @@ Finds venues names from the current venue list that contain the keyword.
 **Expected outcome:**
 
 ![Screenshot of add event](./images/find_venues.png)
-
-### Help Guide: `help`
-In case you ever forget a command just type the `help` keyword and send it to Skye. Skye will respond with the help guide!
-
-![Screenshot of add event](./images/help_guide.png)
