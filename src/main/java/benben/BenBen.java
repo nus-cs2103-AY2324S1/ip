@@ -59,7 +59,7 @@ public class BenBen {
      * @param str the string command from the user
      * @throws BenBenException when  the command from the user is of the wrong format
      */
-    public String event (String str) throws BenBenException{
+    public String event(String str) throws BenBenException{
         Task t = Parser.parseEvent(str);
         tasks.add(t);
         storage.write(tasks);
@@ -94,14 +94,15 @@ public class BenBen {
 
         try {
             x = Integer.parseInt(strSplit[1]);
-            assert x > 0 && x < tasks.size();
-            tasks.get(x - 1).mark();
-            storage.write(tasks);
+                tasks.get(x - 1).mark();
+                storage.write(tasks);
             return ui.showMark(tasks.get(x - 1).toString());
         } catch(NumberFormatException e) {
-            throw new BenBenException("Please use an integer value to indicate your task!");
+            throw new BenBenException("Please use a positive integer value to indicate your task!");
         } catch(NullPointerException e) {
             throw new BenBenException("The task you are trying to mark does not exist!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new BenBenException("Please use an integer value to indicate your task!");
         }
     }
 
@@ -129,9 +130,11 @@ public class BenBen {
             storage.write(tasks);
             return ui.showUnmark(tasks.get(x - 1).toString());
         } catch (NumberFormatException e) {
-            throw new BenBenException("Please use an integer value to indicate your task!");
+            throw new BenBenException("Please use a positive integer value to indicate your task!");
         } catch (NullPointerException e) {
-            throw new BenBenException("The task you are trying to unmark does not exist!");
+            throw new BenBenException("The task you re trying to unmark does not exist!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new BenBenException("Please use an integer value to indicate your task!");
         }
     }
 
@@ -157,8 +160,10 @@ public class BenBen {
             storage.write(tasks);
             return ui.showRemove(temp.toString(), tasks.size());
         } catch (NumberFormatException e) {
+            throw new BenBenException("Please use a positive integer value to indicate your task!");
+        } catch (IndexOutOfBoundsException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
+        } catch (NullPointerException e) {
             throw new BenBenException("The task you are trying to remove does not exist!");
         }
     }
@@ -208,7 +213,6 @@ public class BenBen {
         } catch (BenBenException e) {
             return e.toString();
         }
-
     }
 
     /**

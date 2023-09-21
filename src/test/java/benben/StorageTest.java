@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class StorageTest {
     @Test
     public void loadFromStorage_emptyFile_LengthIsZero() {
-        Storage storage = new Storage("./src/test/java/benben/storage_test_0.txt");
+        Storage storage = new Storage("storage_test_0.txt");
         TaskList tasks = new TaskList(storage.load());
         assertEquals(tasks.size(), 0);
     }
@@ -19,7 +19,7 @@ public class StorageTest {
     @Test
     public void loadFromStorage_addTask_correctFileConetnt() {
         try {
-            String filepath = "./src/test/java/benben/storage_test_2.txt";
+            String filepath = "storage_test_2.txt";
             Storage storage = new Storage(filepath);
             // empty the list first;
             TaskList tasks = new TaskList();

@@ -11,6 +11,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private final String filePath;
+    private final String directory = "data";
 
     private File file;
 
@@ -20,7 +21,10 @@ public class Storage {
      * @param filePath the file path of the local file
      */
     public Storage(String filePath) {
-        this.filePath = filePath;
+        File fileDir = new File(directory);
+        fileDir.mkdir();
+        this.file = new File(directory, filePath);
+        this.filePath = file.getPath();
     }
 
     /**
@@ -52,7 +56,7 @@ public class Storage {
     public ArrayList<Task> load() throws BenBenException {
         ArrayList<Task> list = new ArrayList<>();
         try {
-            this.file = new File(filePath);
+            TaskList taskList = new TaskList();
             if (!file.exists()) {
                 boolean isCreated = file.createNewFile();
                 assert isCreated == true;

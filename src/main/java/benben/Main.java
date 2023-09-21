@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private BenBen duke = new BenBen("./src/main/java/tasks.txt");
+    private BenBen duke = new BenBen("tasks.txt");
 
     @Override
     public void start(Stage stage) {

@@ -47,6 +47,7 @@ application {
 }
 
 shadowJar {
+    archiveFileName = 'benben.jar'
     archiveBaseName = "benben"
     archiveClassifier = null
     dependsOn("distZip", "distTar")

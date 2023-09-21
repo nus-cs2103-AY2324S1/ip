@@ -4,8 +4,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -22,13 +26,14 @@ public class MainWindow extends AnchorPane {
     private BenBen benben;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaCat.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.jpeg"));
+    private Image benbenImage = new Image(this.getClass().getResourceAsStream("/images/DaBenBen.png"));
+    private Circle clip = new Circle(250,200,80);
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Hello! I'm BenBen.\n" + "What can I do for you?", dukeImage)
+                DialogBox.getDukeDialog("Hello! I'm BenBen.\n" + "What can I do for you?", benbenImage)
         );
     }
 
@@ -44,10 +49,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = benben.getResponse(input);
-        System.out.println(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, benbenImage)
         );
         userInput.clear();
     }
