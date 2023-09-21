@@ -55,7 +55,7 @@ Expected outcome:
 Got you barbie! I've added this task to your Barbie list: <task>
 ```
 
-### `party` - add todo
+### `party` - add party
 
 This command adds a party to your task list, with the start and end date indicated in the format
 YYYY-MM-DD
@@ -69,21 +69,7 @@ Expected outcome:
 ```
 Got you barbie! I've added this task to your Barbie list: <task>
 ```
-### `party` - add todo
-
-This command adds a party to your task list, with the start and end date indicated in the format
-YYYY-MM-DD
-
-Example of usage:
-
-`party Barbie's birthday party /2023-08-20 /2023-09-20`
-
-Expected outcome:
-
-```
-Got you barbie! I've added this task to your Barbie list: <task>
-```
-### `mark` - add todo
+### `mark` - mark task as done
 
 This command marks a task in your task as done, using the item number 
 of the task in that list.
@@ -98,7 +84,7 @@ Expected outcome:
 Nice! I've marked this task as done:
 <task>
 ```
-### `unmark` - add todo
+### `unmark` - unmark task as done
 
 This command unmarks a task as done, using that item number of the task
 in that list
@@ -113,7 +99,7 @@ Expected outcome:
 Alright! I've marked this task as not done yet!
 <task>
 ```
-### `del` - add todo
+### `del` - delete task
 
 This command deleted a task from the list, using that item number of the task
 in that list
@@ -128,7 +114,7 @@ Expected outcome:
 Deletion success! I've deleted this task off your list.
 <task>
 ```
-### `find` - add todo
+### `find` - find tasks
 
 This command finds a task using a provided keyword.
 
@@ -144,7 +130,7 @@ These are your tasks with the keyword: milk
 ```
 
 
-### `list` - add todo
+### `list` - list tasks
 
 This command lists all tasks in the task list.
 
@@ -160,10 +146,15 @@ Expected outcome:
 ...
 ```
 
-### `exit` - add todo
+### `exit` - exit app
 
 This command closes the application.
 
 Example of usage:
 
 `exit`
+
+### `view` - view schedule
+
+This button opens a new tab to see your tasks for that day!
+
