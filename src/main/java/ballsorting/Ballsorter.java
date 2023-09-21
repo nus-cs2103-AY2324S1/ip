@@ -76,21 +76,6 @@ public class Ballsorter extends Application {
         }
     }
 
-    /**
-     * Starts the chatbot.
-     */
-    public void run() {
-        System.out.println("Hello! I'm Ballsorter\nWhat can I do for you?");
-
-        Scanner sc = new Scanner(System.in);
-        ui = new Ui(sc);
-        ui.scan(taskList);
-
-        //write list to storage
-        storage.storeList(taskList);
-
-        System.out.println("Bye. Hope to see you again soon!");
-    }
     public static void main(String[] args) {
         launch();
     }

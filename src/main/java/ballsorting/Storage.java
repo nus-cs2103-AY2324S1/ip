@@ -29,46 +29,25 @@ public class Storage {
      */
     public void loadFile(TaskList taskList) throws FileNotFoundException {
         Scanner sc = new Scanner(tmpDir);
+        Parser parser = new Parser();
+
         while (sc.hasNextLine()) {
             String input = sc.nextLine();
-            int stat = Integer.parseInt(input.substring(2, 3));
-            StringBuilder desc = new StringBuilder();
-            StringBuilder start = new StringBuilder();
-            Task curr;
-            if (input.charAt(0) == 'T') {
-                curr = new Todo(input.substring(4));
-            } else if (input.charAt(0) == 'D') {
-                int i = "D | ".length(); //4
-                while (input.charAt(i) != '|') {
-                    desc.append(input.charAt(i));
-                    i++;
-                }
-                i++;
-                LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
-                curr = new Deadline(desc.toString(), endDateTime);
-            } else {
-                assert input.charAt(0) == 'E';
-                int i = "E | ".length(); //4
-                while (input.charAt(i) != '|') {
-                    desc.append(input.charAt(i));
-                    i++;
-                }
-                i++;
-                while (input.charAt(i) != '|') {
-                    start.append(input.charAt(i));
-                    i++;
-                }
-                i++;
-                LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
-                LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
-                assert startDateTime.isBefore(endDateTime);
-                curr = new Event(desc.toString(), startDateTime, endDateTime);
+
+            switch (input.charAt(0)) {
+            case 'T':
+                parser.parseStoredTodo(input, taskList);
+                break;
+            case 'D':
+                parser.parseStoredDeadline(input, taskList);
+                break;
+            case 'E':
+                parser.parseStoredEvent(input, taskList);
+                break;
+            default:
+
+                break;
             }
-            if (stat == 1) {
-                curr.markDone();
-            }
-            assert curr != null;
-            taskList.addTask(curr);
         }
     }
 
