@@ -176,7 +176,7 @@ public class Parser {
         }
         int fromIndex = input.indexOf("/from ");
         int toIndex = input.indexOf("/to ");
-        if (fromIndex == -1 || fromIndex <= 8 || toIndex == -1 || fromIndex < toIndex) {
+        if (fromIndex == -1 || fromIndex <= 8 || toIndex == -1 || toIndex < fromIndex) {
             throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
         String name = input.substring(6, input.indexOf("/from ") - 1);
