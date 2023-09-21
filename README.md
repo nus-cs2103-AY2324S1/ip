@@ -36,3 +36,9 @@ Prerequisites: JDK 11, update IntelliJ to the most recent version.
       [You]:
        > 
       ```
+
+## Acknowledgements
+
+- [Gson](https://github.com/google/gson) - for saving and loading data
+- [SE-EDU JavaFX Guide Part 4](https://se-education.org/guides/tutorials/javaFxPart4.html) - for minor inspirations of GUI and code
+- [docsify](https://docsify.js.org/) - for rendering the User Guide
