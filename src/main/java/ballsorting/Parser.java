@@ -55,10 +55,10 @@ public class Parser {
             case "event":
                 return ui.handleEvent(input, taskList);
             default:
-                return CustomErrorHandling.commandNotFound();
+                throw new CustomError.commandNotFoundException();
             }
         } catch (CustomError e) {
-            return e.toString();
+            return e.getMessage();
         }
 
     }

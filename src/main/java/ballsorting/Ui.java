@@ -43,25 +43,25 @@ public class Ui {
         int target = Integer.parseInt(input.substring(7)) - 1;
         return taskList.deleteTask(target);
     }
-    public String handleFind(String input, TaskList taskList) throws CustomError.emptySearchTermException {
+    public String handleFind(String input, TaskList taskList) throws CustomError {
         if (input.length() == 4) {
-            return CustomErrorHandling.emptySearchTerm();
+            throw new CustomError.emptySearchTermException();
         } else {
             String searchString = input.substring(4).trim();
             if (searchString.equals("")) {
-                return CustomErrorHandling.emptySearchTerm();
+                throw new CustomError.emptySearchTermException();
             } else {
                 return taskList.getSearchList(input.substring(5));
             }
         }
     }
-    public String handleTodo(String input, TaskList taskList) {
+    public String handleTodo(String input, TaskList taskList) throws CustomError {
         Task curr = null;
         StringBuilder description = new StringBuilder();
 
         description.append(input.substring(4).trim());
         if (description.toString().equals("")) {
-            return CustomErrorHandling.emptyTodoDescription();
+            throw new CustomError.emptyTodoDescriptionException();
         } else {
             assert !description.toString().equals("");
             curr = new Todo(description.toString());
@@ -73,7 +73,7 @@ public class Ui {
             return taskList.addTask(curr);
         }
     }
-    public String handleDeadline(String input, TaskList taskList) {
+    public String handleDeadline(String input, TaskList taskList) throws CustomError {
         Task curr = null;
         StringBuilder description = new StringBuilder();
 
@@ -85,9 +85,9 @@ public class Ui {
         i += "/by ".length();
 
         if (description.toString().equals("")) {
-            return CustomErrorHandling.emptyDeadlineDescription();
+            throw new CustomError.emptyDeadlineDescriptionException();
         } else if (i >= input.length() || input.substring(i).equals("")) {
-            return CustomErrorHandling.emptyDeadlineDuedate();
+            throw new CustomError.emptyDeadlineDuedateException();
         } else {
             LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
             assert !description.toString().equals("");
@@ -96,12 +96,12 @@ public class Ui {
             assert curr != null;
             assert !description.toString().equals("");
             if (taskList.isDuplicate(description.toString())) {
-                return CustomErrorHandling.duplicatedTask();
+                throw new CustomError.duplicatedTaskException();
             }
             return taskList.addTask(curr);
         }
     }
-    public String handleEvent(String input, TaskList taskList) {
+    public String handleEvent(String input, TaskList taskList) throws CustomError {
         Task curr = null;
         StringBuilder description = new StringBuilder();
         StringBuilder start = new StringBuilder();
@@ -118,16 +118,16 @@ public class Ui {
         }
         i += "/to ".length();
         if (description.toString().equals("")) {
-            return CustomErrorHandling.emptyEventDescription();
+            throw new CustomError.emptyEventDescriptionException();
         } else if (start.toString().equals("")) {
-            return CustomErrorHandling.emptyEventStartDate();
+            throw new CustomError.emptyEventStartDateException();
         } else if (i >= input.length() || input.substring(i).equals("")) {
-            return CustomErrorHandling.emptyEventEndDate();
+            throw new CustomError.emptyEventEndDateException();
         } else {
             LocalDateTime startDateTime = LocalDateTime.parse(start.toString(), Ballsorter.inputFormatter);
             LocalDateTime endDateTime = LocalDateTime.parse(input.substring(i), Ballsorter.inputFormatter);
             if (endDateTime.isBefore(startDateTime)) {
-                return CustomErrorHandling.invalidEventDates();
+                throw new CustomError.invalidEventDatesException();
             }
             assert !description.toString().equals("");
             curr = new Event(description.toString(), startDateTime, endDateTime);
@@ -135,7 +135,7 @@ public class Ui {
             assert curr != null;
             assert !description.toString().equals("");
             if (taskList.isDuplicate(description.toString())) {
-                return CustomErrorHandling.duplicatedTask();
+                throw new CustomError.duplicatedTaskException();
             }
             return taskList.addTask(curr);
         }
