@@ -37,10 +37,11 @@ public class AddCommand extends Command {
      * @param taskList The task list instance of duke.
      * @param ui The ui instance of duke.
      * @param storage The storage instance of duke.
+     * @return The description of the added task.
      * @throws TasketException If error occurred while creating task.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         Task task = null;
         switch (this.header) {
         case "todo":
@@ -59,11 +60,10 @@ public class AddCommand extends Command {
             throw new TasketException("I'm sorry, but I don't know what it means :(");
         }
 
-        if (task != null) {
-            taskList.add(task);
-            ui.showAddedTask(task.toString(), taskList.size());
-            storage.append(task.toSaveString());
-        }
+        taskList.add(task);
+        storage.append(task.toSaveString());
+
+        return ui.showAddedTask(task.toString(), taskList.size());
     }
 
     /**

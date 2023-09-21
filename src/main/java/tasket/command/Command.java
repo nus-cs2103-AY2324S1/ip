@@ -25,9 +25,10 @@ public abstract class Command {
      * @param taskList The task list instance of duke.
      * @param ui The ui instance of duke.
      * @param storage The storage instance of duke.
+     * @return Respective response of each command.
      * @throws TasketException If error occured while running the command.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException;
 
     /**
      * To identify if it's a exit command.

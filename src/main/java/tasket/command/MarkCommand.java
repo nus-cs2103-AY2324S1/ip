@@ -26,10 +26,11 @@ public class MarkCommand extends Command {
      * @param taskList The task list instance of duke.
      * @param ui The ui instance of duke.
      * @param storage The storage instance of duke.
+     * @return The description of marked task.
      * @throws TasketException If the index is not a number, less than 0 or exceed the task list size.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         if (commandDescription.isEmpty()) {
             throw new TasketException("The task index cannot be empty");
         }
@@ -44,8 +45,8 @@ public class MarkCommand extends Command {
             }
 
             taskList.mark(i - 1);
-            ui.showMarkedTask(taskList.getTaskString(i - 1));
             storage.rewriteSaveFile(taskList);
+            return ui.showMarkedTask(taskList.getTaskString(i - 1));
         } catch (NumberFormatException e) {
             throw new TasketException("The task index must be a number");
         }
