@@ -7,7 +7,7 @@ import duke.TaskList;
  */
 public class FindCommand implements Command {
     /**
-     * Search for tasks from the task list.
+     * Searches for tasks from the task list.
      *
      * @param input    The user input.
      * @param taskList The application's task list.
