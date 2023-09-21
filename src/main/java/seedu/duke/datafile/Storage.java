@@ -91,7 +91,6 @@ public class Storage {
         Scanner scanner;
         // if there is no storage - no tasks
         if (!dataFile.exists()) {
-            System.out.println("File doesn't exist?");
             return tasks;
         } else {
             try {

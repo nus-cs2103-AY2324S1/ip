@@ -9,8 +9,7 @@ public class InvalidTaskException extends LemonException {
      * @param message the invalid command input.
      */
     public InvalidTaskException(String message) {
-        super(":( OPPS!!! I'm sorry, but I don't know what"
-                + message + "means :-(");
+        super(":( OPPS!!! I'm sorry, but I don't know what" + message + "means :-(");
     }
 
 }

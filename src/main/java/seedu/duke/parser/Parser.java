@@ -25,7 +25,6 @@ import seedu.duke.ui.Ui;
  */
 public class Parser {
 
-
     enum Commands {
         BYE,
         MARK,
@@ -48,39 +47,64 @@ public class Parser {
      * @throws LemonException thrown when commands are invalid.
      */
     public static String parseTasks(String input, TaskList tasks, Storage tasksData, Ui ui) throws LemonException {
-        System.out.println("input is: " + input);
         if (!input.equals("bye")) {
-            String commandType = input.split(" ")[0].toUpperCase();
-            try {
-                Commands command = Commands.valueOf(commandType);
-                switch (command) {
-                case LIST:
-                    return list(tasks, ui);
-                case MARK:
-                    return mark(input, tasks, tasksData, ui);
-                case UNMARK:
-                    return unMark(input, tasks, tasksData, ui);
-                case TODO:
-                    return todo(input, tasks, tasksData, ui);
-                case DEADLINE:
-                    return deadline(input, tasks, tasksData, ui);
-                case EVENT:
-                    return event(input, tasks, tasksData, ui);
-                case DELETE:
-                    return delete(input, tasks, tasksData, ui);
-                case FIND:
-                    return find(input, tasks, ui);
-                case RESCHEDULE:
-                    return reschedule(input, tasks, tasksData, ui);
-                default:
-                    throw new InvalidTaskException(" " + input + " ");
-                }
-            } catch (IllegalArgumentException e) {
+            String commandType = identifyCommand(input);
+            return doTask(input, tasks, tasksData, ui, commandType);
+        } else {
+            javafx.application.Platform.exit();
+            return ui.bye();
+        }
+
+    }
+
+    /**
+     * Identifies command based on user's input.
+     * @param input String of user's input
+     * @return String representation of user's command
+     */
+    private static String identifyCommand(String input) {
+        String commandType = input.split(" ")[0].toUpperCase();
+        return commandType;
+    }
+    /**
+     * Completed the task by calling other methods in Parser.
+     * @param input String representation of input by user
+     * @param tasks TaskList of tasks
+     * @param tasksData Storage where tasks details are stored.
+     * @param ui Ui used for Lemon.
+     * @param commandType type of command specified by user.
+     * @return String representation of response to user's command.
+     * @throws LemonException thrown when command does not exist
+     */
+    private static String doTask(String input, TaskList tasks, Storage tasksData, Ui ui, String commandType)
+            throws LemonException {
+        try {
+            Commands command = Commands.valueOf(commandType);
+            switch (command) {
+            case LIST:
+                return list(tasks, ui);
+            case MARK:
+                return mark(input, tasks, tasksData, ui);
+            case UNMARK:
+                return unMark(input, tasks, tasksData, ui);
+            case TODO:
+                return todo(input, tasks, tasksData, ui);
+            case DEADLINE:
+                return deadline(input, tasks, tasksData, ui);
+            case EVENT:
+                return event(input, tasks, tasksData, ui);
+            case DELETE:
+                return delete(input, tasks, tasksData, ui);
+            case FIND:
+                return find(input, tasks, ui);
+            case RESCHEDULE:
+                return reschedule(input, tasks, tasksData, ui);
+            default:
                 throw new InvalidTaskException(" " + input + " ");
             }
+        } catch (IllegalArgumentException e) {
+            throw new InvalidTaskException(" " + input + " ");
         }
-        javafx.application.Platform.exit();
-        return ui.bye();
     }
 
     /**
@@ -97,7 +121,6 @@ public class Parser {
         }
         return ui.listAll(tasks);
     }
-
     /**
      * To mark a particular task as done.
      * @param input user's input after command "mark"
@@ -277,7 +300,6 @@ public class Parser {
     private static String reschedule(String input, TaskList tasks, Storage tasksData, Ui ui)
             throws LemonException {
         try {
-            System.out.println("rescheduling!");
             String[] indexTask = input.split(" ", 2);
             if (indexTask.length < 2) {
                 throw new LemonException("Please include a task number & date to reschedule to!");
@@ -289,7 +311,6 @@ public class Parser {
             int indexToReschedule = Integer.valueOf(getRescheduleTask[0]) - 1;
             String rescheduleDate = getRescheduleTask[1];
             tasks.rescheduleTask(indexToReschedule, rescheduleDate);
-            System.out.println(rescheduleDate);
             tasksData.saveTasks(tasks.getTaskList());
             String rescheduleTaskDescription = tasks.getTask(indexToReschedule).toString();
             return ui.rescheduleDeadline(rescheduleTaskDescription, tasks);
