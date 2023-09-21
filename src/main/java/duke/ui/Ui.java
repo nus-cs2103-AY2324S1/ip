@@ -38,6 +38,12 @@ public class Ui{
                 "as done:" + "\n" +
                 "\t " + done.taskString();
     }
+    /**
+     * Generates a message to indicate that a task has been updated.
+     *
+     * @param updated The task that was updated.
+     * @return A message indicating the task has been updated.
+     */
     public static String printUpdatedTask(Task updated) {
         return "\t" + "Nice! I've updated this task: " +
                 "\n" +
@@ -172,7 +178,6 @@ public class Ui{
                 + "9. list: shows the existing list of tasks\n"
                 + "10. find <keyword>: returns a new list of tasks containing the matching keyword in the task description\n"
                 + "11. bye: displays a goodbye message. ";
-
     }
 
     /**

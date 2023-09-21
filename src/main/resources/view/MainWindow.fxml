@@ -17,7 +17,7 @@
                    -fx-text-fill: #FFBF00; -fx-prompt-text-fill:#FFBF00; -fx-border-width: 2.5px;"
                    AnchorPane.bottomAnchor="1.0" promptText="Sort your tasks like a Sorting Hat!" >
                 <font>
-                    <Font name = "Apple Chancery" size = "13.5" />
+                    <Font name = "Times New Roman" size = "14" />
                 </font>
         </TextField>
         <Button fx:id="sendButton" contentDisplay="CENTER" layoutX="324.0" layoutY="558.0"
@@ -25,7 +25,7 @@
                 -fx-border-radius: 20.0" mnemonicParsing="false"
                 onAction="#handleUserInput" prefHeight="38.0" prefWidth="76.0" text="⚡ Send ⚡" textFill="black">
                 <font>
-                    <Font name = "Apple Chancery" size = "13.5"/>
+                    <Font name = "Times New Roman Bold" size = "14"/>
                 </font>
         </Button>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0"

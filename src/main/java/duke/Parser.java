@@ -76,7 +76,6 @@ public class Parser {
             throw new InvalidInputException(str);
         }
         temp =  Ui.printUpdatedTask(task);
-
     }
     /**
      * Updates a task list based on the provided input string.
@@ -91,8 +90,7 @@ public class Parser {
                     tasks.markDone(i);
                 }
                 temp = Ui.printAllDone(tasks);
-            }
-            else {
+            } else {
                 String num = str.substring(5);
                 if (num.trim().isEmpty()) {
                     throw new EmptyInputException();
