@@ -2,16 +2,15 @@ package dude;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
-//@@author xenosf-reused
-// Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
-// With minor alterations
 public class DialogBox extends HBox {
 
     private final Label text;
@@ -22,22 +21,32 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
+        text.setMinHeight(Region.USE_PREF_SIZE);
+
+        displayPicture.setFitWidth(75.0);
+        displayPicture.setFitHeight(75.0);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
+        this.setSpacing(15);
+        this.setPadding(new Insets(15));
     }
 
     public static DialogBox getUserDialog(String text, Image image) {
-        return new DialogBox(new Label(text), new ImageView(image));
+        DialogBox db = new DialogBox(new Label(text), new ImageView(image));
+        return db;
     }
 
     public static DialogBox getDudeDialog(String text, Image image) {
         var db = new DialogBox(new Label(text), new ImageView(image));
         db.flip();
+        db.setStyle("-fx-background-color: #d2c5ef;"); // set color for dude dialog
         return db;
     }
+
+    //@@author xenosf-reused
+    // Reused from https://se-education.org/guides/tutorials/javaFxPart4.html
+    // With minor alterations
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
