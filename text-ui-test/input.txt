@@ -1,0 +1,15 @@
+todo go to Mount Everest
+deadline 2103T Assignment /by tonight
+deadline 2100 Lab /by next week's lab
+todo apply for internships on TalentConnect
+event CCA Tryouts /from tomorrow 7.30pm /to tomorrow 9.30pm
+list
+mark 2
+deadline CS2105 Assignment 1 /by week 4
+event presentation rehearsal /from tonight 10pm /to tonight 11.15pm
+mark 3
+mark 7
+list
+unmark 7
+list
+bye
