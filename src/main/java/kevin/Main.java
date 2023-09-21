@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+//@@author se-edu-reused
 /**
  * A GUI for Duke using FXML.
  */
