@@ -1,5 +1,5 @@
-T | 1 | homework
+T | 0 | homework
 D | 1 | assignment | 2023-09-22T23:59
 T | 0 | cycling
 E | 0 | Graduation Ceremony | 2023-12-12T00:00 | 2023-12-13T23:59
-T | 0 | hello
+T | 1 | hello

@@ -16,7 +16,7 @@ Duke is a *Personal Assistant Chatbot that helps a person to keep track of vario
 
 2. Download the latest `duke.jar` from [here](https://github.com/wqseemingly/ip/releases).
 
-3. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+3. Copy the file to the folder you want to use as the _home folder_ for your Task Manager.
 
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
