@@ -87,7 +87,7 @@ EchoBot will delete the specified task.
 
 Format: `delete INDEX`
 - Deletes the task at the specified INDEX.
-- The index refers to the index number shown in the displayed task list.
+- The INDEX refers to the index number shown in the displayed task list.
 - The INDEX can't be empty.
 
 Example of usage:
@@ -109,7 +109,7 @@ EchoBot will mark the specified task.
 
 Format: `mark INDEX`
 - Marks the task at the specified INDEX.
-- The index refers to the index number shown in the displayed task list.
+- The INDEX refers to the index number shown in the displayed task list.
 - The INDEX can't be empty.
 
 Example of usage:
@@ -130,7 +130,7 @@ EchoBot will unmark the specified task.
 
 Format: `unmark INDEX`
 - Unmarks the task at the specified INDEX.
-- The index refers to the index number shown in the displayed task list.
+- The INDEX refers to the index number shown in the displayed task list.
 - The INDEX can't be empty.
 
 Example of usage:
@@ -205,7 +205,7 @@ EchoBot will delete the specified note.
 
 Format: `remove INDEX`
 - Deletes the note at the specified INDEX.
-- The index refers to the index number shown in the displayed note list.
+- The INDEX refers to the index number shown in the displayed note list.
 - The INDEX can't be empty.
 
 Example of usage:
