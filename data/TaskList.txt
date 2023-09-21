@@ -1,3 +1,5 @@
-T | 0 | laundries
+T | 0 | sleep
 D | 0 | 2103 assignment | 22 Sep 2023 11:59PM
 E | 0 | tp meeting | 23 Sep 2023 4:00PM | 23 Sep 2023 6:00PM
+E | 0 | meeting | 23 Sep 2023 6:00PM | 23 Sep 2023 7:00PM
+D | 0 | assignment | 23 Sep 2023 11:59PM
