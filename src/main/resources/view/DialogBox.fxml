@@ -5,10 +5,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.shape.Circle?>
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" style="-fx-background-color: FFDBAA; -fx-border-radius: 10;" text="Label" wrapText="true">
+        <Label fx:id="dialog" style="-fx-background-color: FFDBAA; -fx-background-radius: 10;
+            -fx-border-color: FFB7B7; -fx-border-radius: 10; -fx-border-width: 3;" text="Label" wrapText="true">
          <padding>
             <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
          </padding>

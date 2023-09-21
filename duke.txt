@@ -6,3 +6,4 @@ T | 1 | some stuff
 T | 0 | whooo
 T | 0 | wheeee
 T | 0 | woahah
+T | 0 | pet the cat
