@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.File;
 import java.io.IOException;
 
 import duke.command.Command;
@@ -31,6 +32,10 @@ public class Duke {
         } catch (DukeException e) {
             ui.showLoadingError();
             tasklst = new TaskList();
+            File f = new File("./data");
+            if (f.mkdir()) {
+                ui.showNewFile();
+            }
         }
     }
 

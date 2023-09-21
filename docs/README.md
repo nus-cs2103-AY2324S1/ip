@@ -20,9 +20,12 @@
 ### `priority` - changes the priority of a task
 
 Takes a priority level from 1-3 and changes the selected task's priority and writes data into file.
-Priority is set as follows: </br>
-1 : LOW </br>
-2 : MEDIUM </br>
+Priority is set as follows: 
+
+1 : LOW 
+
+2 : MEDIUM
+
 3 : HIGH
 
 Format:

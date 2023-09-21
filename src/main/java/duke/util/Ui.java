@@ -83,4 +83,8 @@ public class Ui {
     public String showGoodbye() {
         return "Bye. Hope to See you again soon!";
     }
+
+    public String showNewFile() {
+        return "Its alright, new file was created to store your data.";
+    }
 }
