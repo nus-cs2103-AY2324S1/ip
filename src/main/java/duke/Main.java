@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * This class extends JavaFX's Application class and serves as the entry point for launching the Duke GUI application.
  */
 public class Main extends Application {
-
     private Duke duke = new Duke();
 
     /**
