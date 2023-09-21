@@ -1,4 +1,4 @@
-# User Guide
+# Barbie World User Guide
 
 ## Features 
 
