@@ -13,6 +13,7 @@ import bellcurvegod.command.UnmarkCommand;
 import bellcurvegod.exception.BellCurveGodException;
 import bellcurvegod.exception.EmptyDescriptionException;
 import bellcurvegod.exception.InvalidCommandException;
+import bellcurvegod.exception.TaskDoesNotExistException;
 import bellcurvegod.exception.TooManySpacesException;
 import bellcurvegod.task.Task;
 import bellcurvegod.tasklist.TaskList;
@@ -60,17 +61,29 @@ public class Parser {
         }
     }
 
-    private static Task[] getTaskParams(String[] taskIndicesAsString, ArrayList<Task> tasks) {
+    private static Task[] getTaskParams(String[] taskIndicesAsString, ArrayList<Task> tasks)
+            throws TaskDoesNotExistException, InvalidCommandException {
         Task[] taskParams = new Task[taskIndicesAsString.length];
         for (int i = 0; i < taskIndicesAsString.length; i++) {
-            taskParams[i] = tasks.get(Integer.parseInt(taskIndicesAsString[i]) - 1);
+            try {
+                Integer.parseInt(taskIndicesAsString[i]);
+            } catch (NumberFormatException e) {
+                throw new InvalidCommandException("You have entered non-integer as indices. "
+                    + "Please check your input.\n");
+            }
+            int index = Integer.parseInt(taskIndicesAsString[i]);
+            if (index > tasks.size()) {
+                throw new TaskDoesNotExistException("There is no task with index " + index + " in your task list. "
+                + "Please check your input.\n");
+            }
+            taskParams[i] = tasks.get(index - 1);
         }
         return taskParams;
     }
 
     private static boolean hasTooManySpaces(String[] words) {
         for (String word : words) {
-            if (word.equals(" ")) {
+            if (word.isEmpty()) {
                 return true;
             }
         }

@@ -30,12 +30,6 @@ public class Storage {
         fw.close();
     }
 
-    private static void appendToFile(String filePath, String textToAppend) throws IOException {
-        FileWriter fw = new FileWriter(filePath, true); // create a FileWriter in append mode
-        fw.write(textToAppend);
-        fw.close();
-    }
-
     /**
      * Loads the tasks data stored on the disk.
      *
