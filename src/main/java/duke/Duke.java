@@ -1,3 +1,5 @@
+package duke;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,7 +7,7 @@ import java.io.InputStreamReader;
 import duke.*;
 
 /**
- * Main class for the duke application.
+ * duke.Main class for the duke application.
  */
 
 public class Duke {
@@ -77,7 +79,7 @@ public class Duke {
     }
 
     /**
-     * Main driver code for duke class.
+     * duke.Main driver code for duke class.
      */
     public void run() throws IOException {
         ui.printWelcomeMessage();

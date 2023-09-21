@@ -32,11 +32,11 @@ The application automatically stores your task list locally when you close the w
 
 Record todo task in the task list. 
 
-Example of usage: 
+**Example of usage:** 
 
 `td read book`
 
-Expected outcome:
+**Expected outcome**:
 
 The todo task will be added to the task list. 
 
@@ -51,11 +51,11 @@ Now you have (number of task) tasks in the list.
 
 Record an event task in the task list with a specific start and end date.
 
-Example of usage: 
+**Example of usage:** 
 
 `ev team meeting /from 2023-10-05 14:00 /to 2023-10-05 15:30`
 
-Expected outcome:
+**Expected outcome**:
 
 The event task will be added to the task list with the specified start and end dates.
 
@@ -70,11 +70,11 @@ Now you have (number of tasks) tasks in the list.
 
 Record a deadline task in the task list with a specific due date.
 
-Example of usage: 
+**Example of usage:** 
 
 `ddl project report /by 2023-11-15`
 
-Expected outcome:
+**Expected outcome**:
 
 The deadline task will be added to the task list with the specified due date.
 
@@ -88,13 +88,13 @@ Now you have (number of tasks) tasks in the list.
 
 You can mark tasks as completed or uncompleted and keep track of your progress.
 
-Example of usage: 
+**Example of usage:** 
 
 To mark a task as done, use the following command:  
 
 `mark 1`
 
-Expected outcome:  
+**Expected outcome**:  
 
 The task will be marked as done.
 
@@ -107,7 +107,7 @@ Nice! I've marked this task as done:
 
 `unmark 1`
 
-Expected outcome:
+**Expected outcome**:
 
 The task will be marked as not done yet.
 
@@ -120,11 +120,11 @@ Ok, I've marked this task as not done yet:
 
 You can remove a task from your task list using the dd command.
 
-Example of usage: 
+**Example of usage:** 
 
 `dd (index number, example: 1)`
 
-Expected outcome:
+**Expected outcome**:
 
 The task will be removed from the task list.
 
@@ -139,11 +139,11 @@ Now you have (number of tasks) tasks in the list.
 
 You can list all the tasks currently in your task list using the ls command.
 
-Example of usage: 
+**Example of usage:**
 
 `ls`
 
-Expected outcome:
+**Expected outcome:**
 
 All tasks in the task list will be displayed.
 
