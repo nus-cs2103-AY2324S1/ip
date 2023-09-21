@@ -11,7 +11,7 @@ import duke.util.Ui;
 /**
  * Represents a Task Management Chat Bot.
  */
-public class Duke {
+public class Chad {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -19,7 +19,7 @@ public class Duke {
     /**
      * Constructor for Duke class.
      */
-    public Duke() {
+    public Chad() {
         this.ui = new Ui();
         this.storage = new Storage("data/duke.txt");
         try {
