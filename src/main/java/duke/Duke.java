@@ -220,6 +220,7 @@ public class Duke {
 
         assert botOutput.isEmpty() == false : "botOutput message cannot be empty";
 
+        botOutput = botOutput + this.ui.getQuote();
         // Return the generated bot response to run() method.
         return botOutput;
     }
