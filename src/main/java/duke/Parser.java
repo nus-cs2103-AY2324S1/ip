@@ -174,7 +174,6 @@ public class Parser {
     /**
      * Finds the tasks with the given keyword
      * @param input the user's input
-     * @param keyword the keyword to search for
      * @throws WrongInputException if the input is invalid
      */
     public void findTask(String input) throws WrongInputException {
