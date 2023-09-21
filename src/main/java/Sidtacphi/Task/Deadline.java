@@ -14,7 +14,7 @@ public class Deadline extends Task {
     private LocalDate deadline;
 
     /**
-     * Constructor for the Deadline class.
+     * Constructs a Deadline object.
      * 
      * @param name
      */
@@ -23,6 +23,11 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Gets the deadline of the object.
+     * 
+     * @return Deadline of Deadline object
+     */
     public LocalDate getDeadline() {
         return deadline;
     }
@@ -50,6 +55,9 @@ public class Deadline extends Task {
         jsonGenerator.writeEndObject();
     }
 
+    /**
+     * Checks if obj is equal to to the Deadline object.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Deadline)) {

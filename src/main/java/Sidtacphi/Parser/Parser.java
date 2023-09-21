@@ -8,12 +8,15 @@ import Sidtacphi.Task.TaskType;
 
 import Sidtacphi.Exception.SidException;
 
+/**
+ * Parser is the class that deals with interpreting user commands.
+ */
 public class Parser {
     private Parser() {
     }
 
     /**
-     * The method for reading inputs for the bot.
+     *  Reads inputs for the bot.
      */
     public static void readInputs(TaskList taskList) {
         Scanner scan = new Scanner(System.in);

@@ -6,7 +6,7 @@ package Sidtacphi.Exception;
 public class SidInvalidFormatException extends SidException {
 
     /**
-     * Constructor for SidInvalidFormatException.
+     * Constructs a SidInvalidFormatException exception.
      * 
      * @param errorMessage
      */

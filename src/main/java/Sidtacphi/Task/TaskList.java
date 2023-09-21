@@ -8,7 +8,13 @@ import Sidtacphi.Exception.SidException;
 import Sidtacphi.Exception.SidInvalidFormatException;
 import Sidtacphi.Exception.SidInvalidIndexException;
 
+/**
+ * TaskList is the main class for the task list stored by the Sidtacphi bot.
+ */
 public class TaskList extends ArrayList<Task> {
+    /**
+     * Constructs a TaskList object.
+     */
     public TaskList() {
         super();
     }
@@ -181,7 +187,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Deletes the task list.
+     * Finds tasks that have input in their names.
      * 
      * @param input
      */
@@ -203,6 +209,9 @@ public class TaskList extends ArrayList<Task> {
         System.out.println("Sidtacphi: You now have " + this.size() + " tasks in your list.");
     }
 
+    /**
+     * Checks if obj is equal to to the TaskList object.
+     */
     public void findTask(String input) throws SidException {
         if (input.length() < 5) {
             throw new SidInvalidFormatException("Please input the task ID number to delete.");
@@ -220,6 +229,9 @@ public class TaskList extends ArrayList<Task> {
         }
     }
 
+    /**
+     * Checks if obj is equal to to the TaskList object.
+     */
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof TaskList)) {
