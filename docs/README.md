@@ -6,18 +6,14 @@ DevyBot is a powerful task-tracking chatbot designed to help you manage your tas
 
 1. **Adding a Task According to Its Type**
    - a. Todo Task:
-     - Format: `todo DESCRIPTION`
    - b. Event Task:
-     - Format: `event DESCRIPTION /from STARTDATE /end ENDDATE`
    - c. Deadline Task:
-     - Format: `deadline DESCRIPTION /by DATE`
 
 2. **Marking/Unmarking Tasks**
    - Keep track of tasks as completed or not.
-   - Format: `mark INDEX` to mark a task as done.
 
 3. **Delete Task**
-   - Format: `delete INDEX` to delete a task from the list of tasks and update the database.
+   - Delete added tasks.
 
 4. **View All Tasks**
    - Display all tasks in chronological order of when they were added.
@@ -31,10 +27,10 @@ DevyBot is a powerful task-tracking chatbot designed to help you manage your tas
    - Instantly access previously added tasks when entering the application.
 
 7. **Find Tasks**
-   - Search for specific tasks.
+   - Finds tasks based on keywords in description.
 
 8. **Search Tasks**
-   - Search for tasks using keywords.
+   - Better searches for tasks based on description & dates.
 
 ## Usage
 
