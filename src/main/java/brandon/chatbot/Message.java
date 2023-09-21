@@ -10,6 +10,7 @@ import brandon.chatbot.tasks.TaskList;
  * Represents a class with methods that convert task list into a String.
  */
 public class Message {
+    private static final String LIST_MESSAGE = "Here is the current list of tasks...:\n";
     private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
 
     /**
@@ -23,7 +24,7 @@ public class Message {
         for (Task t : tasks.getList()) {
             formattedTasks.add(t.getStatus());
         }
-        return getIndexedListForViewing(formattedTasks);
+        return LIST_MESSAGE + getIndexedListForViewing(formattedTasks);
     }
 
     private static String getIndexedListForViewing(List<String> listItems) {

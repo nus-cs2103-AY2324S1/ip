@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 
 import brandon.chatbot.common.DukeException;
@@ -33,7 +34,7 @@ public class Deadline extends Task {
             String inputDateFormat = "yyyy-MM-dd";
             String outputDateFormat = "MMM d yyyy";
             LocalDate d1 = LocalDate.parse(deadline.strip(), DateTimeFormatter.ofPattern(inputDateFormat));
-            this.deadline = d1.format(DateTimeFormatter.ofPattern(outputDateFormat));
+            this.deadline = d1.format(DateTimeFormatter.ofPattern(outputDateFormat, Locale.ENGLISH));
         } catch (DateTimeParseException e) {
             String wrongDateInputExceptionMessage = "Could you try your date in yyyy-mm-dd format instead...?";
             throw new DukeException(wrongDateInputExceptionMessage);

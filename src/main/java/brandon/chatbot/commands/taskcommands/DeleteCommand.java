@@ -1,5 +1,6 @@
 package brandon.chatbot.commands.taskcommands;
 
+import brandon.chatbot.Message;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
@@ -18,6 +19,6 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() throws DukeIndexOutOfBoundsException {
         tasks.deleteTask(index);
-        return new CommandResult(DELETE_SUCCESS);
+        return new CommandResult(DELETE_SUCCESS + "\n" + Message.showTasks(tasks));
     }
 }

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 
 import brandon.chatbot.common.DukeException;
@@ -42,8 +43,8 @@ public class Event extends Task {
 
             LocalDate startDate = LocalDate.parse(startTime.strip(), DateTimeFormatter.ofPattern(inputDateFormat));
             LocalDate endDate = LocalDate.parse(endTime.strip(), DateTimeFormatter.ofPattern(inputDateFormat));
-            this.startTime = startDate.format(DateTimeFormatter.ofPattern(outputDateFormat));
-            this.endTime = endDate.format(DateTimeFormatter.ofPattern(outputDateFormat));
+            this.startTime = startDate.format(DateTimeFormatter.ofPattern(outputDateFormat, Locale.ENGLISH));
+            this.endTime = endDate.format(DateTimeFormatter.ofPattern(outputDateFormat, Locale.ENGLISH));
         } catch (DateTimeParseException e) {
             String wrongDateInputExceptionMessage = "Could you try your date in yyyy-mm-dd format instead...?";
             throw new DukeException(wrongDateInputExceptionMessage);

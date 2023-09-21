@@ -1,5 +1,6 @@
 package brandon.chatbot.commands.taskcommands;
 
+import brandon.chatbot.Message;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.common.DukeIndexOutOfBoundsException;
@@ -17,6 +18,6 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute() throws DukeIndexOutOfBoundsException {
         tasks.markAsDone(index);
-        return new CommandResult(MARK_SUCCESS);
+        return new CommandResult(MARK_SUCCESS + "\n" + Message.showTasks(tasks));
     }
 }

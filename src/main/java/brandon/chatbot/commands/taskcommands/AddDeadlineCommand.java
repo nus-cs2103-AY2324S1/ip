@@ -5,6 +5,7 @@ import static brandon.chatbot.commands.Feedback.ADD_SUCCESS;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import brandon.chatbot.Message;
 import brandon.chatbot.commands.Command;
 import brandon.chatbot.commands.CommandResult;
 import brandon.chatbot.common.DukeException;
@@ -42,7 +43,7 @@ public class AddDeadlineCommand extends Command {
             addTodoItemToMap(deadlineToAdd);
         }
 
-        CommandResult result = new CommandResult(ADD_SUCCESS);
+        CommandResult result = new CommandResult(ADD_SUCCESS + "\n" + Message.showTasks(tasks));
         return result;
     }
     private void addTodoItemToMap(Deadline deadlineToAdd) {
