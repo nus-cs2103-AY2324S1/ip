@@ -8,9 +8,6 @@ import chad.util.Ui;
  * Represents a Print List command to be executed.
  */
 public class PrintListCommand extends Command {
-    public PrintListCommand() {
-        super(false);
-    }
 
     /**
      * Executes the list of commands to print the TaskList.

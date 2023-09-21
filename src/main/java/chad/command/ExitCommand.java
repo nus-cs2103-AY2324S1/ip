@@ -8,9 +8,6 @@ import chad.util.Ui;
  * Represents an Exit command to be executed.
  */
 public class ExitCommand extends Command {
-    public ExitCommand() {
-        super(true);
-    }
 
     /**
      * Executes the list of commands to exit the chatbot.

@@ -8,9 +8,6 @@ import chad.util.Ui;
  * Represents an unknown command.
  */
 public class UnknownCommand extends Command {
-    public UnknownCommand() {
-        super(false);
-    }
 
     /**
      * Prints the error message indicating an unknown command has been entered.

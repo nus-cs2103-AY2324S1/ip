@@ -17,7 +17,6 @@ public class UnmarkCommand extends Command {
      * @param index The TaskList index of the Task to be unmarked.
      */
     public UnmarkCommand(int index) {
-        super(false);
         this.index = index;
     }
 

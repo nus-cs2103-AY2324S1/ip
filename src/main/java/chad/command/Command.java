@@ -8,11 +8,6 @@ import chad.util.Ui;
  * Represents commands to be executed.
  */
 public abstract class Command {
-    private boolean isExit;
-
-    public Command(boolean isExit) {
-        this.isExit = isExit;
-    }
 
     /**
      * Executes the list of commands associated with the Command object.
@@ -23,12 +18,4 @@ public abstract class Command {
      */
     public abstract void execute(TaskList taskList, Ui ui, Storage storage);
 
-    /**
-     * Returns a boolean value to indicate if Command object is an exit command.
-     *
-     * @return True if the Command object is an ExitCommand.
-     */
-    public boolean isExit() {
-        return this.isExit;
-    }
 }

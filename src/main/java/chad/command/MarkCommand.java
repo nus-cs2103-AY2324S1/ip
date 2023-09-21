@@ -17,7 +17,6 @@ public class MarkCommand extends Command {
      * @param index The TaskList index of the Task to be marked.
      */
     public MarkCommand(int index) {
-        super(false);
         this.index = index;
     }
 
