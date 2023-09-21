@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import duke.task.Deadline;
-import duke.task.DeadlineException;
+import duke.exception.DeadlineException;
 
 public class ParserTest {
     @Test

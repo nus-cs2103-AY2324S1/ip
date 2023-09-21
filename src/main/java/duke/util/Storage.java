@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.exception.LoadException;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -42,7 +43,7 @@ public class Storage {
      *
      * @return ArrayList consisting of Task read from the data file.
      */
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws LoadException {
         ArrayList<Task> list = new ArrayList<>();
 
         Scanner sc = null;
