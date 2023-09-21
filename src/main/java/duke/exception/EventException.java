@@ -1,11 +1,11 @@
-package duke.task;
+package duke.exception;
 
 /**
  * Represents an error that occurred during the initialisation of a Deadline object.
  */
-public class EventException extends TaskException {
+public class EventException extends CommandException {
 
     public EventException() {
-        super("event (description) /from (YYYY-MM-DD) /to (YYYY-MM-DD)");
+        super("event DESCRIPTION /from: YYYY-MM-DDTHH:MM /to: YYYY-MM-DDTHH:MM");
     }
 }
