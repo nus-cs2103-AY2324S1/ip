@@ -98,6 +98,7 @@ Adds an event task to the list with its name, start and end dates.
 Format: `event (String name) /from (Date start) /to (Date end)`
 
 Events are a class of task that lasts from one date to another.
+*The two dates must be chronological in order (the event cannot start after it ends).*
 ```
 event Go on SEP, hopefully /from 2024-08-12 /to 2025-01-12
 
