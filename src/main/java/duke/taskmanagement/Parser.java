@@ -154,23 +154,6 @@ public class Parser {
         }
     }
 
-
-//    private String deadline(TaskList list, String cmd) {
-//        String[] parts = cmd.split("/by");
-//        if (parts.length == 2) {
-//            String description = parts[0].replace("deadline", "").trim(); // Remove "deadline"
-//            String deadline = parts[1].trim();
-//            LocalDate d1 = LocalDate.parse(deadline);
-//            String formattedDate = d1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-//            Task task = new Deadline(description, formattedDate, false);
-//            return list.addDeadlineTask(task);
-//        } else {
-//            DukeException exp = new DukeException("deadline");
-//            return exp.toString();
-//        }
-//    }
-
-
     private String deadline(TaskList list, String cmd) {
         String[] parts = cmd.split("/by");
         if (parts.length == 2) {
