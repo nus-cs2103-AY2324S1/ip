@@ -1,4 +1,5 @@
 package rock.client;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -17,7 +18,7 @@ import rock.ui.Gui;
  */
 public class Rock {
     /** Default Filepath to save data if no filepath is specified*/
-    private static final Path DEFAULT_FILEPATH = Paths.get("data/tasks.ser");
+    private static final Path DEFAULT_FILEPATH = Paths.get(String.format("data%stasks.ser", File.separator));
 
     private Gui gui;
     private TaskList taskList;

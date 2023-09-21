@@ -78,11 +78,15 @@ public class Gui extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+        if (userInput.getText().length() != 0) {
+                handleUserInput();
+            }
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            if (userInput.getText().length() != 0) {
+                handleUserInput();
+            }
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
