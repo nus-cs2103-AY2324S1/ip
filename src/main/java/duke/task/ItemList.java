@@ -86,8 +86,8 @@ public class ItemList {
             this.items.add(new ToDo(newitem));
             this.len++;
             this.saveAll();
-            return UI.printMessage("Got it. I've added this task:" , this.items.get(this.len - 1).showTaskinList()
-                    , "\n" + "Now you have " + String.valueOf(len) + " tasks in this list");
+            return UI.printMessage("Got it. I've added this task:" , this.items.get(this.len - 1).showTaskinList(),
+                     "\n" + "Now you have " + String.valueOf(len) + " tasks in this list");
 
         } catch (IOException e) {
             this.items = copy;
@@ -154,8 +154,6 @@ public class ItemList {
      *
      * @param index the index of the task to be marked done
      */
-
-
     public String markDone(int index) {
         int i = index - 1;
         if (i < 0 || i >= this.len) {
@@ -207,6 +205,10 @@ public class ItemList {
         if (this.len <= 0) {
             return UI.printMessage("Nothing to Delete");
         }
+
+        if (this.len <= index) {
+            return UI.printMessage("No task with this index");
+        }
         ArrayList<Task> copy = (ArrayList<Task>) this.items.clone();
         try {
             String todelete = this.items.get(index - 1).showTaskinList();
@@ -235,7 +237,12 @@ public class ItemList {
         }
         writer.close();
     }
-
+    /**
+     * Gives the string representation of the found task that contains the key given
+     *
+     * @param key the key that is used to search the task
+     * @return The String representation of the found task based on the key given
+     */
     public String find(String key) {
         ArrayList<Task> filteredTasks = this.items.stream()
                 .filter(task -> task.showTask().contains(key))
@@ -269,12 +276,17 @@ public class ItemList {
         try {
             this.saveAll();
             return UI.printMessage("Task " + index + " rescheduled!");
-        } catch(IOException e) {
+        } catch (IOException e) {
             return UI.printMessage("Change cannot be saved");
         }
 
     }
-
+    /**
+     * Gives the Task with the specified index in the list
+     *
+     * @param index the index of the task to locate the task
+     * @return The task with the specific index
+     */
     public Task getTask(String index) {
         return this.items.get(Integer.valueOf(index) - 1);
     }

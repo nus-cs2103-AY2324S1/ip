@@ -13,21 +13,22 @@ import javafx.scene.layout.VBox;
  * Duke is entry point of our program
  */
 public class Duke {
+    public static final String LISTPATH = "./data/list.txt";
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    public static final String LISTPATH = "./data/list.txt";
+
     
 
     private final Storage storage;
 
-    private final UIResponse uiResponse;
+    private final UiResponse uiResponse;
 
     public Duke() {
         this.storage = new Storage();
-        this.uiResponse = new UIResponse(this.storage);
+        this.uiResponse = new UiResponse(this.storage);
     }
 
 

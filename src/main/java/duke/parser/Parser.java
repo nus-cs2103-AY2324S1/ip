@@ -47,7 +47,10 @@ public class Parser {
     }
 
     /**
-     * Execute mark operation on the item list based on the line String
+     * Execute marking operation on the item list based on the line String
+     *
+     * @param items Items used to execute the operation on
+     * @return String representation of the marking operation of a task
      */
     public String parseMark(ItemList items) {
         Matcher matcher = MARK_PATTERN.matcher(this.line);
@@ -56,13 +59,15 @@ public class Parser {
             int number = Integer.parseInt(digitString);
             return items.markDone(number);
         } else {
-            UI.printMessage("Invalid mark input");
-            return "Invalid mark input";
+            return UI.printMessage("Invalid mark input");
         }
     }
 
     /**
-     * Execute unmark operation on the item list based on the line String
+     * Execute Unmarking operation on the item list based on the line String
+     *
+     * @param items Items used to execute the operation on
+     * @return String representation of the unmarking operation of a task
      */
     public String parseUnmark(ItemList items) {
         Matcher matcher = UNMARK_PATTERN.matcher(this.line);
@@ -76,7 +81,10 @@ public class Parser {
     }
 
     /**
-     * Execute delete operation on the item list based on the line String
+     * Execute adding Event operation on the item list based on the line String
+     *
+     * @param items Items used to execute the operation on
+     * @return String representation of the Deletion of the task
      */
     public String parseDelete(ItemList items) {
         Matcher matcher = DELETE_PATTERN.matcher(this.line);
@@ -91,6 +99,9 @@ public class Parser {
 
     /**
      * Execute adding Deadline operation on the item list based on the line String
+     *
+     * @param items Items used to execute the operation on
+     * @return String representation of the Deadline that is parsed
      */
     public String parseDeadline(ItemList items) throws DeadlineException {
         Matcher matcher = DEADLINE_PATTERN.matcher(this.line);
@@ -104,7 +115,10 @@ public class Parser {
     }
 
     /**
-     * Execute adding ToDo operation on the item list based on the line String
+     * Executes adding ToDo operation on the item list based on the line String
+     *
+     * @param items Items used to execute the operation on
+     * @return String representation of the Todo that is parsed
      */
     public String parseTodo(ItemList items) throws ToDoException {
 
@@ -118,7 +132,10 @@ public class Parser {
     }
 
     /**
-     * Execute adding Event operation on the item list based on the line String
+     * Executes adding Event operation on the item list based on the line String
+     *
+     * @param items Items used to execute the operation on
+     * @return String representation of the Event that is parsed
      */
     public String parseEvent(ItemList items) throws EventException {
 
@@ -151,7 +168,7 @@ public class Parser {
             String number = eventMatcher.group(1);
             String checkOutcome = items.checkType(number);
             if (!checkOutcome.equals("EVENT")) {
-                return UI.printMessage("This is not a event task!");
+                return UI.printMessage("This is not an Event task!");
             }
 
             String from = eventMatcher.group(2);
@@ -170,7 +187,7 @@ public class Parser {
             String checkOutcome = items.checkType(number);
 
             if (!checkOutcome.equals("DEADLINE")) {
-                return UI.printMessage("This is not a deadline task!");
+                return UI.printMessage("This is not a Deadline task!");
             }
 
 

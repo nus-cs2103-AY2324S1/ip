@@ -22,7 +22,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * This method gives the string representation of a deadline task when it is in a list
+     * Gives the string representation of a deadline task when it is in a list
      *
      * @return The String representation of a Deadline Task
      */
@@ -31,15 +31,32 @@ public class Deadline extends Task {
         return "[D]" + super.showTaskinList() + "(" + "by: " + this.by + ")";
     }
 
+    /**
+     * This method gives the string representation of a Deadline task when it is in the saved list
+     *
+     * @return The String representation of a Deadline task in the saved list
+     */
     @Override
     public String printList() {
         return "D | " + super.printList() + " | " + this.by;
     }
 
+    /**
+     * Creates the new Deadline object with the new by time
+     *
+     * @param by The end time of a deadline in String
+     * @return A new Deadline object with new by time
+     */
     public Deadline reschedule(String by) {
         return new Deadline(this.showTask(), by);
     }
 
+    /**
+     * Creates the new Deadline object with the new DateTime
+     *
+     * @param byDateTime The end time of a deadline in String in DateTime
+     * @return A new Deadline object with new by time in DateTime
+     */
     public Deadline reschedule(LocalDateTime byDateTime) {
         return new Deadline(this.showTask(), byDateTime);
     }

@@ -1,7 +1,9 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+
 import duke.dates.Dates;
+
 
 /**
  * The Task class contains a name and its status (if it is done or not done), and the functions to set it as
@@ -58,6 +60,12 @@ public class Task {
     public String showTaskinList() {
         return this.statusIcon() + " " + this.showTask();
     }
+
+    /**
+     * Gives the string representation of the current items
+     *
+     * @return the string representation of the current items
+     */
     public String printList() {
         if (this.isDone) {
             return "1 | " + this.showTask();

@@ -1,16 +1,12 @@
 package duke.task;
 
 
-import duke.Duke;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-
-
+import duke.Duke;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,7 +24,7 @@ public class ItemListTest {
     }
 
     @Test
-    public void showItemsTest(){
+    public void showItemsTest_standardInput(){
         items.addEvent("testevent", "today", "tomorrow");
         items.addTodo("testtodo");
         items.addDeadline("testDeadline", "soon");
@@ -40,6 +36,19 @@ public class ItemListTest {
                 "1. [E][ ] testevent(from: today to: tomorrow)\n" +
                 "2. [T][ ] testtodo\n" +
                 "3. [D][ ] testDeadline(by: soon)\n" +
+                "____________________________________________________________";
+
+        String actualOutput = outputStreamCaptor.toString().trim();
+        assertEquals(expected , actualOutput);
+
+    }
+
+    @Test
+    public void showItemsTest_noInput(){
+        this.items.showitems();
+
+        String expected =  "____________________________________________________________\n" +
+                "No item in the list.\n" +
                 "____________________________________________________________";
 
         String actualOutput = outputStreamCaptor.toString().trim();

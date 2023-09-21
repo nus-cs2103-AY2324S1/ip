@@ -26,13 +26,28 @@ Chat Bot is a chat bot that allows you to add, manange and view tasks to be done
 ### Listing Tasks
 > list
 
-This will list of all the current tasks added to Chat Bot.
+Expected output: 
+
+This list of all the current tasks with index added to Chat Bot.
+
+Possible Errors:
+> No item in the list.
+
 
 
 ### Adding a Todo task
-> todo { description of task }
+> todo < description of Todo task >
 
-This will add a Todo task into the current list of tasks in Chat Bot.
+This will add a Todo task into the current list of tasks in Chat Bot
+
+Expected output:
+> Got it.I've added this task: <br/>
+> < task >
+> 
+> Now you have < Number of task > in this list
+
+Possible Errors:
+> ☹ This is not a valid Todo input
 
 
 ### Adding a Deadline task
@@ -40,46 +55,99 @@ This will add a Todo task into the current list of tasks in Chat Bot.
 
 This will add a Event task with specified deadline into the current list of tasks in Chat Bot.
 
+Expected output:
+> Got it.I've added this task: <br/>
+> < task >
+>
+> Now you have < Number of task > in this list
+
+Possible Errors:
+> ☹ This is not a valid Deadline input
+
 ### Adding an Event task
 > event { description of task } /from { start time of the task } /to { end time of the task }
 
 This will add a deadline task with specified start and end time into the current list of tasks in Chat Bot.
 
+Expected output:
+> Got it.I've added this task: <br/>
+> < task >
+>
+> Now you have < Number of task > in this list
+
+Possible Errors:
+> ☹ This is not a valid Event input
 
 
 
 ## Commands to edit existing Tasks
 
 ### Deleting a task
-> delete { index of the task }
+> delete < index of the task >
 
 This will delete a task of a specifed index. To find out a index of a task use the list command.
+
+Expected output:
+> Noted. I've removed this task: <br /> { task deleted }
+
+Possible Errors:
+> Nothing to Delete 
+> 
+> No task with this index
+> 
+> Invalid delete input
 
 ### Rescheduling a task
 
 #### To reschedule Deadline:
-> reschedule { index of task } /by { deadline of the task }
+> reschedule < index of task > /by < deadline of the task >
 
 #### To reschedule Event:
-> reschedule { index of task } /from { start time of the task } /to { end time of the task }
+> reschedule < index of task > /from < start time of the task > /to < end time of the task >
 
 This change the time that is previously set when creating the Event or Deadline.
 
+Expected output:
+> Task < index > rescheduled!
+
+Possible Errors
+> This is not an Event task!
+>
+> This is not a Deadline task!
+>
+> Invalid Reschedule input
+
 ### Mark a task as done
-> mark { index of the task }
+> mark < index of the task >
 
 This will mark an existing task of that index to be done.
 
 The task will now be displayed as:
 > [T][X] example
 
+Expected output:
+> Nice! I've marked this task as done: <br/> < task >
+
+Possible Errors
+> No Such Task
+>
+> Invalid mark input
+
 ### Mark a task as not done
-> unmark { index of the task }
+> unmark < index >
 
 This will mark an existing task of that index to be not done.
 
 The task will now be displayed as:
-> [T][ ] example
+> [T][&ensp;&ensp;] example
+
+Expected output:
+> OK,I've marked this task as not done yet:<br/> < task >
+ 
+Possible Errors
+> No Such Task
+> 
+> Invalid unmark input
 
 ## Datetime Format to follow
 
@@ -93,7 +161,7 @@ The following example
 
 will be added and diaplayed as:
 
-> [D][ ] return book (by: 02 December 2019 18:00)
+> [D][&ensp;&ensp;] return book (by: 02 December 2019 18:00)
 
 ## Things to Note
 
