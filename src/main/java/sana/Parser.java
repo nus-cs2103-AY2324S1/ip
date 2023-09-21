@@ -12,7 +12,6 @@ public class Parser {
      * @return returns a command according to the command type.
      */
     public static Command parse(String fullCommand) {
-        System.out.println(fullCommand);
         String[] splitCommandAndArguments = fullCommand.split(" ", 2);
         String commandWord;
         String arguments = "";
