@@ -1,4 +1,4 @@
-# Capt. Price Bot - User Guide
+# Capt. Price Bot - User GuideG
 
 *Created by: Raman Gupta*
 
