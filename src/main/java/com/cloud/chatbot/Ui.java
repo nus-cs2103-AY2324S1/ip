@@ -3,8 +3,11 @@ package com.cloud.chatbot;
 import com.cloud.chatbot.annotation.Nullable;
 
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -48,11 +51,7 @@ public final class Ui extends Application {
 
         // Format nodes
         scrollPane.setPrefSize(WIDTH_SCROLL, HEIGHT_SCROLL);
-        // scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        // scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        // scrollPane.setVvalue(1.0);
-        // scrollPane.setFitToWidth(true);
+        scrollPane.setFitToWidth(true);
 
         input.setPrefWidth(WIDTH_INPUT);
         sendButton.setPrefWidth(WIDTH_SEND);
@@ -65,6 +64,25 @@ public final class Ui extends Application {
 
         AnchorPane.setBottomAnchor(sendButton, Ui.PADDING);
         AnchorPane.setRightAnchor(sendButton, Ui.PADDING);
+
+        // Set handler callbacks
+        EventHandler<Event> handleSend = (event) -> {
+            // Echo user input
+            Label label = new Label(input.getText());
+            label.setWrapText(true);
+
+            messagesHolder.getChildren().add(label);
+            input.clear();
+        };
+        sendButton.setOnMouseClicked(handleSend);
+        input.setOnAction((event) -> handleSend.handle(event));
+
+        messagesHolder.heightProperty().addListener(
+            (observable) -> {
+                // Scroll down whenever height changes
+                scrollPane.setVvalue(1);
+            }
+        );
 
         // Show when done
         stage.setTitle("Cloud");
