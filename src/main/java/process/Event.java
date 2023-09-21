@@ -22,8 +22,6 @@ public class Event implements ComplexProcess {
 
     @Override
     public String processInput(String input) {
-        assert input.toLowerCase().equals("event") : "user input does not start with the correct word";
-
         String reply = "";
         switch (stage) {
         case FIRST:
