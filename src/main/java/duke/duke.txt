@@ -1,3 +1,4 @@
-T | 1 | H | buy food  (from: 2019-10-15 to: 2019-10-15)
-D | 0 | M | read book  (by: 2019-10-15)
-E | 0 | L | read book (at: 2019-10-15)
+T | 1 | H | buy food (from: 2023-09-22 to: 2023-12-10)
+D | 0 | M | read book (by: 2024-10-15)
+E | 0 | L | attend lecture (at: 2019-11-18)
+D | 0 | H | project (by: 2023-09-22)
