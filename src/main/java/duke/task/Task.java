@@ -98,8 +98,23 @@ public class Task {
     public boolean equals(Object o){
         if (o instanceof Task) {
             Task temp = (Task)o;
-            return this.name.equals(temp.getTaskName()) && this.isDone == temp.isDone();
+            return this.name.equals(temp.getTaskName()) && this.isDone == temp.isDone() && this.isTagsEqual(temp);
         }
         return false;
+    }
+
+
+    public boolean isTagsEqual(Task t) {
+        if (tags.size() != t.getTags().size()) {
+            return false;
+        }
+        for (int i = 0; i < tags.size(); i++) {
+            if (tags.get(i).equals(t.getTags().get(i))) {
+                continue;
+            }
+            return false;
+        }
+
+        return true;
     }
 }

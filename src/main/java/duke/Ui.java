@@ -3,6 +3,7 @@ package duke;
 import duke.task.Task;
 import duke.task.TaskList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,8 +76,10 @@ public class Ui {
      */
     private String tagPrompt(Task task) {
         String result = "( ";
-        for (String t :task.getTags()) {
-            result += "#" + t + " ";
+        ArrayList<String> list = task.getTags();
+
+        for (int i = 0; i < list.size(); i++) {
+            result += "#" + list.get(i) + " ";
         }
         return result + ")";
     }

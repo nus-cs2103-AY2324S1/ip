@@ -37,10 +37,11 @@ public class StorageTest {
 
         TaskList expected = new TaskList();
         expected.add(new ToDo("run"));
-        expected.add(new Deadline("jump", LocalDate.parse("2020-10-10", DateTimeFormatter.ISO_DATE)));
-        expected.add(new Events("kill", LocalDate.parse("2020-10-10",DateTimeFormatter.ISO_DATE),
-                LocalDate.parse("2020-12-26",DateTimeFormatter.ISO_DATE)));
-        expected.mark(1);
+        expected.assignTaskWithTag(0, "fast");
+        expected.add(new Deadline("cs2105", LocalDate.parse("2023-09-25", DateTimeFormatter.ISO_DATE)));
+        expected.add(new Events("Mnight", LocalDate.parse("2023-09-23",DateTimeFormatter.ISO_DATE),
+                LocalDate.parse("2023-09-23",DateTimeFormatter.ISO_DATE)));
+        expected.add(new ToDo("jump"));
 
         assertEquals(result,expected);
     }
