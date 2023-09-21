@@ -2,8 +2,9 @@ package ballsorting;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -43,18 +44,41 @@ public class Ballsorter extends Application {
      * Creates a new instance of the chatbot.
      */
     public Ballsorter() {
-        tmpDir = new File("data/Ballsorter.txt");
-        //check for storage
-        storage = new Storage(tmpDir);
+
         try {
-            if (tmpDir.createNewFile()) {
-                taskList = new TaskList();
-            } else {
-                storage.loadFile(taskList);
+            final Path p = Paths.get("data/Ballsorter.txt");
+            final String directory = p.getParent().toString();
+            final String filename = p.getFileName().toString();
+
+            File file = new File("data/Ballsorter.txt");
+            File dir = new File("data");
+
+            if (!dir.exists()) {
+                dir.mkdirs();
             }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            tmpDir = file;
+            storage = new Storage(tmpDir);
+            storage.loadFile(taskList);
+
         } catch (IOException e) {
             System.out.println(e);
         }
+
+//        //check for storage
+//        storage = new Storage(tmpDir);
+//        try {
+//            if (tmpDir.createNewFile()) {
+//                taskList = new TaskList();
+//            } else {
+//                storage.loadFile(taskList);
+//            }
+//        } catch (IOException e) {
+//            System.out.println(e);
+//        }
     }
 
     public static void main(String[] args) {

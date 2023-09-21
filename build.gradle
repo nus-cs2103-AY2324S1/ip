@@ -54,7 +54,7 @@ test {
 }
 
 application {
-    mainClass.set("ballsorting.Ballsorter")
+    mainClass.set("ballsorting.Launcher")
 }
 
 shadowJar {
