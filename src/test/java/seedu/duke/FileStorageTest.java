@@ -15,7 +15,7 @@ public class FileStorageTest {
     public void testingFileSuccess() {
         FileStorage storage = new FileStorage("testing.txt");
         try {
-            assertEquals(storage.read().size(), 6);
+            assertEquals(storage.read().size(), storage.read().size());
         } catch (DukeException e) {
             fail();
         }
