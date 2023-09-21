@@ -1,8 +1,8 @@
 plugins {
-    id "java"
     id "application"
-    id "com.github.johnrengelman.shadow" version "7.1.2"
     id "checkstyle"
+
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
 
 repositories {
@@ -57,12 +57,12 @@ test {
     }
 }
 
+checkstyle {
+    toolVersion = "10.2"
+}
+
 shadowJar {
     dependsOn "distZip", "distTar"
 
     archiveFileName = "cloud.jar"
-}
-
-checkstyle {
-    toolVersion = "10.2"
 }
