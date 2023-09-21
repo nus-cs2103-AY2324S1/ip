@@ -1,4 +1,4 @@
-# User Guide
+# Luke User Guide
 
 **Luke** is a chatbot app for managing tasks, optimised for use via a Command Line Interface, while using a GUI for display
 purposes.
