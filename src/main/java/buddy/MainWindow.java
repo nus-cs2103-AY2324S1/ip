@@ -37,6 +37,7 @@ public class MainWindow extends AnchorPane {
      */
     public void setBuddy(Buddy b) {
         buddy = b;
+        dialogContainer.getChildren().add(DialogBox.getBuddyDialog(buddy.getGreeting(), buddyImage));
     }
 
     /**

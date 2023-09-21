@@ -46,7 +46,6 @@ public class Buddy {
         String input;
         // this.tasks = storage.readFile();
 
-
         while (true) {
 
             try {
@@ -65,6 +64,10 @@ public class Buddy {
      */
     public boolean checkIfIsExit() {
         return this.isExit;
+    }
+
+    public String getGreeting() {
+        return this.ui.printGreeting();
     }
 
     /**

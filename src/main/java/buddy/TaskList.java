@@ -1,5 +1,6 @@
 package buddy;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import buddy.utils.BuddyException;
@@ -114,6 +115,27 @@ public class TaskList {
             }
         }
         return filteredTasks;
+    }
+
+    /**
+     * Updates description of a specified task from taskList.
+     *
+     * @param taskIndex Index of task to be updated.
+     * @param taskInformation New description.
+     */
+    public void updateDescription(int taskIndex, String taskInformation) {
+        tasks.get(taskIndex).updateTaskDescription(taskInformation);
+    }
+
+    /**
+     * Updates date of a specified task from taskList.
+     *
+     * @param taskIndex Index of task to be updated.
+     * @param fieldToUpdate Date field to be updated.
+     * @param newDate New date.
+     */
+    public void updateDate(int taskIndex, String fieldToUpdate, LocalDate newDate) {
+        tasks.get(taskIndex).updateDate(fieldToUpdate, newDate);
     }
 
     @Override

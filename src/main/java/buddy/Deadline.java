@@ -18,13 +18,24 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, isDone);
         this.by = by;
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        // this.by = LocalDate.parse(by, formatter);
     }
 
     private String getDateString(LocalDate date, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return date.format(formatter);
+    }
+
+    @Override
+    public void updateTaskDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
+    @Override
+    public void updateDate(String fieldToUpdate, LocalDate newDate) {
+        if (!fieldToUpdate.equalsIgnoreCase("by")) {
+
+        }
+        this.by = newDate;
     }
 
     @Override

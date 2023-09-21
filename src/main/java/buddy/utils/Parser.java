@@ -16,6 +16,8 @@ import buddy.commands.FindCommand;
 import buddy.commands.ListCommand;
 import buddy.commands.MarkAsDoneCommand;
 import buddy.commands.MarkAsUndoneCommand;
+import buddy.commands.UpdateDateCommand;
+import buddy.commands.UpdateDescriptionCommand;
 
 /**
  * The Parser class deals with making sense of the user command.
@@ -70,6 +72,8 @@ public class Parser {
         } else if (commandType.equals(CommandType.FIND)) {
             String keyword = fullCommand.replaceFirst("find ", "").trim();
             return new FindCommand(keyword);
+        } else if (commandType.equals(CommandType.UPDATE)) {
+            return parseUpdate(fullCommand);
         } else if (commandType.equals(CommandType.TODO)) {
             return parseTodo(fullCommand);
         } else if (commandType.equals(CommandType.DEADLINE)) {
@@ -81,12 +85,41 @@ public class Parser {
         }
     }
 
+    private static Command parseUpdate(String command) throws BuddyException {
+        String correctFormat = "update [task number] /[desc/by/from/to] [newDesc/newDate]";
+        String[] parts = command.split(" ", 2);
+        if (parts.length < 2 || parts[1].isEmpty()) {
+            throw new BuddyException("OOPS!!! Please enter in the format:\n" + correctFormat);
+        }
+        String[] updateParts = parts[1].split("/", 2);
+        if (updateParts.length < 2 || updateParts[1].isEmpty()) {
+            throw new BuddyException("OOPS!!! Please enter in the format:\n" + correctFormat);
+        }
+        int taskIndex = Integer.parseInt(updateParts[0].trim());
+        String[] words = updateParts[1].split(" ", 2);
+        String fieldToUpdate = words[0].trim();
+        String update = words[1].trim();
+
+        if (fieldToUpdate.equalsIgnoreCase("desc")) {
+            return new UpdateDescriptionCommand(taskIndex, update);
+        } else if (fieldToUpdate.equalsIgnoreCase("by")
+                || fieldToUpdate.equalsIgnoreCase("from")
+                || fieldToUpdate.equalsIgnoreCase("to")) {
+            validateDate(update);
+            LocalDate newDate = LocalDate.parse(update);
+            return new UpdateDateCommand(taskIndex, fieldToUpdate, newDate);
+        } else {
+            throw new BuddyException("OOPS!!! Please enter in the format:\n" + correctFormat);
+        }
+    }
+
     private static Command parseTodo(String command) throws BuddyException {
         String[] parts = command.split(" ", 2);
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new BuddyException("OOPS!!! The description of a todo cannot be empty.");
         }
-        return new AddTodoCommand(parts[1]);
+        String description = parts[1].trim();
+        return new AddTodoCommand(description);
     }
 
     private static Command parseDeadline(String command) throws BuddyException {
@@ -101,8 +134,8 @@ public class Parser {
         String description = deadlineParts[0].trim();
         String deadlineBy = deadlineParts[1].replaceFirst("by ", "").trim();
         validateDate(deadlineBy);
-        LocalDate d = LocalDate.parse(deadlineBy);
-        return new AddDeadlineCommand(description, d);
+        LocalDate deadline = LocalDate.parse(deadlineBy);
+        return new AddDeadlineCommand(description, deadline);
     }
 
     private static Command parseEvent(String command) throws BuddyException {

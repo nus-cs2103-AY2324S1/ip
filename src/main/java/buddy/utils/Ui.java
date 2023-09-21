@@ -84,6 +84,15 @@ public class Ui {
                 + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
+    /**
+     * Prints the message when a task is successfully updated.
+     *
+     * @param updatedTask The task after it is successfully updated.
+     */
+    public String printUpdateSuccessMessage(Task updatedTask) {
+        return "Noted. I've updated this task to:\n" + updatedTask.toString();
+    }
+
     public String readCommand() {
         return sc.nextLine();
     }
