@@ -66,7 +66,7 @@ public class TehO  {
 
     public void run() {
         Scanner sc = new Scanner(System.in);
-        ui.generateHelloMessage();
+        System.out.println(ui.generateHelloMessage());
         storage.loadTasks();
         while (true) {
             String userCommand = sc.nextLine();
@@ -85,7 +85,7 @@ public class TehO  {
      * @param args Stores Java command-line arguments and is an array of type java.lang.String class.
      */
     public static void main(String[] args) {
-        new TehO("/Users/loomeilinzann/ip/text-ui-test/data/teho.txt").run();
+        new TehO("teho.txt").run();
     }
 
 
@@ -95,8 +95,6 @@ public class TehO  {
      * @param userCommand User's command containing the task to be marked.
      */
     public String markTask(String userCommand) {
-        //note that split returns a String[]
-        //parseInt returns the integer value which is represented by the argument
         int taskNumber = parseInt(userCommand.split(" ")[1]) - 1; //counting from 0
         assert taskNumber >= 0 : "taskNumber should not be negative";
         Task task = this.taskList.getTask(taskNumber);
@@ -127,7 +125,7 @@ public class TehO  {
             if (userCommand.length() <= TODO_SIZE) {
                 throw new EmptyToDoDescriptionException();
             }
-            String command = userCommand.substring(TODO_SIZE + 1); //"todo "
+            String command = userCommand.substring(TODO_SIZE + 1);
             Task task = new ToDo(command);
             this.taskList.add(task);
             return ui.generateAddToDoMessage(task, taskList);
@@ -146,7 +144,7 @@ public class TehO  {
             if (userCommand.length() <= DEADLINE_SIZE) {
                 throw new EmptyDeadlineDescriptionException();
             }
-            String commandWithDate = userCommand.substring(DEADLINE_SIZE + 1); //"deadline "
+            String commandWithDate = userCommand.substring(DEADLINE_SIZE + 1);
             String description = commandWithDate.split(" /by ")[0];
             LocalDate byDate = LocalDate.parse(commandWithDate.split(" /by ")[1]);
             Task task = new Deadline(description, byDate);
@@ -167,7 +165,7 @@ public class TehO  {
             if (userCommand.length() <= EVENT_SIZE) {
                 throw new EmptyEventDescriptionException();
             }
-            String commandWithDate = userCommand.substring(EVENT_SIZE + 1); //"event "
+            String commandWithDate = userCommand.substring(EVENT_SIZE + 1);
             String description = commandWithDate.split(" /from ")[0];
             String dates = commandWithDate.split(" /from ")[1];
             LocalDate fromDate = LocalDate.parse(dates.split(" /to ")[0]);

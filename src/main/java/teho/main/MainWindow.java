@@ -1,6 +1,9 @@
 package teho.main;
 
 import javafx.fxml.FXML;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -8,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import teho.exceptions.InvalidCommandException;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -15,10 +19,6 @@ import teho.exceptions.InvalidCommandException;
 //Reused from https://se-education.org/guides/tutorials/javaFx.html
 // with minor modifications
 public class MainWindow extends AnchorPane {
-    //@FXML annotation marks a private or protected member and
-    // makes it accessible to FXMLdespite its modifier.
-    // Without the annotation, we will have to make everything
-    // public and expose our UI to unwanted changes.
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -31,9 +31,9 @@ public class MainWindow extends AnchorPane {
     private TehO tehO;
 
     private Image userImage = new Image(this.getClass()
-            .getResourceAsStream("/images/user.png"));
+            .getResourceAsStream("/images/User.png"));
     private Image tehOImage = new Image(this.getClass()
-            .getResourceAsStream("/images/tehO.png"));
+            .getResourceAsStream("/images/TehO.png"));
 
     @FXML
     public void initialize() {
@@ -54,14 +54,24 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws InvalidCommandException {
         String input = userInput.getText();
-        String response = tehO.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getTehODialog(response, tehOImage)
-        );
-        //clear input field
-        userInput.clear();
-        //Scroll down to the end every time dialogContainer's height changes
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-    }
+            String response = tehO.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getTehODialog(response, tehOImage)
+            );
+            if (input.equalsIgnoreCase("bye")) {
+                //solution inspired by
+                // https://stackoverflow.com/questions/30543619/how-to-use-pausetransition-method-in-javafx
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(event -> {
+                    userInput.clear();
+                    Platform.exit();
+                });
+                pause.play();
+            }
+            //clear input field
+            userInput.clear();
+            //Scroll down to the end every time dialogContainer's height changes
+            dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        }
 }

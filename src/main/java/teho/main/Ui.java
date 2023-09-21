@@ -2,10 +2,10 @@ package teho.main;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Collections;
+
 /**
  * Deals with interactions with the user through generating messages.
  */
-
 public class Ui {
     /**
      * Generates hello message when TehO chatbot starts.
@@ -33,9 +33,14 @@ public class Ui {
      */
     public static String generateList(TaskList taskList) {
         String str = "Here are the task(s) in your list:\n";
+        int count = 0;
         for (int i = 0; i < taskList.getSize(); i++) {
+            count++;
             Task task = taskList.getTask(i);
             str += (i + 1) + ". " + task.toString() + "\n";
+        }
+        if (count == 0) {
+            str += "YAYA! There are no tasks in your list";
         }
         return str;
     }
@@ -51,9 +56,14 @@ public class Ui {
         //Solution inspired by https://www.baeldung.com/java-8-comparator-comparing
         Collections.sort(duplicatedList, Comparator.comparing(Task::getDescription));
         String str = "Here are the tasks in your list in alphabetical order:\n";
+        int count = 0;
         for (int i = 0; i < duplicatedList.size(); i++) {
+            count++;
             Task task = duplicatedList.get(i);
             str += (i + 1) + ". " + task.toString() + "\n";;
+        }
+        if (count == 0) {
+            str += "YAY! There are no tasks in your list";
         }
         return str;
     }

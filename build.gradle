@@ -42,13 +42,12 @@ test {
 }
 
 application {
-    //mainClass.set("seedu.duke.Duke") //check if need change
-    mainClass.set("teho.main.TehO") //new
+    //mainClass.set("teho.main.TehO")
+    mainClass.set("teho.main.Launcher")
 }
 
 shadowJar {
-//    archiveBaseName = "duke"//old
-    archiveBaseName = "teho"//new
+    archiveBaseName = "teho"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -31,7 +31,7 @@ public abstract class Task {
      * @return Status icon of task ("X" if task is done, " " if task is undone).
      */
     public String getStatusIcon() {
-        return "[" + (isDone ? "X" : "  ") + "]";
+        return "[" + (isDone ? "X" : " ") + "]";
     }
 
     /**
@@ -62,6 +62,11 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns string representation of a description of a task.
+     *
+     * @return String representation of the description of a task.
+     */
     public String getDescription() {
         return description;
     }

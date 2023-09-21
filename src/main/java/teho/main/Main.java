@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for TehO using FXML.
  */
 //Reused from https://se-education.org/guides/tutorials/javaFx.html
 // with minor modifications
@@ -24,6 +24,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("TehO");
             fxmlLoader.<MainWindow>getController().setTehO(tehO);
             stage.show();
         } catch (IOException e) {
