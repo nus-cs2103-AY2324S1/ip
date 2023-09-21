@@ -146,6 +146,12 @@ public class UiGUI {
                 + ("____________________________________________________________");
     }
 
+
+    /**
+     * Prints the tasks that match the query string
+     * @param tasks The TaskList
+     * @param query the String the user wishes to query with
+     */
     public String printMatchingTasks(TaskList tasks, String query) {
         String total = this.printLines();
         total += ("Here are the matching tasks in your list:") + "\n";
@@ -160,6 +166,11 @@ public class UiGUI {
         return total;
     }
 
+    /**
+     * Reminds the user of the deeadlines coming up
+     * @param tasks The TaskList
+     * @param numberOfDays the number of days until the deadline is due
+     */
     public String remind (TaskList tasks, int numberOfDays){
         // Get the current date
         LocalDate currentDate = LocalDate.now();
