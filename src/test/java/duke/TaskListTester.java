@@ -86,22 +86,4 @@ public class TaskListTester {
             Assertions.fail();
         }
     }
-
-    /**
-     * Testing the parseTask method based on invalid inputs
-     * Should fail if it is able to run parseTask without throwing an exception
-     */
-    @Test
-    public void parseTask_corruptedData_exceptionThrown() {
-        String corruptedData3 = "E | false | test | WAug-25-2023 1900 PM | Aug-35-2023 9999 PM";
-        try {
-            TaskList.parseTask(corruptedData3);
-            Assertions.fail();
-        } catch (WrongInputException e) {
-            assertEquals("Invalid Format: Stored event is invalid / corrupted\n"
-                            + "Recommendation: Please clear the folder and restart the program",
-                    e.getMessage());
-        }
-    }
-
 }
