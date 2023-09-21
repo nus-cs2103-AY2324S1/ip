@@ -13,7 +13,7 @@ public class ViewTagsCommand implements Command{
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidParametersException {
         try {
-            String tags = taskList.printTags(Integer.parseInt(indexString));
+            String tags = taskList.printTags(Integer.parseInt(indexString) - 1);
             setOutput(tags);
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             taskList.print();

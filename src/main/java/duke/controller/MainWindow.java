@@ -1,6 +1,6 @@
 package duke.controller;
 
-import duke.main.Duke;
+import duke.main.Cleo;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 
 import java.util.Objects;
 
@@ -21,27 +22,45 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-    private Duke duke;
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private Cleo cleo;
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/user.png")));
+    private final Image errorImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/sleeping_cleo.gif")));
+    private final Image questionMarkImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/question_mark.png")));
+    private final Image cleoImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/dancing_cleo.gif")));
+
+    private final AudioClip plonkSound = new AudioClip(getClass().getResource("/audio/click.mp3").toExternalForm());
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Cleo d) {
+        cleo = d;
     }
 
     @FXML
     private void handleUserInput() {
+
+        plonkSound.play();
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = cleo.getResponse(input);
+        int messageType = cleo.getMessageType();
+
+        Image cleoImage;
+        if (messageType == Cleo.ERROR_MESSAGE_TYPE) {
+            cleoImage = errorImage;
+        } else if (messageType == Cleo.NORMAL_MESSAGE_TYPE) {
+            cleoImage = this.cleoImage;
+        } else {
+            cleoImage = questionMarkImage;
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getDukeDialog(response, cleoImage)
         );
+
         userInput.clear();
     }
 }

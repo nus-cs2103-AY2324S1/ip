@@ -16,7 +16,7 @@ public class TagCommand implements Command {
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidParametersException {
         try {
-            taskList.addTag(Integer.parseInt(stringIndex), tag);
+            taskList.addTag(Integer.parseInt(stringIndex) - 1, tag);
             storage.save(taskList.getTasks());
             setOutput("Tag #" + tag + " successfully added");
         } catch (NumberFormatException | IndexOutOfBoundsException e) {

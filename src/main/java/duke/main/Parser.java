@@ -45,6 +45,12 @@ public class Parser {
             return new ExitCommand();
         case "list":
             return new ListCommand();
+        case "play":
+            return new PlayCommand();
+        case "stop":
+            return new StopCommand();
+        case "pause":
+            return new PauseCommand();
         case "delete":
             checkAtLeast2();
             return new DeleteCommand(splitText[1]);
@@ -136,9 +142,10 @@ public class Parser {
 
         String[] splitStr = str.split(" ");
         for (String word : splitStr) {
-            if (word.isEmpty() || word.charAt(0) != '/') {
+            if (word.charAt(0) == '/') {
                 break;
             }
+            System.out.println(word);
             task.append(" ").append(word);
         }
 
