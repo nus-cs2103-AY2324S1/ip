@@ -144,4 +144,13 @@ public class Task {
     public String toString() {
         return "[" + getStatusIcon() + "]" + " " + this.description + " " + this.printTags() + " | " + this.printDoAfter() + " | ";
     }
+
+    /**
+     * Gets the parent task for the task (either "X" or null for no parent).
+     *
+     * @return The parent task.
+     */
+    public Task getParentTask() {
+        return this.parentTask;
+    }
 }

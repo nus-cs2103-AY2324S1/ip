@@ -19,4 +19,12 @@ public class TodoTest {
         ToDo todo2 = new ToDo("Complete Quiz 4");
         assertEquals(todo1.getUrgencyDate().getHour(), todo2.getUrgencyDate().getHour());
     }
+
+    @Test
+    @DisplayName("Test assert Todo Parent Task")
+    public void parentTask() {
+        ToDo todo1 = new ToDo("Complete Quiz");
+        ToDo todo2 = new ToDo("Complete Quiz 4");
+        assertEquals(todo1.getParentTask(), todo2.getParentTask());
+    }
 }
