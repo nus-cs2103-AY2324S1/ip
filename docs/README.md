@@ -1,5 +1,7 @@
 # User Guide
 
+Chad is the all-in-one chatbot that helps you manage your day-to-day task and schedule.
+
 ## Features
 
 ### Add Deadline Task: `deadline`
