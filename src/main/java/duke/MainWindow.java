@@ -22,14 +22,24 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
+    // Images for the user and Duke
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image captainImage = new Image(this.getClass().getResourceAsStream("/images/DaCaptain.jpg"));
 
+    /**
+     * Initializes the main window by binding the scroll pane's vertical value to
+     * the dialog container's height property.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke instance for this main window and initializes the greeting message from Duke.
+     *
+     * @param d The Duke instance to set.
+     */
     public void setDuke(Duke d) {
         duke = d;
 
@@ -41,7 +51,8 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other
+     * containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML

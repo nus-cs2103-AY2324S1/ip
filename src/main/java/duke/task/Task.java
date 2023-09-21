@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 import duke.InvalidCommandException;
 import duke.InvalidTaskCreationException;
+import duke.ParserException;
 
 /**
  * The `Task` class represents a task in the Duke application. It serves as the base class for different types of tasks.
@@ -52,25 +53,40 @@ public class Task {
     public static Task taskCon(String userInput) throws InvalidCommandException, InvalidTaskCreationException,
             DateTimeParseException {
         if (userInput.startsWith("todo")) {
-            return ToDo.toDoCon(userInput.substring(BEGIN_INDEX_TODO));
+            try {
+                return ToDo.toDoCon(userInput.substring(BEGIN_INDEX_TODO));
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidTaskCreationException("Please enter todo task creation in the following format" +
+                        ": 'todo taskName'");
+            }
         } else if (userInput.startsWith("deadline")) {
 
-            String[] splitInput = userInput.split("/by");
-            String taskDescription = splitInput[0].substring(BEGIN_INDEX_DEADLINE).trim();
-            String deadline = splitInput[1].trim();
+            try {
+                String[] splitInput = userInput.split("/by");
+                String taskDescription = splitInput[0].substring(BEGIN_INDEX_DEADLINE).trim();
+                String deadline = splitInput[1].trim();
 
-            return Deadline.deadlineCon(taskDescription, deadline);
+                return Deadline.deadlineCon(taskDescription, deadline);
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidTaskCreationException("Please enter deadline task creation in the following format" +
+                        ": 'deadline taskName /by 2023-10-31 23:59:00'");
+            }
 
         } else if (userInput.startsWith("event")) {
 
-            String[] splitInput = userInput.split("/from");
-            String taskDescription = splitInput[0].substring(BEGIN_INDEX_EVENT).trim();
+            try {
+                String[] splitInput = userInput.split("/from");
+                String taskDescription = splitInput[0].substring(BEGIN_INDEX_EVENT).trim();
 
-            String[] eventDetails = splitInput[1].split("/to");
-            String eventStartTime = eventDetails[0].trim();
-            String eventEndTime = eventDetails[1].trim();
+                String[] eventDetails = splitInput[1].split("/to");
+                String eventStartTime = eventDetails[0].trim();
+                String eventEndTime = eventDetails[1].trim();
 
-            return Event.eventCon(taskDescription, eventStartTime, eventEndTime);
+                return Event.eventCon(taskDescription, eventStartTime, eventEndTime);
+            } catch (IndexOutOfBoundsException e) {
+                throw new InvalidTaskCreationException("Please enter event task creation in the following format" +
+                        ": 'event taskName /from 2023-10-31 23:59:00 /to 2023-11-02 23:59:00'");
+            }
         } else {
             throw new InvalidCommandException("Invalid command to add task!");
         }
@@ -123,7 +139,7 @@ public class Task {
         return result.toString().trim(); // Remove trailing space
     }
 
-    public String printDoAfter() {
+    private String printDoAfter() {
         if (this.parentTask == null) {
             return "DoAfter : " + "NONE";
         } else {
@@ -152,5 +168,9 @@ public class Task {
      */
     public Task getParentTask() {
         return this.parentTask;
+    }
+
+    public String toFileOutput() {
+        return "Task";
     }
 }

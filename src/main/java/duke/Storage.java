@@ -1,6 +1,8 @@
 package duke;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -11,6 +13,8 @@ import duke.task.Task;
  */
 public class Storage {
     private String filePath;
+
+    private String outputFilePath = "./data/outputDuke.txt";
 
     /**
      * Constructs a new `Storage` instance with the specified file path.
@@ -28,7 +32,6 @@ public class Storage {
      * @throws IOException              if there is an issue reading the file.
      * @throws InvalidFileFormatException if the file contains tasks in an invalid format.
      */
-    //CHECKSTYLE.OFF: Indentation
     public ArrayList<Task> load() throws IOException, InvalidFileFormatException {
         System.out.println("1");
         BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
@@ -37,21 +40,21 @@ public class Storage {
 
         while ((line = reader.readLine()) != null) {
             switch (line.charAt(0)) {
-                case 'T':
-                    loadTodoTask(line, taskList);
-                    break;
+            case 'T':
+                loadTodoTask(line, taskList);
+                break;
 
-                case 'D':
-                    loadDeadlineTask(line, taskList);
-                    break;
+            case 'D':
+                loadDeadlineTask(line, taskList);
+                break;
 
-                case 'E':
-                    loadEventTask(line, taskList);
-                    break;
+            case 'E':
+                loadEventTask(line, taskList);
+                break;
 
-                default:
-                    // Handle invalid lines or raise an exception if needed.
-                    break;
+            default:
+                // Handle invalid lines or raise an exception if needed.
+                break;
             }
         }
         return taskList;
@@ -120,6 +123,18 @@ public class Storage {
         }
         taskList.add(t);
     }
-    //CHECKSTYLE.ON: Indentation
+
+    public void saveTasksToFile(TaskList tasks) throws IOException, InvalidFileFormatException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.outputFilePath))) {
+            for (Task task : tasks.taskArrayList) {
+                String taskOutput = task.toFileOutput();
+                writer.write(taskOutput);
+                writer.newLine(); // Add a newline after each task
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception as needed
+        }
+    }
+
 
 }

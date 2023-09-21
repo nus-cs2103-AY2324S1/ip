@@ -73,4 +73,10 @@ public class Event extends Task {
         String formattedDateTo = this.to.format(Task.OUTPUT_FORMATTER);
         return "[E]" + super.toString() + " (from: " + formattedDateFrom + " to: " + formattedDateTo + ")";
     }
+
+    @Override
+    public String toFileOutput() {
+        String isDoneString = this.isDone ? "1" : "0";
+        return "E|" + isDoneString + "|" + this.description + "|" + this.from;
+    }
 }

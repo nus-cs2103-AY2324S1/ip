@@ -61,6 +61,11 @@ public class Command {
      */
     public static final String TAG = "tag ";
 
+    /**
+     * Represents the "doafter" command, which allows the user to add parent task to a task.
+     * The task numbers of child and parent respectively to be added to command.
+     * Example: "doafter 3 4" will set 4 to be parent of 3.
+     */
     public static final String DOAFTER = "doafter ";
 
     /**

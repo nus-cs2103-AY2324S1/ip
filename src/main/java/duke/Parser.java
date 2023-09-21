@@ -99,6 +99,14 @@ public class Parser {
         return argsString.split("\\s+");
     }
 
+    /**
+     * Parses a user input string to extract the task number to add tags to.
+     *
+     * @param userInput The user's input command.
+     * @param list      The task list to validate the task number against.
+     * @return A pair containing the task number and an array of tags to add.
+     * @throws ParserException if parsing or validation fails.
+     */
     public Pair<Integer, String[]> parseTag(String userInput, TaskList list) throws ParserException {
         int taskNo;
         String[] args = userInput.substring(4).split(" ");
@@ -110,6 +118,7 @@ public class Parser {
             if (taskNo > list.getSize() | taskNo < 1) {
                 throw new InvalidTaskNumberException("Please enter valid Task No. to tag!");
             }
+
         } catch (NumberFormatException e) {
             throw new ParserException("Please enter valid Task No. (INTEGER) to tag in the format: 'tag 4 fun sport'");
         } catch (InvalidTaskNumberException d) {
@@ -122,6 +131,14 @@ public class Parser {
 
     }
 
+    /**
+     * Parses a user input string to extract the task numbers for setting a task as dependent on another task.
+     *
+     * @param userInput The user's input command.
+     * @param list      The task list to validate the task numbers against.
+     * @return A pair containing the child task number and the parent task number.
+     * @throws ParserException if parsing or validation fails.
+     */
     public Pair<Integer, Integer> parseDoAfter(String userInput, TaskList list) throws ParserException {
         int childTaskNo;
         int parentTaskNo;
@@ -131,13 +148,17 @@ public class Parser {
             childTaskNo = Integer.parseInt(args[0]);
             parentTaskNo = Integer.parseInt(args[1]);
             // Check if the task numbers are within valid bounds.
-            if ((childTaskNo > list.getSize() | childTaskNo < 1) && (parentTaskNo > list.getSize() | parentTaskNo < 1)) {
+            if ((childTaskNo > list.getSize() | childTaskNo < 1) ||
+                    (parentTaskNo > list.getSize() | parentTaskNo < 1) ||
+                    args.length > 2) {
                 throw new InvalidTaskNumberException("Please enter valid Task No.!");
             }
         } catch (NumberFormatException e) {
             throw new ParserException("Please enter valid Task No. (INTEGER) to doAfter in the format: 'doafter 4 5'");
         } catch (InvalidTaskNumberException d) {
             throw new ParserException("Please enter valid Task No.!");
+        } catch (ArrayIndexOutOfBoundsException a) {
+            throw new ParserException("Please enter valid Task No. args : like 'doafter 4 5'");
         }
         return new Pair<>(childTaskNo, parentTaskNo);
     }
