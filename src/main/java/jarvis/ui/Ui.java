@@ -1,3 +1,8 @@
+package jarvis.ui;
+
+import jarvis.task.Task;
+import jarvis.tasklist.TaskList;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -15,7 +20,7 @@ public class Ui {
     }
 
     public void greet() {
-        display("Hello! I'm Tackie", "What can I do for you?");
+        display("Hello Master! I'm Jarvis, your AI personal assistant.", "What can I do for you?");
     }
 
     public void farewell() {
