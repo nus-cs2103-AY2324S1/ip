@@ -79,7 +79,7 @@ public class Parser {
         assert command != null;
         try {
             if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > taskList.getSize()) {
-                throw new DukeException("☹ OOPS!!! Invalid number");
+                throw new DukeException("☹ Sorry class! OOPS!!! Invalid number");
             }
             String result = "";
             int taskNumber = Integer.parseInt(separateCommand[1]);
@@ -95,7 +95,7 @@ public class Parser {
             Ui.showMessage(result);
             return result;
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! Invalid number");
+            throw new DukeException("☹ Sorry class! OOPS!!! Invalid number");
         }
     }
     /**
@@ -122,7 +122,7 @@ public class Parser {
         } else if (command.startsWith("delete") || (firstCommand.equals("del"))) {
             return parseDeleteCommand(command, separateCommand, taskList);
         } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("☹ Sorry class! OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
     /**
@@ -161,14 +161,14 @@ public class Parser {
         try {
             String description = command.substring(5);
             if (description.length() == 0) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException("☹ Sorry class! OOPS!!! The description of a todo cannot be empty.");
             }
             Task currTask = new ToDo(description);
             taskList.addTask(currTask);
             result += " I've added this task:" + "\n" + "   " + currTask
                     + "\n" + " Now you have " + taskList.getSize() + " tasks in the list." + "\n";
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("☹ Sorry class! OOPS!!! The description of a todo cannot be empty.");
         }
         Ui.showMessage(result);
         return result;
@@ -187,10 +187,10 @@ public class Parser {
             String[] parts = command.split("/by"); //   2/12/2019 1800
             String description = parts[0].substring(9).trim();
             if (description.length() == 0) {
-                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                throw new DukeException("☹ Sorry class! OOPS!!! The description of a deadline cannot be empty.");
             }
             if (parts.length == 1) {
-                throw new DukeException("☹ OOPS!!! There must be a date and time.");
+                throw new DukeException("☹ Sorry class! OOPS!!! There must be a date and time.");
             }
             String byID = parts[1].trim();
             Task currTask = new Deadline(description, byID);
@@ -199,10 +199,10 @@ public class Parser {
                 result += " I've added this task:" + "\n" + "   " + currTask
                         + "\n" + " Now you have " + taskList.getSize() + " tasks in the list.";
             } else {
-                throw new DukeException("☹ OOPS!!! Invalid Date/Time format, use DD/MM/YYYY HHmm");
+                throw new DukeException("☹ Sorry class! OOPS!!! Invalid Date/Time format, use DD/MM/YYYY HHmm");
             }
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            throw new DukeException("☹ Sorry class! OOPS!!! The description of a deadline cannot be empty.");
         }
         Ui.showMessage(result);
         return result;
@@ -222,7 +222,7 @@ public class Parser {
             String[] parts = command.split("/from");
             String description = parts[0].substring(6).trim();
             if (description.length() == 0) {
-                throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                throw new DukeException("☹ Sorry class! OOPS!!! The description of an event cannot be empty.");
             }
             String[] timeParts = parts[1].split("/to");
             String start = timeParts[0].trim();
@@ -232,7 +232,7 @@ public class Parser {
             result += " I've added this task:" + "\n" + "   " + currTask
                     + "\n" + " Now you have " + taskList.getSize() + " tasks in the list.";
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+            throw new DukeException("☹ Sorry class! OOPS!!! The description of an event cannot be empty.");
         }
         Ui.showMessage(result);
         return result;
@@ -252,7 +252,7 @@ public class Parser {
         String result = "";
         try {
             if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > taskList.getSize()) {
-                throw new DukeException("☹ OOPS!!! Invalid number");
+                throw new DukeException("☹ Sorry class! OOPS!!! Invalid number");
             }
             int taskNumber = Integer.parseInt(separateCommand[1]);
             Task task = taskList.getTaskItem(taskNumber - 1);
@@ -264,7 +264,7 @@ public class Parser {
             }
             Ui.showMessage(result);
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-            throw new DukeException("☹ OOPS!!! Invalid number");
+            throw new DukeException("☹ Sorry class! OOPS!!! Invalid number");
         }
         return result;
     }
