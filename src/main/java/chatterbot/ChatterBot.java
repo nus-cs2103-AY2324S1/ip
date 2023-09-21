@@ -31,14 +31,11 @@ public class ChatterBot {
      * This is the main method which executes the ChatterBot program.
      * @param args Unused.
      */
-
     public static void main(String[] args) {
 
         Ui ui = new Ui(list);
         Storage storage = new Storage(file, list);
         TaskList taskList = new TaskList(list);
-
-        ui.showWelcomeMessage();
 
         File f = new File(file);
         File folder = f.getParentFile();
@@ -46,6 +43,7 @@ public class ChatterBot {
             System.out.println("Error! No data folder found");
         }
 
+        ui.showWelcomeMessage();
         taskList.initiateTaskList(storage);
 
         while (true) {

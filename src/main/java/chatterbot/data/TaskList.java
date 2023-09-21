@@ -1,8 +1,8 @@
 package chatterbot.data;
 
 import chatterbot.storage.Storage;
+import chatterbot.ui.Ui;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,7 +51,6 @@ public class TaskList {
         assert task != null : "Task to add cannot be null.";
         list.add(task);
         try {
-            // Save the updated task list to the storage file.
             storage.appendToFile(filePath, task.formatForFile());
         } catch (IOException e) {
             return "Error: File not found.";
@@ -60,9 +59,6 @@ public class TaskList {
     }
 
     public String deleteTask(int taskIndex, Storage storage, String filePath) {
-//        if (taskIndex < 0 || taskIndex >= list.size()) {
-//            return "Invalid task index. No task removed.";
-//        }
         try {
             assert taskIndex >= 0 && taskIndex < list.size() : "Task index must be within list range.";
             list.remove(taskIndex);
@@ -70,11 +66,45 @@ public class TaskList {
             return "Error, task not removed.";
         }
         try {
-            // Save the updated task list to the storage file.
             storage.writeToFile(filePath, convertToString(list));
         } catch (IOException e) {
             return "Error: File not found.";
         }
         return "Noted. I've removed this task:\n" + list.get(taskIndex).formatForFile() + "\nNow you have " + list.size() + " tasks in the list.";
     }
+
+    public String addDeadlineTask(Storage storage, String file, String userMessage, Ui ui, TaskList taskList) {
+        int slashDeadline = userMessage.indexOf("/");
+        String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
+        String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
+        Deadline d = new Deadline(deadlineDescription, deadlineBy);
+        assert d != null : "Deadline to add cannot be null.";
+        list.add(d);
+        taskList.addTask(d, storage, file);
+        String response = ui.showAddedDeadline(d);
+        return response;
+    }
+
+    public String addTodoTask(Storage storage, String file, String userMessage, Ui ui, TaskList taskList) {
+        Todo td = new Todo(userMessage.substring(5));
+        assert td != null : "Todo to add cannot be null.";
+        list.add(td);
+        taskList.addTask(td, storage, file);
+        String response = ui.showAddedTodo(td);
+        return response;
+    }
+
+    public String addEventTask(Storage storage, String file, String userMessage, Ui ui, TaskList taskList) {
+        String[] eventSplit = userMessage.split("/");
+        String eventDescription = eventSplit[0].substring(6);
+        String eventTo = eventSplit[1].substring(5);
+        String eventFrom = eventSplit[2].substring(3);
+        Event e = new Event(eventDescription, eventTo, eventFrom);
+        assert e != null : "Event to add cannot be null.";
+        list.add(e);
+        taskList.addTask(e, storage, file);
+        String response = ui.showAddedEvent(e);
+        return response;
+    }
+
 }
