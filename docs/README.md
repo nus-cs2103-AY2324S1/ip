@@ -1,6 +1,15 @@
 # User Guide
 
 URChatBot (UCB) is your personal task managing chatbot.
+
+It is optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
+
+Download and run the jar file as the following guide to enjoy it!
+
+1. Copy the jar file into an empty folder.
+2. Open a command window in that folder.
+3. Run the command `java -jar urchatbot.jar` (i.e., run the command in the same folder as the jar file).
+
 ## Features 
 
 * ### Manage Tasks
