@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
 
-import duke.exception.LoadException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import duke.task.Deadline;
 import duke.exception.DeadlineException;
+import duke.exception.LoadException;
+import duke.task.Deadline;
 
 public class ParserTest {
     @Test
