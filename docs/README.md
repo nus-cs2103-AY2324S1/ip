@@ -2,7 +2,7 @@
 
 Welcome to the `Juke` User Guide! Through this user guide, you will:
 
-* Learn what is `Juke` and how it can help you to track your tasks
+* Learn what `Juke` is and how it can help you track your tasks
 * Learn the features of `Juke`
 * Learn the commands that `Juke` can understand
 
@@ -15,14 +15,14 @@ your machine.
 
 ### Setting Up
 
-To use `Juke`, you will need to install `Java 11` on your machine. You can find out more on
+To use `Juke`, you will need to install `Java 11` () on your machine. You can find out more on
 how you can install `Java 11` on your
 [Windows machine](https://docs.azul.com/core/zulu-openjdk/install/windows),
 [MacOS machine](https://docs.azul.com/core/zulu-openjdk/install/macos) or
 [Linux machine](https://docs.azul.com/core/zulu-openjdk/install/debian) by clicking on the hyperlinked
 text.
 
-Ensure that you are downloading the latest version of `Java 11` from the websites which contain
+Ensure that you are downloading the latest version of `Java 11` from the websites that contain
 the `JavaFX` library prepackaged in it.
 
 > **⚠️Warning**  
@@ -41,23 +41,55 @@ to learn more about the `cd` command.
 
 Finally, run the command `java -jar juke.jar` to start `Juke`!
 
+### Frequently Asked Questions
+
+Encountered some issues with installing Java or running the JAR file? Here are some common questions you may have!
+
+**Q: Which version of `Java` do I need to install? There's so many versions called `Java 11`!**
+
+<details>
+
+<summary>Answer</summary>
+
+Any version of `Java 11` will do! Ensure that the JDK you install comes bundled with the `JavaFX` 
+library! If you are using the Zulu JDK above, ensure that you install the ones that are tagged with 
+`JDK FX` on the downloads page!
+
+</details>
+
+**Q: I have downloaded the JAR file, but I can't seem to execute the file!**
+
+<details>
+
+<summary>Answer</summary>
+
+Do check that the correct `Java` version is being referenced when you execute the command 
+`java -jar juke.jar`, if you are unsure, run the command `java --version` to view the current 
+version of `Java` that is used to execute the JAR file!
+
+To change the default version of `Java` on your PC, check out [this guide](https://www.baeldung.com/java-home-on-windows-7-8-10-mac-os-x-linux)
+ to find out more on how you can set your PC's `JAVA_HOME` variable to allow the command to properly 
+reference the `Java 11` version you installed!
+
+</details>
+
 ## GUI
 
-The following image highlights some important aspect of the GUI:
+The following image highlights some important aspects of the GUI:
 
 ![GUI](GUI.png)
 
 ## Notations
 
 Before delving into the different commands that `Juke` can understand, here are some notations used in this User
-Guide which you should take note of:
+Guide that you should take note of:
 
-| Notation/Symbols                                          | Description                                                                                      |
-|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| [...]                                                     | Square brackets describe mandatory inputs that, <br>if omitted, will cause errors to appear      |
-| <...>                                                     | Angular brackets represents parameters which you need to <br> substitute with your own inputs    |
-| ( ... OR ... ) **or** [ ... OR ... ] **or** ... OR ...    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by ...) |
-| ( ... AND ... ) **or** [ ... AND ... ] **or** ... AND ... | The "OR" word is used to denote two mandatory <br>input from the two inputs (represented by ...) |
+| Notation/Symbols                                          | Description                                                                                       |
+|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| [...]                                                     | Square brackets describe mandatory inputs that, <br>if omitted, will cause errors to appear       |
+| <...>                                                     | Angular brackets represent parameters that you need to <br> substitute with your own inputs       |
+| ( ... OR ... ) **or** [ ... OR ... ] **or** ... OR ...    | The "OR" word is used to denote one mandatory <br>input from the two inputs (represented by ...)  |
+| ( ... AND ... ) **or** [ ... AND ... ] **or** ... AND ... | The "AND" word is used to denote two mandatory <br>input from the two inputs (represented by ...) |
 
 ## Features
 
@@ -66,7 +98,7 @@ Guide which you should take note of:
 ### Add a `Todo` Task
 
 You can add a `Todo` Task to help you track the tasks that you need to do! `Todo` tasks have
-no deadlines, and are represented only by its completion status!
+no deadlines, and are represented only by their completion status!
 
 #### Usage
 
@@ -93,7 +125,7 @@ Task added: [T] [] <YOUR TASK NAME>
 
 The following are examples of errors that could happen to the `todo` command:
 
-* `todo`: When the argument is ommitted, an error will occur
+* `todo`: When the task name is omitted, an error will occur
 
 ---
 
@@ -106,11 +138,11 @@ Create a `Deadline` Task to track completable tasks with a deadline!
 `deadline [task name] /by [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)MM(- OR /)YYYY)]`
 
 * Note the following
-  * `DD`: 2 digit number representing the day
-  * `MM`: 2 digit number representing the month
-  * `YYYY`: 4 digit number representing the year
-  * `HH`: 2 digit number representing the hour in 24 hours
-  * `MM`: 2 digit number representing the minutes
+  * `DD`: 2-digit number representing the day
+  * `MM`: 2-digit number representing the month
+  * `YYYY`: 4-digit number representing the year
+  * `HH`: 2-digit number representing the hour in 24 hours
+  * `MM`: 2-digit number representing the minutes
 
 > **⚠️Warning**  
 > The task name you enter **cannot** just be one or more spaces (" ")!
@@ -132,7 +164,7 @@ Task added: [D] [] <YOUR TASK NAME> by: <TASK DEADLINE>
 
 The following are examples of errors that could happen to the `deadline` command:
 
-* `deadline`, `deadline /by`: When the arguments are ommitted, an error will occur
+* `deadline`, `deadline /by`: When the arguments are omitted, an error will occur
 * `deadline error task /by gibberish`: When the date argument is invalid, an error will occur
 
 ---
@@ -178,7 +210,7 @@ Task added: [E] [] <YOUR TASK NAME> (from <TASK START DATE> to <TASK END DATE>)
 
 The following are examples of errors that could happen to the `event` command:
 
-* `event`, `event /from`, `event /from /to`: When the arguments are ommitted, an error will occur
+* `event`, `event /from`, `event /from /to`: When the arguments are omitted, an error will occur
 * `event error task /from gibberish /to gibberish 2`: When the date argument is invalid, an error will occur
 * `event error task 2 /from 01/01/2023 /to 01/01/2000`: When the start date is before the end date, an error will occur
 
@@ -476,5 +508,5 @@ Need a refresher? The following table provides a quick summary of the commands t
 * **GUI**: Graphical User Interface, an interactive interface that permits users to interact with graphical
   elements on the screen to perform tasks
 * **Java**: General-purpose Programming Language that Juke is written in
-* **JavaFX**: A Java GUI library which Juke relies on to generate the graphical interface for users
+* **JavaFX**: A Java GUI library that Juke relies on to generate the graphical interface for users
   to interact with
