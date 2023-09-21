@@ -52,13 +52,9 @@ public class Storage {
     public static void createDirectory(String directoryPath) {
         File directory = new File(directoryPath);
         if (directory.exists() && directory.isDirectory()) {
-            System.out.println("Directory already exists");
-            return;
-        } else if (directory.mkdir()) {
-            System.out.println("Directory has been created");
             return;
         }
-        System.out.println("Directory could not be created");
+        directory.mkdir();
     }
 
     /**
@@ -71,7 +67,6 @@ public class Storage {
         File file = new File(filePath);
         try {
             file.createNewFile();
-            System.out.println("File created sucessfully");
         } catch (IOException e) {
             System.out.println("File could not be created");
         }
