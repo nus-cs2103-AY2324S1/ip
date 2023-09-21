@@ -1,0 +1,3 @@
+[D][ ] CS2103T assignment (by: Sep 21 2023, 23:59)
+[E][ ] CS2103T Team Meeting (from: Sep 21 2023, 21:00 to: Sep 21 2023, 22:00)
+[T][ ] CS2100 assignment
