@@ -143,7 +143,7 @@ Example of usage:
 
 ### `rank` - Prioritise tasks
 
-Rank a task's priority level.
+Rank a task's priority level. Each priority level can only appear once.
 
 Format: `rank [index] /level [priority level]`
 
