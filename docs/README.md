@@ -202,7 +202,7 @@ For more advanced users who would like to edit the data file manually, here is t
 
 ----
 
-## Command Summary                                                                                    |
+## Command Summary
 1. List - `list`
 2. Add todo - `todo [desc]` (e.g. `todo Study for exam`)                                                                       
 3. Add deadline - `deadline [desc] /by [date]`<br/>(e.g. `deadline Assignment /by 2023-10-10T23:59:59`)                            
