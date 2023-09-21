@@ -202,8 +202,25 @@ public class Parser {
         String endString = matcher.group(3);
         LocalDate startTime = parseLocalDate(startString);
         LocalDate endTime = parseLocalDate(endString);
+        ensureChronologicalTimes(startTime, endTime);
         Event event = new Event(name, startTime, endTime);
         return new AddTaskExecutable(event);
+    }
+
+    //Following method was added on friend's suggestion to ensure events make sense
+    //(rocketninja7 on GitHub).
+    private static void ensureChronologicalTimes(LocalDate... dates) throws InvalidVarException {
+        if (dates.length == 0 || dates[0] == null) {
+            return;
+        }
+        LocalDate currMax = dates[0];
+        for (LocalDate date : dates) {
+            if (date.isBefore(currMax)) {
+                throw new InvalidVarException("Dates must be in chronological order!");
+            } else {
+                currMax = date;
+            }
+        }
     }
     private static Executable parseDeleteParams(String paramString) throws InvalidVarException {
         return new DeleteExecutable(parseIndex(paramString));
