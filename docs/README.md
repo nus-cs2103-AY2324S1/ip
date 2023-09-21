@@ -28,7 +28,9 @@ the benefits of a **Graphical User Interface (GUI)**.
 3. Copy the file to a folder as the _home folder_ that would also contain your task data.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar adj.jar` command to run the application. Alternatively, double-clicking can also launch the JAR file. <br>
    A GUI similar to the below should appear in a few seconds.
-   <img src="Ui.png" width="500px">
+
+<img src="Ui.png" width="500px">
+
 5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
 6. Refer to the [Features](#features) below for details of each command.
    
@@ -214,17 +216,17 @@ Please refer [here](https://docs.oracle.com/en/java/javase/11/install/overview-j
 **A**: Install ADJ in your other computer and replace your data file on that computer with the data file on your current computer which contains data of the tasks of your previous ADJ folder.
 
 ## Command summary
-| Action                                                    |                   Format                   | Example                                                          | 
+| Action                                                    |                   Format                   | Example                                                          |
 |-----------------------------------------------------------|:------------------------------------------:|------------------------------------------------------------------|
-| [Viewing help](#viewing-help--help)                       |                   `help`                   | `help`                                                           | 
-| [Add ToDo](#1-todo--todo)                                 |                `todo TASK`                 | `todo Watch QF1100 Lecture`                                      | 
-| [Add Deadline](#2-deadline--deadline)                     |        `deadline TASK /by DUE_DATE`        | `deadline CS2103T Quiz /by 2023-09-22`                           | 
-| [Add Event](#3-event--event)                              | `event TASK /from START_DATE /to END_DATE` | `event NUS Freshmen Orientation /from 2023-08-07 /to 2023-08-12` | 
-| [List all current tasks](#list-all-current-tasks--list)   |                   `list`                   | `list`                                                           | 
-| [Find tasks by keyword](#find-tasks-by-keyword--find)     |               `find KEYWORD`               | `find Quiz`                                                      | 
+| [Viewing help](#viewing-help--help)                       |                   `help`                   | `help`                                                           |
+| [Add ToDo](#1-todo--todo)                                 |                `todo TASK`                 | `todo Watch QF1100 Lecture`                                      |
+| [Add Deadline](#2-deadline--deadline)                     |        `deadline TASK /by DUE_DATE`        | `deadline CS2103T Quiz /by 2023-09-22`                           |
+| [Add Event](#3-event--event)                              | `event TASK /from START_DATE /to END_DATE` | `event NUS Freshmen Orientation /from 2023-08-07 /to 2023-08-12` |
+| [List all current tasks](#list-all-current-tasks--list)   |                   `list`                   | `list`                                                           |
+| [Find tasks by keyword](#find-tasks-by-keyword--find)     |               `find KEYWORD`               | `find Quiz`                                                      |
 | [Delete a task by index](#delete-a-task-by-index--delete) |               `delete INDEX`               | `delete 2`                                                       |                                                                   |
-| [Mark a task by index](#mark-a-task-by-index--mark)       |                `mark INDEX`                | `mark 2`                                                         | 
-| [Unmark a task by index](#unmark-a-task-by-index--unmark) |               `unmark INDEX`               | `unmark 2`                                                       | 
+| [Mark a task by index](#mark-a-task-by-index--mark)       |                `mark INDEX`                | `mark 2`                                                         |
+| [Unmark a task by index](#unmark-a-task-by-index--unmark) |               `unmark INDEX`               | `unmark 2`                                                       |
 | [Exit](#exit--bye)                                        |                   `bye`                    | `bye`                                                            |
 
 ## Uncovered Issues
