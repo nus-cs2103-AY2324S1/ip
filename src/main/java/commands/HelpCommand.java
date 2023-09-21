@@ -19,13 +19,13 @@ public class HelpCommand implements Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         String message = "Sorry, I don't understand what you mean."
             + "\nHere are some sample usages for your reference:"
-            + "\nAdd a deadline to your list: deadline + (description) + by: + (deadline time)"
-            + "\nAdd a todo task to your list: todo + (description)"
-            + "\nAdd an event task to your list: event + (description) + from + "
-            + "(startdate) + to + (enddate)"
-            + "\nDelete a task: delete + (line number)"
-            + "\nMark a task: mark + (line number)"
-            + "\nUnmark a class: unmark + (line number)"
+            + "\nAdd a deadline to your list: deadline + (description) + by: + (deadline time)\n"
+            + "\nAdd a todo task to your list: todo + (description)\n"
+            + "\nAdd an event task to your list: event + (description) + from + \n"
+            + "(startdate) + to + (enddate)\n"
+            + "\nDelete a task: delete + (line number)\n"
+            + "\nMark a task: mark + (line number)\n"
+            + "\nUnmark a class: unmark + (line number)\n"
             + "\ncontent in ( ) is for you to fill out";
         ui.showMessage(message);
         return message;

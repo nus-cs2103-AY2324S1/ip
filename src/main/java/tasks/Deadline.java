@@ -41,24 +41,18 @@ public class Deadline extends Task {
      * Parses the due date string into a LocalDate object using multiple date formats.
      */
     private void parseBy() {
-        DateTimeFormatter[] dateFormats = {
-          DateTimeFormatter.ofPattern("yyyy-MM-dd"),
-          DateTimeFormatter.ofPattern("MMM dd yyyy")
-        };
-
-        for (DateTimeFormatter dateFormat : dateFormats) {
-            try {
-                parsedBy = LocalDate.parse(by, dateFormat);
-                break;
-            } catch (DateTimeParseException e) {
-                parsedBy = parsedBy;
-            }
+        DateTimeFormatter dateFormat =  DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        try {
+            parsedBy = LocalDate.parse(by, dateFormat);
+        } catch (DateTimeParseException e) {
+            parsedBy = null;
         }
+
     }
 
     @Override
     public boolean isNotValid() {
-        return this.description == null || this.parsedBy == null;
+        return this.description == null && this.parsedBy == null;
     }
 
     /**

@@ -57,14 +57,14 @@ public class DataParser {
      * @return An Event object corresponding to the parsed line.
      */
     public static Event parseEvent(String line) {
-        int descriptionStart = line.indexOf("] "); // Index of the first character after "] "
+        int descriptionStart = line.indexOf("] ") + 1; // Index of the first character after "] "
         int startFromIndex = line.indexOf("from ") + 6; // Index of the character after "from: "
         int toIndex = line.indexOf("to ", startFromIndex); // Index of the character before "to: "
         int endFromIndex = toIndex + 4; // Index of the character after "to: "
 
-        String description = line.substring(descriptionStart, startFromIndex - 8).trim();
-        String start = line.substring(startFromIndex, toIndex).trim();
-        String end = line.substring(endFromIndex).trim();
+        String description = line.substring(descriptionStart, startFromIndex - 7).trim();
+        String start = line.substring(startFromIndex - 1, toIndex).trim();
+        String end = line.substring(endFromIndex - 1).trim();
 
         boolean isMarked = line.charAt(4) == 'X'; // Assuming index 4 corresponds to the "[ ]" checkmark
 
