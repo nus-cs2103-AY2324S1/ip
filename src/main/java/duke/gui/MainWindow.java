@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        if (input.toLowerCase().equals("bye")) {
+        if (input.equalsIgnoreCase("bye")) {
             stage.close();
         }
         dialogContainer.getChildren().addAll(
