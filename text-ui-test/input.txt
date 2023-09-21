@@ -1,0 +1,8 @@
+todo eat lunch
+todo eat dinner
+mark 1
+mark 2
+unmark 1
+delete 1
+list
+bye
