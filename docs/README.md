@@ -24,15 +24,16 @@ You can update or delete tasks if you made a mistake.
 
 Adds a ToDo task to the task list.
 
-Format: `todo <description>` 
+**Format:** `todo <description>` 
 
-Acceptable values: `<description>`: String
+**Acceptable values:** 
+- `<description>`: String
 
-Example of usage:
+**Example usage:**
 
 `todo read book`
 
-Expected outcome:
+**Expected outcome:**
 
 A message indicating that the task has been added and the number of tasks in the list.
 
@@ -45,15 +46,17 @@ Number of tasks: 1
 
 Adds a Deadline task to the task list.
 
-Format: `deadline <description> /by <YYYY-MM-DD>`
+**Format:** `deadline <description> /by <YYYY-MM-DD>`
 
-Acceptable values: `<description>`: String, `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
+**Acceptable values:** 
+- `<description>`: String 
+- `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
 
-Example of usage:
+**Example usage:**
 
 `deadline return book /by 2020-09-20`
 
-Expected outcome:
+**Expected outcome:**
 
 A message indicating that the task has been added and the number of tasks in the list.
 
@@ -66,15 +69,17 @@ Number of tasks: 2
 
 Adds an Event task to the task list.
 
-Format: `event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>`
+**Format:** `event <description> /from <YYYY-MM-DD> /to <YYYY-MM-DD>`
 
-Acceptable values: `<description>`: String, `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
+**Acceptable values:** 
+- `<description>`: String
+- `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
 
-Example of usage:
+**Example usage:**
 
 `event carnival /from 2020-09-20 /to 2020-09-21`
 
-Expected outcome:
+**Expected outcome:**
 
 A message indicating that the task has been added and the number of tasks in the list.
 
@@ -87,13 +92,13 @@ Number of tasks: 3
 
 Lists all tasks in the task list.
 
-Format: `list`
+**Format:** `list`
 
-Example of usage:
+**Example usage:**
 
 `list`
 
-Expected outcome:
+**Expected outcome:**
 
 Shows all tasks in the task list.
 
@@ -107,15 +112,16 @@ Here are the tasks in your list:
 
 Marks a task as done.
 
-Format: `mark <task index>`
+**Format:** `mark <task index>`
 
-Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list
+**Acceptable values:**
+- `<task index>`: Positive integer less than or equal to the number of tasks in the list
 
-Example of usage:
+**Example usage:**
 
 `mark 1`
 
-Expected outcome:
+**Expected outcome:**
 
 A message indicating that the task has been marked as done.
 
@@ -127,15 +133,16 @@ Nice! I've marked this task as done:
 
 Marks a task as not done.
 
-Format: `unmark <task index>`
+**Format:** `unmark <task index>`
 
-Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list
+**Acceptable values:**
+- `<task index>`: Positive integer less than or equal to the number of tasks in the list
 
-Example of usage:
+**Example usage:**
 
 `unmark 1`
 
-Expected outcome:
+**Expected outcome:**
 
 A message indicating that the task has been marked as not done.
 
@@ -147,15 +154,16 @@ OK, I've marked this task as not done yet:
 
 Deletes a task from the task list.
 
-Format: `delete <task index>`
+**Format:** `delete <task index>`
 
-Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list
+**Acceptable values:** 
+- `<task index>`: Positive integer less than or equal to the number of tasks in the list
 
-Example of usage:
+**Example usage:**
 
 `delete 1`
 
-Expected outcome:
+**Expected outcome:**
 
 A message indicating that the task has been deleted and the number of tasks in the list.
 
@@ -168,15 +176,16 @@ Number of tasks: 2
 
 Find tasks by searching for a keyword.
 
-Format: `find <keyword>`
+**Format:** `find <keyword>`
 
-Acceptable values: `<keyword>`: String
+**Acceptable values:** 
+- `<keyword>`: String
 
-Example of usage:
+**Example usage:**
 
 `find book`
 
-Expected outcome:
+**Expected outcome:**
 
 Shows all tasks that contain the keyword.
 ```
@@ -188,7 +197,7 @@ Here are the matching tasks in your list:
 
 Updates a task in the task list.
 
-Format: 
+**Format:** 
 
 `update <task index> /desc <description>`
 
@@ -198,15 +207,17 @@ Format:
 
 `update <task index> /to <YYYY-MM-DD>`
 
-Acceptable values: `<task index>`: Positive integer less than or equal to the number of tasks in the list, `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
+**Acceptable values:** 
+- `<task index>`: Positive integer less than or equal to the number of tasks in the list 
+- `<YYYY-MM-DD>`: Date in the format YYYY-MM-DD
 
-Example of usage:
+**Example usage:**
 
 `update 2 /from 2023-11-08`
 
 `update 2 /desc fun carnival`
 
-Expected outcome:
+**Expected outcome:**
 
 Updates the task and shows the updated task.
 ```
@@ -221,13 +232,13 @@ OK, I've updated this task:
 
 Ends the program.
 
-Format: `bye`
+**Format:** `bye`
 
-Example of usage:
+**Example usage:**
 
 `bye`
 
-Expected outcome:
+**Expected outcome:**
 
 Shows a goodbye message and ends the program.
 ```
