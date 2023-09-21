@@ -16,7 +16,6 @@ import bobi.task.Deadline;
 import bobi.task.Event;
 import bobi.task.Task;
 import bobi.task.ToDo;
-import javafx.application.Platform;
 
 /**
  * Storage class encapsulates all actions that can be done to the tasks saved in the backend.
@@ -31,7 +30,18 @@ public class Storage {
      * Constructor for a Storage object.
      */
     public Storage() {
-        this.pathString = "C:\\Users\\Admin\\Bobi\\data\\task.txt";
+        this.pathString = "tasks.txt";
+
+        try {
+            File file = new File(this.pathString);
+
+            // creates new file if it does not exist
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -41,7 +51,7 @@ public class Storage {
      */
     public void saveTask(Task newTask) {
         try {
-            Path path = Paths.get("C:\\Users\\Admin\\Bobi", "data", "task.txt");
+            Path path = Paths.get(pathString);
             String taskString = newTask.toStoreString() + "\n";
 
             // the text file should exist at the correct path if execution reaches here
@@ -153,14 +163,6 @@ public class Storage {
         Scanner sc = null;
         try {
             File file = new File(this.pathString);
-
-            file.getParentFile().mkdirs();
-
-            // creates new file if it does not exist
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
             // the text file should exist at the correct path if execution reaches here
             assert Files.exists(Path.of(this.pathString));
 

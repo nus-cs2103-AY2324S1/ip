@@ -2,7 +2,6 @@ package bobi;
 
 import bobi.exception.EmptyCommandException;
 import bobi.exception.InvalidCommandException;
-import bobi.gui.MainWindow;
 import bobi.utility.Command;
 import bobi.utility.Storage;
 import bobi.utility.TaskList;
