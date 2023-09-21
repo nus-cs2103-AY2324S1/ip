@@ -64,7 +64,6 @@ public class Storage {
             FileOutputStream fileOutputStream = new FileOutputStream(filePath);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
             infos.save(objectOutputStream);
-            System.out.println("Oscar has saved your info list!\n");
         } catch (FileNotFoundException e) {
             throw new OscarException("Sorry! File is not found.\n");
         } catch (IOException e) {

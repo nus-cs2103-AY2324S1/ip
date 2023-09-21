@@ -1,7 +1,7 @@
 # Oscar
 
 Oscar is a chatbot named after F1 driver Oscar Piastri. 
-Oscar is a desktop app for managing your notes and tasks via a Command Line Interface (CLI), while still having the benefits of a Graphical User Interface (GUI).
+Oscar is a desktop app for managing your notes and tasks via entering commands (case-insensitive).
 This user guide will teach about Oscar's features and how to use Oscar.
 
 ## Features 
