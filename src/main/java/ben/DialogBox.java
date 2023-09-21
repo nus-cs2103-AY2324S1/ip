@@ -9,10 +9,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+
+import javafx.geometry.Insets;
 
 /**
  * An example of a custom control using FXML.
@@ -37,6 +44,21 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        // Add padding to the image
+        displayPicture.setFitWidth(60); // Adjust as needed
+        displayPicture.setFitHeight(60); // Adjust as needed
+
+        // Clip the image in a circular shape
+        Circle clip = new Circle(30, 30, 30); // Adjust the parameters as needed
+        displayPicture.setClip(clip);
+
+        // Set background color to light blue
+        setBackground(new Background(new BackgroundFill(Color.LIGHTCORAL, CornerRadii.EMPTY, Insets.EMPTY)));
+
+        // Set padding and spacing for the dialog box
+        setPadding(new Insets(20));
+        setSpacing(10); // Adjust as needed
     }
 
     /**
@@ -46,6 +68,7 @@ public class DialogBox extends HBox {
         ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
+        setBackground(new Background(new BackgroundFill(Color.LIGHTCYAN, CornerRadii.EMPTY, Insets.EMPTY)));
         setAlignment(Pos.TOP_LEFT);
     }
 

@@ -59,6 +59,8 @@ public class MainWindow extends AnchorPane {
             return;
         }
 
+        dialogContainer.setSpacing(10);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBenDialog(response, dukeImage)
