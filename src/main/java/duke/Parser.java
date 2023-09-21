@@ -29,9 +29,9 @@ public class Parser {
      *
      * @param command  The user's command to be processed.
      * @param taskList The user's tasklist to be ammended.
-     * @throws DukeException If the command is not recognised, or error.
      */
     public static String parseCommand(String command, TaskList taskList) {
+        assert command != null;
         String result = "";
         try {
             String[] separateCommand = command.split(" ");
@@ -76,6 +76,7 @@ public class Parser {
      */
     public static String parseEditTask(String command,
                                        String[] separateCommand, TaskList taskList) throws DukeException {
+        assert command != null;
         try {
             if (separateCommand.length > 2 || Integer.parseInt(separateCommand[1]) > taskList.getSize()) {
                 throw new DukeException("☹ OOPS!!! Invalid number");
@@ -108,6 +109,7 @@ public class Parser {
      */
     public static String parseTasksCommand(String command, String[] separateCommand,
                                            TaskList taskList) throws DukeException {
+        assert command != null;
         if (command.startsWith("find")) {
             return parseFindTask(separateCommand, taskList);
         } else if (command.startsWith("todo")) {
@@ -130,6 +132,7 @@ public class Parser {
      * @return A string containing the matching tasks or a message if no matches are found.
      */
     public static String parseFindTask(String[] separateCommand, TaskList taskList) {
+        assert separateCommand != null;
         int count = 0;
         String keyword = separateCommand[1];
         String result = "";
@@ -152,6 +155,7 @@ public class Parser {
      * @throws DukeException If there is an issue with the task description.
      */
     public static String parseToDoCommand(String command, TaskList taskList) throws DukeException {
+        assert command != null;
         String result = "";
         try {
             String description = command.substring(5);
