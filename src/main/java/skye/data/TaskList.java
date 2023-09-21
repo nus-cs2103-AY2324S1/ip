@@ -58,7 +58,7 @@ public class TaskList {
     }
 
     /**
-     * Mark a task as completed by specifying the task number.
+     * Marks a task as completed by specifying the task number.
      *
      * @param taskNumber The numerical order of the task in the list.
      * @return The task that was marked as completed
