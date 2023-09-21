@@ -6,23 +6,6 @@ Cupid Bot serves to track all your todos, deadlines and events all in one applic
 
 ![Screenshot of sample UI](https://github.com/nicrandomlee/ip/blob/master/docs/Ui.png?raw=true)
 
-## Setting up in Intellij
-
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-## Quick Start
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-2. Open the project into Intellij as follows:  
-   a. Click `Open`.  
-   b. Select the project directory, and click `OK`.  
-   c. If there are any further prompts, accept the defaults.
-3. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-4. After that, locate the `src/main/java/runner/Launcher.java` file, right-click it, and choose `Run Launcher.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   `Hello! Welcome to cupid task tracking bot. How can I help you?`
-5. Alternatively, you can locate the `gradle/wrapper/gradle-wrapper.jar` file, double-click it to launch and you should be able to see the GUI and welcome message as well.
-
 ## Features
 
 ### Help
