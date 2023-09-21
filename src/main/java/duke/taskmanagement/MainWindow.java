@@ -1,5 +1,7 @@
 package duke.taskmanagement;
 
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -45,11 +48,21 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        // @@author phiphi-tan-reused
+        if (input.equals("bye")) {
+            PauseTransition pause = new PauseTransition(Duration.seconds(1)); // 1 second delay
+            pause.setOnFinished(event -> {
+                // Close the JavaFX application after the delay
+                Platform.exit();
+            });
+            pause.play();
+        }
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+
     }
 }
