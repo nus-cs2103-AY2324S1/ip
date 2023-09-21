@@ -25,7 +25,7 @@ public class Parser {
     /**
      * Commands that act on a String (e.g. description of task)
      */
-    protected enum STRING_COMMAND {
+    protected enum StringCommands {
         todo {
             public Command perform(String input) {
                 return new AddCommand(new Task(input, false));
@@ -96,7 +96,7 @@ public class Parser {
     /**
      * List of commands that act on integer values (eg. indices).
      */
-    protected enum INT_COMMAND {
+    protected enum IntCommands {
         mark {
             @Override
             public Command perform(int... taskIndices) {
@@ -157,10 +157,10 @@ public class Parser {
         if (trimmedInput.isEmpty()) {
             throw new JoException("The command cannot be empty.");
 
-        } else if (isInEnum(trimmedInput, STRING_COMMAND.class)) {
+        } else if (isInEnum(trimmedInput, StringCommands.class)) {
             throw new JoException(String.format("The description of a %s cannot be empty.", input.trim()));
 
-        } else if (isInEnum(trimmedInput, INT_COMMAND.class)) {
+        } else if (isInEnum(trimmedInput, IntCommands.class)) {
             throw new JoException(String.format("Please specify a valid task number to %s.", input.trim()));
 
         } else if (trimmedInput.equals("list")) {
@@ -169,18 +169,18 @@ public class Parser {
         } else if (trimmedInput.equalsIgnoreCase("bye")) {
             return new ExitCommand();
 
-        // Command is in the STRING_COMMAND enumeration
-        } else if (isInEnum(instruction, STRING_COMMAND.class)) {
+        // Command is in the StringCommands enumeration
+        } else if (isInEnum(instruction, StringCommands.class)) {
             String description = parts[1].trim();
 
-            for (STRING_COMMAND t : STRING_COMMAND.values()) {
+            for (StringCommands t : StringCommands.values()) {
                 if (t.name().equals(instruction)) {
                     return t.perform(description);
                 }
             }
 
-        // Command is in the INT_COMMAND enumeration
-        } else if (isInEnum(instruction, INT_COMMAND.class)) {
+        // Command is in the IntCommands enumeration
+        } else if (isInEnum(instruction, IntCommands.class)) {
             String[] values = parts[1].split(",");
             int[] taskIndices = new int[values.length];
 
@@ -192,7 +192,7 @@ public class Parser {
                 taskIndices[i] = Integer.parseInt(values[i].trim()) - 1;
             }
 
-            for (INT_COMMAND c : INT_COMMAND.values()) {
+            for (IntCommands c : IntCommands.values()) {
                 if (c.name().equals(instruction)) {
                     return c.perform(taskIndices);
                 }

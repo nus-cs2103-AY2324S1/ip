@@ -30,6 +30,7 @@ public class Storage {
         this.f = new File(filePath);
         if (!this.f.exists()) {
             try {
+                this.f.getParentFile().mkdirs();
                 this.f.createNewFile();
             } catch (IOException e) {
                 throw new JoException(e.getMessage());

@@ -89,7 +89,7 @@ public class ParserTest {
         Event event = (Event) addCommand.getTask();
         assertEquals("party", event.getDescription());
         assertFalse(event.getIsDone());
-        assertEquals("2024-01-01", event.getDeadline().toString());
+        assertEquals("2024-01-01", event.getEndDate().toString());
     }
     @Test
     public void parseEmptyInput() {

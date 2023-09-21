@@ -25,13 +25,13 @@ public class TaskTest {
     @Test
     public void toString_notDone() {
         Task task = new Task("Sample task", false);
-        assertEquals("[T][ ] Sample task", task.toString());
+        assertEquals("[T][ ] Sample task\n", task.toString());
     }
 
     @Test
     public void toString_done() {
         Task task = new Task("Sample task", true);
-        assertEquals("[T][X] Sample task", task.toString());
+        assertEquals("[T][X] Sample task\n", task.toString());
     }
 
     @Test

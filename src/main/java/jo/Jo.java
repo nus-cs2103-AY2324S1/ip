@@ -8,7 +8,7 @@ import jo.command.Command;
  */
 public class Jo {
 
-    protected static String DEFAULT_FILE_PATH = "data/jo.txt";
+    protected static String filePath = "./data/jo.txt";
 
     private Storage storage;
     private TaskList tasks;
@@ -32,7 +32,7 @@ public class Jo {
     }
 
     public Jo() throws JoException {
-        this(DEFAULT_FILE_PATH);
+        this(filePath);
     }
 
     /**
@@ -74,6 +74,6 @@ public class Jo {
     }
 
     public static void main(String[] args) throws JoException {
-        new Jo(DEFAULT_FILE_PATH).run();
+        new Jo(filePath).run();
     }
 }
