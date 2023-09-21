@@ -51,13 +51,14 @@ test {
 }
 
 application {
-    mainClass.set("com.mimi.main.Mimi")
+    mainClass.set("com.mimi.main.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "Mimi"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'Mimi.jar'
 }
 
 run{
