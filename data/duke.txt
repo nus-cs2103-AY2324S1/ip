@@ -1,4 +1,5 @@
 [E][ ] HIGH vote (from: 2023-09-01 to: 2023-09-02)
-[D][X] NORMAL assignment (by: 2023-09-01)
+[D][X] NORMAL assignment  (by: 2023-09-01)
 [T][ ] NORMAL lecture recording
+[T][ ] LOW buy groceries
 [T][ ] LOW ip
