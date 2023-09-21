@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private static final String INTRO = "    Hello! I'm Not A ChatBot\n"
+    private static final String INTRO = "    Hello! I'm Boti\n"
             + "    What can I do for you?\n";
     private final Image chatbot = new Image(this.getClass().getResourceAsStream("/images/Chatbot.png"));
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
@@ -54,7 +54,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Not a Chatbot");
+        stage.setTitle("Boti");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);

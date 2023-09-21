@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 
 /**
  * Class for the box for dialog
@@ -29,6 +30,9 @@ public class DialogBox extends HBox {
     public DialogBox(Label l, ImageView iv, String color) {
         text = l;
         displayPicture = iv;
+
+        Font font = Font.font("Helvetica", 12);
+        l.setFont(font);
 
         text.setWrapText(true);
         displayPicture.setFitWidth(100.0);

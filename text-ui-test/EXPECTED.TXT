@@ -1,5 +1,5 @@
     ____________________________________________________________
-    Hello! I'm Not A Boti
+    Hello! I'm Boti
     What can I do for you?
     ____________________________________________________________
     ____________________________________________________________
@@ -215,12 +215,13 @@
     ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
     ____________________________________________________________
     ____________________________________________________________
-Cannot find any tasks with this keyword
+    Cannot find any tasks with this keyword
     ____________________________________________________________
     ____________________________________________________________
-Cannot find any tasks with this keyword
+    Cannot find any tasks with this keyword
     ____________________________________________________________
     ____________________________________________________________
+    The list of tasks containing the keyword is:
     1. [D][X] CS2103 Individual Project  (by: SEP 01 2023 )
     2. [T][ ] CS2103 Materials
 

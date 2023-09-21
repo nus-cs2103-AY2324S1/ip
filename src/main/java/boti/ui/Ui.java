@@ -68,8 +68,15 @@ public class Ui {
      * @return the message of the list task command
      */
     public String printTasks(TaskList tasks) {
-        String tasksMessage = SPACE + "Here are the tasks in your list:\n"
-                            + tasks;
+        String tasksMessage;
+
+        if (!tasks.isEmpty()) {
+            tasksMessage = SPACE + "Here are the tasks in your list:\n"
+                    + tasks;
+        } else {
+            tasksMessage = SPACE + "Currently you have no tasks.";
+        }
+
         System.out.println(SPACE + DASH);
         System.out.println(tasksMessage);
         System.out.println(SPACE + DASH);
@@ -149,9 +156,10 @@ public class Ui {
     public String printFindTask(TaskList tasks) {
         String findTaskMessage;
         if (tasks.isEmpty()) {
-            findTaskMessage = "Cannot find any tasks with this keyword";
+            findTaskMessage = SPACE + "Cannot find any tasks with this keyword";
         } else {
-            findTaskMessage = tasks + "\n";
+            findTaskMessage = SPACE + "The list of tasks containing the keyword is:\n"
+                            + tasks;
         }
         System.out.println(SPACE + DASH);
         System.out.println(findTaskMessage);
