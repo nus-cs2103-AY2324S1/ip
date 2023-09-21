@@ -152,15 +152,17 @@ public class Parser {
      */
     public String runDeleteCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         int index;
+        String output;
         try {
             index = Integer.parseInt(params.split(" ")[0]) - 1;
+            output = ui.printDeleteTask(taskList, index);
             taskList.deleteTask(index);
             storage.writeFile(taskList);
         } catch (Exception e) {
             throw new SisyphusException("You must include a valid task number. "
                     + "Use list to see what is valid.");
         }
-        return ui.printDeleteTask(taskList, index);
+        return output;
     }
 
     /**
