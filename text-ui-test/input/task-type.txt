@@ -1,0 +1,15 @@
+todo buy grocery
+event Orbital splashdown /from tday 6pm /to tday 9pm
+deadline finish this project /by Thurs 2359
+event GDG-workshop /from tmr 7.30pm /to tmr 9.30pm
+list
+mark 10
+mark 4
+list
+deadline CS2109S PS0
+deadline CS2109S PS0 /by 26 Aug
+event cchess training /to 9pm Mon /from 7pm Mon
+event cchess training /from 7pm Mon /t 9pm
+event cchess training /from 7pm Mon /to 9pm
+list
+bye

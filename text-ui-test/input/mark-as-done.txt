@@ -1,0 +1,15 @@
+todo do task 1
+todo do task 2
+list
+todo task3
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+mark 4
+list
+unmark 6
+list
+bye

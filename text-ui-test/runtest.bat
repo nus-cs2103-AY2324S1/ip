@@ -14,8 +14,14 @@ IF ERRORLEVEL 1 (
 )
 REM no error here, errorlevel == 0
 
-REM run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ..\bin Duke < input.txt > ACTUAL.TXT
+java -classpath ..\bin Duke < .\input\mark-as-done.txt > .\actual\mark-as-done.txt
+FC .\actual\mark-as-done.txt .\expected\mark-as-done.txt
 
-REM compare the output to the expected output
-FC ACTUAL.TXT EXPECTED.TXT
+java -classpath ..\bin Duke < .\input\task-type.txt > .\actual\task-type.txt
+FC .\actual\task-type.txt .\expected\task-type.txt
+
+java -classpath ..\bin Duke < .\input\add-task-error.txt > .\actual\add-task-error.txt
+FC .\actual\add-task-error.txt .\expected\add-task-error.txt
+
+java -classpath ..\bin Duke < .\input\delete-task.txt > .\actual\delete-task.txt
+FC .\actual\delete-task.txt .\expected\delete-task.txt
