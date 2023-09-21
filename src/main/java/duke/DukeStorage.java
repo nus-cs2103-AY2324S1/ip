@@ -98,5 +98,7 @@ public class DukeStorage implements Storage {
                 throw new IOException(Messages.FAILED_TO_CREATE_FILE_ERROR_MESSAGE);
             }
         }
+        assert directory.exists() : "Storage directory must exist";
+        assert file.exists() : "Storage file must exist";
     }
 }

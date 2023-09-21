@@ -67,6 +67,7 @@ public class Parser {
         this.addCommand(new String[]{Deadline.TASK_TYPE, Event.TASK_TYPE, ToDo.TASK_TYPE},
                 new InsertCommand());
         this.addCommand(new String[]{"bye", "exit", "leave", "quit"}, new ExitCommand());
+        assert !commandMap.isEmpty() : "Command map cannot be empty";
     }
 
     /**
@@ -203,6 +204,7 @@ public class Parser {
      * @param command The associated command.
      */
     private void addCommand(String name, Command command) {
+        assert command != null : "Command cannot be null";
         this.commandMap.put(name, command);
     }
 
@@ -213,6 +215,7 @@ public class Parser {
      * @param command The associated command.
      */
     private void addCommand(String[] names, Command command) {
+        assert command != null : "Command cannot be null";
         for (String name : names) {
             this.commandMap.put(name, command);
         }
@@ -231,7 +234,10 @@ public class Parser {
         String commandName = args[0];
         Command command = this.commandMap.get(commandName);
         if (command != null) {
-            return command.run(input, taskList);
+            String output = command.run(input, taskList);
+            assert !(output == null) && !output.isEmpty() : "Command output cannot be null or "
+                    + "empty";
+            return output;
         } else {
             throw new UnknownCommandException(Messages.UNKNOWN_COMMAND_ERROR_MESSAGE);
         }
