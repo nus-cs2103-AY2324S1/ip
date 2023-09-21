@@ -136,6 +136,12 @@ public class TaskList {
             return output.toString();
         }
     }
+
+    /**
+     * Checks whether the input string is the same as any task descriptions in the tasklist.
+     * @param desc input string to check
+     * @return boolean representing whether the input string is a duplicate
+     */
     public boolean isDuplicate(String desc) {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).description.equals(desc)) {

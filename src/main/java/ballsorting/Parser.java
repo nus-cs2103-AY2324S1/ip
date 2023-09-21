@@ -62,6 +62,12 @@ public class Parser {
         }
 
     }
+
+    /**
+     * Parse the stored string that represents a Todo, and add to tasklist.
+     * @param input stored todo string
+     * @param taskList tasklist of the bot
+     */
     public void parseStoredTodo(String input, TaskList taskList) {
         int stat = Integer.parseInt(input.substring(2, 3));
         Task curr = new Todo(input.substring(4));
@@ -71,6 +77,12 @@ public class Parser {
         assert curr != null;
         taskList.addTask(curr);
     }
+
+    /**
+     * Parse the stored string that represents a Deadline, and add to tasklist.
+     * @param input stored deadline string
+     * @param taskList tasklist of the bot
+     */
     public void parseStoredDeadline(String input, TaskList taskList) {
         int stat = Integer.parseInt(input.substring(2, 3));
         StringBuilder desc = new StringBuilder();
@@ -92,6 +104,12 @@ public class Parser {
         assert curr != null;
         taskList.addTask(curr);
     }
+
+    /**
+     * Parse the stored string that represents an event, and add to tasklist.
+     * @param input stored event string
+     * @param taskList tasklist of the bot
+     */
     public void parseStoredEvent(String input, TaskList taskList) {
         int stat = Integer.parseInt(input.substring(2, 3));
         StringBuilder desc = new StringBuilder();

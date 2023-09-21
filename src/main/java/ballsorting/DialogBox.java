@@ -32,10 +32,22 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Returns a user dialog box.
+     * @param l text to display in the user dialog box
+     * @param iv image to display in the user dialog box
+     * @return A dialog box that represents the user
+     */
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
+    /**
+     * Returns the bot dialog box.
+     * @param l text to display in the bot dialog box
+     * @param iv image to display in the bot dialog box
+     * @return A dialog box that represents the bot
+     */
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();

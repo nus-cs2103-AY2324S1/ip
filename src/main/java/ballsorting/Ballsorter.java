@@ -129,18 +129,15 @@ public class Ballsorter extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates response according to the user's command.
      */
     protected String getResponse(String input) {
-        return "You typed: " + input;
+        return parser.parseUserInput(input, taskList);
     }
 
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Displays the bot and user dialog boxes.
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());

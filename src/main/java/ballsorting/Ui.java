@@ -1,23 +1,31 @@
 package ballsorting;
 
 import java.time.LocalDateTime;
-import java.util.Scanner;
 
 /**
  * Handles interactions with the user.
  */
 public class Ui {
-    //private Scanner sc;
     public Ui() {
-
     }
 
+    /**
+     * Handles the list command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return list of tasks in the tasklist
+     */
     public String handleList(String input, TaskList taskList) {
         StringBuilder output = new StringBuilder();
         output.append("Here are the tasks in your list:\n");
         output.append(taskList.getStringList());
         return output.toString();
     }
+
+    /**
+     * Handles the help command from the user.
+     * @return a list of possible commands for the bot
+     */
     public String handleHelp() {
         StringBuilder output = new StringBuilder();
         output.append("Here are the list of possible commands:\n");
@@ -31,18 +39,47 @@ public class Ui {
         output.append("8. bye - quits the chatbot\n");
         return output.toString();
     }
+
+    /**
+     * Handles the mark command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return String to show that the task has been successfully marked as done
+     */
     public String handleMark(String input, TaskList taskList) {
         int target = Integer.parseInt(input.substring(5)) - 1;
         return taskList.markTask(target);
     }
+
+    /**
+     * Handles the unmark command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return String to show that task has been successfully marked as not done
+     */
     public String handleUnmark(String input, TaskList taskList) {
         int target = Integer.parseInt(input.substring(7)) - 1;
         return taskList.unmarkTask(target);
     }
+
+    /**
+     * Handles the delete command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return String to show that the task has been successfully deleted
+     */
     public String handleDelete(String input, TaskList taskList) {
         int target = Integer.parseInt(input.substring(7)) - 1;
         return taskList.deleteTask(target);
     }
+
+    /**
+     * Handles the find command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return List of tasks that matches the search term
+     * @throws CustomError when no search term is input
+     */
     public String handleFind(String input, TaskList taskList) throws CustomError {
         if (input.length() == 4) {
             throw new CustomError.emptySearchTermException();
@@ -55,6 +92,14 @@ public class Ui {
             }
         }
     }
+
+    /**
+     * Handles the todo command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return String to show the todo has been successfully added to tasklist
+     * @throws CustomError when there are missing input fields or duplicated description
+     */
     public String handleTodo(String input, TaskList taskList) throws CustomError {
         Task curr = null;
         StringBuilder description = new StringBuilder();
@@ -73,6 +118,14 @@ public class Ui {
             return taskList.addTask(curr);
         }
     }
+
+    /**
+     * Handles the deadline command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return String to show the deadline has been successfully added to tasklist
+     * @throws CustomError when there are missing input fields or duplicated description
+     */
     public String handleDeadline(String input, TaskList taskList) throws CustomError {
         Task curr = null;
         StringBuilder description = new StringBuilder();
@@ -101,6 +154,14 @@ public class Ui {
             return taskList.addTask(curr);
         }
     }
+
+    /**
+     * Handles the event command from the user.
+     * @param input command string from the user
+     * @param taskList tasklist of the bot
+     * @return String to show the event has been successfully added to tasklist
+     * @throws CustomError when there are missing input fields or duplicated description
+     */
     public String handleEvent(String input, TaskList taskList) throws CustomError {
         Task curr = null;
         StringBuilder description = new StringBuilder();
