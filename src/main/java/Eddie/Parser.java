@@ -51,36 +51,46 @@ public class Parser {
                     int index = sc.nextInt();
                     return DeleteCommand.execute(index - 1);
                 case "todo":
-                    String restOfString = sc.nextLine();
-
-                    if (restOfString.length() == 0) {
+                    if (!sc.hasNext()) {
                         throw new EmptyDescriptionException();
                     }
+                    String restOfString = sc.nextLine();
 
                     String taskName = restOfString;
                     Task taskToAdd = new Todo(taskName);
                     return AddCommand.execute(taskToAdd);
                 case "deadline":
+                    if (!sc.hasNext()) {
+                        throw new EmptyDescriptionException();
+                    }
                     restOfString = sc.nextLine();
 
-                    if (restOfString.length() == 0) {
-                        throw new EmptyDescriptionException();
-
-                    }
                     int slashIndex = restOfString.indexOf("/by");
                     if (slashIndex == -1) {
                         throw new MissingByDateException();
+                    } else if (slashIndex == 1) {
+                        throw new EmptyDescriptionException();
                     }
+
                     taskName = restOfString.substring(0, slashIndex - 1);
+
+                    try {
+                        String date = restOfString.substring(slashIndex + 4);
+                    } catch (StringIndexOutOfBoundsException e) {
+                        throw new MissingByDateException();
+                    }
+
                     String date = restOfString.substring(slashIndex + 4);
+
                     LocalDate d = LocalDate.parse(date);
                     taskToAdd = new Deadline(taskName, d);
                     return AddCommand.execute(taskToAdd);
                 case "event":
-                    restOfString = sc.nextLine();
-                    if (restOfString.length() == 0) { 
+                    if (!sc.hasNext()) {
                         throw new EmptyDescriptionException();
                     }
+                    restOfString = sc.nextLine();
+
 
                     int fromIndex = restOfString.indexOf("/from");
                     int toIndex = restOfString.indexOf("/to");
