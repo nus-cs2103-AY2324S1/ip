@@ -30,9 +30,8 @@ public class TodoCommand extends Command {
      * @param tasks   The list of tasks.
      * @param ui      The UI object used to communicate with the user.
      * @param storage The storage object responsible for reading from and writing tasks to the data file.
-     * @return A string message indicating the task has been added.
      * @throws DukeException If the description of the todo is empty.
-     * @throws IOException If there's an error when saving the tasks to the data file.
+     * @throws IOException   If there's an error when saving the tasks to the data file.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {

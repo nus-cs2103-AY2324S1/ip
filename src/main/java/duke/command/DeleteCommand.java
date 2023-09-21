@@ -23,12 +23,11 @@ public class DeleteCommand extends Command {
      * Executes the delete command, which attempts to remove a task from the given task list
      * based on the provided task number. It also updates the storage after deletion.
      *
-     * @param tasks The task list that contains the list of tasks.
-     * @param ui The UI of the application.
+     * @param tasks   The task list that contains the list of tasks.
+     * @param ui      The UI of the application.
      * @param storage The storage that stores task list data.
-     * @return A message indicating the result of the execution.
      * @throws DukeException If the task number is invalid or out of bounds.
-     * @throws IOException If there is an error saving the updated task list to storage.
+     * @throws IOException   If there is an error saving the updated task list to storage.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {

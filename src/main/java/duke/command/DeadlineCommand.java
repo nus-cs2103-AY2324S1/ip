@@ -29,12 +29,11 @@ public class DeadlineCommand extends Command {
      * Executes the deadline command, which attempts to create a new Deadline task
      * and adds it to the given task list. It also updates the storage with the new task.
      *
-     * @param tasks The task list that contains the list of tasks.
-     * @param ui The UI of the application.
+     * @param tasks   The task list that contains the list of tasks.
+     * @param ui      The UI of the application.
      * @param storage The storage that stores task list data.
-     * @return A message indicating the result of the execution.
      * @throws DukeException If there is an error with the input or format of the deadline.
-     * @throws IOException If there is an error saving the tasks to storage.
+     * @throws IOException   If there is an error saving the tasks to storage.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {

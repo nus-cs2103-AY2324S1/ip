@@ -29,7 +29,6 @@ public class FindCommand extends Command {
      * @param tasks   The list of tasks to search within.
      * @param ui      The UI object to interact with the user.
      * @param storage The storage object to read/write tasks from/to the data file.
-     * @return A string message detailing the matching tasks.
      * @throws DukeException If any issue occurs during the operation.
      */
     @Override

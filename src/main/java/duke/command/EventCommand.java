@@ -33,12 +33,11 @@ public class EventCommand extends Command {
      * provided description, start and end time, and add it to the given task list.
      * It also updates the storage after addition.
      *
-     * @param tasks The task list that contains the list of tasks.
-     * @param ui The UI of the application.
+     * @param tasks   The task list that contains the list of tasks.
+     * @param ui      The UI of the application.
      * @param storage The storage that stores task list data.
-     * @return A message indicating the result of the execution.
      * @throws DukeException If the description, start, or end time is invalid.
-     * @throws IOException If there is an error saving the updated task list to storage.
+     * @throws IOException   If there is an error saving the updated task list to storage.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException, IOException {
