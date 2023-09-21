@@ -1,7 +1,5 @@
 # *MeowBot* 
-# User Guide for new users
-
-# Starting off
+# User Guide 
 
 ## Features 
 
@@ -23,13 +21,13 @@ MeowBot can also find tasks from a specified keyword!
 
 ## Usage
 
-### `todo` - creates a todo task
+### `todo <event name>` - creates a todo task
 
 Creates a todo task to be tracked
 
 Example of usage: 
 
-`todo (start meowing)`
+`todo start meowing`
 
 Expected outcome:
 
@@ -42,7 +40,7 @@ Description of the outcome:
 Generation of todo and informing of number of tasks being tracked
 ```
 
-### `deadline` - creates a deadline task
+### `deadline <deadline name> /by <date>` - creates a deadline task
 
 Creates a todo task to be tracked
 
@@ -61,7 +59,7 @@ Description of the outcome.
 Generation of deadline and informing of number of tasks being tracked
 ```
 
-### `event` - creates an event task
+### `event <event name> /from <start date> /to <end date>` - creates an event task
 
 Creates a event task to be tracked
 
@@ -80,7 +78,7 @@ Description of the outcome.
 Generation of event and informing of number of tasks being tracked
 ```
 
-### `delete` - deletes the specified task
+### `delete <index>` - deletes the specified task
 
 deletes the task specified at the index
 
@@ -99,7 +97,7 @@ Description of the outcome.
 deletes the task and informs remaining number of tasks
 ```
 
-### `find` - finds all tasks with matching keywords
+### `find <keyword>` - finds all tasks with matching keywords
 
 Given a keyword, finds the tasks which contains matching keywords
 
@@ -138,7 +136,7 @@ Description of the outcome.
 returns all the tasks stored in meowbot
 ```
 
-### `mark` - marks a specified task as done
+### `mark <index>` - marks a specified task as done
 
 Marks a specified task with its index as done
 
@@ -157,7 +155,7 @@ Description of the outcome.
 Marks the task as completed
 ```
 
-### `unmark` - marks a specified task as done
+### `unmark <index>` - marks a specified task as done
 
 Unmarks a specified task with its index as not complete
 
