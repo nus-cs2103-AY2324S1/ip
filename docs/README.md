@@ -2,7 +2,7 @@
 
 ## Getting Started
 1. Ensure you have Java `11` or above installed in your Computer.
-2. Download the latest `grumpygordon.jar` from [here](https://github.com/craigtonlian/ip/releases/download/A-Release/grumpygordon.jar).
+2. Download the latest `grumpygordon.jar` from [here](https://github.com/craigtonlian/ip/releases/download/v0.3/grumpygordon.jar).
 3. Copy the file to the folder you want to use as the home folder for your Grumpy Gordon.
 4. Open a terminal window, `cd` into the folder you put the jar file in, and run the command `java -jar grumpygordon.jar`.
 5. A GUI similar to the one shown below should appear in a few seconds.
