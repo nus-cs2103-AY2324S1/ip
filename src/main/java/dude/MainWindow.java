@@ -34,6 +34,13 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         assert userImage != null : "User display image should not be null.";
         assert dudeImage != null : "Dude display image should not be null.";
+
+        // enable/disable button based on whether input is blank
+        updateButtonStatus();
+        userInput.textProperty().addListener((obs, oldText, newText) -> {
+            updateButtonStatus();
+        });
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -69,5 +76,16 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDudeDialog(response, dudeImage)
         );
         userInput.clear();
+    }
+
+    /**
+     * Enables/disables send button according to input.
+     */
+    private void updateButtonStatus() {
+        // read user input
+        String input = userInput.getText();
+
+        // disable send button if user input is empty
+        sendButton.setDisable(input.isBlank());
     }
 }
