@@ -120,6 +120,9 @@ public class Parser {
             throw new CR7EmptyInputException(Messages.EMPTY_TASK);
         }
         String todoDesc = input.substring(5);
+        if (todoDesc.isBlank()) {
+            throw new CR7EmptyInputException(Messages.EMPTY_TASK);
+        }
         return new AddCommand(todoDesc);
     }
 
