@@ -1,5 +1,5 @@
-# User Guide for Ronaldo
-As a task chatbot, I can help you to organize your tasks with timelines and much more! SUI!
+# User Guide for JavAI
+As a task chatbot, I can help you to organize your tasks!
 ## Features 
 
 ### Add a Todo task `todo`
