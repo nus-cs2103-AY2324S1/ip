@@ -42,10 +42,10 @@ public class TaskList {
         if (num < 0 || num >= taskList.size()) {
             return "Brotherman the value you put in wrong.  Try again.";
         } else {
+            String returnMessage = "The task is now deleted Brotherman \n"
+                    + taskList.get(num).toString();
             taskList.remove(num);
-
-            return "The task is now deleted Brotherman \n"
-                            + taskList.get(num).toString();
+            return returnMessage;
         }
     }
 

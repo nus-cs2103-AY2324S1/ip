@@ -1,4 +1,2 @@
 T|false|nothing
-D|false|eat ass/by05/03/2001
-E|true|no do anything/from05/03/2001/to06/03/2001
-T|false|gasd
+D|false|buy food/by05/12/2030

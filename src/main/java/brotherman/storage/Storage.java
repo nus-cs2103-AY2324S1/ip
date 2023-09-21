@@ -1,7 +1,5 @@
 package brotherman.storage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +19,7 @@ public class Storage {
      * File path of the storage
      */
     private File folder;
+    private String filePath;
 
     /**
      * Constructor for Storage
@@ -28,22 +27,28 @@ public class Storage {
      */
     public Storage(String filePath) {
         this.folder = new File(filePath);
-        if (!folder.exists()) {
-            folder.mkdirs();
+        this.filePath = filePath;
+
+        File parentDirectory = folder.getParentFile();
+        if (!parentDirectory.exists()) {
+            parentDirectory.mkdirs();
         }
     }
-
-
     /**
      * Reads the task list from the storage
      * @return Task list from the storage
      */
     public TaskList readFromFile() {
         ArrayList<Task> taskList = new ArrayList<>();
-        try (Scanner sc = new Scanner(new File("./data/brotherman.txt"))) {
-            while (sc.hasNextLine()) {
-                String taskString = sc.nextLine();
-                String[] task = taskString.split("\\|");
+        try {
+            File directory = new File("data");
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+            BufferedReader reader = new BufferedReader(new FileReader(filePath));
+            String line = reader.readLine();
+            while (line != null) {
+                String[] task = line.split("\\|");
                 String type = task[0];
 
                 switch (type) {
@@ -59,12 +64,15 @@ public class Storage {
                 default:
                     throw new BrothermanException("☹ OOPS!!! Brotherman file read error! :-(");
                 }
+                line = reader.readLine();
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Welcome to Brotherman!");
+            reader.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         } catch (BrothermanException e) {
             System.out.println(e.getMessage());
         }
+
         return new TaskList(taskList);
     }
 
@@ -103,20 +111,24 @@ public class Storage {
         taskList.add(task);
     }
 
-
     /**
      * Saves the task list to the storage
      * @param list Task list to be saved
      */
     public void saveToFile(ArrayList<Task> list) {
-
-        try (PrintWriter output = new PrintWriter("./data/brotherman.txt")) {
-            for (Task listItems : list) {
-                output.println(listItems.storeText());
+        try {
+            File directory = new File("data");
+            if (!directory.exists()) {
+                directory.mkdir();
             }
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
 
+            FileWriter fw = new FileWriter(filePath);
+            for (Task listItems : list) {
+                fw.write(listItems.storeText() + "\n");
+            }
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
