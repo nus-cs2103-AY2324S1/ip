@@ -3,15 +3,15 @@ Mathan ChatBot is a **Desktop App** for storing and accessing tasks, events and 
 ![Sample screenshot of UI](Ui.png)
 ## Features 
 Here's a list of commands you can use in the chatbot:
-- [List down all tasks: `list`](#list-down-all-tasks--list)
-- [Create new todo task: `todo [Name]`](#create-new-todo-task--todo-name)
-- [Create new deadline: `deadline [Name] /by [Date]`](#create-new-deadline--deadline-name-by-date)
-- [Create new event: `event [Name] /from [Date] /to [Date]`](#create-new-event--event-name-from-date-to-date)
-- [Mark/unmark tasks: `mark [taskNum]`/`unmark [taskNum]`](#markunmark-tasks--mark-tasknum--unmark-tasknum)
-- [Delete a task: `delete [taskNum]`](#delete-a-task--delete-tasknum)
-- [Find a task: `find [Name]`](#find-a-task--find-name)
-- [Sort event/deadline chronologically: `sort event`/`sort deadline`](#sort-eventdeadline-chronologically--sort-event--sort-deadline)
-- [Exit the chatbot: `bye`](#exit-the-chatbot--bye)
+- [List down all tasks: `list`](#list-down-all-tasks-list)
+- [Create new todo task: `todo [Name]`](#create-new-todo-task-todo-name)
+- [Create new deadline: `deadline [Name] /by [Date]`](#create-new-deadline-deadline-nameby-date)
+- [Create new event: `event [Name] /from [Date] /to [Date]`](#create-new-event-event-namefrom-date-to-date)
+- [Mark/unmark tasks: `mark [taskNum]`/`unmark [taskNum]`](#markunmark-tasks-mark-tasknumunmark-tasknum)
+- [Delete a task: `delete [taskNum]`](#delete-a-task-delete-tasknum)
+- [Find a task: `find [Name]`](#find-a-task-find-name)
+- [Sort event/deadline chronologically: `sort event`/`sort deadline`](#sort-eventdeadline-chronologically-sort-eventsort-deadline)
+- [Exit the chatbot: `bye`](#exit-the-chatbot-bye)
 ### List down all tasks: `list`
 Lists the tasks in the order they were added,
 whether they are marked or unmarked,
