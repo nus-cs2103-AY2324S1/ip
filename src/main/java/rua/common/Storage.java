@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -104,7 +107,8 @@ public class Storage {
      * @throws FileNotFoundException if the filePath is invalid.
      */
     public ArrayList<Task> load() throws InvalidTypeException, FileNotFoundException {
-        File f = new File(filePath);
+        String fileName = filePath + "tasks.txt";
+        File f = new File(fileName);
         Scanner sc = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (sc.hasNext()) {
@@ -122,7 +126,15 @@ public class Storage {
      */
     public void save(TaskList tasks) throws InvalidTypeException, IOException {
         try {
-            FileWriter fw = new FileWriter(filePath);
+            //Path path = Paths.get(filePath);
+            //Path directoryPath = path.getParent();
+            //Files.createDirectories(directoryPath);
+            File directory = new File(filePath);
+            if (! directory.exists()){
+                directory.mkdir();
+            }
+            String fileName = filePath + "tasks.txt";
+            FileWriter fw = new FileWriter(fileName);
             String saveTxt = "";
             ArrayList<Task> tasksList = tasks.getTasks();
             for (int i = 0; i < tasksList.size(); i++) {
@@ -131,24 +143,8 @@ public class Storage {
             fw.write(saveTxt);
             fw.close();
         } catch (FileNotFoundException exp) {
-            Scanner sc = new Scanner(System.in);
-            StringLogger.append("Target file not found. Do you want to create it now? Please type yes or no\n");
-            String create = sc.nextLine();
-            while (!create.equals("yes") && !create.equals("no")) {
-                StringLogger.append("Incorrect input. Please type yes or no\n");
-            }
-            if (create.equals("yes")) {
-                int index = filePath.lastIndexOf("/");
-                String saveDir = filePath.substring(0, index);
-                File fileCreator = new File(saveDir);
-                fileCreator.mkdir();
-                StringLogger.append("File successfully created. Progress saved.\n");
-                try {
-                    save(tasks);
-                } catch (IOException ioExp) {
-                    StringLogger.append("Some error occurs and progress is not saved.\n");
-                }
-            }
+            StringLogger.append("Target file not found and cannot be created."
+                    + " Please create the directory manually\n");
         }
     }
 

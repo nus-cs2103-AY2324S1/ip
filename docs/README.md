@@ -7,7 +7,7 @@ Interface (GUI).<br>
 Simply run the jar file as the following guide to enjoy it!<br>
 1. Copy the jar file into an empty folder.
 2. Open a command window in that folder.
-3. Run the command `java -jar Rua.jar`  (i.e., run the command in the same folder as the jar file).
+3. Run the command `java -jar rua.jar`  (i.e., run the command in the same folder as the jar file).
 
 ## Features 
 

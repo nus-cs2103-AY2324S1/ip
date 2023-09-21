@@ -20,7 +20,7 @@ public class Rua {
      */
     public Rua() {
         ui = new Ui();
-        storage = new Storage("src/main/data/tasks.txt");
+        storage = new Storage("./data/");
         try {
             tasks = new TaskList(storage.load());
             ui.showMessage("Load successfully. Now you have " + tasks.getTasks().size()
