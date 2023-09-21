@@ -10,7 +10,7 @@ import rayshawn.chatbot.tasks.Task;
 import rayshawn.chatbot.tasks.ToDo;
 
 /**
- *
+ * Update the task information that may be incorrect
  */
 public class UpdateCommand extends Command {
 
