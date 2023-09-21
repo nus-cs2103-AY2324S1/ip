@@ -183,18 +183,25 @@ public class Parser {
         case "list":
             return Parser.parseList(list, ui);
         case "find":
+        case "f":
             return Parser.parseFind(list, data, ui);
         case "mark":
+        case "m":
             return Parser.parseMark(list, data, storage, ui);
         case "unmark":
+        case "um":
             return Parser.parseUnmark(list, data, storage, ui);
         case "todo":
+        case "t":
             return Parser.parseTodo(list, data, storage, ui);
         case "deadline":
+        case "d":
             return Parser.parseDeadline(list, data, storage, ui);
         case "event":
+        case "e":
             return Parser.parseEvent(list, data, storage, ui);
         case "delete":
+        case "del":
             return Parser.parseDelete(list, data, storage, ui);
         default:
             throw new InvalidInputException("I don't understand. Please check your input again.");
