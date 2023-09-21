@@ -1,6 +1,9 @@
 package task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import exceptions.InvalidDateTimeException;
 
 /**
  * Class representing a task with a deadline.
@@ -14,9 +17,13 @@ public class Deadline extends Task {
      * @param name     The name of the task.
      * @param deadline The deadline of the task in string format (to be parsed).
      */
-    public Deadline(String name, String deadline) {
+    public Deadline(String name, String deadline) throws InvalidDateTimeException {
         super(name);
-        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
+        try {
+            this.deadline = LocalDateTime.parse(deadline, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(deadline);
+        }
     }
 
     /**

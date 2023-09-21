@@ -1,6 +1,9 @@
 package task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import exceptions.InvalidDateTimeException;
 
 /**
  * Class representing an event task.
@@ -16,10 +19,19 @@ public class Event extends Task {
      * @param start The start time of the event task in string format (to be parsed).
      * @param end   The end time of the event task in string format (to be parsed).
      */
-    public Event(String name, String start, String end) {
+    public Event(String name, String start, String end) throws InvalidDateTimeException {
         super(name);
-        this.start = LocalDateTime.parse(start, INPUT_FORMATTER);
-        this.end = LocalDateTime.parse(end, INPUT_FORMATTER);
+        try {
+            this.start = LocalDateTime.parse(start, INPUT_FORMATTER);
+
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(start);
+        }
+        try {
+            this.end = LocalDateTime.parse(end, INPUT_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(end);
+        }
     }
 
     /**
