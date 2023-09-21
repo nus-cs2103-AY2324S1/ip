@@ -1,12 +1,12 @@
-package duke.task;
+package duke.exception;
 
 /**
  * Represents an error that occurred during the initialisation of a Deadline object.
  */
-public class DeadlineException extends TaskException {
+public class DeadlineException extends CommandException {
 
     public DeadlineException() {
-        super("Valid Format: deadline (description) /by (YYYY-MM-DD)\n");
+        super("Valid Format: deadline DESCRIPTION /by: YYYY-MM-DDTHH:MM)\n");
     }
 
 }
