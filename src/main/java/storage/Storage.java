@@ -20,6 +20,7 @@ public class Storage {
      * @param filePath The path to the file for storing tasks.
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "filePath should not be null or empty";
         this.filePath = filePath;
     }
 
@@ -46,6 +47,7 @@ public class Storage {
         } catch (IOException e) {
             throw new DukeException(Ui.loadingError(e.getMessage()));
         }
+        assert tasks != null : "tasks list should have been instantiated";
         return tasks;
     }
 

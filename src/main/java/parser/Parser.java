@@ -43,6 +43,7 @@ public class Parser {
                 throw new DukeException("Invalid index. Please provide the command followed by a valid integer index.");
             }
             int taskIndex = Integer.parseInt(fullCommand.substring(5).trim());
+            assert taskIndex > 0 : "taskIndex should be positive";
             return new EditCommand("mark", taskIndex);
         } else if (fullCommand.isEmpty()) {
             throw new DukeException("Empty command is not recognized. Use 'help' for more information.");
@@ -51,12 +52,14 @@ public class Parser {
                 throw new DukeException("Invalid index. Please provide the command followed by a valid integer index.");
             }
             int taskIndex = Integer.parseInt(fullCommand.substring(7).trim());
+            assert taskIndex > 0 : "taskIndex should be positive";
             return new EditCommand("unmark", taskIndex);
         } else if (fullCommand.toLowerCase().startsWith("delete")) {
             if (!fullCommand.matches("^delete\\s\\d+$")) {
                 throw new DukeException("Invalid index. Please provide the command followed by the index.");
             }
             int i = Integer.parseInt(fullCommand.substring(7).trim());
+            assert i > 0 : "taskIndex should be positive";
             return new DeleteCommand(i);
         } else if (fullCommand.toLowerCase().startsWith("find")) {
             return new FindCommand(fullCommand);
