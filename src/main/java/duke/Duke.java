@@ -25,6 +25,7 @@ public class Duke {
     }
 
     public String getResponse(String input) {
+        assert input != null : "invalid input";
         try {
             Command c = Parser.parse(input);
             return c.execute(tasks, ui, storage);

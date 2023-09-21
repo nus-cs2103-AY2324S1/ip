@@ -1,5 +1,0 @@
-T | 0 | eat
-T | 0 | eat and sleep
-T | 0 | run
-T | 0 | eat
-T | 0 | sleep
