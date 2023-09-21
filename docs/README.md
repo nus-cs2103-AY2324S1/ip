@@ -6,7 +6,7 @@ of a Graphical User Interface.
 ## Quick Start
 
 1) Ensure you have Java `11` or above installed in your computer.  
-2) Download the latest `duke.jar` from [here](https://github.com/timetraveller-123/ip).,  
+2) Download the latest `duke.jar` from [here](https://github.com/timetraveller-123/ip).  
 3) Copy the file to the folder you want to use as the home folder for your application.  
 4) Open a command terminal, `cd` into the folder you put the jar file in, and use  
    `java -jar duke.jar`     
