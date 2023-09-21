@@ -33,7 +33,6 @@ public class Storage {
      * @throws InvalidFileFormatException if the file contains tasks in an invalid format.
      */
     public ArrayList<Task> load() throws IOException, InvalidFileFormatException {
-        System.out.println("1");
         BufferedReader reader = new BufferedReader(new FileReader(this.filePath));
         String line;
         ArrayList<Task> taskList = new ArrayList<>();
