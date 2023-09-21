@@ -89,8 +89,8 @@ public class Parser {
         Integer l;
         try {
             l = Integer.parseInt(s);
-        } catch (DateTimeParseException e) {
-            throw new DukeException("Not a integer. Try again.");
+        } catch (NumberFormatException e) {
+            throw new DukeException("Not a Integer. Try again.");
         }
         return l;
     }

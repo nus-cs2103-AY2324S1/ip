@@ -1,7 +1,5 @@
 package userstuff;
 
-import java.util.concurrent.TimeUnit;
-
 import duke.Duke;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

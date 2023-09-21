@@ -207,6 +207,7 @@ public abstract class Instruction {
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             String s = Instruction.reduceStreamToString(taskList.getTasks());
+            s = "Here are the tasks in your list.\n" + s;
             mainWindow.setMessage(s);
         }
     }
@@ -238,6 +239,7 @@ public abstract class Instruction {
         @Override
         public void execute(Storage storage, TaskList taskList, MainWindow mainWindow) throws DukeException {
             String s = Instruction.reduceStreamToString(taskList.findTasks(this.keyWord));
+            s = "Here are the tasks that matched your keyword.\n" + s;
             mainWindow.setMessage(s);
         }
     }

@@ -26,7 +26,7 @@ class ParserTest {
             Instruction instruction = Parser.parse("mark a");
             fail();
         } catch (DukeException e) {
-            assertEquals("The index is not a valid index. Try again.", e.getMessage());
+            assertEquals("Not a Integer. Try again.", e.getMessage());
         }
     }
 
