@@ -5,7 +5,7 @@
 |  _ \ _   _____| | __
 | | | | | | |  _| |/ /
 | |_| | |_| | |_    <
-|____/ \__,_|___|_|\_\
+|____/ \__,_|___|_|\_\  🦆
 ```
 
 ## Types of Tasks
@@ -19,34 +19,34 @@
 ## Features
 Now that you are familiar with the different types of tasks, here's how you can interact with them.
 ### 📋`list` - Display all tasks    
-All tasks are shown alongside their relevant information.
+Displays all tasks alogn with their relevant information.
 Tasks are listed in the order they were added.
 Usage: `list`
 ### 🗑️`delete` - Delete a task
-The selected task is deleted from the list.
+Deletes the selected task from the list.
 Run `list` to  verify the index of the task as **deletion is irreversible**.
 Usage: `delete <task_index>` 
 For example: `delete 1`  deletes the first task in the list.
 ### ✅`mark` - Mark a task as done 
-The selected task is marked as completed.
+Marks the selected task as complete.
 Usage: `mark <task_index>` 
 For example: `mark 1`  marks the first task in the list.
 ### ❌`unmark` - Unmark a task to undone 
-The selected task is no longer marked as completed.
+Removes the mark from the selected task.
 Usage: `unmark <task_index>` 
 For example: `unmark 1`  unmarks the first task in the list.
 ### #️⃣`tag` - Tag a task with a short text 
-The selected task is no longer marked as completed.
-Usage: `tag <task_index>:<tag>` 
+Tags the selected task with a word.
+Usage: `tag <task_index>:<word>` 
 For example: `tag 1:IMPORTANT`  tags the first task in the list.
 ### ❌`untag` - Remove the tag from a task 
-The selected task is no longer marked as completed.
+Removes the selected task's tag.
 Usage: `untag <task_index>`
 For example: `untag 1`  removes the tag of the first task in the list.
-### 🔎`find` - Find tasks 
-The selected task is no longer marked as completed.
-Usage: `untag <task_index>`
-For example: `untag 1`  removes the tag of the first task in the list.
+### 🔎`find` - Find matching tasks 
+Lists all tasks which contain the given keyword.
+Usage: `find <keyword>`
+For example: `find book`  lists all tasks which name contains "book".
   
 ## Other functionalities
 ### 💾Task storage
