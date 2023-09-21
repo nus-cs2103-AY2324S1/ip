@@ -1,10 +1,11 @@
 package jarvis.ui;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import jarvis.task.Task;
 import jarvis.tasklist.TaskList;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Represents the user interface for interacting with the user.
@@ -27,8 +28,9 @@ public class Ui {
      */
     public void display(String... text) {
         System.out.println("____________________________________________________________");
-        for (String i : text)
+        for (String i : text) {
             System.out.println(i);
+        }
         System.out.println("____________________________________________________________");
     }
 
