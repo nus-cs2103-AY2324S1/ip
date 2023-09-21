@@ -36,11 +36,9 @@ Marks a task as done.
 
 Find all the similar tasks.
 
-## Features 
+## Usages
 
 ### List all tasks `list`
-
-Lists all the tasks that are currently stored.
 
 Example of usage: 
 
@@ -60,8 +58,6 @@ Here are the tasks in your list:
 
 ### add a todo task `todo`
 
-Adds a todo task
-
 Example of usage: 
 
 `todo buy chicken rice`
@@ -80,8 +76,6 @@ Now you have 3 tasks in the list.
 
 ### add an event task `event`
 
-A event task will be added to the task list. DateTimes are processed in YYYY-MM-DD 24HRS format.
-
 Example of usage: 
 
 `event run away /from 2019-12-30 1800 /to 2020-01-03 0800`
@@ -98,8 +92,6 @@ Now you have 3 tasks in the list.
 ------------------------------------
 ```
 ### add a deadline task `deadline`
-
-A deadline task will be added to the task list. DateTimes are processed in YYYY-MM-DD 24HRS format.
 
 Example of usage: 
 
@@ -118,8 +110,6 @@ Now you have 3 tasks in the list.
 ```
 
 ### snooze an event/deadline `snooze`
-
-Snoozes a deadline or event. For deadlines, the due date is increased by 1 day. For events, the end date is increased by 1 day.
 
 Example of usage: 
 
@@ -142,8 +132,6 @@ I have snoozed your event's end date! Your event is now from: May 10 2020 9AM to
 ```
 ### delete a task `delete`
 
-Deletes the task at that specific index.
-
 Example of usage: 
 
 `delete 1`
@@ -161,8 +149,6 @@ Now you have 2 tasks in the list.
 ```
 ### mark a task as done `mark`
 
-Marks a task as done.
-
 Example of usage: 
 
 `mark 1`
@@ -178,8 +164,6 @@ Nice! I've marked this task as done:
 ------------------------------------
 ```
 ### find a task `find`
-
-Find all the similar tasks.
 
 Example of usage: 
 
