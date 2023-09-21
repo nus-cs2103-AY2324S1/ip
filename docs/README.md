@@ -44,8 +44,8 @@ Feel free to use these commands to manage your tasks and interact with iPbot. En
 
 To get started with iPbot, follow these steps:
 
-1. Clone this repository to your local machine.
-2. Build and run the application.
+1. Clone this repository to your local machine / Check for jar files in release.
+2. Build/Install and run the application.
 3. Start chatting with iPbot using the supported commands.
 
 
