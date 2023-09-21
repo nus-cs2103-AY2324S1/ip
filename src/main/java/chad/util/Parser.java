@@ -41,11 +41,14 @@ public class Parser {
         if (input.equals("list")) {
             return new PrintListCommand();
         } else if (input.startsWith("mark")) {
-            return new MarkCommand(Parser.parseUserMark(input));
+            int index = Parser.parseUserMark(input);
+            return new MarkCommand(index);
         } else if (input.startsWith("unmark")) {
-            return new UnmarkCommand(Parser.parseUserUnmark(input));
+            int index = Parser.parseUserUnmark(input);
+            return new UnmarkCommand(index);
         } else if (input.startsWith("delete")) {
-            return new DeleteCommand(Parser.parseUserDelete(input));
+            int index = Parser.parseUserDelete(input);
+            return new DeleteCommand(index);
         } else if (input.startsWith("find")) {
             String queryString = Parser.parseUserFind(input);
             return new FindCommand(queryString);
@@ -62,6 +65,25 @@ public class Parser {
             return new ExitCommand();
         } else {
             return new UnknownCommand();
+        }
+    }
+
+    /**
+     * Returns a Task with the given local file input.
+     *
+     * @param input The given input to be parsed.
+     * @return Task object that correspond to the given input.
+     * @throws LoadException if given input is in the wrong format.
+     */
+    public static Task parseFile(String input) throws LoadException {
+        if (input.charAt(0) == 'D') {
+            return Parser.parseLoadDeadline(input);
+        } else if (input.charAt(0) == 'E') {
+            return Parser.parseLoadEvent(input);
+        } else if (input.charAt(0) == 'T') {
+            return Parser.parseLoadToDo(input);
+        } else {
+            throw new LoadException();
         }
     }
 
@@ -175,8 +197,7 @@ public class Parser {
             throw new DeadlineException();
         }
 
-        Deadline deadline = new Deadline(description, byDate);
-        return deadline;
+        return new Deadline(description, byDate);
     }
 
     /**
@@ -212,8 +233,7 @@ public class Parser {
             throw new EventException();
         }
 
-        Event event = new Event(description, fromDate, toDate);
-        return event;
+        return new Event(description, fromDate, toDate);
     }
 
     /**
@@ -228,8 +248,9 @@ public class Parser {
             throw new ToDoException();
         }
 
-        ToDo todo = new ToDo(input.substring(5));
-        return todo;
+        String description = input.substring(5);
+
+        return new ToDo(description);
     }
 
     /**
@@ -240,11 +261,11 @@ public class Parser {
      * @throws CommandException if given input is missing information or in wrong format.
      */
     public static int parseUserMark(String input) throws CommandException {
-        int index = Integer.valueOf(input.substring(5)) - 1;
-
         if (input.length() <= 5) {
             throw new MarkException();
         }
+
+        int index = Integer.parseInt(input.substring(5)) - 1;
 
         return index;
     }
@@ -257,11 +278,11 @@ public class Parser {
      * @throws CommandException if given input is missing information or in wrong format.
      */
     public static int parseUserUnmark(String input) throws CommandException {
-        int index = Integer.valueOf(input.substring(7)) - 1;
-
         if (input.length() <= 7) {
             throw new UnmarkException();
         }
+
+        int index = Integer.parseInt(input.substring(7)) - 1;
 
         return index;
     }
@@ -274,11 +295,11 @@ public class Parser {
      * @throws CommandException if given input is missing information or in wrong format.
      */
     public static int parseUserDelete(String input) throws CommandException {
-        int index = Integer.valueOf(input.substring(7)) - 1;
-
         if (input.length() <= 7) {
             throw new DeleteException();
         }
+
+        int index = Integer.parseInt(input.substring(7)) - 1;
 
         return index;
     }

@@ -8,10 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import chad.exception.LoadException;
-import chad.task.Deadline;
-import chad.task.Event;
 import chad.task.Task;
-import chad.task.ToDo;
 
 /**
  * Represents a storage for the list of Tasks.
@@ -24,7 +21,7 @@ public class Storage {
      *
      * @param path The given path to the data file.
      */
-    public Storage(String path) {
+    public Storage(String path) throws LoadException {
         this.file = new File(path);
         if (!this.file.getParentFile().exists()) {
             this.file.getParentFile().mkdirs();
@@ -33,7 +30,7 @@ public class Storage {
             try {
                 this.file.createNewFile();
             } catch (IOException e) {
-                System.out.println("Error: Unable to create local file");
+                throw new LoadException();
             }
         }
     }
@@ -53,19 +50,11 @@ public class Storage {
         } catch (FileNotFoundException e) {
             System.out.println("Error: Unable to load local file");
         }
+
         while (sc != null && sc.hasNextLine()) {
             String input = sc.nextLine();
-
-            if (input.charAt(0) == 'D') {
-                Deadline deadline = Parser.parseLoadDeadline(input);
-                list.add(deadline);
-            } else if (input.charAt(0) == 'E') {
-                Event event = Parser.parseLoadEvent(input);
-                list.add(event);
-            } else if (input.charAt(0) == 'T') {
-                ToDo todo = Parser.parseLoadToDo(input);
-                list.add(todo);
-            }
+            Task task = Parser.parseFile(input);
+            list.add(task);
         }
 
         return list;
