@@ -23,8 +23,8 @@ public class Ui {
      */
     public String showWelcomeMessage() {
         String responseText = "Hello! I'm EchoBot\n";
+        responseText += "What can I do for you?\n";
         responseText += showLogo();
-        responseText += " What can I do for you?\n";
 
         return responseText;
     }
