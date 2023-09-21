@@ -1,6 +1,6 @@
 package dialogix.command;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import dialogix.exception.DialogixException;
 import dialogix.main.Storage;
@@ -33,8 +33,9 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList taskList, Ui ui, Storage storage) throws DialogixException {
-        List<Task> matchingTasks = taskList.find(keyword);
+        ArrayList<Task> matchingTasks = taskList.find(keyword);
         ui.showSearchResults(matchingTasks);
+        ui.printList(matchingTasks, "Here are the matching tasks that I can find");
     }
 
     /**
