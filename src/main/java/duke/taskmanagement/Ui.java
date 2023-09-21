@@ -110,11 +110,4 @@ public class Ui {
         return header + "\n" + listHelp + "\n" + todoHelp + deadlineHelp + eventHelp
                 + "\n" + markHelp + deleteHelp + findHelp + "\n" + closing;
     }
-
-    /**
-     * To close the scanner.
-     */
-    public void closeScanner() {
-        sc.close();
-    }
 }

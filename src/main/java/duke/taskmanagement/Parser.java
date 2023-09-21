@@ -52,7 +52,6 @@ public class Parser {
     }
 
     private String byeGreet() {
-        ui.closeScanner();
         return ui.bye();
     }
 

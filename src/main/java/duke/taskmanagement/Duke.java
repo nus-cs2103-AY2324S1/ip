@@ -2,8 +2,6 @@ package duke.taskmanagement;
 
 import javafx.stage.Stage;
 
-import java.util.Objects;
-
 public class Duke {
     String PATH = "./data/duke.txt";
     private Ui ui = new Ui();
@@ -31,12 +29,8 @@ public class Duke {
                 "What can I do for you?\n" + "\n" : "greeting should contain default greet";
         Parser parser = new Parser(this.ui, this.tasks);
         assert parser != null : "parser should not be null at any point";
-//        if (input.equals("bye")) {
-//            stage.close();
-//        }
             String messageToUser = parser.readCmd(this.tasks, input);
             return messageToUser;
-
     }
 
     public void close() {
