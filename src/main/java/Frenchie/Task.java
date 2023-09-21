@@ -1,7 +1,7 @@
 package Frenchie;
 
 public class Task {
-    public boolean isCompleted;
+    public static boolean isCompleted;
     public String task_name;
 
     public Task() {
@@ -19,6 +19,10 @@ public class Task {
 
     public void mark_as_incomplete() {
         isCompleted = false;
+    }
+
+    public static boolean check_Completion() {
+        return isCompleted;
     }
     @Override
     public String toString() {
