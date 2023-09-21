@@ -5,7 +5,7 @@ Nano is a **Chatbot for tracking tasks, optimised for use via a Command Line Int
 
 ## Quick start
 1. Ensure that you have Java `11` or above installed in your Computer.
-2. Download the latest `duke.jar` from [here](https://github.com/richiehx/ip/releases/tag/A-Release).
+2. Download the latest `duke.jar` from [here](https://github.com/richiehx/ip/releases/latest).
 3. Copy the file to the folder you want to use as the _home folder_ for your Nano Chatbot.
 4. To run the application, open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application.
 5. A GUI similar to the below should appear in a few seconds.<br>
