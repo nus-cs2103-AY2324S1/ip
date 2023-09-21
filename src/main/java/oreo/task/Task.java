@@ -45,7 +45,7 @@ public abstract class Task implements Comparable<Task> {
     }
 
     /**
-     * Generates the appropriate sub task instance based on user input.
+     * Generates the appropriate sub-task instance based on user input.
      *
      * @param command Command inputted by user.
      * @param tokeniser String that follows the command as a Scanner.
@@ -87,8 +87,9 @@ public abstract class Task implements Comparable<Task> {
 
     private static Task processDeadlineCommand(String contents) throws IllegalCommandException,
             IllegalDateTimeException {
-        if (!contents.contains("/by")) {
-            throw new IllegalCommandException("set a deadline without a \"/by\"");
+        if (!contents.contains(" /by ")) {
+            throw new IllegalCommandException("set a deadline without a \"/by\",\n"
+                    + "or was there a typo?");
         } else if (contents.contains("/from") || contents.contains("/to")) {
             throw new IllegalCommandException("do that for a deadline,"
                     + "are you thinking of an event?");
@@ -103,8 +104,9 @@ public abstract class Task implements Comparable<Task> {
 
     private static Task processEventCommand(String contents) throws IllegalCommandException,
             IllegalDateTimeException {
-        if (!contents.contains("/from") || !contents.contains("/to")) {
-            throw new IllegalCommandException("set an event without a \"/from\" and/or \"/to\"");
+        if (!contents.contains(" /from ") || !contents.contains("/to")) {
+            throw new IllegalCommandException("set an event without a \"/from\" and/or \"/to\",\n"
+                    + "or was there a typo?");
         } else if (contents.contains("/by")) {
             throw new IllegalCommandException("do that for an event,"
                     + "are you thinking of a deadline?");

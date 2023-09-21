@@ -13,6 +13,6 @@ public class InvalidCommand extends Command{
 
     @Override
     public String execute(TaskList tasks) throws IllegalCommandException {
-        return new IllegalCommandException("do that").getMessage();
+        return new IllegalCommandException("do that, type \"help\" for help").getMessage();
     }
 }

@@ -16,7 +16,7 @@ public class ToDo extends Task {
         if (this.isComplete) {
             marker = "☑";
         }
-        return  "TODO:" + " " + this.description + " " + marker + "\n";
+        return  "\uD83C\uDD83:" + " " + this.description + " " + marker + "\n";
     }
 
     @Override
