@@ -1,0 +1,12 @@
+hi
+list
+todo have fun!
+deadline do assignment /by thursday 2350
+event fundraising for charity /from thursday 2350 /to friday 1200
+list
+mark 1
+mark 1
+list
+unmark 1
+list
+bye
