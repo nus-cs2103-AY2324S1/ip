@@ -1,4 +1,4 @@
-# User Guide
+# Ballsorter User Guide
 
 ## Features 
 
