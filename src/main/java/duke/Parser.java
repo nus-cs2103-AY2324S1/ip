@@ -112,7 +112,7 @@ public class Parser {
      * @throws NumberFormatException if the task number is not a number
      * @throws NullPointerException if the task number is null
      */
-    public void mark(String taskNumber)  throws NumberFormatException, NullPointerException {
+    public void mark(String taskNumber) throws NumberFormatException, NullPointerException {
         int taskNumberMark = Integer.parseInt(taskNumber);
         this.taskList.markTask(taskNumberMark - 1, this.storage);
     }
@@ -163,7 +163,8 @@ public class Parser {
      * @throws NullPointerException if the task number is null
      * @throws IndexOutOfBoundsException if the task number is out of bounds
      */
-    public void deleteTask(String taskNumber) throws NumberFormatException, NullPointerException, IndexOutOfBoundsException {
+    public void deleteTask(String taskNumber) throws NumberFormatException, NullPointerException,
+            IndexOutOfBoundsException {
         int taskNumberDelete = Integer.parseInt(taskNumber);
         int totalItemNumber = this.taskList.length();
         totalItemNumber--;

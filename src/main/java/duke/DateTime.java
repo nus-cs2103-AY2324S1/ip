@@ -22,7 +22,7 @@ public class DateTime {
      * Creates a DateTime object based on whether there is a valid input
      * @param input the user's input
      * @return  a DateTime object
-     * @throws WrongInputException
+     * @throws WrongInputException  if the input is not a valid date and time format
      */
     public static DateTime createDateTime(String input) throws WrongInputException {
         if (!DateTimeParser.isValidDateTime(input)) {
