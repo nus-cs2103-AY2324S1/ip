@@ -1,6 +1,17 @@
 package jarvis.parser;
 
-import jarvis.command.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import jarvis.command.AddCommand;
+import jarvis.command.Command;
+import jarvis.command.DeleteCommand;
+import jarvis.command.ExitCommand;
+import jarvis.command.FindCommand;
+import jarvis.command.ListCommand;
+import jarvis.command.MarkCommand;
+import jarvis.command.UnmarkCommand;
 import jarvis.exception.JarvisException;
 import jarvis.exception.JarvisMissingValueException;
 import jarvis.exception.JarvisUnrecognisedCommandException;
@@ -8,10 +19,6 @@ import jarvis.exception.JarvisWrongDateFormatException;
 import jarvis.task.Deadline;
 import jarvis.task.Event;
 import jarvis.task.Todo;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Parser class is responsible for interpreting user inputs

@@ -1,11 +1,5 @@
 package jarvis.storage;
 
-import jarvis.tasklist.TaskList;
-import jarvis.task.Deadline;
-import jarvis.task.Event;
-import jarvis.task.Task;
-import jarvis.task.Todo;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +8,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+import jarvis.task.Deadline;
+import jarvis.task.Event;
+import jarvis.task.Task;
+import jarvis.task.Todo;
+import jarvis.tasklist.TaskList;
 
 /**
  * The Storage class is responsible for saving and loading the task list to and from the hard disk.
@@ -63,7 +63,7 @@ public class Storage {
         if (!file.exists()) {
             System.out.println("No save file detected. Attempting to create one...");
             if (file.getParentFile() != null) {
-                file.getParentFile().mkdirs();  // This creates the directory structure if it doesn't exist
+                file.getParentFile().mkdirs(); // This creates the directory structure if it doesn't exist
             }
             try {
                 file.createNewFile();
@@ -75,7 +75,7 @@ public class Storage {
         }
 
         try {
-            List<String>  lines = Files.readAllLines(file.toPath());
+            List<String> lines = Files.readAllLines(file.toPath());
             return getTasks(lines);
         } catch (IOException e) {
             System.out.println("An error occurred while loading tasks.");
@@ -83,7 +83,7 @@ public class Storage {
         }
     }
 
-    private LocalDateTime parseSavedDateTime(String dateTimeString){
+    private LocalDateTime parseSavedDateTime(String dateTimeString) {
         return LocalDateTime.parse(dateTimeString, SAVE_DATE_TIME_FORMATTER);
     }
 
@@ -103,6 +103,8 @@ public class Storage {
                 break;
             case "E":
                 tasks.add(new Event(parts[2], isMarked, parseSavedDateTime(parts[3]), parseSavedDateTime(parts[4])));
+                break;
+            default:
                 break;
             }
         }

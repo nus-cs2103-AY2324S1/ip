@@ -3,7 +3,7 @@ package jarvis.task;
 /**
  * Represents a Todo task.
  *
- * The Todo class is a type of task that only contains a description without any specific time or date associated with it.
+ * It is a type of task that only contains a description without any specific time or date associated with it.
  */
 public class Todo extends Task {
 
@@ -40,7 +40,8 @@ public class Todo extends Task {
 
     /**
      * Returns a string representation of the Todo object.
-     * The representation includes an identifier for the task type ("T") followed by the string representation of the parent Task class.
+     * The representation includes an identifier for the task type ("T")
+     * followed by the string representation of the parent Task class.
      *
      * @return A string representation of the Todo object.
      */

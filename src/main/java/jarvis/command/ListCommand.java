@@ -1,9 +1,9 @@
 package jarvis.command;
 
+import jarvis.exception.JarvisException;
 import jarvis.storage.Storage;
 import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
-import jarvis.exception.JarvisException;
 
 /**
  * Represents a command to list all tasks in the task list.

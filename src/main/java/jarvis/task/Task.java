@@ -3,7 +3,8 @@ package jarvis.task;
 /**
  * Represents a generic task.
  *
- * This class serves as a parent for more specific types of tasks such as {@code Todo}, {@code Deadline}, and {@code Event}.
+ * This class serves as a parent for more specific types of tasks such as
+ * {@code Todo}, {@code Deadline}, and {@code Event}.
  */
 public class Task {
 

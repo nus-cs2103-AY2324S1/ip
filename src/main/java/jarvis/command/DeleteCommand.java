@@ -1,11 +1,11 @@
 package jarvis.command;
 
+import jarvis.exception.JarvisException;
+import jarvis.exception.JarvisInvalidIndexException;
 import jarvis.storage.Storage;
 import jarvis.task.Task;
 import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
-import jarvis.exception.JarvisException;
-import jarvis.exception.JarvisInvalidIndexException;
 
 /**
  * Represents a command to delete a task from the task list.

@@ -1,13 +1,16 @@
 package jarvis.command;
 
+import java.util.ArrayList;
 
 import jarvis.storage.Storage;
 import jarvis.task.Task;
 import jarvis.tasklist.TaskList;
 import jarvis.ui.Ui;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command to find tasks that contain a keyword.
+ * Contains the keyword to search for.
+ */
 public class FindCommand extends Command {
 
     private String keyword;

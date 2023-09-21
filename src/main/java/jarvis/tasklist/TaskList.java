@@ -1,8 +1,8 @@
 package jarvis.tasklist;
 
-import jarvis.task.Task;
-
 import java.util.ArrayList;
+
+import jarvis.task.Task;
 
 /**
  * Represents a list of tasks, providing utility methods for managing tasks.
@@ -43,7 +43,7 @@ public class TaskList {
      * @param index The index of the task to be removed.
      * @return The task that was removed.
      */
-    public Task remove(int index){
+    public Task remove(int index) {
         return tasks.remove(index);
     }
 
