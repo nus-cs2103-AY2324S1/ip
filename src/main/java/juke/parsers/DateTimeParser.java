@@ -98,7 +98,7 @@ public class DateTimeParser extends JukeObject {
         }
 
         throw new JukeDateFormatParseException(
-                "Oh no! I cannot understand the date format you have given me!Ensure "
+                "Oh no! I cannot understand the date format you have given me! Ensure "
                         + "that datetimes are given as such:\nDD(/-)MM(/-)YYYY[ "
                         + "HH(:-)MM], where (...) represents the set of acceptable "
                         + "symbols and [...] represents optional arguments.");
