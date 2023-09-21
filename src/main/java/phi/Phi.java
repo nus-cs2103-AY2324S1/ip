@@ -28,21 +28,7 @@ public class Phi  {
         tasks = taskStorage.readFromFile();
         this.parser = new Parser(tasks);
     }
-
-    // should not be called as PHI is now called with Launcher class
-    public static void main(String[] args) {
-        new Phi().run();
-    }
-
-    /**
-     * Old method used for CLI inputs. Not in use.
-     */
-    private void run() {
-        System.out.println(ui.greeting());
-        takeInput();
-        System.out.println(ui.goodbye());
-    }
-
+  
     /**
      * Abstraction for the user-input handling process, which will continue running until the input "bye" is received
      */
