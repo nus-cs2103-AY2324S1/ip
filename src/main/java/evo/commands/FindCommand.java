@@ -43,7 +43,7 @@ public class FindCommand extends Command {
         responses.add(ui.showText("Here are the matching tasks in your list:\n"));
         for (int i = 0; i < tasksList.tasksListLength(); i++) {
             if (tasksList.getDescription(i).contains(this.keyword)) {
-                responses.add(ui.showText(listIndexNumber + ". " + tasksList.get(i).toString()));
+                responses.add(ui.showText(listIndexNumber + ". " + tasksList.get(i).toString() + "\n"));
                 listIndexNumber++;
             }
             if (i == tasksList.tasksListLength() - 1 && listIndexNumber == 1) {
