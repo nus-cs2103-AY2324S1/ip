@@ -14,12 +14,4 @@ public abstract class Command {
      * @return The output string
      */
     public abstract String execute(TaskList taskList, Storage storage);
-
-    /**
-     * Returns true if the command is an exit command.
-     * @return True if the command is an exit command
-     */
-    public boolean isExit() {
-        return this instanceof ByeCommand;
-    }
 }

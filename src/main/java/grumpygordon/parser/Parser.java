@@ -69,6 +69,21 @@ public class Parser {
      * Regex for datetime from saved format.
      */
     private static final String LOCALDATETIME_REGEX = "\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])T\\d{2}:\\d{2}";
+    private static final String INVALID_COMMAND_MESSAGE = "Invalid command.\n\n"
+            + "These are list of commands:\n"
+            + "todo <description>\n"
+            + "deadline <description> /by <YYYY-MM-DD hh:mm>\n"
+            + "event <description> /from <YYYY-MM-DD hh:mm> /by <YYYY-MM-DD hh:mm>\n"
+            + "mark <index>\n"
+            + "unmark <index>\n"
+            + "delete <index>\n"
+            + "find <keyword>\n"
+            + "sort\n"
+            + "list\n"
+            + "bye\n";
+
+
+
     /**
      * Checks if a string is a valid datetime.
      * @param datetime String to be checked
@@ -216,7 +231,7 @@ public class Parser {
         default:
             break;
         }
-        throw new GrumpyGordonInvalidCommandException("Invalid command.\n");
+        throw new GrumpyGordonInvalidCommandException(INVALID_COMMAND_MESSAGE);
     }
 
     /**
