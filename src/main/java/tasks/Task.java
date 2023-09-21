@@ -41,15 +41,23 @@ public abstract class Task {
     /**
      * Marks the task as completed.
      */
-    public void toMark() {
+    public int toMark() {
+        if (this.isDone) {
+            return -1;
+        }
         this.isDone = true;
+        return 0;
     }
 
     /**
      * Marks the task as not completed.
      */
-    public void toUnmark() {
+    public int toUnmark() {
+        if (!isDone) {
+            return -1;
+        }
         this.isDone = false;
+        return 0;
     }
 
     /**

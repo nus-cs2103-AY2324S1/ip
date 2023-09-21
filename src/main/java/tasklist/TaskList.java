@@ -27,7 +27,7 @@ public class TaskList {
         ls.add(task);
         System.out.println(task);
         System.out.println("Now you have " + this.size() + " tasks in the list.");
-        return "Got it. I've added this task:" + task + "\nNow you have " + this.size() + " tasks in the list.";
+        return "Got it. I've added this task:\n" + task + "\nNow you have " + this.size() + " tasks in the list.";
 
     }
 
@@ -38,7 +38,9 @@ public class TaskList {
      */
     public String mark(int pos) {
         System.out.println("Nice! I've marked this task as done:");
-        ls.get(pos - 1).toMark();
+        if (ls.get(pos - 1).toMark() == -1) {
+            return "This task has been marked already.";
+        }
         System.out.println(ls.get(pos - 1).toString());
         return "Nice! I've marked this task as done:\n" + ls.get(pos - 1).toString();
     }
@@ -60,7 +62,9 @@ public class TaskList {
      */
     public String unmark(int pos) {
         System.out.println("OK, I've marked this task as not done yet:");
-        ls.get(pos - 1).toUnmark();
+        if (ls.get(pos - 1).toUnmark() == -1) {
+            return "This task has been marked as undone already.";
+        }
         System.out.println(ls.get(pos - 1));
         return "OK, I've marked this task as not done yet:\n" + ls.get(pos - 1);
     }
@@ -80,7 +84,7 @@ public class TaskList {
      * @param pos The position of the task to be deleted.
      */
     public String delete(int pos) {
-        if (pos < 0 || pos >= ls.size()) {
+        if (pos - 1 < 0 || pos - 1 >= ls.size()) {
             return "Sorry, invalid index. Please make sure you are deleting the correct item";
         }
         System.out.println("Noted. I've removed this task:");
