@@ -1,5 +1,6 @@
 # User Guide
 Mimi is a simple task manager that helps you keep track of your tasks.
+
 **Testing Instructions**
 1. Download the release v0.2.
 2. Save the jar file into an empty folder.
