@@ -43,15 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("seedo.duke.Duke")
+    mainClass.set("Veda")
 }
 
 shadowJar {
-    archiveBaseName = "Veda"
-    archiveVersion = "V0.1"
     archiveFileName = "Veda.jar"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 checkstyle {

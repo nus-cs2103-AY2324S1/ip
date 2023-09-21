@@ -151,4 +151,8 @@ public class Veda {
 
         return tasks.editTask(taskIndex, newDetails);
     }
+
+    public static void main(String[] args) {
+        Launcher.main(args);
+    }
 }
