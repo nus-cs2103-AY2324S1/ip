@@ -1,7 +1,7 @@
 package com.cloud.chatbot.command;
 
-import com.cloud.chatbot.Ui;
 import com.cloud.chatbot.token.CommandManager;
+import com.cloud.chatbot.ui.Ui;
 
 
 

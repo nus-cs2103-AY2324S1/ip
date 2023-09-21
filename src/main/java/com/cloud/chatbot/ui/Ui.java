@@ -1,4 +1,4 @@
-package com.cloud.chatbot;
+package com.cloud.chatbot.ui;
 
 import com.cloud.chatbot.annotation.Nullable;
 
@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,7 +21,7 @@ import javafx.stage.Stage;
 /**
  * Handles the user interface (UI).
  */
-public final class Ui extends Application {
+public class Ui extends Application {
     private static final double WIDTH = 400;
     /** Lost width to account for on Windows 11. */
     private static final double WIDTH_OS_LOSS = 15;
@@ -67,11 +69,13 @@ public final class Ui extends Application {
 
         // Set handler callbacks
         EventHandler<Event> handleSend = (event) -> {
-            // Echo user input
-            Label label = new Label(input.getText());
-            label.setWrapText(true);
+            Label labelUser = new Label(input.getText());
+            Label labelCloud = new Label("OK.");
 
-            messagesHolder.getChildren().add(label);
+            messagesHolder.getChildren().addAll(
+                new MessageRow(labelUser, true),
+                new MessageRow(labelCloud, false)
+            );
             input.clear();
         };
         sendButton.setOnMouseClicked(handleSend);
