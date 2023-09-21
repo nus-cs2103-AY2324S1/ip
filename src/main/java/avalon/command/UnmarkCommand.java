@@ -34,7 +34,8 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) throws AvalonException {
         int taskIndex = Integer.parseInt(userInput.substring(7)) - 1;
-        if (taskIndex >= 0 && taskIndex < taskList.size()) {
+        boolean isValidIndex = taskIndex >= 0 && taskIndex < taskList.size();
+        if (isValidIndex) {
             taskList.get(taskIndex).markNotDone();
             ui.showUnmarkMessage(taskList, taskIndex);
             return ui.getOutput();

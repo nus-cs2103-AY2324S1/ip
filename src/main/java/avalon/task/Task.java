@@ -15,6 +15,8 @@ public class Task {
      */
     private boolean isDone;
 
+    private int priority;
+
     /**
      * Creates a new task with the given description and sets its initial completion status to false.
      *
@@ -23,6 +25,7 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = 0;
     }
 
     public String getDescription() {
@@ -31,6 +34,10 @@ public class Task {
 
     public boolean getIsDone() {
         return isDone;
+    }
+
+    public int getPriority() {
+        return priority;
     }
 
     /**
@@ -56,6 +63,10 @@ public class Task {
         isDone = false;
     }
 
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
     /**
      * Returns a string representation of the task, including its status icon and description.
      *
@@ -63,6 +74,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return "[" + getPriority() + "]" + getStatusIcon() + " " + description;
     }
 }
