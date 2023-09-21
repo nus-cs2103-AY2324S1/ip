@@ -159,4 +159,18 @@ public class Duke extends Application {
         }
         return userInterface.parseLine(input);
     }
+
+    /**
+     * Initialises storage.
+     */
+    public void initialise() {
+        try {
+            userInterface = new UserInterface(new Storage(), new StoreList());
+
+            userInterface.start();
+
+        } catch (DukeException e) {
+            System.out.println(e);
+        }
+    }
 }
