@@ -9,7 +9,7 @@
 ## Getting Started
 
 1. Ensure you are using java 11.
-2. Download the latest jar file from [releases](https://github.com/nubnubyas/ip/releases/tag/A-Release).
+2. Download the latest jar file from [releases](https://github.com/nubnubyas/ip/releases).
 3. Navigate to the directory containing the jar file.
 4. Run java -jar monday.jar to get started.
 
