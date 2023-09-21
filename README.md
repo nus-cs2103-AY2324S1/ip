@@ -1,4 +1,4 @@
-# Duke Pro 
+# duke.Duke Pro 
 
 > “Your mind is for having ideas, not holding them.” – David Allen ([source](https://dansilvestre.com/productivity-quotes))
 
@@ -29,7 +29,7 @@ Features:
 If you Java programmer, you can use it to practice Java too. Here's the ``main`` method:
 
 ```java
-public class Main {
+public class duke.Main {
     public static void main(String[] args) {
         Application.launch(MainApp.class, args);
     }
