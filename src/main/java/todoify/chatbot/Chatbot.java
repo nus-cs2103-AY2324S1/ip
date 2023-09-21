@@ -4,8 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import com.google.gson.JsonSyntaxException;
+
 import todoify.chatbot.exception.ChatbotRuntimeException;
-import todoify.chatbot.exception.command.ChatbotCommandException;
 import todoify.taskmanager.TaskManager;
 import todoify.util.events.EventEmitter;
 
@@ -104,11 +105,12 @@ public class Chatbot extends EventEmitter<ChatMessage> {
             // Do nothing.
             this.sendMessageToUser("You have no tasks right now! :)");
 
-        } catch (IOException e) {
+        } catch (IOException | JsonSyntaxException e) {
             // Warn about the error.
             this.sendMessageToUser(String.format(
-                    "Sorry, I couldn't load your tasks.\nThe error was: [%s] %s\n"
-                            + "I'll be starting from a blank slate instead.",
+                    "Sorry, I couldn't load your tasks.\nThe error was: [%s] %s\n\n"
+                            + "I'll be starting from a blank slate instead - run 'load' if you fixed it and want to "
+                            + "retry loading.",
                     e.getClass().getSimpleName(),
                     e.getLocalizedMessage()
             ));
@@ -210,75 +212,10 @@ public class Chatbot extends EventEmitter<ChatMessage> {
         }
 
         // User's messages are commands. Process them appropriately.
-        this.processCommand(
+        this.commandExecutor.execute(
                 ChatCommand.parse(message.getMessage())
         );
     }
 
-    /**
-     * Processes a chat command. Used for processing newly received commands.
-     *
-     * @param chatCommand The command to process.
-     */
-    private void processCommand(ChatCommand chatCommand) {
-        try {
-            // Execute the command in question.
-            this.commandExecutor.execute(chatCommand);
-
-            // Save any updates if necessary.
-            if (chatCommand.getOperation().isWriteOperation()) {
-                this.taskManager.saveToStorage();
-            }
-
-        } catch (ChatbotCommandException e) {
-            this.processCommandError(e);
-
-        } catch (IOException e) {
-            this.processSaveError(e);
-
-        } catch (Exception e) {
-            this.processUnknownInternalError(e);
-
-        }
-    }
-
-    /**
-     * Processes the received exception as a command processing error.
-     *
-     * @param e The exception received.
-     */
-    private void processCommandError(ChatbotCommandException e) {
-        this.sendMessageToUser("Oops! " + e.getLocalizedMessage());
-    }
-
-    /**
-     * Processes the received exception as a save-to-disk error.
-     *
-     * @param e The exception received.
-     */
-    private void processSaveError(IOException e) {
-        this.sendMessageToUser(
-                "Oops! I'm having problems saving your data to storage. Your data may not be preserved."
-                        + String.format(
-                        "The error was: [%s] %s",
-                        e.getClass().getSimpleName(),
-                        e.getLocalizedMessage()
-                )
-        );
-    }
-
-    /**
-     * Processes the received exception as an unknown internal error.
-     *
-     * @param e The exception received.
-     */
-    private void processUnknownInternalError(Exception e) {
-        e.printStackTrace();
-        this.sendMessageToUser(String.format(
-                "Oh no, something's wrong! [%s] %s",
-                e.getClass().getSimpleName(),
-                e.getLocalizedMessage()
-        ));
-    }
 
 }

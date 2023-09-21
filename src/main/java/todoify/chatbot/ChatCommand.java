@@ -25,7 +25,7 @@ public class ChatCommand {
     public enum Operation {
         ADD_TODO, ADD_DEADLINE, ADD_EVENT, DELETE,
         MARK_COMPLETE, UNMARK_COMPLETE,
-        LIST, SEARCH, HELP, EXIT,
+        LIST, SEARCH, HELP, SAVE, LOAD, EXIT,
         UNKNOWN;
 
         /**
@@ -78,6 +78,10 @@ public class ChatCommand {
                 return new String[] { "find", "search" };
             case HELP:
                 return new String[] { "help", "tutorial" };
+            case SAVE:
+                return new String[] { "save" };
+            case LOAD:
+                return new String[] { "load" };
             case EXIT:
                 return new String[] { "bye", "exit" };
             case UNKNOWN:
@@ -113,6 +117,10 @@ public class ChatCommand {
                 return "Finds all available tasks with the given search term.";
             case HELP:
                 return "Shows the help sheet for all commands.";
+            case SAVE:
+                return "Initiates a data save from disk. Usually not necessary thanks to auto-save.";
+            case LOAD:
+                return "Loads the data from disk and replaces the contents in memory.";
             case EXIT:
                 return "Stops the conversation.";
             case UNKNOWN:
@@ -149,6 +157,8 @@ public class ChatCommand {
                 return "%s <search terms>";
             case LIST:
             case HELP:
+            case SAVE:
+            case LOAD:
             case EXIT:
                 return "%s";
             case UNKNOWN:
@@ -169,6 +179,7 @@ public class ChatCommand {
             case LIST:
             case SEARCH:
             case HELP:
+            case LOAD:
             case EXIT:
             case UNKNOWN:
                 return false;

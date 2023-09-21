@@ -1,6 +1,5 @@
 package todoify.taskmanager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -148,54 +147,47 @@ public class TaskManager {
      * </p>
      *
      * @throws IOException if there were any issues retrieving the data.
+     * @throws JsonSyntaxException if there was a JSON parsing error.
      */
     public void loadFromStorage() throws IOException, JsonSyntaxException {
-        try {
-            String data = this.storageHandler.loadFrom(this.storageLocation);
-            JsonArray array = JsonParser.parseString(data).getAsJsonArray();
+        String data = this.storageHandler.loadFrom(this.storageLocation);
+        JsonArray array = JsonParser.parseString(data).getAsJsonArray();
 
-            // Prepare a new list of tasks.
-            List<Task> tasks = new ArrayList<>();
+        // Prepare a new list of tasks.
+        List<Task> tasks = new ArrayList<>();
 
-            // Prepare a new set of classes, from most specific to least specific.
-            // This ordering is required to match the provided JSON to a class that's as specific as possible.
-            List<Class<? extends Task>> availClasses = List.of(Event.class, Deadline.class, Todo.class);
+        // Prepare a new set of classes, from most specific to least specific.
+        // This ordering is required to match the provided JSON to a class that's as specific as possible.
+        List<Class<? extends Task>> availClasses = List.of(Event.class, Deadline.class, Todo.class);
 
-            // Iterate through the items in the JSON array.
-            for (JsonElement item : array) {
-                Task task = null;
+        // Iterate through the items in the JSON array.
+        for (JsonElement item : array) {
+            Task task = null;
 
-                // Iterate through possible classes and attempt to get them.
-                for (Class<? extends Task> cls : availClasses) {
-                    try {
-                        task = Task.fromJsonRepresentation(item, cls);
-                    } catch (JsonSyntaxException | IllegalArgumentException e) {
-                        // This is not the correct class.
-                    }
-
-                    if (task != null) {
-                        break;
-                    }
+            // Iterate through possible classes and attempt to get them.
+            for (Class<? extends Task> cls : availClasses) {
+                try {
+                    task = Task.fromJsonRepresentation(item, cls);
+                } catch (JsonSyntaxException | IllegalArgumentException e) {
+                    // This is not the correct class.
                 }
 
-                // Skip if we cannot parse.
-                if (task == null) {
-                    continue;
+                if (task != null) {
+                    break;
                 }
-
-                // Add it if we can.
-                tasks.add(task);
             }
 
-            // Replace the task list with a new one
-            this.taskList = tasks;
+            // Skip if we cannot parse.
+            if (task == null) {
+                continue;
+            }
 
-        } catch (JsonSyntaxException | FileNotFoundException e) {
-
-            // Silence these errors and replace the task list with a new one.
-            this.taskList = new ArrayList<>();
-
+            // Add it if we can.
+            tasks.add(task);
         }
+
+        // Replace the task list with a new one
+        this.taskList = tasks;
     }
 
     /**

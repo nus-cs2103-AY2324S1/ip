@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import javafx.util.Pair;
 import todoify.chatbot.exception.command.ChatbotCommandException;
+import todoify.chatbot.exception.command.ChatbotExternalErrorException;
 import todoify.chatbot.exception.command.ChatbotInvalidCommandFormatException;
 import todoify.taskmanager.TaskManager;
 import todoify.taskmanager.task.Deadline;
@@ -19,6 +20,11 @@ import todoify.util.StringFormatter;
 
 /**
  * A package helper class for executing {@link ChatCommand} by the user.
+ *
+ * <p>
+ * This exposes a {@link ChatCommandExecutor#execute(ChatCommand)} method to execute a chat command and process any
+ * and all replies to the user.
+ * </p>
  */
 class ChatCommandExecutor {
 
@@ -36,12 +42,29 @@ class ChatCommandExecutor {
     }
 
     /**
-     * Executes the given command on the chatbot that was configured on this instance.
+     * Executes the given command on the chatbot that was configured on this instance, processes them and reply to the
+     * user accordingly, including successes and failures.
+     *
+     * @param command The command to execute.
+     */
+    void execute(ChatCommand command) {
+        try {
+            this.process(command);
+            this.processSaveIfIsWriteOperation(command);
+
+        } catch (Exception e) {
+            this.processError(e);
+        }
+    }
+
+    /**
+     * Processes the given command on the chatbot that was configured on this instance, and notify the user
+     * accordingly. Errors are thrown separately and not processed.
      *
      * @param command The command to execute.
      * @throws ChatbotCommandException if there were any errors during the execution.
      */
-    void execute(ChatCommand command) throws ChatbotCommandException {
+    private void process(ChatCommand command) throws ChatbotCommandException {
         switch (command.getOperation()) {
         case ADD_TODO:
             this.processAddTodo(command);
@@ -70,18 +93,45 @@ class ChatCommandExecutor {
         case HELP:
             this.processHelp(command);
             break;
+        case SAVE:
+            this.processSave(command, true);
+            break;
+        case LOAD:
+            this.processLoad(command, true);
+            break;
         case EXIT:
             this.processExit(command);
             break;
-        default:
-            assert command.getOperation() == ChatCommand.Operation.UNKNOWN
-                    : "All known cases should have been handled!";
-
+        case UNKNOWN:
             throw new ChatbotCommandException("Sorry, idgi :(\nYou might wanna try the 'help' command to let me "
                     + "guide you about all available commands!");
+        default:
+            assert false : "All known cases should have been handled!";
+            throw new ChatbotCommandException("Sorry, this feature is not yet implemented :(");
         }
     }
 
+    /**
+     * Processes a save if this command required writing to disk, and notify the user accordingly. Errors are thrown
+     * separately and not processed.
+     *
+     * @param command The command to execute.
+     * @throws ChatbotCommandException if there were any errors during the execution.
+     */
+    private void processSaveIfIsWriteOperation(ChatCommand command) throws ChatbotCommandException {
+        if (command.getOperation().isWriteOperation()) {
+            this.processSave(new ChatCommand("save", "", null), false);
+        }
+    }
+
+    /**
+     * Processes a given exception and let the user know accordingly.
+     *
+     * @param exception The exception to process.
+     */
+    private void processError(Exception exception) {
+        this.chatbot.sendMessageToUser("Oops! " + exception.getLocalizedMessage());
+    }
 
 
     /**
@@ -414,6 +464,62 @@ class ChatCommandExecutor {
         // Send the messages to the user.
         this.chatbot.sendMessageToUser(primaryMessage);
         this.chatbot.sendMessageToUser(footerMessage);
+    }
+
+    /**
+     * Processes the save operation.
+     *
+     * @param command The command that represents the save operation.
+     * @param shouldAnnounceSuccess Whether to announce success to the user.
+     * @throws ChatbotCommandException if there were any issues saving content.
+     */
+    private void processSave(ChatCommand command, boolean shouldAnnounceSuccess) throws ChatbotCommandException {
+        try {
+            this.assertCommandHasNoData(command);
+            this.taskManager.saveToStorage();
+            if (shouldAnnounceSuccess) {
+                this.chatbot.sendMessageToUser("Success! I've saved your data to your device's storage. Also note "
+                        + "that you don't need to keep running this unless there's an error; I'll always try to save "
+                        + "your data automatically.");
+            }
+
+        } catch (ChatbotCommandException exception) {
+            throw exception;
+
+        } catch (Exception exception) {
+            throw new ChatbotExternalErrorException(
+                    "Sorry, I had some issues saving your data - your data might not be saved yet. "
+                            + "Please resolve them and try running 'save' again.",
+                    exception
+            );
+        }
+    }
+
+    /**
+     * Processes the load operation.
+     *
+     * @param command The command that represents the load operation.
+     * @param shouldAnnounceSuccess Whether to announce success to the user.
+     * @throws ChatbotCommandException if there were any issues loading content.
+     */
+    private void processLoad(ChatCommand command, boolean shouldAnnounceSuccess) throws ChatbotCommandException {
+        try {
+            this.assertCommandHasNoData(command);
+            this.taskManager.loadFromStorage();
+            if (shouldAnnounceSuccess) {
+                this.chatbot.sendMessageToUser("I've loaded your data from storage! Run 'list' to check them.");
+            }
+
+        } catch (ChatbotCommandException exception) {
+            throw exception;
+
+        } catch (Exception exception) {
+            throw new ChatbotExternalErrorException(
+                    "Sorry, I had some issues loading your data. Please resolve them and try again, "
+                            + "or send 'save' to override existing data.",
+                    exception
+            );
+        }
     }
 
     private void processExit(ChatCommand command) throws ChatbotCommandException {
