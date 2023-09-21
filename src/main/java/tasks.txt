@@ -1,6 +1,7 @@
-D | 0 | ip | 2023-08-31
-T | 1 | eat fruits
-T | 0 | ip
-D | 0 | quiz | 2023-09-13
-E | 0 | meeting | 2023-09-20 10:00 | 2023-09-20 12:00
-
+D | 0 | quiz | 2023-09-30
+E | 0 | group meeting | 2023-09-24 10:00 | 2023-09-24 12:00
+T | 0 | watch lecture
+T | 0 | mid-semester survey
+D | 0 | project proposal | 2023-10-01
+E | 0 | seminar | 2023-10-02 14:00 | 2023-10-02 18:00
+T | 0 | group formation

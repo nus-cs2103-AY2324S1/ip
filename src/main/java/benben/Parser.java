@@ -64,6 +64,12 @@ public class Parser {
             throw new BenBenException("BenBen does not understand your instruction:(");
     }
 
+    /**
+     * Parses the text from the local file into a task list
+     * @param args the arguments from the file
+     * @return a task created from the arguments
+     * @throws BenBenException the BenBenException if file is corrupted
+     */
     public static Task parseFromFile(String[] args) throws BenBenException{
         Task newTask = null;
         String type = args[0];
@@ -100,6 +106,11 @@ public class Parser {
         return newTask;
     }
 
+    /**
+     * Splits the line of text from a file into an array of Strings
+     * @param ln the line in the storage file
+     * @return an array of strings
+     */
     public static String[] getArrayFromFile(String ln) {
         String[] strSplit = ln.split("\\|");
         assert strSplit.length >= 3;
@@ -110,7 +121,12 @@ public class Parser {
     }
 
 
-
+    /**
+     * Creates a todo object from user command
+     * @param str
+     * @return a todo task
+     * @throws BenBenException if the user command is of the wrong format
+     */
     public static Task parseTodo(String str) throws BenBenException {
         String[] strSplit = str.split("\\s+");
         StringBuilder des = new StringBuilder("");
@@ -128,6 +144,12 @@ public class Parser {
         return t;
     }
 
+    /**
+     * Creates a deadline object from user command
+     * @param str
+     * @return a deadline task
+     * @throws BenBenException if the user command is of the wrong format
+     */
     public static Task parseDeadline (String str) throws BenBenException {
         String[] strSplit = str.split("\\s+");
         StringBuilder des = new StringBuilder("");
@@ -159,6 +181,12 @@ public class Parser {
         return t;
     }
 
+    /**
+     * Creates an event object from user command
+     * @param str
+     * @return an event task
+     * @throws BenBenException if the user command is of the wrong format
+     */
     public static Task parseEvent(String str) throws BenBenException {
         String[] strSplit = str.split("\\s+");
         StringBuilder des = new StringBuilder("");

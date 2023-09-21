@@ -44,7 +44,7 @@ public class Storage {
     }
 
     /**
-     * Load array list of tasks from the local file
+     * Loads array list of tasks from the local file.
      *
      * @return the array list of the tasks
      * @throws BenBenException the ben ben exception

@@ -39,7 +39,7 @@ public class Ui {
     }
 
     public String showMark(String msg) {
-        return "OK, I've marked this task as not done yet:\n" + "    " + msg;
+        return "OK, I've marked this task as done:\n" + "    " + msg;
     }
 
     public String showList(TaskList tasks) {

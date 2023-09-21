@@ -1,6 +1,5 @@
 package benben;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * The type BenBen is a chatbot that interacts with the user by taking input from the system
@@ -198,7 +197,11 @@ public class BenBen {
         return ui.showExit();
     }
 
-
+    /**
+     * Gets the response message from BenBen
+     * @param input the command from the user
+     * @return the response string from BenBen
+     */
     public String getResponse(String input) {
         try {
             return Parser.parse(this, input);
@@ -208,6 +211,12 @@ public class BenBen {
 
     }
 
+    /**
+     * Sorts all or selected tasks in a particular order.
+     *
+     * @param str the type of tasks to be sorted
+     * @return the String response from BenBen
+     */
     public String sort(String str) {
         String[] strSplit = str.split("\\s+");
         String key = "all";

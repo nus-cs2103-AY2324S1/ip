@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * A type of task that ahs a start and end time
+ * A type of task that has a start and end time
  */
 public class Event extends Task {
     /**
@@ -36,9 +36,6 @@ public class Event extends Task {
             this.startTime = LocalDateTime.parse(startTime, formatter);
             this.endTime = LocalDateTime.parse(endTime, formatter);
             assert this.startTime.isAfter(this.endTime);
-//            if (this.startTime.isAfter(this.endTime)) {
-//                throw new BenBenException("The end time should be later than the start time!");
-//            }
         } catch (DateTimeParseException e) {
             throw new BenBenException("The date and time is of the wrong format! Please use yyyy-MM-dd HH:mm");
         }
@@ -110,7 +107,4 @@ public class Event extends Task {
         return t.getLog().equals(this.getLog());
     }
 
-    public int compareTo(Event e) {
-        return this.getStartTime().compareTo(e.getStartTime());
-    }
 }
