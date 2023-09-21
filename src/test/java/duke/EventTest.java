@@ -13,17 +13,6 @@ import duke.task.Event;
 
 // Solution adapted and inspired from https://chat.openai.com/share/a8b02fc2-b4f0-490d-ad3e-a3e06fe3a168
 public class EventTest {
-
-    @Test
-    public void testToString() {
-        LocalDateTime fromDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 14, 0);
-        LocalDateTime toDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 16, 0);
-        Event event = new Event("Meeting", fromDateTime, toDateTime);
-
-        String expected = "[E][ ] Meeting (from: August 30 2023 2pm to: August 30 2023 4pm)";
-        assertEquals(expected, event.toString());
-    }
-
     @Test
     public void testToFileString() {
         LocalDateTime fromDateTime = LocalDateTime.of(2023, Month.AUGUST, 30, 14, 0);

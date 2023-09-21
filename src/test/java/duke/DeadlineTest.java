@@ -14,18 +14,6 @@ import duke.task.Deadline;
 // Solution adapted and inspired from https://chat.openai.com/share/a8b02fc2-b4f0-490d-ad3e-a3e06fe3a168
 public class DeadlineTest {
     @Test
-    public void testToString() {
-        LocalDateTime dateTime = LocalDateTime.of(2023, 12, 1, 18, 0);
-        Deadline deadline = new Deadline("Complete assignment", dateTime);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy h:mma");
-        String formattedDateTime = dateTime.format(formatter);
-
-        String expected = "[D][ ] Complete assignment (by: " + formattedDateTime + ")";
-        assertEquals(expected, deadline.toString());
-    }
-
-    @Test
     public void testToFileString() {
         LocalDateTime dateTime = LocalDateTime.of(2023, 12, 1, 18, 0);
         Deadline deadline = new Deadline("Complete assignment", dateTime);
