@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * Encapsulates all methods that processes the user's input to perform actions accordingly.
@@ -216,7 +217,7 @@ public class Parser {
             format.parse(date);
             LocalDate date1 = LocalDate.parse(date);
             return date1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        } catch (ParseException e) {
+        } catch (ParseException | DateTimeParseException e) {
             throw new DukeException("Invalid date format! Please enter the date in format yyyy-MM-dd");
         }
     }

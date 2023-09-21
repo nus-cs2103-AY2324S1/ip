@@ -106,7 +106,7 @@ public class TaskList {
     public String tagTask(int index, String tag) {
         Task t = tasks.get(index);
         t.addTag(tag);
-        return "Noted. I've tagged this task: " + t.toString();
+        return "Noted. I've tagged this task:\n" + t.toString();
     }
 
     /**

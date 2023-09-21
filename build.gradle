@@ -47,7 +47,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = "duke.jar"
+    archiveFileName = "EepyBot.jar"
 }
 
 run{
