@@ -21,7 +21,11 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         text.setWrapText(true);
+        //@@author xenosf-reused
+        //Reused from https://stackoverflow.com/a/42601328
+        // auto resize text if overflow
         text.setMinHeight(Region.USE_PREF_SIZE);
+        //@@author
 
         displayPicture.setFitWidth(75.0);
         displayPicture.setFitHeight(75.0);
