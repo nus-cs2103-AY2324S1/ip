@@ -20,4 +20,4 @@ text-ui-test/EXPECTED-UNIX.TXT
 *.class
 
 # Data file of tasks
-src/main/java/data
+/data
