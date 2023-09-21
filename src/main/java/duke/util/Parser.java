@@ -1,6 +1,7 @@
 package duke.util;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import duke.command.AddCommand;
 import duke.command.Command;
@@ -11,14 +12,19 @@ import duke.command.MarkCommand;
 import duke.command.PrintListCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
+import duke.exception.CommandException;
+import duke.exception.DeadlineException;
+import duke.exception.DeleteException;
+import duke.exception.EventException;
+import duke.exception.FindException;
+import duke.exception.LoadException;
+import duke.exception.MarkException;
+import duke.exception.ToDoException;
+import duke.exception.UnmarkException;
 import duke.task.Deadline;
-import duke.task.DeadlineException;
 import duke.task.Event;
-import duke.task.EventException;
 import duke.task.Task;
-import duke.task.TaskException;
 import duke.task.ToDo;
-import duke.task.ToDoException;
 
 /**
  * Converts a given String into Tasks and Commands.
@@ -29,9 +35,9 @@ public class Parser {
      *
      * @param input The given instruction to be parsed.
      * @return Command object that correspond to the given instruction.
-     * @throws TaskException if given input is in the wrong format.
+     * @throws CommandException if given input is in the wrong format.
      */
-    public static Command parse(String input) throws TaskException {
+    public static Command parse(String input) throws CommandException {
         if (input.equals("list")) {
             return new PrintListCommand();
         } else if (input.startsWith("mark")) {
@@ -65,14 +71,21 @@ public class Parser {
      * @param input The given information from local file.
      * @return Deadline object that correspond to the information given.
      */
-    public static Deadline parseLoadDeadline(String input) {
+    public static Deadline parseLoadDeadline(String input) throws LoadException {
         int byIndex = input.indexOf('|', 7);
         assert byIndex != -1 : "Unable to find byDate for given Deadline";
 
         String description = input.substring(8, byIndex - 1);
         String by = input.substring(byIndex + 2);
 
-        LocalDateTime byDate = LocalDateTime.parse(by);
+        LocalDateTime byDate;
+
+        try {
+            byDate = LocalDateTime.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new LoadException();
+        }
+
         Deadline deadline = new Deadline(description, byDate);
 
         if (input.charAt(4) == '1') {
@@ -88,7 +101,7 @@ public class Parser {
      * @param input The given information from local file.
      * @return Event object that correspond to the information given.
      */
-    public static Event parseLoadEvent(String input) {
+    public static Event parseLoadEvent(String input) throws LoadException {
         int fromIndex = input.indexOf('|', 7);
         int toIndex = input.indexOf('|', fromIndex + 1);
         assert fromIndex != -1 : "Unable to find fromDate for given Event";
@@ -98,8 +111,15 @@ public class Parser {
         String from = input.substring(fromIndex + 2, toIndex - 1);
         String to = input.substring(toIndex + 2);
 
-        LocalDateTime fromDate = LocalDateTime.parse(from);
-        LocalDateTime toDate = LocalDateTime.parse(to);
+        LocalDateTime fromDate;
+        LocalDateTime toDate;
+
+        try {
+            fromDate = LocalDateTime.parse(from);
+            toDate = LocalDateTime.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new LoadException();
+        }
 
         Event event = new Event(description, fromDate, toDate);
 
@@ -147,7 +167,13 @@ public class Parser {
         String description = input.substring(9, byIndex - 1);
         String by = input.substring(byIndex + 5);
 
-        LocalDateTime byDate = LocalDateTime.parse(by);
+        LocalDateTime byDate;
+
+        try {
+            byDate = LocalDateTime.parse(by);
+        } catch (DateTimeParseException e) {
+            throw new DeadlineException();
+        }
 
         Deadline deadline = new Deadline(description, byDate);
         return deadline;
@@ -176,8 +202,15 @@ public class Parser {
         String from = input.substring(fromIndex + 7, toIndex - 1);
         String to = input.substring(toIndex + 5);
 
-        LocalDateTime fromDate = LocalDateTime.parse(from);
-        LocalDateTime toDate = LocalDateTime.parse(to);
+        LocalDateTime fromDate;
+        LocalDateTime toDate;
+
+        try {
+            fromDate = LocalDateTime.parse(from);
+            toDate = LocalDateTime.parse(to);
+        } catch (DateTimeParseException e) {
+            throw new EventException();
+        }
 
         Event event = new Event(description, fromDate, toDate);
         return event;
@@ -204,13 +237,13 @@ public class Parser {
      *
      * @param input The given user input.
      * @return The index of the Task the user wishes to mark.
-     * @throws TaskException if given input is missing information or in wrong format.
+     * @throws CommandException if given input is missing information or in wrong format.
      */
-    public static int parseUserMark(String input) throws TaskException {
+    public static int parseUserMark(String input) throws CommandException {
         int index = Integer.valueOf(input.substring(5)) - 1;
 
         if (input.length() <= 5) {
-            throw new TaskException("mark (task number)");
+            throw new MarkException();
         }
 
         return index;
@@ -221,13 +254,13 @@ public class Parser {
      *
      * @param input The given user input.
      * @return The index of the Task the user wishes to unmark.
-     * @throws TaskException if given input is missing information or in wrong format.
+     * @throws CommandException if given input is missing information or in wrong format.
      */
-    public static int parseUserUnmark(String input) throws TaskException {
+    public static int parseUserUnmark(String input) throws CommandException {
         int index = Integer.valueOf(input.substring(7)) - 1;
 
         if (input.length() <= 7) {
-            throw new TaskException("unmark (task number)");
+            throw new UnmarkException();
         }
 
         return index;
@@ -238,13 +271,13 @@ public class Parser {
      *
      * @param input The given user input.
      * @return The index of the Task the user wishes to delete.
-     * @throws TaskException if given input is missing information or in wrong format.
+     * @throws CommandException if given input is missing information or in wrong format.
      */
-    public static int parseUserDelete(String input) throws TaskException {
+    public static int parseUserDelete(String input) throws CommandException {
         int index = Integer.valueOf(input.substring(7)) - 1;
 
         if (input.length() <= 7) {
-            throw new TaskException("delete (task number)");
+            throw new DeleteException();
         }
 
         return index;
@@ -255,11 +288,11 @@ public class Parser {
      *
      * @param input The given user input.
      * @return The string the users wishes to search.
-     * @throws TaskException if given input is missing information or in wrong format.
+     * @throws CommandException if given input is missing information or in wrong format.
      */
-    public static String parseUserFind(String input) throws TaskException {
+    public static String parseUserFind(String input) throws CommandException {
         if (input.length() <= 5) {
-            throw new TaskException("find (query string)");
+            throw new FindException();
         }
 
         return input.substring(5);

@@ -1,7 +1,8 @@
 package duke;
 
 import duke.command.Command;
-import duke.task.TaskException;
+import duke.exception.CommandException;
+import duke.exception.LoadException;
 import duke.util.Parser;
 import duke.util.Storage;
 import duke.util.TaskList;
@@ -21,7 +22,11 @@ public class Duke {
     public Duke() {
         this.ui = new Ui();
         this.storage = new Storage("data/duke.txt");
-        this.taskList = new TaskList(storage.load());
+        try {
+            this.taskList = new TaskList(storage.load());
+        } catch (LoadException e) {
+            ui.addErrorMessage(e);
+        }
     }
 
     /**
@@ -35,7 +40,7 @@ public class Duke {
         try {
             Command c = Parser.parse(input);
             c.execute(taskList, ui, storage);
-        } catch (TaskException e) {
+        } catch (CommandException e) {
             ui.addErrorMessage(e);
         } finally {
             output = ui.showMessage();
