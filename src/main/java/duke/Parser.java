@@ -1,5 +1,7 @@
 package duke;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -67,7 +69,8 @@ public class Parser {
                     + "(`deadline name /by date (in yyyy-mm-dd)`)");
         }
 
-        return taskList.addTask(new Deadline(name, parseDate(by)), true);
+        String parsedDate = parseDate(by);
+        return taskList.addTask(new Deadline(name, parsedDate), true);
     }
 
     private static String parseEvent(String s, TaskList taskList) throws DukeException {
@@ -206,8 +209,15 @@ public class Parser {
         }
     }
 
-    private static String parseDate(String date) {
-        LocalDate date1 = LocalDate.parse(date);
-        return date1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    private static String parseDate(String date) throws DukeException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+            format.parse(date);
+            LocalDate date1 = LocalDate.parse(date);
+            return date1.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (ParseException e) {
+            throw new DukeException("Invalid date format! Please enter the date in format yyyy-MM-dd");
+        }
     }
 }

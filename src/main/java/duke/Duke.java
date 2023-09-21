@@ -32,31 +32,6 @@ public class Duke extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public static void main(String[] args) {
-        // Greeting
-        Ui.greet();
-
-        // Initialise file
-        boolean isSuccessful = Storage.initialiseTaskListFile(taskList) == 1;
-        if (!isSuccessful) {
-            // No file found / created
-            return;
-        }
-
-        // Get input and store it
-        Scanner in = Ui.initialiseUi();
-
-        while (true) {
-            String input = Ui.getInput(in);
-
-            try {
-                Parser.parseInput(input, taskList);
-            } catch (DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -134,7 +109,6 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
@@ -147,7 +121,6 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -162,8 +135,9 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns response to user's input and updates task list file
+     * @param input user input
+     * @return response from chatbot
      */
     private String getResponse(String input) {
         String response;
