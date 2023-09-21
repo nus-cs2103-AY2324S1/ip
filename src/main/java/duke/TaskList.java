@@ -263,6 +263,7 @@ public class TaskList {
     public void removeTag(int index, String tag, Storage storage) {
         Task task = this.taskList.get(index);
         task.removeTag(tag);
+        System.out.println("Tags have been removed successfully");
         task.printTags(index + 1);
         this.generateNewTaskList(storage);
     }
@@ -276,6 +277,7 @@ public class TaskList {
     public void updateTags(int index, String tag, Storage storage) {
         Task task = this.taskList.get(index);
         task.addTag(tag);
+        System.out.println("Tags have been added successfully");
         task.printTags(index + 1);
         this.generateNewTaskList(storage);
     }

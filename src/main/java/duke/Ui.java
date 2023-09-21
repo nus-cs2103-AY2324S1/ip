@@ -43,7 +43,8 @@ public class Ui {
             String taskName = task.getTaskName();
             String taskType = task.getTaskType();
             String tags = task.saveTagFormat();
-            System.out.println(i + 1 + ". " + "[" + taskType + "] " + taskName + " | tags:  " + tags);
+            System.out.println(i + 1 + ". " + "[" + taskType + "]" + "[" + task.getStatusIcon() + "] "
+                    + taskName + " | tags:  " + tags);
         }
     }
 

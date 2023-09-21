@@ -136,7 +136,8 @@ public class EventTester {
         try {
             Event event = new Event("test", DateTimeStub.createDateTime("25/08/2023 1800"),
                     DateTimeStub.createDateTime("25/08/2023 1900"));
-            assertEquals("E | false | test | Aug-25-2023 1900 PM | Aug-25-2023 1800 PM | ", event.convertToSaveFormat());
+            assertEquals("E | false | test | Aug-25-2023 1900 PM | Aug-25-2023 1800 PM | ",
+                    event.convertToSaveFormat());
 
             event.quietlyCompleteTask();
             assertEquals("E | true | test | Aug-25-2023 1900 PM | Aug-25-2023 1800 PM | ", event.convertToSaveFormat());
