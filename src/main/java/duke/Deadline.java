@@ -19,6 +19,10 @@ public class Deadline extends Task {
         this.by = by;
     }
 
+    /**
+     * Constructs a Deadline with specified description, deadline, and
+     * whether it is completed.
+     */
     public Deadline(String description, boolean isDone, LocalDate by) {
         super(description, isDone);
         this.by = by;

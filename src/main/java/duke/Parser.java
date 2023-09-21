@@ -10,10 +10,13 @@ public class Parser {
     private TaskList taskList;
     private boolean isEnd = false;
 
-    public Parser(String command) {
+    protected Parser(String command) {
         this.command = command;
     }
 
+    /**
+     * Constructs a parser with specified Command and TaskList.
+     */
     public Parser(String command, TaskList taskList) {
         this.command = command;
         this.taskList = taskList;

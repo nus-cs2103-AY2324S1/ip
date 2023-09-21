@@ -12,7 +12,8 @@ public class Event extends Task {
     private LocalDate endTime;
 
     /**
-     * Constructs an Event with specified description, start time and end time.
+     * Constructs an Event with specified description, start time, end time,
+     * and whether it is completed.
      */
     public Event(String description, LocalDate startTime, LocalDate endTime) {
         super(description);
@@ -20,6 +21,9 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    /**
+     * Constructs an Event with specified description, start time and end time.
+     */
     public Event(String description, boolean isDone, LocalDate startTime, LocalDate endTime) {
         super(description, isDone);
         this.startTime = startTime;

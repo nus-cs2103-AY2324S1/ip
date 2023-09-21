@@ -8,7 +8,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a new Task object.
+     * Constructs a Task with specified description.
      *
      * @param description Description of the task.
      */
@@ -19,6 +19,10 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Constructs a Task with specified description and whether
+     * it is completed.
+     */
     public Task(String description, boolean isDone) {
         assert !description.isEmpty();
 

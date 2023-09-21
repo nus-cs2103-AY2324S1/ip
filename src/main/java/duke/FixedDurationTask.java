@@ -6,11 +6,18 @@ package duke;
 public class FixedDurationTask extends Task {
     private String duration;
 
+    /**
+     * Constructs a FixedDurationTask with specified description and duration.
+     */
     public FixedDurationTask(String description, String duration) {
         super(description);
         this.duration = duration;
     }
 
+    /**
+     * Constructs a FixedDurationTask with specified description, duration, and
+     * whether it is completed.
+     */
     public FixedDurationTask(String description, boolean isDone, String duration) {
         super(description, isDone);
         this.duration = duration;

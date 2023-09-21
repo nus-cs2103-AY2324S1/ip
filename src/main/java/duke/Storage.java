@@ -37,7 +37,7 @@ public class Storage {
     }
 
     /**
-     * Returns the file for storage. Initializes the file
+     * Returns the file for storage. Initializes the directory and the file
      * when necessary.
      *
      * @param path Path of the directory of the storage file.
@@ -49,7 +49,9 @@ public class Storage {
             dir.mkdir();
         }
         File f = new File(filePath);
-        f.createNewFile();
+        if (!f.exists()) {
+            f.createNewFile();
+        }
         return f;
     }
 
