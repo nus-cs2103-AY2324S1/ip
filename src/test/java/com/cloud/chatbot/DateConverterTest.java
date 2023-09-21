@@ -15,7 +15,7 @@ public class DateConverterTest {
     public void timestampToInstant() {
         Instant instantExpected = Instant.parse("2023-01-31T20:56:00Z");
         Instant instantActual = DateConverter.timestampToInstant("1 2 23 456");
-        Instant instantActual2 = DateConverter.timestampToInstant("1 1 31 2056");
+        Instant instantActual2 = DateConverter.timestampToInstant("31 1 23 2056");
         assertTrue(
             Arrays.asList(instantActual, instantActual2)
                     .contains(instantExpected)
