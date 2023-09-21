@@ -21,14 +21,4 @@ public class ExitCommand extends Command {
         storage.save(tasks);
         return ui.showGoodbye();
     }
-
-    /**
-     * Indicates that this command causes the application to exit.
-     *
-     * @return true as this command exits the application.
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

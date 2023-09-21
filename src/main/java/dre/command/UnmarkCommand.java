@@ -21,7 +21,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the unmark command, unmarking a task.
+     * Executes the unmark command, marking a task as undone.
      *
      * @param tasks   The current list of tasks.
      * @param ui      The UI object to show response.

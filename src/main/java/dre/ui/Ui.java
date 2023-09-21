@@ -13,7 +13,7 @@ public class Ui {
     /**
      * Displays an error message indicating issues with loading tasks from storage.
      *
-     * @return loading error message
+     * @return The loading error message.
      */
     public String generateLoadingErrorString() {
         return "Error reading tasks from file.";
@@ -31,7 +31,7 @@ public class Ui {
     /**
      * Displays the welcome message to the user upon starting the application.
      *
-     * @return welcome message
+     * @return The welcome message.
      */
     public static String showWelcome() {
         return "Hello! I'm Dre\n" +

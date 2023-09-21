@@ -63,10 +63,7 @@ public class Dre extends Application {
      * Runs the main loop of the application, repeatedly reading user commands,
      * parsing them, and executing the corresponding actions until the user exits.
      *
-     * @param stage the primary stage for this application, onto which
-     * the application scene can be set.
-     * Applications may create other stages, if needed, but they will not be
-     * primary stages.
+     * @param stage the primary stage for this application, onto which the application scene can be set.
      */
     @Override
     public void start(Stage stage) {
@@ -138,7 +135,7 @@ public class Dre extends Application {
 
     /**
      * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
+     * @param text String containing text to add.
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {

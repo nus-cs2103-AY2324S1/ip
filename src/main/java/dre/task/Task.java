@@ -1,7 +1,5 @@
 package dre.task;
 
-import java.time.LocalDate;
-
 /**
  * Represents a generic task.
  */
@@ -82,6 +80,11 @@ public class Task {
         return description;
     }
 
+    /**
+     * Sets the description of the task to a new String value.
+     *
+     * @param newDescription the new description to be refactored into the task.
+     */
     public void editDescription(String newDescription) {
         this.description = newDescription;
     }

@@ -30,8 +30,9 @@ public class TaskList {
 
     /**
      * Changes the index starting from 1 in the wrapper class to start from 0.
-     * @param index the index to be adjusted
-     * @return adjusted index
+     *
+     * @param index the index to be adjusted.
+     * @return adjusted index.
      */
     private int adjustIndex(int index) {
         return index - 1;
@@ -108,8 +109,8 @@ public class TaskList {
     /**
      * Finds task in the tasklist that contain the keyword.
      *
-     * @param keyword The String used for search
-     * @return TaskList of tasks that match the search
+     * @param keyword The String used for search.
+     * @return TaskList of tasks that match the search.
      */
     public TaskList findTasksByKeyword(String keyword) {
         List<Task> foundTasks = this.tasks.stream()

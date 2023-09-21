@@ -55,6 +55,12 @@ public class Deadline extends Task {
         return date.format(formatter);
     }
 
+    /**
+     * Modifies the due date of the deadline task.
+     *
+     * @param newByDate The new due date to be set for the task in the format yyyy-MM-dd.
+     * @throws DreException If the provided date format is invalid.
+     */
     public void editByDate(String newByDate) throws DreException {
         try {
             LocalDate parsedDate = LocalDate.parse(newByDate);

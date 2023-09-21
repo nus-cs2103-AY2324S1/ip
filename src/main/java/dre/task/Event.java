@@ -12,6 +12,13 @@ public class Event extends Task {
     private LocalDate fromDate;
     private LocalDate toDate;
 
+    /**
+     * Creates a new Event task.
+     *
+     * @param task The description of the task.
+     * @param fromDate The date that the event starts.
+     * @param toDate The date that the event ends.
+     */
     public Event(String task, LocalDate fromDate, LocalDate toDate) {
         super(task);
         this.fromDate = fromDate;
@@ -52,6 +59,12 @@ public class Event extends Task {
         return date.format(formatter);
     }
 
+    /**
+     * Modifies the start date of the event task.
+     *
+     * @param newFromDate The new start date to be set for the task in the format YYYY-MM-DD.
+     * @throws DreException If the provided start date is after the end date.
+     */
     public void editFromDate(String newFromDate) throws DreException {
         LocalDate newFrom = LocalDate.parse(newFromDate);
         if (newFrom.isAfter(this.toDate)) {
@@ -60,6 +73,12 @@ public class Event extends Task {
         this.fromDate = newFrom;
     }
 
+    /**
+     * Modifies the start date of the event task.
+     *
+     * @param newToDate The new start date to be set for the task in the format yyyy-MM-dd.
+     * @throws DreException If the provided end date is before the start date.
+     */
     public void editToDate(String newToDate) throws DreException {
         LocalDate newTo = LocalDate.parse(newToDate);
         if (newTo.isBefore(this.fromDate)) {
