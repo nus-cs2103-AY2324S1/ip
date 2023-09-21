@@ -1,7 +1,8 @@
 package teho.main;
+
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Collections;
 
 /**
  * Deals with interactions with the user through generating messages.
@@ -12,7 +13,7 @@ public class Ui {
      *
      * @return String representation of hello message
      */
-    public static String generateHelloMessage() {
+    public String generateHelloMessage() {
         return "Hello! I'm TehO \nWhat can I do for you?";
     }
 
@@ -21,7 +22,7 @@ public class Ui {
      *
      * @return String representation of bye message.
      */
-    public static String generateGoodbyeMessage() {
+    public String generateGoodbyeMessage() {
         return "Bye!\nHave a great day & see you again soon:)";
     }
 
@@ -40,7 +41,7 @@ public class Ui {
             str += (i + 1) + ". " + task.toString() + "\n";
         }
         if (count == 0) {
-            str += "YAYA! There are no tasks in your list";
+            str += "YAY! There are no tasks in your list";
         }
         return str;
     }
@@ -75,7 +76,8 @@ public class Ui {
      * @return String representation of marked task message.
      */
     public static String generateMarkTaskMessage(Task task) {
-        return "Good job! I've marked this task as done:\n" + task.toString();
+        return "Good job! I've marked this task as done:\n"
+                + task.toString();
     }
 
     /**
@@ -85,43 +87,18 @@ public class Ui {
      * @return String representation of unmarked task message.
      */
     public String generateUnmarkTaskMessage(Task task) {
-        return "Okay, I've marked this task as not done yet:\n" + task.toString();
+        return "Okay, I've marked this task as not done yet:\n"
+                + task.toString();
     }
 
     /**
-     * Generates message to show that ToDo task is added to list.
+     * Generates message to show that task is added to list.
      *
      * @param task Task added to list.
      * @param taskList List of tasks that added task.
-     * @return String representation of add ToDo task message.
+     * @return String representation of add task message.
      */
-    public String generateAddToDoMessage(Task task, TaskList taskList) {
-        return "Got it. I've added this task:\n"
-                + task.toString() + "\n"
-                + "Now you have " + taskList.getSize() + " task(s) in the list.";
-    }
-
-    /**
-     * Generates message to show that Deadline task is added to list.
-     *
-     * @param task Task added to list.
-     * @param taskList List of tasks that added task.
-     * @return String representation of add Deadline task message.
-     */
-    public String generateAddDeadlineMessage(Task task, TaskList taskList) {
-        return "Got it. I've added this task:\n"
-                + task.toString() + "\n"
-                + "Now you have " + taskList.getSize() + " task(s) in the list.";
-    }
-
-    /**
-     * Generates message to show that Event task is added to list.
-     *
-     * @param task Task added to list.
-     * @param taskList List of tasks that added task.
-     * @return String representation of add Event task message.
-     */
-    public String generateAddEventMessage(Task task, TaskList taskList) {
+    public String generateAddedMessage(Task task, TaskList taskList) {
         return "Got it. I've added this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + taskList.getSize() + " task(s) in the list.";

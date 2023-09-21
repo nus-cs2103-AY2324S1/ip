@@ -1,9 +1,15 @@
 package teho.main;
 
-import teho.exceptions.*;
+import teho.exceptions.EmptyDeadlineDescriptionException;
+import teho.exceptions.EmptyEventDescriptionException;
+import teho.exceptions.EmptyFindDescriptionException;
+import teho.exceptions.EmptyToDoDescriptionException;
+import teho.exceptions.InvalidCommandException;
+import teho.exceptions.TehOException;
+
+import static java.lang.Integer.parseInt;
 
 import java.util.Scanner;
-import static java.lang.Integer.parseInt;
 import java.time.LocalDate;
 
 /**
@@ -128,7 +134,7 @@ public class TehO  {
             String command = userCommand.substring(TODO_SIZE + 1);
             Task task = new ToDo(command);
             this.taskList.add(task);
-            return ui.generateAddToDoMessage(task, taskList);
+            return ui.generateAddedMessage(task, taskList);
         } catch (EmptyToDoDescriptionException e) {
             return e.toString();
         }
@@ -149,7 +155,7 @@ public class TehO  {
             LocalDate byDate = LocalDate.parse(commandWithDate.split(" /by ")[1]);
             Task task = new Deadline(description, byDate);
             this.taskList.add(task);
-            return ui.generateAddDeadlineMessage(task, taskList);
+            return ui.generateAddedMessage(task, taskList);
         } catch (EmptyDeadlineDescriptionException e) {
             return e.toString();
         }
@@ -172,7 +178,7 @@ public class TehO  {
             LocalDate toDate = LocalDate.parse(dates.split(" /to ")[1]);
             Task task = new Event(description, fromDate, toDate);
             this.taskList.add(task);
-            return ui.generateAddEventMessage(task, taskList);
+            return ui.generateAddedMessage(task, taskList);
         } catch (EmptyEventDescriptionException e) {
             return e.toString();
         } catch (IllegalArgumentException e) {

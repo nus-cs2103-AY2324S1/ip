@@ -4,7 +4,11 @@ import teho.main.Parser;
 import teho.main.Task;
 import teho.main.TaskList;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -37,7 +41,7 @@ public class Storage {
             FileWriter fw = new FileWriter(filePath);
             for (int i = 0; i < taskList.getSize(); i++) {
                 Task task = taskList.getTask(i);
-                fw.write(task.fileString() + "\n");
+                fw.write(task.taskForSaving() + "\n");
             }
             fw.close();
         } catch (IOException e) {

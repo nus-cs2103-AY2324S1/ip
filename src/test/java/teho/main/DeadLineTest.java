@@ -22,6 +22,6 @@ public class DeadLineTest {
         LocalDate byDate = LocalDate.parse("2019-10-15");
         String command = "Do assignment";
         Task task = new Deadline(command, byDate);
-        assertEquals("D|0|Do assignment|2019-10-15", task.fileString());
+        assertEquals("D|0|Do assignment|2019-10-15", task.taskForSaving());
     }
 }

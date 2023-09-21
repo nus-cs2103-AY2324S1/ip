@@ -31,7 +31,7 @@ Now you have 1 task(s) in the list.
 ```
 ### `deadline` - Adds a deadline task into the list
 
-Format: `deadline TASK /by DEADLINE`
+Format: `deadline TASK /by DUE_DATE`
 
 Example of usage: `deadline return book /by 2023-12-14`
 

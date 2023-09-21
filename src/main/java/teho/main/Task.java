@@ -71,5 +71,5 @@ public abstract class Task {
         return description;
     }
 
-    public abstract String fileString();
+    public abstract String taskForSaving();
 }

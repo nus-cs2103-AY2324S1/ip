@@ -16,7 +16,7 @@ public class ToDoTest {
     public void fileStringTest() {
         String command = "Dance";
         Task task = new ToDo(command);
-        assertEquals("T|0|Dance", task.fileString());
+        assertEquals("T|0|Dance", task.taskForSaving());
     }
 }
 

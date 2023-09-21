@@ -31,7 +31,7 @@ public class ToDo extends Task {
      * @return String representation of the ToDo task.
      */
     @Override
-    public String fileString() {
+    public String taskForSaving() {
         String digitStatus = this.isDone? "1": "0";
         return "T|" + digitStatus + "|" + this.description;
     }

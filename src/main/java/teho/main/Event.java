@@ -47,7 +47,7 @@ public class Event extends Task {
      * @return String representation of the Event task.
      */
     @Override
-    public String fileString() {
+    public String taskForSaving() {
         String digitStatus = this.isDone? "1": "0";
         return "E|" + digitStatus + "|" + this.description + "|"
                 + fromDate + "|" + toDate;
