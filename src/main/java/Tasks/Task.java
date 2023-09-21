@@ -84,6 +84,12 @@ public abstract class Task {
         return this.description.toLowerCase().contains(keyword.toLowerCase());
     }
 
+    /**
+     * Parses the date and time string into a LocalDateTime object.
+     * @param dateTimeString The date and time string in the format "d/M/yyyy h:m a".
+     * @return The LocalDateTime object.
+     * @throws DukeException If the date and time string is in the wrong format.
+     */
     public LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATETIME_FORMAT);
         try {
@@ -93,6 +99,12 @@ public abstract class Task {
         }
     }
 
+    /**
+     * Parses the date string into a LocalDate object.
+     * @param dateString The date string in the format "d/M/yyyy".
+     * @return The LocalDate object.
+     * @throws DukeException If the date string is in the wrong format.
+     */
     public LocalDate parseDate(String dateString) throws DukeException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         try {

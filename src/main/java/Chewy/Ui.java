@@ -15,7 +15,7 @@ public class Ui {
     public String showWelcome() {
         String logo = "I'm Chewy,\n" +
                 "What can I do for you?\n";
-        return "Hello!\n" + logo;
+        return "RRWWWGGG!\n" + logo;
     }
 
     /**
@@ -24,7 +24,7 @@ public class Ui {
      * @return The custom Duke Error message.
      */
     public String showDukeError(DukeException e) {
-        return ":( Chewy can't understand! " + e.getMessage();
+        return ":( rrrr... " + e.getMessage();
     }
 
     /**
@@ -52,7 +52,7 @@ public class Ui {
      * @return The farewell message.
      */
     public String displayFarewellMessage() {
-        return "Bye. Hope to see you again soon!";
+        return "GWRGGGH! Hope to see you again soon!";
     }
 
     /**
@@ -61,6 +61,6 @@ public class Ui {
      * @return a message that shows the exception.
      */
     public String showException(Exception e) {
-        return "Something unexpected happened. try 'help' to see a list of commands";
+        return "GGRRRR! Something unexpected happened. try 'help' to see a list of commands";
     }
 }

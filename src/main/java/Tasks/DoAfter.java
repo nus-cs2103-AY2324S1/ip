@@ -15,11 +15,19 @@ public class DoAfter extends Task{
 
     private LocalDate doAfter;
 
+    /**
+     * Creates a new DoAfter task.
+     * @param description The description of the task.
+     * @throws DukeException If the task description is empty or the doAfter date is invalid.
+     */
     public DoAfter(String description) throws DukeException {
         super(description);
         initializeDoAfter();
     }
 
+    /** Initializes the DoAfter task.
+     * @throws DukeException If the task description is empty or the doAfter date is invalid.
+     */
     private void initializeDoAfter() throws DukeException {
         String[] splitString = description.split("/after", 2);
         if (splitString.length != 2) throw new InvalidTaskFormatException();
@@ -30,6 +38,11 @@ public class DoAfter extends Task{
         this.doAfter = super.parseDate(doAfterString);
     }
 
+    /**
+     * Creates a new DoAfter task.
+     * @param description The description of the task.
+     * @param deadlineString The doAfter date of the task in yyyy-MM-dd format.
+     */
     public DoAfter(String description, String deadlineString) {
         super(description);
         // doAfter will be in default yyyy-MM-dd format which can be parsed by LocalDate
