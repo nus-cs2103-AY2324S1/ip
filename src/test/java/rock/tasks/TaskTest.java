@@ -1,13 +1,13 @@
 package rock.tasks;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class TaskTest {
-    static String TASK_NAME = "TEST";
+    static final String TASK_NAME = "TEST";
     class TaskStub extends Task {
         public TaskStub() {
             super(TASK_NAME);
@@ -18,20 +18,20 @@ public class TaskTest {
     }
     @Test
     public void getCompletedStatusDefault() {
-        final Task TASK_DUMMY = new TaskStub();
-        assertEquals(false, TASK_DUMMY.isCompleted());
+        Task dummyTask = new TaskStub();
+        assertEquals(false, dummyTask.isCompleted());
     }
 
     @Test
     public void setCompletionStatus() {
-        final Task TASK_DUMMY = new TaskStub();
-        TASK_DUMMY.setCompleted(true);
-        assertEquals(true, TASK_DUMMY.isCompleted());
+        Task dummyTask = new TaskStub();
+        dummyTask.setCompleted(true);
+        assertEquals(true, dummyTask.isCompleted());
     }
 
     @Test
     public void getName() {
-        final Task TASK_DUMMY = new TaskStub();
-        assertEquals(TASK_NAME, TASK_DUMMY.getName());
+        Task dummyTask = new TaskStub();
+        assertEquals(TASK_NAME, dummyTask.getName());
     }
 }

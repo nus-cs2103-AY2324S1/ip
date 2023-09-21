@@ -78,7 +78,7 @@ public class Gui extends Application {
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
         sendButton.setOnMouseClicked((event) -> {
-        if (userInput.getText().length() != 0) {
+            if (userInput.getText().length() != 0) {
                 handleUserInput();
             }
         });
