@@ -54,23 +54,17 @@ public class Storage {
                 if (taskType.equals("T")) {
                     Task currTask = new ToDo(description);
                     tasks.add(currTask);
-                    if (parts[1].charAt(1) == 'X') {
-                        tasks.get(count).markAsDone();
-                    }
                 } else if (taskType.equals("E")) {
                     String start = date.split("-")[0] + "pm";
                     String end = date.split("-")[1].trim();
                     Task currTask = new Event(description, start, end);
                     tasks.add(currTask);
-                    if (parts[1].charAt(1) == 'X') {
-                        tasks.get(count).markAsDone();
-                    }
                 } else if (taskType.equals("D")) {
                     Task currTask = new Deadline(description, date);
                     tasks.add(currTask);
-                    if (parts[1].charAt(1) == 'X') {
-                        tasks.get(count).markAsDone();
-                    }
+                }
+                if (parts[1].charAt(1) == 'X') {
+                    tasks.get(count).markAsDone();
                 }
             }
             fileReader.close();

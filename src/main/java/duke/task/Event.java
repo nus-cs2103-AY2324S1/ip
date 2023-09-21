@@ -23,11 +23,8 @@ public class Event extends Task {
     @Override
     public String toTxtString() {
         String newStart = this.start.split("pm")[0];
-//        return "E | " + (this.isDone ? 1 : 0) + " | " + this.description + " | " + newStart + "-" + end;
-        return "[E] | [" + (this.isDone ? "X": " ") + "] | " + this.description + " | " + newStart + "-" + end;
+        return "[E] | [" + (this.isDone ? "X" : " ") + "] | " + this.description + " | " + newStart + "-" + end;
     }
-    //event project meeting /from Mon 2pm /to 4pm
-    //
     /**
      * Returns a string representation of the Event task
      *
