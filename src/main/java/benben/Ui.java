@@ -73,7 +73,7 @@ public class Ui {
         if (tasks.size() == 0) {
             return "There is no Tasks to show! Please add some new tasks first!";
         } else {
-            StringBuilder sb = new StringBuilder("Here are the sorted tasks in your list:");
+            StringBuilder sb = new StringBuilder("Here are the sorted tasks in your list:\n");
             sb.append("Sorted ").append(type).append(" by ").append(condition);
             for (int i = 0; i < tasks.size(); i++) {
                 sb.append("\n");

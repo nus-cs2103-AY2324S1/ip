@@ -3,6 +3,7 @@ package benben;
 import java.io.IOException;
 import java.util.Collections;
 
+import benben.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

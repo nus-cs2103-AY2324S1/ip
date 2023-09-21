@@ -1,5 +1,6 @@
 package benben;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The type BenBen is a chatbot that interacts with the user by taking input from the system
@@ -98,11 +99,11 @@ public class BenBen {
                 storage.write(tasks);
             return ui.showMark(tasks.get(x - 1).toString());
         } catch(NumberFormatException e) {
-            throw new BenBenException("Please use a positive integer value to indicate your task!");
+            throw new BenBenException("Please use an integer value to indicate your task!");
         } catch(NullPointerException e) {
             throw new BenBenException("The task you are trying to mark does not exist!");
         } catch (IndexOutOfBoundsException e) {
-            throw new BenBenException("Please use an integer value to indicate your task!");
+            throw new BenBenException("Please use a positive integer value within range to indicate your task!");
         }
     }
 
@@ -130,11 +131,11 @@ public class BenBen {
             storage.write(tasks);
             return ui.showUnmark(tasks.get(x - 1).toString());
         } catch (NumberFormatException e) {
-            throw new BenBenException("Please use a positive integer value to indicate your task!");
+            throw new BenBenException("Please use an integer value to indicate your task!");
         } catch (NullPointerException e) {
             throw new BenBenException("The task you re trying to unmark does not exist!");
         } catch (IndexOutOfBoundsException e) {
-            throw new BenBenException("Please use an integer value to indicate your task!");
+            throw new BenBenException("Please use a positive integer value within range to indicate your task!");
         }
     }
 
@@ -160,9 +161,9 @@ public class BenBen {
             storage.write(tasks);
             return ui.showRemove(temp.toString(), tasks.size());
         } catch (NumberFormatException e) {
-            throw new BenBenException("Please use a positive integer value to indicate your task!");
-        } catch (IndexOutOfBoundsException e) {
             throw new BenBenException("Please use an integer value to indicate your task!");
+        } catch (IndexOutOfBoundsException e) {
+            throw new BenBenException("Please use a positive integer value within range to indicate your task!");
         } catch (NullPointerException e) {
             throw new BenBenException("The task you are trying to remove does not exist!");
         }
@@ -198,8 +199,7 @@ public class BenBen {
      * Exits the program
      */
     public String exit() {
-        System.exit(0);
-        return ui.showExit();
+            return ui.showExit();
     }
 
     /**
@@ -242,7 +242,7 @@ public class BenBen {
                 s = ui.showSorted(this.tasks.sortEvent(), "Events", "start date");
                 break;
             default:
-                throw new BenBenException("Please do indicate how you want BenBen tos ort the tasks!");
+                throw new BenBenException("Please do indicate how you want BenBen to sort the tasks!");
         }
         return s;
     }
