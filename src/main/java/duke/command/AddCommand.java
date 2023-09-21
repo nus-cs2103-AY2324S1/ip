@@ -2,7 +2,6 @@ package duke.command;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import duke.components.DukeException;
 import duke.components.Storage;

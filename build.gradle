@@ -52,7 +52,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = "butlerBot-v1.1.jar"
+    archiveFileName = "butlerBot-v2.0.jar"
 //    archiveBaseName = "butlerBot"
 //    archiveVersion = "v1.1"
     archiveClassifier = null
