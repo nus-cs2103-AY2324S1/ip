@@ -163,7 +163,7 @@ public class Parser {
      * @return A TodoTask object representing the parsed command.
      * @throws DukeException If the command cannot be parsed or is invalid.
      */
-    private static Task parseTodoTask(String description, TaskPriority priority) throws DukeException {
+    static Task parseTodoTask(String description, TaskPriority priority) throws DukeException {
         String[] descriptionParts = description.split(" /from ");
 
         if (descriptionParts.length != 2) {
@@ -207,7 +207,7 @@ public class Parser {
      * @return A DeadlineTask object representing the parsed command.
      * @throws DukeException If the command cannot be parsed or is invalid.
      */
-    private static Task parseDeadlineTask(String description, TaskPriority priority) throws DukeException {
+    static Task parseDeadlineTask(String description, TaskPriority priority) throws DukeException {
         String[] deadlineParts = description.split(" /by ");
 
         if (deadlineParts.length != 2) {
@@ -237,7 +237,7 @@ public class Parser {
      * @return An EventTask object representing the parsed command.
      * @throws DukeException If the command cannot be parsed or is invalid.
      */
-    private static Task parseEventTask(String description, TaskPriority priority) throws DukeException {
+    static Task parseEventTask(String description, TaskPriority priority) throws DukeException {
         String[] eventParts = description.split(" /at ");
 
         if (eventParts.length != 2) {
