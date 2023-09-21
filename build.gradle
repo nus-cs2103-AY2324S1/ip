@@ -48,14 +48,6 @@ application {
 
 shadowJar {
     archiveFileName = 'martin.jar'
-    archiveBaseName = "martin"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
-}
-
-javafx {
-    version = "17.0.7"
-    modules = [ 'javafx.controls' ]
 }
 
 sourceSets {
