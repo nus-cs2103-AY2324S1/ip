@@ -5,77 +5,63 @@ package iris;
  */
 public class Parser {
 
-    /**
-     * Parses and executes user commands.
-     *
-     * @param taskStorage The storage object for tasks.
-     * @param toDoList    The to-do list containing tasks.
-     * @param input       The user input command to be parsed.
-     */
-    public void parseCommand(Storage taskStorage, ToDoList toDoList, String input) {
+    public String parseCommand(Storage taskStorage, TaskList taskList, Ui ui, String input) throws
+            WriteTaskException, UnrecognizedCommandException, InvalidTaskException {
         String[] sections = input.split(" ", 2);
         String command = sections[0];
         String rest = sections.length > 1 ? sections[1] : "";
-        switch (command) {
+        switch (command.toLowerCase()) {
             case "bye": {
-                Ui.exitMsg();
-                System.exit(0);
+                taskStorage.writeTask(taskList);
+                return ui.exitMessage();
             }
 
             case "list": {
-                Ui.printTasks(toDoList);
-                break;
+                return ui.getTasksMessage(taskList);
             }
             case "todo":
             case "deadline":
             case "event":
                 try {
-                    ToDoList.addTask(toDoList, command, rest);
+                    TaskList.addTask(taskList, command, rest);
+                    Task task = taskList.getTask(taskList.getSize() - 1);
+                    taskStorage.writeTask(taskList);
+                    return ui.getAddTaskMessage(taskList, task);
                 } catch (EmptyTaskDescriptorsException e) {
-                    System.out.println(e.toString());
+                    ui.respond(e.toString());
                 }
-                break;
             case "mark": {
-                if (rest.isEmpty()) {
-                    throw new IllegalArgumentException("Index is missing.");
-                }
-                int index = Integer.parseInt(rest);
-                toDoList.markTask(index);
-                Task task = toDoList.get(index);
-                Ui.markTaskMsg(task);
-                break;
+                int markIndex = Integer.parseInt(rest);
+                Task markTask = taskList.getTask(markIndex);
+                markTask.markAsDone();
+                taskStorage.writeTask(taskList);
+                return ui.markTaskMessage(markTask);
             }
             case "unmark": {
-                if (rest.isEmpty()) {
-                    throw new IllegalArgumentException("Index is missing.");
-                }
-                int index = Integer.parseInt(rest);
-                toDoList.unmarkTask(index);
-                Task task = toDoList.get(index);
-                Ui.unmarkTaskMsg(task);
-                break;
+                int unmarkIndex = Integer.parseInt(rest);
+                Task unmarkTask = taskList.getTask(unmarkIndex);
+                unmarkTask.markAsUndone();
+                taskStorage.writeTask(taskList);
+                return ui.unmarkTaskMessage(unmarkTask);
             }
             case "delete": {
-                if (rest.isEmpty()) {
-                    throw new IllegalArgumentException("Index is missing.");
-                }
-                int index = Integer.parseInt(rest);
-                ToDoList.deleteTask(toDoList, index);
-                break;
+                int delIndex = Integer.parseInt(rest);
+                Task task = taskList.getTask(delIndex);
+                TaskList.deleteTask(taskList, delIndex);
+                taskStorage.writeTask(taskList);
+                return ui.getDeleteTaskMessage(taskList, task);
             }
             case "find": {
-                ToDoList keywordToDoList = toDoList.getTasksWithKeyword(rest);
-                if (keywordToDoList.size() >= 1) {
-                    Ui.printKeywordTasksMsg(keywordToDoList);
+                TaskList keywordTaskList = taskList.getTasksWithKeyword(rest);
+                if (keywordTaskList.getSize() >= 1) {
+                    return ui.getKeywordTasksMessage(keywordTaskList);
                 } else {
-                    Ui.printNoKeywordTasksFound();
+                    return ui.getNoKeywordTasksFoundMessage();
                 }
-                break;
             }
             default: {
-                throw new IllegalArgumentException("Unknown command.");
+                throw new UnrecognizedCommandException();
             }
         }
-        taskStorage.writeTask(toDoList);
     }
 }

@@ -3,8 +3,8 @@ package iris;
  * Represents an event task with a start and end time.
  */
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private final String startTime;
+    private final String endTime;
 
     /**
      * Constructor for the Event class.
