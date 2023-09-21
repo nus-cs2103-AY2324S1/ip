@@ -6,90 +6,48 @@ package iris;
 public class Ui {
     private static final String HORIZONTAL_LINE = "      " +
             "_______________________________________________________________________________";
-
-    /**
-     * Displays the welcome message when the application starts.
-     */
-    public static void welcomeMsg() {
-        String greetings = "Hello! I'm Iris! \n What can I do for you?";
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(greetings);
-        System.out.println(HORIZONTAL_LINE);
+    public String exitMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Displays the exit message when the user exits the application.
-     */
-    public static void exitMsg() {
-        String byeMsg = "Bye. Hope to see you again soon!";
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(byeMsg);
-        System.out.println(HORIZONTAL_LINE);
+    public String respond(String message) {
+        return message;
     }
 
-    /**
-     * Displays a general response message to the user.
-     *
-     * @param message The message to be displayed.
-     */
-    public static void generalRespond(String message) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(message);
-        System.out.println(HORIZONTAL_LINE);
+    public String getTasksMessage(TaskList taskList) {
+        return "Here are the tasks in your list:\n" + taskList.toString();
     }
 
-    /**
-     * Displays a message when a task is marked as done.
-     *
-     * @param task The task that has been marked as done.
-     */
-    public static void markTaskMsg(Task task) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Nice! I've marked this task as done: \n" + task);
-        System.out.println(HORIZONTAL_LINE);
+
+    public String markTaskMessage(Task task) {
+        return "Nice! I've marked this task as done: \n" + task;
     }
 
-    /**
-     * Displays a message when a task is marked as not done.
-     *
-     * @param task The task that has been marked as not done.
-     */
-    public static void unmarkTaskMsg(Task task) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Okay, I've marked this task as not done yet: \n" + task);
-        System.out.println(HORIZONTAL_LINE);
+    public String unmarkTaskMessage(Task task) {
+        return "Okay, I've marked this task as not done yet: \n" + task;
     }
 
-    /**
-     * Displays the list of tasks to the user.
-     *
-     * @param toDoList The ToDoList containing the tasks to be displayed.
-     */
-    public static void printTasks(ToDoList toDoList) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println(toDoList);
-        System.out.println(HORIZONTAL_LINE);
+    public String getKeywordTasksMessage(TaskList keywordTaskList) {
+        return "Here are the matching tasks in your list: \n" + keywordTaskList.toString();
+    }
+    public String getNoKeywordTasksFoundMessage() {
+        return "No matching tasks found.";
     }
 
-    public static void printKeywordTasksMsg(ToDoList keywordToDoList) {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("Here are the matching tasks in your list:");
-        System.out.println(keywordToDoList);
-        System.out.println(HORIZONTAL_LINE);
-    }
-    public static void printNoKeywordTasksFound() {
-        System.out.println(HORIZONTAL_LINE);
-        System.out.println("No matching tasks found.");
-        System.out.println(HORIZONTAL_LINE);
+    public String getAddTaskMessage(TaskList taskList, Task task) {
+        return String.format("      Got it. I've added this task:\n          " +
+                "%s\n      Now you have " +
+                "%d tasks in the list", task, taskList.getSize());
     }
 
-    /**
-     * Displays the number of tasks in the list.
-     *
-     * @param toDoList The ToDoList for which the number of tasks will be displayed.
-     */
-    public static void printLength(ToDoList toDoList) {
-        int listSize = toDoList.size();
+    public String getDeleteTaskMessage(TaskList taskList, Task task) {
+        return String.format("Noted. I've removed this task:\n          " +
+                "%s\n      Now you have" +
+                " %d tasks in the list", task, taskList.getSize());
+    }
+
+    public static void printLength(TaskList taskList) {
+        int listSize = taskList.getSize();
         System.out.println("Now you have " + listSize + " tasks in the list.");
     }
 }

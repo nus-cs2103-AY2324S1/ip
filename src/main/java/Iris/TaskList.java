@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * Represents a list of tasks in the Iris application.
  */
-public class ToDoList {
+public class TaskList {
     private final ArrayList<Task> list;
 
     /**
@@ -13,7 +13,7 @@ public class ToDoList {
      *
      * @param list The initial list of tasks.
      */
-    public ToDoList(ArrayList<Task> list) {
+    public TaskList(ArrayList<Task> list) {
         this.list = list;
     }
 
@@ -46,7 +46,7 @@ public class ToDoList {
      * @return The task at the specified index.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public Task get(int index) {
+    public Task getTask(int index) {
         if (index < 1 || index > list.size()) {
             throw new IndexOutOfBoundsException("Task index is out of range.");
         }
@@ -84,19 +84,11 @@ public class ToDoList {
      *
      * @return The number of tasks in the list.
      */
-    public int size() {
+    public int getSize() {
         return list.size();
     }
 
-    /**
-     * Adds a task to the ToDoList based on the command and description provided.
-     *
-     * @param toDoList     The ToDoList to which the task will be added.
-     * @param command      The command indicating the type of task (e.g., "todo").
-     * @param description  The description of the task.
-     * @throws EmptyTaskDescriptorsException If the task description is empty.
-     */
-    public static void addTask(ToDoList toDoList, String command, String description)
+    public static void addTask(TaskList taskList, String command, String description)
             throws EmptyTaskDescriptorsException {
         if (description.isEmpty()) {
             throw new EmptyTaskDescriptorsException();
@@ -118,34 +110,34 @@ public class ToDoList {
             String endTime = startAndEndSections[1];
             task = new Event(name, startTime, endTime);
         }
-        toDoList.add(task);
+        taskList.add(task);
         System.out.println("Got it. I've added this task:");
         System.out.println(task.toString());
-        Ui.printLength(toDoList);
+        Ui.printLength(taskList);
     }
 
     /**
      * Deletes a task from the ToDoList by index.
      *
-     * @param toDoList The ToDoList from which the task will be deleted.
+     * @param taskList The ToDoList from which the task will be deleted.
      * @param index    The index of the task to be deleted.
      */
-    public static void deleteTask(ToDoList toDoList, int index) {
-        Task task = toDoList.get(index);
-        toDoList.remove(index);
+    public static void deleteTask(TaskList taskList, int index) {
+        Task task = taskList.getTask(index);
+        taskList.remove(index);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
-        Ui.printLength(toDoList);
+        Ui.printLength(taskList);
     }
 
-    public ToDoList getTasksWithKeyword(String keyword) {
+    public TaskList getTasksWithKeyword(String keyword) {
         ArrayList<Task> keywordTasks = new ArrayList<Task>();
         for (Task task : list) {
             if (task.ifDescriptionContains(keyword)) {
                 keywordTasks.add(task);
             }
         }
-        return new ToDoList(keywordTasks);
+        return new TaskList(keywordTasks);
     }
 
     /**
