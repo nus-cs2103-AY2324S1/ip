@@ -7,7 +7,6 @@ import dude.command.AddTaskCommand;
 import dude.command.DeleteTaskCommand;
 import dude.command.DudeCommand;
 import dude.command.DudeCommandId;
-import dude.command.ExitCommand;
 import dude.command.FindTaskCommand;
 import dude.command.ListTasksCommand;
 import dude.command.MarkTaskCommand;
@@ -200,8 +199,6 @@ public class Parser {
         try {
             DudeCommandId cmd = DudeCommandId.valueOf(cmdString);
             switch (cmd) {
-            case bye:
-                return new ExitCommand();
             case list:
                 return new ListTasksCommand();
             case mark:
