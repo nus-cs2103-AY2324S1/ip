@@ -1,7 +1,5 @@
 package ax.task;
 
-import java.time.LocalDate;
-
 /**
  * Todos Class contains Todos information
  */

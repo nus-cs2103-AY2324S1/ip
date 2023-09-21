@@ -1,5 +1,7 @@
 package ax;
 
+import static javafx.beans.binding.Bindings.subtract;
+
 import java.util.Scanner;
 
 import ax.commands.Parser;
@@ -20,7 +22,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static javafx.beans.binding.Bindings.subtract;
 
 
 /**
@@ -92,7 +93,6 @@ public class Ax extends Application {
         mainLayout.setPrefSize(400.0, 600.0);
         scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
         scrollPane.prefHeightProperty().bind(mainLayout.heightProperty());
-//        scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 

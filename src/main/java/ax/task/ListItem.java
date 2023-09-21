@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * Represents a single item in a to-do list.
  */
-public class ListItem implements Reminders{
+public class ListItem implements Reminders {
 
     @SuppressWarnings("FieldMayBeFinal")
     private String text;

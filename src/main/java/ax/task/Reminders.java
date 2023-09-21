@@ -2,6 +2,9 @@ package ax.task;
 
 import java.time.LocalDate;
 
+/**
+ * Reminders interface that will check if an item is due
+ */
 public interface Reminders {
 
     /**

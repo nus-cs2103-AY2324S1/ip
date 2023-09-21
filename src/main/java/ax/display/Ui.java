@@ -111,6 +111,10 @@ public class Ui {
         return res.toString();
     }
 
+    /**
+     * Displays the current due items
+     * @return The list of due items
+     */
     public static String listDueItems() {
         StringBuilder res = new StringBuilder();
         for (int i = 1; i < TaskList.getListItems().size() + 1; i++) {
@@ -118,7 +122,7 @@ public class Ui {
                 System.out.printf("%d. %s%n", i, TaskList.getListItems().get(i - 1));
                 res.append(String.format("%d. %s%n, has been due since %s",
                         i, TaskList.getListItems().get(i - 1),
-                        TaskList.getListItems().get(i - 1).getDueDate() )).append("\n");
+                        TaskList.getListItems().get(i - 1).getDueDate())).append("\n");
             }
         }
         return res.toString();
