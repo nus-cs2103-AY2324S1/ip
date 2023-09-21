@@ -18,6 +18,7 @@ public class Iris {
 
 
     public Iris(String filePath) {
+        assert !filePath.isEmpty() : "filePath cannot be empty";
         commandParser = new Parser();
         taskStorage = new Storage(filePath);
         toDoList = new ToDoList(taskStorage.loadTask());
