@@ -76,7 +76,7 @@ public class Parser {
     private static Deadline parseUserDeadline(String command) {
         int index = command.indexOf(47);
         String description = command.substring(9, index - 1);
-        String time = command.substring(index + 4);
+        String time = command.substring(index + 5);
         LocalDate day = LocalDate.parse(time);
         return new Deadline(description, day);
     }
@@ -84,10 +84,10 @@ public class Parser {
     private static Event parseUserEvent(String command) {
         int endOfDescription = command.indexOf(47);
         String description = command.substring(6, endOfDescription);
-        String duration = command.substring(endOfDescription + 6);
+        String duration = command.substring(endOfDescription + 7);
         int startOfEndTime = duration.indexOf(47);
         String from = duration.substring(0, startOfEndTime - 1);
-        String to = duration.substring(startOfEndTime + 4);
+        String to = duration.substring(startOfEndTime + 5);
         LocalDate startDate = LocalDate.parse(from);
         LocalDate endDate = LocalDate.parse(to);
         return new Event(description, startDate, endDate);
