@@ -33,9 +33,6 @@ public class GBot {
                 inputScanner.close();
                 Ui.displayExitMessage();
                 return;
-            } else if (message.strip().equals("help")) {
-                Ui.displayHelpMessage();
-                continue;
             }
             try {
                 Ui.print(Parser.parse(message, tasks));

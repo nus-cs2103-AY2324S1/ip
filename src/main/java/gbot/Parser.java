@@ -14,6 +14,8 @@ import tasks.Todo;
  * @author Gallen Ong
  */
 public class Parser {
+    private static final String INVALIDTASK = "Although you might not be wrong, I simply do not understand...\n" +
+                                              "Kindly enter a valid task number.";
     /**
      * Returns corresponding methods after parsing user inputs.
      *
@@ -21,7 +23,9 @@ public class Parser {
      * @param tasks The TaskList object that stores tasks.
      */
     public static String parse(String message, TaskList tasks) throws GBotException {
-        assert !message.isBlank() : "Please enter a valid command.";
+        if (message.isBlank()) {
+            throw new GBotException("Please enter a command.");
+        }
         switch (message.strip()) {
         case "list":
             return tasks.listTasks();
@@ -44,27 +48,168 @@ public class Parser {
      * @param tasks The TaskList object that stores tasks.
      * @throws GBotException If user command is invalid.
      */
-    private static String checkPrefix(String message, TaskList tasks) {
+    private static String checkPrefix(String message, TaskList tasks) throws RuntimeException {
         String prefix = message.split(" ")[0];
-        String remainingInput = message.substring(prefix.length() + 1);
+        String response;
         switch (prefix) {
+        case "help":
+            return Ui.getHelpMessage();
         case "mark":
-            return tasks.markTask(remainingInput);
+            response = parseMark(message, tasks);
+            break;
         case "unmark":
-            return tasks.unmarkTask(remainingInput);
+            response = parseUnmark(message, tasks);
+            break;
         case "todo":
-            return tasks.addTodo(remainingInput);
+            response = parseTodo(message, tasks);
+            break;
         case "deadline":
-            return tasks.addDeadline(remainingInput);
+            response = parseDeadline(message, tasks);
+            break;
         case "event":
-            return tasks.addEvent(remainingInput);
+            response = parseEvent(message, tasks);
+            break;
         case "delete":
-            return tasks.deleteTask(remainingInput);
+            response = parseDelete(message, tasks);
+            break;
         case "find":
-            return tasks.find(remainingInput);
-        default:
+            response = parseFind(message, tasks);
+            break;
+        default: // if invalid command provided
             throw new GBotException();
         }
+        assert !response.isBlank();
+        return response;
+    }
+
+    /**
+     * Returns response for Mark after parsing input.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     */
+    private static String parseMark(String message, TaskList tasks) {
+        String[] words = message.split(" ");
+        if (words.length != 2) {
+            return INVALIDTASK;
+        }
+        try {
+            return tasks.markTask(Integer.parseInt(words[1]));
+        } catch (NumberFormatException e) {
+            throw new GBotException(INVALIDTASK);
+        }
+    }
+
+    /**
+     * Returns response for Unmark after parsing input.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     */
+    private static String parseUnmark(String message, TaskList tasks) {
+        String[] words = message.split(" ");
+        if (words.length != 2) {
+            return INVALIDTASK;
+        }
+        try {
+            return tasks.unmarkTask(Integer.parseInt(words[1]));
+        } catch (NumberFormatException e) {
+            throw new GBotException(INVALIDTASK);
+        }
+    }
+
+    /**
+     * Returns response for adding a Todo task after parsing input.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     */
+    private static String parseTodo(String message, TaskList tasks) {
+        String desc = message.substring(4);
+        if (desc.isBlank()) {
+            return "I apologise. Kindly input a task description.";
+        }
+        return tasks.addTodo(desc);
+    }
+
+    /**
+     * Returns response for adding a Deadline task after parsing input.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     */
+    private static String parseDeadline(String message, TaskList tasks) {
+        String[] taskDesc = message.split(" /by ");
+        if (taskDesc.length != 2) {
+            return "I apologise for correcting you. Kindly follow the following:\n" +
+                   "deadline (task) /by (deadline in YYYY-MM-DD)\n" +
+                   "eg. deadline return book /by 2023-09-21";
+        }
+        return tasks.addDeadline(taskDesc[0].substring(8), taskDesc[1]);
+    }
+
+    /**
+     * Returns response for adding an Event task after parsing input.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     */
+    private static String parseEvent(String message, TaskList tasks) {
+        String[] inputSplitByFrom = message.split(" /from ");
+        String[] inputSplitByTo = message.split(" /to ");
+        if (inputSplitByFrom.length != 2 || inputSplitByTo.length != 2) {
+            return "I apologise for correcting you. Kindly follow the following:\n" +
+                    "event (task) /from (start in YYYY-MM-DD) /to (end in YYYY-MM-DD)\n" +
+                    "eg. event attend meeting /from 2023-09-21 /to 2023-09-22";
+        }
+
+        String[] inputAfterFrom = inputSplitByFrom[1].split(" /to ");
+        String desc;
+        String fromDate;
+        String toDate;
+
+        if (inputAfterFrom.length == 2) {
+            desc = inputSplitByFrom[0];
+            fromDate = inputAfterFrom[0];
+            toDate = inputAfterFrom[1];
+        } else {
+            desc = inputSplitByTo[0];
+            fromDate = inputSplitByTo[1].split(" /from ")[1];
+            toDate = inputSplitByTo[1].split(" /from ")[0];
+        }
+        return tasks.addEvent(desc, fromDate, toDate);
+    }
+
+    /**
+     * Returns response for deleting a task after parsing input.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     */
+    private static String parseDelete(String message, TaskList tasks) {
+        String[] words = message.split(" ");
+        if (words.length != 2) {
+            return INVALIDTASK;
+        }
+        try {
+            return tasks.deleteTask(Integer.parseInt(words[1]));
+        } catch (NumberFormatException e) {
+            throw new GBotException(INVALIDTASK);
+        }
+    }
+
+    /**
+     * Returns response for finding a task based on keyword after parsing input.
+     *
+     * @param message The user input.
+     * @param tasks The TaskList object that stores tasks.
+     */
+    private static String parseFind(String message, TaskList tasks) {
+        String[] words = message.split(" ");
+        if (words.length != 2) {
+            return "I wish I could read minds like you. Do kindly enter a keyword though.";
+        }
+        return tasks.find(message.substring(4));
     }
 
     /**

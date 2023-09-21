@@ -1,11 +1,8 @@
 package gbot;
 
-import exceptions.DeadlineException;
-import exceptions.EventException;
 import exceptions.TaskException;
 import java.util.ArrayList;
 
-import exceptions.TodoException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
@@ -20,8 +17,6 @@ public class TaskList {
     private Storage storage;
     private final ArrayList<Task> list;
     private int taskCount;
-    private static final String INVALIDTASK = "Although you might not be wrong, I simply do not understand..." +
-                                              "Kindly enter a task number.";
 
     /**
      * Initialises a TaskList objects that loads tasks from a given Storage object.
@@ -60,20 +55,9 @@ public class TaskList {
     /**
      * Marks the corresponding task as done and updates the file.
      *
-     * @param str The task number provided by the user.
+     * @param taskNum The task number provided by the user.
      */
-    public String markTask(String str) {
-        if (str.isBlank()) {
-            return INVALIDTASK;
-        }
-
-        int taskNum;
-        try {
-            taskNum = Integer.parseInt(str.split(" ")[0]);
-        } catch (NumberFormatException e) {
-            return INVALIDTASK;
-        }
-
+    public String markTask(int taskNum) {
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
@@ -97,20 +81,9 @@ public class TaskList {
     /**
      * Unmarks the corresponding task as not done and updates the file.
      *
-     * @param str The task number provided by the user.
+     * @param taskNum The task number provided by the user.
      */
-    public String unmarkTask(String str) {
-        if (str.isBlank()) {
-            return INVALIDTASK;
-        }
-
-        int taskNum;
-        try {
-            taskNum = Integer.parseInt(str.split(" ")[0]);
-        } catch (NumberFormatException e) {
-            return INVALIDTASK;
-        }
-
+    public String unmarkTask(int taskNum) {
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
@@ -138,10 +111,6 @@ public class TaskList {
      * @param str The Todo task description to be added.
      */
     public String addTodo(String str) {
-        if (str.isBlank()) {
-            throw new TodoException();
-        }
-
         Todo newTodo = new Todo(str);
         list.add(newTodo);
         storage.writeToFile(newTodo.toStringForFile());
@@ -154,63 +123,49 @@ public class TaskList {
     /**
      * Adds a Deadline task object to the task list and updates the file.
      *
-     * @param str The Deadline task description to be added.
+     * @param desc The Deadline task description to be added.
+     * @param deadline The deadline to be added.
      */
-    public String addDeadline(String str) {
-        if (str.isBlank()) {
-            throw new DeadlineException();
+    public String addDeadline(String desc, String deadline) {
+        if (desc.isBlank() || deadline.isBlank()) {
+            return "It appears you may be missing some details, do kindly enter.";
         }
 
-        String desc = str.split(" /by ")[0];
-        String by = str.split(" /by ")[1];
-        Deadline newDeadline = new Deadline(desc, by);
+        Deadline newDeadline = new Deadline(desc, deadline);
         list.add(newDeadline);
         storage.writeToFile(newDeadline.toStringForFile());
         taskCount++;
 
-        String count = "\nNow you have " + taskCount + " tasks to do.";
+        String count = "\nYou now have " + taskCount + " task(s) to do.";
         return "No rush on this but do take note of the deadline. Have added this:\n" + newDeadline.toString() + count;
     }
 
     /**
      * Adds an Event task object to the task list and updates the file.
      *
-     * @param str The Event task description to be added.
+     * @param desc The Event task description to be added.
+     * @param fromDate The start date of the event.
+     * @param toDate The end date of the event.
      */
-    public String addEvent(String str) {
-        if (str.isBlank()) {
-            throw new EventException();
+    public String addEvent(String desc, String fromDate, String toDate) {
+        if (desc.isBlank() || fromDate.isBlank() || toDate.isBlank()) {
+            return "It appears you may be missing some details, do kindly enter.";
         }
-
-        String desc = str.split(" /from ")[0];
-        String from = str.split(" /from ")[1].split(" /to ")[0];
-        String to = str.split(" /from ")[1].split(" /to ")[1];
-        Event newEvent = new Event(desc, from, to);
+        Event newEvent = new Event(desc, fromDate, toDate);
         list.add(newEvent);
         storage.writeToFile(newEvent.toStringForFile());
         taskCount++;
 
-        String count = "\nNow you have " + taskCount + " tasks to do.";
+        String count = "\nYou now have " + taskCount + " task(s) to do.";
         return "Events are the norm of the upper echelon. Have added this event:\n" + newEvent + count;
     }
 
     /**
      * Deletes the corresponding task from the task list and updates the file.
      *
-     * @param str The task number provided by the user.
+     * @param taskNum The task number provided by the user.
      */
-    public String deleteTask(String str) {
-        if (str.isBlank()) {
-            return INVALIDTASK;
-        }
-
-        int taskNum;
-        try {
-            taskNum = Integer.parseInt(str.split(" ")[0]);
-        } catch (NumberFormatException e) {
-            return INVALIDTASK;
-        }
-
+    public String deleteTask(int taskNum) {
         if (taskNum > list.size() || taskNum <= 0) {
             throw new TaskException();
         }
@@ -237,17 +192,13 @@ public class TaskList {
     /**
      * Finds and prints matching tasks in the task list with the given keyword.
      *
-     * @param str The keyword given by user.
+     * @param keyword The keyword given by user.
      */
-    public String find(String str) {
-        if (str.isBlank()) {
-            return "I wish I could read minds like you. Do kindly enter a keyword though.";
-        }
-
+    public String find(String keyword) {
         ArrayList<Task> matchList = new ArrayList<>();
         for (int i = 0; i < taskCount; i++) {
             Task curr = list.get(i);
-            if (curr.getDescription().toLowerCase().contains(str)) {
+            if (curr.getDescription().toLowerCase().contains(keyword)) {
                 matchList.add(curr);
             }
         }

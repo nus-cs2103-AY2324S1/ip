@@ -1,18 +1,19 @@
 import gbot.Parser;
 import gbot.TaskList;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import exceptions.GBotException;
-import exceptions.TodoException;
-import exceptions.DeadlineException;
-import exceptions.EventException;
 
 public class ParserTest {
     @Test
     public void emptyCommandTest() {
-        Assertions.assertEquals("Please enter a command.", Parser.parse("", new TaskList()));
+        try {
+            assertEquals("", Parser.parse("", new TaskList()));
+            fail();
+        } catch (GBotException e) {
+            assertEquals("Please enter a command.", e.getMessage());
+        }
     }
     @Test
     public void parse_invalidCommand_errorMessageShown() {
@@ -20,61 +21,72 @@ public class ParserTest {
             assertEquals("", Parser.parse("invalid ", new TaskList()));
             fail();
         } catch (GBotException e) {
-            assertEquals("Sorry. I don't understand the command", e.getMessage());
+            assertEquals("Sorry. My command range is simply limited, I don't understand the command.",
+                    e.getMessage());
         }
     }
     @Test
     public void parseMark_emptyField_errorMessageShown() {
-        assertEquals("Please enter a task number.", Parser.parse("mark ", new TaskList()));
+        assertEquals("Although you might not be wrong, I simply do not understand...\n" +
+                "Kindly enter a valid task number.", Parser.parse("mark ", new TaskList()));
     }
     @Test
     public void parseMark_invalidTask_errorMessageShown() {
-        assertEquals("Please enter a task number.", Parser.parse("mark invalid", new TaskList()));
+        try {
+            assertEquals("", Parser.parse("mark invalid ", new TaskList()));
+            fail();
+        } catch (GBotException e) {
+            assertEquals("Although you might not be wrong, I simply do not understand...\n" +
+                    "Kindly enter a valid task number.", e.getMessage());
+        }
     }
     @Test
     public void parseUnmark_emptyField_errorMessageShown() {
-        assertEquals("Please enter a task number.", Parser.parse("unmark ", new TaskList()));
+        assertEquals("Although you might not be wrong, I simply do not understand...\n" +
+                "Kindly enter a valid task number.", Parser.parse("unmark ", new TaskList()));
     }
     @Test
     public void parseUnmark_invalidTask_errorMessageShown() {
-        assertEquals("Please enter a task number.", Parser.parse("unmark invalid", new TaskList()));
+        try {
+            assertEquals("", Parser.parse("unmark invalid ", new TaskList()));
+            fail();
+        } catch (GBotException e) {
+            assertEquals("Although you might not be wrong, I simply do not understand...\n" +
+                    "Kindly enter a valid task number.", e.getMessage());
+        }
     }
     @Test
     public void parseTodo_emptyField_todoExceptionThrown() {
-        try {
-            assertEquals("", Parser.parse("todo ", new TaskList()));
-            fail();
-        } catch (TodoException e) {
-            assertEquals("Invalid format for Todo task. Please adhere to the following:\n" +
-                    "todo (task)", e.getMessage());
-        }
+        assertEquals("I apologise. Kindly input a task description.",
+                Parser.parse("todo ", new TaskList()));
     }
     @Test
     public void parseDeadline_emptyField_deadlineExceptionThrown() {
-        try {
-            assertEquals("", Parser.parse("deadline ", new TaskList()));
-            fail();
-        } catch (DeadlineException e) {
-            assertEquals("Invalid format for Deadline task. Please adhere to the following:\n" +
-                    "deadline (task) /by (deadline)", e.getMessage());
-        }
+        assertEquals("I apologise for correcting you. Kindly follow the following:\n" +
+                "deadline (task) /by (deadline in YYYY-MM-DD)\n" +
+                "eg. deadline return book /by 2023-09-21",
+                Parser.parse("deadline ", new TaskList()));
     }
     @Test
     public void parseEvent_emptyField_eventExceptionThrown() {
-        try {
-            assertEquals("", Parser.parse("event ", new TaskList()));
-            fail();
-        } catch (EventException e) {
-            assertEquals("Invalid format for Event task. Please adhere to the following:\n" +
-                    "event (task) /from (start) /to (end)", e.getMessage());
-        }
+        assertEquals("I apologise for correcting you. Kindly follow the following:\n" +
+                "event (task) /from (start in YYYY-MM-DD) /to (end in YYYY-MM-DD)\n" +
+                "eg. event attend meeting /from 2023-09-21 /to 2023-09-22",
+                Parser.parse("event ", new TaskList()));
     }
     @Test
     public void parseDelete_emptyField_errorMessageShown() {
-        assertEquals("Please enter a task number.", Parser.parse("delete ", new TaskList()));
+        assertEquals("Although you might not be wrong, I simply do not understand...\n" +
+                "Kindly enter a valid task number.", Parser.parse("delete ", new TaskList()));
     }
     @Test
     public void parseDelete_invalidTask_errorMessageShown() {
-        assertEquals("Please enter a task number.", Parser.parse("delete invalid", new TaskList()));
+        try {
+            assertEquals("", Parser.parse("delete invalid ", new TaskList()));
+            fail();
+        } catch (GBotException e) {
+            assertEquals("Although you might not be wrong, I simply do not understand...\n" +
+                    "Kindly enter a valid task number.", e.getMessage());
+        }
     }
 }

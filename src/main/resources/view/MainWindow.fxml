@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gbot.MainWindow">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gbot.MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutX="7.0" layoutY="559.0" onAction="#handleUserInput" prefHeight="31.0" prefWidth="313.0" AnchorPane.bottomAnchor="10.0" />
-        <Button fx:id="sendButton" layoutX="323.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="31.0" prefWidth="69.0" text="Enter" />
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="551.0" prefWidth="400.0" vvalue="1.0">
+        <TextField fx:id="userInput" layoutX="7.0" layoutY="559.0" onAction="#handleUserInput" prefHeight="31.0" prefWidth="501.0" AnchorPane.bottomAnchor="10.0" />
+        <Button fx:id="sendButton" layoutX="517.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="31.0" prefWidth="77.0" text="Enter" />
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="551.0" prefWidth="607.0" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" />
+                <VBox fx:id="dialogContainer" />
             </content>
         </ScrollPane>
     </children>
