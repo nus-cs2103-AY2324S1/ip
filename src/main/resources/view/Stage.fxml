@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root fx:id="stage" resizable="false" title="Cloud" type="Stage" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="stage" resizable="false" title="Cloud" type="Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <scene>
         <Scene fx:id="scene">
             <AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="400.0">
@@ -17,8 +17,8 @@
                   <content>
                      <VBox fx:id="messagesHolder" />
                   </content></ScrollPane>
-               <TextField fx:id="input" onMousePressed="#handleSend" prefHeight="25.0" prefWidth="335.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
-               <Button fx:id="sendButton" mnemonicParsing="false" prefWidth="50.0" text="Send" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+               <TextField fx:id="input" onAction="#handleSend" prefHeight="25.0" prefWidth="335.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" />
+               <Button fx:id="sendButton" mnemonicParsing="false" onMouseClicked="#handleSend" prefWidth="50.0" text="Send" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
             </children></AnchorPane>
         </Scene>
     </scene>
