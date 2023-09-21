@@ -14,6 +14,9 @@ public class CommandList {
      * A formatter for the date
      */
     private static final DateFormatter DF = new DateFormatter();
+    /**
+     * The list of previous commands
+     */
     private final ArrayList<Command> commandList;
 
     /**

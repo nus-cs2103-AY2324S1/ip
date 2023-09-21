@@ -50,10 +50,22 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Returns the DialogBox for user
+     * @param text The input from user
+     * @param img The user image
+     * @return The dialogBox for user
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns the DialogBox for duke bot
+     * @param text The response to user input
+     * @param img The duke bot image
+     * @return The dialogBox for duke bot
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

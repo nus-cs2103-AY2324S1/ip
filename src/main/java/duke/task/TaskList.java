@@ -45,6 +45,7 @@ public class TaskList {
 
     /**
      * Inserts task to specific position of the taskList
+     * @param index The index in which the task is to be inserted in the taskList
      * @param task The task to be added
      */
     public void insertTask(int index, Task task) {
@@ -70,7 +71,7 @@ public class TaskList {
 
     /**
      * Returns taskList in String format to be written to file
-     * @return content of taskList
+     * @return content of taskList in String format
      */
     public String convertToFileContent() {
         String result = "";

@@ -23,9 +23,4 @@ public class ListCommand extends Command {
         }
         return result;
     }
-
-    @Override
-    public boolean isContinue() {
-        return true;
-    }
 }

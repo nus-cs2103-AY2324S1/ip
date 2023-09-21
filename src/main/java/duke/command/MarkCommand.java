@@ -50,11 +50,6 @@ public class MarkCommand extends Command {
                 + "\n\t\t" + taskList.getTask(this.index - 1).printTask();
     }
 
-    @Override
-    public boolean isContinue() {
-        return true;
-    }
-
     /**
      * Returns the task that is marked by the command
      */

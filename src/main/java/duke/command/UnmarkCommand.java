@@ -50,11 +50,6 @@ public class UnmarkCommand extends Command {
                 + "\n\t\t" + taskList.getTask(this.index - 1).printTask();
     }
 
-    @Override
-    public boolean isContinue() {
-        return true;
-    }
-
     /**
      * Returns the task that is unmarked by the command
      */

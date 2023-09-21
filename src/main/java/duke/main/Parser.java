@@ -3,7 +3,6 @@ package duke.main;
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
 import duke.command.Command;
-import duke.command.CommandList;
 import duke.command.DeleteCommand;
 import duke.command.FindCommand;
 import duke.command.ListCommand;
@@ -11,16 +10,17 @@ import duke.command.MarkCommand;
 import duke.command.UndoCommand;
 import duke.command.UnmarkCommand;
 import duke.exception.DukeException;
+import duke.exception.InvalidCommandException;
 import duke.exception.InvalidSyntaxException;
 import duke.task.TaskList;
 
 /**
- * A class handling commands from user input
+ * A class parsing commands from user input
  */
 public class Parser {
 
     /**
-     * A list of valid commands
+     * An enum of valid commands
      */
     public enum ValidCommand {
         BYE, LIST, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, UNKNOWN, FIND, INCORRECTFORMAT, UNDO
@@ -34,19 +34,18 @@ public class Parser {
     /**
      * Returns Command object based on user input.
      *
-     * @param inp      The String array containing the user input
+     * @param inp The String array containing the user input
      * @param taskList The list of tasks under the user
      * @return Command
      * @throws DukeException if the format of Command is wrong
      */
-    public Command parse(String[] inp, TaskList taskList, CommandList commandList) throws DukeException {
+    public Command parse(String[] inp, TaskList taskList) throws DukeException {
         String title = "";
         String startDate = "";
         String endDate = "";
         int taskIndex = 0;
         boolean isValid = false;
         currentCommand = commandConverter(inp[0]);
-        assert isValid == false : "isValid should be false";
         if (currentCommand != ValidCommand.UNKNOWN) {
             if (commandSorter(currentCommand).equals("update")) {
                 if (inp.length != 2) {
@@ -63,13 +62,13 @@ public class Parser {
                 if (commandSorter(currentCommand).equals("event")) {
                     startDate = startDateGetter(inp);
                 }
-                title = titleGetter(inp);
-                endDate = endDateGetter(inp);
-                isValid = commandValidator(inp);
+                title = titleGetter(inp, currentCommand);
+                endDate = endDateGetter(inp, currentCommand);
+                isValid = commandValidator(inp, currentCommand);
             }
         }
         return commandHandler(inp, isValid, title, startDate, endDate,
-                taskIndex, currentCommand, taskList, commandList);
+                taskIndex, currentCommand, taskList);
     }
 
     /**
@@ -98,8 +97,8 @@ public class Parser {
      * @return Command
      * @throws DukeException if the format of Command is wrong
      */
-    public static Command taskHandler(String[] inp, boolean isValid, String title, String startDate, String endDate,
-                                      CommandList commandList) throws DukeException {
+    public static Command taskHandler(String[] inp, boolean isValid, String title, String startDate,
+                                      String endDate) throws DukeException {
         if (inp.length < 2 || !isValid) {
             throw new InvalidSyntaxException("The description of a " + inp[0] + " cannot be empty.");
         }
@@ -136,8 +135,8 @@ public class Parser {
      * @return Command for Mark, Unmark and Delete if task index is valid
      * @throws DukeException if the task index is invalid
      */
-    public static Command taskIndexValidator(int taskIndex, ValidCommand command, TaskList taskList,
-                                             CommandList commandList) throws DukeException {
+    public static Command taskIndexValidator(int taskIndex, ValidCommand command,
+                                             TaskList taskList) throws DukeException {
         if (taskIndex > taskList.size() || taskIndex < 1) {
             throw new InvalidSyntaxException("The task does not exist.");
         }
@@ -171,10 +170,10 @@ public class Parser {
      */
     public static Command commandHandler(String[] inp, boolean isValid, String title, String startDate, String endDate,
                                          int taskIndex, ValidCommand currentCommand,
-                                         TaskList taskList, CommandList commandList) throws DukeException {
+                                         TaskList taskList) throws DukeException {
         switch (currentCommand) {
         case UNKNOWN:
-            throw new InvalidSyntaxException("I'm sorry, but I don't know what that means :-(");
+            throw new InvalidCommandException("I'm sorry, but I don't know what that means :-(");
         case INCORRECTFORMAT:
             throw new InvalidSyntaxException("The format of the command is invalid.");
         case UNDO:
@@ -188,9 +187,9 @@ public class Parser {
         case UNMARK:
         case MARK:
         case DELETE:
-            return taskIndexValidator(taskIndex, currentCommand, taskList, commandList);
+            return taskIndexValidator(taskIndex, currentCommand, taskList);
         default:
-            return taskHandler(inp, isValid, title, startDate, endDate, commandList);
+            return taskHandler(inp, isValid, title, startDate, endDate);
         }
     }
 
@@ -220,13 +219,21 @@ public class Parser {
     /**
      * Returns whether the description of the task is valid
      *
+     * @param inp The String containing command from user input
+     * @param command The current command entered by user
      * @return whether the description of the task is valid
      */
-    public static boolean commandValidator(String[] inp) {
+    public static boolean commandValidator(String[] inp, ValidCommand command) {
         assert inp.length >= 1 : "inp should not be empty";
         int i = 1;
+        String keyword;
+        if (command == ValidCommand.DEADLINE) {
+            keyword = "/by";
+        } else {
+            keyword = "/from";
+        }
         for (; i < inp.length; i++) {
-            if (inp[i].equals("/by") || inp[i].equals("/from")) {
+            if (inp[i].equals(keyword)) {
                 break;
             }
             if (i == 1) {
@@ -240,14 +247,21 @@ public class Parser {
      * Returns the description for the task
      *
      * @param inp The String array for the user input
+     * @param command The current command entered by user
      * @return the description for the task
      */
-    public static String titleGetter(String[] inp) {
+    public static String titleGetter(String[] inp, ValidCommand command) {
         assert inp.length >= 1 : "inp should not be empty";
         int i = 1;
+        String keyword;
+        if (command == ValidCommand.DEADLINE) {
+            keyword = "/by";
+        } else {
+            keyword = "/from";
+        }
         String title = "";
         for (; i < inp.length; i++) {
-            if (inp[i].equals("/by") || inp[i].equals("/from")) {
+            if (inp[i].equals(keyword)) {
                 break;
             }
             if (title.equals("")) {
@@ -263,14 +277,21 @@ public class Parser {
      * Returns the endDate for the task
      *
      * @param inp The String array for the user input
+     * @param command The current command entered by user
      * @return the endDate for the task
      */
-    public static String endDateGetter(String[] inp) {
+    public static String endDateGetter(String[] inp, ValidCommand command) {
         assert inp.length >= 1 : "inp should not be empty";
         int i = 1;
+        String keyword;
+        if (command == ValidCommand.DEADLINE) {
+            keyword = "/by";
+        } else {
+            keyword = "/to";
+        }
         String endDate = "";
         for (; i < inp.length; i++) {
-            if (inp[i].equals("/by") || inp[i].equals("/to")) {
+            if (inp[i].equals(keyword)) {
                 break;
             }
         }

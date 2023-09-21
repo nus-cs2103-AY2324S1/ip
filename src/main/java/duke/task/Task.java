@@ -1,6 +1,6 @@
 package duke.task;
 
-/** Class to represent the task set by user*/
+/** Abstract Class to represent the task set by user*/
 public abstract class Task {
     /** Description of the task*/
     protected String description;

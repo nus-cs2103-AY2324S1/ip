@@ -3,8 +3,11 @@ package duke.command;
 import java.time.DateTimeException;
 
 import duke.main.Storage;
-import duke.task.*;
 import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
+import duke.task.Todo;
 
 /**
  * A class for the command for adding new task to list based on user input.
@@ -54,29 +57,22 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage, CommandList commandList, boolean write) {
         Task temp = null;
-        switch (commandType) {
-        case "T":
+        if (commandType.equals("T")) {
             temp = new Todo(this.description);
-            break;
-        case "D":
+        } else if (commandType.equals("D")) {
             try {
                 temp = new Deadline(this.description, this.endDate);
-                break;
             } catch (DateTimeException e) {
                 return "JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\""
                         + " format. Put 00:00 if time does not matter.";
             }
-
-        case "E":
+        } else {
             try {
                 temp = new Event(this.description, this.startDate, this.endDate);
-                break;
             } catch (DateTimeException e) {
                 return "JonBird:\n\t" + "Please ensure that your date is in \"yyyy-MM-dd HH:mm\""
                         + " format. Put 00:00 if time does not matter.";
             }
-        default:
-            return "Something went wrong. Please try again.";
         }
         this.addedTask = temp;
         if (write) {
@@ -93,11 +89,6 @@ public class AddCommand extends Command {
         return "JonBird:\n\tGot it. I've added this task:\n"
                 + "\t\t" + taskList.getTask(taskList.size() - 1).printTask()
                 + "\n\tNow you have " + taskList.size() + " tasks in the list.";
-    }
-
-    @Override
-    public boolean isContinue() {
-        return true;
     }
 
     /**

@@ -48,11 +48,6 @@ public class DeleteCommand extends Command {
                 + "\n\tNow you have " + (taskList.size() - 1) + " tasks in the list.";
     }
 
-    @Override
-    public boolean isContinue() {
-        return true;
-    }
-
     /**
      * Returns the task that is deleted by the command
      */

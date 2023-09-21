@@ -10,10 +10,6 @@ import duke.task.TaskList;
 public class UndoCommand extends Command {
 
     /**
-     * The commandList of previous commands from users.
-     */
-    private CommandList commandList;
-    /**
      * The constructor for the undo command.
      */
     public UndoCommand() {}
@@ -57,10 +53,4 @@ public class UndoCommand extends Command {
     public String printCommand(TaskList taskList) {
         return "JonBird:\n\tI have undo your last command!";
     }
-
-    @Override
-    public boolean isContinue() {
-        return true;
-    }
-
 }

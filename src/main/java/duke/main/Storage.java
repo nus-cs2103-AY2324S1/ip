@@ -8,7 +8,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.CommandList;
+import duke.command.DeleteCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -16,7 +21,7 @@ import duke.task.TaskList;
 import duke.task.Todo;
 
 /**
- * A class handling the saving and load the taskList
+ * A class handling the saving and load the taskList and commandList
  * into a file.
  */
 public class Storage {
@@ -108,7 +113,6 @@ public class Storage {
             System.out.println("File is not found!");
         }
         return tempList;
-
     }
 
     /**
@@ -129,7 +133,6 @@ public class Storage {
             System.out.println("Command File is not found!");
         }
         return tempList;
-
     }
 
     /**

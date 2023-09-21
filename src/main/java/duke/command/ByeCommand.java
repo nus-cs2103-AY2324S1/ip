@@ -18,9 +18,4 @@ public class ByeCommand extends Command {
     public String printCommand(TaskList taskList) {
         return "";
     }
-
-    @Override
-    public boolean isContinue() {
-        return false;
-    }
 }
