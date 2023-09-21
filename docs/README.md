@@ -23,7 +23,8 @@ The list of all the commands that Jarvis supports is listed below.
 More details on the usage of each command can be found in the [Features](#features) section.
 
 ## Features 
-> [!NOTE]
+
+> Note:
 > 1. Words in <> represents compulsory arguments. 
 > 2. Words in [] are optional arguments. They can be omitted.
 > 3. Items with ... after them can be used multiple times, including zero times.
