@@ -1,0 +1,19 @@
+hi
+todo
+todo borrow book
+todo read book
+deadline complete book review
+deadline complete book review /by Monday 2359
+todo extra
+delete 4
+event attend book club /from Tuesday 3pm /to Tuesday 5pm
+list
+mark 1
+mark
+mark 2
+mark 3
+mark 4
+list
+unmark 4
+list
+bye

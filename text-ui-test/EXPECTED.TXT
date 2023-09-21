@@ -1,7 +1,90 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+__________________________________________________
+Hello! I'm JED, your personal chat-bot!
+What can I do for you?
+__________________________________________________
+__________________________________________________
+OOPS!!! I'm sorry, but I don't know what that means :-(
+__________________________________________________
+__________________________________________________
+OOPS!!! The description of a todo cannot be empty.
+__________________________________________________
+__________________________________________________
+Got it. I've added this task:
+  [T][ ] borrow book
+ Now you have 1 tasks in your list.
+__________________________________________________
+__________________________________________________
+Got it. I've added this task:
+  [T][ ] read book
+ Now you have 2 tasks in your list.
+__________________________________________________
+__________________________________________________
+OOPS!! Please include when the deadline is by.
+__________________________________________________
+__________________________________________________
+Got it. I've added this task:
+  [D][ ] complete book review (by: Monday 2359)
+ Now you have 3 tasks in your list.
+__________________________________________________
+__________________________________________________
+Got it. I've added this task:
+  [T][ ] extra
+ Now you have 4 tasks in your list.
+__________________________________________________
+__________________________________________________
+Noted. I've removed this task:
+ [T][ ] extra
+ Now you have 3 tasks in your list
+__________________________________________________
+__________________________________________________
+Got it. I've added this task:
+  [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+ Now you have 4 tasks in your list.
+__________________________________________________
+__________________________________________________
+  1. [T][ ] borrow book
+  2. [T][ ] read book
+  3. [D][ ] complete book review (by: Monday 2359)
+  4. [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
 
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [T][X] borrow book
+__________________________________________________
+__________________________________________________
+OOPS!!! Please include the task number you would like to mark.
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [T][X] read book
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [D][X] complete book review (by: Monday 2359)
+__________________________________________________
+__________________________________________________
+Nice! I've marked this task as done:
+  [E][X] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+__________________________________________________
+__________________________________________________
+  1. [T][X] borrow book
+  2. [T][X] read book
+  3. [D][X] complete book review (by: Monday 2359)
+  4. [E][X] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+
+__________________________________________________
+__________________________________________________
+OK, I've marked this task as not done yet:
+  [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+__________________________________________________
+__________________________________________________
+  1. [T][X] borrow book
+  2. [T][X] read book
+  3. [D][X] complete book review (by: Monday 2359)
+  4. [E][ ] attend book club (from: Tuesday 3pm to: Tuesday 5pm)
+
+__________________________________________________
+__________________________________________________
+Bye. Hope to see you again soon!
+__________________________________________________
