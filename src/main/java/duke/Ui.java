@@ -45,16 +45,14 @@ public class Ui {
         String formattedDatetime = task.getFormattedDatetime(fmt);
         Priority priority = task.getPriority();
         String priorityBox = buildPriorityBox(priority);
-        return taskTypeBox + completedBox + " " + task.getTaskDesc() + " " + formattedDatetime + " " + priorityBox;
+        return taskTypeBox + completedBox + " " + task.getTaskDesc() + " " + formattedDatetime + priorityBox;
     }
 
     private String buildPriorityBox(Priority p) {
-        switch (p) {
-            case HIGH:
-                return "[Priority: High]";
-            default:
-                return "";
+        if (p == Priority.HIGH) {
+            return " [Priority:High]";
         }
+        return "";
     }
 
     /**

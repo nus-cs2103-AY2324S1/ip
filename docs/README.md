@@ -30,9 +30,9 @@ has been taken or that there was an error in parsing the command.
 
 Adds a todo task to the task list. 
 
-Format: `todo [task description]` 
+**Format:** `todo [task description]` 
 
-Example: 
+**Example:**
 
 `todo feed cat` adds a todo task with description "feed cat" into the task list.
 
@@ -41,9 +41,9 @@ Example:
 Adds a deadline task to the task list. For the `datetime` bracket, only certain
 datetime formats will be recognized by DukeBot. (For more information, view "Accepted Datetime Formats" section)
 
-Format: `deadline [task description] /by [datetime]`
+**Format:** `deadline [task description] /by [datetime]`
 
-Example:
+**xample:**
 
 `deadline submit homework /by 18/8/2023 1800` adds a deadline task 
 with description "submit homework" into the task list, with a deadline of 18/8/2023 at 6pm. 
@@ -53,9 +53,9 @@ with description "submit homework" into the task list, with a deadline of 18/8/2
 Adds a event task to the task list. For the `datetime` brackets, only certain
 datetime formats will be recognized by DukeBot. (For more information, view "Accepted Datetime Formats" section)
 
-Format: `event [task description] /from [datetime] /to [datetime] `
+**Format:** `event [task description] /from [datetime] /to [datetime] `
 
-Example:
+**Example:**
 
 `event open house /from 2023-08-08 10:00 /to 2023-08-08 15:00` adds 
 an event with description "open house" into the task list, which occurs from 2023/08/08 10am to 3pm.
@@ -75,28 +75,28 @@ indicating the task is of high priority if it has been marked as such.
 ### Removing tasks: `remove`
 Removes a task from the task list, based on their 1-based index. 
 
-Format: `remove [task_no]` where `task_no` is the 1-based index of the 
+**Format:** `remove [task_no]` where `task_no` is the 1-based index of the 
 task in the list. 
 
 
 ### Marking tasks: `mark`
 Marks a task on the task list as completed.
 
-Format: `mark [task_no]` where `task_no` is the 1-based index of the
+**Format:** `mark [task_no]` where `task_no` is the 1-based index of the
 task in the list. 
 
 ### Unmarking tasks: `unmark`
 Removes a competed mark on a task. (No effect if task has not been marke)
 
-Format: `unmark [task_no]` where `task_no` is the 1-based index of the
+**Format:** `unmark [task_no]` where `task_no` is the 1-based index of the
 task in the list.
 
 ### Finding tasks: `find`
 Returns a list of all tasks whose description contains a given substring.
 
-Format: `find [substring]`. 
+**Format:** `find [substring]`. 
 
-Example: `find EXCO` returns all entries with the substring "EXCO" 
+**Example:** `find EXCO` returns all entries with the substring "EXCO" 
 in their task description. 
 
 ![Screenshot of the the user using the find command to find all tasks
@@ -107,10 +107,10 @@ Set a task's priority as either high (1) or normal (0). If it is set to high,
 the task will be marked with a `[Priority:High]` box when listed, otherwise, it will
 be displayed normally. `priority_value` currently only takes a value of either 0 or 1.
 
-Format: `priority [task_no] [priority_value]` where `task_no` is the 1-based index of the
+**Format:** `priority [task_no] [priority_value]` where `task_no` is the 1-based index of the
 task in the list.
 
-Example: `priority 2 1` sets the priority of the 2nd item in the list as high, 
+**Example:** `priority 2 1` sets the priority of the 2nd item in the list as high, 
 while `priority 3 0` sets the priority of the 3rd itme in the list as normal.
 
 
@@ -120,3 +120,17 @@ has been successfully carried out. Manual saving is not needed.
 
 ### Exiting the program: `bye`
 The command `bye` will prompt the program to exit and the GUI to close. 
+
+### Accepted Datetime Formats
+
+Dukebot accepts the following datetime formats for input:
+
+`dd/mm/yyyy HHmm`
+`yyyy-mm-dd HH:mm`
+
+where 'mm' and 'dd' may only require 1 character if the number if a 
+single digit (eg. `8/8/2023`) and HH and mm are both optional. However,
+Dukebot will then represent the time as 00:00. 
+
+Dukebot will always output the datetime as in the form 
+`yyyy-mm-dd HH:mm`. 

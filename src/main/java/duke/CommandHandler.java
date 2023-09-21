@@ -210,7 +210,8 @@ public class CommandHandler {
      * @param splitStr user's full command, including arguments for command.
      */
     public String handlePriorityCommand(String[] splitStr) throws DukeException {
-        DukeException e = new DukeException("Invalid format for command. priority command takes the form: priority [task number] [0/1]");
+        DukeException e = new DukeException("Invalid format for command. priority "
+                + "command takes the form: priority [task number] [0/1]");
         String out = "";
         if (splitStr.length != 3) {
             throw e;

@@ -10,7 +10,6 @@ public class DukeTest {
     private Ui ui = new Ui(dtf);
     private TaskList tl = new TaskList();
     private CommandHandler ch = new CommandHandler(tl, ui, dtf);
-    private Parser p = new Parser(dtf, ui, tl, ch);
 
     @Test
     public void test1() {
