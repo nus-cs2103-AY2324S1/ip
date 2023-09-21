@@ -4,7 +4,7 @@ package Sidtacphi.Ui;
  * Ui is the class that interacts with the user.
  */
 public class Ui {
-    private static String logo = " _______  ___   ______   _______  _______  _______  _______  __   __  ___  \n"
+    private static final String LOGO = " _______  ___   ______   _______  _______  _______  _______  __   __  ___  \n"
                 + "|       ||   | |      | |       ||   _   ||       ||       ||  | |  ||   | \n"
                 + "|  _____||   | |  _    ||_     _||  |_|  ||       ||    _  ||  |_|  ||   | \n"
                 + "| |_____ |   | | | |   |  |   |  |       ||       ||   |_| ||       ||   | \n"
@@ -21,7 +21,7 @@ public class Ui {
      */
     public static void printIntro() {
         System.out.println("____________________________________________________________");
-        System.out.println("Hello from\n" + logo + "\n");
+        System.out.println("Hello from\n" + LOGO + "\n");
         System.out.println("What can I do for you?");
         System.out.println("____________________________________________________________");
     }
