@@ -2,6 +2,7 @@ package design;
 import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -11,6 +12,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+
+    private String initialDialog = "You know that I never let you down :)";
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -22,12 +25,17 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage;
+    private Image dukeImage;
 
     @FXML
     public void initialize() {
+        userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+        dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(initialDialog, dukeImage)
+        );
     }
 
     public void setDuke(Duke d) {

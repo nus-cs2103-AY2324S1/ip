@@ -60,6 +60,7 @@ public class Duke extends Application {
      * Applications may create other stages, if needed, but they will not be
      * primary stages.
      */
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Duke");
@@ -121,22 +122,24 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
+     *
      * @param text String containing text to add
      * @return a label with the specified text that has word wrap enabled.
      */
+
     private Label getDialogLabel(String text) {
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
         return textToAdd;
     }
 
+
+
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, for user input and response.
      */
+
     private void handleUserInput() {
         chatContainer.getChildren().addAll(
                 DialogBox.getUserDialog(inputTextField.getText(), user),
@@ -144,6 +147,7 @@ public class Duke extends Application {
         );
         inputTextField.clear();
     }
+
 
     public String getResponse(String input) {
         if (userInterface == null) {
