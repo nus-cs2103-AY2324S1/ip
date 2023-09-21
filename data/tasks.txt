@@ -1,3 +1,8 @@
 T | 0 | math test |  #math #exam
 D | 0 | test |  #work #test | 14/9/2023 0000
 E | 0 | birthday |  #weeyeow #handsome #giansen | 14/9/2023 0000 | 14/9/2023 0100
+T | 0 | submit bot
+T | 0 | sep applications
+T | 0 | test height
+T | 0 | testhow
+T | 0 | homework

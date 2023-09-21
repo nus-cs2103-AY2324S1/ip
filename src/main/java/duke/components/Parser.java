@@ -83,7 +83,10 @@ public class Parser {
         String type = "T";
         String[] task = getTask(type, input);
         ArrayList<String> tags = new ArrayList<>();
-        tags.addAll(Arrays.asList(task[1].split(" ")));
+        String[] tagsList = task[1].split(" ");
+        if (!tagsList[0].equals("")) {
+            tags.addAll(Arrays.asList(tagsList));
+        }
         return new AddCommand(type, task[0], tags);
     }
 
@@ -91,7 +94,10 @@ public class Parser {
         String type = "D";
         String[] task = getTask(type, input);
         ArrayList<String> tags = new ArrayList<>();
-        tags.addAll(Arrays.asList(task[2].split(" ")));
+        String[] tagsList = task[2].split(" ");
+        if (!tagsList[0].equals("")) {
+            tags.addAll(Arrays.asList(tagsList));
+        }
         return new AddCommand(type, task[0], parseDateTime(task[1]), tags);
     }
 
@@ -99,7 +105,10 @@ public class Parser {
         String type = "E";
         String[] task = getTask(type, input);
         ArrayList<String> tags = new ArrayList<>();
-        tags.addAll(Arrays.asList(task[3].split(" ")));
+        String[] tagsList = task[1].split(" ");
+        if (!tagsList[3].equals("")) {
+            tags.addAll(Arrays.asList(tagsList));
+        }
         return new AddCommand(type, task[0], parseDateTime(task[1]), parseDateTime(task[2]), tags);
     }
 
