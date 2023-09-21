@@ -3,6 +3,7 @@ package chatterbot.parser;
 import chatterbot.storage.Storage;
 import chatterbot.ui.Ui;
 import chatterbot.data.*;
+import chatterbot.data.TaskList;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,9 +26,9 @@ public class Parser {
     public static String evaluateCommand(String userMessage, Ui ui, ArrayList<Task> list, Storage storage, String file,
                                        TaskList taskList) {
 
-        String response = "";
-
         assert userMessage != null && !userMessage.isEmpty() : "User message cannot be null or empty.";
+
+        String response = "";
 
         if (userMessage.toLowerCase().equals("bye")) {
             response = ui.showGoodbyeMessage();
@@ -47,74 +48,26 @@ public class Parser {
         } else {
             if (userMessage.startsWith("deadline")) {
                 try {
-                    if (userMessage.length() <= 9) {
-                        throw new IllegalArgumentException("No task description");
-                    }
-                    try {
-                        storage.appendToFile(file, userMessage);
-                    } catch (IOException e) {
-                        System.out.println("Unable to append to file!");
-                    }
-                    int slashDeadline = userMessage.indexOf("/");
-                    String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
-                    String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
-                    Deadline d = new Deadline(deadlineDescription, deadlineBy);
-                    assert d != null : "Deadline to add cannot be null.";
-                    list.add(d);
-                    taskList.addTask(d, storage, file);
-                    response = ui.showAddedDeadline(d);
+                    return taskList.addDeadlineTask(storage, file, userMessage, ui, taskList);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("OOPS!!! Invalid input!");
+                    System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
                 }
             } else if (userMessage.startsWith("todo")) {
                 try {
-                    if (userMessage.length() <= 5) {
-                        throw new IllegalArgumentException("No task description");
-                    }
-//                    try {
-//                        storage.appendToFile(file, userMessage);
-//                    } catch (IOException e) {
-//                        System.out.println("Unable to append to file!");
-//                    }
-                    Todo td = new Todo(userMessage.substring(5));
-                    assert td != null : "Todo to add cannot be null.";
-                    list.add(td);
-                    taskList.addTask(td, storage, file);
-                    response = ui.showAddedTodo(td);
+                    return taskList.addTodoTask(storage, file, userMessage, ui, taskList);
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
                 }
             } else if (userMessage.startsWith("event")) {
                 try {
-                    if (userMessage.length() <= 6) {
-                        throw new IllegalArgumentException("No task description");
-                    }
-                    try {
-                        storage.appendToFile(file, userMessage);
-                    } catch (IOException e) {
-                        System.out.println("Unable to append to file!");
-                    }
-                    String[] eventSplit = userMessage.split("/");
-                    String eventDescription = eventSplit[0].substring(6);
-                    String eventTo = eventSplit[1].substring(5);
-                    String eventFrom = eventSplit[2].substring(3);
-                    Event e = new Event(eventDescription, eventTo, eventFrom);
-                    assert e != null : "Event to add cannot be null.";
-                    list.add(e);
-                    taskList.addTask(e, storage, file);
-                    response = ui.showAddedEvent(e);
+                    return taskList.addEventTask(storage, file, userMessage, ui, taskList);
                 } catch (IllegalArgumentException e) {
-                    System.out.println("OOPS!!! Invalid input!");
+                    System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
                 }
             } else if (userMessage.startsWith("delete") && isInteger(userMessage.substring(7))) {
                 response = ui.showDeleted(userMessage);
                 list.remove((Integer.parseInt(userMessage.substring(7))) - 1);
                 taskList.deleteTask(((Integer.parseInt(userMessage.substring(7))) - 1), storage, file);
-//                try {
-//                    storage.writeToFile(file, taskList.convertToString(list));
-//                } catch (IOException e) {
-//                    System.out.println("Error!");
-//                }
             } else {
                 response = ui.showUnknownCommand(userMessage);
             }
