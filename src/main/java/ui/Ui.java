@@ -38,7 +38,9 @@ public class Ui {
      * @return The user's command input as a string.
      */
     public String readCommand() {
-        return scanner.nextLine().trim();
+        String command = scanner.nextLine().trim();
+        assert !command.isEmpty() : "Command should not be empty";
+        return command;
     }
 
     /**
@@ -125,6 +127,7 @@ public class Ui {
      * @return The task in the task list.
      */
     public String showTask(int index, Task task) {
+        assert task != null : "Task should not be null";
         return (index + 1) + ") " + task;
     }
 

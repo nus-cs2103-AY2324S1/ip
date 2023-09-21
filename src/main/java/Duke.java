@@ -41,6 +41,7 @@ public class Duke extends Application {
      * @throws DukeException If there is an error loading tasks from the file.
      */
     public Duke(String filePath) throws DukeException {
+        assert filePath != null && !filePath.trim().isEmpty() : "File path should not be null or empty";
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -74,6 +75,7 @@ public class Duke extends Application {
         while (!isExit) {
             try {
                 String fullCommand = ui.readCommand();
+                assert fullCommand != null && !fullCommand.trim().isEmpty() : "Command should not be null or empty";
                 ui.showLine(); // show the divider line ("_______")
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
@@ -170,7 +172,7 @@ public class Duke extends Application {
      */
     private void handleUserInput() {
         String input = userInput.getText();
-
+        assert input != null && !input.trim().isEmpty() : "User input should not be null or empty";
         // Creating a label for the user input
         Label userText = new Label(input);
         dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, new ImageView(user)));
@@ -197,6 +199,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        assert input != null && !input.trim().isEmpty() : "Input should not be null or empty";
         String response;
         try {
             Command c = Parser.parse(input);
