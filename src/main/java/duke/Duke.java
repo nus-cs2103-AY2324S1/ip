@@ -8,11 +8,18 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 
+/**
+ * Initialises logic of duke.
+ */
 public class Duke {
     private static Storage storage;
     private static TaskList tasks;
     private static Ui ui;
 
+    /**
+     * Constructor for the class Duke.
+     * @param filePath The file path where chat data is stored.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -24,6 +31,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Returns appropriate response to user input.
+     * @param input The prompt received from user.
+     * @return The appropriate response to given prompt.
+     */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);

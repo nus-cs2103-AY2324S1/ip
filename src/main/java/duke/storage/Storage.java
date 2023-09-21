@@ -1,17 +1,17 @@
 package duke.storage;
 
-import duke.exception.ChatException;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.TaskList;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+
+import duke.exception.ChatException;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Stores the saved list of tasks and its state of done.
@@ -26,6 +26,12 @@ public class Storage {
      */
     public Storage(String pathName) {
         this.pathName = pathName;
+    }
+
+    private void loadMark(String mark, Task pastTask) {
+        if (mark.equals("1")) {
+            pastTask.setDone(true);
+        }
     }
 
     /**
@@ -52,23 +58,17 @@ public class Storage {
                 case "T":
                     pastTask = new Task(pastTaskDetails[2]);
                     tasks.addTask(pastTask);
-                    if (pastTaskDetails[1].equals("1")) {
-                        pastTask.setDone(true);
-                    }
+                    loadMark(pastTaskDetails[1], pastTask);
                     break;
                 case "D":
                     pastTask = new Deadline(pastTaskDetails[2], LocalDate.parse(pastTaskDetails[3]));
                     tasks.addTask(pastTask);
-                    if (pastTaskDetails[1].equals("1")) {
-                        pastTask.setDone(true);
-                    }
+                    loadMark(pastTaskDetails[1], pastTask);
                     break;
                 case "E":
                     pastTask = new Event(pastTaskDetails[2], pastTaskDetails[3], pastTaskDetails[4]);
                     tasks.addTask(pastTask);
-                    if (pastTaskDetails[1].equals("1")) {
-                        pastTask.setDone(true);
-                    }
+                    loadMark(pastTaskDetails[1], pastTask);
                     break;
                 default:
                     throw new ChatException("OOPS!!! The file is corrupted");

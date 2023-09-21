@@ -1,9 +1,12 @@
 package duke.task;
 
-import duke.exception.ChatException;
-
 import java.util.ArrayList;
 
+import duke.exception.ChatException;
+
+/**
+ * Stores current list of tasks.
+ */
 public class TaskList {
     private ArrayList<Task> taskList = new ArrayList<>();
 
@@ -12,7 +15,7 @@ public class TaskList {
     }
 
     public Task getTask(int taskNumber) throws ChatException {
-        if(taskList.size() == 0) {
+        if (taskList.size() == 0) {
             throw new ChatException("OOPS!!! The list is empty.");
         } else if (taskNumber <= 0 || taskNumber > taskList.size()) {
             throw new ChatException("OOPS!!! Invalid task number inputted.");
@@ -21,14 +24,28 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds task to the tasklist.
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
+    /**
+     * Removes task from tasklist.
+     * @param taskNumber Index of task in task list.
+     * @throws ChatException If index is out of bounds of length of task list.
+     */
     public void deleteTask(int taskNumber) throws ChatException {
         taskList.remove(taskNumber - 1);
     }
 
+    /**
+     * Marks task in tasklist as done.
+     * @param taskNumber Index of task in task list.
+     * @throws ChatException If index is out of bounds of length of task list.
+     */
     public void markDone(int taskNumber) throws ChatException {
         try {
             Task task = taskList.get(taskNumber - 1);
@@ -38,6 +55,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks task in tasklist as undone.
+     * @param taskNumber Index of task in task list.
+     * @throws ChatException If index is out of bounds of length of task list.
+     */
     public void markUndone(int taskNumber) throws ChatException {
         try {
             Task task = taskList.get(taskNumber - 1);
@@ -47,6 +69,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Returns list of task that fits the keyword given.
+     * @param keyword User input that specifies task description.
+     * @return Tasklist containing tasks that matches keyword.
+     */
     public TaskList findTask(String keyword) {
         TaskList foundList = new TaskList();
         for (Task task : taskList) {

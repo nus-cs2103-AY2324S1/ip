@@ -58,7 +58,11 @@ public class Task {
         return this.isDone;
     }
 
-
+    /**
+     * Returns true if task description matches user input for 'find' command.
+     * @param keyword User input for 'find' command.
+     * @return True if task description matches user input.
+     */
     public boolean isFound(String keyword) {
         String[] words = this.description.split(" ");
         for (String parts : words) {
