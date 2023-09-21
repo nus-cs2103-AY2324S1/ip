@@ -6,7 +6,7 @@ URChatBot (UCB) is your personal task managing chatbot.
 * ### Manage Tasks
     - Tasks are split into Todos, Deadlines and Events.
 
-    - You can create, remove, and list all tasks with JED.
+    - You can create, remove, and list all tasks with UCB.
 
     - You can also make them after you have finished your tasks.
 
