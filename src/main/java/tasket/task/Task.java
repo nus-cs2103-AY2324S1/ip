@@ -6,6 +6,7 @@ package tasket.task;
 public abstract class Task {
     protected String description;
     protected boolean isDone;
+    protected String[] tags;
 
     /**
      * The constructor for task.
@@ -14,6 +15,20 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
+        this.tags = null;
+        this.isDone = false;
+    }
+
+    /**
+     * The constructor for task.
+     * This version includes tags.
+     *
+     * @param description The description of the task.
+     * @param tags The tags of the task.
+     */
+    public Task(String description, String[] tags) {
+        this.description = description;
+        this.tags = tags;
         this.isDone = false;
     }
 
@@ -66,5 +81,24 @@ public abstract class Task {
      */
     public String toSaveString() {
         return String.format("%s | %s", getSaveStatusIcon(), this.description);
+    }
+
+    /**
+     * Return the tags for this task.
+     * This is suitable for both GUI and save file.
+     * @return The tags.
+     */
+    protected String getTags() {
+        StringBuilder sb = new StringBuilder();
+
+        if (this.tags == null) {
+            return sb.toString();
+        }
+
+        for (String tag : this.tags) {
+            sb.append("#").append(tag).append(" ");
+        }
+
+        return sb.toString().trim();
     }
 }

@@ -1,17 +1,28 @@
 package tasket.task;
 
 /**
- * The class for todo
+ * The class for todo.
  */
 public class ToDo extends Task {
 
     /**
-     * The constructor of todo
+     * The constructor of todo.
      *
      * @param description The description of the task.
      */
     public ToDo(String description) {
         super(description);
+    }
+
+    /**
+     * The constructor of todo.
+     * This version of constructor includes tags.
+     *
+     * @param description The description of the task.
+     * @param tags The tags of the task.
+     */
+    public ToDo(String description, String[] tags) {
+        super(description, tags);
     }
 
     /**
@@ -21,7 +32,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return String.format("[T]%s %s", super.toString(), this.getTags());
     }
 
     /**
@@ -31,6 +42,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toSaveString() {
-        return String.format("T | %s", super.toSaveString());
+        return String.format("T | %s %s", super.toSaveString(), this.getTags());
     }
 }

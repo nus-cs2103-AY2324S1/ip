@@ -9,12 +9,28 @@ public class Event extends Task {
 
     /**
      * The constructor of event.
-     * @param description
-     * @param from
-     * @param to
+     *
+     * @param description The description of event.
+     * @param from The start time of event.
+     * @param to The end time of event.
      */
     public Event(String description, String from, String to) {
         super(description);
+        this.from = from;
+        this.to = to;
+    }
+
+    /**
+     * The constructor of event.
+     * This version includes tags.
+     *
+     * @param description The description of event.
+     * @param tags The tags of the event.
+     * @param from The start time of event.
+     * @param to The end time of event.
+     */
+    public Event(String description, String from, String to, String[] tags) {
+        super(description, tags);
         this.from = from;
         this.to = to;
     }
@@ -26,7 +42,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return String.format("[E]%s (from: %s to: %s)", super.toString(), this.from, this.to);
+        return String.format("[E]%s (from: %s to: %s) %s", super.toString(),
+                        this.from, this.to, this.getTags())
+                .trim();
     }
 
     /**
@@ -36,6 +54,8 @@ public class Event extends Task {
      */
     @Override
     public String toSaveString() {
-        return String.format("E | %s | %s | %s", super.toSaveString(), this.from, this.to);
+        return String.format("E | %s | %s | %s %s", super.toSaveString(),
+                        this.from, this.to, this.getTags())
+                .trim();
     }
 }

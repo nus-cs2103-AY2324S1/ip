@@ -59,7 +59,8 @@ public class Storage {
                 // Parse the text to tasks
                 // If the text is corrupted, skip the text and mark the file as corrupted
                 try {
-                    taskList.add(Parser.parseSaveString(sc.nextLine()));
+                    String str = sc.nextLine();
+                    taskList.add(Parser.parseSaveString(str));
                 } catch (TasketException e) {
                     isFileCorrupted = true;
                 }
