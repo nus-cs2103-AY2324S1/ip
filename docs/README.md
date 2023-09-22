@@ -31,8 +31,8 @@ the benefits of a **Graphical User Interface (GUI)**.
 
 <img src="Ui.png" width="500px">
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.
-6. Refer to the [Features](#features) below for details of each command.
+> Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window. <br>
+> Refer to the [Features](#features) below for details of each command.
    
 
 ## Features
@@ -216,6 +216,7 @@ Please refer [here](https://docs.oracle.com/en/java/javase/11/install/overview-j
 **A**: Install ADJ in your other computer and replace your data file on that computer with the data file on your current computer which contains data of the tasks of your previous ADJ folder.
 
 ## Command summary
+
 | Action                                                    |                   Format                   | Example                                                          |
 |-----------------------------------------------------------|:------------------------------------------:|------------------------------------------------------------------|
 | [Viewing help](#viewing-help--help)                       |                   `help`                   | `help`                                                           |
