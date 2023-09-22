@@ -1,5 +1,7 @@
 # Bartholomew Hamish Montgomery User Guide
 
+
+Hello! I am Bartholomew Hamish Montgomery, but you can call me Bart 😄
 ## Features 
 
 ### 1. Add Tasks
@@ -25,8 +27,8 @@ Delete Tasks that have become dead and/or obsolete to declutter using the `delet
 ### 4. Mark Tasks
 
 Mark Tasks as:
-- completed
-- incomplete
+- completed ✅
+- incomplete ❌
 
 Keep track of what tasks are pending completion 😄
 
