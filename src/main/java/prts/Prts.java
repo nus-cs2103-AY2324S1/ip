@@ -44,11 +44,22 @@ public class Prts {
     public String getResponse(String input) {
         try {
             Command c = CommandParser.parse(input);
+            if (c.isExit()) {
+                System.exit(0);
+            }
             return c.execute(tasks, ui, storage);
         } catch (PrtsException e) {
             return e.getMessage();
         }
 
+    }
+
+    /**
+     * Generates a welcome message to display to the user.
+     * @return The welcome message to be displayed.
+     */
+    public String getWelcome() {
+        return ui.showWelcome();
     }
 
 }

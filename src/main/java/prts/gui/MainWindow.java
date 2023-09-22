@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import prts.Prts;
+import prts.Ui;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -30,6 +31,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().addAll(DialogBox.getPrtsDialog(Ui.showWelcome(), prtsImage));
     }
 
     public void setDuke(Prts d) {

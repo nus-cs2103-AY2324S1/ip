@@ -34,8 +34,8 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException {
-        String ret = tasks.add(taskToAdd);
+        String string = tasks.add(taskToAdd);
         storage.save(tasks);
-        return ret;
+        return string;
     }
 }

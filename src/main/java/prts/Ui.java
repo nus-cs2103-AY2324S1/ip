@@ -13,7 +13,7 @@ public class Ui {
     /**
      * Displays the initial message on startup.
      */
-    public String showWelcome() {
+    public static String showWelcome() {
         return "\n...Fingerprint match found. Verification complete. Welcome home.\n"
                 + "PRTS, at your service. What would you like to do today?\n";
     }
