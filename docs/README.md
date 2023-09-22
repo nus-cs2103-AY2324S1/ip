@@ -1,4 +1,4 @@
-# User Guide
+# Frodo Task Manager - User Guide
 
 ## Features 
 ### Add Tasks
@@ -42,7 +42,7 @@ A todo task is added to the task list.
 
 ### `deadline [description] /by [yyyy-MM-dd HH:mm]` - Add a deadline task
 
-Add a deadline task with the description "xxx" and a deadline specified by
+Add a deadline task with the description and a deadline specified by
 yyyy-MM-dd HH:mm.
 Example of usage:
 
@@ -59,10 +59,9 @@ Description of the outcome.
 A deadline task is added to the task list.
 
 
+### `event [description] /from [yyyy-MM-dd HH:mm] /by [yyyy-MM-dd HH:mm]` - Add an event task
 
-### `event xxx /from [yyyy-MM-dd HH:mm] /by [yyyy-MM-dd HH:mm]` - Add an event task
-
-Add an event task with the description "xxx", start time,
+Add an event task with the description", start time,
 and end time specified by yyyy-MM-dd HH:mm.
 Example of usage:
 
@@ -153,3 +152,15 @@ Frodo heard: archive
 Successfully archived tasks in a new file
 ```
 All tasks in the current list are archived in a new file. The task list in the current file is now empty.
+
+### bye - Exit program.
+Exits the program. All changes made to task list will be saved to file.
+
+Example of usage:
+`archive`
+
+Expected outcome:
+```
+Frodo heard: archive
+Goodbye. See you again
+```

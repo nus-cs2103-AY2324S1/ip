@@ -149,7 +149,7 @@ public class Storage {
 
     public String clearFile() {
         try {
-            FileWriter fw = new FileWriter("./data", false);
+            FileWriter fw = new FileWriter(filePath, false);
             fw.write("");
             fw.close();
         } catch (IOException e) {

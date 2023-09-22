@@ -69,7 +69,7 @@ public class Duke extends Application {
     public void formatWindow(Stage stage) {
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
@@ -82,7 +82,7 @@ public class Duke extends Application {
         AnchorPane.setTopAnchor(dialogContainer, 0.0);
         AnchorPane.setLeftAnchor(dialogContainer, 0.0);
         AnchorPane.setRightAnchor(dialogContainer, 0.0);
-        AnchorPane.setBottomAnchor(dialogContainer, 40.0);
+//        AnchorPane.setBottomAnchor(dialogContainer, 40.0);
 
         AnchorPane.setLeftAnchor(userInput , 0.0);
         AnchorPane.setRightAnchor(userInput, 60.0);  // leave space for sendButton
@@ -106,7 +106,6 @@ public class Duke extends Application {
 
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
 
         //Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
@@ -144,71 +143,71 @@ public class Duke extends Application {
     }
 
     /**
- * Iteration 1:
- * Creates a label with the specified text and adds it to the dialog container.
- * @param text String containing text to add
- * @return a label with the specified text that has word wrap enabled.
- */
-private Label getDialogLabel(String text) {
-    Label textToAdd = new Label(text);
-    textToAdd.setWrapText(true);
+     * Iteration 1:
+     * Creates a label with the specified text and adds it to the dialog container.
+     * @param text String containing text to add
+     * @return a label with the specified text that has word wrap enabled.
+     */
+    private Label getDialogLabel(String text) {
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
 
-    return textToAdd;
-}
-
-private void handleUserInput() {
-    assert userInput != null : "UserInput field should be initialized";
-    String userText = userInput.getText();
-    String dukeText = getResponse(userInput.getText());
- 
-
-    dialogContainer.getChildren().addAll(
-            DialogBox.getUserDialog(userText,user),
-            DialogBox.getDukeDialog(dukeText, duke)
-    );
-    userInput.clear();
-}
-
-public String getResponse(String input) {
-    String response = "";
-    Parser p = new Parser();
-    CommandType commandType = p.getCommandType(input);
-    assert commandType != CommandType.UNKNOWN : "Parsed command should always be known";
-    switch (commandType) {
-        case LIST:
-            response += tasks.toString();
-            break;
-        case BYE:
-            response = "Goodbye. See you again";
-            storage.updateData(tasks);
-            break;
-        case DELETE:
-            response += tm.handleDelete(input);
-            break;
-        case MARK:
-            response += tm.handleMark(input);
-            break;
-        case UNMARK:
-            response += tm.handleUnmark(input);
-            break;
-        case EVENT:
-        case DEADLINE:
-        case TODO:
-            response += tm.addTask(input);
-            break;
-        case FIND:
-            response += tm.findTasks(input);
-            break;
-        case ARCHIVE:
-            response += storage.archiveTasksInNewFile(tasks);
-            response += tm.clearTasks();
-            response += storage.clearFile();
-            break;
-        case UNKNOWN:
-            response += "What do you mean? Make sure you speak my language asdfjkasd!";
-            break;    
-        
+        return textToAdd;
     }
-    return "Frodo heard: " + input + "\n" + response;
-}
-}
+
+    private void handleUserInput() {
+        assert userInput != null : "UserInput field should be initialized";
+        String userText = userInput.getText();
+        String dukeText = getResponse(userInput.getText());
+
+
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText,user),
+                DialogBox.getDukeDialog(dukeText, duke)
+        );
+        userInput.clear();
+    }
+
+    public String getResponse(String input) {
+        String response = "";
+        Parser p = new Parser();
+        CommandType commandType = p.getCommandType(input);
+        assert commandType != CommandType.UNKNOWN : "Parsed command should always be known";
+        switch (commandType) {
+            case LIST:
+                response += tasks.toString();
+                break;
+            case BYE:
+                response = "Goodbye. See you again";
+                storage.updateData(tasks);
+                break;
+            case DELETE:
+                response += tm.handleDelete(input);
+                break;
+            case MARK:
+                response += tm.handleMark(input);
+                break;
+            case UNMARK:
+                response += tm.handleUnmark(input);
+                break;
+            case EVENT:
+            case DEADLINE:
+            case TODO:
+                response += tm.addTask(input);
+                break;
+            case FIND:
+                response += tm.findTasks(input);
+                break;
+            case ARCHIVE:
+                response += storage.archiveTasksInNewFile(tasks);
+                response += tm.clearTasks();
+                response += storage.clearFile();
+                break;
+            case UNKNOWN:
+                response += "What do you mean? Make sure you speak my language asdfjkasd!";
+                break;
+
+        }
+        return "Frodo heard: " + input + "\n" + response;
+    }
+    }
