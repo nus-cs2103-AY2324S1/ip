@@ -17,7 +17,7 @@ public class EventTest {
     @Test
     public void toString_default() {
         Event testEvent = new Event("Test Event", testStartTime, testEndTime);
-        assertEquals(testEvent.toString(), "[E][  ] Test Event (from: 25-08-2023 0000 to: 25-08-2023 2359)");
+        assertEquals(testEvent.toString(), "[E][ ] Test Event (from: 25-08-2023 0000 to: 25-08-2023 2359)");
     }
 
     @Test
@@ -26,7 +26,7 @@ public class EventTest {
         testEvent.markDone();
         assertEquals(testEvent.toString(), "[E][X] Test Event (from: 25-08-2023 0000 to: 25-08-2023 2359)");
         testEvent.markNotDone();
-        assertEquals(testEvent.toString(), "[E][  ] Test Event (from: 25-08-2023 0000 to: 25-08-2023 2359)");
+        assertEquals(testEvent.toString(), "[E][ ] Test Event (from: 25-08-2023 0000 to: 25-08-2023 2359)");
 
     }
 

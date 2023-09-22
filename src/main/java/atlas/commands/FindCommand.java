@@ -11,7 +11,7 @@ import atlas.tasks.Task;
  * Command to find all events that contain the keyword
  */
 public class FindCommand extends MultiTaskCommand {
-    private static final String OUTPUT_HEADER_MESSAGE = "Here are the matching tasks in your list:";
+    private static final String OUTPUT_HEADER_MESSAGE = "So I've heard. You will find what you are looking for here:";
     private final String keyword;
 
     /**

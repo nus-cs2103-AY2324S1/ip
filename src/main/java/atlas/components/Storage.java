@@ -41,11 +41,12 @@ public class Storage {
             Path loadPath = Paths.get(getFilePath());
             return readFromFile(loadPath);
         } catch (InvalidPathException e) {
-            System.out.println("Could not find file: " + getFilePath());
+            System.out.println("You dare set me on a fruitless journey, mortal? There is nothing here: "
+                    + getFilePath());
         } catch (IOException e) {
-            System.out.println("Encountered error when reading file");
+            System.out.println("I cannot read this scroll, mortal");
         } catch (SecurityException e) {
-            System.out.println("Encountered security violation when loading file");
+            System.out.println("Zeus has barred me from reading this scroll, mortal.");
         }
         return new ArrayList<>();
     }
@@ -92,8 +93,8 @@ public class Storage {
                     .map(task -> task.generateSaveString() + "\n");
             Files.write(savePath, (Iterable<String>) taskStringStream::iterator);
         } catch (InvalidPathException | IOException e) {
-            throw new IOException("Unable to create file: " + fileName + "\n"
-                    + "Reason: " + e.getMessage());
+            throw new IOException("The scroll - " + fileName + " - cannot be produced, mortal.\n"
+                    + e.getMessage());
         }
     }
 
@@ -115,10 +116,10 @@ public class Storage {
 
                 boolean hasCreatedFile = saveFile.createNewFile();
                 if (hasCreatedFile) {
-                    System.out.println("Created new save file");
+                    System.out.println("Created new scroll");
                 }
             } catch (SecurityException e) {
-                throw new IOException("Unable to create file due to security manager");
+                throw new IOException("Zeus has barred me from making the scroll, mortal.");
             }
         }
     }

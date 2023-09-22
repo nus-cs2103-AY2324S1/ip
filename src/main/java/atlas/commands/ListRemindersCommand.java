@@ -11,7 +11,8 @@ import atlas.tasks.Task;
  * Command to return list of reminders
  */
 public class ListRemindersCommand extends MultiTaskCommand {
-    private static final String OUTPUT_HEADER_MESSAGE = "Here are your reminders:";
+    private static final String OUTPUT_HEADER_MESSAGE = "Time comes for us all, mortal, especially you. "
+            + "These labours are due soon:";
 
     @Override
     public String execute(TaskList taskList, Storage storage) {
