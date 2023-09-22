@@ -20,6 +20,6 @@ public class DeadlineCommand extends Command {
     }
     @Override
     public String execute(TaskList list) throws DukeException {
-        return list.addTask(Parser.CommandType.DEADLINE, this.input);
+        return list.addTaskWithCommand(Parser.CommandType.DEADLINE, this.input);
     }
 }

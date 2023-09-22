@@ -12,8 +12,12 @@ public class UpdateCommand extends Command {
     }
     @Override
     public String execute(TaskList list) throws DukeException {
+        int listSize = list.getSize();
+        if (this.taskNumber - 1 >= listSize) {
+            throw new DukeException("Index out of range!");
+        }
         newTask.execute(list);
-        list.swap(taskNumber - 1, list.getSize() - 1);
+        list.swap(this.taskNumber - 1, listSize);
         list.deleteTaskAtIndex(list.getSize() - 1);
         return "Updated task!";
     }

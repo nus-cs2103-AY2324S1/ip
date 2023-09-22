@@ -22,7 +22,7 @@ public class Parser {
     /**
      * Commands to be run based on the user's input.
      */
-    public enum CommandType {
+    public static enum CommandType {
         BYE,
         LIST,
         MARK,
@@ -42,7 +42,7 @@ public class Parser {
      * @return A command to be executed which is based on the user input.
      * @throws DukeException If the first word of the input is not a valid command.
      */
-    public Command parse(String input, boolean isUpdate) throws DukeException {
+    public static Command parse(String input, boolean isUpdate) throws DukeException {
         CommandType commandType;
         if (isUpdate) {
             commandType = getTaskCommandType(input);
@@ -52,7 +52,7 @@ public class Parser {
         return validateCommand(commandType, input);
     }
 
-    private CommandType getCommandType(String input) throws DukeException {
+    private static CommandType getCommandType(String input) throws DukeException {
         if (input.equals("bye")) {
             return CommandType.BYE;
         }
@@ -86,7 +86,7 @@ public class Parser {
         throw new DukeException("No such command.");
     }
 
-    private CommandType getTaskCommandType(String input) throws DukeException {
+    private static CommandType getTaskCommandType(String input) throws DukeException {
         if (input.startsWith("todo")) {
             return CommandType.TODO;
         }
@@ -106,7 +106,7 @@ public class Parser {
      * @return A Command that when executed, will act as specified by the user.
      * @throws DukeException
      */
-    public Command validateCommand(CommandType commandType, String input) throws DukeException {
+    private static Command validateCommand(CommandType commandType, String input) throws DukeException {
         assert input != null : "input should not be null";
         assert commandType != null : "command should not be null";
         int commandWordCount = input.split(" ").length;
@@ -122,6 +122,9 @@ public class Parser {
             if (commandWordCount > 2) {
                 throw new DukeException(INVALID_COMMAND);
             }
+            if (!Parser.isNumber(input.split(" ")[1])) {
+                throw new DukeException(INVALID_COMMAND);
+            }
             return new MarkCommand(input);
         case UNMARK:
             if (commandWordCount == 1) {
@@ -130,12 +133,18 @@ public class Parser {
             if (commandWordCount > 2) {
                 throw new DukeException(INVALID_COMMAND);
             }
+            if (!Parser.isNumber(input.split(" ")[1])) {
+                throw new DukeException(INVALID_COMMAND);
+            }
             return new UnmarkCommand(input);
         case DELETE:
             if (commandWordCount == 1) {
                 throw new DukeException(INPUT_TASK_NUMBER);
             }
             if (commandWordCount > 2) {
+                throw new DukeException(INVALID_COMMAND);
+            }
+            if (!Parser.isNumber(input.split(" ")[1])) {
                 throw new DukeException(INVALID_COMMAND);
             }
             return new DeleteCommand(input);
@@ -171,6 +180,15 @@ public class Parser {
             return new UpdateCommand(taskNumber, newTask);
         default:
             throw new DukeException("No such command.");
+        }
+    }
+
+    private static boolean isNumber(String input) {
+        try {
+            Integer.parseInt(input);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }

@@ -20,6 +20,6 @@ public class EventCommand extends Command {
     }
     @Override
     public String execute(TaskList list) throws DukeException {
-        return list.addTask(Parser.CommandType.EVENT, input);
+        return list.addTaskWithCommand(Parser.CommandType.EVENT, input);
     }
 }

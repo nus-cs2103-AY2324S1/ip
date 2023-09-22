@@ -1,5 +1,6 @@
 package bob.data.command;
 
+import bob.data.exception.DukeException;
 import bob.data.task.TaskList;
 
 /**
@@ -18,7 +19,7 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList list) {
+    public String execute(TaskList list) throws DukeException {
         return list.setTaskComplete(input);
     }
 }

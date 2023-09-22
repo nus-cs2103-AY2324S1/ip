@@ -42,4 +42,26 @@ public class ToDoTask extends Task {
     public String toString() {
         return "[T]" + super.toString();
     }
+
+    /**
+     * Checks if this ToDoTask is the same as a specified object.
+     * @param obj The object to be compared with.
+     * @return true if they are both the same instance or have the same contents.
+     *         false if they have different contents.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof ToDoTask) {
+            ToDoTask object = (ToDoTask) obj;
+
+            if (super.equals(object)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

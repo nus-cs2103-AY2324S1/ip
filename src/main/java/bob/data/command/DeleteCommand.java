@@ -1,5 +1,6 @@
 package bob.data.command;
 
+import bob.data.exception.DukeException;
 import bob.data.task.TaskList;
 
 /**
@@ -17,7 +18,7 @@ public class DeleteCommand extends Command {
         this.input = input;
     }
     @Override
-    public String execute(TaskList list) {
+    public String execute(TaskList list) throws DukeException {
         return list.deleteTask(this.input);
     }
 }

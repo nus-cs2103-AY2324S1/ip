@@ -73,12 +73,14 @@ public class StorageTest {
             testList.add(eventTest2);
 
             FileWriter writer = new FileWriter("test.txt");
-            writer.write("Todo,0,todotest\n"
+            writer.write(
+                    "Todo,0,todotest\n"
                             + "Todo,1,todotest2\n"
                             + "Deadline,0,deadlinetest,12/12/2024 1200\n"
                             + "Deadline,1,deadlinetest2,12/12/2024 1200\n"
                             + "Event,0,eventtest,12/12/2024 1200,13/12/2024 1200\n"
-                            + "Event,1,eventtest2,12/12/2024 1200,13/12/2024 1200\n");
+                            + "Event,1,eventtest2,12/12/2024 1200,13/12/2024 1200\n"
+            );
             writer.close();
 
             Storage storage = new Storage();
@@ -89,11 +91,12 @@ public class StorageTest {
             assertEquals(testList, outputList);
         } catch (DukeException e) {
             System.out.println(e);
+            fail("Expected exception not thrown.");
         } catch (FileNotFoundException e) {
             System.out.println(e);
+            fail("Expected exception not thrown.");
         } catch (IOException e) {
             System.out.println(e);
-        } finally {
             fail("Expected exception not thrown.");
         }
     }
@@ -102,7 +105,7 @@ public class StorageTest {
     public void readFromFile_badFile_exceptionThrown() {
         try {
             FileWriter writer = new FileWriter("test.txt");
-            writer.write("Todo1,0,todotest\n");
+            writer.write("Tod0,0,todotest\n");
             writer.close();
         } catch (IOException e) {
             System.out.println(e);

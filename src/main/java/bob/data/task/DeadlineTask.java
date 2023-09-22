@@ -60,4 +60,26 @@ public class DeadlineTask extends Task {
         DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a");
         return "[D]" + super.toString() + " (by: " + stringFormatter.format(this.deadlineDate) + ")";
     }
+
+    /**
+     * Checks if this DeadlineTask is the same as a specified object.
+     * @param obj The object to be compared with.
+     * @return true if they are both the same instance or have the same contents.
+     *         false if they have different contents.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof DeadlineTask) {
+            DeadlineTask object = (DeadlineTask) obj;
+
+            if (this.deadlineDate.equals(object.deadlineDate) && super.equals(object)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
