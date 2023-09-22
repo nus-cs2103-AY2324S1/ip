@@ -39,20 +39,11 @@ public class TaskList {
         return result;
     }
 
-    // set the task at index
-    public void set(int index, Task task) {
-        tasks.set(index, task);
-    }
-
     //shows the number of task in the task list currently
     public int size() {
         return tasks.size();
     }
 
-    // get the task at specified index
-    public Task get(int index) {
-        return tasks.get(index);
-    }
     // returns the tasks to an arraylist
     public ArrayList<Task> toArrayList() {
         return tasks;

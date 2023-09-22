@@ -13,7 +13,6 @@ public class Storage {
     public String filePath;
 
     public Storage(String filePath) {
-
         this.filePath = filePath;
     }
 

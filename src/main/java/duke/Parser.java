@@ -172,9 +172,6 @@ public class Parser {
         }
     }
 
-
-
-
     public static String handleTodo(String description,TaskList tasks) {
         if (description.isEmpty()) {
             return "OOPS!!! The description of a Todo cannot be empty.";

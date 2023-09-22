@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class Ui {
-    private Scanner scanner;
+    private final Scanner scanner;
 
     private VBox dialogContainer;
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/johnnythesnake.png"));
