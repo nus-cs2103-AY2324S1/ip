@@ -12,7 +12,7 @@ DuckBot is designed to help you keep track of your tasks, events,and deadlines e
 
 This user guide will walk you through all the amazing features DuckBot offers 
 
-and provide you with clear instructions on how to use them effectively.</font>
+and provide you with clear instructions on how to use them effectively.
 
 
 ## <font style = "Ariel" color="darkgrey"> Features </font> 
