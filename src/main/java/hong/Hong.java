@@ -18,7 +18,6 @@ public class Hong{
     }
     private void run() {
         boolean isLoopContinuing = true;
-        Ui.sayHello();
         TaskList taskList = new TaskList();
         Scanner myObj = new Scanner(System.in);
         while (isLoopContinuing) {
@@ -63,7 +62,6 @@ public class Hong{
                 Ui.printLine();
             }
         }
-        Ui.sayBye();
     }
 
     /*

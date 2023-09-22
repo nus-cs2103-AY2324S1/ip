@@ -35,26 +35,16 @@ public class Storage {
                 char taskType = data.charAt(1);
                 boolean isComplete = data.charAt(4) == 'X';
                 String taskDescription = data.substring(7);
-                String[] arrTaskSplit;
-
                 switch (taskType) {
                 case 'T':
                     Todo newTodo = new Todo(taskDescription);
                     tasks.add(newTodo);
                     break;
                 case 'D':
-                    arrTaskSplit = taskDescription.split(" DATETIME ");
-                    LocalDateTime dateTime = DateTimeParser.readTasksParser(arrTaskSplit[1]);
-                    Deadline newDeadline = new Deadline(dateTime, arrTaskSplit[0]);
-                    tasks.add(newDeadline);
+                    tasks.add(storageCreateDeadline(taskDescription));
                     break;
                 case 'E':
-                    arrTaskSplit = taskDescription.split(" DATETIME ");
-                    String[] dateTimeSplit = arrTaskSplit[1].split(" DATETIME_SPLIT ");
-                    LocalDateTime startDateTime = DateTimeParser.readTasksParser(dateTimeSplit[0]);
-                    LocalDateTime endDateTime = DateTimeParser.readTasksParser(dateTimeSplit[1]);
-                    Event newEvent = new Event(startDateTime, endDateTime, arrTaskSplit[0]);
-                    tasks.add(newEvent);
+                    tasks.add(storageCreateDeadline(taskDescription));
                     break;
                 }
                 if (isComplete) {
@@ -70,6 +60,19 @@ public class Storage {
         return tasks;
     }
 
+    private static Event storageCreateEvent(String taskDescription) {
+        String[] arrTaskSplit = taskDescription.split(" DATETIME ");
+        String[] dateTimeSplit = arrTaskSplit[1].split(" DATETIME_SPLIT ");
+        LocalDateTime startDateTime = DateTimeParser.readTasksParser(dateTimeSplit[0]);
+        LocalDateTime endDateTime = DateTimeParser.readTasksParser(dateTimeSplit[1]);
+        return(new Event(startDateTime, endDateTime, arrTaskSplit[0]));
+    }
+
+    private static Deadline storageCreateDeadline(String taskDescription) {
+        String[] arrTaskSplit = taskDescription.split(" DATETIME ");
+        LocalDateTime dateTime = DateTimeParser.readTasksParser(arrTaskSplit[1]);
+        return(new Deadline(dateTime, arrTaskSplit[0]));
+    }
 
 
     /*
