@@ -4,18 +4,19 @@
 
 ### `todo` - Creates a new todo task
 
-Describe the action and its outcome.
+Creates a new todo task and adds it to the list.
 #### Usage:
 `todo <task_name>`
 
 #### Example of usage: 
 
 `todo sleep`
+
 `todo cook dinner`
 
 #### Expected outcome:
 
-Joe will add the task to your todo list.
+Joe will add the new todo task to your list.
 
 ```
 Got it, I've added this task:
@@ -25,17 +26,17 @@ Now you have 1 task in the list.
 
 ### `deadline` - Creates a new deadline task
 
-Describe the action and its outcome.
+Creates a new deadline task and adds it to the list.
 #### Usage:
 `deadline <task_name> /by <dd/m/yyyy HHmm>`
 
 #### Example of usage:
 
-`deadline CS2103t ip /by 22/09/2023 1600`
+`deadline CS2103t ip /by 22/09/2023 2359`
 
 #### Expected outcome:
 
-Joe will add the task to your list.
+Joe will add the new deadline task to your list.
 
 ```
 Got it, I've added this task:
@@ -45,19 +46,22 @@ Now you have 1 task in the list.
 
 ### `event` - Creates a new event task
 
-Describe the action and its outcome.
+Creates a new event task and adds it to the list.
 #### Usage:
 `event <task_name> /from <dd/m/yyyy HHmm> /to <dd/m/yyyy HHmm>`
 
-> **Note**: `/to` should be equals to or after `/from`
+> **Note**: `/from` should be before or same as `/to`
+> 
+> For example,`event CS2103t finals /from 31/12/2023 0900 /to 01/12/2023 1100` is not valid
 
 #### Example of usage:
+`event CS2103t finals /from 01/12/2023 0900 /to 01/12/2023 0900`
 
 `event CS2103t finals /from 01/12/2023 0900 /to 01/12/2023 1100`
 
 #### Expected outcome:
 
-Joe will add the task to your list.
+Joe will add the new event task to your list.
 
 ```
 Got it, I've added this task:
@@ -67,6 +71,7 @@ Now you have 1 task in the list.
 
 ### `list` - Shows the list of tasks
 
+Shows all tasks in the list.
 #### Usage:
 `list`
 
@@ -82,7 +87,7 @@ Here are your tasks:
 ```
 
 ### `mark` - Marks a task as completed
-
+Marks a task in the list as completed.
 > **Note**: <task_number> refers to the numbering shown in `list`
 
 #### Usage:
@@ -101,6 +106,7 @@ Nice! I've marked this task as done:
 ```
 
 ### `unmark` - Unmarks a task as completed
+Unmarks a task in the list as completed.
 
 > **Note**: <task_number> refers to the numbering shown in `list`
 
@@ -120,6 +126,7 @@ Ok! I've marked this task as not done:
 ```
 
 ### `find` - Searches for tasks whose `<task_name>` contains the keyword
+Finds and shows the list of tasks with descriptions that contains the keyword.
 
 > **Note**: `find` is **NOT** case-sensitive
 
@@ -139,6 +146,7 @@ Here are the find results:
 ```
 
 ### `findmatch` - Searches for tasks whose `<task_name>` contains the keyword with matching case
+Finds and shows the list of task with descriptions that contains the keyword with matching case.
 
 > **Note**: `findmatch` **IS** case-sensitive
 
@@ -158,6 +166,15 @@ No tasks available
 ```
 
 ### `findall` - Searches for tasks that contains the keyword in any part of the tasks
+Finds and shows the list of tasks that contains the keyword.
+
+This feature will search for any matches in:
+
+`[T][ ] sleep`
+
+`[D][ ] CS2103t ip (by: 22 Sep 2023 16:00)`
+
+`[E][ ] CS2103t finals (from: 01 Dec 2023 09:00 to: 01 Dec 2023 11:00)`
 
 > **Note**: `findall` is **NOT** case-sensitive
 
@@ -166,6 +183,8 @@ No tasks available
 #### Example of usage:
 
 `findall sep`
+
+`findall [D]`
 
 #### Expected outcome:
 
@@ -177,6 +196,7 @@ Here are the find results:
 ```
 
 ### `delete` - Removes a task from the list
+Removes a task from the list.
 
 #### Usage:
 `delete <task_number>`
@@ -211,7 +231,7 @@ Bye. Hope to see you again soon!
 ```
 
 ### Saving the data
-Tasks are automatically saved to the disk after any commands that changes the data.
+Tasks are **automatically saved** to the disk after any commands that changes the data.
 
 ### Editing the data file
 Task data are saved as a txt file in `joe.txt` in the same directory as the JAR file.
