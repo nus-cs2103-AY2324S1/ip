@@ -12,10 +12,10 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         assertEquals(0, taskList.getTaskCount());
 
-        taskList.add(new TodoTask("test", false));
+        taskList.add(new TodoTask("test", false, ""));
         assertEquals(1, taskList.getTaskCount());
 
-        taskList.add(new TodoTask("test", false));
+        taskList.add(new TodoTask("test", false, ""));
         assertEquals(2, taskList.getTaskCount());
     }
 
