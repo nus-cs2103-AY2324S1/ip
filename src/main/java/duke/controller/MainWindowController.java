@@ -1,5 +1,7 @@
 package duke.controller;
 
+import duke.Duke;
+
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,11 +50,11 @@ public class MainWindowController {
 
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        String response = processInput(userInput.getText());
+        String response = Duke.processInput(userInput.getText());
 
         if ("SHUTDOWN".equals(response)) {
             Label byeMessage = new Label("Bye. Hope to see you again soon!");
-            dialogContainer.getChildren().add(DialogBox.getDukeDialog(byeMessage));
+            dialogContainer.getChildren().add(DialogBoxController.getDukeDialog(byeMessage));
 
             // Introduce a delay of 2 seconds (or any duration you prefer)
             PauseTransition delay = new PauseTransition(Duration.seconds(2));
@@ -62,7 +64,7 @@ public class MainWindowController {
         }
 
         Label dukeText = new Label(response);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText), DialogBox.getDukeDialog(dukeText));
+        dialogContainer.getChildren().addAll(DialogBoxController.getUserDialog(userText), DialogBox.getDukeDialog(dukeText));
         userInput.clear();
     }
 }

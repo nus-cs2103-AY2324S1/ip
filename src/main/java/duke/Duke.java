@@ -1,5 +1,8 @@
+package duke;
+
 import duke.Parser;
 import duke.Storage;
+import duke.controller.MainWindowController;
 import duke.tasks.TaskList;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -10,6 +13,7 @@ import duke.trivia.TriviaList;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -370,7 +374,7 @@ public class Duke extends Application {
      * @param input The user input.
      * @return The response to the user.
      */
-    public String processInput(String input) {
+    public static String processInput(String input) {
         StringBuilder response = new StringBuilder();
 
         try {
@@ -439,7 +443,19 @@ public class Duke extends Application {
      */
     @Override
     public void start(Stage stage) {
-        this.primaryStage = stage;
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            Scene scene = new Scene(ap);
+            stage.setScene(scene);
+            fxmlLoader.<MainWindowController>getController().setDuke(duke);
+            MainWindowController mainWindowController = fxmlLoader.getController();
+            mainWindowController.setPrimaryStage(stage);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         // Step 1. Setting up required components
         ScrollPane scrollPane = new ScrollPane();
@@ -489,32 +505,6 @@ public class Duke extends Application {
 
         stage.setScene(scene);
         stage.show();
-    }
-
-    /**
-     * Handles the user input.
-     *
-     * @param userInput The user input.
-     * @param dialogContainer The dialog container.
-     */
-    private void handleUserInput(TextField userInput, VBox dialogContainer) {
-        Label userText = new Label(userInput.getText());
-        String response = processInput(userInput.getText());
-
-        if ("SHUTDOWN".equals(response)) {
-            Label byeMessage = new Label("Bye. Hope to see you again soon!");
-            dialogContainer.getChildren().add(DialogBox.getDukeDialog(byeMessage));
-
-            // Introduce a delay of 2 seconds (or any duration you prefer)
-            PauseTransition delay = new PauseTransition(Duration.seconds(2));
-            delay.setOnFinished(event -> primaryStage.close());
-            delay.play();
-            return;
-        }
-
-        Label dukeText = new Label(response);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText), DialogBox.getDukeDialog(dukeText));
-        userInput.clear();
     }
 
     /**
