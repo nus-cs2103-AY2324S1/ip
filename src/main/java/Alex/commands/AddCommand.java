@@ -36,6 +36,7 @@ public class AddCommand extends Command {
     @Override
     public String execute() {
         String output = null;
+
         switch(this.addType) {
         case TODO:
             try {
