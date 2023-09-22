@@ -1,4 +1,4 @@
-package cyrus.ui;
+package cyrus.ui.components;
 
 import java.io.IOException;
 

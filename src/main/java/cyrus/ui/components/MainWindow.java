@@ -1,4 +1,4 @@
-package cyrus.ui;
+package cyrus.ui.components;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -146,6 +146,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Launches the statistics dashboard.
+     *
+     * <p>Launching from MainWindow since it is attached to the MainWindow.</p>
      */
     private void openStatisticsDashboard() {
         try {

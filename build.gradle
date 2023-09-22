@@ -40,7 +40,7 @@ test {
 }
 
 application {
-    mainClass.set("cyrus.Launcher")
+    mainClass.set("cyrus.Main")
 }
 
 shadowJar {

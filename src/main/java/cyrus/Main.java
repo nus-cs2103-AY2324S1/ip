@@ -1,14 +1,14 @@
 package cyrus;
 
 
-import cyrus.ui.CyrusChat;
+import cyrus.ui.MainApp;
 import javafx.application.Application;
 
 /**
  * Launcher for Cyrus Gui.
  */
-public class Launcher {
+public class Main {
     public static void main(String[] args) {
-        Application.launch(CyrusChat.class, args);
+        Application.launch(MainApp.class, args);
     }
 }

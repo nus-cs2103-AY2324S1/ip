@@ -3,6 +3,7 @@ package cyrus.ui;
 import java.io.IOException;
 
 import cyrus.Cyrus;
+import cyrus.ui.components.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,13 +13,13 @@ import javafx.stage.Stage;
 /**
  * Entry point for initializing and loading the MainWindow.
  */
-public class CyrusChat extends Application {
+public class MainApp extends Application {
     private static final Cyrus CYRUS = new Cyrus();
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(CyrusChat.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             scene.getStylesheets().add(this.getClass().getResource("/style/styles.css").toExternalForm());
