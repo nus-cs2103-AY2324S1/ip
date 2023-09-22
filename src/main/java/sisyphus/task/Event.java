@@ -1,11 +1,15 @@
 package sisyphus.task;
 
+import sisyphus.parser.DateFormatter;
+
+import java.time.LocalDate;
+
 /**
  * Event class that inherits Task to store events.
  */
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDate start;
+    protected LocalDate end;
 
     /**
      * Constructor when provided description, start and end time.
@@ -14,7 +18,7 @@ public class Event extends Task {
      * @param start
      * @param end
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, LocalDate start, LocalDate end) {
         super(description);
         this.start = start;
         this.end = end;
@@ -28,7 +32,7 @@ public class Event extends Task {
      * @param start
      * @param end
      */
-    public Event(String description, boolean isDone, String start, String end) {
+    public Event(String description, boolean isDone, LocalDate start, LocalDate end) {
         super(description, isDone);
         this.start = start;
         this.end = end;
@@ -42,7 +46,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + this.getStatusIcon() + "] " + this.description + " (from: "
-                + this.start + " to: " + this.end + ")";
+                + DateFormatter.formatDate(this.start) + " to: " + DateFormatter.formatDate(this.end) + ")";
     }
 
     /**

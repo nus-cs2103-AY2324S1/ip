@@ -102,7 +102,15 @@ public class Storage {
      */
     public void addEventFromStorage(String[] params, TaskList savedTaskList) {
         if (params.length == 5) {
-            Event event = new Event(params[1], params[2].equals("1"), params[3], params[4]);
+            LocalDate fromDate;
+            LocalDate toDate;
+            try {
+                fromDate = LocalDate.parse(params[3]);
+                toDate = LocalDate.parse(params[4]);
+            } catch (DateTimeParseException e) {
+                return;
+            }
+            Event event = new Event(params[1], params[2].equals("1"), fromDate, toDate);
             savedTaskList.addTask(event);
         }
     }
