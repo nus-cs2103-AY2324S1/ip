@@ -20,6 +20,7 @@ import duke.tasks.SortType;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.tasks.TodoTask;
+import javafx.application.Platform;
 
 
 /**
@@ -115,13 +116,26 @@ public class Parser {
         case SORT: {
             processSortCommand(inputString, duke);
             break;
+
+        }
+        case BYE: {
+            processByeCommand();
+            break;
         }
 
+        
         default:
             throw new UnknownCommandException();
         }
 
         return modifiedTasks;
+    }
+
+    /**
+     * Exits the app.
+     */
+    private static void processByeCommand() {
+        Platform.exit();
     }
 
     /**
