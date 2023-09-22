@@ -1,5 +1,8 @@
 package jarvis.gui;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import jarvis.Jarvis;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +27,8 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private ImageView sendButtonArrow;
     @FXML
     private ImageView introImage;
 
@@ -75,6 +80,18 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
                 DialogBox.getJarvisDialog(response, jarvisImage));
         userInput.clear();
+
+        // Check if the response is the farewell message
+        if (response.equals(ui.printBye())) {
+            // Exit the application after a delay
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            }, 1000); // 3000 milliseconds (3 seconds)
+        }
     }
 
 }
