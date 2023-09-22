@@ -31,7 +31,7 @@ public class TaskTest {
         assertEquals(new Event("study at cafe", "Sep 3 2023", "3:00 PM",
                         "Sep 3 2023", "4:00 PM").toString(),
                 Task.generateTask("event",
-                        new Scanner("study at cafe /from 03/09/2023 1500 /to 03/09/2023 1600"))
+                        new Scanner("study at cafe /from 03/09/2023, 1500 /to 03/09/2023, 1600"))
                         .toString());
     }
 
@@ -42,8 +42,8 @@ public class TaskTest {
                     new Scanner("")));
             fail();
         } catch (IllegalCommandException e){
-            assertEquals("I dont think I can do that\n" +
-                    "do you want to try again?", e.getMessage());
+            assertEquals("I don't think I can process an empty task\n"
+                    + "do you want to try again?", e.getMessage());
         }
     }
 
@@ -54,8 +54,11 @@ public class TaskTest {
                     new Scanner("return book /by 2023-09-03")));
             fail();
         } catch (IllegalDateTimeException e){
-            assertEquals("Date or date format is invalid\n"
-                    + "try dd/mm/yyyy format instead", e.getMessage());
+            assertEquals("Date or date format is invalid. Time or time format is invalid. "
+                    + "If you are putting both date and time, you might have missed \", \" "
+                    + "between the date and the time\n" +
+                    " (e.g. \"1 Jan, 5pm\").\n" +
+                    "Try \"help datetime\" to learn more about accepted date time formats", e.getMessage());
         }
     }
 
@@ -63,11 +66,10 @@ public class TaskTest {
     public void generateTask_invalidTime_exceptionThrown() throws IllegalCommandException {
         try {
             assertEquals(0, Task.generateTask("deadline",
-                    new Scanner("return book /by 03/09/2023 6pm")));
+                    new Scanner("return book /by 03/09/2023, 36pm")));
             fail();
         } catch (IllegalDateTimeException e){
-            assertEquals("Time or time format is invalid\n"
-                    + "try HHmm format instead", e.getMessage());
+            assertEquals("Time or time format is invalid. ", e.getMessage());
         }
     }
 
@@ -75,10 +77,11 @@ public class TaskTest {
     public void generateTask_invalidFromToTime_exceptionThrown() throws IllegalCommandException {
         try {
             assertEquals(0, Task.generateTask("event",
-                    new Scanner("study /from 03/09/2023 1600 /to 03/09/2023 1400")));
+                    new Scanner("study /from 03/09/2023, 1600 /to 03/09/2023, 1400")));
             fail();
         } catch (IllegalDateTimeException e){
-            assertEquals("to time cannot be before from time", e.getMessage());
+            assertEquals("Sorry but to time cannot be before from time\n" +
+                    "2:00 PM is before 4:00 PM", e.getMessage());
         }
     }
 }

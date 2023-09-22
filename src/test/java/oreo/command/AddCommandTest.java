@@ -2,7 +2,6 @@ package oreo.command;
 
 import oreo.task.TaskList;
 import oreo.task.ToDo;
-import oreo.ui.Ui;
 import org.junit.jupiter.api.Test;
 
 import java.util.Scanner;
@@ -10,7 +9,6 @@ import java.util.Scanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddCommandTest {
-    Ui ui = new Ui();
     TaskList tasks = new TaskList();
 
 
@@ -19,7 +17,7 @@ public class AddCommandTest {
         String description = "read book";
         Scanner tokeniser = new Scanner(description);
         AddCommand ac = new AddCommand("todo", tokeniser);
-        ac.execute(ui, tasks);
+        ac.execute(tasks);
         assertEquals(tasks.get(0).toString(),
                 new ToDo("read book").toString());
     }
@@ -29,7 +27,7 @@ public class AddCommandTest {
         String description = "read book";
         Scanner tokeniser = new Scanner(description);
         AddCommand ac = new AddCommand("abc", tokeniser);
-        ac.execute(ui, tasks);
+        ac.execute(tasks);
         assertEquals(0,
                 tasks.getNumberOfTask());
     }
