@@ -1,5 +1,9 @@
 package functions;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import commands.AddCommand;
 import commands.Command;
 import commands.DeleteCommand;
@@ -9,11 +13,11 @@ import commands.ListCommand;
 import commands.MarkCommand;
 import commands.SearchCommand;
 import commands.UnmarkCommand;
-import utilities.*;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import utilities.CR7EmptyInputException;
+import utilities.CR7Exception;
+import utilities.CR7InvalidCommandException;
+import utilities.CR7InvalidInputException;
+import utilities.Messages;
 
 /**
  * Utility class for parsing user input and generating appropriate commands.
@@ -36,7 +40,7 @@ public class Parser {
 
         private final DateTimeFormatter formatter;
 
-        DateTimeFormat (String pattern) {
+        DateTimeFormat(String pattern) {
             this.formatter = DateTimeFormatter.ofPattern(pattern);
         }
 
@@ -74,31 +78,31 @@ public class Parser {
             String[] words = input.split(" ");
             String first = words[0];
             switch (first) {
-                case "bye":
-                    return new ExitCommand();
-                case "list":
-                    return new ListCommand();
-                case "delete":
-                    int s = checkIndex(words);
-                    return new DeleteCommand(s);
-                case "mark":
-                    int sMark = checkIndex(words);
-                    return new MarkCommand(sMark);
-                case "unmark":
-                    int sUnmark = checkIndex(words);
-                    return new UnmarkCommand(sUnmark);
-                case "find":
-                    return handleSearch(input);
-                case "todo":
-                    return handleToDo(input);
-                case "fixed":
-                    return handleFixed(input);
-                case "deadline":
-                    return handleDeadline(input);
-                case "event":
-                    return handleEvent(input);
-                default:
-                    throw new CR7InvalidCommandException(Messages.WRONG_COMMAND);
+            case "bye":
+                return handleExit(input);
+            case "list":
+                return handleList(input);
+            case "delete":
+                int s = checkIndex(words);
+                return new DeleteCommand(s);
+            case "mark":
+                int sMark = checkIndex(words);
+                return new MarkCommand(sMark);
+            case "unmark":
+                int sUnmark = checkIndex(words);
+                return new UnmarkCommand(sUnmark);
+            case "find":
+                return handleSearch(input);
+            case "todo":
+                return handleToDo(input);
+            case "fixed":
+                return handleFixed(input);
+            case "deadline":
+                return handleDeadline(input);
+            case "event":
+                return handleEvent(input);
+            default:
+                throw new CR7InvalidCommandException(Messages.WRONG_COMMAND);
             }
         } catch (CR7Exception e) {
             return new ErrorCommand(e.getMessage());
@@ -107,11 +111,28 @@ public class Parser {
         }
     }
 
-    private static int checkIndex(String[] words) throws CR7Exception{
+    private static Command handleExit(String input) throws CR7Exception {
+        if (input.length() > 3) {
+            throw new CR7InvalidInputException(Messages.WRONG_COMMAND);
+        }
+        return new ExitCommand();
+    }
+
+    private static Command handleList(String input) throws CR7Exception {
+        if (input.length() > 4) {
+            throw new CR7InvalidInputException(Messages.WRONG_COMMAND);
+        }
+        return new ListCommand();
+    }
+
+    private static int checkIndex(String[] words) throws CR7Exception {
         try {
+            if (words.length > 2) {
+                throw new CR7InvalidInputException(Messages.WRONG_COMMAND);
+            }
             return Integer.parseInt(words[1]);
         } catch (NumberFormatException e) {
-            throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
+            throw new CR7InvalidInputException(Messages.WRONG_COMMAND);
         }
     }
 
@@ -142,7 +163,7 @@ public class Parser {
             throw new CR7EmptyInputException(Messages.EMPTY_TASK);
         }
         int y = input.indexOf("/for ");
-        if (y == -1 || y <= 8) {
+        if (y == -1 || y < 8) {
             throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
         String desc = input.substring(6, y - 1);
@@ -158,7 +179,7 @@ public class Parser {
             throw new CR7EmptyInputException(Messages.EMPTY_TASK);
         }
         int z = input.indexOf("/by ");
-        if (z == -1 || z <= 11) {
+        if (z == -1 || z < 11) {
             throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
         String desc = input.substring(9, z - 1);
@@ -179,7 +200,7 @@ public class Parser {
         }
         int fromIndex = input.indexOf("/from ");
         int toIndex = input.indexOf("/to ");
-        if (fromIndex == -1 || fromIndex <= 8 || toIndex == -1 || toIndex < fromIndex) {
+        if (fromIndex == -1 || fromIndex < 8 || toIndex == -1 || toIndex < fromIndex) {
             throw new CR7InvalidInputException(Messages.WRONG_FORMAT);
         }
         String name = input.substring(6, input.indexOf("/") - 1);

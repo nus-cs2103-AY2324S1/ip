@@ -1,5 +1,6 @@
-package cr7;
+package cristiano;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,9 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.animation.PauseTransition;
 import javafx.util.Duration;
-import utilities.CR7EmptyInputException;
 import utilities.CR7Exception;
 
 /**

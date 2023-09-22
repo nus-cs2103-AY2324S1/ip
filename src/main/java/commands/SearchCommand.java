@@ -1,8 +1,11 @@
 package commands;
 
-import functions.*;
 import java.util.ArrayList;
-import tasks.*;
+
+import functions.Storage;
+import functions.TaskList;
+import functions.Ui;
+import tasks.Task;
 
 /**
  * Represents a command to search for tasks based on a keyword.
@@ -12,7 +15,7 @@ public class SearchCommand extends Command {
     /**
      * The keyword to search for in task descriptions.
      */
-    String searchWord;
+    protected String searchWord;
 
     /**
      * Constructs a SearchCommand with the keyword to search for.

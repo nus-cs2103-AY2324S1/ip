@@ -1,7 +1,10 @@
 package commands;
 
-import functions.*;
 import java.io.IOException;
+
+import functions.Storage;
+import functions.TaskList;
+import functions.Ui;
 
 /**
  * Represents a command to list tasks.

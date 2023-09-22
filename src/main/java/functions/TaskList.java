@@ -1,10 +1,14 @@
 package functions;
 
-import tasks.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import tasks.Deadline;
+import tasks.Event;
+import tasks.FixedDuration;
+import tasks.Task;
+import tasks.ToDo;
 
 /**
  * Manages a list of tasks and provides methods for task manipulation and retrieval.
@@ -56,10 +60,10 @@ public class TaskList {
             t = loadFixedDurationTask(input);
         }
         assert t != null : "File has been corrupted";
-        tasks.add(t);
-        if (input.substring(3, 5).equals("[X]")) {
+        if (input.charAt(4) == 'X') {
             t.markAsDone();
         }
+        tasks.add(t);
     }
 
     private Task loadDeadlineTask(String input) {

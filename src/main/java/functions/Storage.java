@@ -1,13 +1,13 @@
 package functions;
 
-import tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tasks.Task;
 
 /**
  * Utility class for loading and saving task data from/to a file.
@@ -29,7 +29,7 @@ public class Storage {
      *
      * @param filepath The filepath of the data file.
      */
-    public Storage(String filepath) throws IOException{
+    public Storage(String filepath) throws IOException {
         this.filepath = filepath;
         this.file = new File(filepath);
         if (!file.exists()) {
@@ -47,7 +47,7 @@ public class Storage {
     public ArrayList<String> loadFiles() throws FileNotFoundException {
         ArrayList<String> tasks = new ArrayList<>();
         Scanner s = new Scanner(file);
-        while(s.hasNext()) {
+        while (s.hasNext()) {
             tasks.add(s.nextLine());
         }
         return tasks;

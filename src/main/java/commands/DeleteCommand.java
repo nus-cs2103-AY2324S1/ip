@@ -1,10 +1,12 @@
 package commands;
 
-import functions.*;
-import tasks.*;
-import utilities.Messages;
-
 import java.io.IOException;
+
+import functions.Storage;
+import functions.TaskList;
+import functions.Ui;
+import tasks.Task;
+import utilities.Messages;
 
 /**
  * Represents a command to delete a task from the task list.

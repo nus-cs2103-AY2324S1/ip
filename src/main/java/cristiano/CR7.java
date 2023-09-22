@@ -1,4 +1,7 @@
-package cr7;
+package cristiano;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import commands.Command;
 import functions.Parser;
@@ -6,9 +9,6 @@ import functions.Storage;
 import functions.TaskList;
 import functions.Ui;
 import utilities.CR7Exception;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * The main class for running the CR7.CR7 task management application.

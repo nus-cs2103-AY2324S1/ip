@@ -1,6 +1,7 @@
 package functions;
 
 import java.util.ArrayList;
+
 import tasks.Task;
 
 /**
@@ -9,16 +10,9 @@ import tasks.Task;
 public class Ui {
 
     /**
-     * Constructs a Ui object with a new Scanner for reading user input.
+     * Constructs an Ui object with a new Scanner for reading user input.
      */
-    public Ui(){
-    }
-
-    /**
-     * Displays a welcome message to the user.
-     */
-    public String showWelcome() {
-        return "Hello! I'm CR7.CR7\n" + "What can I do for you?\n";
+    public Ui() {
     }
 
     /**
@@ -64,8 +58,8 @@ public class Ui {
      */
     public String showMatchesMsg(ArrayList<Task> tasks) {
         if (tasks.size() == 0) {
-            return "There are no tasks matching your description. " +
-                    "Please try another search keyword.\n";
+            return "There are no tasks matching your description. "
+                    + "Please try another search keyword.\n";
         } else {
             String list = "Here are the matching tasks in your list:\n";
             for (int i = 1; i < tasks.size() + 1; i++) {
