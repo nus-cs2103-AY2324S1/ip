@@ -47,7 +47,7 @@ public class Parser {
         }
     }
 
-    private static Event createEvent (String[] arrStrings) throws Exception {
+    private static Event createEvent(String[] arrStrings) throws Exception {
         String name = "";
         String from = "";
         String to = "";

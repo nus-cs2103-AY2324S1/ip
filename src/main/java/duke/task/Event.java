@@ -25,7 +25,7 @@ public class Event extends Task {
         super(name);
         if (!Event.isValidDates(from, to)) {
             throw new Exception("Event start date should be before the end date!");
-        };
+        }
         this.to = to;
         this.from = from;
     }
@@ -42,7 +42,7 @@ public class Event extends Task {
         super(name, isComplete);
         if (!Event.isValidDates(from, to)) {
             throw new Exception("Event start date should be before the end date!");
-        };
+        }
         this.to = to;
         this.from = from;
     }
