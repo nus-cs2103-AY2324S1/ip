@@ -18,14 +18,14 @@ public class Ui {
     }
 
     public static String helloMessage() {
-        return "Hello trainer, I'm Pippi!\nWhat can I do for you?";
+        return "Hello trainer, I'm Pippi!\nEnter 'help' to see my moveset!";
     }
 
     /**
      * Returns a help message response on the available commands
      */
     public static String helpMessage() {
-        return ("Here are the commands supported\n"
+        return ("Here is my moveset\n"
                 + "1) list - to access the list\n"
                 + "2) todo [task_name] - to create a todo task\n"
                 + "3) deadline [task_name] /by [yyyy-mm-dd] - to create a deadline\n"
