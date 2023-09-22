@@ -69,10 +69,12 @@ public class Storage {
         saved[1] = task.isDone ? "1" : "0";
         saved[2] = task.getDescription();
 
+        bufferedWriter.write(String.join(" | ", saved));
+
         if (isAppend) {
             bufferedWriter.newLine();
         }
-        bufferedWriter.write(String.join(" | ", saved));
+
         bufferedWriter.close();
     }
 
@@ -110,7 +112,7 @@ public class Storage {
             } else {
                 System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
             }
-            
+
             if (!Files.exists(fileForTesting)) {
                 System.out.println("System Message: File 'taskListTest.txt' does not exist. Creating one..."
                         + "You can view it under 'data' directory after exiting the program this time.");
@@ -139,6 +141,7 @@ public class Storage {
             while ((currentLine = bufferedReader.readLine()) != null) {
                 if (!TaskList.isValidTaskLine(currentLine)) {
                     System.out.printf("Skipping corrupted line: %s\n", currentLine);
+                    continue;
                 }
                 // Parse the line. Check which type of task it belongs to. Create task and put it in list of tasks.
                 String[] content = currentLine.split(" \\| ");

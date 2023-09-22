@@ -69,8 +69,6 @@ public class Ui {
                 .append("\nBye bye. Please use me again soon!\n")
                         .append(printHorizontalLine());
 
-        printHorizontalLine();
-        printHorizontalLine();
         scanner.close();
         quitProgram();
         Duke.setIsFinishedToTrue();
