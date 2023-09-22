@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import duke.Duke;
@@ -14,7 +14,9 @@ import duke.Duke;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
+public class ChatWindow extends BorderPane {
+    @FXML
+    private BorderPane dialogWrapper;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -37,7 +39,7 @@ public class MainWindow extends AnchorPane {
     public void setDuke(Duke d) {
         duke = d;
         dialogContainer.getChildren().addAll(
-            DialogBox.getDukeDialog(d.startIntroduction(), dukeImage)
+                DialogBox.getDukeDialog(d.startIntroduction(), dukeImage)
         );
     }
 
@@ -55,13 +57,13 @@ public class MainWindow extends AnchorPane {
             }
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getDukeDialog(response, dukeImage)
             );
             userInput.clear();
         } catch (DukeException e) {
             dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(e.toString(), dukeImage)
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(e.toString(), dukeImage)
             );
             userInput.clear();
         }

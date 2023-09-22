@@ -1,0 +1,30 @@
+@font-face {
+    src: url('../fonts/Inter-SemiBold.ttf');
+}
+
+* {
+    -fx-background-color: rgb(30, 35, 38);
+    -fx-font-family: 'Inter SemiBold';
+    -fx-font-size: 14;
+    -fx-font-smoothing-type: gray;
+    -fx-text-fill: "D3C6AA";
+}
+
+#bottomBar {
+    -fx-background-color: "#D3C6AA";
+}
+
+#dialog {
+    -fx-background-color: "#3C4841";
+    -fx-background-radius: 8;
+}
+
+#userInput {
+    -fx-control-inner-background: "#D3C6AA";
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color :"#D3C6AA";
+    -fx-background-radius : 1.0em;
+}
+
