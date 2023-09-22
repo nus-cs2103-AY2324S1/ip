@@ -2,7 +2,6 @@ package chatbuddy.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Deadline represents a Deadline object in ChatBuddy.
@@ -27,16 +26,6 @@ public class Deadline extends Task {
     public Deadline(String description, LocalDate by) {
         super(description);
         this.by = by;
-    }
-
-    /**
-     * Returns a boolean representing whether the task is due within a week.
-     *
-     * @return True if the deadline is due within a week, false otherwise.
-     */
-    @Override
-    public boolean isWithinAWeek() {
-        return by.isBefore(LocalDate.now().plus(1, ChronoUnit.WEEKS));
     }
 
     @Override

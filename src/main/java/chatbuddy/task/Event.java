@@ -2,7 +2,6 @@ package chatbuddy.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Event represents an Event object in ChatBuddy.
@@ -31,16 +30,6 @@ public class Event extends Task {
         super(description);
         this.from = from;
         this.to = to;
-    }
-
-    /**
-     * Returns a boolean representing whether the event starts within a week.
-     *
-     * @return True if the event starts within a week, false otherwise.
-     */
-    @Override
-    public boolean isWithinAWeek() {
-        return from.isBefore(LocalDateTime.now().plus(1, ChronoUnit.WEEKS));
     }
 
     @Override

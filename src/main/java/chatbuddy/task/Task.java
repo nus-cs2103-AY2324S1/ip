@@ -54,15 +54,6 @@ public class Task {
         return tag.equals("") ? "" : " #" + tag;
     }
 
-    /**
-     * Returns a boolean representing whether the task is due or an event starts within a week.
-     *
-     * @return True if task is due or starts within a week, false otherwise.
-     */
-    public boolean isWithinAWeek() {
-        return false;
-    }
-
     @Override
     public String toString() {
         return String.format("[%1s] %2s", getStatusIcon(), description) + getTag();

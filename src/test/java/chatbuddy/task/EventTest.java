@@ -14,6 +14,11 @@ public class EventTest {
     private Event event = new Event("event1", from, to);
 
     @Test
+    public void toString_correctString() {
+        assertEquals("[E][ ] event1 (from: 01 Sep 2023 1000 to: 01 Sep 2023 1732)", event.toString());
+    }
+
+    @Test
     public void getInformationForSaving() {
         assertEquals("E | 0 | event1 |  | 01/09/2023 1000 | 01/09/2023 1732", event.getInformationForSaving());
     }
