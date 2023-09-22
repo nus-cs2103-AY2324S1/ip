@@ -61,7 +61,7 @@ public class Ui {
         if (taskList.listSize() == 0) {
             return "There is currently no task in your list.";
         } else {
-            StringBuilder result = new StringBuilder("Here are the tasks in your list: \n");
+            StringBuilder result = new StringBuilder("Here are the task(s) in your list: \n");
             for (int i = 0; i < taskList.listSize(); i++) {
                 result.append(i + 1).append(". ").append(taskList.getTask(i)).append("\n");
             }
@@ -104,7 +104,7 @@ public class Ui {
         assert i >= 0 && i < taskList.listSize() : "Invalid task index: " + i;
         return "Alright, I've removed this task from the list: \n"
                 + "           " + taskList.deleteTask(i) + "\n"
-                + "Now you have" + taskList.listSize() + " task(s) in your list.";
+                + "Now you have " + taskList.listSize() + " task(s) in your list.";
     }
 
     /**

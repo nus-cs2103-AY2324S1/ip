@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.Label?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="703.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="chatty.gui.MainWindow">
     <children>
         <TextField fx:id="userInput" layoutY="654.0" onAction="#handleUserInput" prefHeight="40.0" prefWidth="537.0" style="-fx-border-color: #2874A6;" AnchorPane.bottomAnchor="1.0" />

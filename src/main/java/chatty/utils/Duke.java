@@ -42,7 +42,6 @@ public class Duke {
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        System.out.println(Parser.COMMAND_ALIAS.toString());
         try {
             taskList = new TaskList();
             storage.loadTask(taskList);
