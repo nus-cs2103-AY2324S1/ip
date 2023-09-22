@@ -52,6 +52,8 @@ Adds a Deadline task to your TaskList.
 Format: `deadline DESCRIPTION /by DATETIME`
 - `DESCRIPTION` is the description of the todo task.
 - `DATETIME` is the date of the deadline. 
+
+
 > [!NOTE]
 > `DATETIME` must be written in the format of `d-MM-yyyy HHmm` or `dd-MM-yyyy HHmm`
 
@@ -66,6 +68,7 @@ Format: `event DESCRIPTION /from STARTTIME /to ENDTIME`
 - `DESCRIPTION` is the description of the todo task.
 - `STARTTIME` is the starting time of the event. 
 - `ENDTIME` is the ending time of the event.
+
 
 > [!NOTE]
 > `STARTTIME` and `ENDTIME` can be anything, it does not have to be a date.
@@ -109,6 +112,7 @@ Format: `delete INDEXNUMBER`
 
 Example:
 - `delete 1`: delete the task with index 1 from your task list.
+
 
 > [!WARNING]
 > This action is irreversible! Be careful on what you are deleting!
