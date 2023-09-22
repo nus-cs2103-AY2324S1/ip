@@ -5,9 +5,24 @@ Hi Master! I'm your personal assistant: Jarvis!
 How can I serve you today? - Jarvis
 ```
 
-![Robot Gif](/docs/robot.gif)
+![Robot Gif](../docs/robot.gif)
 
----
+## Table of Contents
+
+1. [Adding Tasks](#adding-tasks)
+    1. [Todo Task](#adding-a-todo-task-todo)
+    2. [Deadline Task](#adding-a-deadline-task-deadline)
+    3. [Event Task](#adding-an-event-task-event)
+2. [Managing Tasks](#listing-tasks-list)
+    1. [Listing Tasks](#listing-tasks-list)
+    2. [Marking a Task as Completed](#marking-a-task-as-completed-mark)
+    3. [Marking a Task as Incompleted](#marking-a-task-as-incompleted-unmark)
+    4. [Deleting a Task](#deleting-a-task-delete)
+3. [Searching and Sorting](#finding-tasks-find)
+    1. [Finding Tasks](#finding-tasks-find)
+    2. [Sorting Tasks by Deadline](#sorting-tasks-sort-deadline)
+4. [Exiting the Application](#exiting-jarvis-bye)
+5. [Command Summary](#command-summary)
 
 ## Features
 
