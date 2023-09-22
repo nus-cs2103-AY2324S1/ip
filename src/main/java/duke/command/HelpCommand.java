@@ -24,7 +24,7 @@ public class HelpCommand extends Command {
     /**
      * {@inheritDoc}
      *
-     * Exits the program.
+     * Generates message with all the available commands in Kora.
      * @param taskList List with tasks.
      * @param storage Storage where tasks are stored.
      */

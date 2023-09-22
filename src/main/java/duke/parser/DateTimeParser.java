@@ -14,9 +14,18 @@ public class DateTimeParser {
     private DateTimeFormatter outFormatter = DateTimeFormatter.ofPattern("E, MMM d yyyy HH:mm");
     private DateTimeFormatter saveFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
+    /**
+     * Class constructor of DateTimeParser.
+     */
     public DateTimeParser() {
     }
 
+    /**
+     * Returns String date time that is formatted for Kora reply.
+     * @param dateTime String date time.
+     * @return Formatted message for Kora reply.
+     * @throws KoraException When there is error parsing to date time.
+     */
     public String outFormatted(String dateTime) throws KoraException {
         String dT = "";
         String[] strArray = dateTime.trim().split(" ");
@@ -38,6 +47,12 @@ public class DateTimeParser {
         }
     }
 
+    /**
+     * Returns String date time that is formatted for saving in Storage.
+     * @param dateTime String date time.
+     * @return Formatted message for saving in Storage.
+     * @throws KoraException When there is error parsing to date time.
+     */
     public String saveFormatted(String dateTime) throws KoraException {
         String dT = "";
         String[] strArray = dateTime.trim().split(" ");

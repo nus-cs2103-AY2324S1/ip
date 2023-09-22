@@ -13,6 +13,9 @@ public class CommandList {
     private HashMap<String, String> commandNameList;
     private HashMap<String, ArrayList<String>> commandTypeList;
 
+    /**
+     * Class constructor of CommandList.
+     */
     public CommandList() {
         commandNameList = new HashMap<>();
         commandTypeList = new HashMap<>();
@@ -33,6 +36,11 @@ public class CommandList {
         addCommandName("display", "display");
     }
 
+    /**
+     * Adds Command name to command name list.
+     * @param commandType Type of Command.
+     * @param commandName Name of Command.
+     */
     public void addCommandName(String commandType, String commandName) {
         if (commandNameList.containsKey(commandName)) {
             return;
@@ -48,6 +56,12 @@ public class CommandList {
         commandTypeList.put(commandType, nameList);
     }
 
+    /**
+     * Deletes Command name from command name list.
+     * @param commandType Type of Command.
+     * @param commandName Name of Command.
+     * @throws KoraException When the only command name gets called to be deleted.
+     */
     public void deleteCommandName(String commandType, String commandName) throws KoraException {
         commandNameList.remove(commandName);
         ArrayList<String> nameList = commandTypeList.get(commandType);
@@ -58,10 +72,19 @@ public class CommandList {
         commandTypeList.put(commandType, nameList);
     }
 
+    /**
+     * Returns Command type based on the Command name.
+     * @param commandName Name of Command.
+     * @return Type of Command.
+     */
     public String getCommandType(String commandName) {
         return commandNameList.get(commandName);
     }
 
+    /**
+     * Lists all Command name in the command name list.
+     * @return String of command name list.
+     */
     public String listAllCommandName() {
         String output = "";
         for (String type: commandTypeList.keySet()) {
@@ -70,6 +93,10 @@ public class CommandList {
         return output;
     }
 
+    /**
+     * Saves array of Command names to command name list.
+     * @param array String array pf Command names.
+     */
     public void saveCommand(String[] array) {
         String commandType = array[0];
         int size = array.length;
@@ -79,6 +106,10 @@ public class CommandList {
         }
     }
 
+    /**
+     * Returns formatted String representation of command name list.
+     * @return String of formatted command name list.
+     */
     public String saveFormat() {
         String output = "";
         for (String type: commandTypeList.keySet()) {
@@ -92,6 +123,10 @@ public class CommandList {
         return output;
     }
 
+    /**
+     * Adds list of String arrays that contain Command names.
+     * @param list List of array of String that contains Command names.
+     */
     public void addCommandList(List<String[]> list) {
         for (String[] command : list) {
             saveCommand(command);

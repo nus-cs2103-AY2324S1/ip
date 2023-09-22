@@ -12,6 +12,12 @@ import duke.task.ToDo;
 public class ToDoCommand extends Command {
     private String taskDetails;
     private String commandMessage = "";
+
+    /**
+     * Class constructor of ToDoCommand.
+     * @param details Task description.
+     * @throws KoraException When there is no description.
+     */
     public ToDoCommand(String[] details) throws KoraException {
         taskDetails = details[0].replace(details[0].split(" ")[0], "").replace(" ", "");
         if (taskDetails.equals("")) {
@@ -19,11 +25,23 @@ public class ToDoCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     @Override
     public String getCommandMessage() {
         return commandMessage;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Creates ToDo task.
+     * @param taskList List with tasks.
+     * @param storage Storage where tasks are stored.
+     * @throws KoraException When there is error creating ToDo task.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) throws KoraException {
         Task currentTask = new ToDo(taskDetails);

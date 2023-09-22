@@ -100,6 +100,11 @@ public class Parser {
         return command;
     }
 
+    /**
+     * Returns Command type of the input Command name.
+     * @param input String Command name.
+     * @return String Command type.
+     */
     private String getCommandType(String input) {
         return commandList.getCommandType(input);
     }

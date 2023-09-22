@@ -14,20 +14,36 @@ public class DeadlineCommand extends Command {
     private String timeDetails;
     private String commandMessage = "";
 
+    /**
+     * Class constructor of DeadlineCommand.
+     * @param details Task description and due date.
+     * @throws KoraException When there are missing details.
+     */
     public DeadlineCommand(String[] details) throws KoraException {
         if (details.length != 2) {
-            throw new KoraException("AiGu! Deadline needs to have a due date!");
+            throw new KoraException("AiGu! Deadline needs to have description and due date!");
         }
         taskDetails = details[0].replace("deadline ", "");
         timeDetails = details[1].replace("by ", "");
     }
 
-
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     @Override
     public String getCommandMessage() {
         return commandMessage;
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Creates Deadline task.
+     * @param taskList List with tasks.
+     * @param storage Storage where tasks are stored.
+     * @throws KoraException When there is error creating Deadline task.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) throws KoraException {
         Task currentTask = new Deadline(taskDetails, timeDetails);

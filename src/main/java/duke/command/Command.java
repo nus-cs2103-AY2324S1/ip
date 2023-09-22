@@ -46,18 +46,37 @@ public abstract class Command {
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Returns true for commands related to command names.
+     * @return Boolean.
+     */
     public boolean isSetCommand() {
         return false;
     }
 
+    /**
+     * Executes the command related to command names according to the type of command.
+     * @param commandList List with command names.
+     * @param storage Storage where command names are stored.
+     * @throws KoraException From its child class.
+     */
     public void executeSet(CommandList commandList, Storage storage) throws KoraException {
         return;
     }
 
+    /**
+     * Returns true for commands related to files.
+     * @return Boolean.
+     */
     public boolean isFileCommand() {
         return false;
     }
 
+    /**
+     * Returns specified file path for commands related to files.
+     * @return String file path.
+     */
     public String getFilePath() {
         return "";
     }

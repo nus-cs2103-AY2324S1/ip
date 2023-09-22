@@ -36,12 +36,16 @@ public class Ui {
     }
 
     /**
-     * Prints greeting message.
+     * Prints greet message.
      */
     public void greet() {
         System.out.println(getGreetMessage());
     }
 
+    /**
+     * Returns greet message.
+     * @return String greet message.
+     */
     public String getGreetMessage() {
         String logo =
                   "   _    _    _\n"
@@ -58,6 +62,10 @@ public class Ui {
         return logo + message;
     }
 
+    /**
+     * Prints the message.
+     * @param message String message to be printed.
+     */
     public void koraReply(String message) {
         System.out.println(message);
     }

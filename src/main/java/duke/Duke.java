@@ -46,7 +46,7 @@ public class Duke {
     /**
      * Executes and prints command.
      * @param userInput Input from the user.
-     * @return Command.
+     * @return String Command message.
      */
     public String getResponse(String userInput) {
         try {
@@ -93,6 +93,10 @@ public class Duke {
         ui.closeScanner();
     }
 
+    /**
+     * Prints greet message.
+     * @return String greet message.
+     */
     public String getGreeting() {
         return ui.getGreetMessage();
     }

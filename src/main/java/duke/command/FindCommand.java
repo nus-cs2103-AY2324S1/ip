@@ -12,10 +12,18 @@ public class FindCommand extends Command {
     private String keyword;
     private TaskList newTaskList = new TaskList();
 
+    /**
+     * Class constructor of FindCommand.
+     * @param details Keyword to search for matching tasks.
+     */
     public FindCommand(String[] details) {
         keyword = details[0].replace("find ", "");
     }
 
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     @Override
     public String getCommandMessage() {
         if (newTaskList.getLength() == 0) {
@@ -25,6 +33,14 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * Generates list with tasks that match the keyword.
+     * @param taskList List with tasks.
+     * @param storage Storage where tasks are stored.
+     * @throws KoraException When there is error retrieving task from task list.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) throws KoraException {
         int taskListSize = taskList.getLength();

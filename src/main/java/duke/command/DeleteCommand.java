@@ -11,16 +11,31 @@ import duke.task.Task;
 public class DeleteCommand extends Command {
     private final int taskIndex;
     private String commandMessage = "";
+
+    /**
+     * Class constructor of DeleteCommand
+     * @param details Task index to delete from task list.
+     */
     public DeleteCommand(String[] details) {
         taskIndex = Integer.valueOf(details[0].replace("delete ", ""));
     }
 
 
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     @Override
     public String getCommandMessage() {
         return commandMessage;
     }
 
+    /**
+     * Deletes task from task list.
+     * @param taskList List with tasks.
+     * @param storage Storage where tasks are stored.
+     * @throws KoraException When there is error saving edited task list in Storage.
+     */
     @Override
     public void execute(TaskList taskList, Storage storage) throws KoraException {
         Task currentTask = taskList.getTask(taskIndex);

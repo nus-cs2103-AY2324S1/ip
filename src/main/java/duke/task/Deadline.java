@@ -10,6 +10,13 @@ public class Deadline extends Task {
     private DateTimeParser dtParser;
     private final String saveString;
     private final String outString;
+
+    /**
+     * Class constructor of Deadline.
+     * @param details Task description.
+     * @param time Task due date.
+     * @throws KoraException When there is error parsing the string to DateTime.
+     */
     public Deadline(String details, String time) throws KoraException {
         super(details);
         super.setTaskType(TaskType.D.toString());
@@ -19,11 +26,19 @@ public class Deadline extends Task {
         outString = dtParser.outFormatted(byTime);
     }
 
+    /**
+     * Returns formatted date time message.
+     * @return String formatted date time.
+     */
     @Override
     public String getTime() {
         return saveString;
     }
 
+    /**
+     * Returns formatted date time to save in Storage.
+     * @return String formatted date time.
+     */
     @Override
     public String saveFormat() {
         String output;
@@ -31,6 +46,10 @@ public class Deadline extends Task {
         return output;
     }
 
+    /**
+     * {@inheritDoc}
+     * @return {@inheritDoc}
+     */
     @Override
     public String toString() {
         String output;

@@ -37,7 +37,7 @@ public class Storage {
 
     /**
      * Initialises scanner.
-     * @throws KoraException
+     * @throws KoraException When there is error in scanner.
      */
     public void initialiseScanner() throws KoraException {
         try {
@@ -94,9 +94,9 @@ public class Storage {
 
 
     /**
-     * Saves tasks in the current tasklist.
+     * Saves tasks in the current task list.
      * @param task Current task to be added.
-     * @throws KoraException When unable to add.
+     * @throws KoraException When unable to write to the file.
      */
     public void saveTask(Task task) throws KoraException {
 
@@ -108,6 +108,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all tasks in the task list in the current task list.
+     * @param taskList Task list to be saved.
+     * @throws KoraException When unable to write to the file.
+     */
     public void saveTaskList(TaskList taskList) throws KoraException {
         try (FileWriter fw = new FileWriter(path, false)) {
             this.taskList = taskList;
@@ -148,7 +153,7 @@ public class Storage {
 
     /**
      * Loads command list from the txt file.
-     * @return list of string arrays containing the command details.
+     * @return List of string arrays containing the command details.
      */
     public List<String[]> loadCommand() {
         List<String[]> list = new ArrayList<>();
@@ -169,8 +174,8 @@ public class Storage {
 
     /**
      * Saves the current command list to the txt file.
-     * @param commandList that stores all the command names and types.
-     * @throws KoraException
+     * @param commandList List that stores all the command names and types.
+     * @throws KoraException When unable to write to the file.
      */
     public void saveCommand(CommandList commandList) throws KoraException {
         try (FileWriter fw = new FileWriter(path, false)) {
