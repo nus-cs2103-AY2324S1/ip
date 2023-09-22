@@ -2,7 +2,7 @@
 
 ## Features 
 
-### ToDO, Deadline, Event
+### ToDo, Deadline, Event
 
 Nobita enable tracking of different types of tasks:
 
@@ -13,10 +13,10 @@ Nobita enable tracking of different types of tasks:
 ### List, Mark, Unmark, Delete, Find, Update
 Nobita allow manipulation of stored tasks which includes:
 
-- view all exising tasks
-- marking and unmarking of tasks
-- deleting of particular task
-- finding of tasks with task name
+- View all exising tasks
+- Marking and unmarking of tasks
+- Deleting of particular task
+- Finding of tasks with task name
 - Update a exist task details
 
 Description of the feature.
@@ -111,7 +111,7 @@ Nice! I've marked this task as done:
 [D][X] Return Book (by: 20 Sep 2023)
 ```
 
-### `unmarrk` - Unmark a task
+### `unmark` - Unmark a task
 
 Mark a task as not complete.
 
@@ -165,9 +165,7 @@ Task name that matches the query will be listed.
 
 ### `update` - Update parameter of a task
 
-Update a task's name.
-Update a deadline's due date.
-Update an event's from and to period.
+Update a task's name, a deadline's due date or an event's from and to period.
 
 Example of usage:
 
