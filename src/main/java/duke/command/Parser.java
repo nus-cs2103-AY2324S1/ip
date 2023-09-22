@@ -37,6 +37,7 @@ public class Parser {
                 index *= 10;
                 index += command.charAt(i) - 48;
             }
+            assert index > 0 : "index should be positive integer";
             taskList.getTask(index - 1).markAsDone();
             ans = ui.markTaskDone(taskList.getTask(index - 1));
         } else if (command.startsWith("unmark")) {
@@ -45,6 +46,7 @@ public class Parser {
                 index *= 10;
                 index += command.charAt(i) - 48;
             }
+            assert index > 0 : "index should be positive integer";
             taskList.getTask(index - 1).markAsNotDone();
             ans = ui.markTaskNotDone(taskList.getTask(index - 1));
         } else if (command.startsWith("delete")) {
@@ -53,6 +55,7 @@ public class Parser {
                 index *= 10;
                 index += command.charAt(i) - 48;
             }
+            assert index > 0 : "index should be positive integer";
             Task task = taskList.deleteTask(index - 1);
             ans = ui.deleteTask(task, taskList.size());
         } else if (command.startsWith("find")) {
@@ -94,7 +97,7 @@ public class Parser {
             ans = ui.addTask(todo, taskList.size());
         } else if (task.startsWith("deadline")) {
             if (task.length() < 10) {
-                throw new DukeException("cannot be empty." + "☹ OOPS!!! The description of a deadline ");
+                throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty." );
             }
             String description = "";
             String by = "";
@@ -123,6 +126,7 @@ public class Parser {
                     }
                 }
             }
+            assert slash1 != -1 && slash2 != -1 : "Wrong event format";
             String description = task.substring(6, slash1 - 1);
             String from = task.substring(slash1 + 6, slash2 - 1);
             String to = task.substring(slash2 + 4);
