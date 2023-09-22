@@ -49,11 +49,13 @@ application {
 
 shadowJar {
     archiveFileName = 'Alex.jar'
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
-    enableAssertions = true
+    enableAssertions = false
 }
 
 checkstyle {
