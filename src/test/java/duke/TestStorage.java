@@ -37,10 +37,6 @@ public class TestStorage {
     private Task textToTask(String[] taskDetails) {
         Task savedTask;
 
-        for (String fuck: taskDetails) {
-            System.out.println(fuck);
-        }
-
         switch(taskDetails[0]) {
             case "T":
                 if (taskDetails.length < 4) {

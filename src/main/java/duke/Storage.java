@@ -61,13 +61,10 @@ public class Storage {
                 savedTasks += (char) c;
             }
 
-            System.out.println(savedTasks);
-
             // Assert that fr.read is equals -1, meaning all characters of the text file is read
             assert (fr.read() == -1);
 
             for (String task : savedTasks.split("/;/")) {
-                System.out.println(task);
                 String[] taskDetails = task.split("/%-%/");
                 taskArray.add(textToTask(taskDetails));
             }
@@ -86,10 +83,6 @@ public class Storage {
      */
     private Task textToTask(String[] taskDetails) {
         Task savedTask;
-
-        for (String fuck: taskDetails) {
-            System.out.println(fuck);
-        }
 
         switch(taskDetails[0]) {
             case "T":
