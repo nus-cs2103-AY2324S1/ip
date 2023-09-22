@@ -1,8 +1,10 @@
 package Frenchie;
 
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 import javafx.util.Duration;
 
 
@@ -26,10 +27,8 @@ public class Frenchie extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/FrenchieUser.jpg"));
-    private Image Frenchie = new Image(this.getClass().getResourceAsStream("/images/FrenchieBot.jpeg"));
     public Frenchie() {
-        this.storage = new Storage();
+        this.storage = new Storage("frenchie.txt");
         this.ui = new Ui();
         this.tasks = new TaskList();
     }
@@ -100,8 +99,15 @@ public class Frenchie extends Application {
 
     public String getResponse(String input) {
         StringBuilder output = new StringBuilder();
+        try {
+            tasks = storage.load();
+        } catch (FrenchieException e) {
+            // Handle the exception if loading fails, e.g., display an error message
+            output.append("Error loading tasks from storage.\n");
+        }
         Command command = Parser.parseCommand(input);
         String details = Parser.parseDetails(input);
+
         switch (command) {
         case bye:
             storage.save(tasks);
@@ -118,23 +124,27 @@ public class Frenchie extends Application {
             int index = Integer.parseInt(details) - 1;
             tasks.markTaskAsCompleted(index);
             output.append(ui.markTaskAsComplete(tasks.get(index)));
+            storage.save(tasks);
             return output.toString();
         case unmark:
             index = Integer.parseInt(details) - 1;
             tasks.markTaskAsIncomplete(index);
             output.append(ui.markTaskAsIncompelte(tasks.get(index)));
+            storage.save(tasks);
             return output.toString();
         case delete:
             index = Integer.parseInt(details) - 1;
             Task task = tasks.get(index);
             tasks.deleteTask(index);
             output.append(ui.deleteTask(task, tasks));
+            storage.save(tasks);
             return output.toString();
         case todo:
             String taskName = details;
             ToDo todo = new ToDo(taskName);
             tasks.addTask(todo);
             output.append(ui.addTask(todo, tasks));
+            storage.save(tasks);
             return output.toString();
         case deadline:
             taskName = details.split("/by")[0].trim();
@@ -142,6 +152,7 @@ public class Frenchie extends Application {
             Deadline deadline = new Deadline(taskName, deadlineDate);
             tasks.addTask(deadline);
             output.append(ui.addTask(deadline, tasks));
+            storage.save(tasks);
             return output.toString();
         case event:
             taskName = details.split("/")[0].trim();
@@ -150,6 +161,7 @@ public class Frenchie extends Application {
             Event event = new Event(taskName, startTime, endTime);
             tasks.addTask(event);
             output.append(ui.addTask(event, tasks));
+            storage.save(tasks);
             return output.toString();
         case find:
             String keyword = details;
@@ -157,7 +169,8 @@ public class Frenchie extends Application {
             output.append(tasks.returnMatchTasks(keyword));
             return output.toString();
         default:
-            return "OOPS!!! That is an invalid command!\n NOTE: Dates have to be entered in the dd/MM/yyyy HH:mm format!";
+            return "OOPS!!! That is an invalid command!\n "
+                    + "NOTE: Dates have to be entered in the dd/MM/yyyy HH:mm format!";
         }
         return output.toString();
     }
@@ -170,7 +183,4 @@ public class Frenchie extends Application {
         return ui.listTasks(tasks);
     }
 
-    /*public static void main(String[] args) {
-        new Frenchie("frenchie.txt").run();
-    }*/
 }

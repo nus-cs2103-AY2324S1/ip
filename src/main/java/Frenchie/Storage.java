@@ -58,7 +58,7 @@ public class Storage {
                     loadedTasks.addTask(currentTask);
                 }
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new FrenchieException("Error loading tasks");
         }
         return loadedTasks;
