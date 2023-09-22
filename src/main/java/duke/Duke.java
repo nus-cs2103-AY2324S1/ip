@@ -65,7 +65,7 @@ public class Duke {
             result = e.toString();
         } catch (StringIndexOutOfBoundsException | DateTimeException e) {
 
-            result = "Please enter a proper date." + "\n\t" + e.getMessage();
+            result = "Please enter a proper date." + "\n" + e.getMessage();
             result += "\n";
         }
         return result;
