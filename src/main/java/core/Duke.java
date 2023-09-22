@@ -1,9 +1,9 @@
 package core;
-import Duke.storage.Storage;
-import Duke.parser.Parser;
-import Duke.tasks.TaskList;
-import Duke.tasks.TaskManager;
-import Duke.ui.Ui;
+import frodo.storage.Storage;
+import frodo.parser.Parser;
+import frodo.tasks.TaskList;
+import frodo.tasks.TaskManager;
+import frodo.ui.Ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

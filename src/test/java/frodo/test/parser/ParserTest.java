@@ -1,15 +1,10 @@
-package Duke.parser;
+package frodo.test.parser;
 
 import frodo.tasks.Events;
 import core.Duke;
-import core.DukeException;
+import frodo.parser.Parser;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     @Test

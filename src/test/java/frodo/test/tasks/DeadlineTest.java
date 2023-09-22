@@ -1,8 +1,8 @@
-package Duke.tasks;
+package frodo.test.tasks;
 
 import core.DukeException;
 import org.junit.jupiter.api.Test;
-
+import frodo.tasks.Deadlines;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

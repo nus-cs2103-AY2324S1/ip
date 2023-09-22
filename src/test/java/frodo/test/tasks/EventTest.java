@@ -1,4 +1,4 @@
-package Duke.tasks;
+package frodo.test.tasks;
 
 import core.DukeException;
 import org.junit.jupiter.api.Test;
