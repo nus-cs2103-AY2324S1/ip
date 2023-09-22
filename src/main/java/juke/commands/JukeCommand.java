@@ -320,8 +320,8 @@ public abstract class JukeCommand extends JukeObject {
                                                                   + "d/desc/descend/descending] "
                                                                   + "[d/des/descript/description | "
                                                                   + "dl/dead/deadln/deadline | "
-                                                                  + "s/st/start/start date | "
-                                                                  + "e/en/end/end date]");
+                                                                  + "s/st/start | "
+                                                                  + "e/en/end]");
         }
 
         try {
@@ -339,8 +339,8 @@ public abstract class JukeCommand extends JukeObject {
                                                                   + "d/desc/descend/descending] "
                                                                   + "[d/des/descript/description | "
                                                                   + "dl/dead/deadln/deadline | "
-                                                                  + "s/st/start/start date | "
-                                                                  + "e/en/end/end date]");
+                                                                  + "s/st/start | "
+                                                                  + "e/en/end]");
         }
     }
 

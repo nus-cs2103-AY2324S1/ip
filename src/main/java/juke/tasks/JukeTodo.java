@@ -67,8 +67,6 @@ public class JukeTodo extends JukeTask {
         }
     }
 
-
-
     /**
      * Compares the start date between this {@code JukeTodo} object with the input {@code JukeTask} object.
      *
