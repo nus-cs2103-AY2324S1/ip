@@ -29,6 +29,7 @@ public class TaskList {
 
     /**
      * Adds a task to the list of tasks.
+     *
      * @param task The task to be added.
      */
     public void addTask(Task task) {
@@ -37,6 +38,7 @@ public class TaskList {
 
     /**
      * Returns and deletes the task at the specified index.
+     *
      * @param index The index of the task to return but delete.
      * @return The task at the specified index.
      * @throws DukeException If the index is out of bounds.
@@ -50,6 +52,7 @@ public class TaskList {
 
     /**
      * Marks the task at the specified index as done.
+     *
      * @param index The index of the task to mark as done.
      * @return The task at the specified index.
      * @throws DukeException If the index is out of bounds.
@@ -65,6 +68,7 @@ public class TaskList {
 
     /**
      * Marks the task at the specified index as undone.
+     *
      * @param index The index of the task to mark as undone.
      * @return The task at the specified index.
      * @throws DukeException If the index is out of bounds.
@@ -100,6 +104,7 @@ public class TaskList {
 
     /**
      * Converts the list of tasks to a string representation suitable for display in the UI.
+     *
      * @return A string representation of the list of tasks for Text UI.
      */
     public String toStringForUi() {
@@ -110,6 +115,7 @@ public class TaskList {
 
     /**
      * Converts the list of tasks to a string representation suitable for storage in a file.
+     *
      * @return A string representation of the list of tasks for file storage.
      */
     public String toStringForFile() {

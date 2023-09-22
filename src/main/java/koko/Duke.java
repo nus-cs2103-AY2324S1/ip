@@ -52,7 +52,6 @@ public class Duke {
      * Handles user input, parses it and dispatches the command to perform the appropriate actions.
      *
      * @param input The raw input string from the user.
-     *
      * @return A string representing the output of the command.
      */
     public String handleInputAndDispatch(String input) {

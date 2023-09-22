@@ -29,7 +29,7 @@ public class Ui {
      *
      * @param originalMessage The message to be printed.
      */
-    private String formatOutput (String originalMessage) {
+    private String formatOutput(String originalMessage) {
         String indentedMessage = Arrays.stream(originalMessage.split("\n"))
                 .map(line -> "     " + line)
                 .collect(Collectors.joining("\n"));
@@ -126,6 +126,7 @@ public class Ui {
 
     /**
      * Returns a list of tasks that match a keyword.
+     *
      * @param matchingTasks The list of tasks that match a keyword.
      */
     public String showMatchingTasks(TaskList matchingTasks) {

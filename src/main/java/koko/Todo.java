@@ -16,6 +16,7 @@ public class Todo extends Task {
 
     /**
      * Creates a Todo task object from its file representation.
+     *
      * @param parts An array of String parts from the file line.
      * @return A new Todo object.
      */
@@ -31,6 +32,7 @@ public class Todo extends Task {
 
     /**
      * Returns the file representation of the Todo task.
+     *
      * @return A string representing the task in the file format.
      */
     @Override
@@ -40,6 +42,7 @@ public class Todo extends Task {
 
     /**
      * Returns the string representation of the Todo task.
+     *
      * @return A string representation of the task.
      */
     @Override

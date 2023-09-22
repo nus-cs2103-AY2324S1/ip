@@ -16,6 +16,7 @@ public class Storage {
 
     /**
      * Initializes a new Storage object with the specified file path.
+     *
      * @param filePath The path to the file for saving and loading tasks.
      */
     public Storage(String filePath) {
@@ -24,6 +25,7 @@ public class Storage {
 
     /**
      * Saves the tasks to a file.
+     *
      * @param taskListToSave The list of tasks to save.
      * @throws IOException If an I/O error occurs.
      */
@@ -41,9 +43,10 @@ public class Storage {
 
     /**
      * Loads tasks from a file into a TaskList object.
+     *
      * @return A new TaskList object containing the loaded tasks.
      * @throws FileNotFoundException If the file is not found.
-     * @throws DukeException If an error occurs while parsing the file.
+     * @throws DukeException         If an error occurs while parsing the file.
      */
     public TaskList loadTasksFromFile() throws FileNotFoundException, DukeException {
         File file = new File(filePath);

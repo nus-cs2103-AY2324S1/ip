@@ -19,6 +19,7 @@ public abstract class Task {
 
     /**
      * Generates a Task object from its file representation.
+     *
      * @param line The line from the file representing a Task.
      * @return A Task object.
      * @throws DukeException If the line is in an invalid format.

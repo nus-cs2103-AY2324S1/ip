@@ -10,6 +10,7 @@ public class Parser {
 
     /**
      * Checks if input string contains any invalid characters.
+     *
      * @param input The input string from the user.
      * @return True if it contains invalid characters, false otherwise.
      */
@@ -19,6 +20,7 @@ public class Parser {
 
     /**
      * Parses the type of command from the input string.
+     *
      * @param input The input string from the user.
      * @return A Command enum representing the type of command.
      * @throws DukeException If the input is invalid or empty.
@@ -44,8 +46,9 @@ public class Parser {
 
     /**
      * Extracts the remaining arguments from the user input after the command.
+     *
      * @param commandType The type of command.
-     * @param input The full user input string.
+     * @param input       The full user input string.
      * @return The remaining arguments as a string.
      * @throws DukeException If the remaining arguments are not provided or invalid.
      */
@@ -72,6 +75,7 @@ public class Parser {
 
     /**
      * Parses the remaining arguments for a deadline command.
+     *
      * @param remaining The remaining arguments after the command.
      * @return A ParsedDeadlineArgs object containing the task name and due date.
      * @throws DukeException If the remaining arguments are invalid.
@@ -92,6 +96,7 @@ public class Parser {
 
     /**
      * Parses the remaining arguments for an event command.
+     *
      * @param remaining The remaining arguments after the command.
      * @return A ParsedEventArgs object containing the task name, start date, and end date.
      * @throws DukeException If the remaining arguments are invalid.
@@ -119,6 +124,7 @@ public class Parser {
 
     /**
      * Parses the remaining arguments for a todo command.
+     *
      * @param remaining The remaining arguments after the command.
      * @return A ParsedTodoArgs object containing the task name.
      * @throws DukeException If the remaining arguments are invalid.
