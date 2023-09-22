@@ -23,6 +23,38 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    private File openFile() throws IOException, AiChanException {
+        File file = new File(filePath);
+        if (file.exists()) {
+            return file;
+        } else {
+            handleFileMissing();
+            return new File(filePath);
+        }
+    }
+
+    private void handleFileMissing() throws AiChanException {
+        try {
+            createDirectory("./data");
+            createFile(filePath);
+        } catch (IOException e) {
+            throw new AiChanException("Error happens when creating a file.\n "
+                    + "Pls create a file 'tasks.txt' inside a directory 'data'.");
+        }
+    }
+
+    private void createDirectory(String directory) throws IOException {
+        File dir = new File(directory);
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+    }
+
+    private void createFile(String filePath) throws IOException {
+        File f = new File(filePath);
+        f.createNewFile();
+    }
+
     /**
      * Saves the tasks to the file.
      *
@@ -31,13 +63,8 @@ public class Storage {
      */
     public void saveTasks(TaskList tasks) throws AiChanException {
         try {
-            File file = new File(this.filePath);
+            File file = openFile();
             FileWriter filewriter = new FileWriter(file);
-
-            File directory = file.getParentFile();
-            if (directory != null && !directory.exists()) {
-                directory.mkdirs();
-            }
 
             for (Task task : tasks.getTasks()) {
                 String line = task.toFileLine();
@@ -61,12 +88,7 @@ public class Storage {
         ArrayList<Task> arrTask = new ArrayList<>();
 
         try {
-            File file = new File(this.filePath);
-
-            if (!file.exists()) {
-                return arrTask;
-            }
-
+            File file = openFile();
             Scanner scn = new Scanner(file);
 
             while (scn.hasNextLine()) {
@@ -87,5 +109,4 @@ public class Storage {
         }
         return arrTask;
     }
-
 }
