@@ -45,6 +45,7 @@ public class TaskList {
      * @param index The index of the task to be deleted.
      */
     public void deleteTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Invalid task index: " + index;
         Task task = tasks.get(index);
         this.tasks.remove(index);
         ui.deleteTaskMessage(task, tasks.size());
@@ -56,6 +57,7 @@ public class TaskList {
      * @param index The index of the task to be marked as done.
      */
     public void markTaskAsDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Invalid task index: " + index;
         this.tasks.get(index).markAsDone();
     }
 
@@ -66,6 +68,7 @@ public class TaskList {
      */
 
     public void markTaskAsUnDone(int index) {
+        assert index >= 0 && index < tasks.size() : "Invalid task index: " + index;
         this.tasks.get(index).markAsUnDone();
     }
 
@@ -85,6 +88,7 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task getTask(int index) {
+        assert index >= 0 && index < tasks.size() : "Invalid task index: " + index;
         return this.tasks.get(index);
     }
 

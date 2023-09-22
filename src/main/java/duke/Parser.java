@@ -6,7 +6,7 @@ package duke;
 public class Parser {
 
     private enum Commands {
-        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye;
+        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye
     }
 
     private TaskList taskList;
@@ -27,7 +27,7 @@ public class Parser {
      * Parses a user command and performs the corresponding action.
      *
      * @param command The user's input command.
-     * @return True if the command was successfully parsed and executed, false otherwise.
+     * @return The string representation of the task/tasks associated with the command.
      */
     public String parseCommand(String command) {
         Commands cmd = Commands.invalid;
@@ -45,6 +45,7 @@ public class Parser {
         } else if (cmd.equals(Commands.mark)) {
             try {
                 int id = Integer.parseInt(command.split(" ")[1]);
+                assert id > 0 && id < taskList.numOfTasks() : "Invalid task index";
                 taskList.markTaskAsDone(id - 1);
                 ui.markedMessage(taskList.getTask(id - 1));
                 return taskList.getTask(id - 1).toString();
@@ -54,6 +55,7 @@ public class Parser {
         } else if (cmd.equals(Commands.unmark)) {
             try {
                 int id = Integer.parseInt(command.split(" ")[1]);
+                assert id > 0 && id < taskList.numOfTasks() : "Invalid task index";
                 taskList.markTaskAsUnDone(id - 1);
                 ui.unmarkedMessage(taskList.getTask(id - 1));
                 return taskList.getTask(id - 1).toString();
