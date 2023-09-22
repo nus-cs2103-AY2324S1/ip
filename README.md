@@ -8,7 +8,7 @@ Kevin is a desktop application to manage your daily task, optimized for use thro
 <!-- TOC -->
 
 * [Quick Start](#quick-start)
-* [Features](#features-)
+* [Features](#features)
    * [Adding a Todo task : `todo`](#adding-a-todo-task--todo)
    * [Adding a Deadline task : `deadline`](#adding-a-deadline-task--deadline)
    * [Adding a Event task : `event`](#adding-a-event-task--event)
