@@ -43,12 +43,12 @@ test {
 }
 
 application {
-    mainClass.set("aichan.AiChan")
+    mainClass.set("aichan.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "aichan"
-    archiveVersion = "v0.1"
+    archiveVersion = "v1.0"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -19,8 +19,7 @@ public class Command {
      * @throws AiChanException If occurs any error.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) throws AiChanException {
-        // control the main logic
-        // add/delete task + ui shows words
+        // this method should not be called
         return "some error happen.";
     }
 

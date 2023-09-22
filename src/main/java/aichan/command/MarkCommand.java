@@ -43,9 +43,4 @@ public class MarkCommand extends Command {
         return "Nice! I've marked this task as done:\n"
                 + task.toString();
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

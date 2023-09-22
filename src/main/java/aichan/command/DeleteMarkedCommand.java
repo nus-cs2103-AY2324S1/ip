@@ -26,9 +26,4 @@ public class DeleteMarkedCommand extends Command {
         storage.saveTasks(tasks);
         return response;
     }
-
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 }

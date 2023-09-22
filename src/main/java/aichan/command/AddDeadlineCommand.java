@@ -45,9 +45,4 @@ public class AddDeadlineCommand extends Command {
         return String.format("Got it. I've added this task:\n  %s\n"
                 + "Now you have %d tasks in the list", task, size);
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
