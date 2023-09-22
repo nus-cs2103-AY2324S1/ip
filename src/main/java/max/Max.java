@@ -31,7 +31,7 @@ public class Max {
         try {
             tasks = new TaskList(storage.load());
         } catch (MaxException e) {
-            ui.showLoadingError();
+            ui.showError(e.getMessage());
             tasks = new TaskList();
         }
     }

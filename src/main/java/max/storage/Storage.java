@@ -19,7 +19,7 @@ import max.tasks.Todo;
  * Loads and saves task list to memory.
  */
 public class Storage {
-    private final String FILE_PATH;
+    private String filePath;
 
     /**
      * Initialises location of task list in memory.
@@ -27,7 +27,7 @@ public class Storage {
      * @param filePath
      */
     public Storage(String filePath) {
-        this.FILE_PATH = filePath;
+        this.filePath = filePath;
     }
 
     /**
@@ -38,13 +38,14 @@ public class Storage {
      */
     public ArrayList<Task> load() throws MaxException {
         ArrayList<Task> tasks = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 loadTask(line, tasks);
             }
         } catch (IOException e) {
             e.printStackTrace();
+            throw new MaxException("There are no tasks!");
         }
         return tasks;
     }
@@ -103,6 +104,7 @@ public class Storage {
         if (!dataDirectory.exists()) {
             dataDirectory.mkdirs(); // Create the directory if it doesn't exist
         }
+
         try {
             FileWriter fileWriter = new FileWriter(file);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -113,7 +115,7 @@ public class Storage {
             // Close the writer
             bufferedWriter.close();
         } catch (IOException e) {
-            throw new MaxException("Uh oh, I cannot save your file");
+            throw new MaxException("Uh oh, I cannot save your file!");
         }
     }
 }

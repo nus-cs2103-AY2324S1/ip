@@ -29,10 +29,21 @@ public class Deadline extends Task {
         super(item, done);
         this.byDate = byDate;
     }
+
+    /**
+     * Returns string representation of Deadline task in the app.
+     *
+     * @return String string representation of Deadline task
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + byDate.toString() + ")";
     }
+    /**
+     * Returns string representation of Deadline task in the saved file.
+     *
+     * @return String string representation of Deadline task
+     */
     @Override
     public String saveItem() {
         return "D | " + super.saveItem() + "by: " + byDate.toString() + "\n";

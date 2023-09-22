@@ -1,14 +1,13 @@
 package max.ui;
 
 import java.util.List;
-import java.util.Scanner;
 
 import max.tasks.Task;
 /**
  * Handles interactions with user.
  */
 public class Ui {
-    private static String line = "____________________________________________________________";
+    private static final String LINE = "____________________________________________________________";
 
     /**
      * Initialises UI.
@@ -24,34 +23,10 @@ public class Ui {
     }
 
     /**
-     * Opens a scanner to read user input.
-     *
-     * @return the user input.
-     */
-    public String readCommand() {
-        Scanner input = new Scanner(System.in);
-        return input.nextLine();
-    }
-
-    /**
      * Prints exit message.
      */
     public String exit() {
         return "Bye! Please come again!";
-    }
-
-    /**
-     * Prints line divider.
-     */
-    public void showLine() {
-        System.out.println(line);
-    }
-
-    /**
-     * Prints error message when no tasks found.
-     */
-    public String showLoadingError() {
-        return "No tasks were found! Making you a new list real quick xd";
     }
 
     /**

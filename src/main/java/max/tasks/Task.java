@@ -22,16 +22,24 @@ public class Task {
      * Used when loading task from storage.
      *
      * @param item Description of task
-     * @param done Status
+     * @param isDone Status
      */
     public Task(String item, boolean isDone) {
         this.item = item;
         this.isDone = isDone;
     }
 
+    /**
+     * Mark task as done.
+     *
+     */
     public void mark() {
         this.isDone = true;
     }
+
+    /**
+     * Unmark task.
+     */
     public void unmark() {
         this.isDone = false;
     }

@@ -34,10 +34,20 @@ public class Event extends Task {
         this.fromDate = fromDate;
         this.toDate = toDate;
     }
+    /**
+     * Returns string representation of Event task in the app.
+     *
+     * @return String string representation of Event task
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + fromDate.toString() + " to: " + toDate.toString() + ")";
     }
+    /**
+     * Returns string representation of Event task in saved file.
+     *
+     * @return String string representation of Event task
+     */
     @Override
     public String saveItem() {
         return "E | " + super.saveItem()

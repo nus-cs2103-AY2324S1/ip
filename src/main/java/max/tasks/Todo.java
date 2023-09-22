@@ -22,10 +22,20 @@ public class Todo extends Task {
     public Todo(String item, boolean done) {
         super(item, done);
     }
+    /**
+     * Returns string representation of Todo task in app.
+     *
+     * @return String string representation of Todo task
+     */
     @Override
     public String toString() {
         return "[T]" + super.toString();
     }
+    /**
+     * Returns string representation of Todo task in saved file.
+     *
+     * @return String string representation of Todo task
+     */
     @Override
     public String saveItem() {
         return "T | " + super.saveItem() + "\n";

@@ -8,7 +8,7 @@ import max.exception.MaxException;
  * Manages all tasks.
  */
 public class TaskList {
-    private ArrayList<Task> myList = new ArrayList<>();
+    private ArrayList<Task> myList;
     private int numOfItems;
 
     /**
