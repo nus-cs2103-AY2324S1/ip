@@ -2,7 +2,6 @@ package echobot.utilities;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -21,7 +20,7 @@ public class Storage {
     private boolean isCreated;
 
     /**
-     * Creates new Storage objects to store filpath and file
+     * Creates a new Storage object to store filepath and file
      *
      * @param filePath Path of the tasks.txt file
      */
@@ -30,7 +29,8 @@ public class Storage {
         try {
             this.isCreated = !file.createNewFile();
         } catch (IOException e) {
-            System.out.println("!ERROR! IOException" + e);
+            AlertBox alert = new AlertBox("IOException", "File not found or corrupted (Storage constructor)");
+            alert.show();
         }
     }
 
@@ -46,10 +46,9 @@ public class Storage {
             oos.writeObject(tasks);
             oos.flush();
             oos.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("!ERROR! File is not found");
         } catch (IOException e) {
-            System.out.println("!ERROR! " + e);
+            AlertBox alert = new AlertBox("IOException", "File not found or corrupted (overwriteTasksData() method)");
+            alert.show();
         }
     }
 
@@ -65,12 +64,12 @@ public class Storage {
             ObjectInputStream ois = new ObjectInputStream(fis);
             tasks = (ArrayList<Task>) ois.readObject();
             ois.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File is not found\n" + "Please be careful next time");
         } catch (IOException e) {
-            System.out.println("e.getMessage()\n" + "Please be careful next time");
+            AlertBox alert = new AlertBox("IOException", "File not found or corrupted (loadTasksData method)");
+            alert.show();
         } catch (ClassNotFoundException e) {
-            System.out.println("Class is not found\n" + "Please be careful next time");
+            AlertBox alert = new AlertBox("ClassNotFoundException", "Class is not found");
+            alert.show();
         }
         return tasks;
     }

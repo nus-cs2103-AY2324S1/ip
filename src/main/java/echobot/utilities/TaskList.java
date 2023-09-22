@@ -25,10 +25,11 @@ public class TaskList {
     }
 
     /**
-     * Creates a TaskList with an empty list
+     * Creates a TaskList with an empty list and store it in tasks.txt file
      */
-    public TaskList() {
+    public TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
+        storage.overwriteTasksData(this.tasks);
     }
 
     /**

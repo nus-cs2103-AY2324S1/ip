@@ -229,7 +229,7 @@ public class Ui {
      * @param currentStorage The storage used to store the current task list
      * @param previousStorage the storage used to store the task list before the current change
      * @return String output showing the list after it is undone
-     * @throws InvalidCommandSyntaxException
+     * @throws InvalidCommandSyntaxException If there are words following the command
      */
     public String showUndo(TaskList tasks, int numberOfWords, Storage currentStorage, Storage previousStorage)
             throws InvalidCommandSyntaxException {
@@ -238,10 +238,9 @@ public class Ui {
         }
         boolean hasBeenUndone = tasks.undoTasksData(currentStorage, previousStorage);
         if (!hasBeenUndone) {
-            String output = "You have undone the latest change to the task list\n"
+            return "You have undone the latest change to the task list\n"
                     + "This is your list now:\n"
                     + showList(tasks, 1);
-            return output;
         }
         return "You can only undo the latest change to the task list in this session";
     }

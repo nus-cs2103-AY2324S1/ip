@@ -2,11 +2,13 @@ package echobot;
 
 import java.io.File;
 
+import echobot.utilities.AlertBox;
 import echobot.utilities.Input;
 import echobot.utilities.Parser;
 import echobot.utilities.Storage;
 import echobot.utilities.TaskList;
 import echobot.utilities.Ui;
+
 
 /**
  * The main class for EchoBot Chatbot
@@ -23,19 +25,19 @@ public class EchoBot {
     private static final String PREVIOUS_PATH = "./previous.txt";
 
     /** Variable to store task list */
-    private Storage currentStorage;
+    private final Storage currentStorage;
 
     /** Variable to store previous task list */
-    private Storage previousStorage;
+    private final Storage previousStorage;
 
     /** Variable to handle list of tasks operations */
-    private TaskList tasks;
+    private final TaskList tasks;
 
     /** Variable to handle user interactions */
-    private Ui ui;
+    private final Ui ui;
 
     /** Variable to handle user inputs */
-    private Parser parser;
+    private final Parser parser;
 
     /**
      * Creates a new instance of EchoBot chatbot
@@ -48,10 +50,15 @@ public class EchoBot {
         if (currentStorage.fileExists()) {
             tasks = new TaskList(currentStorage.loadTasksData());
         } else {
-            tasks = new TaskList();
+            tasks = new TaskList(currentStorage);
         }
         File txtFile = new File(FILE_PATH);
-        assert txtFile.exists();
+        try {
+            assert txtFile.exists();
+        } catch (AssertionError e) {
+            AlertBox alert = new AlertBox("Data file not found", "Try restarting the app");
+            alert.show();
+        }
     }
 
     /**
@@ -64,7 +71,12 @@ public class EchoBot {
         Input parsedInput = parser.parse(input);
         String output = parser.handleInput(tasks, parsedInput, ui, currentStorage, previousStorage);
         File txtFile = new File(FILE_PATH);
-        assert txtFile.exists();
+        try {
+            assert txtFile.exists();
+        } catch (AssertionError e) {
+            AlertBox alert = new AlertBox("Data file not found", "Try restarting the app");
+            alert.show();
+        }
         return output;
     }
 
