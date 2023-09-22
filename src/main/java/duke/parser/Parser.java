@@ -123,7 +123,7 @@ public class Parser {
             break;
         }
 
-        
+
         default:
             throw new UnknownCommandException();
         }
@@ -140,8 +140,9 @@ public class Parser {
 
     /**
      * Processes the inputted Sort command
+     *
      * @param inputString The user input
-     * @param duke The chatbot
+     * @param duke        The chatbot
      * @throws InvalidFormatException If the command was malformed
      */
     private static void processSortCommand(String inputString, Duke duke) throws InvalidFormatException {
@@ -154,8 +155,9 @@ public class Parser {
 
     /**
      * Processes the inputted Find command
+     *
      * @param inputString The user input
-     * @param taskList The active tasks
+     * @param taskList    The active tasks
      * @return the list of tasks found by the Find command
      */
     private static ArrayList<Task> processFindCommand(String inputString, TaskList taskList) {
@@ -170,8 +172,9 @@ public class Parser {
 
     /**
      * Processes the inputted create new Event command
+     *
      * @param inputString The user input
-     * @param taskList The active tasks
+     * @param taskList    The active tasks
      * @return the task that was added
      * @throws InvalidFormatException if the input format is incorrect
      */
@@ -227,8 +230,9 @@ public class Parser {
 
     /**
      * Processes the inputted create Deadline command
+     *
      * @param inputString The user input
-     * @param taskList The active tasks
+     * @param taskList    The active tasks
      * @return the task that was added
      * @throws InvalidFormatException if the input format is incorrect
      */
@@ -273,8 +277,9 @@ public class Parser {
 
     /**
      * Processes the inputted create Todo command
+     *
      * @param inputString The user input
-     * @param taskList The active tasks
+     * @param taskList    The active tasks
      * @return the task that was added
      * @throws InvalidFormatException if the input format is incorrect
      */
@@ -299,11 +304,12 @@ public class Parser {
 
     /**
      * Processes the inputted Delete task command
+     *
      * @param inputString The user input
-     * @param taskList The active tasks
+     * @param taskList    The active tasks
      * @return the task that was deleted
      * @throws InvalidFormatException if the input format is incorrect
-     * @throws NotFoundException if the target task was not found
+     * @throws NotFoundException      if the target task was not found
      */
     private static ArrayList<Task> processDeleteCommand(
             String inputString, TaskList taskList) throws InvalidFormatException, NotFoundException {
@@ -321,11 +327,12 @@ public class Parser {
 
     /**
      * Processes the inputted Unmark task command
+     *
      * @param inputString The user input
-     * @param taskList The active tasks
+     * @param taskList    The active tasks
      * @return the task that was unmarked
      * @throws InvalidFormatException if the input format is incorrect
-     * @throws NotFoundException if the target task was not found
+     * @throws NotFoundException      if the target task was not found
      */
     private static ArrayList<Task> processUnmarkCommand(
             String inputString, TaskList taskList) throws InvalidFormatException, NotFoundException {
@@ -343,11 +350,12 @@ public class Parser {
 
     /**
      * Processes the inputted Mark task command
+     *
      * @param inputString The user input
-     * @param taskList The active tasks
+     * @param taskList    The active tasks
      * @return the task that was marked
      * @throws InvalidFormatException if the input format is incorrect
-     * @throws NotFoundException if the target task was not found
+     * @throws NotFoundException      if the target task was not found
      */
     private static ArrayList<Task> processMarkCommand(
             String inputString, TaskList taskList) throws InvalidFormatException, NotFoundException {
@@ -364,6 +372,7 @@ public class Parser {
 
     /**
      * Processes the inputted List command
+     *
      * @param taskList The active tasks
      * @return the list of tasks that the user has
      */
