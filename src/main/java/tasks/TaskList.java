@@ -38,23 +38,26 @@ public class TaskList {
      */
     public void addTextToTask(String content) {
         String[] lines = content.split("\n");
+        try {
+            for (String line: lines) {
+                String[] parts = line.split(" ", 3);
+                boolean isDone = parts[1].equals("true");
 
-        for (String line: lines) {
-            String[] parts = line.split(" ", 3);
-            boolean isDone = parts[1].equals("true");
+                if (parts[0].equals("T")) {
+                    addTodoTask(parts[2].trim(), isDone);
 
-            if (parts[0].equals("T")) {
-                addTodoTask(parts[2].trim(), isDone);
+                } else if (parts[0].equals("D")) {
+                    String[] arr = parts[2].split("/");
+                    addDeadlineTask(arr[0].trim(), arr[1].trim(), isDone);
 
-            } else if (parts[0].equals("D")) {
-                String[] arr = parts[2].split("/");
-                addDeadlineTask(arr[0].trim(), arr[1].trim(), isDone);
+                } else {
+                    String[] arr = parts[2].split("/");
+                    addEventTask(arr[0].trim(), arr[1].trim(), arr[2].trim(), isDone);
 
-            } else {
-                String[] arr = parts[2].split("/");
-                addEventTask(arr[0].trim(), arr[1].trim(), arr[2].trim(), isDone);
-
+                }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return;
         }
     }
 

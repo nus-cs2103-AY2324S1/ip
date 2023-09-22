@@ -1,3 +1,0 @@
-E false Sugondese's birthday party /from 2023-09-22 18:00 /to 2023-09-20 20:00
-D false aa /by 2023-09-22 18:00
-E false ee /from 2023-09-22 00:00 /to 2023-09-23 00:00
