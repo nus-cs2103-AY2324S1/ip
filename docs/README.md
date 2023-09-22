@@ -5,9 +5,7 @@ Hi Master! I'm your personal assistant: Jarvis!
 How can I serve you today? - Jarvis
 ```
 
-![Robot Gif](../docs/robot.gif)
-
-
+![Robot Gif](/docs/robot.gif)
 
 ---
 
