@@ -1,6 +1,9 @@
 package catbot.bot;
 
 import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -91,7 +94,10 @@ public class CatBot implements Bot {
                 .generateUsingDefault(CatBotCommandPatterns.NO_DEFAULT);
 
         commands.setDefaultCommand(io::indicateInvalidCommand)
-                .addCommand("bye", args -> io.cleanup())
+                .addCommand("bye", args -> {
+                    io.cleanup();
+                    prepareToClose();
+                })
                 .addCommand("list", args -> io.displayTaskList(taskList));
 
         // User doing simple modification to existing tasks (through IntegerPattern, and Index)
@@ -139,9 +145,6 @@ public class CatBot implements Bot {
                             io.displayTaskAdded(taskList);
                         })
         );
-        slashPattern.ifParsableElseDefault(null, map -> {
-
-        });
 
         commands.addCommand("todo",
                         args -> createTaskIfValidElseWarn.accept(args, Todo::createIfValidElse)
@@ -176,6 +179,13 @@ public class CatBot implements Bot {
         );
 
 
+    }
+
+    private void prepareToClose() {
+        // Helped by ChatGPT
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+        executorService.schedule(() -> System.exit(0), 2, TimeUnit.SECONDS);
+        executorService.shutdown();
     }
 
     //endregion
