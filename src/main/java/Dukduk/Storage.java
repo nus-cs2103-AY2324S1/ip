@@ -14,7 +14,7 @@ public class Storage {
      * Creates the data storage directory and file if they do not exist.
      * If the directory or file creation fails, appropriate error messages are displayed.
      */
-    public static void createDataLocation() {
+    public static void createStoragePath() {
         File dir = new File("src/main/java/data");
 
         if (!dir.exists()) {
@@ -23,7 +23,6 @@ public class Storage {
             } else {
                 System.err.println("Failed to create directory: "
                         + dir.getAbsolutePath());
-                return;
             }
         }
 
@@ -106,3 +105,4 @@ public class Storage {
         }
     }
 }
+

@@ -10,8 +10,6 @@ public class TaskList {
 
     private ArrayList<Task> tasks;
 
-    private Ui ui;
-
     /**
      * Constructs a new TaskList with an empty list of tasks.
      */
@@ -52,21 +50,8 @@ public class TaskList {
      * @param taskIndex The index of the task to check.
      * @return True if the task index is valid, false otherwise.
      */
-    private boolean isValidTaskIndex(int taskIndex) {
+    public boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 0 && taskIndex < tasks.size();
-    }
-
-    /**
-     * Gets a task from the TaskList based on its index.
-     *
-     * @param taskIndex The index of the task to retrieve.
-     * @return The task at the specified index, or null if the index is invalid.
-     */
-    public Task getTask(int taskIndex) {
-        if (isValidTaskIndex(taskIndex)) {
-            return tasks.get(taskIndex);
-        }
-        return null;
     }
 
     /**
@@ -107,23 +92,17 @@ public class TaskList {
      * Deletes a task at the specified index from the TaskList.
      *
      * @param taskIndex The index of the task to delete.
-     * @throws DukdukException If the task index is invalid.
      */
-    public String deleteTask(int taskIndex) throws DukdukException {
+    public String deleteTask(int taskIndex) {
         assert isValidTaskIndex(taskIndex) : "Invalid task index";
-        if (isValidTaskIndex(taskIndex)) {
-            Task removedTask = tasks.remove(taskIndex);
-            return String.format("Quack, noted. I've removed this task:\n%s\n" +
-                            "Now you have %d tasks in the list.",
-                    removedTask, tasks.size());
-        } else {
-            throw new DukdukException("QUACKKK!!! Task not found. Please provide a valid task number.");
-        }
+        Task removedTask = tasks.remove(taskIndex);
+        return String.format("Quack, noted. I've removed this task:\n%s\n" +
+                "Now you have %d tasks in the list.", removedTask, tasks.size());
     }
 
     /**
      * Finds a task by searching for a keyword.
-     * Has been editted for extension C-BetterSearch.
+     * Has been edited for extension C-BetterSearch.
      * Allows for partial word matching, case-insensitive matching and searching for date/time.
      *
      * @param keyword Used for searching tasks that matches keyword.
