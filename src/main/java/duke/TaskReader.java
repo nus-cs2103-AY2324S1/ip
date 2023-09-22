@@ -3,7 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 // reads the task in from the stored txt file and returns it as a TaskList
@@ -37,10 +37,11 @@ public class TaskReader {
             String description = line.substring(6, line.indexOf("(by:")).trim();
             boolean isMarked = line.charAt(4) == 'X';
             String dateSubstring = extractDeadline(line);
-            String formattedDate = DateConverter.convertDate(dateSubstring);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            LocalDate deadline = LocalDate.parse(formattedDate, formatter);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+            LocalDateTime deadline = LocalDateTime.parse(dateSubstring, formatter);
             return new Deadline(description, isMarked, deadline);
+
 
         } else if (line.startsWith("[E]")) {
             // Parse Event task

@@ -5,12 +5,12 @@ import javafx.util.Duration;
 
 import javafx.application.Platform;
 
-import java.time.LocalDate;
+
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 
 public class Parser {
 
@@ -132,7 +132,7 @@ public class Parser {
         String endTimeStr = parts[2].trim();
 
         if (description.isEmpty() || startTimeStr.isEmpty() || endTimeStr.isEmpty()) {
-            return "OOPS!!! Please provide a valid description, start time, and end time for the event.";
+            return "OOPS!!! Invalid input format for deadline. Please input in the following format: <Event> <description> /from: <YYYY/MM/DD HH:mm> /to: <YYYY/MM/DD HH:mm>";
         }
 
         try {
@@ -143,7 +143,7 @@ public class Parser {
             Event eventTask = new Event(description, false, startTime, endTime);
             return tasks.addTask(eventTask);
         } catch (Exception e) {
-            return "OOPS!!! Invalid date/time format for start or end time.";
+            return "OOPS!!! Invalid date/time format for start or end time in YYYY/MM/DD HH:mm format";
         }
     }
 
@@ -160,20 +160,20 @@ public class Parser {
 
                 String descriptionString = description.substring(0, separatorIndex).trim();
                 String deadline = description.substring(separatorIndex + 4).trim();
-                String pattern = "\\d{4}/\\d{2}/\\d{2}";
+                String pattern = "\\d{4}/\\d{2}/\\d{2} \\d{2}:\\d{2}";
                 Pattern datePattern = Pattern.compile(pattern);
                 Matcher matcher = datePattern.matcher(deadline);
                 if (matcher.find()) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                    LocalDate localDateDeadline = LocalDate.parse(deadline, formatter);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+                    LocalDateTime localDateDeadline = LocalDateTime.parse(deadline, formatter);
                     Deadline deadlineTask = new Deadline(descriptionString, false, localDateDeadline);
                     return tasks.addTask(deadlineTask);
 
                 } else {
-                    return "Please input your deadline in YYYY/MM/DD format";
+                    return "Please input your deadline in YYYY/MM/DD HH:mm format";
                 }
             } else {
-                return "Invalid input format for deadline. Please input in the following format: <deadline> <description> /by <YYYY/MM/DD> ";
+                return "Invalid input format for deadline. Please input in the following format: <deadline> <description> /by <YYYY/MM/DD HH:mm> ";
             }
         }
     }

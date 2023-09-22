@@ -1,24 +1,24 @@
 package duke;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
-    private LocalDate deadline;
+    private LocalDateTime deadline;
 
 
     // constructor of deadline takes in a string, whether it is marked and a deadline
-    public Deadline(String name, boolean isMarked, LocalDate deadline) {
+    public Deadline(String name, boolean isMarked, LocalDateTime deadline) {
         super(name, isMarked);
         this.deadline = deadline;
     }
 
 
     // gets the deadline of the Deadline object
-    public LocalDate getDeadline() {
+    public LocalDateTime getDeadline() {
 
         return deadline;
     }
     // sets the deadline of the Deadline Object
-    public void setDeadline(LocalDate deadline) {
+    public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
 
@@ -26,6 +26,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String status = isMarked ? "[X]" : "[ ]";
-        return "[D]" + status + " " + name + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + status + " " + name + " (by: " + deadline.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
     }
 }
