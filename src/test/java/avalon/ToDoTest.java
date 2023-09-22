@@ -11,10 +11,10 @@ public class ToDoTest {
     public void toString_validDescription_success() {
         ToDo todo = new ToDo("Buy food");
 
-        assertEquals("[T][ ]  Buy food", todo.toString());
+        assertEquals("[T][0][ ]  Buy food", todo.toString());
 
         todo.markDone();
 
-        assertEquals("[T][X]  Buy food", todo.toString());
+        assertEquals("[T][0][X]  Buy food", todo.toString());
     }
 }
