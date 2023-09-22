@@ -199,7 +199,7 @@ public class Parser {
      */
     public String processDeadline(String task, Ui ui, TaskList taskList) throws DukeException {
         if (task.length() < 10) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty." );
         }
         String description = "";
         String by = "";
