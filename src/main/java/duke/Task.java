@@ -2,14 +2,14 @@ package duke;
 
 
 /**
- * Task class
+ * Task class.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
 
     /**
-     * Constructor for task
+     * Constructor for Task class.
      * @param description name of task
      */
     public Task(String description) {
@@ -18,7 +18,7 @@ public class Task {
     }
 
     /**
-     * get the done or not done status icon
+     * Get the done or not done status icon.
      * @return the status icon
      */
     public String getStatusIcon() {
@@ -26,21 +26,21 @@ public class Task {
     }
 
     /**
-     * mark the task as done
+     * Mark the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * mark the task as not done
+     * Mark the task as not done.
      */
     public void markAsNotDone() {
         this.isDone = false;
     }
 
     /**
-     * toString method of Task class
+     * toString method of Task class.
      * @return a string
      */
     @Override
@@ -49,11 +49,10 @@ public class Task {
     }
 
     /**
-     * formatted string to be printed in file
+     * Generate formatted string to be printed in file.
      * @return a string
      */
     public String stringInFile() {
-        //will not be called
         return "";
     }
 }

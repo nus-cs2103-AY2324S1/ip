@@ -5,21 +5,21 @@ package duke;
  */
 public class Ui {
     /**
-     * show welcome message
+     * Show welcome message.
      */
     public void printWelcomeMessage() {
         System.out.println("Hello! I'm ChatBot" + "\n" + "What can I do for you?" + "\n");
     }
 
     /**
-     * show goodbye message
+     * Show goodbye message.
      */
     public void printGoodbyeMessage() {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
     /**
-     * print the list of task
+     * Print the list of task.
      * @param tasks the TaskList
      */
     public void printTaskList(TaskList tasks) {
@@ -32,7 +32,7 @@ public class Ui {
     }
 
     /**
-     * printed when task is added
+     * Printed when task is added.
      * @param curr current task being added
      * @param taskSize the getSize of TaskList
      */
@@ -43,7 +43,7 @@ public class Ui {
     }
 
     /**
-     * printed when task is deleted
+     * Printed when task is deleted.
      * @param curr current task being deleted
      * @param taskSize the getSize of TaskList
      */
@@ -54,7 +54,7 @@ public class Ui {
     }
 
     /**
-     * printed when task is marked as done
+     * Printed when task is marked as done.
      * @param curr current task
      * @param index index of the task in TaskList
      */
@@ -63,7 +63,7 @@ public class Ui {
         System.out.println((index + 1) + ". " + curr);
     }
     /**
-     * printed when task is marked as not done
+     * Printed when task is marked as not done.
      * @param curr current task
      * @param index index of the task in TaskList
      */
@@ -73,7 +73,7 @@ public class Ui {
     }
 
     /**
-     * show loading error
+     * Show loading error.
      * @param message error message
      */
     public void showLoadingError(String message) {
@@ -81,7 +81,7 @@ public class Ui {
     }
 
     /**
-     * Print search query result
+     * Print search query result.
      * @param results a TaskList of search result
      */
     public void printQueryResult(TaskList results) {

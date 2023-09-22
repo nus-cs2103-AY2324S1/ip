@@ -4,8 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import duke.*;
-
 /**
  * duke.Main class for the duke application.
  */
@@ -17,6 +15,9 @@ public class Duke {
     private Ui ui;
     private GuiResponse guiResponse;
 
+    /**
+     * Constructor for Duke class
+     */
     public Duke() {
         ui = new Ui();
         parser = new Parser();
@@ -36,46 +37,69 @@ public class Duke {
 
     public String getResponse(String input) {
         String command = parser.parseCommand(input);
-        String response = "";
         if (command.equals("list")) {
-            response = guiResponse.getTaskList(tasks);
+            return getListResponse();
         } else if (command.equals("mark")) {
-            int index = parser.parseToIndex();
-            Task curr = tasks.getTask(index);
-            curr.markAsDone();
-            storage.store(tasks);
-            response = guiResponse.getMark(curr, index);
+            return getMarkResponse();
         } else if (command.equals("unmark")) {
-            int index = parser.parseToIndex();
-            Task curr = tasks.getTask(index);
-            curr.markAsNotDone();
-            storage.store(tasks);
-            response = guiResponse.getUnmark(curr, index);
+            return getUnmarkResponse();
         } else if (command.equals("bye")) {
-            response = guiResponse.getGoodbyeMessage();
+            return getByeResponse();
         } else if (command.equals("todo") || command.equals("deadline") || command.equals("event")) {
-            Task curr = parser.parseToTask();
-            if (curr == null) {
-                //need some handling here todo
-                return "";
-            }
-            tasks.addTask(curr);
-            storage.store(tasks);
-            response = guiResponse.getAddTask(curr, tasks.getSize());
+            return getTaskResponse();
         } else if (command.equals("delete")) {
-            int index = parser.parseToIndex();
-            Task curr = tasks.getTask(index);
-            tasks.deleteTask(index);
-            storage.store(tasks);
-            response = guiResponse.getDelete(curr, tasks.getSize());
+            return getDeleteResponse();
         } else if (command.equals("find")) {
-            String query = parser.parseQuery();
-            response = guiResponse.getQueryResult(tasks.searchTask(query));
-        } else {
-            //nothing found
-            response = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+            return getFindResponse();
         }
-        return response;
+        return "OOPS!!! I'm sorry, but I don't know what that means :-(";
+    }
+
+    private String getFindResponse() {
+        String query = parser.parseQuery();
+        return guiResponse.getQueryResult(tasks.searchTask(query));
+    }
+
+    private String getDeleteResponse() {
+        int index = parser.parseToIndex();
+        Task curr = tasks.getTask(index);
+        tasks.deleteTask(index);
+        storage.store(tasks);
+        return guiResponse.getDelete(curr, tasks.getSize());
+    }
+
+    private String getTaskResponse() {
+        Task curr = parser.parseToTask();
+        if (curr == null) {
+            return "";
+        }
+        tasks.addTask(curr);
+        storage.store(tasks);
+        return guiResponse.getAddTask(curr, tasks.getSize());
+    }
+
+    private String getByeResponse() {
+        return guiResponse.getGoodbyeMessage();
+    }
+
+    private String getUnmarkResponse() {
+        int index = parser.parseToIndex();
+        Task curr = tasks.getTask(index);
+        curr.markAsNotDone();
+        storage.store(tasks);
+        return guiResponse.getUnmark(curr, index);
+    }
+
+    private String getMarkResponse() {
+        int index = parser.parseToIndex();
+        Task curr = tasks.getTask(index);
+        curr.markAsDone();
+        storage.store(tasks);
+        return guiResponse.getMark(curr, index);
+    }
+
+    private String getListResponse() {
+        return guiResponse.getTaskList(tasks);
     }
 
     /**

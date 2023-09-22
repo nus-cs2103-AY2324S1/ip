@@ -8,14 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Storage class to store the task result and loadTask it
+ * Storage class to store the task result and load result.
  */
 public class Storage {
 
     private String filePath;
 
     /**
-     * Constructor for storage
+     * Constructor for storage.
      * @param filePath the relative filepath from the project root
      */
     public Storage(String filePath) {
@@ -24,7 +24,7 @@ public class Storage {
     }
 
     /**
-     * read from file and return an array list of task.
+     * Read from file and return an array list of task.
      *
      * @return array list of task
      */
@@ -58,11 +58,11 @@ public class Storage {
         return loadList;
     }
 
-    private static void loadEvent(ArrayList<Task> loadList, String[] parsed_str) {
-        Boolean done = parsed_str[1].equals("1") ? true : false;
-        String description = parsed_str[2];
-        String fromDate = parsed_str[3];
-        String toDate = parsed_str[4];
+    private static void loadEvent(ArrayList<Task> loadList, String[] parsedStr) {
+        Boolean done = parsedStr[1].equals("1") ? true : false;
+        String description = parsedStr[2];
+        String fromDate = parsedStr[3];
+        String toDate = parsedStr[4];
         Event curr = new Event(description, fromDate, toDate);
         if (done) {
             curr.markAsDone();
@@ -70,26 +70,26 @@ public class Storage {
         loadList.add(curr);
     }
 
-    private static void loadDeadline(ArrayList<Task> loadList, String[] parsed_str) {
-        Boolean done = parsed_str[1].equals("1") ? true : false;
-        String description = parsed_str[2];
-        String by_date = parsed_str[3];
-        Deadline curr = new Deadline(description, by_date);
-        if (done) {
-            curr.markAsDone();
+    private static void loadDeadline(ArrayList<Task> loadList, String[] parsedStr) {
+        Boolean isDone = parsedStr [1].equals("1") ? true : false;
+        String description = parsedStr [2];
+        String dateString = parsedStr [3];
+        Deadline deadline = new Deadline(description, dateString);
+        if (isDone) {
+            deadline.markAsDone();
         }
-        loadList.add(curr);
+        loadList.add(deadline);
     }
 
-    private static void loadTodo(ArrayList<Task> loadList, String[] parsed_str) {
-        int size = parsed_str.length;
-        Boolean done = parsed_str[1].equals("1") ? true : false;
-        String description = parsed_str[2];
-        Todo curr = new Todo(description);
-        if (done) {
-            curr.markAsDone();
+    private static void loadTodo(ArrayList<Task> loadList, String[] parsedStr) {
+        int size = parsedStr.length;
+        Boolean isDone = parsedStr[1].equals("1") ? true : false;
+        String description = parsedStr[2];
+        Todo todo = new Todo(description);
+        if (isDone) {
+            todo.markAsDone();
         }
-        loadList.add(curr);
+        loadList.add(todo);
     }
 
     /**

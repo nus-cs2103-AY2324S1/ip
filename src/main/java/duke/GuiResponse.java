@@ -1,25 +1,25 @@
 package duke;
 
 /**
- *  class for duke gui response.
+ *  Class for duke GUI response.
  */
 public class GuiResponse {
     /**
-     * show welcome message
+     * Show welcome message.
      */
     public String getWelcomeMessage() {
         return "Hello! I'm ChatBot" + "\n" + "What can I do for you?" + "\n";
     }
 
     /**
-     * show goodbye message
+     * Show goodbye message.
      */
     public String getGoodbyeMessage() {
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * print the list of task
+     * Print the list of task.
      * @param tasks the TaskList
      */
     public String getTaskList(TaskList tasks) {
@@ -37,7 +37,7 @@ public class GuiResponse {
     }
 
     /**
-     * printed when task is added
+     * Print when task is added.
      * @param curr current task being added
      * @param taskSize the getSize of TaskList
      */
@@ -52,7 +52,7 @@ public class GuiResponse {
     }
 
     /**
-     * printed when task is deleted
+     * Print when task is deleted.
      * @param curr current task being deleted
      * @param taskSize the getSize of TaskList
      */
@@ -67,7 +67,7 @@ public class GuiResponse {
     }
 
     /**
-     * printed when task is marked as done
+     * Printed when task is marked as done.
      * @param curr current task
      * @param index index of the task in TaskList
      */
@@ -79,7 +79,7 @@ public class GuiResponse {
         return responseString;
     }
     /**
-     * printed when task is marked as not done
+     * Printed when task is marked as not done.
      * @param curr current task
      * @param index index of the task in TaskList
      */
@@ -92,7 +92,7 @@ public class GuiResponse {
     }
 
     /**
-     * show loading error
+     * Show data loading error.
      * @param message error message
      */
     public String getLoadingError(String message) {
@@ -100,7 +100,7 @@ public class GuiResponse {
     }
 
     /**
-     * Print search query result
+     * Print search query result.
      * @param results a TaskList of search result
      */
     public String getQueryResult(TaskList results) {

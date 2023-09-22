@@ -1,15 +1,14 @@
 package duke;
 
 /**
- * Parser class for the command
+ * Parser class for the command.
  */
 public class Parser {
-    //return "" to continue without action, any other command to fit
     private String command;
     private String[] parsedStr;
 
     /**
-     * Constructor for parser
+     * Constructor for parser.
      */
 
     public Parser() {
@@ -17,7 +16,7 @@ public class Parser {
     }
 
     /**
-     * Parse the fullCommand and get the type of the command
+     * Parse the fullCommand and get the type of the command.
      * @param fullCommmand everything the user entered in a line
      * @return type of the command
      */
@@ -134,7 +133,7 @@ public class Parser {
     }
 
     /**
-     * Parse the index that used dateString "mark", "unmark" or delete
+     * Parse the index that used dateString "mark", "unmark" or delete.
      * run after parseCommand
      * @return the index, in 0-indexed form
      */
@@ -148,12 +147,11 @@ public class Parser {
     }
 
     /**
-     * parse the command into task for todo, deadline and event
-     * run after parseCommand
+     * Parse the command into task for todo, deadline and event.
+     * MUST run after parseCommand
      * @return a Task
      */
     public Task parseToTask() {
-        //rely on last method, last method must be called before this
         assert (this.command.length() > 0);
         if (this.command.equals("todo")) {
             return getTodo();
@@ -170,58 +168,60 @@ public class Parser {
     }
 
     private Event getEvent() {
-        boolean reachFrom = false;
-        boolean reachTo = false;
-        String fromDate = "";
-        String toDate = "";
+        boolean isFromDetected = false;
+        boolean isToDetected = false;
+        String beginString = "";
+        String endString = "";
         String description = "";
+
         for (int i = 1; i < parsedStr.length; i++) {
             if (parsedStr[i].equals("/from")) {
-                reachFrom = true;
+                isFromDetected = true;
                 continue;
             } else if (parsedStr[i].equals("/to")) {
-                reachTo = true;
+                isToDetected = true;
                 continue;
             }
-            if (reachFrom == true && reachTo == false) {
-                fromDate += parsedStr[i] + " ";
-            } else if (reachFrom == false && reachTo == false) {
-                //part for description
+            if (isFromDetected == true && isToDetected == false) {
+                beginString += parsedStr[i] + " ";
+            } else if (isFromDetected == false && isToDetected == false) {
                 description += parsedStr[i] + " ";
             } else {
-                toDate += parsedStr[i] + " ";
+                endString += parsedStr[i] + " ";
             }
         }
+
+        //error handling
         if (description.equals("")) {
             System.out.println("Please input the name of the event");
             return null;
-        } else if (fromDate.equals("")) {
+        } else if (beginString.equals("")) {
             System.out.println("Please specify start time");
             return null;
-        } else if (toDate.equals("")) {
+        } else if (endString.equals("")) {
             System.out.println("Please specify the end time");
             return null;
         }
 
-        //remove the last space of fromDate, toDate and description
+        //remove the last space of beginString, endString and description
         description = description.substring(0, description.length() - 1);
-        fromDate = fromDate.substring(0, fromDate.length() - 1);
-        toDate = toDate.substring(0, toDate.length() - 1);
+        beginString = beginString.substring(0, beginString.length() - 1);
+        endString = endString.substring(0, endString.length() - 1);
 
-        return new Event(description, fromDate, toDate);
+        return new Event(description, beginString, endString);
     }
 
     private Deadline getDeadline() {
-        boolean reached = false;
+        boolean isDescriptionRead = false;
         String byDate = "";
         String description = "";
         int length = parsedStr.length;
         for (int i = 1; i < length; i++) {
-            if (parsedStr[i].equals("/dateString")) {
-                reached = true;
+            if (parsedStr[i].equals("/by")) {
+                isDescriptionRead = true;
                 continue;
             }
-            if (reached == true) {
+            if (isDescriptionRead == true) {
                 byDate += parsedStr[i] + " ";
             } else {
                 description += parsedStr[i] + " ";
