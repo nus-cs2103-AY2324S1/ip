@@ -20,7 +20,8 @@ It is a simple-to-use programme created in java to allow users to keep track of 
 Below is a table of commands that can be used to interact with the bot.\
 All commands are sent in the format of `[command] [default input] [tagged inputs]`\
 For example, to add a deadline task with name `Assignment` and deadline `2001-01-01`, type
-`deadline /by 2001-01-01` \
+`deadline /by 2001-01-01`\
+ALL COMMANDS ARE CASE SENSITIVE AND MUST BE IN LOWER CASE!\
 Tagged inputs can be placed in any order!
 
 |  Command   |                                               Description                                                |                  Default Input                  |                                                   Tagged Input                                                    |
