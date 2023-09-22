@@ -3,7 +3,7 @@
 Dude is a personal assistant Java application that helps you keep track of your tasks, events, and deadlines.
 You can interact with Dude through a graphical user interface (GUI) similar to a chatbot.
 
-![Screenshot of Dude UI](./Ui.png)
+<img width="256" alt="Screenshot of Dude GUI" src="./Ui.png">
 
 ## Quick Start
 
@@ -18,13 +18,7 @@ You can refer to the [features](#features) section of this guide to learn the va
 
 ## Features
 
-### Add a task
-
-Dude can help you keep track of various types of tasks.
-Every task has a text description, and can be marked as done or not done.
-Certain types of tasks can have additional information such as deadlines.
-
-#### `todo` - Add a to-do task
+### `todo` - Add a to-do task
 
 Adds a to-do task to the task list.
 
@@ -36,7 +30,7 @@ Example:
 
 `todo Read book`
 
-#### `deadline` - Add a deadline task
+### `deadline` - Add a deadline task
 
 Adds a task with a deadline to the task list.
 
@@ -51,7 +45,7 @@ Example:
 
 `deadline Assignment quiz (online) /by 22/09/2023 2359`
 
-#### `event` - Add an event task
+### `event` - Add an event task
 
 Adds a task with a start and end time to the task list.
 
@@ -68,8 +62,9 @@ Example:
 
 ### `list` - View list of tasks
 
-Displays list of tasks and their associated information.
+Displays list of tasks and their associated information:
 
+* **Index**: Each task has an index number that is shown at the start of each list item.
 * **Done/not done**: Tasks that are done are marked with `[X]`, and marked with `[ ]` if not done.
 * **Type**: To-do tasks are marked with `<T>`, deadline tasks `<D>`, event tasks `<E>`.
 
@@ -93,7 +88,6 @@ Mark a task as done (using `mark`) or not done (using `unmark`).
 Format: `mark INDEX` for mark, `unmark INDEX` for unmark.
 
 * Marks the task with the given index number [`INDEX`] as done/not done.
-* The index of each task can be seen in the [`list` command](#list---view-list-of-tasks).
 
 Example:
 
@@ -110,8 +104,6 @@ Example:
 Removes a task from the list.
 
 Format: `remove INDEX`/`delete INDEX` (both do the same thing).
-
-* Deletes the task with the given index number [`INDEX`] from the list.
 
 Example:
 
@@ -131,7 +123,7 @@ Format: `find SEARCH_QUERY`.
 
 Examples:
 
-`find CS2103T`
+`find cs2103`
 
 * Finds all tasks that have descriptions containing `cs2103`.
 * **Will match**: "CS2103T project meeting with group", "cs2103 ip"
@@ -156,7 +148,7 @@ Format: `sort /by METHOD [/order ORDER]` (The part in square brackets is **optio
     * `date` - Sorts chronologically by deadline (for deadline tasks) or start date and time (for event tasks).
       Tasks without dates (to-do tasks) are **always** at the end of the sorted list.
     * `description` - Sorts alphabetically by task description.
-    * `type` - Sorts alphabetically by.
+    * `type` - Sorts alphabetically by task type.
 * `ORDER` is optional. If specified, it must be one of the following:
     * `a`/`asc`/`ascending` - Ascending order.
     * `d`/`desc`/`descending` - Descending order.
