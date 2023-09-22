@@ -61,6 +61,8 @@ public class Storage {
             }
         } catch (IOException e) {
             throw new WriteTaskException();
+        } catch (InvalidTaskException e) {
+            throw new RuntimeException(e);
         }
     }
 }

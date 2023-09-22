@@ -46,11 +46,12 @@ public class TaskList {
      * @return The task at the specified index.
      * @throws IndexOutOfBoundsException If the index is out of range.
      */
-    public Task getTask(int index) {
-        if (index < 1 || index > list.size()) {
-            throw new IndexOutOfBoundsException("Task index is out of range.");
+    public Task getTask(int index) throws InvalidTaskException {
+        try {
+            return list.get(index - 1);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidTaskException();
         }
-        return list.get(index - 1);
     }
 
     /**
@@ -122,7 +123,7 @@ public class TaskList {
      * @param taskList The ToDoList from which the task will be deleted.
      * @param index    The index of the task to be deleted.
      */
-    public static void deleteTask(TaskList taskList, int index) {
+    public static void deleteTask(TaskList taskList, int index) throws InvalidTaskException {
         Task task = taskList.getTask(index);
         taskList.remove(index);
         System.out.println("Noted. I've removed this task:");
@@ -138,6 +139,17 @@ public class TaskList {
             }
         }
         return new TaskList(keywordTasks);
+    }
+
+    public Task postponeTimeSensitiveTask(int postponeIndex, String deadlineString) throws InvalidTaskException,
+            NotTimeSensitiveTaskException {
+        Task task = getTask(postponeIndex);
+        if (!(task instanceof TimeSensitiveTask)) {
+            throw new NotTimeSensitiveTaskException();
+        }
+        TimeSensitiveTask postponedTask = (TimeSensitiveTask) task;
+        postponedTask.postpone(deadlineString);
+        return postponedTask;
     }
 
     /**

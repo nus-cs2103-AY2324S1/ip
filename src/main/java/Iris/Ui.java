@@ -4,8 +4,6 @@ package iris;
  * The class responsible for user interface interactions in the Iris application.
  */
 public class Ui {
-    private static final String HORIZONTAL_LINE = "      " +
-            "_______________________________________________________________________________";
     public String exitMessage() {
         return "Bye. Hope to see you again soon!";
     }
@@ -44,6 +42,14 @@ public class Ui {
         return String.format("Noted. I've removed this task:\n          " +
                 "%s\n      Now you have" +
                 " %d tasks in the list", task, taskList.getSize());
+    }
+
+    public String getPostponeTaskMessage(Task postponedTask) {
+        return "OK, I have postponed this task:\n" + postponedTask;
+    }
+
+    public String getUnableToPostponeTaskMessage() {
+        return "Task selected is not time-sensitive! Please select carefully!";
     }
 
     public static void printLength(TaskList taskList) {
