@@ -9,11 +9,11 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import jeeves.note.Note;
 import jeeves.task.Deadline;
 import jeeves.task.Event;
 import jeeves.task.Task;
 import jeeves.task.Todo;
-import jeeves.note.Note;
 
 /**
  * Storage is responsible for all read/write/other interactions with the .txt datafile containing Jeeves's data.
@@ -126,6 +126,8 @@ public class Storage {
                     String startTime = currData[3];
                     String endTime = currData[4];
                     taskList.add(new Event(desc, startTime, endTime, status));
+                    break;
+                default:
                     break;
                 }
             }

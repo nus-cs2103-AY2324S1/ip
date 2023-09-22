@@ -2,8 +2,9 @@ package jeeves.note;
 
 public class Note {
 
-    private final String description;
     private static int noteCount = 0;
+    private final String description;
+
 
     public Note(String description) {
         this.description = description;

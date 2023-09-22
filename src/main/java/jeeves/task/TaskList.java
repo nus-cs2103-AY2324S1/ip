@@ -2,6 +2,9 @@ package jeeves.task;
 
 import java.util.ArrayList;
 
+/**
+ * Contains logic related to the task list
+ */
 public class TaskList {
 
     /**

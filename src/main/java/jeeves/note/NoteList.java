@@ -2,6 +2,9 @@ package jeeves.note;
 
 import java.util.ArrayList;
 
+/**
+ * Contains logic related to the Note list.
+ */
 public class NoteList {
 
     /**
@@ -12,14 +15,10 @@ public class NoteList {
      */
     private final ArrayList<Note> noteList;
 
-    public NoteList() {
-        noteList = new ArrayList<>();
-    }
-
     public NoteList(ArrayList<Note> notes) {
         noteList = notes;
     }
-    
+
     public void add(Note newNote) {
         noteList.add(newNote);
     }

@@ -13,6 +13,8 @@ import jeeves.exception.MissingIdException;
 import jeeves.exception.MissingToException;
 import jeeves.exception.NotIntegerIdException;
 import jeeves.exception.OutOfBoundIdException;
+import jeeves.note.Note;
+import jeeves.note.NoteList;
 import jeeves.parser.Parser;
 import jeeves.storage.Storage;
 import jeeves.task.Deadline;
@@ -21,9 +23,6 @@ import jeeves.task.Task;
 import jeeves.task.TaskList;
 import jeeves.task.Todo;
 import jeeves.ui.Ui;
-import jeeves.note.Note;
-import jeeves.note.NoteList;
-
 /**
  * Contains the main method and primary logic for Jeeves.
  */
@@ -32,8 +31,8 @@ public class Jeeves {
     private static final String RELATIVE_PATH_DATA_DIRECTORY = "data";
     private static final String RELATIVE_PATH_DATA_FILE = "data/JeevesData.txt";
     private static final String RELATIVE_PATH_NOTE_FILE = "data/JeevesNote.txt";
-    private static final Storage storage = new Storage(RELATIVE_PATH_DATA_DIRECTORY, RELATIVE_PATH_DATA_FILE
-                                                , RELATIVE_PATH_NOTE_FILE);
+    private static final Storage storage = new Storage(RELATIVE_PATH_DATA_DIRECTORY, RELATIVE_PATH_DATA_FILE,
+                                                RELATIVE_PATH_NOTE_FILE);
     private static final TaskList tasks = new TaskList(storage.readTasklistFromFile());
     private static final NoteList notes = new NoteList(storage.readNoteListFromFile());
     private static final Parser parser = new Parser();
@@ -91,6 +90,8 @@ public class Jeeves {
         case "bye":
             processByeCommand();
             break;
+        default:
+                // Fallthrough
         }
 
         // By default, informs the user that the command is not recognized.
@@ -211,7 +212,7 @@ public class Jeeves {
                 + newEvent
                 + "\n";
     }
-    
+
     private static String processNoteCommand(ArrayList<String> tokens) {
         // Adds the Note to the note list
         Note newNote = new Note(tokens.get(1));
@@ -221,7 +222,7 @@ public class Jeeves {
                     + newNote
                     + "\n";
     }
-    
+
     private static String processListNotesCommand() {
         // Displays a different message if no notes are being tracked
         StringBuilder sb = new StringBuilder();
@@ -230,7 +231,7 @@ public class Jeeves {
         } else {
             sb.append("This is what I am tracking for you Master:\n");
         }
-        
+
         sb.append(notes.getNotelistDataAsString());
         return sb.toString();
     }
