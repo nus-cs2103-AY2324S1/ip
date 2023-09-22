@@ -1,7 +1,6 @@
 package duke.utils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * The TaskList class represents a list of tasks in the Duke application
@@ -209,6 +208,14 @@ public class TaskList {
         return Response.generate(output);
     }
 
+    /**
+     * Searches for tasks in the task list that contain a specified keyword in their names.
+     * If any matching tasks are found, they are listed in the response.
+     *
+     * @param keyword The keyword to search for in task names.
+     * @return A Response object containing a list of matching tasks if found.
+     * @throws DukeException if no matching tasks are found.
+     */
     protected Response find(String keyword) throws DukeException {
         ArrayList<String> output = new ArrayList<>();
         output.add("Here are the matching tasks in your list:");
@@ -225,10 +232,16 @@ public class TaskList {
         return Response.generate(output);
     }
 
+    /**
+     * Sorts the list of tasks by deadline and returns a response.
+     *
+     * @return A Response object listing tasks in descending urgency.
+     */
     @SuppressWarnings("unchecked")
     protected Response listSortedTasks() {
         ArrayList<Task> taskList = (ArrayList<Task>) this.tasks.clone();
         taskList.sort((Task l, Task r)-> l.getDeadline().isAfter(r.getDeadline()) ? 1 : -1);
+
         ArrayList<String> output = new ArrayList<>();
         output.add("Here are your upcoming tasks, sorted in descending urgency:");
         int count = 0;
