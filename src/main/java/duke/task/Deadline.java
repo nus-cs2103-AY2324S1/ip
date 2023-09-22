@@ -1,12 +1,14 @@
 package duke.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
 
 /**
  * Class to represent a deadline task.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Comparable<Deadline> {
     private static final String SYMBOL = "D";
 
     protected TemporalAccessor dueDatetime;
@@ -49,5 +51,26 @@ public class Deadline extends Task {
                 Deadline.SYMBOL,
                 super.toString(),
                 super.formatDateTime(this.dueDatetime));
+    }
+
+    @Override
+    public int compareTo(Deadline other) {
+        if (this.dueDatetime instanceof LocalDate && other.dueDatetime instanceof LocalDate) {
+            return ((LocalDate) this.dueDatetime).compareTo((LocalDate) other.dueDatetime);
+        }
+
+        if (this.dueDatetime instanceof LocalDateTime && other.dueDatetime instanceof LocalDateTime) {
+            return ((LocalDateTime) this.dueDatetime).compareTo((LocalDateTime) other.dueDatetime);
+        }
+
+        if (this.dueDatetime instanceof LocalDate) {
+            return 1;
+        }
+
+        if (other.dueDatetime instanceof LocalDate) {
+            return -1;
+        }
+
+        return 0;
     }
 }

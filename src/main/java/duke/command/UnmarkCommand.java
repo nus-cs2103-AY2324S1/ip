@@ -31,6 +31,10 @@ public class UnmarkCommand extends Command {
         try {
             taskIndexToUnmark = Integer.parseInt(parameterMap.get("default")) - 1;
         } catch (NumberFormatException e) {
+            if (parameterMap.get("default") == null) {
+                throw new DukeException("Please enter a task number.");
+            }
+
             throw new DukeException(String.format("Task number provided \"%s\" is not a number.\n     "
                     + "Please retry with a valid task number.", parameterMap.get("default")));
         }

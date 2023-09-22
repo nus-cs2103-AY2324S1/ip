@@ -50,7 +50,7 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return String.format("[%s]%s (from: %s to: %s)",
+        return String.format("[%s]%s (%s - %s)",
                 Event.SYMBOL, super.toString(),
                 super.formatDateTime(this.startDatetime),
                 super.formatDateTime(this.endDatetime));
