@@ -14,7 +14,20 @@ import commands.UnknownCommand;
 import commands.UnmarkCommand;
 import duke.DukeException;
 
+/**
+ * Represents a parser that interprets user inputs into commands for the Duke chatbot.
+ * Provides methods for splitting and interpreting the input string to determine the
+ * appropriate command to execute.
+ */
 public class Parser {
+
+    /**
+     * Converts the user input into a corresponding Command object based on the given input string.
+     *
+     * @param input The input string.
+     * @return The corresponding Command object based on the interpreted input.
+     * @throws DukeException If the input command format is incorrect or unrecognized.
+     */
     public Command issueCommand(String input) throws DukeException {
         String[] inputParts = splitInput(input);
         String command = inputParts[0].toLowerCase();
@@ -27,13 +40,25 @@ public class Parser {
             if (inputParts.length < 2) {
                 throw new DukeException(" Provide the task number.");
             }
-            int markTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
+            int markTaskNumber;
+            try {
+                markTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
+            } catch (NumberFormatException invalidInt) {
+                throw new DukeException(" Hmmm, your input format for marking tasks is incorrect;"
+                        + " Format: mark [int values > 0]");
+            }
             return new MarkCommand(markTaskNumber);
         case "unmark":
             if (inputParts.length < 2) {
                 throw new DukeException(" Provide the task number.");
             }
-            int unmarkTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
+            int unmarkTaskNumber;
+            try {
+                unmarkTaskNumber= Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
+            } catch (NumberFormatException invalidInt) {
+                throw new DukeException(" Hmmm, your input format for unmarking tasks is incorrect;"
+                        + " Format: unmark [int values > 0]");
+            }
             return new UnmarkCommand(unmarkTaskNumber);
         case "todo":
             return new TodoCommand(inputParts.length > 1 ? inputParts[1] : "");
@@ -46,7 +71,13 @@ public class Parser {
                 throw new DukeException(" Please provide a task number. "
                         + "Format: delete task_number");
             }
-            int deleteTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
+            int deleteTaskNumber;
+            try {
+                deleteTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
+            } catch (NumberFormatException invalidInt) {
+                throw new DukeException(" Hmmm, your input format for deleting tasks is incorrect;"
+                        + " Format: delete [int values > 0]");
+            }
             return new DeleteCommand(deleteTaskNumber);
         case "schedule":
             if (inputParts.length < 2 || !inputParts[1].contains("/on")) {
@@ -61,14 +92,27 @@ public class Parser {
             }
             return new FindCommand(inputParts[1]);
         default:
-            return new UnknownCommand();
+            return new UnknownCommand(input);
         }
     }
 
+    /**
+     * Splits the input string into two parts based on the first space encountered.
+     *
+     * @param input The input string.
+     * @return An array with two strings: the command type and the command details.
+     */
     public String[] splitInput(String input) {
         return input.split(" ", 2);
     }
 
+    /**
+     * Splits the input string by the specified keyword.
+     *
+     * @param input The input string.
+     * @param keyword The keyword used to split the input.
+     * @return An array containing the portions of the input separated by the keyword.
+     */
     public String[] splitByKeyword(String input, String keyword) {
         return input.split(keyword, 2);
     }

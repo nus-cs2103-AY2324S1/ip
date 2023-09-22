@@ -10,7 +10,7 @@ import ui.UI;
 
 public class TodoCommandTest {
     @Test
-    public void testExecuteCommand_emptyDescription_throwsDukeException() {
+    public void emptyDescription() {
         TodoCommand todo = new TodoCommand("");
         UI ui = new UI();
         Actions actions = new Actions();
@@ -18,7 +18,7 @@ public class TodoCommandTest {
     }
 
     @Test
-    public void testExecuteCommand_validDescription_taskAdded() {
+    public void taskAdded() {
         String description = "Todo Test Task";
         TodoCommand todo = new TodoCommand(description);
         UI ui = new UI();
