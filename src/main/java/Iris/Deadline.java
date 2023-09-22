@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Deadline extends Task {
+public class Deadline extends TimeSensitiveTask {
     private String deadlineString;
     private LocalDate deadlineDate;
 
@@ -70,6 +70,12 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             return null;
         }
+    }
+
+    @Override
+    public void postpone(String deadlineString) {
+        this.deadlineString = deadlineString;
+        this.deadlineDate = parseDateTime(deadlineString);
     }
 
     /**
