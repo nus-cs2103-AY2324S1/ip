@@ -15,9 +15,9 @@ Todoify is easy to use for users with experience of the CLI. It:
 
 1. Ensure you have **Java 11 or later installed** on your device.
 
-2. **Check out** the [releases](https://github.com/wxwern/ip/releases).
+2. **Check out** the [latest release](https://github.com/wxwern/ip/releases/latest).
 
-3. **Download** the latest `.jar` file, and move it to the *home folder* where you want to use Todoify.
+3. **Download** the `.jar` file linked there, and move it to the *home folder* where you want to use Todoify.
 
 4. **Launch** the JAR file by doing one of the following:
     - **Open a terminal** and **`cd` into the directory of the JAR file**. Then, **run `java -jar todoify-1.0.jar`**.
