@@ -54,11 +54,6 @@ Format: `deadline DESCRIPTION /by DATETIME`
 - `DESCRIPTION` is the description of the todo task.
 - `DATETIME` is the date of the deadline. 
 
-<div markdown="span" class="alert alert-primary">:bulb: 
-`DATETIME` must be written in the format of `d-MM-yyyy HHmm` or `dd-MM-yyyy HHmm`
-</div>
-
-> [!NOTE]\
 > `DATETIME` must be written in the format of `d-MM-yyyy HHmm` or `dd-MM-yyyy HHmm`
 
 Example:
@@ -73,12 +68,6 @@ Format: `event DESCRIPTION /from STARTTIME /to ENDTIME`
 - `STARTTIME` is the starting time of the event. 
 - `ENDTIME` is the ending time of the event.
 
-<div markdown="span" class="alert alert-primary">:bulb: 
-`STARTTIME` and `ENDTIME` can be anything, it does not have to be a date.
-</div>
-
-
-> [!NOTE]\
 > `STARTTIME` and `ENDTIME` can be anything, it does not have to be a date.
 
 Example:
@@ -121,13 +110,6 @@ Format: `delete INDEXNUMBER`
 Example:
 - `delete 1`: delete the task with index 1 from your task list.
 
-
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-This action is irreversible! Be careful on what you are deleting!
-</div>
-
-
-> [!WARNING]\
 > This action is irreversible! Be careful on what you are deleting!
 
 ### Filtering Your Tasks : `find`
@@ -146,12 +128,6 @@ Exits the program.
 
 Format: `bye`
 
-<div markdown="span" class="alert alert-primary">:bulb:
-Don't worry all your tasks will be saved!
-</div>
-
-
-> [!NOTE]\
 > Don't worry all your tasks will be saved!
 
 ### Viewing Help : `help`
