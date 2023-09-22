@@ -6,8 +6,6 @@ import dude.note.NoteList;
 import dude.task.TaskList;
 import dude.ui.Ui;
 
-import java.io.IOException;
-
 /**
  * Represents a command that deletes note.
  */
@@ -29,15 +27,11 @@ public class DeleteNoteCommand extends Command {
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
-        try {
-            output = "Executing Delete Note Command\n";
-            Note deletedNote = noteList.deleteNote(noteIndex);
-            int nNotes = noteList.getSize();
-            output = output + ui.showDeletedNote(deletedNote, nNotes) + "\n";
-            storage.saveToDisk(taskList, noteList);
-        } catch (IOException e) {
-            output = "Error in Delete Command";
-        }
+        output = "Executing Delete Note Command\n";
+        Note deletedNote = noteList.deleteNote(noteIndex);
+        int nNotes = noteList.getSize();
+        output = output + ui.showDeletedNote(deletedNote, nNotes) + "\n";
+        storage.saveToDisk(taskList, noteList);
         return output;
     }
 }

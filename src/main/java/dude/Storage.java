@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import dude.exception.StorageException;
 import dude.note.Note;
 import dude.note.NoteList;
 import dude.task.Deadline;
@@ -41,29 +42,19 @@ public class Storage {
      *
      * @param taskList List of tasks to be saved.
      */
-    public void saveToDisk(TaskList taskList, NoteList noteList) throws IOException {
+    public void saveToDisk(TaskList taskList, NoteList noteList) throws StorageException {
         File file = new File(this.filepath);
-
-        if (!file.exists()) {
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("File created at: " + this.filepath);
-                } else {
-                    System.err.println("Failed to create the file.");
-                }
-            } catch (IOException e) {
-                System.err.println("An error occurred while creating the file: " + e.getMessage());
-            }
-        }
-
-        String data = convertTaskListToString(taskList) + convertNoteListToString(noteList);
-
         try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            String data = convertTaskListToString(taskList) + convertNoteListToString(noteList);
             FileWriter fw = new FileWriter(file);
             fw.write(data);
             fw.close();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            throw new StorageException("An error occurred while creating the file: " + e.getMessage());
         }
     }
 
@@ -99,6 +90,7 @@ public class Storage {
                 data += note.saveNote();
             }
         }
+
         return data;
     }
 
@@ -108,34 +100,28 @@ public class Storage {
      * @return List of tasks from the file.
      * @throws FileNotFoundException If no file is not found in the filepath.
      */
-    public TaskList loadFromDisk() throws FileNotFoundException {
+    public TaskList loadFromDisk() throws StorageException {
         TaskList taskList = new TaskList();
         File file = new File(this.filepath);
 
-        if (file.exists()) {
-            try {
-                Scanner sc = new Scanner(file);
-                while (sc.hasNext()) {
-                    String storedTaskDetails = sc.nextLine();
-                    Task task = convertStringToTask(storedTaskDetails);
-                    if (task != null) {
-                        taskList.addTask(task);
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("An error occurred while reading the file: " + e.getMessage());
-            }
-        } else {
-            try {
+        try {
+            if (!file.exists()) {
                 file.createNewFile();
-                System.out.println("File created at: " + this.filepath);
-            } catch (IOException e) {
-                System.out.println("File creating error");
-                System.out.println(e.getMessage());
             }
+
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNext()) {
+                String storedTaskDetails = sc.nextLine();
+                Task task = convertStringToTask(storedTaskDetails);
+                if (task != null) {
+                    taskList.addTask(task);
+                }
+            }
+        } catch (IOException e) {
+            throw new StorageException("An error occurred while creating the file: " + e.getMessage());
         }
 
-        System.out.printf("You have %d saved tasks.\n", taskList.getSize());
         return taskList;
     }
 
@@ -154,22 +140,20 @@ public class Storage {
         if (taskType.equals("T")) {
             String taskDescription = taskDetails[2].trim();
             task = new ToDo(taskDescription);
+            task.setDone(taskIsDone.equals("1"));
         } else if (taskType.equals("D")) {
             String taskDescription = taskDetails[2].trim();
-            String byInput = taskDetails[3];
-            LocalDateTime by = LocalDateTime.parse(byInput);
+            LocalDateTime by = LocalDateTime.parse(taskDetails[3]);
             task = new Deadline(taskDescription, by);
+            task.setDone(taskIsDone.equals("1"));
         } else if (taskType.equals("E")) {
             String taskDescription = taskDetails[2].trim();
-            String fromInput = taskDetails[3];
-            String toInput = taskDetails[4];
-            LocalDateTime from = LocalDateTime.parse(fromInput);
-            LocalDateTime to = LocalDateTime.parse(toInput);
+            LocalDateTime from = LocalDateTime.parse(taskDetails[3]);
+            LocalDateTime to = LocalDateTime.parse(taskDetails[4]);
             task = new Event(taskDescription, from, to);
-        }
-        if (task != null) {
             task.setDone(taskIsDone.equals("1"));
         }
+
         return task;
     }
 
@@ -179,34 +163,28 @@ public class Storage {
      * @return List of notes from the file.
      * @throws FileNotFoundException If no file is not found in the filepath.
      */
-    public NoteList loadNotesFromDisk() throws FileNotFoundException {
+    public NoteList loadNotesFromDisk() throws StorageException {
         NoteList noteList = new NoteList();
         File file = new File(this.filepath);
 
-        if (file.exists()) {
-            try {
-                Scanner sc = new Scanner(file);
-                while (sc.hasNext()) {
-                    String storedTaskDetails = sc.nextLine();
-                    Note note = convertStringToNote(storedTaskDetails);
-                    if (note != null) {
-                        noteList.addNote(note);
-                    }
-                }
-            } catch (IOException e) {
-                System.err.println("An error occurred while reading the file: " + e.getMessage());
-            }
-        } else {
-            try {
+        try {
+            if (!file.exists()) {
                 file.createNewFile();
-                System.out.println("File created at: " + this.filepath);
-            } catch (IOException e) {
-                System.out.println("File creating error");
-                System.out.println(e.getMessage());
             }
+
+            Scanner sc = new Scanner(file);
+
+            while (sc.hasNext()) {
+                String storedNoteDetails = sc.nextLine();
+                Note note = convertStringToNote(storedNoteDetails);
+                if (note != null) {
+                    noteList.addNote(note);
+                }
+            }
+        } catch (IOException e) {
+            throw new StorageException("An error occurred while creating the file: " + e.getMessage());
         }
 
-        System.out.printf("You have %d saved Notes.\n", noteList.getSize());
         return noteList;
     }
 

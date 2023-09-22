@@ -1,7 +1,5 @@
 package dude.command;
 
-import java.io.IOException;
-
 import dude.Storage;
 import dude.note.Note;
 import dude.note.NoteList;
@@ -33,17 +31,13 @@ public class AddNoteCommand extends Command {
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
-        try {
-            output = "Executing Add Note Command\n";
-            Note newNote = new Note(noteDescription);
-            noteList.addNote(newNote);
-            int nTasks = noteList.getSize();
-            output = output + ui.showAddedNote(newNote, nTasks) + "\n";
-            storage.saveToDisk(taskList, noteList);
-            // storage.saveNotesToDisk(noteList);
-        } catch (IOException e) {
-            System.out.println("Error in Add ToDo Command");
-        }
+        output = "Executing Add Note Command\n";
+        Note newNote = new Note(noteDescription);
+        noteList.addNote(newNote);
+        int nTasks = noteList.getSize();
+        output = output + ui.showAddedNote(newNote, nTasks) + "\n";
+        storage.saveToDisk(taskList, noteList);
+        // storage.saveNotesToDisk(noteList);
         return output;
     }
 }

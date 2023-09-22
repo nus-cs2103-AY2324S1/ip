@@ -1,11 +1,3 @@
-T | 0 |  eat
-T | 1 |  sleep
-T | 1 |  have fun
-T | 0 |  forensic lecture
-T | 0 |  eat
-D | 0 |  ip | 2023-09-22T23:59
-E | 0 |  ifg | 2023-08-25T20:00 | 2023-09-22T22:00
-N | the food at deck is nubbad
-N | i needa study harder
-N | gotta refactor this later
-N | help me???
+D | 0 |  ip | 2023-09-25T23:59
+N | ip deadline postponed by 3 days
+N | rmb to submit ip!!!

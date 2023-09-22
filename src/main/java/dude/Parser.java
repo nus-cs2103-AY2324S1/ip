@@ -18,7 +18,7 @@ import dude.command.ListCommand;
 import dude.command.MarkCommand;
 import dude.command.UnknownCommand;
 import dude.command.UnmarkCommand;
-import dude.exception.ParseException;
+import dude.exception.ParserException;
 
 /**
  * Represents a parser that parses user input and deals with making sense of the user command.
@@ -64,7 +64,7 @@ public class Parser {
             } else if (fullCommand.matches("(.+)/n(.+)")) {
                 c = new DeleteNoteCommand(index);
             } else {
-                throw new ParseException("Invalid command format: " + fullCommand);
+                throw new ParserException("Invalid command format: " + fullCommand);
             }
 
         } else if (commandType.equals("todo")) {
@@ -110,65 +110,65 @@ public class Parser {
         return commandType;
     }
 
-    private static int parseIndex(String fullCommand) throws ParseException {
+    private static int parseIndex(String fullCommand) throws ParserException {
         String[] commandDetails = fullCommand.split("\\s+/n\\s+|\\s+/t\\s+|\\s+");
 
         if (commandDetails.length < 2) {
-            throw new ParseException("Invalid command format: " + commandDetails[0]);
+            throw new ParserException("Invalid command format: " + commandDetails[0]);
         }
 
         try {
             return Integer.parseInt(commandDetails[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new ParseException("Invalid task index: " + commandDetails[1]);
+            throw new ParserException("Invalid task index: " + commandDetails[1]);
         }
     }
 
-    private static String parseDescription(String fullCommand) throws ParseException {
+    private static String parseDescription(String fullCommand) throws ParserException {
         String[] commandDetails = fullCommand.split(" ", 2);
 
         if (commandDetails.length < 2) {
-            throw new ParseException("Description cannot be empty.");
+            throw new ParserException("Description cannot be empty.");
         }
 
         return commandDetails[1].trim();
     }
 
-    private static String[] parseDeadline(String fullCommand) throws ParseException {
+    private static String[] parseDeadline(String fullCommand) throws ParserException {
 
         if (!fullCommand.matches("deadline(.+)/by(.+)")) {
-            throw new ParseException("Invalid command format: " + fullCommand);
+            throw new ParserException("Invalid command format: " + fullCommand);
         }
 
         String[] commandDetails = fullCommand.split("deadline\\s+|\\s+/by\\s+");
 
         if (commandDetails.length < 3) {
-            throw new ParseException("Invalid command format: " + fullCommand);
+            throw new ParserException("Invalid command format: " + fullCommand);
         }
 
         return commandDetails;
     }
 
-    private static String[] parseEvent(String fullCommand) throws ParseException {
+    private static String[] parseEvent(String fullCommand) throws ParserException {
 
         if (!fullCommand.matches("event(.+)/from(.+)/to(.+)")) {
-            throw new ParseException("Invalid command format: " + fullCommand);
+            throw new ParserException("Invalid command format: " + fullCommand);
         }
 
         String[] commandDetails = fullCommand.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+");
 
         if (commandDetails.length < 4) {
-            throw new ParseException("Invalid command format: " + fullCommand);
+            throw new ParserException("Invalid command format: " + fullCommand);
         }
 
         return commandDetails;
     }
 
-    private static LocalDateTime parseDateTime(String dateTimeString) throws ParseException {
+    private static LocalDateTime parseDateTime(String dateTimeString) throws ParserException {
         try {
             return LocalDateTime.parse(dateTimeString, DATETIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParseException("Invalid date/time format: " + dateTimeString);
+            throw new ParserException("Invalid date/time format: " + dateTimeString);
         }
     }
 }
