@@ -1,0 +1,3 @@
+[T]/1/borrow book/good
+[D]/1/return book/2019-12-01T10:00/bad
+[E]/0/project meeting/2023-08-30T14:00/2023-08-30T16:00/ugly
