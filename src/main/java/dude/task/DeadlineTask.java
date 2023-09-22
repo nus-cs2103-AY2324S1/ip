@@ -16,7 +16,7 @@ public class DeadlineTask extends Task {
     protected LocalDateTime deadline;
 
     /**
-     * Constructor for Deadline task.
+     * Constructs new Deadline task.
      *
      * @param description Description of task.
      * @param deadline    Deadline for task.
@@ -27,7 +27,7 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Constructor for deadline task, specifying completion status.
+     * Constructs new deadline task, specifying completion status.
      *
      * @param description Description of task.
      * @param isDone      Boolean representing task completion status.
@@ -89,11 +89,11 @@ public class DeadlineTask extends Task {
      */
     @Override
     public String toData() {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       deadline: D || 1/0 || deadline || description
-     */
+        /*
+           expected format:
+           completed: 1, incomplete: 0
+           deadline: D || 1/0 || deadline || description
+        */
         String taskCompleted = isDone ? "1" : "0";
         return String.join(DELIMITER, "D", taskCompleted, deadline.toString(), description) + "\n";
     }

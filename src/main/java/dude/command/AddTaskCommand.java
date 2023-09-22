@@ -18,7 +18,7 @@ public class AddTaskCommand extends DudeCommand {
     private final Task task;
 
     /**
-     * Constructor for add task command.
+     * Constructs new add task command.
      *
      * @param task Task to add.
      */

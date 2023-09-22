@@ -11,6 +11,12 @@ public class SortTasksCommand extends DudeCommand {
     private final SortByType sortByType;
     private final SortByOrder sortByOrder;
 
+    /**
+     * Constructs new SortTasksCommand.
+     *
+     * @param sortByType Parameter to sort by.
+     * @param sortByOrder Order to sort by (ascending/descending).
+     */
     public SortTasksCommand(SortByType sortByType, SortByOrder sortByOrder) {
         this.sortByType = sortByType;
         this.sortByOrder = sortByOrder;

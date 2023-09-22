@@ -17,8 +17,8 @@ import javafx.stage.Stage;
  * A GUI for Dude using FXML.
  */
 public class Main extends Application {
-    private final String FILE_PATH = "." + File.separator + "data" + File.separator + "dude.txt";
-    private final Dude dude = new Dude(FILE_PATH);
+    private final String filePath = "." + File.separator + "data" + File.separator + "dude.txt";
+    private final Dude dude = new Dude(filePath);
 
     @Override
     public void start(Stage stage) {

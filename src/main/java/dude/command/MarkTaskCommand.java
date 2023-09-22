@@ -17,7 +17,7 @@ public class MarkTaskCommand extends DudeCommand {
     private final int taskIndex;
 
     /**
-     * Constructor for mark task command.
+     * Constructs new mark task command.
      *
      * @param taskIndex Index of task to mark.
      */

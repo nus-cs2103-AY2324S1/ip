@@ -21,7 +21,7 @@ public class EventTask extends Task {
     protected LocalDateTime endTime;
 
     /**
-     * Constructor for Event task.
+     * Constructs new Event task.
      *
      * @param description Description of task.
      * @param startTime   Start time of event.
@@ -34,7 +34,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * Constructor for Event task, specifying completion status.
+     * Constructs new Event task, specifying completion status.
      *
      * @param description Description of task.
      * @param startTime   Start time of event.
@@ -55,11 +55,11 @@ public class EventTask extends Task {
      * @throws InvalidTaskDataException If data is not in the expected format.
      */
     public static EventTask fromData(String data) throws InvalidTaskDataException {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       event: E || 1/0 || start || end || description
-     */
+        /*
+           expected format:
+           completed: 1, incomplete: 0
+           event: E || 1/0 || start || end || description
+        */
         // read sections from text
         String[] splitData = data.split(DELIMITER_REGEX, 5);
         if (splitData.length < 5) {
@@ -100,11 +100,11 @@ public class EventTask extends Task {
      */
     @Override
     public String toData() {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       event: E || 1/0 || start || end || description
-     */
+        /*
+           expected format:
+           completed: 1, incomplete: 0
+           event: E || 1/0 || start || end || description
+        */
         String taskCompleted = isDone ? "1" : "0";
         return String.join(DELIMITER, "E", taskCompleted,
                 startTime.toString(), endTime.toString(), description) + "\n";

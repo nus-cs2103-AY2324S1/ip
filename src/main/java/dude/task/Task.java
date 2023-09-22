@@ -18,7 +18,7 @@ public class Task {
     protected String description;
 
     /**
-     * Constructor for task.
+     * Constructs new task.
      *
      * @param description Description of task.
      */
@@ -28,7 +28,7 @@ public class Task {
     }
 
     /**
-     * Constructor for task, specifying completion status.
+     * Constructs new task, specifying completion status.
      *
      * @param description Description of task.
      * @param isDone      Boolean representing task completion status.
@@ -46,11 +46,11 @@ public class Task {
      * @throws InvalidTaskDataException If data is not in the expected format.
      */
     public static Task fromData(String data) throws InvalidTaskDataException {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       todo: T || 1/0 || description
-     */
+        /*
+           expected format:
+           completed: 1, incomplete: 0
+           todo: T || 1/0 || description
+        */
 
         // read sections from text
         String[] splitData = data.split(DELIMITER_REGEX, 3);
@@ -108,11 +108,11 @@ public class Task {
      * @return Task data as string.
      */
     public String toData() {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       todo: T || 1/0 || description
-     */
+        /*
+           expected format:
+           completed: 1, incomplete: 0
+           todo: T || 1/0 || description
+        */
         String taskCompleted = this.isDone ? "1" : "0";
         return String.join(DELIMITER, "T", taskCompleted, this.description) + "\n";
     }

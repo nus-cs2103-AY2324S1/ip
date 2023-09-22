@@ -14,7 +14,7 @@ public class DateComparator implements Comparator<Task> {
     private final SortByOrder sortByOrder;
 
     /**
-     * Constructor for DateComparator.
+     * Constructs new DateComparator.
      *
      * @param sortByOrder Order to sort by.
      */

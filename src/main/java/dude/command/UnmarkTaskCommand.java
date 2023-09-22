@@ -17,7 +17,7 @@ public class UnmarkTaskCommand extends DudeCommand {
     private final int taskIndex;
 
     /**
-     * Constructor for unmark task command.
+     * Constructs new unmark task command.
      *
      * @param taskIndex Index of task to mark.
      */

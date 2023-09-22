@@ -7,7 +7,7 @@ import dude.exception.InvalidTaskDataException;
  */
 public class ToDoTask extends Task {
     /**
-     * Constructor for ToDo task.
+     * Constructs new ToDo task.
      *
      * @param description Description of task.
      */
@@ -16,7 +16,7 @@ public class ToDoTask extends Task {
     }
 
     /**
-     * Constructor for ToDo task, specifying completion status.
+     * Constructs new ToDo task, specifying completion status.
      *
      * @param description Description of task.
      * @param isDone      Boolean representing task completion status.
@@ -33,11 +33,11 @@ public class ToDoTask extends Task {
      * @throws InvalidTaskDataException If data is not in the expected format.
      */
     public static ToDoTask fromData(String data) throws InvalidTaskDataException {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       todo: T || 1/0 || description
-     */
+        /*
+           expected format:
+           completed: 1, incomplete: 0
+           todo: T || 1/0 || description
+        */
         // read sections from text
         String[] splitData = data.split(DELIMITER_REGEX, 3);
         if (splitData.length < 3) {
@@ -72,11 +72,11 @@ public class ToDoTask extends Task {
      */
     @Override
     public String toData() {
-     /*
-       expected format:
-       completed: 1, incomplete: 0
-       todo: T || 1/0 || description
-     */
+        /*
+           expected format:
+           completed: 1, incomplete: 0
+           todo: T || 1/0 || description
+        */
         String taskCompleted = this.isDone ? "1" : "0";
         return String.join(DELIMITER, "T", taskCompleted, this.description) + "\n";
     }

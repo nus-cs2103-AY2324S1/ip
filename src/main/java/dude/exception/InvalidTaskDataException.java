@@ -4,6 +4,9 @@ package dude.exception;
  * Exception for invalid task data format when loading from disk.
  */
 public class InvalidTaskDataException extends DudeException {
+    /**
+     * Constructs new InvalidTaskDataException.
+     */
     public InvalidTaskDataException() {
         super(
                 "Could not read task(s) from saved data.\n"

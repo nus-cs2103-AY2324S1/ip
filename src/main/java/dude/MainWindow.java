@@ -28,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Dude dude;
 
+    /**
+     * Initialize main window.
+     */
     @FXML
     public void initialize() {
         assert userImage != null : "User display image should not be null.";

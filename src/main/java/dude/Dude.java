@@ -9,18 +9,18 @@ import dude.task.TaskList;
  */
 public class Dude {
     private static final String LOGO =
-            " _|    _| _    O\n" +
-                    "(_||_|(_|(/_  /İ\\\n" +
-                    "------------  ```\n";
-    private static final String HELLO_MSG = LOGO +
-            "Hello! I'm dude.\n" +
-            "What can I do for you?";
+            " _|    _| _    O\n"
+                    + "(_||_|(_|(/_  /İ\\\n"
+                    + "------------  ```\n";
+    private static final String HELLO_MSG = LOGO
+            + "Hello! I'm dude.\n"
+            + "What can I do for you?";
     private final String filePath;
     private Storage storage;
     private TaskList tasks;
 
     /**
-     * Constructor for Dude.
+     * Constructs new Dude.
      *
      * @param filePath Path to save file on disk.
      */

@@ -5,7 +5,7 @@ package dude.exception;
  */
 public class DudeException extends Exception {
     /**
-     * Constructor for Dude exception with message
+     * Constructs new Dude exception with message
      *
      * @param message Human-readable error message.
      */
@@ -14,7 +14,7 @@ public class DudeException extends Exception {
     }
 
     /**
-     * Constructor for Dude exception with default message
+     * Constructs new Dude exception with default message
      */
     public DudeException() {
         super("An error occurred. :(");

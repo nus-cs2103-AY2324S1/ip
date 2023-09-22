@@ -21,14 +21,14 @@ public class TaskList {
     private final ArrayList<Task> tasks;
 
     /**
-     * Constructor for empty TaskList.
+     * Constructs new empty TaskList.
      */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
     /**
-     * Constructor for TaskList from existing list of tasks.
+     * Constructs new TaskList from existing list of tasks.
      *
      * @param tasks ArrayList of existing tasks.
      */

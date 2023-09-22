@@ -23,7 +23,7 @@ public class Storage {
     private final String filePath;
 
     /**
-     * Constructor for storage class.
+     * Constructs new storage class.
      *
      * @param filePath Path to text file to use as save-file.
      * @throws SaveFileException If file cannot be created.

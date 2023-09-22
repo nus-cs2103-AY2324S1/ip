@@ -14,7 +14,7 @@ public class FindTaskCommand extends DudeCommand {
     private final String searchString;
 
     /**
-     * Constructor for find task command.
+     * Constructs new find task command.
      *
      * @param searchString Substring to search.
      */

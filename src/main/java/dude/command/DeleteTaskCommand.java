@@ -18,7 +18,7 @@ public class DeleteTaskCommand extends DudeCommand {
     private final int taskIndex;
 
     /**
-     * Constructor for delete task command.
+     * Constructs new delete task command.
      *
      * @param taskIndex Index of task to delete.
      */

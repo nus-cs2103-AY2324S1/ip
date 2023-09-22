@@ -11,11 +11,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 
+/**
+ * Controller class for dialog box.
+ */
 public class DialogBox extends HBox {
 
     private final Label text;
     private final ImageView displayPicture;
 
+    /**
+     * Constructs new DialogBox.
+     *
+     * @param l Label in dialog box.
+     * @param iv Image view in dialog box.
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;
