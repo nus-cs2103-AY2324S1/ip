@@ -173,7 +173,7 @@ public class TaskList {
             Task task = userinputs.get(i);
             Matcher matcher = pattern.matcher(task.toString());
             if (matcher.find()) {
-                tobePrinted += count + ". " + task.toString() + "\n";
+                tobePrinted += count + ". " + task + "\n";
                 count++;
             }
         }
