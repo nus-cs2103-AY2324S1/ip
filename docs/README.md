@@ -114,11 +114,11 @@ Expected outcome:
 
 ```
 Noted. I've removed this task:
-[ TASK_TYPE ][ TASK_STATUS ] TASK_DESCRIPTION [DATE_TIME]...
+[TASK_TYPE][TASK_STATUS] TASK_DESCRIPTION DATE_TIME...
 Now you have TOTAL_TASK tasks in the list.
 ```
 
-### `find` - Deletes a task
+### `find` - Finds task(s)
 
 Finds task(s) in the task list.
 
@@ -133,8 +133,8 @@ Expected outcome:
 
 ```
 Here are the matching tasks in your list:
-1.[ TASK_TYPE_1 ][ TASK_STATUS_2 ] TASK_DESCRIPTION_1 [DATE_TIME_1]...
-2.[ TASK_TYPE_1 ][ TASK_STATUS_2 ] TASK_DESCRIPTION_2 [DATE_TIME_2]...
+1.[TASK_TYPE_1][TASK_STATUS_1] TASK_DESCRIPTION_1 DATE_TIME_1...
+2.[TASK_TYPE_2][TASK_STATUS_2] TASK_DESCRIPTION_2 DATE_TIME_2...
 ```
 
 ### `mark` - Marks a task as completed
@@ -152,11 +152,11 @@ Expected outcome:
 
 ```
 Noted. I've marked this task as done:
-[ TASK_TYPE ][ TASK_STATUS ] TASK_DESCRIPTION [DATE_TIME]...
+[TASK_TYPE][X] TASK_DESCRIPTION DATE_TIME...
 Now you have TOTAL_TASK tasks in the list.
 ```
 
-### `unmark` - Marks a task as completed
+### `unmark` - Marks a task as incomplete
 
 Marks the task as incomplete in the task list.
 
@@ -171,11 +171,11 @@ Expected outcome:
 
 ```
 Noted. I've marked this task as not done yet:
-[ TASK_TYPE ][ TASK_STATUS ] TASK_DESCRIPTION [DATE_TIME]...
+[TASK_TYPE][ ] TASK_DESCRIPTION [DATE_TIME]...
 Now you have TOTAL_TASK tasks in the list.
 ```
 
-### `list` - Marks a task as completed
+### `list` - List out all the task
 
 Marks the task as incomplete in the task list.
 
@@ -184,6 +184,7 @@ Format: `list`
 Expected outcome:
 
 ```
-1.[ TASK_TYPE_1 ][ TASK_STATUS_2 ] TASK_DESCRIPTION_1 [DATE_TIME_1]...
-2.[ TASK_TYPE_1 ][ TASK_STATUS_2 ] TASK_DESCRIPTION_2 [DATE_TIME_2]...
+Now you have TOTAL_TASK tasks in the list.
+1.[TASK_TYPE_1][TASK_STATUS_2] TASK_DESCRIPTION_1 DATE_TIME_1...
+2.[TASK_TYPE_1][TASK_STATUS_2] TASK_DESCRIPTION_2 DATE_TIME_2...
 ```
