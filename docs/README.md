@@ -159,3 +159,14 @@ sort name asc // %SORT_TYPE% = name, %SORT_ORDER% = asc. Sorts by name, ascendin
 sort deadline desc // %SORT_TYPE% = deadline, %SORT_ORDER% = desc. Sorts by deadline, descending.
 ```
 
+### Exiting the app
+
+Exits the app gracefully. All current tasks are saved and will be reloaded when you reopen the app.
+
+Command format: `bye`
+
+Example usage:
+
+```
+bye
+```
