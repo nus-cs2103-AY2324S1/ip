@@ -76,7 +76,7 @@ public class Parser {
                 if (Periods.isPeriod(input)) {
                     targetTask = new Periods(
                             input.substring(7, input.indexOf("/between ")),
-                            input.substring(input.indexOf("/between ") + 9)
+                            input.substring(input.indexOf("/between ") + 8)
                     );
                     tasks.addTask((targetTask));
                     return ui.addTask(targetTask, tasks.getNumberOfTask());
