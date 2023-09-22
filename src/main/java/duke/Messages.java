@@ -4,6 +4,8 @@ package duke;
  * Stores the string messages of the application.
  */
 public class Messages {
+    // General
+    public static final String APPLICATION_NAME = "ChatNat";
 
     // Regular messages
     public static final String GREETING_MESSAGE = " Hello! I'm ChatNat!\n What can I do for you?";

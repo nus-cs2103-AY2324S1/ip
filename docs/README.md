@@ -3,7 +3,7 @@
 **ChatNat** is the second-brain tool you need to transform the way you manage
 tasks.
 
-![Sample Screenshot of ChatNat](UI.png)
+![Sample Screenshot of ChatNat](Ui.png)
 
 ## Features
 
@@ -108,7 +108,7 @@ Examples:
 ```
 > find CS2103T
 
-Here are the tasks in your list:
+Here are the matching tasks in your list:
 1.[D][] CS2103T Quiz (by: 23 Sep 2023, 1200)
 2.[E][] CS2103T meeting (from: 23 Sep 2023, 0000 to: 23 Sep 2023, 0100)
 ```
