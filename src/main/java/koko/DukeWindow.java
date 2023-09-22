@@ -1,8 +1,8 @@
 package koko;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,26 +29,28 @@ public class DukeWindow extends AnchorPane {
 
     public void setDuke(Duke d) {
         duke = d;
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(duke.generateStartupMessage(), dukeImage)
+        );
     }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
 
     @FXML
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = "OK " + userText;
+        String dukeText = duke.handleInputAndDispatch(userText);
+
+        if (dukeText == null) {
+            exitApplication();
+        }
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, userImage),
                 DialogBox.getDukeDialog(dukeText, dukeImage)
         );
         userInput.clear();
+    }
+
+    private void exitApplication() {
+        Platform.exit();
     }
 }
