@@ -19,9 +19,7 @@ public class Duke {
     /** List to be updated as tasks are added or removed. */
     private final TaskList list;
 
-    /** Images of user and chatbot to be used for GUI. */
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Exit exit;
 
     /**
      * To be called when starting up chatbot. Shows welcome
@@ -33,6 +31,7 @@ public class Duke {
     public Duke() throws FileNotFoundException {
         storage = new Storage("./duke.txt");
         list = new TaskList(storage.load());
+        exit = new Exit();
     }
 
     /**
@@ -57,6 +56,7 @@ public class Duke {
                 message = Parser.parseDelete(input, list);
             } else if (input.equals("bye")) {
                 message = "slay";
+                exit.start();
             } else if (input.startsWith("find ")) {
                 message = Parser.parseFind(input, list);
             } else if (input.startsWith("edit ")){
