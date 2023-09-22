@@ -11,14 +11,20 @@ import dude.command.ExitCommand;
 import dude.command.FindTaskCommand;
 import dude.command.ListTasksCommand;
 import dude.command.MarkTaskCommand;
+import dude.command.SortByOrder;
+import dude.command.SortByType;
+import dude.command.SortTasksCommand;
 import dude.command.UnmarkTaskCommand;
 import dude.exception.DudeException;
 import dude.exception.EventEndMissingException;
 import dude.exception.EventStartMissingException;
 import dude.exception.InvalidCommandException;
 import dude.exception.InvalidDateTimeArgumentException;
+import dude.exception.InvalidSortByOrderException;
+import dude.exception.InvalidSortByTypeException;
 import dude.exception.InvalidTaskIndexException;
 import dude.exception.SearchStringMissingException;
+import dude.exception.SortByTypeMissingException;
 import dude.exception.TaskDeadlineMissingException;
 import dude.exception.TaskDescriptionMissingException;
 import dude.exception.TaskIndexMissingException;
@@ -186,6 +192,66 @@ public class Parser {
         return new FindTaskCommand(searchString);
     }
 
+
+    /**
+     * Parses sort command.
+     *
+     * @param input Input command.
+     * @return Sort command.
+     * @throws SortByTypeMissingException  If sorting type is missing.
+     * @throws InvalidSortByTypeException  If sorting type is invalid.
+     * @throws InvalidSortByOrderException If sorting order is specified and invalid.
+     */
+    public static SortTasksCommand parseSort(String input)
+            throws SortByTypeMissingException, InvalidSortByTypeException, InvalidSortByOrderException {
+        String[] splitInput = input.split(" ", 2);
+        if (splitInput.length < 2) {
+            // sorting method not specified
+            throw new SortByTypeMissingException();
+        }
+
+        // Parse sorting type
+        String typeInput = splitInput[1].split(" ")[0].toLowerCase().trim();
+        SortByType type;
+        try {
+            type = SortByType.valueOf(typeInput);
+        } catch (IllegalArgumentException e) {
+            throw new InvalidSortByTypeException();
+        }
+
+        // Parse sorting order
+        String[] splitOrder = splitInput[1].split("/by", 2);
+        SortByOrder order = SortByOrder.ascending; // If sorting order not specified, defaults to ascending
+        if (splitOrder.length == 2) {
+            // parse specified order
+            String orderInput = splitOrder[1].toLowerCase().trim();
+            switch (orderInput) {
+            case "a":
+                // Fallthrough
+            case "asc":
+                // Fallthrough
+            case "ascend":
+                // Fallthrough
+            case "ascending":
+                order = SortByOrder.ascending;
+                break;
+            case "d":
+                // Fallthrough
+            case "desc":
+                // Fallthrough
+            case "descend":
+                // Fallthrough
+            case "descending":
+                order = SortByOrder.descending;
+                break;
+            default:
+                throw new InvalidSortByOrderException();
+            }
+        }
+
+        return new SortTasksCommand(type, order);
+    }
+
     /**
      * Parses text input and returns DudeCommand instance.
      *
@@ -200,8 +266,6 @@ public class Parser {
         try {
             DudeCommandId cmd = DudeCommandId.valueOf(cmdString);
             switch (cmd) {
-            case bye:
-                return new ExitCommand();
             case list:
                 return new ListTasksCommand();
             case mark:
@@ -220,6 +284,8 @@ public class Parser {
                 return parseEvent(input);
             case find:
                 return parseFind(input);
+            case sort:
+                return parseSort(input);
             default:
                 // command not implemented
                 throw new InvalidCommandException();

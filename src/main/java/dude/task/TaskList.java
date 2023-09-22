@@ -1,7 +1,10 @@
 package dude.task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
+import dude.command.SortByOrder;
+import dude.command.SortByType;
 import dude.exception.InvalidTaskIndexException;
 
 /**
@@ -124,6 +127,36 @@ public class TaskList {
         } else {
             return tasksList.toString();
         }
+    }
+
+    /**
+     * Sorts list of tasks in-place by given parameter.
+     *
+     * @param sortByType  Parameter to sort by.
+     * @param sortByOrder Order to sort by (ascending/descending).
+     */
+    public void sort(SortByType sortByType, SortByOrder sortByOrder) {
+        Comparator<Task> cmp;
+        switch (sortByType) {
+        case type:
+            cmp = new TypeComparator();
+            if (sortByOrder == SortByOrder.descending) {
+                cmp = cmp.reversed();
+            }
+            break;
+        case description:
+            cmp = new DescriptionComparator();
+            if (sortByOrder == SortByOrder.descending) {
+                cmp = cmp.reversed();
+            }
+            break;
+        case date:
+            cmp = new DateComparator(sortByOrder);
+            break;
+        default:
+            return;
+        }
+        tasks.sort(cmp);
     }
 
     /**
