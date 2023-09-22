@@ -108,26 +108,26 @@ public class Parser {
     public void validateInput(String input) throws DukeException {
         if (input.equals("todo") || input.equals("deadline") || input.equals("event") || input.equals("mark")
                 || input.equals("unmark") || input.equals("delete")) {
-            throw new DukeException("☹ OOPS!!! The description of a " + input + " cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a " + input + " cannot be empty.");
         }
 
         if (input.startsWith("deadline ") && !input.contains("/by")) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline must contain /by.");
+            throw new DukeException("OOPS!!! The description of a deadline must contain /by.");
         }
 
         if (input.startsWith("event ") && !input.contains("/from") && !input.contains("/to")) {
-            throw new DukeException("☹ OOPS!!! The description of a event must contain /from and /to.");
+            throw new DukeException("OOPS!!! The description of a event must contain /from and /to.");
         }
 
         if (input.startsWith("period ") && !input.contains("/from") && !input.contains("/to")) {
-            throw new DukeException("☹ OOPS!!! The description of a period must contain /from and /to.");
+            throw new DukeException("OOPS!!! The description of a period must contain /from and /to.");
         }
 
         if (!input.startsWith("todo ") && !input.startsWith("deadline ") && !input.startsWith("event ")
                 && !input.equals("list") && !input.equals("bye") && !input.startsWith("mark ")
                 && !input.startsWith("unmark ") && !input.startsWith("delete ") && !input.startsWith("find ")
                 && !input.startsWith("period ")) {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }
