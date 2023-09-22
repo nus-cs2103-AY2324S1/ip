@@ -23,23 +23,27 @@ Views all tasks currently stored in the list. Format: `list`
 ### Add ToDo: `todo`
 Add a ToDo task into the task list. Format: `todo DESCRIPTION`
 - Example: `todo CS2103T iP`
+
 ![ToDo Screen](images/ToDo.png)
 
 ### Add Deadline: `deadline`
 Add a Deadline task into the task list. Format: `deadline DESCRIPTION /by DATE`
 - Example: `deadline CS2103T iP /by 2023-09-22`
-  ![Deadline Screen](images/Deadline.png)
+  
+![Deadline Screen](images/Deadline.png)
 
 ### Add Event: `event`
 Add an Event task into the task list. Format: `event DESCRIPTION /from DATE /to date`
 - Example: `event dinner /from 6pm /to 8pm`
-  ![Event Screen](images/Event.png)
+  
+![Event Screen](images/Event.png)
 
 
 ### Delete task: `delete`
 Deletes a task from the task list. Format: `delete TASKNUMBER`
-- Example: `delete 1`
-  ![Delete Screen](images/Delete.png)
+- Example: `delete 1
+
+![Delete Screen](images/Delete.png)
 
 ### Mark task: `mark`
 Marks a task as done. Format: `mark TASKNUMBER`
@@ -55,15 +59,18 @@ Marks a task as not done. Format: `unmark TASKNUMBER`
 ### Find task: `find`
 Finds specific tasks in the list. Format: `find QUERY`
 - Example: `find CS2103T`
-  ![Find Screen](images/Find.png)
+  
+![Find Screen](images/Find.png)
 
 ### View Schedule: `schedule`
 Finds specific tasks in the list which occur on specified date. Format: `schedule DATE`
 - Example: `schedule 2023-09-22`
-  ![Schedule Screen](images/Schedule.png)
+  
+![Schedule Screen](images/Schedule.png)
 
 ### Bye: `bye`
 Exit the chatbot. Format: `bye`
+
 ![Exit Screen](images/Bye.png)
 
 ### Saving the data
