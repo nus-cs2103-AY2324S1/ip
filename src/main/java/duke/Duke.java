@@ -167,13 +167,109 @@ public class Duke {
     }
 
 
-    public String getResponse(String input) {
-        return "duke.Duke heard: " + input;
-    }
 
+    public String getResponse(String input) {
+
+        boolean userListHaveChanges = false;
+        String message = "";
+        parser.processUserCommand(input);
+
+        switch (parser.getCommand()) {
+
+            case "bye":
+                //bye
+
+                message = ui.Exit();
+
+
+
+                break;
+
+            case "list":
+                //list
+                message = tasks.displayList();
+                break;
+
+            case "mark":
+                //mark 1
+
+                try {
+                    int i = Integer.parseInt(parser.getTaskName()) - 1;
+                    message = tasks.markTask(i);
+                    userListHaveChanges = true;
+                } catch (NumberFormatException e) {
+                    message = "need to provide an integer index of task.";
+                }
+
+
+                break;
+
+            case "unmark":
+                //unmark 1
+                try {
+                    int i = Integer.parseInt(parser.getTaskName()) - 1;
+                    message = tasks.unmarkTask(i);
+                    userListHaveChanges = true;
+                } catch (NumberFormatException e) {
+                    message = "need to provide an integer index of task.";
+                }
+
+                break;
+
+            case "todo":
+                //todo read book
+                message = tasks.addTask(new Task(parser.getTaskName(),
+                        1, "Null", "Null", false));
+                userListHaveChanges = true;
+                break;
+
+            case "deadline":
+                //deadline read book /by 2022-01-01
+                message = tasks.addTask(new Task(parser.getTaskName(),
+                        2, "Null", parser.getFirstEnteredTime(), false));
+                userListHaveChanges = true;
+                break;
+
+            case "event":
+                //event read book /from 2022-01-01 /to 2022-01-02
+                message = tasks.addTask(new Task(parser.getTaskName(),
+                        3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false));
+                userListHaveChanges = true;
+                break;
+
+            case "delete":
+                //delete 1
+                try {
+                    int i = Integer.parseInt(parser.getTaskName()) - 1;
+                    message = tasks.deleteTask(i);
+                    userListHaveChanges = true;
+                } catch (NumberFormatException e) {
+                    message = "need to provide an integer index of task.";
+                }
+
+                break;
+
+            case "find":
+                message = tasks.findTask(parser.getTaskName());
+                break;
+
+
+            default:
+                message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
+
+
+        }
+
+
+        if (userListHaveChanges) {
+            storage.SaveList(tasks.getUserList(), tasks.getUserListPointer());
+        }
+        return message;
+    }
     public static void main(String[] args) {
 
         new Duke("list.txt", "data").run();
+
 
 
     }
