@@ -24,7 +24,9 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("MattBot");
             fxmlLoader.<MainWindow>getController().setDuke(mattBot);
+            fxmlLoader.<MainWindow>getController().start();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

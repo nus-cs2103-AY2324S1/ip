@@ -50,4 +50,11 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    /**
+     * Initialize start message.
+     */
+    public void start() {
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(mattBot.getStartMessage(), dukeImage));
+    }
 }

@@ -266,4 +266,8 @@ public class MattBot {
         Task t = tasks.getTask(idx);
         return resp.removeTag(t, tag);
     }
+
+    public String getStartMessage() {
+        return resp.getStartMessage();
+    }
 }
