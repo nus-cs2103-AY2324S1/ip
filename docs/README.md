@@ -123,11 +123,11 @@ OK, I've marked this task as not done yet:
 ### `delete` - Deletes a task
 The corresponding task will be deleted from the task list
 
-Format: `delete <TASKNUMBER>` or `d <TASKNUMBER>`
+Format: `delete <TASKNUMBER>` or `del <TASKNUMBER>`
 
 Examples:
 - `delete 5`
-- `d 2`
+- `del 2`
 
 **Expected outcome:**
 ```
