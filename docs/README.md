@@ -58,17 +58,17 @@ Format: `delete [TASK_INDEX]`
 
 Example of usage: `delete 5`
 
-### Searching for a task: `search`
+### Searching for a task: `find`
 
 The search feature allows you to find specific tasks based on a keyword. You can also narrow your search by specifying a task type (optional).
 
-Format: `search [KEYWORD_STRING] [TASK_TYPE] (optional)`
+Format: `find [KEYWORD_STRING] [TASK_TYPE] (optional)`
 
-Example of usage: `search tuna`, `search tuna event`, `search tuna deadline` 
+Example of usage: `find tuna`, `find tuna event`, `find tuna deadline` 
 
-* `search tuna` - search for the keyword "tuna" in all tasks:
-* `search tuna event` - search for the keyword "tuna" in Event tasks:
-* `search tuna deadline` - search for the keyword "tuna" in Deadline tasks:
+* `find tuna` - search for the keyword "tuna" in all tasks:
+* `find tuna event` - search for the keyword "tuna" in Event tasks:
+* `find tuna deadline` - search for the keyword "tuna" in Deadline tasks:
 
 ### Exit the program: `bye`
 
@@ -87,5 +87,5 @@ Action | Format, Examples
 **Delete** | `delete TASK_INDEX`<br> e.g., `delete 3`
 **Mark** | `mark [TASK_INDEX]`<br> e.g., `mark 3`
 **Unmark** | `unmark [TASK_INDEX]`<br> e.g., `unmark 3`
-**Search** | `search [KEYWORD_STRING] [TASK_TYPE] (optional)`<br> e.g., `search tuna event`
+**Search** | `find [KEYWORD_STRING] [TASK_TYPE] (optional)`<br> e.g., `find tuna event`
 **Exit** | `bye`
