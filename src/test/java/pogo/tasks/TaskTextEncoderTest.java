@@ -17,10 +17,11 @@ public class TaskTextEncoderTest {
         TaskTextEncoder encoder = new TaskTextEncoder();
 
         Deadline deadline = new Deadline("Finish report", LocalDateTime.parse("2023-09-01T18:00"));
-        encoder.visit(deadline);
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(deadline);
 
         String expected = "D | 0 | Finish report | 01/09/2023 18:00" + System.lineSeparator();
-        assertEquals(expected, encoder.encode(new ArrayList<>()));
+        assertEquals(expected, encoder.encode(tasks));
     }
 
     @Test
@@ -29,10 +30,11 @@ public class TaskTextEncoderTest {
 
         Deadline deadline = new Deadline("Finish report", LocalDateTime.parse("2023-09-01T18:00"));
         deadline.markAsDone();
-        encoder.visit(deadline);
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(deadline);
 
         String expected = "D | 1 | Finish report | 01/09/2023 18:00" + System.lineSeparator();
-        assertEquals(expected, encoder.encode(new ArrayList<>()));
+        assertEquals(expected, encoder.encode(tasks));
     }
 
     @Test
@@ -41,20 +43,22 @@ public class TaskTextEncoderTest {
         LocalDateTime to = LocalDateTime.parse("2023-09-01T23:00");
         Event event = new Event("Party", from, to);
         TaskTextEncoder encoder = new TaskTextEncoder();
-        encoder.visit(event);
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(event);
 
         String expected = "E | 0 | Party | 01/09/2023 20:00 | 01/09/2023 23:00" + System.lineSeparator();
-        assertEquals(expected, encoder.encode(new ArrayList<>()));
+        assertEquals(expected, encoder.encode(tasks));
     }
 
     @Test
     void visitToDo_validToDo_encodesCorrectly() throws Exception {
         ToDo toDo = new ToDo("Buy groceries");
         TaskTextEncoder encoder = new TaskTextEncoder();
-        encoder.visit(toDo);
+        ArrayList<Task> tasks = new ArrayList<>();
+        tasks.add(toDo);
 
         String expected = "T | 0 | Buy groceries" + System.lineSeparator();
-        assertEquals(expected, encoder.encode(new ArrayList<>()));
+        assertEquals(expected, encoder.encode(tasks));
     }
 
     @Test
