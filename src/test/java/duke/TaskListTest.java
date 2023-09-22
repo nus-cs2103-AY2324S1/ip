@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class TaskListTest {
             assertEquals(" Here are the tasks in your list:\n 1.[T][ ] Go for health checkup\n 2"
                     + ".[D][ ] CS2103T quiz (by: 5 Sep 2023, 1200)\n 3.[E][ ] CS2103T meeting "
                     + "(from: 5 Sep 2023, 0000 to: 5 Sep 2023, 1200)", taskList.listTasks());
-        } catch (IOException | StorageCreationException e) {
+        } catch (IOException | DateTimeParseException | StorageCreationException e) {
             fail(e);
         }
     }
@@ -47,7 +48,7 @@ public class TaskListTest {
             taskList.setStorage(storage);
             taskList.loadTasks();
             assertEquals(" Here are the tasks in your list:\n", taskList.listTasks());
-        } catch (IOException | StorageCreationException e) {
+        } catch (IOException | DateTimeParseException | StorageCreationException e) {
             fail(e);
         }
     }

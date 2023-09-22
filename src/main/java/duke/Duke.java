@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import duke.exceptions.StorageCreationException;
 import duke.exceptions.UnknownCommandException;
@@ -20,6 +21,12 @@ public class Duke {
             Storage storage = new DukeStorage();
             this.taskList.setStorage(storage);
             this.taskList.loadTasks();
+        } catch (DateTimeParseException e) {
+            try {
+                this.taskList.saveTasks();
+            } catch (IOException ioException) {
+                System.out.printf(Messages.ERROR_PREFIX + "%n", ioException.getMessage());
+            }
         } catch (IOException | IllegalArgumentException | StorageCreationException e) {
             System.out.printf(Messages.ERROR_PREFIX + "%n", e.getMessage());
         }

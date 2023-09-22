@@ -1,6 +1,7 @@
 package duke.commands;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import duke.Messages;
 import duke.Parser;
@@ -30,7 +31,7 @@ public class InsertCommand implements Command {
             int taskCount = taskList.getTaskCount();
             return String.format(Messages.INSERT_MESSAGE, task, taskCount, taskCount == 1 ? "task"
                     : "tasks");
-        } catch (IllegalArgumentException | IOException e) {
+        } catch (IllegalArgumentException | DateTimeParseException | IOException e) {
             return String.format(Messages.ERROR_PREFIX, e.getMessage());
         }
     }
