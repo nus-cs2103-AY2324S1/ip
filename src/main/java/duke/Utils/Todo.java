@@ -19,7 +19,7 @@ public class Todo extends Task {
      * Constructs a new Todo object with a title and a marked status.
      *
      * @param title  The title of the Todo task.
-     * @param marked true if the task is marked as completed; false otherwise.
+     * @param marked true if the task is marked as completed, false otherwise.
      */
     protected Todo(String title, boolean marked) {
         this(title);
