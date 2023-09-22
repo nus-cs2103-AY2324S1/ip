@@ -32,7 +32,8 @@ public class Deadline extends Task {
         String taskType = "[D]";
         String status = "[" + (super.isDone ? "X" : " ") + "]";
         String description = " " + super.description + " ";
-        String deadline = "(by: " + this.byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+        String byDate = this.byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        String deadline = "(by: " + byDate + ")";
 
         return taskType + status + description + deadline;
     }

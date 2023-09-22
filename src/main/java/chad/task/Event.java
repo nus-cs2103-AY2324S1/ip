@@ -35,8 +35,9 @@ public class Event extends Task {
         String taskType = "[E]";
         String status = "[" + (this.isDone ? "X" : " ") + "]";
         String description = " " + super.description + " ";
-        String duration = "(from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"))
-                + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")) + ")";
+        String fromDate = this.fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        String toDate = this.toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm"));
+        String duration = "(from: " + fromDate + " to: " + toDate + ")";
 
         return taskType + status + description + duration;
     }
