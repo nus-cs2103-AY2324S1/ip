@@ -1,5 +1,6 @@
 # Kora User Guide
 > Kora is an English speaking Korean bot in Singapore! It can help you keep track of todos, deadlines, events and many more!
+
 ## Table of Content
 1. Getting Started
 2. Commands
@@ -23,9 +24,11 @@
       - Help
       - Bye
 3. Command Summary
+
 ## Getting Started
 1. Download Kora JAR file from [this page](https://github.com/dlathyun/ip/releases)
 2. Start using!
+
 ## Commands
 ### Task Related Command
 #### Adding ToDo: `todo`
