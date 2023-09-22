@@ -11,6 +11,6 @@ public class IllegalDateTimeException extends Exception {
      * @param message message to include.
      */
     public IllegalDateTimeException(String message) {
-        this.message = message;
+        super(message);
     }
 }
