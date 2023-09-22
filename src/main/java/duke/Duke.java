@@ -219,6 +219,7 @@ public class Duke {
 // A-FullCommitMessage
 // A-Assertions
 // A-CodeQuality
+// A-UserGuide
 
 
 
