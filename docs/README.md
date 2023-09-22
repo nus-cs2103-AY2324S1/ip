@@ -1,5 +1,5 @@
 # User Guide
-NoN ChatBot is a **desktop app for managing tasks, optimized for use via a Command-Line Interface** (CLI) while still 
+NoN is a **chatbot for managing tasks, optimized for use via a Command-Line Interface** (CLI) while still 
 having the benefits of a Graphical User Interface (GUI).
 ## Table of Contents
 
@@ -23,6 +23,7 @@ having the benefits of a Graphical User Interface (GUI).
 1. Ensure that you have Java `11` or higher installed on your computer.
 2. Download the latest `NoN.jar` from [here](https://github.com/jovkusuma/ip/releases).
 3. Double-click the file to start the application. The GUI similar to the image below should appear in a few seconds.
+
 <div style ="text-align: center">
     <img src = "Ui.png" width = "300px">
 </div>
@@ -118,7 +119,7 @@ Here are the tasks in your list:
 
 <br>
 
-### Mark a task as done: `mark` /`m`
+### Mark a task as done: `mark` / `m`
 Marks a task as done. Tasks that have been marked will be denoted with an "X".
 
 **Format:** `mark <INDEX>` `m <index>`
