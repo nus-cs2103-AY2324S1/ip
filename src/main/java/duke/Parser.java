@@ -26,7 +26,7 @@ public class Parser {
             return new ByeCommand();
         case "list":
             return new ListCommand();
-        case "search":
+        case "find":
             return SearchParser.parseSearchCommand(arguments);
         case "delete":
             return DeleteParser.parseDeleteCommand(arguments);
