@@ -17,6 +17,7 @@ public class Jarvis {
     private Storage storage;
     private Parser parser;
     private TaskList tasks;
+    private boolean isExit;
 
     /**
      * Constructs a Jarvis object.
@@ -31,29 +32,30 @@ public class Jarvis {
     }
 
     /**
-     * Runs the Jarvis application until the user exits the application.
+     * You should have your own function to generate a response to user input.
+     * Replace this stub with your completed method.
      */
-    public void run() {
-        ui.greet();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (JarvisException e) {
-                ui.display(e.getMessage());
-            }
+    public String getResponse(String fullCommand) {
+        try {
+            Command c = parser.parse(fullCommand);
+            String response = c.execute(tasks, ui, storage);
+            this.isExit = c.isExit();
+            return response;
+        } catch (JarvisException e) {
+            return e.getMessage();
         }
     }
 
     /**
-     * The main method to launch the Jarvis application.
+     * Gets the greeting message to be displayed to the user.
      *
-     * @param args The command-line arguments. Not used in this application.
+     * @return The greeting message to be displayed to the user.
      */
-    public static void main(String[] args) {
-        new Jarvis("./data/jarvis.txt").run();
+    public String getGreeting() {
+        return ui.greet();
+    }
+
+    public boolean hasExited() {
+        return this.isExit;
     }
 }

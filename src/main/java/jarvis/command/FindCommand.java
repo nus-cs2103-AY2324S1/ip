@@ -33,8 +33,8 @@ public class FindCommand extends Command {
      * @param storage The Storage object, not used here.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> matchingTasks = tasks.find(keyword);
-        ui.displayMatchingTasks(matchingTasks);
+        return ui.displayMatchingTasks(matchingTasks);
     }
 }

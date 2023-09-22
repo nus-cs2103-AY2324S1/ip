@@ -25,14 +25,15 @@ public class AddCommand extends Command {
      * Executes the AddCommand.
      * Adds the task to the task list, displays the added task, and saves the updated task list to storage.
      *
-     * @param tasks The list of tasks.
-     * @param ui The Ui object, for displaying the added task to the user.
+     * @param tasks   The list of tasks.
+     * @param ui      The Ui object, for displaying the added task to the user.
      * @param storage The Storage object, for saving the updated task list.
+     * @return
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.add(taskToAdd);
-        ui.displayAddedTask(taskToAdd, tasks);
         storage.saveTasks(tasks);
+        return ui.displayAddedTask(taskToAdd, tasks);
     }
 }

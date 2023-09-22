@@ -33,16 +33,15 @@ public class MarkCommand extends Command {
      * @throws JarvisInvalidIndexException If the task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
         if (taskIndexToMark <= 0 || taskIndexToMark > tasks.size()) {
             throw new JarvisInvalidIndexException(taskIndexToMark);
         }
 
         Task taskToMark = tasks.get(taskIndexToMark - 1);
         taskToMark.mark();
-
-        ui.displayMarkedTask(taskToMark);
-
         storage.saveTasks(tasks);
+        return ui.displayMarkedTask(taskToMark);
+
     }
 }
