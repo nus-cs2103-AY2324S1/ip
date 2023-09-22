@@ -111,7 +111,7 @@ public class TaskList {
      *
      * @param input the user's deadline input.
      * @return the Deadline Task.
-     * @throws DukeException if the deadline inputs are incorrect.
+     * @throws DukeException if the deadline inputs are wrong.
      */
     public Task createDeadline(String input) throws DukeException {
         String[] details = input.split("/by ");
