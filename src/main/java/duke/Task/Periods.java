@@ -9,16 +9,20 @@ public class Periods extends Task {
     /**
      * Deadline of the task.
      */
-    private String period;
+    private String start;
+    private String end;
 
     /**
      * Creates the deadline task.
      * @param name Description of the task.
-     * @param period Period of the task need to be done.
+     * @param start start of the task need to be done.
+     * @param end end of the task.
      */
-    public Periods (String name, String period) throws DukeException {
+    public Periods (String name, String start, String end) throws DukeException {
         super(name);
-        this.period = period;
+        this.start = start;
+        this.end = end;
+
     }
 
     /**
@@ -28,9 +32,9 @@ public class Periods extends Task {
     @Override
     public String writeString() {
         if (this.getMarkStatus()) {
-            return "P,0" + this.getName() + "," + this.period + "\n";
+            return "P,0" + this.getName() + "," + this.start + "," + this.end + "\n";
         } else {
-            return "P,1," + this.getName() + "," + this.period + "\n";
+            return "P,1," + this.getName() + "," + this.start + "," + this.end + "\n";
         }
     }
 
@@ -40,7 +44,7 @@ public class Periods extends Task {
      */
     @Override
     public String toString() {
-        return "[P]" + super.toString() + "(between: "+ this.period +")";
+        return "[P]" + super.toString() + "(between: "+ this.start + " and " + this.end + ")";
     }
 
     /**
@@ -55,6 +59,8 @@ public class Periods extends Task {
                 throw new DukeException("OOPS! The description of period cannot be empty.");
             } else if (!input.contains("/between ")) {
                 throw new DukeException("OOPS! The description of period does not contain /between.");
+            } else if (!input.contains("/and")) {
+                throw new DukeException("OOPS! The description of period does not contain /and.");
             } else {
                 return true;
             }

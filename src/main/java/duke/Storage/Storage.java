@@ -55,9 +55,9 @@ public class Storage {
                 } else if (taskType.equals("D")) {
                     tasks.addTask(new Deadlines(taskName, input.split(",")[3]));
                 } else if (taskType.equals("E")) {
-                    tasks.addTask(new Events(taskName, input.split(",")[3],input.split(",")[4]));
+                    tasks.addTask(new Events(taskName, input.split(",")[3], input.split(",")[4]));
                 } else if (taskType.equals("P")) {
-                    tasks.addTask(new Periods(taskName, input.split(",")[3]));
+                    tasks.addTask(new Periods(taskName, input.split(",")[3], input.split(",")[4]));
                 } else {
                     throw new DukeException(" OOPS!!! Failed to load tasks from file.");
                 }
