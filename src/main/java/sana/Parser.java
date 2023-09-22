@@ -1,7 +1,5 @@
 package sana;
 
-import javafx.application.Platform;
-
 /**
  * Represents a parser to parse user input into commands.
  */
