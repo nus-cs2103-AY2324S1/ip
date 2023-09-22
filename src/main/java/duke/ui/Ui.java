@@ -124,25 +124,26 @@ public class Ui {
     }
 
     public String helpPrint() {
-        String todo = "* T / Todo {task description} - To add a new Todo Task";
-        String deadline = "* D / Deadline {task description} " +
-                "/by {date (using yyyy-MM-dd format)} - To add a Deadline Task";
-        String event = "* E / Event {task description} " +
-                "/from {date (using yyyy-MM-dd format)} " +
-                "/to {date (using yyyy-MM-dd format)} - To add a Event Task";
+        String todo = "* T / Todo <TASK_NAME> - To add a new Todo Task";
+        String deadline = "* D / Deadline <TASK_NAME> " +
+                "/by <YYYY-MM-DD - To add a Deadline Task";
+        String event = "* E / Event <TASK_NAME> " +
+                "/from <YYYY-MM-DD> " +
+                "/to <YYYY-MM-DD> - To add a Event Task";
         String list = "* L / List - To show the list of tasks";
-        String mark = "* M / Mark {task number} - To mark a task as done";
-        String unmark = "* Um / Unmark {task number} - To un-mark a task";
-        String delete = "* Del / Delete {task number} - To delete a specific task";
+        String mark = "* M / Mark <INDEX> - To mark a task as done";
+        String unmark = "* Um / Unmark <INDEX> - To un-mark a task";
+        String delete = "* Del / Delete <INDEX> - To delete a specific task";
         String help = "* H / Help - to open up the commands";
-        String find = "* F / Find {keyword} - To find a task with the specific keyword";
+        String find = "* F / Find <KEYWORD> - To find a task with the specific keyword";
         String bye = "* Bye - To exit the chat-bot";
 
         String message = "Hi! I'm here to help!" + "\n\n"
                 + "Here are the list of commands you can do: " + "\n\n"
-                + todo + "\n\n" + deadline + "\n\n" + event + "\n\n"
-                + list + "\n\n" + mark + "\n \n" + unmark + "\n\n"
-                + help + "\n\n" + find  + "\n\n" + delete + "\n\n" + bye + "\n\n";
+                + help + "\n\n" + todo + "\n\n" + deadline + "\n\n"
+                + event + "\n\n" + list + "\n\n" + mark + "\n \n"
+                + unmark + "\n\n" + find  + "\n\n" + delete + "\n\n"
+                + bye + "\n\n";
 
         return message;
     }

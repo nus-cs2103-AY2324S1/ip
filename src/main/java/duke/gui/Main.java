@@ -26,17 +26,25 @@ public class Main extends Application {
     private VBox dialogContainer;
     private TextField userInput;
 
-    private static final String message = " Hello! I'm ChatBot\n"
+    private static final String message = " Hello! I'm NoN!\n"
             + " What can I do for you?" + "\n\n"
             + "Enter \"help\" to view the list of commands.";
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/siri.png"));
-    private Image chat = new Image(this.getClass().getResourceAsStream("/images/google_assistant.png"));
+    private Image NoN = new Image(this.getClass().getResourceAsStream("/images/google_assistant.png"));
     private Duke duke = new Duke();
 
     @Override
     public void start(Stage stage) {
+        initialize();
+        setStage(stage);
+        setScrollPane();
+        setDialogContainer();
+        setAnchorPane();
+    }
+
+    public void initialize() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -49,31 +57,63 @@ public class Main extends Application {
 
         scene = new Scene(mainLayout);
 
+        mainLayout.setPrefSize(400.0, 600.0);
+    }
+
+    public void setStage(Stage stage) {
         stage.setScene(scene);
         stage.show();
 
-        stage.setTitle("Duke");
+        stage.setTitle("NoN Task Manager");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
+    }
 
-        mainLayout.setPrefSize(400.0, 600.0);
-
+    public void setScrollPane() {
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+    }
 
+    public void setDialogContainer() {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(message), new ImageView(chat)));
-
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(new Label(message), new ImageView(NoN)));
 
+        sendButton.setOnMouseClicked((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        userInput.setOnAction((event) -> {
+            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
+            userInput.clear();
+        });
+
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+
+        sendButton.setOnMouseClicked((event) -> {
+            handleUserInput();
+        });
+
+        userInput.setOnAction((event) -> {
+            handleUserInput();
+        });
+    }
+
+    public void setAnchorPane() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
@@ -81,32 +121,6 @@ public class Main extends Application {
 
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
-
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
     }
 
     /**
@@ -134,7 +148,7 @@ public class Main extends Application {
             dialogContainer.getChildren().add(DialogBox.getUserDialog(userText, new ImageView(user)));
 
             Label dukeText = new Label(duke.getResponse(userInputText));
-            dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeText, new ImageView(chat)));
+            dialogContainer.getChildren().add(DialogBox.getDukeDialog(dukeText, new ImageView(NoN)));
 
             userInput.setDisable(true);
             sendButton.setDisable(true);
@@ -146,7 +160,7 @@ public class Main extends Application {
             Label dukeText = new Label(duke.getResponse(userInputText));
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(userText, new ImageView(user)),
-                    DialogBox.getDukeDialog(dukeText, new ImageView(chat))
+                    DialogBox.getDukeDialog(dukeText, new ImageView(NoN))
             );
         }
         userInput.clear();
