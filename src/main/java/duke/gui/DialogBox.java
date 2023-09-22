@@ -63,7 +63,9 @@ public class DialogBox extends HBox {
      * @return a new DialogBox object representing user's dialog.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox dialogBox = new DialogBox(text, img);
+        dialogBox.setStyle("-fx-background-color: #FFCCCC");
+        return dialogBox;
     }
 
     /**
@@ -78,6 +80,7 @@ public class DialogBox extends HBox {
     public static DialogBox getAdamDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setStyle("-fx-background-color: #FFFFCC");
         return db;
     }
 }
