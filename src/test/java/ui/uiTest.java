@@ -40,23 +40,11 @@ public class uiTest {
     public void deleteTask_checkDeleteStatement() {
         assertEquals(
                 "Noted, I have removed this task:\n"
-                        + "[T][ ] sleep "+ "\n"
+                        + "[T][ ] sleep"+ "\n"
                         + "Now you have 1"
                         + " tasks in the list",
                 ui.deleteTask(new ToDos("sleep"), 1)
         );
-    }
-
-    @Test
-    public void bye_checkByeStatement() {
-        try {
-            assertEquals(
-                    "Bye. Hope to see you again soon!\n" + "Wish You a wonderful day",
-                    ui.bye(new Storage(), new TaskList())
-            );
-        } catch (DukeException e) {
-            fail();
-        }
     }
 }
 

@@ -85,7 +85,7 @@ public class Parser {
             tasks.addTask(targetTask);
             return ui.addTask(targetTask, tasks.getNumberOfTask());
         } else {
-            throw  new DukeException("This deadline is invalid.");
+            throw new DukeException("This deadline is invalid.");
         }
     }
 
