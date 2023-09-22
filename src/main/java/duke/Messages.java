@@ -40,4 +40,5 @@ public class Messages {
             + "data/duke.txt file.";
     public static final String INVALID_DATE_TIME_FORMAT = "\"%s\" is not a valid date time format.";
     public static final String DUPLICATE_TASKS_ERROR_MESSAGE = "Task \"%s\" already exists!";
+    public static final String INVALID_INDEX_ERROR_MESSAGE = "\"%s\" is not a valid index!";
 }
