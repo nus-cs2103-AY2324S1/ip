@@ -19,21 +19,18 @@ then
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin Duke < input2.txt > ACTUAL2.TXT
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
-
+cp EXPECTED2.TXT EXPECTED2-UNIX.TXT
+dos2unix ACTUAL2.TXT EXPECTED2-UNIX.TXT
 # compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
+diff ACTUAL2.TXT EXPECTED2-UNIX.TXT
 if [ $? -eq 0 ]
 then
-    echo "Test1 result: PASSED"
+    echo "Test2 result: PASSED"
     exit 0
 else
-    echo "Test1 result: FAILED"
+    echo "Test2 result: FAILED"
     exit 1
 fi
 

@@ -1,0 +1,7 @@
+hello
+deadline Submit project /by end of week
+deadline Finish assignment /by Monday
+event bday /from here /to there
+todo this
+list
+bye
