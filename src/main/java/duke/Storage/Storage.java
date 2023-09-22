@@ -32,7 +32,7 @@ public class Storage {
                 this.FILE.createNewFile();
             }
         } catch (IOException e) {
-            throw new DukeException("OOPS!!! Failed to create a file");
+            throw new DukeException("OOPS!!! Failed to create a file.");
         }
     }
 

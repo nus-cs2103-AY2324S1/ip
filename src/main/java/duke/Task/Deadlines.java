@@ -60,9 +60,9 @@ public class Deadlines extends Task {
     public static boolean isDeadline(String input) throws DukeException {
         if (input.split(" ")[0].equals("deadline")) {
             if (input.split(" ").length == 1) {
-                throw new DukeException("OOPS! The description of deadline cannot be empty");
+                throw new DukeException("OOPS! The description of deadline cannot be empty.");
             } else if (!input.contains("/by ")) {
-                throw new DukeException("OOPS! The description of deadline does not contain /by");
+                throw new DukeException("OOPS! The description of deadline does not contain /by.");
             } else {
                 return true;
             }

@@ -47,7 +47,7 @@ public class Parser {
                     tasks.addTask(targetTask);
                     return ui.addTask(targetTask, tasks.getNumberOfTask());
                 } else {
-                    throw new DukeException("This todo is invalid");
+                    throw new DukeException("This todo is invalid.");
                 }
             } else if (command.equals("DEADLINE")) {
                 if (Deadlines.isDeadline(input)) {
@@ -58,7 +58,7 @@ public class Parser {
                     tasks.addTask(targetTask);
                     return ui.addTask(targetTask, tasks.getNumberOfTask());
                 } else {
-                    throw  new DukeException("This deadline is invalid");
+                    throw  new DukeException("This deadline is invalid.");
                 }
             } else if (command.equals("EVENT")) {
                 if (Events.isEvent(input)) {
@@ -70,7 +70,7 @@ public class Parser {
                     tasks.addTask((targetTask));
                     return ui.addTask(targetTask, tasks.getNumberOfTask());
                 } else {
-                    throw new DukeException("This event is invalid");
+                    throw new DukeException("This event is invalid.");
                 }
             } else if (command.equals("PERIOD")) {
                 if (Periods.isPeriod(input)) {
@@ -81,7 +81,7 @@ public class Parser {
                     tasks.addTask((targetTask));
                     return ui.addTask(targetTask, tasks.getNumberOfTask());
                 } else {
-                    throw new DukeException("This period is invalid");
+                    throw new DukeException("This period is invalid.");
                 }
             } else if (command.equals("MARK")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
@@ -93,10 +93,10 @@ public class Parser {
                         tasks.getTask(index).changeMarkStatus(true);
                         return ui.markAsDone(tasks.getTask(index));
                     } else {
-                        throw new DukeException("You don't have that many tasks");
+                        throw new DukeException("You don't have that many tasks.");
                     }
                 } else {
-                    throw new DukeException("You must specified the index of the task to mark");
+                    throw new DukeException("You must specified the index of the task to mark.");
                 }
             } else if (command.equals("UNMARK")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
@@ -108,10 +108,10 @@ public class Parser {
                         tasks.getTask(index).changeMarkStatus(false);
                         return ui.markAsNotDone(tasks.getTask(index));
                     } else {
-                        throw new DukeException("You don't have that many tasks");
+                        throw new DukeException("You don't have that many tasks.");
                     }
                 } else {
-                    throw new DukeException("You must specified the index of the task to unmark");
+                    throw new DukeException("You must specified the index of the task to unmark.");
                 }
             } else if (command.equals("DELETE")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
@@ -124,15 +124,15 @@ public class Parser {
                         tasks.deleteTask(index);
                         return ui.deleteTask(targetTask, tasks.getNumberOfTask());
                     } else {
-                        throw new DukeException("You don't have that many tasks");
+                        throw new DukeException("You don't have that many tasks.");
                     }
                 } else {
-                    throw new DukeException("You must specified the index of the task to delete");
+                    throw new DukeException("You must specified the index of the task to delete.");
                 }
             } else if (command.equals("FIND")) {
                 return ui.find(tasks, input.substring(5));
             } else {
-                throw new DukeException("OOPS! I don't understand this command");
+                throw new DukeException("OOPS! I don't understand this command.");
             }
         } catch (DukeException e) {
             return ui.error(e);

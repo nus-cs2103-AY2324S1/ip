@@ -53,9 +53,8 @@ public class Duke {
         try {
             return Parser.parse(input, ui, storage, tasks);
         } catch (DukeException e) {
-            this.ui.error(e);
+            return this.ui.error(e);
         }
-        return "Cannot reach here";
     }
 
     public String intro() {

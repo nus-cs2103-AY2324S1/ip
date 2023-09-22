@@ -52,9 +52,9 @@ public class Periods extends Task {
     public static boolean isPeriod(String input) throws DukeException {
         if (input.split(" ")[0].equals("period")) {
             if (input.split(" ").length == 1) {
-                throw new DukeException("OOPS! The description of period cannot be empty");
+                throw new DukeException("OOPS! The description of period cannot be empty.");
             } else if (!input.contains("/between ")) {
-                throw new DukeException("OOPS! The description of period does not contain /between");
+                throw new DukeException("OOPS! The description of period does not contain /between.");
             } else {
                 return true;
             }

@@ -39,7 +39,7 @@ public class ToDos extends Task {
     public static boolean isTodo(String input) throws DukeException {
         if (input.split( " ")[0].equals("todo")) {
             if (input.split(" ").length == 1) {
-                throw new DukeException("OOPS! The description of todo cannot be empty");
+                throw new DukeException("OOPS! The description of todo cannot be empty.");
             } else {
                 return true;
             }

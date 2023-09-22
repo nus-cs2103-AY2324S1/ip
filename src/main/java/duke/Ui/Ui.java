@@ -16,7 +16,7 @@ public class Ui {
      */
     public String printChat(String chat) {
 
-        return chat;
+        return chat + " Meow";
     }
 
     /**
@@ -33,11 +33,10 @@ public class Ui {
      */
     public String addTask(Task task, int numberOfTask) {
         assert numberOfTask >= 0;
-        return printChat("Got it, I have added this task:\n"
+        return "Got it, I have added this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + numberOfTask
-                + " tasks in the list"
-        );
+                + " tasks in the list";
     }
 
     /**
@@ -47,11 +46,10 @@ public class Ui {
      */
     public String deleteTask(Task task, int numberOfTask) {
         assert numberOfTask >= 0;
-        return printChat("Noted, I have removed this task:\n"
+        return "Noted, I have removed this task:\n"
                 + task.toString() + "\n"
                 + "Now you have " + numberOfTask
-                + " tasks in the list"
-        );
+                + " tasks in the list";
     }
 
     /**
@@ -67,7 +65,7 @@ public class Ui {
      * @param task Target task.
      */
     public String markAsNotDone(Task task) {
-        return printChat("You have marked this task as not done\n" + task.toString());
+        return "You have marked this task as not done\n" + task.toString();
     }
 
     /**
@@ -75,7 +73,7 @@ public class Ui {
      */
     public String bye(Storage storage, TaskList tasks) throws DukeException {
         storage.editStorage(tasks);
-        return printChat("Bye. Hope to see you again soon!\n" + "Wish You a wonderful day");
+        return "Bye. Hope to see you again soon!\n" + "Wish You a wonderful day";
     }
 
     /**
@@ -83,7 +81,7 @@ public class Ui {
      * @param e Exception where there is unknown input.
      */
     public String error(DukeException e) {
-        return printChat(e.toString());
+        return e.toString();
     }
 
     /**
@@ -94,9 +92,9 @@ public class Ui {
         String listOfTask = "Here are the list of your task:\n";
         assert tasks.getNumberOfTask() >= 0;
         for (int i = 0; i < tasks.getNumberOfTask(); i++) {
-            listOfTask = listOfTask + tasks.getTask(i).toString() + "\n";
+            listOfTask = listOfTask + + (i+1) + ". " + tasks.getTask(i).toString() + "\n";
         }
-        return printChat(listOfTask);
+        return listOfTask;
     }
 
     /**
@@ -109,9 +107,9 @@ public class Ui {
         assert tasks.getNumberOfTask() >= 0;
         for (int i = 0; i < tasks.getNumberOfTask(); i++) {
             if (tasks.getTask(i).getName().contains(input)) {
-                match = match + tasks.getTask(i).toString() + "\n";
+                match = match + (i+1) + ". " + tasks.getTask(i).toString() + "\n";
             }
         }
-        return printChat(match);
+        return match;
     }
 }

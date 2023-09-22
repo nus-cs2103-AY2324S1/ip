@@ -31,7 +31,7 @@ public class Events extends Task {
             this.start = LocalDate.parse(start);
             this.end = LocalDate.parse(end);
         } catch (DateTimeParseException e) {
-            throw new DukeException(" OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd");
+            throw new DukeException(" OOPS!!! Invalid date format. Please type dates in the format yyyy-mm-dd.");
         }
     }
 
@@ -72,11 +72,11 @@ public class Events extends Task {
     public static boolean isEvent(String input) throws DukeException {
         if(input.split( " ")[0].equals("event")) {
             if (input.split(" ").length == 1) {
-                throw new DukeException("OOPS! The description of event cannot be empty");
+                throw new DukeException("OOPS! The description of event cannot be empty.");
             } else if (!input.contains("/from")) {
-                throw new DukeException("OOPS! The description of event does not contain /from");
+                throw new DukeException("OOPS! The description of event does not contain /from.");
             } else if (!input.contains("/to")) {
-                throw new DukeException("OOPS! The description of event does not contain /to");
+                throw new DukeException("OOPS! The description of event does not contain /to.");
             } else {
                 return true;
             }
