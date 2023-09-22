@@ -26,7 +26,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Check if the input task is equals to the current Todo instance.
+     * Checks if the input task is equals to the current Todo instance.
      *
      * @param newTask The task to be compared to
      * @return True if the both task are the same

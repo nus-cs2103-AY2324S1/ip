@@ -34,7 +34,7 @@ public class Event extends Task {
     }
 
     /**
-     * An accessor method to retrieve the start date of an event.
+     * Retrieves the start date of an event.
      *
      * @return the String representation of the start date.
      */

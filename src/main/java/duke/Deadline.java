@@ -40,7 +40,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Check if the input task is equals to the current Deadline instance.
+     * Checks if the input task is equals to the current Deadline instance.
      *
      * @param newTask The task to be compared to.
      * @return True if the both task are the same.

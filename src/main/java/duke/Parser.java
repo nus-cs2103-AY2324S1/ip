@@ -91,7 +91,7 @@ public class Parser {
     }
 
     /**
-     * Convert the task index from user input to an Integer.
+     * Converts the task index from user input to an Integer.
      * This is used for 'delete', 'unmakr' and 'mark' commands.
      *
      * @param input the task index in user's input.
@@ -109,6 +109,7 @@ public class Parser {
 
     /**
      * Parses the user's input and performs the corresponding operations.
+     * This is for CLI.
      *
      * @param userInput The user's input.
      * @param tasks     The current duke.TaskList with all the tasks.
@@ -153,6 +154,7 @@ public class Parser {
 
     /**
      * Parses the user's input and performs the corresponding operations.
+     * This is for GUI.
      *
      * @param userInput The user's input.
      * @param tasks     The current duke.TaskList with all the tasks.

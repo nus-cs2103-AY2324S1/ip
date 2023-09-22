@@ -19,7 +19,7 @@ public class Ui {
     }
 
     /**
-     * Display Welcome Message.
+     * Displays Welcome Message.
      */
     public void showWelcome() {
         System.out.println("Hello! I'm Chatty\n" + "What can I do for you?");

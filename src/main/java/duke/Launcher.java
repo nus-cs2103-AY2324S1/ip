@@ -8,7 +8,8 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * The main function of the Launcher class.
+     * Launches the Duke Application.
+     * The main function of the Launcher class. 
      *
      * @param args Command line arguments
      */

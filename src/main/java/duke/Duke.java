@@ -61,7 +61,7 @@ public class Duke {
     }
 
     /**
-     * Run Duke application with a given user input
+     * Runs Duke application with a given user input
      *
      * @param userInput The user's input
      * @return The String response for the given user's input
@@ -80,7 +80,8 @@ public class Duke {
     }
 
     /**
-     * The main function of the Duke application.
+     * Runs CLI.
+     * The main function of the Duke CLI application.
      *
      * @param args Command line arguments
      */
