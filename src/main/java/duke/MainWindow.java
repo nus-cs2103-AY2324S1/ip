@@ -1,5 +1,7 @@
 package duke;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class MainWindow extends AnchorPane {
     @FXML
@@ -38,7 +41,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    private void handleUserInput() throws InterruptedException {
         assert userImage != null : "User Image is null";
         String input = userInput.getText();
         String response = duke.getResponse(input);
@@ -47,6 +50,10 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        if (response.equals(Greeting.bye())) {
+            Timeline exitTimeline = new Timeline(new KeyFrame(Duration.seconds(1), ae -> System.exit(0)));
+            exitTimeline.play();
+        }
     }
 
     private void showDukeGreeting() {

@@ -28,6 +28,14 @@ dependencies {
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs 'data'
+        }
+    }
+}
+
 test {
     useJUnitPlatform()
 
@@ -51,13 +59,17 @@ shadowJar {
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     archiveFileName = "ChatBot.jar"
+
+    // Include the data directory in the root of the shadow JAR
+    from('data') {
+        into '/'
+    }
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
 
-run{
+run {
     standardInput = System.in
 }
-

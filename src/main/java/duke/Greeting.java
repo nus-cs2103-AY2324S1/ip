@@ -8,8 +8,9 @@ import duke.ui.UI;
  *
  */
 public class Greeting {
+    public static final String BYE = "Bye. Hope to see you again soon!";
     private static final String GREET = "Hello! I'm chatbot\nWhat can I do for you?";
-    private static final String BYE = "Bye. Hope to see you again soon!";
+
 
     /**
      * This method prints out the line when user start the program
