@@ -34,7 +34,7 @@ public class Parser {
 
     /**
      * Run different process based on the given command. Commands include
-     * bye, mark, unmark, delete, todo, deadline, event, list.
+     * mark, unmark, delete, todo, deadline, event, list.
      *
      * @param fullCommand
      * @param taskList
@@ -47,7 +47,6 @@ public class Parser {
         String[] inputArray;
         String command;
         String params = "";
-        String output = "";
 
         inputArray = fullCommand.split(" ", 2);
         command = inputArray[0];
@@ -57,10 +56,6 @@ public class Parser {
         }
 
         switch (command) {
-        case ("bye"): {
-            isChatting = false;
-            break;
-        }
         case ("list"): {
             return ui.printTasks(taskList);
         }
@@ -87,10 +82,9 @@ public class Parser {
         }
         default: {
             throw new SisyphusException("Enter a valid command. Available comments are "
-                    + "bye, find, list, event, deadline, todo, mark, unmark, delete.");
+                    + "todo, deadline, event, list, find, mark, unmark, delete.");
         }
         }
-        return output;
 
     }
 

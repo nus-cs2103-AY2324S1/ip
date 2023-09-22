@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("sisyphus.Sisyphus")
+    mainClass.set("sisyphus.Launcher")
 }
 
 shadowJar {

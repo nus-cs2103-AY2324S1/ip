@@ -13,22 +13,6 @@ public class Ui {
     private static final String NAME = "Sisyphus";
     /** Horizontal Line string */
     private static final String HORIZONTAL_LINE = "_________________________________ \n";
-    /** ASCII art that represents sisyphus */
-    private static final String LOGO = "\n"
-            + "      ,-'\"\"\"`-.\n"
-            + "    ,'         `.\n"
-            + "   /        `    \\\n"
-            + "  (    /          )\n"
-            + "  |             \" |\n"
-            + "  (               )\n"
-            + " `.\\\\          \\ /\n"
-            + "   `:.     , \\ ,\\ _\n"
-            + " WE   `:-.___,-`-.{\\)\n"
-            + " MUST  `.        |/ \\\n"
-            + " GO      `.        \\ \\\n"
-            + " ON        `-.     _\\,)\n"
-            + "              `.  |,-||\n"
-            + "                `.|| ||\n";
 
     private Scanner scanner;
 
@@ -37,13 +21,6 @@ public class Ui {
      */
     public Ui() {
         scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Return string ofs a horizontal dashed line. Used for separators.
-     */
-    public static void printHorizontalLine() {
-        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
@@ -58,21 +35,15 @@ public class Ui {
     /**
      * Greets user with name.
      */
-    public static void greet() {
-        System.out.println(LOGO);
-        System.out.println("Hello, I'm " + NAME + ".");
-        System.out.println("What can I do for you? Do you want to roll a boulder?");
-        System.out.println(HORIZONTAL_LINE);
+    public static String  greet() {
+        return "Hello, I'm " + NAME + ". What can I do for you? Do you want to roll a boulder?";
     }
 
     /**
-     * Closes scanner and prints goodbye message.
+     * Closes scanner.
      */
     public void exit() {
         scanner.close();
-        printHorizontalLine();
-        System.out.println("Goodbye, it was nice chatting with you.");
-        printHorizontalLine();
     }
 
     /**
