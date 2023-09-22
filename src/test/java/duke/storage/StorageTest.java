@@ -43,7 +43,7 @@ public class StorageTest {
     public void loadTasksFromFile_fileWithMixedInput_tasksLoadedAccordingly() {
         TaskList taskList = new TaskList();
         Storage storage = new Storage(taskList);
-        storage.loadTasksFromFile(new File("./data/storagetest.txt"), taskList);
+        storage.loadTasksFromFile(new File("./test/inputs/storagetest.txt"), taskList);
 
         TaskList expectedList = new TaskList();
         expectedList.addTask(new ToDoTask("read book", true));
