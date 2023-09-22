@@ -174,7 +174,7 @@ Noted! I've removed this task:
 Now you have 5 tasks in the list.
 ```
 
-### `bye` \- Quits the application\.
+### `bye` \- Quit the application\.
 
 Linus will quit the application and close the window.
 
