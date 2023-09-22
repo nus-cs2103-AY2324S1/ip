@@ -36,6 +36,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        dialogContainer.setStyle("-fx-background-image: url(/images/Background.jpeg); -fx-background-repeat: stretch; -fx-background-size: cover; -fx-background-position: center center;");
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
