@@ -1,4 +1,4 @@
-# User Guide
+# User Guide - Bikini Bottom
 
 ## Features 
 
