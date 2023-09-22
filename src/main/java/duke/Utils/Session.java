@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  * It manages user input and responses during the session.
  */
 public class Session extends Application {
-    private static final String IMG_DIR = "file:img/";
+    private static final String IMG_DIR = "/img/";
     private static final String CHATBOT_AVATAR = IMG_DIR + "pb.jpg";
     private static final String USER_AVATAR = IMG_DIR + "rs.jpg";
 
@@ -227,7 +227,9 @@ public class Session extends Application {
      * @return An ImageView containing the avatar image.
      */
     private ImageView getAvatarImageView(String imgSrc) {
-        ImageView avatarImageView = new ImageView(new Image(imgSrc));
+        ImageView avatarImageView = new ImageView(new Image(
+            this.getClass().getResourceAsStream(imgSrc)
+        ));
         avatarImageView.setFitWidth(50);
         avatarImageView.setFitHeight(50);
         return avatarImageView;
