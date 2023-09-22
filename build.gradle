@@ -49,7 +49,7 @@ application {
 shadowJar {
     archiveBaseName = "chatbot"
     archiveClassifier = null
-    archiveFileName = 'chatbot.jar'
+    archiveFileName = 'chatbotbro.jar'
     dependsOn("distZip", "distTar")
 }
 

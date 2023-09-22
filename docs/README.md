@@ -1,5 +1,11 @@
 # ChatbotBro User Guide
 
+## Getting Started
+1. Ensure you have Java 11 installed on your machine.
+2. Download `chatbotbro.jar` from this repository.
+3. Navigate to the folder containing the JAR file.
+4. Run the command `java -jar chatbotbro.jar` on terminal.
+
 ## Features 
 
 ### Task management
