@@ -4,17 +4,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.geometry.Pos;
 
 import java.io.IOException;
+
 import java.util.Collections;
 
-
+//@@author ruishanteo-reused
+//Reused from https://github.com/ruishanteo/ip
+// with minor modifications
+/**
+ * Represents the dialog box that is generated in the gui within the scroll pane whenever the user enters a text
+ * or the chat bot responds to the user text
+ */
 public class DialogBox extends HBox {
 
     @FXML
@@ -53,5 +60,5 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(temp);
         setAlignment(Pos.TOP_LEFT);
     }
-
 }
+//@ruishanteo

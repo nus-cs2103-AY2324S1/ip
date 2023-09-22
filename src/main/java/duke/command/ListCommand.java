@@ -1,11 +1,13 @@
 package duke.command;
 
-import duke.Ui;
+import duke.RichieException;
 import duke.Storage;
 import duke.TaskList;
-import duke.RichieException;
+import duke.Ui;
 
-
+/**
+ * A ListCommand class
+ */
 public class ListCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, TaskList taskList) throws RichieException {

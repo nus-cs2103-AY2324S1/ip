@@ -4,7 +4,9 @@ import duke.command.Command;
 import duke.command.ExitCommand;
 import javafx.application.Platform;
 
-
+//@@author ruishanteo-reused
+//Reused from https://github.com/ruishanteo/ip
+// with minor modifications
 /**
  * Entry point class for the Richie application
  */
@@ -29,12 +31,17 @@ public class Richie {
         }
     }
 
-
+    /**
+     * Returns the initialisation message of the Richie application
+     */
     public String init() {
         ui.showWelcome();
         return ui.getCurrentMessage();
     }
 
+    /**
+     * Takes in the user input as a string and returns the chatbot response as a string
+     */
     public String getResponse(String userInput) {
         try {
             Command command = Parser.parse(userInput);
@@ -48,4 +55,5 @@ public class Richie {
         return ui.getCurrentMessage();
     }
 }
+//@ruishanteo
 

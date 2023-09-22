@@ -6,11 +6,15 @@ import duke.Storage;
 import duke.TaskList;
 import duke.Ui;
 import duke.task.Task;
+
 import java.util.ArrayList;
 
+/**
+ * A Find Command that when executed will find tasks in the data file that at least partially matches the keyword
+ */
 public class FindCommand extends Command {
     private String keyword;
-    private int LIMIT = 2;
+    private static final int LIMIT = 2;
 
     public FindCommand(String keyword) {
         this.keyword = keyword;
@@ -18,7 +22,7 @@ public class FindCommand extends Command {
     @Override
     public void execute(Ui ui, Storage storage, TaskList taskList) throws RichieException {
         ArrayList<Task> tasks;
-        tasks = taskList.filterTaskByKeyword(this.keyword, this.LIMIT);
+        tasks = taskList.filterTaskByKeyword(this.keyword, LIMIT);
         ui.showFilteredTasksList(tasks);
     }
 }

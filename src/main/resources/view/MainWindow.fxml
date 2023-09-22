@@ -8,6 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
+<!--        //@@author ruishanteo-reused-->
+<!--        //Reused from https://github.com/ruishanteo/ip-->
+<!--        // with minor modifications-->
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
             prefHeight="600.0" xmlns="http://javafx.com/javafx/19.0.3"
@@ -32,17 +35,5 @@
         </VBox>
     </children>
 </AnchorPane>
-
-
-<!--<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19.0.3" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">-->
-<!--<children>-->
-<!--    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" AnchorPane.bottomAnchor="1.0" />-->
-<!--    <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />-->
-<!--    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">-->
-<!--        <content>-->
-<!--            <VBox fx:id="dialogContainer" maxHeight="700" prefHeight="552.0" prefWidth="388.0" />-->
-<!--        </content>-->
-<!--    </ScrollPane>-->
-<!--</children>-->
-<!--</AnchorPane>-->
+<!--            //@ruishanteo
 

@@ -6,7 +6,9 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Todo;
 
-
+/**
+ * A TodoCommand
+ */
 public class TodoCommand extends Command {
     private String description;
 

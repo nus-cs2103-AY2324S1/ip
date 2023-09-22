@@ -6,13 +6,20 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Deadline;
 
-
 import java.time.LocalDateTime;
 
+/**
+ * A Deadline Command
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private LocalDateTime dateTime;
 
+    /**
+     * A constructor for the DeadlineCommand object
+     * @param description description of the task that has a deadline
+     * @param dateTime the time that the task should be done by
+     */
     public DeadlineCommand(String description, LocalDateTime dateTime) {
         this.description = description;
         this.dateTime = dateTime;

@@ -2,15 +2,20 @@ package duke;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
+import duke.task.Deadline;
+import duke.task.Event;
 import duke.task.Task;
-import duke.task.*;
+import duke.task.Todo;
 
 
 class StorageTest {
@@ -21,13 +26,12 @@ class StorageTest {
             Storage s = new Storage("src/testData1.txt");
             ArrayList<String> array;
             array = s.load();
-            assertEquals("T/0/homework",s.load().get(0));
-            assertEquals("D/1/speech script/2023-09-02T04:00",array.get(1));
-            assertEquals("E/0/project meeting/2023-12-02T04:00/2023-12-02T06:00",array.get(2));
+            assertEquals("T/0/homework", s.load().get(0));
+            assertEquals("D/1/speech script/2023-09-02T04:00", array.get(1));
+            assertEquals("E/0/project meeting/2023-12-02T04:00/2023-12-02T06:00", array.get(2));
         } catch (RichieException e) {
             fail("Exception should not be thrown by valid inputs from data source");
         }
-
     }
 
     @Test

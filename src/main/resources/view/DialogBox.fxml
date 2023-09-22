@@ -4,8 +4,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
 
+<!--        //@@author ruishanteo-reused-->
+<!--        //Reused from https://github.com/ruishanteo/ip-->
+<!--        // with minor modifications-->
 <fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_RIGHT" maxHeight="Infinity"
          maxWidth="1.7976931348623157E308"
          prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17">
@@ -17,3 +19,4 @@
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>
     </padding>
 </fx:root>
+<!--         //@ruishanteo

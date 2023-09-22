@@ -3,16 +3,20 @@ package duke;
 import duke.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
 
 import java.io.IOException;
 
-
-import javafx.scene.layout.VBox;
-
+//@@author ruishanteo-reused
+//Reused from https://github.com/ruishanteo/ip
+// with minor modifications
+/**
+ * A GUI for the Richie application
+ */
 public class Main extends Application {
     private Richie richie = new Richie("src/data.txt");
     private VBox dialogContainer;
@@ -34,3 +38,4 @@ public class Main extends Application {
         }
     }
 }
+//@ruishanteo

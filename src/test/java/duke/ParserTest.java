@@ -3,13 +3,15 @@ package duke;
 import org.junit.jupiter.api.Test;
 
 import duke.command.Command;
+import duke.command.DeadlineCommand;
+import duke.command.EventCommand;
 import duke.command.ExitCommand;
 import duke.command.ListCommand;
-import duke.command.DeadlineCommand;
 import duke.command.TodoCommand;
-import duke.command.EventCommand;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ParserTest {
 
@@ -88,38 +90,39 @@ class ParserTest {
     }
 
     @Test
-    void deadline_missingBy_Exception() {
+    void deadline_missingBy_exception() {
         try {
             Command a = Parser.parse("deadline homework");
             fail("Exception should be thrown by deadline command without '/by'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please enter '/by' followed by a date and " +
-                    "time that the task should be done by", e.getMessage());
+            assertEquals("OOPS!! please enter '/by' followed by a date and "
+                    + "time that the task should be done by", e.getMessage());
         }
 
         try {
             Command b = Parser.parse("deadline homework by 2/12/2002 0400");
             fail("Exception should be thrown by deadline command without '/by'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please enter '/by' followed by a date and " +
-                    "time that the task should be done by", e.getMessage());
+            assertEquals("OOPS!! please enter '/by' followed by a date and "
+                    + "time that the task should be done by", e.getMessage());
         }
     }
 
     @Test
-    void deadline_onlyCommandWord_Exception() {
+    void deadline_onlyCommandWord_exception() {
         try {
             Command c = Parser.parse("deadline");
             fail("Exception should be thrown by deadline command without any description");
         } catch (RichieException e) {
-            assertEquals("deadline command should be entered in this format for example : 'deadline do homework /by 2/12/2002 0400'", e.getMessage());
+            assertEquals("deadline command should be entered in this format for example : "
+                    + "'deadline do homework /by 2/12/2002 0400'", e.getMessage());
         }
 
     }
 
 
     @Test
-    void deadline_missingDescriptionOrDeadline_Exception() {
+    void deadline_missingDescriptionOrDeadline_exception() {
         try {
             Command c = Parser.parse("deadline ");
             fail("Exception should be thrown by deadline command without '/by'");
@@ -136,7 +139,7 @@ class ParserTest {
     }
 
     @Test
-    void deadline_noSpacesAroundBy_Exception() {
+    void deadline_noSpacesAroundBy_exception() {
         try {
             Command c = Parser.parse("deadline homework/by2/12/2002 0400");
             fail("Exception should be thrown by deadline command without spaces around '/by'");
@@ -167,7 +170,7 @@ class ParserTest {
     }
 
     @Test
-    void deadline_wrongDateTimeFormat_Exception() {
+    void deadline_wrongDateTimeFormat_exception() {
         try {
             Command c = Parser.parse("deadline homework /by 2/13/2002 0400");
             fail("Exception should be thrown by deadline command with invalid Date and Time");
@@ -205,7 +208,7 @@ class ParserTest {
     }
 
     @Test
-    void deadline_validInput_DeadlineCommand() {
+    void deadline_validInput_deadlineCommand() {
         try {
             Command c = Parser.parse("deadline homework /by 2/12/2002 0900");
             assertTrue(c instanceof DeadlineCommand);
@@ -215,19 +218,18 @@ class ParserTest {
     }
 
     @Test
-    void deadline_noSpaceAfterCommandWord_Exception() {
+    void deadline_noSpaceAfterCommandWord_exception() {
         try {
             Command c = Parser.parse("deadlinehomework");
             fail("Exception should be thrown for no space after deadline command");
         } catch (RichieException e) {
-            assertEquals("deadline command should be followed by a space"
-                    , e.getMessage());
+            assertEquals("deadline command should be followed by a space", e.getMessage());
         }
     }
 
 
     @Test
-    void todo_onlyCommandWord_Exception() {
+    void todo_onlyCommandWord_exception() {
         try {
             Command c = Parser.parse("todo");
             fail("Exception should be thrown by todo command without any description");
@@ -237,7 +239,7 @@ class ParserTest {
     }
 
     @Test
-    void todo_missingDescription_Exception() {
+    void todo_missingDescription_exception() {
         try {
             Command b = Parser.parse("todo ");
             fail("Exception should be thrown by todo command without any description");
@@ -257,48 +259,49 @@ class ParserTest {
     }
 
     @Test
-    void event_missingFrom_Exception() {
+    void event_missingFrom_exception() {
         try {
             Command a = Parser.parse("event project meeting 2/12/2002 0400 /to 2/12/2002 0500");
             fail("Exception should be thrown by event command without '/from'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please enter '/from' followed by a date and " +
-                    "time that the task should start from", e.getMessage());
+            assertEquals("OOPS!! please enter '/from' followed by a date and "
+                    + "time that the task should start from", e.getMessage());
         }
 
         try {
             Command b = Parser.parse("event project meeting ");
             fail("Exception should be thrown by event command without '/from'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please enter '/from' followed by a date and " +
-                    "time that the task should start from", e.getMessage());
+            assertEquals("OOPS!! please enter '/from' followed by a date and "
+                    + "time that the task should start from", e.getMessage());
         }
     }
 
     @Test
-    void event_missingTo_Exception() {
+    void event_missingTo_exception() {
         try {
             Command a = Parser.parse("event project meeting /from 2/12/2002 0400 2/12/2002 0500");
             fail("Exception should be thrown by event command without '/to'");
         } catch (RichieException e) {
-            assertEquals("OOPS!! please enter '/to' followed by a date and " +
-                    "time that the task should end", e.getMessage());
+            assertEquals("OOPS!! please enter '/to' followed by a date and "
+                    + "time that the task should end", e.getMessage());
         }
     }
 
     @Test
-    void event_onlyCommandWord_Exception() {
+    void event_onlyCommandWord_exception() {
         try {
             Command c = Parser.parse("event");
             fail("Exception should be thrown by event command without any description");
         } catch (RichieException e) {
-            assertEquals("event command should be entered in this format for example : 'event homework /from 2/12/2002 1200 /to 2/12/2002 1300'",
+            assertEquals("event command should be entered in this format for example : "
+                            + "'event homework /from 2/12/2002 1200 /to 2/12/2002 1300'",
                     e.getMessage());
         }
     }
 
     @Test
-    void event_missingDescriptionOrDeadline_Exception() {
+    void event_missingDescriptionOrDeadline_exception() {
 
         try {
             Command a = Parser.parse("event /from 2/12/2002 0400 /to 2/12/2002 0500");
@@ -318,7 +321,7 @@ class ParserTest {
     }
 
     @Test
-    void event_noSpacesAroundFromOrTo_Exception() {
+    void event_noSpacesAroundFromOrTo_exception() {
         try {
             Command c = Parser.parse("event homework /from2/12/2002 0400 /to 2/12/2002 0500");
             fail("Exception should be thrown by event command without spaces around '/from' and '/to'");
@@ -353,7 +356,7 @@ class ParserTest {
     }
 
     @Test
-    void event_wrongDateTimeFormat_Exception() {
+    void event_wrongDateTimeFormat_exception() {
         try {
             Command c = Parser.parse("event homework /from 2/13/2002 0400 /to 2/12/2002 0400");
             fail("Exception should be thrown by deadline command with invalid Date and Time");
@@ -384,7 +387,7 @@ class ParserTest {
     }
 
     @Test
-    void event_validInput_EventCommand() {
+    void event_validInput_eventCommand() {
         try {
             Command c = Parser.parse("event homework /from 2/12/2002 0900 /to 2/12/2002 1000");
             assertTrue(c instanceof EventCommand);
@@ -394,35 +397,30 @@ class ParserTest {
     }
 
     @Test
-    void event_noSpaceAfterCommandWord_Exception() {
+    void event_noSpaceAfterCommandWord_exception() {
         try {
             Command c = Parser.parse("eventhomework");
             fail("Exception should be thrown for no space after event command");
         } catch (RichieException e) {
-            assertEquals("todo command should be at the front of the command followed by a space"
-                    , e.getMessage());
+            assertEquals("todo command should be at the front of the command followed by a space",
+                    e.getMessage());
         }
     }
 
     @Test
-    void parse_noCommandWord_Exception() {
+    void parse_noCommandWord_exception() {
         try {
             Command c = Parser.parse("ajfksjfkdsjf");
             fail("Exception should be thrown when no command word is detected");
         } catch (RichieException e) {
-            assertEquals("No command detected, please enter a valid command"
-                    , e.getMessage());
+            assertEquals("No command detected, please enter a valid command", e.getMessage());
         }
 
         try {
             Command c = Parser.parse("aa list");
             fail("Exception should be thrown when no command word is detected");
         } catch (RichieException e) {
-            assertEquals("No command detected, please enter a valid command"
-                    , e.getMessage());
+            assertEquals("No command detected, please enter a valid command", e.getMessage());
         }
     }
-
-
-
 }

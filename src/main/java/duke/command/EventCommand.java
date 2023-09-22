@@ -6,16 +6,23 @@ import duke.TaskList;
 import duke.Ui;
 import duke.task.Event;
 
-
 import java.time.LocalDateTime;
 
+/**
+ * An event command
+ */
 public class EventCommand extends Command {
 
     private String description;
     private LocalDateTime fromDateTime;
     private LocalDateTime toDateTime;
 
-
+    /**
+     * Constructor for an EventCommand object
+     * @param description the description of the event
+     * @param fromDateTime the time that the event should start
+     * @param toDateTime the time that the event should end
+     */
     public EventCommand(String description, LocalDateTime fromDateTime, LocalDateTime toDateTime) {
         this.description = description;
         this.fromDateTime = fromDateTime;

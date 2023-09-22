@@ -1,28 +1,32 @@
 package duke;
 
-import java.util.Scanner;
-import duke.task.Task;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import duke.task.Task;
+
+//@@author ruishanteo-reused
+//Reused from https://github.com/ruishanteo/ip
+// with minor modifications
 /**
  * This class handles the texts that are printed for the users to view
  */
 public class Ui {
     private Scanner sc = new Scanner(System.in);
-    private String CHATBOT_NAME = "Richie";
+    private static final String CHATBOT_NAME = "Richie";
     private String currentMessage = "";
 
+//@ruishanteo
     /**
      * Prints the welcome message
      */
     public void showWelcome() {
-        currentMessage =  "Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?";
+        currentMessage = "Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?";
     }
 
     /**
      * Prints the error message associated with loading data
      */
-
     public void showLoadingError() {
         currentMessage = "There was an error loading the data!";
     }
@@ -52,7 +56,6 @@ public class Ui {
 
     /**
      * Prints a message that tells the user that a task has been marked
-     * @param task
      */
     public void showTaskMarked(Task task) {
         currentMessage = "Nice! I've marked this task as done:\n " + task;
@@ -64,7 +67,7 @@ public class Ui {
      */
     public void showFilteredTasksList(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Here are the matching tasks in your list: \n") ;
+        sb.append("Here are the matching tasks in your list: \n");
         int count = 1;
         for (Task task : tasks) {
             sb.append(count).append(". ").append(task.toString()).append("\n");

@@ -1,9 +1,10 @@
 package duke.task;
+
+
 /**
  * Task class for the Richie application
  */
-
-abstract public class Task {
+public abstract class Task {
     private String description;
     private boolean isDone;
 
@@ -16,7 +17,7 @@ abstract public class Task {
         this.isDone = false;
     }
 
-    abstract public String toDataString();
+    public abstract String toDataString();
 
     /**
      * Gets the status icon for the task, if the task is done the icon is an X if not it is empty

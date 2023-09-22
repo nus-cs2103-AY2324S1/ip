@@ -9,6 +9,13 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+//@@author ruishanteo-reused
+//Reused from https://github.com/ruishanteo/ip
+// with minor modifications
+/**
+ * Represents the main page gui which helps to load the user and chat bot profile images as well as handle the
+ * user input when the uer presses enter or clicks on the send button
+ */
 public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
@@ -37,3 +44,4 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 }
+//@ruishanteo
