@@ -50,6 +50,9 @@ public class MainWindow extends AnchorPane {
                     DialogBox.getUserDialog(input, userImage),
                     DialogBox.getDukeDialog(response, dukeImage)
             );
+            if (command.isExit()) {
+                System.exit(0);
+            }
         } catch (DukeException e) {
             String error = e.getMessage();
             dialogContainer.getChildren().addAll(

@@ -20,4 +20,13 @@ public abstract class Command {
     public String execute(TaskList taskList, Storage storage, Ui ui) {
         return " ";
     }
+
+    /**
+     * Returns true only if the command is a bye command.
+     *
+     * @return False unless it is a bye command.
+     */
+    public boolean isExit() {
+        return false;
+    }
 }

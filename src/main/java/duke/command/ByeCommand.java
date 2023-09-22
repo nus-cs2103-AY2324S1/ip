@@ -21,5 +21,15 @@ public class ByeCommand extends Command {
     public String execute(TaskList taskList, Storage storage, Ui ui) {
         return ui.showByeMessage();
     }
+
+    /**
+     * Returns true only if the command is a bye command.
+     *
+     * @return True as this is a bye command.
+     */
+    @Override
+    public boolean isExit() {
+        return true;
+    }
 }
 
