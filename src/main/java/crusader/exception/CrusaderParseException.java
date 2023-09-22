@@ -5,6 +5,6 @@ package crusader.exception;
  */
 public class CrusaderParseException extends CrusaderException {
     public CrusaderParseException(String message) {
-        super(String.format("There is a parsing error!\nDetails: %s", message));
+        super(String.format("Hey, that command isn't done properly...\nDetails: %s", message));
     }
 }

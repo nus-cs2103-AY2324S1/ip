@@ -30,40 +30,41 @@ public class Parser {
      * @throws CrusaderException Error is generated when input command is malformed.
      */
     public static Command parse(String prompt) throws CrusaderException {
+        String cleanedPrompt = prompt.trim();
         Command returnCommand;
-        String firstWord = prompt.contains(" ")
-                           ? prompt.split(" ")[0]
-                           : prompt;
+        String firstWord = cleanedPrompt.contains(" ")
+                           ? cleanedPrompt.split(" ")[0]
+                           : cleanedPrompt;
         switch (firstWord) {
         case "bye":
-            returnCommand = parseBye(prompt);
+            returnCommand = parseBye(cleanedPrompt);
             break;
         case "list":
-            returnCommand = parseList(prompt);
+            returnCommand = parseList(cleanedPrompt);
             break;
         case "mark":
-            returnCommand = parseMarking(prompt, true);
+            returnCommand = parseMarking(cleanedPrompt, true);
             break;
         case "unmark":
-            returnCommand = parseMarking(prompt, false);
+            returnCommand = parseMarking(cleanedPrompt, false);
             break;
         case "todo":
-            returnCommand = parseTodo(prompt);
+            returnCommand = parseTodo(cleanedPrompt);
             break;
         case "event":
-            returnCommand = parseEvent(prompt);
+            returnCommand = parseEvent(cleanedPrompt);
             break;
         case "deadline":
-            returnCommand = parseDeadline(prompt);
+            returnCommand = parseDeadline(cleanedPrompt);
             break;
         case "delete":
-            returnCommand = parseDelete(prompt);
+            returnCommand = parseDelete(cleanedPrompt);
             break;
         case "find":
-            returnCommand = parseFind(prompt);
+            returnCommand = parseFind(cleanedPrompt);
             break;
         case "sort":
-            returnCommand = parseSort(prompt);
+            returnCommand = parseSort(cleanedPrompt);
             break;
         default:
             throw new CrusaderParseException("Unknown command!");
