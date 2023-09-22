@@ -16,9 +16,10 @@ public class Ui {
     /**
      * Prints welcome message.
      */
-    public void showWelcome() {
+    public static String showWelcome() {
         System.out.println("Hello! I'm Nobita");
         System.out.println("What can I do for you?");
+        return "Hello! I'm Nobita\nWhat can I do for you?";
     }
 
     /**

@@ -51,9 +51,12 @@ shadowJar {
     archiveBaseName = "nobita"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = "Nobita.jar"
 }
 
 run{
     standardInput = System.in
     enableAssertions = true
 }
+
+mainClassName = "nobita.Launcher"
