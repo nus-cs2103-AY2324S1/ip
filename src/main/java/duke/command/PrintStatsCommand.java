@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.tasklist.TaskList;
 
-public class CountTaskTypeCommand extends Command {
+public class PrintStatsCommand extends Command {
 
     private static final String COMMAND_RESPONSE = "Your tasklist consists of: \n"
             + INDENT + "- %d todos \n"

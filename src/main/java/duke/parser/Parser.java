@@ -29,46 +29,33 @@ public class Parser {
         String action = getActionFromInput(input);
         String description = getDescriptionFromInput(input, action);
 
-        Command command;
+        assert action != null : "Action should not be null";
+        assert description != null : "Description should not be null";
 
         switch (action) {
         case "todo":
         case "deadline":
         case "event":
-            command = new AddTaskCommand(parseTask(action, description));
-            break;
+            return new AddTaskCommand(parseTask(action, description));
         case "list":
-            command = new PrintListCommand();
-            break;
+            return new PrintListCommand();
         case "mark":
-            command = new MarkTaskCommand(description);
-            break;
+            return new MarkTaskCommand(description);
         case "unmark":
-            command = new UnmarkTaskCommand(description);
-            break;
+            return new UnmarkTaskCommand(description);
         case "delete":
-            command = new DeleteTaskCommand(description);
-            break;
+            return new DeleteTaskCommand(description);
         case "find":
-            command = new FindTaskCommand(description);
-            break;
+            return new FindTaskCommand(description);
         case "completed":
-            command = new CountCompletedTasksCommand();
-            break;
+            return new CountCompletedTasksCommand();
         case "uncompleted":
-            command = new CountUncompletedTasksCommand();
-            break;
-        case "count":
-            command = new CountTaskTypeCommand();
-            break;
+            return new CountUncompletedTasksCommand();
+        case "stats":
+            return new PrintStatsCommand();
         default:
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :<");
         }
-
-        assert action != null : "Action should not be null";
-        assert description != null : "Description should not be null";
-
-        return command;
     }
 
     private String getActionFromInput(String input) throws DukeException {
@@ -119,21 +106,16 @@ public class Parser {
      * @throws DukeException If an error occurs during parsing or task creation.
      */
     public Task parseTask(String type, String input) throws DukeException {
-        Task task = null;
         switch (type) {
         case "todo":
-            task = parseToDo(input);
-            break;
+            return parseToDo(input);
         case "deadline":
-            task = parseDeadline(input);
-            break;
+            return parseDeadline(input);
         case "event":
-            task = parseEvent(input);
-            break;
+            return parseEvent(input);
         default:
             throw new DukeException("Invalid task type.");
         }
-        return task;
     }
 
     /**

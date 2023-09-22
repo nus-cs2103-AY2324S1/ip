@@ -4,7 +4,7 @@ import duke.tasklist.TaskList;
 
 public class FindTaskCommand extends Command {
 
-    private static final String COMMAND_RESPONSE = "Here are the matching tasks in your list:\n";
+    private static final String COMMAND_RESPONSE = "Here are the matching tasks in your list:";
 
     private String input;
 
