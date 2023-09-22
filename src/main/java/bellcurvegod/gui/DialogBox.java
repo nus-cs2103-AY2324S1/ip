@@ -47,6 +47,8 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        // set different background color for the bellCurveGod dialog box
+        dialog.setStyle("-fx-padding: 12; -fx-background-color: #ffffff; -fx-background-radius: 12;");
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

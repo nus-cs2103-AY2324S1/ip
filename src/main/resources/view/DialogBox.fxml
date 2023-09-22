@@ -10,7 +10,7 @@
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="dialog" minHeight="-Infinity"
-               style="-fx-padding: 12; -fx-background-color: #ffffc0; -fx-background-radius: 12;" text="Label"
+               style="-fx-padding: 12; -fx-background-color: #95ec69; -fx-background-radius: 12;" text="Label"
                textAlignment="JUSTIFY" wrapText="true">
             <font>
                 <Font name="American Typewriter" size="13.0"/>
