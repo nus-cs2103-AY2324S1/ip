@@ -63,8 +63,9 @@ public class Buddy {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Retrieves the response of the Task Buddy chatbot.
+     *
+     * @param input The input string provided by the user.
      */
     public String getResponse(String input) {
         if (isExit) {
