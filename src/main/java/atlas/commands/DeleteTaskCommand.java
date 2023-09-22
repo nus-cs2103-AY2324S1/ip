@@ -29,10 +29,6 @@ public class DeleteTaskCommand extends Command {
             Task deletedTask = taskList.deleteTask(idx);
             storage.save(taskList);
             return generateExecutionOutput(deletedTask, taskList);
-        } catch (IndexOutOfBoundsException e) {
-            // Add 1 back to the idx as we need to convert it from 0-based index to 1-based index,
-            // the latter of which is what the user keyed in
-            return String.format("%d is not a valid index! Unable to delete task.", idx + 1);
         } catch (IOException e) {
             return e.getMessage();
         }

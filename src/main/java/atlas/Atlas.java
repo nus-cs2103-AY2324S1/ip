@@ -50,6 +50,9 @@ public class Atlas {
                 | WrongDateOrderException | WrongDateTimeOrderException e) {
             // Exceptions relating to the creation of the Command object
             throw new AtlasException(e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            // Exceptions relating to the execution of the Command object
+            throw new AtlasException("You point at nothingness, mortal");
         }
     }
 
