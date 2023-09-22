@@ -77,11 +77,4 @@ public class Parser {
             throw new NobitaException("Only numbers are allow");
         }
     }
-
-//    private static void checkParameterLength(String[] toTest, int actual) throws NobitaException {
-//        int len = toTest.length;
-//        if (len < actual) {
-//            throw new NobitaException(String.format("Expected %d parameter but only received %d", actual, len));
-//        }
-//    }
 }

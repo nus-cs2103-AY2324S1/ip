@@ -14,14 +14,11 @@ import java.util.StringJoiner;
  */
 public class Deadline extends Task {
 
-    /** The data of the Deadline is due */
+    /** The date of the Deadline is due */
     private String by;
 
-    /** The data of the Deadline is due */
+    /** The date of the Deadline is due */
     private LocalDate date;
-
-    /** The time of the Deadline is due */
-    private LocalTime time;
 
     /**
      * Constructs Deadline using name and due date of Deadline.
@@ -32,9 +29,7 @@ public class Deadline extends Task {
     public Deadline(String taskName, String by) {
         super(taskName);
         this.by = by;
-        String[] dueDateTime = by.split(" ");
-        this.date = LocalDate.parse(dueDateTime[0]); // input format "2016-06-11"
-//        this.time = LocalTime.parse(dueDateTime[1]); // input format "06:30"
+        this.date = LocalDate.parse(by); // input format "2016-06-11"
     }
 
     /**
@@ -72,6 +67,7 @@ public class Deadline extends Task {
             return super.setField(updateField, updateValue);
         } else if (updateField.equalsIgnoreCase("/by")) {
             this.by = updateValue;
+            this.date = LocalDate.parse(updateValue);
         } else {
             throw new NobitaException("Deadline task do not have " + updateField + " field.");
         }

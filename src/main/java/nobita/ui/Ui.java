@@ -70,8 +70,7 @@ public class Ui {
     public void showList(TaskList list) {
         if (list.getTasksSize() < 1) {
             System.out.println("There are no tasks to be shown.");
-        }
-        else {
+        } else {
             int listNum = 1;
             for (Task task: list) {
                 System.out.println(listNum + ". " + task);

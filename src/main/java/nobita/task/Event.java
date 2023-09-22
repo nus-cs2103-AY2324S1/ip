@@ -13,14 +13,16 @@ import java.util.StringJoiner;
  */
 public class Event extends Task {
 
-    /** The start time of the Event */
+    /** The start date of the Event */
     private LocalDate start;
 
+    /** The start date of the Event */
     private String startString;
 
     /** The end time of the Event */
     private LocalDate end;
 
+    /** The end date of the Event */
     private String endString;
 
     /**
