@@ -37,12 +37,31 @@ public class Potato {
         return response;
     }
 
+
 //    String getResponse(String input) throws IOException {
 //        String response = "HOHO ";
 //        Command c = Parser.parse(input);
 //        response += c.execute(tasks, ui, storage);
 //
 //        return response;
+
+//    public void run() {
+//        ui.showWelcome();
+//        boolean isExit = false;
+//        ui.showLine();
+//        while (!isExit) {
+//            try {
+//                String fullCommand = ui.readCommand();
+//                ui.showLine();
+//                Command c = Parser.parse(fullCommand);
+//                c.execute(tasks, ui, storage);
+//                isExit = c.isExit();
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            } finally {
+//                ui.showLine();
+//            }
+//        }
 //    }
 
 }

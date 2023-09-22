@@ -52,6 +52,13 @@ public class MainWindow extends AnchorPane {
             );
             userInput.clear();
         }
+
+//        String response = potato.getResponse(input);
+//        dialogContainer.getChildren().addAll(
+//                DialogBox.getUserDialog(input, userImage),
+//                DialogBox.getDukeDialog(response, potatoImage)
+//        );
+//        userInput.clear();
     }
 }
 

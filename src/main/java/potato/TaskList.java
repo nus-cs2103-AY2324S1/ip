@@ -47,7 +47,7 @@ public class TaskList {
     }
 
     public String list() {
-        String s = "Ok look all you want but they literally won't do themselves?";
+        String s = "Ok look all you want but they literally won't do themselves?\n";
 
         int count = 0;
         for (Task t : tasks) {
@@ -55,12 +55,12 @@ public class TaskList {
                 break;
             }
             count++;
-            s += String.valueOf(count) + "." + t.toString();
+            s += String.valueOf(count) + "." + t.toString() + "\n";
         }
         return s;
     }
 
-    public String find(String input) throws IOException {
+    public String find(String input) {
         String keyword = input.substring(5);
         String s = "";
         if (tasks.size() == 0) {
@@ -70,7 +70,7 @@ public class TaskList {
             for (Task t : tasks) {
                 if (t.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                     count++;
-                    s += String.valueOf(count) + "." + t.toString();
+                    s += String.valueOf(count) + "." + t.toString() + "\n";
                 }
             }
             s += "Ok that's all I found...";
