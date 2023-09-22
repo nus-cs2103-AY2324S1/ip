@@ -24,6 +24,11 @@ public class Deadline extends Task {
         this.dueDateTime = dueDateTime;
     }
 
+    @Override
+    public LocalDateTime getDueDateTime() {
+        return dueDateTime;
+    }
+
     /**
      * Overrides the toString method to provide a custom string representation of the Deadline task.
      *

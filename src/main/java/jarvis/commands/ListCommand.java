@@ -25,6 +25,7 @@ public class ListCommand implements Command {
         if (taskList.isEmpty()) {
             return ui.printResponse("Congratulations Master!\n" + "There is no task at the moment!");
         } else {
+            storage.loadTasks();
             ArrayList<Task> tasks = taskList.getTaskList();
             return ui.printTasks(tasks);
         }

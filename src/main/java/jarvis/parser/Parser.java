@@ -13,6 +13,7 @@ import jarvis.commands.EventCommand;
 import jarvis.commands.FindCommand;
 import jarvis.commands.ListCommand;
 import jarvis.commands.MarkCommand;
+import jarvis.commands.SortDeadlineCommand;
 import jarvis.commands.TodoCommand;
 import jarvis.commands.UnmarkCommand;
 import jarvis.exceptions.InvalidCommandException;
@@ -48,6 +49,8 @@ public class Parser {
             return new ByeCommand();
         } else if (userInput.equalsIgnoreCase("list")) {
             return new ListCommand();
+        } else if (userInput.equalsIgnoreCase("sort deadline")) {
+            return new SortDeadlineCommand();
         } else if (splitUserInput[0].startsWith("mark")) {
             return new MarkCommand(userInput);
         } else if (splitUserInput[0].equalsIgnoreCase("unmark")) {
@@ -64,6 +67,42 @@ public class Parser {
             return new EventCommand(userInput);
         } else {
             throw new InvalidCommandException(null);
+        }
+    }
+
+    /**
+     * Parses a string representation of a task into a Task object.
+     *
+     * @param line The string representation of the task.
+     * @return A Task object representing the parsed task.
+     * @throws InvalidTaskFormatException If the task format is invalid.
+     */
+    public static Task parseStringToTask(final String line) throws InvalidTaskFormatException {
+        try {
+            String[] splitLine = line.split("\\|");
+            String taskType = splitLine[0].trim();
+            boolean isCompleted = Integer.parseInt(splitLine[1].trim()) == 1;
+            String taskDetails = splitLine[2].trim();
+            assert !taskDetails.isEmpty() : "Task should have description " + taskDetails;
+
+            switch (taskType) {
+            case "T":
+                return new Todo(taskDetails, isCompleted);
+            case "D":
+                String deadlineByString = splitLine[3].trim();
+                LocalDateTime formattedDeadlineBy = parseStringToDateTime(deadlineByString);
+                return new Deadline(taskDetails, formattedDeadlineBy, isCompleted);
+            case "E":
+                String fromTime = splitLine[3].trim();
+                String toTime = splitLine[4].trim();
+                LocalDateTime formattedFromTime = parseStringToDateTime(fromTime);
+                LocalDateTime formattedToTime = parseStringToDateTime(toTime);
+                return new Event(taskDetails, formattedFromTime, formattedToTime, isCompleted);
+            default:
+                throw new InvalidTaskFormatException("Unknown Task Type: " + taskType);
+            }
+        } catch (Exception e) {
+            throw new InvalidTaskFormatException("Invalid task format: " + line);
         }
     }
 
@@ -106,42 +145,6 @@ public class Parser {
             return result;
         } else {
             throw new InvalidDateTimeFormatException(inputDateTime);
-        }
-    }
-
-    /**
-     * Parses a string representation of a task into a Task object.
-     *
-     * @param line The string representation of the task.
-     * @return A Task object representing the parsed task.
-     * @throws InvalidTaskFormatException If the task format is invalid.
-     */
-    public static Task parseStringToTask(final String line) throws InvalidTaskFormatException {
-        try {
-            String[] splitLine = line.split("\\|");
-            String taskType = splitLine[0].trim();
-            boolean isCompleted = Integer.parseInt(splitLine[1].trim()) == 1;
-            String taskDetails = splitLine[2].trim();
-            assert taskDetails.isEmpty() : "Task should have description";
-
-            switch (taskType) {
-            case "T":
-                return new Todo(taskDetails, isCompleted);
-            case "D":
-                String deadlineByString = splitLine[3].trim();
-                LocalDateTime formattedDeadlineBy = parseStringToDateTime(deadlineByString);
-                return new Deadline(taskDetails, formattedDeadlineBy, isCompleted);
-            case "E":
-                String fromTime = splitLine[3].trim();
-                String toTime = splitLine[4].trim();
-                LocalDateTime formattedFromTime = parseStringToDateTime(fromTime);
-                LocalDateTime formattedToTime = parseStringToDateTime(toTime);
-                return new Event(taskDetails, formattedFromTime, formattedToTime, isCompleted);
-            default:
-                throw new InvalidTaskFormatException("Unknown Task Type: " + taskType);
-            }
-        } catch (Exception e) {
-            throw new InvalidTaskFormatException("Invalid task format: " + line);
         }
     }
 }

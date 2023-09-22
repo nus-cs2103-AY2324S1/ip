@@ -1,6 +1,7 @@
 package jarvis.tasks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Represents a list of tasks in the Jarvis application.
@@ -16,12 +17,17 @@ public class TaskList {
         taskList = new ArrayList<>();
     }
 
+    public TaskList(ArrayList<Task> tasks) {
+        taskList = new ArrayList<>(tasks);
+    }
+
     /**
      * Adds a task to the task list.
      *
      * @param task The task to be added to the list.
      */
     public void addTask(Task task) {
+        assert task != null : "Task cannot be null";
         taskList.add(task);
     }
 
@@ -81,5 +87,31 @@ public class TaskList {
      */
     public boolean isEmpty() {
         return taskList.isEmpty();
+    }
+
+    /**
+     * Sorts the tasks in the task list based on their due dates, with Deadline tasks first,
+     * and other tasks at the end of the list.
+     *
+     * @return An ArrayList of filtered Task based on dueDate.
+     */
+    public ArrayList<Task> sortTaskByDueDate() {
+        ArrayList<Task> deadlineTasks = new ArrayList<>();
+        ArrayList<Task> remainingTasks = new ArrayList<>();
+
+        sortDeadlines(deadlineTasks, remainingTasks);
+        return deadlineTasks;
+    }
+
+    private void sortDeadlines(ArrayList<Task> deadlineTasks, ArrayList<Task> remainingTasks) {
+        for (Task task : taskList) {
+            if (task instanceof Deadline && task.getDueDateTime() != null) {
+                deadlineTasks.add((Task) task);
+            } else {
+                remainingTasks.add(task);
+            }
+        }
+        deadlineTasks.sort(Comparator.comparing(Task::getDueDateTime));
+        deadlineTasks.addAll(remainingTasks);
     }
 }

@@ -8,12 +8,6 @@ import jarvis.tasks.Task;
  * The user interface class responsible for displaying information to the user on the CLI.
  */
 public class Ui {
-
-    /**
-     * ASCII Art Generated from <a href="http://patorjk.com/software/taag/">...</a>
-     */
-    private static final String LOGO_TEST = "\t┏┳┏┓┳┓┓┏┳┏┓\n" + "\t   ┃┣┫┣┫┃┃┃┗┓\n" + "\t┗┛┛┗┛┗┗┛┻┗┛\n";
-
     /**
      * Default date and time format used n Jarvis app.
      */
@@ -27,7 +21,7 @@ public class Ui {
      * Prints the intro message when Jarvis starts.
      */
     public String printIntro() {
-        return "Hi Master! I'm your personal assistant: JARVIS! \n" + "\n" + LOGO_TEST + "\n"
+        return "Hi Master! I'm your personal assistant: JARVIS! \n"
                 + "    How can I serve you today? \n";
     }
 
@@ -78,5 +72,18 @@ public class Ui {
      */
     public String printError(String error) {
         return error + "\n";
+    }
+
+    /**
+     * Generates a formatted string to display a list of filtered tasks.
+     *
+     * @param title A tag representing the filter featured.
+     * @param tasks An ArrayList of Task objects representing the filtered tasks.
+     * @return A formatted string displaying the filtered tasks with the specified title.
+     */
+    public String printFilteredTasks(String title, ArrayList<Task> tasks) {
+        String filterTasks = printTasks(tasks);
+        return "Filtered List: " + title
+                + "\n\n" + filterTasks;
     }
 }
