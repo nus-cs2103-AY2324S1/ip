@@ -61,7 +61,7 @@ Expected outcome:
 Alternate cases:
 
 1. No tasks yet: message displayed will be "You do not have any tasks, use todo, deadline, or event to add new
-ones!".
+   ones!".
 
 ### `todo` - Create a todo task
 
@@ -144,7 +144,8 @@ Alternate cases:
 
 1. No index provided `mark`: will display error saying "Missing task index".
 2. Index provided is not integer `mark hi`: will display error saying "Invalid task index: must be integer".
-3. Index provided does not correspond to any task index `mark 100`: will display error saying "Invalid task index: index out of bounds".
+3. Index provided does not correspond to any task index `mark 100`: will display error saying "Invalid task index: index
+   out of bounds".
 4. Including options `mark 1 /like this`: ignores options and marks task as completed.
 
 ### `unmark` - Unmark completed task
@@ -208,6 +209,7 @@ Expected outcome:
 
 Alternate cases:
 
-1. No tasks in list `statistics`: will display error saying "You do not have any tasks to view the statistics of!".
+1. No tasks in list `statistics`: will display error saying "You do not have any tasks to view the statistics of!" and
+   the dashboard does not show up.
 2. Including argument `statistics hi`: ignores argument and performs `statistics` as per usual.
 3. Including options `statistics /test this`: ignores the options and performs `statistics` as per usual.
