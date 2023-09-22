@@ -51,6 +51,7 @@ public class Husky {
             ui.showLine();
             Command c = functional.Parser.parse(fullCommand);
             output = c.execute(tasks, ui, false, false);
+            assert output.length() > 0 : "invalid output";
         } catch (DukeException e) {
             ui.showError(e.getMessage());
         } finally {
