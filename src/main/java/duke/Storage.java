@@ -21,7 +21,7 @@ public class Storage {
      *
      * @param taskList The TaskList containing tasks to be saved.
      */
-    public void saveTasks(TaskList taskList) {
+    public void saveTasks(TaskList taskList) throws IOException{
         File saveFile = new File(saveLocation);
         saveFile.mkdirs();
         if (saveFile.exists()) {
@@ -30,19 +30,15 @@ public class Storage {
                 System.out.println("Failed to delete previous save file!");
             }
         }
-        try {
-            boolean createNewFileSuccess = saveFile.createNewFile();
-            if (!createNewFileSuccess) {
-                System.out.println("Failed to create save file!");
-            } else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(saveLocation, true));
-                for (Task task : taskList.getTasks()) {
-                    writer.append(task.saveString()).append("\n");
-                }
-                writer.close();
+        boolean createNewFileSuccess = saveFile.createNewFile();
+        if (!createNewFileSuccess) {
+            System.out.println("Failed to create save file!");
+        } else {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(saveLocation, true));
+            for (Task task : taskList.getTasks()) {
+                writer.append(task.saveString()).append("\n");
             }
-        } catch (IOException e) {
-            ui.showSaveTasksError(e);
+            writer.close();
         }
     }
 

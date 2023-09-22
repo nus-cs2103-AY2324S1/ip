@@ -10,28 +10,31 @@ import java.util.List;
  */
 public class TaskList {
     private List<Task> tasks;
-    private final Ui ui;
 
     /**
-     * Constructs a TaskList with the provided list of saved tasks and a Ui object.
+     * Constructs a TaskList with the provided list of saved tasks.
      *
      * @param savedTasks The list of tasks to initialize the TaskList with.
-     * @param ui The Ui object used to display messages to the user.
      */
-    public TaskList(List<Task> savedTasks, Ui ui) {
+    public TaskList(List<Task> savedTasks) {
         assert savedTasks != null;
         this.tasks = savedTasks;
-        this.ui = ui;
     }
 
     /**
-     * Constructs an empty TaskList with the provided Ui object, to be used when there is no previously saved tasks.
+     * Constructs an empty TaskList, to be used when there is no previously saved tasks.
      *
-     * @param ui The Ui object used to display messages to the user.
      */
-    public TaskList(Ui ui) {
+    public TaskList() {
         this.tasks = new ArrayList<>();
-        this.ui = ui;
+    }
+
+    /**
+     *  Returns number of tasks in the tasklist
+     * @return Number of tasks
+     */
+    public int getNumTasks() {
+        return tasks.size();
     }
 
     /**
@@ -40,11 +43,10 @@ public class TaskList {
      * @param idx The index of the task to be deleted.
      * @throws IndexOutOfBoundsException If the index is out of the valid range of task indices.
      */
-    public String deleteTask(int idx) throws IndexOutOfBoundsException{
+    public Task deleteTask(int idx) throws IndexOutOfBoundsException{
         Task task = tasks.get(idx);
         tasks.remove(task);
-        ui.showDeleteTaskMessage(task, tasks.size());
-        return "Got it! I've deleted this task:\n" + task;
+        return task;
     }
 
     /**
@@ -63,11 +65,10 @@ public class TaskList {
      * @param idx The index of the task to be marked as completed.
      * @throws IndexOutOfBoundsException If the index is out of the valid range of task indices.
      */
-    public String markTask(int idx) throws IndexOutOfBoundsException {
+    public Task markTask(int idx) throws IndexOutOfBoundsException {
         Task task = tasks.get(idx);
         task.setIsCompleted(true);
-        ui.showMarkedTask(task);
-        return "Got it! I've marked this task as complete!\n" + task;
+        return task;
     }
 
     /**
@@ -76,11 +77,10 @@ public class TaskList {
      * @param idx The index of the task to be unmarked.
      * @throws IndexOutOfBoundsException If the index is out of the valid range of task indices.
      */
-    public String unmarkTask(int idx) throws IndexOutOfBoundsException {
+    public Task unmarkTask(int idx) throws IndexOutOfBoundsException {
         Task task = tasks.get(idx);
         task.setIsCompleted(false);
-        ui.showUnmarkedTask(task);
-        return "Got it! I've marked this task as incomplete!\n" + task;
+        return task;
     }
 
     /**
@@ -99,7 +99,7 @@ public class TaskList {
      * @return A new TaskList containing tasks that match the keyword.
      */
     public TaskList find(String keyword) {
-        TaskList ret = new TaskList(ui);
+        TaskList ret = new TaskList();
         for (Task task : tasks) {
             if (task.description.contains(keyword)) {
                 ret.addTask(task);
@@ -118,7 +118,7 @@ public class TaskList {
      */
     public TaskList removeDuplicates() {
         HashSet<Task> taskSet = new HashSet<>();
-        TaskList duplicates = new TaskList(ui);
+        TaskList duplicates = new TaskList();
         for (Task task : tasks) {
             boolean added = taskSet.add(task);
             if (!added) {

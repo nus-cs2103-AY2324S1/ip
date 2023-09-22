@@ -16,14 +16,14 @@ public class Duke extends Application {
         ui = new Ui();
         storage = new Storage(saveLocation, ui);
         try {
-            tasks = new TaskList(storage.loadSavedTasks(), ui);
+            tasks = new TaskList(storage.loadSavedTasks());
             parser = new Parser(ui, tasks, storage);
         } catch (DukeNoExistingTasksException e) {
-            tasks = new TaskList(ui);
+            tasks = new TaskList();
             parser = new Parser(ui, tasks, storage);
         } catch (DukeLoadTasksException e) {
             ui.showLoadingError(e.getMessage());
-            tasks = new TaskList(ui);
+            tasks = new TaskList();
             parser = new Parser(ui, tasks, storage);
         }
     }

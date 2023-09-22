@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.IOException;
 import java.util.EnumSet;
 
 /**
@@ -59,28 +60,33 @@ public class Parser {
             return ui.showTaskList(taskList);
         } else if (cmd.equals(Command.mark)) {
             try {
-                String message = taskList.markTask(Integer.parseInt(input.split(" ")[1]));
+                Task task = taskList.markTask(Integer.parseInt(input.split(" ")[1]));
                 storage.saveTasks(taskList);
-                return message;
+                return ui.showMarkedTask(task);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                ui.showInvalidIndexError();
-                return "Invalid task index!";
+                return ui.showInvalidIndexError();
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         } else if (cmd.equals(Command.unmark)) {
             try {
-                String message = taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
+                Task task = taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
                 storage.saveTasks(taskList);
-                return message;
+                return ui.showUnmarkedTask(task);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 return ui.showInvalidIndexError();
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         } else if (cmd.equals(Command.delete)) {
             try {
-                String message = taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
+                Task task = taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
                 storage.saveTasks(taskList);
-                return message;
+                return ui.showDeleteTaskMessage(task, taskList.getNumTasks());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
                 return ui.showInvalidIndexError();
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         } else if (cmd.equals(Command.invalid)) {
             return ui.showInvalidCommandError();
@@ -93,6 +99,8 @@ public class Parser {
                 return message;
             } catch (DukeInvalidDateException e) {
                 return ui.showAddTaskError(e.getMessage());
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         }
         return "";

@@ -79,7 +79,7 @@ public class Ui {
      * Displays an error message for when a user provides an invalid task index
      */
     public String showInvalidIndexError() {
-        return "Invalid index provided! Make sure it is a number and within the range of number of tasks!"
+        return "Invalid index provided! Make sure it is a number and within the range of number of tasks!";
     }
 
     /**
@@ -87,10 +87,8 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        showLine();
+    public String showMarkedTask(Task task) {
+        return "Nice! I've marked this task as complete:\n" + task;
     }
 
     /**
@@ -98,10 +96,8 @@ public class Ui {
      *
      * @param task The task that was marked as not being done.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as not done:");
-        System.out.println(task);
-        showLine();
+    public String showUnmarkedTask(Task task) {
+        return "Nice! I've marked this task as incomplete:\n" + task;
     }
 
     /**
@@ -116,9 +112,8 @@ public class Ui {
      *
      * @param e The exception thrown when trying to save the file.
      */
-    public void showSaveTasksError(IOException e) {
-        System.out.println("Failed to save tasks to drive: " + e.getMessage());
-        showLine();
+    public String showSaveTasksError(IOException e) {
+        return "Failed to save tasks to drive: " + e.getMessage();
     }
 
     /**
