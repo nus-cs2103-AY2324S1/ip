@@ -34,6 +34,7 @@ public class Storage {
      * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void writeFile(TaskList tasks) throws IOException {
+
         FileWriter fw = new FileWriter(this.filePath);
         fw.write(tasks.toFileString());
         fw.close();
@@ -57,8 +58,11 @@ public class Storage {
                 addFileTask(taskList, s.nextLine());
             }
         } else {
-            File dirs = new File(filePath + "/../");
-            dirs.mkdir();
+            File dirs = new File(f.getParent());
+            if (!dirs.exists()) {
+                dirs.mkdir();
+            }
+
             f.createNewFile();
         }
 
