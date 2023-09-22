@@ -57,7 +57,7 @@ public class Ui {
      * @param task Target task.
      */
     public String markAsDone(Task task) {
-        return printChat("You have marked this task as done\n" + task.toString());
+        return "You have marked this task as done\n" + task.toString();
     }
 
     /**
