@@ -16,6 +16,7 @@ import brandon.chatbot.tag.Tag;
  * Represents a Task with Deadline date.
  */
 public class Deadline extends Task {
+    private String deadlineNotFormatted;
     private String deadline;
 
     /**
@@ -31,6 +32,8 @@ public class Deadline extends Task {
             throw new DukeException(DEADLINE_BLANK);
         }
         try {
+            this.deadlineNotFormatted = deadline;
+
             String inputDateFormat = "yyyy-MM-dd";
             String outputDateFormat = "MMM d yyyy";
             LocalDate d1 = LocalDate.parse(deadline.strip(), DateTimeFormatter.ofPattern(inputDateFormat));
@@ -44,5 +47,15 @@ public class Deadline extends Task {
     @Override
     public String getStatus() {
         return "[D]" + super.getStatus() + " (by: " + this.deadline + ")";
+    }
+
+    @Override
+    public String getType() {
+        return "deadline";
+    }
+
+    @Override
+    public String getOtherData() {
+        return "/by: " + this.deadlineNotFormatted;
     }
 }

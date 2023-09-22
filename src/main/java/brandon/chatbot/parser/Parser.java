@@ -113,8 +113,13 @@ public class Parser {
         return new AddTodoCommand(title, optionalTags);
     }
 
-
-    private ArrayList<Tag> parseTags(String tagArgs) {
+    /**
+     * Parses the tags from a string and add tags to ArrayList of tags.
+     *
+     * @param tagArgs is a string of tags not parsed.
+     * @return the arraylist of tags parsed from the parameter string.
+     */
+    public ArrayList<Tag> parseTags(String tagArgs) {
         ArrayList<Tag> tags = new ArrayList<>();
         Matcher m = TAG_ARGS_FORMAT.matcher(tagArgs);
         while (m.find()) {

@@ -18,6 +18,8 @@ import brandon.chatbot.tag.Tag;
  * Represents an Event Task with starting time and end time.
  */
 public class Event extends Task {
+    private String startTimeNotFormatted;
+    private String endTimeNotFormatted;
     private String startTime;
     private String endTime;
 
@@ -38,6 +40,9 @@ public class Event extends Task {
 
         }
         try {
+            this.startTimeNotFormatted = startTime;
+            this.endTimeNotFormatted = endTime;
+
             String inputDateFormat = "yyyy-MM-dd";
             String outputDateFormat = "MMM d yyyy";
 
@@ -53,5 +58,14 @@ public class Event extends Task {
 
     public String getStatus() {
         return "[E]" + super.getStatus() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+    }
+    @Override
+    public String getType() {
+        return "event";
+    }
+
+    @Override
+    public String getOtherData() {
+        return "/from: " + this.startTimeNotFormatted + " /to: " + this.endTimeNotFormatted;
     }
 }

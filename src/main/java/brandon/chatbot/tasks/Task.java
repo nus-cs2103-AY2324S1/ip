@@ -84,7 +84,36 @@ public class Task {
      *
      * @return title of the task.
      */
-    public String toString() {
-        return title;
+
+    public String getTitle() {
+        return this.title;
     }
+
+    public String getTags() {
+        if (this.tagOptional.isPresent()) {
+            String tags = "";
+            for (Tag tag: this.tagOptional.get()) {
+                tags += " " + tag.toString();
+            }
+            tags = tags.strip();
+            return tags;
+        }
+        return "";
+    }
+    public String getOtherData() {
+        return "";
+    }
+
+    public String getType() {
+        return "Task";
+    }
+
+    public String getDone() {
+        if (this.isDone) {
+            return "done";
+        } else {
+            return "notdone";
+        }
+    }
+
 }

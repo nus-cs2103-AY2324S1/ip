@@ -26,5 +26,10 @@ public class Todo extends Task {
     public String getStatus() {
         return "[T]" + super.getStatus();
     }
+
+    @Override
+    public String getType() {
+        return "todo";
+    }
 }
 

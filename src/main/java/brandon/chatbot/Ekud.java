@@ -20,7 +20,7 @@ import brandon.chatbot.tasks.TaskList;
 public class Ekud {
     public static final String CURRENT_DIRECTORY = System.getProperty("user.dir");
     private static Path outputPath = Paths.get(CURRENT_DIRECTORY, "output.txt");
-    private TaskList tasks = new TaskList();
+    private TaskList tasks;
     private TagTaskMap tagTaskMap = new TagTaskMap();
     private Storage storage = new Storage(outputPath);
 
@@ -39,6 +39,14 @@ public class Ekud {
         Command parsedCommand = new Parser().parseCommand(input);
         CommandResult result = executeCommand(parsedCommand);
         return result.feedbackToUser;
+    }
+
+    public void setTasks(TaskList taskList) {
+        this.tasks = taskList;
+    }
+
+    public Storage getStorage() {
+        return this.storage;
     }
 }
 
