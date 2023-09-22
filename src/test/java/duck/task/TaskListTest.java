@@ -58,7 +58,7 @@ public class TaskListTest {
             taskList.addTask(taskList.setDeadline("deadline return book /by 2023-09-23 1220"));
             List<Task> task = taskList.getListOfTasks();
             System.out.println(task);
-            taskList.deleteTask("delete 0", taskList);
+            taskList.deleteTask("delete 1", taskList);
             assertEquals(0, taskList.size());
         } catch (DuckException e) {
             fail();
@@ -156,7 +156,7 @@ public class TaskListTest {
             taskList.addTask(taskList.setToDo("project"));
             taskList.addTask(taskList.setToDo("Assignment"));
             taskList.setDone("mark 2", taskList);
-            assertTrue(taskList.get(2).checkDone());
+            assertTrue(taskList.get(1).checkDone());
         } catch (DuckException e) {
             System.out.println(e.getMessage());
             fail();
@@ -184,7 +184,7 @@ public class TaskListTest {
             taskList.addTask(taskList.setDeadline("return book /by 2023-09-23 1220"));
             taskList.addTask(taskList.setToDo("project"));
             taskList.addTask(taskList.setToDo("Assignment"));
-            assertThrows(AssertionError.class, () -> taskList.setDone("mark ", taskList));
+            assertThrows(SyntaxException.class, () -> taskList.setDone("mark ", taskList));
         } catch (DuckException e) {
             System.out.println(e.getMessage());
             fail();

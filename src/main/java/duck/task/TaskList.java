@@ -50,7 +50,7 @@ public class TaskList {
         if (index < 0) {
             throw new SemanticException("Index must be positive");
         } else if (index >= this.size()) {
-            throw new SemanticException("Index must be less than size of Task List");
+            throw new SemanticException("Index must be less than or equal to the size of Task List");
         }
         this.listOfTasks.get(index).markAsDone();
     }
@@ -64,7 +64,7 @@ public class TaskList {
         if (index < 0) {
             throw new SemanticException("Index must be positive");
         } else if (index >= this.size()) {
-            throw new SemanticException("Index must be less than size of Task List");
+            throw new SemanticException("Index must be less than or equal to the size of Task List");
         }
         this.listOfTasks.get(index).markUndone();
     }
@@ -130,7 +130,7 @@ public class TaskList {
             if (string.length != 2) {
                 throw new SyntaxException("Need only index number after delete");
             }
-            int index = Integer.parseInt(string[1]);
+            int index = Integer.parseInt(string[1]) - 1;
             return taskList.removeIndex(index);
         } catch (NumberFormatException e) {
             throw new SyntaxException("Need only index number after delete");
@@ -140,14 +140,14 @@ public class TaskList {
     }
 
     private int getIndexOfMark(String str) {
-        assert str.length() >= 6 : "Index should be there";
-        int index = Integer.parseInt(str.substring(5));
+        assert str.length() >= 4 : "Index should be there";
+        int index = Integer.parseInt(str.substring(4).strip()) - 1;
         return index;
     }
 
     public Task setDone(String str, TaskList taskList) throws SyntaxException, SemanticException {
         try {
-            int index = getIndexOfMark(str);
+            int index = getIndexOfMark(str.strip());
             taskList.markTask(index);
             return taskList.get(index);
         } catch (NumberFormatException e) {
@@ -159,7 +159,7 @@ public class TaskList {
 
     public Task setUndone(String str, TaskList taskList) throws SyntaxException, SemanticException {
         try {
-            int index = getIndexOfUnmark(str);
+            int index = getIndexOfUnmark(str.strip());
             taskList.unmarkTask(index);
             return taskList.get(index);
         } catch (NumberFormatException e) {
@@ -178,7 +178,7 @@ public class TaskList {
      */
 
     private int getIndexOfUnmark(String str) {
-        return Integer.parseInt(str.substring(7));
+        return Integer.parseInt(str.substring(6).strip()) - 1;
     }
 
     public ToDo setToDo(String str) throws DuckException {
@@ -201,9 +201,10 @@ public class TaskList {
         if (command.isBlank()) {
             throw new SyntaxException("find keyword can not be blank");
         }
+        String str = command.substring(1);
         ArrayList<Task> searchedTasks = new ArrayList<>();
         for (int i = 0; i < listOfTasks.size(); i++) {
-            if (listOfTasks.get(i).getDescription().contains(command)) {
+            if (listOfTasks.get(i).getDescription().contains(str)) {
                 searchedTasks.add(listOfTasks.get(i));
             }
         }

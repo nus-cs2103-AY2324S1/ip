@@ -31,7 +31,7 @@ public class Ui {
         }
         result.append("Here are all the tasks in your list: \n");
         while (count < taskList.size()) {
-            result.append(serial).append(".").append(taskList.get(count)).append("\n");
+            result.append(count + 1).append(".").append(taskList.get(count)).append("\n");
             count++;
             serial++;
         }
