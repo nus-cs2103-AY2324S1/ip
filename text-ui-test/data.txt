@@ -1,0 +1,4 @@
+T1read book
+D0return book /by 06/06/1999 1800
+E0project meeting /from 06/06/1999 1800 /to 06/12/2009 2200
+T0borrow book
