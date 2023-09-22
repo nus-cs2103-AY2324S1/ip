@@ -1,6 +1,6 @@
 # MeowBot
 # User Guide 
-I hope you like cats when you are using the Bot
+I hope you like cats when you are using the Bot!
 
 ## Features 
 
