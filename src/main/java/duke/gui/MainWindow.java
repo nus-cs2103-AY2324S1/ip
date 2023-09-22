@@ -44,7 +44,9 @@ public class MainWindow extends AnchorPane {
 
         // Display a hello message when the GUI starts
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog("Hello! I'm Axela. What can I do for you?\n\nIf unsure of what to do just type in 'help' to see all the command possible",  dukeImage, "-fx-background-color: #3498db; -fx-text-fill: black;")
+                DialogBox.getDukeDialog("Hello! I'm Axela. What can I do for you?\n\nIf unsure of what to do just "
+                                + "type in 'help' to see all the command possible",  dukeImage,
+                            "-fx-background-color: #3498db; -fx-text-fill: black;")
         );
     }
 

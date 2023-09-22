@@ -51,8 +51,9 @@ public class Parser {
             case "find":
                 if (parts.length > 1) {
                     return new FindCommand(input.toLowerCase());
+                } else {
+                    throw new DukeException("Please provide a description to find.");
                 }
-                break;
             case "help":
                 return new HelpCommand();
             case "todo":
@@ -63,7 +64,6 @@ public class Parser {
             default:
                 throw new DukeException("Unrecognized command: " + input);
         }
-        return null;
     }
 
     /**

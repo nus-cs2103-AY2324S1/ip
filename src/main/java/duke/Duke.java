@@ -55,7 +55,7 @@ public class Duke {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Duke("./src/main/java/duke/duke.txt").run();
+        new Duke("duke.txt").run();
     }
 
     /**

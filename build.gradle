@@ -5,8 +5,15 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+mainClassName = 'duke.gui.Launcher'
+
 checkstyle {
     toolVersion = '10.2'
+}
+
+compileJava {
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 }
 
 repositories {
@@ -47,17 +54,12 @@ test {
     }
 }
 
-application {
-    mainClass.set("duke.Duke")
-}
-
 shadowJar {
     archiveFileName = 'duke.jar'
-    archiveBaseName = "duke"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
