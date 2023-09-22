@@ -130,7 +130,7 @@ public class CreateEventCommand extends CommandAbstract {
      */
     private String checkDateTimeFormatting() {
         try { // Checks if user has input all dates and time in the correct format
-            Pattern datePattern = Pattern.compile(VALID_DATE_REGEX_STRING);
+            Pattern datePattern = Pattern.compile(" " + VALID_DATE_REGEX_STRING + "($| )");
             Matcher dateMatcher = datePattern.matcher(this.input);
             if (dateMatcher.results().count() < 2) {
                 throw new DateTimeException("Invalid date");

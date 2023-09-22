@@ -9,8 +9,8 @@ public abstract class CommandAbstract {
     // Constants
     protected static final String HORIZONTAL = "------------------------------------------------------------"
             + "---------------------------";
-    protected static final String VALID_DATE_REGEX_STRING = " (\\d{4}/\\d{2}/\\d{2}|\\d{4}-\\d{2}-\\d{2})( |$)";
-    protected static final String VALID_TIME_REGEX_STRING = " [0-2][0-9][0-5][0-9]($| )";
+    protected static final String VALID_DATE_REGEX_STRING = "(\\d{4}/\\d{2}/\\d{2}|\\d{4}-\\d{2}-\\d{2})";
+    protected static final String VALID_TIME_REGEX_STRING = "[0-2][0-9][0-5][0-9]";
     protected static final String UNHANDLED_EXCEPTION_STRING = "Error: unexpected uncaught exception in command";
     // Non-Constants
     protected String input;
