@@ -117,7 +117,13 @@ public class Storage {
         if (file.exists()) {
             return;
         }
-        file.getParentFile().mkdirs();
+
+        File parentFile = file.getParentFile();
+        // getParentFile returns null if the path does contain a parent
+        if (parentFile != null) {
+            parentFile.mkdirs();
+        }
+
         file.createNewFile();
         assert file.exists();
     }

@@ -1,5 +1,7 @@
 package carbonbot.command;
 
+import java.io.File;
+
 import carbonbot.Storage;
 import carbonbot.TaskList;
 import carbonbot.Ui;
@@ -27,6 +29,12 @@ public class LoadCommand extends Command {
         if (this.filePath.isBlank()) {
             throw new CarbonInputParseException("The path cannot be empty. "
                     + "Example of valid usage: load ./data/my_task.txt");
+        }
+
+        File file = new File(filePath);
+        if (!file.exists()) {
+            ui.bufferMessage(String.format("No data file found at [%s]. A new empty data file will "
+                    + "be created at the location.", filePath));
         }
 
         // Replace storage with new filePath
