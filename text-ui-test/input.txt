@@ -1,0 +1,10 @@
+eat
+todo sleep
+list
+deadline work /by 5 pm
+mark 1
+event meeting /from 6pm /to 8pm
+unmark 1
+delete 2
+list
+bye
