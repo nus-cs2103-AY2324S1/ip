@@ -50,6 +50,7 @@ public class Duke extends Application {
     public Duke() {
         ui = new Ui();
         storage = new Storage("./data/duke.txt");
+
         try {
             tasks = new TaskList(storage.load());
             assert tasks != null : "tasks should be initialized"; // tasks should not be null
@@ -57,6 +58,7 @@ public class Duke extends Application {
             ui.showLoadingError();
             tasks = new TaskList(new ArrayList<>());
         }
+        ui.printWelcome();
     }
 
     /**
@@ -85,7 +87,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
+        stage.setTitle("MAX");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -98,6 +100,7 @@ public class Duke extends Application {
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+
 
         // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -113,6 +116,8 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
+
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
