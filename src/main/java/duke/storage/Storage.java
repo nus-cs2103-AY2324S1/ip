@@ -113,16 +113,27 @@ public class Storage {
         return new ItemList(file, noOfItems, items);
     }
 
-    private static File getFile() throws IOException {
+    private static File getFile() {
         File file = new File(Duke.LISTPATH);
         if (!file.exists()) {
-            File parentDirectory = file.getParentFile();  // get the parent directory, which is 'data' in this case
-            if (!parentDirectory.exists()) {
-                parentDirectory.mkdirs();  // create the directory if it doesn't exist
+            try {
+                File parentDirectory = file.getParentFile();  // get the parent directory, which is 'data' in this case
+                if (!parentDirectory.exists()) {
+                    boolean success = parentDirectory.mkdirs();
+                    if (!success) {
+                        System.err.println("Failed to create directory: " + parentDirectory.getPath());
+                        return null;
+                    }
+                }
+                file.createNewFile();  // create the file inside the directory
+            } catch (IOException e) {
+                System.err.println("Error occurred while creating file: " + e.getMessage());
+                return null; // or handle the error in another appropriate way
             }
-            file.createNewFile();  // create the file inside the directory
         }
+
         assert file.isFile() : "The provided path does not point to a valid file: " + Duke.LISTPATH;
         return file;
     }
+
 }
