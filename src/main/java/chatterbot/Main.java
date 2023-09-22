@@ -1,11 +1,8 @@
 package chatterbot;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import chatterbot.storage.Storage;
-import chatterbot.ui.Ui;
 import chatterbot.data.Task;
 import chatterbot.data.TaskList;
 import javafx.application.Application;
@@ -22,7 +19,6 @@ public class Main extends Application {
     private ChatterBot chatterbot;
     private ArrayList<Task> list = new ArrayList<Task>();
     private TaskList taskList = new TaskList(list);
-    protected static String file = "data/ChatterBot.txt";
 
     @Override
     public void start(Stage stage) {
