@@ -11,8 +11,7 @@ public class Storage {
     String filePath;
     public Storage(String filePath) throws DukeException {
         this.filePath = filePath;
-        String[] splitFile = filePath.split("/",2);
-        File dir = new File(splitFile[0]);
+        File dir = new File("data");
         boolean dirExists = dir.exists();
         if (!dirExists) {
             dir.mkdir();
