@@ -1,9 +1,11 @@
+# Duke
+
 # User Guide
 Duke is a chatbot that can be used to manage multiple type of tasks.
 
 
 ## Quickstart
-1. download the .jar file from [here](https://github.com/dinde2004/ip/releases/tag/A-Jar).
+1. download the .jar file from [here](https://github.com/dinde2004/ip/releases/tag/A-Release).
 2. execute the .jar file by using command `java -jar path/to/jar/file`.
 3. add your tasks.
 4. let the chatbot handle tasks for you 😉.
