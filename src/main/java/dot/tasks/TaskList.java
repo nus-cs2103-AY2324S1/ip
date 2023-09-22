@@ -88,9 +88,8 @@ public class TaskList {
                     TaskError.ERR_TASKLIST_FULL);
         }
         tasks.add(newTask);
-        handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
-                String.format("Got it. I've added this task:\n"
-                        + "  %s\nNow you have %d tasks in the list.", newTask, tasks.size())));
+        handleDotOutput.accept(String.format("Got it. I've added this task:\n"
+                + "  %s\nNow you have %d tasks in the list.", newTask, tasks.size()));
         return tasks.size();
     }
 
@@ -113,9 +112,8 @@ public class TaskList {
                     TaskError.ERR_TASKLIST_FULL);
         }
         tasks.add(zeroBasedPosition, deletedTask);
-        handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
-                String.format("I've added this task back:\n"
-                        + "  %s\nNow you have %d tasks in the list.", deletedTask, tasks.size())));
+        handleDotOutput.accept(String.format("I've added this task back:\n"
+                + "  %s\nNow you have %d tasks in the list.", deletedTask, tasks.size()));
     }
 
     /**
@@ -166,8 +164,7 @@ public class TaskList {
             throw new DotException("Entered: " + position, TaskError.ERR_INVALID_POSITION);
         }
         Task removedTask = this.tasks.remove(position);
-        handleDotOutput.accept(Ui.wrapStringWithHorizontalRules(
-                String.format("Task \"%s\" removed successfully!", removedTask)));
+        handleDotOutput.accept(String.format("Task \"%s\" removed successfully!", removedTask));
         return removedTask;
     }
 

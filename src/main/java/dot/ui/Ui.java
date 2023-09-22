@@ -38,7 +38,7 @@ public class Ui {
      * @return The welcome message as String.
      */
     public static String getWelcomeMessage() {
-        return wrapStringWithHorizontalRules(WELCOME_MESSAGE);
+        return WELCOME_MESSAGE;
     }
 
     /**
@@ -47,20 +47,8 @@ public class Ui {
      * @return The help message as String.
      */
     public static String getHelpMessage() {
-        return wrapStringWithHorizontalRules(HELP_MESSAGE);
+        return HELP_MESSAGE;
     }
-
-    /**
-     * Displays argument with horizontal rules.
-     *
-     * @param str Input.
-     * @return The input wrapped in HORIZONTAL_RULE.
-     */
-    public static String wrapStringWithHorizontalRules(String str) {
-        return String.format("%s%s\n%s\n",
-                HORIZONTAL_RULE, str, HORIZONTAL_RULE);
-    }
-
 
     /**
      * This method displays a message after a mark or unmark command
@@ -73,11 +61,9 @@ public class Ui {
      */
     public static String getDisplayMarkOrUnmarkMessage(boolean isMarking, String task) {
         if (isMarking) {
-            return wrapStringWithHorizontalRules(String.format(
-                    "Nice! I've marked this task as done:\n  %s", task));
+            return String.format("Nice! I've marked this task as done:\n  %s", task);
         } else {
-            return wrapStringWithHorizontalRules(String.format(
-                    "OK, I've marked this task as not done yet:\n  %s", task));
+            return String.format("OK, I've marked this task as not done yet:\n  %s", task);
         }
 
     }
@@ -93,6 +79,6 @@ public class Ui {
         for (String s : displayList) {
             sb.append(s).append('\n');
         }
-        return wrapStringWithHorizontalRules(sb.toString().strip());
+        return sb.toString().strip();
     }
 }
