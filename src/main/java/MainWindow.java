@@ -1,4 +1,5 @@
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -32,15 +33,19 @@ public class MainWindow extends AnchorPane {
     }
 
     public void exitApp() {
-        int delaySeconds = 2;
-        Platform.runLater(() -> {
-            try {
-                Thread.sleep(delaySeconds * 1000);
-                Platform.exit();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Task<Void> exit = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Thread.sleep(2000);
+                return null;
             }
+        };
+
+        exit.setOnSucceeded((event) -> {
+            Platform.exit();
         });
+
+        new Thread(exit).start();
     }
 
     /**
@@ -59,6 +64,8 @@ public class MainWindow extends AnchorPane {
 
         if (response.startsWith("Bye")) {
             exitApp();
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
         }
     }
 
