@@ -32,6 +32,15 @@ public class Parser {
 
 
     private static final DateTimeFormatter INPUT_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private static final String EXIT_COMMAND = "bye";
+    private static final String LIST_COMMAND = "list";
+    private static final String TODO_COMMAND = "todo";
+    private static final String DEADLINE_COMMAND = "deadline";
+    private static final String EVENT_COMMAND = "event";
+    private static final String DELETE_COMMAND = "delete";
+    private static final String MARK_COMMAND = "mark";
+    private static final String UNMARK_COMMAND = "unmark";
+    private static final String FIND_COMMAND = "find";
 
     /**
      * Parses user input into a recognizable Command object.
@@ -45,99 +54,122 @@ public class Parser {
         String commandType = parts[0];
 
         switch (commandType) {
-        case "bye":
+        case EXIT_COMMAND:
             return new ExitCommand();
-        case "list":
+        case LIST_COMMAND:
             return new ListCommand();
-        case "todo":
+        case TODO_COMMAND:
             return parseTodo(parts);
-        case "deadline":
+        case DEADLINE_COMMAND:
             return parseDeadline(parts);
-        case "event":
+        case EVENT_COMMAND:
             return parseEvent(parts);
-        case "delete":
+        case DELETE_COMMAND:
             return parseDelete(parts);
-        case "mark":
+        case MARK_COMMAND:
             return parseMark(parts);
-        case "unmark":
+        case UNMARK_COMMAND:
             return parseUnmark(parts);
-        case "find":
+        case FIND_COMMAND:
             return parseFind(parts);
         default:
             throw new JarvisUnrecognisedCommandException();
         }
     }
 
-    private void ensureValidParts(String[] parts, String value, String command) throws JarvisException {
+    private String[] ensureValidParts(String[] parts, String[] parameters, String[] delimiters) throws JarvisException {
         if (parts.length < 2 || parts[1].isEmpty()) {
-            throw new JarvisMissingValueException(value, command);
+            throw new JarvisMissingValueException(parameters[0], parts[0]);
+        }
+
+        // Start by using the original parts[1] for extraction
+        String remainingPart = parts[1];
+        String[] extractedParameters = new String[parameters.length];
+
+        // Iterate through each delimiter and extract the corresponding parameter
+        for (int i = 0; i < delimiters.length; i++) {
+            if (remainingPart.contains(delimiters[i])) {
+                String[] splitParts = remainingPart.split(delimiters[i], 2);
+                extractedParameters[i] = splitParts[0].trim();
+                remainingPart = splitParts[1];
+            } else {
+                throw new JarvisMissingValueException(parameters[i + 1], parts[0]);
+            }
+        }
+
+        // The last parameter will be the remaining content after all splits
+        extractedParameters[parameters.length - 1] = remainingPart.trim();
+
+        return extractedParameters;
+    }
+
+    private LocalDateTime parseDateTime(String dateTime) throws JarvisWrongDateFormatException {
+        try {
+            return LocalDateTime.parse(dateTime, INPUT_DATE_TIME_FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new JarvisWrongDateFormatException();
         }
     }
 
     private Command parseTodo(String[] parts) throws JarvisException {
-        ensureValidParts(parts, "description", "todo");
-        return new AddCommand(new Todo(parts[1]));
+        String[] taskParameters = new String[]{"description"};
+        String[] delimiters = new String[]{}; // no delimiters
+        String[] parameterValues = ensureValidParts(parts, taskParameters, delimiters);
+        String description = parameterValues[0];
+        return new AddCommand(new Todo(description));
     }
 
     private Command parseDeadline(String[] parts) throws JarvisException {
-        ensureValidParts(parts, "description", "deadline");
-        String[] deadlineParts = parts[1].split(" /by ", 2);
-        ensureValidParts(deadlineParts, "deadline time", "deadline");
-        try {
-            LocalDateTime by = LocalDateTime.parse(deadlineParts[1], INPUT_DATE_TIME_FORMATTER);
-            return new AddCommand(new Deadline(deadlineParts[0], by));
-        } catch (DateTimeParseException e) {
-            throw new JarvisWrongDateFormatException();
-        }
+        String[] taskParameters = new String[]{"description", "deadline time"};
+        String[] delimiters = new String[]{" /by "};
+        String[] parameterValues = ensureValidParts(parts, taskParameters, delimiters);
+        String description = parameterValues[0];
+        LocalDateTime by = parseDateTime(parameterValues[1]);
+        return new AddCommand(new Deadline(description, by));
     }
 
     private Command parseEvent(String[] parts) throws JarvisException {
-        ensureValidParts(parts, "description", "event");
-        String[] eventParts = parts[1].split(" /from ", 2);
-        ensureValidParts(eventParts, "start time", "event");
-        String[] timeParts = eventParts[1].split(" /to ", 2);
-        ensureValidParts(timeParts, "end time", "event");
+        String[] taskParameters = new String[]{"description", "start time", "end time"};
+        String[] delimiters = new String[]{" /from ", " /to "};
+        String[] parameterValues = ensureValidParts(parts, taskParameters, delimiters);
+        String description = parameterValues[0];
+        LocalDateTime from = parseDateTime(parameterValues[1]);
+        LocalDateTime to = parseDateTime(parameterValues[2]);
+        return new AddCommand(new Event(description, from, to));
+    }
+
+    private Command parseFind(String[] parts) throws JarvisException {
+        String[] taskParameters = new String[]{"keyword"};
+        String[] delimiters = new String[]{}; // no delimiters
+        String[] parameterValues = ensureValidParts(parts, taskParameters, delimiters);
+        String keyword = parameterValues[0];
+        return new FindCommand(keyword);
+    }
+
+    private int parseIndex(String[] parts) throws JarvisException {
+        String[] taskParameters = new String[]{"task index"};
+        String[] delimiters = new String[]{}; // no delimiters
+        String[] parameterValues = ensureValidParts(parts, taskParameters, delimiters);
+        String indexString = parameterValues[0];
         try {
-            LocalDateTime from = LocalDateTime.parse(timeParts[0], INPUT_DATE_TIME_FORMATTER);
-            LocalDateTime to = LocalDateTime.parse(timeParts[1], INPUT_DATE_TIME_FORMATTER);
-            return new AddCommand(new Event(eventParts[0], from, to));
-        } catch (DateTimeParseException e) {
-            throw new JarvisWrongDateFormatException();
+            return Integer.parseInt(indexString);
+        } catch (NumberFormatException e) {
+            throw new JarvisException("Please provide a valid task index.");
         }
     }
 
     private Command parseDelete(String[] parts) throws JarvisException {
-        ensureValidParts(parts, "task index", "delete");
-        try {
-            int deleteIndex = Integer.parseInt(parts[1]);
-            return new DeleteCommand(deleteIndex);
-        } catch (NumberFormatException e) {
-            throw new JarvisException("Please provide a valid task index.");
-        }
+        int deleteIndex = parseIndex(parts);
+        return new DeleteCommand(deleteIndex);
     }
 
     private Command parseMark(String[] parts) throws JarvisException {
-        ensureValidParts(parts, "task index", "mark");
-        try {
-            int markIndex = Integer.parseInt(parts[1]);
-            return new MarkCommand(markIndex);
-        } catch (NumberFormatException e) {
-            throw new JarvisException("Please provide a valid task index.");
-        }
+        int markIndex = parseIndex(parts);
+        return new MarkCommand(markIndex);
     }
 
     private Command parseUnmark(String[] parts) throws JarvisException {
-        ensureValidParts(parts, "task index", "unmark");
-        try {
-            int unmarkIndex = Integer.parseInt(parts[1]);
-            return new UnmarkCommand(unmarkIndex);
-        } catch (NumberFormatException e) {
-            throw new JarvisException("Please provide a valid task index.");
-        }
-    }
-
-    private Command parseFind(String[] parts) throws JarvisException {
-        ensureValidParts(parts, "keyword", "find");
-        return new FindCommand(parts[1]);
+        int unmarkIndex = parseIndex(parts);
+        return new UnmarkCommand(unmarkIndex);
     }
 }
