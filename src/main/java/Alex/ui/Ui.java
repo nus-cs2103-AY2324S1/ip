@@ -13,7 +13,56 @@ public class Ui {
     private static Scanner userInputScanner;
 
     /**
+     * A static method that is used to print help message for add command.
+     * @return A help message for commands related to adding task(s).
+     */
+    public static String helpForAddCommand() {
+        String helpMessage = "To add tasks:\n"
+                    + "todo (description)\n"
+                    + "deadline (description) /by YYYY-MM-DD HHmm\n"
+                    + "event (description) /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm";
+        return helpMessage;
+    }
+
+    /**
+     * A static method that is used to print help message for edit command.
+     * @return A help message for commands related to editing task.
+     */
+    public static String helpForEditCommand() {
+        String helpMessage = "To edit existing task:\n"
+                    + "mark (index)\n"
+                    + "unmark (index)\n"
+                    + "delete (index)";
+        return helpMessage;
+    }
+
+    /**
+     * A static method that is usd to print help message for view command.
+     * @return A help message for commands related to viewing task.
+     */
+    public static String helpForViewCommand() {
+        String helpMessage = "To view existing command(s): \n"
+                    + "list\n"
+                    + "YYYY-MM-DD HHmm\n"
+                    + "find (keyword)";
+
+        return helpMessage;
+    }
+
+    /**
+     * A static method that is used to print help message for exit command.
+     * @return A help message for commands related to exiting application.
+     */
+    public static String helpForExitCommand() {
+        String helpMessage = "To exit Alex application: \n"
+                    + "bye";
+
+        return helpMessage;
+    }
+
+    /**
      * A static method that is used to print greeting message to user.
+     * @return A greeting message.
      */
     public static String greet() {
         String greeting = "Hello! I'm your personal task assistant, Alex\n"

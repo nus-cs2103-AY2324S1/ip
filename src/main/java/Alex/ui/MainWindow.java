@@ -35,10 +35,19 @@ public class MainWindow extends AnchorPane {
     public void setAlex(Alex a) {
         this.alex = a;
         // greeting
-        String alexText = Ui.greet();
+        String greeting = Ui.greet();
+        String helpForAddCommand = Ui.helpForAddCommand();
+        String helpForEditCommand = Ui.helpForEditCommand();
+        String helpForViewCommand = Ui.helpForViewCommand();
+        String helpForExitCommand = Ui.helpForExitCommand();
         dialogContainer.getChildren().addAll(
-                DialogBox.getAlexDialog(alexText, alexImage)
+                DialogBox.getAlexDialog(greeting, alexImage),
+                DialogBox.getAlexDialog(helpForAddCommand, alexImage),
+                DialogBox.getAlexDialog(helpForEditCommand, alexImage),
+                DialogBox.getAlexDialog(helpForViewCommand, alexImage),
+                DialogBox.getAlexDialog(helpForExitCommand, alexImage)
         );
+
     }
 
     /**
