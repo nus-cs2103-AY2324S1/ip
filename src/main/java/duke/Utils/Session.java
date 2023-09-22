@@ -52,7 +52,6 @@ public class Session extends Application {
     public void initializeUI(Stage primaryStage) {
         BorderPane root = createRootPane();
         Scene scene = new Scene(root, 500, 500);
-        
         setupPrimaryStage(primaryStage, scene);
         setupInitialGreeting();
     }
@@ -64,7 +63,6 @@ public class Session extends Application {
      */
     private BorderPane createRootPane() {
         BorderPane root = new BorderPane();
-        
         chatBox = createChatBox();
         ScrollPane scrollPane = createScrollPane();
         inputField = createInputField();
@@ -73,7 +71,7 @@ public class Session extends Application {
 
         root.setCenter(scrollPane);
         root.setBottom(inputBox);
-        
+
         return root;
     }
 
@@ -197,18 +195,18 @@ public class Session extends Application {
         HBox messageBox = new HBox(10);
 
         switch (imgSrc) {
-            case USER_AVATAR:
-                messageContent = new HBox(10, avatarImageView, messageText);
-                messageContent.setAlignment(Pos.BASELINE_LEFT);
-                messageBox.setStyle("-fx-background-color: #ddf2e4; -fx-padding: 10px;");
-                break;
-            case CHATBOT_AVATAR:
-                messageContent = new HBox(10, messageText, avatarImageView);
-                messageContent.setAlignment(Pos.BASELINE_LEFT);
-                messageBox.setStyle("-fx-background-color: #fedada; -fx-padding: 10px;");
-                break;
-            default:
-                throw new DukeException("?");
+        case USER_AVATAR:
+            messageContent = new HBox(10, avatarImageView, messageText);
+            messageContent.setAlignment(Pos.BASELINE_LEFT);
+            messageBox.setStyle("-fx-background-color: #ddf2e4; -fx-padding: 10px;");
+            break;
+        case CHATBOT_AVATAR:
+            messageContent = new HBox(10, messageText, avatarImageView);
+            messageContent.setAlignment(Pos.BASELINE_LEFT);
+            messageBox.setStyle("-fx-background-color: #fedada; -fx-padding: 10px;");
+            break;
+        default:
+            throw new DukeException("?");
         }
 
         messageBox.getChildren().add(messageContent);

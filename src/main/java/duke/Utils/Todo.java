@@ -1,10 +1,14 @@
 package duke.utils;
 
+import java.time.LocalDateTime;
+
 /**
  * The ToDo class represents a task of type "Todo" in the Duke application.
  * It extends the Task class and provides specific functionality for Todo tasks.
  */
 public class Todo extends Task {
+
+    private static final LocalDateTime MAX_DATE = LocalDateTime.MAX;
 
     /**
      * Constructs a new Todo object with a title.
@@ -41,9 +45,23 @@ public class Todo extends Task {
         return new Todo(title, marked);
     }
 
+    /**
+     * Converts the Todo object to a CSV (Comma-Separated Values) string.
+     *
+     * @return A CSV string representation of the Todo object.
+     */
     @Override
     public String toCsv() {
         return FileIO.joinCsv(this.type(), this.marked(), this.name());
+    }
+
+    /**
+     * Returns maximum date possible, since the deadline is non-existent
+     * @return A LocalDateTime representation of the maximum date possible
+     */
+    @Override
+    public LocalDateTime getDeadline() {
+        return Todo.MAX_DATE;
     }
 
     @Override

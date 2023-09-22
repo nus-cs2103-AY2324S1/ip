@@ -71,6 +71,16 @@ public class Event extends Task {
     }
 
     /**
+     * Returns the start of the event
+     *
+     * @return A LocalDateTime representation of the start of event
+     */
+    @Override
+    public LocalDateTime getDeadline() {
+        return this.start;
+    }
+
+    /**
      * Returns a string representation of the Event object, including its type and event time information.
      *
      * @return A string representation of the Event object.
