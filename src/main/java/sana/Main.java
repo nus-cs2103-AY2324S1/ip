@@ -19,23 +19,23 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            String filePath = "data/SanaTasks.txt";
-            File folder = new File(String.valueOf(Paths.get("data/SanaTasks.txt").getParent()));
-
-            // Check if folder exists, if not create one
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-
-            // Check if file exists, if not create one
-            File file = new File(filePath);
-            if (!file.exists()) {
-                try {
-                    file.createNewFile();
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
-                }
-            }
+//            String filePath = "data/SanaTasks.txt";
+//            File folder = new File(String.valueOf(Paths.get("data/SanaTasks.txt").getParent()));
+//
+//            // Check if folder exists, if not create one
+//            if (!folder.exists()) {
+//                folder.mkdirs();
+//            }
+//
+//            // Check if file exists, if not create one
+//            File file = new File(filePath);
+//            if (!file.exists()) {
+//                try {
+//                    file.createNewFile();
+//                } catch (IOException e) {
+//                    System.out.println(e.getMessage());
+//                }
+//            }
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();

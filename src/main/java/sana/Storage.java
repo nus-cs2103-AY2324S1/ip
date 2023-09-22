@@ -35,6 +35,7 @@ public class Storage {
                 String task = scan.nextLine();
                 tasks = tasks.append(task + "\n");
             }
+            scan.close();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
