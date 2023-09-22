@@ -1,21 +1,34 @@
-# User Guide for Orion
+# Orion User Guide
 
 ## Features 
 
-
-### Managing your tasks
+### Adding tasks
 
 Users can add tasks of 3 kinds,<br>
 a TODO task that contains a description,<br>
 a DEADLINE task that contains a description and a deadline,<br>
 an EVENT task that contains a description, an event start date and an event end date.
 
-Users can also delete tasks if the task is no longer relevant.
 
-### Finding your tasks
+### Removing tasks
+
+Users can remove tasks if the task is no longer relevant.
+
+### Marking tasks as done
+
+Users can mark/unmark a task as done/not yet done.
+
+### Finding tasks
 
 Users can find tasks using its description(or partial description) effectively.
 
+### Saving tasks
+
+Tasks added to Orion will be saved automatically.
+
+### Loading tasks
+
+Tasks that were previously saved will be loaded up automatically after launching.
 
 ## Usage
 
@@ -23,9 +36,9 @@ Users can find tasks using its description(or partial description) effectively.
 
 Orion will list out all your tasks that is being tracked by Orion.
 
-Example of usage: 
+Format: `list`
 
-`list`
+Example of usage: `list`
 
 Expected outcome:
 
@@ -39,11 +52,10 @@ Here are the tasks in your list:
 ### `mark` - Mark your task as done.
 
 Orion will mark your task specified by its index(1-indexed) as done.<br>
-`mark <index of task to be marked>`
 
-Example of usage:<br>
+Format: `mark <index of task to be marked>`
 
-`mark 1`
+Example of usage: `mark 1`
 
 Expected outcome:
 
@@ -55,11 +67,10 @@ Nice! I've marked this task as done:
 ### `unmark` - Mark your task as done.
 
 Orion will mark your task specified by its index(1-indexed) as done.<br>
-`unmark <index of task to be unmarked>`
 
-Example of usage:
+Format: `unmark <index of task to be unmarked>`
 
-`unmark 3`
+Example of usage: `unmark 3`
 
 Expected outcome:
 
@@ -71,11 +82,10 @@ OK, I've marked this task as not done yet:
 ### `todo` - Add a TODO task.
 
 Orion will add a TODO task with the given description.<br>
-`todo <description of your TODO task>`
 
-Example of usage:
+Format: `todo <description of your TODO task>`
 
-`todo I am adding a TODO`
+Example of usage: `todo I am adding a TODO`
 
 Expected outcome:
 
@@ -88,11 +98,10 @@ Now you have 4 tasks in the list.
 ### `deadline` - Add a DEADLINE task.
 
 Orion will add a DEADLINE task with the given description and deadline.<br>
-`deadline <description> /by <deadline in the format yyyy-mm-dd>`
 
-Example of usage:
+Format: `deadline <description> /by <deadline in the format yyyy-mm-dd>`
 
-`deadline submission /by 2023-05-05`
+Example of usage: `deadline submission /by 2023-05-05`
 
 Expected outcome:
 
@@ -105,11 +114,10 @@ Now you have 5 tasks in the list.
 ### `event` - Add an EVENT task.
 
 Orion will add an EVENT task with the given description, event start date and event end date.<br>
-`event <description> /from <start date in the format yyyy-mm-dd> /to <end date in the format yyyy-mm-dd>`
 
-Example of usage:
+Format: `event <description> /from <start date in the format yyyy-mm-dd> /to <end date in the format yyyy-mm-dd>`
 
-`event attend carnival /from 2023-05-06 /to 2023-05-08`
+Example of usage: `event attend carnival /from 2023-05-06 /to 2023-05-08`
 
 Expected outcome:
 
@@ -122,11 +130,10 @@ Now you have 6 tasks in the list.
 ### `delete` - Delete a task.
 
 Orion will delete the task specified by its index(1-indexed).<br>
-`delete <index of task to be deleted>`
 
-Example of usage:<br>
+Format: `delete <index of task to be deleted>`
 
-`delete 2`
+Example of usage: `delete 2`
 
 Expected outcome:
 
@@ -139,11 +146,10 @@ Now you have 5 tasks in the list.
 ### `find` - Find a task.
 
 Orion will find a task using the given description and wil return the list of tasks that has matched or partially matched the description.<br>
-`find <description to be searched>`
 
-Example of usage:
+Format: `find <description to be searched>`
 
-`find attend`
+Example of usage: `find attend`
 
 Expected outcome:
 
@@ -157,10 +163,8 @@ Here are the matching tasks in your list:
 
 Orion will quit the application and close the window.<br>
 
-Example of usage:
+Format: `bye`
 
-`bye`
+Example of usage: `bye`
 
-Expected outcome:
-
-The application window will close.
+Expected outcome: The application window will close.
