@@ -34,16 +34,19 @@ public class Storage {
             while ((currentLine = reader.readLine()) != null) {
                 System.out.println(currentLine);
                 String[] taskInfo = currentLine.split("\\|");
+                assert taskInfo.length >= 3 : "Invalid task format";
                 String type = taskInfo[0].trim();
                 String status = taskInfo[1];
                 String description = taskInfo[2].trim();
                 if ("T".equals(type)) {
+                    assert taskInfo.length == 3 : "Invalid todo format";
                     Todo todo = new Todo(description);
                     if ("X".equals(status)) {
                         todo.markAsDone();
                     }
                     tasks.add(todo);
                 } else if ("D".equals(type)) {
+                    assert taskInfo.length == 4 : "Invalid deadline format";
                     String by = taskInfo[3];
                     Deadline deadline = new Deadline(description, by.trim());
                     if ("X".equals(status)) {
@@ -51,7 +54,9 @@ public class Storage {
                     }
                     tasks.add(deadline);
                 } else if ("E".equals(type)) {
+                    assert taskInfo.length == 4 : "Invalid event format";
                     String[] duration = taskInfo[3].split("-");
+                    assert duration.length == 2 : "Invalid event duration";
                     String from = duration[0];
                     String to = duration[1];
                     Event event = new Event(description, from, to);
