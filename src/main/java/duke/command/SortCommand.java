@@ -1,6 +1,7 @@
 package duke.command;
 
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import duke.core.DukeException;
 import duke.core.Storage;
@@ -30,6 +31,10 @@ public class SortCommand extends Command {
     protected void loadParameters() throws DukeException {
         String sortByString = parameterMap.get("default");
 
+        if (sortByString == null) {
+            return;
+        }
+
         switch(sortByString) {
         case "name":
             sortBy = SortBy.NAME;
@@ -40,6 +45,9 @@ public class SortCommand extends Command {
         case "completion":
             sortBy = SortBy.COMPLETION;
             break;
+        case "date":
+            sortBy = SortBy.DATE;
+            break;
         default:
             break;
         }
@@ -48,8 +56,8 @@ public class SortCommand extends Command {
     @Override
     protected void checkIfParametersSpecified() throws DukeException {
         if (sortBy == null) {
-            throw new DukeException("Please enter a sort type.\n"
-                    + "Valid sort types are: name, type, completion");
+            throw new DukeException("Please enter a valid sort type.\n"
+                    + "Valid sort types are: name, type, completion, date.");
         }
     }
 
@@ -57,8 +65,14 @@ public class SortCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws DukeException {
         tasks.sort(sortBy);
 
-        StringBuilder response = new StringBuilder("Tasks sorted by ");
-        response.append(sortBy.toString());
+        tasks.storeTasks(storage);
+
+        AtomicInteger count = new AtomicInteger(1);
+        StringBuilder response = new StringBuilder();
+        response.append(String.format("Tasks sorted by %s:\n", sortBy.toString()));
+        tasks.getTasks().map(task -> String.format("%d. %s\n", count.getAndIncrement(), task.toString()))
+                .forEach(task -> response.append(task));
+
         return response.toString();
     }
 }

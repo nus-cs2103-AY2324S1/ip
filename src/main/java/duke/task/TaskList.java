@@ -22,7 +22,8 @@ public class TaskList {
         NONE(""),
         NAME("name"),
         TASK("task type"),
-        COMPLETION("completion status");
+        COMPLETION("completion status"),
+        DATE("date");
 
         private String settingName;
 
@@ -167,6 +168,9 @@ public class TaskList {
             break;
         case COMPLETION:
             taskArray.sort(Task::compareByCompletion);
+            break;
+        case DATE:
+            taskArray.sort(Task::compareByDate);
             break;
         default:
             break;

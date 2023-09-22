@@ -123,4 +123,34 @@ public abstract class Task {
     public static int compareByCompletion(Task task1, Task task2) {
         return Boolean.compare(task1.isCompleted, task2.isCompleted);
     }
+
+    /**
+     * Compares two tasks by their date.
+     */
+    public static int compareByDate(Task task1, Task task2) {
+        if (task1 instanceof Todo && task2 instanceof Todo) {
+            return 0;
+        }
+
+        if (task1 instanceof Event && task2 instanceof Event) {
+            return 0;
+        }
+
+        if (task1 instanceof Todo || task1 instanceof Event) {
+            return -1;
+        }
+
+        if (task2 instanceof Todo || task2 instanceof Event) {
+            return -1;
+        }
+
+        if (task1 instanceof Deadline && task2 instanceof Deadline) {
+            Deadline deadline1 = (Deadline) task1;
+            Deadline deadline2 = (Deadline) task2;
+
+            return deadline1.compareTo(deadline2);
+        }
+
+        return 0;
+    }
 }
