@@ -8,11 +8,11 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="avalon.MainWindow">
   <children>
-    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="298.0" AnchorPane.bottomAnchor="1.0" />
-    <Button fx:id="sendButton" layoutX="298.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="102.0" text="Send" />
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
+    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="297.0" promptText="Enter a message..." style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="1.0" />
+    <Button fx:id="sendButton" layoutX="298.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="103.0" text="SEND!" />
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" style="-fx-border-color: navy;" vvalue="1.0">
       <content>
-        <VBox fx:id="dialogContainer" prefHeight="553.0" prefWidth="387.0" />
+        <VBox fx:id="dialogContainer" prefHeight="553.0" prefWidth="387.0" style="-fx-background-color: #00bfff; -fx-border-color: #4169e1;" />
       </content>
     </ScrollPane>
   </children>

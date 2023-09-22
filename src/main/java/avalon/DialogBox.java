@@ -9,11 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 /**
  * An example of a custom control using FXML.
@@ -22,7 +22,7 @@ import javafx.scene.shape.Circle;
  */
 public class DialogBox extends HBox {
     @FXML
-    private Label dialog;
+    private TextArea dialog;
     @FXML
     private ImageView displayPicture;
 
@@ -38,9 +38,10 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setPreserveRatio(true);
         double width = displayPicture.getFitWidth();
         double height = displayPicture.getFitHeight();
-        Circle clip = new Circle(width / 2, height / 2, width/2);
+        Rectangle clip = new Rectangle(width / 2, height / 2);
         displayPicture.setClip(clip);
     }
 

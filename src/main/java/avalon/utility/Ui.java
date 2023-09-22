@@ -47,37 +47,10 @@ public class Ui {
     }
 
     /**
-     * Prints a line separator to the console.
-     */
-    public void printLineSeparator() {
-        printMessage("   _________________________________________"
-                + "________________________________________\n");
-
-    }
-
-    /**
-     * Styles and prints a message with a line separator above and below it.
-     *
-     * @param message The message to be styled and printed.
-     */
-    public void styleMessage(String message) {
-        printLineSeparator();
-        printMessage(message);
-        printLineSeparator();
-    }
-
-    /**
-     * Displays a greeting message.
-     */
-    public void greetMessage() {
-        styleMessage("    Hello! I'm Arthur Pendragon.\n    What can I do for you?\n");
-    }
-
-    /**
      * Displays a farewell message.
      */
     public void byeMessage() {
-        printMessage("    Farewell. We will meet again!\n");
+        printMessage("Farewell. We will meet again!\n");
     }
 
     /**
@@ -87,14 +60,12 @@ public class Ui {
      */
     public void showTasksList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            styleMessage("    You haven't added anything, my sire.\n");
+            printMessage("You haven't added anything, my sire.\n");
         } else {
-            printLineSeparator();
-            printMessage("   Here are the quests in thy list:" + "\n");
+            printMessage("Here are the quests in thy list:" + "\n");
             for (int i = 0; i < tasks.size(); i++) {
                 printMessage("    " + (i + 1) + "." + tasks.get(i) + "\n");
             }
-            printLineSeparator();
         }
     }
 
@@ -105,11 +76,9 @@ public class Ui {
      * @param taskIndex The index of the marked task.
      */
     public void showMarkMessage(TaskList tasks, int taskIndex) {
-        printLineSeparator();
-        printMessage("   Very well. I have marked this task as accomplished:\n  " + "  "
+        printMessage("Very well. I have marked this task as accomplished:\n  " + "  "
                 + tasks.get(taskIndex).getStatusIcon() + " "
                 + tasks.get(taskIndex).getDescription() + "\n");
-        printLineSeparator();
     }
 
     /**
@@ -119,11 +88,9 @@ public class Ui {
      * @param taskIndex The index of the unmarked task.
      */
     public void showUnmarkMessage(TaskList tasks, int taskIndex) {
-        printLineSeparator();
-        printMessage("   By the heavens! I have declared this task as yet to be completed:\n  "
+        printMessage("By the heavens! I have declared this task as yet to be completed:\n  "
                 + "  " + tasks.get(taskIndex).getStatusIcon()
                 + " " + tasks.get(taskIndex).getDescription() + "\n");
-        printLineSeparator();
     }
 
     /**
@@ -132,11 +99,9 @@ public class Ui {
      * @param tasks The task list containing the newly added task.
      */
     public void showAddTaskMessage(TaskList tasks) {
-        printLineSeparator();
-        printMessage("   Understood. I have included this quest:\n  "
+        printMessage("Understood. I have included this quest:\n  "
                 + "  " + tasks.get(tasks.size() - 1) + "\n");
-        printMessage("   Now you have " + tasks.size() + " task(s) in the list.\n");
-        printLineSeparator();
+        printMessage("Now you have " + tasks.size() + " task(s) in the list.\n");
     }
 
     /**
@@ -146,11 +111,9 @@ public class Ui {
      * @param deletedTask The deleted task.
      */
     public void showDeleteTaskMessage(TaskList tasks, Task deletedTask) {
-        printLineSeparator();
-        printMessage("   Noted. I've removed this quest:\n");
+        printMessage("Noted. I've removed this quest:\n");
         printMessage("    " + deletedTask + "\n");
-        printMessage("   Now you have " + tasks.size() + " task(s) in the list.\n");
-        printLineSeparator();
+        printMessage("Now you have " + tasks.size() + " task(s) in the list.\n");
     }
 
     /**
@@ -160,22 +123,18 @@ public class Ui {
      */
     public void showFindMessage(TaskList matchingTasks) {
         if (matchingTasks.isEmpty()) {
-            styleMessage("    No matching tasks found.\n");
+            printMessage("No matching tasks found.\n");
         } else {
-            printLineSeparator();
-            printMessage("    Here are the matching tasks in your list:\n");
+            printMessage("Here are the matching tasks in your list:\n");
             for (int i = 0; i < matchingTasks.size(); i++) {
                 printMessage("    " + (i + 1) + "." + matchingTasks.get(i) + "\n");
             }
-            printLineSeparator();
         }
     }
 
     public void showPriorityMessage(TaskList tasks, int taskIndex) {
-        printLineSeparator();
-        printMessage("   Very well. I have marked the priority of the task:\n  "
+        printMessage("Very well. I have marked the priority of the task:\n  "
                 + " [" + tasks.get(taskIndex).getPriority() + "] "
                 + tasks.get(taskIndex).getDescription() + "\n");
-        printLineSeparator();
     }
 }
