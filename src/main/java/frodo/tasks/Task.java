@@ -1,4 +1,4 @@
-package Duke.tasks;
+package frodo.tasks;
 
 /**
  * Represents a general task with a description and completion status.

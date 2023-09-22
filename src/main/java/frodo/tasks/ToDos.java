@@ -1,4 +1,4 @@
-package Duke.tasks;
+package frodo.tasks;
 import core.DukeException;
 
 /**

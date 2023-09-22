@@ -1,9 +1,9 @@
-package Duke.ui;
+package frodo.ui;
 
 import java.util.Scanner;
 
-import Duke.tasks.Task;
-import Duke.tasks.TaskList;
+import frodo.tasks.Task;
+import frodo.tasks.TaskList;
 
 public class Ui {
     private static final String horizontal_line = "_________________________________________";

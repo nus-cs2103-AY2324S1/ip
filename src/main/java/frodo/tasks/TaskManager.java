@@ -1,7 +1,6 @@
-package Duke.tasks;
+package frodo.tasks;
 
-import Duke.parser.Parser;
-import Duke.storage.Storage;
+import frodo.parser.Parser;
 import core.DukeException;
 
 /**
