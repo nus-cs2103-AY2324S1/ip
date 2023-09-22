@@ -111,6 +111,9 @@ public class Ui {
      * @return The confirmation message as a String.
      */
     public String displayDeletedTaskConfirmation(Task task, TaskList tasks) {
+        if (task == null) {
+            return "Task cannot be deleted";
+        }
         assert task != null : "Task should not be null";
         assert tasks != null : "List of tasks should not be null";
         return "Noted. I've removed this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size()
@@ -137,6 +140,9 @@ public class Ui {
      * @return The confirmation message as a String.
      */
     public String displayMarkedTaskConfirmation(Task task) {
+        if (task == null) {
+            return "Task cannot be marked as done";
+        }
         assert task != null : "Task should not be null";
         return "Nice! I've marked this task as done: \n" + "  " + task;
     }

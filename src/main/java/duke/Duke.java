@@ -190,7 +190,7 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
-        assert false : "Task should not be null";
+
         return null;
     }
 
@@ -206,7 +206,7 @@ public class Duke {
         } catch (DukeException e) {
             ui.printErrorMessage(e);
         }
-        assert false : "Task should not be null";
+
         return null;
     }
 }
