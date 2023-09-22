@@ -5,7 +5,7 @@ list / list
 delete / delete
 unset / unset
 unmark / unmark
-bye / bye / b / bb
+bye / bye
 todo / todo
 help / help
 load / load
