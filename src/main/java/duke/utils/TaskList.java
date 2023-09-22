@@ -159,18 +159,18 @@ public class TaskList {
      * @param keyword The keyword to search for within task descriptions.
      * @return A list of tasks that contain the specified keyword in their descriptions.
      */
-    public List<Task> findTasksByKeyword(String keyword) {
+    public TaskList findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
-        for (int i = 0; i < toDoList.size(); i++) {
-            Task task = toDoList.get(i);
+        for (Task task : toDoList) {
             if (task.getDescription().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }
         if (matchingTasks.size() < 1) {
             System.out.println("OOPS! No matching tasks found");
+            return new TaskList();
         }
-        return matchingTasks;
+        return new TaskList(matchingTasks);
     }
     @Override
     public String toString() {

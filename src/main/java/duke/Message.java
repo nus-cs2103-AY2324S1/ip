@@ -47,8 +47,12 @@ public class Message {
     }
 
     public void findMessage(TaskList tasks, String keyword) {
-        List<Task> matchingTasks = tasks.findTasksByKeyword(keyword);
-        message = "Here are the matching tasks in your list:\n" + matchingTasks;
+        if (keyword.equals("")) {
+            message = "Please enter a keyword to search for.";
+        } else {
+            TaskList matchingTasks = tasks.findTasksByKeyword(keyword);
+            message = "Here are the matching tasks in your list:\n" + matchingTasks;
+        }
     }
 
     public void farewellMessage() {
