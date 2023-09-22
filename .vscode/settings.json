@@ -1,0 +1,10 @@
+{
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.tabSize": 4,
+    "java.checkstyle.configuration": "${workspaceFolder}\\config\\checkstyle\\checkstyle.xml",
+    "java.checkstyle.version": "10.2",
+    "java.checkstyle.properties": {
+        "config_loc": "${workspaceFolder}\\config\\checkstyle\\"
+    }
+}

@@ -1,17 +1,9 @@
-# IDEA files
-/.idea/
-/out/
-/*.iml
+# Gradle
+.gradle/
+build/
 
-# Gradle build files
-/.gradle/
-/build/
-src/main/resources/docs/
-
-# MacOS custom attributes files created by Finder
-.DS_Store
-*.iml
+# VSCode
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+# App
+data/

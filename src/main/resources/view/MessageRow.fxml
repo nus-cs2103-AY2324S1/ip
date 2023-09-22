@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root fx:id="messageRow" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="384" style="-fx-background-color: #DDFFFF;" type="HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="picture" fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cloud.png" />
+         </image>
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label fx:id="text" text="Message." wrapText="true">
+         <HBox.margin>
+            <Insets left="5.0" right="5.0" />
+         </HBox.margin>
+      </Label>
+   </children>
+   <padding>
+      <Insets bottom="5.0" top="5.0" />
+   </padding>
+</fx:root>

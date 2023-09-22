@@ -1,0 +1,68 @@
+plugins {
+    id "application"
+    id "checkstyle"
+
+    id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+repositories {
+    mavenCentral()
+}
+
+String versionJavaFx = "17.0.7";
+String versionJUnit = "5.10.0";
+dependencies {
+    implementation group: "org.openjfx", name: "javafx-base", version: versionJavaFx, classifier: "win"
+    implementation group: "org.openjfx", name: "javafx-base", version: versionJavaFx, classifier: "mac"
+    implementation group: "org.openjfx", name: "javafx-base", version: versionJavaFx, classifier: "linux"
+    implementation group: "org.openjfx", name: "javafx-controls", version: versionJavaFx, classifier: "win"
+    implementation group: "org.openjfx", name: "javafx-controls", version: versionJavaFx, classifier: "mac"
+    implementation group: "org.openjfx", name: "javafx-controls", version: versionJavaFx, classifier: "linux"
+    implementation group: "org.openjfx", name: "javafx-fxml", version: versionJavaFx, classifier: "win"
+    implementation group: "org.openjfx", name: "javafx-fxml", version: versionJavaFx, classifier: "mac"
+    implementation group: "org.openjfx", name: "javafx-fxml", version: versionJavaFx, classifier: "linux"
+    implementation group: "org.openjfx", name: "javafx-graphics", version: versionJavaFx, classifier: "win"
+    implementation group: "org.openjfx", name: "javafx-graphics", version: versionJavaFx, classifier: "mac"
+    implementation group: "org.openjfx", name: "javafx-graphics", version: versionJavaFx, classifier: "linux"
+
+    implementation group: "org.json", name: "json", version: "20230618"
+
+    testImplementation group: "org.junit.jupiter", name: "junit-jupiter-api", version: versionJUnit
+    testRuntimeOnly group: "org.junit.jupiter", name: "junit-jupiter-engine", version: versionJUnit
+}
+
+
+
+defaultTasks "clean", "build"
+
+application {
+    mainClass = "com.cloud.chatbot.Cloud"
+}
+
+run {
+    enableAssertions true
+}
+
+test {
+    useJUnitPlatform()
+
+    // https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.logging.TestLogging.html
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        showCauses true
+        showStackTraces true
+        exceptionFormat "full"
+    }
+}
+
+checkstyle {
+    toolVersion = "10.2"
+}
+
+shadowJar {
+    dependsOn "distZip", "distTar"
+
+    archiveFileName = "cloud.jar"
+}
