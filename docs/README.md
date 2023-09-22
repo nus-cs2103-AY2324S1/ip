@@ -1,29 +1,65 @@
 # User Guide
 
-## Features 
+**Cloud** is a chatbot that tracks work items. Here's a quick overview of how to use it.
 
-### Feature-ABC
+Interaction is done by sending text commands. After starting the app, click on the text box at the bottom of the window to type your commands there. You may press <kbd>Enter</kbd> or click the "Send" button to send each command to the bot.
 
-Description of the feature.
+---
 
-### Feature-XYZ
+## Adding items
 
-Description of the feature.
+There are 3 kinds of items you can create. The most basic is called a task, which just has a description.
 
-## Usage
+Syntax: `add <description>`
 
-### `Keyword` - Describe action
+Example: `add Complete task by creating more cool features.`
 
-Describe the action and its outcome.
+There are also deadlines and events, which can be created by specifying flags. A flag consists of a word with a `/` in front of it, followed by the flag's contents.
 
-Example of usage: 
+A deadline has a `/by` flag, while an event has both a `/from` and `/to` flag. These flags all expect a timestamp as their contents. Timestamps are given in the form `<day> <month> <year> <time>` - e.g. `18 6 23 1950` would represent 18 June 2023, 7:50pm.
 
-`keyword (optional arguments)`
+Syntax: `add <description> /by <timestamp>`
 
-Expected outcome:
+Example: `add Submit quiz before the deadline! /by 22 9 23 2359`
 
-Description of the outcome.
+Syntax: `add <description> /from <timestamp> /to <timestamp>`
 
-```
-expected output
-```
+Example: `add Attend open house event. /from 22 9 23 900 /to 22 9 23 1730`
+
+## Listing items
+
+You can list all your items with the `list` command.
+
+Each item has a number representing its position in the list (e.g. `#2`), as well as a letter representing its type - `T` for task, `D` for deadline, and `E` for event.
+
+## Finding items
+
+You can search for items whose descriptions include a specified phrase. The searching is case sensitive.
+
+Syntax: `find <phrase>`
+
+Example: `find open house`
+
+## Marking items
+
+Items can be marked (or unmarked) as complete by specifying their number. Completed items have an `X` in front of them.
+
+Syntax: `mark <number>`
+
+Example: `mark 1`
+
+Syntax: `unmark <number>`
+
+Example: `unmark 2`
+
+## Deleting items
+
+You may also choose to delete items altogether instead of marking them.
+
+Syntax: `delete <number>`
+
+Example: `delete 3`
+
+---
+
+![](./Ui.png)
