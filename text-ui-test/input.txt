@@ -1,0 +1,13 @@
+todo boo1
+todo boo2
+mark 1
+mark 2
+unmark 1
+delete 1
+delete 2
+deadline return book /by 2021-12-01 11:11
+event project meeting /from 2021-12-01 11:11 /to 2021-12-01 11:12
+list
+delete 1
+delete 2
+bye
