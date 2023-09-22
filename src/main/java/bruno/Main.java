@@ -27,6 +27,7 @@ public class Main extends Application {
             scene.getStylesheets().add("/styles/styles.css");
             stage.setTitle("Bruno - Your Productivity Dog 🦮");
             stage.setScene(scene);
+            stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setBruno(bruno);
             stage.show();
             fxmlLoader.<MainWindow>getController().startUpBruno();

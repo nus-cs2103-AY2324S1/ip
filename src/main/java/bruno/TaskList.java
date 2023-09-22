@@ -125,6 +125,9 @@ public class TaskList {
      * @throws BrunoException Thrown if the user tries to mark an invalid task.
      */
     public String markTask(String task) throws BrunoException {
+        if (task.split(" ").length == 1) {
+            throw new BrunoEmptyException(task.split(" ")[0]);
+        }
         String[] parsedTask = task.split(" ");
         checkArgs(parsedTask[1], parsedTask[0], tasks.size());
         int markVal = Integer.parseInt(parsedTask[1]);
@@ -141,6 +144,9 @@ public class TaskList {
      * @throws BrunoException Thrown if user tries to unmark an invalid task.
      */
     public String unmarkTask(String task) throws BrunoException {
+        if (task.split(" ").length == 1) {
+            throw new BrunoEmptyException(task.split(" ")[0]);
+        }
         String[] parsedTask = task.split(" ");
         checkArgs(parsedTask[1], parsedTask[0], tasks.size());
         int unmarkVal = Integer.parseInt(parsedTask[1]);
@@ -157,6 +163,9 @@ public class TaskList {
      * @throws BrunoException Thrown if user tries to delete an invalid task.
      */
     public String deleteTask(String task) throws BrunoException {
+        if (task.split(" ").length == 1) {
+            throw new BrunoEmptyException(task.split(" ")[0]);
+        }
         String[] parsedTask = task.split(" ");
         checkArgs(parsedTask[1], parsedTask[0], tasks.size());
         int deleteVal = Integer.parseInt(parsedTask[1]);
@@ -201,7 +210,10 @@ public class TaskList {
      * @param task The Schedule command input by the user.
      * @throws DateTimeException Thrown if date input by the user is not correct format.
      */
-    public String showSchedule(String task) throws DateTimeException {
+    public String showSchedule(String task) throws DateTimeException, BrunoException {
+        if (task.split(" ").length == 1) {
+            throw new BrunoEmptyException(task.split(" ")[0]);
+        }
         String date = task.split(" ")[1];
         String taskInfo = "";
         int counter = 0;
@@ -220,7 +232,10 @@ public class TaskList {
      *
      * @param task The user input for the task.
      */
-    public String findTasks(String task) {
+    public String findTasks(String task) throws BrunoException {
+        if (task.split(" ").length == 1) {
+            throw new BrunoEmptyException(task.split(" ")[0]);
+        }
         assert !task.substring(task.indexOf("find") + 5).equals("") : "Search keyword must not be empty";
         String taskInfo = "";
         String keyWord = task.split(" ")[1];
@@ -241,6 +256,9 @@ public class TaskList {
      * @param task User input for the note to be added.
      */
     public String addNote(String task) throws BrunoException {
+        if (task.split(" ").length == 1) {
+            throw new BrunoEmptyException(task.split(" ")[0]);
+        }
         String[] parsedTask = task.split(" ");
         checkArgs(parsedTask[1], parsedTask[0], tasks.size());
         int noteVal = Integer.parseInt(parsedTask[1]);
