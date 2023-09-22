@@ -20,7 +20,9 @@ import jarvis.tasklist.TaskList;
  */
 public class Storage {
     private static final DateTimeFormatter SAVE_DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
-
+    private static final String TODO_IDENTIFIER = "T";
+    private static final String DEADLINE_IDENTIFIER = "D";
+    private static final String EVENT_IDENTIFIER = "E";
     private String filePath;
 
     /**
@@ -99,13 +101,13 @@ public class Storage {
             boolean isMarked = parts[1].equals("1");
 
             switch (parts[0]) {
-            case "T":
+            case TODO_IDENTIFIER:
                 tasks.add(new Todo(parts[2], isMarked));
                 break;
-            case "D":
+            case DEADLINE_IDENTIFIER:
                 tasks.add(new Deadline(parts[2], isMarked, parseSavedDateTime(parts[3])));
                 break;
-            case "E":
+            case EVENT_IDENTIFIER:
                 tasks.add(new Event(parts[2], isMarked, parseSavedDateTime(parts[3]), parseSavedDateTime(parts[4])));
                 break;
             default:
