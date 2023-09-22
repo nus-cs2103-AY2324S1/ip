@@ -13,4 +13,5 @@ public enum DudeCommandId {
     remove,
     delete,
     find,
+    sort,
 }
