@@ -79,6 +79,8 @@ public class Parser {
                     return new UnmarkCommand(idx);
                 case "delete":
                     return new DeleteCommand(idx);
+                case "snooze":
+                    return new SnoozeCommand(idx);
                 default:
                     throw new ParserException("Command not found");
                 }
