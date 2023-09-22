@@ -9,7 +9,10 @@ import max.ui.Ui;
 /**
  * Represents commands by user.
  */
-public class Command {
+public abstract class Command {
+    /**
+     * Public constructor for Command.
+     */
     public Command() {
 
     }
@@ -22,14 +25,12 @@ public class Command {
      * @param storage Storage
      * @throws MaxException If command is invalid
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
-        throw new MaxException("This command cannot be executed bro.");
-    }
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException;
 
     /**
      * Checks if command is an exit command.
      *
-     * @return false
+     * @return True if exit command, false otherwise
      */
     public boolean isExit() {
         return false;

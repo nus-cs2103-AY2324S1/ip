@@ -7,6 +7,7 @@ public class EmptyArgumentException extends MaxException {
     /**
      * Public constructor for EmptyArgumentException.
      *
+     * @param msg Error message
      */
     public EmptyArgumentException(String msg) {
         super(msg);

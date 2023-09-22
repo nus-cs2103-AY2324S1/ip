@@ -7,6 +7,7 @@ public class InvalidFormatException extends MaxException {
     /**
      * Public constructor for InvalidFormatException.
      *
+     * @param msg Error message
      */
     public InvalidFormatException(String msg) {
         super(msg);

@@ -38,7 +38,6 @@ public class FindCommand extends Command {
                 .filter((task) -> Arrays.stream(items)
                         .anyMatch(item -> task.getItem().contains(item)))
                 .collect(Collectors.toList());
-
         return ui.showList(filterList);
     }
 

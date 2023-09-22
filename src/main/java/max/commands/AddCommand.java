@@ -1,5 +1,6 @@
 package max.commands;
 
+import max.exception.MaxException;
 import max.storage.Storage;
 import max.tasks.Task;
 import max.tasks.TaskList;
@@ -29,7 +30,7 @@ public class AddCommand extends Command {
      * @param storage Storage
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
         tasks.add(task);
         storage.writeToFile(tasks);
         return ui.showAdd(task, tasks.getList().size());

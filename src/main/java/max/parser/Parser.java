@@ -36,7 +36,7 @@ public class Parser {
     }
 
     /**
-     * Initialises parser.
+     * Public constructor for parser.
      */
     public Parser() {
 
@@ -44,6 +44,7 @@ public class Parser {
 
     /**
      * Parses user input. If the command is invalid, throws exception.
+     *
      * @param fullCommand User input read from scanner.
      * @return Command Command given by user.
      * @throws MaxException If command is invalid.
@@ -86,10 +87,13 @@ public class Parser {
      * @throws MaxException If description is empty.
      */
     public Command handleTodo(String fullCommand) throws MaxException {
-        // Error checking: empty fields
+        // Error checking: empty fields.
+        // 6 is the length of the string "todo ".
+        // If fullCommand is shorter than 6, then no argument is present.
         if (fullCommand.length() < 6) {
             throw new EmptyArgumentException("Watch out -- todo description cannot be empty.");
         }
+
         String description = fullCommand.substring(5).trim();
         assert !description.equals("") : "Task description should not be empty";
         return new AddCommand(new Todo(description));
@@ -104,10 +108,12 @@ public class Parser {
     public Command handleEvent(String fullCommand) throws MaxException {
         int fromIndex = fullCommand.indexOf("/from");
         int toIndex = fullCommand.indexOf("/to");
+
         // Error checking: no /from or /to tag
         if (fromIndex == -1 || toIndex == -1) {
             throw new InvalidFormatException("Hey! Event must contain '/from' and '/to' tags.");
         }
+
         String item = fullCommand.substring(5, fromIndex - 1).trim();
         String from = fullCommand.substring(fromIndex + 5, toIndex - 1).trim();
         String to = fullCommand.substring(toIndex + 3).trim();
@@ -133,12 +139,15 @@ public class Parser {
      */
     public Command handleDeadline(String fullCommand) throws MaxException {
         int byIndex = fullCommand.indexOf("/by");
+
         // Error checking: no /by tag
         if (byIndex == -1) {
             throw new InvalidFormatException("Try again... deadline must include a '/by' tag!");
         }
+
         String item = fullCommand.substring(8, byIndex - 1).trim();
         String by = fullCommand.substring(byIndex + 3).trim();
+
         // Error checking: empty fields
         if (item.isEmpty() || by.isEmpty()) {
             throw new EmptyArgumentException("Oops... Deadline item or 'by' date cannot be empty.");
@@ -158,7 +167,6 @@ public class Parser {
      */
     public Command handleDelete(String fullCommand) throws MaxException {
         int deleteNumber = parseInt(fullCommand.substring(7));
-
         assert deleteNumber > 0 : "Delete number should be positive integer";
         return new DeleteCommand(deleteNumber);
     }
@@ -171,9 +179,12 @@ public class Parser {
      */
     public Command handleMark(String fullCommand) throws MaxException {
         int markNumber = parseInt(fullCommand.substring(5));
+
+        // Error checking: negative integer
         if (markNumber <= 0) {
             throw new InvalidArgumentException("Make sure you enter a valid integer!");
         }
+
         assert markNumber > 0 : "Mark number should be positive integer";
 
         return new MarkCommand(markNumber);
@@ -187,9 +198,12 @@ public class Parser {
      */
     public Command handleUnmark(String fullCommand) throws MaxException {
         int unmarkNumber = parseInt(fullCommand.substring(7));
+
+        // Error checking: negative integer
         if (unmarkNumber <= 0) {
             throw new InvalidArgumentException("Make sure you enter a valid integer!");
         }
+
         assert unmarkNumber > 0 : "Unmark number should be positive integer";
 
         return new UnmarkCommand(unmarkNumber);
