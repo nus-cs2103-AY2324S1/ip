@@ -27,13 +27,13 @@ public class Storage {
      * @param filePath
      * @throws AllyException
      */
-    public Storage(String filePath) throws AllyException {
+    public Storage(String filePath) {
         assert filePath != null;
         this.filePath = filePath;
         try {
             load();
         } catch (AllyException e) {
-            throw new AllyException("Unable to load");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -90,15 +90,12 @@ public class Storage {
      * @param task
      * @throws AllyException
      */
-    public void appendToFile(Task task) throws AllyException {
-        try {
-            assert task != null;
-            FileWriter fw = new FileWriter(filePath, true);
-            fw.write(task.formatFile() + System.lineSeparator());
-            fw.close();
-        } catch (IOException e) {
-            throw new AllyException("Can't write your file");
-        }
+    public void appendToFile(Task task) throws IOException {
+        assert task != null;
+        FileWriter fw = new FileWriter(filePath, true);
+        fw.write(task.formatFile() + System.lineSeparator());
+        fw.close();
+
     }
 
     /**

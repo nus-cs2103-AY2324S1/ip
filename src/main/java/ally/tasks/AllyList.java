@@ -23,11 +23,11 @@ public class AllyList {
      * Function to add tasks from the input into the arraylist.
      * @param task
      */
-    public void addElements(Task task) throws AllyException {
+    public void addElements(Task task) {
         arr.add(task);
     }
 
-    public void addDeadlineElements(Deadline deadline) throws AllyException {
+    public void addDeadlineElements(Deadline deadline) {
         deadlineArray.add(deadline);
     }
 

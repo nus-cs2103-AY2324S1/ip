@@ -124,8 +124,8 @@ public class Ui {
      *
      * @throws AllyException
      */
-    public void showLoadingError() throws AllyException {
-        throw new AllyException("Unable to load!");
+    public String showLoadingError() {
+        return "File is unable to load :-(";
     }
 
     /**
@@ -133,8 +133,8 @@ public class Ui {
      *
      * @param message
      */
-    public String showError(String message) {
-        return message;
+    public String showEmptyError() {
+        return "Cannot be empty";
     }
 
     /**
@@ -167,7 +167,7 @@ public class Ui {
                 + "\n 9. bye";
     }
 
-    public String showInvalidError() {
-        return "Task cannot be empty";
+    public String showInvalidError(AllyException errorMessage) {
+        return errorMessage.getMessage();
     }
 }

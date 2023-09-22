@@ -6,6 +6,8 @@ import ally.exceptions.AllyException;
 import ally.tasks.AllyList;
 import ally.tasks.Task;
 
+import java.io.IOException;
+
 /**
  * UnmarkCommand inherits from Commands.
  */
@@ -36,8 +38,8 @@ public class UnmarkCommand extends Commands {
             Task task = allyList.getTask(index);
             storage.appendToFile(task);
             return ui.showNotMarked(task);
-        } catch (AllyException e) {
-            return e.getMessage();
+        } catch (IOException e) {
+            return ui.showLoadingError();
         }
     }
 

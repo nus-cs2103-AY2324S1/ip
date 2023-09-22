@@ -6,6 +6,8 @@ import ally.exceptions.AllyException;
 import ally.tasks.AllyList;
 import ally.tasks.Task;
 
+import java.io.IOException;
+
 /**
  * MarkCommand inherits from Commands.
  */
@@ -38,8 +40,8 @@ public class MarkCommand extends Commands {
             Task task = allyList.getTask(index);
             storage.appendToFile(task);
             return ui.showMarked(task);
-        } catch (AllyException e) {
-            return e.getMessage();
+        } catch (IOException e) {
+            return ui.showLoadingError();
         }
     }
 

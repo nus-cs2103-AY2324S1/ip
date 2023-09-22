@@ -2,8 +2,12 @@ package ally.commands;
 import ally.Storage;
 import ally.Ui;
 import ally.exceptions.AllyException;
+import ally.exceptions.EmptyArgumentException;
+import ally.exceptions.InvalidArgumentException;
 import ally.tasks.AllyList;
 import ally.tasks.Todo;
+
+import java.io.IOException;
 
 /**
  * AddTodoCommand inherits from Commands.
@@ -32,16 +36,21 @@ public class AddTodoCommand extends Commands {
      * @throws AllyException
      */
     @Override
-    public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
+    public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
             assert ui != null;
             assert storage != null;
+            if (description == null || description.trim().isEmpty()) {
+                throw new EmptyArgumentException();
+            }
             Todo todo = new Todo(description);
             allyList.addElements(todo);
             storage.appendToFile(todo);
             return allyList.printNewList(todo);
-        } catch (AllyException e) {
-            return ui.showInvalidError();
+        } catch (EmptyArgumentException e) {
+            return ui.showEmptyError();
+        } catch (IOException e) {
+            return ui.showLoadingError();
         }
     }
 

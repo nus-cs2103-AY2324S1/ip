@@ -84,17 +84,12 @@ public class MainWindow extends AnchorPane {
             timeline.play();
         } else {
             // Process other user input
-            try {
-                String response = ally.getResponse(input);
-                dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input, userImage),
-                        DialogBox.getDukeDialog(response, dukeImage)
-                );
-                userInput.clear();
-            } catch (AllyException e) {
-                // Handle the exception by displaying an error dialog
-                Platform.runLater(() -> showErrorDialog("Error", e.getMessage()));
-            }
+            String response = ally.getResponse(input);
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+            userInput.clear();
         }
     }
 

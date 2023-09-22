@@ -3,8 +3,11 @@ package ally.commands;
 import ally.Storage;
 import ally.Ui;
 import ally.exceptions.AllyException;
+import ally.exceptions.EmptyArgumentException;
 import ally.tasks.AllyList;
 import ally.tasks.Event;
+
+import java.io.IOException;
 
 /**
  * AddEventCommand class inherits from Commands.
@@ -39,16 +42,21 @@ public class AddEventCommand extends Commands {
      * @throws AllyException
      */
     @Override
-    public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
+    public String run(AllyList allyList, Ui ui, Storage storage) {
         try {
             assert ui != null;
             assert storage != null;
+            if (description == null || description.trim().isEmpty()) {
+                throw new EmptyArgumentException();
+            }
             Event event = new Event(description, from, to);
             allyList.addElements(event);
             storage.appendToFile(event);
             return allyList.printNewList(event);
-        } catch (AllyException e) {
-            return e.getMessage();
+        } catch (EmptyArgumentException e) {
+            return ui.showEmptyError();
+        } catch (IOException e) {
+            return ui.showLoadingError();
         }
     }
 

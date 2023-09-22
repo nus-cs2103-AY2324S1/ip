@@ -22,7 +22,7 @@ public class Ally {
      * @param filePath
      * @throws AllyException
      */
-    public Ally(String filePath) throws AllyException {
+    public Ally(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
@@ -32,7 +32,7 @@ public class Ally {
         }
     }
 
-    public Ally() throws AllyException {
+    public Ally() {
         this(DATAPATH);
     }
 
@@ -56,17 +56,17 @@ public class Ally {
     //        }
     //    }
 
-    public static void main(String[] args) throws AllyException {
+    public static void main(String[] args) {
         new Ally(DATAPATH);
     }
 
-    public String getResponse(String input) throws AllyException {
+    public String getResponse(String input) {
         try {
             Ui.showLine(); // show the divider line ("_______")
             Commands c = Parser.parse(input);
             return c.run(tasks, ui, storage);
         } catch (AllyException e) {
-            return ui.showError(e.getMessage());
+            return ui.showInvalidError(e);
         }
     }
 }
