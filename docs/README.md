@@ -1,29 +1,169 @@
+# Sara Chatbot
 # User Guide
 
-## Features 
+## Features
+### Keep track of your tasks
+Add todos, events, and deadlines with their corresponding date and time
+### Mark your tasks as done
+Mark each task as done to keep track of your undone tasks or un-mark them when unfinished
+### Search through your task list
+Use the find command to find all relevant tasks that matches your keyword
 
-### Feature-ABC
-
-Description of the feature.
-
-### Feature-XYZ
-
-Description of the feature.
 
 ## Usage
+### `todo` - Adds a to-do task
+Adds a to-do task with the specified content to the task list.
 
-### `Keyword` - Describe action
+Format: `todo <TASKNAME>` or `t <TASKNAME>`
 
-Describe the action and its outcome.
+Examples:
+- `todo read`
+- `t buy food`
 
-Example of usage: 
+**Expected outcome:**
+```
+Got it. I've added this task:
+[T][] <TASKNAME>
+Now you have 1 task in the list.
+```
 
-`keyword (optional arguments)`
+<br/>
 
-Expected outcome:
+###  `deadline` - Adds a deadline with date and time
+Adds a new deadline with the specified content with date and time to your tasks list.
 
-Description of the outcome.
+Format: `deadline <TASKNAME> /by <yyyy-MM-dd HHmm>` or `d <TASKNAME> /by <yyyy-MM-dd HHmm>`
+
+Examples:
+- `deadline return book /by 2023-10-10 12:00`
+- `d return book /by 2023-10-10 12:00`
+
+**Expected outcome:**
+```
+Got it. I've added this task:
+[D][] <task-name> (by: <date-and-time>)
+Now you have 1 task in the list.
+```
+
+<br/>
+
+###  `event` - Adds a deadline with date and time
+Adds a new event with the specified content with date and time to your tasks list.
+
+Format: `Event <TASKNAME> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>` or `e <TASKNAME> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>`
+
+Examples:
+- `event meeting /from 2023-10-10 12:00 /to 2023-10-10 13:00`
+- `e return book /by 2023-10-10 12:00 /to 2023-10-10 13:00`
+
+**Expected outcome:**
 
 ```
-expected output
+Got it. I've added this task:
+[E][] <TASKAME> (from: <date-and-time> to: <date-and-time>)
+Now you have 1 task in the list.
+```
+<br/>
+
+### `list` - List out all tasks in the list
+Displays the full list of all tasks in the list.
+
+Format: `list` or `l`
+
+Examples:
+- `list`
+- `l`
+
+**Expected outcome:**
+
+```
+Here are the tasks in your list:
+    1. [T][] Read book
+    2. [D][] Return book (by: 2023-12-12 15:30)
+```
+
+<br />
+
+###  `mark` - Marks a task done
+The corresponding task will be marked as completed
+
+Format: `mark <TASKNUMBER>` or `m <TASKNUMBER>`
+
+Examples:
+- `mark 5`
+- `m 2`
+
+**Expected outcome:**
+```
+OK, I've marked this task as done:
+    1. [T][X] Read book
+    2. [D][] Return book (by: 2023-12-12 15:30)
+```
+
+<br />
+
+###  `unmark` - Marks a task undone
+The corresponding task will be unmarked as completed
+
+Format: `unmark <TASKNUMBER>` or `u <TASKNUMBER>`
+
+Examples:
+- `unmark 5`
+- `u 2`
+
+**Expected outcome:**
+```
+OK, I've marked this task as not done yet:
+    1. [T][X] Read book
+    2. [D][] Return book (by: 2023-12-12 15:30)
+```
+
+<br />
+
+### `delete` - Deletes a task
+The corresponding task will be deleted from the task list
+
+Format: `delete <TASKNUMBER>` or `d <TASKNUMBER>`
+
+Examples:
+- `delete 5`
+- `d 2`
+
+**Expected outcome:**
+```
+Noted. I've removed this task:
+[T][] Read
+Now you have 1 task in the list.
+```
+<br />
+
+### `find` - Finds task
+Tasks that contains the specified keyword will be displayed.
+
+Format: `find <keyword>` or `f <keyword>`
+
+Examples:
+- `find read`
+- `f eat`
+
+**Expected outcome:**
+```
+Noted. I've removed this task:
+[T][] Read
+Now you have 1 task in the list.
+```
+
+<br />
+
+### `bye` - Exits the chatbot
+Terminates the program
+
+Format: `bye`
+
+Example:
+- `bye`
+
+**Expected outcome:**
+```
+Bye. Hope to see you again soon!
 ```

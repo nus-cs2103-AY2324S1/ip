@@ -51,7 +51,7 @@ public class Duke {
             String[] eventDetails = parser.getEventDescription();
             message.eventMessage(tasks, eventDetails[0], parser.getDateTime(eventDetails[1]),
                     parser.getDateTime(eventDetails[2]));
-        } else if (userCommand.equals("DELETE") || userCommand.equals("D")) {
+        } else if (userCommand.equals("DELETE") || userCommand.equals("DEL")) {
             message.deleteMessage(tasks, parser.getTaskNumber());
         } else if (userCommand.equals("FIND") || userCommand.equals("F")) {
             message.findMessage(tasks, parser.getStringKeyword());
