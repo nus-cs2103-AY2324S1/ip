@@ -83,7 +83,7 @@ A confirmation message showing the deadline task that has been added, and the nu
 
 ```
 I gotchu. I've added this task:
-  [D][ ] deadline prepare for quiz (by: 2023-10-01)
+  [D][ ] prepare for quiz (by: 2023-10-01)
 Now you have 2 task(s) in the list.
 ```
 
@@ -131,7 +131,7 @@ A confirmation message specifying which task was deleted.
 
 ```
 Aights mate. I've killed this task:
-  [D][ ] deadline prepare for quiz (by: 2023-10-01)
+  [D][ ] prepare for quiz (by: 2023-10-01)
 Now you have 2 task(s) in the list.
 ```
 
