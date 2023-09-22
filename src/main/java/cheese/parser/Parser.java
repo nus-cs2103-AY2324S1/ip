@@ -195,7 +195,6 @@ public class Parser {
       String taskDescription = inputSplit[1];
       switch (command) {
         case "todo":
-        //System.out.println("Stuff1: " + taskDescription);
         newTask = new Task('T',taskDescription);
         break;
         case "deadline":
