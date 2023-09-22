@@ -83,7 +83,7 @@ public class Parser {
             break;
         case "find":
             String keyword = fullCommand.substring(5);
-            tasks.find(keyword);
+            ui.printFound(tasks.find(keyword));
             break;
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");

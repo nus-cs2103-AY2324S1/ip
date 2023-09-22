@@ -89,17 +89,20 @@ public class TaskList {
      *
      * @param keyword The keyword to search for within the tasks.
      */
-    public void find(String keyword) {
+    public ArrayList<Task> find(String keyword) {
         int count = 0;
+        ArrayList<Task> matchingTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             if (this.tasks.get(i).toString().contains(keyword)) {
                 System.out.println((count + 1) + ". " + this.tasks.get(i));
+                matchingTasks.add(this.tasks.get(i));
                 count++;
             }
         }
         if (count == 0) {
             System.out.println("No matching tasks found.");
         }
+        return matchingTasks;
     }
 
 }

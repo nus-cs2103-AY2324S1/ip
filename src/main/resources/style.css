@@ -1,0 +1,36 @@
+.root {
+    -fx-background-color: #000000; /* Pure black background */
+}
+
+.text-field {
+    -fx-background-color: #262626; /* Dark gray for the text box */
+    -fx-text-fill: #FFFFFF; /* White text */
+    -fx-padding: 10px;
+    -fx-border-radius: 20px;
+}
+
+.button {
+    -fx-background-color: #262626; /* Dark gray for the button */
+    -fx-text-fill: #FFFFFF; /* White text color */
+    -fx-border-radius: 20px;
+}
+
+.user-bubble {
+    /*-fx-border: 2px solid red; !* For visual debugging *!*/
+
+    /*-fx-background-color: #404040; !* Gray for user messages *!*/
+    /*-fx-padding: 15px;*/
+    /*-fx-border-radius: 20px 20px 0 20px; !* Rounded corners with a flat bottom *!*/
+    /*-fx-text-fill: #FFFFFF; !* White text *!*/
+    /*-fx-margin: 10px 0;*/
+}
+
+.duke-bubble {
+    /*-fx-border: 2px solid red; !* For visual debugging *!*/
+
+    /*-fx-background-color: #005FFF; !* Blue for Duke messages *!*/
+    /*-fx-padding: 15px;*/
+    /*-fx-border-radius: 20px 20px 20px 0; !* Rounded corners with a flat bottom on the right *!*/
+    /*-fx-text-fill: #FFFFFF; !* White text *!*/
+    /*-fx-margin: 10px 0;*/
+}

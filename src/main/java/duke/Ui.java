@@ -1,5 +1,6 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -117,6 +118,12 @@ public class Ui {
     public void printList(TaskList tasks) {
         this.addMessage("Here are the tasks in your list:\n");
         this.addMessage(tasks.printList());
+    }
+
+    public void printFound(ArrayList<Task> tasks) {
+        for (int i = 0; i < tasks.size(); i++) {
+            this.addMessage(tasks.get(i).toString() + "\n");
+        }
     }
 
     /**
