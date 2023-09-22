@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 repositories {
@@ -12,23 +11,24 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
-    String javaFxVersion = '17.0.7'
 
-    def platforms = ["win", "linux", "mac"]
-    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+    // JavaFX 17.0.7 dependencies for macOS on ARM64
+    implementation 'org.openjfx:javafx-base:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-controls:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:mac-aarch64'
 
-    for (plt in platforms) {
-        for (dep in javafxDependency) {
-            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
-        }
-    }
+    // JavaFX 17.0.7 dependencies for Linux
+    implementation 'org.openjfx:javafx-base:17.0.7:linux'
+    implementation 'org.openjfx:javafx-controls:17.0.7:linux'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:linux'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:linux'
 
-}
-
-javafx {
-    version = '17.0.7'
-    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
+    // JavaFX 17.0.7 dependencies for Windows
+    implementation 'org.openjfx:javafx-base:17.0.7:win'
+    implementation 'org.openjfx:javafx-controls:17.0.7:win'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:win'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:win'
 }
 
 test {
