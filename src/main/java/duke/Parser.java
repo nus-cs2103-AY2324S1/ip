@@ -6,6 +6,11 @@ package duke;
 public class Parser {
     private enum TaskKeyVal { todo, deadline, event, delete, mark, unmark, save, list, find }
     private enum SingleOperandTasks { save, list }
+    private TaskList parseTaskList;
+
+    public Parser(TaskList taskList) {
+        parseTaskList = taskList;
+    }
 
     /**
      * Returns a boolean based on the user input choice.
@@ -23,7 +28,7 @@ public class Parser {
      * @return returns string value received after processing the task.
      * @throws DukeException when incorrect / invalid input is entered.
      */
-    public static String parse(String userInput) throws DukeException {
+    public String parse(String userInput) throws DukeException {
         String[] userInputList = userInput.split(" ", 2);
         assert userInputList != null;
         String userTaskChoiceKey = userInputList[0];
@@ -33,34 +38,34 @@ public class Parser {
         return getString(userInputList, userTaskChoiceKey, taskKeyVal);
     }
 
-    private static String getString(String[] userInputList, String userTaskChoiceKey, TaskKeyVal taskKeyVal)
+    private String getString(String[] userInputList, String userTaskChoiceKey, TaskKeyVal taskKeyVal)
             throws DukeException {
         if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
             throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
         } else {
             switch (taskKeyVal) {
             case save:
-                return TaskList.saveData();
+                return this.parseTaskList.saveData();
             case list:
-                return TaskList.userListChoice();
+                return this.parseTaskList.userListChoice();
             case mark:
             case unmark:
                 String userMarkerChoice = userInputList[1];
-                return TaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
+                return this.parseTaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
             case todo:
-                return TaskList.addToDo(userInputList[1]);
+                return this.parseTaskList.addToDo(userInputList[1]);
             case deadline:
                 String[] deadlineList = userInputList[1].split("/", 2);
-                return TaskList.addDeadline(deadlineList[0], deadlineList[1]);
+                return this.parseTaskList.addDeadline(deadlineList[0], deadlineList[1]);
             case event:
                 String[] eventList = userInputList[1].split("/", 3);
-                return TaskList.addEvent(eventList[0], eventList[1], eventList[2]);
+                return this.parseTaskList.addEvent(eventList[0], eventList[1], eventList[2]);
             case delete:
                 Integer delUserChoice = Integer.parseInt(userInputList[1]);
-                return TaskList.deleteTask(delUserChoice);
+                return parseTaskList.deleteTask(delUserChoice);
             case find:
                 String findThis = userInputList[1];
-                return TaskList.findTask(findThis);
+                return this.parseTaskList.findTask(findThis);
             default:
                 throw new DukeException("OOPS!!! Sorry, but i do not know what that means :-(");
             }

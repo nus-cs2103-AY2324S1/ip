@@ -19,11 +19,11 @@ import task.ToDo;
  */
 public class TaskList {
     //stores all the tasks
-    private static ArrayList<Task> storeTask = new ArrayList<>(1);
+    private ArrayList<Task> storeTask = new ArrayList<>(1);
     /**
      * Displays the entire list of tasks to user.
      */
-    public static String userListChoice() {
+    public String userListChoice() {
         ListIterator<Task> ls = storeTask.listIterator();
         return Ui.printList(ls);
     }
@@ -34,7 +34,7 @@ public class TaskList {
      * @param taskNumber The task number to be marked/unmarked.
      * @param userMarkerChoice User choice mark/unmark.
      */
-    public static String userMarkUnmark(String taskNumber, String userMarkerChoice) throws DukeException {
+    public String userMarkUnmark(String taskNumber, String userMarkerChoice) throws DukeException {
         Task taskItem = storeTask.get(Integer.parseInt(taskNumber) - 1);
         return taskItem.changeStatus(userMarkerChoice);
     }
@@ -44,10 +44,10 @@ public class TaskList {
      *
      * @param userDescription Description attached to task.
      */
-    public static String addToDo(String userDescription) {
+    public String addToDo(String userDescription) {
         ToDo td = new ToDo(userDescription);
         storeTask.add(td);
-        return Ui.printNumberOfEntries(td);
+        return Ui.printNumberOfEntries(td, this);
     }
 
     /**
@@ -56,11 +56,11 @@ public class TaskList {
      * @param userDescription Description attached to Deadline.
      * @param deadlineBy Deadline given in yyyy-mm-dd HH:mm format.
      */
-    public static String addDeadline(String userDescription, String deadlineBy) {
+    public String addDeadline(String userDescription, String deadlineBy) {
         try {
             Deadline deadline = new Deadline(userDescription, deadlineBy);
             storeTask.add(deadline);
-            return Ui.printNumberOfEntries(deadline);
+            return Ui.printNumberOfEntries(deadline, this);
         } catch (DateTimeParseException e) {
             return Ui.invalidDateTimeEntry();
         }
@@ -73,11 +73,11 @@ public class TaskList {
      * @param from From Date & Time given in yyyy-mm-dd HH:mm format.
      * @param to To Date & Time given in yyyy-mm-dd HH:mm format.
      */
-    public static String addEvent(String userDescription, String from, String to) {
+    public String addEvent(String userDescription, String from, String to) {
         try {
             Event event = new Event(userDescription, from, to);
             storeTask.add(event);
-            return Ui.printNumberOfEntries(event);
+            return Ui.printNumberOfEntries(event, this);
         } catch (DateTimeParseException e) {
             return Ui.invalidDateTimeEntry();
         }
@@ -89,14 +89,14 @@ public class TaskList {
      * @param delUserChoice The task number to be deleted (based on number on list).
      * @throws DukeException  If TaskList is empty or invalid selection by user.
      */
-    public static String deleteTask(int delUserChoice) throws DukeException {
+    public String deleteTask(int delUserChoice) throws DukeException {
         if ((delUserChoice - 1) < 0) { //if number entered smaller than 1, array will go negative index.
             throw new DukeException("Invalid Task entered. Please try again...");
         } else if (storeTask.isEmpty()) {
             throw new DukeException("Task Scheduler is empty... Please try again!");
         } else {
             Task itemRemoved = storeTask.remove(delUserChoice - 1);
-            return Ui.deleteTaskPrint(itemRemoved);
+            return Ui.deleteTaskPrint(itemRemoved, this);
         }
     }
 
@@ -106,7 +106,7 @@ public class TaskList {
      * @param findThis user input given with find function
      * @return filtered list
      */
-    public static String findTask(String findThis) {
+    public String findTask(String findThis) {
         ArrayList<Task> filteredList = altFindFunctions(findThis);
         ListIterator<Task> iterFilteredList = filteredList.listIterator();
         if (filteredList.size() == 0) {
@@ -115,7 +115,7 @@ public class TaskList {
             return Ui.findTaskPrint(iterFilteredList);
         }
     }
-    private static ArrayList<Task> altFindFunctions(String findThis) {
+    private ArrayList<Task> altFindFunctions(String findThis) {
         String[] breakDownFindFunction = findThis.split(" ");
         ListIterator<Task> ls = storeTask.listIterator();
         ArrayList<Task> filteredList = new ArrayList<>();
@@ -163,10 +163,10 @@ public class TaskList {
         return filteredList;
     }
 
-    public static ArrayList<Task> getStoreTask() {
+    public ArrayList<Task> getStoreTask() {
         return storeTask;
     }
-    public static int getTaskSize() {
+    public int getTaskSize() {
         return storeTask.size();
     }
 
@@ -175,12 +175,12 @@ public class TaskList {
      *
      * @return save msg
      */
-    public static String saveData() {
+    public String saveData() {
         try {
             //closes file and truncates it
             Files.write(Duke.PATH_OF_DIRECTORY, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
-            for (int i = 0; i < TaskList.getTaskSize(); i++) {
-                String taskToString = TaskList.getStoreTask().get(i).storeToDiskFormat() + "\n";
+            for (int i = 0; i < this.getTaskSize(); i++) {
+                String taskToString = this.getStoreTask().get(i).storeToDiskFormat() + "\n";
                 Files.write(Duke.PATH_OF_DIRECTORY, taskToString.getBytes(), StandardOpenOption.APPEND);
             }
             return Ui.saveDukeMsg();

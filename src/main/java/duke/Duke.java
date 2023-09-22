@@ -9,20 +9,21 @@ import java.nio.file.Paths;
  */
 public class Duke {
     public static final Path PATH_OF_DIRECTORY = Paths.get("./data/duke.txt");
-
+    private TaskList taskList = new TaskList();
     /**
      * Instantiates a new Duke.
      */
     public Duke() {
         try {
-            Storage.readFromDisk(PATH_OF_DIRECTORY, TaskList.getStoreTask());
+            Storage.readFromDisk(PATH_OF_DIRECTORY, taskList.getStoreTask());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     public String getResponse(String input) {
         try {
-            String dukeResponse = Parser.parse(input);
+            Parser parserObject = new Parser(taskList);
+            String dukeResponse = parserObject.parse(input);
             assert dukeResponse != null;
             return dukeResponse;
         } catch (DukeException e) {

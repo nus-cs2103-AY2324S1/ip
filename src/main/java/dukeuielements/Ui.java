@@ -33,9 +33,9 @@ public class Ui {
      *
      * @return the string
      */
-    public static String printNumberOfEntries(Task task) {
+    public static String printNumberOfEntries(Task task, TaskList taskList) {
         String printTask = "Added 1 new task" + "\n" + INDENT + task.toString() + "\n";
-        return printTask + "\n" + "Now you have " + TaskList.getTaskSize() + " tasks in your task scheduler...";
+        return printTask + "\n" + "Now you have " + taskList.getTaskSize() + " tasks in your task scheduler...";
     }
 
     /**
@@ -62,9 +62,9 @@ public class Ui {
      * @param itemRemoved the item removed
      * @return the string
      */
-    public static String deleteTaskPrint(Task itemRemoved) {
+    public static String deleteTaskPrint(Task itemRemoved, TaskList taskList) {
         String removedTask = "This task was removed..." + "\n" + itemRemoved + "\n";
-        removedTask = removedTask + "Now you have " + TaskList.getTaskSize()
+        removedTask = removedTask + "Now you have " + taskList.getTaskSize()
                 + " tasks in your task scheduler...";
         return removedTask;
     }
