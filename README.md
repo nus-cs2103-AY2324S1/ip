@@ -2,28 +2,28 @@
 > Kora is an English speaking Korean bot in Singapore! It can help you keep track of todos, deadlines, events and many more!
 
 ## Table of Content
-1. Getting Started
-2. Commands
-   - Task Related Command
-      - ToDo
-      - Deadline
-      - Event
-      - Mark
-      - Unmark
-      - Delete
-      - List
-      - Find
-   - File Related Command
-      - Load
-      - Change
-   - Command Related Command
-      - Display
-      - Set
-      - Unset
-   - General Command
-      - Help
-      - Bye
-3. Command Summary
+1. [Getting Started](https://github.com/dlathyun/ip#getting-started)
+2. [Commands](https://github.com/dlathyun/ip#commands)
+    - [Task Related Command](https://github.com/dlathyun/ip#task-related-command)
+        - [ToDo](https://github.com/dlathyun/ip#adding-todo-todo)
+        - [Deadline](https://github.com/dlathyun/ip#adding-deadline-deadline)
+        - [Event](https://github.com/dlathyun/ip#adding-event-event)
+        - [Mark](https://github.com/dlathyun/ip#marking-task-mark)
+        - [Unmark](https://github.com/dlathyun/ip#unmarking-task-unmark)
+        - [Delete](https://github.com/dlathyun/ip#deleting-task-delete)
+        - [List](https://github.com/dlathyun/ip#listing-task-list)
+        - [Find](https://github.com/dlathyun/ip#finding-task-find)
+    - [File Related Command](https://github.com/dlathyun/ip#file-related-command)
+        - [Load](https://github.com/dlathyun/ip#loading-file-load)
+        - [Change](https://github.com/dlathyun/ip#changing-file-change)
+    - [Command Related Command](https://github.com/dlathyun/ip#command-related-command)
+        - [Display](https://github.com/dlathyun/ip#displaying-command-list-display)
+        - [Set](https://github.com/dlathyun/ip#setting-command-name-set)
+        - [Unset](https://github.com/dlathyun/ip#unsetting-command-name-unset)
+    - [General Command](https://github.com/dlathyun/ip#general-command)
+        - [Help](https://github.com/dlathyun/ip#viewing-help-help)
+        - [Bye](https://github.com/dlathyun/ip#exiting-bye)
+3. [Command Summary](https://github.com/dlathyun/ip#command-summary)
 
 ## Getting Started
 1. Download Kora JAR file from [this page](https://github.com/dlathyun/ip/releases)
