@@ -43,6 +43,8 @@ public class Duke {
     }
 
     public String generateStartupMessage() {
+        assert ui != null : "ui should be created before this method is called";
+        assert startupFileLoadMessage != null : "startupFileLoadMessage should be populated";
         return ui.greet() + "\n" + startupFileLoadMessage;
     }
 
