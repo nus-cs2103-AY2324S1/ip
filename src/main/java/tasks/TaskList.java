@@ -41,26 +41,21 @@ public class TaskList {
 
         for (String line: lines) {
             String[] parts = line.split(" ", 3);
-            if (parts[0].equals("T")) {
+            boolean isDone = parts[1].equals("true");
 
-                ToDo task = new ToDo(parts[2].trim());
-                this.tasks.add(task);
+            if (parts[0].equals("T")) {
+                addTodoTask(parts[2].trim(), isDone);
 
             } else if (parts[0].equals("D")) {
-
                 String[] arr = parts[2].split("/");
-                Deadline task = new Deadline(arr[0].trim(), arr[1].trim());
-                this.tasks.add(task);
+                addDeadlineTask(arr[0].trim(), arr[1].trim(), isDone);
 
             } else {
-
                 String[] arr = parts[2].split("/");
-                Event task = new Event(arr[0].trim(), arr[1].trim(), arr[2].trim());
-                this.tasks.add(task);
+                addEventTask(arr[0].trim(), arr[1].trim(), arr[2].trim(), isDone);
 
             }
         }
-
     }
 
     public ArrayList<Task> getTaskList() {
@@ -174,6 +169,28 @@ public class TaskList {
     }
 
     /**
+     * Overloaded method that adds a ToDo task object to the task list
+     * that specifies completion status.
+     *
+     * @param description Description of the ToDo object.
+     * @param isDone Completion status.
+     * @return The message to be displayed upon completion.
+     */
+    public String addTodoTask(String description, boolean isDone) {
+
+        ToDo todo = new ToDo(description);
+        todo.setDoneStatus(isDone);
+        this.tasks.add(todo);
+
+
+        String message = "";
+        message += "added new task:\n" + todo + "\n" + getNumTasks();
+
+
+        return message;
+    }
+
+    /**
      * Adds a Deadline task object to the task list.
      *
      * @param description Description of the Deadline object.
@@ -192,6 +209,27 @@ public class TaskList {
     }
 
     /**
+     * Overloaded method that adds a Deadline task object to the task list
+     * that specifies completion status.
+     *
+     * @param description Description of the Deadline object.
+     * @param end end Date/Time of the Deadline object.
+     * @param isDone Completion status.
+     * @return The message to be displayed upon completion.
+     */
+    public String addDeadlineTask(String description, String end, boolean isDone) {
+
+        Deadline deadline = new Deadline(description, end);
+        deadline.setDoneStatus(isDone);
+        this.tasks.add(deadline);
+
+        String message = "";
+        message += "added new task:\n" + deadline + "\n" + getNumTasks();
+
+        return message;
+    }
+
+    /**
      * Adds an Event task object to the task list.
      *
      * @param description Description of the Event object.
@@ -200,7 +238,6 @@ public class TaskList {
      * @return The message to be displayed upon completion.
      */
     public String addEventTask(String description, String start, String end) {
-
 
         String message = "";
 
@@ -211,10 +248,24 @@ public class TaskList {
         }
         this.tasks.add(event);
 
-
         message += "added new task:\n" + event + "\n" + getNumTasks();
 
+        return message;
+    }
 
+    public String addEventTask(String description, String start, String end, boolean isDone) {
+
+        String message = "";
+
+        Event event = new Event(description, start, end);
+        event.setDoneStatus(isDone);
+        ClashDetection clashDetector = new ClashDetection(tasks, event);
+        if (clashDetector.detectClash()) {
+            message += clashDetector.constructClashMessage();
+        }
+        this.tasks.add(event);
+
+        message += "added new task:\n" + event + "\n" + getNumTasks();
 
         return message;
     }
@@ -245,5 +296,13 @@ public class TaskList {
     public String getNumTasks() {
         assert tasks.size() >= 0 : "task list is empty or not empty";
         return "you now have " + tasks.size() + " tasks in your list.";
+    }
+
+    public void setTaskDoneStatus(String input, Task task) {
+        if (input.equals("true")) {
+            task.setIsDone();
+        } else {
+            task.setIsNotDone();
+        }
     }
 }

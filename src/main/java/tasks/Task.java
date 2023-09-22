@@ -38,6 +38,10 @@ public abstract class Task {
         this.isDone = false;
     }
 
+    public void setDoneStatus(boolean isDone) {
+        this.isDone = isDone;
+    }
+
     public boolean getDoneStatus() {
         return this.isDone;
     }
