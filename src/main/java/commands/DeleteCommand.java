@@ -19,4 +19,5 @@ public class DeleteCommand extends Command {
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         return list.deleteTask(index, storage);
     }
+
 }
