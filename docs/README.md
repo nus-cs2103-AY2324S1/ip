@@ -61,11 +61,11 @@ The application should launch in a separate window, like this:
 
 ## Definitions
 ### Types of Tasks
-| Task Name | Name | Completion | Start Time | End Time | Remarks                                                 |
-|-----------|------|------------|------------|----------|---------------------------------------------------------|
-| To do     | x    | x          |            |          | A todo task has only a name                             |   
-| Deadline  | x    | x          | x          |          | A deadline task has both a name and a time              |   
-| Event     | x    | x          | x          | x        | An event task has a name, a start time, and an end time | 
+| Task Name | Remarks                                                 |
+|-----------|---------------------------------------------------------|
+| To do     | A todo task has only a name                             |   
+| Deadline  | A deadline task has both a name and a time              |   
+| Event     | An event task has a name, a start time, and an end time | 
 A task is represented as `[type][done] name`. 
 
 `[type]` denotes the type of task, i.e. `[T]` for `todo`, `[D]` for `deadline`, and `[E]` for `event`.
