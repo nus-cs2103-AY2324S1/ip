@@ -20,7 +20,7 @@ public class DeadlineCommand extends Command {
     /**
      * The constructor method of the DeadlineCommand class.
      * Takes in the description and date for a {@link Deadline}.
-     * 
+     *
      * @param description The description of the deadline.
      * @param deadline The date of the deadline.
      */

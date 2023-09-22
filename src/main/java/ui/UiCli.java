@@ -37,7 +37,7 @@ public class UiCli {
     /**
      * This method wraps the given text with the given
      * ANSI color codes.
-     * 
+     *
      * @param text The text to be colored.
      * @param color The color to be applied.
      * @return A string with the necessary color codes inserted.
@@ -73,7 +73,7 @@ public class UiCli {
 
     /**
      * Reads the user input.
-     * 
+     *
      * @return A string containing the user input.
      * @throws IOException Thrown when there's an issue
      *                     with reading user input.
@@ -84,7 +84,7 @@ public class UiCli {
 
     /**
      * Formats and displays a single line message.
-     * 
+     *
      * @param text The message to be displayed.
      */
     public void displayMsg(String text) {
@@ -94,7 +94,7 @@ public class UiCli {
 
     /**
      * Formats and displays a multi-line message.
-     * 
+     *
      * @param text An array of messages to be displayed.
      */
     public void displayMsg(String[] text) {
@@ -107,7 +107,7 @@ public class UiCli {
 
     /**
      * Formats and displays a single line error message.
-     * 
+     *
      * @param text The error message to be displayed.
      */
     public void displayError(String text) {
@@ -121,16 +121,16 @@ public class UiCli {
 
     /**
      * Formats and displays a multi-line error message.
-     * 
+     *
      * @param text An array of error message to be displayed.
      */
     public void displayError(String[] text) {
-        String msg = String.format(
-            "\n    %s\n",
-            cTxt("Erm... error :(", Color.RED)
-        );
+        StringBuilder msg = new StringBuilder(String.format(
+                "\n    %s\n",
+                cTxt("Erm... error :(", Color.RED)
+        ));
         for (String stub : text) {
-            msg += String.format("    %s\n", stub);
+            msg.append(String.format("    %s\n", stub));
         }
         System.out.println(msg);
     }

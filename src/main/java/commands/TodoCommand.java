@@ -1,7 +1,6 @@
 package commands;
 
 import data.TaskList;
-import data.exception.DukeException;
 import data.exception.StorageException;
 import data.tasks.Task;
 import data.tasks.Todo;
@@ -18,7 +17,7 @@ public class TodoCommand extends Command {
     /**
      * The constructor method of the TodoCommand class.
      * Takes in a description of a {@link Todo}.
-     * 
+     *
      * @param description The description of a todo.
      */
     public TodoCommand(String description) {

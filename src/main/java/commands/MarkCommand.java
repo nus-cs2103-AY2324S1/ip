@@ -31,8 +31,8 @@ public class MarkCommand extends Command {
             this.isDone = isDone;
         } catch (NumberFormatException e) {
             throw new InvalidParamException(new String[] {
-                isDone ? "mark" : "unmark"
-                        + " takes in a number. Try mark 1"
+                (isDone ? "mark" : "unmark") + " takes in a number.",
+                "Try mark 1"
             });
         }
     }
@@ -40,7 +40,7 @@ public class MarkCommand extends Command {
     @Override
     public UiMessage execute(
             TaskList tasks, Storage storage)
-        throws InvalidParamException, StorageException {
+            throws InvalidParamException, StorageException {
         // User tries to mark/unmark a task that is out of bounds.
         if (taskCount < 1 || taskCount > tasks.getSize()) {
             throw new InvalidParamException(String.format(
@@ -58,7 +58,7 @@ public class MarkCommand extends Command {
 
         storage.update(tasks);
 
-        return new UiMessage(new String[]{
+        return new UiMessage(new String[] {
             success,
             "  " + task.toString()
         });

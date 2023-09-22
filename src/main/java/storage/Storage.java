@@ -30,7 +30,7 @@ public class Storage {
      * The constructor method for the Storage class.
      * Takes in the directory and file path that the
      * user wishes to store their tasks on memory.
-     * 
+     *
      * @param filePath The file path of the file containing the tasks.
      * @param fileDir The directory of the file.
      */
@@ -42,7 +42,7 @@ public class Storage {
     /**
      * This method loads in the tasks from the file specified by the user.
      * If the file cannot be found, a new directory is created to store the file.
-     * 
+     *
      * @return An ArrayList of {@link Task} loaded from the file.
      */
     public ArrayList<Task> load() {
@@ -82,7 +82,7 @@ public class Storage {
     /**
      * This method handles the parsing of each line containing
      * the data of a task from the file.
-     * 
+     *
      * @param parse The line containing the task data.
      * @return A {@link Task} instance.
      */
@@ -129,7 +129,7 @@ public class Storage {
      * This method updates the file by overwriting its old content
      * with the contents of the new {@link TaskList} after a modification
      * is made by the user.
-     * 
+     *
      * @param tasks The {@link TaskList} containing the new list of tasks.
      * @throws StorageException Thrown when there's an issue with writing
      *                          the tasks to file.

@@ -17,7 +17,7 @@ public class DeleteCommand extends Command {
     /**
      * The constructor method for a DeleteCommand class.
      * Takes in the index of the task to be deleted from {@link TaskList}.
-     * 
+     *
      * @param taskIndex The index of the task to be deleted.
      * @throws InvalidParamException Thrown when the taskIndex given
      *                               cannot be converted to a number.
@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
             this.taskIndex = Integer.parseInt(taskIndex);
         } catch (NumberFormatException e) {
             throw new InvalidParamException(new String[] {
-                "delete takes in a number. Try delete 1."
+                "delete takes in a number.", "Try delete 1"
             });
         }
     }
@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
     @Override
     public UiMessage execute(
             TaskList tasks, Storage storage)
-        throws InvalidParamException, StorageException {
+            throws InvalidParamException, StorageException {
         Task removedTask = tasks.delete(taskIndex - 1);
 
         // Write modified task list to file

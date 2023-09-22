@@ -40,7 +40,7 @@ public class Duke {
      * {@link TaskList}, {@link Storage}, {@link Parser} and {@link UiCli}.
      * Additionally, it loads the tasks from a file stored on disk if the user 
      * has used the chatbot previously.
-     * 
+     *
      * @param filePath The path of the file storing the tasks from previous sessions.
      * @param fileDir  The directory that contains the file. Used by {@link Storage}
      *                 to create an empty folder when none is detected.
@@ -65,7 +65,7 @@ public class Duke {
     /**
      * Starts the Duke chatbot and the main event loop which will await
      * for user commands.
-     * 
+     *
      * @throws IOException Thrown when there's an issue with
      *                     reading user input.
      */
@@ -94,10 +94,10 @@ public class Duke {
                 + "What can I do for you?";
     }
 
-    public String getResponse(String input) throws DukeException {
+    public UiMessage getResponse(String input) throws DukeException {
         Command c = parser.parse(input);
         UiMessage result = c.execute(tasks, storage);
-        return result.toString();
+        return result;
     }
 
     public static void main(String[] args) throws IOException {

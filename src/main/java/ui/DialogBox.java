@@ -67,14 +67,25 @@ public class DialogBox extends HBox {
         setMargin(dialog, new Insets(0, 0, 0, MARGIN));
     }
 
+    private void error() {
+        dialog.setStyle("-fx-background-color: #4C3743");
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.dialog.setStyle("-fx-background-color: #3C4841");
         db.flip();
         db.flipMargins();
+        return db;
+    }
+
+    public static DialogBox getDukeErrorDialog(String text, Image img) {
+        var db = getDukeDialog(text, img);
+        db.error();
         return db;
     }
 }

@@ -15,8 +15,12 @@
 }
 
 #dialog {
-    -fx-background-color: "#3C4841";
+    -fx-background-color: "#384B55";
     -fx-background-radius: 8;
+}
+
+.errorDialog {
+    -fx-background-color: red;
 }
 
 #userInput {

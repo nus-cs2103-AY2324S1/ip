@@ -1,13 +1,10 @@
 package data;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import data.exception.InvalidParamException;
 import data.tasks.Task;
-import storage.Storage;
-import ui.UiCli;
 
 /**
  * The TaskList class.
@@ -33,8 +30,8 @@ public class TaskList {
 
     /**
      * Checks if the TaskList contains no tasks.
-     * 
-     * @return A boolean indicating whether the 
+     *
+     * @return A boolean indicating whether the
      *         TaskList is empty.
      */
     public boolean isEmpty() {
@@ -43,7 +40,7 @@ public class TaskList {
 
     /**
      * Retrieves the number of tasks stored in the TaskList.
-     * 
+     *
      * @return An integer indicating the number of tasks stored.
      */
     public int getSize() {
@@ -53,7 +50,7 @@ public class TaskList {
     /**
      * Retrieves the {@link Task} corresponding to the taskIndex.
      * Starts from 0.
-     * 
+     *
      * @param taskIndex The index of the task stored.
      * @return The task stored at the given index.
      */
@@ -63,7 +60,7 @@ public class TaskList {
 
     /**
      * Appends the given {@link Task} to the list of stored tasks.
-     * 
+     *
      * @param task The task to be stored in the list.
      */
     public void add(Task task) {
@@ -75,7 +72,7 @@ public class TaskList {
     /**
      * Marks/unmarks the {@link Task} at the given taskIndex
      * depending on isDone.
-     * 
+     *
      * @param taskIndex The index of the task stored.
      * @param isDone Whether the task is being marked as done or not done.
      * @return The task that was marked.
@@ -102,7 +99,7 @@ public class TaskList {
 
     /**
      * Deletes the {@link Task} at the given taskIndex.
-     * 
+     *
      * @param taskIndex The index of the task stored.
      * @return The task that was deleted.
      * @throws InvalidParamException Thrown when the taskIndex given
@@ -135,8 +132,9 @@ public class TaskList {
         ArrayList<Task> result = new ArrayList<>();
         for (Task t : tasks) {
             int index = t.findKeyword(keyword);
-            if (index >= 0)
+            if (index >= 0) {
                 result.add(t);
+            }
         }
         return result;
     }

@@ -22,7 +22,7 @@ public class EventCommand extends Command {
     /**
      * The constructor method of the EventCommand class.
      * Takes in the description and the two dates of an {@link Event}.
-     * 
+     *
      * @param description The description of an event.
      * @param from The start date of an event.
      * @param to The end date of an event.

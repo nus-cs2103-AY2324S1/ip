@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,12 +20,17 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            stage.setTitle("Bryan - A Simple Todo Manager");
             FXMLLoader fxmlLoader = new FXMLLoader(
                     Main.class.getResource("/view/ChatWindow.fxml")
             );
             BorderPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            scene.getStylesheets().add(getClass().getResource("/css/chatWindow.css").toExternalForm());
+            scene.getStylesheets().add(
+                    Objects.requireNonNull(getClass()
+                            .getResource("/css/chatWindow.css"))
+                            .toExternalForm()
+            );
             stage.setScene(scene);
             fxmlLoader.<ChatWindow>getController().setDuke(duke);
             stage.show();

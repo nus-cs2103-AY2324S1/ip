@@ -13,7 +13,6 @@ import commands.FindCommand;
 import commands.ListCommand;
 import commands.MarkCommand;
 import commands.TodoCommand;
-
 import common.DateParser;
 
 import data.exception.DukeException;
@@ -147,7 +146,7 @@ public class Parser {
      *                                   date is given.
      */
     private Command parseDeadlineCommand(String input)
-        throws InvalidParamException, InvalidDateParamException {
+            throws InvalidParamException, InvalidDateParamException {
         // Split by the "/by" to separate the first and second part.
         String[] parseArr = input.split("/by ");
 
@@ -197,7 +196,7 @@ public class Parser {
      *                                   date is given.
      */
     private Command parseEventCommand(String input)
-        throws InvalidParamException, InvalidDateParamException {
+            throws InvalidParamException, InvalidDateParamException {
         // Split by "/from" to separate the first and (second + third) part.
         String[] parseArr = input.split("/from ");
 
@@ -272,7 +271,7 @@ public class Parser {
      * Checks if a valid keyword was given.
      *
      * @param input The find command.
-     * @return A {@Link FindCommand} instance
+     * @return A {@link FindCommand} instance
      * @throws InvalidParamException Thrown when a keyword is not given.
      */
     private Command parseFindCommand(String input) throws InvalidParamException {

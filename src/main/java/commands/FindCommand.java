@@ -3,7 +3,6 @@ package commands;
 import java.util.ArrayList;
 
 import data.TaskList;
-import data.exception.DukeException;
 import data.tasks.Task;
 import storage.Storage;
 import ui.UiMessage;
@@ -40,7 +39,7 @@ public class FindCommand extends Command {
 
         String[] displayArr = new String[result.size() + 1];
         displayArr[0] = String.format(
-            "I've found %d tasks(s) that matches the keyword: %s",
+            "I've found %d task(s) that matches the keyword: %s",
             count,
             keyword
         );

@@ -7,7 +7,6 @@ import ui.UiMessage;
 
 /**
  * The Command abstract class.
- * 
  * Represents the logic that is to be executed
  * for the respective user command.
  */
