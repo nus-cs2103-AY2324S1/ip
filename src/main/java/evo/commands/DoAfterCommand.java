@@ -31,6 +31,9 @@ public class DoAfterCommand extends Command {
         this.actionType = actionType;
     }
 
+    int indexOfAfter = 0;
+    String taskDescription = "";
+    String period = "";
     /**
      * Executes the DoAfterCommand by parsing user input, creating a new DoAfter task,
      * adding it to the task list, and updating storage. It generates responses to user.
@@ -42,31 +45,13 @@ public class DoAfterCommand extends Command {
      */
     @Override
     public String execute(TaskList tasksList, Ui ui, Storage storage) {
+
         ArrayList<String> responses = new ArrayList<>();
         try {
-            String taskDescription = "";
-            int indexOfAfter = 0;
-            for (int i = 1; i < this.actionType.length; i++) {
-                if (Objects.equals(this.actionType[i + 1], "after")) {
-                    taskDescription += actionType[i];
-                    indexOfAfter = i + 1;
-                    break;
-                }
-                if (i == this.actionType.length - 1) {
-                    taskDescription += actionType[i];
-                } else {
-                    taskDescription += this.actionType[i] + " ";
-                }
-            }
+            // Constructs the task description
+            formTaskDescription();
             // Constructs the task due date/time
-            String period = "";
-            for (int i = indexOfAfter + 1; i < this.actionType.length; i++) {
-                if (i == this.actionType.length - 1) {
-                    period += this.actionType[i];
-                } else {
-                    period += this.actionType[i] + " ";
-                }
-            }
+            formTaskPeriod();;
             // Creates the deadline object with the taskDescription and taskBy
             DoAfter doAfter = new DoAfter(taskDescription, period);
             tasksList.addTask(doAfter);
@@ -84,6 +69,39 @@ public class DoAfterCommand extends Command {
             responses.add(ui.showText("Something went wrong: " + e.getMessage()));
         }
         return concatenateString(responses);
+    }
+
+    /**
+     * Forms the task description by concatenating elements of the 'actionType' array until the first occurrence of the
+     * string "after" is encountered. The description is stored in the 'taskDescription' field.
+     */
+    public void formTaskDescription() {
+        for (int i = 1; i < this.actionType.length; i++) {
+            if (Objects.equals(this.actionType[i + 1], "after")) {
+                taskDescription += actionType[i];
+                indexOfAfter = i + 1;
+                break;
+            }
+            if (i == this.actionType.length - 1) {
+                taskDescription += actionType[i];
+            } else {
+                taskDescription += this.actionType[i] + " ";
+            }
+        }
+    }
+
+    /**
+     * Forms the task period by concatenating elements of the 'actionType' array starting from the position after the
+     * occurrence of "after" until the end of the array. The task's period is stored in the period field.
+     */
+    public void formTaskPeriod() {
+        for (int i = indexOfAfter + 1; i < this.actionType.length; i++) {
+            if (i == this.actionType.length - 1) {
+                period += this.actionType[i];
+            } else {
+                period += this.actionType[i] + " ";
+            }
+        }
     }
 
     /**

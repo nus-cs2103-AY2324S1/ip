@@ -78,45 +78,35 @@ public class Evo extends Application {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
-
         userInput = new TextField();
         sendButton = new Button("Send");
-
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
         scene = new Scene(mainLayout);
-
-        stage.setScene(scene); // Setting the stage to show our screen
-        stage.setTitle("Evo");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-        stage.show(); // Render the stage.
-
+        setStageProperties(stage);
         mainLayout.setPrefSize(400.0, 600.0);
-
         scrollPane.setPrefSize(385, 535);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
-
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
-
         AnchorPane.setTopAnchor(scrollPane, 1.0);
-
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
-
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
 
+        setupEventHandlers();
+    }
+
+    /**
+     * Sets up event handlers for the Send button click, Enter key press in the
+     * user input field, and updates the scroll position of the chat dialog container.
+     */
+    private void setupEventHandlers() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -126,6 +116,20 @@ public class Evo extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+    /**
+     * Sets the properties of the provided Stage, such as the scene, window size,
+     * and window resizing behavior, to initialize the chat application interface.
+     *
+     * @param stage The Stage to be configured for displaying the chat interface.
+     */
+    private void setStageProperties(Stage stage) {
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+        stage.show(); // Render the stage.
     }
 
     /**
