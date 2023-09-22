@@ -1,0 +1,8 @@
+todo borrow book
+list
+deadline project /by 2023-08-31
+list
+event meeting /from 2023-08-27 3pm /to 5pm
+list
+unknown
+bye
