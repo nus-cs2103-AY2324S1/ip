@@ -23,6 +23,15 @@ public class Task {
     }
 
     /**
+     * Returns the completion status of the task.
+     *
+     * @return true if the task is completed, false otherwise.
+     */
+    public Boolean isDone() {
+        return this.isDone;
+    }
+
+    /**
      * Returns the description of the task.
      *
      * @return A string representing the description of the task.

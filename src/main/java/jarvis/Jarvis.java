@@ -25,6 +25,8 @@ public class Jarvis {
      * @param filePath The file path of the file to store the tasks.
      */
     public Jarvis(String filePath) {
+        assert filePath != null && !filePath.isEmpty() : "File path should not be null or empty";
+
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         tasks = new TaskList(storage.loadTasks());

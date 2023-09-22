@@ -78,6 +78,8 @@ public class Parser {
     }
 
     private String[] ensureValidParts(String[] parts, String[] parameters, String[] delimiters) throws JarvisException {
+        assert parts != null : "Parts array should not be null";
+
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new JarvisMissingValueException(parameters[0], parts[0]);
         }

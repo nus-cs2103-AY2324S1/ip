@@ -34,6 +34,8 @@ public class TaskList {
      * @param task The task to be added to the list.
      */
     public void add(Task task) {
+        assert task != null : "Task to be added should not be null";
+
         tasks.add(task);
     }
 
@@ -44,6 +46,8 @@ public class TaskList {
      * @return The task that was removed.
      */
     public Task remove(int index) {
+        assert isValidIndex(index) : "Invalid task index for retrieval";
+
         return tasks.remove(index);
     }
 
@@ -54,7 +58,21 @@ public class TaskList {
      * @return The task at the specified index.
      */
     public Task get(int index) {
+        assert isValidIndex(index) : "Invalid task index for retrieval";
+
         return tasks.get(index);
+    }
+
+    /**
+     * Checks if the list contains the specified task.
+     *
+     * @param task The task to be checked.
+     * @return True if the task is in the list, false otherwise.
+     */
+    public boolean contains(Task task) {
+        assert task != null : "Task to be checked should not be null";
+
+        return tasks.contains(task);
     }
 
     /**
@@ -89,5 +107,9 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    private boolean isValidIndex(int index) {
+        return index >= 0 && index < tasks.size();
     }
 }
