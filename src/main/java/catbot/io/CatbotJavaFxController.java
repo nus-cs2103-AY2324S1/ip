@@ -78,7 +78,10 @@ public class CatbotJavaFxController extends AnchorPane {
     }
 
     void queueAssistantDialogue(String text) {
-        queuedAssistantOutput.append("\n").append(text);
+        if (!queuedAssistantOutput.toString().isEmpty()) {
+            queuedAssistantOutput.append("\n");
+        }
+        queuedAssistantOutput.append(text);
     }
 
     void sendAssistantDialogue() {

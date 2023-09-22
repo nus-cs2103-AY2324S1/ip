@@ -32,7 +32,7 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-        } catch (IOException ignored) {
+        } catch (IOException ignored) { //noinspection UnnecessarySemicolon
             ;
         }
 
@@ -51,7 +51,12 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.setStyle(
+                db.getStyle().replaceFirst("-fx-background-color: \\w+;",
+                "-fx-background-color: lightsteelblue;")
+        );
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
