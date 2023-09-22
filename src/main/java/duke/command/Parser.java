@@ -30,7 +30,7 @@ public class Parser {
         String ans = "";
         if (command.equals("bye")) {
             ans = processBye(ui);
-        } else if (command.equals("list")) {
+        } else if (command.equals("list") || command.equals("l") || command.equals("ls")) {
             ans = processList(ui, taskList);
         } else if (command.startsWith("mark")) {
             ans = processMark(command, ui, taskList);
@@ -66,12 +66,15 @@ public class Parser {
      */
     public String addTask(String task, Ui ui, TaskList taskList) throws DukeException {
         String ans = "";
-        if (task.startsWith("todo")) {
-            ans = processTodo(task, ui, taskList);
-        } else if (task.startsWith("deadline")) {
-            ans = processDeadline(task, ui, taskList);
-        } else if (task.startsWith("event")) {
-            ans = processEvent(task, ui, taskList);
+        if (task.startsWith("todo") || task.startsWith("t")) {
+            int keywordSize = task.startsWith("todo") ? 4 : 1;
+            ans = processTodo(task, ui, taskList, keywordSize);
+        } else if (task.startsWith("deadline") || task.startsWith("d")) {
+            int keywordSize = task.startsWith("deadline") ? 8 : 1;
+            ans = processDeadline(task, ui, taskList, keywordSize);
+        } else if (task.startsWith("event") || task.startsWith("e")) {
+            int keywordSize = task.startsWith("event") ? 5 : 1;
+            ans = processEvent(task, ui, taskList, keywordSize);
         } else {
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -176,14 +179,15 @@ public class Parser {
      * @param task The add todo task command user types.
      * @param ui The chatbot's ui.
      * @param taskList The list of tasks.
+     * @param keywordSize Size of keyword.
      * @return String represents the confirmation of adding task printed to the user.
      * @throws DukeException If the todo task is invalid.
      */
-    public String processTodo(String task, Ui ui, TaskList taskList) throws DukeException {
-        if (task.length() < 6) {
+    public String processTodo(String task, Ui ui, TaskList taskList, int keywordSize) throws DukeException {
+        if (task.length() < 2 + keywordSize) {
             throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
         }
-        Todo todo = new Todo(task.substring(5));
+        Todo todo = new Todo(task.substring(1 + keywordSize));
         taskList.addTask(todo);
         return ui.addTask(todo, taskList.getSize());
     }
@@ -194,18 +198,19 @@ public class Parser {
      * @param task The add deadline task command user types.
      * @param ui The chatbot's ui.
      * @param taskList The list of tasks.
+     * @param keywordSize Size of keyword.
      * @return String represents the confirmation of adding task printed to the user.
      * @throws DukeException If the deadline task is invalid.
      */
-    public String processDeadline(String task, Ui ui, TaskList taskList) throws DukeException {
-        if (task.length() < 10) {
+    public String processDeadline(String task, Ui ui, TaskList taskList, int keywordSize) throws DukeException {
+        if (task.length() < 2 + keywordSize) {
             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty." );
         }
         String description = "";
         String by = "";
         for (int i = 9; i < task.length(); ++i) {
             if (task.charAt(i) == '/') {
-                description = task.substring(9, i - 1);
+                description = task.substring(1 + keywordSize, i - 1);
                 by = task.substring(i + 4);
                 break;
             }
@@ -221,11 +226,12 @@ public class Parser {
      * @param task The add event task command user types.
      * @param ui The chatbot's ui.
      * @param taskList The list of tasks.
+     * @param keywordSize Size of keyword.
      * @return String represents the confirmation of adding task printed to the user.
      * @throws DukeException If the event task is invalid.
      */
-    public String processEvent(String task, Ui ui, TaskList taskList) throws DukeException {
-        if (task.length() < 7) {
+    public String processEvent(String task, Ui ui, TaskList taskList, int keywordSize) throws DukeException {
+        if (task.length() < 2 + keywordSize) {
             throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
         }
         int slash1 = -1;
@@ -240,7 +246,7 @@ public class Parser {
             }
         }
         assert slash1 != -1 && slash2 != -1 : "Wrong event format";
-        String description = task.substring(6, slash1 - 1);
+        String description = task.substring(1 + keywordSize, slash1 - 1);
         String from = task.substring(slash1 + 6, slash2 - 1);
         String to = task.substring(slash2 + 4);
         Event event = new Event(description, from, to);
