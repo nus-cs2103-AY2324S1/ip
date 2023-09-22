@@ -1,25 +1,25 @@
-package duke;
+package leon;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * The {@code Duke} class. Main class that drives other functions.
+ * The {@code Leon} class. Main class that drives other functions.
  */
-public class Duke {
+public class Leon {
 
     private final TaskList tasks;
     private final Ui ui;
     private final Parser parser;
 
     /**
-     * Initiates a new {@code Duke} object.
+     * Initiates a new {@code Leon} object.
      *
      * @throws IOException When the {@code saveTasksToDisk()} method in the {@code Storage} class
      *                     fails to function properly.
      */
-    public Duke() throws IOException {
+    public Leon() throws IOException {
         this.tasks = new TaskList();
         this.ui = new Ui();
         Storage storage = new Storage(tasks);
@@ -259,39 +259,54 @@ public class Duke {
      * @param message        Message that is passed from the {@code Parser}.
      * @param localDateTimes Variable number of {@code LocalDateTime}s to account for the parameters
      *                       of commands.
-     * @return Output of Duke as a String.
+     * @return Output of Leon as a String.
      */
     public String executeCommand(Parser.Command command, String message,
                                  LocalDateTime... localDateTimes) {
         StringBuilder res = new StringBuilder();
         switch (command) {
-        case TASK -> executeTask(res, message);
-        case TODO -> executeTodo(res, message);
-        case DEADLINE -> executeDeadline(res, message, localDateTimes[0]);
-        case EVENT -> executeEvent(res, message, localDateTimes[0], localDateTimes[1]);
-        case LIST -> executeList(res);
-        case MARK -> {
-            int taskNumber = Integer.parseInt(message);
-            executeMark(res, taskNumber);
-        }
-        case UNMARK -> {
-            int taskNumber = Integer.parseInt(message);
-            executeUnmark(res, taskNumber);
-        }
-        case DELETE -> {
-            int taskNumber = Integer.parseInt(message);
-            executeDelete(res, taskNumber);
-        }
-        case FIND, SEARCH -> executeSearch(res, message);
-        case COMMANDS -> res.append(ui.getCommands());
-        default -> {
-        }
+        case TASK:
+            executeTask(res, message);
+            break;
+        case TODO:
+            executeTodo(res, message);
+            break;
+        case DEADLINE:
+            executeDeadline(res, message, localDateTimes[0]);
+            break;
+        case EVENT:
+            executeEvent(res, message, localDateTimes[0], localDateTimes[1]);
+            break;
+        case LIST:
+            executeList(res);
+            break;
+        case MARK:
+            int taskNumber1 = Integer.parseInt(message);
+            executeMark(res, taskNumber1);
+            break;
+        case UNMARK:
+            int taskNumber2 = Integer.parseInt(message);
+            executeUnmark(res, taskNumber2);
+            break;
+        case DELETE:
+            int taskNumber3 = Integer.parseInt(message);
+            executeDelete(res, taskNumber3);
+            break;
+        case FIND:
+        case SEARCH:
+            executeSearch(res, message);
+            break;
+        case COMMANDS:
+            res.append(ui.getCommands());
+            break;
+        default:
+            break;
         }
         parser.resetCommandInExecution();
         return res.toString();
     }
 
     public static void main(String[] args) throws IOException {
-        new Duke();
+        new Leon();
     }
 }
