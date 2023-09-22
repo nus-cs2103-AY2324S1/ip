@@ -64,7 +64,7 @@ public class Duke extends Application {
     }
 
     public String helloMessage() {
-        return ui.hello();
+        return ui.showHelloMessage();
     }
 
 //    /**
