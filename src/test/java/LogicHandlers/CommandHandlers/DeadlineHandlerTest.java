@@ -34,7 +34,8 @@ public class DeadlineHandlerTest {
     @Test
     public void testEmptyCommandContent() {
         String input = "";
-        String expectedOutput = "You cannot add an empty 'Deadline' task!";
+        String expectedOutput = "Something went wrong! Please format the task properly and add it again. \n" +
+                "Error: java.lang.AssertionError: You cannot add an empty deadline task!";
 
         String actualOutput = deadlineHandler.parseCommandContent(input);
 

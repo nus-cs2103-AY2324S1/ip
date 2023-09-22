@@ -31,7 +31,8 @@ public class TodoHandlerTest {
     public void parseCommandContentTest2() {
         String commandContent = "";
 
-        String expectedOutput = "You cannot add an empty 'ToDo' task!";
+        String expectedOutput = "Something went wrong! Please format the task properly and add it again. \n" +
+                "Error: java.lang.AssertionError: You cannot add an empty todo task!";
 
         assertEquals(expectedOutput, todoHandler.parseCommandContent(commandContent));
     }
