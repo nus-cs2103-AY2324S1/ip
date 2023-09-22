@@ -41,7 +41,7 @@ public class AddTodoCommand extends Commands {
             storage.appendToFile(todo);
             return allyList.printNewList(todo);
         } catch (AllyException e) {
-            return e.getMessage();
+            return ui.showInvalidError();
         }
     }
 

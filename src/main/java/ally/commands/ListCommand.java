@@ -22,6 +22,7 @@ public class ListCommand extends Commands {
     public String run(AllyList allyList, Ui ui, Storage storage) throws AllyException {
         assert ui != null;
         assert storage != null;
+        storage.load();
         return ui.showList(allyList);
     }
 

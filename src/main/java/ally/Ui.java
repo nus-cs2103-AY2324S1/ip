@@ -153,4 +153,21 @@ public class Ui {
         }
         return stringBuilder.toString();
     }
+
+    public String showCommandExamples() {
+        return "Here are the list of commands: "
+                + "\n 1. todo t/TASK"
+                + "\n 2. deadline t/TASK /by yyyy-MM-dd HHmm"
+                + "\n 3. event t/TASK /from DATE /to DATE"
+                + "\n 4. mark n/NUMBER"
+                + "\n 5. unmark n/NUMBER"
+                + "\n 6. delete n/NUMBER"
+                + "\n 7. find t/TASK"
+                + "\n 8. sort"
+                + "\n 9. bye";
+    }
+
+    public String showInvalidError() {
+        return "Task cannot be empty";
+    }
 }

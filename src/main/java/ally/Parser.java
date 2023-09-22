@@ -41,6 +41,8 @@ public class Parser {
             return new FindCommand(split[1]);
         } else if (split[0].equals("sort")) {
             return new SortCommand();
+        } else if (split[0].equals("help")) {
+            return new HelpCommand();
         } else {
             throw new AllyException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

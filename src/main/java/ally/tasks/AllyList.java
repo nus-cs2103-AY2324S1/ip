@@ -13,8 +13,11 @@ public class AllyList {
     protected static ArrayList<Deadline> deadlineArray;
     public AllyList(ArrayList<Task> tasks) throws AllyException {
         arr = new ArrayList<>(100);
+        arr.addAll(tasks);
         deadlineArray = new ArrayList<>(100);
     }
+
+
 
     /**
      * Function to add tasks from the input into the arraylist.
@@ -90,5 +93,7 @@ public class AllyList {
         arr.remove(index);
     }
 
-
+//    //public String invalidArgument() {
+//        return "Please type 'help' for examples on how to use the commands!😃";
+//    }
 }

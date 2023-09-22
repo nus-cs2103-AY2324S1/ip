@@ -54,11 +54,11 @@ public class Storage {
                 loadTasks.add(readData(line));
             }
             s.close();
+            return loadTasks;
         } catch (FileNotFoundException e) {
             this.createFile();
             throw new AllyException("Not able to scan!");
         }
-        return loadTasks;
     }
 
     /**
@@ -68,7 +68,7 @@ public class Storage {
      * @return savedTask
      */
     public Task readData(String data) {
-        String[] splits = data.split(" | ");
+        String[] splits = data.split(" \\| ");
         Task savedTasks = null;
 
         if (splits[0].equals("T")) {
@@ -94,7 +94,7 @@ public class Storage {
         try {
             assert task != null;
             FileWriter fw = new FileWriter(filePath, true);
-            fw.write(task.formatFile());
+            fw.write(task.formatFile() + System.lineSeparator());
             fw.close();
         } catch (IOException e) {
             throw new AllyException("Can't write your file");
