@@ -28,7 +28,7 @@ public class DateTimeDetection {
         } else if (isDate(input)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate date = LocalDate.parse(input, formatter);
-            return date.atTime(LocalTime.of(23, 59));
+            return date.atTime(LocalTime.of(00, 00));
         } else if (isTime(input)) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
             LocalTime time = LocalTime.parse(input, formatter);
