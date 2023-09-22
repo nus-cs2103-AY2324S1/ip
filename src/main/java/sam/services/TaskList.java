@@ -20,9 +20,9 @@ public class TaskList {
     }
 
     /**
-     * Provide a copy of the entire taskList.
+     * Return a copy of the entire taskList.
      *
-     * @return the copy of the taskList
+     * @return a copy of the taskList.
      */
     public ArrayList<Task> getTasks() {
         return new ArrayList<>(tasks);

@@ -22,7 +22,8 @@ public class Storage {
 
     /**
      * Ensure that the hard disk is present in the file directory.
-     * Creates the file if not found
+     * Creates the file if not found.
+     *
      * @return the new file created
      */
     private File createHardDisk() {
