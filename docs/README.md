@@ -1,6 +1,40 @@
 # Dot's User Guide
 
-## Unique Features
+## Table of Contents
+
+- [Quick Start](#quick-start)
+- [An Overview of Unique Features](#an-overview-of-unique-features)
+    - [Adding of 3 types of Tasks–Todo, Event and Deadline](#adding-of-3-types-of-taskstodo-event-and-deadline)
+    - [Auto-datetime](#auto-datetime)
+    - [Undo commands that changes tasks](#undo-commands-that-changes-tasks)
+- [Usage of Features](#usage-of-features)
+    - [Accessing the help menu: `help`](#accessing-the-help-menu-help)
+    - [Creating a todo: `todo`](#creating-a-todo-todo)
+    - [Creating a deadline: `deadline`](#creating-a-deadline-deadline)
+    - [Creating an event: `event`](#creating-an-event-event)
+    - [Listing all tasks: `list` or `ls`](#listing-all-tasks-list-or-ls)
+    - [Marking a task as done: `mark`](#marking-a-task-as-done-mark)
+    - [Marking a task as **_not_** done: `unmark`](#marking-a-task-as-not-done-unmark)
+    - [Deleting a task: `delete`](#deleting-a-task-delete)
+    - [Finding the deadlines or events falling on a data: `whatsgoingon`](#finding-the-deadlines-or-events-falling-on-a-data-whatsgoingon)
+    - [Finding the tasks matching some text: `find`](#finding-the-tasks-matching-some-text-find)
+    - [Undoing a command: `undo`](#undoing-a-command-undo)
+- [FAQ](#faq)
+
+## Quick Start
+
+1. Check that you have Java 11 installed.
+2. Download the latest `dot.jar` release from
+   our [GitHub Page](https://github.com/lamchenghou/ip/releases/tag/A-Release).
+3. You may choose to move `dot.jar` to a preferred directory.
+4. Double click `dot.jar` to launch the application.
+5. Only if Step `4.` doesn't work, you can use the Command Line shell to navigate to the directory which `dot.jar`
+   is in, and run `java -jar dot.jar` to launch Dot.
+
+Next, take a look at our '[Usage of Features](#usage-of-features)' section to learn the key commands of Dot. You may
+also read our [FAQ](#faq) to learn more about common queries.
+
+## An Overview of Unique Features
 
 ### Adding of 3 types of Tasks–Todo, Event and Deadline
 
@@ -41,7 +75,7 @@ An undo cannot be undone, and an undo cannot be performed twice.
 
 A task is defined as either a `todo`, `event`, or `deadline`.
 
-## Usage
+## Usage of Features
 
 ### Accessing the help menu: `help`
 
@@ -87,17 +121,17 @@ A task is defined as either a `todo`, `event`, or `deadline`.
 > Format: `delete <index number>` \
 > Example `delete 1` (given that at least 1 task exist)
 
-### Find the deadlines or events falling on a data: `whatsgoingon`
+### Finding the deadlines or events falling on a data: `whatsgoingon`
 
 > Format: `delete <dd/MM/yyyy>` \
 > Example `whatsgoingon 25/09/2023`
 
-### Find the tasks matching some text: `find`
+### Finding the tasks matching some text: `find`
 
 > Format: `find <query>` \
 > Example: `find assignment`
 
-### Undo a command: `undo`
+### Undoing a command: `undo`
 
 The list of commands that can be undone and restrictions can be found [here](#undo-commands-that-changes-tasks).
 
@@ -108,6 +142,9 @@ The list of commands that can be undone and restrictions can be found [here](#un
 # FAQ
 
 **Q**: The text size is too small, how do I increase the font size? \
-**A**: The window is resizeable. You can choose to drag from the edges of the window, or use the maximize button
-located at
-the top left of the window.
+**A**: The window is resizeable. You can choose to drag from the edges of the window, or use the maximize button located
+at the top left of the window.
+
+**Q**: Why can't I `undo` the latest command? \
+**A**: You can only `undo` commands related to creating, (un)marking and deleting tasks. You can only undo such a
+command once, and the `undo` command cannot be undone.
