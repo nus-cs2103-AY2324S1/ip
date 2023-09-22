@@ -2,6 +2,45 @@
 Duke is a task management application designed to help users organize and keep track of their tasks, to-do items, events, and deadlines.
 It provides features for adding, deleting, listing, marking tasks as complete or incomplete, and finding tasks based on keywords. 
 Duke simplifies task management, making it easier to stay organized and on top of your responsibilities.
+
+## Table of Contents
+1. [Quick Start Guide](#quick-start-guide)
+2. [Features](#features)
+    - [GUI](#gui)
+    - [Add Tasks](#add-tasks)
+    - [Delete Tasks](#delete-tasks)
+    - [List Tasks](#list-tasks)
+    - [Mark tasks as complete](#mark-tasks-as-complete)
+    - [Mark tasks as incomplete](#mark-tasks-as-incomplete)
+    - [Find Tasks](#find-tasks)
+    - [Detect duplicates](#detect-duplicates)
+3. [Usage](#usage)
+    - [todo - Add a to-do task](#todo---add-a-to-do-task)
+    - [deadline - Add a deadline task](#deadline---add-a-deadline-task)
+    - [event - Add an event task](#event---add-an-event-task)
+    - [delete - Delete a task](#delete---delete-a-task)
+    - [list - List all tasks](#list---list-all-tasks)
+    - [mark - Mark a task as complete](#mark---mark-a-task-as-complete)
+    - [unmark - Mark a task as incomplete](#unmark---mark-a-task-as-incomplete)
+    - [find - Find tasks by keyword](#find---find-tasks-by-keyword)
+    - [duplicate - Detect and remove duplicate tasks](#duplicate---detect-and-remove-duplicate-tasks)
+
+## Quick Start Guide
+
+### Prerequisites
+
+- **Java 11:** Duke requires Java 11 or later to run. Make sure you have Java 11 installed on your computer. You can download it from the official Oracle website or use an OpenJDK distribution.
+
+### Installation
+
+1. **Download Duke:** You can download the Duke application from [my iP repository](https://github.com/seewhyjay/ip/releases/tag/A-Release).
+
+
+### Running Duke
+
+1. **Open a Terminal or Command Prompt:** To run Duke, you can use the command line or just double-click on the jar file.
+    * To use the command line, run ```java -jar duke.jar```
+
 ## Features 
 
 ### GUI
@@ -106,7 +145,7 @@ Got it. I've added this task:
 Now you have X tasks in the list.
 ```
 
-### delete - Delete a task
+### `delete` - Delete a task
 
 To delete a task, use the following command:
 
@@ -124,7 +163,7 @@ Noted. I've removed this task:
 Now you have X tasks in the list.
 ```
 
-### list - List all tasks
+### `list` - List all tasks
 
 To list all tasks, simply enter:
 
