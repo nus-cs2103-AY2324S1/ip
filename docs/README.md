@@ -1,29 +1,117 @@
 # User Guide
+Welcome to THE **CENATOR**.
 
-## Features 
+*I HOPE YOU WEREN'T EXPECTING A SIMPLE CHATBOT TO 
+HELP YOU ORGANIZE TASKS, BECAUSE YOU'RE NOT GETTING IT*
 
-### Feature-ABC
+> How did I keep this dumb project going for as long as I did... - Eola-Z
 
-Description of the feature.
+## Features
 
-### Feature-XYZ
+### Task management
 
-Description of the feature.
+The **CENATOR** will begrudgingly keep track of tasks you enter and list them out for you if requested.
+
+Tasks can be marked done, and are separated into the following categories: Todo; Event; Deadline.
+
+### Tagging
+
+Tags can be added to each task to make recognizing them easier
+
+## Getting started
+
+1. Go [here](https://github.com/Eola-Z/ip/releases) and install the `v.1.0` .jar file
+2. Run `javac duke.jar`
+3. Enjoy the pain!
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` `deadline` `event` - Add tasks
 
-Describe the action and its outcome.
+Add tasks alongside additional details if needed
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo (task)`
+
+`deadline (task) /by (yyyy-mm-dd)`
+
+`event (task) /from (yyyy-mm-dd) /to (yyyy-mm-dd)`
 
 Expected outcome:
 
-Description of the outcome.
+```
+You want to add (task)? Sure whatever
+```
+
+### `mark` `unmark` - Mark tasks
+
+Mark tasks as complete or incomplete.
+
+Example of usage:
+
+`mark (index)`
+
+`unmark (index)`
+
+Expected outcome:
 
 ```
-expected output
+Marked the following task: (task)
+```
+
+### `delete` - Delete tasks
+
+Delete a task.
+
+Example of usage:
+
+`delete (index)`
+
+Expected outcome:
+
+```
+See this? (task) Now you don't.
+```
+
+### `find` - Search for tasks
+
+Search for tasks containing a keyword.
+
+Example of usage:
+
+`find (keyword)`
+
+Expected outcome:
+
+```
+Here you go (list of tasks containing the keyword)
+```
+
+### `list` - List all tasks
+
+Lists all stored tasks.
+
+Example of usage:
+
+`list`
+
+Expected outcome:
+
+```
+Here you go (list of tasks)
+```
+
+### `save` - Save current tasklist
+
+Saves the current tasklist so that they can be loaded on the next startup.
+
+Example of usage:
+
+`save`
+
+Expected outcome:
+
+```
+SAVED
 ```
