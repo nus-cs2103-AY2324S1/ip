@@ -75,4 +75,17 @@ public class Task {
     public String toString() {
         return "[" + ((isDone) ? "X" : " ") + "] " + task;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        boolean bothTaskEquals = ((Task) o).task.equals(this.task);
+        boolean bothTagEquals = Arrays.equals(((Task) o).tags, this.tags);
+        return bothTaskEquals && bothTagEquals;
+    }
 }

@@ -13,7 +13,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DeleteCommandTest {
+/** Test if Task is marked/unmarked successfully for all task types, and that it can be retrieved from storage */
+public class ChangeMarkCommandTest {
     ToDo todo = new ToDo("tStE");
     Event event = new Event("test event", LocalDate.parse("2023-03-02"), LocalDate.parse("2023-02-02"));
     Deadline deadline = new Deadline("test event", LocalDate.parse("2023-02-02"));
@@ -21,7 +22,17 @@ public class DeleteCommandTest {
     ArrayList<Task> afterTasks = new ArrayList<>();
     Storage storage = new Storage("testTasks.json");
 
-    private void init() {
+    private void initUnmark() {
+        beforeTasks.add(todo);
+        beforeTasks.add(event);
+        beforeTasks.add(deadline);
+        storage.save(beforeTasks);
+    }
+
+    private void initMark() {
+        todo.mark();
+        event.mark();
+        deadline.mark();
         beforeTasks.add(todo);
         beforeTasks.add(event);
         beforeTasks.add(deadline);
@@ -29,12 +40,13 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void deleteTask_task_deletedSuccessfully() {
-        init();
+    public void changeMark_mark_changedSuccessfully() {
+        initUnmark();
         try {
             beforeTasks = storage.load();
-            beforeTasks.remove(2);
-
+            for (Task task : beforeTasks) {
+                task.mark();
+            }
             storage.save(beforeTasks);
             afterTasks = storage.load();
         } catch (InvalidFileException e) {
@@ -44,4 +56,20 @@ public class DeleteCommandTest {
         assertEquals(beforeTasks, afterTasks);
     }
 
+    @Test
+    public void changeMark_unmark_changedSuccessfully() {
+        initMark();
+        try {
+            beforeTasks = storage.load();
+            for (Task task : beforeTasks) {
+                task.unmark();
+            }
+            storage.save(beforeTasks);
+            afterTasks = storage.load();
+        } catch (InvalidFileException e) {
+            throw new RuntimeException(e);
+        }
+
+        assertEquals(beforeTasks, afterTasks);
+    }
 }

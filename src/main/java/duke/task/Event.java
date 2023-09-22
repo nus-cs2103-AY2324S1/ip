@@ -2,6 +2,7 @@ package duke.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -45,5 +46,20 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString() + "\n     (from: " + getDate(from) + " to: " + getDate(to) + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (this.getClass() != o.getClass()) {
+            return false;
+        }
+
+        boolean bothTaskAndTagEquals = super.equals(o);
+        boolean bothFromEquals = ((Event) o).from.equals(this.from);
+        boolean bothToEquals = ((Event) o).to.equals(this.to);
+
+        return bothTaskAndTagEquals && bothFromEquals && bothToEquals;
     }
 }
