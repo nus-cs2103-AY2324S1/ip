@@ -2,9 +2,9 @@ ____________________________________________________________
  Hello! I'm eggbot
  Please add a task!
 
- To add a Models.ToDo task, type 'todo [Models.Task]'
- To add a Models.Deadline task, type 'deadline [Models.Task /Models.Deadline]'
- To add an Models.Event task, type 'event [Models.Task /Start Date/End Date]'
+ To add a models.ToDo task, type 'todo [models.Task]'
+ To add a models.Deadline task, type 'deadline [models.Task /models.Deadline]'
+ To add an models.Event task, type 'event [models.Task /Start Date/End Date]'
  To view tasks, type 'list'
  To mark a task as 'done', type 'mark [index]'
  To mark a task as 'undone', type 'unmark [index]'
@@ -59,9 +59,9 @@ Please add a task, or type list to show tasks.
 ____________________________________________________________
 Something went wrong! Please format the task properly and add it again.
 
-Error: Exceptions.DukeInvalidFormatException:
-Format for Models.Event task incorrect!
-Expected 3 parts (Models.Task name, start & end time) in input, got 2
+Error: exceptions.DukeInvalidFormatException:
+Format for models.Event task incorrect!
+Expected 3 parts (models.Task name, start & end time) in input, got 2
 ____________________________________________________________
 
 Please add a task, or type list to show tasks.

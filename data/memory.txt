@@ -1,3 +1,1 @@
 Todo,Buy groceries,false
-Deadline,Do assignment 1,false,24-06-2023 1900
-Event,Award ceremony A,false,24-06-2023 1800,24-06-2023 2300
