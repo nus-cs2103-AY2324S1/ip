@@ -54,7 +54,8 @@ Marks a task as done. Format: `mark TASKNUMBER`
 ### Unmark task: `unmark`
 Marks a task as not done. Format: `unmark TASKNUMBER`
 - Example: `unmark 1`
-  ![Unmark Screen](images/Unmark.png)
+  
+![Unmark Screen](images/Unmark.png)
 
 ### Find task: `find`
 Finds specific tasks in the list. Format: `find QUERY`
