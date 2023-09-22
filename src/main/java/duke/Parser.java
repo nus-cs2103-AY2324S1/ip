@@ -86,7 +86,7 @@ public class Parser {
             ui.printFound(tasks.find(keyword));
             break;
         default:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

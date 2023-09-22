@@ -46,7 +46,7 @@ public class Ui {
     /**
      * Displays a welcome message to the user.
      */
-    public void showWelcome() {
+    public void printWelcome() {
         this.addMessage("Hello! I'm Max\n");
         this.addMessage("What can I do for you?\n");
     }
