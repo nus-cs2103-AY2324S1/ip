@@ -7,8 +7,15 @@ import tasket.exception.TasketException;
 import tasket.storage.Storage;
 import tasket.ui.Ui;
 
+/**
+ * The class for find command.
+ */
 public class FindCommand extends Command {
 
+    /**
+     * The constructor for find command.
+     * @param description The keyword to find the matching tasks.
+     */
     public FindCommand(String description) {
         super(description);
     }
@@ -20,7 +27,7 @@ public class FindCommand extends Command {
      * @param taskList The task list instance of duke.
      * @param ui The ui instance of duke.
      * @param storage The storage instance of duke.
-     * @return List of matching tasks
+     * @return List of matching tasks.
      * @throws TasketException Does not throw the exception.
      */
     @Override
@@ -28,10 +35,13 @@ public class FindCommand extends Command {
         ArrayList<String> matchingTasks = new ArrayList<>();
 
         for (int i = 0; i < taskList.size(); i++) {
-            String taskString = String.format("%d.%s", i + 1, taskList.getTaskString(i));
-            if (taskString.contains(commandDescription)) {
-                matchingTasks.add(taskString);
+            String taskString = taskList.getTaskString(i);
+
+            if (!taskString.contains(commandDescription)) {
+                continue;
             }
+
+            matchingTasks.add(String.format("%d.%s", i + 1, taskString));
         }
 
         return ui.showMatchingTasks(matchingTasks.toArray(new String[0]));

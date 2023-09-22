@@ -1,7 +1,11 @@
 package tasket.data;
 
+import static tasket.commons.Messages.MESSAGE_EXCEEDS_LIST;
+import static tasket.commons.Messages.MESSAGE_LESS_THAN_ONE;
+
 import java.util.ArrayList;
 
+import tasket.exception.TasketException;
 import tasket.task.Task;
 
 /**
@@ -92,5 +96,13 @@ public class TaskList {
      */
     public String getTaskSaveString(int taskNo) {
         return tasks.get(taskNo).toSaveString();
+    }
+
+    public void checkIndexRange(int index) throws TasketException {
+        if (index <= 0) {
+            throw new TasketException(MESSAGE_LESS_THAN_ONE);
+        } else if (index > size()) {
+            throw new TasketException(MESSAGE_EXCEEDS_LIST);
+        }
     }
 }

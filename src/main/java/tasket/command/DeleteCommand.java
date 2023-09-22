@@ -1,5 +1,8 @@
 package tasket.command;
 
+import static tasket.commons.Messages.MESSAGE_EMPTY_INDEX;
+import static tasket.commons.Messages.MESSAGE_NOT_NUMBER;
+
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
 import tasket.storage.Storage;
@@ -30,23 +33,18 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
         if (commandDescription.isEmpty()) {
-            throw new TasketException("The task index cannot be empty");
+            throw new TasketException(MESSAGE_EMPTY_INDEX);
         }
 
         try {
             int i = Integer.parseInt(commandDescription);
-
-            if (i <= 0) {
-                throw new TasketException("The task index cannot be less than 1");
-            } else if (i > taskList.size()) {
-                throw new TasketException("The task index cannot exceed the list");
-            }
+            taskList.checkIndexRange(i);
 
             String deletedTaskString = taskList.remove(i - 1).toString();
             storage.rewriteSaveFile(taskList);
             return ui.showDeletedTask(deletedTaskString, taskList.size());
         } catch (NumberFormatException e) {
-            throw new TasketException("The task index must be a number");
+            throw new TasketException(MESSAGE_NOT_NUMBER);
         }
     }
 }
