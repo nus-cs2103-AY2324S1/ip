@@ -34,50 +34,62 @@ public class EditCommand extends Command {
         String output = null;
         switch (this.editType) {
         case MARK:
-            try {
-                int index = Integer.parseInt(command.substring(5));
-                Task targetedTask = TaskList.getTaskByIndex(index);
-                output = targetedTask.mark();
-                return output;
-            } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                output = Ui.getAlertForMark();
-                return output;
-            } catch (AlexException e) {
-                output = e.getMessage();
-                return output;
-            } finally {
-                break;
-            }
+            output = executeMark();
+            break;
 
         case UNMARK:
-            try {
-                int index = Integer.parseInt(command.substring(7));
-                Task targetedTask = TaskList.getTaskByIndex(index);
-                output = targetedTask.unmark();
-                return output;
-            } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                output = Ui.getAlertForUnmark();
-                return output;
-            } catch (AlexException e) {
-                output = e.getMessage();
-                return output;
-            } finally {
-                break;
-            }
+            output = executeUnmark();
+            break;
 
         case DELETE:
-            try {
-                int toDeleteIndex = Integer.parseInt(command.substring(7, 8));
-                output = TaskList.delete(toDeleteIndex);
-                return output;
-            } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                output = Ui.getAlertForDelete();
-                return output;
-            } finally {
-                break;
-            }
+            output = executeDelete();
+            break;
         }
         return output;
+    }
+
+    private String executeMark() {
+        String output = "";
+        try {
+            int index = Integer.parseInt(command.substring(5));
+            Task targetedTask = TaskList.getTaskByIndex(index);
+            output = targetedTask.mark();
+            return output;
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            output = Ui.getAlertForMark();
+            return output;
+        } catch (AlexException e) {
+            output = e.getMessage();
+            return output;
+        }
+    }
+
+    private String executeUnmark() {
+        String output = "";
+        try {
+            int index = Integer.parseInt(command.substring(7));
+            Task targetedTask = TaskList.getTaskByIndex(index);
+            output = targetedTask.unmark();
+            return output;
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            output = Ui.getAlertForUnmark();
+            return output;
+        } catch (AlexException e) {
+            output = e.getMessage();
+            return output;
+        }
+    }
+
+    private String executeDelete() {
+        String output = "";
+        try {
+            int toDeleteIndex = Integer.parseInt(command.substring(7, 8));
+            output = TaskList.delete(toDeleteIndex);
+            return output;
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            output = Ui.getAlertForDelete();
+            return output;
+        }
     }
 
 

@@ -1,10 +1,11 @@
 package Alex.commands;
 
-import Alex.AlexException;
-import Alex.ui.Ui;
-import Alex.tasks.TaskList;
-
 import java.time.format.DateTimeParseException;
+
+import Alex.AlexException;
+import Alex.tasks.TaskList;
+import Alex.ui.Ui;
+
 
 /**
  * A class that extends from Commadn class. The instance of this class represents a command that is trying to
@@ -36,38 +37,52 @@ public class ViewCommand extends Command {
         String output = null;
         switch(this.viewType) {
         case LISTALL:
-            output = TaskList.getAllContent();
-            return output;
+            output = executeListAll();
+            break;
 
         case LISTONEDAY:
-            try {
-                output = TaskList.getTaskForDate(command);
-                return output;
-            } catch (DateTimeParseException e) {
-                output = Ui.getAlertForDate();
-                return output;
-            } finally {
-                break;
-            }
+            output = executeListOneDate();
+            break;
 
         case FIND:
-            try {
-                if (command.length() == 4 || !command.substring(4, 5).equals(" ")) {
-                    throw new AlexException("");
-                }
-                assert command.substring(4, 5).equals(" ") : "There should be space after find keyword";
-                String toMatch = command.substring(5).stripTrailing();
-                output = TaskList.getTaskForMatchWord(toMatch);
-                return output;
-            } catch (AlexException e) {
-                output = Ui.getAlertForFind();
-                return output;
-            } finally {
-                break;
-            }
+            output = executeFind();
+            break;
         }
         return output;
 
+    }
+
+    private String executeListAll() {
+        String output = "";
+        output = TaskList.getAllContent();
+        return output;
+    }
+
+    private String executeListOneDate() {
+        String output = "";
+        try {
+            output = TaskList.getTaskForDate(command);
+            return output;
+        } catch (DateTimeParseException e) {
+            output = Ui.getAlertForDate();
+            return output;
+        }
+    }
+
+    private String executeFind() {
+        String output = "";
+        try {
+            if (command.length() == 4 || !command.substring(4, 5).equals(" ")) {
+                throw new AlexException("");
+            }
+            assert command.substring(4, 5).equals(" ") : "There should be space after find keyword";
+            String toMatch = command.substring(5).stripTrailing();
+            output = TaskList.getTaskForMatchWord(toMatch);
+            return output;
+        } catch (AlexException e) {
+            output = Ui.getAlertForFind();
+            return output;
+        }
     }
 
 }
