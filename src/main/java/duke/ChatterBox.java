@@ -31,8 +31,8 @@ import javafx.scene.image.ImageView;
  * user's requests. 
  */
 public class ChatterBox extends Application {
-    private static final String USER_IMAGE_LOCATION = "/DaUser.jpg";
-    private static final String DUKE_IMAGE_LOCATION = "/DaDuke.jpg";
+    private static final String USER_IMAGE_LOCATION = "/DaUser.png";
+    private static final String DUKE_IMAGE_LOCATION = "/DaDuke.png";
     private static final Double ANCHOR_LENGTH = 1.0;
     private static final double MIN_HEIGHT = 600.0;
     private static final double MIN_WIDTH = 400.0;

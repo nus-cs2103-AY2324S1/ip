@@ -98,13 +98,14 @@ public class Parser {
      */
     public Event parseEvent() throws DukeException {
         if (fullLine.split("/").length < 3) {
-            //new Ui().eventErrorPrinter();
             throw new DukeException(new Ui().eventErrorString());
         }
         String[] longNameArray = fullLine.split("/");
         String longName = longNameArray[0];
         String fromTime = longNameArray[1];
+        fromTime = fromTime.split(" ")[1];
         String endTime = longNameArray[2];
+        endTime = endTime.split(" ")[1];
         String taskName = longName.split("event ")[1];
         String eventName = taskName +
                 String.format("(from: %s to: %s)",

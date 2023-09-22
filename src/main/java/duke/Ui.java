@@ -34,9 +34,7 @@ public class Ui {
      * Prints a sequence of dashes to cumulatively form a line separator.
      */
     public String linePrinter() {
-        return this.tabPrinter
-                (TABS_SPACING) + "\n";
-
+        return this.tabPrinter(TABS_SPACING);
 
     }
 
