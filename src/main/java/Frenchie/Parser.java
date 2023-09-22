@@ -36,6 +36,8 @@ public class Parser {
             return Command.delete;
         case "find":
             return Command.find;
+        case "help":
+            return Command.help;
         default:
             return Command.invalid;
         }

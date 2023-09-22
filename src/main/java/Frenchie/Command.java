@@ -10,6 +10,7 @@ public enum Command {
     event,
     invalid,
     find,
+    help,
     bye
 
 }

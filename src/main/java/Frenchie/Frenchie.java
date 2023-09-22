@@ -168,6 +168,9 @@ public class Frenchie extends Application {
             output.append(ui.findMessage());
             output.append(tasks.returnMatchTasks(keyword));
             return output.toString();
+        case help:
+            output.append(ui.helpMessage());
+            return output.toString();
         default:
             return "OOPS!!! That is an invalid command!\n "
                     + "NOTE: Dates have to be entered in the dd/MM/yyyy HH:mm format!";

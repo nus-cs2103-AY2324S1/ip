@@ -1,7 +1,5 @@
 [T][ ] a
-[T][ ] fk spider
 [T][ ] mom
 [T][ ] dad
 [T][ ] uncle
-[T][ ] fuck
-[T][ ] nabei
+[T][X] auntie
