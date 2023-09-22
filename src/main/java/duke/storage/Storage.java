@@ -75,13 +75,13 @@ public class Storage {
     public void rewriteFile(ArrayList<Task> tasklist) {
         if (tasklist.size() > 0) {
             try {
-                writeToFile(tasklist.get(0).saveString() + System.lineSeparator());
+                writeToFile(tasklist.get(0).saveString());
             } catch (IOException e) {
                 System.out.println("Something went wrong: " + e.getMessage());
             }
             for (int i = 1; i < tasklist.size(); i++) {
                 try {
-                    appendToFile(tasklist.get(i).saveString() + System.lineSeparator());
+                    appendToFile(tasklist.get(i).saveString());
                 } catch (IOException e) {
                     System.out.println("Something went wrong: " + e.getMessage());
                 }
