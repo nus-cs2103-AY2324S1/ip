@@ -27,8 +27,8 @@ public class ListByDateCommand extends MultiTaskCommand {
         assert taskList != null;
         List<Task> tasksOnDate = taskList.getTaskOnDate(date);
         final String outputHeaderMessage = "I've held up the heavens for so long that"
-                + " time became a meaningless construct, mortal. But if you insist, " +
-                "these are the labours occurring on " + date.format(Parser.DATE_FORMATTER) + ":";
+                + " time became a meaningless construct, mortal. But if you insist, "
+                + "these are the labours occurring on " + date.format(Parser.DATE_FORMATTER) + ":";
         return generateListOutput(tasksOnDate, outputHeaderMessage);
     }
 }
