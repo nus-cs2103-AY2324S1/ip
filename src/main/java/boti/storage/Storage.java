@@ -102,4 +102,13 @@ public class Storage {
             System.out.println("Failed to update task: " + e.getMessage());
         }
     }
+
+    /**
+     * Gets the file path of the storage
+     *
+     * @return the file path of the storage
+     */
+    public String getFilePath() {
+        return filePath;
+    }
 }
