@@ -52,9 +52,9 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    public void addTask(Task task) {
+    public int addTask(Task task) {
         this.tasks.add(task);
-        ui.showAddTaskMessage(task, tasks.size());
+        return tasks.size();
     }
 
     /**
