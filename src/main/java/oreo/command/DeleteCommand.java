@@ -11,11 +11,24 @@ public class DeleteCommand extends Command {
     private String command;
     private Scanner tokeniser;
 
+    /**
+     * Constructor for Delete Command.
+     *
+     * @param command command
+     * @param tokeniser rest of command
+     */
     public DeleteCommand(String command, Scanner tokeniser) {
         this.command = command;
         this.tokeniser = tokeniser;
     }
 
+    /**
+     * Acts on tasks with command.
+     *
+     * @param tasks task list.
+     * @return Response upon acting on task with command.
+     * @throws IllegalCommandException invalid command formats.
+     */
     public String actOn(TaskList tasks) throws IllegalCommandException {
         if (command.equals("clear")) {
             tasks.clearAll();
@@ -50,11 +63,17 @@ public class DeleteCommand extends Command {
         return message;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String executeEditMode(TaskList tasks, int index, Task oldTask) {
         return execute(tasks);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks) {
         try {

@@ -8,19 +8,38 @@ public class Deadline extends Task {
 
     private String time;
 
-    public Deadline(String d, String date, String time) throws IllegalDateTimeException {
-        super(d);
+    /**
+     * Constructor for Deadline Class.
+     *
+     * @param d description of task.
+     * @param date deadline date.
+     * @param time deadline time.
+     * @throws IllegalDateTimeException wrong date time format.
+     */
+    public Deadline(String description, String date, String time) throws IllegalDateTimeException {
+        super(description);
         this.date = (date == null) ? TimeParser.getNextDateOfTime(time) : date;
         this.time = time;
     }
 
-    public Deadline(String d, String date, String time, boolean completed) {
-        super(d);
+    /**
+     * Constructor for Deadline Class. Mainly used for file reading
+     *
+     * @param d description of task.
+     * @param date deadline date.
+     * @param time deadline time.
+     * @param isComplete whether deadline is completed.
+     */
+    public Deadline(String description, String date, String time, boolean isComplete) {
+        super(description);
         this.date = date;
         this.time = time;
-        this.isComplete = completed;
+        this.isComplete = isComplete;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         String marker = "☐";
@@ -34,6 +53,9 @@ public class Deadline extends Task {
                 + marker + "\n";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String writeToFile() {
         int mark = isComplete ? 1 : 0;
@@ -43,6 +65,9 @@ public class Deadline extends Task {
         return data;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTaskInEditFormat() {
         String timeString = (this.time == null) ? "" : (", " + TimeParser.parseTimeForFile(this.time));

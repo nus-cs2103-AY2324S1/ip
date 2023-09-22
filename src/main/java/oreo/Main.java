@@ -11,8 +11,8 @@ import javafx.stage.Stage;
 import oreo.ui.MainWindow;
 
 /**
-     * A GUI for Duke using FXML.
-     */
+ * A GUI for Duke using FXML.
+ */
 public class Main extends Application {
     @Override
     public void start(Stage stage) {

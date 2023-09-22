@@ -59,6 +59,11 @@ public class TaskList {
         numberOfCompletedTasks = 0;
     }
 
+    /**
+     * Returns number of task.
+     *
+     * @return number of task.
+     */
     public int getNumberOfTask() {
         return taskList.size();
     }
@@ -85,9 +90,9 @@ public class TaskList {
     /**
      * String of list of task and list headers depending on
      * number of task in the list left (including
-     * if all task are completed)
+     * if all task are completed).
      *
-     * @return list of task and appropriate headers
+     * @return list of task and appropriate headers.
      */
     public String list() {
         if (taskList.size() == 0) {
@@ -110,6 +115,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks task at index as done.
+     *
+     * @param index index.
+     * @return appropriate response to action.
+     */
     public String markDone(int index) {
         Task task = get(index);
         if (task.isComplete()) {
@@ -124,6 +135,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Unmarks task at index as done.
+     *
+     * @param index index.
+     * @return appropriate response to action.
+     */
     public String markNotDone(int index) {
         Task task = get(index);
         if (!task.isComplete()) {
@@ -138,6 +155,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks all task in list as done.
+     *
+     * @return String response to marking all task.
+     */
     public String markAll() {
         for (int i = 0; i < getNumberOfTask(); i++) {
             markDone(i);
@@ -145,6 +167,11 @@ public class TaskList {
         return "Marked all your task done! TIME TO PLAY?";
     }
 
+    /**
+     * Unmarks all task in list as done.
+     *
+     * @return String response to unmarking all task.
+     */
     public String unmarkAll() {
         for (int i = 0; i < getNumberOfTask(); i++) {
             markNotDone(i);
@@ -152,6 +179,12 @@ public class TaskList {
         return "Oh noooo! Unmarked everything! D:";
     }
 
+    /**
+     * Lists search results.
+     *
+     * @param keyword searching keyword.
+     * @return String of list of task matching keyword.
+     */
     public String listResults(String keyword) {
         if (getNumberOfTask() == 0) {
             return "Unfortunately, I couldn't find any task matching \"" +
@@ -167,6 +200,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Modifies task at index with new task.
+     *
+     * @param index of old task.
+     * @param task new task.
+     */
     public void modifyTask(int index, Task task) {
         if (taskList.get(index).isComplete()) numberOfCompletedTasks--;
         taskList.set(index, task);

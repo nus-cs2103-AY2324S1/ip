@@ -15,6 +15,13 @@ public class MarkUnmarkCommand extends Command {
         this.tokeniser = tokeniser;
     }
 
+    /**
+     * Acts on tasks with command.
+     *
+     * @param tasks task list.
+     * @return Response upon acting on task with command.
+     * @throws IllegalCommandException invalid command formats.
+     */
     public String actOn(TaskList tasks) throws IllegalCommandException {
         // nothing specified after command
         if (!tokeniser.hasNext()) {
@@ -46,11 +53,17 @@ public class MarkUnmarkCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String executeEditMode(TaskList tasks, int index, Task oldTask) {
         return execute(tasks);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks) {
         try {

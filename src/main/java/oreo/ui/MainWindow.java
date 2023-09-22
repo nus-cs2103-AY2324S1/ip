@@ -45,27 +45,30 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty()); // scroll follows
-//        Font dmSansFont = Font.loadFont(getClass().getResourceAsStream("/fonts/DMSans-Medium.ttf"), 12);
-//        userInput.setFont(dmSansFont);
     }
 
+    /**
+     * Sets oreo as an instance of oreo.
+     *
+     * @param oreo instance of oreo.
+     */
     public void setOreo(Oreo oreo) {
         this.oreo = oreo;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one for user input and other one containing response to that particular use input.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        Command c = Parser.parse(input);
+        Command c = Parser.parse(input);    // parses input and generates command
         if (c.isExit()) {
-            exit(input);
+            exit(input);                    // pass to exit method to handle
             return;
         } else if (c.isEdit()) {
-            userToEditHandler(c, input);
+            userToEditHandler(c, input);    // pass to userToEditHandler to handle
             return;
         }
         String response = oreo.execute(c);
@@ -73,10 +76,14 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Creates two dialog boxes, one for user input and other one containing response to that particular use input
+     * in edit mode. Clears the user input after processing and changes text fields accordingly.
+     */
     @FXML
     private void handleEditInput() {
         String input = userInputEdit.getText();
-        Command c = Parser.parseEditMode(input);
+        Command c = Parser.parseEditMode(input);    // reads input in edit mode, generate command accordingly
         String response;
         try {
             response = oreo.executeEditMode(c);
@@ -92,18 +99,23 @@ public class MainWindow extends AnchorPane {
             userInputEdit.setText(taskToEdit.getTaskInEditFormat());
         } else {
             setDialogContainer(input, response);
-            oreo.clearCache();
-            sendButton.setVisible(true);
-            editButton.setVisible(false);
-            userInputEdit.clear();
-            userInputEdit.setVisible(false);
-            userInput.setVisible(true);
-            userInput.clear();
-            userInput.requestFocus();
+            oreo.clearCache();                  // clear cache once edit mode exits
+            sendButton.setVisible(true);        // show normal sendButton
+            editButton.setVisible(false);       // hides editButton
+            userInputEdit.clear();              // clears edit text field
+            userInputEdit.setVisible(false);    // hides edit text field
+            userInput.setVisible(true);         // show normal text field
+            userInput.clear();                  // clear normal text field
+            userInput.requestFocus();           // brings focus to text field ready for next input
         }
     }
 
-
+    /**
+     * Sets up UI for editing mode.
+     *
+     * @param command generated command based on input.
+     * @param input from user.
+     */
     @FXML
     public void userToEditHandler(Command command, String input) {
         String response = "";
@@ -115,7 +127,7 @@ public class MainWindow extends AnchorPane {
             return;
         }
         Task taskToEdit = oreo.getTask((EditCommand) command);  // get task to edit
-        oreo.cache(input);    // cache input
+        oreo.cache(input);      // cache input
         oreo.cache(taskToEdit); // cache task
         setDialogContainer(input, response);
         // changes from normal input mode to edit mode
@@ -127,6 +139,9 @@ public class MainWindow extends AnchorPane {
         editButton.setVisible(true);
     }
 
+    /**
+     * Displays UI for start up.
+     */
     @FXML
     public void startUp() {
         try {
@@ -134,6 +149,7 @@ public class MainWindow extends AnchorPane {
             greetUser();
         } catch (FileNotFoundException | IllegalDateTimeException |
                  InputMismatchException e) {
+            // if file is corrupt
             oreo.clearTaskAndFile();
             String fileCorruptMessage = "saved file is corrupt, creating new file...";
             dialogContainer.getChildren().addAll(
@@ -142,12 +158,20 @@ public class MainWindow extends AnchorPane {
         }
     }
 
-   @FXML
+    /**
+     * Displays UI for greeting user.
+     */
+    @FXML
     private void greetUser() {
         dialogContainer.getChildren().addAll(
                 DialogBox.getOreoDialog(oreo.greet(), oreoImage));
     }
 
+    /**
+     * Displays UI when user enters "bye" command.
+     *
+     * @param input user input.
+     */
     @FXML
     private void exit(String input) {
         try {
@@ -158,7 +182,7 @@ public class MainWindow extends AnchorPane {
                 public void run () {
                     System.exit(0);
                 }
-            }, 1000);
+            }, 1000);   // shut down 1s after dialogbox displays
         } catch (IOException e) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getOreoDialog(e.getMessage(), oreoImage));
@@ -166,6 +190,12 @@ public class MainWindow extends AnchorPane {
 
     }
 
+    /**
+     * Sets string for dialog containers.
+     *
+     * @param input user input.
+     * @param response bot response.
+     */
     @FXML
     private void setDialogContainer(String input, String response) {
         dialogContainer.getChildren().addAll(

@@ -9,6 +9,17 @@ public class Event extends Task {
     private String fromTime;
     private String toDate;
     private String toTime;
+
+    /**
+     * Constructor for Event Class.
+     *
+     * @param d description of task.
+     * @param fromDate start date.
+     * @param fromTime start time.
+     * @param toDate end date.
+     * @param toTime end time.
+     * @throws IllegalDateTimeException invalid date time inputs.
+     */
     public Event(String d, String fromDate, String fromTime,
                  String toDate, String toTime) throws IllegalDateTimeException {
         super(d);
@@ -24,6 +35,13 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Checks if date time combination is valid. Used for above constructor
+     *
+     * @param fromTime start time.
+     * @param toTime end time.
+     * @throws IllegalDateTimeException when date time combination is not valid.
+     */
     private void eventDateTimeFromToCombinationChecker(String fromTime, String toTime)
             throws IllegalDateTimeException {
         if ((fromTime != null && toTime == null) || (fromTime == null && toTime != null)) {
@@ -32,16 +50,29 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Constructor of Event task. Mainly used for file reading.
+     *
+     * @param d description of task.
+     * @param fromDate start date.
+     * @param fromTime start time.
+     * @param toDate end date.
+     * @param toTime end time.
+     * @param isComplete if task is complete
+     */
     public Event(String d, String fromDate, String fromTime,
-                 String toDate, String toTime , boolean completed) {
+                 String toDate, String toTime , boolean isComplete) {
         super(d);
         this.fromDate = fromDate;
         this.fromTime = fromTime;
         this.toDate = toDate;
         this.toTime = toTime;
-        this.isComplete = completed;
+        this.isComplete = isComplete;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         String marker = "☐";
@@ -58,6 +89,9 @@ public class Event extends Task {
                 + marker + "\n";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String writeToFile() {
         int mark = isComplete ? 1 : 0;
@@ -68,6 +102,9 @@ public class Event extends Task {
         return data;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTaskInEditFormat() {
         String fromTimeString = (this.fromTime == null) ? "" : (", " + TimeParser.parseTimeForFile(this.fromTime));

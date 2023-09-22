@@ -12,11 +12,20 @@ public class AddCommand extends Command {
 
     private Scanner tokeniser;
 
+    /**
+     * Constructor for AddCommand.
+     *
+     * @param command todo, deadline or event.
+     * @param tokeniser rest of user input.
+     */
     public AddCommand(String command, Scanner tokeniser) {
         this.command = command;
         this.tokeniser = tokeniser;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String executeEditMode(TaskList tasks, int index, Task oldTask) throws IllegalCommandException,
             IllegalDateTimeException {
@@ -28,6 +37,9 @@ public class AddCommand extends Command {
                 + Formatter.indentLineBy(newTask.toString(), 2);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks) {
         try {

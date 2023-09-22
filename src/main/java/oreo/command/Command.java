@@ -13,29 +13,48 @@ import oreo.task.TaskList;
  */
 public abstract class Command {
     /**
-     * Executes the command
+     * Executes the command.
      *
-     * @param ui Ui of the chatbot
-     * @param tasks Tasklist of the chatbot
+     * @param tasks Tasklist of the chatbot.
+     * @return Response from executing command on tasks
      */
     public abstract String execute(TaskList tasks);
 
+    /**
+     * Executes the command while in edit mode.
+     *
+     * @param tasks task list.
+     * @param index index of relevant task in edit mode.
+     * @param oldTask old task of edit mode.
+     * @return Response from executing command on tasks.
+     * @throws IllegalDateTimeException Invalid date time formats.
+     */
     public abstract String executeEditMode(TaskList tasks, int index, Task oldTask)
             throws IllegalDateTimeException;
 
     /**
-     * Checks if command is bye
+     * Checks if command is bye.
      *
-     * @return true if command is ByeCommand
+     * @return true if command is ByeCommand.
      */
     public boolean isExit() {
         return this instanceof ByeCommand;
     }
 
+    /**
+     * Checks if command is edit.
+     *
+     * @return true if command is EditCommand.
+     */
     public boolean isEdit() {
         return this instanceof EditCommand;
     }
 
+    /**
+     * Checks if command is ExitMode.
+     *
+     * @return true if command is ExitModeCommand.
+     */
     public boolean isExitMode() {
         return this instanceof ExitModeCommand;
     }

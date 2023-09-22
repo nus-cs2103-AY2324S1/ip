@@ -10,6 +10,10 @@ import java.io.IOException;
 
 public class SaveCommand extends Command {
     private final String filePath = "./oreo.txt";
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks) {
         try {
@@ -32,6 +36,9 @@ public class SaveCommand extends Command {
         return "Thoroughly remembered all your task for you! I think I deserve a belly rub!";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String executeEditMode(TaskList tasks, int index, Task oldTask) throws IllegalDateTimeException {
         return execute(tasks);

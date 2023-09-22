@@ -49,7 +49,7 @@ public abstract class Task implements Comparable<Task> {
      *
      * @param command Command inputted by user.
      * @param tokeniser String that follows the command as a Scanner.
-     * @return Approriate task base on input by user.
+     * @return Appropriate task base on input by user.
      * @throws IllegalCommandException when command is invalid.
      * @throws IllegalDateTimeException when date time input is invalid.
      */
@@ -74,6 +74,13 @@ public abstract class Task implements Comparable<Task> {
         }
     }
 
+    /**
+     * Processes todo command for generateTask method.
+     *
+     * @param contents String after command.
+     * @return Task associated with input.
+     * @throws IllegalCommandException wrong command format.
+     */
     private static Task processToDoCommand(String contents) throws IllegalCommandException {
         if (contents.contains("/by")) {
             throw new IllegalCommandException("do that for a todo, "
@@ -85,6 +92,13 @@ public abstract class Task implements Comparable<Task> {
         return new ToDo(contents);
     }
 
+    /**
+     * Processes deadline command for generateTask method.
+     *
+     * @param contents String after command.
+     * @return Task associated with input.
+     * @throws IllegalCommandException wrong command format.
+     */
     private static Task processDeadlineCommand(String contents) throws IllegalCommandException,
             IllegalDateTimeException {
         checkValidDeadlineFormat(contents); // catch invalid formats
@@ -99,6 +113,13 @@ public abstract class Task implements Comparable<Task> {
         return new Deadline(parts[0], dateTime[0], dateTime[1]);
     }
 
+    /**
+     * Checks if deadline command format is valid and returns error messages accordingly.
+     *
+     * @param contents String after command
+     * @throws IllegalCommandException wrong command format
+     * @throws IllegalDateTimeException wrong date time format
+     */
     private static void checkValidDeadlineFormat(String contents)  throws IllegalCommandException,
             IllegalDateTimeException{
         if (!contents.contains(" /by ")) {
@@ -125,6 +146,13 @@ public abstract class Task implements Comparable<Task> {
         }
     }
 
+    /**
+     * Processes event command for generateTask method.
+     *
+     * @param contents String after command.
+     * @return Task associated with input.
+     * @throws IllegalCommandException wrong command format.
+     */
     private static Task processEventCommand(String contents) throws IllegalCommandException,
             IllegalDateTimeException {
         checkValidEventFormat(contents); // catch invalid formats
@@ -140,6 +168,13 @@ public abstract class Task implements Comparable<Task> {
                 toDateTime[0], toDateTime[1]);
     }
 
+    /**
+     * Checks if event command format is valid and returns error messages accordingly.
+     *
+     * @param contents String after command
+     * @throws IllegalCommandException wrong command format
+     * @throws IllegalDateTimeException wrong date time format
+     */
     private static void checkValidEventFormat(String contents)  throws IllegalCommandException,
             IllegalDateTimeException{
         if (!contents.contains(" /from ") || !contents.contains(" /to ")) {
@@ -155,6 +190,11 @@ public abstract class Task implements Comparable<Task> {
         }
     }
 
+    /**
+     * Returns if task is complete.
+     *
+     * @return whether task is complete.
+     */
     public boolean isComplete() {
         return this.isComplete;
     }
@@ -200,6 +240,11 @@ public abstract class Task implements Comparable<Task> {
      */
     public abstract String writeToFile();
 
+    /**
+     * Returns task String for editing in text field.
+     *
+     * @return
+     */
     public abstract String getTaskInEditFormat();
 
     /**
@@ -211,9 +256,15 @@ public abstract class Task implements Comparable<Task> {
         return description.contains(keyword);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract String toString();
 
+    /**
+     *{@inheritDoc}
+     */
     @Override
     public int compareTo(Task other) {
         return this.id - other.id;

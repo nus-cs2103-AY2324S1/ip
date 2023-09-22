@@ -1,15 +1,30 @@
 package oreo.task;
 
 public class ToDo extends Task {
+
+    /**
+     * Constructor of ToDo Class.
+     *
+     * @param d task description
+     */
     public ToDo(String d) {
         super(d);
     }
 
-    public ToDo(String d, boolean completed) {
-        super(d);
+    /**
+     * Constructor for ToDo Class specifically for file reading.
+     *
+     * @param description task description.
+     * @param completed whether task is complete.
+     */
+    public ToDo(String description, boolean completed) {
+        super(description);
         this.isComplete = completed;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         String marker = "☐";
@@ -19,6 +34,9 @@ public class ToDo extends Task {
         return  "\uD83C\uDD83:" + " " + this.description + " " + marker + "\n";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String writeToFile() {
         int mark = isComplete ? 1 : 0;
@@ -26,6 +44,9 @@ public class ToDo extends Task {
         return data;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getTaskInEditFormat() {
         return "todo" + description;

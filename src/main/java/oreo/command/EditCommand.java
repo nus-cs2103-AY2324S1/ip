@@ -23,10 +23,22 @@ public class EditCommand extends Command {
 
     }
 
+    /**
+     * Gets task to edit.
+     *
+     * @return Task to edit.
+     */
     public Task getEditTask() {
         return taskToEdit;
     }
 
+    /**
+     * Acts on tasks with command.
+     *
+     * @param tasks task list.
+     * @return Response upon acting on task with command.
+     * @throws IllegalCommandException invalid command formats.
+     */
     public Task actOn(TaskList tasks) {
         // nothing specified after command
         if (!tokeniser.hasNext()) {
@@ -45,6 +57,9 @@ public class EditCommand extends Command {
         return tasks.get(id - 1);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String executeEditMode(TaskList tasks, int index, Task oldTask) {
         return "Seems like you can't do that edit!\n"
@@ -53,6 +68,9 @@ public class EditCommand extends Command {
                 + "Type \"C\" to cancel";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks) throws IllegalCommandException {
         this.taskToEdit = actOn(tasks);

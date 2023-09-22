@@ -16,6 +16,11 @@ public class HelpCommand extends Command {
 
     private final String GENERAL_MESSAGE = getGeneralMessage();
 
+    /**
+     * Gets general help message from resource folder.
+     *
+     * @return general message.
+     */
     private String getGeneralMessage() {
         try (InputStream in = getClass().getResourceAsStream("/help/general.txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
@@ -37,6 +42,12 @@ public class HelpCommand extends Command {
         this.tokeniser = tokeniser;
     }
 
+    /**
+     * Gets help message from resource folder based on the command input by user.
+     *
+     * @param content command user wants to get help for.
+     * @return Help for specified command.
+     */
     public String getHelpMessage(String content) {
         try (InputStream in = getClass().getResourceAsStream("/help/" + content + ".txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
@@ -53,6 +64,9 @@ public class HelpCommand extends Command {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String execute(TaskList tasks) {
         if (!tokeniser.hasNext()) {
@@ -68,6 +82,9 @@ public class HelpCommand extends Command {
         return getHelpMessage(content);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String executeEditMode(TaskList tasks, int index, Task oldTask) throws IllegalDateTimeException {
         return execute(tasks);

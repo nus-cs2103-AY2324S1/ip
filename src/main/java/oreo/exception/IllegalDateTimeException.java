@@ -3,14 +3,14 @@ package oreo.exception;
 import java.time.DateTimeException;
 
 public class IllegalDateTimeException extends Exception {
-    private String msg;
+    private String message;
 
-    public IllegalDateTimeException(String msg) {
-        this.msg = msg;
-    }
-
-    @Override
-    public String getMessage() {
-        return msg;
+    /**
+     * Constructor for IllegalDateTimeException.
+     *
+     * @param message message to include.
+     */
+    public IllegalDateTimeException(String message) {
+        this.message = message;
     }
 }

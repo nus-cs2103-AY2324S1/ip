@@ -22,9 +22,9 @@ public class Storage {
     private String filePath;
 
     /**
-     * Constructor for storage
+     * Constructor for storage.
      *
-     * @param filePath file path to where file is saved
+     * @param filePath file path to where file is saved.
      */
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -41,11 +41,11 @@ public class Storage {
     }
 
     /**
-     * Reads saved file if it exists
+     * Reads saved file if it exists.
      *
      * @param tasks
-     * @throws FileNotFoundException
-     * @throws IllegalDateTimeException
+     * @throws FileNotFoundException if file does not exist.
+     * @throws IllegalDateTimeException invalid date time inputs.
      */
     public void readFile(TaskList tasks) throws FileNotFoundException, IllegalDateTimeException {
         Scanner sc = new Scanner(this.storageFile);
@@ -59,7 +59,7 @@ public class Storage {
     }
 
     /**
-     * Clears file in the file path
+     * Clears file in the file path.
      *
      */
     public void clearFile() {
@@ -71,10 +71,10 @@ public class Storage {
     }
 
     /**
-     * Writes file with list of task input upon bye command
+     * Writes file with list of task input upon bye command.
      *
-     * @param tasks TaskList with all the task
-     * @throws IOException for filewriter
+     * @param tasks TaskList with all the task.
+     * @throws IOException for filewriter.
      */
     public void writeFile(TaskList tasks) throws IOException {
         clearFile();

@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 
 /**
  * An example of a custom control using FXML.
@@ -43,8 +42,6 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
         speechBubble.heightProperty();
-//        Font dmSansFont = Font.loadFont(getClass().getResourceAsStream("/fonts/DMSans-Medium.ttf"), 11);
-//        dialog.setFont(dmSansFont);
     }
 
     /**
@@ -60,12 +57,26 @@ public class DialogBox extends HBox {
                 "-fx-background-radius: 1em;");
     }
 
-    public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+    /**
+     * Gets user dialog box.
+     *
+     * @param text user input.
+     * @param image user image.
+     * @return Dialog box containing both input and image.
+     */
+    public static DialogBox getUserDialog(String text, Image image) {
+        return new DialogBox(text, image);
     }
 
-    public static DialogBox getOreoDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    /**
+     * Gets Oreo's dialog box.
+     *
+     * @param text Oreo's response.
+     * @param image Oreo's image.
+     * @return Dialog box containing both Oreo's response and image.
+     */
+    public static DialogBox getOreoDialog(String text, Image image) {
+        var db = new DialogBox(text, image);
         db.flip();
         return db;
     }

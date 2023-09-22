@@ -231,7 +231,7 @@ public class TimeParser {
         LocalTime to = LocalTime.parse(toTime,
                 DateTimeFormatter.ofPattern("h:mm a"));
         if (to.isBefore(from)) {
-            throw new IllegalDateTimeException("sorry but to time cannot be before from time\n"
+            throw new IllegalDateTimeException("Sorry but to time cannot be before from time\n"
                     + toTime + " is before " + fromTime);
         }
     }
