@@ -38,12 +38,10 @@ public enum SortTypeEnum {
         case "s":
         case "st":
         case "start":
-        case "start date":
             return SortTypeEnum.START_DATE;
         case "e":
         case "en":
         case "end":
-        case "end date":
             return SortTypeEnum.END_DATE;
         case "dl":
         case "dead":
