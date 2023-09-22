@@ -45,7 +45,7 @@ public class CommandTaskCreate extends Command {
     public String apply(Parser input) throws IllegalArgumentException {
         String taskName = input.getDefaultString();
         if (taskName == "") {
-            throw new IllegalArgumentException("Name of task cannot be empty!");
+            throw new IllegalArgumentException("ERROR: Name of task cannot be empty!");
         }
         Task task;
         TaskList taskList = client.getTaskList();
@@ -55,7 +55,7 @@ public class CommandTaskCreate extends Command {
             checkExistence(taskList, task);
             taskList.addTask(task);
             this.client.saveFile();
-            return ("Todo Task added!");
+            return ("Message Received! ToDo added!");
 
         case DEADLINE:
             try {
@@ -64,9 +64,9 @@ public class CommandTaskCreate extends Command {
                 checkExistence(taskList, task);
                 taskList.addTask(task);
                 this.client.saveFile();
-                return ("Deadline Task added!");
+                return ("Message Received! Deadline added!");
             } catch (NoSuchElementException e) {
-                throw new IllegalArgumentException("No deadline given. Indicate deadline with tag: /by");
+                throw new IllegalArgumentException("ERROR: No deadline given. Indicate deadline with tag: /by");
             }
 
         case EVENT:
@@ -77,9 +77,9 @@ public class CommandTaskCreate extends Command {
                 checkExistence(taskList, task);
                 taskList.addTask(task);
                 this.client.saveFile();
-                return ("Event Task added!");
+                return ("Message Received! Event added!");
             } catch (NoSuchElementException e) {
-                throw new IllegalArgumentException("No start or end time given. Indicate with /from and /to.");
+                throw new IllegalArgumentException("ERROR: No start or end time given. Indicate with /from and /to.");
             }
         default:
             // SHOULD NEVER REACH HERE
@@ -96,7 +96,7 @@ public class CommandTaskCreate extends Command {
      */
     private void checkExistence(TaskList tl, Task task) throws IllegalArgumentException {
         if (tl.isPresent(task)) {
-            throw new IllegalArgumentException("Unable to add! Task already exists!");
+            throw new IllegalArgumentException("ERROR: Unable to add! Task already exists!");
         }
     }
 }

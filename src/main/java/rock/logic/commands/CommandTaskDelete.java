@@ -31,11 +31,11 @@ public class CommandTaskDelete extends Command {
             int taskIdx = Integer.parseInt(inputString) - 1;
             Task removedTask = client.getTaskList().removeTask(taskIdx);
             this.client.saveFile();
-            return String.format("Task successfully removed!\n%s", removedTask.toString());
+            return String.format("Gotcha! This task has been removed:\n%s", removedTask.toString());
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid index given!");
+            throw new IllegalArgumentException("ERROR: Invalid number given!");
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Index does not exist!");
+            throw new IllegalArgumentException("ERROR: No task exists at that number!");
         }
     }
 }

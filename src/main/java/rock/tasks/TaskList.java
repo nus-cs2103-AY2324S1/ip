@@ -108,9 +108,9 @@ public class TaskList implements Serializable {
     @Override
     public String toString() {
         if (items.size() == 0) {
-            return "No tasks found!";
+            return "Sorry! No tasks found!";
         }
-        String response = "Task List: ";
+        String response = "Here you go!\nTask List: ";
         int counter = 1;
         for (Task task:this.toArray()) {
             response += String.format("\n%d. %s", counter, task);
