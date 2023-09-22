@@ -5,6 +5,15 @@ import atlas.components.Parser;
 import atlas.components.Storage;
 import atlas.components.TaskList;
 import atlas.exceptions.AtlasException;
+import atlas.exceptions.BadDateException;
+import atlas.exceptions.BadDateTimeException;
+import atlas.exceptions.BadFormatException;
+import atlas.exceptions.BadIndexException;
+import atlas.exceptions.MissingCommandArgsException;
+import atlas.exceptions.MissingNameException;
+import atlas.exceptions.UnknownCommandException;
+import atlas.exceptions.WrongDateOrderException;
+import atlas.exceptions.WrongDateTimeOrderException;
 
 /**
  * Chatbot implementation
@@ -30,11 +39,18 @@ public class Atlas {
      * Returns Atlas's responses based on user input
      * @param input Command entered by user
      * @return Atlas's responses as a string
-     * @throws AtlasException Thrown if exception encountered while executing a command
+     * @throws AtlasException Thrown if exception encountered while creating or executing a command
      */
     public String getResponse(String input) throws AtlasException {
-        Command c = parser.parse(input);
-        return c.execute(taskList, storage);
+        try {
+            Command c = parser.parse(input);
+            return c.execute(taskList, storage);
+        } catch (BadDateException | BadDateTimeException | BadFormatException | BadIndexException
+                | MissingCommandArgsException | MissingNameException | UnknownCommandException
+                | WrongDateOrderException | WrongDateTimeOrderException e) {
+            // Exceptions relating to the creation of the Command object
+            throw new AtlasException(e.getMessage());
+        }
     }
 
     public String getWelcome() {

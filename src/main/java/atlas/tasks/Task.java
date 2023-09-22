@@ -13,6 +13,13 @@ public abstract class Task {
     protected final LocalDate reminderStartDate;
 
     /**
+     * Types of tasks
+     */
+    public enum Type {
+        TODO, DEADLINE, EVENT
+    };
+
+    /**
      * Constructs a new Task with description, but with no reminders
      * @param name Name of task
      */
