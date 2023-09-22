@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class TaskTest {
     /**
-     * Tests toWriteString method in Task.
+     * Tests toWriteString method in Task class.
      */
     @Test
     void testToWriteStringTodo() {
@@ -14,7 +14,7 @@ public class TaskTest {
         assertEquals("T | 0 | do econs", sampleToDo.toWriteString());
     }
     /**
-     * Tests toWriteString method in Task.
+     * Tests toWriteString method in Task class.
      */
     @Test
     public void testToWriteStringEvent() {
@@ -23,7 +23,7 @@ public class TaskTest {
     }
 
     /**
-     * Tests getStatusIcon method in Task.
+     * Tests getStatusIcon method in Task class.
      */
     @Test
     public void testStatusIcon() {
