@@ -24,6 +24,7 @@ public class MarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Task task = tasks.markTaskAsDone(taskNum);
+        storage.save(tasks);
         return ui.showMarkTask(task);
     }
 }

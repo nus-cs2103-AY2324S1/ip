@@ -23,6 +23,7 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Task task = tasks.deleteTask(taskNum);
+        storage.save(tasks);
         return ui.showTaskDeletion(task, tasks.getSize());
     }
 }

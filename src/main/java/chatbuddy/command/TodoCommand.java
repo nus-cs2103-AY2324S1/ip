@@ -25,6 +25,7 @@ public class TodoCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         ToDo todo = new ToDo(taskDescription);
         tasks.addTask(todo);
+        storage.save(tasks);
         return ui.showTaskAddition(todo, tasks.getSize());
     }
 }

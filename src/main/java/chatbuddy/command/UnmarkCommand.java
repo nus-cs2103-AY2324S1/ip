@@ -24,6 +24,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Task task = tasks.markTaskAsNotDone(taskNum);
+        storage.save(tasks);
         return ui.showUnmarkTask(task);
     }
 }

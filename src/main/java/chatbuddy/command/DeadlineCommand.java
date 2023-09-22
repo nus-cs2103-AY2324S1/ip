@@ -29,6 +29,7 @@ public class DeadlineCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Deadline deadline = new Deadline(taskDescription, by);
         tasks.addTask(deadline);
+        storage.save(tasks);
         return ui.showTaskAddition(deadline, tasks.getSize());
     }
 }

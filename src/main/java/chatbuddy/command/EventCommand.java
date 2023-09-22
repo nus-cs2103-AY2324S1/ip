@@ -32,6 +32,7 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Event event = new Event(taskDescription, from, to);
         tasks.addTask(event);
+        storage.save(tasks);
         return ui.showTaskAddition(event, tasks.getSize());
     }
 }

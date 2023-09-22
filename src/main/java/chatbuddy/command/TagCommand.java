@@ -27,6 +27,7 @@ public class TagCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws ChatBuddyException {
         Task task = tasks.updateTaskTag(taskNum, tag);
+        storage.save(tasks);
         return ui.showUpdatedTag(task);
     }
 }
