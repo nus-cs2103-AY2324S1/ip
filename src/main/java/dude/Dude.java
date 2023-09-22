@@ -35,8 +35,7 @@ public class Dude {
     }
 
     /**
-     * Method to generate a response to user input.
-     * Replace with completed method.
+     * Generates a response from Dude to user input.
      */
     public String getResponse(String input) {
         String output;
