@@ -25,7 +25,7 @@
       - Bye
 3. Command Summary
 ## Getting Started
-1. Download Kora from [this page](https://github.com/dlathyun/ip)
+1. Download Kora JAR file from [this page](https://github.com/dlathyun/ip/releases)
 2. Start using!
 ## Commands
 ### Task Related Command
