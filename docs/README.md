@@ -20,21 +20,21 @@ Add a todo to your list of tasks.
 Add a deadline to your list of tasks.
 
 **Format:** `deadline DEADLINE_DESCRIPTION /by DATE`
-* `DATE` must be in **YYYY-MM-DD HHMM** format
+* `DATE` must be in **DD-MM-YYYY HHMM** format
 
 **Examples:**
-* `deadline CS2100 assignment /by 2023-09-16 1800`
-* `deadline CS2103T assignment /by 2023-12-31 2359`
+* `deadline CS2100 assignment /by 16-09-2023 1800`
+* `deadline CS2103T assignment /by 31-12-2023 2359`
 
 ### Adding an event : `event`
 Add a deadline to your list of tasks.
 
 **Format:** `event EVENT_DESCRIPTION /from START_DATE /to END_DATE`
-* `START_DATE` and `END_DATE` must be in **YYYY-MM-DD HHMM** format
+* `START_DATE` and `END_DATE` must be in **DD-MM-YYYY HHMM** format
 
 **Example:**
-* `event RUNNUS /from 2023-09-10 0600 /to 2023-09-11 1000`
-* `event sundown party /from 2023-10-12 1900 /to 2023-10-13 2100`
+* `event RUNNUS /from 10-09-2023 0600 /to 11-09-2023 1000`
+* `event sundown party /from 12-10-2023 1900 /to 13-10-2023 2100`
 
 ### Listing all tasks : `list`
 Shows a list of all tasks added.
