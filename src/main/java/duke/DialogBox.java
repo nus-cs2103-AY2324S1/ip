@@ -71,7 +71,7 @@ public class DialogBox extends HBox {
      * @return Dialogbox representing Duke's dialogue.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img, " -fx-padding: 10;");
+        DialogBox db = new DialogBox(text, img, " -fx-padding: 10;");
         db.flip();
         return db;
     }
