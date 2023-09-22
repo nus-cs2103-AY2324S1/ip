@@ -5,7 +5,24 @@ This user guide is adapted from [AddressBook Level 3](https://se-education.org/a
 Boti Chatbot is a desktop app for **managing tasks**, optimized for use via a [Command Line Interface (CLI)](https://en.wikipedia.org/wiki/Command-line_interface) while still having the benefits of a [Graphical User Interface (GUI)](https://en.wikipedia.org/wiki/Graphical_user_interface).
 
 ----------------------------------------------------------------------------------------------------------------------
+## Table of Contents
+* [Quick Start](#quick-start)
+* [Features](#features)
+    * [Adding a task:](#adding-a-task-todo-deadline-event-timed)
+        * [ToDo: `todo`](#adding-a-todo-task-todo)
+        * [Deadline: `deadline`](#adding-a-deadline-task-deadline)
+        * [Event: `event`](#adding-an-event-task-event)
+        * [Timed: `timed`](#adding-a-timed-task-timed)
+    * [Listing all tasks: `list`](#listing-all-tasks-list)
+    * [Marking a task as done: `mark`](#marking-a-task-as-done-mark)
+    * [Unmarking a task as done: `unmark`](#unmarking-a-task-as-not-done-unmark)
+    * [Removing a task: `delete`](#removing-a-task-delete)
+    * [Finding a list of tasks with a certain keyword: `find`](#finding-a-list-of-tasks-with-a-certain-keyword-find)
+    * [Exit : `bye`](#exiting-the-program-bye)
+* [Command Summary](#command-summary)
 
+
+----------------------------------------------------------------------------------------------------------------------
 ## Quick Start
 
 1. Ensure to download [Java `11`](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) or above installed in your Computer.

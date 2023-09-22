@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     private static final String INTRO = "    Hello! I'm Boti\n"
-                                    + "    What can I do for you?\n";
+                                        + "    What can I do for you?\n";
     private final Image chatbot = new Image(this.getClass().getResourceAsStream("/images/Chatbot.png"));
     private final Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private final Boti duke = new Boti("./data", "storage.txt");
