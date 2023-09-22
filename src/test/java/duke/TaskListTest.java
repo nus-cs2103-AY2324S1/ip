@@ -13,6 +13,9 @@ import duke.task.ToDo;
  */
 public class TaskListTest {
 
+    /**
+     * Tests whether task is marked as done.
+     */
     @Test
     public void testMarkAsDone() {
         TaskList tasks = new TaskList();
@@ -21,6 +24,9 @@ public class TaskListTest {
         tasks.markTaskAsDone(0);
         assertEquals("X", tasks.getTask(0).getStatusIcon());
     }
+    /**
+     * Tests whether task is marked as not done.
+     */
     @Test
     public void testMarkAsNotDone() {
         TaskList tasks = new TaskList();
@@ -29,6 +35,9 @@ public class TaskListTest {
         assertEquals(" ", tasks.getTask(0).getStatusIcon());
     }
 
+    /**
+     * Tests whether task is added.
+     */
     @Test
     public void testAddTodo() {
         TaskList tasks = new TaskList();
@@ -36,7 +45,9 @@ public class TaskListTest {
         tasks.addTask(sampleToDo);
         assertEquals("[T][ ] do econs", tasks.getTask(0).toString());
     }
-
+    /**
+     * Tests whether task is added.
+     */
     @Test
     public void testAddEvent() {
         TaskList tasks = new TaskList();
@@ -44,7 +55,9 @@ public class TaskListTest {
         tasks.addTask(sampleEvent);
         assertEquals("[E][ ] read book (from: Mar 19 2020 06:00 PM to: Mar 20 2020 06:00 PM)", tasks.getTask(0).toString());
     }
-
+    /**
+     * Tests whether task is added.
+     */
     @Test
     public void testAddDeadline() {
         TaskList tasks = new TaskList();
@@ -52,7 +65,9 @@ public class TaskListTest {
         tasks.addTask(sampleDeadline);
         assertEquals("[D][ ] homework (by: Mar 19 2020 06:00 PM)", tasks.getTask(0).toString());
     }
-
+    /**
+     * Tests whether task is deleted.
+     */
     @Test
     public void testDeleteTasks() {
         TaskList tasks = new TaskList();

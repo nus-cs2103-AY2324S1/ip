@@ -13,6 +13,10 @@ import duke.Ui;
 public class UnmarkCommand extends Command {
     private String input;
 
+    /**
+     * Constructor for unmark command.
+     * @param input input passed in.
+     */
     public UnmarkCommand(String input) {
         this.input = input;
     }

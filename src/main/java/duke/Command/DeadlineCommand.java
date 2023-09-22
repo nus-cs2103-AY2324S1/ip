@@ -14,6 +14,10 @@ import duke.task.Task;
  */
 public class DeadlineCommand extends Command {
     private String input;
+    /**
+     * Constructor for deadline command.
+     * @param input input passed in.
+     */
     public DeadlineCommand(String input) {
         this.input = input;
     }

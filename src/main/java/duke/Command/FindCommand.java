@@ -13,7 +13,10 @@ import duke.task.Task;
  */
 public class FindCommand extends Command {
     private String input;
-
+    /**
+     * Constructor for find command.
+     * @param input input passed in.
+     */
     public FindCommand(String input) {
         this.input = input;
     }

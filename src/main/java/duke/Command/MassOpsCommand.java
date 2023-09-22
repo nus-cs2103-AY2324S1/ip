@@ -14,6 +14,10 @@ import duke.Ui;
 public class MassOpsCommand extends Command {
     private String input;
 
+    /**
+     * Constructor for MassOps command.
+     * @param input input passed in.
+     */
     public MassOpsCommand(String input) {
         this.input = input;
     }

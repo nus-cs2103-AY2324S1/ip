@@ -15,6 +15,10 @@ import duke.task.Task;
  */
 public class EventCommand extends Command {
     private String input;
+    /**
+     * Constructor for event command.
+     * @param input input passed in.
+     */
     public EventCommand(String input) {
         this.input = input;
     }

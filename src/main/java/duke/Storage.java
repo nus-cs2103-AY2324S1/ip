@@ -54,6 +54,16 @@ public class Storage {
         }
 
         TaskList tasks = new TaskList();
+        addTaskToList(tasks);
+        return tasks;
+    }
+
+    /**
+     * Adds task from file to tasklist.
+     * @param tasks tasklist that tasks is loaded into.
+     * @throws IOException IOException
+     */
+    public void addTaskToList(TaskList tasks) throws IOException {
         Scanner scanner = new Scanner(new File("data/duke.txt"));
         while (scanner.hasNext()) {
             String[] split = scanner.nextLine().split("\\|");
@@ -76,9 +86,7 @@ public class Storage {
                 System.out.println("Oop! There is nothing here");
             }
         }
-        return tasks;
     }
-
     /**
      * Writes the data from the tasklist into the file.
      * @param tasks TaskList being used to store the data.

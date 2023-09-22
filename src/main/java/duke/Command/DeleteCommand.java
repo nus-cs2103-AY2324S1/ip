@@ -13,6 +13,10 @@ import duke.task.Task;
  */
 public class DeleteCommand extends Command {
     private String input;
+    /**
+     * Constructor for delete command.
+     * @param input input passed in.
+     */
     public DeleteCommand(String input) {
         this.input = input;
     }

@@ -12,7 +12,10 @@ import duke.Ui;
  */
 public class MarkCommand extends Command {
     private String input;
-
+    /**
+     * Constructor for mark command.
+     * @param input input passed in.
+     */
     public MarkCommand(String input) {
         this.input = input;
     }

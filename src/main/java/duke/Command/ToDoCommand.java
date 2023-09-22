@@ -14,7 +14,10 @@ import duke.task.ToDo;
  */
 public class ToDoCommand extends Command {
     private String input;
-
+    /**
+     * Constructor for todo command.
+     * @param input input passed in.
+     */
     public ToDoCommand(String input) {
         this.input = input;
     }
