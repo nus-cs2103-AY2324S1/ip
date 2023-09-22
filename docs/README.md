@@ -1,6 +1,8 @@
 # User Guide for Duke
 Add, update and delete your tasks with this application!
 
+[Download here](https://github.com/CJ-Lee01/ip/releases/latest)
+
 ## Features 
 
 ### Save and exit
