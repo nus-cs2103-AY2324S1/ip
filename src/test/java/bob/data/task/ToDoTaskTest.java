@@ -21,4 +21,17 @@ public class ToDoTaskTest {
     public void getDateTime_emptyInput_correctString() {
         assertEquals("", new ToDoTask("test").getDateTime());
     }
+
+    @Test
+    public void toFileString_completedTask_stringWithCompleted() {
+        Task task = new ToDoTask("test");
+        assertEquals("Todo,0,test\n", task.toFileString());
+    }
+
+    @Test
+    public void toFileString_incompleteTask_stringWithIncomplete() {
+        Task task = new ToDoTask("test");
+        task.setDone();
+        assertEquals("Todo,1,test\n", task.toFileString());
+    }
 }
