@@ -1,29 +1,51 @@
-# User Guide
+# ChatterBox User Guide
+
+ChatterBox is your friendly neighbourhood task manager! Never forget anything ever again!
 
 ## Features 
+ChatterBox comes with a bunch of features such as:
+- Managing tasks
+    - Todos, Events, Deadlines
+- Mark and Unmark tasks
+- Delete a single task
+- Find a task
+- Save tasks locally
+- Mass delete all tasks (and start afresh!)
 
-### Feature-ABC
+### Functionality
 
-Description of the feature.
+ChatterBox's primary interaction method is the keyboard, so you can keep working without having to lift your palms! The currently available primary commands include:
+- todo <task>
+- event /from <start> /to <end>
+- deadline /by <date>
 
-### Feature-XYZ
+Other commands include:
+- list
+- find <keyword>
+- delete <index>
+- mark <index>
+- unmark <index>
 
-Description of the feature.
+And when you wanna start over, there's always:
+
+- delete_all
+
+Once you're done with ChatterBox, simply enter:
+
+- bye
 
 ## Usage
 
-### `Keyword` - Describe action
+You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release) and then:
 
-Describe the action and its outcome.
+1. Navigate into the directory with
 
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+```sh
+cd <PATH>
 ```
-expected output
+
+2. Run Chatterbox
+
+```sh
+java -jar duke.jar
 ```
