@@ -11,8 +11,10 @@ public class ForgottenGUI {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * This method generates a bot reply that is based on the user's command.
+     *
+     * @param userCommand The command entered by the user.
+     * @return Reply from the bot.
      */
     public String getResponse(String userCommand) {
         return forgotten.generateResponse(userCommand);
@@ -22,14 +24,15 @@ public class ForgottenGUI {
      * This method prints the greeting message.
      */
     public String printGreetMessage() {
-        return " Hello! I'm Forgotten\nWhat can I do for you? ";
+        String greetMessage = "Hello! I'm Forgotten\nWhat can I do for you?";
+        return greetMessage;
     }
 
     /**
      * This method prints the bye message.
      */
     public String printByeMessage() {
-        return "Bye. Hope to see you again soon!\n";
+        String byeMessage = "Bye. Hope to see you again soon!";
+        return byeMessage;
     }
-
 }

@@ -24,7 +24,7 @@ public class Forgotten {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            this.taskList = new TaskList(storage.load(), this.storage);
+            this.taskList = new TaskList(storage.loadTask(), this.storage);
         } catch (FileNotFoundException fileException) {
             storage.createNewFile();
         }

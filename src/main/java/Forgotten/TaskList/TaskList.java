@@ -127,7 +127,7 @@ public class TaskList {
 
         tasks.add(task);
         try {
-            storage.writeToFile(task.toFileString());
+            storage.writeTaskToFile(task.toFileString());
         } catch (IOException error) {
             System.out.println(error.getMessage());
         }

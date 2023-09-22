@@ -33,7 +33,7 @@ public class Storage {
      * @return An array list of task objects.
      * @throws FileNotFoundException If file is not found.
      */
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> loadTask() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
@@ -74,7 +74,7 @@ public class Storage {
      * @param taskDetail Description of the task.
      * @throws IOException If file does not exist and cannot be created.
      */
-    public void writeToFile(String taskDetail) throws IOException {
+    public void writeTaskToFile(String taskDetail) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, true);
         fileWriter.write(taskDetail + "\n");
         fileWriter.close();
