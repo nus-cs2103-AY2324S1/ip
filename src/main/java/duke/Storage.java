@@ -77,7 +77,7 @@ public class Storage {
      * @param input The String input.
      * @return The corresponding Task.
      */
-    private Task storageToTask(String input) throws DukeException {
+    protected static Task storageToTask(String input) throws DukeException {
         String taskType = input.split(" \\| ")[0];
         boolean isComplete = input.split(" \\| ")[1].equals("1");
         String description = input.split(" \\| ")[2];
@@ -85,11 +85,11 @@ public class Storage {
         if (taskType.equals("T")) {
             return new ToDo(description, isComplete);
         } else if (taskType.equals("D")) {
-            return this.createDeadlineFromStorage(input, description, isComplete);
+            return createDeadlineFromStorage(input, description, isComplete);
         } else if (taskType.equals("E")) {
-            return this.createEventFromStorage(input, description, isComplete);
+            return createEventFromStorage(input, description, isComplete);
         } else if (taskType.equals("F")) {
-            return this.createFixedDurationTaskFromStorage(input, description, isComplete);
+            return createFixedDurationTaskFromStorage(input, description, isComplete);
         } else {
             throw new DukeException("Unknown task type.");
         }
@@ -104,7 +104,7 @@ public class Storage {
      * @param isComplete Whether the FixedDurationTask is completed.
      * @return The Event.
      */
-    private FixedDurationTask createFixedDurationTaskFromStorage(String input,
+    private static FixedDurationTask createFixedDurationTaskFromStorage(String input,
                                                                  String description, boolean isComplete) {
         String duration = input.split(" \\| ")[3];
         return new FixedDurationTask(description, isComplete, duration);
@@ -118,7 +118,7 @@ public class Storage {
      * @param isComplete Whether the Event is completed.
      * @return The Event.
      */
-    private Event createEventFromStorage(String input, String description, boolean isComplete) {
+    private static Event createEventFromStorage(String input, String description, boolean isComplete) {
         LocalDate start = LocalDate.parse(input.split(" \\| ")[3],
                 DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
         LocalDate end = LocalDate.parse(input.split(" \\| ")[4],
@@ -134,7 +134,7 @@ public class Storage {
      * @param isComplete Whether the Deadline is completed.
      * @return The Event.
      */
-    private Deadline createDeadlineFromStorage(String input, String description, boolean isComplete) {
+    private static Deadline createDeadlineFromStorage(String input, String description, boolean isComplete) {
         LocalDate d = LocalDate.parse(input.split(" \\| ")[3],
                 DateTimeFormatter.ofPattern("MMM dd yyyy", Locale.ENGLISH));
         return new Deadline(description, isComplete, d);
