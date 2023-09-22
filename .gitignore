@@ -2,6 +2,7 @@
 /.idea/
 /out/
 /*.iml
+.vscode/*
 
 # Gradle build files
 /.gradle/
@@ -15,3 +16,7 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Files that should not be revision controled
+*.class
+/data/data.txt
