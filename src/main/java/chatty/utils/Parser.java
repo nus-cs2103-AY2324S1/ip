@@ -1,7 +1,6 @@
 package chatty.utils;
 
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +25,7 @@ import chatty.exception.InvalidTaskNumberException;
  * Responsible for parsing user input and generating appropriate commands for the chatbot.
  */
 public class Parser {
-    private static final Map<String, String> commandAlias = new HashMap<>();
+    protected static final Map<String, String> COMMAND_ALIAS = new HashMap<>();
     /**
      * Parse user input and return the specific command to execute.
      *
@@ -42,8 +41,8 @@ public class Parser {
         String[] parts = input.split(" ", 2);
         String commandWord = parts[0].toLowerCase();
         String commandArgs = parts.length > 1 ? parts[1] : "";
-        if (commandAlias.containsKey(commandWord)) {
-            commandWord = commandAlias.get(commandWord);
+        if (COMMAND_ALIAS.containsValue(commandWord)) {
+            commandWord = getFullCommand(commandWord);
         }
 
         switch (commandWord) {
@@ -70,6 +69,21 @@ public class Parser {
         default:
             return new CommandNotFound();
         }
+    }
+
+    /**
+     * Retrieves the full command associated with a given alias.
+     *
+     * @param commandWord The alias for which to retrieve the full command.
+     * @return The full command corresponding to the provided alias, or null if not found.
+     */
+    public static String getFullCommand(String commandWord) {
+        for (Map.Entry<String, String> entry : COMMAND_ALIAS.entrySet()) {
+            if (entry.getValue().equalsIgnoreCase(commandWord)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 
     /**
@@ -130,7 +144,7 @@ public class Parser {
             throw new DetailsUnknownException();
         }
         String taskDescription = splitInput[0];
-        LocalDate date = LocalDate.parse(splitInput[1]);
+        LocalDateTime date = LocalDateTime.parse(splitInput[1]);
         String formattedDate = Parser.formatDate(date);
         return new DeadlineCommand(taskDescription, formattedDate);
     }
@@ -163,9 +177,9 @@ public class Parser {
         }
         String taskDescription = splitInput[0];
         String[] splitTime = splitInput[1].split(" /to ", 2);
-        LocalDate start = LocalDate.parse(splitTime[0]);
+        LocalDateTime start = LocalDateTime.parse(splitTime[0]);
         String formattedStart = Parser.formatDate(start);
-        LocalDate end = LocalDate.parse(splitTime[1]);
+        LocalDateTime end = LocalDateTime.parse(splitTime[1]);
         String formattedEnd = Parser.formatDate(end);
         return new EventCommand(taskDescription, formattedStart, formattedEnd);
     }
@@ -206,8 +220,44 @@ public class Parser {
      * @param alias The alias to set.
      * @param command The command associated with the alias.
      */
-    public static void setAlias(String alias, String command) {
-        commandAlias.put(alias, command.toLowerCase());
+    public static int setAlias(String alias, String command) {
+        if (aliasInUse(alias)) {
+            return -1;
+        }
+        String existingAlias = checkCommand(command);
+        if (existingAlias != null) {
+            COMMAND_ALIAS.replace(command, alias);
+            return 1;
+        } else {
+            COMMAND_ALIAS.put(command.toLowerCase(), alias);
+            return 0;
+        }
+    }
+
+    /**
+     * Checks if an alias is already in use.
+     *
+     * @param alias The alias to check.
+     * @return true if the alias is already in use, false otherwise.
+     */
+
+    public static boolean aliasInUse(String alias) {
+        return COMMAND_ALIAS.containsValue(alias);
+    }
+
+    /**
+     * Checks if a command is associated with an alias.
+     *
+     * @param command The command to check.
+     * @return The alias associated with the command if found, or null if not found.
+     */
+    public static String checkCommand(String command) {
+        for (Map.Entry<String, String> entry : COMMAND_ALIAS.entrySet()) {
+            if (entry.getKey().equalsIgnoreCase(command)) {
+                return entry.getValue();
+            }
+        }
+        return null;
     }
 
     /**
@@ -216,8 +266,8 @@ public class Parser {
      * @param date The LocalDate to be formatted.
      * @return The formatted date in String representation.
      */
-    public static String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
+    public static String formatDate(LocalDateTime date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm");
         return date.format(formatter);
     }
 }

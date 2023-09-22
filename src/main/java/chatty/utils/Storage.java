@@ -1,9 +1,7 @@
 package chatty.utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+
 import java.util.Scanner;
 
 import chatty.exception.ChattyException;
@@ -19,6 +17,7 @@ import chatty.task.ToDo;
  */
 public class Storage {
 
+    protected static String FILENAME = "data/alias.txt";
     private final String filePath;
     private final File file;
 
@@ -58,6 +57,80 @@ public class Storage {
             writer.close();
         } catch (IOException e) {
             System.out.println("An error occurred while trying to save tasks: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Saves a new alias for a command to the alias file.
+     *
+     * @param alias   The alias to be saved.
+     * @param command The associated command.
+     */
+    public void saveAlias(String alias, String command) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME, true));
+            writer.write(command + "=" + alias);
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred while trying to save alias: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Updates an existing alias in the alias file.
+     *
+     * @param newAlias The new alias to replace the existing one.
+     * @throws ChattyException When there is an issue updating the alias.
+     */
+    public void updateAlias(String newAlias) throws ChattyException {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(FILENAME));
+            String line;
+            StringBuilder fileContent = new StringBuilder();
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("=");
+                if (parts.length == 2) {
+                    String command = parts[1].trim();
+                    if (command.equalsIgnoreCase(command)) {
+                        // Update the line with the new alias
+                        line = newAlias + "=" + command;
+                    }
+                }
+                fileContent.append(line).append("\n");
+            }
+            reader.close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME));
+            writer.write(fileContent.toString());
+            writer.close();
+        } catch (IOException e) {
+            throw new ChattyException("unable to update alias");
+        }
+    }
+
+
+    /**
+     * Loads aliases from an alias file and populates the COMMAND_ALIAS map.
+     *
+     * @param aliasFile The path to the alias file to be loaded.
+     * @throws ChattyException When there is an issue loading aliases from the file.
+     */
+    public void loadAlias(String aliasFile) throws ChattyException {
+        try {
+            Scanner scanner = new Scanner(new File(aliasFile));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split("=");
+                if (parts.length == 2) {
+                    String command = parts[0].trim().toLowerCase();
+                    String alias = parts[1].trim();
+                    Parser.COMMAND_ALIAS.put(command, alias);
+                }
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            throw new ChattyException("Unable to load alias!");
         }
     }
 

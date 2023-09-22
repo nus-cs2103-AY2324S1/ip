@@ -143,6 +143,13 @@ public class Ui {
         }
     }
     public String showSet(String alias, String command) {
-        return String.format("I have set %s as the alias for %s command", alias, command);
+        return String.format("I have set [ %s ] as the alias for [ %s ] command", alias, command);
+    }
+    public String showReplace(String alias, String command) {
+        return String.format("I have replaced the alias for [ %s ] command to [ %s ]", command, alias);
+    }
+
+    public String showInUse(String alias) {
+        return String.format("Error! The alias entered, [ %s ], is currently being used for another command", alias);
     }
 }

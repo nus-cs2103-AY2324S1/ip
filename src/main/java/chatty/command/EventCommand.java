@@ -47,7 +47,7 @@ public class EventCommand extends Command {
         try {
             storage.saveTask(taskList);
         } catch (Exception e) {
-            throw new ChattyException("Cannot save chatty.task!");
+            throw new ChattyException("Cannot save task!");
         }
         return ui.showAdded(this.task, taskList);
     }

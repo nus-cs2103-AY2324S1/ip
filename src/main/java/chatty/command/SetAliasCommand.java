@@ -1,9 +1,13 @@
 package chatty.command;
 
+import chatty.exception.ChattyException;
 import chatty.task.TaskList;
 import chatty.utils.Parser;
 import chatty.utils.Storage;
 import chatty.utils.Ui;
+
+import java.io.IOException;
+
 
 /**
  * Represents a command to set a custom alias for a command.
@@ -36,8 +40,21 @@ public class SetAliasCommand extends Command {
      * @return A message indicating that the alias has been set.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
-        Parser.setAlias(alias, command);
-        return ui.showSet(alias, command);
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws ChattyException {
+        int value = Parser.setAlias(alias, command);
+        if (value == -1) {
+            return ui.showInUse(alias);
+        }
+        try {
+            if (value == 1) {
+                storage.updateAlias(alias);
+                return ui.showReplace(alias, command);
+            } else {
+                storage.saveAlias(alias, command);
+                return ui.showSet(alias, command);
+            }
+        } catch (Exception e) {
+            throw new ChattyException("unable to update / save alias");
+        }
     }
 }
