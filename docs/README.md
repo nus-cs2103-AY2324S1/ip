@@ -6,7 +6,7 @@ Interaction is done by sending text commands. After starting the app, click on t
 
 ---
 
-## Adding items
+## Adding Items
 
 There are 3 kinds of items you can create. The most basic is called a task, which just has a description.
 
@@ -26,13 +26,13 @@ Syntax: `add <description> /from <timestamp> /to <timestamp>`
 
 Example: `add Attend open house event. /from 22 9 23 900 /to 22 9 23 1730`
 
-## Listing items
+## Listing Items
 
 You can list all your items with the `list` command.
 
 Each item has a number representing its position in the list (e.g. `#2`), as well as a letter representing its type - `T` for task, `D` for deadline, and `E` for event.
 
-## Finding items
+## Finding Items
 
 You can search for items whose descriptions include a specified phrase. The searching is case sensitive.
 
@@ -40,7 +40,7 @@ Syntax: `find <phrase>`
 
 Example: `find open house`
 
-## Marking items
+## Marking Items
 
 Items can be marked (or unmarked) as complete by specifying their number. Completed items have an `X` in front of them.
 
@@ -52,7 +52,7 @@ Syntax: `unmark <number>`
 
 Example: `unmark 2`
 
-## Deleting items
+## Deleting Items
 
 You may also choose to delete items altogether instead of marking them.
 
