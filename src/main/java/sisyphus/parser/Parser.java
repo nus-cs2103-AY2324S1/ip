@@ -229,7 +229,8 @@ public class Parser {
      * @return an output string after adding a deadline into the taskList and storage based on the params
      * @throws SisyphusException
      */
-    public String runDeadlineCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
+    public String runDeadlineCommand(String params, TaskList taskList,
+                                     Storage storage, Ui ui) throws SisyphusException {
         String description;
         String deadline;
         LocalDate deadlineDate;
