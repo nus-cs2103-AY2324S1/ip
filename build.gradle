@@ -62,4 +62,8 @@ checkstyle {
     toolVersion = '10.2'
 }
 
+compileJava {
+    options.release = 11
+}
+
 mainClassName = 'robert.Launcher'
