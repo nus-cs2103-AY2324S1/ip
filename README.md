@@ -7,7 +7,7 @@ Are you confused? Lost all the time? Don't know whats happening? **Well So Do I*
 - Set deadlines for things!
 - Makes finding the things you need to do easy!
 
-## Greetings from:
+Greetings from:
 
 UUUUUUUU     UUUUUUUURRRRRRRRRRRRRRRRR   BBBBBBBBBBBBBBBBB        OOOOOOOOO     IIIIIIIIII
 U::::::U     U::::::UR::::::::::::::::R  B::::::::::::::::B     OO:::::::::OO   I::::::::I
