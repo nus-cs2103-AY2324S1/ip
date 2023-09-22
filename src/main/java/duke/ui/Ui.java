@@ -1,5 +1,7 @@
 package duke.ui;
 
+// Solution below inspired by https://github.com/Yufannnn/ip
+
 /**
  * The {@code Ui} class manages the user interface display functionality. It helps
  * in formatting the display content by adding indentation, horizontal bars, and managing
