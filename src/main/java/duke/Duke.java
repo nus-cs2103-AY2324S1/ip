@@ -3,8 +3,8 @@ package duke;
 import duke.commands.Command;
 import duke.exceptions.FileIoException;
 import duke.exceptions.UnknownCommandException;
-import duke.parsers.CommandParser;
 import duke.io.Storage;
+import duke.parsers.CommandParser;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
 

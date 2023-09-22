@@ -3,12 +3,12 @@ package duke.parsers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import duke.exceptions.UnknownCommandException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
+
+import duke.exceptions.UnknownCommandException;
 
 public class TimeParserTest {
 
