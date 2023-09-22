@@ -100,4 +100,8 @@ public class Ui {
         return "Here are the matching tasks in your list:\n" + s;
     }
 
+    public static String duplicateMessage(Task t) {
+        return t.toString() + " is already in your tasklist! I'm not adding that.\n";
+    }
+
 }

@@ -58,6 +58,7 @@ public class Duke {
      * Represents the storage functionality for Duke.
      */
     private Storage storage;
+    private boolean isRunning;
 
 
 
@@ -67,15 +68,18 @@ public class Duke {
     public Duke() {
         this.tasks = new Tasklist();
         this.storage = new Storage(FILE_PATH);
+        this.isRunning = true;
     }
 
     /**
      * Saves tasks to storage and exits the application.
      */
     private void exit() {
+        assert this.isRunning;
         try {
             storage.saveFile(tasks);
             Ui.exit();
+            this.isRunning = false;
         } catch (IOException e) {
             System.out.println("Error when saving data!");
         }
@@ -99,30 +103,24 @@ public class Duke {
         }
         if (s.equals(BYE)) {
             this.exit();
-            return false;
         } else if (s.equals(LIST)) {
             Ui.printList(tasks);
-            return true;
         } else if (check1.equals(MARK)) {
             tasks.mark(Integer.parseInt(str.substring(5, str.length())));
-            return true;
         } else if (check1.equals(FIND)) {
             Ui.find(tasks.find(str.substring(5, str.length())));
-            return true;
         } else if (check2.equals(UNMARK)) {
             tasks.unmark(Integer.parseInt(str.substring(7, str.length())));
-            return true;
         } else if (check2.equals(DELETE)) {
             tasks.delete(Integer.parseInt(str.substring(7, str.length())));
-            return true;
         } else {
             try {
                 tasks.addToList(s);
             } catch (DukeMissingArgumentException | DukeInvalidArgumentException e) {
                 System.out.println(e.toString());
             }
-            return true;
         }
+        return !s.equals(BYE);
     }
 
 

@@ -36,7 +36,7 @@ public class Deadline extends Task {
      */
     @Override
     public String stringifyTask() {
-        return String.format("D|%d|%s|%s", this.done ? 1 : 0
+        return String.format("D|%d|%s|%s", this.isDone ? 1 : 0
                 , this.name, deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy HH:mm")));
     }
 
