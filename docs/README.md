@@ -1,8 +1,8 @@
-# Duke Chat Bot User Guide
+# Father Chat Bot User Guide
 
 ## Introduction
 
-Duke is a chat bot designed to assist you with your daily tasks and also trivia. This guide will provide you with a comprehensive overview on how to utilize the Duke chat bot effectively.
+Father is a chat bot designed to assist you with your daily tasks and also trivia. This guide will provide you with a comprehensive overview on how to utilize the Duke chat bot effectively.
 
 ---
 
@@ -18,7 +18,7 @@ Duke is a chat bot designed to assist you with your daily tasks and also trivia.
     * [Unmarking a Task](#unmarking-a-task)
     * [Searching for Tasks](#searching-for-tasks)
     * [Trivia Features](#trivia-features)
-3. [Command Summary](#duke-command-summary)
+3. [Command Summary](#father-command-summary)
 4. [Error Handling](#error-handling)
 
 ---
@@ -31,24 +31,11 @@ Duke is a chat bot designed to assist you with your daily tasks and also trivia.
 
 ### Setup Instructions
 
-1. **Clone or Download the Repository:**
-First, you'll need to get the project onto your local machine. If you're using Git, you can clone the repository:
-`git clone https://github.com/junnengsoo/ip.git`
+1. Download the release JAR file.
+2. Open a terminal and navigate to the directory containing the JAR file.
+3. Run the JAR file with the command `java -jar duke.jar`.
 
-2. **Navigate to the Project Directory:**
-`cd [PATH_TO_IP]`
-
-3. **Ensure File Permissions (For Unix-like systems):**
-Before running the Gradle Wrapper script on Unix-like systems (like Linux and macOS), you might need to ensure that the gradlew script has execute permissions.
-`chmod +x gradlew`
-
-4. **Run the Application:**
-For Linux/macOS:
-`./gradlew run`
-For Windows users, the command will be slightly different:
-`gradlew.bat run`
-
-When Duke is started, it will automatically load tasks and trivia from these files with a GUI interface.
+When Father is started, it will automatically load tasks and trivia from these files with a GUI interface.
 
 ---
 
@@ -127,7 +114,7 @@ Examples:
 
 ---
 
-## Duke Command Summary
+## Father Command Summary
 
 ### Tasks
 
