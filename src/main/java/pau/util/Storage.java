@@ -37,13 +37,11 @@ public class Storage {
             File toLoad = new File(filepath);
 
             if (!toLoad.exists()) {
-                // Create the necessary directory if it doesn't exist
                 File directory = toLoad.getParentFile();
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
 
-                // Create the file
                 toLoad.createNewFile();
             }
 
