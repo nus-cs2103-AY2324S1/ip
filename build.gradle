@@ -56,19 +56,8 @@ application {
     applicationDefaultJvmArgs = ["-ea"]
 }
 
-jar {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    manifest {
-        attributes 'Main-Class': 'main.Duke'
-    }
-    from {
-        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-    }
-}
-
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "GloriousExcelSheet"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

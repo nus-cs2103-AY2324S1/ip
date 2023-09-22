@@ -37,9 +37,10 @@ public class Duke extends Application {
     @Override
     public void start(Stage stage) {
         GuiManager guiManager = new GuiManager(stage, ui, parser, list, storage);
+        stage.setResizable(false);
+        stage.setWidth(400);  // Set the width you want
         guiManager.initializeGui();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

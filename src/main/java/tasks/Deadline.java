@@ -52,10 +52,10 @@ public class Deadline extends Task {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-  @Override
-  public String toString() {
-      return String.format("[D]%s (by: %s)", super.toString(), date != null
+    @Override
+    public String toString() {
+        return String.format("[D]%s (by: %s)", super.toString(), date != null
               ? getDate(date)
               : by);
-  }
+    }
 }

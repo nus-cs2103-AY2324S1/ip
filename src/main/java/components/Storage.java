@@ -84,43 +84,15 @@ public class Storage {
             while ((line = br.readLine()) != null) {
                 //[T][X] read book
                 if (line.startsWith("[T]")) {
-                    result.addTask(new ToDo(
-                        line.substring(7)),
-                        storage,
-                        true
-                        );
-                    if (line.charAt(4) == 'X') {
-                        result.get(result.size() - 1).markAsDone();
-                    }
+                    createAndMarkToDoTask(line, result, storage);
                 //[D][ ] return book (by: Sunday)
                 } else if (line.startsWith("[D]")) {
-                    int byIndex = line.indexOf("(by: ");
-                    result.addTask(new Deadline(
-                        line.substring(7, byIndex - 1),
-                        line.substring(byIndex + 5, line.length() - 1)),
-                        storage,
-                        true
-                        );
-                    if (line.charAt(4) == 'X') {
-                        result.get(result.size() - 1).markAsDone();
-                    }
+                    createAndMarkDeadlineTask(line, result, storage);
                 //[E][ ] project meeting (from: Mon 2pm to: Fri 4pm)
                 } else if (line.startsWith("[E]")) {
-                    int fromIndex = line.indexOf(" (from: ");
-                    int toIndex = line.indexOf(" to: ");
-                    result.addTask(new Event(
-                        line.substring(7, fromIndex),
-                        line.substring(fromIndex + 8, toIndex),
-                        line.substring(toIndex + 5, line.length() - 1)),
-                        storage,
-                        true
-                        );
-                    if (line.charAt(4) == 'X') {
-                        result.get(result.size() - 1).markAsDone();
-                    }
+                    createAndMarkEventTask(line, result, storage);
                 }
             }
-
             br.close();
             return result;
 
@@ -128,6 +100,42 @@ public class Storage {
             throw new DukeException("Something went wrong: " + e.getMessage());
         }
     }
+
+    private void createAndMarkToDoTask(String line, TaskList result, Storage storage) {
+        result.addTask(new ToDo(line.substring(7)), storage, true);
+        if (line.charAt(4) == 'X') {
+            result.get(result.size() - 1).markAsDone();
+        }
+    }
+
+    private void createAndMarkDeadlineTask(String line, TaskList result, Storage storage) {
+        int byIndex = line.indexOf("(by: ");
+        result.addTask(new Deadline(
+                        line.substring(7, byIndex - 1),
+                        line.substring(byIndex + 5, line.length() - 1)),
+                storage,
+                true
+        );
+        if (line.charAt(4) == 'X') {
+            result.get(result.size() - 1).markAsDone();
+        }
+    }
+
+    private void createAndMarkEventTask(String line, TaskList result, Storage storage) {
+        int fromIndex = line.indexOf(" (from: ");
+        int toIndex = line.indexOf(" to: ");
+        result.addTask(new Event(
+                        line.substring(7, fromIndex),
+                        line.substring(fromIndex + 8, toIndex),
+                        line.substring(toIndex + 5, line.length() - 1)),
+                storage,
+                true
+        );
+        if (line.charAt(4) == 'X') {
+            result.get(result.size() - 1).markAsDone();
+        }
+    }
+
 
     /**
      * Writes data to the file
@@ -158,32 +166,12 @@ public class Storage {
         BufferedWriter bw = null;
 
         try {
-            assert store != null && store.exists() : "Store file does not exist";
-            // Read file into list
-            br = new BufferedReader(new FileReader(this.store));
-            assert br != null : "BufferedReader object is null";
-            String line;
-            while ((line = br.readLine()) != null) {
-                lines.add(line);
-            }
-            br.close();
-
-            // Remove the line
+            br = loadLineList(lines);
             if (lineNumber < 1 || lineNumber > lines.size()) {
                 throw new DukeException("Invalid line number");
             }
             lines.remove(lineNumber);
-
-            // Write list back to file
-            bw = new BufferedWriter(new FileWriter(store));
-            assert bw != null : "BufferedWriter object is null";
-            for (int i = 0; i < lines.size(); i++) {
-                bw.write(lines.get(i));
-                if (i < lines.size() - 1) {
-                    bw.newLine();
-                }
-            }
-            bw.close();
+            bw = writeLinesBackToFile(lines);
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         } finally {
@@ -212,32 +200,12 @@ public class Storage {
         BufferedWriter bw = null;
 
         try {
-            assert store != null && store.exists() : "Store file does not exist";
-            // Read file into list
-            br = new BufferedReader(new FileReader(this.store));
-            assert br != null : "BufferedReader object is null";
-            String line;
-            while ((line = br.readLine()) != null) {
-                lines.add(line);
-            }
-            br.close();
-
-            // Replace the line
+            br = loadLineList(lines);
             if (lineNumber < 1 || lineNumber > lines.size()) {
                 throw new DukeException("Invalid line number");
             }
             lines.set(lineNumber, newData);
-
-            // Write list back to file
-            bw = new BufferedWriter(new FileWriter(store));
-            assert bw != null : "BufferedWriter object is null";
-            for (int i = 0; i < lines.size(); i++) {
-                bw.write(lines.get(i));
-                if (i < lines.size() - 1) {
-                    bw.newLine();
-                }
-            }
-            bw.close();
+            bw = writeLinesBackToFile(lines);
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
         } finally {
@@ -252,5 +220,29 @@ public class Storage {
                 throw new DukeException("Something went wrong while closing the file: " + e.getMessage());
             }
         }
+    }
+
+    private BufferedReader loadLineList(List<String> lines) throws IOException {
+        assert store != null && store.exists() : "Store file does not exist";
+        // Read file into list
+        BufferedReader br = new BufferedReader(new FileReader(this.store));
+        assert br != null : "BufferedReader object is null";
+        String line;
+        while ((line = br.readLine()) != null) {
+            lines.add(line);
+        }
+        return br;
+    }
+
+    private BufferedWriter writeLinesBackToFile(List<String> lines) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter(store));
+        assert bw != null : "BufferedWriter object is null";
+        for (int i = 0; i < lines.size(); i++) {
+            bw.write(lines.get(i));
+            if (i < lines.size() - 1) {
+                bw.newLine();
+            }
+        }
+        return bw;
     }
 }

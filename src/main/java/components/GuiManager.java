@@ -28,8 +28,29 @@ public class GuiManager {
         TextField userInput = new TextField();
         Button sendButton = new Button("Send");
 
+        sendButton.setPrefWidth(60);  // Set the width to 100
+
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        // Set minimum size for the main layout
+        mainLayout.setMinWidth(380);
+        mainLayout.setMinHeight(600);
+
+        // Set anchor points for the ScrollPane
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(scrollPane, 40.0);  // reserve 40 units at the bottom for the TextField and Button
+        AnchorPane.setLeftAnchor(scrollPane, 0.0);
+        AnchorPane.setRightAnchor(scrollPane, 0.0);
+
+        // Set anchor points for the TextField
+        AnchorPane.setBottomAnchor(userInput, 0.0);
+        AnchorPane.setLeftAnchor(userInput, 0.0);
+        AnchorPane.setRightAnchor(userInput, 60.0);  // reserve 60 units at the right for the Button
+
+        // Set anchor points for the Button
+        AnchorPane.setBottomAnchor(sendButton, 0.0);
+        AnchorPane.setRightAnchor(sendButton, 0.0);
 
         Scene scene = new Scene(mainLayout);
         stage.setScene(scene);

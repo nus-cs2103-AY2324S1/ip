@@ -1,7 +1,6 @@
 package components;
 
 import commands.Command;
-import main.DialogBox;
 import tasks.TaskList;
 
 import javafx.scene.control.ScrollPane;
@@ -29,6 +28,7 @@ public class DialogManager {
                          Ui ui, Parser parser, TaskList list, Storage storage) {
         this.scrollPane = scrollPane;
         this.dialogContainer = new VBox();
+        dialogContainer.setMaxWidth(380);  // Or whatever value you choose
         this.userInput = userInput;
         this.sendButton = sendButton;
         this.ui = ui;
@@ -41,8 +41,12 @@ public class DialogManager {
 
     public void initializeDialog() {
         scrollPane.setContent(dialogContainer);
-        Label welcomeLabel = new Label(ui.showWelcome("CHAD CCP", true));
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);  // Disable horizontal scrolling
+
+        Label welcomeLabel = new Label(ui.showWelcome("CHAD CCP"));
         welcomeLabel.setWrapText(true);
+        welcomeLabel.setMaxWidth(380);  // Set a max width for the label to wrap
+
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeLabel, roundImage(duke)));
 
         sendButton.setOnMouseClicked((event) -> handleUserInput());
@@ -50,9 +54,16 @@ public class DialogManager {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
+
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
+        userText.setWrapText(true);
+        userText.setMaxWidth(380);  // Set a max width for the label to wrap
+
         Label dukeText = new Label(getResponse(userInput.getText()));
+        dukeText.setWrapText(true);
+        dukeText.setMaxWidth(380);  // Set a max width for the label to wrap
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, roundImage(user)),
                 DialogBox.getDukeDialog(dukeText, roundImage(duke))
@@ -60,10 +71,11 @@ public class DialogManager {
         userInput.clear();
     }
 
+
     private ImageView roundImage(Image object) {
         ImageView imageView = new ImageView(object);
-        imageView.setFitWidth(50);
-        imageView.setFitHeight(50);
+        imageView.setFitWidth(90);
+        imageView.setFitHeight(90);
         Circle clip = new Circle(
                 imageView.getFitWidth() / 2,
                 imageView.getFitHeight() / 2,

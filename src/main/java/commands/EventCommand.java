@@ -19,7 +19,7 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        Task newEvent = new Event(command.substring(6), list);
+        Task newEvent = new Event(command.substring(5), list);
         Task oldTask = newEvent.getOldTask();
         if (oldTask != null) {
             Command.tempTask = newEvent;

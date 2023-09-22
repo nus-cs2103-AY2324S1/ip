@@ -1,4 +1,4 @@
-package main;
+package components;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -35,22 +35,25 @@ public class DialogBox extends HBox {
         displayPicture = iv;
 
         text.setWrapText(true);
+        text.setMaxWidth(380);  // Adjust this value based on your layout
+
         displayPicture.setFitWidth(100.0);
         displayPicture.setFitHeight(100.0);
 
-        // Create a StackPane to hold the Label and give it a background
         stackPane = new StackPane();
         stackPane.getChildren().add(text);
         stackPane.setBackground(null);
         stackPane.setPadding(new Insets(10));
+        stackPane.setMaxWidth(380);  // Adjust this value based on your layout
 
-        // Make the StackPane grow with the content
-        stackPane.setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(stackPane, Priority.ALWAYS);
+        // Make sure the HBox grows with the content
+        this.setMaxWidth(Double.MAX_VALUE);
+        HBox.setHgrow(stackPane, Priority.NEVER);
 
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(stackPane, displayPicture);
     }
+
 
     /**
      * Flips the dialog box such that the ImageView is on the left and text on the right.
