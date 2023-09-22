@@ -15,7 +15,7 @@ public class Deadline extends Item {
      * Snoozes this item by 1 day.
      */
     public void snooze() {
-        this.by.plusDays(1);
+        this.by = this.by.plusDays(1);
     }
 
     @Override
