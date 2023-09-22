@@ -1,6 +1,6 @@
 package Duke.parser;
 
-import Duke.tasks.Events;
+import frodo.tasks.Events;
 import core.Duke;
 import core.DukeException;
 import org.junit.jupiter.api.Test;
