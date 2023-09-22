@@ -11,12 +11,11 @@ Now let's bounce right in!
 ## Table of Contents
 - [Quick Start](#quick-start)
 - [Features](#features)
-  - [Feature-ABC](#feature-abc)
-  - [Feature-XYZ](#feature-xyz)
-  - [Feature-123](#feature-123)
-  - [Feature-456](#feature-456)
-  - [Feature-789](#feature-789)
-- [Summary](#summary)
+  - [Add a Todo task](#add-a-todo-task)
+  - [Add a Deadline task](#add-a-deadline-task)
+  - [Add an Event task](#add-an-event-task)
+  - [Mark and unmark a task as done](#mark-and-unmark-a-task-as-done)
+  - [Delete a task](#delete-a-task)
 - [Glossary](#glossary)
 
 ## Quick Start
@@ -88,7 +87,7 @@ An event task is a like a todo task, with a start date and end date.
 
 #### Potential Errors
 
-#### Mark and unmark a task as done
+### Mark and unmark a task as done
 Marking a task as done is easy! It works the same regardless of whether it is a todo, deadline or event task.
 1. A task will be unmarked by default when you add it. An unmarked task will have a ❌ symbol at the left end of the task.
 2. Click on the `Toggle status` button zt the right end of the task
