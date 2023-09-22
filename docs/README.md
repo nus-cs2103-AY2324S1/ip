@@ -42,7 +42,7 @@ Example: `find open house`
 
 ## Marking items
 
-Items can be marked (or unmarked) as complete by specifying their number. Completed items have a `✅` in front of them.
+Items can be marked (or unmarked) as complete by specifying their number. Completed items have an `X` in front of them.
 
 Syntax: `mark <number>`
 
