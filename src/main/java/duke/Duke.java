@@ -352,8 +352,6 @@ public class Duke {
         try {
             String[] words = Parser.parseCommand(input);
             switch (words[0]) {
-                case "bye":
-                    return "SHUTDOWN";
                 case "delete":
                     response.append(deleteTask(words[1]));
                     break;
