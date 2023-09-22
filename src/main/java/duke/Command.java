@@ -33,6 +33,10 @@ public enum Command {
      * @throws InvalidInputException if the input is invalid
      */
     public static Command getCommand(String input) throws InvalidInputException {
+        if (input.trim().length() == 0) {
+            // Deal with invalid inputs such as "      "
+            throw new InvalidInputException();
+        }
         String commandWord = input.split(" ")[0];
         if (input.trim().equals("list")) {
             return Command.LIST;

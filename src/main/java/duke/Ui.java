@@ -53,15 +53,14 @@ public class Ui {
      * @param input the user's input
      */
     public void showCommandError(String input) {
-        String commandWord = input.split(" ")[0];
-        System.out.println("You have entered a invalid command, "
-                + commandWord + " is not a valid command");
+        System.out.println("You have entered a invalid command \n"
+                + "' " + input + "' " + " is not a valid command");
         String message = "valid commands: ";
         for (int i = 0; i < Command.VALID_COMMANDS.length; i++) {
             if (i == 0) {
                 message += (Command.VALID_COMMANDS[i]);
             } else {
-                message += (", " + Command.VALID_COMMANDS[i]);
+                message += ("\n" + Command.VALID_COMMANDS[i]);
             }
         }
         System.out.println(message);

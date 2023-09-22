@@ -72,7 +72,6 @@ public class Parser {
                 assert false : "Invalid command";
             }
         } catch (NumberFormatException e) {
-            // If we mark, unmark or delete  a non int task number
             System.out.println("You have enter a non-integer number\n"
                     + "Enter a valid task number that is a integer shown in list");
         } catch (WrongInputException e) {
