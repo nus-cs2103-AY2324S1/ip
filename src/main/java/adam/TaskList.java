@@ -36,9 +36,12 @@ public class TaskList {
         if (tokens.length != 2) {
             throw new NumberException();
         }
-        int number = Integer.valueOf(tokens[1]);
         if (!tokens[1].matches("[0-9]+")) {
             throw new NumberException();
+        }
+        int number = Integer.valueOf(tokens[1]);
+        if (number < 1) {
+            throw new OutOfBoundException();
         }
         if (number > getSize()) {
             throw new OutOfBoundException();
@@ -111,6 +114,9 @@ public class TaskList {
         if (!tokens[1].matches("[0-9]+")) {
             throw new NumberException();
         }
+        if (number < 1) {
+            throw new OutOfBoundException();
+        }
         if (number > getSize()) {
             throw new OutOfBoundException();
         }
@@ -133,6 +139,9 @@ public class TaskList {
             throw new NumberException();
         }
         int number = Integer.valueOf(tokens[1]);
+        if (number < 1) {
+            throw new OutOfBoundException();
+        }
         if (number > getSize()) {
             throw new OutOfBoundException();
         }
@@ -218,6 +227,9 @@ public class TaskList {
             throw new NumberException();
         }
         int number = Integer.valueOf(tokens[1]);
+        if (number < 1) {
+            throw new OutOfBoundException();
+        }
         if (number > getSize()) {
             throw new OutOfBoundException();
         }
