@@ -19,6 +19,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 
 /**
  * This control represents a dialog box consisting of an ImageView to represent
@@ -76,7 +77,8 @@ public class DialogBox extends HBox {
      */
     public static DialogBox getUserDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
-        db.dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTSKYBLUE, new CornerRadii(10), null)));
+        db.dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTSKYBLUE, new CornerRadii(10),
+                null)));
         return db;
     }
 
@@ -89,6 +91,7 @@ public class DialogBox extends HBox {
     public static DialogBox getAtlasDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
+        db.dialog.setFont(Font.font("Courier New", 18));
         db.dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10),
                 null)));
         return db;

@@ -75,8 +75,8 @@ public class TaskList {
      * @return Message containing the current task count
      */
     public String getCountString() {
-        final String taskPlurality = tasks.size() == 1 ? "task" : "tasks";
-        return String.format("Now you have %d %s in the list.\n", tasks.size(), taskPlurality);
+        final String taskPlurality = tasks.size() == 1 ? "labour" : "labours";
+        return String.format("Now you have %d %s to do.\n", tasks.size(), taskPlurality);
     }
 
     /**

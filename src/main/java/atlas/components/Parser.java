@@ -11,6 +11,7 @@ import atlas.commands.AddTaskCommand;
 import atlas.commands.Command;
 import atlas.commands.DeleteTaskCommand;
 import atlas.commands.FindCommand;
+import atlas.commands.HelpCommand;
 import atlas.commands.ListByDateCommand;
 import atlas.commands.ListCommand;
 import atlas.commands.ListRemindersCommand;
@@ -65,6 +66,8 @@ public class Parser {
                 return parseArguments(Command.Type.FIND, splitInput[1]);
             case "remind":
                 return new ListRemindersCommand();
+            case "help":
+                return new HelpCommand();
             default:
                 return new UnknownCommand();
             }
@@ -106,7 +109,8 @@ public class Parser {
                 return new UnknownCommand();
             }
         } catch (NumberFormatException e) {
-            return new UnknownCommand("I need a positive integer to know which task you're referring to!");
+            return new UnknownCommand("I may be an expert mathematician, but even I need a positive"
+                    + " integer to know what you are referring to.");
         } catch (DateTimeParseException | IllegalArgumentException e) {
             return new UnknownCommand(e.getMessage());
         }
@@ -157,7 +161,7 @@ public class Parser {
         String[] deadlineArgs = argsAndReminder[0].split(nameDateDelimiter);
         boolean hasNameAndDate = deadlineArgs.length == 2;
         if (!hasNameAndDate) {
-            throw new IllegalArgumentException("Deadlines should be created with the following format:\n"
+            throw new IllegalArgumentException("Deadlines can only be invoked with the following format:\n"
                     + "deadline [name] /by [date] (/remind [reminder start date])");
         }
 
@@ -180,7 +184,7 @@ public class Parser {
      * @throws IllegalArgumentException Thrown if wrong number of arguments provided
      */
     private static Event parseEventArgs(String args) throws IllegalArgumentException {
-        IllegalArgumentException badFormat = new IllegalArgumentException("Events should be created "
+        IllegalArgumentException badFormat = new IllegalArgumentException("Events can only be invoked "
                 + "with the following format:\n event [name] /from [start time] /to [end time]"
                 + " (/remind [reminder start date])");
 
@@ -236,7 +240,7 @@ public class Parser {
             Task loadedTask = createTaskFromPrefix(taskTypePrefix, taskArgs);
             return Optional.of(markTaskByStatus(loadedTask, taskStatus));
         } catch (IllegalArgumentException e) {
-            System.out.println("Task line is corrupted, skipping task");
+            System.out.println("Your scrolls are gibberish, mortal. Nothing could be comprehended.");
         } catch (UnsupportedTaskType e) {
             System.out.println("Unsupported task type " + e.getTaskType() + ", skipping task");
         }

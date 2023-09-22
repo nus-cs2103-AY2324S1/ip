@@ -35,11 +35,11 @@ public abstract class Task {
 
     /**
      * Returns icon indicating task's status
-     * @return "X" if task is done, "   " otherwise
+     * @return "X" if task is done, " " otherwise
      */
     private String getStatusIcon() {
         final String taskDoneIcon = "X";
-        final String taskNotDoneIcon = "  ";
+        final String taskNotDoneIcon = " ";
         return this.isDone ? taskDoneIcon : taskNotDoneIcon;
     }
 

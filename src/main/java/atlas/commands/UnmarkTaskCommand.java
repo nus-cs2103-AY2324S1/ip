@@ -11,7 +11,8 @@ import atlas.tasks.Task;
  * Command to unmark one or more Tasks in the TaskList
  */
 public class UnmarkTaskCommand extends MultiTaskCommand {
-    private static final String OUTPUT_HEADER_MESSAGE = "OK, I've marked these tasks as not done yet:";
+    private static final String OUTPUT_HEADER_MESSAGE = "Perhaps you aren't as strong as you believe, mortal. "
+            + "These labours remain undone:";
     private final Integer[] indices;
 
     /**

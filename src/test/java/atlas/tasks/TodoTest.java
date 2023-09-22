@@ -14,7 +14,7 @@ public class TodoTest {
     @Test
     public void toString_default() {
         Todo testTodo = new Todo("Test Todo");
-        assertEquals(testTodo.toString(), "[T][  ] Test Todo");
+        assertEquals(testTodo.toString(), "[T][ ] Test Todo");
     }
 
     @Test
@@ -23,7 +23,7 @@ public class TodoTest {
         testTodo.markDone();
         assertEquals(testTodo.toString(), "[T][X] Test Todo");
         testTodo.markNotDone();
-        assertEquals(testTodo.toString(), "[T][  ] Test Todo");
+        assertEquals(testTodo.toString(), "[T][ ] Test Todo");
     }
 
     @Test

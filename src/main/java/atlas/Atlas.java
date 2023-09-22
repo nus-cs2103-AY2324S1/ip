@@ -38,6 +38,7 @@ public class Atlas {
     }
 
     public String getWelcome() {
-        return "Hello, I'm Atlas! What will you like me to do today?";
+        return "Who breaks my chains of torment? I am Atlas, leader of the Titans. "
+                + "You, mortal, what do you want?";
     }
 }

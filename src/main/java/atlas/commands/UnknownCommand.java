@@ -13,11 +13,8 @@ public class UnknownCommand extends Command {
      * Constructs an UnknownCommand object with the default error message
      */
     public UnknownCommand() {
-        errorMsg = "I do not understand this command. "
-                + "Here's what I can do though: I can create ToDos (todo), "
-                + "Deadlines (deadline), Events (event), print them out (list), "
-                + "print tasks occurring on a specific date (date) as well as "
-                + "check (mark) and uncheck (unmark) them!";
+        errorMsg = "Your words are meaningless, mortal. Why don't you ask the "
+                + "Olympians for \"help\"?";
     }
 
     /**

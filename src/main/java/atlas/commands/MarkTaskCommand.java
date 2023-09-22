@@ -11,7 +11,8 @@ import atlas.tasks.Task;
  * Command to mark one or more Tasks in the TaskList
  */
 public class MarkTaskCommand extends MultiTaskCommand {
-    private static final String OUTPUT_HEADER_MESSAGE = "Nice! I've marked these tasks as done:";
+    private static final String OUTPUT_HEADER_MESSAGE = "You might be strong enough to bear my burdens "
+            + "after all, mortal. These labours are done:";
     private final Integer[] indices;
 
     /**
