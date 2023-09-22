@@ -27,9 +27,4 @@ public class ListCommand extends Command {
         }
         return response;
     }
-
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

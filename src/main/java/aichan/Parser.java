@@ -25,8 +25,6 @@ public class Parser {
      * @throws AiChanException If the input has incorrect format.
      */
     public static Command parse(String input) throws AiChanException {
-        // command is user's input
-        // put the if-else logic to call different constructor (subclass)
         if (input == null) {
             throw new AiChanException("Please enter command, thanks!");
         }
@@ -37,7 +35,7 @@ public class Parser {
             return new ExitCommand();
         } else if (commandType.equals(ActionType.LIST.toString())) {
             return new ListCommand();
-        } else if (commandType.equals(ActionType.DELETEMARKED.toString())){
+        } else if (commandType.equals(ActionType.DELETEMARKED.toString())) {
             return new DeleteMarkedCommand();
         } else if (commandType.equals(ActionType.MARK.toString())) {
             return new MarkCommand(strToNum(checkLen(inputs)));

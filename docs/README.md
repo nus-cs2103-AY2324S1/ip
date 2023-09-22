@@ -11,9 +11,9 @@ AiChan is a desktop application to help you **manage your tasks**.
 ## Quick Start
 
 1. Ensure your computer have Java `11`.
-2. Download the latest `AiChan.jar` from [here](https://github.com/KumChaiYin/ip/releases)
+2. Download the latest `aichan-v1.0.jar` from [here](https://github.com/KumChaiYin/ip/releases)
 3. Copy the file to the folder you want to use as the home folder for AiChan.
-4. Open a command terminal, `cd` into the folder in step 3, and use the `java -jar AiChan.jar` command to run AiChan application.
+4. Open a command terminal, `cd` into the folder in step 3, and use the `java -jar aichan-v1.0.jar` command to run AiChan application.
 5. An AiChan GUI will appear.
 6. Refer to the [Usage](#usage) below to see the commands.
 7. Type the command and press Enter to execute it.

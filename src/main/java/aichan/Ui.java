@@ -24,15 +24,15 @@ public class Ui {
     }
 
     /**
-     * Displays welcome message.
+     * Gets welcome message.
+     *
+     * @return String of welcome message.
      */
-    public void showWelcome() {
+    public static String getWelcomeMessage() {
         String greet = "Hiya! I'm Ai-chan~\n"
                 + "Hey there, dear viewer, what's on your mind?\n"
                 + "Is there anything I can do to sprinkle some magic into your day?";
-        this.showLine();
-        System.out.println(greet);
-        this.showLine();
+        return greet;
     }
 
     /**
