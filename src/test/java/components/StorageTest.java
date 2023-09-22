@@ -1,8 +1,7 @@
 package components;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,7 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 public class StorageTest {
 
@@ -25,18 +26,18 @@ public class StorageTest {
     }
 
     @Test
-    public void testDeleteLine_FileEmpty() {
+    public void testDeleteLineWhenFileEmpty() {
         assertThrows(DukeException.class, () -> storage.deleteLine(1));
     }
 
     @Test
-    public void testDeleteLine_InvalidLineNumber() {
+    public void testDeleteLineWithInvalidLineNumber() {
         assertThrows(DukeException.class, () -> storage.deleteLine(0));
         assertThrows(DukeException.class, () -> storage.deleteLine(-1));
     }
 
     @Test
-    public void testDeleteLine_LineNumberGreaterThanFileLines() throws IOException {
+    public void testDeleteLineWithLineNumberGreaterThanFileLines() throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
             bw.write("Line 1");
             bw.newLine();
@@ -46,7 +47,7 @@ public class StorageTest {
     }
 
     @Test
-    public void testDeleteLine_ValidLineNumber() throws IOException, DukeException {
+    public void testDeleteLineWithValidLineNumber() throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
             bw.write("Line 1");
             bw.newLine();

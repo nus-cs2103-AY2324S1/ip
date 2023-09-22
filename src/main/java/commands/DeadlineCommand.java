@@ -7,7 +7,9 @@ import tasks.Deadline;
 import tasks.Task;
 import tasks.TaskList;
 
-
+/**
+ * Represents a deadline command.
+ */
 public class DeadlineCommand extends Command {
     private String command;
 

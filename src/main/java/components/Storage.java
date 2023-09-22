@@ -1,4 +1,5 @@
 package components;
+
 import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -38,7 +39,6 @@ public class Storage {
         try {
             // Create a File object for the parent directory
             File parentDir = new File(this.PARENT_DIR);
-            //System.out.println("Parent dir " + parentDir.getAbsolutePath());
 
             // Create the directory if it doesn't exist
             if (!parentDir.exists()) {
@@ -82,7 +82,7 @@ public class Storage {
             assert br != null : "BufferedReader object is null";
             String line;
             while ((line = br.readLine()) != null) {
-                //[T][X] read book 
+                //[T][X] read book
                 if (line.startsWith("[T]")) {
                     result.addTask(new ToDo(
                         line.substring(7)),
@@ -96,7 +96,7 @@ public class Storage {
                 } else if (line.startsWith("[D]")) {
                     int byIndex = line.indexOf("(by: ");
                     result.addTask(new Deadline(
-                        line.substring(7, byIndex - 1), 
+                        line.substring(7, byIndex - 1),
                         line.substring(byIndex + 5, line.length() - 1)),
                         storage,
                         true
@@ -109,7 +109,7 @@ public class Storage {
                     int fromIndex = line.indexOf(" (from: ");
                     int toIndex = line.indexOf(" to: ");
                     result.addTask(new Event(
-                        line.substring(7, fromIndex), 
+                        line.substring(7, fromIndex),
                         line.substring(fromIndex + 8, toIndex),
                         line.substring(toIndex + 5, line.length() - 1)),
                         storage,
@@ -118,7 +118,7 @@ public class Storage {
                     if (line.charAt(4) == 'X') {
                         result.get(result.size() - 1).markAsDone();
                     }
-                } 
+                }
             }
 
             br.close();
@@ -181,8 +181,8 @@ public class Storage {
                 bw.write(lines.get(i));
                 if (i < lines.size() - 1) {
                     bw.newLine();
-                }   
-            }           
+                }
+            }
             bw.close();
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());
@@ -235,8 +235,8 @@ public class Storage {
                 bw.write(lines.get(i));
                 if (i < lines.size() - 1) {
                     bw.newLine();
-                }   
-            }           
+                }
+            }
             bw.close();
         } catch (IOException e) {
             throw new DukeException("Something went wrong: " + e.getMessage());

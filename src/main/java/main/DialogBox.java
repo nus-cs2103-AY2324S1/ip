@@ -7,13 +7,29 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 
+/**
+ * Represents a dialog box consisting of an ImageView to represent the speaker's face and a label containing text
+ * from the speaker.
+ */
 public class DialogBox extends HBox {
+
+    /**
+     * The Label containing text from the speaker.
+     */
     private Label text;
     private ImageView displayPicture;
     private StackPane stackPane;
 
+    /**
+     * Constructs a dialog box.
+     *
+     * @param l The Label containing text from the speaker.
+     * @param iv The ImageView to represent the speaker's face.
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;

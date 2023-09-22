@@ -1,16 +1,28 @@
 package components;
 
-import commands.*;
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.ExitCommand;
+import commands.FindCommand;
+import commands.MarkAsDoneCommand;
+import commands.MarkAsUndoneCommand;
+import commands.ShowCommand;
+import commands.ToDoCommand;
+import commands.UnknownCommand;
+import commands.YesCommand;
+
 import tasks.TaskList;
 import tasks.ToDo;
 
 public class Parser {
     /**
-     * Create a ToDo task.
+     * Parses the given command to create a ToDo task.
      *
-     * @param command Command to be parsed.
-     * @return ToDo task.
-     * @throws DukeException If command is invalid.
+     * @param command The command string that represents the ToDo task to be created.
+     * @return A ToDo task created based on the parsed command.
+     * @throws DukeException If the command string is invalid or cannot be parsed into a ToDo task.
      */
     public static ToDo createToDoTask(String command, TaskList list) throws DukeException {
         assert command != null : "Command should not be null";
@@ -19,7 +31,9 @@ public class Parser {
         try {
             description = command.substring(5);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("todo command must be followed by a space and a string. ERR: STRING INDEX OUT OF BOUNDS.");
+            throw new DukeException("todo command must be followed " +
+                    "by a space and a string. ERR: STRING INDEX OUT " +
+                    "OF BOUNDS.");
         }
 
         assert !description.isEmpty() : "Description should not be empty";
@@ -35,7 +49,8 @@ public class Parser {
      * @throws DukeException If command is invalid.
      */
     public Command parse(String fullCommand) throws DukeException {
-        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Command should not be null or empty";
+        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Command "
+                + "should not be null or empty";
 
         String[] command = fullCommand.split(" ");
         assert command.length > 0 : "Split command should have at least one element";
@@ -55,9 +70,11 @@ public class Parser {
             try {
                 Integer.valueOf(fullCommand.substring(5));
             } catch (StringIndexOutOfBoundsException e) {
-                throw new DukeException("Mark command must be followed by a space and an integer. ERR: STRING INDEX OUT OF BOUNDS.");
+                throw new DukeException("Mark command must be followed "
+                        + "by a space and an integer. ERR: STRING INDEX OUT OF BOUNDS.");
             } catch (NumberFormatException e) {
-                throw new DukeException("Mark command must be followed by a space and an integer. ERR: NOT AN INTEGER.");
+                throw new DukeException("Mark command must be followed "
+                        + "by a space and an integer. ERR: NOT AN INTEGER.");
             }
 
             parsedCommand = new MarkAsDoneCommand(Integer.valueOf(fullCommand.substring(5)));

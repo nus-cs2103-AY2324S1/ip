@@ -5,6 +5,9 @@ import components.Storage;
 import components.Ui;
 import tasks.TaskList;
 
+/**
+ * Represents a yes command.
+ */
 public class YesCommand extends Command {
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {

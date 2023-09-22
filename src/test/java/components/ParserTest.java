@@ -1,9 +1,20 @@
 package components;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import commands.*;
 import org.junit.jupiter.api.Test;
+
+import commands.Command;
+import commands.DeadlineCommand;
+import commands.DeleteCommand;
+import commands.EventCommand;
+import commands.ExitCommand;
+import commands.MarkAsDoneCommand;
+import commands.MarkAsUndoneCommand;
+import commands.ShowCommand;
+import commands.ToDoCommand;
+import commands.UnknownCommand;
 
 public class ParserTest {
     private final Parser parser = new Parser();

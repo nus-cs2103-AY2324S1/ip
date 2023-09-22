@@ -4,7 +4,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an event task.
+ */
 public class Event extends Task {
+    /**
+     * The date of the event.
+     */
     private final String to;
     private final String from;
     private LocalDate toDate;
@@ -30,11 +36,11 @@ public class Event extends Task {
      * @param to String containing the ending date of the event.
      */
     public Event(String m, String from, String to) {
-      super(m);
-      this.from = from;
-      this.to = to;
-      setDate(to, true);
-      setDate(from, false);
+        super(m);
+        this.from = from;
+        this.to = to;
+        setDate(to, true);
+        setDate(from, false);
     }
 
     /**
@@ -48,7 +54,7 @@ public class Event extends Task {
             if (isToDate) {
                 toDate = LocalDate.parse(by, formatter);
             } else {
-              fromDate = LocalDate.parse(by, formatter);
+                fromDate = LocalDate.parse(by, formatter);
             }
         } catch (DateTimeParseException e) {
             if (isToDate) {

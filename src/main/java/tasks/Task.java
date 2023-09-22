@@ -1,5 +1,8 @@
 package tasks;
 
+/**
+ * Represents a task.
+ */
 public class Task {
     private Boolean isDone = false;
     private final String description;
@@ -35,15 +38,18 @@ public class Task {
 
     @Override
     public String toString() {
-      return "[" + (isDone ? "X" : " ") + "] " + description;
+        return "["
+              + (isDone ? "X" : " ")
+              + "] "
+              + description;
     }
 
     public void markAsDone() {
-      this.isDone = true;
+        this.isDone = true;
     }
 
     public void markAsUndone() {
-      this.isDone = false;
+        this.isDone = false;
     }
 
     public String getDescription() {

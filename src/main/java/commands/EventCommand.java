@@ -7,6 +7,9 @@ import tasks.Event;
 import tasks.Task;
 import tasks.TaskList;
 
+/**
+ * Represents an event command.
+ */
 public class EventCommand extends Command {
     private String command;
 

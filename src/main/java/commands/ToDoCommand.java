@@ -1,4 +1,5 @@
 package commands;
+
 import components.DukeException;
 import components.Parser;
 import components.Storage;
@@ -6,6 +7,9 @@ import components.Ui;
 import tasks.Task;
 import tasks.TaskList;
 
+/**
+ * Represents a ToDo command.
+ */
 public class ToDoCommand extends Command {
     private String command;
 

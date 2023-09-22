@@ -3,6 +3,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     private final String by;
     private LocalDate date;
@@ -51,8 +54,8 @@ public class Deadline extends Task {
 
   @Override
   public String toString() {
-    return String.format("[D]%s (by: %s)", super.toString(), date != null
-                    ? getDate(date)
-                    : by);
-    }
+      return String.format("[D]%s (by: %s)", super.toString(), date != null
+              ? getDate(date)
+              : by);
+  }
 }
