@@ -25,21 +25,21 @@ Dukduk🦆 is your personal assistant! Start getting organised by talking to duk
 
    Some example commands you can try:
 
-    **`any command`**: Shows help message that explains what commands there are and how to use it.<br>
+   **`any command`**: Shows help message that explains what commands there are and how to use it.<br>
 
-    **`todo`**`finish report`: Adds a todo task `finish report` to the list.<br>
+   **`todo`**`finish report`: Adds a todo task `finish report` to the list.<br>
 
-    **`list`**: Lists all the tasks in the list.<br>
+   **`list`**: Lists all the tasks in the list.<br>
 
-    **`find`**`report`: Finds and lists all the tasks in the list that matches with the keyword, `report`.<br>
+   **`find`**`report`: Finds and lists all the tasks in the list that matches with the keyword, `report`.<br>
 
-    **`bye`**: Exits the program.<br>
+   **`bye`**: Exits the program.<br>
 
 7. Refer to the [Features](#features) below for more details on each command.
 
-## Features 
+## Features
 
-<div class="alert alert-info">
+<div markdown="block" class="alert alert-info">
 
 **Note:**<br>
 
@@ -122,4 +122,4 @@ Format: `bye`
 | **Unmark**   | `unmark [task number]` <br> e.g., `unmark 2`                                                                                  
 | **Delete**   | `delete [task number]` <br> e.g., `delete 3`                                                                                  
 | **Find**     | `find [keyword]` <br> e.g., `find report`                                                                                     
-| **Exit**     | `bye`                                                                                                                         
+| **Exit**     | `bye`                                                                                                                
