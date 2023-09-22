@@ -9,15 +9,15 @@ Dialogix is a **desktop app for managing contacts, optimized for use via a Comma
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `dialogix.jar` from [here](https://github.com/longnguyentan/ip/releases).
+2. Download the latest `dialogix.jar` from [here](https://github.com/longnguyentan/ip/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for your Dialogix.
+3. Copy the file to the folder you want to use as the _home folder_ for your Dialogix.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar dialogix.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar dialogix.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`list`** and pressing Enter will display all the current tasks/events/deadlines.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`list`** and pressing Enter will display all the current tasks/events/deadlines.<br>
    Some example commands you can try:
 
     * `list` : Lists all the saved tasks, events, and deadlines.
@@ -25,7 +25,7 @@ Dialogix is a **desktop app for managing contacts, optimized for use via a Comma
     * `delete 3` : Deletes the 3rd task in the list.
     * `bye` : Exits the app.
 
-1. Refer to the [Features](#features) below for details of each command.
+6. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
 ## Features
