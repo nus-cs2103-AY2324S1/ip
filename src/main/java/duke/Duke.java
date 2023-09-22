@@ -31,37 +31,30 @@ public class Duke {
         try {
             String commandType = Parser.parseCommandType(input);
             switch (Objects.requireNonNull(commandType)) {
-            case "bye" -> {
+            case "bye":
                 return Ui.showGoodbyeMessage();
-            }
-            case "help" -> {
+            case "help":
                 return Ui.showHelpMessage();
-            }
-            case "list" -> {
+            case "list":
                 return Ui.listTasks(tasks.getTasks());
-            }
-            case "delete" -> {
+            case "delete":
                 Task taskDeleted = tasks.deleteTask(Parser.getTaskNumber(input));
                 Storage.writeToDisk(tasks.getTasks());
                 return Ui.deleteTask(taskDeleted) + Ui.listTasks(tasks.getTasks());
-            }
-            case "mark" -> {
+            case "mark":
                 Task taskMarked = tasks.markTask(Parser.getTaskNumber(input));
                 Storage.writeToDisk(tasks.getTasks());
                 return Ui.markTask(taskMarked) + Ui.listTasks(tasks.getTasks());
-            }
-            case "task" -> {
+            case "task":
                 tasks.addTask(Parser.createNewTask(input));
                 Storage.writeToDisk(tasks.getTasks());
                 return Ui.listTasks(tasks.getTasks());
-            }
-            case "find" -> {
+            case "find":
                 return Ui.foundTasks(tasks.findTasks(Parser.findKeyword(input)));
-            }
-            case "invalid" -> {
+            case "invalid":
                 return Ui.invalidCommand();
-            }
-            default -> throw new DukeException("Invalid task, uncaught by duke.Parser.");
+            default:
+                throw new DukeException("Invalid task, uncaught by duke.Parser.");
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());

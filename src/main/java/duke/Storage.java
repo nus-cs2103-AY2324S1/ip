@@ -82,13 +82,13 @@ public class Storage {
                 continue;
             }
             if (Objects.equals(mode, "by")) {
-                if (!deadline.isEmpty()) {
+                if (deadline.length() != 0) {
                     deadline.append(" ");
                 }
                 deadline.append(command);
             }
         }
-        if (!deadline.isEmpty()) {
+        if (deadline.length() != 0) {
             deadline.deleteCharAt(deadline.length() - 1); // Remove last ).
         }
         return deadline.toString();
@@ -107,18 +107,18 @@ public class Storage {
                 continue;
             }
             if (Objects.equals(mode, "from")) {
-                if (!from.isEmpty()) {
+                if (from.length() != 0) {
                     from.append(" ");
                 }
                 from.append(command);
             } else if (Objects.equals(mode, "to")) {
-                if (!to.isEmpty()) {
+                if (to.length() != 0) {
                     to.append(" ");
                 }
                 to.append(command);
             }
         }
-        if (!to.isEmpty()) {
+        if (to.length() != 0) {
             to.deleteCharAt(to.length() - 1); // Remove last ).
         }
         return new String[]{from.toString(), to.toString()};

@@ -1,11 +1,12 @@
 plugins {
     id 'java'
     id 'application'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
-    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
-
+checkstyle {
+    toolVersion = '10.2'
+}
 repositories {
     mavenCentral()
 }
@@ -27,6 +28,7 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+
 }
 
 test {
@@ -53,15 +55,6 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-javafx {
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
-
-run {
+run{
     standardInput = System.in
-    enableAssertions = true
-}
-
-checkstyle {
-    toolVersion = '10.2'
 }

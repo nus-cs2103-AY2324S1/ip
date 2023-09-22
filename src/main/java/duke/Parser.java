@@ -117,11 +117,20 @@ public class Parser {
                 continue;
             }
             switch (mode) {
-            case "title" -> addToString(title, command);
-            case "deadline" -> addToString(deadline, command);
-            case "from" -> addToString(from, command);
-            case "to" -> addToString(to, command);
-            default -> throw new DukeException("Invalid mode.");
+            case "title":
+                addToString(title, command);
+                break;
+            case "deadline":
+                addToString(deadline, command);
+                break;
+            case "from":
+                addToString(from, command);
+                break;
+            case "to":
+                addToString(to, command);
+                break;
+            default:
+                throw new DukeException("Invalid mode.");
             }
         }
 
@@ -135,7 +144,7 @@ public class Parser {
     }
 
     private static void addToString(StringBuilder original, String stringToAdd) {
-        if (!original.isEmpty()) {
+        if (original.length() != 0) {
             original.append(" ");
         }
         original.append(stringToAdd);
