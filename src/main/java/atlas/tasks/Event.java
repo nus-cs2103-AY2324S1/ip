@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import atlas.components.Parser;
+import atlas.exceptions.WrongDateTimeOrderException;
 
 /**
  * Event is a task with a start time and end time
@@ -17,11 +18,15 @@ public class Event extends Task {
      * @param name Name of event
      * @param startTime Start time of event
      * @param endTime End time of event
+     * @throws WrongDateTimeOrderException Thrown if start time is after end time
      */
-    public Event(String name, LocalDateTime startTime, LocalDateTime endTime) {
+    public Event(String name, LocalDateTime startTime, LocalDateTime endTime) throws WrongDateTimeOrderException {
         super(name);
         this.startTime = startTime;
         this.endTime = endTime;
+        if (startTime.isAfter(endTime)) {
+            throw new WrongDateTimeOrderException(startTime, endTime);
+        }
     }
 
     /**
@@ -30,10 +35,14 @@ public class Event extends Task {
      * @param startTime Start time of event
      * @param endTime End time of event
      * @param reminderStartDate Date starting from which reminders should be sent
+     * @throws WrongDateTimeOrderException Thrown if start time is after end time
      */
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime,
-                 LocalDate reminderStartDate) {
+                 LocalDate reminderStartDate) throws WrongDateTimeOrderException {
         super(name, reminderStartDate);
+        if (startTime.isAfter(endTime)) {
+            throw new WrongDateTimeOrderException(startTime, endTime);
+        }
         this.startTime = startTime;
         this.endTime = endTime;
     }

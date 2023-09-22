@@ -16,8 +16,16 @@ import atlas.commands.ListByDateCommand;
 import atlas.commands.ListCommand;
 import atlas.commands.ListRemindersCommand;
 import atlas.commands.MarkTaskCommand;
-import atlas.commands.UnknownCommand;
 import atlas.commands.UnmarkTaskCommand;
+import atlas.exceptions.BadDateException;
+import atlas.exceptions.BadDateTimeException;
+import atlas.exceptions.BadFormatException;
+import atlas.exceptions.BadIndexException;
+import atlas.exceptions.MissingCommandArgsException;
+import atlas.exceptions.MissingNameException;
+import atlas.exceptions.UnknownCommandException;
+import atlas.exceptions.UnsupportedTaskTypeException;
+import atlas.exceptions.WrongDateOrderException;
 import atlas.tasks.Deadline;
 import atlas.tasks.Event;
 import atlas.tasks.Task;
@@ -38,8 +46,10 @@ public class Parser {
      * Parses the user input into a Command object
      * @param commandInput String containing user input
      * @return A Command object that can be executed
+     * @throws UnknownCommandException Thrown if command type is not recognised
+     * @throws MissingCommandArgsException Thrown if command requires arguments but none are given
      */
-    public Command parse(String commandInput) {
+    public Command parse(String commandInput) throws UnknownCommandException, MissingCommandArgsException {
         final int maxArgCount = 2;
         final String commandArgDelimiter = " ";
         String[] splitInput = commandInput.split(commandArgDelimiter, maxArgCount);
@@ -69,10 +79,10 @@ public class Parser {
             case "help":
                 return new HelpCommand();
             default:
-                return new UnknownCommand();
+                throw new UnknownCommandException(commandType);
             }
         } catch (IndexOutOfBoundsException e) {
-            return new UnknownCommand(commandType + " requires additional arguments!");
+            throw new MissingCommandArgsException(commandType);
         }
     }
 
@@ -81,38 +91,34 @@ public class Parser {
      * @param commandType Command Type
      * @param args String containing the arguments
      * @return Command of type commandType initialised with parsed arguments
+     * @throws UnknownCommandException Thrown if command type does not handle arguments
      */
-    protected Command parseArguments(Command.Type commandType, String args) {
-        try {
-            switch (commandType) {
-            case TODO:
-                Task newTodo = parseTodoArgs(args);
-                return new AddTaskCommand(newTodo);
-            case DEADLINE:
-                Task newDeadline = parseDeadlineArgs(args);
-                return new AddTaskCommand(newDeadline);
-            case EVENT:
-                Task newEvent = parseEventArgs(args);
-                return new AddTaskCommand(newEvent);
-            case DATE:
-                LocalDate searchDate = parseDate(args);
-                return new ListByDateCommand(searchDate);
-            case MARK:
-                return new MarkTaskCommand(parseMultipleOneBasedIndicesToZeroBased(args));
-            case UNMARK:
-                return new UnmarkTaskCommand(parseMultipleOneBasedIndicesToZeroBased(args));
-            case DELETE:
-                return new DeleteTaskCommand(parseOneBasedIndexToZeroBased(args));
-            case FIND:
-                return new FindCommand(args);
-            default:
-                return new UnknownCommand();
-            }
-        } catch (NumberFormatException e) {
-            return new UnknownCommand("I may be an expert mathematician, but even I need a positive"
-                    + " integer to know what you are referring to.");
-        } catch (DateTimeParseException | IllegalArgumentException e) {
-            return new UnknownCommand(e.getMessage());
+    protected Command parseArguments(Command.Type commandType, String args) throws UnknownCommandException {
+        switch (commandType) {
+        case TODO:
+            Task newTodo = parseTodoArgs(args);
+            return new AddTaskCommand(newTodo);
+        case DEADLINE:
+            Task newDeadline = parseDeadlineArgs(args);
+            return new AddTaskCommand(newDeadline);
+        case EVENT:
+            Task newEvent = parseEventArgs(args);
+            return new AddTaskCommand(newEvent);
+        case DATE:
+            LocalDate searchDate = parseDate(args);
+            return new ListByDateCommand(searchDate);
+        case MARK:
+            return new MarkTaskCommand(parseMultipleOneBasedIndicesToZeroBased(args));
+        case UNMARK:
+            return new UnmarkTaskCommand(parseMultipleOneBasedIndicesToZeroBased(args));
+        case DELETE:
+            return new DeleteTaskCommand(parseOneBasedIndexToZeroBased(args));
+        case FIND:
+            return new FindCommand(args);
+        default:
+            // This branch should never be encountered, unless the switch statements do not cover the entire
+            // enumeration of Command.Type
+            throw new UnknownCommandException(commandType.name());
         }
     }
 
@@ -125,7 +131,7 @@ public class Parser {
      */
     private static Todo parseTodoArgs(String args) {
         String[] nameAndReminder = splitArgsAndReminders(args);
-        String name = nameAndReminder[0];
+        String name = parseNonEmptyName(Task.Type.TODO, nameAndReminder[0]);
 
         boolean hasReminder = nameAndReminder.length == 2;
         if (hasReminder) {
@@ -152,25 +158,29 @@ public class Parser {
      * @param args String in the following format: "[name of task] /by [date]
      *             (/remind [reminder start date])"
      * @return Deadline task containing the specified name and deadline
-     * @throws IllegalArgumentException Thrown if wrong number of arguments provided
+     * @throws BadFormatException Thrown if command does not follow the specified format
+     * @throws WrongDateOrderException Thrown if reminder is after the deadline
      */
-    private static Deadline parseDeadlineArgs(String args) throws IllegalArgumentException {
+    private static Deadline parseDeadlineArgs(String args) throws BadFormatException, WrongDateOrderException {
+        final String deadLineCorrectFormat = "deadline [name] /by [date] (/remind [reminder start date])";
         String[] argsAndReminder = splitArgsAndReminders(args);
 
         final String nameDateDelimiter = " /by ";
         String[] deadlineArgs = argsAndReminder[0].split(nameDateDelimiter);
         boolean hasNameAndDate = deadlineArgs.length == 2;
         if (!hasNameAndDate) {
-            throw new IllegalArgumentException("Deadlines can only be invoked with the following format:\n"
-                    + "deadline [name] /by [date] (/remind [reminder start date])");
+            throw new BadFormatException(Task.Type.DEADLINE, deadLineCorrectFormat);
         }
 
-        String name = parseNonEmptyString(deadlineArgs[0]);
+        String name = parseNonEmptyName(Task.Type.DEADLINE, deadlineArgs[0]);
         LocalDateTime byTime = parseDateTime(deadlineArgs[1]);
 
         boolean hasReminder = argsAndReminder.length == 2;
         if (hasReminder) {
             LocalDate reminderStartDate = parseDate(argsAndReminder[1]);
+            if (reminderStartDate.isAfter(byTime.toLocalDate())) {
+                throw new WrongDateOrderException(reminderStartDate, byTime.toLocalDate());
+            }
             return new Deadline(name, byTime, reminderStartDate);
         }
         return new Deadline(name, byTime);
@@ -181,12 +191,12 @@ public class Parser {
      * @param args String in the following format: "[name of task] /from [start time] /to [end time]
      *             (/remind [reminder start date])"
      * @return Event task containing the specified name, start time, and end time
-     * @throws IllegalArgumentException Thrown if wrong number of arguments provided
+     * @throws BadFormatException Thrown if command does not follow the format specified
+     * @throws WrongDateOrderException Thrown if reminder is after the end time
      */
-    private static Event parseEventArgs(String args) throws IllegalArgumentException {
-        IllegalArgumentException badFormat = new IllegalArgumentException("Events can only be invoked "
-                + "with the following format:\n event [name] /from [start time] /to [end time]"
-                + " (/remind [reminder start date])");
+    private static Event parseEventArgs(String args) throws BadFormatException, WrongDateOrderException {
+        final String eventCorrectFormat = "event [name] /from [start time] /to [end time]"
+                + " (/remind [reminder start date])";
 
         String[] argsAndReminder = splitArgsAndReminders(args);
 
@@ -194,23 +204,26 @@ public class Parser {
         String[] splitNameDates = argsAndReminder[0].split(nameDateDelimiter);
         boolean hasNameAndDates = splitNameDates.length == 2;
         if (!hasNameAndDates) {
-            throw badFormat;
+            throw new BadFormatException(Task.Type.EVENT, eventCorrectFormat);
         }
 
         final String datesDelimiter = " /to ";
         String[] splitTime = splitNameDates[1].split(datesDelimiter);
         boolean hasStartAndEndDates = splitTime.length == 2;
         if (!hasStartAndEndDates) {
-            throw badFormat;
+            throw new BadFormatException(Task.Type.EVENT, eventCorrectFormat);
         }
 
-        String name = splitNameDates[0];
+        String name = parseNonEmptyName(Task.Type.EVENT, splitNameDates[0]);
         LocalDateTime startTime = parseDateTime(splitTime[0]);
         LocalDateTime endTime = parseDateTime(splitTime[1]);
 
         boolean hasReminder = argsAndReminder.length == 2;
         if (hasReminder) {
             LocalDate reminderStartDate = parseDate(argsAndReminder[1]);
+            if (reminderStartDate.isAfter(endTime.toLocalDate())) {
+                throw new WrongDateOrderException(reminderStartDate, endTime.toLocalDate());
+            }
             return new Event(name, startTime, endTime, reminderStartDate);
         }
         return new Event(name, startTime, endTime);
@@ -221,7 +234,6 @@ public class Parser {
      * @param fileArgs Line containing task saved data
      * @return An Optional object containing the Task initialised with arguments if successful,
      *      otherwise an empty Optional object
-     * @throws IllegalArgumentException Thrown if line does not have 2 delimiters " | "
      */
     public static Optional<Task> parseFileTasks(String fileArgs) {
         final String fileTaskDelimiter = " \\| ";
@@ -241,7 +253,7 @@ public class Parser {
             return Optional.of(markTaskByStatus(loadedTask, taskStatus));
         } catch (IllegalArgumentException e) {
             System.out.println("Your scrolls are gibberish, mortal. Nothing could be comprehended.");
-        } catch (UnsupportedTaskType e) {
+        } catch (UnsupportedTaskTypeException e) {
             System.out.println("Unsupported task type " + e.getTaskType() + ", skipping task");
         }
         return Optional.empty();
@@ -252,10 +264,10 @@ public class Parser {
      * @param taskTypePrefix "T" for Todo, "D" for Deadline, "E" for Event
      * @param taskArgs Arguments for the task specified
      * @return Task of specified task type and task arguments
-     * @throws UnsupportedTaskType Thrown if task type is not one of "T", "D", or "E"
+     * @throws UnsupportedTaskTypeException Thrown if task type is not one of "T", "D", or "E"
      */
     private static Task createTaskFromPrefix(String taskTypePrefix, String taskArgs) throws
-            UnsupportedTaskType {
+            UnsupportedTaskTypeException {
         switch (taskTypePrefix) {
         case "T":
             return parseTodoArgs(taskArgs);
@@ -264,7 +276,7 @@ public class Parser {
         case "E":
             return parseEventArgs(taskArgs);
         default:
-            throw new UnsupportedTaskType(taskTypePrefix);
+            throw new UnsupportedTaskTypeException(taskTypePrefix);
         }
     }
 
@@ -286,36 +298,16 @@ public class Parser {
     }
 
     /**
-     * Exception class for unsupported task types
-     */
-    public static class UnsupportedTaskType extends RuntimeException {
-        protected final String taskType;
-
-        /**
-         * Constructs an UnsupportedTaskType exception
-         * @param taskType Name of illegal task type
-         */
-        public UnsupportedTaskType(String taskType) {
-            this.taskType = taskType;
-        }
-
-        public String getTaskType() {
-            return taskType;
-        }
-    }
-
-    /**
      * Parses string argument for dates
      * @param dateInput String representation of date in dd-MM-yyyy format
      * @return LocalDate object
-     * @throws DateTimeParseException Thrown if string is not of dd-MM-yyyy format
+     * @throws BadDateException Thrown if string is not of dd-MM-yyyy format
      */
-    protected static LocalDate parseDate(String dateInput) throws DateTimeParseException {
+    protected static LocalDate parseDate(String dateInput) throws BadDateException {
         try {
             return LocalDate.parse(dateInput, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("Dates must be of the form " + DATE_FORMAT,
-                    e.getParsedString(), e.getErrorIndex());
+            throw new BadDateException(dateInput);
         }
     }
 
@@ -323,26 +315,25 @@ public class Parser {
      * Parses string argument for DateTimes
      * @param dateTimeInput String representation of date in dd-MM-yyyy HHmm format
      * @return LocalDateTime object
-     * @throws DateTimeParseException Thrown if string is not of dd-MM-yyyy HHmm format
+     * @throws BadDateTimeException Thrown if string is not of dd-MM-yyyy HHmm format
      */
-    protected static LocalDateTime parseDateTime(String dateTimeInput) throws DateTimeParseException {
+    protected static LocalDateTime parseDateTime(String dateTimeInput) throws BadDateTimeException {
         try {
             return LocalDateTime.parse(dateTimeInput, DATETIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new DateTimeParseException("DateTimes must be of the form " + DATETIME_FORMAT,
-                    e.getParsedString(), e.getErrorIndex());
+            throw new BadDateTimeException(dateTimeInput);
         }
     }
 
     /**
-     * Returns input if non-empty, otherwise throws an IllegalArgumentException
+     * Returns input if non-empty, otherwise throws a MissingNameException
      * @param input String input
      * @return input
-     * @throws IllegalArgumentException Thrown if input is empty
+     * @throws MissingNameException Thrown if input is empty
      */
-    protected static String parseNonEmptyString(String input) throws IllegalArgumentException {
+    protected static String parseNonEmptyName(Task.Type taskType, String input) throws MissingNameException {
         if (input.isEmpty()) {
-            throw new IllegalArgumentException("I need a name for the task!");
+            throw new MissingNameException(taskType);
         }
         return input;
     }
@@ -351,14 +342,13 @@ public class Parser {
      * Parses zero-based index from string representation of one-based index
      * @param input String representation of one-based index
      * @return Zero-based index in integer form
-     * @throws NumberFormatException Thrown if input is not an unsigned integer in string format
+     * @throws BadIndexException Thrown if input is not an integer greater than zero in string format
      */
-    protected int parseOneBasedIndexToZeroBased(String input) throws NumberFormatException {
+    protected int parseOneBasedIndexToZeroBased(String input) throws BadIndexException {
         try {
             return Integer.parseUnsignedInt(input) - 1;
         } catch (NumberFormatException e) {
-            throw new NumberFormatException("I need an unsigned integer as index, "
-                    + "I can't parse this index: " + input);
+            throw new BadIndexException(input);
         }
     }
 
