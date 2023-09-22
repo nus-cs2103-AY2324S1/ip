@@ -262,3 +262,23 @@ Now you have 5 tasks in the list
 -------------------------------------------
 ```
 
+### `bye` - say bye to Duke!
+
+Duke will save the task list and reply. Dukey will still be usable afterwards.
+
+Format: `bye`
+
+- Dukey will reply
+
+Example of usage:
+
+`bye`
+
+Expected outcome:
+
+Dukey replies to the bye. Data file saved to hard drive.
+
+```
+Bye bye! Hope to see you again! o(^w^)o
+```
+
