@@ -11,6 +11,15 @@ public class Todo extends Task {
     }
 
     /**
+     * Constructor for task with tag loaded from Storage.
+     * 
+     * @param description Description of task.
+     * @param tag Tag of task.
+     */
+    public Todo(String description, String tag) {
+        super(description, tag);
+    }
+    /**
      * toString method for todo.
      *
      * @return String representation of todo.

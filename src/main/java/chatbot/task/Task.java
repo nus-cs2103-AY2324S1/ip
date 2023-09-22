@@ -26,6 +26,19 @@ public class Task {
         this.isDone = false;
         this.tag = new Tag();
     }
+    
+    /**
+     * Constructor for a task.
+     * 
+     * @param description The task description.
+     * @param tag The tag of the task.
+     */
+    public Task(String description, String tag) {
+        this.description = description;
+        this.isDone = false;
+        this.tag = new Tag();
+        this.tag.setDesc(tag);
+    }
 
     /**
      * Returns an X if the task is done.

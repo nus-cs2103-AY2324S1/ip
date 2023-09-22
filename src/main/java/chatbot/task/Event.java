@@ -40,6 +40,20 @@ public class Event extends Task {
     }
 
     /**
+     * Constructor for Event loaded from Storage with tag.
+     * 
+     * @param description Description of task.
+     * @param start Start time of event as LocalDate.
+     * @param end End time of event as LocalDate.
+     * @param tag Tag of the event.
+     */
+    public Event(String description, LocalDate start, LocalDate end, String tag) {
+        super(description, tag);
+        this.start = start;
+        this.end = end;
+    }
+
+    /**
      * toString method for Event.
      *
      * @return String representation of event.

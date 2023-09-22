@@ -50,14 +50,19 @@ public class Storage {
         int from = task.indexOf("(from: ");
         int to = task.indexOf("to: ");
         String description = task.substring(7, from - 1);
+        
         LocalDate start = LocalDate.parse(task.substring(from + 7, to - 1),
                 DateTimeFormatter.ofPattern("MMM d yyyy"));
         LocalDate end = LocalDate.parse(task.substring(to + 4, task.length() - 1),
                 DateTimeFormatter.ofPattern("MMM d yyyy"));
 
         checkFileInputIsNotBlank(description);
-
-        taskList.add(new Event(description, start, end));
+        int tag = description.indexOf("#");
+        if (tag >= 0) {
+            taskList.add(new Event(description.substring(0, tag - 1), start, end, description.substring(tag + 1)));
+        } else {
+            taskList.add(new Event(description, start, end));
+        }
     }
 
     private void loadDeadlineFromFile(TaskList taskList, String task) throws InvalidFileFormatException {
@@ -68,7 +73,12 @@ public class Storage {
 
         checkFileInputIsNotBlank(description);
 
-        taskList.add(new Deadline(description, deadline));
+        int tag = description.indexOf("#");
+        if (tag >= 0) {
+            taskList.add(new Deadline(description.substring(0, tag - 1), deadline, description.substring(tag + 1)));
+        } else {
+            taskList.add(new Deadline(description, deadline));
+        }
     }
 
     private void loadTodoFromFile(TaskList taskList, String task) throws InvalidFileFormatException {
@@ -76,7 +86,12 @@ public class Storage {
 
         checkFileInputIsNotBlank(description);
 
-        taskList.add(new Todo(description));
+        int tag = description.indexOf("#");
+        if (tag >= 0) {
+            taskList.add(new Todo(description.substring(0, tag - 1), description.substring(tag + 1)));
+        } else {
+            taskList.add(new Todo(description));
+        }
     }
 
     /**
