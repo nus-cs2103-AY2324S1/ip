@@ -33,6 +33,7 @@ public class TaskList {
         int count = 1;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Here are the tasks in your list:\n");
+
         for (Task task: tasks) {
             String string = String.format("%d.%s\n", count, task);
             stringBuilder.append(string);
@@ -53,10 +54,12 @@ public class TaskList {
         if (tasks.size() < 1) {
             throw new TaskListEmptyException("OOPS!!! You cannot delete an empty list.");
         }
+
         int number = Integer.parseInt(taskNumber);
         string += "Noted. I've removed this task:\n"
                 + tasks.get(number - 1)
                 + "\n";
+
         tasks.remove(number - 1);
         // Update the file
         storage.rewriteFile(this.tasks);
@@ -85,9 +88,10 @@ public class TaskList {
      */
     public String unmarkTaskDone(String taskNumber) {
         String string = "";
+
         Task currentTask = tasks.get(Integer.parseInt(taskNumber) - 1);
         currentTask.setNotDone();
-        System.out.println(Ui.line);
+
         storage.rewriteFile(this.tasks);
         string += "Nice! I've unmarked this task as done:\n" + currentTask;
         return string;
@@ -126,10 +130,12 @@ public class TaskList {
         }
 
         tasks.add(task);
+
         try {
             storage.writeTaskToFile(task.toFileString());
         } catch (IOException error) {
-            System.out.println(error.getMessage());
+            string = error.getMessage();
+            return string;
         }
 
         string += "Got it. I've added this task:\n"
@@ -142,6 +148,7 @@ public class TaskList {
         StringBuilder stringBuilder = new StringBuilder();
         int count = 1;
         stringBuilder.append("Here are the matching tasks in your list:\n");
+
         for (Task task: tasks) {
             if (task.getDescription().contains(keyword)) {
                 String string = count + "." + task + "\n";

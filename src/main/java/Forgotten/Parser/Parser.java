@@ -23,6 +23,7 @@ public class Parser {
         String response = "";
         String[] splitMessage = userCommand.split(" ");
         String instruction = splitMessage[0];
+
         switch (instruction) {
             case "bye":
                 response = "Bye. Hope to see you again soon!";
