@@ -119,6 +119,14 @@ public class CatBotJavaFxIo implements UserIo {
 
     @Override
     public void displayTaskList(TaskList taskList) {
+        if (taskList == null) {
+            return;
+        }
+        if (taskList.size() == 0) {
+            send("it's empty rn...");
+            return;
+        }
+
         int i = 1;
         int intlen = 0;
         for (int len = taskList.size(); len > 0; intlen++) {
