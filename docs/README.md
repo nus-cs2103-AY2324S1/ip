@@ -6,7 +6,7 @@ If you can type fast, AB3 can get your task management done faster than traditio
 
 ## Quick Start
 1. Ensure you have `Java 11` or above installed in your computer.
-2. Download the latest `duke.jar` from [here](https://github.com/shuyangk/ip/releases/tag/A-Release)
+2. Download the latest `charlie.jar` from [here](https://github.com/shuyangk/ip/releases/tag/A-Release)
 3. Copy the file to the folder you want to use as the home folder for your task list
 4. Open a command terminal, cd into the folder you put the jar file in, 
    and use the java -jar duke.jar command to run the application.
