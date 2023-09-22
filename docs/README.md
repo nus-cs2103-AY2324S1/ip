@@ -20,8 +20,8 @@ Tags can be added to each task to make recognizing them easier
 
 ## Getting started
 
-1. Go [here](https://github.com/Eola-Z/ip/releases) and install the `v.1.0` .jar file
-2. Run `javac duke.jar`
+1. Go [here](https://github.com/Eola-Z/ip/releases) and install the `v.1.0.0` .jar file
+2. Run `java -jar release.jar`
 3. Enjoy the pain!
 
 ## Usage
