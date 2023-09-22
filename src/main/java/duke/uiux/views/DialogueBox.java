@@ -43,6 +43,7 @@ public class DialogueBox extends HBox {
         }
 
         dialogue.setText(text);
+        dialogue.setPrefHeight(USE_COMPUTED_SIZE);
         displayPicture.setFill(new ImagePattern(img));
         BackgroundFill bf = new BackgroundFill(paint, new CornerRadii(0), null);
         this.setBackground(new Background(bf));

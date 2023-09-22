@@ -12,7 +12,7 @@ public abstract class Item {
     }
 
     /**
-     * Mark this item as completed.
+     * Marks this item as completed.
      */
     public void markCompleted() {
         this.isCompleted = true;
