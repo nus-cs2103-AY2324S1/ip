@@ -69,6 +69,7 @@ public class TaskTextEncoder implements TaskEncoder, TaskVisitor {
 
     @Override
     public String encode(List<Task> tasks) {
+        tasksOut.setLength(0);
         for (Task task : tasks) {
             task.accept(this);
         }

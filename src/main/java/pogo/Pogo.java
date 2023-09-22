@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -63,6 +64,7 @@ public class Pogo extends Application {
         Command command = Parser.parseCommand(input);
         command.setData(tasks);
         CommandResult result = command.execute();
+        storage.save(tasks);
         if (isExit(result)) {
             stop();
         }
@@ -91,9 +93,6 @@ public class Pogo extends Application {
 
     @Override
     public void stop() {
-        fxmlLoader.<MainWindow>getController().showToUser(
-                Messages.EXIT_MESSAGE
-        );
-        storage.save(tasks);
+        Platform.exit();
     }
 }

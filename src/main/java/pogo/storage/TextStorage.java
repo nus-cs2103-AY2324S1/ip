@@ -72,9 +72,10 @@ public class TextStorage implements Storage {
         }
 
         try {
-            FileWriter fw = new FileWriter(TASKS_FILE);
+            FileWriter fw = new FileWriter(TASKS_FILE, false);
             System.out.println("Saving tasks to " + TASKS_FILE);
-            fw.write(encoder.encode(tasks));
+            String encodedTasks = encoder.encode(tasks);
+            fw.write(encodedTasks);
             fw.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks");
