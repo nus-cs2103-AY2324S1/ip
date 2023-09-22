@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("aichan.Launcher")
+    mainClass.set("aichan.gui.Launcher")
 }
 
 shadowJar {
