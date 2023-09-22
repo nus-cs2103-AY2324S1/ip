@@ -19,7 +19,7 @@ import java.util.Locale;
 public class TimeParser {
     public static LocalDate today = LocalDate.now();
 
-    public static LocalTime now = LocalTime.now();
+    public static LocalTime timeNow = LocalTime.now();
 
     /**
      * Parses date input for display
@@ -33,6 +33,10 @@ public class TimeParser {
                 "MMM d yyyy", "MMM d yy", "d MMM yyyy", "d MMM yy"
         };
         String[] formatsWithoutYear = {"dd/MM", "dd/M", "dd-M", "dd-MM", "MMM d", "d MMM"};
+
+        if (input.contains(" ")) {
+            input = formatDateWithWords(input);
+        }
 
         for (String format : formatsWithYear) {
             try {
@@ -61,6 +65,23 @@ public class TimeParser {
         }
         // if failed all formats throw exception
         throw new IllegalDateTimeException("Date or date format is invalid");
+    }
+
+    public static String formatDateWithWords(String date) {
+        StringBuilder result = new StringBuilder();
+
+        // Split the input into words
+        String[] words = date.split("\\s+");
+        for (String word : words) {
+            if (!word.isEmpty()) {
+                // Capitalize the first letter and convert the rest to lowercase
+                String capitalizedWord = Character.toUpperCase(word.charAt(0)) +
+                        word.substring(1).toLowerCase();
+
+                result.append(capitalizedWord).append(" ");
+            }
+        }
+        return result.toString().trim(); // Remove trailing space
     }
 
     /**
@@ -134,31 +155,49 @@ public class TimeParser {
         String exceptionMessage = "";
         boolean firstElementNotDate = false;
 
-        try {
-            out[0] = parseDateOut(dateTime[0]);
-        } catch (IllegalDateTimeException e) {
-            exceptionMessage += (e.getMessage() + "\n");
-            firstElementNotDate = true;
-        }
-        if (firstElementNotDate) {
+        String missingComma = "If you are putting both date and time, you might have missed \", \" "
+                + "between the date and the time\n (e.g. \"1 Jan, 5pm\").\n"
+                + "Try \"help datetime\" to learn more about accepted date time formats";
+
+        if (dateTime.length ==  2) {
             try {
-                out[1] = parseTimeOut(dateTime[0]);
+                out[0] = parseDateOut(dateTime[0]);
             } catch (IllegalDateTimeException e) {
-                exceptionMessage += (e.getMessage() + "\n");
+                exceptionMessage += (e.getMessage() + ". ");
+            }
+            try {
+                out[1] = parseTimeOut(dateTime[1]);
+            } catch (IllegalDateTimeException e) {
+                exceptionMessage += (e.getMessage() + ". ");
+            }
+            if (exceptionMessage.isEmpty()) {
+                return out;
+            } else {
+                throw new IllegalDateTimeException(exceptionMessage);
+            }
+        } else if (dateTime.length == 1){
+            try {
+                out[0] = parseDateOut(dateTime[0]);
+            } catch (IllegalDateTimeException e) {
+                exceptionMessage += (e.getMessage() + ". ");
+                firstElementNotDate = true;
+            }
+            if (firstElementNotDate) {
+                try {
+                    out[1] = parseTimeOut(dateTime[0]);
+                } catch (IllegalDateTimeException e) {
+                    exceptionMessage += (e.getMessage() + ". ");
+                }
+            }
+            if (out[0] == null && out[1] == null) {
+                throw new IllegalDateTimeException(exceptionMessage += missingComma);
+            } else {
+                return out;
             }
         } else {
-            if (dateTime.length == 2) {
-                out[1] = parseTimeOut(dateTime[1]);
-            }
+            throw new IllegalDateTimeException("Not sure what you did there but I couldn't understand "
+                    + "your date time input");
         }
-        if (out[0] == null && out[1] == null) {
-            throw new IllegalDateTimeException(exceptionMessage
-                    + "Common date time format errors are missing commas between date and time "
-                    + "or invalid date or time formats. An example of valid date time format:\n"
-                    + "\"1 Jan, 5pm\"\n"
-                    + "try \"help datetime\" to learn more about accepted date time formats");
-        }
-        return out;
     }
 
     /**
@@ -199,5 +238,23 @@ public class TimeParser {
 
     public static String getTodayString() {
         return today.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+    }
+
+    public static String getNextDateOfTime(String timeString) throws IllegalDateTimeException {
+        LocalTime time = LocalTime.parse(timeString,
+                DateTimeFormatter.ofPattern("h:mm a"));
+        if (time.isBefore(timeNow)) {
+            return today.plusDays(1).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        }
+        return getTodayString();
+    }
+
+    public static String getNextDateOfTime(String startTimeString, String endtimeString,String endDateString)
+            throws IllegalDateTimeException {
+        if (endDateString == null) {
+            return getNextDateOfTime(endtimeString);
+        } else {
+            return getNextDateOfTime(startTimeString);
+        }
     }
 }

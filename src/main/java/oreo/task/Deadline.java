@@ -1,15 +1,16 @@
 package oreo.task;
 
 import oreo.datetime.TimeParser;
+import oreo.exception.IllegalDateTimeException;
 
 public class Deadline extends Task {
     private String date;
 
     private String time;
 
-    public Deadline(String d, String date, String time) {
+    public Deadline(String d, String date, String time) throws IllegalDateTimeException {
         super(d);
-        this.date = (date == null) ? TimeParser.getTodayString() : date;
+        this.date = (date == null) ? TimeParser.getNextDateOfTime(time) : date;
         this.time = time;
     }
 
