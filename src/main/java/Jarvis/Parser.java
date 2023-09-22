@@ -223,13 +223,14 @@ public class Parser {
 
             }
             tasks.appendTask(newTask);
-            return Ui.getTaskMessage(tasks);
+            return Ui.getTaskMessage(newTask, tasks);
 
         } else if (deleteMatcher.matches()) { // if delete is entered
             int taskNum = Integer.parseInt(deleteMatcher.group(2));
             if (tasks.isValidTaskNumber(taskNum)) {
                 tasks.deleteTask(taskNum - 1);
-                return Ui.getDeleteMessage(tasks);
+                Task deletedTask = tasks.getTask(taskNum);
+                return Ui.getDeleteMessage(deletedTask ,tasks);
             }
 
         } else if (findMatcher.matches()) { // if find is entered

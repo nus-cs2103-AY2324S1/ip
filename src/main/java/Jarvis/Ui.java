@@ -11,7 +11,7 @@ public class Ui {
     private static final String markInforming = "Roger that Sir, I've marked this task as done:";
     private static final String uncheckInforming = "Noted Sir, I've marked this task as NOT done yet:";
     private static final String taskInforming = "As you please Sir, I've added the task:";
-    private static final String deleteInforming = "Alright Sir, I've removed this task";
+    private static final String deleteInforming = "Alright Sir, I've removed this task:";
     private static final String findInforming = "Here are the matching tasks in your list Sir:";
 
     public static String printGreeting() {
@@ -23,11 +23,13 @@ public class Ui {
     }
 
     public static String getMarkMessage(Task currentTask) {
-        return markInforming + "\n" + currentTask.toString();
+        return markInforming + "\n" +
+               "    " + currentTask.toString();
     }
 
     public static String getUncheckMessage(Task currentTask) {
-        return uncheckInforming + "\n" + currentTask.toString();
+        return uncheckInforming + "\n" +
+                "   " + currentTask.toString();
     }
 
     public static String getListOfCommands(ArrayList<String> validCommands, Exception e) {
@@ -66,12 +68,16 @@ public class Ui {
         }
     }
 
-    public static String getTaskMessage(TaskList tasks) {
-        return taskInforming + "\n" + "You have now " + tasks.countTask() + " tasks in the list Sir.";
+    public static String getTaskMessage(Task task,TaskList tasks) {
+        return taskInforming + "\n" +
+                "   " + task.toString() + "\n" +
+                "You have now " + tasks.countTask() + " tasks in the list Sir.";
     }
 
-    public static String getDeleteMessage(TaskList tasks) {
-        return deleteInforming + "\n" + "You have now " + tasks.countTask() + " tasks in the list Sir.";
+    public static String getDeleteMessage(Task task, TaskList tasks) {
+        return deleteInforming + "\n" +
+                "   " + task.toString() + "\n" +
+                "You have now " + tasks.countTask() + " tasks in the list Sir.";
     }
 
     public static String getTaskList(TaskList tasks) {
