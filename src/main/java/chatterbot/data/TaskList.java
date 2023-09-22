@@ -107,4 +107,13 @@ public class TaskList {
         return list.get(taskIndex);
     }
 
+    public boolean isDuplicate(String description) {
+        for (int i = 0; i < getSize(); i++) {
+            if (getTask(i).contains(description)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

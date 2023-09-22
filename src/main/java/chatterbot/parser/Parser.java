@@ -53,8 +53,12 @@ public class Parser {
                     String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
                     Deadline d = new Deadline(deadlineDescription, deadlineBy);
                     assert d != null : "Deadline to add cannot be null.";
-                    taskList.addTask(d, storage);
-                    response = ui.showAddedDeadline(d);
+                    if (!taskList.isDuplicate(deadlineDescription)) {
+                        taskList.addTask(d, storage);
+                        response = ui.showAddedDeadline(d);
+                    } else {
+                        response = "Duplicate task entered! Task not added to list.";
+                    }
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input!");
                 }
@@ -65,8 +69,12 @@ public class Parser {
                     }
                     Todo td = new Todo(userMessage.substring(5));
                     assert td != null : "Todo to add cannot be null.";
-                    taskList.addTask(td, storage);
-                    response = ui.showAddedTodo(td);
+                    if (!taskList.isDuplicate(userMessage.substring(5))) {
+                        taskList.addTask(td, storage);
+                        response = ui.showAddedTodo(td);
+                    } else {
+                        response = "Duplicate task entered! Task not added to list.";
+                    }
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
                 }
@@ -81,8 +89,12 @@ public class Parser {
                     String eventFrom = eventSplit[2].substring(3);
                     Event e = new Event(eventDescription, eventTo, eventFrom);
                     assert e != null : "Event to add cannot be null.";
-                    taskList.addTask(e, storage);
-                    response = ui.showAddedEvent(e);
+                    if (!taskList.isDuplicate(eventDescription)) {
+                        taskList.addTask(e, storage);
+                        response = ui.showAddedEvent(e);
+                    } else {
+                        response = "Duplicate task entered! Task not added to list.";
+                    }
                 } catch (IllegalArgumentException e) {
                     System.out.println("OOPS!!! Invalid input!");
                 }
