@@ -2,7 +2,6 @@ T | 0 |  eat
 T | 1 |  sleep
 T | 0 |  have fun
 T | 0 |  forensic lecture
-D | 0 |  ip | 2023-09-22T23:59
 N | the food at deck is nubbad
 N | i needa study harder
 N | gotta refactor this later
