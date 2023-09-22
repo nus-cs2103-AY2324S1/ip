@@ -262,9 +262,9 @@ Now you have 5 tasks in the list
 -------------------------------------------
 ```
 
-### `bye` - say bye to Duke!
+### `bye` - say bye to Dukey!
 
-Duke will reply. Dukey will still be usable afterwards.
+Dukey will reply. Dukey will still be usable afterwards.
 
 Format: `bye`
 
