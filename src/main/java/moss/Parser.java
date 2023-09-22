@@ -18,7 +18,7 @@ public class Parser {
      * @param storage The storage object for saving and loading tasks.
      * @throws MossException If there's an issue with task management.
      */
-    public String execute(String message, ArrayList<Task> things, moss.Storage storage) throws moss.MossException {
+    public String execute(String message, ArrayList<Task> things, Storage storage) throws moss.MossException {
         return moss.TaskList.command(message, things, storage);
     }
 }

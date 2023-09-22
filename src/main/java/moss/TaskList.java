@@ -18,6 +18,7 @@ public class TaskList {
      */
     public static String command(String message, ArrayList<Task> things, Storage storage) throws MossException {
         String output = "";
+        things = (ArrayList<Task>) storage.loadTasks();
         if (message.equals("bye")){
             UI ui = new UI();
             return ui.bye();
@@ -26,7 +27,7 @@ public class TaskList {
             // List all tasks
             String temp = "";
             for (int i = 0; i < things.size(); i++) {
-                temp += (i + 1) + (".") + (things.get(i).toString("x"));
+                temp += (i + 1) + (".") + (things.get(i).toString("x")) + "\n";
             }
             output += "___________________________________________________________\n"
                     + "Here are the tasks in your list:\n"
