@@ -74,6 +74,7 @@ public class TaskList {
      * @return String This is the response to the user.
      */
     public String deleteTask(int taskIndex, Storage storage) {
+        Task deletedTask = list.get(taskIndex);
         try {
             assert taskIndex >= 0 && taskIndex < list.size() : "Task index must be within list range.";
             int initialSize = list.size();
@@ -91,7 +92,7 @@ public class TaskList {
         } catch (IOException e) {
             return "Error: File not found.";
         }
-        return "Noted. I've removed this task:\n" + list.get(taskIndex).formatForFile() + "\nNow you have "
+        return "Noted. I've removed this task:\n" + deletedTask.formatForFile() + "\nNow you have "
                 + list.size() + " tasks in the list.";
     }
 
