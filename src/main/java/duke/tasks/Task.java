@@ -68,7 +68,6 @@ public abstract class Task {
         }
     }
 
-    //For testing purposes only
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

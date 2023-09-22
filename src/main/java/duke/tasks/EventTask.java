@@ -56,7 +56,6 @@ public class EventTask extends Task {
         return "E|" + super.toData() + "|" + from + "|" + to;
     }
 
-    //For testing purposes only
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
