@@ -36,6 +36,7 @@ public class Parser {
             return new DeleteCommand(commandWord, arguments);
         case "bye":
             Platform.exit();
+            break;
         case "mark":
             return new MarkCommand(commandWord, arguments);
         case "unmark":
@@ -47,5 +48,6 @@ public class Parser {
         default:
             return new HelpCommand(commandWord, arguments);
         }
+        return null;
     }
 }
