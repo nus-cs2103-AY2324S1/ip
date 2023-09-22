@@ -46,14 +46,14 @@ test {
 }
 
 application {
+    mainClassName = 'mattbot.command.Launcher'
     mainClass.set("mattbot.command.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "mattbot"
-    archiveVersion = "0.1"
+    archiveVersion = "0.2"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
