@@ -4,12 +4,10 @@ import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import java.util.Scanner;
 
 /**
  * Personal assistant chatbot that can help you manage a task list.
@@ -21,7 +19,6 @@ public class Duke extends Application {
     private static String filePath = "./data/duke.txt";
 
     private String name = "Moira";
-    private boolean isReceivingInput = false;
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
@@ -59,13 +56,6 @@ public class Duke extends Application {
     }
 
     /**
-     * Stops the chatbot from receiving user input.
-     */
-    public void stopReceivingInput() {
-        isReceivingInput = false;
-    }
-
-    /**
      * Returns the TaskList stored by the chatbot.
      *
      * @return The TaskList stored by the chatbot.
@@ -85,27 +75,6 @@ public class Duke extends Application {
         return ui;
     }
 
-    //For testing purposes
-    /**
-     * Changes the path of the file storing TaskList data to the specified path.
-     * This method should only be used for testing purposes.
-     *
-     * @param path The intended path of the data file as a string.
-     */
-    public static void changeFilePath(String path) {
-        filePath = path;
-    }
-
-    //For testing purposes
-    public static boolean getIsReceivingInput() {
-        return duke.isReceivingInput;
-    }
-
-    //For testing purposes
-    public static void setIsReceivingInput(boolean isReceivingInput) {
-        Duke.duke.isReceivingInput = isReceivingInput;
-    }
-
     /**
      * Cleans up and exits the application.
      */
@@ -115,7 +84,6 @@ public class Duke extends Application {
     }
 
     private void exit() {
-        isReceivingInput = false;
         storage.saveData();
     }
 }

@@ -40,7 +40,6 @@ public class ToDoTask extends Task {
         return "T|" + super.toData();
     }
 
-    //For testing purposes only
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
