@@ -1,5 +1,7 @@
 package sisyphus.task;
 
+import sisyphus.parser.DateFormatter;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -33,23 +35,14 @@ public class Deadline extends Task {
     }
 
     /**
-     * Formats localDate into MMM d yyyy format.
-     *
-     * @param localDate
-     * @return formatted date in MMM d yyyy format.
-     */
-    public String formatDate(LocalDate localDate) {
-        return localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-    }
-
-    /**
      * Returns string representation.
      *
      * @return string representation of deadline with status icon and deadline.
      */
     @Override
     public String toString() {
-        return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: " + formatDate(this.deadline) + ")";
+        return "[D][" + this.getStatusIcon() + "] " + this.description + " (by: "
+                + DateFormatter.formatDate(this.deadline) + ")";
     }
 
     /**

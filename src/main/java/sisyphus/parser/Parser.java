@@ -200,19 +200,19 @@ public class Parser {
     public String runEventCommand(String params, TaskList taskList, Storage storage, Ui ui) throws SisyphusException {
         String description;
         String fromAndToTime;
-        String from;
-        String to;
+        LocalDate fromDate;
+        LocalDate toDate;
         try {
             description = params.split(" /from ")[0];
             fromAndToTime = params.split(" /from ")[1];
-            from = fromAndToTime.split(" /to ")[0];
-            to = fromAndToTime.split(" /to ")[1];
+            fromDate = LocalDate.parse(fromAndToTime.split(" /to ")[0]);
+            toDate = LocalDate.parse(fromAndToTime.split(" /to ")[1]);
         } catch (Exception e) {
             throw new SisyphusException("Include the description, from and to time for an event. \nHere is"
-                    + " an example: event roll boulder /from past /to eternity");
+                    + " an example: event roll boulder /from 2003-12-31 /to 2033-10-10");
         }
 
-        Event eventTask = new Event(description, from, to);
+        Event eventTask = new Event(description, fromDate, toDate);
         assert eventTask != null : "Ensure that event is created";
         taskList.addTask(eventTask);
         storage.writeFile(taskList);
