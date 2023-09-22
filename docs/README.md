@@ -1,6 +1,5 @@
 # Kora User Guide
-> Kora is an English speaking Korean bot in Singapore!
-> It can help you keep track of todos, deadlines, events and many more!
+> Kora is an English speaking Korean bot in Singapore! It can help you keep track of todos, deadlines, events and many more!
 ## Table of Content
 1. Getting Started
 2. Commands
