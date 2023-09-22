@@ -3,6 +3,9 @@ package sisyphus.parser;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class to format dates.
+ */
 public class DateFormatter {
 
     /**

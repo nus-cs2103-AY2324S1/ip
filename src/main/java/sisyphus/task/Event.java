@@ -1,8 +1,9 @@
 package sisyphus.task;
 
+import java.time.LocalDate;
+
 import sisyphus.parser.DateFormatter;
 
-import java.time.LocalDate;
 
 /**
  * Event class that inherits Task to store events.

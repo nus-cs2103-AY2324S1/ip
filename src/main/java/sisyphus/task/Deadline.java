@@ -1,9 +1,9 @@
 package sisyphus.task;
 
+import java.time.LocalDate;
+
 import sisyphus.parser.DateFormatter;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Class for deadline to store deadline as localDate.

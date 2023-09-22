@@ -27,6 +27,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image sisyphusImage = new Image(this.getClass().getResourceAsStream("/images/sisyphus.jpg"));
 
+    /**
+     * Initialises scene with greeting.
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().add(DialogBox.getSisyphusDialog(Ui.greet(), sisyphusImage));
