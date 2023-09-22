@@ -41,6 +41,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Generates a startup message to be displayed to the user.
+     *
+     * @return A string representing the startup message.
+     */
     public String generateStartupMessage() {
         assert ui != null : "ui should be created before this method is called";
         assert startupFileLoadMessage != null : "startupFileLoadMessage should be populated";

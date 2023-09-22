@@ -8,10 +8,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Represents a wrapper class for the Duke chatbot application.
+ */
 public class DukeGuiWrapper extends Application {
 
     private final Duke duke = new Duke("data/duke.txt");
 
+    /**
+     * Starts the Duke chatbot application.
+     *
+     * @param stage The stage to be used for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {
@@ -25,6 +33,5 @@ public class DukeGuiWrapper extends Application {
             e.printStackTrace();
         }
     }
-
 
 }

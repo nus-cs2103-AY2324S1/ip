@@ -9,6 +9,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Represents the main window of the Duke chatbot application.
+ */
 public class DukeWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -22,11 +25,19 @@ public class DukeWindow extends AnchorPane {
     private Button sendButton;
     private Duke duke;
 
+    /**
+     * Initializes the main window of the Duke chatbot application.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke instance to be used by the application.
+     *
+     * @param d The Duke instance to be used by the application.
+     */
     public void setDuke(Duke d) {
         duke = d;
         dialogContainer.getChildren().addAll(

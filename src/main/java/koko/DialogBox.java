@@ -40,10 +40,25 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    /**
+     * Returns a DialogBox with the specified text and image.
+     *
+     * @param text The text to be displayed.
+     * @param img  The image to be displayed.
+     * @return A DialogBox with the specified text and image.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Returns a DialogBox with the specified text and image.
+     * The dialog box is flipped such that the ImageView is on the left and text on the right.
+     *
+     * @param text The text to be displayed.
+     * @param img  The image to be displayed.
+     * @return A DialogBox with the specified text and image.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

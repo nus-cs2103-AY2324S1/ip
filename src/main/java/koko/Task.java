@@ -45,6 +45,7 @@ public abstract class Task {
 
     /**
      * Returns the file representation of the task.
+     *
      * @return A string representing the task in the file format.
      */
     public abstract String toFileFormat();
