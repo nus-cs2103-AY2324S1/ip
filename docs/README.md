@@ -1,4 +1,4 @@
-# User Guide
+# Anto User Guide
 Anto is a desktop chatbot app for managing tasks via a Graphical User Interface (GUI). Anto includes features such as
 adding to do tasks, deadlines and events, viewing schedules for the day and finding certain tasks.
 
