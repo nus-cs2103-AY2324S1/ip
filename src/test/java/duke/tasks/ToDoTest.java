@@ -19,6 +19,14 @@ public class ToDoTest {
     }
 
     @Test
+    public void markAsDone_markToDoAsDone_success() {
+        ToDo todo = new ToDo("read book");
+        todo.markAsDone();
+        assertEquals("[T][X] read book", todo.toString());
+    }
+
+
+    @Test
     public void createToDoFromCommand_createToDoObject_success() throws Exception {
         ToDo todo = ToDo.createToDoFromCommand("todo read book");
         assertEquals("[T][ ] read book", todo.toString());
