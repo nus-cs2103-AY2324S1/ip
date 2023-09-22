@@ -34,7 +34,8 @@ Example:
 todo Water Plants
 ```
 Outcome:
-![Confirmation of Todo creation.](examples/todo.png)
+
+![Confirmation of Todo creation.](examples/todo.png =width)
 Confirmation of Todo creation.
 #### Deadline
 A Deadline is an item with a singular due date.
@@ -47,7 +48,9 @@ Example:
 deadline Write on Derek's birthday card /by 20231029T2359
 ```
 Outcome:
+
 ![Confirmation of Deadline creation.](examples/deadline.png)
+
 #### Event
 An Event is a Task with a start date and an end date.
 Creating a Deadline:
