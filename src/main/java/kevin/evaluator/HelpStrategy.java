@@ -35,7 +35,7 @@ public class HelpStrategy extends BaseStrategy {
                 .append("2. deadline <taskName> /by <date> \n\tmake a new deadline task. \n\t")
                 .append("date format: \"d/MM/yyyy HHmm\" or \"dd/MM/yyyy HHmm\"\n")
                 .append("3. event <taskName> /from <startingTime> /to <endingTime>")
-                .append("\n\tmake a new event task.")
+                .append("\n\tmake a new event task.\n")
                 .append("4. list \n\tlist all your tasks\n")
                 .append("5. mark <indexNumber> \n\tmark task as finished\n")
                 .append("6. unmark <indexNumber> \n\tmark task as unfinished\n")
