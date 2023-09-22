@@ -312,6 +312,10 @@ public class TaskList {
         double numOfTasksDone = this.listDoneTasks().size();
         double percentValue = numOfTasksDone / totalNumOfTasks * 100;
 
+        if (totalNumOfTasks == 0) {
+            return 0;
+        }
+
         if (percentValue == 0) {
             return percentValue;
         } else {
