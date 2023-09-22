@@ -100,6 +100,11 @@ public class TaskList {
         return tasks.get(taskNo).toSaveString();
     }
 
+    /**
+     * Checks if the index exceeds the list range.
+     * @param index The index.
+     * @throws TasketException If the index exceeds the range.
+     */
     public void checkIndexRange(int index) throws TasketException {
         if (index <= 0) {
             throw new TasketException(MESSAGE_LESS_THAN_ONE);

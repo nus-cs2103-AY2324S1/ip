@@ -11,6 +11,7 @@ import static tasket.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
@@ -26,7 +27,7 @@ import tasket.ui.Ui;
  */
 public class AddCommand extends Command {
 
-    private String header;
+    private final String header;
 
     /**
      * The constructor for add command.
@@ -82,11 +83,21 @@ public class AddCommand extends Command {
      * @throws TasketException If the description is empty.
      */
     private Task createToDoTask(String prompt) throws TasketException {
-        if (prompt.isEmpty()) {
+        // To separate task elements and tags.
+        String[] taskElements = prompt.split("#", 2);
+        boolean hasTag = taskElements.length == 2;
+
+        if (prompt.isEmpty() || taskElements[0].isEmpty()) {
             throw new TasketException(MESSAGE_EMPTY_TODO_DESC);
         }
 
-        return new ToDo(prompt.trim());
+        if (hasTag) {
+            String[] tags = trimTags(taskElements[1]);
+
+            return new ToDo(taskElements[0].trim(), tags);
+        }
+
+        return new ToDo(taskElements[0].trim());
     }
 
     /**
@@ -97,13 +108,23 @@ public class AddCommand extends Command {
      * @throws TasketException If the description or deadline is empty.
      */
     private Task createDeadlineTask(String prompt) throws TasketException {
-        if (prompt.isEmpty()) {
+        // To separate task elements and tags.
+        String[] taskElements = prompt.split("#", 2);
+        boolean hasTag = taskElements.length == 2;
+
+        if (prompt.isEmpty() || taskElements[0].isEmpty()) {
             throw new TasketException(MESSAGE_EMPTY_DEADLINE_DESC);
         }
 
-        String[] arguments = prompt.replaceAll("/by", "|").split(" \\| ");
+        String[] arguments = taskElements[0].replaceAll("/by", "|").split(" \\| ");
         if (arguments.length < 2) {
             throw new TasketException(MESSAGE_EMPTY_DEADLINE);
+        }
+
+        if (hasTag) {
+            String[] tags = trimTags(taskElements[1]);
+
+            return new Deadline(arguments[0].trim(), convertToDate(arguments[1].trim()), tags);
         }
 
         return new Deadline(arguments[0].trim(), convertToDate(arguments[1].trim()));
@@ -117,17 +138,29 @@ public class AddCommand extends Command {
      * @throws TasketException If description, start or end date is empty.
      */
     private Task createEventTask(String prompt) throws TasketException {
-        if (prompt.isEmpty()) {
+        // To separate task elements and tags.
+        String[] taskElements = prompt.split("#", 2);
+        boolean hasTag = taskElements.length == 2;
+
+        if (prompt.isEmpty() || taskElements[0].isEmpty()) {
             throw new TasketException(MESSAGE_EMPTY_EVENT_DESC);
         }
 
-        String[] arguments = prompt.replaceAll("/from", "|")
+        String[] arguments = taskElements[0].replaceAll("/from", "|")
                 .replaceAll("/to", "|")
                 .split(" \\| ");
+
         if (arguments.length < 2) {
             throw new TasketException(MESSAGE_EMPTY_START);
         } else if (arguments.length < 3) {
             throw new TasketException(MESSAGE_EMPTY_END);
+        }
+
+        if (hasTag) {
+            String[] tags = trimTags(taskElements[1]);
+
+            return new Event(arguments[0].trim(), convertToDate(arguments[1].trim()),
+                    convertToDate(arguments[2].trim()), tags);
         }
 
         return new Event(arguments[0].trim(), convertToDate(arguments[1].trim()),
@@ -148,5 +181,11 @@ public class AddCommand extends Command {
         } catch (DateTimeParseException exception) {
             return deadline;
         }
+    }
+
+    private String[] trimTags(String prompt) {
+        return Arrays.stream(prompt.split("#"))
+                .map(String::trim)
+                .toArray(String[]::new);
     }
 }

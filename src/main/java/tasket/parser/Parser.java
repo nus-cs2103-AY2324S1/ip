@@ -3,6 +3,8 @@ package tasket.parser;
 import static tasket.commons.Messages.MESSAGE_UNABLE_RETRIEVE_TASK;
 import static tasket.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.Arrays;
+
 import tasket.command.AddCommand;
 import tasket.command.ByeCommand;
 import tasket.command.Command;
@@ -31,7 +33,7 @@ public class Parser {
      *
      * @param command The full command from user input.
      * @return A command instance to be executed.
-     * @throws TasketException If the command does not exists.
+     * @throws TasketException If the command does not exist.
      */
     public static Command parseInput(String command) throws TasketException {
         String[] commandParts = command.split(" ", 2);
@@ -65,21 +67,42 @@ public class Parser {
      * @throws TasketException If the string does not follow the respective task formats.
      */
     public static Task parseSaveString(String taskSave) throws TasketException {
-        String[] taskElements = taskSave.split(" \\| ");
+        String[] majorElements = taskSave.split("#", 2);
+        String[] taskElements = majorElements[0].split(" \\| ");
+        String[] tags = null;
         Task task = null;
+        boolean hasTag = majorElements.length == 2;
+
+        if (hasTag) {
+            tags = Arrays.stream(majorElements[1].split("#"))
+                    .map(String::trim)
+                    .toArray(String[]::new);
+        }
 
         switch (taskElements[0]) {
         case "T":
             checkLength(taskElements.length, LENGTH_TODO);
-            task = new ToDo(taskElements[2]);
+            if (hasTag) {
+                task = new ToDo(taskElements[2].trim(), tags);
+            } else {
+                task = new ToDo(taskElements[2]);
+            }
             break;
         case "D":
             checkLength(taskElements.length, LENGTH_DEADLINE);
-            task = new Deadline(taskElements[2], taskElements[3]);
+            if (hasTag) {
+                task = new Deadline(taskElements[2], taskElements[3].trim(), tags);
+            } else {
+                task = new Deadline(taskElements[2], taskElements[3]);
+            }
             break;
         case "E":
             checkLength(taskElements.length, LENGTH_EVENT);
-            task = new Event(taskElements[2], taskElements[3], taskElements[4]);
+            if (hasTag) {
+                task = new Event(taskElements[2], taskElements[3], taskElements[4].trim(), tags);
+            } else {
+                task = new Event(taskElements[2], taskElements[3], taskElements[4]);
+            }
             break;
         default:
             throw new TasketException(MESSAGE_UNABLE_RETRIEVE_TASK);
