@@ -1,6 +1,6 @@
 # Buddy
 
-Hi, I'm Buddy, excited to meet you! Keeping track of your tasks can be extremely tiring so fear not, because I'm here to save the day!
+Hi, I'm Buddy, excited to meet you! Keeping track of your tasks can be extremely tiring but fear not, because I'm here to save the day!
 
 When you enter, you will be greeted by this message:
 
@@ -10,7 +10,18 @@ Hey there amigo, excited to meet you! I'm Buddy, your friendly chat companion! W
 
 ## Features 
 
-I have the following features:
+Hehe, I have the ability to do the following:
+1. Add new ToDo, Deadline and Event tasks
+2. View the list of tasks you have
+3. Delete a task from the list
+4. Mark a task as done
+5. Mark a task as not done
+6. Find a task matching a keyword
+7. Mass Delete more than one task
+8. Help you if are lost
+9. Say Goodbye to you :(
+
+## Usage
 
 ### `todo` - Add a new ToDo Task
 
@@ -44,7 +55,7 @@ deadline homework /by 2023-08-08 1800
 Expected outcome:
 ```
 No problem! I have added this task:
-[D][] homework (by: Aug 8 2023 6PM)
+[D][] homework (by: Aug 8 2023 06:00 PM)
 Now you have 3 tasks in the list.
 ```
 
@@ -61,7 +72,7 @@ event homework /from 2023-08-08 1800 /to 2023-08-08 2000
 Expected outcome:
 ```
 No problem! I have added this task:
-[E][] homework (from: Aug 8 2023 6PM to: Aug 8 2023 8PM)
+[E][] homework (from: Aug 8 2023 06:00 PM to: Aug 8 2023 08:00 PM)
 Now you have 4 tasks in the list.
 ```
 
@@ -80,8 +91,8 @@ Expected outcome:
 Here are the tasks in your list:
 1. [T][] watch show
 2. [T][] homework
-3. [D][] homework (by: Aug 8 2023 6PM)
-4. [E][] homework (from: Aug 8 2023 6PM to: Aug 8 2023 8PM)
+3. [D][] homework (by: Aug 8 2023 06:00 PM)
+4. [E][] homework (from: Aug 8 2023 06:00 PM to: Aug 8 2023 08:00 PM)
 ```
 
 ### `delete` - Delete a Task from the list
@@ -147,8 +158,8 @@ Expected outcome:
 ```
 Sure, I can do that! What are buddies for after all?
 1. [T][] homework
-2. [D][] homework (by: Aug 8 2023 6PM)
-3. [E][] homework (from: Aug 8 2023 6PM to: Aug 8 2023 8PM)
+2. [D][] homework (by: Aug 8 2023 06:00 PM)
+3. [E][] homework (from: Aug 8 2023 06:00 PM to: Aug 8 2023 08:00 PM)
 ```
 
 ### `massDelete` - Mass delete more than one Task from the list
@@ -182,13 +193,13 @@ Sure buddy I'm always here for you! These are the commands I have and what they 
 4. list: Type this to view your tasks!
 5. delete: Type this to delete a task. Add the task number as well!
 6. mark: Type this to mark a task on the list. Add the task number as well!
-6. unmark: Type this to unmark a task on the list. Add the task number as well!
-7. find: Type this to find a task with the keyword you are searching for
-8. massDelete: Type this to mass delete 2 or more tasks at once! eg: massDelete 1 2
-9. bye: Type this and I will say goodbye :(
+7. unmark: Type this to unmark a task on the list. Add the task number as well!
+8. find: Type this to find a task with the keyword you are searching for
+9. massDelete: Type this to mass delete 2 or more tasks at once! eg: massDelete 1 2
+10. bye: Type this and I will say goodbye :(
 ```
 
-### `bye` - Say GoodBye to Buddy
+### `bye` - Say GoodBye to me :(
 
 Format: `bye`
 Example input:
