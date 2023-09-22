@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.tasklist.TaskList;
 
-public class PrintEventsCommand extends Command {
+public class FilterEventsCommand extends Command {
 
     private static final String COMMAND_RESPONSE = "You have %d events on your list!";
 

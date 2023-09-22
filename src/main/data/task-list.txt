@@ -1,4 +1,4 @@
-Xtodo adsf
- todo asdf
- deadline adsf /by 2023-09-22
- event thing /from 2023-09-22 /to 2023-09-22
+Xtodo homework
+ todo life
+ event thing /from 2023-12-02 /to 2023-12-09
+ deadline thing /by 2023-09-22

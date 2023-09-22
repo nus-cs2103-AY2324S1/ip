@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.tasklist.TaskList;
 
-public class PrintDeadlinesCommand extends Command {
+public class FilterDeadlinesCommand extends Command {
 
     private static final String COMMAND_RESPONSE = "You have %d deadlines on your list!";
 

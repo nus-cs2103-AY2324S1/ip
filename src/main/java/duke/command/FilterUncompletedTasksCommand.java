@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.tasklist.TaskList;
 
-public class PrintUncompletedTasksCommand extends Command {
+public class FilterUncompletedTasksCommand extends Command {
 
     private static final String COMMAND_RESPONSE = "You still have %d of %d tasks uncompleted. Jia you!";
 

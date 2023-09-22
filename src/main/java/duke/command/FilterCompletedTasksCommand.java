@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.tasklist.TaskList;
 
-public class PrintCompletedTasksCommand extends Command {
+public class FilterCompletedTasksCommand extends Command {
 
     private static final String COMMAND_RESPONSE = "Congratulations! You have completed %d of %d tasks!";
 

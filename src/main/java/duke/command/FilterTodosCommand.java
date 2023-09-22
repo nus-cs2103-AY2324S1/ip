@@ -2,7 +2,7 @@ package duke.command;
 
 import duke.tasklist.TaskList;
 
-public class PrintTodosCommand extends Command {
+public class FilterTodosCommand extends Command {
 
     private static final String COMMAND_RESPONSE = "You have %d todos on your list!";
 
