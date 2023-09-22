@@ -24,6 +24,14 @@ public class FileHandler {
      */
     public void fileCreate() {
         try {
+            String directoryPath = "./data";
+            File directory = new File(directoryPath);
+            if (directory.mkdir()) {
+                System.out.println("A directory is created!");
+            } else {
+                System.out.println("There is an existing directory.");
+            }
+
             File file = new File(FILE_PATH);
             if (file.createNewFile()) {
                 System.out.println("A new schedule is created!");
@@ -35,7 +43,7 @@ public class FileHandler {
         }
     }
 
-    /**
+        /**
      * Write the given message to the txt file.
      *
      * @param msg the info to be written.
