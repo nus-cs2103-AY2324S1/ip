@@ -143,7 +143,7 @@ public class TaskManager {
             Task removedTask = tasks.removeTask(index); // Subtracting 1 because ArrayList is 0-based.
             storage.saveToFile(tasks);
 
-            return "Noted. I've removed this task:\n" + removedTask + "Now you have " + tasks.size() + " tasks in the list.";
+            return "Noted. I've removed this task:\n" + removedTask + "\n Now you have " + tasks.size() + " tasks in the list.";
         } catch (IndexOutOfBoundsException e) {
             throw new ChatbotException("Please provide a valid task number to delete.");
         }
