@@ -1,6 +1,7 @@
 package oreo.task;
 
 import oreo.datetime.TimeParser;
+import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 
 public class Event extends Task {
@@ -11,7 +12,8 @@ public class Event extends Task {
     public Event(String d, String fromDate, String fromTime,
                  String toDate, String toTime) throws IllegalDateTimeException {
         super(d);
-        this.fromDate = (fromDate == null) ? TimeParser.getTodayString() : fromDate;
+        eventDateTimeFromToCombinationChecker(fromTime, toTime);
+        this.fromDate = (fromDate == null) ? TimeParser.getNextDateOfTime(fromTime,toTime, toDate) : fromDate;
         this.fromTime = fromTime;
         this.toDate = (toDate == null) ? this.fromDate : toDate;
         this.toTime = toTime;
@@ -19,6 +21,14 @@ public class Event extends Task {
         if (this.fromDate.equals(this.toDate) && this.fromTime != null
         && this.toTime != null) {
             TimeParser.checkValidEventTime(this.fromTime, this.toTime);
+        }
+    }
+
+    private void eventDateTimeFromToCombinationChecker(String fromTime, String toTime)
+            throws IllegalDateTimeException {
+        if ((fromTime != null && toTime == null) || (fromTime == null && toTime != null)) {
+            throw new IllegalDateTimeException("If you have a time in either \"/from\" or \"/to\" "
+                    + "you will need time in both fields! If not Oreo will be lost on what to do!");
         }
     }
 
