@@ -112,14 +112,14 @@ Format: `bye`
 
 ## Command summary
 
-| Action       | Format, Examples                                                                                                              |
-|--------------|-------------------------------------------------------------------------------------------------------------------------------|
-| **Todo**     | `todo [task]` <br> e.g., `todo complete quiz`                                                                                 |
-| **Deadline** | `deadline [task] /by yyyy-mm-dd hhmm` <br> e.g., `deadline submit report /by 2023-09-21 1800`                                 |
-| **Event**    | `event [task] /from yyyy-mm-dd hhmm /to yyyy-mm-dd hhmm` <br> e.g., `event meeting /from 2023-09-21 1400 /to 2023-09-21 1600` |
-| **List**     | `list`                                                                                                                        |
-| **Mark**     | `mark [task number]` <br> e.g., `mark 1`                                                                                      |
-| **Unmark**   | `unmark [task number]` <br> e.g., `unmark 2`                                                                                  |
-| **Delete**   | `delete [task number]` <br> e.g., `delete 3`                                                                                  |
-| **Find**     | `find [keyword]` <br> e.g., `find report`                                                                                     |
-| **Exit**     | `bye`                                                                                                                         |`
+| Action       | Format, Examples                                                                                                              
+|--------------|-------------------------------------------------------------------------------------------------------------------------------
+| **Todo**     | `todo [task]` <br> e.g., `todo complete quiz`                                                                                 
+| **Deadline** | `deadline [task] /by yyyy-mm-dd hhmm` <br> e.g., `deadline submit report /by 2023-09-21 1800`                                 
+| **Event**    | `event [task] /from yyyy-mm-dd hhmm /to yyyy-mm-dd hhmm` <br> e.g., `event meeting /from 2023-09-21 1400 /to 2023-09-21 1600` 
+| **List**     | `list`                                                                                                                        
+| **Mark**     | `mark [task number]` <br> e.g., `mark 1`                                                                                      
+| **Unmark**   | `unmark [task number]` <br> e.g., `unmark 2`                                                                                  
+| **Delete**   | `delete [task number]` <br> e.g., `delete 3`                                                                                  
+| **Find**     | `find [keyword]` <br> e.g., `find report`                                                                                     
+| **Exit**     | `bye`                                                                                                                         
