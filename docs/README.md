@@ -415,7 +415,7 @@ sort [SORT ORDER] [SORT BY]
 > * `d` OR `des` OR `descript` OR `description`: Sorts the list by task description
 > * `s` OR `st` OR `start`: Sorts the list by start date
 > * `e` OR `en` OR `end`: Sorts the list by end date
-> * `d` OR `dead` OR `deadln` OR `deadline`: Sorts the list by deadline
+> * `dl` OR `dead` OR `deadln` OR `deadline`: Sorts the list by deadline
 
 #### Examples
 
