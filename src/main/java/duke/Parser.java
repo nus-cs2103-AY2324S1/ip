@@ -170,7 +170,7 @@ public class Parser {
             throw new RichieException("deadline command should be entered in this format for example : " +
                     "'deadline do homework /by 2/12/2002 0400'");
         }
-        if (!userInput.substring(8, 9).equals(" ")) {
+        if (!userInput.substring(0, 9).equals("deadline ")) {
             throw new RichieException("deadline command should be followed by a space");
         }
         try {
@@ -204,17 +204,17 @@ public class Parser {
             return new ExitCommand();
         } else if (userInput.equals("list")) {
             return new ListCommand();
-        } else if (userInput.substring(0, 4).equals("mark")) {
+        } else if (userInput.length() >= 4 && userInput.substring(0, 4).equals("mark")) {
             return parseMarkInput(userInput);
-        } else if (userInput.substring(0, 4).equals("todo")) {
+        } else if (userInput.length() >= 4 && userInput.substring(0, 4).equals("todo")) {
             return parseTodoInput(userInput);
-        } else if (userInput.substring (0, 4).equals("find")) {
+        } else if (userInput.length() >= 4 && userInput.substring (0, 4).equals("find")) {
             return parseFindInput(userInput);
-        } else if (userInput.substring(0, 5).equals("event")) {
+        } else if (userInput.length() >= 5 && userInput.substring(0, 5).equals("event")) {
             return parseEventInput(userInput);
-        } else if (userInput.substring(0, 6).equals("delete")) {
+        } else if (userInput.length() >= 6 && userInput.substring(0, 6).equals("delete")) {
             return parseDeleteInput(userInput);
-        } else if (userInput.substring(0, 8).equals("deadline")) {
+        } else if (userInput.length() >= 8 && userInput.substring(0, 8).equals("deadline")) {
             return parseDeadlineInput(userInput);
         }
         throw new RichieException("No command detected, please enter a valid command");

@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParserTest {
 
     @Test
-    void parse_byeString_byeCommand() {
+    void bye_byeString_byeCommand() {
         try {
             Command c = Parser.parse("bye");
             assertTrue(c instanceof ExitCommand);
@@ -24,7 +24,7 @@ class ParserTest {
     }
 
     @Test
-    void parse_listString_listCommand() {
+    void list_listString_listCommand() {
         try {
             Command c = Parser.parse("list");
             assertTrue(c instanceof ListCommand);
@@ -34,17 +34,17 @@ class ParserTest {
     }
 
     @Test
-    void parse_markEmptyIndexString_exception() {
+    void mark_onlyCommandWord_exception() {
         try {
             Command c = Parser.parse("mark");
             fail("Exception should be thrown by mark command with empty index");
         } catch (RichieException e) {
-            assertEquals("Incomplete input, please specify which task to mark", e.getMessage());
+            assertEquals("mark command should be entered in this format for example : 'mark 1'", e.getMessage());
         }
     }
 
     @Test
-    void parse_markCharString_exception() {
+    void mark_markCharString_exception() {
         try {
             Command c = Parser.parse("mark hello");
             fail("Exception should be thrown by mark command followed by non-int");
@@ -61,17 +61,17 @@ class ParserTest {
     }
 
     @Test
-    void parse_deleteEmptyIndexString_exception() {
+    void delete_onlyCommandWord_exception() {
         try {
             Command c = Parser.parse("delete");
             fail("Exception should be thrown by delete command with empty index");
         } catch (RichieException e) {
-            assertEquals("Incomplete input, please specify which task to delete", e.getMessage());
+            assertEquals("delete command should be entered in this format for example : 'delete 1'", e.getMessage());
         }
     }
 
     @Test
-    void parse_deleteCharString_exception() {
+    void delete_deleteCharString_exception() {
         try {
             Command a = Parser.parse("delete -$%^");
             fail("Exception should be thrown by delete command followed by non-int");
@@ -90,14 +90,6 @@ class ParserTest {
     @Test
     void deadline_missingBy_Exception() {
         try {
-            Command c = Parser.parse("deadline ");
-            fail("Exception should be thrown by deadline command without '/by'");
-        } catch (RichieException e) {
-            assertEquals("OOPS!! please enter '/by' followed by a date and " +
-                    "time that the task should be done by", e.getMessage());
-        }
-
-        try {
             Command a = Parser.parse("deadline homework");
             fail("Exception should be thrown by deadline command without '/by'");
         } catch (RichieException e) {
@@ -115,10 +107,22 @@ class ParserTest {
     }
 
     @Test
-    void deadline_missingDescriptionOrDeadline_Exception() {
+    void deadline_onlyCommandWord_Exception() {
         try {
             Command c = Parser.parse("deadline");
             fail("Exception should be thrown by deadline command without any description");
+        } catch (RichieException e) {
+            assertEquals("deadline command should be entered in this format for example : 'deadline do homework /by 2/12/2002 0400'", e.getMessage());
+        }
+
+    }
+
+
+    @Test
+    void deadline_missingDescriptionOrDeadline_Exception() {
+        try {
+            Command c = Parser.parse("deadline ");
+            fail("Exception should be thrown by deadline command without '/by'");
         } catch (RichieException e) {
             assertEquals("OOPS!! Either the description or the deadline is empty!", e.getMessage());
         }
@@ -216,20 +220,24 @@ class ParserTest {
             Command c = Parser.parse("deadlinehomework");
             fail("Exception should be thrown for no space after deadline command");
         } catch (RichieException e) {
-            assertEquals("No command detected, please ensure that you leave a space after command word"
+            assertEquals("deadline command should be followed by a space"
                     , e.getMessage());
+        }
+    }
+
+
+    @Test
+    void todo_onlyCommandWord_Exception() {
+        try {
+            Command c = Parser.parse("todo");
+            fail("Exception should be thrown by todo command without any description");
+        } catch (RichieException e) {
+            assertEquals("todo command should be entered in this format for example : 'todo homework'", e.getMessage());
         }
     }
 
     @Test
     void todo_missingDescription_Exception() {
-        try {
-            Command c = Parser.parse("todo");
-            fail("Exception should be thrown by todo command without any description");
-        } catch (RichieException e) {
-            assertEquals("OOPS!! The todo description is empty!", e.getMessage());
-        }
-
         try {
             Command b = Parser.parse("todo ");
             fail("Exception should be thrown by todo command without any description");
@@ -279,14 +287,18 @@ class ParserTest {
     }
 
     @Test
-    void event_missingDescriptionOrDeadline_Exception() {
+    void event_onlyCommandWord_Exception() {
         try {
             Command c = Parser.parse("event");
             fail("Exception should be thrown by event command without any description");
         } catch (RichieException e) {
-            assertEquals("OOPS!! The description of a event or the duration of the event is incomplete",
+            assertEquals("event command should be entered in this format for example : 'event homework /from 2/12/2002 1200 /to 2/12/2002 1300'",
                     e.getMessage());
         }
+    }
+
+    @Test
+    void event_missingDescriptionOrDeadline_Exception() {
 
         try {
             Command a = Parser.parse("event /from 2/12/2002 0400 /to 2/12/2002 0500");
@@ -306,7 +318,7 @@ class ParserTest {
     }
 
     @Test
-    void deadline_noSpacesAroundFromOrTo_Exception() {
+    void event_noSpacesAroundFromOrTo_Exception() {
         try {
             Command c = Parser.parse("event homework /from2/12/2002 0400 /to 2/12/2002 0500");
             fail("Exception should be thrown by event command without spaces around '/from' and '/to'");
@@ -387,7 +399,7 @@ class ParserTest {
             Command c = Parser.parse("eventhomework");
             fail("Exception should be thrown for no space after event command");
         } catch (RichieException e) {
-            assertEquals("No command detected, please ensure that you leave a space after command word"
+            assertEquals("todo command should be at the front of the command followed by a space"
                     , e.getMessage());
         }
     }
@@ -398,7 +410,15 @@ class ParserTest {
             Command c = Parser.parse("ajfksjfkdsjf");
             fail("Exception should be thrown when no command word is detected");
         } catch (RichieException e) {
-            assertEquals("No command detected, please ensure that you leave a space after command word"
+            assertEquals("No command detected, please enter a valid command"
+                    , e.getMessage());
+        }
+
+        try {
+            Command c = Parser.parse("aa list");
+            fail("Exception should be thrown when no command word is detected");
+        } catch (RichieException e) {
+            assertEquals("No command detected, please enter a valid command"
                     , e.getMessage());
         }
     }
