@@ -2,6 +2,8 @@ package nobita.task;
 
 import nobita.exception.NobitaException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.StringJoiner;
 
 /**
@@ -12,10 +14,14 @@ import java.util.StringJoiner;
 public class Event extends Task {
 
     /** The start time of the Event */
-    protected String start;
+    private LocalDate start;
+
+    private String startString;
 
     /** The end time of the Event */
-    protected String end;
+    private LocalDate end;
+
+    private String endString;
 
     /**
      * Constructs Deadline using name and due date of Event.
@@ -26,8 +32,10 @@ public class Event extends Task {
      */
     public Event(String taskName, String start, String end) {
         super(taskName);
-        this.start = start;
-        this.end = end;
+        this.startString = start;
+        this.endString = end;
+        this.start = LocalDate.parse(start);
+        this.end = LocalDate.parse(end);
     }
 
     /**
@@ -37,7 +45,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.start + " to: "+ this.end +  ")";
+        return "[E]" + super.toString() + " (from: " + this.start.format(DateTimeFormatter.ofPattern("dd MMM yyyy"))
+                + " to: "+ this.end.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) +  ")";
     }
 
     /**
@@ -48,7 +57,7 @@ public class Event extends Task {
     @Override
     public String toFileFormat() {
         StringJoiner joiner = new StringJoiner(";");
-        joiner.add("E").add(super.toFileFormat()).add(this.start).add(this.end);
+        joiner.add("E").add(super.toFileFormat()).add(this.startString).add(this.endString);
         return joiner.toString();
     }
 
@@ -64,9 +73,11 @@ public class Event extends Task {
         if (updateField.equalsIgnoreCase("name")) {
             return super.setField(updateField, updateValue);
         } else if (updateField.equalsIgnoreCase("/from")) {
-            this.start = updateValue;
+            this.startString = updateValue;
+            this.start = LocalDate.parse(updateValue);
         } else if (updateField.equalsIgnoreCase("/to")) {
-            this.end = updateValue;
+            this.endString = updateValue;
+            this.end = LocalDate.parse(updateValue);
         } else {
             throw new NobitaException("Event task do not have " + updateField + " field.");
         }

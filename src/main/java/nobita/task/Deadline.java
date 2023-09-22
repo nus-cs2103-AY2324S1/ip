@@ -34,7 +34,7 @@ public class Deadline extends Task {
         this.by = by;
         String[] dueDateTime = by.split(" ");
         this.date = LocalDate.parse(dueDateTime[0]); // input format "2016-06-11"
-        this.time = LocalTime.parse(dueDateTime[1]); // input format "06:30"
+//        this.time = LocalTime.parse(dueDateTime[1]); // input format "06:30"
     }
 
     /**

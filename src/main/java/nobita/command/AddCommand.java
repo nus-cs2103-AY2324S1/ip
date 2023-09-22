@@ -60,8 +60,10 @@ public class AddCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.addTask(this.task);
-        return "Got it. I've added this task:\n" + task + "\nNow you have "
+        String outputMessage = "Got it. I've added this task:\n" + task + "\nNow you have "
                 + tasks.getTasksSize() +" tasks in the list.";
+        ui.showMessage(outputMessage);
+        return outputMessage;
     };
 
     /**

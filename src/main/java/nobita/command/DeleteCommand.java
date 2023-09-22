@@ -42,8 +42,10 @@ public class DeleteCommand extends Command{
         }
         assert index >= 0 && index < tasks.getTasksSize() : "Index should be within tasks range";
         Task task = tasks.deleteTask(index);
-        return "Noted. I've removed this task:\n" + task + "\nNow you have " +
+        String outputMessage = "Noted. I've removed this task:\n" + task + "\nNow you have " +
                 tasks.getTasksSize() +" tasks in the list.";
+        ui.showMessage(outputMessage);
+        return outputMessage;
     };
 
     /**
