@@ -21,15 +21,7 @@ public class Parser {
      * Describes the action taken
      * 
      * @param command  User command
-     * @param taskList Takes in a taskList to add/delete/change details
-     *                 in the taskList from done to not done and vice
-     *                 versa
-     * @param ui       Takes in the bot interaction with the user
-     * @param storage  Takes in the storage to store the taskList
-     *                 of the particular user after the user wants to end
-     *                 the program of the bot
-     * @return a boolean that allow the main application to end the program
-     *         when a particular command "bye" is given from the user
+     * @return a command that is to be executed
      * @throws WrongMarkException      if asked to mark a marked file or unmark a
      *                                 file
      *                                 that is not marked
@@ -44,37 +36,50 @@ public class Parser {
         switch (commandType) {
         case "help":
             if (splittedCommand.length > 1) {
-                int helpNumber = Integer.parseInt(splittedCommand[1]);
+                int helpNumber = checkExceptionForIndex(splittedCommand);
                 commandGiven = new DetailedHelpCommand(helpNumber);
             } else {
                 commandGiven = new HelpCommand();
             }
             break;
         case "bye":
-            commandGiven = new ByeCommand();
+            commandGiven = new ByeCommand(command);
             break;
         case "find":
-            String keyword = splittedCommand[1];
+            String keyword = command.replace("find ", "");
             commandGiven = new FindCommand(keyword);
             break;
         case "list":
-            commandGiven = new ListCommand();
+            commandGiven = new ListCommand(command);
             break;
         case "mark":
-            taskNumber = Integer.parseInt(splittedCommand[1]);
+            taskNumber = checkExceptionForIndex(splittedCommand);
             commandGiven = new MarkCommand(taskNumber);
             break;
         case "unmark":
-            taskNumber = Integer.parseInt(splittedCommand[1]);
+            taskNumber = checkExceptionForIndex(splittedCommand);
             commandGiven = new UnmarkCommand(taskNumber);
             break;
         case "delete":
-            taskNumber = Integer.parseInt(splittedCommand[1]);
+            taskNumber = checkExceptionForIndex(splittedCommand);
             commandGiven = new DeleteCommand(taskNumber);
             break;
         default:
             commandGiven = new AddTaskCommand(command);
         }
         return commandGiven;
+    }
+
+    private static int checkExceptionForIndex(String[] splittedCommand) throws UnknownCommandException {
+        int taskNumber = 0;
+        if (splittedCommand.length > 2) {
+            throw new UnknownCommandException("What do you want??!!");
+        }
+        try {
+            taskNumber = Integer.parseInt(splittedCommand[1]);
+        } catch (NumberFormatException e) {
+            throw new UnknownCommandException("How is this a number?!!");
+        }
+        return taskNumber;
     }
 }
