@@ -88,6 +88,9 @@ public class TaskFactory {
             LocalDateTime endEventDate = TimeUtil.parseDateTimeString(
                     argsList.get(1).substring(3).trim()
             );
+            if (startEventDate.isAfter(endEventDate)) {
+                throw new TaskParseException("Error: Start date of the event cannot be after the end date");
+            }
             return new EventTask(taskName, startEventDate, endEventDate);
 
         default:
