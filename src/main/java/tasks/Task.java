@@ -8,6 +8,7 @@ public class Task {
     private final String description;
     private Task oldTask;
     private TaskList list;
+    
 
     /**
      * Constructor for Task class from file inputs
