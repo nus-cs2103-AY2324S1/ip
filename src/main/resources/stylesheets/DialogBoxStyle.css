@@ -1,0 +1,30 @@
+#dialogContainer {
+    -fx-background-color: #fee6a1;
+    -fx-padding: 10px;
+}
+
+#sendButton {
+    -fx-background-color: #6da5bf;
+    -fx-font-size: 15px;
+    -fx-padding: 5px;
+    -fx-border-radius: 10px;
+    -fx-font-family: "Gill Sans";
+}
+
+#userInput {
+    -fx-font-size: 15px;
+    -fx-font-family: "Gill Sans";
+}
+
+.chat-box {
+    -fx-background-color: #6da5bf;
+    -fx-padding: 10px;
+    -fx-text-fill: black;
+    -fx-font-family: "Gill Sans";
+    -fx-font-size: 15px;
+    -fx-background-radius: 10px;
+}
+
+.profile-image {
+    -fx-padding: 10px;
+}

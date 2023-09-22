@@ -66,7 +66,7 @@ public class TaskList {
         listOutput.append("Here are the tasks in your list: ");
 
         for (int i = 0; i < this.taskList.size(); i++) {
-            listOutput.append("\n\t")
+            listOutput.append("\n")
                     .append((i + 1))
                     .append(".")
                     .append(this.taskList.get(i));
