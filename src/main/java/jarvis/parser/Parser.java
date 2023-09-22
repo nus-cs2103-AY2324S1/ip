@@ -12,6 +12,7 @@ import jarvis.command.FindCommand;
 import jarvis.command.ListCommand;
 import jarvis.command.MarkCommand;
 import jarvis.command.UnmarkCommand;
+import jarvis.command.UpcomingCommand;
 import jarvis.exception.JarvisException;
 import jarvis.exception.JarvisMissingValueException;
 import jarvis.exception.JarvisUnrecognisedCommandException;
@@ -41,6 +42,7 @@ public class Parser {
     private static final String MARK_COMMAND = "mark";
     private static final String UNMARK_COMMAND = "unmark";
     private static final String FIND_COMMAND = "find";
+    private static final String UPCOMING_COMMAND = "upcoming";
 
     /**
      * Parses user input into a recognizable Command object.
@@ -58,6 +60,8 @@ public class Parser {
             return new ExitCommand();
         case LIST_COMMAND:
             return new ListCommand();
+        case UPCOMING_COMMAND:
+            return new UpcomingCommand();
         case TODO_COMMAND:
             return parseTodo(parts);
         case DEADLINE_COMMAND:

@@ -36,6 +36,15 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the deadline date-time.
+     *
+     * @return The deadline date-time of the task.
+     */
+    public LocalDateTime getBy() {
+        return this.by;
+    }
+
+    /**
      * Returns the deadline date-time as a formatted string.
      *
      * @return A string representing the formatted deadline date-time.

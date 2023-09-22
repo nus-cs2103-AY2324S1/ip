@@ -18,6 +18,7 @@ find book
 unmark
 unmark 1
 list
+upcoming
 delete 0
 delete 2
 delete 1

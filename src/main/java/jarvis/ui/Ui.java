@@ -2,6 +2,7 @@ package jarvis.ui;
 
 import java.util.ArrayList;
 
+import jarvis.task.Deadline;
 import jarvis.task.Task;
 import jarvis.tasklist.TaskList;
 
@@ -137,6 +138,19 @@ public class Ui {
                 response += (i + 1) + "." + tasks.get(i) + "\n";
             }
             return response;
+        }
+    }
+
+    /**
+     * Displays the nearest upcoming deadline that is not done yet.
+     *
+     * @param upcomingDeadline The nearest deadline that is not done yet.
+     */
+    public String displayUpcomingDeadline(Deadline upcomingDeadline) {
+        if (upcomingDeadline == null) {
+            return display("There are no upcoming deadlines that are not done yet.");
+        } else {
+            return display("The nearest deadline that needs to be done is", upcomingDeadline.toString());
         }
     }
 }

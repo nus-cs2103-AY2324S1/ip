@@ -1,7 +1,9 @@
 package jarvis.tasklist;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import jarvis.task.Deadline;
 import jarvis.task.Task;
 
 /**
@@ -107,6 +109,29 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Returns the nearest deadline that is not done yet
+     *
+     * @param now The time at which the command was given
+     * @return The nearest deadline that is not done yet
+     */
+    public Deadline getUpcomingDeadline(LocalDateTime now) {
+        Deadline upcomingDeadline = null;
+        LocalDateTime upcomingDeadlineDateTime = null;
+
+        for (Task task : tasks) {
+            if (!task.isDone() && task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                LocalDateTime deadlineDateTime = deadline.getBy();
+                if (upcomingDeadline == null || deadlineDateTime.isBefore(upcomingDeadlineDateTime)) {
+                    upcomingDeadline = deadline;
+                    upcomingDeadlineDateTime = deadlineDateTime;
+                }
+            }
+        }
+        return upcomingDeadline;
     }
 
     private boolean isValidIndex(int index) {
