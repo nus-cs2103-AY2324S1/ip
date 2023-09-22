@@ -17,6 +17,7 @@ Haste is a Command Line Interface (CLI) based application that allows users to e
 - `DATETIME` parameters have the following format: `YYYY-MM-DD HHMM`
 - `INDEX` refers to the task index in `list`. e.g
   ![image](https://user-images.githubusercontent.com/89378503/269198078-7cf41c0d-84a1-473c-94bd-cf1d0180722d.png)
+
   `todo: read`  has a index of 5.
 
 ### Adding a task: `todo`
