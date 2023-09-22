@@ -3,7 +3,7 @@ package iris;
 import java.util.ArrayList;
 
 /**
- * Represents a list of tasks in the Iris application.
+ * Represents a list of tasks.
  */
 public class TaskList {
     private final ArrayList<Task> list;
@@ -89,6 +89,14 @@ public class TaskList {
         return list.size();
     }
 
+    /**
+     * Adds a task to the ToDoList.
+     *
+     * @param taskList    The ToDoList to which the task will be added.
+     * @param command     The command representing the type of task to be added.
+     * @param description The description of the task to be added.
+     * @throws EmptyTaskDescriptorsException If the description is empty.
+     */
     public static void addTask(TaskList taskList, String command, String description)
             throws EmptyTaskDescriptorsException {
         if (description.isEmpty()) {
@@ -102,7 +110,7 @@ public class TaskList {
             String name = deadlineSections[0];
             String deadlineString = deadlineSections[1];
             task = new Deadline(name, deadlineString);
-        } else if (command.equalsIgnoreCase("event")) {
+        } else {
             String[] eventSections = description.split(" /from ", 2);
             String name = eventSections[0];
             String startAndEnd = eventSections[1];
@@ -112,25 +120,26 @@ public class TaskList {
             task = new Event(name, startTime, endTime);
         }
         taskList.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        Ui.printLength(taskList);
     }
 
     /**
-     * Deletes a task from the ToDoList by index.
+     * Deletes a task from the ToDoList.
      *
      * @param taskList The ToDoList from which the task will be deleted.
      * @param index    The index of the task to be deleted.
+     * @throws InvalidTaskException If the index is out of range.
      */
     public static void deleteTask(TaskList taskList, int index) throws InvalidTaskException {
         Task task = taskList.getTask(index);
         taskList.remove(index);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        Ui.printLength(taskList);
     }
 
+    /**
+     * Gets a list of tasks containing a keyword.
+     *
+     * @param keyword The keyword to be searched for.
+     * @return A list of tasks containing the keyword.
+     */
     public TaskList getTasksWithKeyword(String keyword) {
         ArrayList<Task> keywordTasks = new ArrayList<Task>();
         for (Task task : list) {
@@ -141,6 +150,15 @@ public class TaskList {
         return new TaskList(keywordTasks);
     }
 
+    /**
+     * Postpones a time-sensitive task by index.
+     *
+     * @param postponeIndex The index of the task to be postponed.
+     * @param deadlineString The string representation of the new deadline.
+     * @return The postponed task.
+     * @throws InvalidTaskException If the index is out of range.
+     * @throws NotTimeSensitiveTaskException If the task is not time-sensitive.
+     */
     public Task postponeTimeSensitiveTask(int postponeIndex, String deadlineString) throws InvalidTaskException,
             NotTimeSensitiveTaskException {
         Task task = getTask(postponeIndex);

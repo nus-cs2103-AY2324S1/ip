@@ -1,7 +1,7 @@
 package iris;
 
 /**
- * Represents a todo task in the Iris application.
+ * A class representing a todo task.
  */
 public class Todo extends Task {
     /**

@@ -1,12 +1,12 @@
-/**
- * Represents a task with a deadline.
- */
 package iris;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a task with a deadline.
+ */
 public class Deadline extends TimeSensitiveTask {
     private String deadlineString;
     private LocalDate deadlineDate;

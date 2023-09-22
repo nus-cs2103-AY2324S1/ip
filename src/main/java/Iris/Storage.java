@@ -4,9 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * The class responsible for loading and saving tasks to a file.
+ * A class that handles the loading and saving of tasks to a file.
  */
 public class Storage {
+    /**
+     * The file path where tasks are stored.
+     */
     private final String filePath;
 
     /**
@@ -21,7 +24,7 @@ public class Storage {
     /**
      * Loads tasks from a file.
      *
-     * @return An ArrayList of Task objects loaded from the file.
+     * @return An ArrayList of tasks loaded from the file.
      */
     public ArrayList<Task> loadTask() throws LoadTaskException {
         File file = new File(filePath);
@@ -51,7 +54,7 @@ public class Storage {
     /**
      * Writes tasks to a file.
      *
-     * @param taskList The ToDoList containing tasks to be saved to the file.
+     * @param taskList The list of tasks to be written to file.
      */
     public void writeTask(TaskList taskList) throws WriteTaskException {
         try (FileWriter fileWriter = new FileWriter(filePath)) {

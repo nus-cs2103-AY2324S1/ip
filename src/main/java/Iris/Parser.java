@@ -1,10 +1,21 @@
 package iris;
 
 /**
- * The class responsible for parsing user commands in the Iris application.
+ * A class that parses the user input and executes the corresponding commands.
  */
 public class Parser {
-
+    /**
+     * Parses the user input and executes the corresponding commands.
+     *
+     * @param taskStorage The storage object that manages the storage of tasks.
+     * @param taskList The task list that manages the list of tasks.
+     * @param ui The UI object that manages the interaction with the user.
+     * @param input The string representing the user input.
+     * @return A string representing the response to the user input.
+     * @throws WriteTaskException If the task list fails to be written to the storage file.
+     * @throws UnrecognizedCommandException If the command is not recognized.
+     * @throws InvalidTaskException If the task is invalid.
+     */
     public String parseCommand(Storage taskStorage, TaskList taskList, Ui ui, String input) throws
             WriteTaskException, UnrecognizedCommandException, InvalidTaskException {
         String[] sections = input.split(" ", 2);

@@ -1,9 +1,10 @@
 package iris;
 
 /**
- * An abstract class representing a task in the Iris application.
+ * An abstract class representing a task.
  */
 public abstract class Task {
+
     private String description;
     private boolean isDone;
 
@@ -45,6 +46,7 @@ public abstract class Task {
      *
      * @return The name of the task.
      */
+
     public String getDescription() {
         return this.description;
     }
@@ -82,6 +84,12 @@ public abstract class Task {
         return task;
     }
 
+    /**
+     * Checks if the task description contains a keyword.
+     *
+     * @param keyword The keyword to be checked.
+     * @return true if the task description contains the keyword, false otherwise.
+     */
     public boolean ifDescriptionContains(String keyword) {
         return this.description.contains(keyword);
     }

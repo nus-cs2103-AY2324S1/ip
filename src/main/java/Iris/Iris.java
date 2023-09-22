@@ -31,10 +31,6 @@ public class Iris {
         }
     }
 
-    public Iris() {
-        this("iris.txt");
-    }
-
     public String getResponse(String userCmd) {
         try {
             return commandParser.parseCommand(taskStorage, taskList, ui, userCmd);
@@ -46,24 +42,4 @@ public class Iris {
             return ui.respond(e.toString());
         }
     }
-
-
-    // public static void main(String[] args) {
-//        new Iris("iris.txt").run();
-//    }
-
-//    public void run() throws UnrecognizedCommandException, WriteTaskException {
-//        Ui.welcomeMsg();
-//        Scanner scanner = new Scanner(System.in);
-//        while (scanner.hasNextLine()) {
-//            try {
-//                String input = scanner.nextLine();
-//                commandParser.parseCommand(taskStorage, taskList, ui, input);
-//            } catch (IllegalArgumentException e) {
-//                System.out.println("Argument Error: " + e.getMessage());
-//            } catch (IndexOutOfBoundsException e) {
-//                System.out.println("Out of Bounds Error: " + e.getMessage());
-//            }
-//        }
-//    }
 }
