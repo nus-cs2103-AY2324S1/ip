@@ -95,6 +95,8 @@ public class Parser {
                     } else {
                         throw new DukeException("You don't have that many tasks");
                     }
+                } else {
+                    throw new DukeException("You must specified the index of the task to mark");
                 }
             } else if (command.equals("UNMARK")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
@@ -108,6 +110,8 @@ public class Parser {
                     } else {
                         throw new DukeException("You don't have that many tasks");
                     }
+                } else {
+                    throw new DukeException("You must specified the index of the task to unmark");
                 }
             } else if (command.equals("DELETE")) {
                 if (input.split(" ").length == 2 && isInteger(input.split(" ")[1])) {
@@ -122,6 +126,8 @@ public class Parser {
                     } else {
                         throw new DukeException("You don't have that many tasks");
                     }
+                } else {
+                    throw new DukeException("You must specified the index of the task to delete");
                 }
             } else if (command.equals("FIND")) {
                 return ui.find(tasks, input.substring(5));
@@ -131,6 +137,5 @@ public class Parser {
         } catch (DukeException e) {
             return ui.error(e);
         }
-        return "Not reach here";
     }
 }
