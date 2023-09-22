@@ -21,7 +21,7 @@ Duke is a chatbot that is designed for **managing tasks**, optimized for use via
 2. Download the latest 'Duke.jar' file from [here](https://github.com/angkyakdifp/ip/releases).
 3. Copy the file to the folder that you want to use as the *home folder* for the Duke Chatbot.
 4. Double-click the file to start the application. The alternative way is to open a command terminal, ``cd`` into the folder where the ``.jar`` file belongs, and use the ``java -jar Duke.jar`` command to run the application. The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
-![Gui Example](Ui.png.png)
+![Gui Example](Ui.png)
 5. Type the command in the box provided and press Enter or the send button to execute it.
 6. Refer to the [Features](#features) below for details of each command
 
