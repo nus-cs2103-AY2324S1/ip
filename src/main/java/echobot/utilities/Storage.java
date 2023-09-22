@@ -47,7 +47,7 @@ public class Storage {
             oos.flush();
             oos.close();
         } catch (IOException e) {
-            AlertBox alert = new AlertBox("IOException", "File not found or corrupted (overwriteTasksData() method)");
+            AlertBox alert = new AlertBox("File not found or corrupted", "Please try to restart the app");
             alert.show();
         }
     }
@@ -65,10 +65,10 @@ public class Storage {
             tasks = (ArrayList<Task>) ois.readObject();
             ois.close();
         } catch (IOException e) {
-            AlertBox alert = new AlertBox("IOException", "File not found or corrupted (loadTasksData method)");
+            AlertBox alert = new AlertBox("File not found or corrupted", "Please try to restart the app");
             alert.show();
         } catch (ClassNotFoundException e) {
-            AlertBox alert = new AlertBox("ClassNotFoundException", "Class is not found");
+            AlertBox alert = new AlertBox("ClassNotFoundException", "Class is not found, please restart the app");
             alert.show();
         }
         return tasks;
