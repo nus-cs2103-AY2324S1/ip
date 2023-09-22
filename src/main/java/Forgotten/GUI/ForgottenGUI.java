@@ -22,10 +22,7 @@ public class ForgottenGUI {
      * This method prints the greeting message.
      */
     public String printGreetMessage() {
-        return """
-                Hello! I'm Forgotten
-                What can I do for you?
-                """;
+        return " Hello! I'm Forgotten\nWhat can I do for you? ";
     }
 
     /**

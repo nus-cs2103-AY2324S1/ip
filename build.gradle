@@ -49,17 +49,17 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("Forgotten.GUI.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "kevin"
-    archiveFileName = 'kevin.jar'
+    archiveBaseName = "Forgotten"
+    archiveFileName = 'Forgotten.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-mainClassName = 'Kevin.Kevin'
+mainClassName = 'Forgotten.GUI.Launcher'
 
 run{
     standardInput = System.in

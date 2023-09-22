@@ -54,10 +54,7 @@ public class Parser {
                 } catch (DescriptionIncompleteException | IllegalCommandException e1) {
                     response = e1.getMessage();
                 } catch (DateTimeParseException e2) {
-                    response += """
-                            OOPS!!! You have entered a wrong date format.
-                            Please follow this format:
-                            yyyy-mm-dd""";
+                    response += "OOPS!!! You have entered a wrong date format.\nPlease follow this format:\nyyyy-mm-dd";
                 }
         }
         return response;
