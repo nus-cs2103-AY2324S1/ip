@@ -5,6 +5,6 @@ package emiya.emiyaexception;
  */
 public class InvalidDateTimeException extends EmiyaException {
     public InvalidDateTimeException() {
-        super("Please enter a valid date!\n");
+        super("Please enter a valid date/time!\n");
     }
 }
