@@ -1,5 +1,6 @@
 package dude;
 
+import java.io.File;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -16,7 +17,8 @@ import javafx.stage.Stage;
  * A GUI for Dude using FXML.
  */
 public class Main extends Application {
-    private final Dude dude = new Dude("./data/dude.txt");
+    private final String FILE_PATH = "." + File.separator + "data" + File.separator + "dude.txt";
+    private final Dude dude = new Dude(FILE_PATH);
 
     @Override
     public void start(Stage stage) {
