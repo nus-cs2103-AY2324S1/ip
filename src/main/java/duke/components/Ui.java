@@ -24,7 +24,7 @@ public class Ui {
                     + "9. bye";
 
     /**
-     * Constructs a Ui instance and initializes the scanner.
+     * Constructs an Ui instance and initializes the scanner.
      */
     public Ui() {
         this.scanner = new Scanner(System.in);
@@ -32,6 +32,8 @@ public class Ui {
 
     /**
      * Displays a welcome message when the chatBot starts.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showWelcome() {
         return "Hello! I'm " + chatBot + '\n' + "What can I do for you?";
@@ -39,6 +41,8 @@ public class Ui {
 
     /**
      * Displays a message which indicates that the item to be added cannot be empty.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showEmptyMessage() {
         return "Item to be added cannot be empty";
@@ -46,6 +50,8 @@ public class Ui {
 
     /**
      * Displays a message which indicates an invalid command.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showUnknownMessage() {
         return "Invalid structure. Please follow the valid commands below.\n" + commands;
@@ -53,6 +59,8 @@ public class Ui {
 
     /**
      * Displays a message which indicates an invalid command.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showInvalidMessage() {
         return "Invalid structure. Please follow the valid commands below.\n" + commands;
@@ -60,22 +68,27 @@ public class Ui {
 
     /**
      * Displays a message which indicated the item does not exist.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showNoItemMessage(int i) {
-        return  "No such item exists: " + i;
+        return "No such item exists: " + i;
     }
 
     /**
      * Displays a goodbye message.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showByeMessage() {
-        return  "Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Displays a TaskList to indicate what are the current items in the list.
      *
      * @param fullList The list to be displayed.
+     * @return A string representing the message to be displayed to the user.
      */
     public String showList(TaskList fullList) {
         return "Here are the tasks in your list:" + '\n'
@@ -87,11 +100,12 @@ public class Ui {
      *
      * @param task The task to be added.
      * @param size The size of the current list.
+     * @return A string representing the message to be displayed to the user.
      */
 
     public String showAddMessage(Task task, int size) {
-        return  "Got it. I've added this task:" + '\n' + task.toString() + '\n'
-                        + "Now you have " + size + " tasks in the list.";
+        return "Got it. I've added this task:" + '\n' + task.toString() + '\n'
+                + "Now you have " + size + " tasks in the list.";
     };
 
     /**
@@ -99,10 +113,11 @@ public class Ui {
      *
      * @param task The task to be deleted.
      * @param size The size of the current list.
+     * @return A string representing the message to be displayed to the user.
      */
 
     public String showDeleteMessage(Task task, int size) {
-        return  "Noted. I've removed this task:\n" + task.toString() + "\n"
+        return "Noted. I've removed this task:\n" + task.toString() + "\n"
                 + "Now you have " + size + " tasks in the list.";
     }
 
@@ -110,45 +125,57 @@ public class Ui {
      * Displays a success message when the user successfully marks a task.
      *
      * @param task The task to be marked.
+     * @return A string representing the message to be displayed to the user.
      */
     public String showMarkMessage(Task task) {
-        return  "Nice! I've marked this task as done:" + '\n' + task.toString();
+        return "Nice! I've marked this task as done:" + '\n' + task.toString();
     }
 
     /**
      * Displays a success message when the user successfully unMarks a task.
      *
      * @param task The task to be unMarked.
+     * @return A string representing the message to be displayed to the user.
      */
     public String showUnmarkMessage(Task task) {
-        return  "Ok, I've marked this task as not done yet:\n" + task.toString();
+        return "Ok, I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
      * Displays an error message when the date format is invalid.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showInvalidDate() {
-        return  "Invalid date format. Start date is after end date";
+        return "Invalid date format. Start date is after end date";
     }
 
     /**
      * Displays all the tasks which have description that match a keyword.
      *
      * @param list The list of tasks which match.
+     * @return A string representing the message to be displayed to the user.
      */
     public String showFind(TaskList list) {
-        return  "Here are the matching tasks in your list" + '\n'
+        return "Here are the matching tasks in your list" + '\n'
                 + list.toString();
     }
 
     /**
      * Displays message when there are no tasks that match a given keyword.
+     *
+     * @return A string representing the message to be displayed to the user.
      */
     public String showNoFind() {
-        return  "There are no matching tasks in your current list";
+        return "There are no matching tasks in your current list";
     }
 
+    /**
+     * Displays message to the user with a custom error message.
+     *
+     * @return A string representing the message to be displayed to the user.
+     */
     public String showCustomError(String error) {
-        return  error;
+        return error;
     }
 }

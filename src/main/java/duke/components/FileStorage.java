@@ -67,13 +67,10 @@ public class FileStorage {
      * Returns true if the Task is completed, false otherwise.
      *
      * @param input The input representing the task's status.
+     * @return Returns true if the Task is completed, false otherwise.
      */
     public boolean isTaskDone(String input) {
-        if (input.equals("T")) {
-            return true;
-        } else {
-            return false;
-        }
+        return (input.equals("T"));
     }
 
     /**
@@ -149,7 +146,6 @@ public class FileStorage {
             System.out.println(tempList);
             return tempList;
         } catch (FileNotFoundException e) {
-            System.out.println("There are no existing tasks, please use the commands to add new tasks!");
             File newFile = new File(filePath);
             newFile.mkdirs();
             return new ArrayList<>();

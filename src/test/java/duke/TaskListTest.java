@@ -1,6 +1,8 @@
 package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,11 +43,23 @@ public class TaskListTest {
 
     @Test
     public void markItem_markOne_success() {
-        ToDos toDos = new ToDos("item 1");
+        ToDos toDos = new ToDos("item 1", false);
         TaskList taskList = new TaskList();
         taskList.addToList(toDos);
         taskList.markItem(1);
-        assertEquals(taskList.getTask().get(0).toString(), "[T] [ ] item 1");
+        assertTrue(taskList.getTask().get(0).isDone());
+    }
+
+    @Test
+    public void markItem_massMark_success() {
+        ToDos toDos1 = new ToDos("item 1");
+        ToDos toDos2 = new ToDos("item 2");
+        TaskList taskList = new TaskList();
+        taskList.addToList(toDos1);
+        taskList.addToList(toDos2);
+        taskList.markItem(1, 2);
+        assertTrue(taskList.getTask().get(0).isDone());
+        assertTrue(taskList.getTask().get(1).isDone());
     }
 
     @Test
@@ -63,7 +77,19 @@ public class TaskListTest {
         TaskList taskList = new TaskList();
         taskList.addToList(toDos);
         taskList.unMarkItem(1);
-        assertEquals(taskList.getTask().get(0).toString(), "[T] [X] item 1");
+        assertFalse(taskList.getTask().get(0).isDone());
+    }
+
+    @Test
+    public void unMarkItem_massUnMark_success() {
+        ToDos toDos1 = new ToDos("item 1", true);
+        ToDos toDos2 = new ToDos("item 1", true);
+        TaskList taskList = new TaskList();
+        taskList.addToList(toDos1);
+        taskList.addToList(toDos2);
+        taskList.unMarkItem(1, 2);
+        assertFalse(taskList.getTask().get(0).isDone());
+        assertFalse(taskList.getTask().get(1).isDone());
     }
 
     @Test

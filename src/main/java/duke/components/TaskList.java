@@ -37,6 +37,7 @@ public class TaskList {
      * Adds a specified task to the current list of tasks.
      *
      * @param task The task to be added.
+     * @return A string representing the message to be displayed to the user.
      */
     public String addToList(Task task) {
         this.fullList.add(task);
@@ -47,6 +48,7 @@ public class TaskList {
      * Deletes a specified task from the current list of tasks.
      *
      * @param indices The index of the task to be deleted.
+     * @return A string representing the message to be displayed to the user.
      */
     public String deleteFromList(int... indices) {
         if (indices.length == 0) {
@@ -74,6 +76,7 @@ public class TaskList {
      * Marks a tasks as done from the current list of tasks.
      *
      * @param indices The array of index of the task to be marked as done.
+     * @return A string representing the message to be displayed to the user.
      */
     public String markItem(int... indices) {
         if (indices.length == 0) {
@@ -98,6 +101,7 @@ public class TaskList {
      * Marks a tasks as not done from the current list of tasks.
      *
      * @param indices The index of the task to be marked as not done.
+     * @return A string representing the message to be displayed to the user.
      */
     public String unMarkItem(int... indices) {
         if (indices.length == 0) {

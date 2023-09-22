@@ -50,10 +50,21 @@ public class Duke {
         }
     }
 
+    /**
+     * Retrieves the String to be displayed based on the user input.
+     *
+     * @param input The user input.
+     * @return The String to be displayed based on the user input.
+     */
     public String getResponse(String input) {
         return parser.createTaskAction(input);
     }
 
+    /**
+     * Retrieves the String to be displayed when the bot is initialised.
+     *
+     * @return The welcome String to be displayed when the bot is initialised.
+     */
     public String getWelcome() {
         return ui.showWelcome();
     }

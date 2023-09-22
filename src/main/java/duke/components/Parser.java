@@ -33,7 +33,7 @@ public class Parser {
      * Constructs a Parser instance with the specified parameters.
      *
      * @param fileStorage The FileStorage object to handle file operations.
-     * @param fullList The TaskList object to store ttasks.
+     * @param fullList The TaskList object to store tasks.
      * @param ui The Ui object to display outputs to the user.
      */
     public Parser(FileStorage fileStorage, TaskList fullList, Ui ui) {
@@ -84,7 +84,7 @@ public class Parser {
      * Processes user input to create and execute task-related actions.
      *
      * @param input The user input to be processed.
-     * @return {@code true} if the application should continue running. {@code false} if it should exit.
+     * @return A String representing the action completed to be displayed to the user.
      */
 
     public String createTaskAction(String input) {
@@ -190,6 +190,7 @@ public class Parser {
             }
 
             String commandToBeDone = inputPartsMass[1].trim();
+
             boolean isDelete = commandToBeDone.equals("delete");
             boolean isMark = commandToBeDone.equals("mark");
             boolean isUnMark = commandToBeDone.equals("unmark");
@@ -208,7 +209,7 @@ public class Parser {
                 return fullList.markItem(indexArray);
             } else if (isUnMark) {
                 return fullList.unMarkItem(indexArray);
-            } else if (isDelete) {
+            } else {
                 return fullList.deleteFromList(indexArray);
             }
 
