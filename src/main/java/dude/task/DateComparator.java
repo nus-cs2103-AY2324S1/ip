@@ -11,7 +11,7 @@ import dude.command.SortByOrder;
  * Puts tasks with no date at the end. (e.g. Todo tasks)
  */
 public class DateComparator implements Comparator<Task> {
-    private SortByOrder sortByOrder;
+    private final SortByOrder sortByOrder;
 
     /**
      * Constructor for DateComparator.

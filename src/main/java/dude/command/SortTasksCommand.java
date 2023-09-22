@@ -1,6 +1,5 @@
 package dude.command;
 
-import dude.Dude;
 import dude.Storage;
 import dude.exception.DudeException;
 import dude.task.TaskList;
@@ -9,8 +8,8 @@ import dude.task.TaskList;
  * Command to sort all tasks by a given parameter and print the list.
  */
 public class SortTasksCommand extends DudeCommand {
-    private SortByType sortByType;
-    private SortByOrder sortByOrder;
+    private final SortByType sortByType;
+    private final SortByOrder sortByOrder;
 
     public SortTasksCommand(SortByType sortByType, SortByOrder sortByOrder) {
         this.sortByType = sortByType;
