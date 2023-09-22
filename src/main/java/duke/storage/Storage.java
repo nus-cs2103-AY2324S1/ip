@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -31,9 +32,10 @@ public class Storage {
      *
      * @param filePath the path of the .txt file.
      */
-    public Storage(String filePath) {
+    public Storage(String filePath) throws IOException{
         this.filepath = Paths.get(filePath);
         this.path = filePath;
+        createDirectory(this.filepath);
     }
 
     /**
@@ -158,5 +160,17 @@ public class Storage {
         return filepath.toString();
     }
 
+    /**
+     * Check if directory exists and if not, create one
+     *
+     * @param path the path of the directory
+     * @throws IOException when unable to create new directory
+     */
+    public void createDirectory(Path path) throws IOException {
+        Path dir = path.getParent();
+        if (!Files.exists(dir)) {
+            Files.createDirectories(dir);
+        }
+    }
 
 }

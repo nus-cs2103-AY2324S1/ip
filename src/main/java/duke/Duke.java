@@ -20,7 +20,12 @@ public class Duke {
 
     public Duke() {
         ui = new Ui();
-        storage = new Storage("data/duke.txt");
+        try {
+            storage = new Storage("data/duke.txt");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         parser = new Parser();
         try {
             tasklist = new TaskList(storage.loadTasks());
