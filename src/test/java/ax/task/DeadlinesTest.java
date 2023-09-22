@@ -10,7 +10,7 @@ class DeadlinesTest {
     void setDone() {
         Deadlines temp = new Deadlines("you said when", "2023-10-09");
         temp.setDone(true);
-        assertEquals(temp.toString(), "[D] [✅] you said when (by: 2023-10-09)");
+        assertEquals(temp.toString(), "[D] [M] you said when (by: 2023-10-09)");
         temp.setDone(false);
         assertEquals(temp.toString(), "[D] [ ] you said when (by: 2023-10-09)");
     }
