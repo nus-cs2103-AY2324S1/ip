@@ -1,0 +1,7 @@
+[T] [ ] return book
+[D] [ ] return book (by: 2023-09-23 4 pm)
+[E] [ ] project meeting (from: 2023-09-22 2 PM to: 2023-09-24 4 PM)
+[T] [X] return book
+[D] [ ] return book (by: 2023-09-23 4 PM)
+[E] [ ] project meeting (from: 2023-09-22 2 PM to: 2023-09-24 4 PM)
+[T] [ ] sleep
