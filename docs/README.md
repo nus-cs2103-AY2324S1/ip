@@ -100,10 +100,10 @@ Edits details of a specified task.
 
 Example of usage:
 
-`edit 2 /desc buy book `
-`edit 2 /from 2023-08-10 12:30 `
-`edit 2 /to 2023-08-14 12:30 `
-`edit 3 /by 2023-08-10 12:30 `
+- `edit 2 /desc buy book `
+- `edit 2 /from 2023-08-10 12:30 `
+- `edit 2 /to 2023-08-14 12:30 `
+- `edit 3 /by 2023-08-10 12:30 `
 
 Expected outcome:
 
