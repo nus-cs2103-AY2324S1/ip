@@ -38,6 +38,10 @@ public class TaskList {
         result = result +" "+ "Noted. I've removed this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size() + " tasks in the list.";
         return result;
     }
+    public String deleteAllTask() {
+        tasks.clear();
+        return "I have deleted all the tasks. Now you have an empty list.";
+    }
 
     //shows the number of task in the task list currently
     public int size() {
@@ -57,6 +61,15 @@ public class TaskList {
         return "Nice! I've marked this task as done:\n" + "  " + tasks.get(taskNumber);
     }
 
+    public String markAllTaskDone() {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            task.setMarked(true);
+            tasks.set(i, task);
+        }
+        return "Nice! I've marked all the tasks";
+    }
+
     // unmarks the task at a specified index
 
     public String unmarkTask(int taskNumber) {
@@ -65,6 +78,16 @@ public class TaskList {
         tasks.set(taskNumber, task);
         return "OK, I've marked this task as not done yet:\n" + "  " + tasks.get(taskNumber);
     }
+
+    public String unmarkAllTaskDone() {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            task.setMarked(false);
+            tasks.set(i, task);
+        }
+        return "Nice! I've unmarked all the tasks";
+    }
+
 
     // prints out each task in the line
     public String listOfTasks() {

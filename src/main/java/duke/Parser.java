@@ -58,6 +58,10 @@ public class Parser {
     }
 
     public static String handleUnmark(String description,TaskList tasks,Ui ui) {
+        if (description.equalsIgnoreCase("all")) {
+            return tasks.unmarkAllTaskDone(); // Clear all tasks
+
+        }
         // if user inputs task number, check if it is even an integer, and whether it is within range
         try {
             int taskNumber = Integer.parseInt(description) - 1;
@@ -82,6 +86,10 @@ public class Parser {
     }
 
     public static String handleMark(String description,TaskList tasks,Ui ui) {
+        if (description.equalsIgnoreCase("all")) {
+            return tasks.markAllTaskDone(); // Clear all tasks
+
+        }
         // if user inputs task number, check if it is even an integer, and whether it is within range
         try {
             int taskNumber = Integer.parseInt(description) - 1;
@@ -108,6 +116,10 @@ public class Parser {
     }
 
     public static String handleDelete(String description,Ui ui, TaskList tasks) {
+        if (description.equalsIgnoreCase("all")) {
+            return tasks.deleteAllTask(); // Clear all tasks
+
+        }
         try {
             int taskNumber = Integer.parseInt(description) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
@@ -118,6 +130,7 @@ public class Parser {
         } catch (NumberFormatException e) {
             return ui.showError("Invalid task number. Please provide a valid integer.");
         }
+
     }
 
     public static String handleEvent(String input, TaskList tasks) {
