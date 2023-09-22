@@ -61,17 +61,13 @@ public class Parser {
         } else if (commandType.equals(CommandType.LIST)) {
             return new ListCommand();
         } else if (commandType.equals(CommandType.MARK)) {
-            int taskIndex = Integer.parseInt(words[1]);
-            return new MarkAsDoneCommand(taskIndex);
+            return parseMark(fullCommand);
         } else if (commandType.equals(CommandType.UNMARK)) {
-            int taskIndex = Integer.parseInt(words[1]);
-            return new MarkAsUndoneCommand(taskIndex);
+            return parseUnmark(fullCommand);
         } else if (commandType.equals(CommandType.DELETE)) {
-            int taskIndex = Integer.parseInt(words[1]);
-            return new DeleteCommand(taskIndex);
+            return parseDelete(fullCommand);
         } else if (commandType.equals(CommandType.FIND)) {
-            String keyword = fullCommand.replaceFirst("find ", "").trim();
-            return new FindCommand(keyword);
+            return parseFind(fullCommand);
         } else if (commandType.equals(CommandType.UPDATE)) {
             return parseUpdate(fullCommand);
         } else if (commandType.equals(CommandType.TODO)) {
@@ -83,6 +79,42 @@ public class Parser {
         } else {
             throw new BuddyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
+    }
+
+    private static Command parseMark(String command) throws BuddyException {
+        String[] commandParts = command.split(" ");
+        if (commandParts.length < 2) {
+            throw new BuddyException("OOPS!!! Please enter in the format: mark <TASK_INDEX>");
+        }
+        int taskIndex = Integer.parseInt(commandParts[1]);
+        return new MarkAsDoneCommand(taskIndex);
+    }
+
+    private static Command parseUnmark(String command) throws BuddyException {
+        String[] commandParts = command.split(" ");
+        if (commandParts.length < 2) {
+            throw new BuddyException("OOPS!!! Please enter in the format: unmark <TASK_INDEX>");
+        }
+        int taskIndex = Integer.parseInt(commandParts[1]);
+        return new MarkAsUndoneCommand(taskIndex);
+    }
+
+    private static Command parseDelete(String command) throws BuddyException {
+        String[] commandParts = command.split(" ");
+        if (commandParts.length < 2) {
+            throw new BuddyException("OOPS!!! Please enter in the format: delete <TASK_INDEX>");
+        }
+        int taskIndex = Integer.parseInt(commandParts[1]);
+        return new DeleteCommand(taskIndex);
+    }
+
+    private static Command parseFind(String command) throws BuddyException {
+        String[] commandParts = command.split(" ", 2);
+        if (commandParts.length < 2) {
+            throw new BuddyException("OOPS!!! Please enter in the format: find <KEYWORD>");
+        }
+        String keyword = commandParts[1].trim();
+        return new FindCommand(keyword);
     }
 
     private static Command parseUpdate(String command) throws BuddyException {

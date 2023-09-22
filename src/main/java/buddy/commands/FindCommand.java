@@ -1,6 +1,5 @@
 package buddy.commands;
 
-import buddy.Task;
 import buddy.TaskList;
 import buddy.utils.BuddyException;
 import buddy.utils.Storage;

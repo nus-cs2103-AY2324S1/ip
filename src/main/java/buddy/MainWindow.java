@@ -54,9 +54,4 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
-
-//    @FXML
-//    private void showGreetingMessage() {
-//
-//    }
 }

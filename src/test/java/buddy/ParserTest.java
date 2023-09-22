@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import buddy.commands.AddDeadlineCommand;
 import buddy.commands.AddEventCommand;
 import buddy.commands.AddTodoCommand;
-import buddy.commands.Command;
 import buddy.commands.DeleteCommand;
 import buddy.commands.ExitCommand;
 import buddy.commands.ListCommand;
@@ -41,16 +40,6 @@ public class ParserTest {
         assertTrue(Parser.parse("event orientation week /from 2023-07-31 /to 2023-08-04", tasks)
                 instanceof AddEventCommand);
     }
-
-//    @Test
-//    public void parser_outOfRange_exceptionThrown() {
-//
-//        BuddyException thrown = assertThrows(BuddyException.class, () -> {
-//            Parser.parse("blah", new TaskList());
-//        }, "BuddyException expected");
-//
-//        assertEquals("OOPS!!! I'm sorry, but I don't know what that means :-(", thrown.getMessage());
-//    }
 
     @Test
     public void parser_invalidDate_exceptionThrow() {
