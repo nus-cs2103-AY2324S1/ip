@@ -47,7 +47,7 @@ public class DeadlineHandlerTest {
     public void testInvalidDateFormat() {
         String input = "Finish homework /2023-09-30";
         String expectedOutput = "Something went wrong! Please format the task properly and add it again. \n" +
-                "Error: Exceptions.DukeInvalidDateTimeException: Invalid date and time format! Please try again.";
+                "Error: exceptions.DukeInvalidDateTimeException: Invalid date and time format! Please try again.";
 
         String actualOutput = deadlineHandler.parseCommandContent(input);
 
@@ -59,7 +59,7 @@ public class DeadlineHandlerTest {
     public void testInvalidDateTimeFormat() {
         String input = "Finish homework /invalid-date-time";
         String expectedOutput = "Something went wrong! Please format the task properly and add it again. \n" +
-                "Error: Exceptions.DukeInvalidDateTimeException: Invalid date and time format! Please try again.";
+                "Error: exceptions.DukeInvalidDateTimeException: Invalid date and time format! Please try again.";
 
         String actualOutput = deadlineHandler.parseCommandContent(input);
 
