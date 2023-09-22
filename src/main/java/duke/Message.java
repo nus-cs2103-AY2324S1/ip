@@ -15,7 +15,7 @@ public class Message {
 
     public void markMessage(TaskList tasks, int taskIndex) throws DukeException {
         tasks.markTaskDone(taskIndex);
-        message = "OK, I've marked this task as not done yet:\n" + tasks;
+        message = "OK, I've marked this task as done:\n" + tasks;
     }
 
     public void unmarkMessage(TaskList tasks, int taskIndex) throws DukeException {
@@ -43,7 +43,7 @@ public class Message {
 
     public void deleteMessage(TaskList tasks, int taskIndex) throws DukeException {
         Task task = tasks.deleteTask(taskIndex);
-        message = "Now you have " + tasks.getSize() + " tasks in the list.";
+        message = "Noted. I've removed this task:\n" + task + "\nNow you have " + tasks.getSize() + " tasks in the list.";
     }
 
     public void findMessage(TaskList tasks, String keyword) {
