@@ -14,6 +14,8 @@ public class Ui {
     static final String Greeting = " User guide : https://github.com/mingyu-wan/ip"
             + "\n\n Hello! I'm MYBOT:)"
             + "\n What can I do for you?";
+
+    static final String Goodbyes = " Bye~ Hope to see you again soon!";
     /**
      * Prints greeting message when the application starts.
      */

@@ -47,7 +47,9 @@ public class Parser {
      */
     public void analyseInput(String input) {
         try {
-            if (input.equals("list")) {
+            if (input.equals("quit") || input.equals("bye")) {
+                ui.closeGreeting();
+            } else if (input.equals("list")) {
                 command.listTasks(tasks);
             } else if (input.startsWith("mark ")) {
                 int taskIndex = Integer.parseInt(input.substring(5));

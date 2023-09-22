@@ -32,7 +32,7 @@ public class Duke {
      */
     public Duke() {
         ui = new Ui();
-        storage = new Storage("src/main/MYBOT.txt");
+        storage = new Storage("./data/MYBOT.txt");
 
         try {
             tasks = new TaskList(storage.loadTaskFromFile());
@@ -40,7 +40,7 @@ public class Duke {
             tasks = new TaskList();
         } catch (Exception e) {
             ui.printFileError();
-            new File("src/main/MYBOT.txt");
+            new File("./data/MYBOT.txt");
             tasks = new TaskList();
         }
         command = new Commands(ui, storage, tasks);

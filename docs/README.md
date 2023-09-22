@@ -96,3 +96,9 @@ Expected input:`list`
 #### 1. `duplicates`
 If you have a very similar inputs, MYBot would remind you that there are very smilar inputs in your list.If you still
 wish to add in this task just type `proceed` and MYBot will add the task into the task list.
+
+### Detect duplicates
+#### 1. `quit`
+Quits the application
+
+Expected input:`quit`or`bye`
