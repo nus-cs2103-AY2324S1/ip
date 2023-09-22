@@ -1,3 +1,3 @@
-[T][ ] run
-[D][ ] pass away  DATETIME Oct 10 2019 6PM
-[E][ ] potato  DATETIME Dec 30 2020 7AM DATETIME_SPLIT Jan 15 2021 6PM
+[T][ ] pass away
+[D][ ] inner  DATETIME Oct 10 2019 10AM
+[E][ ] blow  DATETIME Oct 10 2019 6PM DATETIME_SPLIT Oct 10 1010 7PM

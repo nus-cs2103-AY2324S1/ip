@@ -37,14 +37,13 @@ public class Storage {
                 String taskDescription = data.substring(7);
                 switch (taskType) {
                 case 'T':
-                    Todo newTodo = new Todo(taskDescription);
-                    tasks.add(newTodo);
+                    tasks.add(storageCreateTodo(taskDescription));
                     break;
                 case 'D':
                     tasks.add(storageCreateDeadline(taskDescription));
                     break;
                 case 'E':
-                    tasks.add(storageCreateDeadline(taskDescription));
+                    tasks.add(storageCreateEvent(taskDescription));
                     break;
                 }
                 if (isComplete) {
@@ -58,6 +57,10 @@ public class Storage {
         } catch (FileNotFoundException ignored) {
         }
         return tasks;
+    }
+
+    private static Todo storageCreateTodo(String taskDescription) {
+        return(new Todo(taskDescription));
     }
 
     private static Event storageCreateEvent(String taskDescription) {
