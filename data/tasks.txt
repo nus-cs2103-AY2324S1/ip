@@ -1,6 +1,2 @@
-D | 0 | sleep | 2023-03-03 12:00
-E | 0 | meeting | 2021-01-01 00:00 | 2022-01-02 12:00
-T | 0 | sleep
-D | 0 | sleep | 2023-01-02 00:00
-T | 0 | work 
-T | 0 | sleep
+T | 0 | CS2100 Tutorial
+D | 0 | IS2218 assignment | 2023-09-30 23:59
