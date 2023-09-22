@@ -13,10 +13,10 @@ Nobita enable tracking of different types of tasks:
 ### List, Mark, Unmark, Delete, Find, Update
 Nobita allow manipulation of stored tasks which includes:
 
-- view all exising tasks
-- marking and unmarking of tasks
-- deleting of particular task
-- finding of tasks with task name
+- View all exising tasks
+- Marking and unmarking of tasks
+- Deleting of particular task
+- Finding of tasks with task name
 - Update a exist task details
 
 Description of the feature.
