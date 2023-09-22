@@ -1,15 +1,28 @@
-.red-background {
-    -fx-background-color: #BC7171;
+.grey-background {
+    -fx-background-color: #444950;
     -fx-background-radius: 1.0em;
 }
 
 .blue-background {
-    -fx-background-color: #799CCB;
+    -fx-background-color: #70AFC0;
     -fx-background-radius: 1.0em;
 }
 
+.text-field {
+    -fx-background-color: #A5A5A5;
+    -fx-background-radius: 0.5em;
+    -fx-border-color: #313131;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button {
+    -fx-background-color: #717171;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 1.0em;
+}
+
 .scroll-pane {
-    -fx-background: #505050;
+    -fx-background: #1D1F20;
 }
 
 .scroll-bar:vertical .track {

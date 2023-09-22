@@ -1,6 +1,8 @@
 # J.A.R.V.I.S.
 > A personal chatbot assistant to help you with your daily tasks.
 
+<img src="Ui.png" width="300">
+
 ## Types of Tasks
 Jarvis supports 3 types of tasks: Todo, Deadline and Event.
 

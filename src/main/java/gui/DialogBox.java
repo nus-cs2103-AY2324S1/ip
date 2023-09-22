@@ -41,7 +41,7 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
 
         if (isUser) {
-            dialog.getStyleClass().add("red-background");
+            dialog.getStyleClass().add("grey-background");
         } else {
             dialog.getStyleClass().add("blue-background");
         }
