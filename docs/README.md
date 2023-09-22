@@ -2,7 +2,7 @@
 
 ## Features 
 
-### ToDO, Deadline, Event
+### ToDo, Deadline, Event
 
 Nobita enable tracking of different types of tasks:
 
@@ -111,7 +111,7 @@ Nice! I've marked this task as done:
 [D][X] Return Book (by: 20 Sep 2023)
 ```
 
-### `unmarrk` - Unmark a task
+### `unmark` - Unmark a task
 
 Mark a task as not complete.
 
