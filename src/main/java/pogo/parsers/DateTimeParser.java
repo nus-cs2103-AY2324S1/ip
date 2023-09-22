@@ -19,6 +19,13 @@ public class DateTimeParser {
             "(?<date>\\d{4}-\\d{2}-\\d{2})\\s+(?<time>\\d{2}:\\d{2})");
 
     /**
+     * Regex pattern for a date string.
+     * Examples: 2020-01-01
+     */
+    private static final Pattern DATE_PATTERN = Pattern.compile(
+            "(?<date>\\d{4}-\\d{2}-\\d{2})");
+
+    /**
      * Regex pattern for a time string in twenty-four-hour format.
      * Examples: 12:00
      */
@@ -32,6 +39,7 @@ public class DateTimeParser {
     private static final Pattern TIME_AM_PM_PATTERN = Pattern.compile(
             "(?<time>\\d{1,2}:\\d{2})\\s*(?<amPm>am|pm|AM|PM|a\\.m\\.|p\\.m\\.|A\\.M\\.|P\\.M\\.)");
 
+
     private static final String ERROR_MESSAGE = "Invalid datetime format. Only the following formats are accepted:"
             + System.lineSeparator()
             + "YYYY-MM-DD HH:MM, YYYY-MM-DD HH:MM AM/PM, HH:MM, HH:MM AM/PM, HH:MM am/pm";
@@ -41,6 +49,14 @@ public class DateTimeParser {
         assert !datetime.isEmpty() : "Time string should not be empty";
         assert datetime.matches(DATE_TIME_PATTERN.pattern()) : "Time string should match datetime pattern";
         return LocalDateTime.parse(datetime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
+
+    private static LocalDateTime parseDate(String date) {
+        assert date != null : "Time string should not be null";
+        assert !date.isEmpty() : "Time string should not be empty";
+        assert date.matches(DATE_PATTERN.pattern()) : "Time string should match date pattern";
+        LocalDate localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return localDate.atStartOfDay();
     }
 
     private static LocalDateTime parseTimeTwentyFour(String timeString) {
@@ -80,6 +96,8 @@ public class DateTimeParser {
         // DateTime string must be an exact match for one of the following patterns
         if (DATE_TIME_PATTERN.matcher(datetime).matches()) {
             return parseDateTime(datetime);
+        } else if (DATE_PATTERN.matcher(datetime).matches()) {
+            return parseDate(datetime);
         } else if (TIME_TWENTYFOUR_PATTERN.matcher(datetime).matches()) {
             return parseTimeTwentyFour(datetime);
         } else if (TIME_AM_PM_PATTERN.matcher(datetime).matches()) {

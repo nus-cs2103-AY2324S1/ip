@@ -16,6 +16,12 @@ public class DateTimeParserTest {
     }
 
     @Test
+    public void parse_date_success() {
+        LocalDateTime expected = LocalDateTime.of(2020, 1, 1, 0, 0);
+        assertEquals(expected, DateTimeParser.parse("2020-01-01"));
+    }
+
+    @Test
     public void parse_timeAmPm_success() {
         LocalDateTime today = LocalDateTime.now();
         LocalDateTime expected = LocalDateTime.of(today.getYear(),
