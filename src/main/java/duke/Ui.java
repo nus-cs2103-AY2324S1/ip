@@ -56,7 +56,7 @@ public class Ui {
      */
     private String buildPriorityBox(Priority p) {
         if (p == Priority.HIGH) {
-            return " [Priority:High]";
+            return " [Priority: High]";
         }
         return "";
     }
