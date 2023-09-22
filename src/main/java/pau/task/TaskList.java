@@ -270,4 +270,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * Lists out instructions on how to use commands.
+     *
+     * @return The instructions.
+     */
+    public String help() {
+        String output;
+        output = "1. To create a ToDo: todo [todo name]\n"
+                + "2. To create a Deadline: deadline [deadline name] /by [deadline]\n"
+                + "3. To create an Event: event [event name] /from [start time] /by [end time]\n"
+                + "4. To mark a task as completed: mark [task number]\n"
+                + "5. To unmark a task as not completed: unmark [task number]\n"
+                + "6. To delete a task: delete [task number]\n"
+                + "7. To find a task: find [task details]\n"
+                + "8. To list all the tasks: list\n";
+        return output;
+    }
 }
