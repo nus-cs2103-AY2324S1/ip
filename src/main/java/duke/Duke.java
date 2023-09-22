@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -26,7 +27,9 @@ public class Duke extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
-    private Button sendButton;
+    private Button sendButton;;
+
+    private MainWindow mainWindow;
 
 
 
@@ -229,6 +232,7 @@ public class Duke extends Application {
     }
     @Override
     public void start(Stage stage) {
+
         //Step 1. Setting up required components
 
         //The container for the content of the chat to scroll.
@@ -238,6 +242,8 @@ public class Duke extends Application {
 
         userInput = new TextField();
         sendButton = new Button("Send");
+        mainWindow = new MainWindow();
+        mainWindow.setDuke(this);
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
@@ -289,6 +295,7 @@ public class Duke extends Application {
 
 
     String getResponse(String input) {
+
         return "Duke heard: " + input;
     }
 

@@ -1,9 +1,17 @@
 package duke;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
 import java.util.Scanner;
+
 
 
 public class Ui {
     private Scanner scanner;
+    @FXML
+    private VBox dialogContainer;
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     //takes in user input
     public Ui() {
         scanner = new Scanner(System.in);
@@ -16,9 +24,10 @@ public class Ui {
 
     // default welcome message
     public void showWelcomeMessage() {
-        String name = "Johnnythesnake";
-        System.out.println("Hello, I'm " + name);
-        System.out.println("What can I do for you? Aside from completing your CS2103 project for you");
+        String welcomeMessage = "Hello! I'm JohnnytheSnake, your personal chatbot. How can I assist you today?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
     }
 
     //Exit message when user enters bye

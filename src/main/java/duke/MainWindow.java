@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -28,7 +29,13 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setDuke(Duke duke) {
+
         this.duke = duke;
+        String welcomeMessage = "Hello! I'm Johnnythesnake, your personal chatbot. How can I assist you today?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
+
     }
 
     /**
@@ -45,4 +52,11 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
     }
+
+    // Inside your MainWindow class
+    public void addToDialog(String message) {
+        Label label = new Label(message);
+        dialogContainer.getChildren().add(label);
+    }
+
 }
