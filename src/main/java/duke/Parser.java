@@ -24,7 +24,6 @@ public class Parser {
      * Default constructor to initialize the Parser class.
      */
     public Parser() {
-        //empty constructor to initialize class objects
     }
     static String temp = "";
     private static void updateTask(String str, TaskList tasks) throws InvalidInputException, EmptyInputException, TaskTypeMismatchException {
@@ -180,10 +179,7 @@ public class Parser {
      */
     private static void addToDo(String str, TaskList tasks) throws ToDoCommandUseException {
         String todo = str.substring(4);
-        //remove any leading and trailing whitespace characters and
-        //check whether there is a task after the instruction
         if (todo.trim().isEmpty()) {
-            //this would mean the instruction is incomplete
             throw new ToDoCommandUseException(str);
         }
         String string = str.substring(5);
