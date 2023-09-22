@@ -264,11 +264,11 @@ Now you have 5 tasks in the list
 
 ### `bye` - say bye to Dukey!
 
-Dukey will reply. Dukey will still be usable afterwards.
+Dukey will reply and save the tasks to file.
 
 Format: `bye`
 
-- Dukey will reply
+- Dukey will reply and save tasks.
 
 Example of usage:
 
@@ -276,7 +276,7 @@ Example of usage:
 
 Expected outcome:
 
-Dukey replies to the bye. 
+Dukey replies to the bye. Tasks are saved to local file.
 
 ```
 Bye bye! Hope to see you again! o(^w^)o
