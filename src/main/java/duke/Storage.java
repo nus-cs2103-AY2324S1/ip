@@ -45,6 +45,7 @@ public class Storage {
                     }
                 } // else no task yet
             } else {
+                Files.createDirectories(relativePath.getParent());
                 Files.createFile(relativePath);
             }
         } catch (IOException e) {
@@ -65,6 +66,7 @@ public class Storage {
         ArrayList<String> content = new ArrayList<>();
         tasks.copyArrInto(content);
         try {
+            Files.createDirectories(relativePath.getParent());
             Files.write(relativePath, content);
         } catch (Exception e) {
             System.out.println("\t" + e);
