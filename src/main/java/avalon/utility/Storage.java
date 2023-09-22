@@ -40,9 +40,11 @@ public class Storage {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
                 System.out.println("No existing Avalon.txt found. File created!");
+                // Close scanner and open a new one on the created file
+                scanner = new Scanner(file);
+            } else {
+                scanner = new Scanner(file);
             }
-
-            scanner = new Scanner(file);
 
             while (scanner.hasNext()) {
                 String description = scanner.nextLine();

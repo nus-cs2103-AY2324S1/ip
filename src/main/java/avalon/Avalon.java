@@ -26,7 +26,7 @@ public class Avalon {
         this.ui = new Ui();
         this.storage = new Storage(filepath);
         this.taskList = new TaskList();
-        //storage.loadTasks(this.taskList);
+        storage.loadTasks(this.taskList);
     }
 
     /**
