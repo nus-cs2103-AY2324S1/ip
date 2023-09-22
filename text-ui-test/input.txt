@@ -1,0 +1,5 @@
+todo play soccer
+event NUSMS WT /from 5pm /to 11pm
+mark 2
+list
+bye

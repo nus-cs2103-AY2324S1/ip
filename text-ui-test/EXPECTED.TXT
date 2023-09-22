@@ -1,7 +1,32 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+------------------------------------
+Hello! I'm Khaleelur!
+What can I do for you?
+ ------------------------------------
+
+------------------------------------
+Got it. I've added this task :
+[T][ ] play soccer 
+Now you have 1 task in the list.
+------------------------------------
+
+------------------------------------
+Got it. I've added this task :
+[E][ ] NUSMS WT  ( from: 5pm  to: 11pm )
+Now you have 2 tasks in the list.
+------------------------------------
+
+------------------------------------
+Nice! I've marked this task as done:
+[E][X] NUSMS WT  ( from: 5pm  to: 11pm )
+------------------------------------
+
+------------------------------------
+Here are the tasks in your list:
+1.[T][ ] play soccer 
+2.[E][X] NUSMS WT  ( from: 5pm  to: 11pm )
+------------------------------------
+
+------------------------------------
+Bye. Hope to see you again soon!
+------------------------------------
 
