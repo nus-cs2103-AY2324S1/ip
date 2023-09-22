@@ -10,71 +10,21 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * Stores the list of tasks.
+ * A copy of the Storage class that is used to perform tests in its own environment
  * Saves/loads tasks from a data file on shutdown/startup.
  * Handles data manipulation
  */
-public class Storage {
+public class TestStorage {
 
     private static ArrayList<Task> taskArray = new ArrayList<>();
 
     /**
-     * Loads tasks from data file if it exists
+     * Loads tasks from text if it exists
      */
-    public Storage() {
-        initializeDirectory();
-        processTextFile();
-    }
-
-    /**
-     * Get the directory of the chatbot's data file, or create a new directory if it doesn't exist.
-     */
-    private void initializeDirectory() {
-        try {
-            // Get directory of data
-            Path path = Paths.get("./data");
-
-            // Assert that the file is located in the correct file hierarchy, and the file has the correct name
-            assert (path.getParent().getParent() == null);
-            assert (path.getName(1).toString().equals("data"));
-
-            // Make new directory if it doesn't exist
-            if (!Files.exists(path)) {
-                Files.createDirectories(path);
-                System.out.println("Directory is created!");
-            }
-
-        } catch (IOException e) {
-            System.err.println("Failed to create directory!" + e.getMessage());
-        }
-    }
-
-    /**
-     * Extract the task data from the text file, or create a new text file if it doesn't exist.
-     */
-    private void processTextFile() {
-        try {
-            FileReader fr = new FileReader("./data/duke.txt");
-            int c;
-            String savedTasks = "";
-            while ((c = fr.read()) != -1) {
-                savedTasks += (char) c;
-            }
-
-            System.out.println(savedTasks);
-
-            // Assert that fr.read is equals -1, meaning all characters of the text file is read
-            assert (fr.read() == -1);
-
-            for (String task : savedTasks.split("/;/")) {
-                System.out.println(task);
-                String[] taskDetails = task.split("/%-%/");
-                taskArray.add(textToTask(taskDetails));
-            }
-
-        } catch (Exception e) {
-            // if the file is not found, create a new text file
-            new File("./data/duke.txt");
+    public TestStorage(String text) {
+        for (String task : text.split("/;/")) {
+            String[] taskDetails = task.split("/%-%/");
+            taskArray.add(textToTask(taskDetails));
         }
     }
 
@@ -149,7 +99,7 @@ public class Storage {
             if (task == null) break;
             out += count++ + ". " + task.toString() + "\n";
         }
-      
+
         // Assert there should not be more tasks listed than the size of the task array
         assert (count <= taskArray.size() + 1);
 
@@ -209,52 +159,5 @@ public class Storage {
      */
     public void tag(int index, String tag) throws NumberFormatException, IndexOutOfBoundsException {
         taskArray.get(index).addTag(tag);
-    }
-
-    /**
-     * Write the contents of duke.Storage into file
-     */
-    public void write() throws IOException {
-        FileWriter fw = new FileWriter("./data/duke.txt");
-        String out = "";
-        for (Task taskToSave : taskArray) {
-            out += taskToText(taskToSave);
-        }
-
-        fw.write(out);
-        fw.close();
-    }
-
-    /**
-     * Convert task information into parsable text
-     *
-     * @param taskToSave The Task to be converted into text
-     * @return String containing specific information about the task
-     */
-    private String taskToText(Task taskToSave) {
-        String taskType;
-        String taskAppendices = "";
-
-        // Parse based on class of task
-        if (taskToSave instanceof ToDo) {
-            taskType = "T/%-%/";
-            taskAppendices = "/%-%/" + taskToSave.description;
-        } else if (taskToSave instanceof Deadline) {
-            taskType = "D/%-%/";
-            taskAppendices = "/%-%/"  + taskToSave.description + "/%-%/" + ((Deadline) taskToSave).by;
-        } else if (taskToSave instanceof Event) {
-            taskType = "E/%-%/";
-            taskAppendices = "/%-%/" + taskToSave.description + "/%-%/" +
-                    ((Event) taskToSave).from + "/%-%/" + ((Event) taskToSave).to;
-        } else {
-            taskType = taskToSave.description + "/%-%/";
-        }
-
-        String tags = "/%-%/";
-        for (String tag : taskToSave.getTags()) {
-            tags += tag + "/%t%/";
-        }
-
-        return taskType + (taskToSave.isDone ? 1 : 0) + taskAppendices + tags + "/;/";
     }
 }
