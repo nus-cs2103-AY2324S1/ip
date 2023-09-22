@@ -79,8 +79,9 @@ public class Ui {
      * @param numOfTasks The number of tasks in the list after adding.
      */
     public String addTaskMessage(Task task, int numOfTasks) {
+        String taskOrTasks = numOfTasks == 1 ? "task" : "tasks";
         return "Got it. I've added this task:" + "\n" + task.toString() + "\n"
-                + "Now you have " + numOfTasks + " tasks in the list.";
+                + "Now you have " + numOfTasks + " " + taskOrTasks + " in the list.";
     }
 
     /**
@@ -90,8 +91,9 @@ public class Ui {
      * @param numOfTasks The number of tasks in the list after deletion.
      */
     public String deleteTaskMessage(Task task, int numOfTasks) {
+        String taskOrTasks = numOfTasks == 1 ? "task" : "tasks";
         return "Noted. I've removed this task:" + "\n" + task.toString() + "\n"
-                + "Now you have " + numOfTasks + " tasks in the list.";
+                + "Now you have " + numOfTasks + " " + taskOrTasks + " in the list.";
     }
 
     /**

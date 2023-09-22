@@ -29,7 +29,8 @@ public class Parser {
      * Parses a user command and performs the corresponding action.
      *
      * @param command The user's input command.
-     * @return True if the command was successfully parsed and executed, false otherwise.
+     * @return A command object if the user input is parsed successfully.
+     * @throws DukeException If an error occurs while processing the input.
      */
     public Command parseCommand(String command) throws DukeException {
         Commands cmd = Commands.invalid;
@@ -61,6 +62,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses the task index from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed task index.
+     * @throws DukeInvalidTaskIndexException If the task index is missing or invalid.
+     */
     public static int parseTaskIndex(String input) throws DukeInvalidTaskIndexException {
         if (input.split(" ").length < 2) {
             throw new DukeInvalidTaskIndexException("☹ OOPS!!! You must include a task index.");
@@ -70,6 +78,13 @@ public class Parser {
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
 
+    /**
+     * Parses the keyword from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed keyword.
+     * @throws DukeInvalidKeywordException If the keyword is missing.
+     */
     public static String parseKeyword(String input) throws DukeInvalidKeywordException {
         if (input.split(" ").length < 2) {
             throw new DukeInvalidKeywordException("☹ OOPS!!! You must include a keyword.");
@@ -79,18 +94,32 @@ public class Parser {
         return input.split(" ")[1];
     }
 
-    public static Task parseTodo(String input) throws DukeInvalidDescriptionException {
+    /**
+     * Parses a Todo from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed Todo task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     */
+    public static Todo parseTodo(String input) throws DukeInvalidDescriptionException {
         if (input.substring(5).isEmpty()) {
             throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of a todo can't be empty.");
         }
         assert !input.substring(5).isEmpty() : "You need to include a description.";
         String description = input.substring(5);
-        
-        Todo todo = new Todo(description);
-        return todo;
+
+        return new Todo(description);
     }
 
-    public static Task parseDeadline(String input) throws DukeInvalidDescriptionException, DukeInvalidDateException {
+    /**
+     * Parses a Deadline from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed Deadline task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     * @throws DukeInvalidDateException If the date is missing.
+     */
+    public static Deadline parseDeadline(String input) throws DukeInvalidDescriptionException, DukeInvalidDateException {
         if (input.split("/by").length < 2) {
             throw new DukeInvalidDateException("☹ OOPS!!! The date of a deadline can't be empty.");
         }
@@ -103,11 +132,18 @@ public class Parser {
         assert input.split("/by")[0].trim().split(" ").length >= 2 : "You need to include a description.";
         String description = input.split("/by")[0].trim().split(" ", 2)[1];
 
-        Deadline deadline = new Deadline(description, by);
-        return deadline;
+        return new Deadline(description, by);
     }
 
-    public static Task parseEvent(String input) throws DukeInvalidDescriptionException, DukeInvalidDurationException {
+    /**
+     * Parses an Event from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed Event task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     * @throws DukeInvalidDurationException If the duration is missing or empty.
+     */
+    public static Event parseEvent(String input) throws DukeInvalidDescriptionException, DukeInvalidDurationException {
         if (input.split("/from").length < 2) {
             throw new DukeInvalidDurationException("☹ OOPS!!! The duration of an event can't be empty.");
         }
@@ -132,7 +168,6 @@ public class Parser {
         assert input.split("/from")[0].trim().split(" ").length >= 2 : "You need to include a description.";
         String description = input.split("/from")[0].trim().split(" ")[1];
 
-        Event event = new Event(description, from, to);
-        return event;
+        return new Event(description, from, to);
     }
 }
