@@ -28,6 +28,8 @@ import javafx.stage.Stage;
 public class MainWindow extends AnchorPane {
     private static final String USER_TITLE = "User";
     private static final String BOT_TITLE = "Cyrus";
+    private static final Color BOT_HELP_TEXT_COLOR = Color.rgb(184, 110, 240);
+    private static final Color BOT_ERROR_TEXT_COLOR = Color.rgb(245, 66, 111);
 
     private final Image userImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png"))
@@ -55,10 +57,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
                 DialogBox.getDialog(
-                        "Welcome to Cyrus!\nYou can use /list, /todo, /deadline, /event to get started!",
+                        "Welcome to Cyrus!\nYou can use list, todo, deadline, event to get started!",
                         BOT_TITLE,
                         botImage,
-                        Color.rgb(184, 110, 240)
+                        BOT_HELP_TEXT_COLOR
                 )
         );
     }
@@ -137,7 +139,7 @@ public class MainWindow extends AnchorPane {
     private void putConversation(String userText, String cyrusText, boolean isError) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDialog(userText, USER_TITLE, userImage),
-                DialogBox.getDialog(cyrusText, BOT_TITLE, botImage, isError ? Color.rgb(245, 66, 111) : Color.BLACK)
+                DialogBox.getDialog(cyrusText, BOT_TITLE, botImage, isError ? BOT_ERROR_TEXT_COLOR : Color.BLACK)
         );
         userInput.clear();
     }
