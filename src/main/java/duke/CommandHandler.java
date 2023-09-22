@@ -216,16 +216,18 @@ public class CommandHandler {
         if (splitStr.length != 3) {
             throw e;
         }
+
         int taskIndex;
         int priorityVal;
         try {
             taskIndex = Integer.valueOf(splitStr[1]) - 1;
-            priorityVal = Integer.valueOf(splitStr[1]);
+            priorityVal = Integer.valueOf(splitStr[2]);
         } catch (NumberFormatException ne) {
             throw e;
         }
         final int PRIORITY_LOWER_BOUND = 0;
         final int PRIORITY_UPPER_BOUND = 1;
+
         if (priorityVal < PRIORITY_LOWER_BOUND || priorityVal > PRIORITY_UPPER_BOUND
                 || taskIndex < 0 || taskIndex >= taskList.getSize()) {
             throw e;
