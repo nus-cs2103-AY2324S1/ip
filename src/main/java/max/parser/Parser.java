@@ -166,9 +166,13 @@ public class Parser {
      * @return DeleteCommand Command
      */
     public Command handleDelete(String fullCommand) throws MaxException {
-        int deleteNumber = parseInt(fullCommand.substring(7));
-        assert deleteNumber > 0 : "Delete number should be positive integer";
-        return new DeleteCommand(deleteNumber);
+        try {
+            int deleteNumber = parseInt(fullCommand.substring(7));
+            assert deleteNumber > 0 : "Delete number should be positive integer";
+            return new DeleteCommand(deleteNumber);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new EmptyArgumentException("Please supply some arguments!");
+        }
     }
     /**
      * Parses a mark command. If input is invalid, throws exception.
@@ -178,7 +182,13 @@ public class Parser {
      * @throws MaxException If mark number is invalid.
      */
     public Command handleMark(String fullCommand) throws MaxException {
-        int markNumber = parseInt(fullCommand.substring(5));
+        int markNumber;
+
+        try {
+            markNumber = parseInt(fullCommand.substring(5));
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new EmptyArgumentException("Please supply some arguments!");
+        }
 
         // Error checking: negative integer
         if (markNumber <= 0) {
@@ -197,7 +207,13 @@ public class Parser {
      * @throws MaxException If unmark number is invalid.
      */
     public Command handleUnmark(String fullCommand) throws MaxException {
-        int unmarkNumber = parseInt(fullCommand.substring(7));
+        int unmarkNumber;
+
+        try {
+            unmarkNumber = parseInt(fullCommand.substring(7));
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new EmptyArgumentException("Please supply some arguments!");
+        }
 
         // Error checking: negative integer
         if (unmarkNumber <= 0) {
@@ -215,9 +231,13 @@ public class Parser {
      * @param fullCommand User input
      * @return Find command
      */
-    public Command handleFind(String fullCommand) {
-        String[] items = fullCommand.substring(5).split(" ");
-        return new FindCommand(items);
+    public Command handleFind(String fullCommand) throws MaxException {
+        try {
+            String[] items = fullCommand.substring(5).split(" ");
+            return new FindCommand(items);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new EmptyArgumentException("Please supply some arguments!");
+        }
     }
 }
 
