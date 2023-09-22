@@ -77,4 +77,12 @@ public class Storage {
         }
         scanner.close();
     }
+
+    /**
+     * Changes the class field file to a new location.
+     * @param file The new file to set storage to.
+     */
+    protected void setFile(File file) {
+        this.file = file;
+    }
 }

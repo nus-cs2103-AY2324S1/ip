@@ -218,6 +218,12 @@ public class TaskList {
         return tasksFound.toString();
     }
 
+
+    /**
+     * Swaps two tasks in the taskList.
+     * @param firstTaskIndex Index of the first task to be swapped.
+     * @param secondTaskIndex Index of the second task to be swapped.
+     */
     public void swap(int firstTaskIndex, int secondTaskIndex) {
         Task temp = tasks.get(firstTaskIndex);
         tasks.set(firstTaskIndex, tasks.get(secondTaskIndex));

@@ -3,6 +3,7 @@ package bob.data.task;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,6 +21,7 @@ public class EventTaskTest {
                     testTask.toString());
         } catch (DukeException e) {
             System.out.println(e);
+            fail("An exception was thrown.");
         }
     }
 
@@ -30,6 +32,7 @@ public class EventTaskTest {
                     "01/01/2023 1200", "02/01/2023 1200").getType());
         } catch (DukeException e) {
             System.out.println(e);
+            fail("An exception was thrown.");
         }
     }
 
@@ -40,15 +43,41 @@ public class EventTaskTest {
                     "01/01/2023 1200", "02/01/2023 1200").getDateTime());
         } catch (DukeException e) {
             System.out.println(e);
+            fail("An exception was thrown.");
         }
     }
 
     @Test
-    public void invalidToDate() {
+    public void testInvalidToDate() {
         DukeException thrown = assertThrows(DukeException.class, () -> new EventTask("test",
                 "02/01/2023 1200", "01/01/2023 1200"),
                 "Expected constructor to throw, but it didn't");
 
         assertTrue(thrown.getMessage().contains("Your start date is either the same or after your end date!"));
+    }
+
+    @Test
+    public void toFileString_completedTask_stringWithCompleted() {
+        try {
+            EventTask task = new EventTask("test",
+                "01/01/2023 1200", "02/01/2023 1200");
+            assertEquals("Event,0,test,01/01/2023 1200,02/01/2023 1200\n", task.toFileString());
+        } catch (DukeException e) {
+            System.out.println(e);
+            fail("An exception was thrown.");
+        }
+    }
+
+    @Test
+    public void toFileString_incompleteTask_stringWithIncomplete() {
+        try {
+            EventTask task = new EventTask("test",
+                    "01/01/2023 1200", "02/01/2023 1200");
+            task.setDone();
+            assertEquals("Event,1,test,01/01/2023 1200,02/01/2023 1200\n", task.toFileString());
+        } catch (DukeException e) {
+            System.out.println(e);
+            fail("An exception was thrown.");
+        }
     }
 }

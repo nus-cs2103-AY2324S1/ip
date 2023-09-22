@@ -1,0 +1,6 @@
+Todo,0,todotest
+Todo,1,todotest2
+Deadline,0,deadlinetest,12/12/2024 1200
+Deadline,1,deadlinetest2,12/12/2024 1200
+Event,0,eventtest,12/12/2024 1200,13/12/2024 1200
+Event,1,eventtest2,12/12/2024 1200,13/12/2024 1200
