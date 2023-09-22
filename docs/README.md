@@ -56,10 +56,10 @@ Example input:
 
 For MyBot to correctly recognise the duedate and period for events and deadline, the input should take note of the following.
 1. Please do not leave a space after `,`
-2. There should at least be a date after `/by`,`from` and `to` but the day and time is not necessary 
-3. Day and Month of the Date input should always be double digit like `09.09.2023`
-3. Day should be input as`Thu` or `Thursday`, inputs like `Thurs` will not be recognise
-4. Time should be input as `6PM` or `630PM` or `6.30PM`, inputs like `6:30PM` or `6:30pm` will not be recognised
+2. There should at least be a date after `/by`,`from` and `to` but the day and time is not necessary.
+3. Day and Month of the Date input should always be double digits like `09.09.2023`, inputs like `08.9.2023` will not be recognised.
+4. Day should be input as`Thu` or `Thursday`, inputs like `Thurs` will not be recognised.
+5. Time should be input as `6PM`,`630PM` or `6.30PM`, inputs like `6:30PM` or `6:30pm` will not be recognised.
 
 
 ### Managing tasks
@@ -74,12 +74,12 @@ Indicates Xth task of the list as not completed.
 Expected input: `unmark 3`
 
 #### 3. `delete`
-Removes Xth task from the list of tasks
+Removes Xth task from the list of tasks.
 
 Expected input: `delete 3`
 
 #### 4. `find`
-Find all the tasks with a certain input
+Find all the tasks with a certain input.
 
 Expected input:`find iP`
 
@@ -88,7 +88,7 @@ Expected output: The list of all the tasks that has the words `iP` in it
 
 ### Storage
 #### 1. `list`
-Shows the list of all the items in your list
+Shows the list of all the items in your list.
 
 Expected input:`list`
 
