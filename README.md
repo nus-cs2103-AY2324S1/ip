@@ -7,7 +7,7 @@ ekuD is a **Command-Line Interface (CLI)** chatbot optimized for fast-typers tha
 ## Quick Start
 1. Ensure you have **Java 11** or above installed in your Computer.
 
-2. Download the latest ekuD.jar from [here]().
+2. Download the latest ekud.jar from [here](https://github.com/brandon-nam/ip/releases/download/A-Release/ekud.jar).
 
 3. Copy the file to the folder you want to use as the home folder for your ekuD chatbot.
 
