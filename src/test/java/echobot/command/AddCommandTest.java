@@ -15,7 +15,6 @@ import echobot.storage.Storage;
 import echobot.task.Deadline;
 import echobot.task.Task;
 import echobot.task.Todo;
-import echobot.ui.Ui;
 import javafx.scene.layout.VBox;
 
 public class AddCommandTest {
