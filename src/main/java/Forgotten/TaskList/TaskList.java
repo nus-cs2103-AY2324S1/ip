@@ -126,6 +126,7 @@ public class TaskList {
         }
 
         tasks.add(task);
+        assert tasks.contains(task): "The new task is not added successfully";
         try {
             storage.writeToFile(task.toFileString());
         } catch (IOException error) {
