@@ -3,6 +3,7 @@ plugins {
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'checkstyle'
+
 }
 
 repositories {
@@ -47,10 +48,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Alex"
     archiveFileName = 'Alex.jar'
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
@@ -61,3 +59,6 @@ run{
 checkstyle {
     toolVersion = '10.2'
 }
+
+
+
