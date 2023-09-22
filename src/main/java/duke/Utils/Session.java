@@ -51,7 +51,7 @@ public class Session extends Application {
      */
     public void initializeUI(Stage primaryStage) {
         BorderPane root = createRootPane();
-        Scene scene = new Scene(root, 400, 400);
+        Scene scene = new Scene(root, 500, 500);
         
         setupPrimaryStage(primaryStage, scene);
         setupInitialGreeting();
