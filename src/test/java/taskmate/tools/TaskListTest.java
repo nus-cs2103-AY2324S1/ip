@@ -23,11 +23,9 @@ public class TaskListTest {
         tasks.addTask(todoTask3, false);
 
         String tasksFormattedForWritingToDisk = tasks.formatAllTasksForSaving();
-        String actualAnswer = """
-                [T][ ] This is a todo task
-                [T][X] This is a COMPLETED todo task
-                [T][ ] This is a todo task
-                """;
+        String actualAnswer = "[T][ ] This is a todo task\n";
+        actualAnswer += "[T][X] This is a COMPLETED todo task\n";
+        actualAnswer += "[T][ ] This is a todo task\n";
         assertEquals(tasksFormattedForWritingToDisk, actualAnswer);
     }
 
@@ -45,12 +43,10 @@ public class TaskListTest {
         tasks.addTask(deadlineTask4);
 
         String tasksFormattedForWritingToDisk = tasks.formatAllTasksForSaving();
-        String actualAnswer = """
-                [D][ ] This is a deadline task (by: 2024-02-29)
-                [D][X] by (by: 2023-01-01)
-                [D][ ] . (by: 2100-01-02)
-                [D][ ] This is a deadline task (by: 2024-02-29)
-                """;
+        String actualAnswer = "[D][ ] This is a deadline task (by: 2024-02-29)\n";
+        actualAnswer += "[D][X] by (by: 2023-01-01)\n";
+        actualAnswer += "[D][ ] . (by: 2100-01-02)\n";
+        actualAnswer += "[D][ ] This is a deadline task (by: 2024-02-29)\n";
         assertEquals(tasksFormattedForWritingToDisk, actualAnswer);
     }
 
@@ -69,12 +65,10 @@ public class TaskListTest {
         tasks.addTask(eventTask4);
 
         String tasksFormattedForWritingToDisk = tasks.formatAllTasksForSaving();
-        String actualAnswer = """
-                [E][ ] This is an event task (from: 2000-07-29 to: 2036-02-29)
-                [E][X] This is a COMPLETED event task (from: 2023-01-01 to: 3023-12-31)
-                [E][ ] from (from: 1100-01-02 to: 2100-01-02)
-                [E][ ] to (from: 1100-01-02 to: 2100-01-02)
-                """;
+        String actualAnswer = "[E][ ] This is an event task (from: 2000-07-29 to: 2036-02-29)\n";
+        actualAnswer += "[E][X] This is a COMPLETED event task (from: 2023-01-01 to: 3023-12-31)\n";
+        actualAnswer += "[E][ ] from (from: 1100-01-02 to: 2100-01-02)\n";
+        actualAnswer += "[E][ ] to (from: 1100-01-02 to: 2100-01-02)\n";
         assertEquals(tasksFormattedForWritingToDisk, actualAnswer);
     }
 
@@ -90,11 +84,9 @@ public class TaskListTest {
         tasks.addTask(eventTask, false);
 
         String tasksFormattedForWritingToDisk = tasks.formatAllTasksForSaving();
-        String actualAnswer = """
-                [T][ ] This is a todo task
-                [D][X] This is a COMPLETED deadline task (by: 2023-01-01)
-                [E][ ] This is an event task (from: 2024-12-02 to: 1987-01-02)
-                """;
+        String actualAnswer = "[T][ ] This is a todo task\n";
+        actualAnswer += "[D][X] This is a COMPLETED deadline task (by: 2023-01-01)\n";
+        actualAnswer += "[E][ ] This is an event task (from: 2024-12-02 to: 1987-01-02)\n";
         assertEquals(tasksFormattedForWritingToDisk, actualAnswer);
     }
 
