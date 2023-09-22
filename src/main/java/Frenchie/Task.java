@@ -9,7 +9,7 @@ package Frenchie;
  * <p>
  */
 public class Task {
-    public static boolean isCompleted;
+    public boolean isCompleted;
     public String taskName;
 
 
@@ -42,13 +42,13 @@ public class Task {
     /**
      *  Returns the isCompleted attribute to check if Task is completed.
      */
-    public static boolean check_Completion() {
+    public boolean checkCompletion() {
         return isCompleted;
     }
     @Override
     public String toString() {
         String indicator = " ";
-        if(isCompleted) {
+        if (isCompleted) {
             indicator = "X";
         }
         return "[" + indicator + "] " + taskName;

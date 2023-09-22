@@ -7,38 +7,37 @@ package Frenchie;
  * </p>
  */
 public class Parser {
-
     /**
      * This method takes in the user's input to the chatbot and splits it to return the Command.
      * @param input user input to the Frenchie Chatbot
      * @return respective Command from the input string
      */
     public static Command parseCommand(String input) {
+
         String[] parts = input.split(" ");
         String command = parts[0];
 
         switch (command) {
-            case "list":
-                return Command.list;
-            case "mark":
-                return Command.mark;
-            case "unmark":
-                return Command.unmark;
-            case "todo":
-                return Command.todo;
-            case "deadline":
-                return Command.deadline;
-            case "event":
-                return Command.event;
-            case "bye":
-                return Command.bye;
-            case "delete":
-                return Command.delete;
-            case "find":
-                return Command.find;
-            default:
-                return Command.invalid;
-
+        case "list":
+            return Command.list;
+        case "mark":
+            return Command.mark;
+        case "unmark":
+            return Command.unmark;
+        case "todo":
+            return Command.todo;
+        case "deadline":
+            return Command.deadline;
+        case "event":
+            return Command.event;
+        case "bye":
+            return Command.bye;
+        case "delete":
+            return Command.delete;
+        case "find":
+            return Command.find;
+        default:
+            return Command.invalid;
         }
     }
 

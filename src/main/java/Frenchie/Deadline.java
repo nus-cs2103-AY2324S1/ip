@@ -14,8 +14,10 @@ public class Deadline extends Task {
     LocalDateTime deadline;
 
     /**
-     *  Constructs a new Deadline object, with a default false value for isCompleted as tasks inputted into the task list are incomplete.
-     *  Takes in a String name which is the name of the task as well as a String deadline in the format "dd/MM/yyyy HH:mm".
+     *  Constructs a new Deadline object, with a default false
+     *  value for isCompleted as tasks inputted into the task list are incomplete.
+     *  Takes in a String name which is the name of the task as
+     *  well as a String deadline in the format "dd/MM/yyyy HH:mm".
      */
     public Deadline(String name, String deadline) {
         super(name);

@@ -8,6 +8,6 @@ public class TaskTest {
     public void markTaskCompleteTest() {
         ToDo testTask = new ToDo("Test Task");
         testTask.setIsCompleted();
-        assertTrue(testTask.check_Completion());
+        assertTrue(testTask.checkCompletion());
     }
 }

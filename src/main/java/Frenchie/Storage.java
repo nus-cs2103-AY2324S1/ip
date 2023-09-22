@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 
 public class Storage {
     private String filePath;
+
+    public Storage() { this.filePath = ""; }
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -24,7 +26,7 @@ public class Storage {
                 if (taskType.equals("T")) {
                     ToDo currentTask = new ToDo(taskDetails);
                     if (taskStatus.equals("X")) {
-                        currentTask.mark_as_completed();
+                        currentTask.setIsCompleted();
                     }
                     loadedTasks.addTask(currentTask);
                 } else if (taskType.equals("D")) {
@@ -36,7 +38,7 @@ public class Storage {
                     String constructorDeadline = storedDeadline.format(desiredFormatter);
                     Deadline currentTask = new Deadline(taskName, constructorDeadline);
                     if (taskStatus.equals("X")) {
-                        currentTask.mark_as_completed();
+                        currentTask.setIsCompleted();
                     }
                     loadedTasks.addTask(currentTask);
                 } else if (taskType.equals("E")) {
@@ -51,7 +53,7 @@ public class Storage {
                     String constructorEndTime = storedEndTime.format(desiredFormatter);
                     Event currentTask = new Event(taskName, constructorStartTime, constructorEndTime);
                     if (taskStatus.equals("X")) {
-                        currentTask.mark_as_completed();
+                        currentTask.setIsCompleted();
                     }
                     loadedTasks.addTask(currentTask);
                 }

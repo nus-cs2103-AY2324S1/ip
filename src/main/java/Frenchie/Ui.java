@@ -21,10 +21,10 @@ public class Ui {
      * Displays the Welcome message whenever the Frenchie chatbot is started.
      */
     public void welcomeMessage() {
-        String skeleton = "____________________________________________________________\n" +
-                " Hello! I'm Frenchie.\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________";
+        String skeleton = "____________________________________________________________\n"
+                + " Hello! I'm Frenchie.\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
         System.out.println(skeleton);
     }
 
@@ -41,30 +41,26 @@ public class Ui {
      * This method prints out all the tasks stored in a TaskList.
      * @param tasks TaskList object that contains all the Tasks in an arraylist.
      */
-    public void listTasks(TaskList tasks) {
-        tasks.listTasks();
+    public String listTasks(TaskList tasks) {
+        return tasks.listTasks();
     }
 
     /**
      * This method prints out the success message that a Task in a tasklist has been marked as completed.
      * @param target_task the Task to be marked as completed.
      */
-    public void markTaskAsComplete(Task target_task) {
-        System.out.println("____________________________________________________________\n" +
-                " Nice! I've marked this task as done: \n" +
-                target_task.toString() + "\n" +
-                "____________________________________________________________");
+    public String markTaskAsComplete(Task target_task) {
+        return " Nice! I've marked this task as done: \n"
+                + target_task.toString() + "\n";
     }
 
     /**
      * This method prints out the success message that a Task in a tasklist has been marked as incomplete.
      * @param target_task the Task to be marked as incomplete.
      */
-    public void markTaskAsIncompelte(Task target_task) {
-        System.out.println("____________________________________________________________\n" +
-                " OK, I've marked this task as not done yet: \n" +
-                target_task.toString() + "\n" +
-                "____________________________________________________________");
+    public String markTaskAsIncompelte(Task target_task) {
+        return " OK, I've marked this task as not done yet: \n"
+                + target_task.toString() + "\n";
     }
 
     /**
@@ -72,12 +68,10 @@ public class Ui {
      * @param task the Task object to be added to the TaskList.
      * @param taskList the Tasklist that the Task should be added to.
      */
-    public void addTask(Task task, TaskList taskList) {
-        System.out.println("____________________________________________________________\n" +
-                " Got it! I've added this task: \n" +
-                task + "\n" +
-                "Now you have " + taskList.size() + " tasks in the list.\n" +
-                "____________________________________________________________");
+    public String addTask(Task task, TaskList taskList) {
+        return " Got it! I've added this task: \n"
+                + task + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.\n";
     }
 
     /**
@@ -85,30 +79,27 @@ public class Ui {
      * @param target_task the Task to be removed from the TaskList.
      * @param taskList the TaskList that the Task should be removed from.
      */
-    public void deleteTask(Task target_task, TaskList taskList) {
-        System.out.println("____________________________________________________________\n" +
-                "Noted. I've removed this task: \n" +
-                target_task.toString()   + "\n" +
-                "Now you have " + taskList.size() + " tasks in the list.\n" +
-                "____________________________________________________________");
+    public String deleteTask(Task target_task, TaskList taskList) {
+        return "____________________________________________________________\n"
+                + "Noted. I've removed this task: \n"
+                + target_task.toString() + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.\n"
+                + "____________________________________________________________";
     }
 
     /**
      * This method prints out the exit message when a user inputs 'bye'.
      */
-    public void exitMessage() {
-        System.out.println("____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________");
+    public String exitMessage() {
+        return "Bye. Hope to see you again soon!\n";
     }
 
     /**
      * This method closes the Scanner of the Ui object when the chatbot should be closed.
      */
 
-    public void findMessage() {
-        System.out.println("____________________________________________________________\n" +
-                "Here are the matching tasks in your list: \n");
+    public String findMessage() {
+        return "Here are the matching tasks in your list: \n";
     }
 
     public void closeScanner() {

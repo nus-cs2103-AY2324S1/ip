@@ -9,12 +9,14 @@ public class TaskList {
         this.tasks = new ArrayList<Task>();
     }
 
-    public void listTasks() {
+    public String listTasks() {
         int counter = 1;
+        StringBuilder output = new StringBuilder();
         for (Task task : tasks) {
-            System.out.println(counter + ". " + task.toString());
+            output.append(counter).append(". ").append(task.toString()).append("\n");
             counter += 1;
         }
+        return output.toString();
     }
 
     public Task get(int index) {
@@ -35,14 +37,15 @@ public class TaskList {
         this.tasks.get(index).setIsCompleted();
     }
 
-    public void returnMatchTasks(String keyword) {
+    public String returnMatchTasks(String keyword) {
         int counter = 1;
+        StringBuilder output = new StringBuilder();
         for (Task task: tasks) {
             if (task.toString().contains(keyword)) {
-                System.out.println(counter + ". " + task.toString());
+                output.append(counter).append(". ").append(task.toString()).append("\n");
                 counter += 1;
             }
-        } System.out.println("____________________________________________________________");
+        } return output.toString();
     }
     public void markTaskAsIncomplete(int index) {
         this.tasks.get(index).setIsIncomplete();
