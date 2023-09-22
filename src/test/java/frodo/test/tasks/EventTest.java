@@ -1,6 +1,7 @@
 package frodo.test.tasks;
 
 import core.DukeException;
+import frodo.tasks.Events;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EventTest {
-
     /**
      * Tests the creation of an Event.
      * Ensures that when an event is created with a specific description,

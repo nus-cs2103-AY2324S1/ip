@@ -1,17 +1,20 @@
 package frodo.parser;
-import core.Duke;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+import core.Duke;
+import core.Duke.CommandType;
+import core.DukeException;
+
 import frodo.tasks.Deadlines;
 import frodo.tasks.Events;
 import frodo.tasks.Task;
-import frodo.tasks.ToDos;
-import core.DukeException;
-import core.Duke.CommandType;
 import frodo.tasks.TaskList;
+import frodo.tasks.ToDos;
+
 
 public class Parser {
     public CommandType getCommandType(String userCommand) {
@@ -52,13 +55,13 @@ public class Parser {
     }
 
     public Task parseTaskFromFile(String line) throws DukeException {
+        Task task = null;
         String[] parts = line.split("\\|");
 
         for (int i = 0; i < parts.length; i++) {
             parts[i] = parts[i].trim();
         }
 
-        Task task = null;
         String taskType = parts[0];
         boolean isCompleted = "1".equals(parts[1]);
         String description = parts[2];
@@ -70,17 +73,15 @@ public class Parser {
 
         try {
             switch (taskType) {
-                case "T":
-                    task = new ToDos(description, isCompleted);
-                    break;
-
-                case "D":
-                    task = new Deadlines(description, date, isCompleted);
-                    break;
-
-                case "E":
-                    task = new Events(description, startDate, endDate, isCompleted);
-                    break;
+            case "T":
+                task = new ToDos(description, isCompleted);
+                break;
+            case "D":
+                task = new Deadlines(description, date, isCompleted);
+                break;
+            case "E":
+                task = new Events(description, startDate, endDate, isCompleted);
+                break;
             }
         } catch (DukeException e) {
             System.out.println(e.getMessage());
@@ -89,7 +90,6 @@ public class Parser {
         if (task == null) {
             throw new DukeException("Invalid task format.");
         }
-
         return task;
     }
 
@@ -143,19 +143,17 @@ public class Parser {
         Task task;
     
         switch (commandType) {
-            case "event":
-                task = parseEvent(formatter, parts);
-                break;
-    
-            case "todo":
-                task = parseTodo(parts);
-                break;
-    
-            case "deadline":
-                task = parseDeadline(formatter, parts);
-                break;
-            default:
-                throw new DukeException("Invalid command. Please enter a valid task type.");
+        case "event":
+            task = parseEvent(formatter, parts);
+            break;
+        case "todo":
+            task = parseTodo(parts);
+            break;
+        case "deadline":
+            task = parseDeadline(formatter, parts);
+            break;
+        default:
+            throw new DukeException("Invalid command. Please enter a valid task type.");
         }
         return task; 
     }

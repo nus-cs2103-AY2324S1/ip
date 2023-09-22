@@ -15,7 +15,6 @@ public class ParserTest {
         assertEquals(parser.getCommandType(command), Duke.CommandType.TODO);
     }
 
-
     @Test
     public void parseCommand_WithInvalidCommandType_ReturnsUnknownCommandType_ThrowsException() {
         String command = "Hello";

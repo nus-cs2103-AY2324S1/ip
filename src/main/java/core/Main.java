@@ -13,7 +13,6 @@ import visual.MainWindow;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-
     private Duke duke = new Duke();
 
     @Override

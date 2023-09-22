@@ -14,7 +14,7 @@ public abstract class Task {
      */
     public Task(String description) {
         this.description = description;
-        this.isCompleted = false;  // Tasks are unisCompleted by default
+        this.isCompleted = false;  // Tasks are not completed by default
     }
 
     public Task(String description, boolean isCompleted) {

@@ -17,7 +17,6 @@ public class DeadlineTest {
         Deadlines deadline = new Deadlines("Sample Deadline", deadlineTime);
 
         assertEquals("Sample Deadline", deadline.getDescription());
-
     }
 
     @Test
@@ -28,6 +27,4 @@ public class DeadlineTest {
 
         assertFalse(deadline.isCompleted(), "New todo should not be marked as done");
     }
-
-
 }

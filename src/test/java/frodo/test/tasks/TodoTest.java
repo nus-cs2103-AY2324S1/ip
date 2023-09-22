@@ -2,6 +2,7 @@ package frodo.test.tasks;
 import static org.junit.jupiter.api.Assertions.*;
 
 import core.DukeException;
+import frodo.tasks.ToDos;
 import org.junit.jupiter.api.Test;
 
 public class TodoTest {
