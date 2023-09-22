@@ -1,29 +1,30 @@
-  _   _   _
- / \ / \ / \
-( 안 | 녕 )
+   _    _    _
+ /  \ /  \ /  \
+(  KO | RA  )
  \_/ \_/ \_/
-Hello, I am your chatbot Kora!
+Annyeonghaseyo! I am your chatbot Kora!
 How can I help you today?
 ------------------------------
-------------------------------
-Okay! I have added this task
-[E][ ] lecture (from: 2pm to: 4pm)
-Now you have 1 tasks!
+Wow! I have changed the file path to: ./data/y2s1.txt
 ------------------------------
 ------------------------------
 Okay! I have added this task
-[D][ ] pset 1 (by: Sunday)
-Now you have 2 tasks!
+[T][ ] tp
+Now you have 4 tasks!
 ------------------------------
 ------------------------------
-Wow you are done!
-[E][X] lecture (from: 2pm to: 4pm)
+Okay! I have added this task
+[D][ ] korabot  (by: Fri, Sep 22 2023 23:59)
+Now you have 5 tasks!
 ------------------------------
 ------------------------------
-Wow you are not done!
-[E][ ] lecture (from: 2pm to: 4pm)
+Okay! I have added this task
+[E][ ] fun sem1 with cs2103t  (from: Mon, Aug 14 2023 10:00 to: Fri, Dec 1 2023 12:00)
+Now you have 6 tasks!
 ------------------------------
-I do not understand
 ------------------------------
-Byebye. See you again!
+Wow! I have successfully added the command name: bb for bye
+------------------------------
+------------------------------
+JalGa! See you again!
 ------------------------------

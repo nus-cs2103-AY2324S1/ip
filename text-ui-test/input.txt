@@ -1,6 +1,6 @@
-event lecture /from 2pm /to 4pm
-deadline pset 1 /by Sunday
-mark 1
-unmark 1
-bah
-bye
+change y2s1
+todo tp
+deadline korabot /by 2023-09-22 23:59
+event fun sem1 with cs2103t /from 2023-08-14 10:00 /to 2023-12-01 12:00
+set bye bb
+bb
