@@ -28,7 +28,7 @@ public class FindCommand extends Command {
 
     @Override
     public void loadParameters() throws DukeException {
-        keyword = parameterMap.get("default");
+        keyword = parameterMap.get("default").toLowerCase();
     }
 
     @Override
@@ -43,15 +43,15 @@ public class FindCommand extends Command {
         AtomicInteger count = new AtomicInteger(1);
 
         Stream<String> taskDetails = tasks.getTasks().map(task -> task.toString())
-                .filter(task -> task.contains(keyword))
-                .map(task -> String.format("%d. $d\n", count.getAndIncrement(), tasks));
-
-        if (taskDetails.count() == 0) {
-            return "There are no matching tasks found.";
-        }
+                .filter(task -> task.toLowerCase().contains(keyword))
+                .map(task -> String.format("%d. %s\n", count.getAndIncrement(), task.toString()));
 
         StringBuilder response = new StringBuilder("Here are the matching tasks in your list:\n");
         taskDetails.forEach(task -> response.append(task));
+
+        if (count.get() == 1) {
+            return "There are no matching tasks found.";
+        }
 
         return response.toString();
     }
