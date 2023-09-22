@@ -62,7 +62,7 @@ public class Parser {
                 throw new KevinException(new StringBuilder().append("Deadline command needs to follow ")
                         .append("\"deadline {deadline name} /by {deadline date}\".").toString());
             }
-            String[] argumentSplit = querySplit[1].split(" /by ");
+            String[] argumentSplit = querySplit[1].trim().split(" /by ");
             if (argumentSplit.length != 2) {
                 throw new KevinException(new StringBuilder().append("Deadline command needs to follow ")
                         .append("\"deadline {deadline name} /by {deadline date}\".").toString());
@@ -74,16 +74,17 @@ public class Parser {
                 throw new KevinException(new StringBuilder().append("Event command needs to follow ")
                         .append("\"event {deadline name} /from {event start time} /to {event end time}\".").toString());
             }
-            String[] argumentGetName = querySplit[1].split(" /from ", 2);
+            String[] argumentGetName = querySplit[1].trim().split(" /from ", 2);
             if (argumentGetName.length != 2) {
                 throw new KevinException(new StringBuilder().append("Event command needs to follow ")
                         .append("\"event {deadline name} /from {event start time} /to {event end time}\".").toString());
             }
-            String[] argumentGetDate = argumentGetName[1].split(" /to ", 2);
+            String[] argumentGetDate = argumentGetName[1].trim().split(" /to ", 2);
             if (argumentGetDate.length != 2) {
                 throw new KevinException(new StringBuilder().append("Event command needs to follow ")
                         .append("\"event {deadline name} /from {event start time} /to {event end time}\".").toString());
             }
+            System.out.println(argumentGetName[1].trim());
             args.add(argumentGetName[0]);
             args.add(argumentGetDate[0]);
             args.add(argumentGetDate[1]);

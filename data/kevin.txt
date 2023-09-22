@@ -1,3 +1,10 @@
-Event - false - Recess Week - Monday 26 September - Friday 28 September
-Todo - false - CS2103T tP UG draft
+Event - true - Recess Week - Monday 26 September - Friday 28 September
+Todo - true - CS2103T tP UG draft
 Deadline - false - CS2103T iP - 2023-09-22T23:59
+Event - true - Recess Week -  - Friday 28 September
+Event - false - Recess Week - lol - Friday 28 September
+Event - true - Recess Week -  - Friday 28 September
+Event - false -      - Mon - Friday 28 September
+Deadline - false -     - 2023-09-22T23:59
+Deadline - false - a - 2023-09-22T23:59
+Deadline - false - b   - 2023-09-22T23:59
