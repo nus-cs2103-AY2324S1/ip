@@ -21,14 +21,11 @@ public class MainWindow extends AnchorPane {
     private Richie richie;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image richieImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
-    @FXML
-    public void initialise() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
 
     public void setRichie(Richie richie) {
         this.richie = richie;
         dialogContainer.getChildren().add(DialogBox.getRichieDialog(richie.init(), richieImage));
+        dialogContainer.heightProperty().addListener((observable -> scrollPane.setVvalue(1.0)));
     }
 
     @FXML
