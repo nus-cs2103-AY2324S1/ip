@@ -5,7 +5,6 @@ import potato.*;
 public class Deadline extends Task {
     private static final String LINE = "-----------------------------------------\n";
     protected DateTime deadline;
-
     protected String by;
 
     public Deadline(String description, String by, boolean isDone) {
