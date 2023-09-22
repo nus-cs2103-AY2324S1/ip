@@ -18,22 +18,6 @@ public class Duke {
 
     /**
      * The constructor of Duke.
-     *
-     * @param filePath The file path to save the tasks.
-     */
-    public Duke(String filePath) {
-        ui = new Ui();
-        storage = new Storage(filePath);
-        try {
-            taskList = new TaskList(storage.load());
-        } catch (TasketException e) {
-            ui.showError(e.getMessage());
-            taskList = new TaskList();
-        }
-    }
-
-    /**
-     * The constructor of Duke.
      * This is used by javafx.
      */
     public Duke() {
@@ -48,29 +32,18 @@ public class Duke {
     }
 
     /**
-     * Runs the duke program.
-     * Shows welcome message, Gets the user input and executes commands until exits.
-     * When there's error in the command, show error message.
+     * Greet the user in GUI.
+     *
+     * @return Greet message.
      */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                Command c = Parser.parseInput(fullCommand);
-                c.execute(taskList, ui, storage);
-                isExit = c.isExit();
-            } catch (TasketException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
-
     public String greet() {
         return ui.showWelcome();
     }
 
+    /**
+     * Exit the application.
+     * To be used by gui.
+     */
     public void exit() {
         System.exit(0);
     }
@@ -90,12 +63,4 @@ public class Duke {
         }
     }
 
-    /**
-     * Creates duke object and run it.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        new Duke("data/tasks.txt").run();
-    }
 }

@@ -1,5 +1,13 @@
 package tasket.command;
 
+import static tasket.commons.Messages.MESSAGE_EMPTY_DEADLINE;
+import static tasket.commons.Messages.MESSAGE_EMPTY_DEADLINE_DESC;
+import static tasket.commons.Messages.MESSAGE_EMPTY_END;
+import static tasket.commons.Messages.MESSAGE_EMPTY_EVENT_DESC;
+import static tasket.commons.Messages.MESSAGE_EMPTY_START;
+import static tasket.commons.Messages.MESSAGE_EMPTY_TODO_DESC;
+import static tasket.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -57,7 +65,7 @@ public class AddCommand extends Command {
             break;
 
         default:
-            throw new TasketException("I'm sorry, but I don't know what it means :(");
+            throw new TasketException(MESSAGE_UNKNOWN_COMMAND);
         }
 
         taskList.add(task);
@@ -75,7 +83,7 @@ public class AddCommand extends Command {
      */
     private Task createToDoTask(String prompt) throws TasketException {
         if (prompt.isEmpty()) {
-            throw new TasketException("The description of todo cannot be empty");
+            throw new TasketException(MESSAGE_EMPTY_TODO_DESC);
         }
 
         return new ToDo(prompt.trim());
@@ -90,12 +98,12 @@ public class AddCommand extends Command {
      */
     private Task createDeadlineTask(String prompt) throws TasketException {
         if (prompt.isEmpty()) {
-            throw new TasketException("The description of deadline cannot be empty");
+            throw new TasketException(MESSAGE_EMPTY_DEADLINE_DESC);
         }
 
         String[] arguments = prompt.replaceAll("/by", "|").split(" \\| ");
         if (arguments.length < 2) {
-            throw new TasketException("The deadline cannot be empty");
+            throw new TasketException(MESSAGE_EMPTY_DEADLINE);
         }
 
         return new Deadline(arguments[0].trim(), convertToDate(arguments[1].trim()));
@@ -110,26 +118,28 @@ public class AddCommand extends Command {
      */
     private Task createEventTask(String prompt) throws TasketException {
         if (prompt.isEmpty()) {
-            throw new TasketException("The description of event cannot be empty");
+            throw new TasketException(MESSAGE_EMPTY_EVENT_DESC);
         }
 
-        String[] arguments = prompt.replaceAll("/from", "|").replaceAll("/to", "|")
+        String[] arguments = prompt.replaceAll("/from", "|")
+                .replaceAll("/to", "|")
                 .split(" \\| ");
         if (arguments.length < 2) {
-            throw new TasketException("The start time cannot be empty");
+            throw new TasketException(MESSAGE_EMPTY_START);
         } else if (arguments.length < 3) {
-            throw new TasketException("The end time cannot be empty");
+            throw new TasketException(MESSAGE_EMPTY_END);
         }
 
-        return new Event(arguments[0].trim(), convertToDate(arguments[1].trim()), convertToDate(arguments[2].trim()));
+        return new Event(arguments[0].trim(), convertToDate(arguments[1].trim()),
+                convertToDate(arguments[2].trim()));
     }
 
     /**
      * Convert the deadline and event dates.
-     * If the format fits, convert it, if not, re
+     * If the format fits, convert it, if not, return the original text.
      *
      * @param deadline The argument to be converted.
-     * @return The converted date format or original form if unable to parse.
+     * @return The converted date format or original text if unable to parse.
      */
     private String convertToDate(String deadline) {
         try {

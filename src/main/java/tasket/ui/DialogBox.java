@@ -25,6 +25,12 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    /**
+     * The constructor of dialog box.
+     *
+     * @param text The text to display.
+     * @param img The image to display.
+     */
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
@@ -49,10 +55,25 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Get user dialog box.
+     *
+     * @param text The text input from user.
+     * @param img The image representation of user.
+     * @return The user dialog box.
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     * Get chatbot dialog box.
+     * Chatbot dialog box is flipped to differentiate between user dialog.
+     *
+     * @param text The response text from chatbot.
+     * @param img The image representation of chatbot.
+     * @return The chatbot dialog box.
+     */
     public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
