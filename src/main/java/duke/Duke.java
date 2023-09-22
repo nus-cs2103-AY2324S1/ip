@@ -2,6 +2,7 @@ package duke;
 
 
 import duke.command.Command;
+import duke.exception.DukeException;
 
 /**
  * Represents the main class of the Duke application, which manages user interactions and task management.
@@ -41,7 +42,7 @@ public class Duke {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    public Command getResponse(String input) {
+    public Command getResponse(String input) throws DukeException {
         return parser.parseCommand(input);
     }
 

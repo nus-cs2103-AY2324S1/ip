@@ -1,5 +1,6 @@
 package duke;
 import duke.command.*;
+import duke.exception.*;
 
 /**
  * Parses user commands and performs actions based on the parsed command.
@@ -7,7 +8,7 @@ import duke.command.*;
 public class Parser {
 
     private enum Commands {
-        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye;
+        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye
     }
 
     private TaskList taskList;
@@ -30,7 +31,7 @@ public class Parser {
      * @param command The user's input command.
      * @return True if the command was successfully parsed and executed, false otherwise.
      */
-    public Command parseCommand(String command) {
+    public Command parseCommand(String command) throws DukeException {
         Commands cmd = Commands.invalid;
         for (Commands c : Commands.values()) {
             if (command.startsWith(c.toString())) {
@@ -60,35 +61,77 @@ public class Parser {
         }
     }
 
-    public static int parseTaskIndex(String input) {
+    public static int parseTaskIndex(String input) throws DukeInvalidTaskIndexException {
+        if (input.split(" ").length < 2) {
+            throw new DukeInvalidTaskIndexException("☹ OOPS!!! You must include a task index.");
+        }
+        assert input.split(" ").length == 2 : "You have entered an invalid task index.";
+
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
 
-    public static String parseKeyword(String input) {
+    public static String parseKeyword(String input) throws DukeInvalidKeywordException {
+        if (input.split(" ").length < 2) {
+            throw new DukeInvalidKeywordException("☹ OOPS!!! You must include a keyword.");
+        }
+        assert input.split(" ").length >= 2 : "You need to include a keyword";
+
         return input.split(" ")[1];
     }
 
-    public static Task parseTodo(String input) {
+    public static Task parseTodo(String input) throws DukeInvalidDescriptionException {
+        if (input.substring(5).isEmpty()) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of a todo can't be empty.");
+        }
+        assert !input.substring(5).isEmpty() : "You need to include a description.";
         String description = input.substring(5);
+        
         Todo todo = new Todo(description);
         return todo;
     }
 
-    public static Task parseDeadline(String input) {
-        int index = input.indexOf("/");
-        String description = input.substring(9, index - 1);
-        String by = input.substring(index + 3);
-        Deadline deadline = new Deadline(description, by.trim());
+    public static Task parseDeadline(String input) throws DukeInvalidDescriptionException, DukeInvalidDateException {
+        if (input.split("/by").length < 2) {
+            throw new DukeInvalidDateException("☹ OOPS!!! The date of a deadline can't be empty.");
+        }
+        assert input.split("/by").length == 2 : "You need to include a date.";
+        String by = input.split("/by")[1].trim();
+
+        if (input.split("/by")[0].trim().split(" ").length < 2) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of a deadline can't be empty.");
+        }
+        assert input.split("/by")[0].trim().split(" ").length >= 2 : "You need to include a description.";
+        String description = input.split("/by")[0].trim().split(" ", 2)[1];
+
+        Deadline deadline = new Deadline(description, by);
         return deadline;
     }
 
-    public static Task parseEvent(String input) {
-        int indexOfFrom = input.indexOf("/");
-        String description = input.substring( 6, indexOfFrom - 1);
-        String duration = input.substring(indexOfFrom + 4);
-        int indexOfTo = duration.indexOf("/");
-        String from = duration.substring(1, indexOfTo - 1);
-        String to = duration.substring(indexOfTo + 3);
+    public static Task parseEvent(String input) throws DukeInvalidDescriptionException, DukeInvalidDurationException {
+        if (input.split("/from").length < 2) {
+            throw new DukeInvalidDurationException("☹ OOPS!!! The duration of an event can't be empty.");
+        }
+        assert input.split("/from").length == 2 : "You need to include a duration.";
+        String duration = input.split("/from")[1].trim();
+
+        if (duration.split("/to")[0].trim().isEmpty()) {
+            throw new DukeInvalidDurationException("☹ OOPS!!! The start of an event can't be empty.");
+        }
+        assert !duration.split("/to")[0].trim().isEmpty() : "You need to indicate the start of an event.";
+        String from = duration.split("/to")[0].trim();
+
+        if (duration.split("/to").length < 2) {
+            throw new DukeInvalidDurationException("☹ OOPS!!! The end of an event can't be empty.");
+        }
+        assert !duration.split("/to")[1].isEmpty() : "You need to indicate the end of an event.";
+        String to = duration.split("/to")[1].trim();
+
+        if(input.split("/from")[0].trim().split(" ").length < 2) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of an event can't be empty.");
+        }
+        assert input.split("/from")[0].trim().split(" ").length >= 2 : "You need to include a description.";
+        String description = input.split("/from")[0].trim().split(" ")[1];
+
         Event event = new Event(description, from, to);
         return event;
     }
