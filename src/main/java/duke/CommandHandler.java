@@ -102,16 +102,16 @@ public class CommandHandler {
      *
      * @param splitStr user's full command, including arguments for command.
      */
-    public String handleRemoveCommand(String[] splitStr) throws DukeException {
+    public String handleDeleteCommand(String[] splitStr) throws DukeException {
         String out = "";
         if (splitStr.length != 2) {
-            throw new DukeException("Invalid format detected for 'remove' command. Enter remove [item_no]");
+            throw new DukeException("Invalid format detected for 'delete' command. Enter delete [item_no]");
         }
         int x = Integer.parseInt(splitStr[1]) - 1;
         if (x < 0 || x + 1 > taskList.getSize()) {
             throw new DukeException("Index is out of list range.");
         }
-        out += ui.print("Ok, the following item was removed:");
+        out += ui.print("Ok, the following item was deleted:");
         out += ui.print(ui.formatTaskToPrint(taskList.getItem(x), dtf.getOutFormatter()));
         taskList.removeItem(x);
         return out;

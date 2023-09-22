@@ -42,8 +42,8 @@ public class Parser {
             return ch.handleMarkCommand(splitStr);
         } else if (splitStr[0].equals("unmark")) {
             return ch.handleUnmarkCommand(splitStr);
-        } else if (splitStr[0].equals("remove")) {
-            return ch.handleRemoveCommand(splitStr);
+        } else if (splitStr[0].equals("delete")) {
+            return ch.handleDeleteCommand(splitStr);
         } else if (splitStr[0].equals("todo")) {
             return ch.handleTodoCommand(splitStr);
         } else if (splitStr[0].equals("deadline")) {
