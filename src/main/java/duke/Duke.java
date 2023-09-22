@@ -12,6 +12,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Message message;
+    private Exit exit;
     /**
      * Constructs a new Duke object.
      * This constructor initializes a new instance of the Duke class. The Duke object is typically used to
@@ -20,6 +21,7 @@ public class Duke {
     public Duke() {
         this.message = new Message();
         this.storage = new Storage();
+        this.exit = new Exit();
         try {
             this.tasks = new TaskList(storage.loadTasksFromFile());
         } catch (DukeException e) {
@@ -55,6 +57,7 @@ public class Duke {
             message.findMessage(tasks, parser.getStringKeyword());
         } else if (userCommand.equals("BYE") || userCommand.equals("B")) {
             message.farewellMessage();
+            exit.start();
         } else {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
