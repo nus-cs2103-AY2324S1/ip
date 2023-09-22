@@ -58,11 +58,14 @@ public class Deadlines extends Task {
      * @throws DukeException Exception where the deadline is not valid.
      */
     public static boolean isDeadline(String input) throws DukeException {
+        System.out.println(input.split("/by").length);
         if (input.split(" ")[0].equals("deadline")) {
-            if (input.split(" ").length == 1) {
-                throw new DukeException("OOPS! The description of deadline cannot be empty.");
-            } else if (!input.contains("/by ")) {
+            if (!input.contains("/by")) {
                 throw new DukeException("OOPS! The description of deadline does not contain /by.");
+            } else if (input.split("/by").length == 1){
+                throw new DukeException("OOPS! The description of /by cannot be empty.");
+            } else if (input.split("/by")[0].length() <= 10){
+                throw new DukeException("OOPS! The description of deadline cannot be empty.");
             } else {
                 return true;
             }

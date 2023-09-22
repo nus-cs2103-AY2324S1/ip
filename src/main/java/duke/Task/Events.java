@@ -71,12 +71,16 @@ public class Events extends Task {
      */
     public static boolean isEvent(String input) throws DukeException {
         if(input.split( " ")[0].equals("event")) {
-            if (input.split(" ").length == 1) {
-                throw new DukeException("OOPS! The description of event cannot be empty.");
-            } else if (!input.contains("/from")) {
+            if (!input.contains("/from")) {
                 throw new DukeException("OOPS! The description of event does not contain /from.");
             } else if (!input.contains("/to")) {
                 throw new DukeException("OOPS! The description of event does not contain /to.");
+            } else if (input.split("/to").length == 1) {
+                throw new DukeException("OOPS! The description of /to cannot be empty.");
+            } else if (input.split("/to")[0].length() - input.split("/from")[0].length() <= 7) {
+                throw new DukeException("OOPS! The description of /from cannot be empty.");
+            } else if (input.split("/from")[0].length() <= 7) {
+                throw new DukeException("OOPS! The description of event cannot be empty.");
             } else {
                 return true;
             }

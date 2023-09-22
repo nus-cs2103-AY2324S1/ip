@@ -55,12 +55,16 @@ public class Periods extends Task {
      */
     public static boolean isPeriod(String input) throws DukeException {
         if (input.split(" ")[0].equals("period")) {
-            if (input.split(" ").length == 1) {
-                throw new DukeException("OOPS! The description of period cannot be empty.");
-            } else if (!input.contains("/between ")) {
-                throw new DukeException("OOPS! The description of period does not contain /between.");
+            if (!input.contains("/between")) {
+                throw new DukeException("OOPS! The description of event does not contain /between.");
             } else if (!input.contains("/and")) {
-                throw new DukeException("OOPS! The description of period does not contain /and.");
+                throw new DukeException("OOPS! The description of event does not contain /and.");
+            } else if (input.split("/and").length == 1) {
+                throw new DukeException("OOPS! The description of /and cannot be empty.");
+            } else if (input.split("/and")[0].length() - input.split("/between")[0].length() <= 10) {
+                throw new DukeException("OOPS! The description of /between cannot be empty.");
+            } else if (input.split("/between")[0].length() <= 8) {
+                throw new DukeException("OOPS! The description of period cannot be empty.");
             } else {
                 return true;
             }
