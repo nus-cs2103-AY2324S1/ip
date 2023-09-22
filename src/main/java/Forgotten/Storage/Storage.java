@@ -33,10 +33,11 @@ public class Storage {
      * @return An array list of task objects.
      * @throws FileNotFoundException If file is not found.
      */
-    public ArrayList<Task> load() throws FileNotFoundException {
+    public ArrayList<Task> loadTask() throws FileNotFoundException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
         Scanner scanner = new Scanner(file);
+
         while (scanner.hasNext()) {
             String nextLine = scanner.nextLine();
             readString(nextLine, taskList);
@@ -52,18 +53,24 @@ public class Storage {
 
         if (taskType == 'T') {
             String description = string.substring(7);
+
             taskList.add(new Todo(description, isDone));
         } else if (taskType == 'D') {
             String[] split = string.split(" \\(by: ");
             String description = split[0].substring(7);
+
             LocalDate day = LocalDate.parse(split[1].substring(0, split[1].length() - 1));
+
             taskList.add(new Deadline(description, day, isDone));
         } else {
             String[] split1 = string.split(" \\(from: ");
             String[] split2 = split1[1].split(" to: ");
+
             String description = split1[0].substring(7);
+
             String start = split2[0];
             String end = split2[1].substring(0, split2[1].length() - 1);
+
             taskList.add(new Event(description, LocalDate.parse(start), LocalDate.parse(end), isDone));
         }
     }
@@ -74,7 +81,7 @@ public class Storage {
      * @param taskDetail Description of the task.
      * @throws IOException If file does not exist and cannot be created.
      */
-    public void writeToFile(String taskDetail) throws IOException {
+    public void writeTaskToFile(String taskDetail) throws IOException {
         FileWriter fileWriter = new FileWriter(filePath, true);
         fileWriter.write(taskDetail + "\n");
         fileWriter.close();
