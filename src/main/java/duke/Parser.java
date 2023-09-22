@@ -31,6 +31,11 @@ public class Parser {
         return Integer.parseInt(this.input[1]);
     }
 
+    /** Returns true if the input string only contains a singular command */
+    public boolean commandOnly() {
+        return this.input.length == 1 ? true : false;
+    }
+
     /**
      * Returns the second value of the parsed input as an offset integer.
      * Useful for dealing with variances between user input and the 0-index
@@ -56,8 +61,7 @@ public class Parser {
      * @throws DukeException If incorrect input.
      */
     public ToDo parseTodo() throws DukeException {
-        if (fullLine.split("todo ").length < 1) {
-            //new Ui().todoErrorPrinter();
+        if (fullLine.split("todo ").length <= 1) {
             String temp = new Ui().todoErrorString();
             throw new DukeException(temp);
         }
@@ -74,7 +78,6 @@ public class Parser {
      */
     public Deadline parseDeadline() throws DukeException {
         if (fullLine.split("/by ").length < 2) {
-            //new Ui().deadlineErrorPrinter();
             throw new DukeException(new Ui().deadlineErrorString());
         }
 

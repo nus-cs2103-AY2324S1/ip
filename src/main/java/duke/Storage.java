@@ -60,21 +60,18 @@ public class Storage {
             assert(typeOfTask instanceof String);
             switch (typeOfTask) {
             case "T":
-                boolean isTodoDone = isDone;
                 String todoName = sArray[2];
-                tl.add(new ToDo(isTodoDone, todoName));
+                tl.add(new ToDo(isDone, todoName));
                 break;
 
             case "E":
-                boolean isEventDone = isDone;
                 String eventName = sArray[2];
-                tl.add(new Event(isEventDone, eventName));
+                tl.add(new Event(isDone, eventName));
                 break;
 
             case "D":
-                boolean isDeadlineDone = isDone;
                 String deadlineName = sArray[2];
-                tl.add(new Deadline(isDeadlineDone, deadlineName));
+                tl.add(new Deadline(isDone, deadlineName));
                 break;
 
             }

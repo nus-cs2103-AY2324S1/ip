@@ -162,7 +162,8 @@ public class ChatterBox extends Application {
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label dukeText = null;
+        dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
@@ -179,27 +180,15 @@ public class ChatterBox extends Application {
         try {
             res = parseText(input);
         } catch (DukeException e) {
-            throw new RuntimeException(e);
+            res = e.getMessage();
+        } catch (IOException i) {
+            res = new Ui().fileErrorString();
         }
         assert (res != null);
-        return "ChatterBox:" + res;
+        return "ChatterBox: " + res;
     }
 
-    /**
-     * Runs the actual program.
-     *
-     * @throws DukeException For various Chat-specific errors.
-     * @throws IOException If FileIO presents any issues during runtime.
-     */
-    /*public void run() throws DukeException, IOException {
-
-        ArrayList<Task> taskList = this.tl.getTaskList();
-        this.store.fileToTaskList(this.tl);
-        ui.startScreen();
-
-    }*/
-
-    public String parseText(String cmd) throws DukeException {
+    public String parseText(String cmd) throws DukeException, IOException {
 
         Parser p = new Parser(cmd);
         String command = p.command();
@@ -220,40 +209,53 @@ public class ChatterBox extends Application {
             break;
 
         case "mark":
+            if (p.commandOnly()) {
+                throw new DukeException(new Ui().indexErrorString());
+            }
             tl.mark(p.num());
             try {
                 this.store.taskListToFile(tl);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IOException(new Ui().fileErrorString());
             }
             finalOutput = ui.markPrinter(tl, p.num());
 
             break;
 
         case "unmark":
+            if (p.commandOnly()) {
+                throw new DukeException(new Ui().indexErrorString());
+            }
             tl.unmark(p.num());
             try {
                 this.store.taskListToFile(tl);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IOException(new Ui().fileErrorString());
             }
             finalOutput = ui.unmarkPrinter(tl, p.num());
 
             break;
 
         case "delete":
-            Task tempDelete = this.tl.getTaskList().get(p.num());
+            if (p.commandOnly()) {
+                throw new DukeException(new Ui().indexErrorString());
+            }
+            Task tempDelete = this.tl.get(p.num());
             tl.remove(p.num());
             try {
                 this.store.taskListToFile(tl);
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                throw new IOException(new Ui().fileErrorString());
             }
             finalOutput = ui.removedTaskScreen(tempDelete, tl.size());
 
             break;
 
         case "find":
+            if (p.commandOnly()) {
+            throw new DukeException(new Ui().textErrorString());
+            }
+
             finalOutput = ui.findListPrinter(tl, p.word());
 
             break;
@@ -263,7 +265,7 @@ public class ChatterBox extends Application {
             try {
                 this.store.taskListToFile(tl);
             } catch (IOException e) {
-                finalOutput = ui.unknownError();
+                finalOutput = ui.unknownErrorString();
                 break;
             }
 
@@ -273,15 +275,20 @@ public class ChatterBox extends Application {
         default:
 
             if (command.equals("todo")) {
+                ToDo tempTodo = null;
+                try {
+                    tempTodo = p.parseTodo();
+                } catch (DukeException e) {
+                    throw e;
+                }
+                tl.add(tempTodo);
 
-                ToDo tempToDo = p.parseTodo();
-                tl.add(tempToDo);
                 try {
                     this.store.taskListToFile(tl);
                 } catch (IOException e) {
-                    return new Ui().todoErrorString();
+                    throw new IOException(new Ui().fileErrorString());
                 }
-                finalOutput = ui.addedTaskScreen(tempToDo, tl.size());
+                finalOutput = ui.addedTaskScreen(tempTodo, tl.size());
 
             } else if (command.equals("deadline")) {
 
@@ -289,32 +296,36 @@ public class ChatterBox extends Application {
                 try {
                     tempDeadline = p.parseDeadline();
                 } catch (DukeException e) {
-                    return new Ui().deadlineErrorString();
+                    throw new DukeException(new Ui().deadlineErrorString());
                 }
                 tl.add(tempDeadline);
 
                 try {
                     this.store.taskListToFile(tl);
                 } catch (IOException e) {
-                    return new Ui().fileErrorString();
+                    throw new IOException(new Ui().fileErrorString());
                 }
                 finalOutput = ui.addedTaskScreen(tempDeadline, this.tl.getTaskList().size());
 
             } else if (command.equals("event")) {
 
-                Event tempEvent = p.parseEvent();
+                Event tempEvent = null;
+                try {
+                    tempEvent = p.parseEvent();
+                } catch (DukeException e) {
+                    throw new DukeException(new Ui().eventErrorString());
+                }
                 tl.add(tempEvent);
+
                 try {
                     this.store.taskListToFile(tl);
                 } catch (IOException e) {
-                    return new Ui().eventErrorString();
+                    throw new DukeException(new Ui().eventErrorString());
                 }
                 finalOutput = ui.addedTaskScreen(tempEvent, tl.size());
 
             } else {
-
-                finalOutput = ui.linePrinter() + ui.unknownError();
-                //throw new DukeException(ui.unknownError());
+                throw new DukeException(ui.unknownErrorString());
             }
 
             break;

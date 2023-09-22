@@ -63,7 +63,7 @@ public class Ui {
         String finalOutput = "";
         finalOutput += this.linePrinter()
                 + "\n"
-                + this.tabPrinter("Hello! I'm ChatterBox")
+                + this.tabPrinter("Hello! I'm ChatterBox!")
                 + "\n"
                 + this.tabPrinter("What can I do for you?")
                 + "\n"
@@ -74,6 +74,10 @@ public class Ui {
                 + this.tabPrinter("deadline <TASK> /by YYYY-MM-DD")
                 + "\n"
                 + this.tabPrinter("event <TASK> /from <START> /to <END>")
+                + "\n"
+                + this.tabPrinter("list")
+                + "\n"
+                + this.tabPrinter("mark/unmark/delete <INDEX>")
                 + "\n"
                 + this.linePrinter();
 
@@ -216,7 +220,7 @@ public class Ui {
     }
 
 
-    /** Returns an Error String for ToDo objects */
+    /** Returns an error message String for ToDo objects */
     public String todoErrorString() {
         return "The description of a todo cannot be empty!";
     }
@@ -225,33 +229,39 @@ public class Ui {
         this.slicePrinter(this.todoErrorString());
     }
 
-    /** Returns an Error String for Deadline objects */
+    /** Returns an error message String for Deadline objects */
     public String deadlineErrorString() {
         return "The due date of a deadline cannot be empty!";
     }
-    public void deadlineErrorPrinter() {
-        this.slicePrinter(this.deadlineErrorString());
-    }
 
-    /** Returns an Error String for Event objects */
+    /** Returns an error message String for Event objects */
     public String eventErrorString() {
         return "An event must have both start and end date";
     }
-    public void eventErrorPrinter() {
-        this.slicePrinter(this.eventErrorString());
-    }
 
-    /** Returns an Error String for Unknown Errors. */
-    public String unknownError() {
+    /** Returns an error message String for Unknown Errors. */
+    public String unknownErrorString() {
         return "I'm sorry I don't know what that means.";
     }
 
+    /** Returns an error message String for File related errors. */
     public String fileErrorString() {
         return "A file-related error occurred.";
     }
 
+    /** Returns an success message String for mass removal of tasks. */
     public String removedAllTaskScreen() {
         return "Successfully removed all tasks.";
+    }
+
+    /** Returns an error message String for index-related errors. */
+    public String indexErrorString() {
+        return "Invalid index, try again.";
+    }
+
+    /** Returns an error message String for task-finding related errors. */
+    public String textErrorString() {
+        return "Invalid text, try again.";
     }
 
 }

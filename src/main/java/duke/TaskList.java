@@ -149,7 +149,8 @@ public class TaskList {
 
     /**
      * Deletes all tasks by replacing the encapsulated ArrayList with
-     * an empty ArrayList.
+     * an empty ArrayList. This also deletes the contents of the
+     * data file.
      */
     public void purgeList() {
         this.taskList.clear();
