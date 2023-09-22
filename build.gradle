@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    String javaFxVersion = '20.0.2'
+    String javaFxVersion = '17.0.7'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
