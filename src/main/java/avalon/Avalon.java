@@ -14,7 +14,8 @@ public class Avalon {
     private final Storage storage;
     private final TaskList taskList;
 
-    public static final String FILEPATH = "src/main/data/Avalon.txt";
+    @SuppressWarnings("checkstyle:ModifierOrder")
+    public String filepath = "./data/Avalon.txt";
 
 
 
@@ -23,9 +24,9 @@ public class Avalon {
      */
     public Avalon() {
         this.ui = new Ui();
-        this.storage = new Storage(FILEPATH);
+        this.storage = new Storage(filepath);
         this.taskList = new TaskList();
-        storage.loadTasks(this.taskList);
+        //storage.loadTasks(this.taskList);
     }
 
     /**

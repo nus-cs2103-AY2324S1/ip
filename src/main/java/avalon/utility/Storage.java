@@ -1,12 +1,14 @@
 package avalon.utility;
 
-import avalon.task.Task;
-import avalon.task.TaskList;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
+import avalon.task.Task;
+import avalon.task.TaskList;
+
+
 
 /**
  * Handles the loading and saving of tasks to/from a file.
@@ -31,8 +33,17 @@ public class Storage {
     public void loadTasks(TaskList taskList) {
         try {
             File file = new File(filePath);
-            Scanner scanner = new Scanner(file);
+            Scanner scanner;
             System.out.print("Loading...");
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+                System.out.println("No existing Avalon.txt found. File created!");
+            }
+
+            scanner = new Scanner(file);
+
             while (scanner.hasNext()) {
                 String description = scanner.nextLine();
                 Task task = TaskParser.parse(description);
