@@ -8,7 +8,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * Constructor for a duke.task.Event instance.
+     * Constructs a duke.task.Event instance.
      *
      * @param description The description of the underlying task.
      * @param from        The date on which the event begins.
@@ -31,7 +31,7 @@ public class Event extends Task {
     }
 
     /**
-     * Get a formatted string of the duke.task.Event task to add to the save file.
+     * Returns a formatted string of the duke.task.Event task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */
@@ -45,7 +45,7 @@ public class Event extends Task {
     }
 
     /**
-     * Clone this duke.task.Event instance.
+     * Clones this duke.task.Event instance.
      *
      * @return The cloned instance.
      */

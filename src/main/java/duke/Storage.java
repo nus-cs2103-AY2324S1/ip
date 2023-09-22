@@ -36,7 +36,7 @@ public class Storage {
     }
 
     /**
-     * Get the file handle of the save file, or create the directories and the save file if it does not exist.
+     * Gets the file handle of the save file, or creates the directories and the saves file if it does not exist.
      *
      * @return A File object referencing the save file.
      * @throws DukeException if the directories or file cannot be created.
@@ -111,7 +111,7 @@ public class Storage {
     }
 
     /**
-     * Load the tasks from the save file.
+     * Loads the tasks from the save file.
      *
      * @return An ArrayList containing all the tasks.
      * @throws DukeException if there is an error accessing the file, or if the file data was corrupted.
@@ -151,7 +151,7 @@ public class Storage {
     }
 
     /**
-     * Save the tasks into the save file
+     * Saves the tasks into the save file
      *
      * @param tasks The ArrayList containing all the tasks.
      * @throws DukeException if there is an error accessing or writing to the save file.

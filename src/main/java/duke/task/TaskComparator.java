@@ -7,10 +7,10 @@ import java.util.Comparator;
  */
 public class TaskComparator implements Comparator<Task> {
     /**
-     * If both are duke.task.Deadline instances, return
-     * the one with the earlier deadline as the smaller element. Else, if only one of them are
-     * duke.task.Deadline instances, return the duke.task.Deadline instance as the smaller element.
-     * Otherwise, return both tasks as equal.
+     * Compares two duke.task.Task instances.
+     * If both are duke.task.Deadline instances, returns the one with the earlier deadline as the smaller element.
+     * Else, if only one of them are duke.task.Deadline instances, returns the duke.task.Deadline instance
+     * as the smaller element. Otherwise, returns both tasks as equal.
      *
      * @param task1 the first duke.task.Task instance to be compared.
      * @param task2 the second duke.task.Task instance to be compared.
