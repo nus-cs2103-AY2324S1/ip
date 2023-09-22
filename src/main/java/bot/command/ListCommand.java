@@ -17,8 +17,8 @@ public class ListCommand extends Command {
     /**
      * Execute a series of instructions specific to listing all tasks in TaskList
      */
-    public void execute() {
-        System.out.println(this);
+    public String execute() {
+        return this.toString();
     }
 
     /**

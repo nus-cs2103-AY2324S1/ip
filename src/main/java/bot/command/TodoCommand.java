@@ -30,10 +30,10 @@ public class TodoCommand extends Command {
      * @throws FileErrorBotException if the file or directory is missing or corrupted
      * @throws IOException if an I/O error occurred
      */
-    public void execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException, IOException {
         this.taskList.add(this.todo);
         Storage.save(this.taskList);
-        System.out.println(this);
+        return this.toString();
     }
 
     /**
@@ -45,13 +45,13 @@ public class TodoCommand extends Command {
     public String toString() {
         if (this.taskList.length() <= 1) {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this bot.task:\n" +
+                    "Got it. I've added this task:\n" +
                     this.todo + "\n" +
-                    "Now you have " + this.taskList.length() + " bot.task in the list.\n" +
+                    "Now you have " + this.taskList.length() + " task in the list.\n" +
                     Command.SPACER;
         } else {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this bot.task:\n" +
+                    "Got it. I've added this task:\n" +
                     this.todo + "\n" +
                     "Now you have " + this.taskList.length() + " tasks in the list.\n" +
                     Command.SPACER;

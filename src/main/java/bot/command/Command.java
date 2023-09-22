@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public abstract class Command {
 
-    public static final String SPACER = "____________________________________________________________";
+    public static final String SPACER = "________________________________________";
 
     /**
      * Execute a series of instructions depending on the type of Command
@@ -15,5 +15,5 @@ public abstract class Command {
      * @throws FileErrorBotException if the file or directory is missing or corrupted
      * @throws IOException if an I/O error occurred
      */
-    public abstract void execute() throws FileErrorBotException, IOException;
+    public abstract String execute() throws FileErrorBotException, IOException;
 }

@@ -31,10 +31,10 @@ public class DeleteCommand extends Command {
      * @throws FileErrorBotException if the file or directory is missing or corrupted
      * @throws IOException if an I/O error occurred
      */
-    public void execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException, IOException {
         this.taskList.delete(idx);
         Storage.save(this.taskList);
-        System.out.println(this);
+        return this.toString();
     }
 
     /**
@@ -45,7 +45,7 @@ public class DeleteCommand extends Command {
     @Override
     public String toString() {
         return Command.SPACER + "\n" +
-                "Noted. I've removed this bot.task:\n" +
+                "Noted. I've removed this task:\n" +
                 this.task + "\n" +
                 "Now you have " + this.taskList.length() + " tasks in the list.\n" +
                 Command.SPACER;

@@ -2,7 +2,7 @@ package bot.exception;
 import java.lang.Exception;
 
 public class BotException extends Exception {
-    public static final String SPACER = "____________________________________________________________";
+    public static final String SPACER = "________________________________________";
 
     /**
      * Constructs a new BotException with the specified detail message.

@@ -29,10 +29,10 @@ public class MarkCommand extends Command {
      * @throws FileErrorBotException if the file or directory is missing or corrupted
      * @throws IOException if an I/O error occurred
      */
-    public void execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException, IOException {
         this.task.setComplete();
         Storage.save(this.taskList);
-        System.out.println(this);
+        return this.toString();
     }
 
     /**
@@ -43,7 +43,7 @@ public class MarkCommand extends Command {
     @Override
     public String toString() {
         return Command.SPACER + "\n" +
-                "Nice! I've marked this bot.task as done:\n" +
+                "Nice! I've marked this task as done:\n" +
                 this.task + "\n" +
                 Command.SPACER;
     }

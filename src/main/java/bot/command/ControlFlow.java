@@ -1,15 +1,4 @@
-package bot;
-
-import bot.command.Command;
-import bot.command.DeadlineCommand;
-import bot.command.DeleteCommand;
-import bot.command.EventCommand;
-import bot.command.ListCommand;
-import bot.command.MarkCommand;
-import bot.command.TerminateCommand;
-import bot.command.TodoCommand;
-import bot.command.UnmarkCommand;
-import bot.command.FindCommand;
+package bot.command;
 
 import bot.exception.DateTimeParseBotException;
 import bot.exception.FileErrorBotException;
@@ -43,10 +32,10 @@ public class ControlFlow {
      *
      * @param str the input by the user
      * @return Command the necessary tasks that needed to be executed as per the user's input
-     * @throws IllegalExpressionBotException
-     * @throws IncompleteBotException
-     * @throws FileErrorBotException
-     * @throws DateTimeParseBotException
+     * @throws IllegalExpressionBotException if the instruction name is not correct
+     * @throws IncompleteBotException if the instruction name is correct, but there are missing info
+     * @throws FileErrorBotException if the file is suddenly missing when trying to access it
+     * @throws DateTimeParseBotException if the datetime is wrongly formatted
      */
     public Command execute(String str) throws IllegalExpressionBotException,
             IncompleteBotException, FileErrorBotException, DateTimeParseBotException {

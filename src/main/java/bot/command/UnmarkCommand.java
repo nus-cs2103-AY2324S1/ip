@@ -29,10 +29,10 @@ public class UnmarkCommand extends Command {
      * @throws IOException if an I/O error occurred
      */
     @Override
-    public void execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException, IOException {
         this.task.setIncomplete();
         Storage.save(this.taskList);
-        System.out.println(this);
+        return this.toString();
     }
 
     /**
@@ -43,7 +43,7 @@ public class UnmarkCommand extends Command {
     @Override
     public String toString() {
         return Command.SPACER + "\n" +
-                "OK, I've marked this bot.task as not done yet:\n" +
+                "OK, I've marked this task as not done yet:\n" +
                 this.task + "\n" +
                 Command.SPACER;
     }

@@ -19,8 +19,8 @@ public class FindCommand extends Command {
      * Executes a series of instruction specific to print out tasks containing the pattern/keyword
      */
     @Override
-    public void execute() {
-        System.out.println(this);
+    public String execute() {
+        return this.toString();
     }
 
     /**

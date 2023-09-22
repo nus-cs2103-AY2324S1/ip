@@ -17,7 +17,7 @@ import java.util.Iterator;
 
 public class Storage {
     private static final String FILE_NAME = "task.txt";
-    private static final String FILE_RELATIVE_PATH = "data" + File.separator;
+    private static final String FILE_RELATIVE_PATH = "data";
     private static final String WORKING_DIRECTORY = System.getProperty("user.dir");
     private static final String ABSOLUTE_FILE_PATH = Storage.WORKING_DIRECTORY + File.separator +
             Storage.FILE_RELATIVE_PATH;

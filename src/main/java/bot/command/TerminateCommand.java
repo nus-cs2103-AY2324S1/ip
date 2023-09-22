@@ -8,8 +8,8 @@ public class TerminateCommand extends Command {
     /**
      * Execute a series of instructions specific to terminating the Bot chatbot
      */
-    public void execute() {
-        System.out.println(this);
+    public String execute() {
+        return this.toString();
     }
 
     /**

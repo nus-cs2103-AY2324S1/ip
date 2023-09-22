@@ -35,10 +35,10 @@ public class EventCommand extends Command {
      * @throws IOException if an I/O error occurred
      */
     @Override
-    public void execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException, IOException {
         this.taskList.add(this.event);
         Storage.save(this.taskList);
-        System.out.println(this);
+        return this.toString();
     }
 
     /**
@@ -50,13 +50,13 @@ public class EventCommand extends Command {
     public String toString() {
         if (this.taskList.length() <= 1) {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this bot.task:\n" +
+                    "Got it. I've added this task:\n" +
                     this.event + "\n" +
-                    "Now you have " + this.taskList.length() + " bot.task in the list.\n" +
+                    "Now you have " + this.taskList.length() + " task in the list.\n" +
                     Command.SPACER;
         } else {
             return Command.SPACER + "\n" +
-                    "Got it. I've added this bot.task:\n" +
+                    "Got it. I've added this task:\n" +
                     this.event + "\n" +
                     "Now you have " + this.taskList.length() + " tasks in the list.\n" +
                     Command.SPACER;
