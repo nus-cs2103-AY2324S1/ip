@@ -49,116 +49,62 @@ public class Duke extends Application {
 
     public void run() {
         ui.showWelcomeMessage();
-
-        while (true) {
-            String userInput = ui.getUserInput();
-            Command command = Parser.parseCommand(userInput);
-            String description = Parser.parseDescription(userInput);
-            switch (command) {
-                //if user wants to exit, tasks are saved and exit message is shown
-                case EXIT:
-                    handleExit();
-                    return;
-                // lists all the tasks out
-                case LIST:
-                    handleList();
-                    break;
-                case FIND:
-                    handleFind(description);
-                    break;
-                // unmarks task
-                case UNMARK:
-                    handleUnmark(description);
-                    break;
-                //marks the task
-                case MARK:
-                    handleMark(description);
-                    break;
-                // if user wants to add a todo object
-                case TODO:
-                    handleTodo(description);
-                    break;
-                // if user wants to input deadline
-                case DEADLINE:
-                    handleDeadline(description);
-                    break;
-                // if user wants to input an event
-                case EVENT:
-                    handleEvent(description);
-                    break;
-                // if user wants to delete existing task
-                case DELETE:
-                    handleDelete(description);
-                    break;
-                // if user just enters a completely invalid command
-                case INVALID:
-                    handleInvalid();
-                    break;
-            }
-        }
     }
 
-    private void handleExit() {
+    private String handleExit() {
         storage.save(tasks, "tasks.txt");
         ui.closeScanner();
-        ui.showExitMessage();
+        return ui.showExitMessage();
     }
 
-    private void handleList() {
-        ui.showTaskList(tasks);
+    private String handleList() {
+        return ui.showTaskList(tasks);
     }
 
-    private void handleFind(String description) {
-        tasks.findTasksContainingKeyword(description);
+    private String handleFind(String description) {
+        return tasks.findTasksContainingKeyword(description);
     }
 
-    private void handleUnmark(String description) {
+    private String handleUnmark(String description) {
         // if user inputs task number, check if it is even an integer, and whether it is within range
         try {
             int taskNumber = Integer.parseInt(description) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                tasks.unmarkTask(taskNumber);
+                return tasks.unmarkTask(taskNumber);
             } else {
-                ui.showError("Task number out of range.");
+                return ui.showError("Task number out of range.");
             }
 
         } catch (NumberFormatException e) {
-            ui.showError("Invalid task number. Please provide a valid integer.");
+            return ui.showError("Invalid task number. Please provide a valid integer.");
         }
     }
 
-    private void handleMark(String description) {
+    private String handleMark(String description) {
         // if user inputs task number, check if it is even an integer, and whether it is within range
         try {
             int taskNumber = Integer.parseInt(description) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                tasks.markTaskAsDone(taskNumber);
+                return tasks.markTaskAsDone(taskNumber);
             } else {
-                ui.showError("Task number out of range.");
+                return ui.showError("Task number out of range.");
             }
         } catch (NumberFormatException e) {
-            ui.showError("Invalid task number. Please provide a valid integer.");
+            return ui.showError("Invalid task number. Please provide a valid integer.");
         }
     }
-    private void handleTodo(String description) {
-        try {
-            if (description.isEmpty()) {
-                throw new EmptyTodoException();
-            }
-            Todo todo = new Todo(description, false);
-            tasks.addTask(todo);
-
-        } catch (EmptyTodoException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    private void handleDeadline(String description) {
+    private String handleTodo(String description) {
         if (description.isEmpty()) {
-            try {
-                throw new EmptyDeadlineException();
-            } catch (EmptyDeadlineException e) {
-                System.out.println(e.getMessage());
-            }
+                return "OOPS!!! The description of a Todo cannot be empty.";
+        } else {
+
+            Todo todo = new Todo(description, false);
+            return tasks.addTask(todo);
+        }
+    }
+    private String handleDeadline(String description) {
+        if (description.isEmpty()) {
+            return "OOPS!!! The description of a deadline cannot be empty.";
         } else {
             // Find the index of the deadline separator "/"
             int separatorIndex = description.indexOf('/');
@@ -175,24 +121,20 @@ public class Duke extends Application {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
                     LocalDate localDateDeadline = LocalDate.parse(deadline, formatter);
                     Deadline deadlineTask = new Deadline(descriptionString, false, localDateDeadline);
-                    tasks.addTask(deadlineTask);
+                    return tasks.addTask(deadlineTask);
 
                 } else {
-                    System.out.println("Please input your deadline in YYYY/MM/DD format");
+                    return "Please input your deadline in YYYY/MM/DD format";
                 }
             } else {
-                System.out.println("Invalid input format for deadline. Please input in the following format: <deadline> <description> /by <YYYY/MM/DD> ");
+                return "Invalid input format for deadline. Please input in the following format: <deadline> <description> /by <YYYY/MM/DD> ";
             }
         }
     }
 
-    private void handleEvent(String description) {
+    private String handleEvent(String description) {
         if (description.isEmpty()) {
-            try {
-                throw new EmptyEventException();
-            } catch (EmptyEventException e) {
-                System.out.println(e.getMessage());
-            }
+            return "OOPS!!! The description of an event cannot be empty.";
         } else {
             // Find the indices of the time separators
             int fromIndex = description.indexOf("/from");
@@ -206,29 +148,29 @@ public class Duke extends Application {
 
                 // Create a new Event object
                 Event eventTask = new Event(descriptionString, false, startTime, endTime);
-                tasks.addTask(eventTask);
+                return tasks.addTask(eventTask);
 
             } else {
-                System.out.println("Invalid input format for event command.");
+                return "Invalid input format for event command.";
             }
         }
     }
 
-    private void handleDelete(String description) {
+    private String handleDelete(String description) {
         try {
             int taskNumber = Integer.parseInt(description) - 1;
             if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                tasks.deleteTask(taskNumber);
+                return tasks.deleteTask(taskNumber);
             } else {
-                ui.showError("Task number out of range.");
+                return ui.showError("Task number out of range.");
             }
         } catch (NumberFormatException e) {
-            ui.showError("Invalid task number. Please provide a valid integer.");
+            return ui.showError("Invalid task number. Please provide a valid integer.");
         }
     }
 
-    private void handleInvalid() {
-        ui.showError("Invalid command. Please try again.");
+    private String handleInvalid() {
+        return ui.showError("Invalid command. Please try again.");
     }
     @Override
     public void start(Stage stage) {
@@ -281,11 +223,11 @@ public class Duke extends Application {
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            //handleUserInput();
+            handleUserInput();
         });
 
         userInput.setOnAction((event) -> {
-            //handleUserInput();
+            handleUserInput();
         });
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
         Scene scene = new Scene(mainLayout);
@@ -293,15 +235,61 @@ public class Duke extends Application {
         stage.show();
     }
 
+    private void handleUserInput() {
+        // Handle user input and display responses in the GUI.
+        String input = userInput.getText();
+        String response = getResponse(input);
+        ui.addToDialog("You: " + input);
+        ui.addToDialog("Duke: " + response);
+        userInput.clear();
+    }
 
-    String getResponse(String input) {
+    String getResponse(String userInput) {
+        Command command = Parser.parseCommand(userInput);
+        String description = Parser.parseDescription(userInput);
+        switch (command) {
+            //if user wants to exit, tasks are saved and exit message is shown
+            case EXIT:
+                return handleExit();
+            // lists all the tasks out
+            case LIST:
+                return handleList();
 
-        return "Duke heard: " + input;
+            case FIND:
+                return handleFind(description);
+            // unmarks task
+            case UNMARK:
+                return handleUnmark(description);
+
+            //marks the task
+            case MARK:
+                return handleMark(description);
+            // if user wants to add a todo object
+            case TODO:
+                return handleTodo(description);
+            // if user wants to input deadline
+            case DEADLINE:
+                return handleDeadline(description);
+            // if user wants to input an event
+            case EVENT:
+                return handleEvent(description);
+
+            // if user wants to delete existing task
+            case DELETE:
+                return handleDelete(description);
+
+            // if user just enters a completely invalid command
+            case INVALID:
+                return handleInvalid();
+
+        }
+
+        return "Duke heard: " + userInput;
     }
 
 
     public static void main(String[] args) {
-        new Duke().run();
+        launch(args);
     }
 
 }
