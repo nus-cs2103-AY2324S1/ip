@@ -2,6 +2,8 @@ package atlas.controllers;
 
 import java.io.IOException;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,6 +26,8 @@ import javafx.scene.shape.Circle;
  */
 public class DialogBox extends HBox {
     static final double PROFILE_RADIUS = 30.0;
+    static final double DBOX_SIDE_PADDING = 5.0;
+    static final double ELEM_SPACING = 10.0;
     @FXML
     private Label dialog;
     @FXML
@@ -49,6 +53,9 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
 
         dialog.setText(text);
+        DoubleBinding dialogBinding = Bindings.createDoubleBinding(() -> this.getWidth()
+            - PROFILE_RADIUS * 2 - DBOX_SIDE_PADDING * 2 - ELEM_SPACING, this.widthProperty());
+        dialog.prefWidthProperty().bind(dialogBinding);
     }
 
     /**
@@ -82,7 +89,21 @@ public class DialogBox extends HBox {
     public static DialogBox getAtlasDialog(String text, Image img) {
         DialogBox db = new DialogBox(text, img);
         db.flip();
-        db.dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10), null)));
+        db.dialog.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, new CornerRadii(10),
+                null)));
+        return db;
+    }
+
+    /**
+     * Returns a dialog box for Atlas containing an error message. The profile image is on the left and text on the
+     * right.
+     * @param errorMsg Error message to display
+     * @param img Atlas's profile image
+     * @return Dialog box for Atlas containing the error message
+     */
+    public static DialogBox getAtlasErrorDialog(String errorMsg, Image img) {
+        DialogBox db = DialogBox.getAtlasDialog(errorMsg, img);
+        db.dialog.setTextFill(Color.RED);
         return db;
     }
 }

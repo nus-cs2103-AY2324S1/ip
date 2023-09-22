@@ -17,6 +17,10 @@ public class Main extends Application {
     static final String SAVE_FILE_NAME = "atlas.txt";
 
     static final String FXML_FILE_PATH = "/view/MainWindow.fxml";
+
+    private static final int MIN_WINDOW_HEIGHT = 660;
+    private static final int MIN_WINDOW_WIDTH = 400;
+
     private final Atlas atlas = new Atlas(SAVE_FILE_DIRECTORY, SAVE_FILE_NAME);
 
     @Override
@@ -28,6 +32,9 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setAtlas(atlas);
             stage.show();
+
+            stage.setMinWidth(MIN_WINDOW_WIDTH);
+            stage.setMinHeight(MIN_WINDOW_HEIGHT);
         } catch (IOException e) {
             e.printStackTrace();
         }

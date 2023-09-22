@@ -41,8 +41,8 @@ public class AddTaskCommand extends Command {
      */
     private String generateExecutionOutput(TaskList taskList) {
         String newTaskCountMessage = taskList.getCountString();
-        return String.format("Got it. I've added this task:\n"
-                + "\t%s\n"
+        return String.format("Got it. I've added this task:\n\n"
+                + "\t%s\n\n"
                 + "%s", task, newTaskCountMessage);
     }
 }

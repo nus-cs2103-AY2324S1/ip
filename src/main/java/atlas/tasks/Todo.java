@@ -26,7 +26,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Return string representation of Todo
+     * Returns string representation of Todo
      * @return String representation of Todo
      */
     public String toString() {

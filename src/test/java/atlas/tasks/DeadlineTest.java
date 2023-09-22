@@ -16,7 +16,7 @@ public class DeadlineTest {
     @Test
     public void toString_default() {
         Deadline testDeadline = new Deadline("Test Deadline", testDateTime);
-        assertEquals(testDeadline.toString(), "[D][   ] Test Deadline (by: 25-08-2023 0000)");
+        assertEquals(testDeadline.toString(), "[D][  ] Test Deadline (by: 25-08-2023 0000)");
     }
 
     @Test
@@ -25,7 +25,7 @@ public class DeadlineTest {
         testDeadline.markDone();
         assertEquals(testDeadline.toString(), "[D][X] Test Deadline (by: 25-08-2023 0000)");
         testDeadline.markNotDone();
-        assertEquals(testDeadline.toString(), "[D][   ] Test Deadline (by: 25-08-2023 0000)");
+        assertEquals(testDeadline.toString(), "[D][  ] Test Deadline (by: 25-08-2023 0000)");
     }
 
     @Test

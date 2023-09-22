@@ -46,8 +46,8 @@ public class DeleteTaskCommand extends Command {
      */
     private String generateExecutionOutput(Task task, TaskList taskList) {
         String newTaskCountMessage = taskList.getCountString();
-        return String.format("Noted. I've removed this task:\n"
-                + "\t%s\n"
+        return String.format("Noted. I've removed this task:\n\n"
+                + "\t%s\n\n"
                 + "%s", task, newTaskCountMessage);
     }
 }

@@ -39,7 +39,7 @@ public abstract class Task {
      */
     private String getStatusIcon() {
         final String taskDoneIcon = "X";
-        final String taskNotDoneIcon = "   ";
+        final String taskNotDoneIcon = "  ";
         return this.isDone ? taskDoneIcon : taskNotDoneIcon;
     }
 

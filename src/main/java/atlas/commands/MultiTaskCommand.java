@@ -22,7 +22,7 @@ public abstract class MultiTaskCommand extends Command {
         int taskIdx = 0;
 
         for (Task t : tasks) {
-            output.append(String.format("%d. %s\n", ++taskIdx, t));
+            output.append(String.format("\n%d. %s\n", ++taskIdx, t));
             assert taskIdx > 0;
         }
         return output.toString();

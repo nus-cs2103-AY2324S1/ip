@@ -7,23 +7,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0"
+            minWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="atlas.controllers.MainWindow">
-    <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0"
-               promptText="Enter command" AnchorPane.bottomAnchor="1.0">
+    <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="50.0"
+               promptText="Enter command" style="-fx-background-radius: 20;" AnchorPane.bottomAnchor="5.0"
+               AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="65.0">
         <font>
-        <Font name="System Font" size="16.0"/>
+        <Font name="Verdana" size="18.0"/>
         </font>
     </TextField>
-    <Button fx:id="sendButton" layoutX="328.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput"
-            prefHeight="41.0" prefWidth="69.0" style="-fx-background-radius: 10;" text="Send" textAlignment="CENTER">
+    <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefWidth="50.0" prefHeight="50.0"
+            text="▶" textAlignment="CENTER" textFill="white" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0"
+            style="-fx-background-color: cornflowerblue;" onMouseEntered="#handleButtonHoverStart"
+            onMouseExited="#handleButtonHoverEnd">
         <font>
-        <Font size="16.0"/>
+            <Font size="22.0"/>
         </font>
     </Button>
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0"
-                vvalue="1.0">
-        <VBox fx:id="dialogContainer" prefWidth="382.0"/>
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" AnchorPane.topAnchor="0.0"
+        AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <VBox fx:id="dialogContainer"/>
     </ScrollPane>
 </AnchorPane>
