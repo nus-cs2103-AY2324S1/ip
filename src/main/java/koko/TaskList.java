@@ -86,7 +86,7 @@ public class TaskList {
      */
     public TaskList findTasksFromKeyword(String keyword) {
         ArrayList<Task> result = tasks.stream()
-                .filter(task -> task.getName().contains(keyword))
+                .filter(task -> task.getName().toLowerCase().contains(keyword.toLowerCase().trim()))
                 .collect(Collectors.toCollection(ArrayList::new));
         return new TaskList(result);
     }
