@@ -38,7 +38,7 @@ public class Duke extends Application {
         storage = new Storage(DATA_PATH);
 
         try {
-            taskList = new TaskList(storage.load(), dtf);
+            taskList = new TaskList(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
             taskList = new TaskList();

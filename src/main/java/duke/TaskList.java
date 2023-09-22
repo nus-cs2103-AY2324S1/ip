@@ -24,7 +24,7 @@ public class TaskList {
      * @throws DukeException when the string format cannot be recognized and converted to TaskType
      */
 
-    public TaskList(ArrayList<String> ss, DtFormat dtf) throws DukeException {
+    public TaskList(ArrayList<String> ss) throws DukeException {
         items = new ArrayList<>();
         for (String s : ss) {
             String[] d = s.split("&");
@@ -35,13 +35,12 @@ public class TaskList {
             String dateString = d[3].equals("null") ? null : d[3];
             int p = Integer.valueOf(d[4]);
             TaskType task;
-
             if (taskType.equals("T")) {
                 task = new Todo(desc, isCompleted);
             } else if (taskType.equals("D")) {
-                task = new Deadline(desc, isCompleted, dateString, dtf.getFormatters());
+                task = new Deadline(desc, isCompleted, dateString);
             } else if (taskType.equals("E")) {
-                task = new Event(desc, isCompleted, dateString, dtf.getFormatters());
+                task = new Event(desc, isCompleted, dateString);
             } else {
                 throw new DukeException("Task type not recognized");
             }

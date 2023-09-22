@@ -1,7 +1,9 @@
 package duke;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class DtFormat {
-    private ArrayList<DateTimeFormatter> formatters;
+    private static ArrayList<DateTimeFormatter> formatters;
     private DateTimeFormatter outDateFormat;
 
     /**
@@ -50,18 +52,7 @@ public class DtFormat {
     public ArrayList<DateTimeFormatter> getFormatters() {
         return formatters;
     }
-    /**
-     * Adds a datetime format to the list of recognized formats.
-     */
-    public void addReadFormat(String k) {
-        formatters.add(DateTimeFormatter.ofPattern(k));
-    }
-    /**
-     * Removes a datetime format by index from the list of recognized formats.
-     */
-    public void removeReadFormat(int x) {
-        formatters.remove(x);
-    }
+
     /**
      * Returns a DateTimeFormatter to format output.
      *
@@ -70,10 +61,24 @@ public class DtFormat {
     public DateTimeFormatter getOutFormatter() {
         return outDateFormat;
     }
+
     /**
-     * Sets the output DateTimeFormatter to the given datetime format.
+     * Attempts to convert a string into a local datetime, given a predefined set of formatters.
+     * If unable to do so, returns null.
+     *
+     * @param dateString string to be converted into datetime
+     * @return datetime version of string
      */
-    public void setOutFormatter(String k) {
-        outDateFormat = DateTimeFormatter.ofPattern(k);
+    public static LocalDateTime parseDateString(String dateString) {
+        LocalDateTime dt = null;
+        for (DateTimeFormatter fmt : formatters) {
+            try {
+                dt = LocalDateTime.parse(dateString, fmt);
+                break;
+            } catch (DateTimeParseException e) {
+                dt = null;
+            }
+        }
+        return dt;
     }
 }

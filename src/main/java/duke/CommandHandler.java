@@ -98,7 +98,7 @@ public class CommandHandler {
     }
 
     /**
-     * Handles actions when user issues a 'remove' command.
+     * Handles actions when user issues a 'delete' command.
      *
      * @param splitStr user's full command, including arguments for command.
      */
@@ -162,7 +162,7 @@ public class CommandHandler {
         if (dateString.isEmpty()) {
             throw new DukeException("Deadline cannot be empty.");
         }
-        taskList.addItem(new Deadline(desc, false, dateString, dtf.getFormatters()));
+        taskList.addItem(new Deadline(desc, false, dateString));
 
         out += ui.print("Got it, I've added this task:");
         out += ui.print(ui.formatTaskToPrint(taskList.getItem(taskList.getSize() - 1), dtf.getOutFormatter()));
@@ -197,7 +197,7 @@ public class CommandHandler {
         if (dateString.isEmpty()) {
             throw new DukeException("Event dates cannot be empty.");
         }
-        taskList.addItem(new Event(desc, false, dateString, dtf.getFormatters()));
+        taskList.addItem(new Event(desc, false, dateString));
         out += ui.print("Got it, I've added this task:");
         out += ui.print(ui.formatTaskToPrint(taskList.getItem(taskList.getSize() - 1), dtf.getOutFormatter()));
         out += ui.print("Now you have " + taskList.getSize() + " tasks in the list.");

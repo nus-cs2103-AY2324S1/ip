@@ -1,8 +1,8 @@
 package duke;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class DukeTest {
 
@@ -15,7 +15,7 @@ public class DukeTest {
     public void testFormatDeadline() {
         try {
             Deadline deadline = new Deadline("help", true,
-                    "/by 8/8/2020 1630", dtf.getFormatters());
+                    "/by 8/8/2020 1630");
             String formattedDeadline = deadline.getFormattedDatetime(dtf.getOutFormatter());
             assert(formattedDeadline.equals("[D][X]  help (by: 2020-08-08 16:30)"));
         } catch (DukeException e) {
@@ -28,7 +28,7 @@ public class DukeTest {
         TaskList tl = new TaskList();
         try {
             Deadline deadline = new Deadline("help", true,
-                    "/by 8/8/2020 1630", dtf.getFormatters());
+                    "/by 8/8/2020 1630");
             tl.addItem(deadline);
             tl.addItem(deadline);
             tl.addItem(deadline);

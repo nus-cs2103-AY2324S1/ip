@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 
 public class Storage {
-    private ArrayList<String> its;
+
     private String dataFile;
 
     /**
@@ -30,6 +30,35 @@ public class Storage {
     }
 
     /**
+     * Loads items into storage from a given data source.
+     *
+     * @param f Data source from which to read
+     * @param items Storage to load data into
+     */
+    private void loadItemsFromFile(File f, ArrayList<String> items) throws FileNotFoundException {
+        Scanner reader = new Scanner(f);
+        while (reader.hasNextLine()) {
+            items.add(reader.nextLine());
+        }
+        reader.close();
+    }
+
+    /**
+     * Attempts to create a new file, throws an IOException if unsuccessul.
+     *
+     * @param f File that will be attempted to be created
+     */
+    private void createNewFile(File f) {
+        try {
+            f.createNewFile();
+            System.out.println("Data file successfully created.");
+        } catch (IOException e) {
+            System.out.println("Data storage failed, items added to the app will be deleted after program exit.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Loads data from external storage into the application, creating an
      * ArrayList of items as strings to be further processed.
      *
@@ -37,24 +66,14 @@ public class Storage {
      */
     public ArrayList<String> load() {
         File f = new File(dataFile);
-        its = new ArrayList<>();
+        ArrayList<String> items = new ArrayList<>();
         try {
-            Scanner reader = new Scanner(f);
-            while (reader.hasNextLine()) {
-                its.add(reader.nextLine());
-            }
-            reader.close();
+            loadItemsFromFile(f, items);
         } catch (FileNotFoundException fe) {
             System.out.println("Data file not found, attempting to create one...");
-            try {
-                f.createNewFile();
-                System.out.println("Data file successfully created.");
-            } catch (IOException e) {
-                System.out.println("Data storage failed, items added to the app will be deleted after program exit.");
-                e.printStackTrace();
-            }
+            createNewFile(f);
         }
-        return its;
+        return items;
     }
 
     /**
