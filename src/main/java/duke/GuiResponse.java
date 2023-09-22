@@ -105,9 +105,8 @@ public class GuiResponse {
      */
     public String getQueryResult(TaskList results) {
         String responseString = "";
-        responseString += "Here are the matching tasks in your list:";
-        responseString += "\n";
-        getTaskList(results);
+        responseString += "Here are the matching tasks in your list:" + "\n";
+        responseString += getTaskList(results);
         return responseString;
     }
 
