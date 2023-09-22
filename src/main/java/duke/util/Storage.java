@@ -102,12 +102,21 @@ public class Storage {
     public void checkFile() {
         try {
             Path file = Path.of("./data/duke.txt");
+            Path fileForTesting = Path.of("./data/taskListTest.txt");
             if (!Files.exists(file)) {
                 System.out.println("System Message: File 'duke.txt' does not exist. Creating one..."
                         + "You can view it under 'data' directory after exiting the program this time.");
                 Files.createFile(file);
             } else {
                 System.out.println("System Message: File 'duke.txt' exists! Loading past data...");
+            }
+            
+            if (!Files.exists(fileForTesting)) {
+                System.out.println("System Message: File 'taskListTest.txt' does not exist. Creating one..."
+                        + "You can view it under 'data' directory after exiting the program this time.");
+                Files.createFile(fileForTesting);
+            } else {
+                System.out.println("System Message: File 'taskListTest.txt' exists!");
             }
         } catch (IOException e) {
             System.out.printf("Error while creating directory: %s", e.getMessage());
