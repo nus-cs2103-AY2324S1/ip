@@ -31,14 +31,14 @@ example- Returning a book on 23rd September 2023 by 12:15.
 
 
 
-3) **<font color = "darkcyan">ToDo</font>**  - These tasks don't have specific due dates or deadlines.
+2) **<font color = "darkcyan">ToDo</font>**  - These tasks don't have specific due dates or deadlines.
 
 example- Todo laundry
     
 
 
 
-5) **<font color = "darkcyan">Events</font>**  - These are the events that happen on a prticular date-time and have an end date-time also.
+3) **<font color = "darkcyan">Events</font>**  - These are the events that happen on a prticular date-time and have an end date-time also.
 
 example- Go on a holiday from 25th September 2023 1200 to 28th September 2023 1200
 
@@ -282,7 +282,7 @@ Exits the application and the tasks are stored in the file.
 Exits the application with a message.
 
 ``` 
-Bye. Hope to see you agaon soon!
+Bye. Hope to see you again soon!
 
 ```
 
