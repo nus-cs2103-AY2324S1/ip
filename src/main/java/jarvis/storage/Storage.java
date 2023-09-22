@@ -17,7 +17,7 @@ import jarvis.tasks.Task;
  */
 public class Storage {
     private static final String FILE_DIR = "./data/";
-    private static final String FILE_PATH = "./data/newJarvis.txt";
+    private static final String FILE_PATH = "./data/jarvis.txt";
 
     /**
      * Initializes a new instance of the Storage class and creates necessary directories and files.
