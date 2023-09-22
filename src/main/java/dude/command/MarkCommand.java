@@ -25,10 +25,8 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Mark Command\n";
         Task markedTask = taskList.markTask(taskIndex);
-        output = output + ui.showMarkedTask(markedTask) + "\n";
+        String output = ui.showMarkedTask(markedTask) + "\n";
         storage.saveToDisk(taskList, noteList);
         return output;
     }

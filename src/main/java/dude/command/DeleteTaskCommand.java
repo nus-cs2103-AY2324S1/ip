@@ -26,11 +26,9 @@ public class DeleteTaskCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Delete Task Command\n";
         Task deletedTask = taskList.deleteTask(taskIndex);
         int nTasks = taskList.getSize();
-        output = output + ui.showDeletedTask(deletedTask, nTasks) + "\n";
+        String output = ui.showDeletedTask(deletedTask, nTasks) + "\n";
         storage.saveToDisk(taskList, noteList);
         return output;
     }

@@ -21,8 +21,7 @@ public class Ui {
      * Prints a welcome message for users.
      */
     public static String showWelcome() {
-        String greeting = "Hello, I'm Dude!\n"
-                + "What can I do for you?";
+        String greeting = "sup dude, whatchu need?";
         return greeting;
     }
 
@@ -30,7 +29,7 @@ public class Ui {
      * Prints a farewell message for users.
      */
     public static String showFarewell() {
-        String greeting = "Bye. Hope to see you again soon!";
+        String greeting = "bye dude";
         return greeting;
     }
 
@@ -39,9 +38,10 @@ public class Ui {
      */
     public String showTaskList(TaskList taskList) {
         int nTasks = taskList.getSize();
-        String taskListString = "Tasks:\n";
+        String taskListString = "---tasks---\n";
+
         if (nTasks == 0) {
-            taskListString = "You have no saved tasks.\n";
+            taskListString = "no tasks atm, you're a free fella.\n";
         } else {
             for (int i = 0; i < nTasks; i++) {
                 Task task = taskList.getTask(i);
@@ -57,15 +57,11 @@ public class Ui {
      * Prints the list of notes.
      */
     public String showNoteList(NoteList noteList) {
-        if (noteList == null) {
-            return "NoteList is null."; // Or handle this case appropriately
-        }
-
         int nNotes = noteList.getSize();
-        System.out.printf("Note List Size: %d", nNotes);
-        String noteListString = "\nNotes:\n";
+        String noteListString = "\n---notes---\n";
+
         if (nNotes == 0) {
-            noteListString = "\nYou have no saved notes.\n";
+            noteListString = "no thoughts head empty brotha.\n";
         } else {
             for (int i = 0; i < nNotes; i++) {
                 Note note = noteList.getNote(i);
@@ -82,7 +78,7 @@ public class Ui {
      * Prints a statement to show the task that has been successfully marked.
      */
     public String showMarkedTask(Task task) {
-        String confirmation = "Nice! I've marked this task as done:\n"
+        String confirmation = "noice. one task down:\n"
                 + task.toString() + "\n";
         return confirmation;
         // task is already done?
@@ -92,7 +88,7 @@ public class Ui {
      * Prints a statement to show the task that has been successfully unmarked.
      */
     public String showUnmarkedTask(Task task) {
-        String confirmation = "Nice! I've marked this task as as not done yet:\n"
+        String confirmation = "gosh darn... thought you were done:\n"
                 + task.toString() + "\n";
         return confirmation;
         // task is already undone?
@@ -102,9 +98,9 @@ public class Ui {
      * Prints a statement to show the task that has been successfully deleted.
      */
     public String showDeletedTask(Task task, int nTasks) {
-        String confirmation = "Noted. I've removed this task:\n"
+        String confirmation = "i mean that's also... one task down:\n"
                 + task.toString() + "\n"
-                + String.format("Now you have %d tasks in the list.\n", nTasks);
+                + String.format("now just %d tasks to go.\n", nTasks);
         return confirmation;
     }
 
@@ -112,9 +108,9 @@ public class Ui {
      * Prints a statement to show the note that has been successfully deleted.
      */
     public String showDeletedNote(Note note, int nNotes) {
-        String confirmation = "Noted. I've removed this task:\n"
+        String confirmation = "one less thought for the sole braincell:\n"
                 + note.toString() + "\n"
-                + String.format("Now you have %d tasks in the list.\n", nNotes);
+                + String.format("%d thoughts left in brain.\n", nNotes);
         return confirmation;
     }
 
@@ -122,9 +118,9 @@ public class Ui {
      * Prints a statement to show the task that has been successfully added.
      */
     public String showAddedTask(Task task, int nTasks) {
-        String confirmation = "Got it. I've added this task:\n"
+        String confirmation = "i gotchu... one more task to do:\n"
                 + task.toString() + "\n"
-                + String.format("Now you have %d tasks in the list.\n", nTasks);
+                + String.format("now that's %d tasks to be done.\n", nTasks);
         return confirmation;
     }
 
@@ -132,9 +128,9 @@ public class Ui {
      * Prints a statement to show the task that has been successfully added.
      */
     public String showAddedNote(Note note, int nNotes) {
-        String confirmation = "Got it. I've added this note:\n"
+        String confirmation = "uhhuh, hope i remember that:\n"
                 + note.toString() + "\n"
-                + String.format("Now you have %d notes in the list.\n", nNotes);
+                + String.format("%d thoughts currently in head.\n", nNotes);
         return confirmation;
     }
 
@@ -142,7 +138,7 @@ public class Ui {
      * Prints a statement to show the command is unknown.
      */
     public String showUnknownCommand(String input) {
-        String reply = String.format("OOPS!!! I'm sorry, but I don't know what %s means :-(\n", input);
+        String reply = String.format("bruh, what %s supposed to mean :-(\n", input);
         return reply;
     }
 }

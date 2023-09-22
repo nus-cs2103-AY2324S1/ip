@@ -54,7 +54,7 @@ public class Storage {
             fw.write(data);
             fw.close();
         } catch (IOException e) {
-            throw new StorageException("An error occurred while creating the file: " + e.getMessage());
+            throw new StorageException("something is wrong: \n" + e.getMessage());
         }
     }
 
@@ -119,7 +119,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new StorageException("An error occurred while creating the file: " + e.getMessage());
+            throw new StorageException("something is wrong: \n" + e.getMessage());
         }
 
         return taskList;
@@ -182,7 +182,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            throw new StorageException("An error occurred while creating the file: " + e.getMessage());
+            throw new StorageException("something is wrong: \n" + e.getMessage());
         }
 
         return noteList;

@@ -119,13 +119,13 @@ public class Parser {
         String[] commandDetails = fullCommand.split("\\s+/n\\s+|\\s+/t\\s+|\\s+");
 
         if (commandDetails.length < 2) {
-            throw new ParserException("Invalid command format: " + commandDetails[0]);
+            throw new ParserException("something is missing... \n try again.");
         }
 
         try {
             return Integer.parseInt(commandDetails[1]) - 1;
         } catch (NumberFormatException e) {
-            throw new ParserException("Invalid task index: " + commandDetails[1]);
+            throw new ParserException("index" + commandDetails[1] + "is invalid... ");
         }
     }
 
@@ -133,7 +133,7 @@ public class Parser {
         String[] commandDetails = fullCommand.split(" ", 2);
 
         if (commandDetails.length < 2) {
-            throw new ParserException("Description cannot be empty.");
+            throw new ParserException("something is missing... a description?");
         }
 
         return commandDetails[1].trim();
@@ -142,13 +142,15 @@ public class Parser {
     private static String[] parseDeadline(String fullCommand) throws ParserException {
 
         if (!fullCommand.matches("deadline(.+)/by(.+)")) {
-            throw new ParserException("Invalid command format: " + fullCommand);
+            throw new ParserException("invalid command format. try: \n"
+                    + "deadline <description> /by dd-mm-yyyy hh:mm");
         }
 
         String[] commandDetails = fullCommand.split("deadline\\s+|\\s+/by\\s+");
 
         if (commandDetails.length < 3) {
-            throw new ParserException("Invalid command format: " + fullCommand);
+            throw new ParserException("something is missing. try: \n"
+                    + "deadline <description> /by dd-mm-yyyy hh:mm");
         }
 
         return commandDetails;
@@ -157,13 +159,15 @@ public class Parser {
     private static String[] parseEvent(String fullCommand) throws ParserException {
 
         if (!fullCommand.matches("event(.+)/from(.+)/to(.+)")) {
-            throw new ParserException("Invalid command format: " + fullCommand);
+            throw new ParserException("invalid command format. try: \n"
+                    + "event <description> /from dd-mm-yyyy hh:mm /to dd-mm-yyyy hh:mm");
         }
 
         String[] commandDetails = fullCommand.split("event\\s+|\\s+/from\\s+|\\s+/to\\s+");
 
         if (commandDetails.length < 4) {
-            throw new ParserException("Invalid command format: " + fullCommand);
+            throw new ParserException("something is missing. try: \n"
+                    + "event <description> /from dd-mm-yyyy hh:mm /to dd-mm-yyyy hh:mm");
         }
 
         return commandDetails;
@@ -177,7 +181,8 @@ public class Parser {
                 LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
                 return date.atTime(LocalTime.MIDNIGHT);
             } catch (DateTimeParseException ex) {
-                throw new ParserException("Invalid date/time format: " + dateTimeString);
+                throw new ParserException("invalid date time format. try: \n "
+                        + "dd-mm-yyyy hh:mm OR dd-mm-yyyy");
             }
         }
     }

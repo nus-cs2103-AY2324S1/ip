@@ -24,10 +24,8 @@ public class UnmarkCommand extends Command {
      * @param ui User interface of Dude.
      */
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Unmark Command\n";
         Task unmarkedTask = taskList.unmarkTask(taskIndex);
-        output = output + ui.showUnmarkedTask(unmarkedTask) + "\n";
+        String output = ui.showUnmarkedTask(unmarkedTask) + "\n";
         storage.saveToDisk(taskList, noteList);
         return output;
     }

@@ -25,13 +25,11 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Add ToDo Command\n";
         ToDo newTask = new ToDo(taskDescription);
         assert !newTask.isDone() : "Newly added ToDo should not be done.";
         taskList.addTask(newTask);
         int nTasks = taskList.getSize();
-        output = output + ui.showAddedTask(newTask, nTasks) + "\n";
+        String output = ui.showAddedTask(newTask, nTasks) + "\n";
         storage.saveToDisk(taskList, noteList);
         return output;
     }

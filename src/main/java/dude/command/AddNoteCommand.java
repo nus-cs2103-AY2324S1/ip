@@ -30,14 +30,11 @@ public class AddNoteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Add Note Command\n";
         Note newNote = new Note(noteDescription);
         noteList.addNote(newNote);
         int nTasks = noteList.getSize();
-        output = output + ui.showAddedNote(newNote, nTasks) + "\n";
+        String output = ui.showAddedNote(newNote, nTasks) + "\n";
         storage.saveToDisk(taskList, noteList);
-        // storage.saveNotesToDisk(noteList);
         return output;
     }
 }

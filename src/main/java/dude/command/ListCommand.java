@@ -20,8 +20,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "Listing...\n";
-        output = output + ui.showTaskList(taskList) + ui.showNoteList(noteList) + "\n";
+        String output = ui.showTaskList(taskList) + ui.showNoteList(noteList) + "\n";
         return output;
     }
 }
