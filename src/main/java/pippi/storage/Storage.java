@@ -1,6 +1,7 @@
 package pippi.storage;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -29,6 +30,10 @@ public class Storage {
     public static ArrayList<Task> readTask() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
+            File file = new File(FILE_PATH);
+            if (!file.exists()) {
+                file.createNewFile(); // Create a new file if it doesn't exist
+            }
             // FileReader will open that file from that
             // directory, if there is no file found it will
             // throw an IOException
