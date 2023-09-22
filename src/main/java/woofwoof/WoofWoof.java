@@ -52,7 +52,7 @@ public class WoofWoof extends Application {
 
     private Woof woof;
     private final Image user = getImageFromFilePath(FilePath.USER_DISPLAY_PICTURE);
-    private final Image doggo = getImageFromFilePath(FilePath.BOT_DISPLAY_PICTURE);
+    private final Image bot = getImageFromFilePath(FilePath.BOT_DISPLAY_PICTURE);
 
 
     /**
@@ -107,7 +107,7 @@ public class WoofWoof extends Application {
 
         this.dialogArea.getChildren().addAll(
             DialogBox.getBotDialog(
-                Woof.wrapText(WoofMessage.HI.toFormattedValue(), "", Woof.getChatWidth()), this.doggo
+                Woof.wrapText(WoofMessage.HI.toFormattedValue(), "", Woof.getChatWidth()), this.bot
             )
         );
         this.dialogArea.prefHeightProperty().bind(this.scrollPane.heightProperty());
@@ -199,7 +199,7 @@ public class WoofWoof extends Application {
             String response = processMessage(message);
             this.dialogArea.getChildren().addAll(
                 DialogBox.getUserDialog(Woof.wrapText(message, "", Woof.getChatWidth()), this.user),
-                DialogBox.getBotDialog(Woof.wrapText(response, "", Woof.getChatWidth()), this.doggo)
+                DialogBox.getBotDialog(Woof.wrapText(response, "", Woof.getChatWidth()), this.bot)
             );
             this.userInput.clear();
         }

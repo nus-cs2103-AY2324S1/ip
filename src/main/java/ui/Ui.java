@@ -35,7 +35,7 @@ public class Ui {
      * @return A message prompt for the bot.
      */
     public static String getBotTitle() {
-        return getDividerLine() + "\nDoggo: ";
+        return getDividerLine() + "\nOreo: ";
     }
 
     /**

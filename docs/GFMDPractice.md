@@ -1,3 +1,5 @@
+>THIS DOCUMENT WAS CREATED SOLELY FOR PRACTICE PURPOSES.
+
 # Duke project
 ## Hello from
 ```
@@ -32,7 +34,7 @@ This project is a Java application that aims to provide a user-friendly task man
 6. **Enjoy**: Duke is very fun.
 
    ```shell
-   java -jar woofwoof.jar
+   java -jar duke.jar
 
 ## Installation Option 2
 
