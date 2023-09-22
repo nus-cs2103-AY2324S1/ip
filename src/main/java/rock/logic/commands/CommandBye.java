@@ -24,6 +24,6 @@ public class CommandBye extends Command {
     @Override
     public String apply(Parser input) {
         this.client.terminate();
-        return ("Client terminated.");
+        return ("Catch ya later! Powering off for now.");
     }
 }

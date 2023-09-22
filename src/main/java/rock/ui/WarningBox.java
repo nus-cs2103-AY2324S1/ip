@@ -9,7 +9,7 @@ import javafx.scene.layout.HBox;
 /**
  * Represents a warning box
  * for the bot to interact with user
- *
+ * Heavily adapted from https://se-education.org/guides/tutorials/javaFx.html
  * @author Alvis Ng (supermii2)
  */
 public class WarningBox extends HBox {

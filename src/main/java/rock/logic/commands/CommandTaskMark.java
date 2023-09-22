@@ -35,11 +35,11 @@ public class CommandTaskMark extends Command {
             int taskIdx = Integer.parseInt(inputString) - 1;
             client.getTaskList().mark(taskIdx, this.isMarking);
             this.client.saveFile();
-            return isMarking ? "Task marked successfully\n" : "Task unmarked successfully\n";
+            return isMarking ? "Got it! Task has been marked!\n" : "Got it! Task has been unmarked!\n";
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("Invalid index given!");
+            throw new IllegalArgumentException("ERROR: Invalid number given!");
         } catch (IndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("Illegal index given!");
+            throw new IllegalArgumentException("ERROR: No task exists at that number!");
         }
     }
 }

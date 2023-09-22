@@ -41,7 +41,7 @@ public class Commands {
     public Command getCommand(String keyword) throws IllegalArgumentException {
         Command command = this.commandList.get(keyword);
         if (command == null) {
-            throw new IllegalArgumentException("Unknown command!");
+            throw new IllegalArgumentException("ERROR: Unknown command!");
         }
         return command;
     }

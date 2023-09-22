@@ -31,7 +31,7 @@ public class CommandTaskListByDate extends Command {
         try {
             filterDate = LocalDate.parse(input.getDefaultString());
         } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Illegal Date");
+            throw new IllegalArgumentException("ERROR: That's not a date!");
         }
         return client.getTaskList().filteredSearch(task -> task.getDate() == filterDate);
     }
