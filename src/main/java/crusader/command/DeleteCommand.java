@@ -2,7 +2,6 @@ package crusader.command;
 
 import crusader.Storage;
 import crusader.TaskList;
-import crusader.Ui;
 import crusader.exception.CrusaderException;
 import crusader.task.Task;
 
@@ -16,7 +15,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, TaskList taskList, Storage storage) throws CrusaderException {
+    public String execute(TaskList taskList, Storage storage) throws CrusaderException {
         Task deletedTask = taskList.deleteTask(index);
         storage.saveTasks(taskList.getTasks());
         return String.format(

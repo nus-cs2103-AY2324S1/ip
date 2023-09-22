@@ -39,7 +39,7 @@ public abstract class Task implements Comparable<Task> {
     /**
      * Compares a task to another.
      * @param o the task to be compared.
-     * @return
+     * @return Whether a task is considered as before or after another task in order.
      */
     @Override
     public int compareTo(Task o) {
@@ -54,7 +54,7 @@ public abstract class Task implements Comparable<Task> {
     public abstract String toFormat();
 
     /**
-     * Checks wheter the task has been completed
+     * Checks whether the task has been completed
      * @return Task completion status
      */
     public boolean isDone() {

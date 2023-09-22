@@ -2,7 +2,6 @@ package crusader.command;
 
 import crusader.Storage;
 import crusader.TaskList;
-import crusader.Ui;
 import crusader.exception.CrusaderException;
 
 /**
@@ -10,7 +9,7 @@ import crusader.exception.CrusaderException;
  */
 public class SortCommand extends Command {
     @Override
-    public String execute(Ui ui, TaskList taskList, Storage storage) throws CrusaderException {
+    public String execute(TaskList taskList, Storage storage) throws CrusaderException {
         taskList.sort();
         return String.format(
                 "Sorting the list now.\nHere is your list now:\n%s",
