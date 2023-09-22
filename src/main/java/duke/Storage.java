@@ -61,6 +61,55 @@ public class Storage {
         return file;
     }
 
+    private void loadTodoTask(Matcher matcher, ArrayList<Task> tasks) throws DukeException {
+        if (matcher.group(2) == null || matcher.group(3) == null) {
+            throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
+        }
+
+        Todo newTodo = new Todo(matcher.group(3));
+        if (matcher.group(2).equals(doneString)) {
+            newTodo.markAsDone();
+        }
+        tasks.add(newTodo);
+    }
+
+    private void loadDeadlineTask(Matcher matcher, ArrayList<Task> tasks) throws DukeException {
+        if (matcher.group(2) == null
+                || matcher.group(3) == null
+                || matcher.group(4) == null) {
+            throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
+        }
+
+        LocalDateTime parsedDate;
+        try {
+            parsedDate = LocalDateTime.parse(matcher.group(4),
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        } catch (DateTimeParseException e) {
+            throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
+        }
+
+        Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
+        if (matcher.group(2).equals(doneString)) {
+            newDeadline.markAsDone();
+        }
+        tasks.add(newDeadline);
+    }
+
+    private void loadEventTask(Matcher matcher, ArrayList<Task> tasks) throws DukeException {
+        if (matcher.group(2) == null
+                || matcher.group(3) == null
+                || matcher.group(4) == null
+                || matcher.group(5) == null) {
+            throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
+        }
+
+        Event newEvent = new Event(matcher.group(3), matcher.group(4), matcher.group(5));
+        if (matcher.group(2).equals(doneString)) {
+            newEvent.markAsDone();
+        }
+        tasks.add(newEvent);
+    }
+
     /**
      * Load the tasks from the save file.
      *
@@ -84,50 +133,13 @@ public class Storage {
 
                 switch (matcher.group(1)) {
                 case "T":
-                    if (matcher.group(2) == null || matcher.group(3) == null) {
-                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
-                    }
-
-                    Todo newTodo = new Todo(matcher.group(3));
-                    if (matcher.group(2).equals(doneString)) {
-                        newTodo.markAsDone();
-                    }
-                    tasks.add(newTodo);
+                    loadTodoTask(matcher, tasks);
                     break;
                 case "D":
-                    if (matcher.group(2) == null
-                            || matcher.group(3) == null
-                            || matcher.group(4) == null) {
-                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
-                    }
-
-                    LocalDateTime parsedDate;
-                    try {
-                        parsedDate = LocalDateTime.parse(matcher.group(4),
-                                DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-                    } catch (DateTimeParseException e) {
-                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
-                    }
-
-                    Deadline newDeadline = new Deadline(matcher.group(3), parsedDate);
-                    if (matcher.group(2).equals(doneString)) {
-                        newDeadline.markAsDone();
-                    }
-                    tasks.add(newDeadline);
+                    loadDeadlineTask(matcher, tasks);
                     break;
                 case "E":
-                    if (matcher.group(2) == null
-                            || matcher.group(3) == null
-                            || matcher.group(4) == null
-                            || matcher.group(5) == null) {
-                        throw new DukeException(Messages.MESSAGE_CORRUPT_FILE);
-                    }
-
-                    Event newEvent = new Event(matcher.group(3), matcher.group(4), matcher.group(5));
-                    if (matcher.group(2).equals(doneString)) {
-                        newEvent.markAsDone();
-                    }
-                    tasks.add(newEvent);
+                    loadEventTask(matcher, tasks);
                     break;
                 }
             }
