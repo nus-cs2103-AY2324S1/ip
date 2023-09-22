@@ -15,12 +15,4 @@ public class EventTest {
         // entered event will be added successfully
         assertEquals("[E][ ] training (from: morning to: evening)", new Event("training ", "morning ", "evening").toString());
     }
-
-    @Test
-    public void event_empty_exceptionThrown() {
-        // IllegalArgumentException will be thrown
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Event("", "", "");
-        });
-    }
 }

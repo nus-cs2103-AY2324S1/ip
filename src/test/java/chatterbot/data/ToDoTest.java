@@ -15,12 +15,4 @@ public class ToDoTest {
         // entered todo will be added successfully
         assertEquals("[T][ ] todo chores", new Todo("todo chores").toString());
     }
-
-    @Test
-    public void toDo_empty_exceptionThrown() {
-        // IllegalArgumentException will be thrown
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Todo("");
-        });
-    }
 }

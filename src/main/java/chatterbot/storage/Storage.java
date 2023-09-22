@@ -17,7 +17,6 @@ public class Storage {
     private static String filePath;
 
     private static TaskList taskList;
-//    private static ArrayList<Task> list;
 
     public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
@@ -44,8 +43,6 @@ public class Storage {
                     todo.setDone();
                 }
                 taskArrayList.add(todo);
-//                Todo todo = new Todo(line.substring(5));
-//                taskArrayList.add(todo);
             } else if (line.contains("[D]")) {
                 String[] deadlineSplit = line.split(" \\| ");
                 String mark = deadlineSplit[1];
@@ -99,5 +96,4 @@ public class Storage {
         fw.write(textToAppend + System.lineSeparator());
         fw.close();
     }
-
 }

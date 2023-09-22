@@ -15,8 +15,6 @@ public class Ui {
 
     public static TaskList taskList;
 
-    //public static ArrayList<Task> list;
-
     public Ui(TaskList taskList) {
         this.taskList = taskList;
     }

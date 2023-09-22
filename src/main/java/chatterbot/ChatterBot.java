@@ -10,7 +10,6 @@ import chatterbot.ui.Ui;
  */
 public class ChatterBot {
 
-    //protected static ArrayList<Task> list = new ArrayList<>();
     protected static String file = "data/ChatterBot.txt";
     protected Ui ui;
     protected Storage storage;

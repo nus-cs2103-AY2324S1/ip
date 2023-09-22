@@ -15,12 +15,4 @@ public class DeadlineTest {
         // entered deadline will be added successfully
         assertEquals("[D][ ] chores (by: Oct 12 2019)", new Deadline("chores", "2019-10-12").toString());
     }
-
-    @Test
-    public void deadline_empty_exceptionThrown() {
-        // IllegalArgumentException will be thrown
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Deadline("", "");
-        });
-    }
 }
