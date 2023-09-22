@@ -17,6 +17,8 @@ A todo is a task that has a description, but no deadlines
 
 ![todo.png](images/todo.png)
 
+<br />
+
 ### Feature - Add deadlines
 >#### deadline
 
@@ -31,6 +33,9 @@ A deadline is a task that has a description and a deadline.
 **Expected Output:**
 
 ![deadline.png](images/deadline.png)
+
+<br />
+
 
 ### Feature - Add events
 >#### event
@@ -47,6 +52,9 @@ An event is a task that has a description, from date and to date.
 
 ![event.png](images/event.png)
 
+<br />
+
+
 ### Feature - Find tasks
 >#### find
 
@@ -61,6 +69,10 @@ find function can index any task that may or may not contain the full keyword. I
 **Expected Output:**
 
 ![find.png](images/find.png)
+
+<br />
+
+
 ### Feature - list tasks
 >#### list
 
@@ -75,6 +87,9 @@ list function prints out all the tasks on memory.
 **Expected Output:**
 
 ![list.png](images/list.png)
+
+<br />
+
 ### Feature - Delete tasks
 >#### delete
 
@@ -89,6 +104,8 @@ delete function can delete any task based on the item number.
 **Expected Output:**
 
 ![delete.png](images/delete.png)
+
+<br />
 
 ### Feature - mark tasks
 >#### mark
@@ -106,6 +123,8 @@ Tasks that are already marked, cannot be marked again.
 
 ![mark.png](images/mark.png)
 
+<br />
+
 ### Feature - unmark tasks
 >#### unmark
 
@@ -121,6 +140,8 @@ Tasks that are already unmarked, cannot be unmarked again.
 **Expected Output:**
 
 ![unmark.png](images/unmark.png)
+
+<br />
 
 ### Feature - save tasks
 >#### save
