@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import duke.exceptions.DukeException;
 import duke.exceptions.DukeFileNotFoundException;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
@@ -40,7 +41,7 @@ public class Storage {
     public TaskList readFromFile() throws DukeFileNotFoundException {
         TaskList list = new TaskList();
         try {
-            File f = new File(this.filePath);
+            File f = getDataFile();
             Scanner s = new Scanner(f);
 
             while (s.hasNext()) {
@@ -74,7 +75,7 @@ public class Storage {
 
             s.close();
         } catch (FileNotFoundException e) {
-            throw new DukeFileNotFoundException(filePath);
+            throw new DukeFileNotFoundException(this.filePath);
         }
         return list;
     }
@@ -87,7 +88,7 @@ public class Storage {
      */
     public void writeToFile(TaskList list) throws DukeFileNotFoundException {
         try {
-            FileWriter fw = new FileWriter(filePath);
+            FileWriter fw = new FileWriter(getDataFile());
 
             StringBuffer write = new StringBuffer("");
             for (int i = 0; i < list.getNumberOfTasks(); i++) {
@@ -98,6 +99,63 @@ public class Storage {
             fw.close();
         } catch (FileNotFoundException e) {
             throw new DukeFileNotFoundException(filePath);
+        } catch (IOException e) {
+            System.out.println("\n" + "OOPS!!! " + e.getMessage());
+        }
+    }
+
+    private File getDataDirectory() {
+        File dataDirectory = new File("data");
+
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs();
+        }
+        return dataDirectory;
+    }
+
+    private File getDataFile() throws DukeException {
+        File directory = this.getDataDirectory();
+        File dataFile = new File(directory + "/" + this.filePath);
+
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+                if (this.filePath.equals("duke.txt")) {
+                    populateFile(dataFile);
+                } else if (this.filePath.equals("testDuke.txt")) {
+                    populateTestFile(dataFile);
+                }
+            } catch (IOException e) {
+                throw new DukeException("OOPS!!! Could not create the file " + this.filePath);
+            }
+        }
+
+        return dataFile;
+    }
+
+    private void populateFile(File dataFile) {
+        try {
+            FileWriter fw = new FileWriter(dataFile);
+            fw.write("T | 1 | LOW | read book\n"
+                    + "D | 0 | MEDIUM | return book | 06 Jun 2023 - 16:00\n"
+                    + "E | 0 | MEDIUM | project meeting | 06 Aug 2023 - 14:00 | 06 Aug 2023 - 16:00\n"
+                    + "T | 1 | LOW | join sports club\n"
+                    + "T | 0 | HIGH | borrow book\n"
+                    + "D | 0 | MEDIUM | return another book | 02 Sep 2023 - 16:00\n"
+                    + "E | 0 | LOW | another project meeting | 30 Aug 2023 - 21:00 | 30 Aug 2023 - 22:00");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println("\n" + "OOPS!!! " + e.getMessage());
+        }
+    }
+
+    private void populateTestFile(File dataFile) {
+        try {
+            FileWriter fw = new FileWriter(dataFile);
+            fw.write("T | 1 | LOW | read book\n"
+                    + "D | 0 | MEDIUM | return book | 06 Jun 2023 - 16:00\n"
+                    + "E | 0 | HIGH | project meeting | 06 Aug 2023 - 14:00 | 06 Aug 2023 - 16:00");
+            fw.close();
         } catch (IOException e) {
             System.out.println("\n" + "OOPS!!! " + e.getMessage());
         }

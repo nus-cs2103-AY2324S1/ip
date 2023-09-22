@@ -42,7 +42,7 @@ public class Duke {
 
             assert tasks != null;
 
-            String userInput = input;
+            String userInput = input.trim();
             Action action = Action.valueOf(userInput.split(" ")[0].toUpperCase());
 
             switch (action) {
@@ -90,11 +90,11 @@ public class Duke {
         }
     }
 
-    public String getListString() {
+    private String getListString() {
         return "Here are the tasks in your list:\n" + tasks.toString();
     }
 
-    public String getMarkedString(String userInput) {
+    private String getMarkedString(String userInput) {
         // get index by splitting user input and get task at that index from list
         int indexToBeMarked = Integer.parseInt(userInput.split(" ")[1]);
 
@@ -110,7 +110,7 @@ public class Duke {
         return "Nice! I've marked this task as done:\n" + toBeMarked.toString();
     }
 
-    public String getUnmarkedString(String userInput) {
+    private String getUnmarkedString(String userInput) {
         // get index by splitting user input and get task at that index from list
         int indexToBeUnmarked = Integer.parseInt(userInput.split(" ")[1]);
 
@@ -126,7 +126,7 @@ public class Duke {
         return "OK, I've marked this task as not done yet:\n" + toBeUnmarked.toString();
     }
 
-    public String getDeletedString(String userInput) {
+    private String getDeletedString(String userInput) {
         int indexToBeDeleted = Integer.parseInt(userInput.split(" ")[1]);
 
         if (indexToBeDeleted < 1 || indexToBeDeleted > tasks.getNumberOfTasks()) {
@@ -142,7 +142,7 @@ public class Duke {
                 + "\nNow you have " + tasks.getNumberOfTasks() + " tasks in the list.";
     }
 
-    public String getFilteredString(String userInput) {
+    private String getFilteredString(String userInput) {
         TaskList filtered = tasks.getFilteredTaskList(userInput);
 
         assert filtered != null;
@@ -150,7 +150,7 @@ public class Duke {
         return "Here are the matching tasks in your list:\n" + filtered.toString();
     }
 
-    public String getChangedString(String userInput) {
+    private String getChangedString(String userInput) {
         int indexToBeChanged = Integer.parseInt(userInput.split(" ")[2]);
 
         if (indexToBeChanged < 1 || indexToBeChanged > tasks.getNumberOfTasks()) {
@@ -165,7 +165,7 @@ public class Duke {
         return "Noted. I've changed the priority of this task:\n" + toBeChanged.toString();
     }
 
-    public String getTaskString(String userInput) throws DukeException {
+    private String getTaskString(String userInput) throws DukeException {
         Task taskToAdd = parser.getTask(userInput);
         try {
             tasks.addToList(taskToAdd);

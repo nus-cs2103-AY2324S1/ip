@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 public class DukeTest {
-    private static final Duke DUKE = new Duke("data/testDuke.txt");
+    private static final Duke DUKE = new Duke("testDuke.txt");
 
     @Test
     public void getResponse_bye_expectedString() {

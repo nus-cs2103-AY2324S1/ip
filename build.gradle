@@ -6,8 +6,6 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-mainClassName = 'duke.Launcher'
-
 repositories {
     mavenCentral()
 }
@@ -58,7 +56,6 @@ shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     archiveFileName = 'duke.jar'
-    dependsOn("distZip", "distTar")
 }
 
 run{
