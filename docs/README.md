@@ -29,7 +29,7 @@ Kevin is a desktop application to manage your daily task, optimized for use thro
 3. Copy the file to the folder you want to use as the home folder for your Kevin chatbot.
 4. Open a command terminal, `cd` into the folder you put the jar file in, 
 and use the `java -jar kevin.jar` command to run the application.
-5. A GUI similar to the below should appear in a few seconds.</br> <img src="../src/main/resources/images/startPage.png" width="200"/>
+5. A GUI similar to the below should appear in a few seconds.</br> <img src="./images/startPage.png" width="200"/>
 6. Type the command in the command box and press Send to execute it. Refer to the [Features](#features-) section to see the details 
 of the command.
 
@@ -53,8 +53,7 @@ Format: `deadline DESCRIPTION /by DATETIME`
 - `DESCRIPTION` is the description of the todo task.
 - `DATETIME` is the date of the deadline. 
 
-
-> [!NOTE]
+> [!NOTE]\
 > `DATETIME` must be written in the format of `d-MM-yyyy HHmm` or `dd-MM-yyyy HHmm`
 
 Example:
@@ -69,8 +68,7 @@ Format: `event DESCRIPTION /from STARTTIME /to ENDTIME`
 - `STARTTIME` is the starting time of the event. 
 - `ENDTIME` is the ending time of the event.
 
-
-> [!NOTE]
+> [!NOTE]\
 > `STARTTIME` and `ENDTIME` can be anything, it does not have to be a date.
 
 Example:
@@ -113,8 +111,7 @@ Format: `delete INDEXNUMBER`
 Example:
 - `delete 1`: delete the task with index 1 from your task list.
 
-
-> [!WARNING]
+> [!WARNING]\
 > This action is irreversible! Be careful on what you are deleting!
 
 ### Filtering Your Tasks : `find`
@@ -133,7 +130,7 @@ Say bye to Kevin.
 
 Format: `bye`
 
-> [!NOTE]
+> [!NOTE]\
 > Don't worry all your tasks will be saved!
 
 ### Viewing Help : `help`
