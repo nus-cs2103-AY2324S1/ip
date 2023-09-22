@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class TodoTest {
     @Test
     public void toSaveFormat_success(){
-        assertEquals("T|X|run far\n", new ToDo("run far", true).toSaveFormat());
+        assertEquals("T|X|run far| \n", new ToDo("run far", true, " ").toSaveFormat());
     }
 
 }

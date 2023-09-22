@@ -12,10 +12,11 @@ public class TaskListTest {
     @Test
     public void addTask_emptyTask_exceptionThrown(){
         try {
-            new TaskList(new Storage("dummystorage.txt")).addTask("", TaskType.TODO, false);
+            new TaskList(new Storage("dummystorage.txt"))
+                    .addTask("", "todo", false, " ");
             fail(); // the test should not reach this line
         } catch (GlubException e) {
-            assertEquals("OOPS!! The description of a TODO cannot be empty.\n", e.getMessage());
+            assertEquals("OOPS!! The description of a todo cannot be empty.\n", e.getMessage());
         }
     }
 
@@ -23,7 +24,7 @@ public class TaskListTest {
     public void addTask_noDeadline_exceptionThrown(){
         try {
             new TaskList(new Storage("dummystorage.txt"))
-                    .addTask("run", TaskType.DEADLINE, false);
+                    .addTask("run", "deadline", false, " ");
             fail(); // the test should not reach this line
     } catch (GlubException e) {
         assertEquals("OOPS!! Please provide a deadline for your deadline task.\n", e.getMessage());
