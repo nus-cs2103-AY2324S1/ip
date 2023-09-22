@@ -106,7 +106,7 @@ public class StorageTest {
     }
 
     /**
-     * Tests storageToTask function with a FixedDurationTask not done.
+     * Tests storageToTask function with a FixedDurationTask done.
      */
     @Test
     public void storageToTask_fixedDurationTaskDone() {
