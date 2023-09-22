@@ -27,6 +27,11 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
+compileJava {
+    sourceCompatibility = '11' // Replace with your desired Java version
+    targetCompatibility = '11' // Replace with your desired Java version
+}
+
 test {
     useJUnitPlatform()
 
@@ -42,14 +47,14 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("boti.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "boti"
     archiveClassifier = null
-    mainClassName = "duke.Duke"
-    archiveFileName = "duke.jar"
+    mainClassName = "boti.Launcher"
+    archiveFileName = "boti.jar"
     dependsOn("distZip", "distTar")
 }
 
