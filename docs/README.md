@@ -10,7 +10,7 @@ Hey there amigo, excited to meet you! I'm Buddy, your friendly chat companion! W
 
 ## Features 
 
-Hehe, I have the ability to do the following:
+Hehe, I have the ability to do the following things:
 1. Add new ToDo, Deadline and Event tasks
 2. View the list of tasks you have
 3. Delete a task from the list
