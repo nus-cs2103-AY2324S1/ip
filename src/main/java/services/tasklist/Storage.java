@@ -61,54 +61,61 @@ public class Storage implements IStorage {
     public List<Task> load() throws ReadFromFileException, InvalidArgumentException {
         try {
             Scanner scanner = new Scanner(dataFile);
-            List<Task> taskList = new ArrayList<>();
+            List<Task> tasks = new ArrayList<>();
             while (scanner.hasNextLine()) {
                 String encodedTask = scanner.nextLine();
                 assert encodedTask.length() > 0 : "encoded task should not be empty";
-
-                String[] varargs = encodedTask.split(" \\| ");
-                assert varargs.length >= 4 : "encoded task should have at least 3 parts "
-                        + "(type, isDone, tags, description)";
-
-                String taskType = varargs[0];
-                assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E")
-                        : "encoded task should start with T, D or E";
-
-                Task task;
-                switch (varargs[0]) {
-                case "T":
-                    task = new Todo(varargs[3]);
-                    break;
-                case "D":
-                    task = new Deadline(varargs[3], varargs[4]);
-                    break;
-                case "E":
-                    task = new Event(varargs[3], varargs[4], varargs[5]);
-                    break;
-                default:
-                    // the program should never reach this point.
-                    return null;
-                }
-
-                String isDone = varargs[1];
-                if (isDone.equals("1")) {
-                    task.setDone();
-                }
-
-                if (!varargs[2].equals("")) {
-                    // the tags currently have a leading "#" character.
-                    String[] tagsWithHashes = varargs[2].split(" ");
-                    // remove the leading "#" character.
-                    String[] tags = Arrays.stream(tagsWithHashes).map(s -> s.substring(1)).toArray(String[]::new);
-                    task.addTags(tags);
-                }
-
-                taskList.add(task);
+                Task task = decode(encodedTask);
+                tasks.add(task);
             }
             scanner.close();
-            return taskList;
+            return tasks;
         } catch (IOException e) {
             throw new ReadFromFileException();
         }
+    }
+
+    private static Task decode(String encodedTask) throws InvalidArgumentException {
+        String[] varargs = encodedTask.split(" \\| ");
+        assert varargs.length >= 4 : "encoded task should have at least 3 parts "
+                + "(type, isDone, tags, description)";
+        Task task;
+
+        // decode the task type.
+        String taskType = varargs[0];
+        assert taskType.equals("T") || taskType.equals("D") || taskType.equals("E")
+                : "encoded task should start with T, D or E";
+        switch (taskType) {
+        case "T":
+            task = new Todo(varargs[3]);
+            break;
+        case "D":
+            task = new Deadline(varargs[3], varargs[4]);
+            break;
+        case "E":
+            task = new Event(varargs[3], varargs[4], varargs[5]);
+            break;
+        default:
+            // the program should never reach this point.
+            return null;
+        }
+
+        // decode whether the task is done.
+        String isDone = varargs[1];
+        if (isDone.equals("1")) {
+            task.setDone();
+        }
+
+        // decode the tags associated with the task.
+        String stringOfTags = varargs[2];
+        if (!stringOfTags.equals("")) {
+            // the tags currently have a leading "#" character.
+            String[] tagsWithHashes = stringOfTags.split(" ");
+            // remove the leading "#" character.
+            String[] tags = Arrays.stream(tagsWithHashes).map(s -> s.substring(1)).toArray(String[]::new);
+            task.addTags(tags);
+        }
+
+        return task;
     }
 }
