@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 public class Event extends Task {
     LocalDateTime startDate;
     LocalDateTime endDate;
-    //Introducing LocalDateTime to parse the string inputs given by the user
-    //for the relevant date and time
 
     /**
      * Constructor to build an Event Task Object with the task description,

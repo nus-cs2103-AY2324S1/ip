@@ -226,7 +226,7 @@ public class Parser {
         if (!str.contains("/from")) {
             throw new EventCommandUseException(str);
         } else {
-            String fromMarker = "/from "; //mark the /from index of the string
+            String fromMarker = "/from ";
             int firstIndex = str.indexOf(fromMarker);
             int secondIndex;
             String fromWhen;
@@ -234,15 +234,15 @@ public class Parser {
             String workToDo = str.substring(6, firstIndex);
             workToDo = workToDo.trim();
             String afterFirstIndex = str.substring(firstIndex + 6);
-            if (!afterFirstIndex.contains("/to ")) { //to check the input of /to after /from
+            if (!afterFirstIndex.contains("/to ")) {
                 throw new EventCommandUseException(str);
             } else {
-                String toMarker = "/to "; //mark the /to index of the string
-                secondIndex = afterFirstIndex.indexOf(toMarker); //to make sure we get the /to after the /from
-                fromWhen = afterFirstIndex.substring(0, secondIndex).trim(); //get the from timing
-                toWhen = afterFirstIndex.substring(secondIndex + 3).trim(); //get the to timing
+                String toMarker = "/to ";
+                secondIndex = afterFirstIndex.indexOf(toMarker);
+                fromWhen = afterFirstIndex.substring(0, secondIndex).trim();
+                toWhen = afterFirstIndex.substring(secondIndex + 3).trim();
                 if (fromWhen.trim().isEmpty() ||
-                        toWhen.trim().isEmpty()) { //needs to check whether there is anything after /by
+                        toWhen.trim().isEmpty()) {
                     throw new EventCommandUseException(str);
                 }
                 Task task = new Event(workToDo, LocalDateTime.parse(fromWhen, formatter),
@@ -303,7 +303,6 @@ public class Parser {
                 throw new InvalidInputException(str);
             }
         } catch (java.time.format.DateTimeParseException e) {
-            //detect inputs that don't follow the yyyy-MM-dd HHmm format
             return Ui.printException();
         } catch (EmptyInputException| TaskTypeMismatchException | InvalidInputException | FileNotFoundException e) {
             return Ui.printException(e.getMessage());

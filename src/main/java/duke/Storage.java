@@ -54,7 +54,6 @@ public class Storage{
      * @return A formatted string representation of the task.
      */
     static String formatTaskData(Task task) {
-        // Customize this method based on your Task class structure.
         String str = task.saveTaskString();
         return str;
     }
@@ -92,7 +91,7 @@ public class Storage{
                         break;
                 }
             }
-            reader.close(); // Close the reader when done.
+            reader.close();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());
         } catch (IOException e) {
