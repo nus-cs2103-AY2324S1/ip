@@ -15,6 +15,12 @@ public class Duke {
         tasks = new TaskList(savedString);
     }
 
+    /**
+     * used to get the response from duke based on the input
+     *
+     * @param input from the user
+     * @return reponse from duke
+     */
     public String getResponse(String input) {
         String response = Command.processUserInput(input, tasks);
         storage.save(tasks);
