@@ -88,10 +88,10 @@ public class BouncyBob extends Application {
         taskInputField.setPromptText("Enter a task...");
 
         Button addButton = new Button("Add");
-        addButton.setOnAction(e -> handleAddAction(taskTypeComboBox, taskInputField, taskListView));
+        addButton.setOnAction(e -> handleAddAction(taskTypeComboBox, taskInputField));
 
         Button deleteButton = new Button("Delete");
-        deleteButton.setOnAction(e -> handleDeleteAction(taskListView));
+        deleteButton.setOnAction(e -> taskManager.deleteTask());
 
         return new HBox(10, taskTypeComboBox, taskInputField, addButton, deleteButton);
     }
@@ -101,25 +101,27 @@ public class BouncyBob extends Application {
      *
      * @param taskTypeComboBox The combo box for the task type.
      * @param taskInputField   The text field for the task input.
-     * @param taskListView     The task list view.
      */
-    private void handleAddAction(ComboBox<TaskType> taskTypeComboBox, TextField taskInputField, ListView<Task> taskListView) {
+    private void handleAddAction(ComboBox<TaskType> taskTypeComboBox, TextField taskInputField) {
         String userInput = taskInputField.getText().trim();
         if (userInput.isEmpty()) {
             return;
         }
-        String[] parts = userInput.split(" ");
-        System.out.println(parts);
-        if (Parser.getAction(parts[0]) == Action.NOTE) {
-            String index = parts[1];
-            String note = Parser.getNoteFromCommand(parts);
+        String[] userInputParts = userInput.split(" ");
+        if (Parser.getAction(userInputParts[0]) == Action.NOTE) {
+            String index = userInputParts[1];
+            String note = Parser.getNoteFromCommand(userInputParts);
             taskManager.setNoteForTask(index, note);
+            return;
+        } else if (Parser.getAction(userInputParts[0]) == Action.FIND) {
+            String subString = Parser.removeAction(userInputParts);
+            taskManager.filterTaskListView(subString);
             return;
         } else {
             userInput = taskTypeComboBox.getValue().toString().toLowerCase() + " " + userInput;
-            parts = userInput.split(" ");
+            userInputParts = userInput.split(" ");
             try {
-                Task newTask = createTask(parts);
+                Task newTask = createTask(userInputParts);
                 taskManager.addTask(newTask);
                 taskManager.saveTasks();
             } catch (IllegalArgumentException ex) {
@@ -129,19 +131,6 @@ public class BouncyBob extends Application {
         taskInputField.clear();
     }
 
-    /**
-     * Handles the delete action.
-     *
-     * @param taskListView The task list view.
-     */
-    private void handleDeleteAction(ListView<Task> taskListView) {
-        Task selectedItem = taskListView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            taskListView.getItems().remove(selectedItem);
-        }
-        ObservableList<Task> tasksFromListView = taskListView.getItems();
-        TaskFileHandler.saveTasksToDisk(tasksFromListView);
-    }
     /**
      * Shows an error dialog.
      *
@@ -168,7 +157,7 @@ public class BouncyBob extends Application {
      * Enum representing the types of actions that can be performed on tasks.
      */
     public enum Action {
-        MARK, UNMARK, DELETE, NOTE, UNKNOWN
+        MARK, UNMARK, DELETE, NOTE, FIND, UNKNOWN
     }
 
     /**

@@ -45,6 +45,8 @@ public class Parser {
                 return BouncyBob.Action.DELETE;
             case "note":
                 return BouncyBob.Action.NOTE;
+            case "find":
+                return BouncyBob.Action.FIND;
             default:
                 return BouncyBob.Action.UNKNOWN;
         }
