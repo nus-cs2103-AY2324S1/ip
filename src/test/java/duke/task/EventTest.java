@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class EventTest extends TaskTest {
 
     @Test
-    public void testToString() {
+    public void toString_withCorrectFormat_success() {
         LocalDate startDate = LocalDate.of(2023, 2, 14);
         LocalDate endDate = LocalDate.of(2023, 2, 15);
         Event event = new Event("Dating with you", startDate, endDate);
@@ -15,7 +15,7 @@ public class EventTest extends TaskTest {
     }
 
     @Test
-    public void testSaveString() {
+    public void saveString_withCorrectFormat_success() {
         LocalDate startDate = LocalDate.of(2023, 2, 14);
         LocalDate endDate = LocalDate.of(2023, 2, 15);
         Event event = new Event("Dating with you", startDate, endDate);

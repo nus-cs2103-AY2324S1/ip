@@ -28,4 +28,18 @@ public class FindCommand extends Command {
         assert storage != null: "Storage object should not be null";
         return uiManager.getMatchingList(taskList.findTasks(keyword));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj instanceof FindCommand) {
+            FindCommand temp = (FindCommand) obj;
+            if (this.keyword.equals(temp.keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

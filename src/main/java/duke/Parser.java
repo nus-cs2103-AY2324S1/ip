@@ -68,7 +68,7 @@ public class Parser {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a find cannot be empty.");
         }
-        if (inputArr.length > 2) {
+        if (inputArr[1].split(" ").length > 1) {
             throw new DukeException("You only allowed to type ONE keyword!");
         }
         return new FindCommand(inputArr[1]);
@@ -135,7 +135,7 @@ public class Parser {
         if (inputArr.length == 1) {
             throw new DukeException("OOPS!!! The description of a mark cannot be empty.");
         }
-        if (inputArr[0].split(" ").length > 1) {
+        if (inputArr[1].split(" ").length > 1) {
             throw new DukeException("Invalid mark command ?_? " +
                     "this command should follow by only ONE INTEGER");
         }

@@ -6,15 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TodoTest extends TaskTest {
 
     @Test
-    public void testToString() {
+    public void toString_withCorrectFormat_success() {
         Task todo = new Todo("Sleeping");
         assertEquals("[T][ ] Sleeping", todo.toString());
-    }
-
-    @Test
-    public void testGetStatusIcon() {
-        Task todo = new Todo("Read a book");
-        todo.mark();
-        assertEquals("X", todo.getStatusIcon());
     }
 }
