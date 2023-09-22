@@ -1,9 +1,8 @@
 
-[T][ ] read books
-[T][ ] f books
-[D][ ] fbooks (by: 12-06-07)
-[T][ ] something else
-[T][ ] Hello
 [T][ ] something
-[T][ ] something now
-[T][ ]            
+[D][ ]  somethingelse (by: Sep 22 2023)
+[D][ ]  somethingelse (by: Apr 22 2023)
+[E][ ]  hello (from: Mar 4 2023 to: 2023-03-05 )
+[E][ ]  hello (from: Mar 4 2023 to: Mar 4 2023)
+[E][ ]  hello (from: 2023/03/04 to: 2023/03/05)
+[E][ ]  goodbye (from: Mar 4 2023 to: Mar 5 2023)

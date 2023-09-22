@@ -1,11 +1,18 @@
 package tasks;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import components.DukeException;
 import components.Storage;
-import components.Ui;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList extends ArrayList<Task> {
+    /**
+     * Constructs a TaskList.
+     */
     public TaskList() {
         super();
     }
@@ -14,13 +21,16 @@ public class TaskList extends ArrayList<Task> {
      * Prints the list of tasks in the TaskList.
      */
     public String printList() {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < this.size(); i++) {
-            result.append((i + 1)).append(". ").append(this.get(i)).append("\n");
-        }
-        assert this.size() == result.toString().split("\n").length : "Number of tasks should equal number of lines";
-        return "Here are the tasks in your list:" +
-                "\n" + result;
+        String result = IntStream.range(0, this.size())
+                .mapToObj(i -> (i + 1)
+                        + ". "
+                        + this.get(i))
+                .collect(Collectors.joining("\n"));
+
+        assert this.size() == result.split("\n").length : "Number of tasks should equal number of lines";
+
+        return "Here are the tasks in your list:" + "\n"
+                + result;
     }
 
     /**
@@ -38,8 +48,7 @@ public class TaskList extends ArrayList<Task> {
 
         if (index == 0) {
             throw new DukeException("Mark command must be followed by a space and an integer. ERR: NO INTEGER.");
-        } 
-            
+        }
         try {
             this.get(index - 1).markAsDone();
             assert this.get(index - 1).isDone() : "Task should be marked as done";
@@ -53,9 +62,10 @@ public class TaskList extends ArrayList<Task> {
             return e.toString();
         }
 
-        return "Nice! I've marked this task as done:" +
-                "\n" +
-                " " + this.get(index - 1);
+        return "Nice! I've marked this task as done:"
+                + "\n"
+                + " "
+                + this.get(index - 1);
     }
 
     /**
@@ -79,9 +89,10 @@ public class TaskList extends ArrayList<Task> {
             return e.toString();
         }
 
-        return "OK, I've marked this task as not done yet:" +
-                "\n" +
-                " " + this.get(index - 1);
+        return "OK, I've marked this task as not done yet:"
+                + "\n"
+                + " "
+                + this.get(index - 1);
     }
 
     /**
@@ -104,17 +115,24 @@ public class TaskList extends ArrayList<Task> {
             return e.toString();
         }
 
-        return "Noted. I've removed this task:" +
-                "\n" +
-                " " + this.remove(index - 1) +
-                "\n" +
-                "Now you have " +
-                this.size() +
-                " " + (this.size() == 1 ? "task" : "tasks") +
-                " in the list.";
+        return "Noted. I've removed this task:"
+                + "\n"
+                + " "
+                + this.remove(index - 1)
+                + "\n"
+                + "Now you have "
+                + this.size()
+                + " " + (this.size() == 1 ? "task" : "tasks")
+                + " in the list.";
     }
 
 
+    /**
+     * Adds a task to the TaskList.
+     * @param task The task to be added.
+     * @param storage The Storage object to write to.
+     * @param isFromDatabase A boolean to indicate if the task is from the database.
+     */
     public String addTask(Task task, Storage storage, boolean... isFromDatabase) {
         int initialSize = this.size();
         if (isFromDatabase.length > 0 && isFromDatabase[0]) {
@@ -131,13 +149,28 @@ public class TaskList extends ArrayList<Task> {
 
         this.add(task);
 
-        return "Got it. I've added this task:" +
-                "\n" +
-                " " + task +
-                "\n" +
-                "Now you have " +
-                this.size() +
-                " " + (this.size() == 1 ? "task" : "tasks") +
-                " in the list.";
+        return "Got it. I've added this task:"
+                + "\n"
+                + " "
+                + task
+                + "\n"
+                + "Now you have "
+                + this.size()
+                + " "
+                + (this.size() == 1 ? "task" : "tasks")
+                + " in the list.";
+    }
+
+    /**
+     * Finds a task in the TaskList.
+     * @param description The string to be searched for.
+     */
+    public Task findDuplicateTask(String description) {
+        for (Task t : this) {
+            if (t.getDescription().equals(description)) {
+                return t;
+            }
+        }
+        return null;
     }
 }

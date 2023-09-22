@@ -5,6 +5,9 @@ import components.Storage;
 import components.Ui;
 import tasks.TaskList;
 
+/**
+ * Represents a delete command.
+ */
 public class DeleteCommand extends Command {
     private int index;
 

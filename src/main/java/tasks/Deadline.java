@@ -3,6 +3,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents a deadline task.
+ */
 public class Deadline extends Task {
     private final String by;
     private LocalDate date;
@@ -11,10 +14,10 @@ public class Deadline extends Task {
      * Constructor for Deadline class for stdin inputs
      * @param description
      */
-    public Deadline(String description) {
-        super(description.substring(0, description.indexOf(" /by")));
+    public Deadline(String description, TaskList list) {
+        super(description.substring(0, description.indexOf(" /by")), list);
         this.by = description.substring(description.indexOf(" /by ") + 5);
-        setDate(this.by);  
+        setDate(this.by);
     }
 
     /**
@@ -49,10 +52,10 @@ public class Deadline extends Task {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-  @Override
-  public String toString() {
-    return String.format("[D]%s (by: %s)", super.toString(), date != null
-                    ? getDate(date)
-                    : by);
+    @Override
+    public String toString() {
+        return String.format("[D]%s (by: %s)", super.toString(), date != null
+              ? getDate(date)
+              : by);
     }
 }

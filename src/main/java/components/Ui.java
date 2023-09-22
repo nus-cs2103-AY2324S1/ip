@@ -1,17 +1,12 @@
 package components;
 
-import java.util.Scanner;
-
 public class Ui {
-    private final Scanner scanner;
-    public static final String LINE = "_______________________" +
-            "______________________________";
 
     /**
      * Constructor for Ui class.
      */
     public Ui () {
-        scanner = new Scanner(System.in);
+
     }
 
     /**
@@ -21,32 +16,19 @@ public class Ui {
         return e.toString();
     }
 
-    /**
-     * Reads the command using Scanner class.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
-     * Shows the welcome message.
-     */
     public String showWelcome(String chatBotName) {
-        String logo = """
-                 ____        _       \s
-                |  _ \\ _   _| | _____\s
-                | | | | | | | |/ / _ \\
-                | |_| | |_| |   <  __/
-                |____/ \\__,_|_|\\_\\___|
-                """;
-
-        return logo + "\n" + "Hello! I'm " +
-                chatBotName + "\n" + "What can I do for you?";
-    }
-
-    public String showWelcome(String chatBotName, boolean isGui) {
-        return "Hello! I'm " +
-                chatBotName + "\n" + "What can I do for you?\n";
+        return "Welcome to your very own Glorious Excel Sheet! I'm " + chatBotName + "\n\n" +
+                "Here are the list of commands I offer"+ "\n\n" +
+                "bye, list, mark, unmark, delete, find, todo, deadline, event" + "\n\n" +
+                "ADDITIONAL SUPPORT FOR DUPLICATE TASK HANDLING" + "\n\n" +
+                "If you try to add a task with a description that " +
+                "already exists in the list, " +
+                "I will ask you if you want to add it anyway" + "\n\n" +
+                "If you respond with a 'yes', I will add the task" + "\n\n" +
+                "If not, the task will not be added" + "\n\n" +
+                "todo [DESC]" + "\n" +
+                "deadline [DESC] /by yyyy-MM-dd" + "\n" +
+                "event [DESC] /from yyyy-MM-dd /to yyyy-MM-dd";
     }
 
     /**

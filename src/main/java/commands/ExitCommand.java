@@ -1,8 +1,12 @@
 package commands;
+
 import components.Storage;
 import components.Ui;
 import tasks.TaskList;
 
+/**
+ * Represents an unknown command.
+ */
 public class ExitCommand extends Command {
     public ExitCommand() {
         super();
