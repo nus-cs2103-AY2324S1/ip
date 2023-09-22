@@ -17,6 +17,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     public DialogBox(Label l, ImageView iv) {
+        super(10);
         text = l;
         displayPicture = iv;
 
