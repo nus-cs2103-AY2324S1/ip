@@ -180,6 +180,16 @@ public class Storage {
     }
 
     /**
+     * Add a tag to a task
+     *
+     * @param index The specified task
+     * @param tag The tag to add to the task
+     */
+    public void tag(int index, String tag) throws NumberFormatException, IndexOutOfBoundsException {
+        taskArray.get(index).addTag(tag);
+    }
+
+    /**
      * Write the contents of duke.Storage into file
      */
     public void write() throws IOException {

@@ -165,6 +165,8 @@ public class Duke extends Application {
             return save();
         case FIND:
             return find(input);
+        case TAG:
+            return tag(input);
         case APPEND:
             Parser.TaskType type = Parser.parseTask(input);
             switch (type) {
@@ -222,6 +224,21 @@ public class Duke extends Application {
      */
     private static String list() {
         return taskStorage.list();
+    }
+
+    private static String tag(String tagText) {
+        try {
+            String[] tags = Parser.parseTags(tagText);
+            int index = Integer.parseInt(tags[0]) - 1;
+            for (int i = 1; i < tags.length; i++) {
+                taskStorage.tag(index, tags[i]);
+            }
+            return "AITE GOTTEM" + taskStorage.get(index);
+        } catch (NumberFormatException e) {
+            return "Index ain't a number fool!";
+        } catch (IndexOutOfBoundsException e) {
+            return "NOTHING THERE IDIOT!";
+        }
     }
 
     /**

@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
  */
 public class Parser {
 
-    enum ParserOutput {DELETE, MARK, UNMARK, APPEND, LIST, ECHO, SAVE, FIND}
+    enum ParserOutput {DELETE, MARK, UNMARK, APPEND, LIST, ECHO, SAVE, FIND, TAG}
     enum TaskType {TODO, EVENT, DEADLINE, GENERIC}
 
     /**
@@ -37,6 +37,9 @@ public class Parser {
         }
         if (input.startsWith("find")) {
             return ParserOutput.FIND;
+        }
+        if (input.startsWith("tag")) {
+            return ParserOutput.TAG;
         }
         return ParserOutput.APPEND;
     }
@@ -97,5 +100,9 @@ public class Parser {
         out[1] = event.substring(startPoint + 7, endPoint);
         out[2] = event.substring(endPoint + 5);
         return out;
+    }
+
+    public static String[] parseTags(String tags) throws StringIndexOutOfBoundsException {
+        return tags.substring(4).split(" ");
     }
 }
