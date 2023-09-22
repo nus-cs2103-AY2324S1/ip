@@ -17,11 +17,12 @@ public class EventTaskTest {
 
     @Test
     public void makeEvent_stringArrayCorrectInputs_success() {
-        String[] taskInputs = {"E", "1", "project meeting", "Mon 2pm", "4pm"};
+        String[] taskInputs = {"E", "1", "project meeting", "Mon 2pm", "4pm", "None"};
         EventTask task = EventTask.makeEvent(taskInputs);
         assertNotNull(task);
         assertEquals("project meeting", task.getDescription());
         assertEquals("Mon 2pm", task.getStartDateTime() );
         assertEquals("4pm", task.getEndDateTime());
+        assertEquals("None", task.getTag());
     }
 }

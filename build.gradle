@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("bareum.Main")
+    mainClass.set("bareum.Launcher")
 }
 
 shadowJar {

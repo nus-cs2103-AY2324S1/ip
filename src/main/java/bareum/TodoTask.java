@@ -33,9 +33,9 @@ public class TodoTask extends Task {
      * @return New todo with the corresponding description.
      */
     static public TodoTask makeTodo(String[] taskInputs) {
-        boolean isDone = taskInputs[0].equals("1");
+        boolean isDone = taskInputs[1].equals("1");
         String description = taskInputs[2];
-        String tag = taskInputs[1];
+        String tag = taskInputs[3];
 
         TodoTask newTask = new TodoTask(isDone, description);
         newTask.tag(tag);
