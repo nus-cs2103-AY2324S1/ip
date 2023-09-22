@@ -1,4 +1,6 @@
 package duke;
+import duke.command.*;
+import duke.exception.*;
 
 /**
  * Parses user commands and performs actions based on the parsed command.
@@ -10,7 +12,7 @@ public class Parser {
     }
 
     private TaskList taskList;
-    private Ui ui;
+    private static Ui ui;
 
     /**
      * Initializes a parser with a user interface and a task list.
@@ -27,9 +29,10 @@ public class Parser {
      * Parses a user command and performs the corresponding action.
      *
      * @param command The user's input command.
-     * @return The string representation of the task/tasks associated with the command.
+     * @return A command object if the user input is parsed successfully.
+     * @throws DukeException If an error occurs while processing the input.
      */
-    public String parseCommand(String command) {
+    public Command parseCommand(String command) throws DukeException {
         Commands cmd = Commands.invalid;
         for (Commands c : Commands.values()) {
             if (command.startsWith(c.toString())) {
@@ -37,89 +40,134 @@ public class Parser {
             }
         }
         if (cmd.equals(Commands.bye)) {
-            ui.byeMessage();
-            return "Bye. Hope to see you again soon!";
+            return new ByeCommand();
         } else if (cmd.equals(Commands.list)) {
-            ui.showTasks(taskList);
-            return taskList.toString();
+            return new ListCommand();
         } else if (cmd.equals(Commands.mark)) {
-            try {
-                int id = Integer.parseInt(command.split(" ")[1]);
-                assert id > 0 && id < taskList.numOfTasks() : "Invalid task index";
-                taskList.markTaskAsDone(id - 1);
-                ui.markedMessage(taskList.getTask(id - 1));
-                return taskList.getTask(id - 1).toString();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("To mark a task you need to include the index");
-            }
+            return new MarkCommand(parseTaskIndex(command));
         } else if (cmd.equals(Commands.unmark)) {
-            try {
-                int id = Integer.parseInt(command.split(" ")[1]);
-                assert id > 0 && id < taskList.numOfTasks() : "Invalid task index";
-                taskList.markTaskAsUnDone(id - 1);
-                ui.unmarkedMessage(taskList.getTask(id - 1));
-                return taskList.getTask(id - 1).toString();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("To unmark a task you need to include the index");
-            }
+            return new UnmarkCommand(parseTaskIndex(command));
         } else if (cmd.equals(Commands.todo)) {
-            try {
-                String description = command.substring(5);
-                Todo todo = new Todo(description);
-                taskList.addTask(todo);
-                ui.addTaskMessage(todo, taskList.numOfTasks());
-                return todo.toString();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! The description of a todo cannot be empty.");
-            }
+            return new TaskCommand(parseTodo(command));
         } else if (cmd.equals(Commands.deadline)) {
-            try {
-                int index = command.indexOf("/");
-                String description = command.substring(9, index - 1);
-                String by = command.substring(index + 3);
-                Deadline deadline = new Deadline(description, by.trim());
-                taskList.addTask(deadline);
-                ui.addTaskMessage(deadline, taskList.numOfTasks());
-                return deadline.toString();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! The description of a deadline cannot be empty.");
-            }
+            return new TaskCommand(parseDeadline(command));
         } else if (cmd.equals(Commands.event)) {
-            try {
-                int indexOfFrom = command.indexOf("/");
-                String description = command.substring( 6, indexOfFrom - 1);
-                String duration = command.substring(indexOfFrom + 4);
-                int indexOfTo = duration.indexOf("/");
-                String from = duration.substring(1, indexOfTo - 1);
-                String to = duration.substring(indexOfTo + 3);
-                Event event = new Event(description, from, to);
-                taskList.addTask(event);
-                ui.addTaskMessage(event, taskList.numOfTasks());
-                return event.toString();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("☹ OOPS!!! The description of an event cannot be empty.");
-            }
+            return new TaskCommand(parseEvent(command));
         } else if (cmd.equals(Commands.delete)) {
-            try {
-                int id = Integer.parseInt(command.split(" ")[1]);
-                Task task = taskList.getTask(id - 1);
-                taskList.deleteTask(id - 1);
-                return task.toString();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("To delete a task you have to include the index");
-            }
+            return new DeleteCommand(parseTaskIndex(command));
         } else if (cmd.equals(Commands.find)) {
-            try {
-                String keyword= command.split(" ")[1];
-                TaskList matchingTasks = taskList.findTask(keyword);
-                ui.findTaskMessage(matchingTasks, keyword);
-                return matchingTasks.toString();
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("To search for a task you need to include a keyword");
-            }
+            return new FindCommand(parseKeyword(command));
         } else {
-            System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return new InvalidCommand();
         }
-        return "";
+    }
+
+    /**
+     * Parses the task index from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed task index.
+     * @throws DukeInvalidTaskIndexException If the task index is missing or invalid.
+     */
+    public static int parseTaskIndex(String input) throws DukeInvalidTaskIndexException {
+        if (input.split(" ").length < 2) {
+            throw new DukeInvalidTaskIndexException("☹ OOPS!!! You must include a task index.");
+        }
+        assert input.split(" ").length == 2 : "You have entered an invalid task index.";
+
+        return Integer.parseInt(input.split(" ")[1]) - 1;
+    }
+
+    /**
+     * Parses the keyword from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed keyword.
+     * @throws DukeInvalidKeywordException If the keyword is missing.
+     */
+    public static String parseKeyword(String input) throws DukeInvalidKeywordException {
+        if (input.split(" ").length < 2) {
+            throw new DukeInvalidKeywordException("☹ OOPS!!! You must include a keyword.");
+        }
+        assert input.split(" ").length >= 2 : "You need to include a keyword";
+
+        return input.split(" ")[1];
+    }
+
+    /**
+     * Parses a Todo from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed Todo task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     */
+    public static Todo parseTodo(String input) throws DukeInvalidDescriptionException {
+        if (input.substring(5).isEmpty()) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of a todo can't be empty.");
+        }
+        assert !input.substring(5).isEmpty() : "You need to include a description.";
+        String description = input.substring(5);
+
+        return new Todo(description);
+    }
+
+    /**
+     * Parses a Deadline from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed Deadline task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     * @throws DukeInvalidDateException If the date is missing.
+     */
+    public static Deadline parseDeadline(String input) throws DukeInvalidDescriptionException, DukeInvalidDateException {
+        if (input.split("/by").length < 2) {
+            throw new DukeInvalidDateException("☹ OOPS!!! The date of a deadline can't be empty.");
+        }
+        assert input.split("/by").length == 2 : "You need to include a date.";
+        String by = input.split("/by")[1].trim();
+
+        if (input.split("/by")[0].trim().split(" ").length < 2) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of a deadline can't be empty.");
+        }
+        assert input.split("/by")[0].trim().split(" ").length >= 2 : "You need to include a description.";
+        String description = input.split("/by")[0].trim().split(" ", 2)[1];
+
+        return new Deadline(description, by);
+    }
+
+    /**
+     * Parses an Event from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The parsed Event task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     * @throws DukeInvalidDurationException If the duration is missing or empty.
+     */
+    public static Event parseEvent(String input) throws DukeInvalidDescriptionException, DukeInvalidDurationException {
+        if (input.split("/from").length < 2) {
+            throw new DukeInvalidDurationException("☹ OOPS!!! The duration of an event can't be empty.");
+        }
+        assert input.split("/from").length == 2 : "You need to include a duration.";
+        String duration = input.split("/from")[1].trim();
+
+        if (duration.split("/to")[0].trim().isEmpty()) {
+            throw new DukeInvalidDurationException("☹ OOPS!!! The start of an event can't be empty.");
+        }
+        assert !duration.split("/to")[0].trim().isEmpty() : "You need to indicate the start of an event.";
+        String from = duration.split("/to")[0].trim();
+
+        if (duration.split("/to").length < 2) {
+            throw new DukeInvalidDurationException("☹ OOPS!!! The end of an event can't be empty.");
+        }
+        assert !duration.split("/to")[1].isEmpty() : "You need to indicate the end of an event.";
+        String to = duration.split("/to")[1].trim();
+
+        if(input.split("/from")[0].trim().split(" ").length < 2) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of an event can't be empty.");
+        }
+        assert input.split("/from")[0].trim().split(" ").length >= 2 : "You need to include a description.";
+        String description = input.split("/from")[0].trim().split(" ")[1];
+
+        return new Event(description, from, to);
     }
 }
