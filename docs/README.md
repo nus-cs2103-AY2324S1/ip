@@ -17,7 +17,8 @@ Start chatting with Bot to achieve peak organization
 
 2. Download the latest `bot.jar` from [here](https://github.com/neyapraveen/ip/releases/latest).
 
-3. Double-click the file to start the app.
+3. On your terminal, cd to the directory the bot.jar is downloaded in <br>
+   and run `java -jar bot.jar`
 
 4. Try entering `help` and `list` commands. You should see the GUI as below.
    ![Image of ](Ui.png)
