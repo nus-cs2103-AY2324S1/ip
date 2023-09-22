@@ -43,6 +43,8 @@ public class Duke {
     }
 
     public String generateStartupMessage() {
+        assert ui != null : "ui should be created before this method is called";
+        assert startupFileLoadMessage != null : "startupFileLoadMessage should be populated";
         return ui.greet() + "\n" + startupFileLoadMessage;
     }
 
@@ -67,49 +69,31 @@ public class Duke {
 
             switch (commandType) {
             case BYE:
-                output = null;
+                output = handleByeCommand();
                 break;
             case LIST:
-                output = ui.generateTaskListOutput(taskList);
+                output = handleListCommand();
                 break;
             case MARK:
-                int markIndex = Integer.parseInt(remaining) - 1;
-                Task markedTask = taskList.markTaskAtIndex(markIndex);
-                output = ui.generateTaskMarkedMessage(markedTask);
+                output = handleMarkCommand(remaining);
                 break;
             case UNMARK:
-                int unmarkIndex = Integer.parseInt(remaining) - 1;
-                Task unmarkedTask = taskList.unmarkTaskAtIndex(unmarkIndex);
-                output = ui.generateTaskUnmarkedMessage(unmarkedTask);
+                output = handleUnmarkCommand(remaining);
                 break;
             case DELETE:
-                Task deletedTask = taskList.deleteTaskAtIndex(Integer.parseInt(remaining) - 1);
-                output = ui.generateTaskDeletedMessage(deletedTask, taskList.size());
+                output = handleDeleteCommand(remaining);
                 break;
             case TODO:
-                Parser.ParsedTodoArgs parsedTodoArgs = parser.parseTodoString(remaining);
-                Todo newTodo = new Todo(parsedTodoArgs.taskName);
-                taskList.addTask(newTodo);
-                output = ui.generateTaskAddedMessage(newTodo, taskList.size());
+                output = handleTodoCommand(remaining);
                 break;
             case DEADLINE:
-                Parser.ParsedDeadlineArgs parsedDeadlineArgs = parser.parseDeadlineString(remaining);
-                Deadline newDeadline = new Deadline(parsedDeadlineArgs.taskName,
-                        parsedDeadlineArgs.byDate);
-                taskList.addTask(newDeadline);
-                output = ui.generateTaskAddedMessage(newDeadline, taskList.size());
+                output = handleDeadlineCommand(remaining);
                 break;
             case EVENT:
-                Parser.ParsedEventArgs parsedEventArgs = parser.parseEventString(remaining);
-                Event newEvent = new Event(parsedEventArgs.taskName, parsedEventArgs.startDate,
-                        parsedEventArgs.endDate);
-                taskList.addTask(newEvent);
-                output = ui.generateTaskAddedMessage(newEvent, taskList.size());
+                output = handleEventCommand(remaining);
                 break;
             case FIND:
-                String searchTerm = remaining.trim();
-                TaskList matchingTasks = taskList.findTasksFromKeyword(searchTerm);
-                output = ui.showMatchingTasks(matchingTasks);
+                output = handleFindCommand(remaining);
                 break;
             default:
                 throw new DukeException("Each message should start with one of the following commands: "
@@ -133,6 +117,61 @@ public class Duke {
         }
 
         return output;
+    }
+
+    private String handleByeCommand() {
+        return "";
+    }
+
+    private String handleListCommand() {
+        return ui.generateTaskListOutput(taskList);
+    }
+
+    private String handleMarkCommand(String remaining) throws DukeException {
+        int markIndex = Integer.parseInt(remaining) - 1;
+        Task markedTask = taskList.markTaskAtIndex(markIndex);
+        return ui.generateTaskMarkedMessage(markedTask);
+    }
+
+    private String handleUnmarkCommand(String remaining) throws DukeException {
+        int unmarkIndex = Integer.parseInt(remaining) - 1;
+        Task unmarkedTask = taskList.unmarkTaskAtIndex(unmarkIndex);
+        return ui.generateTaskUnmarkedMessage(unmarkedTask);
+    }
+
+    private String handleDeleteCommand(String remaining) throws DukeException {
+        int deleteIndex = Integer.parseInt(remaining) - 1;
+        Task deletedTask = taskList.deleteTaskAtIndex(deleteIndex);
+        return ui.generateTaskDeletedMessage(deletedTask, taskList.size());
+    }
+
+    private String handleTodoCommand(String remaining) throws DukeException {
+        Parser.ParsedTodoArgs parsedTodoArgs = parser.parseTodoString(remaining);
+        Todo newTodo = new Todo(parsedTodoArgs.taskName);
+        taskList.addTask(newTodo);
+        return ui.generateTaskAddedMessage(newTodo, taskList.size());
+    }
+
+    private String handleDeadlineCommand(String remaining) throws DukeException {
+        Parser.ParsedDeadlineArgs parsedDeadlineArgs = parser.parseDeadlineString(remaining);
+        Deadline newDeadline = new Deadline(parsedDeadlineArgs.taskName,
+                parsedDeadlineArgs.byDate);
+        taskList.addTask(newDeadline);
+        return ui.generateTaskAddedMessage(newDeadline, taskList.size());
+    }
+
+    private String handleEventCommand(String remaining) throws DukeException {
+        Parser.ParsedEventArgs parsedEventArgs = parser.parseEventString(remaining);
+        Event newEvent = new Event(parsedEventArgs.taskName, parsedEventArgs.startDate,
+                parsedEventArgs.endDate);
+        taskList.addTask(newEvent);
+        return ui.generateTaskAddedMessage(newEvent, taskList.size());
+    }
+
+    private String handleFindCommand(String remaining) {
+        String searchTerm = remaining.trim();
+        TaskList matchingTasks = taskList.findTasksFromKeyword(searchTerm);
+        return ui.showMatchingTasks(matchingTasks);
     }
 
 }
