@@ -16,6 +16,8 @@ public class Duke {
 
     private TaskList taskList;
 
+    private String startupFileLoadMessage = "";
+
     /**
      * Constructs a Duke instance with the specified file path for task storage.
      *
@@ -28,31 +30,33 @@ public class Duke {
 
         try {
             taskList = storage.loadTasksFromFile();
-            ui.showLoadedTasks(taskList);
+            startupFileLoadMessage = ui.showLoadedTasks(taskList);
+
         } catch (FileNotFoundException fileNotFoundException) {
-            ui.printErrorMessage("Previous data file not found, starting from fresh task list.");
+            startupFileLoadMessage = ui.generateErrorMessage(
+                    "Previous data file not found, starting from fresh task list.");
             taskList = new TaskList();
         } catch (DukeException dukeException) {
-            ui.printErrorMessage(dukeException.getMessage());
+            startupFileLoadMessage = ui.generateErrorMessage(dukeException.getMessage());
             taskList = new TaskList();
         }
     }
 
-    /**
-     * Main method for running the Duke chatbot.
-     *
-     * @param args Command-line arguments (not used).
-     */
-    public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+    public String generateStartupMessage() {
+        return ui.greet() + "\n" + startupFileLoadMessage;
     }
+
 
     /**
      * Handles user input, parses it and dispatches the command to perform the appropriate actions.
      *
      * @param input The raw input string from the user.
+     *
+     * @return A string representing the output of the command.
      */
-    public void handleInputAndDispatch(String input) {
+    public String handleInputAndDispatch(String input) {
+        String output;
+
         try {
             if (parser.hasInvalidCharacters(input)) {
                 throw new DukeException("Input cannot contain the character '|'");
@@ -62,47 +66,50 @@ public class Duke {
             String remaining = parser.parseRemainingArgs(commandType, input);
 
             switch (commandType) {
+            case BYE:
+                output = null;
+                break;
             case LIST:
-                ui.printTaskList(taskList);
+                output = ui.generateTaskListOutput(taskList);
                 break;
             case MARK:
                 int markIndex = Integer.parseInt(remaining) - 1;
                 Task markedTask = taskList.markTaskAtIndex(markIndex);
-                ui.printTaskMarkedMessage(markedTask);
+                output = ui.generateTaskMarkedMessage(markedTask);
                 break;
             case UNMARK:
                 int unmarkIndex = Integer.parseInt(remaining) - 1;
                 Task unmarkedTask = taskList.unmarkTaskAtIndex(unmarkIndex);
-                ui.printTaskUnmarkedMessage(unmarkedTask);
+                output = ui.generateTaskUnmarkedMessage(unmarkedTask);
                 break;
             case DELETE:
                 Task deletedTask = taskList.deleteTaskAtIndex(Integer.parseInt(remaining) - 1);
-                ui.printTaskDeletedMessage(deletedTask, taskList.size());
+                output = ui.generateTaskDeletedMessage(deletedTask, taskList.size());
                 break;
             case TODO:
                 Parser.ParsedTodoArgs parsedTodoArgs = parser.parseTodoString(remaining);
                 Todo newTodo = new Todo(parsedTodoArgs.taskName);
                 taskList.addTask(newTodo);
-                ui.printTaskAddedMessage(newTodo, taskList.size());
+                output = ui.generateTaskAddedMessage(newTodo, taskList.size());
                 break;
             case DEADLINE:
                 Parser.ParsedDeadlineArgs parsedDeadlineArgs = parser.parseDeadlineString(remaining);
                 Deadline newDeadline = new Deadline(parsedDeadlineArgs.taskName,
                         parsedDeadlineArgs.byDate);
                 taskList.addTask(newDeadline);
-                ui.printTaskAddedMessage(newDeadline, taskList.size());
+                output = ui.generateTaskAddedMessage(newDeadline, taskList.size());
                 break;
             case EVENT:
                 Parser.ParsedEventArgs parsedEventArgs = parser.parseEventString(remaining);
                 Event newEvent = new Event(parsedEventArgs.taskName, parsedEventArgs.startDate,
                         parsedEventArgs.endDate);
                 taskList.addTask(newEvent);
-                ui.printTaskAddedMessage(newEvent, taskList.size());
+                output = ui.generateTaskAddedMessage(newEvent, taskList.size());
                 break;
             case FIND:
                 String searchTerm = remaining.trim();
                 TaskList matchingTasks = taskList.findTasksFromKeyword(searchTerm);
-                ui.showMatchingTasks(matchingTasks);
+                output = ui.showMatchingTasks(matchingTasks);
                 break;
             default:
                 throw new DukeException("Each message should start with one of the following commands: "
@@ -120,20 +127,12 @@ public class Duke {
             }
 
         } catch (NumberFormatException e) {
-            ui.printErrorMessage("Please enter a valid task number.");
+            output = ui.generateErrorMessage("Please enter a valid task number.");
         } catch (DukeException e) {
-            ui.printErrorMessage(e.getMessage());
+            output = ui.generateErrorMessage(e.getMessage());
         }
-    }
 
-    /**
-     * Initiates the main execution loop for the chatbot.
-     * Greets the user and starts the input loop until the user chooses to exit.
-     */
-    public void run() {
-        ui.greet();
-        ui.startUserInputLoop(this::handleInputAndDispatch);
-        ui.exit();
+        return output;
     }
 
 }

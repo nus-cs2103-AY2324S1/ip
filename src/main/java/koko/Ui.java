@@ -11,8 +11,6 @@ import java.util.stream.Stream;
  */
 public class Ui {
 
-    private static final String HORIZONTAL_LINE = "____________________________________________________________";
-
     private final String name;
     private final Scanner scanner;
 
@@ -27,19 +25,16 @@ public class Ui {
     }
 
     /**
-     * Prints a message in a standardized format.
+     * Returns a message in a standardized format.
      *
      * @param originalMessage The message to be printed.
      */
-    private void printFormatted(String originalMessage) {
+    private String formatOutput (String originalMessage) {
         String indentedMessage = Arrays.stream(originalMessage.split("\n"))
                 .map(line -> "     " + line)
                 .collect(Collectors.joining("\n"));
 
-        String formattedMessage = String.format("    %s\n%s\n    %s",
-                HORIZONTAL_LINE, indentedMessage, HORIZONTAL_LINE);
-
-        System.out.println(formattedMessage);
+        return indentedMessage;
     }
 
     /**
@@ -54,92 +49,88 @@ public class Ui {
     }
 
     /**
-     * Displays a greeting message to the user.
+     * Returns a greeting message to the user.
      */
-    public void greet() {
-        printFormatted("Hello! I'm " + this.name + "\nWhat can I do for you?");
+    public String greet() {
+        return formatOutput("Hello! I'm " + this.name + "\nWhat can I do for you?");
     }
 
     /**
-     * Displays an exit message to the user.
-     */
-    public void exit() {
-        printFormatted("Bye. Hope to see you again soon!");
-    }
-
-    /**
-     * Displays a message to the user when a task is added.
+     * Returns a message to the user when a task is added.
      *
      * @param task      The task that was added.
      * @param taskCount The number of tasks in the list.
      */
-    public void printTaskAddedMessage(Task task, int taskCount) {
-        printFormatted(String.format("Got it. I've added this task:\n  %s\n Now you have %d %s in the list.",
+    public String generateTaskAddedMessage(Task task, int taskCount) {
+        return formatOutput(String.format(
+                "Got it. I've added this task:\n  %s\n Now you have %d %s in the list.",
                 task.toString(), taskCount, (taskCount == 1 ? "task" : "tasks")));
     }
 
     /**
-     * Displays a message to the user when a task is deleted.
+     * Returns a message to the user when a task is deleted.
      *
      * @param task      The task that was deleted.
      * @param taskCount The number of tasks in the list.
      */
-    public void printTaskDeletedMessage(Task task, int taskCount) {
-        printFormatted(String.format("Noted. I've removed this task:\n  %s\n Now you have %d %s in the list.",
+    public String generateTaskDeletedMessage(Task task, int taskCount) {
+        return formatOutput(String.format(
+                "Noted. I've removed this task:\n  %s\n Now you have %d %s in the list.",
                 task.toString(), taskCount, (taskCount == 1 ? "task" : "tasks")));
     }
 
     /**
-     * Displays a message to the user when a task is marked as done.
+     * Returns a message to the user when a task is marked as done.
      *
      * @param task The task that was marked as done.
      */
-    public void printTaskMarkedMessage(Task task) {
-        printFormatted(String.format("Nice! I've marked this task as done:\n  %s", task.toString()));
+    public String generateTaskMarkedMessage(Task task) {
+        return formatOutput(String.format("Nice! I've marked this task as done:\n  %s", task.toString()));
     }
 
     /**
-     * Displays a message to the user when a task is marked as undone.
+     * Returns a message to the user when a task is marked as undone.
      *
      * @param task The task that was marked as undone.
      */
-    public void printTaskUnmarkedMessage(Task task) {
-        printFormatted(String.format("Nice! I've unmarked this task as done:\n  %s", task.toString()));
+    public String generateTaskUnmarkedMessage(Task task) {
+        return formatOutput(String.format("Nice! I've unmarked this task as done:\n  %s", task.toString()));
     }
 
     /**
-     * Displays the list of tasks to the user.
+     * Returns the list of tasks to the user.
      *
      * @param taskList The list of tasks to be displayed.
      */
-    public void printTaskList(TaskList taskList) {
-        printFormatted(taskList.toStringForUi());
+    public String generateTaskListOutput(TaskList taskList) {
+        return formatOutput(taskList.toStringForUi());
     }
 
     /**
-     * Displays an error message to the user.
+     * Returns an error message to the user.
      *
      * @param errorMessage The error message to be displayed.
      */
-    public void printErrorMessage(String errorMessage) {
-        printFormatted(String.format("Error: %s", errorMessage));
+    public String generateErrorMessage(String errorMessage) {
+        return formatOutput(String.format("Error: %s", errorMessage));
     }
 
     /**
-     * Displays a message to the user when tasks are loaded from a file.
+     * Returns a message to the user when tasks are loaded from a file.
      *
      * @param taskList The list of tasks that were loaded.
      */
-    public void showLoadedTasks(TaskList taskList) {
-        printFormatted("Loaded tasks from file:\n" + taskList.toStringForUi());
+    public String showLoadedTasks(TaskList taskList) {
+        return formatOutput("Loaded tasks from file:\n" + taskList.toStringForUi());
     }
 
     /**
-     * Displays a list of tasks that match a keyword.
+     * Returns a list of tasks that match a keyword.
      * @param matchingTasks The list of tasks that match a keyword.
      */
-    public void showMatchingTasks(TaskList matchingTasks) {
-        printFormatted("Here are the matching tasks in your list:\n" + matchingTasks.toStringForUi());
+    public String showMatchingTasks(TaskList matchingTasks) {
+        return formatOutput("Here are the matching tasks in your list:\n" +
+                matchingTasks.toStringForUi());
     }
 
 }

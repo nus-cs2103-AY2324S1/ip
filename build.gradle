@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
 repositories {
@@ -28,13 +29,18 @@ test {
 }
 
 application {
-    mainClass.set("koko.Duke")
+    mainClass.set("koko.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "koko"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+}
+
+javafx {
+    version = "17.0.7"
+    modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
 }
 
 run {
