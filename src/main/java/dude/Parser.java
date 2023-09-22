@@ -1,7 +1,9 @@
 package dude;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -26,6 +28,9 @@ import dude.exception.ParserException;
 public class Parser {
     private static final DateTimeFormatter DATETIME_FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+    private static final DateTimeFormatter DATE_FORMATTER =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     /**
      * Parses the user's input and returns the corresponding command.
@@ -168,7 +173,12 @@ public class Parser {
         try {
             return LocalDateTime.parse(dateTimeString, DATETIME_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new ParserException("Invalid date/time format: " + dateTimeString);
+            try {
+                LocalDate date = LocalDate.parse(dateTimeString, DATE_FORMATTER);
+                return date.atTime(LocalTime.MIDNIGHT);
+            } catch (DateTimeParseException ex) {
+                throw new ParserException("Invalid date/time format: " + dateTimeString);
+            }
         }
     }
 }

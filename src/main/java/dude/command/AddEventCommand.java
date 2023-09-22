@@ -3,6 +3,7 @@ package dude.command;
 import java.time.LocalDateTime;
 
 import dude.Storage;
+import dude.exception.EventException;
 import dude.note.NoteList;
 import dude.task.Event;
 import dude.task.TaskList;
@@ -39,6 +40,9 @@ public class AddEventCommand extends Command {
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
         output = "Executing Add Event Command\n";
+        if (fromDateTime.isAfter(toDateTime)) {
+            throw new EventException("Event Start Time is after Event End Time");
+        }
         Event newTask = new Event(taskDescription, fromDateTime, toDateTime);
         assert !newTask.isDone() : "Newly added Event should not be done.";
         taskList.addTask(newTask);
