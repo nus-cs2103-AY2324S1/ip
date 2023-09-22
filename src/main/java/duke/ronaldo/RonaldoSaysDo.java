@@ -237,7 +237,6 @@ public class RonaldoSaysDo {
 
         return res;
     }
-
     /**
      * Adds a deadline task to the task tasks based on the provided input.
      *
@@ -249,7 +248,7 @@ public class RonaldoSaysDo {
         String[] parts = input.split("/by ");
         String[] taskArray = parts[0].split(" ");
         if (parts.length != 2) {
-            throw new DukeException("SUI, Specify by date and time!");
+            throw new DukeException("SUI, Specify description, by date and time!");
         }
         String[] deadlineInfo = parts[1].split(" ");
 
@@ -262,14 +261,7 @@ public class RonaldoSaysDo {
         for (int i = 1; i < taskArray.length; i++) {
             task += taskArray[i] + " ";
         }
-        if (task.equals("")) {
-            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said!! "
-                    + "Enter again!\n");
-        }
-        if (byDate.isEmpty()) {
-            throw new DukeException("SUI, deadline task must have /by date and time\n");
-        }
-
+        validateDeadlineTaskInput(task, byDate);
         DateAndTimeHandler.checkIfDateIsValid(byDate);
         DateAndTimeHandler.checkIfDeadlineTimelineIsValid(byDate, endTime);
 
@@ -282,6 +274,18 @@ public class RonaldoSaysDo {
         return res;
     }
     /**
+     * Validates the task description and '/by' date.
+     *
+     * @param task   The task description.
+     * @param byDate The '/by' date.
+     * @throws DukeException If either the task description or '/by' date is empty.
+     */
+    private void validateDeadlineTaskInput(String task, String byDate) throws DukeException {
+        if (task.isEmpty() || byDate.isEmpty()) {
+            throw new DukeException("Deadline task must have description, /by date and time");
+        }
+    }
+    /**
      * Adds an event task to the task tasks based on the provided input.
      *
      * @param input The user input containing the task description and event timings.
@@ -291,27 +295,14 @@ public class RonaldoSaysDo {
     public String handleEventTask(String input) throws DukeException {
         String[] parts = input.split("/from ");
         if (parts.length != 2) {
-            throw new DukeException("SUI, Specify from and to date and time!");
+            throw new DukeException("SUI, Specify description, from and to date and time!");
         }
         String[] taskArray = parts[0].split(" ");
         String[] taskInfo = parts[1].split("/to ");
 
-        if (taskInfo.length != 2) {
-            throw new DukeException("SUI, Specify both date and time for /from and /to in the following manner "
-                    + ": yyyy-mm-dd hh:mm");
-        }
-
+        validateEventFormat(taskInfo);
         String[] fromInfo = taskInfo[0].split(" ");
         String[] toInfo = taskInfo[1].split(" ");
-        if (fromInfo.length != 2) {
-            throw new DukeException("SUI, Specify both date and time for /from in the following manner "
-                    + ": yyyy-mm-dd hh:mm");
-        }
-        if (toInfo.length != 2) {
-            throw new DukeException("SUI, Specify both date and time for /to in the following manner "
-                    + ": yyyy-mm-dd hh:mm");
-        }
-
         String startDate = fromInfo[0];
         String startTime = fromInfo[1];
         String endDate = toInfo[0];
@@ -320,14 +311,7 @@ public class RonaldoSaysDo {
         for (int i = 1; i < taskArray.length; i++) {
             task += taskArray[i] + " ";
         }
-        if (task.equals("")) {
-            throw new DukeException("SUI, No description specified la dei!! How to do work when no work is said!! "
-                    + "Enter again!\n");
-        }
-        if (startDate.isEmpty() || endDate.isEmpty()) {
-            throw new DukeException("SUI, event task must have both /from and /to times\n");
-        }
-
+        validateEventTaskDescription(task, startDate, endDate);
         DateAndTimeHandler.checkIfDateIsValid(startDate);
         DateAndTimeHandler.checkIfDateIsValid(endDate);
 
@@ -339,5 +323,30 @@ public class RonaldoSaysDo {
         res += tasks.getTaskLeft();
 
         return res;
+    }
+    /**
+     * Validates the format of the event input.
+     *
+     * @param taskInfo An array containing the event information.
+     * @throws DukeException If the format is invalid.
+     */
+    private void validateEventFormat(String[] taskInfo) throws DukeException {
+        if (taskInfo.length != 2 || taskInfo[0].isEmpty() || taskInfo[1].isEmpty()) {
+            throw new DukeException("SUI, Specify both date and time for /from and /to in the following manner: "
+                    + "yyyy-mm-dd hh:mm");
+        }
+    }
+    /**
+     * Validates the event task description, start date, and end date.
+     *
+     * @param task      The event task description.
+     * @param startDate The start date.
+     * @param endDate   The end date.
+     * @throws DukeException If any of the fields are empty.
+     */
+    private void validateEventTaskDescription(String task, String startDate, String endDate) throws DukeException {
+        if (task.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
+            throw new DukeException("SUI, Event task must have description, /from and /to date and time");
+        }
     }
 }
