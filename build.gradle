@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("Chewy.Chewy")
+    mainClass.set("chewy.Launcher")
 }
 
 shadowJar {
