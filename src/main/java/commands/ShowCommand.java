@@ -1,8 +1,12 @@
 package commands;
+
 import components.Storage;
 import components.Ui;
 import tasks.TaskList;
 
+/**
+ * Represents a show command.
+ */
 public class ShowCommand extends Command {
     public ShowCommand() {
         super();

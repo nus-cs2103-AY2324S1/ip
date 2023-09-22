@@ -3,14 +3,23 @@ package commands;
 import components.DukeException;
 import components.Storage;
 import components.Ui;
+import tasks.Task;
 import tasks.TaskList;
 
+/**
+ * Represents a command.
+ */
 public abstract class Command {
+    /**
+     * Contains the newly created Task object that has not been added to list.
+     */
+    protected static Task tempTask;
     /**
      * Constructor for Command.
      */
     public Command() {
-
+        // Assuming that whenever a Command object is created, it should not be null
+        assert this != null : "Command object should not be null";
     }
 
     /**

@@ -4,8 +4,12 @@ import components.DukeException;
 import components.Storage;
 import components.Ui;
 import tasks.Event;
+import tasks.Task;
 import tasks.TaskList;
 
+/**
+ * Represents an event command.
+ */
 public class EventCommand extends Command {
     private String command;
 
@@ -15,6 +19,12 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
-        return list.addTask(new Event(command.substring(6)), storage);
+        Task newEvent = new Event(command.substring(5), list);
+        Task oldTask = newEvent.getOldTask();
+        if (oldTask != null) {
+            Command.tempTask = newEvent;
+            throw new DukeException.DuplicateDescriptionException(oldTask);
+        }
+        return list.addTask(newEvent, storage);
     }
 }

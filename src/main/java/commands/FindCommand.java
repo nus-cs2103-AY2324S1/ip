@@ -4,6 +4,9 @@ import components.Storage;
 import components.Ui;
 import tasks.TaskList;
 
+/**
+ * Represents a find command.
+ */
 public class FindCommand extends Command {
     private String command;
 
@@ -22,8 +25,8 @@ public class FindCommand extends Command {
             }
         }
 
-        return "Here are the matching tasks in your list:" +
-                "\n" +
-                result;
+        return "Here are the matching tasks in your list:"
+                + "\n"
+                + result;
     }
 }
