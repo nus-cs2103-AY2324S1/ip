@@ -6,7 +6,7 @@ plugins {
 }
 
 checkstyle {
-    toolVersion = "10.12.3"
+    toolVersion = "10.2"
     configFile = file("${rootDir}/config/checkstyle/checkstyle.xml")
 }
 
@@ -18,7 +18,7 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
 
-    String javaFxVersion = '17.0.7'
+    String javaFxVersion = '11.0.2'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'

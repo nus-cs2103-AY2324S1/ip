@@ -10,14 +10,15 @@ public class Ui {
     //@formatter:off
     public static final String TAB = "    ";
     public static final String LINE = "____________________________________________________________";
-    public static final String LOGO = """
-            _______         _
-            |  ____|       (_)
-            | |__ ___  _ __ _ _ __   ___
-            |  __/ _ \\| '__| | '_ \\ / _ \\
-            | | | (_) | |  | | | | |  __/
-            |_|  \\___/|_|  |_|_| |_|\\___|
-                            """;
+    public static final String LOGO = "Forine";
+    // public static final String LOGO = """
+    //         _______         _
+    //         |  ____|       (_)
+    //         | |__ ___  _ __ _ _ __   ___
+    //         |  __/ _ \\| '__| | '_ \\ / _ \\
+    //         | | | (_) | |  | | | | |  __/
+    //         |_|  \\___/|_|  |_|_| |_|\\___|
+    //                         """;
     //@formatter:on
 
     public Ui() { }
