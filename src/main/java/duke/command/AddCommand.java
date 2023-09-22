@@ -180,6 +180,8 @@ public class AddCommand extends Command {
                 return null;
             }
 
+            tasks.storeTasks(storage);
+
             StringBuilder response = new StringBuilder("Got it. I've added this task:\n");
             response.append(String.format("  %s\n", taskToAdd.toString()));
             response.append(String.format("Now you have %d tasks in the list.", tasks.size()));
