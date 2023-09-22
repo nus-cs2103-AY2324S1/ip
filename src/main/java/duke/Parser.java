@@ -98,7 +98,6 @@ public class Parser {
     String processTodo() {
         int size = parsedStr.length;
         if (size < 2) {
-            //error handling
             System.out.println("You do not specify the todo name");
             return "";
         }

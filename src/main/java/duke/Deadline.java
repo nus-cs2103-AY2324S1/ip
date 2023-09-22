@@ -32,7 +32,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String first = "[D]" + "[" + this.getStatusIcon() + "] " + this.description + " ";
-        String second = "(dateString: " + this.transformedDate + ")";
+        String second = "(by: " + this.transformedDate + ")";
         return first + second;
     }
 

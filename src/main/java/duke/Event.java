@@ -41,7 +41,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         String first = "[E]" + "[" + this.getStatusIcon() + "] " + this.description + " ";
-        String second = "(beginString: " + this.transformedBeginString + " endString: " + this.transformedEndString + ")";
+        String second = "(from: " + this.transformedBeginString + " to: " + this.transformedEndString + ")";
         return first + second;
     }
 
