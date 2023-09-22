@@ -25,7 +25,7 @@ public class MarkCommand implements Command {
             String taskString = taskList.markTask(index);
             return String.format(Messages.MARKED_MESSAGE, taskString);
         } catch (IOException e) {
-            return e.getMessage();
+            return String.format(Messages.ERROR_PREFIX, e.getMessage());
         }
     }
 }

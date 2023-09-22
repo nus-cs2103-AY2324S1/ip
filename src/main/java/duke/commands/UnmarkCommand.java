@@ -25,7 +25,7 @@ public class UnmarkCommand implements Command {
             String taskString = taskList.unmarkTask(index);
             return String.format(Messages.UNMARKED_MESSAGE, taskString);
         } catch (IOException e) {
-            return e.getMessage();
+            return String.format(Messages.ERROR_PREFIX, e.getMessage());
         }
     }
 }

@@ -31,7 +31,7 @@ public class InsertCommand implements Command {
             return String.format(Messages.INSERT_MESSAGE, task, taskCount, taskCount == 1 ? "task"
                     : "tasks");
         } catch (IllegalArgumentException | IOException e) {
-            return e.getMessage();
+            return String.format(Messages.ERROR_PREFIX, e.getMessage());
         }
     }
 }

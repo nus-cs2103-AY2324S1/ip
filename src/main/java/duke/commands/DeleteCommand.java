@@ -25,7 +25,7 @@ public class DeleteCommand implements Command {
             String taskString = taskList.deleteTask(index);
             return String.format(Messages.DELETE_MESSAGE, taskString, taskList.getTaskCount());
         } catch (IOException e) {
-            return e.getMessage();
+            return String.format(Messages.ERROR_PREFIX, e.getMessage());
         }
     }
 }

@@ -97,9 +97,8 @@ public class ParserTest {
             assertEquals(dateTimeNoon, Parser.parseDate(dateTimeString));
             fail();
         } catch (DateTimeParseException e) {
-            assertEquals(String.format(Messages.ERROR_PREFIX, String.format(
-                    Messages.INVALID_DATE_TIME_FORMAT, dateTimeString)), e.getMessage()
-            );
+            assertEquals(String.format(Messages.INVALID_DATE_TIME_FORMAT, dateTimeString),
+                    e.getMessage());
         }
     }
 }

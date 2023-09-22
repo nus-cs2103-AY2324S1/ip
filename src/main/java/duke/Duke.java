@@ -35,7 +35,7 @@ public class Duke {
         try {
             return parser.executeCommand(input, taskList);
         } catch (UnknownCommandException e) {
-            return e.getMessage();
+            return String.format(Messages.ERROR_PREFIX, e.getMessage());
         }
     }
 }
