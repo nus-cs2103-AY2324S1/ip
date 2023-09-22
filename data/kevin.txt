@@ -1,6 +1,3 @@
-Deadline - true - return book - 2019-12-02T18:00
-Deadline - true - cs2103 - 2023-09-22T23:59
-Todo - true - super super super super super super super super super long to do
-Event - false - project meeting - Mon 2pm - 4pm
-Todo - false - hehehehe 1
-Deadline - false - return book - 2019-12-01T18:00
+Event - false - Recess Week - Monday 26 September - Friday 28 September
+Todo - false - CS2103T tP UG draft
+Deadline - false - CS2103T iP - 2023-09-22T23:59
