@@ -24,6 +24,9 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws SanaException {
+        if  (getArguments() == "") {
+            throw new SanaException("No such command!");
+        }
         String response = tasks.unmark(Integer.parseInt(getArguments()));
         tasks.update(storage);
         return response;

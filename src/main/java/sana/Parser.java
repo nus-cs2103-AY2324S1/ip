@@ -1,5 +1,7 @@
 package sana;
 
+import javafx.application.Platform;
+
 /**
  * Represents a parser to parse user input into commands.
  */
@@ -33,7 +35,7 @@ public class Parser {
         case "delete":
             return new DeleteCommand(commandWord, arguments);
         case "bye":
-            return new ExitCommand(commandWord, arguments);
+            Platform.exit();
         case "mark":
             return new MarkCommand(commandWord, arguments);
         case "unmark":

@@ -1,5 +1,7 @@
 package sana;
 
+import javafx.application.Platform;
+
 /**
  * Represents a command to exit the program.
  */
@@ -23,8 +25,8 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) {
+        Platform.exit();
         return ("Bye. Hope to see you again soon!");
-
     }
 
     /**

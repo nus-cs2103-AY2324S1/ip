@@ -24,6 +24,9 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Storage storage) throws SanaException {
+        if (getArguments() == "") {
+            throw new SanaException("No such command!");
+        }
         String response = tasks.mark(Integer.parseInt(getArguments()));
         tasks.update(storage);
         return response;
