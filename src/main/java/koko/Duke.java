@@ -166,7 +166,7 @@ public class Duke {
         return ui.generateTaskAddedMessage(newEvent, taskList.size());
     }
 
-    private String handleFindCommand(String remaining) throws DukeException {
+    private String handleFindCommand(String remaining) {
         String searchTerm = remaining.trim();
         TaskList matchingTasks = taskList.findTasksFromKeyword(searchTerm);
         return ui.showMatchingTasks(matchingTasks);
