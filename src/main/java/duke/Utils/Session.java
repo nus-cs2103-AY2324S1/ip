@@ -1,5 +1,7 @@
 package duke.utils;
 
+import org.w3c.dom.Node;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -44,20 +46,51 @@ public class Session extends Application {
         this.input = new Input();
     }
 
-    /**
-     * Initializes the user interface for the Duke application.
-     *
-     * @param primaryStage The primary stage for the application.
-     */
     public void initializeUI(Stage primaryStage) {
-        BorderPane root = new BorderPane();
-        this.chatBox = new VBox(10);
-        this.chatBox.setPadding(new Insets(10));
+        // Create the root layout
+        BorderPane root = createRootLayout();
 
-        ScrollPane scrollPane = new ScrollPane(chatBox);
+        // Create the chat area with a scroll pane
+        this.chatBox = createChatBox();
+        ScrollPane scrollPane = createScrollPane(this.chatBox);
+
+        // Create the input field and send button
+        HBox inputBox = createInputBox();
+
+        // Set the layout of the root
+        root.setCenter(scrollPane);
+        root.setBottom(inputBox);
+
+        // Create and set the scene
+        Scene scene = createScene(root);
+        setupPrimaryStage(primaryStage, scene);
+
+        // Initial greeting message
+        appendMessage(
+            Response.GREETINGS.toString(),
+            Session.CHATBOT_AVATAR
+        );
+    }
+
+    private BorderPane createRootLayout() {
+        BorderPane root = new BorderPane();
+        return root;
+    }
+
+    private VBox createChatBox() {
+        VBox chatBox = new VBox(10);
+        chatBox.setPadding(new Insets(10));
+        return chatBox;
+    }
+
+    private ScrollPane createScrollPane(Node content) {
+        ScrollPane scrollPane = new ScrollPane(content);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
+        return scrollPane;
+    }
 
+    private HBox createInputBox() {
         this.inputField = new TextField();
         this.inputField.setPromptText("Enter your command...");
 
@@ -65,24 +98,22 @@ public class Session extends Application {
         sendButton.setOnAction(event -> processUserInput());
 
         ImageView userImageView = getAvatarImageView(Session.USER_AVATAR);
-        ImageView chatbotImageView = getAvatarImageView(Session.CHATBOT_AVATAR);
 
         HBox inputBox = new HBox(10);
         inputBox.setPadding(new Insets(10));
-        inputBox.getChildren().addAll(userImageView, inputField, sendButton);
+        inputBox.getChildren().addAll(userImageView, this.inputField, sendButton);
+        return inputBox;
+    }
 
-        root.setCenter(scrollPane);
-        root.setBottom(inputBox);
+    private Scene createScene(Parent root, double width, double height) {
+        Scene scene = new Scene(root, width, height);
+        return scene;
+    }
 
-        Scene scene = new Scene(root, 400, 400);
+    private void setupPrimaryStage(Stage primaryStage, Scene scene) {
         primaryStage.setTitle("Duke Chatbot");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        appendMessage(
-            Response.GREETINGS.toString(),
-            Session.CHATBOT_AVATAR
-        );
     }
 
     /**
