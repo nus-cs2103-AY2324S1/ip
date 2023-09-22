@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import exceptions.ExcessiveArgumentException;
 import exceptions.IncorrectInputException;
 import exceptions.NoDescriptionException;
 import tasks.Deadline;
@@ -61,22 +60,22 @@ public class ParserTest {
 
     @Test
     public void getTargetIndex_stringArgumentIndex_throwNumberFormatException() {
-        assertThrows(NumberFormatException.class, () -> Parser.getTargetIndex("mark 1t"));
+        assertThrows(NumberFormatException.class, () -> Parser.getTargetIndex("mark 1t", false));
     }
 
     @Test
     public void getTargetIndex_noArgumentIndex_throwNoDescriptionException() {
-        assertThrows(NoDescriptionException.class, () -> Parser.getTargetIndex("mark  "));
+        assertThrows(NoDescriptionException.class, () -> Parser.getTargetIndex("mark  ", false));
     }
 
     @Test
     public void getTargetIndex_invalidArgumentIndex_throwIncorrectInputException() {
-        assertThrows(IncorrectInputException.class, () -> Parser.getTargetIndex("mark -1"));
+        assertThrows(IncorrectInputException.class, () -> Parser.getTargetIndex("mark -1", false));
     }
 
     @Test
     public void getTargetIndex_correctArgumentIndex_correctIndex() {
-        int index = Parser.getTargetIndex("mark 4");
+        int index = Parser.getTargetIndex("mark 4", false);
         // argument index is offset by +1 from actual index of task for user-friendliness
         assertEquals(3, index);
     }

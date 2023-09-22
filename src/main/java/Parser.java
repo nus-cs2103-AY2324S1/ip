@@ -1,3 +1,4 @@
+import exceptions.ExcessiveArgumentException;
 import exceptions.IncorrectDeadlineInputException;
 import exceptions.IncorrectEventInputException;
 import exceptions.IncorrectInputException;
@@ -108,7 +109,8 @@ public class Parser {
      * @throws IncorrectInputException when the user did not input any additional arguments or more arguments
      *         than required.
      */
-    public static int getTargetIndex(String args) throws NumberFormatException, IncorrectInputException {
+    public static int getTargetIndex(String args, boolean hasMoreThanTwoArg)
+            throws NumberFormatException, IncorrectInputException {
         assert args != null : "args is null!";
 
         String[] splitArgs = decomposeIntoWords(args);
@@ -116,6 +118,8 @@ public class Parser {
 
         if (length < 2) {
             throw new NoDescriptionException("There is no given task index.");
+        } else if (!hasMoreThanTwoArg && length > 2) {
+            throw new ExcessiveArgumentException("The format for your input has to be [command word] [index]!");
         }
 
         final int offset = -1; // Index in list is 1 more greater than index
@@ -278,7 +282,7 @@ public class Parser {
      */
     public static String parseEditNewDetails(String input) {
         final int offset = 1;
-        String index = String.valueOf(Parser.getTargetIndex(input) + offset);
+        String index = String.valueOf(Parser.getTargetIndex(input, true) + offset);
 
         return removeMethodType(input).replaceFirst(index, EMPTY_STRING);
     }

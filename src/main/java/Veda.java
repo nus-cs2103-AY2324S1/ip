@@ -60,10 +60,10 @@ public class Veda {
 
         switch (method) {
         case 0:
-            return ui.getExitMessage();
+            return exit(input);
 
         case 1:
-            return ui.getListOfMissions(tasks.getTasks());
+            return list(input);
 
         case 2:
             return markTaskAsDone(input);
@@ -88,9 +88,25 @@ public class Veda {
         }
     }
 
+    private String exit(String input) {
+        if (!(input.trim().equals("bye"))) {
+            return ui.getUnrecognisedInputMessage();
+        }
+
+        return ui.getExitMessage();
+    }
+
+    private String list(String input) {
+        if (!(input.trim().equals("list"))) {
+            return ui.getUnrecognisedInputMessage();
+        }
+
+        return ui.getListOfMissions(tasks.getTasks());
+    }
+
     private String markTaskAsDone(String input) {
         try {
-            return tasks.markAsDone(Parser.getTargetIndex(input));
+            return tasks.markAsDone(Parser.getTargetIndex(input, false));
         } catch (NumberFormatException e) {
             return "Invalid index! Please ensure you correctly key in your target index.";
         } catch (IncorrectInputException e) {
@@ -100,7 +116,7 @@ public class Veda {
 
     private String markTaskAsUndone(String input) {
         try {
-            return tasks.markAsUndone(Parser.getTargetIndex(input));
+            return tasks.markAsUndone(Parser.getTargetIndex(input, false));
         } catch (NumberFormatException e) {
             return "Invalid index! Please ensure you correctly key in your target index.";
         } catch (IncorrectInputException e) {
@@ -110,7 +126,7 @@ public class Veda {
 
     private String deleteTask(String input) {
         try {
-            Task task = tasks.deleteTask(Parser.getTargetIndex(input));
+            Task task = tasks.deleteTask(Parser.getTargetIndex(input, false));
 
             return "Noted. I have removed the following mission:\n" + task;
         } catch (NumberFormatException e) {
@@ -118,7 +134,7 @@ public class Veda {
         } catch (IncorrectInputException e) {
             return e.getMessage();
         } catch (IndexOutOfBoundsException e) {
-            return "Invalid index! Your target index is within range.";
+            return "Invalid index! Your target index is not within range.";
         } catch (IOException e) {
             return "Unable to update file.";
         } catch (UpdateDataException e) {
@@ -149,7 +165,7 @@ public class Veda {
         }
 
         try {
-            final int taskIndex = Parser.getTargetIndex(input);
+            final int taskIndex = Parser.getTargetIndex(input, true);
             final String newDetails = Parser.parseEditNewDetails(input);
 
             return tasks.editTask(taskIndex, newDetails);
