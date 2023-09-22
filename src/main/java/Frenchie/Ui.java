@@ -80,6 +80,22 @@ public class Ui {
         return "Here are the matching tasks in your list: \n";
     }
 
+    public String helpMessage() {
+        String output = "Quickstart guide: \n"
+                + "You have 3 different tasks you can add to Frenchie: \n"
+                + "   1. todo taskname\n"
+                + "   2. deadline taskname /by dd/MM/yyyy HH:mm \n"
+                + "   3. event taskname /from dd/MM/yyyy HH:mm /to dd/MM/yyyy HH:mm \n"
+                + "Ensure you input the tasks in the above format for Frenchie to function as intended. \n"
+                + "Other functions include: \n"
+                + "list - To list all tasks stored in the TaskList \n"
+                + "mark taskIndex - mark the task of index taskIndex as done \n"
+                + "unmark taskIndex - mark the task of index taskIndex as incomplete \n"
+                + "delete taskIndex - delete the task of index taskIndex from the list \n"
+                + "find keyword - list out all tasks that contain the keyword in their task name";
+        return output;
+    }
+
     public void closeScanner() {
         scanner.close();
     }
