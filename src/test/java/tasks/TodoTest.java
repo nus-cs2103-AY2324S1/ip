@@ -26,4 +26,10 @@ public class TodoTest {
         assertEquals("[T][ ] eat food", todo.toString());
     }
 
+    @Test
+    public void snooze_success() {
+        Todo todo = new Todo("eat food");
+        assertEquals("This is a Todo task! You dont need to snooze it!", todo.snooze());
+    }
+
 }

@@ -29,4 +29,12 @@ public class DeadlineTest {
         assertEquals(expected, newDeadline.toStringWithDateTime());
     }
 
+    @Test
+    public void markedToString_success() {
+        LocalDateTime dateTime = DateTimeParser.parseDateTime("2019-10-10 1800");
+        Deadline newDeadline = new Deadline(dateTime, "potato");
+        newDeadline.markDone();
+        assertEquals("[D][X] potato(by: Oct 10 2019 6PM)", newDeadline.toString());
+    }
+
 }
