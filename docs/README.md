@@ -118,20 +118,19 @@ Searches the list of tasks for those that match the given search text.
 Format: `find SEARCH_QUERY`.
 
 * Finds and lists all tasks with descriptions that contain the search query [`SEARCH_QUERY`].
-* `SEARCH_QUERY` can contain spaces.
-* The search is case-insensitive.
+* `SEARCH_QUERY` can contain spaces and is **case-insensitive**.
 
 Examples:
 
 `find cs2103`
 
-* Finds all tasks that have descriptions containing `cs2103`.
+* Finds all tasks that have descriptions containing `cs2103` (case-insensitive).
 * **Will match**: "CS2103T project meeting with group", "cs2103 ip"
 * **Will not match**: "CS2100 quiz", "Meeting w/ prof"
 
 `find meeting w`
 
-* Finds all tasks that have descriptions containing `meeting w`.
+* Finds all tasks that have descriptions containing `meeting w` (case-insensitive).
 * **Will match**: "CS2103T project meeting with group", "Meeting w/ prof"
 * **Will not match**: "CS2100 quiz", "cs2103 ip"
 
@@ -145,14 +144,14 @@ Format: `sort METHOD [/order ORDER]` (The part in square brackets is **optional*
 
 * Sorts the list using the specified method [`METHOD`] and order [`ORDER`].
 * `METHOD` must be one of the following:
-    * `date` - Sorts chronologically by deadline (for deadline tasks) or start date and time (for event tasks).
-      Tasks without dates (to-do tasks) are **always** at the end of the sorted list.
-    * `description` - Sorts alphabetically by task description.
-    * `type` - Sorts alphabetically by task type.
+  * `date` - Sorts chronologically by **deadline** (for deadline tasks) or start date and time (for event tasks).
+    Tasks without dates (to-do tasks) are always at the **end** of the sorted list.
+  * `description` - Sorts alphabetically by task **description**.
+  * `type` - Sorts alphabetically by task **type**.
 * `ORDER` is optional. If specified, it must be one of the following:
-    * `a`/`asc`/`ascending` - Ascending order.
-    * `d`/`desc`/`descending` - Descending order.
-    * If not specified, it defaults to `ascending`.
+  * `a`/`asc`/`ascending` - Ascending order.
+  * `d`/`desc`/`descending` - Descending order.
+  * If not specified, it defaults to `ascending`.
 
 Example:
 
