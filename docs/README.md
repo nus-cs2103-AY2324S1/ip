@@ -179,6 +179,7 @@ Now the list will only have one task, which is the event task from earlier.
 ### `help` - Get the list of commands that exist
 
 Format: `help`
+
 Example input:
 ```
 help
@@ -202,6 +203,7 @@ Sure buddy I'm always here for you! These are the commands I have and what they 
 ### `bye` - Say GoodBye to me :(
 
 Format: `bye`
+
 Example input:
 ```
 bye
