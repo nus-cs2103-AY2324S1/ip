@@ -1,24 +1,179 @@
-# Duke project template
+# Kora User Guide
+> Kora is an English speaking Korean bot in Singapore! It can help you keep track of todos, deadlines, events and many more!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Table of Content
+1. Getting Started
+2. Commands
+   - Task Related Command
+      - ToDo
+      - Deadline
+      - Event
+      - Mark
+      - Unmark
+      - Delete
+      - List
+      - Find
+   - File Related Command
+      - Load
+      - Change
+   - Command Related Command
+      - Display
+      - Set
+      - Unset
+   - General Command
+      - Help
+      - Bye
+3. Command Summary
 
-## Setting up in Intellij
+## Getting Started
+1. Download Kora JAR file from [this page](https://github.com/dlathyun/ip/releases)
+2. Start using!
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Commands
+### Task Related Command
+#### Adding ToDo: `todo`
+Adds a todo task.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Format: `todo [description]`
+
+Example: `todo assignment`
+
+![todo](/src/main/resources/images/todo.png)
+#### Adding Deadline: `deadline`
+Adds a deadline task.
+
+Format: `deadline [description] /by [due date YYYY-MM-DD HH:mm]`
+
+Example: `deadline ip /by 2023-09-22 23:59`
+
+![deadline](/src/main/resources/images/deadline.png)
+#### Adding Event: `event`
+Adds an event task.
+
+Format: `event [description] /from [start YYYY-MM-DD HH:mm] /to [start YYYY-MM-DD HH:mm]`
+
+Example: `event cs2103t exam /from 2023-12-01 09:00 /to 2023-12-01 11:00`
+
+![event](/src/main/resources/images/event.png)
+#### Marking task: `mark`
+Marks a task to be done.
+
+Format: `mark [task index]`
+
+Example: `mark 2`
+
+![mark](/src/main/resources/images/mark.png)
+#### Unmarking task: `unmark`
+Unmarks a task to be undone.
+
+Format: `unmark [task index]`
+
+Example: `unmark 2`
+
+![unmark](/src/main/resources/images/unmark.png)
+#### Deleting task: `delete`
+Deletes a task.
+
+Format: `delete [task index]`
+
+Example: `delete 1`
+
+![delete](/src/main/resources/images/delete.png)
+#### Listing task: `list`
+Lists all tasks from task list.
+
+Format: `list`
+
+Example: `list`
+
+![list](/src/main/resources/images/list.png)
+#### Finding task: `find`
+Finds tasks by keyword.
+
+Format: `find [keyword]`
+
+Example: `find cs`
+
+![find](/src/main/resources/images/find.png)
+### File Related Command
+#### Loading file: `load`
+Loads content from specified file.
+
+Format: `load [file name]`
+
+Example: `load y2s1`
+
+![load](/src/main/resources/images/load.png)
+#### Changing file: `change`
+Changes current working file.
+
+Format: `change [file name]`
+
+Example: `change y2`
+
+![change](/src/main/resources/images/change.png)
+### Command Related Command
+#### Displaying command list: `display`
+Displays all commands from command list.
+
+Format: `display`
+
+Example: `display`
+
+![display](/src/main/resources/images/display.png)
+#### Setting command name: `set`
+Set new command name for specified command type.
+
+Format: `set [command type] [command name]`
+
+Example: `set todo td`
+
+![set](/src/main/resources/images/set.png)
+#### Unsetting command name: `unset`
+Deletes specified command name for specified command type.
+
+Format: `unset [command type] [command name]`
+
+Example: `unset todo td`
+
+![unset](/src/main/resources/images/unset.png)
+### General Command
+#### Viewing help: `help`
+Shows all available commands.
+
+Format: `help`
+
+Example: `help`
+
+![help](/src/main/resources/images/help.png)
+#### Exiting: `bye`
+Exits the KoraBot.
+
+Format: `bye`
+
+Example: `bye`
+
+![bye](/src/main/resources/images/bye.png)
+
+## Command Summary
+
+| Command    |                                      Format                                       |
+|------------|:---------------------------------------------------------------------------------:|
+| `todo`     |                               `todo [description]`                                |
+| `deadline` |             `deadline [description] /by [due date YYYY-MM-DD HH:mm]`              |
+| `event`    | `event [description] /from [start YYYY-MM-DD HH:mm] /to [start YYYY-MM-DD HH:mm]` |
+| `mark`     |                                `mark [task index]`                                |
+| `unmark`   |                               `unmark [task index]`                               |
+| `delete`   |                               `delete [task index]`                               |
+| `list`     |                                      `list`                                       |
+| `find`     |                                 `find [keyword]`                                  |
+| `load`     |                                `load [file name]`                                 |
+| `change`   |                               `change [file name]`                                |
+| `display`  |                                     `display`                                     |
+| `set`      |                        `set [command type] [command name]`                        |
+| `unset`    |                       `unset [command type] [command name]`                       |
+| `help`     |                                      `help`                                       |
+| `bye`      |                                      `bye`                                        |
+
+
+![Have fun using Kora!](https://img.freepik.com/premium-vector/tiger-character-hanbok_279539-11.jpg)
