@@ -124,10 +124,13 @@ public class Parser {
         assert !input.equals("") : "inputs shouldn't be empty string!";
         String[] parts1 = input.split(" ");
         if (taskList.size() == 0) {
-            return "Task List is empty!";
+            return Ui.taskEmpty();
         }
         try {
         int index = Integer.parseInt(parts1[1]);
+        if (index < 0 || index > taskList.size()) {
+            return Ui.invalidNum();
+        }
         String deleted = String.valueOf(taskList.getTask(index - 1));
         taskList.remove(index - 1);
         Storage.save(taskList); // save in file
@@ -280,7 +283,7 @@ public class Parser {
     public static String findMatching(String keyword, TaskList taskList) {
         TaskList newList = new TaskList();
         if (taskList.size() == 0) {
-            return "list is empty!";
+            return Ui.taskEmpty();
         }
         for (int i = 0; i < taskList.size(); i ++) {
             Task matchTask = taskList.getTask(i);

@@ -106,7 +106,11 @@ public class Ui {
      */
 
     public static String numberFormat() {
-        return "NumberFormatException";
+        return "index must be a number!";
+    }
+
+    public static String invalidNum() {
+        return "Invalid index!";
     }
 
     /**
@@ -181,5 +185,9 @@ public class Ui {
 
     public static String duplicate() {
         return "Duplicate Task!";
+    }
+
+    public static String taskEmpty() {
+        return "Task List is empty!";
     }
 }
