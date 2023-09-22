@@ -15,7 +15,6 @@ public class Ui {
      * @param chat Message to be printed.
      */
     public String printChat(String chat) {
-
         return chat + " Meow";
     }
 
