@@ -87,6 +87,8 @@ public class TaskList {
 
     /**
      * Prints the entire list of tasks with numbering for reference.
+     *
+     * @return The list of the task.
      */
     public String printList() {
         String result = "";

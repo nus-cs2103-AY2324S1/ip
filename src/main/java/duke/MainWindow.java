@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,7 +27,6 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
     //private Duke duke;
-    private Ui ui;
     private Storage storage;
     private TaskList tasks;
     private Parser executor;
@@ -39,20 +39,14 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
 
         this.executor = new Parser();
-        this.ui = new Ui();
-        this.storage = new Storage("./data/duke.txt");
+        this.storage = new Storage("./duke.txt");
 
         try {
             this.tasks = new TaskList(this.storage.load());
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
-//  old duke is no longer used
-//    public void setDuke(Duke d) {
-//        duke = d;
-//        this.duke = new Duke();
-//    }
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -67,7 +61,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         try {
-            new FileWriter("./data/duke.txt", false).close();
+            new FileWriter("./duke.txt", false).close();
             this.storage.writeToFile(this.tasks);
         } catch (IOException e) {
             System.out.println("error: " + e.getMessage());

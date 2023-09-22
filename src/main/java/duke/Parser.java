@@ -27,11 +27,11 @@ public class Parser {
     public String parse(TaskList tasks, String echo) {
         if (echo.equals("bye")) {
             assert Ui.sayBye() != null;
-            return Ui.line() + Ui.sayBye() + Ui.line();
+            return Ui.sayBye();
         }
         if (echo.equals("list")) {
             assert tasks.printList() != null;
-            return Ui.line() + "H...here are the tasks in your list:\n" + tasks.printList() + Ui.line();
+            return "H...here are the tasks in your list:\n" + tasks.printList();
         }
         if (echo.equals("help")) {
             return printHelp();
@@ -58,7 +58,7 @@ public class Parser {
             }
         } catch (DukeException e) {
             assert e.getMessage() != null;
-            return Ui.line() + e.getMessage() + "\n" + Ui.line();
+            return e.getMessage() + "\n";
         }
     }
 
@@ -81,8 +81,8 @@ public class Parser {
                     "y...yyet!!!°(°ˊДˋ°) °");
         }
         tasks.markDone(taskNum - 1);
-        return Ui.line() + "O...Omedeto! I have... have marked this as done!!ヾ(*´▽‘*)ﾉ\n"
-                + tasks.printTask(taskNum - 1) + "\n" + Ui.line();
+        return "O...Omedeto! I have... have marked this as done!!ヾ(*´▽‘*)ﾉ\n"
+                + tasks.printTask(taskNum - 1) + "\n";
     }
 
     /**
@@ -105,8 +105,8 @@ public class Parser {
         }
         tasks.markUndone(taskNum - 1);
         assert tasks.printTask(taskNum - 1) != null;
-        return Ui.line() + "Okk... this is not done yet ﾍ(;´Д｀ﾍ)\n" + tasks.printTask(taskNum - 1)
-                + "\n" + Ui.line();
+        return "Okk... this is not done yet ﾍ(;´Д｀ﾍ)\n" + tasks.printTask(taskNum - 1)
+                + "\n";
     }
 
     /**
@@ -132,8 +132,8 @@ public class Parser {
             Deadline x = new Deadline(ddl[0], by);
             tasks.addToList(x);
             assert tasks.numOfTask() != null;
-            return Ui.line() + "Okk... I've... I've added this task:\n" + x.toString() + "\n"
-                    + tasks.numOfTask() + Ui.line();
+            return "Okk... I've... I've added this task:\n" + x.toString() + "\n"
+                    + tasks.numOfTask();
         } catch (DateTimeException e) {
             throw new DukeException("Th...th...the ddate you have inputed is invalid!!");
         }
@@ -160,9 +160,8 @@ public class Parser {
             Event x = new Event(event[0], event[1], event[2]);
             tasks.addToList(x);
 
-            assert Ui.line() != null;
-            return Ui.line() + "Okk... I've... I've added this task:\n" + x.toString() + "\n"
-                    + tasks.numOfTask() + Ui.line();
+            return "Okk... I've... I've added this task:\n" + x.toString() + "\n"
+                    + tasks.numOfTask();
     }
 
     /**
@@ -181,8 +180,8 @@ public class Parser {
         }
         ToDo x = new ToDo(removeTodo);
         tasks.addToList(x);
-        return Ui.line() + "Okk... I've... I've added this task:\n" + x.toString()
-                + "\n" + tasks.numOfTask() + Ui.line();
+        return "Okk... I've... I've added this task:\n" + x.toString()
+                + "\n" + tasks.numOfTask();
     }
 
     /**
@@ -209,8 +208,7 @@ public class Parser {
         int taskNum = Integer.parseInt(parts[1]);
         tasks.deleteTask(taskNum - 1);
         assert tasks.numOfTask() != null;
-        return Ui.line() + "O...Okk... I've re...removed this task:\n" + tasks.numOfTask()
-                + Ui.line();
+        return "O...Okk... I've re...removed this task:\n" + tasks.numOfTask();
     }
 
     /**
@@ -235,7 +233,7 @@ public class Parser {
                 store.addToList(tasks.tasks.get(i));
             }
         }
-        return Ui.line() + "Here are the matching tasks in your list:\n" + store.printList() + Ui.line();
+        return "Here are the matching tasks in your list:\n" + store.printList();
     }
 
     /**
@@ -244,7 +242,7 @@ public class Parser {
      * @return A string containing the help message with command descriptions.
      */
     public String printHelp() {
-        return Ui.line() + "Here are the commands for Bocchi-chan:\n"
+        return "Here are the commands for Bocchi-chan:\n"
                 + "help: Prints out the help page for various commands.\n"
                 + "list: Prints out your list of tasks.\n"
                 + "todo <task>: Adds the <task> into the list of tasks as a task to do.\n"

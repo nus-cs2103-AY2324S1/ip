@@ -32,15 +32,6 @@ public class Ui {
     }
 
     /**
-     * Returns a divider line used for separating messages.
-     *
-     * @return A string containing the divider line.
-     */
-    public static String line() {
-        return DIVIDER;
-    }
-
-    /**
      * Displays a goodbye message when the user exits the application.
      *
      * @return The goodbye message.
