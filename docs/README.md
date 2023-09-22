@@ -18,9 +18,11 @@ that's easy on the eyes.
 
 ## Usage
 
-> [!NOTE]
+> **NOTE**
 > * Words in `UPPER_CASE` are parameters supplied by the user.
 > * Parameters must be in the given order
+
+---
 
 ### `help` - Viewing help
 Shows a message listing commands that can be used, and their syntax.
@@ -43,6 +45,8 @@ Here are some commands you can try:
   help -- bruh need say more?
 ```
 
+---
+
 ### `todo` - Adding todo tasks
 Adds a todo task to the user's list of tasks. 
 
@@ -63,6 +67,8 @@ Now you have 1 task(s) in the list.
 **Notes:**
 
 * `TASK_NAME` can be any non-empty sequence of characters.
+
+---
 
 ### `deadline` - Adding deadline tasks
 Adds a deadline task with a due date to the user's list of tasks.
@@ -86,6 +92,8 @@ Now you have 2 task(s) in the list.
 * `TASK_NAME` can be any non-empty sequence of characters.
 * `DUE_DATE` must be in YYYY-MM-DD format.
 
+---
+
 ### `event` - Adding event tasks
 Adds an event task with a start and end date to the user's list of tasks.
 
@@ -108,6 +116,8 @@ Now you have 3 task(s) in the list.
 * `TASK_NAME` can be any non-empty sequence of characters.
 * `START_DATE` and `END_DATE` must be in YYYY-MM-DD format.
 
+---
+
 ### `delete` - Deleting tasks
 Deletes a task from the user's list, specified by a given index number.
 
@@ -129,6 +139,8 @@ Now you have 2 task(s) in the list.
 
 * `INDEX_NUMBER` must be a non-negative integer that is not bigger than the size of the list.
 
+---
+
 ### `mark` - Marking tasks
 Marks a task as completed, specified by a given index number.
 
@@ -148,6 +160,8 @@ Good job on completing your task!
 **Notes:**
 
 * `INDEX_NUMBER` must be a non-negative integer that is not bigger than the size of the list.
+
+---
 
 ###  `unmark` - Unmarking tasks
 Unmarks a task, specified by a given index number. 
@@ -169,6 +183,8 @@ Okay, I've marked this as not done yet:
 
 * `INDEX_NUMBER` must be a non-negative integer that is not bigger than the size of the list.
 
+---
+
 ###  `find` - Finding tasks
 Shows users a list of tasks that matches their query.
 
@@ -189,7 +205,9 @@ Here are all your tasks:
 
 * `A_FEW_KEYWORDS` can be any number of characters. Search is delimited by spaces.
 
-###  Viewing tasks: `list`
+---
+
+### `list` - Viewing tasks
 Shows the user's list of tasks.
 
 **Example of usage:** `list`
@@ -204,8 +222,10 @@ Here are all your tasks:
 [E][ ] recess week (from: 2023-09-23 to: 2023-10-01)
 ```
 
+---
+
 ###  Exiting the program: `bye`
-Exits Max!
+Exits Max application.
 
 **Example of usage:** `bye`
 
