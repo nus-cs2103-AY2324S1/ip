@@ -3,6 +3,7 @@ package duke.ui;
 import duke.Duke;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -15,6 +16,9 @@ public class MainWindow {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private Button sendButton;
+
     private Duke duke;
 
     private static final Image userImage = new Image(UserDialogBox.class.getResourceAsStream("/images/User.jpg"));
@@ -48,6 +52,10 @@ public class MainWindow {
                 UserDialogBox.getUserDialog(input, userImage),
                 DukeDialogBox.getDukeDialog(response, dukeImage)
         );
+        if (input.equals("bye")) {
+            userInput.setDisable(true);
+            sendButton.setDisable(true);
+        }
         userInput.clear();
     }
 }

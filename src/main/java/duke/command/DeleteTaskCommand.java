@@ -30,6 +30,6 @@ public class DeleteTaskCommand extends Command {
     }
 
     private String response(TaskList tasks, Task task) {
-        return String.format(COMMAND_RESPONSE, task.getTaskForPrinting(), tasks.getSize());
+        return String.format(COMMAND_RESPONSE, task.getFormattedTask(), tasks.getSize());
     }
 }

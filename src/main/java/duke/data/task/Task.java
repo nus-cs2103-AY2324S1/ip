@@ -25,14 +25,6 @@ public abstract class Task {
         this.isDone = false;
     }
 
-    protected String getName() {
-        return this.name;
-    }
-
-    public String getTaskDescription() {
-        return this.taskDescription;
-    }
-
     /**
      * Gets a formatted input string for the task.
      *
@@ -45,7 +37,7 @@ public abstract class Task {
      *
      * @return The formatted string for printing the task.
      */
-    public abstract String getTaskForPrinting();
+    public abstract String getFormattedTask();
 
     /**
      * Gets a formatted string for saving the task, including its completion status.
@@ -53,12 +45,7 @@ public abstract class Task {
      * @return The formatted string for saving the task.
      */
     public String getTaskForSaving() {
-        String done = "";
-        if (isDone) {
-            done = "X";
-        } else {
-            done = " ";
-        }
+        String done = isDone? "X" : " ";
         return done + getInput(); //append completion status character to input
     }
 
@@ -77,7 +64,7 @@ public abstract class Task {
      * @return 'X' if the task is completed; ' ' if not completed.
      */
     protected String checkDone() {
-        return isDone ? "X" : " ";
+        return isDone ? "X" : "  ";
     }
 
     /**
@@ -90,4 +77,17 @@ public abstract class Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
     }
+
+    protected String getName() {
+        return this.name;
+    }
+
+    public String getTaskDescription() {
+        return this.taskDescription;
+    }
+
+    public boolean isDone() {
+        return this.isDone;
+    }
+
 }

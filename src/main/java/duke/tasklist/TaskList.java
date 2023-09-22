@@ -4,6 +4,7 @@ import duke.data.exception.DukeException;
 import duke.data.task.Task;
 import duke.data.task.ToDo;
 import duke.data.task.Deadline;
+import duke.data.task.Event;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,10 +17,6 @@ import java.util.Iterator;
 public class TaskList implements Iterable<Task> {
 
     private final ArrayList<Task> taskList;
-    private int completedCount;
-    private int todoCount;
-    private int deadlineCount;
-    private int eventCount;
 
     /**
      * Constructs a new TaskList with the provided list of tasks and a UI component for user interactions.
@@ -28,10 +25,6 @@ public class TaskList implements Iterable<Task> {
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
-        this.completedCount = 0;
-        this.todoCount = 0;
-        this.deadlineCount = 0;
-        this.eventCount = 0;
     }
 
     /**
@@ -44,13 +37,6 @@ public class TaskList implements Iterable<Task> {
     public void addTask(Task task) {
         assert task != null : "Task should not be null"; // Check that the task is not null
         taskList.add(task);
-        if (task instanceof ToDo) {
-            todoCount++;
-        } else if (task instanceof Deadline) {
-            deadlineCount++;
-        } else {
-            eventCount++;
-        }
     }
 
     /**
@@ -88,7 +74,6 @@ public class TaskList implements Iterable<Task> {
             Task task = taskList.get(getIndex(input));
             assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(true);
-            completedCount++;
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Invalid input for marking list of length " + taskList.size());
@@ -110,7 +95,6 @@ public class TaskList implements Iterable<Task> {
             Task task = taskList.get(getIndex(input));
             assert task != null : "Task should not be null"; // Check that the task is not null
             task.setDone(false);
-            completedCount--;
             return task;
         } catch (IndexOutOfBoundsException e) {
             throw new DukeException("Invalid input for list of length " + taskList.size());
@@ -127,11 +111,80 @@ public class TaskList implements Iterable<Task> {
         assert input != null : "Input should not be null"; // Check that the input is not null
         TaskList matchingTasks = new TaskList(new ArrayList<>());
         for (Task task : taskList) {
-            if(task.getTaskDescription().contains(input)) {
+            if (task.getTaskDescription().contains(input)) {
                 matchingTasks.addTask(task);
             }
         }
         return matchingTasks;
+    }
+
+
+    public TaskList getCompletedTasks() {
+        TaskList completedTasks = new TaskList(new ArrayList<>());
+        for (Task task : taskList) {
+            if (task.isDone()) {
+                completedTasks.addTask(task);
+            }
+        }
+        return completedTasks;
+    }
+
+    public TaskList getUncompletedTasks() {
+        TaskList uncompletedTasks = new TaskList(new ArrayList<>());
+        for (Task task : taskList) {
+            if (!task.isDone()) {
+                uncompletedTasks.addTask(task);
+            }
+        }
+        return uncompletedTasks;
+    }
+
+    public TaskList getTodos() {
+        TaskList todos = new TaskList(new ArrayList<>());
+        for (Task task : taskList) {
+            if (task instanceof ToDo) {
+                todos.addTask(task);
+            }
+        }
+        return todos;
+    }
+
+    public TaskList getDeadlines() {
+        TaskList deadlines = new TaskList(new ArrayList<>());
+        for (Task task : taskList) {
+            if (task instanceof Deadline) {
+                deadlines.addTask(task);
+            }
+        }
+        return deadlines;
+    }
+
+    public TaskList getEvents() {
+        TaskList events = new TaskList(new ArrayList<>());
+        for (Task task : taskList) {
+            if (task instanceof Event) {
+                events.addTask(task);
+            }
+        }
+        return events;
+    }
+
+    public int percentDone() {
+        double completedCount = getCompletedTasks().getSize();
+        double result = completedCount / getSize() * 100;
+        return (int) result;
+    }
+
+    /**
+     * Prints the list of tasks with their respective indexes.
+     */
+    public String getFormattedList() {
+        String indent = "      ";
+        String result = "";
+        for (int i = 0; i < taskList.size(); i++) {
+            result += "\n" + indent + (i + 1) + "." + taskList.get(i).getFormattedTask();
+        }
+        return result;
     }
 
     /**
@@ -144,18 +197,6 @@ public class TaskList implements Iterable<Task> {
         return input.charAt(input.length() - 1) - '0' - 1;
     }
 
-    /**
-     * Prints the list of tasks with their respective indexes.
-     */
-    public String getFormattedList() {
-        String indent = "      ";
-        String result = "";
-        for (int i = 0; i < taskList.size(); i++) {
-            result += "\n" + indent + (i + 1) + "." + taskList.get(i).getTaskForPrinting();
-        }
-        return result;
-    }
-
     @Override
     public Iterator<Task> iterator() {
         return taskList.iterator();
@@ -163,25 +204,5 @@ public class TaskList implements Iterable<Task> {
 
     public int getSize() {
         return taskList.size();
-    }
-
-    public int getCompletedCount() {
-        return completedCount;
-    }
-
-    public int getUncompletedCount() {
-        return getSize() - getCompletedCount();
-    }
-
-    public int getTodoCount() {
-        return todoCount;
-    }
-
-    public int getDeadlineCount() {
-        return deadlineCount;
-    }
-
-    public int getEventCount() {
-        return eventCount;
     }
 }

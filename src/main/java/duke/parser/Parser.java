@@ -7,6 +7,7 @@ import duke.data.task.Event;
 import duke.data.task.Task;
 import duke.data.task.ToDo;
 
+import javax.print.event.PrintEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -48,9 +49,15 @@ public class Parser {
         case "find":
             return new FindTaskCommand(description);
         case "completed":
-            return new CountCompletedTasksCommand();
+            return new PrintCompletedTasksCommand();
         case "uncompleted":
-            return new CountUncompletedTasksCommand();
+            return new PrintUncompletedTasksCommand();
+        case "todos":
+            return new PrintTodosCommand();
+        case "deadlines":
+            return new PrintDeadlinesCommand();
+        case "events":
+            return new PrintEventsCommand();
         case "stats":
             return new PrintStatsCommand();
         default:

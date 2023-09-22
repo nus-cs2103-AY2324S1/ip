@@ -29,6 +29,6 @@ public class MarkTaskCommand extends Command {
     }
 
     private String response(Task task) {
-        return String.format(COMMAND_RESPONSE, task.getTaskForPrinting());
+        return String.format(COMMAND_RESPONSE, task.getFormattedTask());
     }
 }

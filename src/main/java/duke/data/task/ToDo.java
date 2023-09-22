@@ -23,7 +23,7 @@ public class ToDo extends Task {
      * @return The formatted representation of the to-do task.
      */
     @Override
-    public String getTaskForPrinting() {
+    public String getFormattedTask() {
         return String.format("[%s][T] %s", super.checkDone(), super.getName());
     }
 
