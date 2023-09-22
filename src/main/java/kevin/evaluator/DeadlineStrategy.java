@@ -43,18 +43,16 @@ public class DeadlineStrategy extends BaseStrategy {
         List<String> formatStrings = Arrays.asList("d/MM/yyyy HHmm", "dd/MM/yyyy HHmm");
         if (!isInFile) {
             LocalDateTime deadlineDate = null;
-            try {
-                for (String formatString : formatStrings) {
-                    try {
-                        System.out.println(deadline + formatString);
-                        deadlineDate = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern(formatString));
-                        break;
-                    } catch (DateTimeParseException e) {
-                        throw new KevinException("Ensure that the deadline is a valid date");
-                    }
+            for (String formatString : formatStrings) {
+                try {
+                    System.out.println(deadline + formatString);
+                    deadlineDate = LocalDateTime.parse(deadline, DateTimeFormatter.ofPattern(formatString));
+                    break;
+                } catch (DateTimeParseException e) {
+                    throw new KevinException(new StringBuilder()
+                            .append("Ensure that the date is one of the following formats: ")
+                            .append("\"d/MM/yyyy HHmm\" or \"dd/MM/yyyy HHmm\"").toString());
                 }
-            } catch (DateTimeParseException err) {
-                throw new KevinException("Ensure that the deadline is a valid date");
             }
 
             Deadline newDeadline = taskList.addDeadline(isDone, name, deadlineDate);
