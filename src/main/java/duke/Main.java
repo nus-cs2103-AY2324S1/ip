@@ -32,6 +32,8 @@ public class Main extends Application {
                             .toExternalForm()
             );
             stage.setScene(scene);
+            stage.setMinHeight(620);
+            stage.setMinWidth(420);
             fxmlLoader.<ChatWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
