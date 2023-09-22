@@ -111,6 +111,9 @@ public class Parser {
                         + tasks.get(id).toString());
             Storage.updateTask(tasks);
             break;
+        case "help":
+            output = Ui.helpMessage();
+            break;
         case "find":
             String keyword = input[1].trim();
             String found = "";
