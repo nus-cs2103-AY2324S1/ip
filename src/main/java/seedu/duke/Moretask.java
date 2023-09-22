@@ -38,6 +38,15 @@ class Deadline extends Task {
     }
 }
 
+
+/**
+ * Represents an event task, which has a specific start and end date.
+ *
+ * @param description A brief description of the event task.
+ * @param from The start date of the event task.
+ * @param to The end date of the event task.
+ */
+
 class Event extends Task {
     public LocalDate from;
     public LocalDate to;
