@@ -13,6 +13,7 @@ public class Todo extends Task {
             new PotatoException(LINE + "Bruh you wanna do air or something?\n" + LINE);
             return null;
         } else {
+            assert input.length() > 1 : "input length should be > 1";
             return new Todo(input, (mark.equals("1")));
         }
     }

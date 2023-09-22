@@ -20,6 +20,7 @@ public class Deadline extends Task {
             new PotatoException(LINE + "Bruh you wanna do air or something?\n" + LINE);
             return null;
         } else {
+            assert input.length() > 1 : "input length should be > 1";
             return new Deadline(input.substring(0, indexBy - 1),
                     input.substring(indexBy + 4), false);
         }

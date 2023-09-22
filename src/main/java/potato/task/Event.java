@@ -23,6 +23,7 @@ public class Event extends Task {
             new PotatoException(LINE + "Bruh you wanna do air or something?\n" + LINE);
             return null;
         } else {
+            assert input.length() > 1 : "input length should be > 1";
             return new Event(input.substring(0, indexFrom - 1),
                     input.substring(indexFrom + 6, indexTo - 1),
                     input.substring(indexTo + 4), false);
