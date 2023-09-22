@@ -28,7 +28,7 @@ public class Storage {
      * @return ArrayList of string containing the information read from the file
      * @throws NoFileException throws an error if no such file is found with the given filepath
      */
-    public ArrayList<String> load() throws NoFileException {
+    public ArrayList<String> load() {
         File f = new File(filePath);
         ArrayList<String> fileData = new ArrayList<>();
 
@@ -41,7 +41,9 @@ public class Storage {
             fileReader.close();
             return fileData;
         } catch (FileNotFoundException e) {
-            throw new NoFileException(e.getMessage());
+            File file = new File("./data");
+            file.mkdir();
+            return fileData;
         }
     }
 
