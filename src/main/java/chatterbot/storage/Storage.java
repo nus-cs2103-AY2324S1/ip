@@ -1,9 +1,6 @@
 package chatterbot.storage;
 
-import chatterbot.data.Deadline;
-import chatterbot.data.Event;
-import chatterbot.data.Task;
-import chatterbot.data.Todo;
+import chatterbot.data.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,12 +14,14 @@ import java.util.Scanner;
  */
 public class Storage {
 
-    private String filePath;
-    private static ArrayList<Task> list;
+    private static String filePath;
 
-    public Storage(String filePath, ArrayList<Task> list) {
+    private static TaskList taskList;
+//    private static ArrayList<Task> list;
+
+    public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
-        this.list = list;
+        this.taskList = taskList;
     }
 
     /**
@@ -30,39 +29,57 @@ public class Storage {
      * @param filePath This is the file path to the .txt file
      * @throws FileNotFoundException If the file cannot be found.
      */
-    public static void copyFileContents(String filePath) throws FileNotFoundException {
+    public static ArrayList<Task> copyFileContents(String filePath) throws FileNotFoundException {
+        ArrayList<Task> taskArrayList = new ArrayList<>();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             String line = s.nextLine();
-            if (line.contains("todo")) {
-                Todo todo = new Todo(line.substring(5));
-                list.add(todo);
-            } else if (line.contains("deadline")) {
-                int slashDeadline = line.indexOf("/");
-                String deadlineDescription = line.substring(9, slashDeadline).trim();
-                String deadlineBy = line.substring(slashDeadline + 3).trim();
+            if (line.contains("[T]")) {
+                String[] todoSplit = line.split(" \\| ");
+                String mark = todoSplit[1];
+                String description = todoSplit[2];
+                Todo todo = new Todo(description);
+                if (mark.equals("1")) {
+                    todo.setDone();
+                }
+                taskArrayList.add(todo);
+//                Todo todo = new Todo(line.substring(5));
+//                taskArrayList.add(todo);
+            } else if (line.contains("[D]")) {
+                String[] deadlineSplit = line.split(" \\| ");
+                String mark = deadlineSplit[1];
+                String deadlineDescription = deadlineSplit[2];
+                String deadlineBy = deadlineSplit[3];
                 Deadline deadline = new Deadline(deadlineDescription, deadlineBy);
-                list.add(deadline);
-            } else if (line.contains("event")) {
-                String[] eventSplit = line.split("/");
-                String eventDescription = eventSplit[0].substring(6);
-                String eventTo = eventSplit[1].substring(5);
-                String eventFrom = eventSplit[2].substring(3);
+                if (mark.equals("1")) {
+                    deadline.setDone();
+                }
+                taskArrayList.add(deadline);
+            } else if (line.contains("[E]")) {
+                String[] eventSplit = line.split(" \\| ");
+                String mark = eventSplit[1];
+
+                String eventDescription = eventSplit[2];
+                String eventTo = eventSplit[3];
+                String eventFrom = eventSplit[4];
                 Event event = new Event(eventDescription, eventTo, eventFrom);
-                list.add(event);
+                if (mark.equals("1")) {
+                    event.setDone();
+                }
+                taskArrayList.add(event);
             }
         }
         s.close();
+        return taskArrayList;
     }
 
     /**
      * Removes the current .txt file content by overwriting it.
-     * @param filePath This is the file path to the .txt file.
      * @param textToWrite This is what will be written in the .txt file.
      * @throws IOException If there is an error reading or writing to the file.
      */
-    public static void writeToFile(String filePath, String textToWrite) throws IOException {
+    public static void writeToFile(String textToWrite) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath);
             fw.write(textToWrite);
@@ -74,11 +91,10 @@ public class Storage {
 
     /**
      * Adds to the current .txt file content.
-     * @param filePath This is the file path to the .txt file.
      * @param textToAppend This is what will be added to the .txt file.
      * @throws IOException If there is an error reading or writing to the file.
      */
-    public static void appendToFile(String filePath, String textToAppend) throws IOException {
+    public static void appendToFile(String textToAppend) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(textToAppend + System.lineSeparator());
         fw.close();

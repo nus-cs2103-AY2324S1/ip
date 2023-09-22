@@ -52,11 +52,8 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        System.out.println("a");
         String input = userInput.getText();
-        System.out.println("b");
         String response = chatterbot.getResponse(input);
-        System.out.println("c");
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getChatterBotDialog(response, dukeImage)

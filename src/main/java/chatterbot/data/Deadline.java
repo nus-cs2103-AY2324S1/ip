@@ -43,6 +43,6 @@ public class Deadline extends Task {
      */
     @Override
     public String formatForFile() {
-        return "deadline " + this.description + " /by " + by;
+        return "[D] | " + super.formatForFile() + " | " + by;
     }
 }

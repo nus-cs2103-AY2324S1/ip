@@ -13,10 +13,12 @@ import java.util.ArrayList;
  */
 public class Ui {
 
-    public static ArrayList<Task> list;
+    public static TaskList taskList;
 
-    public Ui(ArrayList<Task> list) {
-        this.list = list;
+    //public static ArrayList<Task> list;
+
+    public Ui(TaskList taskList) {
+        this.taskList = taskList;
     }
     protected static String response;
 
@@ -55,9 +57,9 @@ public class Ui {
     public static String showFoundTasks(String toFind) {
         ArrayList<Task> foundTasksArray = new ArrayList<Task>();
 
-        for (Task t : list) {
-            if (t.description.contains(toFind)) {
-                foundTasksArray.add(t);
+        for (int i = 0; i < taskList.getSize(); i++) {
+            if (taskList.getTask(i).contains(toFind)) {
+                foundTasksArray.add(taskList.getTask(i));
             }
         }
 
@@ -79,8 +81,8 @@ public class Ui {
      * @param toMark This is the task that will be marked.
      */
     public static String showMarked(String toMark) {
-        String markedTaskDescription = list.get(Integer.parseInt(toMark) - 1).description;
-        return "Nice! I've marked this task as done:\n[X] " + markedTaskDescription;
+        Task task = taskList.getTask(Integer.parseInt(toMark) - 1);
+        return "Nice! I've marked this task as done:\n" + task;
     }
 
     /**
@@ -88,8 +90,8 @@ public class Ui {
      * @param toUnmark This is the task that will be unmarked.
      */
     public static String showUnmarked(String toUnmark) {
-        String unmarkedTaskDescription = list.get(Integer.parseInt(toUnmark) - 1).description;
-        return "OK, I've marked this task as not done yet:\n[ ] " + unmarkedTaskDescription;
+        Task task = taskList.getTask(Integer.parseInt(toUnmark) - 1);
+        return "OK, I've marked this task as not done yet:\n" + task;
     }
 
     /**
@@ -103,7 +105,7 @@ public class Ui {
         message.append("Got it. I've added this task:\n")
                 .append(d.toString())
                 .append("\nNow you have ")
-                .append(list.size())
+                .append(taskList.getSize())
                 .append(" tasks in the list.");
         return message.toString();
     }
@@ -118,7 +120,7 @@ public class Ui {
         message.append("Got it. I've added this task:\n")
                 .append(td.toString())
                 .append("\nNow you have ")
-                .append(list.size())
+                .append(taskList.getSize())
                 .append(" tasks in the list.");
         return message.toString();
     }
@@ -133,7 +135,7 @@ public class Ui {
         message.append("Got it. I've added this task:\n")
                 .append(e.toString())
                 .append("\nNow you have ")
-                .append(list.size())
+                .append(taskList.getSize())
                 .append(" tasks in the list.");
         return message.toString();
     }
@@ -146,11 +148,11 @@ public class Ui {
         int taskIndex = Integer.parseInt(userMessage.substring(7)) - 1;
         StringBuilder message = new StringBuilder();
 
-        if (taskIndex >= 0 && taskIndex < list.size()) {
+        if (taskIndex >= 0 && taskIndex < taskList.getSize()) {
             message.append("Noted. I've removed this task:\n")
-                    .append(list.get(taskIndex))
+                    .append(taskList.getTask(taskIndex))
                     .append("\nNow you have ")
-                    .append(list.size() - 1)
+                    .append(taskList.getSize() - 1)
                     .append(" tasks in the list.");
         } else {
             message.append("Invalid task index. No task removed.");

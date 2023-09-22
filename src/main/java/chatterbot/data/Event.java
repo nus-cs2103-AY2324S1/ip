@@ -33,6 +33,6 @@ public class Event extends Task {
      */
     @Override
     public String formatForFile() {
-        return "event " + this.description + "/from " + this.from + "/to " + this.to;
+        return "[E] | " + super.formatForFile() + " | "  + this.from + " | " + this.to;
     }
 }

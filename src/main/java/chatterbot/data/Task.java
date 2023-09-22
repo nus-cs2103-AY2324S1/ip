@@ -4,7 +4,7 @@ package chatterbot.data;
  * Represents the tasks that are added to the task list.
  */
 public class Task {
-    public String description;
+    private String description;
     protected boolean isDone;
 
     public Task(String description) {
@@ -48,6 +48,14 @@ public class Task {
      * @return String This is the formatted line to add to the ChatterBot.txt file.
      */
     public String formatForFile() {
-        return "task " + this.description;
+        if (isDone) {
+            return "1 | " + description;
+        } else {
+            return "0 | " + description;
+        }
+    }
+
+    public boolean contains(String query) {
+        return description.contains(query);
     }
 }

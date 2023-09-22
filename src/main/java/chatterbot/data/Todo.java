@@ -27,6 +27,6 @@ public class Todo extends Task {
      */
     @Override
     public String formatForFile() {
-        return "todo " + this.description;
+        return "[T] | " + super.formatForFile();
     }
 }

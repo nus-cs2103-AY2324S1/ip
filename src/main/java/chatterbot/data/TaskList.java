@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class TaskList {
 
-    public static ArrayList<Task> list;
+    private static ArrayList<Task> list;
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -24,7 +24,7 @@ public class TaskList {
      */
     public static void initiateTaskList(Storage storage) {
         try {
-            storage.copyFileContents("data/ChatterBot.txt");
+            list = storage.copyFileContents("data/ChatterBot.txt");
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
@@ -47,38 +47,64 @@ public class TaskList {
         return list;
     }
 
-    public String addTask(Task task, Storage storage, String filePath) {
+    public String addTask(Task task, Storage storage) {
         assert task != null : "Task to add cannot be null.";
         int initialSize = list.size();
         list.add(task);
         assert list.size() == initialSize + 1 : "Task list size did not increase after adding a task.";
         try {
-            // Save the updated task list to the storage file.
-            storage.appendToFile(filePath, task.formatForFile());
+            storage.appendToFile(task.formatForFile());
         } catch (IOException e) {
             return "Error: File not found.";
         }
         return "Got it. I've added this task:\n" + task.formatForFile() + "\nNow you have " + list.size() + " tasks in the list.";
     }
 
-    public String deleteTask(int taskIndex, Storage storage, String filePath) {
-//        if (taskIndex < 0 || taskIndex >= list.size()) {
-//            return "Invalid task index. No task removed.";
-//        }
+    public String deleteTask(int taskIndex, Storage storage) {
         try {
             assert taskIndex >= 0 && taskIndex < list.size() : "Task index must be within list range.";
             int initialSize = list.size();
-            list.remove(taskIndex);
+            if (list.size() == 1) {
+                list.clear();
+            } else {
+                list.remove(taskIndex);
+            }
             assert list.size() == initialSize - 1 : "Task list size did not decrease after removing a task.";
         } catch (Exception e) {
             return "Error, task not removed.";
         }
         try {
-            // Save the updated task list to the storage file.
-            storage.writeToFile(filePath, convertToString(list));
+            storage.writeToFile(convertToString(list));
         } catch (IOException e) {
             return "Error: File not found.";
         }
         return "Noted. I've removed this task:\n" + list.get(taskIndex).formatForFile() + "\nNow you have " + list.size() + " tasks in the list.";
     }
+
+    public void setDone(int taskIndex, Storage storage) {
+        list.get(taskIndex).setDone();
+        try {
+            storage.writeToFile(convertToString(list));
+        } catch (IOException e) {
+
+        }
+    }
+
+    public void unsetDone(int taskIndex, Storage storage) {
+        list.get(taskIndex).setUndone();
+        try {
+            storage.writeToFile(convertToString(list));
+        } catch (IOException e) {
+
+        }
+    }
+
+    public int getSize() {
+        return list.size();
+    }
+
+    public Task getTask(int taskIndex) {
+        return list.get(taskIndex);
+    }
+
 }

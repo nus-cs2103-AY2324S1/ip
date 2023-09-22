@@ -1,5 +1,1 @@
-todo 0
-todo a
-todo 8
-todo charge macbook
-todo 6
+[D] | 0 | this assignment | 2019-10-12
