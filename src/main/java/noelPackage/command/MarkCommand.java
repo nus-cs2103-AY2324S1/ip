@@ -3,23 +3,20 @@ package noelPackage.command;
 import noelPackage.helper.Storage;
 import noelPackage.helper.Tasklist;
 
-public class markCommand extends Command {
+public class MarkCommand extends Command {
 
-    private String output;
+    private final String[] command;
 
-    public markCommand(Tasklist tasks, int taskNum, Storage storage) {
-        super("");
-        this.output = tasks.markAsDone(taskNum);
-        storage.writeToFile(tasks.getTaskAsList());
-    }
-
-    @Override
-    public String toString(){
-        return output;
+    public MarkCommand(String[] command) {
+        this.command = command;
     }
 
     @Override
     public String execute(Tasklist tasks, Storage storage) {
-        return null;
+        assert command != null : "Should have an input!";
+        int taskNum = Integer.parseInt(this.command[1]) - 1;
+        String returnString = tasks.markAsDone(taskNum);
+        storage.writeToFile(tasks.getTaskAsList());
+        return returnString;
     }
 }

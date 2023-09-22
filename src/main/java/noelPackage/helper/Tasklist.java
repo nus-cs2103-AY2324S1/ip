@@ -26,9 +26,6 @@ public class Tasklist {
     /** Message displayed when a task is added. */
     static String ADDED_MESSAGE_START = "Got it. I've added this task:";
 
-    /** Message displayed when a search is done and tasks are found. */
-    String MATCHING_STRING = "Here are the matching tasks in your list:";
-
     /**
      * Constructs a Tasklist from a serialized list of tasks.
      * @param listOfTasks The serialized list of tasks.
@@ -172,50 +169,35 @@ public class Tasklist {
     }
 
     /**
-     * Prints a message enclosed in a fixed design.
-     * @param message The message to print.
-     */
-    public static void printFunction(String message){
-        String filler = "____________________________________________________________";
-        System.out.println(filler + "\n" + message + "\n" + filler);
-    }
-
-    /**
      * Adds an event task to the task list.
      * @param task The task description.
      * @param startDate The start date of the event.
      * @param endDate The end date of the event.
      */
-    public void addEvent(String task, String startDate, String endDate) {
+    public String addEvent(String task, String startDate, String endDate) {
 
         LocalDate startDateFormat = dateFormat(startDate);
         LocalDate endDateFormat = dateFormat(endDate);
         LocalTime startTimeFormat = timeFormat(startDate);
         LocalTime endTimeFormat = timeFormat(endDate);
 
-        if (startDateFormat == null || endDateFormat == null) {
-            System.out.println("Invalid format for start/end date!");
-            return;
-        }
-
-        if (startTimeFormat == null || endTimeFormat == null) {
-            System.out.println("Invalid format for start/end time!");
-            return;
+        if (startDateFormat == null || endDateFormat == null || startTimeFormat == null || endTimeFormat == null) {
+            return ("Invalid format for start/end date!");
         }
 
         Task taskToAdd = new Events(task, startDateFormat, startTimeFormat, endDateFormat, endTimeFormat);
 
         if (checkFull()) {
-            System.out.println("Array is full!");
+            return ("Array is full!");
+        } else {
+            taskList.add(taskToAdd);
+            String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
+            String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
+            if (!Noel.updateFromFile) {
+                return (updateAdd);
+            }
         }
-
-        taskList.add(taskToAdd);
-
-        String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
-        String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
-        if (!Noel.updateFromFile) {
-            printFunction(updateAdd);
-        }
+        return "";
     }
 
     /**
@@ -223,54 +205,51 @@ public class Tasklist {
      * @param task The task description.
      * @param endDate The end date of the deadline.
      */
-    public void addDeadline(String task, String endDate) {
+    public String addDeadline(String task, String endDate) {
 
         LocalDate date = dateFormat(endDate);
         if (date == null) {
-            System.out.println("Invalid date!");
-            return;
+            return ("Invalid date!");
         }
 
         LocalTime time = timeFormat(endDate);
         if (time == null) {
-            System.out.println("Invalid date!");
-            return;
+            return ("Invalid date!");
         }
-
-        Task taskToAdd = new Deadlines(task, date, time);
 
         if (checkFull()) {
-            System.out.println("Array is full!");
+            return ("Array is full!");
+        } else {
+            Task taskToAdd = new Deadlines(task, date, time);
+            taskList.add(taskToAdd);
+            String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
+            String updateAdd = ADDED_MESSAGE_START + "\n" + taskToAdd + "\n" + addedMessageEnd;
+            if (!Noel.updateFromFile) {
+                return (updateAdd);
+            }
         }
-
-        taskList.add(taskToAdd);
-
-        String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
-        String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
-        if (!Noel.updateFromFile) {
-            printFunction(updateAdd);
-        }
+        return "";
     }
 
     /**
      * Adds a To-Do task to the task list.
      * @param task The task description.
      */
-    public void addToDo(String task) {
+    public String addToDo(String task) {
 
         Task taskToAdd = new ToDos(task);
 
         if (checkFull()) {
-            System.out.println("Array is full!");
+            return ("Array is full!");
+        } else {
+            taskList.add(taskToAdd);
+            String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
+            String updateAdd = ADDED_MESSAGE_START + "\n" + taskToAdd + "\n" + addedMessageEnd;
+            if (!Noel.updateFromFile) {
+                return (updateAdd);
+            }
         }
-
-        taskList.add(taskToAdd);
-
-        String addedMessageEnd = "Now you have " + taskList.size() + " tasks in the list.";
-        String updateAdd = ADDED_MESSAGE_START + "\n" +  taskToAdd + "\n" + addedMessageEnd;
-        if (!Noel.updateFromFile) {
-            printFunction(updateAdd);
-        }
+        return "";
     }
 
     /**
@@ -284,7 +263,7 @@ public class Tasklist {
 
             int maxLength = taskList.size();
             for (int i = 0; i < maxLength; i++) {
-                result.append(i).append(1).append(". ").append(taskList.get(i)).append("\n");
+                result.append(i+1).append(". ").append(taskList.get(i)).append("\n");
             }
         }
         return result.toString();
@@ -314,8 +293,8 @@ public class Tasklist {
      * Marks a task as undone.
      * @param index The index of the task to mark as undone.
      */
-    public void unMark(int index) {
-        taskList.get(index).markAsUnDone();
+    public String unMark(int index) {
+        return taskList.get(index).markAsUnDone();
     }
 
     /**
@@ -343,7 +322,7 @@ public class Tasklist {
         return taskList.get(index);
     }
 
-    public void searchByKeyword(String keyword) {
+    public List<String> searchByKeyword(String keyword) {
         List<String> linesToAppend = new ArrayList<>();
 
         for (Task t:taskList) {
@@ -351,25 +330,38 @@ public class Tasklist {
                 linesToAppend.add(t.toString());
             }
         }
-        displayResult(linesToAppend.subList(0, linesToAppend.size()));
+        return linesToAppend;
     }
 
-    public void displayResult(List<String> listOfTasks) {
-        if (listOfTasks.size() == 0) {
-            System.out.println("No results with such keyword!");
-        } else {
-            int lastTask = listOfTasks.size();
-            StringBuilder result = new StringBuilder();
-            int i = 1;
-            for (String t: listOfTasks) {
-                if (i == lastTask) {
-                    result.append(i).append(".").append(t);
-                } else {
-                    result.append(i).append(".").append(t).append("\n");
-                }
-                i++;
+    public String updateEvent(int index, String startDate, String endDate) {
+        Task eventTask = taskList.get(index);
+        if (eventTask instanceof Events) {
+            LocalDate startDateFormat = dateFormat(startDate);
+            LocalDate endDateFormat = dateFormat(endDate);
+            LocalTime startTimeFormat = timeFormat(startDate);
+            LocalTime endTimeFormat = timeFormat(endDate);
+
+            if (startDateFormat == null || endDateFormat == null || startTimeFormat == null || endTimeFormat == null) {
+                return ("Invalid format for start/end date!");
             }
-            printFunction(MATCHING_STRING + "\n" + result);
+            return ((Events) eventTask).updateDates(startDateFormat, startTimeFormat, endDateFormat, endTimeFormat);
+        } else {
+            return "You can only update a deadline/event!";
+        }
+    }
+
+    public String updateDeadline(int index, String endDate) {
+        Task deadlineTask = taskList.get(index);
+        if (deadlineTask instanceof Deadlines) {
+            System.out.println(endDate);
+            LocalDate endDateFormat = dateFormat(endDate);
+            LocalTime endTimeFormat = timeFormat(endDate);
+            if (endDateFormat == null || endTimeFormat == null) {
+                return ("Invalid format for start/end date!");
+            }
+            return ((Deadlines) deadlineTask).updateDates(endDateFormat, endTimeFormat);
+        } else {
+            return "You can only update a deadline/event!";
         }
     }
 }

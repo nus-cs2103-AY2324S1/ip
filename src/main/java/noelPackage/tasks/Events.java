@@ -74,4 +74,10 @@ public class Events extends Task {
     public String toString() {
         return TASK_CHAR + super.toString() + " " + this.dateString;
     }
+
+    public String updateDates(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
+        setDates(startDate, startTime, endDate, endTime);
+        return "Updated Task!" + this;
+    }
+
 }

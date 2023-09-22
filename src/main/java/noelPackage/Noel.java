@@ -4,7 +4,6 @@ import noelPackage.exceptions.NoelException;
 import noelPackage.helper.Parser;
 import noelPackage.helper.Storage;
 import noelPackage.helper.Tasklist;
-import noelPackage.helper.Ui;
 
 /**
  * Noel is a chat application that helps manage tasks.
@@ -37,6 +36,7 @@ public class Noel {
             parser = new Parser(tasks, storage);
             updateFromFile = false;
         }
+        assert tasks != null : "Tasks should not be null";
     }
 
     /**
@@ -44,8 +44,7 @@ public class Noel {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        int commandOption = parser.parseCommand(input);
-        return "okay";
+        return parser.parseCommand(input);
     }
 
 }

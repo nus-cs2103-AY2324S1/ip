@@ -26,6 +26,12 @@ public class Deadlines extends Task {
         this.dueTime = deadlineTime;
     }
 
+    public String updateDates(LocalDate deadlineDate, LocalTime deadlineTime) {
+        this.dueDate = deadlineDate;
+        this.dueTime = deadlineTime;
+        return "Updated Task!" + this;
+    }
+
     /**
      * Returns a string representation of the dueDate
      *

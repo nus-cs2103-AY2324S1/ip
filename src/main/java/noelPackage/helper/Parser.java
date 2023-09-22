@@ -1,5 +1,6 @@
 package noelPackage.helper;
 
+import noelPackage.command.*;
 import noelPackage.tasks.Task;
 
 public class Parser {
@@ -19,125 +20,65 @@ public class Parser {
     }
 
     /**
-     * Prints a formatted message to the console.
-     *
-     * @param message The message to print.
-     */
-    public static void printFunction(String message){
-        String filler = "____________________________________________________________";
-        System.out.println(filler + "\n" + message + "\n" + filler);
-    }
-
-    /**
      * Parses a user command and performs the corresponding action.
      *
      * @param nextLine The command entered by the user.
      * @return -1 if the command is "bye", 0 otherwise.
      */
-    public int parseCommand(String nextLine) {
-        String command;
+    public String parseCommand(String nextLine) {
+
+        Command currCommand = new InvalidCommand();
+
         if (nextLine.equals("bye")) {
-            return -1;
+            currCommand = new ByeCommand();
         } else if (nextLine.equals("list")) {
-            tasks.printTaskList();
+            currCommand = new ListCommand();
         } else if (nextLine.contains(" ")) {
+            return parseCommandHelper(nextLine);
+        }
+        return currCommand.execute(tasks, storage);
+    }
 
-            String[] result = nextLine.split(" ");
-            command = result[0];
+    public String parseCommandHelper(String nextLine) {
 
-            switch (command) {
+        Command currCommand = new InvalidCommand();
+
+        String[] result = nextLine.split(" ");
+
+        switch (result[0]) {
 
             case "mark": {
-                int taskNum = Integer.parseInt(result[1]);
-                taskNum = taskNum - 1;
-                tasks.markAsDone(taskNum);
-                storage.writeToFile(tasks.getTaskAsList());
+                currCommand = new MarkCommand(result);
                 break;
             }
             case "unmark": {
-                int taskNum = Integer.parseInt(result[1]);
-                tasks.unMark(taskNum);
-                storage.writeToFile(tasks.getTaskAsList());
+                currCommand = new UnMarkCommand(result);
                 break;
             }
             case "todo":
-                result = nextLine.split("todo ");
-                if (result.length == 1) {
-                    System.out.println("OOPS!!! The description of a todo cannot be empty.");
-                } else {
-                    tasks.addToDo(result[1]);
-                    storage.writeToFile(tasks.getTaskAsList());
-                }
+                currCommand = new ToDoCommand(nextLine);
                 break;
 
             case "deadline":
-                result = nextLine.split("deadline ");
-                if (result.length == 1) {
-                    System.out.println("OOPS!!! The description of a deadline cannot be empty.");
-                } else {
-                    String[] deadlineHelper = result[1].split(" /by ");
-                    if (deadlineHelper.length == 2) {
-                        tasks.addDeadline(deadlineHelper[0], deadlineHelper[1]);
-                        storage.writeToFile(tasks.getTaskAsList());
-                    } else {
-                        System.out.println("OOPS!!! Remember to add the date/description");
-                    }
-                }
+                currCommand = new DeadlineCommand(nextLine);
                 break;
 
             case "event":
-                result = nextLine.split("event ");
-                if (result.length == 1) {
-                    System.out.println("OOPS!!! The description of a event cannot be empty.");
-                } else {
-                    String[] eventsHelper = result[1].split(" /from ");
-                    command = eventsHelper[0];
-                    if (eventsHelper.length == 2) {
-                        eventsHelper = eventsHelper[1].split(" /to ");
-                        if (eventsHelper.length == 2) {
-                            tasks.addEvent(command, eventsHelper[0], eventsHelper[1]);
-                            storage.writeToFile(tasks.getTaskAsList());
-                        } else {
-                            System.out.println("Insufficient commands provided!");
-                        }
-                    } else {
-                        System.out.println("Insufficient commands provided!");
-                    }
-                }
+                currCommand = new EventCommand(nextLine);
                 break;
 
             case "delete":
-                result = nextLine.split("delete ");
-                if (result.length == 1) {
-                    System.out.println("OOPS!!! The description of a delete cannot be empty.");
-                } else {
-                    int intToRemove = Integer.parseInt(result[1]) - 1;
-                    Task taskToDel = tasks.getTask(intToRemove);
-                    tasks.remove(intToRemove);
-
-                    String delStart = "Noted. I've removed this task:\n";
-                    String delEnd = "Now you have " + tasks.getSize() + " tasks in the list.";
-                    printFunction(delStart + taskToDel + "\n" + delEnd);
-                    storage.writeToFile(tasks.getTaskAsList());
-                    break;
-                }
-
-            case "find":
-                result = nextLine.split("find ");
-
-                if (result.length == 1) {
-                    System.out.println("No keyword given!");
-                } else {
-                    tasks.searchByKeyword(result[1]);
-                }
+                currCommand = new DeleteCommand(nextLine);
                 break;
 
-            default:
-                System.out.println("Invalid Option!");
-            }
-        } else {
-            System.out.println("Invalid Option!");
+            case "find":
+                currCommand = new FindCommand(nextLine);
+                break;
+
+            case "snooze":
+                currCommand = new SnoozeCommand(nextLine);
+                break;
         }
-        return 0;
+        return currCommand.execute(tasks, storage);
     }
 }
