@@ -84,7 +84,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (input.equals("bye")) {
+        if (input.equals("bye") || input.startsWith("bye ")) {
             Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
                 System.exit(0);
             }));
