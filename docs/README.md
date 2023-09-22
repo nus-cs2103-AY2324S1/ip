@@ -3,13 +3,13 @@
 ## Getting Started
 1. Check that you are using Java 11
 2. Download the latest JAR file
-3. Navigate to the directory containing the JAR file downloaded
+3. Navigate to the directory containing the downloaded JAR file
 4. Run java -jar duke.jar to start the application
 
 ## Features
 
 ### Creating a new task: `todo`, `deadline`, `event`
-Add a new task to your task list.
+Add a new task of the specified type to the task list.
 
 **Format:**
 1. `todo [TASK]`
@@ -30,7 +30,7 @@ Now you have 1 tasks in the list
 
 ### Deleting a task: `delete`
 
-Delete an existing task from your task list.
+Delete an existing task from the task list.
 
 **Format:** `delete [TASK_NUMBER]`
 
@@ -45,7 +45,7 @@ Now you have 0 tasks in the list
 
 ### Listing all tasks: `list`
 
-List all the tasks you have added to your task list.
+List all the tasks that have been added to the task list.
 
 **Format:** `list`
 
@@ -59,7 +59,7 @@ Here are the tasks in your list:
 
 ### Marking a task: `mark`
 
-Mark an existing task from your task list as done as indicated by X.
+Mark an existing task as done, indicated by X.
 
 **Format:** `mark [TASK_NUMBER]`
 
@@ -73,7 +73,7 @@ Nice! I've marked this task as done:
 
 ### Finding a task: `find`
 
-Find a specified task from the tasklist containing the keyword entered.
+Find and list out tasks containing the keyword entered.
 
 **Format:** `find [KEYWORD]`
 
@@ -107,13 +107,14 @@ Here are the commands I understand:
 
 ### Exiting the application: `bye`
 
-Exit the application.
+Exit the application after 3 seconds.
 
 **Format:** `bye`
 
 **Expected Bot output:**
 ```
 Bye! Hope to see you again soon!
+Bot is leaving in 3 seconds...
 ```
 
 ## Command Summary
