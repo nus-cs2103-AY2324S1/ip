@@ -50,13 +50,15 @@ application {
 
 mainClassName = 'duke.ChatterBox'
 
+
+
 shadowJar {
-    archiveBaseName = "chatterbox"
+    archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
     enableAssertions = true
 }
