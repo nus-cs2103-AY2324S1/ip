@@ -5,5 +5,4 @@
 [D][ ] assignment1 (by: 2023-09-12)
 [D][ ] sleep (by: 2023-11-12)
 [T][ ] homework
-[T][ ] practice quiz
 [T][X] saikang
