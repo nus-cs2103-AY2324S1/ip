@@ -189,7 +189,7 @@ Marks the completed task as done.
 
 **Expected outcome:**
 
-Marks the task at 2nd index number with a message.
+Marks the task at 2nd number with a message.
 
 ``` 
 Nice! I've marked this task as done:
@@ -210,7 +210,7 @@ Marks the completed task as undone.
 
 **Expected outcome:**
 
-Unmarks the task at 2nd index number with a message.
+Unmarks the task at 2nd number with a message.
 
 ``` 
 I've marked this task as undone:
@@ -231,7 +231,7 @@ Marks the completed task as undone.
 
 **Expected outcome:**
 
-Deletes the task at index 2 with a message.
+Deletes the task at 2nd number with a message.
 
 ``` 
 Noted. I've removed this task:
