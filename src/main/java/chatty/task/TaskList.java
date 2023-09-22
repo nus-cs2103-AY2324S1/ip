@@ -66,7 +66,7 @@ public class TaskList {
      */
     public void markTask(int i, boolean status) throws InvalidTaskNumberException {
         assert i > 0 && i <= this.listSize() : "Invalid task index: " + i;
-        if (i >= this.listSize() || i < 0) {
+        if (i > this.listSize() || i < 0) {
             throw new InvalidTaskNumberException();
         }
         Task taskToMark = this.taskList.get(i - 1);

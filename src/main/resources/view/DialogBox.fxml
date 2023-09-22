@@ -5,29 +5,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="228.0" prefWidth="502.0" style="-fx-background-color: #D6EAF8;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <VBox prefHeight="197.0" prefWidth="412.0" style="-fx-border-color: #1B4F72; -fx-background-color: #F4F6F6; -fx-min-height: 150.0;">
+      <VBox prefHeight="99.0" prefWidth="286.0" style="-fx-border-color: #1B4F72; -fx-min-width: 100; -fx-background-color: #E5E8E8; -fx-pref-height: 80;">
          <children>
-              <Label fx:id="dialog" alignment="TOP_LEFT" contentDisplay="TOP" graphicTextGap="2.0" text="Label" wrapText="true" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font name="Calibri" size="10.0" />
-               </font>
+              <Label fx:id="dialog" text="Label" wrapText="true">
                <padding>
-                  <Insets left="10.0" />
+                  <Insets left="10.0" top="2.0" />
                </padding>
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
             </Label>
          </children>
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
       </VBox>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
