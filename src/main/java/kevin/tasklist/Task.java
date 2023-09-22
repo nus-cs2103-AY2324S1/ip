@@ -43,7 +43,7 @@ public class Task {
      * Returns string representation of the isDone status.
      */
     public String isDone() {
-        return this.isDone ? "X" : " ";
+        return this.isDone ? "X" : "   ";
     }
 
     /**

@@ -58,6 +58,10 @@ public class Parser {
             }
             args.add(querySplit[1]);
         } else if (command == Command.DEADLINE) {
+            if (querySplit.length != 2) {
+                throw new KevinException(new StringBuilder().append("Deadline command needs to follow ")
+                        .append("\"deadline {deadline name} /by {deadline date}\".").toString());
+            }
             String[] argumentSplit = querySplit[1].split(" /by ");
             if (argumentSplit.length != 2) {
                 throw new KevinException(new StringBuilder().append("Deadline command needs to follow ")
@@ -66,6 +70,10 @@ public class Parser {
             args.add(argumentSplit[0]);
             args.add(argumentSplit[1]);
         } else if (command == Command.EVENT) {
+            if (querySplit.length != 2) {
+                throw new KevinException(new StringBuilder().append("Event command needs to follow ")
+                        .append("\"event {deadline name} /from {event start time} /to {event end time}\".").toString());
+            }
             String[] argumentGetName = querySplit[1].split(" /from ", 2);
             if (argumentGetName.length != 2) {
                 throw new KevinException(new StringBuilder().append("Event command needs to follow ")

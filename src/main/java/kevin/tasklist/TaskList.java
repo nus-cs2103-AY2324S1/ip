@@ -63,13 +63,21 @@ public class TaskList {
      */
     public String list() {
         StringBuilder listOutput = new StringBuilder();
-        listOutput.append("Here are the tasks in your list: ");
+        return getTaskListOutput(listOutput, taskList);
+    }
 
-        for (int i = 0; i < this.taskList.size(); i++) {
-            listOutput.append("\n")
-                    .append((i + 1))
-                    .append(".")
-                    .append(this.taskList.get(i));
+    private String getTaskListOutput(StringBuilder listOutput, ArrayList<Task> taskList) {
+        if (!taskList.isEmpty()) {
+            listOutput.append("Here are the tasks in your list: ");
+
+            for (int i = 0; i < taskList.size(); i++) {
+                listOutput.append("\n")
+                        .append((i + 1))
+                        .append(".")
+                        .append(taskList.get(i));
+            }
+        } else {
+            listOutput.append("Currently there are no task! Yeay!");
         }
 
         return listOutput.toString();
@@ -138,19 +146,15 @@ public class TaskList {
         assert keyword != null : "keyword is not supposed to be null";
 
         StringBuilder listOutput = new StringBuilder();
-        Integer number = 1;
-        listOutput.append("Here are the matching tasks in your list: ");
+        ArrayList<Task> filteredTaskList = new ArrayList<>();
 
         for (int i = 0; i < this.taskList.size(); i++) {
             if (this.taskList.get(i).toString().contains(keyword)) {
-                listOutput.append("\n\t")
-                        .append((number))
-                        .append(".")
-                        .append(this.taskList.get(i));
-                number += 1;
+                filteredTaskList.add(taskList.get(i));
             }
         }
-        return listOutput.toString();
+
+        return getTaskListOutput(listOutput, filteredTaskList);
     }
 
 
