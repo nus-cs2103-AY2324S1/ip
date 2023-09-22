@@ -6,7 +6,7 @@ Botty is your all-in-one companion for remembering things you need to do. It's
 - ~~Fast~~ _SUPER_ FAST to use
 
 All you need to do is,
-1. Download it from [here](https://nus-cs2103-ay2324s1.github.io/website/schedule/week4/project.html#3-decide-on-an-overall-project-direction-user-profile-problem-addressed-before-the-tutorial)
+1. Download it from [here](https://github.com/Weiennn/ip/releases/tag/A-Release)
 2. Double-click it
 3. Add you tasks
 4. Let it manage your tasks for you!😉
