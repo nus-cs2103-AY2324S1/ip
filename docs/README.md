@@ -134,7 +134,7 @@ Marks task as completed and saves to disk. If task was previously incomplete, up
 
 Example of usage:
 
-`mark 1`
+`mark <one-based integer index>`
 
 Expected outcome:
 
@@ -153,7 +153,7 @@ Unmarks completed task and saves to disk.
 
 Example of usage:
 
-`unmark 6`
+`unmark <one-based integer index>`
 
 Expected outcome:
 
@@ -167,7 +167,7 @@ Deletes a task and saves to disk.
 
 Example of usage:
 
-`delete 2`
+`delete <one-based integer index>`
 
 Expected outcome:
 
@@ -181,7 +181,7 @@ Finds tasks that contain the given word.
 
 Example of usage:
 
-`find do`
+`find <search term>`
 
 Expected outcome:
 
