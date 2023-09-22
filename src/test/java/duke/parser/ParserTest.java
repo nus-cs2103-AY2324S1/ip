@@ -21,7 +21,7 @@ public class ParserTest {
     public void parseInput_invalidCommand_errorThrown() throws DukeUnknownCommandException {
         Parser parser = new Parser();
         try {
-            parser.parseInput("help");
+            parser.parseInput("helpp");
             fail("Should have thrown invalid command error");
         } catch (DukeException error) {
             return;
