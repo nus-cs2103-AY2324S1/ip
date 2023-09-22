@@ -1,5 +1,7 @@
 package duke;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import javafx.application.Platform;
 
@@ -71,7 +73,9 @@ public class Parser {
     public static String handleExit(Storage storage, Ui ui, TaskList tasks) {
         storage.save(tasks, "tasks.txt");
         ui.closeScanner();
-        Platform.exit();
+        Timeline exitDelay = new Timeline(new KeyFrame(Duration.seconds(1), event -> Platform.exit()));
+        exitDelay.setCycleCount(1); // Run the exit action only once
+        exitDelay.play();
         return ui.showExitMessage();
     }
 

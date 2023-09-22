@@ -12,7 +12,7 @@ public class Ui {
     private final Scanner scanner;
 
     private VBox dialogContainer;
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/johnnythesnake.png"));
     //takes in user input
     public Ui() {
         scanner = new Scanner(System.in);

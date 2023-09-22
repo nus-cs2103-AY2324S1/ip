@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 
-
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -37,6 +36,9 @@ public class Duke extends Application {
             ui.showLoadingError();
             tasks = new TaskList();
         }
+
+        assert tasks != null : "Tasks should not be null after loading from storage.";
+
     }
 
     public void run() {
@@ -118,6 +120,8 @@ public class Duke extends Application {
     String getResponse(String userInput) {
         Command command = Parser.parseCommand(userInput);
         String description = Parser.parseDescription(userInput);
+        assert command != null : "Parsed command should not be null.";
+        assert description != null : "Parsed description should not be null.";
         switch (command) {
             //if user wants to exit, tasks are saved and exit message is shown
             case EXIT:
