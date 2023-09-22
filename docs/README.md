@@ -139,6 +139,8 @@ Shows all the commands available in Kevin.
 Format: `help`
 
 ## Command Summary
+
+
 | Action       | Format                                          |
 |--------------|-------------------------------------------------|
 | Add ToDo     | `todo DESCRIPTION`                              |
