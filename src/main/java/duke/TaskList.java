@@ -36,41 +36,51 @@ public class TaskList {
         this.taskList = new ArrayList<>();
     }
 
+    private Task deconstructTodoTask(String line) {
+        // splits the String T/0/homework into T, 0, and homework elements of arrayT
+        String[] arrayT = line.split("/", 3);
+        Todo task = new Todo(arrayT[2]);
+        // 1 means that task is done , 0 means task is undone
+        if (arrayT[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
+    }
 
+    private Task deconstructDeadlineTask(String line) {
+        // splits the String D/0/project/2002-12-02T04:00 into
+        // D, 0, project, 2002-12-02T04:00 elements of arrayD
+        String[] arrayD = line.split("/", 4);
+        LocalDateTime byDateTime = LocalDateTime.parse(arrayD[3]);
+        Deadline task = new Deadline(arrayD[2], byDateTime);
+        if (arrayD[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    private Task deconstructEventTask(String line) {
+        // splits the String E/0/project meeting/2002-12-02T04:00/2002-12-02T05:00 into
+        // E, 0, project meeting, 2002-12-02T04:00 and 2002-12-02T05:00 elements of arrayE
+        String[] arrayE = line.split("/", 5);
+        LocalDateTime fromDateTime = LocalDateTime.parse(arrayE[3]);
+        LocalDateTime toDateTime = LocalDateTime.parse(arrayE[4]);
+        Event task = new Event(arrayE[2], fromDateTime, toDateTime);
+        if (arrayE[1].equals("1")) {
+            task.markAsDone();
+        }
+        return task;
+    }
 
     private Task deconstructStringIntoTask(String line) {
         // parameter line is in the form E/0/project meeting/2002-12-02T04:00/2002-12-02T05:00
         String[] array = line.split("/", 2);
         if (array[0].equals("T")) {
-            // splits the String T/0/homework into T, 0, and homework elements of arrayT
-            String[] arrayT = line.split("/", 3);
-            Todo task = new Todo(arrayT[2]);
-            // 1 means that task is done , 0 means task is undone
-            if (arrayT[1].equals("1")) {
-                task.markAsDone();
-            }
-            return task;
+            return deconstructTodoTask(line);
         } else if (array[0].equals("D")) {
-            // splits the String D/0/project/2002-12-02T04:00 into
-            // D, 0, project, 2002-12-02T04:00 elements of arrayD
-            String[] arrayD = line.split("/", 4);
-            LocalDateTime byDateTime = LocalDateTime.parse(arrayD[3]);
-            Deadline task = new Deadline(arrayD[2], byDateTime);
-            if (arrayD[1].equals("1")) {
-                task.markAsDone();
-            }
-            return task;
+            return deconstructDeadlineTask(line);
         } else if (array[0].equals("E")) {
-            // splits the String E/0/project meeting/2002-12-02T04:00/2002-12-02T05:00 into
-            // E, 0, project meeting, 2002-12-02T04:00 and 2002-12-02T05:00 elements of arrayE
-            String[] arrayE = line.split("/", 5);
-            LocalDateTime fromDateTime = LocalDateTime.parse(arrayE[3]);
-            LocalDateTime toDateTime = LocalDateTime.parse(arrayE[4]);
-            Event task = new Event(arrayE[2], fromDateTime, toDateTime);
-            if (arrayE[1].equals("1")) {
-                task.markAsDone();
-            }
-            return task;
+            return deconstructEventTask(line);
         } else {
             return null;
         }
@@ -94,7 +104,7 @@ public class TaskList {
     }
 
     /**
-     * Gets a copy of the ArrayList<Task>
+     * Gets a copy of the ArrayList of Task objects
      * @return A clone of the ArrayList of the tasks
      */
     @SuppressWarnings("unchecked")
@@ -136,18 +146,18 @@ public class TaskList {
             hashMap.put(task, false);
         }
         for (int i = keywordLength; i > 0; i--) {
-            for (Task task : taskList) {                                       // task assigned to false in hashmap
-                if (task.getDescription().contains(keyword.substring(0, i)) && !hashMap.get(task)) {
-                    result.add(task);
-                    hashMap.replace(task, false, true);
-                    // limit does not count for task descriptions that contain the entire keyword
-                    if (i != keywordLength) {
-                        count++;
-                    }
-                    if (count == limit) {
-                        return result;
-                    }
-
+            for (Task task : taskList) {                                       // task assigned to true in hashmap
+                if (!task.getDescription().contains(keyword.substring(0, i)) || hashMap.get(task)) {
+                    continue;
+                }
+                result.add(task);
+                hashMap.replace(task, false, true);
+                // limit does not count for task descriptions that contain the entire keyword
+                if (i != keywordLength) {
+                    count++;
+                }
+                if (count == limit) {
+                    return result;
                 }
             }
         }
