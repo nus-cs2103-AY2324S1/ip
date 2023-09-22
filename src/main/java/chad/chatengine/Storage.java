@@ -40,6 +40,7 @@ public class Storage {
                 }
                 Files.createFile(filePath);
             }
+            assert Files.exists(filePath) : "File should exist after creation";
         } catch (IOException e) {
             System.out.println("An error occurred while creating the file or directory: " + e.getMessage());
         }

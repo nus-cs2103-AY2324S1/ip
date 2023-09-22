@@ -38,6 +38,8 @@ public class Parser {
             throw new ChadException.InvalidArgumentException("Input cannot be empty.");
         }
 
+        assert(input != null) : "Input string at this point should not be empty";
+
         String[] parts = input.split(" ", 2);
         CommandType command = parseCommandType(parts[0]);
 
