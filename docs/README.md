@@ -35,7 +35,8 @@ todo Water Plants
 ```
 Outcome:
 
-![Confirmation of Todo creation.](examples/todo.png =width)
+![Confirmation of Todo creation.](examples/todo.png)
+
 Confirmation of Todo creation.
 #### Deadline
 A Deadline is an item with a singular due date.
@@ -51,6 +52,8 @@ Outcome:
 
 ![Confirmation of Deadline creation.](examples/deadline.png)
 
+Confirmation of Deadline creation.
+
 #### Event
 An Event is a Task with a start date and an end date.
 Creating a Deadline:
@@ -62,7 +65,10 @@ Example:
 event Watch Frozen on Broadway /from 20230512T1400 /to 20230512T1700
 ```
 Outcome:
+
 ![Confirmation of Event creation.](examples/event.png)
+
+Confirmation of Event creation.
 
 ### Listing
 Used to show all your tasks.
@@ -70,7 +76,11 @@ Used to show all your tasks.
 list
 ```
 Outcome:
+
 ![List of your current tasks.](examples/list.png)
+
+List of your current tasks.
+
 ### Marking and Unmarking Tasks
 Tasks can be marked as done, as well as unmarked (undone!).
 #### Mark
@@ -83,7 +93,10 @@ Example:
 mark 3
 ```
 Outcome:
+
 ![Confirmation of marking.](examples/mark.png)
+
+Confirmation of marking.
 
 #### Unmark
 First use list to find out which task you are attempting to unmark, then use `unmark` to mark it as done!
@@ -95,7 +108,10 @@ Example:
 unmark 3
 ```
 Outcome:
+
 ![Confirmation of unmarking.](examples/unmark.png)
+
+Confirmation of unmarking.
 
 ### Finding a Task
 Finding a task has never been simpler. `find` is able to locate a keyword in any part of the task.
@@ -107,7 +123,10 @@ Example:
 find Birthday
 ```
 Outcome:
+
 ![List of events with "Birthday" inside them.](examples/find.png)
+
+List of events with "Birthday" inside them.
 
 ### Tagging
 #### Tagging
@@ -120,7 +139,11 @@ Example:
 tag 3 Important
 ```
 Outcome:
+
 ![Confirmation of tag.](examples/tag.png)
+
+Confirmation of tag.
+
 #### Untagging
 Removes a tag from a Task.
 ```
@@ -131,7 +154,10 @@ Example:
 tag 3 Important
 ```
 Outcome:
-![Confirmation of tag removal.](examples/untag.png)
+
+![Confirmation of tag removal.](examples/removetag.png)
+
+Confirmation of tag removal.
 
 #### Finding Tags
 Finds Tasks with the tag.
@@ -143,4 +169,7 @@ Example:
 findtag Important
 ```
 Outcome:
+
 ![Tasks with found tag.](examples/findtag.png)
+
+Tasks with found tag.
