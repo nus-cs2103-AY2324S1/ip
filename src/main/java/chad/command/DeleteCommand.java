@@ -1,5 +1,6 @@
 package chad.command;
 
+import chad.exception.DeleteException;
 import chad.exception.SaveException;
 import chad.task.Task;
 import chad.util.Storage;
@@ -29,7 +30,7 @@ public class DeleteCommand extends Command {
      * @param storage The given Storage that saves the TaskList locally.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws DeleteException {
         Task task = taskList.remove(this.index);
         ui.addDeleteMessage();
         ui.addTaskMessage(task);

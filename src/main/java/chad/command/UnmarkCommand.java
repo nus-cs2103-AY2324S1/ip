@@ -1,6 +1,7 @@
 package chad.command;
 
 import chad.exception.SaveException;
+import chad.exception.UnmarkException;
 import chad.task.Task;
 import chad.util.Storage;
 import chad.util.TaskList;
@@ -29,7 +30,7 @@ public class UnmarkCommand extends Command {
      * @param storage The given Storage that saves the TaskList locally.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws UnmarkException {
         Task task = taskList.unmark(this.index);
         ui.addUnmarkMessage();
         ui.addTaskMessage(task);

@@ -1,5 +1,6 @@
 package chad.command;
 
+import chad.exception.MarkException;
 import chad.exception.SaveException;
 import chad.task.Task;
 import chad.util.Storage;
@@ -29,7 +30,7 @@ public class MarkCommand extends Command {
      * @param storage The given Storage that saves the TaskList locally.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) {
+    public void execute(TaskList taskList, Ui ui, Storage storage) throws MarkException {
         Task task = taskList.mark(this.index);
         ui.addMarkMessage();
         ui.addTaskMessage(task);

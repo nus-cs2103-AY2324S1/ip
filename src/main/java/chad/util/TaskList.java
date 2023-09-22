@@ -2,6 +2,9 @@ package chad.util;
 
 import java.util.ArrayList;
 
+import chad.exception.DeleteException;
+import chad.exception.MarkException;
+import chad.exception.UnmarkException;
 import chad.task.Task;
 
 /**
@@ -66,9 +69,9 @@ public class TaskList {
      * @param index The index of Task to be removed.
      * @return The Task object that has been removed from the TaskList.
      */
-    public Task remove(int index) {
+    public Task remove(int index) throws DeleteException {
         if (index < 0 || index >= list.size()) {
-            return null;
+            throw new DeleteException();
         }
 
         return this.list.remove(index);
@@ -81,9 +84,9 @@ public class TaskList {
      * @param index The index of the Task to be marked complete.
      * @return The Task object that has been marked complete.
      */
-    public Task mark(int index) {
+    public Task mark(int index) throws MarkException {
         if (index < 0 || index >= list.size()) {
-            return null;
+            throw new MarkException();
         }
 
         this.list.get(index).markAsDone();
@@ -97,9 +100,9 @@ public class TaskList {
      * @param index The index of the Task to be marked incomplete.
      * @return The Task object that has been marked incomplete.
      */
-    public Task unmark(int index) {
+    public Task unmark(int index) throws UnmarkException {
         if (index < 0 || index >= list.size()) {
-            return null;
+            throw new UnmarkException();
         }
 
         this.list.get(index).markAsNotDone();

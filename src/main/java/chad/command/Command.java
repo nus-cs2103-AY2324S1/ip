@@ -1,5 +1,6 @@
 package chad.command;
 
+import chad.exception.CommandException;
 import chad.util.Storage;
 import chad.util.TaskList;
 import chad.util.Ui;
@@ -16,6 +17,6 @@ public abstract class Command {
      * @param ui The given Ui required for execution of some commands.
      * @param storage The given Storage required for execution of some commands.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage);
+    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws CommandException;
 
 }
