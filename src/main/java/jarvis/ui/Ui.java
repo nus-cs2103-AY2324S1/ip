@@ -1,7 +1,6 @@
 package jarvis.ui;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import jarvis.task.Task;
 import jarvis.tasklist.TaskList;
@@ -12,13 +11,11 @@ import jarvis.tasklist.TaskList;
  * The class is responsible for displaying messages to the user and reading user input.
  */
 public class Ui {
-    private Scanner scanner;
 
     /**
      * Initializes the Ui class and prepares it to read user input.
      */
     public Ui() {
-        this.scanner = new Scanner(System.in);
     }
 
     /**
@@ -26,26 +23,26 @@ public class Ui {
      *
      * @param text The messages to be displayed to the user.
      */
-    public void display(String... text) {
-        System.out.println("____________________________________________________________");
+    public String display(String... text) {
+        String response = "";
         for (String i : text) {
-            System.out.println(i);
+            response += i + "\n";
         }
-        System.out.println("____________________________________________________________");
+        return response;
     }
 
     /**
      * Displays a greeting message to the user.
      */
-    public void greet() {
-        display("Hello Master! I'm Jarvis, your AI personal assistant.", "What can I do for you?");
+    public String greet() {
+        return display("Hello Master! I'm Jarvis, your AI personal assistant.", "What can I do for you?");
     }
 
     /**
      * Displays a farewell message to the user.
      */
-    public void farewell() {
-        display("Bye. Hope to see you again soon!");
+    public String farewell() {
+        return display("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -54,8 +51,8 @@ public class Ui {
      * @param task The task that has been added.
      * @param tasks The current task list.
      */
-    public void displayAddedTask(Task task, TaskList tasks) {
-        display("Got it. I've added this task:", task.toString(),
+    public String displayAddedTask(Task task, TaskList tasks) {
+        return display("Got it. I've added this task:", task.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -65,8 +62,8 @@ public class Ui {
      * @param task The task that has been deleted.
      * @param tasks The current task list.
      */
-    public void displayDeletedTask(Task task, TaskList tasks) {
-        display("Got it. I've removed this task:", task.toString(),
+    public String displayDeletedTask(Task task, TaskList tasks) {
+        return display("Got it. I've removed this task:", task.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
 
@@ -75,8 +72,8 @@ public class Ui {
      *
      * @param task The task that has been marked.
      */
-    public void displayMarkedTask(Task task) {
-        display("Nice! I've marked this task as done:", task.toString());
+    public String displayMarkedTask(Task task) {
+        return display("Nice! I've marked this task as done:", task.toString());
     }
 
     /**
@@ -84,24 +81,15 @@ public class Ui {
      *
      * @param task The task that has been unmarked.
      */
-    public void displayUnmarkedTask(Task task) {
-        display("OK, I've marked this task as not done yet:", task.toString());
+    public String displayUnmarkedTask(Task task) {
+        return display("OK, I've marked this task as not done yet:", task.toString());
     }
 
     /**
      * Displays a message informing the user that their task list is currently empty.
      */
-    public void displayEmptyList() {
-        display("You currently have no tasks in your list.");
-    }
-
-    /**
-     * Reads a command from the user.
-     *
-     * @return The user's input as a String.
-     */
-    public String readCommand() {
-        return scanner.nextLine().trim();
+    public String displayEmptyList() {
+        return display("You currently have no tasks in your list.");
     }
 
     /**
@@ -109,13 +97,13 @@ public class Ui {
      *
      * @param tasks The user's current task list.
      */
-    public void displayList(TaskList tasks) {
-        System.out.println("____________________________________________________________");
-        System.out.println("Here are the tasks in your list:");
+    public String displayList(TaskList tasks) {
+        String response = "";
+        response += "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            response += (i + 1) + "." + tasks.get(i) + "\n";
         }
-        System.out.println("____________________________________________________________");
+        return response;
     }
 
     /**
@@ -123,16 +111,16 @@ public class Ui {
      *
      * @param tasks The list of tasks that match the search query.
      */
-    public void displayMatchingTasks(ArrayList<Task> tasks) {
-        System.out.println("____________________________________________________________");
+    public String displayMatchingTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks matched your search query.");
+            return display("No tasks matched your search query.");
         } else {
-            System.out.println("Here are the matching tasks in your list:");
+            String response = "";
+            response += "Here are the matching tasks in your list:\n";
             for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + "." + tasks.get(i));
+                response += (i + 1) + "." + tasks.get(i) + "\n";
             }
+            return response;
         }
-        System.out.println("____________________________________________________________");
     }
 }

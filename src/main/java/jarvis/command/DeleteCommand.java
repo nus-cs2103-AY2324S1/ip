@@ -33,16 +33,14 @@ public class DeleteCommand extends Command {
      * @throws JarvisInvalidIndexException If the task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
         if (taskIndexToDelete <= 0 || taskIndexToDelete > tasks.size()) {
             throw new JarvisInvalidIndexException(taskIndexToDelete);
         }
 
         Task deletedTask = tasks.get(taskIndexToDelete - 1); // Lists are 0-indexed, but users see a 1-indexed list.
         tasks.remove(taskIndexToDelete - 1);
-
-        ui.displayDeletedTask(deletedTask, tasks);
-
         storage.saveTasks(tasks);
+        return ui.displayDeletedTask(deletedTask, tasks);
     }
 }

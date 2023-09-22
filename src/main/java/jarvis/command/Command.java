@@ -21,7 +21,7 @@ public abstract class Command {
      * @param storage The Storage object to read or save tasks to disk.
      * @throws JarvisException If there is any error during the command execution.
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException;
 
     /**
      * Checks if this command should cause Jarvis to exit.

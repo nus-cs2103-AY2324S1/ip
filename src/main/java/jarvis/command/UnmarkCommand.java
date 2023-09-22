@@ -33,16 +33,15 @@ public class UnmarkCommand extends Command {
      * @throws JarvisInvalidIndexException If the task index is invalid.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
         if (taskIndexToUnmark <= 0 || taskIndexToUnmark > tasks.size()) {
             throw new JarvisInvalidIndexException(taskIndexToUnmark);
         }
 
         Task taskToUnmark = tasks.get(taskIndexToUnmark - 1);
         taskToUnmark.unmark();
-
-        ui.displayUnmarkedTask(taskToUnmark);
-
         storage.saveTasks(tasks);
+        return ui.displayUnmarkedTask(taskToUnmark);
+
     }
 }

@@ -20,11 +20,11 @@ public class ListCommand extends Command {
      * @throws JarvisException If there is any error during the command execution.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws JarvisException {
         if (tasks.size() == 0) {
-            ui.displayEmptyList();
+            return ui.displayEmptyList();
         } else {
-            ui.displayList(tasks);
+            return ui.displayList(tasks);
         }
     }
 }

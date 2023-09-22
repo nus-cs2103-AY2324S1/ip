@@ -18,8 +18,8 @@ public class ExitCommand extends Command {
      * @param storage The Storage object, not used in this command.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.farewell();
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         isExit = true;
+        return ui.farewell();
     }
 }
