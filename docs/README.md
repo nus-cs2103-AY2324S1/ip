@@ -38,7 +38,7 @@ Duke simplifies task management, making it easier to stay organized and on top o
 
 ### Running Duke
 
-1. **Open a Terminal or Command Prompt:** To run Duke, you can use the command line or just double-click on the jar file.
+1. **Open a Terminal or Command Prompt:** To run Duke, you can use the command line.
     * To use the command line, run ```java -jar duke.jar```
 
 ## Features 
