@@ -99,7 +99,6 @@ public class Storage {
      */
     public void editTask(String action, int index) {
         File fileToEdit = new File(this.path);
-
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileToEdit));
             String line;

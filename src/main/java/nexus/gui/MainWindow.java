@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private Nexus nexus;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
-    private Image nexusImage = new Image(this.getClass().getResourceAsStream("/images/nexus.png"));
+    private Image nexusImage = new Image(this.getClass().getResourceAsStream("/images/nexus.jpg"));
 
     @FXML
     public void initialize() {
