@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.IOException;
 import java.util.EnumSet;
 
 /**
@@ -49,56 +50,57 @@ public class Parser {
                 cmd = c;
             }
         }
+
         if (cmd.equals(Command.duplicates)) {
             TaskList duplicates = taskList.removeDuplicates();
             return "The following duplicate tasks were removed:\n" + duplicates;
         } else if (cmd.equals(Command.bye)) {
-            ui.showByeMessage();
-            return "Bye! Hope to see you soon!";
+            return ui.showByeMessage();
         } else if (cmd.equals(Command.list)) {
-            ui.showTaskList(taskList);
-            return "Here's the list of tasks you have!\n" + taskList;
+            return ui.showTaskList(taskList);
         } else if (cmd.equals(Command.mark)) {
             try {
-                String message = taskList.markTask(Integer.parseInt(input.split(" ")[1]));
+                Task task = taskList.markTask(Integer.parseInt(input.split(" ")[1]));
                 storage.saveTasks(taskList);
-                return message;
+                return ui.showMarkedTask(task);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                ui.showInvalidIndexError();
-                return "Invalid task index!";
+                return ui.showInvalidIndexError();
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         } else if (cmd.equals(Command.unmark)) {
             try {
-                String message = taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
+                Task task = taskList.unmarkTask(Integer.parseInt(input.split(" ")[1]));
                 storage.saveTasks(taskList);
-                return message;
+                return ui.showUnmarkedTask(task);
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                ui.showInvalidIndexError();
-                return "Invalid task index!";
+                return ui.showInvalidIndexError();
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         } else if (cmd.equals(Command.delete)) {
             try {
-                String message = taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
+                Task task = taskList.deleteTask(Integer.parseInt(input.split(" ")[1]));
                 storage.saveTasks(taskList);
-                return message;
+                return ui.showDeleteTaskMessage(task, taskList.getNumTasks());
             } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                ui.showInvalidIndexError();
-                return "Invalid task index!";
+                return ui.showInvalidIndexError();
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         } else if (cmd.equals(Command.invalid)) {
-            ui.showInvalidCommandError();
-            return "Invalid command!";
+            return ui.showInvalidCommandError();
         } else if (cmd.equals(Command.find)) {
-            ui.showFindResults(taskList.find(input.split(" ", 2)[1]));
-            return taskList.find(input.split(" ", 2)[1]).toString();
+            return ui.showFindResults(taskList.find(input.split(" ", 2)[1]));
         } else if (Command.taskTypes().contains(cmd)) {
             try {
                 String message = createTask(cmd, input);
                 storage.saveTasks(taskList);
                 return message;
             } catch (DukeInvalidDateException e) {
-                ui.showAddTaskError(e.getMessage());
-                return e.getMessage();
+                return ui.showAddTaskError(e.getMessage());
+            } catch (IOException e) {
+                return ui.showSaveTasksError(e);
             }
         }
         return "";
@@ -121,7 +123,7 @@ public class Parser {
      * @return String indicating the event information or the error when trying to create event
      * @throws DukeInvalidDateException If the input contains invalid date formats for the event's start and end times.
      */
-    private String parseAndAndEvent(String info) throws DukeInvalidDateException {
+    private String parseAndAddEvent(String info) throws DukeInvalidDateException {
         if (!info.matches(".*\\b /by \\b.*") || !info.matches(".*\\b /to \\b.*")) {
             return "An event must contain a description," +
                     " start and end specified with `/by` and `/to`!";
@@ -136,14 +138,33 @@ public class Parser {
                 String task = info.split(" /to ")[0].split(" /by ")[0];
                 task = task.replaceFirst("event ", "");
                 Event event = new Event(task, by, to);
-                taskList.addTask(event);
-                return "Got it! I've added the Event: " + event;
+                int numTasks = taskList.addTask(event);
+                return ui.showAddTaskMessage(event, numTasks);
             } catch (IndexOutOfBoundsException e) {
-                ui.showAddTaskError("Description, /by and /to cannot be empty!");
-                return "Event description, /by and /to cannot be empty!";
+                return ui.showAddTaskError("Description, /by and /to cannot be empty!");
             }
         }
     }
+
+
+    private String parseAndAddDeadline(String info) throws DukeInvalidDateException {
+        String[] splitInfo = info.split(" /by ", 2);
+        if (splitInfo.length == 2) {
+            Deadline deadline = new Deadline(splitInfo[0], splitInfo[1]);
+            taskList.addTask(deadline);
+            return "Got it! I've added the Deadline: " + deadline;
+        } else {
+            return "Deadline description and /by cannot be empty!";
+        }
+    }
+
+
+    private String parseAndAddTodo(String info) {
+        Todo todo = new Todo(info);
+        taskList.addTask(todo);
+        return "Got it! I've added the Todo: " + todo;
+    }
+
 
     /**
      * Creates a task based on the provided command and input, and adds it to the task list.
@@ -161,23 +182,13 @@ public class Parser {
         }
         String info = getTaskInfo(input);
         if (cmd.equals(Command.todo)) {
-            Todo todo = new Todo(info);
-            taskList.addTask(todo);
-            return "Got it! I've added the Todo: " + todo;
+            return parseAndAddTodo(info);
         } else if (cmd.equals(Command.deadline)) {
             assert info != null;
-            String[] splitInfo = info.split(" /by ", 2);
-            if (splitInfo.length == 2) {
-                Deadline deadline = new Deadline(splitInfo[0], splitInfo[1]);
-                taskList.addTask(deadline);
-                return "Got it! I've added the Deadline: " + deadline;
-            } else {
-                ui.showAddTaskError("Description and /by cannot be empty!");
-                return "Deadline description and /by cannot be empty!";
-            }
+            return parseAndAddDeadline(info);
         } else if (cmd.equals(Command.event)) {
             assert info != null;
-            return parseAndAndEvent(info);
+            return parseAndAddEvent(info);
         }
         return "Unknown task type!";  // Should never happen
     }

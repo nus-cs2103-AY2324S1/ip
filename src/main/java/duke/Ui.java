@@ -8,21 +8,10 @@ import java.util.Scanner;
  */
 public class Ui {
 
-    private final Scanner scanner;
-
     /**
      * Constructs an Ui object and initializes the scanner to read user input.
      */
-    public Ui() {
-        this.scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Displays a line separator in the console.
-     */
-    public static void showLine() {
-        System.out.println("-------------------------------");
-    }
+    public Ui() {}
 
     /**
      * Displays a welcome message to the user.
@@ -34,9 +23,8 @@ public class Ui {
     /**
      * Displays a goodbye message to the user.
      */
-    public void showByeMessage() {
-        System.out.println("Bye! Hope to see you soon!");
-        showLine();
+    public String showByeMessage() {
+        return "Bye! Hope to see you soon!";
     }
 
     /**
@@ -46,7 +34,6 @@ public class Ui {
      */
     public void showLoadingError(String msg) {
         System.out.println("Failed to load existing save file due to: " + msg);
-        showLine();
     }
 
     /**
@@ -54,9 +41,8 @@ public class Ui {
      *
      * @param msg The error message explaining the failure.
      */
-    public void showAddTaskError(String msg) {
-        System.out.println("Failed to add task because: " + msg);
-        showLine();
+    public String showAddTaskError(String msg) {
+        return "Failed to add task because: " + msg;
     }
 
 
@@ -65,9 +51,8 @@ public class Ui {
      *
      * @param numTasks The number of tasks in the list.
      */
-    private void showNumberOfTasks(int numTasks) {
-        System.out.println("There are now " + numTasks + " tasks in the list");
-        showLine();
+    private String showNumberOfTasks(int numTasks) {
+        return "There are now " + numTasks + " tasks in the list";
     }
 
     /**
@@ -76,10 +61,8 @@ public class Ui {
      * @param task The task that was added.
      * @param numTasks The updated number of tasks in the list.
      */
-    public void showAddTaskMessage(Task task, int numTasks) {
-        System.out.println("Got it! I've added this task:");
-        System.out.println(task);
-        showNumberOfTasks(numTasks);
+    public String showAddTaskMessage(Task task, int numTasks) {
+        return "Got it! I've added this task:\n" + task + "\n" + showNumberOfTasks(numTasks);
     }
 
     /**
@@ -88,18 +71,15 @@ public class Ui {
      * @param task The task that was deleted.
      * @param numTasks The updated number of tasks in the list.
      */
-    public void showDeleteTaskMessage(Task task, int numTasks) {
-        System.out.println("Got it! I've deleted this task:");
-        System.out.println(task);
-        showNumberOfTasks(numTasks);
+    public String showDeleteTaskMessage(Task task, int numTasks) {
+        return "Got it! I've deleted this task:\n" + task + "\n" + showNumberOfTasks(numTasks);
     }
 
     /**
      * Displays an error message for when a user provides an invalid task index
      */
-    public void showInvalidIndexError() {
-        System.out.println("Invalid index provided! Make sure it is a number and within the range of number of tasks!");
-        showLine();
+    public String showInvalidIndexError() {
+        return "Invalid index provided! Make sure it is a number and within the range of number of tasks!";
     }
 
     /**
@@ -107,10 +87,8 @@ public class Ui {
      *
      * @param task The task that was marked as done.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
-        showLine();
+    public String showMarkedTask(Task task) {
+        return "Nice! I've marked this task as complete:\n" + task;
     }
 
     /**
@@ -118,18 +96,15 @@ public class Ui {
      *
      * @param task The task that was marked as not being done.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as not done:");
-        System.out.println(task);
-        showLine();
+    public String showUnmarkedTask(Task task) {
+        return "Nice! I've marked this task as incomplete:\n" + task;
     }
 
     /**
      * Displays an error message for an invalid command.
      */
-    public void showInvalidCommandError() {
-        System.out.println("Invalid command!");
-        showLine();
+    public String showInvalidCommandError() {
+        return "Invalid command!";
     }
 
     /**
@@ -137,9 +112,8 @@ public class Ui {
      *
      * @param e The exception thrown when trying to save the file.
      */
-    public void showSaveTasksError(IOException e) {
-        System.out.println("Failed to save tasks to drive: " + e.getMessage());
-        showLine();
+    public String showSaveTasksError(IOException e) {
+        return "Failed to save tasks to drive: " + e.getMessage();
     }
 
     /**
@@ -147,21 +121,16 @@ public class Ui {
      *
      * @param taskList The task list to be displayed.
      */
-    public void showTaskList(TaskList taskList) {
-        showLine();
-        System.out.println(taskList.toString());
-        showLine();
+    public String showTaskList(TaskList taskList) {
+        return "Here's the list of tasks you have!\n" + taskList.toString();
     }
 
-    public void showFindResults(TaskList taskList) {
-        showLine();
+    public String showFindResults(TaskList taskList) {
         if (taskList.getTasks().isEmpty()) {
-            System.out.println("No tasks with that keyword exists!");
+            return "No tasks with that keyword exists!";
         } else {
-            System.out.println("Here are the matching tasks in your list");
-            System.out.println(taskList);
+            return"Here are the matching tasks in your list\n"+ taskList;
         }
-        showLine();
     }
 
 }
