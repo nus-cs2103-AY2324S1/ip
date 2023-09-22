@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * Main class for initialising Atlas's GUI
  */
 public class Main extends Application {
-    static final String SAVE_FILE_DIRECTORY = "./data/";
+    static final String SAVE_FILE_DIRECTORY = "data/";
     static final String SAVE_FILE_NAME = "atlas.txt";
 
     static final String FXML_FILE_PATH = "/view/MainWindow.fxml";
@@ -29,6 +29,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(FXML_FILE_PATH));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Atlas");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setAtlas(atlas);
             stage.show();
