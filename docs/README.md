@@ -119,12 +119,12 @@ delete 3
 --------------------------------------------------------------------------------------------------------------------
 ## Command summary
 
-Action | Format, Examples
---------|------------------
-**List** | `list`
-**Add Todo** | `todo DESCRIPTION` <br> e.g., `todo Homework`
-**Add Event** | `event DESCRIPTION /at DATETIME` <br> e.g., `event U-Town Orientation /at 5PM 23/09/2023`
-**Add Deadline** | `deadline DESCRIPTION /by DATETIME` <br> e.g., `deadline Quiz 1 /by 19:00 21/09/2023`
-**Delete** | `delete TASK_NUMBER`<br> e.g., `delete 3`
-**Mark as done** | `done TASK_NUMBER`<br> e.g.,`done 3`
-**Find** | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find assignment`
+| Action           | Format, Examples                                                                          |
+|------------------|-------------------------------------------------------------------------------------------|
+| **List**         | `list`                                                                                    |
+| **Add Todo**     | `todo DESCRIPTION` <br> e.g., `todo Homework`                                             |
+| **Add Event**    | `event DESCRIPTION /at DATETIME` <br> e.g., `event U-Town Orientation /at 5PM 23/09/2023` |
+| **Add Deadline** | `deadline DESCRIPTION /by DATETIME` <br> e.g., `deadline Quiz 1 /by 19:00 21/09/2023`     |
+| **Delete**       | `delete TASK_NUMBER`<br> e.g., `delete 3`                                                 |
+| **Mark as done** | `done TASK_NUMBER`<br> e.g.,`done 3`                                                      |
+| **Find**         | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find assignment`                                |
