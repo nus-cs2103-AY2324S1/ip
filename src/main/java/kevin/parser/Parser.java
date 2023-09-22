@@ -84,7 +84,6 @@ public class Parser {
                 throw new KevinException(new StringBuilder().append("Event command needs to follow ")
                         .append("\"event {deadline name} /from {event start time} /to {event end time}\".").toString());
             }
-            System.out.println(argumentGetName[1].trim());
             args.add(argumentGetName[0]);
             args.add(argumentGetDate[0]);
             args.add(argumentGetDate[1]);
