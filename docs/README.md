@@ -25,7 +25,9 @@ while still having a Graphical User Interface (GUI).
 2. Download the latest iteration of Siri [here](https://github.com/marioalvaro/ip/releases/tag/A-Release). The specific file to download is `siri-{version}.jar`, e.g. `siri-v0.2.jar`.
 3. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds.
 
-<img src = "Ui.png" width = "300px" >
+<div style ="text-align: center">
+    <img src = "Ui.png" width = "1202"  alt="">
+</div>
 
 > **Note:** The list is filled with placeholder data.
 
@@ -158,7 +160,7 @@ Nice! I've marked this task as done:
 **Format:** `unmark <TASK_INDEX>`
 
 **Examples:**
-- `unmark 2` unmarks the second task in the list.
+- `unmark 2` unmark the second task in the list.
 
 **Expected output:**
 ```
