@@ -91,7 +91,7 @@ public class Ui {
         StringBuilder response = new StringBuilder();
         response.append("Here are the matching tasks in your list:").append("\n");
         for (Task task : tasks) {
-            response.append(task.toString());
+            response.append(task.toString()).append("\n");
         }
         return response.toString();
     }
