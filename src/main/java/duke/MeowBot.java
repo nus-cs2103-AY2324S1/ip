@@ -12,7 +12,7 @@ import javafx.scene.image.Image;
 
 /**
  * MeowBot is the main class which runs the iP project in its main function
- * @since 2023-08-30
+ * @since 2023-09-22
  */
 
 
@@ -84,8 +84,9 @@ public class MeowBot {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the user's input and attempts to execute the command given
+     * @param input The string parsed into the user
+     * @return response returns the String format of the result of the execution
      */
     public String getResponse(String input) {
         String response = "Invalid";
@@ -97,7 +98,6 @@ public class MeowBot {
         }
         return response;
     }
-
 
     public static void main(String[] args) throws DukeException, IOException {
         new MeowBot("src/main/data/meowbot.txt").run();

@@ -71,10 +71,10 @@ public class Parser {
      */
 
     static boolean getCommand(String command) throws DukeException {
-        String firstword = command.split(" ")[0];
+        String firstWord = command.split(" ")[0];
         String[] commands = {"bye", "list", "unmark", "mark", "todo", "deadline", "event", "delete", "find"};
         for (String c: commands) {
-            if (c.equals(firstword)) {
+            if (c.equals(firstWord)) {
                 return true;
             }
         }

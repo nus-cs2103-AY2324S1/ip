@@ -59,7 +59,7 @@ public class Storage {
     }
 
     /**
-     * Generate the task from its String format
+     * Generates the task from its String format and returns the Task Object
      * @param taskName name of the task stored in txt
      * @return generates the task from its string format
      * @throws DukeException error if unable to generate the Task from String

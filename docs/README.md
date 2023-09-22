@@ -1,5 +1,6 @@
-# *MeowBot* 
+# MeowBot
 # User Guide 
+I hope you like cats when you are using the Bot
 
 ## Features 
 
@@ -9,7 +10,7 @@ Choosing from `todo`,`event`,`deadline` and adding them to your own cat personal
 
 ### Deleting of tasks
 
-Deleting tasks away from Meowbot
+Deleting tasks away from MeowBot
 
 ### Listing tasks with date marked
 

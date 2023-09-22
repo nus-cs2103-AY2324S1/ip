@@ -35,7 +35,7 @@ public class Ui {
     }
 
     /**
-     * Initial Greeting message by the user
+     * Displays the greeting message to be read to user during login
      */
     public String greet() {
         String res = "";
@@ -93,7 +93,7 @@ public class Ui {
     }
 
     /**
-     * Prints out the message when a task is deleted succesfully
+     * Prints out the message when a task is deleted successfully
      * @param length number of tasks in TaskList currently
      * @param wantedTask Task that is to be removed from Tasklist
      */
@@ -119,7 +119,7 @@ public class Ui {
     }
 
     /**
-     * Pirnt statement when no tasks with a given keyword is found
+     * Print statement when no tasks with a given keyword is found
      * @param keyword keyword to find related tasks
      */
 
