@@ -1,9 +1,5 @@
 package duke;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 
-import javafx.scene.image.Image;
+
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -27,11 +23,9 @@ public class Duke extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
-    private Button sendButton;;
+    private Button sendButton;
 
     private MainWindow mainWindow;
-
-
 
     public Duke() {
         String filePath = "tasks.txt";
@@ -45,133 +39,10 @@ public class Duke extends Application {
         }
     }
 
-
-
     public void run() {
         ui.showWelcomeMessage();
     }
 
-    private String handleExit() {
-        storage.save(tasks, "tasks.txt");
-        ui.closeScanner();
-        return ui.showExitMessage();
-    }
-
-    private String handleList() {
-        return ui.showTaskList(tasks);
-    }
-
-    private String handleFind(String description) {
-        return tasks.findTasksContainingKeyword(description);
-    }
-
-    private String handleUnmark(String description) {
-        // if user inputs task number, check if it is even an integer, and whether it is within range
-        try {
-            int taskNumber = Integer.parseInt(description) - 1;
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                return tasks.unmarkTask(taskNumber);
-            } else {
-                return ui.showError("Task number out of range.");
-            }
-
-        } catch (NumberFormatException e) {
-            return ui.showError("Invalid task number. Please provide a valid integer.");
-        }
-    }
-
-    private String handleMark(String description) {
-        // if user inputs task number, check if it is even an integer, and whether it is within range
-        try {
-            int taskNumber = Integer.parseInt(description) - 1;
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                return tasks.markTaskAsDone(taskNumber);
-            } else {
-                return ui.showError("Task number out of range.");
-            }
-        } catch (NumberFormatException e) {
-            return ui.showError("Invalid task number. Please provide a valid integer.");
-        }
-    }
-    private String handleTodo(String description) {
-        if (description.isEmpty()) {
-                return "OOPS!!! The description of a Todo cannot be empty.";
-        } else {
-
-            Todo todo = new Todo(description, false);
-            return tasks.addTask(todo);
-        }
-    }
-    private String handleDeadline(String description) {
-        if (description.isEmpty()) {
-            return "OOPS!!! The description of a deadline cannot be empty.";
-        } else {
-            // Find the index of the deadline separator "/"
-            int separatorIndex = description.indexOf('/');
-
-            if (separatorIndex != -1) { // Ensure the separator exists in the input
-                // Extract the task description and deadline
-
-                String descriptionString = description.substring(0, separatorIndex).trim();
-                String deadline = description.substring(separatorIndex + 4).trim();
-                String pattern = "\\d{4}/\\d{2}/\\d{2}";
-                Pattern datePattern = Pattern.compile(pattern);
-                Matcher matcher = datePattern.matcher(deadline);
-                if (matcher.find()) {
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                    LocalDate localDateDeadline = LocalDate.parse(deadline, formatter);
-                    Deadline deadlineTask = new Deadline(descriptionString, false, localDateDeadline);
-                    return tasks.addTask(deadlineTask);
-
-                } else {
-                    return "Please input your deadline in YYYY/MM/DD format";
-                }
-            } else {
-                return "Invalid input format for deadline. Please input in the following format: <deadline> <description> /by <YYYY/MM/DD> ";
-            }
-        }
-    }
-
-    private String handleEvent(String description) {
-        if (description.isEmpty()) {
-            return "OOPS!!! The description of an event cannot be empty.";
-        } else {
-            // Find the indices of the time separators
-            int fromIndex = description.indexOf("/from");
-            int toIndex = description.indexOf("/to");
-
-            if (fromIndex != -1 && toIndex != -1) {
-                // Extract the task description, startTime, and endTime
-                String descriptionString = description.substring(0, fromIndex).trim();
-                String startTime = description.substring(fromIndex + 5, toIndex).trim();
-                String endTime = description.substring(toIndex + 3).trim();
-
-                // Create a new Event object
-                Event eventTask = new Event(descriptionString, false, startTime, endTime);
-                return tasks.addTask(eventTask);
-
-            } else {
-                return "Invalid input format for event command.";
-            }
-        }
-    }
-
-    private String handleDelete(String description) {
-        try {
-            int taskNumber = Integer.parseInt(description) - 1;
-            if (taskNumber >= 0 && taskNumber < tasks.size()) {
-                return tasks.deleteTask(taskNumber);
-            } else {
-                return ui.showError("Task number out of range.");
-            }
-        } catch (NumberFormatException e) {
-            return ui.showError("Invalid task number. Please provide a valid integer.");
-        }
-    }
-
-    private String handleInvalid() {
-        return ui.showError("Invalid command. Please try again.");
-    }
     @Override
     public void start(Stage stage) {
 
@@ -250,48 +121,44 @@ public class Duke extends Application {
         switch (command) {
             //if user wants to exit, tasks are saved and exit message is shown
             case EXIT:
-                return handleExit();
+                return Parser.handleExit(storage,ui,tasks);
             // lists all the tasks out
             case LIST:
-                return handleList();
+                return Parser.handleList(ui, tasks);
 
             case FIND:
-                return handleFind(description);
+                return Parser.handleFind(description,tasks);
             // unmarks task
             case UNMARK:
-                return handleUnmark(description);
+                return Parser.handleUnmark(description,tasks,ui);
 
             //marks the task
             case MARK:
-                return handleMark(description);
+                return Parser.handleMark(description, tasks, ui);
             // if user wants to add a todo object
             case TODO:
-                return handleTodo(description);
+                return Parser.handleTodo(description, tasks);
             // if user wants to input deadline
             case DEADLINE:
-                return handleDeadline(description);
+                return Parser.handleDeadline(description, tasks);
             // if user wants to input an event
             case EVENT:
-                return handleEvent(description);
+                return Parser.handleEvent(description, tasks);
 
             // if user wants to delete existing task
             case DELETE:
-                return handleDelete(description);
+                return Parser.handleDelete(description,ui, tasks);
 
             // if user just enters a completely invalid command
             case INVALID:
-                return handleInvalid();
+                return Parser.handleInvalid(ui);
 
         }
 
         return "Duke heard: " + userInput;
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
-
 }
-
-
