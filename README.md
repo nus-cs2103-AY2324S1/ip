@@ -3,6 +3,19 @@
 Welcome to Axela, your personal AI assistant! This guide will help you get started and make the most of Axela's
 features.
 
+## Table of Contents
+- [Features](#features)
+- [Usage](#usage)
+    - [Adding a Task](#adding-a-task)
+    - [Exiting the Application](#exiting-the-application)
+    - [Deleting a Task](#deleting-a-task)
+    - [Searching for Tasks](#searching-for-tasks)
+    - [Finding the Features](#finding-the-features)
+    - [Greeting Alexa](#greeting-alexa)
+    - [Listing Tasks](#listing-tasks)
+    - [Marking a Task as Done](#marking-a-task-as-done)
+    - [Marking a Task as Not Done](#marking-a-task-as-not-done)
+  
 ## Features
 
 ### Task Management
