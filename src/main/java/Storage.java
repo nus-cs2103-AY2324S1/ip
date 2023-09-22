@@ -15,8 +15,8 @@ import tasks.Task;
  * @author Sebastian Tay
  */
 public class Storage {
-    private final String dir = "/VedaMissions";
-    private final String storagePath = "/VedaMissions/Missions.txt";
+    private final String dir = "./VedaMissions";
+    private final String storagePath = "./VedaMissions/Missions.txt";
     private final File storageFile = new File(storagePath);
 
     /**
