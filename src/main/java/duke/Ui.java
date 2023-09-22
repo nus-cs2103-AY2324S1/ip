@@ -17,15 +17,6 @@ public class Ui {
     }
 
     /**
-     * Reads the next line of input from the user.
-     *
-     * @return The next line of input from the user.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Prints the welcome message.
      */
     public void printMessage(String message) {
@@ -33,7 +24,7 @@ public class Ui {
     }
 
     /**
-     * Prints the welcome message.
+     * Prints an error message.
      */
     public void showError(String errorMessage) {
         printMessage(errorMessage);
