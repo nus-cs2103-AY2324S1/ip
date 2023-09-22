@@ -24,6 +24,8 @@ public class Ui {
      * @param text The messages to be displayed to the user.
      */
     public String display(String... text) {
+        assert text != null : "Text to be displayed should not be null";
+
         String response = "";
         for (String i : text) {
             response += i + "\n";
@@ -52,6 +54,9 @@ public class Ui {
      * @param tasks The current task list.
      */
     public String displayAddedTask(Task task, TaskList tasks) {
+        assert task != null : "Task to be displayed should not be null";
+        assert tasks != null : "Task list should not be null";
+
         return display("Got it. I've added this task:", task.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -63,6 +68,9 @@ public class Ui {
      * @param tasks The current task list.
      */
     public String displayDeletedTask(Task task, TaskList tasks) {
+        assert task != null : "Task to be displayed should not be null";
+        assert tasks != null : "Task list should not be null";
+
         return display("Got it. I've removed this task:", task.toString(),
                 "Now you have " + tasks.size() + " tasks in the list.");
     }
@@ -73,6 +81,8 @@ public class Ui {
      * @param task The task that has been marked.
      */
     public String displayMarkedTask(Task task) {
+        assert task != null : "Task to be displayed should not be null";
+
         return display("Nice! I've marked this task as done:", task.toString());
     }
 
@@ -82,6 +92,8 @@ public class Ui {
      * @param task The task that has been unmarked.
      */
     public String displayUnmarkedTask(Task task) {
+        assert task != null : "Task to be displayed should not be null";
+
         return display("OK, I've marked this task as not done yet:", task.toString());
     }
 
@@ -98,6 +110,8 @@ public class Ui {
      * @param tasks The user's current task list.
      */
     public String displayList(TaskList tasks) {
+        assert tasks != null : "Task list should not be null";
+
         String response = "";
         response += "Here are the tasks in your list:\n";
         for (int i = 0; i < tasks.size(); i++) {
@@ -112,6 +126,8 @@ public class Ui {
      * @param tasks The list of tasks that match the search query.
      */
     public String displayMatchingTasks(ArrayList<Task> tasks) {
+        assert tasks != null : "Task list should not be null";
+
         if (tasks.isEmpty()) {
             return display("No tasks matched your search query.");
         } else {

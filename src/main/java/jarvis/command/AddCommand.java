@@ -18,6 +18,7 @@ public class AddCommand extends Command {
      * @param task The task to be added.
      */
     public AddCommand(Task task) {
+        assert task != null : "Task to add should not be null";
         this.taskToAdd = task;
     }
 
@@ -32,7 +33,10 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        int initialSize = tasks.size();
         tasks.add(taskToAdd);
+        assert tasks.contains(taskToAdd) : "Added task should be in the task list";
+        assert tasks.size() == initialSize + 1 : "Task list size should increase by 1 after adding a task";
         storage.saveTasks(tasks);
         return ui.displayAddedTask(taskToAdd, tasks);
     }

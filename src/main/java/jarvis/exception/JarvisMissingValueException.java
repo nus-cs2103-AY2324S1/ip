@@ -13,5 +13,9 @@ public class JarvisMissingValueException extends JarvisException {
      */
     public JarvisMissingValueException(String value, String command) {
         super(String.format("OOPS!!! The %s of %s cannot be empty.", value, command));
+
+        // Assert that neither value nor command is null or empty
+        assert value != null && !value.trim().isEmpty() : "Value should not be null or empty";
+        assert command != null && !command.trim().isEmpty() : "Command should not be null or empty";
     }
 }

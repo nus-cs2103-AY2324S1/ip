@@ -38,9 +38,14 @@ public class DeleteCommand extends Command {
             throw new JarvisInvalidIndexException(taskIndexToDelete);
         }
 
+        int initialSize = tasks.size();
+
         Task deletedTask = tasks.get(taskIndexToDelete - 1); // Lists are 0-indexed, but users see a 1-indexed list.
         tasks.remove(taskIndexToDelete - 1);
         storage.saveTasks(tasks);
+
+        assert tasks.size() == initialSize - 1 : "Task list size should decrease by 1 after deletion";
+
         return ui.displayDeletedTask(deletedTask, tasks);
     }
 }
