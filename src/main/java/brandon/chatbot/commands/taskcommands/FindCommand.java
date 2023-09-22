@@ -59,7 +59,7 @@ public class FindCommand extends Command {
 
     private TaskList findAndAddTasks(TaskList newList) {
         for (Task t: tasks.getList()) {
-            if (t.toString().contains(title.get())) {
+            if (t.getTitle().contains(title.get())) {
                 newList.addTask(t);
             }
         }

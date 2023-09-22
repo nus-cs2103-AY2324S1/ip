@@ -40,8 +40,4 @@ public class TagTaskMap {
     public TaskList getTaskList(Tag t) {
         return tagTaskMap.get(t) == null ? new TaskList() : tagTaskMap.get(t);
     }
-
-    public TaskList findTasksByTag(Tag t, String title) {
-        return tagTaskMap.get(t).findTask(title);
-    }
 }

@@ -13,6 +13,7 @@ public class Feedback {
     public static final String FIND_EMPTY_ARGUMENTS = "sorry... i don't know what you are finding...ㅠㅅㅠ\n"
             + "could you give me either the title or a tag of the task...?";
     public static final String ADD_SUCCESS = "ok... i'm adding..\n";
+    public static final String DELETE_SUCCESS = "ok... i'm deleting...\n";
     public static final String LIST_SUCCESS = "ok... i'm listing..\n";
     public static final String LIST_FAIL = "sorry... there is no task right now... ㅠㅅㅠ\n";
     public static final String MARK_SUCCESS = "ok... I'm marking...-ㅅ-\n";

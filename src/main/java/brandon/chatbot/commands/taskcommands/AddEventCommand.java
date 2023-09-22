@@ -16,7 +16,6 @@ import brandon.chatbot.tasks.Event;
  * Represents a command that adds event to the task list.
  */
 public class AddEventCommand extends Command {
-    private Event eventToAdd;
     private String title;
     private String startingDate;
     private String endingDate;

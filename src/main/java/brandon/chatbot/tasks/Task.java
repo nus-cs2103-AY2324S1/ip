@@ -53,10 +53,6 @@ public class Task {
         this.isDone = isDone;
     }
 
-    public Optional<ArrayList<Tag>> getTagOptional() {
-        return this.tagOptional;
-    }
-
     /**
      * Returns the String value of the status of the task, which includes the done state, the title, and the tags.
      *
@@ -84,7 +80,6 @@ public class Task {
      *
      * @return title of the task.
      */
-
     public String getTitle() {
         return this.title;
     }
