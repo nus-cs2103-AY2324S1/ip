@@ -13,6 +13,10 @@ Adds a to-do task.
 
 `todo DESCRIPTION`
 
+Example of usage:
+
+`todo homework` Adds homework as a to-do task.
+
 ### `deadline` - Adding a task with a deadline
 
 Adds a task with a deadline.
