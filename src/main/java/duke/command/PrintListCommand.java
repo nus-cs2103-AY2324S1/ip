@@ -15,6 +15,6 @@ public class PrintListCommand extends Command {
 
     @Override
     public String execute(Storage storage, Ui ui, TaskList taskList) {
-        return taskList.toString();
+        return taskList.getSize() == 0 ? "No tasks currently" : taskList.toString();
     }
 }

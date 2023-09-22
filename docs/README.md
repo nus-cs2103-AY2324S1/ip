@@ -3,6 +3,32 @@
 
 Overall, Duke serves as an efficient and organized task manager that streamlines task creation, tracking, and retrieval. This chatbot's capabilities make it particularly useful for individuals looking to manage their tasks and responsibilities effectively, whether in an academic context or for personal use. In an academic context, Duke could assist the user, who is an engineering student, in managing assignments, projects, and deadlines related to their social science and arts-related academic writing modules.
 
+## Quick start
+
+1. Ensure you have Java `11` or above installed in your Computer.
+
+1. Download the latest `duke.jar` from [here](https://github.com/lilozz2/ip/releases/download/A-Release/duke.jar).
+
+1. Copy the file to the folder you want to use as the _home folder_ for your AddressBook.
+
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` command to run the application.<br>
+   A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
+   ![Ui](Ui.png)
+
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+   Some example commands you can try:
+
+   * `list` : Lists all tasks.
+
+   * `todo buy book` : Adds a task named `add book` to the task list.
+
+   * `delete 3` : Deletes the 3rd task shown in the current list.
+
+   * `bye` : Exits the app.
+
+1. Refer to the [Features](#features) below for details of each command.
+
+
 ## Features
 
 ### Task Management

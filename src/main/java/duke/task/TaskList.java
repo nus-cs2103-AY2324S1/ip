@@ -7,11 +7,9 @@ import java.util.ArrayList;
 public class TaskList {
     private ArrayList<Task> tasks;
     protected static Ui ui = new Ui();
-    protected int size = 0;
     protected static int max = 100;
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
-        this.size = tasks.size();
     }
 
     public TaskList() {
@@ -28,27 +26,24 @@ public class TaskList {
      */
     public void setTasks(ArrayList<Task> taskArrayList) {
         this.tasks = taskArrayList;
-        this.size = taskArrayList.size();
     }
 
     public int getSize() {
-        return this.size;
+        return this.tasks.size();
     }
 
     public void addTask(Task task) {
         this.tasks.add(task);
-        this.size++;
     }
 
     public void deleteTask(int index) {
         this.tasks.remove(index);
-        this.size--;
     }
 
     public String getSearchTask(String searchString) {
         String result = "";
         Parser parser = new Parser();
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i < this.getSize(); i++) {
             if (parser.parseSearch(this.getTask(i).toString(), searchString)) {
                 result += String.format("%s\n", this.getTask(i));
             }
@@ -62,9 +57,9 @@ public class TaskList {
 
     @Override
     public String toString() {
-        if (this.size == 0) { return ""; }
+        if (this.getSize() == 0) { return ""; }
         String response = "";
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i < this.getSize(); i++) {
             response += String.format("%d. %s\n", i+1, this.getTask(i));
         }
         return response.substring(0, response.length() - 1);
@@ -76,9 +71,9 @@ public class TaskList {
      */
     public String toTaskSave() {
         String response = "";
-        for (int i = 0; i < this.size; i++) {
+        for (int i = 0; i < this.getSize(); i++) {
             response += String.format("%s\n", this.tasks.get(i).toSave());
         }
-        return response.substring(0, response.length() - 1);
+        return this.getSize() == 0 ? "" : response.substring(0, response.length() - 1);
     }
 }

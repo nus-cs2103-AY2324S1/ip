@@ -113,15 +113,6 @@ public class Parser {
         while (matcher1.find()) {
             String datePart = matcher1.group(1);
             String timePart = matcher1.group(2);
-
-            if (datePart != null && timePart != null) {
-                System.out.println("duke.Date: " + datePart);
-                System.out.println("Time: " + timePart);
-            } else if (datePart != null) {
-                System.out.println("duke.Date: " + datePart);
-            } else if (timePart != null) {
-                System.out.println("Time: " + timePart);
-            }
             return new Date(datePart, timePart);
         }
 
