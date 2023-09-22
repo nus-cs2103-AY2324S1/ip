@@ -9,7 +9,6 @@ public class Task {
     private Task oldTask;
     private TaskList list;
     
-
     /**
      * Constructor for Task class from file inputs
      * @param description
