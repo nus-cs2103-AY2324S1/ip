@@ -1,7 +1,72 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+       ___
+    . -^   `--,
+   /# =========`-_
+  /# (--====___====\
+ /#   .- --.  . --.|
+/##   |  * ) (   * ),
+|##   \    /\ \   / |
+|###   ---   \ ---  |
+|####      ___)    #|
+|######           ##|
+ \##### ---------- /
+  \####           (
+   `\###          |
+     \###         |
+      \##        |
+       \###.    .)
+        `======/
+Hello I'm HEAD
+SHOW ME WHAT YOU'VE GOT
+I'VE ADDED THIS TASK:
+[T][ ] test todo
+YOU HAVE 1 TASKS IN THE LIST
+SHOW ME WHAT YOU'VE GOT
+I DON'T LIKE WHAT YOU'VE GOT! Missing title of todo. ENTER todo (title) to add a todo
+SHOW ME WHAT YOU'VE GOT
+I'VE ADDED THIS TASK:
+[D][ ] test deadline (by: today)
+YOU HAVE 2 TASKS IN THE LIST
+SHOW ME WHAT YOU'VE GOT
+I'VE ADDED THIS TASK:
+[D][ ] test (by: today)
+YOU HAVE 3 TASKS IN THE LIST
+SHOW ME WHAT YOU'VE GOT
+I DON'T LIKE WHAT YOU'VE GOT! Missing by. ENTER deadline (title) /by (dueDate) to add a deadline
+SHOW ME WHAT YOU'VE GOT
+I'VE ADDED THIS TASK:
+[E][ ] test event (from: today to: tomorrow)
+YOU HAVE 4 TASKS IN THE LIST
+SHOW ME WHAT YOU'VE GOT
+I DON'T LIKE WHAT YOU'VE GOT! Missing event start date. ENTER event (title) /from (from) /to (to) to add an event
+SHOW ME WHAT YOU'VE GOT
+I DON'T LIKE WHAT YOU'VE GOT! Missing event end date. ENTER event (title) /from (from) /to (to) to add an event
+SHOW ME WHAT YOU'VE GOT
+I DON'T LIKE WHAT YOU'VE GOT! MISSING TITLE!
+SHOW ME WHAT YOU'VE GOT
+I DON'T LIKE WHAT YOU'VE GOT! Missing entry. ENTER event (title) /from (from) /to (to) to add an event
+SHOW ME WHAT YOU'VE GOT
+I HAVE MARKED THIS TASK:
+[T][X] test todo
+SHOW ME WHAT YOU'VE GOT
+I HAVE MARKED THIS TASK:
+[D][X] test deadline (by: today)
+SHOW ME WHAT YOU'VE GOT
+You have provided a number out of index of the stored tasks
+SHOW ME WHAT YOU'VE GOT
+You have provided a number out of index of the stored tasks
+SHOW ME WHAT YOU'VE GOT
+0. [T][X] test todo
+1. [D][X] test deadline (by: today)
+2. [D][ ] test (by: today)
+3. [E][ ] test event (from: today to: tomorrow)
+SHOW ME WHAT YOU'VE GOT
+I HAVE DELETED THE FOLLOWING TASK:
+[T][X] test todo
+NOW YOU HAVE 3 TASKS LEFT
+SHOW ME WHAT YOU'VE GOT
+0. [D][X] test deadline (by: today)
+1. [D][ ] test (by: today)
+2. [E][ ] test event (from: today to: tomorrow)
+SHOW ME WHAT YOU'VE GOT
+I LIKE WHAT YOU'VE GOT. GOOD JOB.

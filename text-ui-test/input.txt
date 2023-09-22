@@ -1,0 +1,18 @@
+todo test todo
+todo
+deadline test deadline /by today
+deadline test /by today
+deadline test
+event test event /from today /to tomorrow
+event test event /to tomorrow
+event test event /from today
+event /from today /to tomorrow
+event
+mark 0
+mark 10
+unmark 0
+unmark 10
+list
+delete 0
+list
+GET SCHWIFTY
