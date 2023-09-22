@@ -6,12 +6,11 @@ Kevin is a desktop application to manage your daily task, optimized for use thro
 ## Table of Contents
 
 <!-- TOC -->
-
   * [Quick Start](#quick-start)
-  * [Features](#features)
-    * [Adding a Todo task : `todo`](#adding-a-todo-task--todo)
-    * [Adding a Deadline task : `deadline`](#adding-a-deadline-task--deadline)
-    * [Adding a Event task : `event`](#adding-a-event-task--event)
+  * [Features](#features-)
+    * [Adding a Todo Task : `todo`](#adding-a-todo-task--todo)
+    * [Adding a Deadline Task : `deadline`](#adding-a-deadline-task--deadline)
+    * [Adding a Event Task : `event`](#adding-a-event-task--event)
     * [Listing All the Tasks : `list`](#listing-all-the-tasks--list)
     * [Marking Your Task Finished : `mark`](#marking-your-task-finished--mark)
     * [Marking Your Task Not Finished : `unmark`](#marking-your-task-not-finished--unmark)
@@ -36,7 +35,7 @@ of the command.
 
 ## Features 
 
-### Adding a Todo task : `todo`
+### Adding a Todo Task : `todo`
 
 Adds a ToDo task to your TaskList.
 
@@ -46,7 +45,7 @@ Format: `todo DESCRIPTION`
 Example:
 - `todo borrow book`: adds a Todo with borrow book as its description
 
-### Adding a Deadline task : `deadline`
+### Adding a Deadline Task : `deadline`
 
 Adds a Deadline task to your TaskList.
 
@@ -59,7 +58,7 @@ Format: `deadline DESCRIPTION /by DATETIME`
 Example:
 - `deadline CS2103T iP /by 22/09/2023 2359`: adds a Deadline with CS2103T iP as its description and 22/09/2023 2359 as the deadline date.
 
-### Adding a Event task : `event`
+### Adding a Event Task : `event`
 
 Adds a Event task to your TaskList.
 
