@@ -3,9 +3,9 @@ package boti.exception;
 /**
  * The Exception for invalid todo command
  */
-public class InvalidToDoException extends Exception {
+public class InvalidToDoException extends InvalidCommandException {
     /**
-     * The constructor of InvalidToDoException
+     * Instantiates of InvalidToDoException
      */
     public InvalidToDoException() {
         super("☹ OOPS!!! I'm sorry, but the input ToDo is invalid :-(");

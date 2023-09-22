@@ -1,11 +1,17 @@
 package boti.parser;
 
 import boti.command.Command;
+import boti.exception.InvalidByeException;
 import boti.exception.InvalidCommandException;
 import boti.exception.InvalidDeadlineException;
+import boti.exception.InvalidDeleteException;
 import boti.exception.InvalidEventException;
+import boti.exception.InvalidFindException;
+import boti.exception.InvalidListException;
+import boti.exception.InvalidMarkException;
 import boti.exception.InvalidTimedTaskException;
 import boti.exception.InvalidToDoException;
+import boti.exception.InvalidUnmarkException;
 import boti.storage.Storage;
 import boti.task.TaskList;
 import boti.ui.Ui;
@@ -37,10 +43,10 @@ public class Parser {
                 return Command.addToDo(message, ui, tasks, storage);
             case "deadline":
                 return Command.addDeadline(message, ui, tasks, storage);
-            case "timed":
-                return Command.addTimedTask(message, ui, tasks, storage);
             case "event":
                 return Command.addEvent(message, ui, tasks, storage);
+            case "timed":
+                return Command.addTimedTask(message, ui, tasks, storage);
             case "delete":
                 return Command.delete(message, ui, tasks, storage);
             case "find":
@@ -50,15 +56,27 @@ public class Parser {
             default:
                 throw new InvalidCommandException();
             }
-        } catch (InvalidToDoException e) {
+        } catch (InvalidListException e) {
             return ui.printException(e);
-        } catch (InvalidEventException e) {
+        } catch (InvalidMarkException e) {
+            return ui.printException(e);
+        } catch (InvalidUnmarkException e) {
+            return ui.printException(e);
+        } catch (InvalidToDoException e) {
             return ui.printException(e);
         } catch (InvalidDeadlineException e) {
             return ui.printException(e);
-        } catch (InvalidCommandException e) {
+        } catch (InvalidEventException e) {
             return ui.printException(e);
         } catch (InvalidTimedTaskException e) {
+            return ui.printException(e);
+        } catch (InvalidDeleteException e) {
+            return ui.printException(e);
+        } catch (InvalidFindException e) {
+            return ui.printException(e);
+        } catch (InvalidByeException e) {
+            return ui.printException(e);
+        } catch (InvalidCommandException e) {
             return ui.printException(e);
         }
     }

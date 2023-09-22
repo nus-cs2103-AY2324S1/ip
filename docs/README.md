@@ -14,7 +14,7 @@ Boti Chatbot is a desktop app for **managing tasks**, optimized for use via a [C
 
 3. Copy the file to the folder you want to use as the home folder for your Boti Chatbot.
 
-4. Open a command terminal, ``cd`` into the folder you put the jar file in, and use the ``java -jar addressbook.jar`` command to run the application.
+4. Open a command terminal, ``cd`` into the folder you put the jar file in, and use the ``java -jar boti.jar`` command to run the application.
    The GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.
    <br /> <br />
    ![Ui](Ui.png)
