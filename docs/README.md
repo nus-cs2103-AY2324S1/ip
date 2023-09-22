@@ -165,9 +165,7 @@ Task name that matches the query will be listed.
 
 ### `update` - Update parameter of a task
 
-Update a task's name.
-Update a deadline's due date.
-Update an event's from and to period.
+Update a task's name, a deadline's due date or an event's from and to period.
 
 Example of usage:
 
