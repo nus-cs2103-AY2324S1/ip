@@ -3,6 +3,9 @@ package duke.command;
 import duke.list.TaskList;
 import duke.storage.Storage;
 
+/**
+ * Subclass of Command class. Displays list of Commands that user can use.
+ */
 public class HelpCommand extends Command {
     private String commandMessage = "";
 

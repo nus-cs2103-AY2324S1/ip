@@ -52,12 +52,6 @@ public class Ui {
                 + " /  \\ /  \\ /  \\\n"
                 + "(  KO | RA  )\n"
                 + " \\_/ \\_/ \\_/\n";
-//        String logo =
-//                        "K    K  OOO   RRRR    A   \n" +
-//                        "K   K  O   O  R   R  A A  \n" +
-//                        "KKKK   O   O  RRRR  AAAAA \n" +
-//                        "K   K  O   O  R  R  A   A \n" +
-//                        "K    K  OOO   R   R A   A ";
         String message = "Annyeonghaseyo! I am your chatbot Kora!\nHow can I help you today?";
         return logo + message;
     }

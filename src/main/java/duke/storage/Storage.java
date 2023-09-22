@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import duke.exception.KoraException;
-import duke.list.TaskList;
 import duke.list.CommandList;
+import duke.list.TaskList;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -44,7 +44,7 @@ public class Storage {
             File f = new File(path);
             this.scanner = new Scanner(f);
         } catch (IOException e) {
-                throw new KoraException("I-SangHae! Unable to scan :(");
+            throw new KoraException("I-SangHae! Unable to scan :(");
         }
     }
 

@@ -1,6 +1,5 @@
 package duke.command;
 
-import duke.exception.KoraException;
 import duke.list.CommandList;
 import duke.list.TaskList;
 import duke.storage.Storage;

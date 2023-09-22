@@ -94,7 +94,7 @@ public class Task {
     }
 
     /**
-     * Return type, status and description of the task.
+     * Displays return type, status and description of the task.
      * @return String representation of task.
      */
     @Override

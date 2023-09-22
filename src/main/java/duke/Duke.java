@@ -3,8 +3,8 @@ package duke;
 import duke.command.Command;
 import duke.exception.KoraException;
 import duke.list.CommandList;
-import duke.parser.Parser;
 import duke.list.TaskList;
+import duke.parser.Parser;
 import duke.storage.Storage;
 import duke.ui.Ui;
 

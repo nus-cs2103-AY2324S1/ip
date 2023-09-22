@@ -46,53 +46,53 @@ public class Parser {
         Command command;
         try {
             switch (commandType) {
-                case "bye":
-                    command = new ByeCommand();
-                    break;
-                case "list":
-                    command = new ListCommand();
-                    break;
-                case "unmark":
-                    command = new UnmarkCommand(userInputArray);
-                    break;
-                case "mark":
-                    command = new MarkCommand(userInputArray);
-                    break;
-                case "deadline":
-                    command = new DeadlineCommand(userInputArray);
-                    break;
-                case "event":
-                    command = new EventCommand(userInputArray);
-                    break;
-                case "todo":
-                    command = new ToDoCommand(userInputArray);
-                    break;
-                case "delete":
-                    command = new DeleteCommand(userInputArray);
-                    break;
-                case "find":
-                    command = new FindCommand(userInputArray);
-                    break;
-                case "set":
-                    command = new SetCommand(userInput);
-                    break;
-                case "unset":
-                    command = new UnsetCommand(userInput);
-                    break;
-                case "load":
-                    command = new LoadFileCommand(userInput);
-                    break;
-                case "change":
-                    command = new ChangeFileCommand(userInput);
-                    break;
-                case "help":
-                    command = new HelpCommand();
-                    break;
-                case "display":
-                    command = new ListNameCommand();
-                    break;
-                default:
-                    command = new InvalidCommand();
+            case "bye":
+                command = new ByeCommand();
+                break;
+            case "list":
+                command = new ListCommand();
+                break;
+            case "unmark":
+                command = new UnmarkCommand(userInputArray);
+                break;
+            case "mark":
+                command = new MarkCommand(userInputArray);
+                break;
+            case "deadline":
+                command = new DeadlineCommand(userInputArray);
+                break;
+            case "event":
+                command = new EventCommand(userInputArray);
+                break;
+            case "todo":
+                command = new ToDoCommand(userInputArray);
+                break;
+            case "delete":
+                command = new DeleteCommand(userInputArray);
+                break;
+            case "find":
+                command = new FindCommand(userInputArray);
+                break;
+            case "set":
+                command = new SetCommand(userInput);
+                break;
+            case "unset":
+                command = new UnsetCommand(userInput);
+                break;
+            case "load":
+                command = new LoadFileCommand(userInput);
+                break;
+            case "change":
+                command = new ChangeFileCommand(userInput);
+                break;
+            case "help":
+                command = new HelpCommand();
+                break;
+            case "display":
+                command = new ListNameCommand();
+                break;
+            default:
+                command = new InvalidCommand();
             }
         } catch (Exception e) {
             command = new InvalidCommand();
