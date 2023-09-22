@@ -29,6 +29,11 @@ public class FindCommand extends Command {
                 response += (i + 1) + ". " + taskList.get(i).toString() + "\n";
             }
         }
+
+        if (response.equals("Here are the matching tasks in your list!\n")) {
+            response = "There are no matching tasks in your list.\n";
+        }
+
         return response;
     }
 }

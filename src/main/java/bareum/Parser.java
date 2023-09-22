@@ -198,7 +198,7 @@ public class Parser {
                     + "\nCorrect format: tag <index> /tag <keyword>");
         }
 
-        String tag = indexTag[1];
+        String tag = indexTag[1].substring(1);
         return new TagCommand(index, tag);
     }
 
