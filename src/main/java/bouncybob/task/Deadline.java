@@ -42,8 +42,11 @@ public class Deadline extends Task {
     public String getDescription() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedDatetime = this.parsedDatetime.format(formatter);
-        String description = String.format("%s (by: %s) Note: %s", super.getName(), formattedDatetime, super.getNote());
-        return description;
+        StringBuilder description = new StringBuilder(String.format("%s (by: %s)", super.getName(), formattedDatetime));
+        if (super.getNote() != null && !super.getNote().trim().isEmpty()) {
+            description.append(" | Note: ").append(super.getNote());
+        }
+        return description.toString();
     }
 
     /**

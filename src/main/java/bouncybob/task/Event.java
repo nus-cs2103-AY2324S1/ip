@@ -48,9 +48,17 @@ public class Event extends Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy");
         String formattedFrom = this.parsedFrom.format(formatter);
         String formattedTo = this.parsedTo.format(formatter);
-        String description = String.format("%s (from: %s to: %s) Note: %s", super.getName(), formattedFrom, formattedTo, super.getNote());
-        return description;
+
+        StringBuilder description = new StringBuilder(String.format("%s (from: %s to: %s)", super.getName(), formattedFrom, formattedTo));
+
+        String note = super.getNote();
+        if (note != null && !note.trim().isEmpty()) {
+            description.append(" | Note: ").append(note);
+        }
+
+        return description.toString();
     }
+
 
     /**
      * Converts the event task to its file storage format.
