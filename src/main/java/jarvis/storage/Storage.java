@@ -41,6 +41,8 @@ public class Storage {
         try {
             FileWriter writer = new FileWriter(this.filePath);
 
+            assert tasks != null : "Tasks list to be saved should not be null";
+
             for (int i = 0; i < tasks.size(); i++) {
                 writer.write(tasks.get(i).toSaveString() + "\n");
             }
@@ -59,6 +61,8 @@ public class Storage {
      */
     public ArrayList<Task> loadTasks() {
         File file = new File(this.filePath);
+
+        assert file != null : "File path to load tasks from cannot be null";
 
         if (!file.exists()) {
             System.out.println("No save file detected. Attempting to create one...");

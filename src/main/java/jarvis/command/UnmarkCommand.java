@@ -40,6 +40,9 @@ public class UnmarkCommand extends Command {
 
         Task taskToUnmark = tasks.get(taskIndexToUnmark - 1);
         taskToUnmark.unmark();
+
+        assert !taskToUnmark.isDone() : "Task should be marked as undone after executing the UnmarkCommand";
+
         storage.saveTasks(tasks);
         return ui.displayUnmarkedTask(taskToUnmark);
 
