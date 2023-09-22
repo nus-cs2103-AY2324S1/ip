@@ -1,0 +1,16 @@
+todo borrow book
+todo read book
+deadlne return book /by June 6th (note that first word is misspelled)
+deadline return book /by 12/12/2019 1800
+event project meeting /from 21/09/2023 0900 /to 21/09/2023 2150
+todo go out and play
+list
+mark 1
+mark 3
+mark 5
+list
+unmark 3
+list
+delete 5
+list
+bye
