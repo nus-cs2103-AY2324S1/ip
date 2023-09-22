@@ -46,8 +46,10 @@ public class Max {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns Max's response to user in GUI.
+     *
+     * @param input String input from user
+     * @return String response from Max
      */
     public String getResponse(String input) {
         try {
