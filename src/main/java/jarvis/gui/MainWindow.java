@@ -60,7 +60,7 @@ public class MainWindow extends AnchorPane {
     }
 
     private void setIntroGif() {
-        Image gifImage = new Image(getClass().getResourceAsStream("/images/giphy.gif"));
+        Image gifImage = new Image(getClass().getResourceAsStream("/images/robot.gif"));
         introImage.setImage(gifImage);
     }
 

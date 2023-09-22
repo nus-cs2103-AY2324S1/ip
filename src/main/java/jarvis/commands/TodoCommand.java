@@ -8,7 +8,7 @@ import jarvis.tasks.TaskList;
 import jarvis.tasks.Todo;
 
 /**
- * Represents a command to add a "Todo" task in the Jarvis app.
+ * Represents a command to add a Todo task in the Jarvis app.
  */
 public class TodoCommand implements Command {
 
@@ -19,7 +19,7 @@ public class TodoCommand implements Command {
     }
 
     /**
-     * Executes the todo command by adding a new "Todo" task to the task list.
+     * Executes the todo command by adding a new Todo task to the task list.
      *
      * @param taskList The TaskList containing the tasks.
      * @param ui       The Ui for user interface interactions.
