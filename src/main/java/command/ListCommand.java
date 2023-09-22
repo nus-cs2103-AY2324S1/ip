@@ -33,12 +33,12 @@ public class ListCommand extends Command {
             return ui.showEmptyTaskList();  // Early return for clarity
         }
 
-        response.append(ui.showTaskListHeader());
-        int index = 1;
+        response.append(ui.showTaskListHeader()).append("\n");
+        int index = 0;
         for (Task currTask : tasks.getList()) {
             response.append(ui.showTask(index++, currTask)).append("\n");
         }
 
-        return response.toString().trim();  // Remove any trailing whitespace or newline
+        return response.toString().trim();
     }
 }

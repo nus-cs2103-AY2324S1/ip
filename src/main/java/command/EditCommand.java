@@ -12,7 +12,7 @@ import ui.Ui;
  */
 public class EditCommand extends Command {
     private final int taskIndex;
-    private final EditOperation operation;
+    private final String operation;
 
     enum EditOperation {
         MARK, UNMARK
@@ -24,7 +24,7 @@ public class EditCommand extends Command {
      * @param operation   The type of edit to be performed.
      * @param taskIndex The index of the task in the task list that is to be edited.
      */
-    public EditCommand(EditOperation operation, int taskIndex) {
+    public EditCommand(String operation, int taskIndex) {
         super(null);
         this.taskIndex = taskIndex;
         this.operation = operation;
@@ -46,10 +46,10 @@ public class EditCommand extends Command {
         Task currTask = tasks.getList().get(taskIndex - 1);
 
         switch (operation) {
-            case MARK:
+            case "MARK":
                 currTask.setCompleted();
                 return ui.showMarkedTask(taskIndex, currTask);
-            case UNMARK:
+            case "UNMARK":
                 currTask.setNotCompleted();
                 return ui.showUnmarkedTask(taskIndex, currTask);
             default:
