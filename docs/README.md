@@ -3,7 +3,7 @@
 Dude is a personal assistant Java application that helps you keep track of your tasks, events, and deadlines.
 You can interact with Dude through a graphical user interface (GUI) similar to a chatbot.
 
-<img height="256" alt="Screenshot of Dude GUI" src="./Ui.png">
+<img height="480" alt="Screenshot of Dude GUI" src="./Ui.png">
 
 ## Quick Start
 
