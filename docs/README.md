@@ -55,7 +55,7 @@ Example of usage:
 
 Expected outcome:
 ```
-Got it.I've added this task: 
+Got it. I've added this task: 
 [T] [] run
 Now you have 1 tasks in the list. 
 ```
@@ -71,7 +71,7 @@ Example of usage:
 Expected outcome:
 
 ```
-Got it.I've added this task: 
+Got it. I've added this task: 
 [D] [] assignment (by: 12/12/2012 12:12:12)
 Now you have 1 tasks in the list. 
 ```
@@ -88,7 +88,7 @@ Example of usage:
 Expected outcome:
 
 ```
-Got it.I've added this task: 
+Got it. I've added this task: 
 [E] [] sports day (from: 12/12/2012 12:12:12
 to: 12/12/2012 18:12:12)
 Now you have 1 tasks in the list. 
@@ -187,5 +187,5 @@ Expected outcome:
 
 ```
 Here are the matching tasks in your list:
-[T][] run 
+1. [T][] run 
 ```

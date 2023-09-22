@@ -78,14 +78,6 @@ public class Ui {
     }
 
     /**
-     * Reads input
-     * @return returns input
-     */
-    public String readInput() {
-        return scanner.nextLine();
-    }
-
-    /**
      * Prints out the tasks in the task list.
      * @param
      */
@@ -130,13 +122,13 @@ public class Ui {
      */
     public String showFindResults(TaskList taskList , String input) {
         ArrayList<Task> list = taskList.getFilteredTasks(input);
-        String result = "Here are the matching tasks in your list:";
+        String result = "Here are the matching tasks in your list:\n";
 
         if (list.size() == 0) {
             return "There are no tasks with that keyword.";
         } else {
             for (int i = 1; i <= list.size(); i++) {
-                result += i + list.get(i - 1).toString() + "\n";
+                result += i + ". " + list.get(i - 1).toString() + "\n";
             }
 
             return result;
