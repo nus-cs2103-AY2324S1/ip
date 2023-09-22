@@ -1,1 +1,4 @@
-T | 0 | event
+D | 0 | homework | 2023-08-08 1800
+T | X | read book
+E | X | meeting | 2023-08-08 1800 | 2023-08-08 2000
+D | 0 | submit work | 2023-09-22 2359
