@@ -141,7 +141,7 @@ Sorts the task list and displays the newly sorted list.
 
 * This sorting will change the index number of tasks.
 
-Format: `sort /by METHOD [/order ORDER]` (The part in square brackets is **optional**).
+Format: `sort METHOD [/order ORDER]` (The part in square brackets is **optional**).
 
 * Sorts the list using the specified method [`METHOD`] and order [`ORDER`].
 * `METHOD` must be one of the following:
@@ -156,15 +156,15 @@ Format: `sort /by METHOD [/order ORDER]` (The part in square brackets is **optio
 
 Example:
 
-`sort /by date /order d`
+`sort date /order d`
 
 * Sorts tasks in reverse chronological order.
 
-`sort /by description`
+`sort description`
 
 * Sorts tasks in ascending alphabetical order based on the descriptions.
 
-`sort /by type /order ascending`
+`sort type /order ascending`
 
 * Sorts tasks by type, with Deadline tasks first, followed by Event tasks, then To-do tasks.
 
