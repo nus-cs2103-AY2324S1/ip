@@ -153,8 +153,12 @@ public class Message {
      */
     public String showSearchResults(ArrayList<Task> results) {
         String response = "";
-        for (int i = 0; i < results.size(); i++) {
-            response += (i + 1) + "." + results.get(i) + "\n";
+        if (results.isEmpty()) {
+            response = "No tasks found.";
+        } else {
+            for (int i = 0; i < results.size(); i++) {
+                response += (i + 1) + "." + results.get(i) + "\n";
+            }
         }
         return response;
     }

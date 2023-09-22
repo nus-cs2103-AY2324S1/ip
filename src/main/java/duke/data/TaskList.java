@@ -110,7 +110,7 @@ public class TaskList {
      * @return task that is searched for.
      */
     public Task getTask(int taskID) throws DukeException {
-        if (taskID > countTasks()) {
+        if (taskID + 1 > countTasks()) {
             throw new DukeException("Invalid Task ID");
         }
         return taskList.get(taskID);
