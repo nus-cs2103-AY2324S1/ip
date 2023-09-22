@@ -67,7 +67,8 @@ Format: `event DESCRIPTION /from STARTTIME /to ENDTIME`
 - `STARTTIME` is the starting time of the event. 
 - `ENDTIME` is the ending time of the event.
 
-[!NOTE] `STARTTIME` and `ENDTIME` can be anything, it does not have to be a date.
+> [!NOTE]
+> `STARTTIME` and `ENDTIME` can be anything, it does not have to be a date.
 
 Example:
 - `event project meeting /from Mon 2pm /to 4pm`: adds an Event with project meeting as its description,
