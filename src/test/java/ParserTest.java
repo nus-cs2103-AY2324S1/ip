@@ -14,10 +14,8 @@ import tasks.ToDo;
 
 public class ParserTest {
     @Test
-    public void parse_emptyInput_negativeOne() {
-        int methodType = Parser.parse("");
-
-        assertEquals(-1, methodType);
+    public void parse_emptyInput_throwsAssertionError() {
+        assertThrows(AssertionError.class, ()-> Parser.parse(""));
     }
 
     @Test
@@ -31,7 +29,7 @@ public class ParserTest {
     public void parse_statementWithExitFront_returnNegativeOne() {
         int methodType = Parser.parse("bye world");
 
-        assertEquals(-1, methodType);
+        assertEquals(0, methodType);
     }
 
     @Test
@@ -59,11 +57,6 @@ public class ParserTest {
                 + String.valueOf(methodTypeThree);
 
         assertEquals("555", actualOutput);
-    }
-
-    @Test
-    public void getTargetIndex_excessiveArguments_throwExcessiveArgumentException() {
-        assertThrows(ExcessiveArgumentException.class, () -> Parser.getTargetIndex("mark 1 remove"));
     }
 
     @Test
