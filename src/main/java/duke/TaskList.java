@@ -29,7 +29,6 @@ public class TaskList {
         for (String s : ss) {
             String[] d = s.split("&");
             String desc = d[0];
-            System.out.println(desc);
             assert desc.length() > 0;
             boolean isCompleted = Boolean.valueOf(d[1]);
             String taskType = d[2];

@@ -24,15 +24,4 @@ class Utils {
         }
         return res;
     }
-
-    /**
-     * Returns the number of words in a string, separated by spaces.
-     *
-     * @param s String whose words are to be counted
-     * @returns Number of words in the string
-     */
-
-    public static int getWordCount(String s) {
-        return s.split("\\s+").length;
-    }
 }

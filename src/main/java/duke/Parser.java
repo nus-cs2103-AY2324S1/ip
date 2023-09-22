@@ -23,8 +23,6 @@ public class Parser {
         this.ch = ch;
     }
 
-
-
     /**
      * Parses user input and performs associated actions
      *

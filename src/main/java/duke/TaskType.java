@@ -87,6 +87,9 @@ public class TaskType {
         return "";
     }
 
+    /**
+     * Sets the priority of a task.
+     */
     public void setPriority(int highPriority) {
         if (highPriority == 1) {
             this.priority = Priority.HIGH;
@@ -95,6 +98,11 @@ public class TaskType {
         }
     }
 
+    /**
+     * Returns the priority of a task.
+     *
+     * @returns priority of a class
+     */
     public Priority getPriority() {
         return this.priority;
     }

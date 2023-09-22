@@ -31,9 +31,11 @@ public class Duke extends Application {
      * Default constructor for Gui class, initializes the parser and Tasklist.
      */
     public Duke() {
+        final String DATA_PATH = "./data/";
+
         DtFormat dtf = new DtFormat();
         Ui ui = new Ui(dtf);
-        storage = new Storage("./data/");
+        storage = new Storage(DATA_PATH);
 
         try {
             taskList = new TaskList(storage.load(), dtf);

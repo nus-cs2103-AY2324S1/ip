@@ -48,6 +48,12 @@ public class Ui {
         return taskTypeBox + completedBox + " " + task.getTaskDesc() + " " + formattedDatetime + priorityBox;
     }
 
+    /**
+     * Builds a priority box to be shown to the user based on given Priority.
+     *
+     * @param p Priority pf task to be converted to a box
+     * @returns a box (string) representing priority of task
+     */
     private String buildPriorityBox(Priority p) {
         if (p == Priority.HIGH) {
             return " [Priority:High]";
