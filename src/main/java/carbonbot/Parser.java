@@ -69,13 +69,19 @@ public class Parser {
         }
     }
 
-    private static Command parseFindCommand(String fullCommand) {
+    private static Command parseFindCommand(String fullCommand) throws CarbonInputParseException {
         String keyword = fullCommand.substring(FIND_COMMAND.length()).trim();
+        if (keyword.isBlank()) {
+            throw new CarbonInputParseException("The keyword cannot be empty.");
+        }
         return new FindCommand(keyword);
     }
 
-    private static Command parseLoadCommand(String fullCommand) {
+    private static Command parseLoadCommand(String fullCommand) throws CarbonInputParseException {
         String path = fullCommand.substring(LOAD_COMMAND.length()).trim();
+        if (path.isBlank()) {
+            throw new CarbonInputParseException("The path cannot be empty.");
+        }
         return new LoadCommand(path);
     }
 

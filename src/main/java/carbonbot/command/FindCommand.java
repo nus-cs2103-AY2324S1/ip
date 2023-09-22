@@ -19,7 +19,12 @@ public class FindCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.bufferMessage("Here are the matching tasks in your list:");
-        ui.bufferMessage(tasks.findTasksFormatted(keyword));
+        String formattedTasks = tasks.findTasksFormatted(keyword);
+        if (formattedTasks.isEmpty()) {
+            ui.bufferMessage("No tasks matching the keyword in the description was found.");
+        } else {
+            ui.bufferMessage("Here are the matching tasks in your list:");
+            ui.bufferMessage(formattedTasks);
+        }
     }
 }
