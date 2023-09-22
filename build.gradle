@@ -17,30 +17,24 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    testImplementation 'org.mockito:mockito-core:3.12.4'
 
-    dependencies {
-        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
-        testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    // JavaFX 17.0.7 dependencies for macOS on ARM64
+    implementation 'org.openjfx:javafx-base:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-controls:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:mac-aarch64'
 
-        // JavaFX 17.0.7 dependencies for macOS on ARM64
-        implementation 'org.openjfx:javafx-base:17.0.7:mac-aarch64'
-        implementation 'org.openjfx:javafx-controls:17.0.7:mac-aarch64'
-        implementation 'org.openjfx:javafx-fxml:17.0.7:mac-aarch64'
-        implementation 'org.openjfx:javafx-graphics:17.0.7:mac-aarch64'
+    // JavaFX 17.0.7 dependencies for Linux
+    implementation 'org.openjfx:javafx-base:17.0.7:linux'
+    implementation 'org.openjfx:javafx-controls:17.0.7:linux'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:linux'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:linux'
 
-        // JavaFX 17.0.7 dependencies for Linux
-        implementation 'org.openjfx:javafx-base:17.0.7:linux'
-        implementation 'org.openjfx:javafx-controls:17.0.7:linux'
-        implementation 'org.openjfx:javafx-fxml:17.0.7:linux'
-        implementation 'org.openjfx:javafx-graphics:17.0.7:linux'
-
-        // JavaFX 17.0.7 dependencies for Windows
-        implementation 'org.openjfx:javafx-base:17.0.7:win'
-        implementation 'org.openjfx:javafx-controls:17.0.7:win'
-        implementation 'org.openjfx:javafx-fxml:17.0.7:win'
-        implementation 'org.openjfx:javafx-graphics:17.0.7:win'
-    }
+    // JavaFX 17.0.7 dependencies for Windows
+    implementation 'org.openjfx:javafx-base:17.0.7:win'
+    implementation 'org.openjfx:javafx-controls:17.0.7:win'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:win'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:win'
 }
 
 test {
@@ -58,11 +52,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Main")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "dukeyBOT"
+    archiveBaseName = "dukey"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
