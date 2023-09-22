@@ -53,7 +53,8 @@ Adds a Deadline task to your TaskList.
 Format: `deadline DESCRIPTION /by DATETIME`
 - `DESCRIPTION` is the description of the todo task.
 - `DATETIME` is the date of the deadline. 
-> :memo: `DATETIME` must be written in the format of `d-MM-yyyy HHmm` or `dd-MM-yyyy HHmm`
+> [!NOTE]
+> `DATETIME` must be written in the format of `d-MM-yyyy HHmm` or `dd-MM-yyyy HHmm`
 
 Example:
 - `deadline CS2103T iP /by 22/09/2023 2359`: adds a Deadline with CS2103T iP as its description and 22/09/2023 2359 as the deadline date.
@@ -110,7 +111,8 @@ Format: `delete INDEXNUMBER`
 Example:
 - `delete 1`: delete the task with index 1 from your task list.
 
-> :warning: This action is irreversible! Be careful on what you are deleting!
+> [!WARNING]
+> This action is irreversible! Be careful on what you are deleting!
 
 ### Filtering Your Tasks : `find`
 
@@ -128,7 +130,8 @@ Say bye to Kevin.
 
 Format: `bye`
 
-> :bulb: Don't worry all your tasks will be saved!
+> [!NOTE]
+> Don't worry all your tasks will be saved!
 
 ### Viewing Help : `help`
 
