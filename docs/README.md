@@ -18,6 +18,10 @@ This feature allows you to record an "event" task in the GUI task list. An "even
 
 You can easily mark tasks as completed or uncompleted within the task list.
 
+### Search task description
+
+You can easily search a task in the task list by using keywords in the description. 
+
 ### Short and Vim-like Commands
 
 The GUI task list supports short and Vim-like input commands, allowing you to perform actions quickly and efficiently. For example, you can use commands like ls to list tasks and dd to delete a task.
@@ -151,4 +155,22 @@ All tasks in the task list will be displayed.
 1. [T][] read book
 2. [E][] party (from: Oct 15 2023 19:00 to: Oct 15 2023 23:00)
 3. [D][] project due (by: Nov 15 2023)
+```
+
+### Search Task
+
+You can search tasks by entering the description keyword. 
+
+**Example of usage:**
+`f book`
+
+**Expected outcome:**
+
+All tasks that has description that matched with the keyword will be shown. 
+
+```
+Here are the matching tasks in your list:
+1. [T][] read book
+2. [T][] return book
+3. [T][] borrow book
 ```
