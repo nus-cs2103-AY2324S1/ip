@@ -47,6 +47,7 @@ public class Storage {
      */
     private void createOutputDirFile(File filePointer) {
         File directory = new File(new File(this.outputPath).getParent());
+        System.out.println(directory);
         if (!directory.exists()) {
             directory.mkdirs();
         }
@@ -86,41 +87,54 @@ public class Storage {
                 // process the item
                 // T|1|read book
                 String[] itemParts = item.split("\\|");
-                insertTask(arrList, itemParts);
+                loadTask(arrList, itemParts);
             }
         }
     }
 
     /**
-     * Creates respective tasks based on the user input split into parts.
+     * Creates respective tasks based on the user input split into parts and
+     * inserts into the temporary arrayList storage.
      *
      * @param arrList arraylist to add the task to
      * @param itemParts Parts of the String representation of task in the storage
      */
-    private static void insertTask(ArrayList<Task> arrList, String[] itemParts) {
+    private static void loadTask(ArrayList<Task> arrList, String[] itemParts) {
         boolean itemComplete = itemParts[1].equals("0");
         String name = itemParts[2];
 
         switch (itemParts[0]) {
         case "T":
-            arrList.add(new Todo(name, itemComplete));
+            loadTodo(arrList, itemComplete, name);
             break;
         case "D":
-            String deadline = itemParts[3];
-            arrList.add(new Deadline(name, deadline, itemComplete));
+            loadDeadline(arrList, itemParts, itemComplete, name);
             break;
         case "E":
-            String from = itemParts[3];
-            String to = itemParts[4];
-            try {
-                arrList.add(new Event(name, from, to, itemComplete));
-                break;
-            } catch (Exception e) {
-                System.out.println("Invalid Event format in storage!");
-            }
+            loadEvent(arrList, itemParts, itemComplete, name);
+            break;
         default:
             System.out.println("Error when reading file");
         }
+    }
+
+    private static void loadEvent(ArrayList<Task> arrList, String[] itemParts, boolean itemComplete, String name) {
+        String from = itemParts[3];
+        String to = itemParts[4];
+        try {
+            arrList.add(new Event(name, from, to, itemComplete));
+        } catch (Exception e) {
+            System.out.println("Invalid Event format in storage!");
+        }
+    }
+
+    private static void loadDeadline(ArrayList<Task> arrList, String[] itemParts, boolean itemComplete, String name) {
+        String deadline = itemParts[3];
+        arrList.add(new Deadline(name, deadline, itemComplete));
+    }
+
+    private static void loadTodo(ArrayList<Task> arrList, boolean itemComplete, String name) {
+        arrList.add(new Todo(name, itemComplete));
     }
 
     /**

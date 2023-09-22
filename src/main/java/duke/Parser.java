@@ -51,16 +51,16 @@ public class Parser {
         String name = "";
         String from = "";
         String to = "";
-        boolean completedName = false;
-        boolean completedFrom = false;
+        boolean hasCompletedName = false;
+        boolean hasCompletedFrom = false;
         for (int i = 1; i < arrStrings.length; i++) {
             if (arrStrings[i].equals("/from")) {
-                completedName = true;
+                hasCompletedName = true;
             } else if (arrStrings[i].equals("/to")) {
-                completedFrom = true;
-            } else if (!completedFrom && completedName) {
+                hasCompletedFrom = true;
+            } else if (!hasCompletedFrom && hasCompletedName) {
                 from += arrStrings[i] + " ";
-            } else if (completedFrom && completedName) {
+            } else if (hasCompletedFrom && hasCompletedName) {
                 to += arrStrings[i] + " ";
             } else {
                 name += arrStrings[i] + " ";
@@ -85,7 +85,7 @@ public class Parser {
     }
 
     /**
-     * Create a new Deadline object based on the String input which has been split into parts.
+     * Creates a new Deadline object based on the provided String input, which has been split into parts.
      *
      * @param arrStrings Array of String which has been split from the user input
      * @return new Deadline Object
@@ -94,19 +94,19 @@ public class Parser {
     private static Deadline createDeadline(String[] arrStrings) throws Exception {
         String name = "";
         String deadline = "";
-        boolean completedName = false;
+        boolean hasCompletedName = false;
         for (int i = 1; i < arrStrings.length; i++) {
             if (arrStrings[i].equals("/by")) {
-                completedName = true;
+                hasCompletedName = true;
                 continue;
             }
-            if (completedName) {
+            if (hasCompletedName) {
                 deadline += arrStrings[i] + " ";
                 continue;
             }
             name += arrStrings[i] + " ";
         }
-        if (!completedName) {
+        if (!hasCompletedName) {
             throw new Exception("Invalid deadline task!");
         }
         name = name.substring(0, name.length() - 1);
@@ -115,7 +115,7 @@ public class Parser {
     }
 
     /**
-     * Parse the input string by splitting based on whtiespaces.
+     * Parses the input string by splitting based on whitespaces.
      * Sorts the string based on its command
      *
      * @param input The input string representing the task given by user

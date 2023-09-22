@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke("./ipOutput.txt");
+    private Duke duke = new Duke("./data/ipOutput.txt");
 
     /**
      * Starts up the application.
