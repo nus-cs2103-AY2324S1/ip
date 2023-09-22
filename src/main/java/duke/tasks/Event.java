@@ -95,21 +95,33 @@ public class Event extends Task implements Temporal {
         return "E" + super.toStorageString() + " | " + fromString + " | " + toString;
     }
 
-    @Override
-    public String getType() {
-        return "event";
-    }
-
+    /**
+     * Returns the start time of the temporal object.
+     *
+     * @return The start time of the temporal object.
+     */
     @Override
     public LocalDateTime getStartTime() {
         return this.from;
     }
 
+    /**
+     * Returns the end time of the temporal object.
+     *
+     * @return The end time of the temporal object.
+     */
     @Override
     public LocalDateTime getEndTime() {
         return this.to;
     }
 
+    /**
+     * Returns true if the temporal object is within the given period.
+     *
+     * @param start The start of the period.
+     * @param end   The end of the period.
+     * @return True if the temporal object is within the given period.
+     */
     @Override
     public boolean isWithinPeriod(LocalDateTime start, LocalDateTime end) {
         return !from.isAfter(end) && !to.isBefore(start);

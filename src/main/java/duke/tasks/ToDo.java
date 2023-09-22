@@ -65,10 +65,4 @@ public class ToDo extends Task {
         return "T" + super.toStorageString();
     }
 
-    @Override
-    public String getType() {
-        return "todo";
-    }
-
-
 }

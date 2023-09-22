@@ -81,21 +81,33 @@ public class Deadline extends Task implements Temporal {
         return "D" + super.toStorageString() + " | " + byString;
     }
 
-    @Override
-    public String getType() {
-        return "deadline";
-    }
-
+    /**
+     * Returns the start time of the temporal object.
+     *
+     * @return The start time of the temporal object.
+     */
     @Override
     public LocalDateTime getStartTime() {
         return this.by;
     }
 
+    /**
+     * Returns the end time of the temporal object.
+     *
+     * @return The end time of the temporal object.
+     */
     @Override
     public LocalDateTime getEndTime() {
         return this.by;
     }
 
+    /**
+     * Returns true if the temporal object is within the given period.
+     *
+     * @param from The start of the period.
+     * @param to The end of the period.
+     * @return True if the temporal object is within the given period.
+     */
     @Override
     public boolean isWithinPeriod(LocalDateTime from, LocalDateTime to) {
         return !by.isAfter(to) && !by.isBefore(from);

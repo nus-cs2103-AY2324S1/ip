@@ -59,11 +59,4 @@ public abstract class Task {
     public String getDescription() {
         return this.description;
     }
-
-    /**
-     * Returns the type of the task.
-     *
-     * @return The type of the task.
-     */
-    public abstract String getType();
 }

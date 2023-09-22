@@ -37,7 +37,7 @@ public class Ui {
      * @return The welcome message as a String.
      */
     public String displayWelcomeMessage() {
-        return "Hello! I'm \n" + LOGO + "What can I do for you?";
+        return "Hello! I'm Ekud! What can I do for you?";
     }
 
     /**
@@ -210,4 +210,5 @@ public class Ui {
     public String displayFindMessage() {
         return "Here are the matching tasks in your list:";
     }
+
 }
