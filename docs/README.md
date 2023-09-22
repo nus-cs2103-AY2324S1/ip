@@ -11,7 +11,7 @@ opening DukeBot](https://github.com/seraphimstreets/ip/blob/master/docs/Ui.png?r
 ## Quickstart
 
 1. Ensure that you have Java 11 installed on your computer. 
-2. Download the Duke.jar from the latest releases. (v0.3 recommended)
+2. Download the Duke.jar from the [latest releases](https://github.com/seraphimstreets/ip/releases). (v0.3 recommended)
 3. Copy the file into the folder you want to use as the home folder for DukeBot 
 and run the command `java -jar Duke.jar` in that directory.
 4. A GUI should appear in a few seconds, and our Duke agent will greet you.
@@ -39,11 +39,12 @@ Adds a todo task to the task list.
 ### Adding Deadline tasks: `deadline`
 
 Adds a deadline task to the task list. For the `datetime` bracket, only certain
-datetime formats will be recognized by DukeBot. (For more information, view "Accepted Datetime Formats" section)
+datetime formats will be recognized by DukeBot. (For more information,
+view [Accepted Datetime Formats](#accepted-datetime-formats) section)
 
 **Format:** `deadline [task description] /by [datetime]`
 
-**xample:**
+**Example:**
 
 `deadline submit homework /by 18/8/2023 1800` adds a deadline task 
 with description "submit homework" into the task list, with a deadline of 18/8/2023 at 6pm. 
@@ -51,7 +52,8 @@ with description "submit homework" into the task list, with a deadline of 18/8/2
 ### Adding Event tasks: `event`
 
 Adds a event task to the task list. For the `datetime` brackets, only certain
-datetime formats will be recognized by DukeBot. (For more information, view "Accepted Datetime Formats" section)
+datetime formats will be recognized by DukeBot. (For more information, view 
+[Accepted Datetime Formats](#accepted-datetime-formats) section)
 
 **Format:** `event [task description] /from [datetime] /to [datetime] `
 
