@@ -18,8 +18,9 @@ import java.util.Scanner;
 
 
 /**
- * Duke class that extends Application, This Duke class is the central and
- * handles the user input, and output to the user through GUI
+ * The `Duke` class extends `Application` and serves as the central
+ * component for handling user input and providing output through a GUI.
+ * It manages a chat interface for interactions with the user.
  * Credit to: https://se-education.org/guides/tutorials/javaFx.html
  */
 public class Duke extends Application {
@@ -39,6 +40,11 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
 
+    /**
+     * Starts the Duke application and initializes the GUI components.
+     *
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         //Step 1. Setting up required components
@@ -124,7 +130,6 @@ public class Duke extends Application {
 
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      *
      * @param text String containing text to add
@@ -139,9 +144,8 @@ public class Duke extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by displaying it in the chat interface and obtaining
+     * a response from the Duke chatbot.
      */
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
@@ -151,8 +155,10 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Obtains a response from the Duke chatbot based on user input.
+     *
+     * @param input The user's input.
+     * @return The Duke chatbot's response.
      */
     private String getResponse(String input) {
         return parserGUI.parseInput(input);

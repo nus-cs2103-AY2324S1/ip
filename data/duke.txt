@@ -2,3 +2,6 @@ T | 0 | Study for CS2103T
 T | 0 | do_this
 D | 0 | return book | 2019-10-15T18:00 | 2
 E | 0 | e | 26Jun | 29Jun
+D | 0 | item | 2019-07-22T18:00 | 2
+E | 0 | desc | 27jun | 28jun
+E | 0 | test | 7 | 1
