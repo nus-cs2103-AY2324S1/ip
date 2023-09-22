@@ -14,7 +14,7 @@ public class FindCommandTest {
     public void run_validFind_success() throws InvalidCommandException {
         String correctOutput =
                 "[D][ ] fill house (by: 06:00 PM)\n" +
-                "[D][ ] open house (by: 06:00 PM)\n";
+                "[D][ ] open house (by: 06:00 PM)";
 
         Storage storage = new Storage("");
         Ui ui = new Ui();
@@ -28,7 +28,7 @@ public class FindCommandTest {
 
     @Test
     public void run_validFind2_success() throws InvalidCommandException {
-        String correctOutput = "[D][ ] open house (by: Sep 23 2000)\n";
+        String correctOutput = "[D][ ] open house (by: Sep 23 2000)";
 
         Storage storage = new Storage("");
         Ui ui = new Ui();

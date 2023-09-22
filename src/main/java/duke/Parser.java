@@ -50,6 +50,8 @@ public class Parser {
             return new LoadCommand(response);
         case "find":
             return new FindCommand(response);
+        case "bye":
+            return new ByeCommand();
         default: {
             return new DefaultCommand(response);
         }

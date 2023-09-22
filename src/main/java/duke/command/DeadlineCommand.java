@@ -27,7 +27,9 @@ public class DeadlineCommand extends Command {
             String by = matcher.group(2);
             Task task = new Deadlines(description, by);
             taskList.addTask(task);
-            return taskList.toString();
+            return "Got it. I've added this task:\n" +
+                    task + "\n" +
+                    String.format("Now you have %d tasks in your list", taskList.getSize());
         } catch (InvalidCommandException | InvalidDateTimeFormatException e) {
             throw new InvalidCommandException(e.getMessage());
         }

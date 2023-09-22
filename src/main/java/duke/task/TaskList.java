@@ -48,12 +48,12 @@ public class TaskList {
     public String getSearchTask(String searchString) {
         String result = "";
         Parser parser = new Parser();
-        for (Task task : tasks) {
-            if (parser.parseSearch(task.toString(), searchString)) {
-                result += task + "\n";
+        for (int i = 0; i < this.size; i++) {
+            if (parser.parseSearch(this.getTask(i).toString(), searchString)) {
+                result += String.format("%s\n", this.getTask(i));
             }
         }
-        return result;
+        return result.substring(0, result.length() - 1);
     }
 
     public void setTaskDone(int index, boolean done) {

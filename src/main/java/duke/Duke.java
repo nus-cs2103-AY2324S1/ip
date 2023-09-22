@@ -5,6 +5,7 @@ import duke.Ui;
 import duke.command.Command;
 import duke.exceptions.InvalidCommandException;
 import duke.Storage;
+import duke.exceptions.InvalidFileTypeException;
 import duke.task.TaskList;
 
 public class Duke {
@@ -22,9 +23,15 @@ public class Duke {
         Command command;
         try {
             command = parser.parse(input);
-            return command.execute(storage, ui, taskList);
+            String response = command.execute(storage, ui, taskList);
+            storage.save(taskList);
+            return response;
         } catch (InvalidCommandException e) {
             return e.getMessage();
         }
+    }
+
+    public void load() throws InvalidFileTypeException {
+        taskList.setTasks(storage.load());
     }
 }

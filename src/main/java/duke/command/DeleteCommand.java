@@ -25,12 +25,12 @@ public class DeleteCommand extends Command {
         }
         int taskIndex = Integer.parseInt(matcher.group(1));
 
-        if (taskIndex < 0 || taskIndex >= taskList.getSize()) {
+        if (taskIndex < 1 || taskIndex > taskList.getSize()) {
             throw new InvalidCommandException("Invalid task index");
         }
 
-        taskList.deleteTask(taskIndex);
-        return ui.format_response("Task successfully deleted");
+        taskList.deleteTask(taskIndex-1);
+        return "Task successfully deleted";
 
     }
 }

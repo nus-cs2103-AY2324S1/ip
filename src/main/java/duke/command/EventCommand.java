@@ -30,7 +30,9 @@ public class EventCommand extends Command {
             String to = matcher.group(3);
             Task task = new Event(description, from, to);
             taskList.addTask(task);
-            return taskList.toString();
+            return "Got it. I've added this task:\n" +
+                    task + "\n" +
+                    String.format("Now you have %d tasks in your list", taskList.getSize());
         } catch (Exception e) {
             return e.getMessage();
         }

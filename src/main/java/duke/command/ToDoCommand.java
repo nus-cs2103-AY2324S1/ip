@@ -23,6 +23,8 @@ public class ToDoCommand extends Command {
         String description = matcher.group(1);
         Task task = new ToDo(description);
         taskList.addTask(task);
-        return taskList.toString();
+        return "Got it. I've added this task:\n" +
+                task + "\n" +
+                String.format("Now you have %d tasks in your list", taskList.getSize());
     }
 }

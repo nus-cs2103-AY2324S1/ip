@@ -1,4 +1,5 @@
 import duke.Duke;
+import duke.exceptions.InvalidFileTypeException;
 import javafx.fxml.FXML;
 
 import java.util.Timer;
@@ -33,12 +34,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        greetUser();
     }
 
     public void setDuke(Duke d) {
         duke = d;
         sendButton.setStyle("-fx-background-color: #52be80; -fx-background-radius:80");
+        try {
+            duke.load();
+        } catch (InvalidFileTypeException e) {
+            String errMessage = "Initialising storage file";
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDukeDialog(errMessage, dukeImage));
+        }
+        greetUser();
         displayCredits();
     }
 
@@ -72,7 +80,7 @@ public class MainWindow extends AnchorPane {
                         public void run() {
                             Platform.exit();
                             System.exit(0); }
-                    }, 3000);
+                    }, 2000);
         }
     }
 

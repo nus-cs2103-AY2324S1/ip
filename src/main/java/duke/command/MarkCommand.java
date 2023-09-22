@@ -1,7 +1,6 @@
 package duke.command;
 
 import duke.Ui;
-import duke.command.Command;
 import duke.Storage;
 import duke.task.*;
 
@@ -12,6 +11,7 @@ public class MarkCommand extends Command {
     protected String response;
     public MarkCommand(String response) {
         super();
+        this.response = response;
     }
 
     @Override
