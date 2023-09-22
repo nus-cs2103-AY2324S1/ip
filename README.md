@@ -66,8 +66,8 @@ An undo cannot be undone, and an undo cannot be performed twice.
 ---
 > ! Notes about the usage formats
 > - Words surrounded by angle brackets `<` and `>` represent placeholders, which you can input a value into. Some
-    placeholders are specified like `<deadline_desc:dd/MM/yyyy hhmm>` which means you can use [this datetime format]
-    (#auto-datetime).
+    placeholders are specified like `<deadline_desc:dd/MM/yyyy hhmm>` which means you can
+    use [this datetime format](#auto-datetime).
 > - It is not compulsory to specify in the required datetime format, you can input any other text
     if you like.
 > - Some placeholders are specified like `<index_number>` which indicates that a task's index number
