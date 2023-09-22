@@ -77,10 +77,21 @@ public class TaskList {
         return tasks.get(idx - 1);
     }
 
+    /**
+     * Adds a tag to the Task.
+     * @param idx index of Task to be added.
+     * @param tagToAdd String of the tag name.
+     */
     public void addTag(int idx, String tagToAdd) {
         Task t = tasks.get(idx - 1);
         t.addTag(tagToAdd);
     }
+
+    /**
+     * Removes a tag from the task.
+     * @param idx Index of the task.
+     * @param tagToRemove Tag to remove.
+     */
     public void removeTagFromTask(int idx, String tagToRemove) {
         Task t = tasks.get(idx - 1);
         t.removeTag(tagToRemove);

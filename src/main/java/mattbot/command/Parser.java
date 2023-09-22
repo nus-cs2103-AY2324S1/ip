@@ -14,6 +14,10 @@ import mattbot.task.Todo;
  */
 public class Parser {
     private static final DateTimeFormatter DTFORMAT = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmm");
+
+    /**
+     * Constructor for the Parser. Creates a new Parser object.
+     */
     public Parser() {}
 
     /**
