@@ -60,7 +60,7 @@ public class Ui {
             }
             return output;
         } else {
-            return ("Yay! You have no tasks in your list.");
+            return ("Yay! You have no tasks on your list.");
         }
     }
 
@@ -74,7 +74,7 @@ public class Ui {
         return ("I have added the following task to your list:\n  "
                 + task.toString() + "\nNow you have " + tasks.size()
                 + (tasks.size() == 1 ? " task" : " tasks")
-                + " in the list. You can do this!");
+                + " on the list. You can do this!");
     }
 
     /**
@@ -102,10 +102,10 @@ public class Ui {
      * @param tasks old task list before deletion.
      */
     public String taskDeleted(Task task, TaskList tasks) {
-        return ("I have removed the following task to your list:\n  "
+        return ("I have removed the following task from your list:\n  "
                 + task.toString() + "\nNow you have " + (tasks.size() - 1)
                 + ((tasks.size() - 1) == 1 ? " task" : " tasks")
-                + " in the list.");
+                + " on the list.");
     }
 
     /**
