@@ -89,6 +89,10 @@ public class Parser {
             break;
         case "list":
             String all = "";
+            if (tasks.size() == 0) {
+                output = "You have no task currently, try adding some!";
+                break;
+            }
             for (int i = 0; i < tasks.size(); i++) {
                 Task curr = tasks.get(i);
                 all = all + String.valueOf(i + 1) + "." + curr.toString() + "\n";
