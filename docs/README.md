@@ -36,6 +36,7 @@ Dialogix is a **desktop app for managing contacts, optimized for use via a Comma
 5. Find tasks that have given keyword.
 
 **Notes about the command format**:
+
 - Words in `UPPER_CASE` are the parameters to be supplied by the user. For example, in `todo DESCRIPTION`, `DESCRIPTION` is a parameter that can be used as `todo READBOOK`.
 --------------------------------------------------------------------------------------------------------------------
 ## Usage
