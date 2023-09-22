@@ -8,7 +8,8 @@
          alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
          spacing="10.0" xmlns:profiler="http://javafx.com/javafx/17" styleClass="dialog-box">
     <children>
-        <StackPane fx:id="buildDialogBox"/>
+        <StackPane fx:id="userDialogBox" styleClass="dialog-box"/>
+        <StackPane fx:id="jarvisDialogBox" styleClass="dialog-box"/>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>

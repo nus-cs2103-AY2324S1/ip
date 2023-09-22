@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -34,7 +35,7 @@ public class DialogBox extends HBox {
      * @param message The text content of the dialog box.
      * @param img     The image to be displayed in the dialog box.
      */
-    private DialogBox(String message, Image img) {
+    private DialogBox(String message, Image img, boolean isUser) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/views/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -43,7 +44,12 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        buildDialogBox(message, img);
+        if (isUser) {
+            buildDialogBox(message, img, true);
+        } else {
+            buildDialogBox(message, img, false);
+        }
+
     }
 
     /**
@@ -54,7 +60,7 @@ public class DialogBox extends HBox {
      * @return A DialogBox representing the user's dialog.
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, true);
     }
 
     /**
@@ -65,7 +71,7 @@ public class DialogBox extends HBox {
      * @return A DialogBox representing Jarvis's dialog.
      */
     public static DialogBox getJarvisDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, false);
         db.flip();
         return db;
     }
@@ -81,11 +87,57 @@ public class DialogBox extends HBox {
     }
 
     @FXML
-    private void buildDialogBox(String message, Image img) {
+    private void buildDialogBox(String message, Image img, boolean isUser) {
         Text formattedText = createText(message);
+        formattedText.getStyleClass().add("dialog-text");
         Circle circleImage = getCircularImg(img);
-        StackPane dialogBox = createDialogBox(formattedText);
-        this.getChildren().addAll(dialogBox, circleImage);
+        if (isUser) {
+            formattedText.setFill(Color.WHITE);
+            StackPane dialogBox = createDialogBox(formattedText, Color.rgb(2, 125, 254));
+            this.getChildren().addAll(dialogBox, circleImage);
+        } else {
+            StackPane dialogBox = createDialogBox(formattedText, Color.rgb(233, 233, 233));
+            this.getChildren().addAll(dialogBox, circleImage);
+        }
+    }
+
+    private static Circle getCircularImg(Image img) {
+        Circle circleImage = new Circle(0, 0, PFP_SIZE);
+        circleImage.setFill(new ImagePattern(img));
+        return circleImage;
+    }
+
+    private StackPane createDialogBox(Text text, Color fillColor) {
+        Rectangle messageBox = createMessageBox(text, fillColor);
+        StackPane stackPane = new StackPane(messageBox, text);
+        styleDialogBox(stackPane);
+        return stackPane;
+    }
+
+    private static void styleDialogBox(StackPane stackPane) {
+        StackPane.setMargin(stackPane, new Insets(10, 0, 10, 0)); // Margin at top and bottom
+        stackPane.setPadding(new Insets(10));
+    }
+
+    private Rectangle createMessageBox(Text formattedText, Color fillColor) {
+        assert formattedText != null : "Text cannot be null.";
+        Rectangle messageBox = createCustomMessageBox(formattedText, fillColor);
+        styleMessageBox(messageBox, fillColor);
+        return messageBox;
+    }
+
+    private static Rectangle createCustomMessageBox(Text formattedText, Color fillColor) {
+        double messageBoxWidth = formattedText.getBoundsInLocal().getWidth() + 40;
+        double messageBoxHeight = formattedText.getBoundsInLocal().getHeight() + 20;
+        Rectangle styledMessageBox = new Rectangle(messageBoxWidth, messageBoxHeight);
+        styleMessageBox(styledMessageBox, fillColor);
+        return styledMessageBox;
+    }
+
+    private static void styleMessageBox(Rectangle messageBox, Color fillColor) {
+        messageBox.setFill(fillColor);
+        messageBox.setArcWidth(ARC_VALUE);
+        messageBox.setArcHeight(ARC_VALUE);
     }
 
     private Text createText(String string) {
@@ -139,36 +191,6 @@ public class DialogBox extends HBox {
             wrappedText.append(subWord).append("\n");
             startIndex = endIndex;
         }
-    }
-
-    private static Circle getCircularImg(Image img) {
-        Circle circleImage = new Circle(0, 0, PFP_SIZE);
-        circleImage.setFill(new ImagePattern(img));
-        return circleImage;
-    }
-
-    private StackPane createDialogBox(Text text) {
-        Rectangle messageBox = createMessageBox(text);
-        return new StackPane(messageBox, text);
-    }
-
-    private Rectangle createMessageBox(Text formattedText) {
-        assert formattedText != null : "Text cannot be null.";
-        Rectangle messageBox = createCustomMessageBox(formattedText);
-        styleMessageBox(messageBox);
-        return messageBox;
-    }
-
-    private static Rectangle createCustomMessageBox(Text formattedText) {
-        double messageBoxWidth = formattedText.getBoundsInLocal().getWidth() + 80;
-        double messageBoxHeight = formattedText.getBoundsInLocal().getHeight() + 20;
-        return new Rectangle(messageBoxWidth, messageBoxHeight);
-    }
-
-    private static void styleMessageBox(Rectangle messageBox) {
-        messageBox.setFill(Color.WHITE);
-        messageBox.setArcWidth(ARC_VALUE);
-        messageBox.setArcHeight(ARC_VALUE);
     }
 }
 

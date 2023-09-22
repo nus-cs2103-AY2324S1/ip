@@ -20,8 +20,6 @@ public class ByeCommand implements Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         assert taskList != null && ui != null && storage != null;
         storage.saveTasks(taskList.getTaskList());
-        System.exit(0);
-        assert false : "System should be excited";
         return ui.printBye();
     }
 }

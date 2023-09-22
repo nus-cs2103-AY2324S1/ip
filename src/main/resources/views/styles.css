@@ -8,13 +8,19 @@
 
 /* Customize the user input text field */
 #userInput {
-    -fx-background-color: #ecf0f1;
-    -fx-font-size: 12px;
+    -fx-background-color: #EFEFF0;
+    -fx-font-size: 14px;
+    -fx-font-family: SF-UI Text Regular
 }
 
 /* Add padding between DialogBox elements */
 .dialog-box {
     -fx-padding: 5px;
+}
+
+/* Customize the dialog box text */
+.dialog-text {
+    -fx-font-family: "SF-UI Text Regular"; /* Change the font family */
 }
 
 /* Add padding between ImageView and Label */
@@ -32,3 +38,4 @@
 .dialog-box .label {
     -fx-background-color: #f2f2f2; /* Background color for the dialog box */
 }
+
