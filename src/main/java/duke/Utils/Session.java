@@ -5,7 +5,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -13,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -21,8 +21,8 @@ import javafx.stage.Stage;
  */
 public class Session extends Application {
     private static final String IMG_DIR = "file:img/";
-    private static final String CHATBOT_AVATAR = Session.IMG_DIR + "pb.jpg";
-    private static final String USER_AVATAR = Session.IMG_DIR + "rs.jpg";
+    private static final String CHATBOT_AVATAR = IMG_DIR + "pb.jpg";
+    private static final String USER_AVATAR = IMG_DIR + "rs.jpg";
 
     private Response response;
     private Input input;
@@ -50,54 +50,124 @@ public class Session extends Application {
      * @param primaryStage The primary stage for the application.
      */
     public void initializeUI(Stage primaryStage) {
+        BorderPane root = createRootPane();
+        Scene scene = new Scene(root, 400, 400);
+        
+        setupPrimaryStage(primaryStage, scene);
+        setupInitialGreeting();
+    }
+
+    /**
+     * Creates the root BorderPane for the UI.
+     *
+     * @return The root BorderPane.
+     */
+    private BorderPane createRootPane() {
         BorderPane root = new BorderPane();
-        this.chatBox = new VBox(10);
-        this.chatBox.setPadding(new Insets(10));
-
-        ScrollPane scrollPane = new ScrollPane(chatBox);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(true);
-
-        this.inputField = new TextField();
-        this.inputField.setPromptText("Enter your command...");
-
-        Button sendButton = new Button("Send");
-        sendButton.setOnAction(event -> processUserInput());
-
-        ImageView userImageView = getAvatarImageView(Session.USER_AVATAR);
-        ImageView chatbotImageView = getAvatarImageView(Session.CHATBOT_AVATAR);
-
-        HBox inputBox = new HBox(10);
-        inputBox.setPadding(new Insets(10));
-        inputBox.getChildren().addAll(userImageView, inputField, sendButton);
+        
+        chatBox = createChatBox();
+        ScrollPane scrollPane = createScrollPane();
+        inputField = createInputField();
+        Button sendButton = createSendButton();
+        HBox inputBox = createInputBox(sendButton);
 
         root.setCenter(scrollPane);
         root.setBottom(inputBox);
+        
+        return root;
+    }
 
-        Scene scene = new Scene(root, 400, 400);
+    /**
+     * Creates the chat box VBox.
+     *
+     * @return The chat box VBox.
+     */
+    private VBox createChatBox() {
+        VBox chatBox = new VBox(10);
+        chatBox.setPadding(new Insets(10));
+        return chatBox;
+    }
+
+    /**
+     * Creates the scroll pane for the chat box.
+     *
+     * @return The scroll pane.
+     */
+    private ScrollPane createScrollPane() {
+        ScrollPane scrollPane = new ScrollPane(chatBox);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        return scrollPane;
+    }
+
+    /**
+     * Creates the input field for user commands.
+     *
+     * @return The input field.
+     */
+    private TextField createInputField() {
+        TextField inputField = new TextField();
+        inputField.setPromptText("Enter your command...");
+        return inputField;
+    }
+
+    /**
+     * Creates the "Send" button.
+     *
+     * @return The "Send" button.
+     */
+    private Button createSendButton() {
+        Button sendButton = new Button("Send");
+        sendButton.setOnAction(event -> processUserInput());
+        return sendButton;
+    }
+
+    /**
+     * Creates the input box containing user image, input field, and "Send" button.
+     *
+     * @param sendButton The "Send" button.
+     * @return The input box.
+     */
+    private HBox createInputBox(Button sendButton) {
+        ImageView userImageView = getAvatarImageView(USER_AVATAR);
+        HBox inputBox = new HBox(10);
+        inputBox.setPadding(new Insets(10));
+        inputBox.getChildren().addAll(userImageView, inputField, sendButton);
+        return inputBox;
+    }
+
+    /**
+     * Sets up the primary stage for the application.
+     *
+     * @param primaryStage The primary stage.
+     * @param scene The scene to be displayed.
+     */
+    private void setupPrimaryStage(Stage primaryStage, Scene scene) {
         primaryStage.setTitle("Duke Chatbot");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
 
-        appendMessage(
-            Response.GREETINGS.toString(),
-            Session.CHATBOT_AVATAR
-        );
+    /**
+     * Displays the initial greeting in the chatbox.
+     */
+    private void setupInitialGreeting() {
+        appendMessage(Response.GREETINGS.toString(), CHATBOT_AVATAR);
     }
 
     /**
      * Processes the user's input and displays responses in the chat interface.
      */
     private void processUserInput() {
-        String userInput = this.inputField.getText().trim();
+        String userInput = inputField.getText().trim();
         if (!userInput.isEmpty()) {
-            appendMessage(userInput, Session.USER_AVATAR);
-            Response response = this.input.command(userInput);
+            appendMessage(userInput, USER_AVATAR);
+            Response response = input.command(userInput);
             if (response == Response.TERMINATE) {
                 terminateApplication();
             }
-            appendMessage(response.toString(), Session.CHATBOT_AVATAR);
-            this.inputField.clear();
+            appendMessage(response.toString(), CHATBOT_AVATAR);
+            inputField.clear();
         }
     }
 
@@ -109,27 +179,40 @@ public class Session extends Application {
      */
     private void appendMessage(String message, String imgSrc) {
         ImageView avatarImageView = getAvatarImageView(imgSrc);
-        HBox messageBox = new HBox(10);
-        Label messageLabel = new Label(message);
+        HBox messageBox = createMessageBox(message, avatarImageView, imgSrc);
+        chatBox.getChildren().add(messageBox);
+    }
+
+    /**
+     * Creates a message box with an associated avatar for a message.
+     *
+     * @param message The message to be displayed.
+     * @param avatarImageView The avatar image associated with the message.
+     * @param imgSrc The source of the avatar image.
+     * @return The message box.
+     */
+    private HBox createMessageBox(String message, ImageView avatarImageView, String imgSrc) {
+        Text messageText = new Text(message);
         HBox messageContent;
+        HBox messageBox = new HBox(10);
 
         switch (imgSrc) {
-        case Session.USER_AVATAR:
-            messageContent = new HBox(10, avatarImageView, messageLabel);
-            messageContent.setAlignment(Pos.BASELINE_LEFT);
-            messageBox.setStyle("-fx-background-color: #ddf2e4; -fx-padding: 10px;");
-            break;
-        case Session.CHATBOT_AVATAR:
-            messageContent = new HBox(10, messageLabel, avatarImageView);
-            messageContent.setAlignment(Pos.BASELINE_LEFT);
-            messageBox.setStyle("-fx-background-color: #fedada; -fx-padding: 10px;");
-            break;
-        default:
-            throw new DukeException("?");
+            case USER_AVATAR:
+                messageContent = new HBox(10, avatarImageView, messageText);
+                messageContent.setAlignment(Pos.BASELINE_LEFT);
+                messageBox.setStyle("-fx-background-color: #ddf2e4; -fx-padding: 10px;");
+                break;
+            case CHATBOT_AVATAR:
+                messageContent = new HBox(10, messageText, avatarImageView);
+                messageContent.setAlignment(Pos.BASELINE_LEFT);
+                messageBox.setStyle("-fx-background-color: #fedada; -fx-padding: 10px;");
+                break;
+            default:
+                throw new DukeException("?");
         }
 
         messageBox.getChildren().add(messageContent);
-        chatBox.getChildren().add(messageBox);
+        return messageBox;
     }
 
     /**
