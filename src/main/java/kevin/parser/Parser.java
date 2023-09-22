@@ -34,7 +34,7 @@ public class Parser {
             throw new KevinException("Command is invalid.");
         }
 
-        if (command == Command.BYE || command == Command.LIST) {
+        if (command == Command.BYE || command == Command.LIST || command == Command.HELP) {
             if (querySplit.length > 1) {
                 throw new KevinException(command.name() + " command does not take any input.");
             }

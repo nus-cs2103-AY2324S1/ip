@@ -32,6 +32,7 @@ public class Evaluator {
         MAPPER.put(Command.DEADLINE, (t, a, l, f, i) -> new DeadlineStrategy(t, a).evaluate(l, f, i));
         MAPPER.put(Command.DELETE, (t, a, l, f, i) -> new DeleteStrategy(t, a).evaluate(l, f, i));
         MAPPER.put(Command.FIND, (t, a, l, f, i) -> new FindStrategy(t, a).evaluate(l, f, i));
+        MAPPER.put(Command.HELP, (t, a, l, f, i) -> new HelpStrategy(t, a).evaluate(l, f, i));
     }
     private final TaskList taskList;
     private final Logger logger;
