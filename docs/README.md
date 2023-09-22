@@ -3,7 +3,7 @@ Tom is a lightweight application to schedule and manage tasks. It is very fast a
 
 ## Features
 
-### Feature - Add tasks
+### Feature - Add ToDo
 > #### todo 
 A todo is a task that has a description, but no deadlines
 
@@ -16,6 +16,8 @@ A todo is a task that has a description, but no deadlines
 **Expected Output:**
 
 ![todo.png](images/todo.png)
+
+### Feature - Add deadlines
 >#### deadline
 
 A deadline is a task that has a description and a deadline.
@@ -30,6 +32,7 @@ A deadline is a task that has a description and a deadline.
 
 ![deadline.png](images/deadline.png)
 
+### Feature - Add events
 >#### event
 
 An event is a task that has a description, from date and to date.

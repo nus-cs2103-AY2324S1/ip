@@ -61,7 +61,6 @@ public class Parser {
             case find:
                 String findThis = userInputList[1];
                 return TaskList.findTask(findThis);
-
             default:
                 throw new DukeException("OOPS!!! Sorry, but i do not know what that means :-(");
             }
