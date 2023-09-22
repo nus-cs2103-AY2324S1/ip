@@ -27,6 +27,11 @@ public class Deadline extends Task {
         this.endTime = LocalTime.parse(endTime, inputFormatter);
     }
 
+    /**
+     * Checks if task is due within next three days.
+     *
+     * @return Boolean value of conditional statement.
+     */
     public boolean isDueWithinThreeDays() {
         LocalDate today = LocalDate.now();
         LocalDate dueDate = this.endDate;

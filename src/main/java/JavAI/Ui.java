@@ -28,7 +28,7 @@ public class Ui {
         try {
             String result = "Here are the tasks in your list:";
             for (int i = 0; i < tasks.size(); i++) {
-                result += "\n" +  (i + 1) + "." + tasks.get(i).toString();
+                result += "\n" + (i + 1) + "." + tasks.get(i).toString();
             }
             return result;
         } catch (JavAiException e) {
@@ -57,7 +57,7 @@ public class Ui {
     public String printDone(Task task) {
         return ("Nice! I've marked this task as done:\n"
                 + task
-                + "\n" );
+                + "\n");
     }
 
     /**

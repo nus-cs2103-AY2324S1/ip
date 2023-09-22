@@ -95,7 +95,16 @@ public class Storage {
 
     }
 
-    public void addTodo(int iterator, String[] words, ArrayList<Task> tasks, String completionType, String description) {
+    /**
+     * Adds a todo task to the list of tasks.
+     * @param iterator The iterator to iterate through the words array.
+     * @param words The array of words in the user input.
+     * @param tasks The list of tasks.
+     * @param completionType The completion status of the task.
+     * @param description The description of the task.
+     */
+    public void addTodo(int iterator, String[] words, ArrayList<Task> tasks, String completionType,
+                        String description) {
         while (iterator < words.length) {
             description += words[iterator] + " ";
             iterator++;
@@ -108,11 +117,20 @@ public class Storage {
         tasks.add(todo);
     }
 
-    public void addDeadline(int iterator, String[] words, ArrayList<Task> tasks, String completionType, String description) {
+    /**
+     * Adds a deadline task to the list of tasks.
+     * @param iterator The iterator to iterate through the words array.
+     * @param words The array of words in the user input.
+     * @param tasks The list of tasks.
+     * @param completionType The completion status of the task.
+     * @param description The description of the task.
+     */
+    public void addDeadline(int iterator, String[] words, ArrayList<Task> tasks, String completionType,
+                            String description) {
         String endDate = "";
         String endTime = "";
-        while (!words[iterator].equals("by:" )) {
-            if (!words[iterator].equals("(" )) {
+        while (!words[iterator].equals("by:")) {
+            if (!words[iterator].equals("(")) {
                 description += words[iterator] + " ";
                 iterator++;
             } else {
@@ -125,10 +143,10 @@ public class Storage {
             iterator++;
         }
         endTime = words[iterator];
-        String endTimeWithoutColon = endTime.replace(":", "" );
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy " );
+        String endTimeWithoutColon = endTime.replace(":", "");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy ");
         LocalDate date = LocalDate.parse(endDate, inputFormatter);
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd" );
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = date.format(outputFormatter);
         assert !description.isEmpty() : "Description should not be empty";
         Deadline deadline = new Deadline(description.trim(), formattedDate, endTimeWithoutColon);
@@ -138,6 +156,14 @@ public class Storage {
         tasks.add(deadline);
     }
 
+    /**
+     * Adds an event task to the list of tasks.
+     * @param iterator The iterator to iterate through the words array.
+     * @param words The array of words in the user input.
+     * @param tasks The list of tasks.
+     * @param completionType The completion status of the task.
+     * @param description The description of the task.
+     */
     public void addEvent(int iterator, String[] words, ArrayList<Task> tasks, String completionType,
                          String description) {
         String from = "";

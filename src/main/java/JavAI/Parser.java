@@ -48,7 +48,17 @@ public class Parser {
         }
     }
 
-    public String createTodo(int iterator, String[] words, String description, TaskList tasks, Ui ui) throws JavAiException {
+    /**
+     * Creates a new Todo task and adds it to the TaskList.
+     *
+     * @param iterator Iterator for processing input words.
+     * @param words The array of input words.
+     * @param description The description of the todo task.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @return A message indicating the task has been added.
+     */
+    public String createTodo(int iterator, String[] words, String description, TaskList tasks, Ui ui) {
         try {
             while (iterator < words.length) {
                 description += words[iterator] + " ";
@@ -65,8 +75,19 @@ public class Parser {
         }
     }
 
-    public String createDeadline(int iterator, String[] words, String description, TaskList tasks, Ui ui, String input)
-            throws JavAiException {
+    /**
+     * Creates a new Deadline task and adds it to the TaskList.
+     *
+     * @param iterator Iterator for processing input words.
+     * @param words The array of input words.
+     * @param description The description of the deadline task.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @param input The user input string to be parsed.
+     * @return A message indicating the task has been added.
+     */
+    public String createDeadline(int iterator, String[] words, String description, TaskList tasks,
+                                 Ui ui, String input) {
         String endDate = "";
         String endTime = "";
         try {
@@ -100,8 +121,19 @@ public class Parser {
         }
     }
 
-    public String createEvent(int iterator, String[] words, String description, TaskList tasks, Ui ui, String input)
-            throws JavAiException {
+    /**
+     * Creates a new Event task and adds it to the TaskList.
+     *
+     * @param iterator Iterator for processing input words.
+     * @param words The array of input words.
+     * @param description The description of the event task.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @param input The user input string to be parsed.
+     * @return A message indicating the task has been added.
+     */
+    public String createEvent(int iterator, String[] words, String description, TaskList tasks,
+                              Ui ui, String input) {
         try {
             if (!input.contains("/from") || !input.contains("/to")) {
                 throw new JavAiException("☹ OOPS!!! Please input a valid event using '/from' and '/to'.");
@@ -130,15 +162,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as done.
+     * @param words The array of input words.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @return A message indicating the task has been marked as done.
+     * @throws JavAiException If there's an error in parsing or executing the command.
+     */
     public String markTask(String[] words, TaskList tasks, Ui ui) throws JavAiException {
         try {
-            int iden = Integer.parseInt(words[1]) - 1;
-            assert tasks.get(iden) != null : "Task should not be null";
-            if (tasks.get(iden).isDone) {
+            int identity = Integer.parseInt(words[1]) - 1;
+            assert tasks.get(identity) != null : "Task should not be null";
+            if (tasks.get(identity).isDone) {
                 throw new JavAiException("☹ OOPS!!! This task is already marked complete.");
             }
-            tasks.get(iden).markAsDone();
-            return ui.printDone(tasks.get(iden));
+            tasks.get(identity).markAsDone();
+            return ui.printDone(tasks.get(identity));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'mark'.");
         } catch (NullPointerException e) {
@@ -148,15 +188,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as undone.
+     * @param words The array of input words.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @return A message indicating the task has been marked as undone.
+     * @throws JavAiException If there's an error in parsing or executing the command.
+     */
     public String unmarkTask(String[] words, TaskList tasks, Ui ui) throws JavAiException {
         try {
-            int iden = Integer.parseInt(words[1]) - 1;
-            assert tasks.get(iden) != null : "Task should not be null";
-            if (!tasks.get(iden).isDone) {
+            int identity = Integer.parseInt(words[1]) - 1;
+            assert tasks.get(identity) != null : "Task should not be null";
+            if (!tasks.get(identity).isDone) {
                 throw new JavAiException("☹ OOPS!!! This task is already unmarked.");
             }
-            tasks.get(iden).markAsUndone();
-            return ui.printUndone(tasks.get(iden));
+            tasks.get(identity).markAsUndone();
+            return ui.printUndone(tasks.get(identity));
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new JavAiException("☹ OOPS!!! Please input a valid numerical value after 'unmark'.");
         } catch (NullPointerException e) {
@@ -166,6 +214,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the TaskList.
+     * @param words The array of input words.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @return A message indicating the task has been deleted.
+     * @throws JavAiException If there's an error in parsing or executing the command.
+     */
     public String deleteTask(String[] words, TaskList tasks, Ui ui) throws JavAiException {
         try {
             String result = ui.printDelete(tasks.get(Integer.parseInt(words[1]) - 1), tasks);
@@ -180,6 +236,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds a task from the TaskList.
+     * @param words The array of input words.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @return A message indicating the task has been found.
+     * @throws JavAiException If there's an error in parsing or executing the command.
+     */
     public String findTask(String[] words, TaskList tasks, Ui ui) throws JavAiException {
         if (words.length != 2) {
             throw new JavAiException("☹ OOPS!!! Please input agi valid keyword after 'find'.");
@@ -197,6 +261,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Gets a reminder of tasks that are due within next 3 days.
+     * @param tasks The TaskList to which the task is added.
+     * @param ui The Ui instance for displaying messages.
+     * @return A message indicating the tasks that are due within next 3 days.
+     * @throws JavAiException If there's an error in parsing or executing the command.
+     */
     public String getReminder(TaskList tasks, Ui ui) throws JavAiException {
         String result = ui.print("Here are the tasks that are due within next 3 days:");
         for (int i = 0; i < tasks.size(); i++) {
