@@ -98,7 +98,6 @@ public class Storage {
                 while (scanner.hasNextLine()) {
                     String[] input = scanner.nextLine().split(" \\| ");
                     String taskType = input[0];
-                    System.out.println(taskType);
                     switch(taskType) {
                     case "T":
                         addT(tasks, input);
