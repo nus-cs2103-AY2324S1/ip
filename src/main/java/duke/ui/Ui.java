@@ -183,6 +183,14 @@ public class Ui {
         return result;
     }
 
+    /**
+     * Displays the updated task to the user after a modification has been made.
+     * This method prints out the updated task from the task list by its task number.
+     *
+     * @param tasks      The TaskList object containing all tasks.
+     * @param taskNumber The number of the task that has been updated.
+     * @return A string summarizing the update action and displaying the updated task.
+     */
     public String showUpdateText(TaskList tasks, int taskNumber) {
         System.out.println(SPACE);
         System.out.println("Noted. I've updated task number" + taskNumber + ".\n");

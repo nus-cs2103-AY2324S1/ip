@@ -7,7 +7,7 @@ import duke.ui.Ui;
 /**
  * Represents a command that updates a specific field of a task in the task list.
  */
-public class UpdateCommand extends Command{
+public class UpdateCommand extends Command {
     /** Number of the task to be mark as done from the task list */
     private int taskNumber;
     /** The field of the task to update. */

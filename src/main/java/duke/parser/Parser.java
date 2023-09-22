@@ -6,7 +6,16 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.ByeCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ErrorCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
+import duke.command.UpdateCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
@@ -36,7 +45,7 @@ public class Parser {
 
 
     public static Command parse(String userInput) {
-        assert input != null && !input.trim().isEmpty() : "Input cannot be empty."; // Check input is not empty.
+        assert userInput != null && !userInput.trim().isEmpty() : "Input cannot be empty."; // Check input is not empty.
         // Extracts the first word (the command word) from the input
         String commandWord = userInput.split(" ")[0].toLowerCase();
 
@@ -68,8 +77,9 @@ public class Parser {
         case "find":
             return Parser.parseFind(userInput);
             // Fallthrough
-            case "update":
-                return Parser.parseUpdate(input);
+        case "update":
+            return Parser.parseUpdate(userInput);
+            //Fallthrough
         default:
             return new ErrorCommand("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

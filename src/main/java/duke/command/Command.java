@@ -19,7 +19,7 @@ public abstract class Command {
      * @param ui The UI which is used during the command execution.
      * @param storage The storage where tasks are stored and retrieved from.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) ;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 
     /**
      * Checks if the command ends the program.
