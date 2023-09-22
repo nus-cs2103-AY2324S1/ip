@@ -1,6 +1,5 @@
 package duke.main;
 
-import java.io.File;
 import java.util.Objects;
 
 import javafx.scene.media.Media;
