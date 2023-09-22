@@ -121,6 +121,7 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             finalOutput += Ui.staticTabPrinter(String.format("%d. %s", i + 1,
                     taskList.get(i).toString()));
+            finalOutput += "\n";
         }
         return finalOutput;
     }

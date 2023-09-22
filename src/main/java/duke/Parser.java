@@ -58,7 +58,8 @@ public class Parser {
     public ToDo parseTodo() throws DukeException {
         if (fullLine.split("todo ").length < 1) {
             //new Ui().todoErrorPrinter();
-            throw new DukeException(new Ui().todoErrorString());
+            String temp = new Ui().todoErrorString();
+            throw new DukeException(temp);
         }
 
         String taskName = fullLine.split("todo ")[1];
