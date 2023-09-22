@@ -8,11 +8,19 @@ import javafx.scene.control.ListView;
 
 import java.util.stream.Collectors;
 
+/**
+ * Utility class for managing tasks.
+ */
 public class TaskManager {
     private final ListView<Task> taskListView;
     private final ListView<Task> originalTaskListView;
     private boolean isFindMode;
 
+    /**
+     * Initializes a new TaskManager with the given task list view.
+     *
+     * @param taskListView The task list view to be managed.
+     */
     public TaskManager(ListView<Task> taskListView) {
         this.taskListView = taskListView;
         this.originalTaskListView = new ListView<>();
@@ -20,12 +28,20 @@ public class TaskManager {
         this.isFindMode = false;
     }
 
+    /**
+     * Adds a task to the task list view.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         resetTaskListViewIfInFindMode();
         taskListView.getItems().add(task);
         saveTasks();
     }
 
+    /**
+     * Deletes a task from the task list view.
+     */
     public void deleteTask() {
         resetTaskListViewIfInFindMode();
         Task selectedItem = taskListView.getSelectionModel().getSelectedItem();
@@ -36,12 +52,22 @@ public class TaskManager {
         TaskFileHandler.saveTasksToDisk(tasksFromListView);
     }
 
+    /**
+     * Save all tasks to disk.
+     */
     public void saveTasks() {
         resetTaskListViewIfInFindMode();
         ObservableList<Task> tasksFromListView = taskListView.getItems();
         TaskFileHandler.saveTasksToDisk(tasksFromListView);
     }
 
+    /**
+     *
+     * Add a note to a task.
+     *
+     * @param index
+     * @param note
+     */
     public void setNoteForTask(String index, String note) {
         resetTaskListViewIfInFindMode();
         ObservableList<Task> tasksFromListView = taskListView.getItems();
@@ -50,6 +76,11 @@ public class TaskManager {
         taskListView.refresh();
     }
 
+    /**
+     * Filter the task list view by the given substring.
+     *
+     * @param subString
+     */
     public void filterTaskListView(String subString) {
         this.isFindMode = true;
         ObservableList<Task> filteredTasks = taskListView.getItems().stream()
@@ -58,7 +89,10 @@ public class TaskManager {
         taskListView.setItems(filteredTasks);
     }
 
-    private void resetTaskListViewIfInFindMode() {
+    /**
+     * Resets the task list view to the original list of tasks if it is currently in find mode.
+     */
+    public void resetTaskListViewIfInFindMode() {
         if (!this.isFindMode) {
             return;
         }

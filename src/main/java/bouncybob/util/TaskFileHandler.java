@@ -27,10 +27,6 @@ public class TaskFileHandler {
      *
      * @param taskList The list of tasks to be saved.
      */
-    public static void saveTasksToDisk(TaskList taskList) {
-        saveTasksToFile(taskList.getTasks());
-    }
-
     public static void saveTasksToDisk(ObservableList<Task> taskList) {
         saveTasksToFile(new ArrayList<>(taskList));
     }

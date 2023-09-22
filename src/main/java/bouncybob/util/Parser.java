@@ -47,6 +47,8 @@ public class Parser {
                 return BouncyBob.Action.NOTE;
             case "find":
                 return BouncyBob.Action.FIND;
+            case "list":
+                return BouncyBob.Action.LIST;
             default:
                 return BouncyBob.Action.UNKNOWN;
         }
@@ -91,6 +93,12 @@ public class Parser {
         return combinedString;
     }
 
+    /**
+     * Removes the action keyword from the array and returns the remaining as a combined string.
+     *
+     * @param arr The array containing the action keyword and other strings.
+     * @return The combined string.
+     */
     public static String getNoteFromCommand(String[] arr) {
         String combinedString = "";
         for (int i = 2; i < arr.length; i++) {

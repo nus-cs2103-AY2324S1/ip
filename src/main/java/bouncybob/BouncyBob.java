@@ -1,10 +1,8 @@
 package bouncybob;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 import javafx.application.Application;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,7 +25,6 @@ import bouncybob.util.Parser;
 import bouncybob.util.TaskFileHandler;
 import bouncybob.util.TaskList;
 import bouncybob.util.TaskManager;
-import bouncybob.util.Ui;
 
 /**
  * Main class for the BouncyBob application.
@@ -48,7 +45,7 @@ public class BouncyBob extends Application {
         ListView<Task> taskListView = initializeTaskListView();
         taskManager = new TaskManager(taskListView);
 
-        HBox inputBox = createTaskInputBox(taskListView);
+        HBox inputBox = createTaskInputBox();
 
         VBox rootLayout = new VBox(20, titleLabel, taskListView, inputBox);
         rootLayout.setPadding(new Insets(20));
@@ -76,10 +73,9 @@ public class BouncyBob extends Application {
     /**
      * Creates the task input box.
      *
-     * @param taskListView The task list view.
      * @return The task input box.
      */
-    private HBox createTaskInputBox(ListView<Task> taskListView) {
+    private HBox createTaskInputBox() {
         ComboBox<TaskType> taskTypeComboBox = new ComboBox<>();
         taskTypeComboBox.getItems().addAll(TaskType.TODO, TaskType.DEADLINE, TaskType.EVENT);
         taskTypeComboBox.setValue(TaskType.TODO);
@@ -117,6 +113,8 @@ public class BouncyBob extends Application {
             String subString = Parser.removeAction(userInputParts);
             taskManager.filterTaskListView(subString);
             return;
+        } else if (Parser.getAction(userInputParts[0]) == Action.LIST) {
+            taskManager.resetTaskListViewIfInFindMode();
         } else {
             userInput = taskTypeComboBox.getValue().toString().toLowerCase() + " " + userInput;
             userInputParts = userInput.split(" ");
@@ -126,6 +124,8 @@ public class BouncyBob extends Application {
                 taskManager.saveTasks();
             } catch (IllegalArgumentException ex) {
                 showErrorDialog("Error", "Invalid Input", ex.getMessage());
+            } catch (DateTimeParseException ex) {
+                showErrorDialog("Error", "Invalid Date Format", "Please use yyyy-mm-dd HHmm.");
             }
         }
         taskInputField.clear();
@@ -157,63 +157,7 @@ public class BouncyBob extends Application {
      * Enum representing the types of actions that can be performed on tasks.
      */
     public enum Action {
-        MARK, UNMARK, DELETE, NOTE, FIND, UNKNOWN
-    }
-
-    /**
-     * Adds a task to the task list and prints the task.
-     *
-     * @param userInputSplits    The parsed user input.
-     * @param taskList The task list.
-     */
-    private static void addTaskAndPrint(String[] userInputSplits, TaskList taskList) {
-        TaskType taskType = Parser.getTaskType(userInputSplits[0]);
-        assert taskType != TaskType.UNKNOWN : "Unknown task type encountered.";
-        String taskName = "";
-        Task newTask = null;
-
-        switch (taskType) {
-            case TODO:
-                taskName = Parser.removeAction(userInputSplits);
-                assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
-                if (taskName.trim().isEmpty()) {
-                    throw new IllegalArgumentException("bouncybob.task.Task name for 'todo' cannot be empty.");
-                }
-                newTask = new ToDo(taskName);
-                break;
-            case DEADLINE:
-                taskName = Parser.removeAction(userInputSplits);
-                assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
-                String datetime = Parser.extractDatetime(taskName);
-                assert !datetime.trim().isEmpty() : "Datetime is unexpectedly empty.";
-                if (datetime.trim().isEmpty()) {
-                    throw new IllegalArgumentException("/by cannot be empty!");
-                }
-                taskName = Parser.getTaskDeadline(taskName);
-                assert !taskName.trim().isEmpty() : "Task name is unexpectedly empty.";
-                if (taskName.trim().isEmpty()) {
-                    throw new IllegalArgumentException("bouncybob.task.Task name for 'deadline' cannot be empty.");
-                }
-                newTask = new Deadline(taskName, datetime);
-                break;
-            case EVENT:
-                taskName = Parser.removeAction(userInputSplits);
-                String[] fromTo = Parser.extractFromTo(taskName);
-                if (fromTo[0] == null || fromTo[1] == null) {
-                    throw new IllegalArgumentException("/from and /to cannot be empty!");
-                }
-                taskName = Parser.getTaskEvent(taskName);
-                if (taskName.trim().isEmpty()) {
-                    throw new IllegalArgumentException("bouncybob.task.Task name for 'event' cannot be empty.");
-                }
-                newTask = new Event(taskName, fromTo[0], fromTo[1]);
-                break;
-            case UNKNOWN:
-                throw new IllegalArgumentException("Invalid task type: " + taskType);
-        }
-
-        taskList.addTask(newTask);
-        Ui.printTaskCount(taskList.size() - 1, newTask);  // Adjusted to size of ArrayList
+        MARK, UNMARK, DELETE, NOTE, FIND, LIST, UNKNOWN
     }
 
     /**
@@ -265,77 +209,5 @@ public class BouncyBob extends Application {
         }
 
         return newTask;
-    }
-
-    /**
-     * Modifies a task in the task list based on the action specified.
-     *
-     * @param parts    The parsed user input.
-     * @param taskList The task list.
-     */
-    public static void modifyTask(String[] parts, TaskList taskList) {
-        Action action = Parser.getAction(parts[0]);
-        int index = Integer.parseInt(parts[1]); // Adjust for 0-based index
-
-        switch(action) {
-            case MARK:
-                taskList.getTask(index).setDone();
-                Ui.printTaskStatus(taskList.getTask(index), action);
-                break;
-            case UNMARK:
-                taskList.getTask(index).setUnDone();
-                Ui.printTaskStatus(taskList.getTask(index), action);
-                break;
-            case DELETE:
-                Ui.printTaskStatus(taskList.getTask(index), action);
-                taskList.removeTask(index);
-                break;
-        }
-    }
-
-    /**
-     * The main method for the BouncyBob application.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        TaskList taskList = new TaskList();
-        Ui.printIntro();
-        TaskFileHandler.loadTasksFromDisk(taskList);
-
-        while (true) {
-            System.out.println("Enter something:");
-            String userInput = scanner.nextLine();
-            String[] userInputSplits = userInput.split(" ");
-            assert userInputSplits.length > 0 : "User input is unexpectedly empty.";
-
-            if (userInput.equals("bye")) {
-                Ui.printBye();
-                break;
-            } else if (userInput.equals("list")) {
-                Ui.printDatabase(taskList);  // Adjusted for ArrayList
-            } else if (userInputSplits[0].equals("find")) {
-                String subString = Parser.removeAction(userInputSplits);
-                TaskList subTaskList = taskList.getSubTaskList(subString);
-                Ui.printDatabase(subTaskList);
-            } else if (Parser.getAction(userInputSplits[0]) != Action.UNKNOWN) {
-                try {
-                    modifyTask(userInputSplits, taskList);
-                    TaskFileHandler.saveTasksToDisk(taskList);
-                } catch (IndexOutOfBoundsException e) {
-                    Ui.printIndexOutOfBound();
-                }
-            } else {
-                try {
-                    addTaskAndPrint(userInputSplits, taskList);
-                    TaskFileHandler.saveTasksToDisk(taskList);
-                } catch (IllegalArgumentException e) {
-                    Ui.printIllegalArgumentException(e);
-                } catch (DateTimeParseException e) {
-                    Ui.printDateTimeParseException();
-                }
-            }
-        }
     }
 }
