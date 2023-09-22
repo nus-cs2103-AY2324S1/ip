@@ -22,6 +22,7 @@ public class TaskList {
      * @param tasks A task list with saved tasks.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null;
         this.tasks = tasks;
     }
 
@@ -48,6 +49,7 @@ public class TaskList {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert task != null;
         tasks.add(task);
     }
 

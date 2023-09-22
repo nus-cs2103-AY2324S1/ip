@@ -66,7 +66,7 @@ public class Parser {
      */
     public static Task parseSaveString(String taskSave) throws TasketException {
         String[] taskElements = taskSave.split(" \\| ");
-        Task task;
+        Task task = null;
 
         switch (taskElements[0]) {
         case "T":
@@ -85,6 +85,7 @@ public class Parser {
             throw new TasketException(MESSAGE_UNABLE_RETRIEVE_TASK);
         }
 
+        assert task != null;
         // Mark tasks as done before adding if it is done in save status.
         if (taskElements[1].equals("1")) {
             task.markAsDone();
