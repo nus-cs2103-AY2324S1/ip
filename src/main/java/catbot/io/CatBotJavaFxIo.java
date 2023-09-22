@@ -139,6 +139,13 @@ public class CatBotJavaFxIo implements UserIo {
 
     @Override
     public void displayTaskListWithoutNumber(TaskList taskList) {
+        if (taskList == null) {
+            return;
+        }
+        if (taskList.size() == 0) {
+            send("there are no tasks to see...");
+            return;
+        }
         for (String taskString : taskList.getTaskStrings()) {
             send(String.format("- " + taskString));
         }
