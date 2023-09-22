@@ -44,8 +44,11 @@ Upon accessing the directory that Veda.jar file is in, type in your command prom
 Veda features a comprehensive set of list to meet your task management needs on the go!
 
 1) View task
+
 2) Update task
+
 3) Delete task
+
 4) Add task
 
 Tasks are further categorised as Todo, Deadline and Event tasks to cater to your different needs!
@@ -53,33 +56,44 @@ Tasks are further categorised as Todo, Deadline and Event tasks to cater to your
 ![Ui.png](Ui.png)
 
 ### View task
+
 Views all the tasks currently stored.
 
 ### Update task
+
 Edits the task at the specific index with a new description, by, from and to (If applicable)
 without having to delete and adding back.
 
 ### Delete task
+
 Delete task at the specified index
 
 ### Add task
+
 Add a new task into the task list for tracking.
 
 ### Mark/unmark task as done/undone respectively
+
 Mark task as completed and revert its status back to incomplete if required.
 
 
 ## Usage
 
 ### View task
+
 **Command:**`list`
+
 Display all the tasks currently being tracked.
 
 
 ### Update task
+
 To update
+
 1) todo: `update [task index] [new description]`
+
 2) deadline: `update [task index] [new description] /by [dd/MM/yyyy HHmm]`
+
 3) event: `update [task index] [new description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]`
 
 **Note:** The type of commands to use depends on the type of task at the specific task index.
@@ -87,6 +101,7 @@ Ie. If the task at index 1 is a todo, the appropriate command would be **update 
 
 
 ### Delete task
+
 **Command:**`delete [task index]`
 
 For example, we wish to delete a task at index 1: `[T][ ] task`
@@ -102,6 +117,7 @@ Noted. I have removed the following mission:
 ```
 
 Here are some possible scenarios that you may encounter when you use the command wrongly
+
 1) No index given
 ```
 There is no given task index.
@@ -113,9 +129,13 @@ Invalid index! Please ensure you correctly key in your target index.
 ```
 
 ### Add task
+
 To add
+
 1) todo: `todo [new description]`
+
 2) deadline: `deadline [new description] /by [dd/MM/yyyy HHmm]`
+
 3) event: `event [new description] /from [dd/MM/yyyy HHmm] /to [dd/MM/yyyy HHmm]`
 
 **Note:** All the arguments have to be present for the respective commands to be executed successfully.
