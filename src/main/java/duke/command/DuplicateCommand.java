@@ -4,16 +4,16 @@ import duke.Duplicate.Duplicate;
 import duke.exception.DukeDuplicatesCommandException;
 import duke.exception.DukeException;
 import duke.storage.Storage;
-import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.Ui;
 
+/**
+ * Class to handle duplicates.
+ *
+ * @author marioalvaro
+ */
 public class DuplicateCommand extends Command {
-    enum DuplicatesMode {
-        ON,
-        OFF,
-        TEXT,
-    }
+
     private String[] splitTask;
 
     /**

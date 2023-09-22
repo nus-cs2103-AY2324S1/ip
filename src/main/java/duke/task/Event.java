@@ -58,6 +58,12 @@ public class Event extends Task {
                 + Time.toDataString(this.from) + " / " + Time.toDataString(this.to);
     }
 
+    /**
+     * Equals method to help checking duplicates.
+     *
+     * @param obj obj compared with.
+     * @return if the object is equal or not.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -87,6 +93,12 @@ public class Event extends Task {
         return false;
     }
 
+    /**
+     * Check if the text is equal.
+     *
+     * @param obj Object to compare with.
+     * @return if the text is equal or not.
+     */
     @Override
     public boolean equalsText(Object obj) {
         if (obj == this) {

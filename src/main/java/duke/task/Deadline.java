@@ -52,6 +52,12 @@ public class Deadline extends Task {
         return TYPE + " / " + super.toDataString() + " / " + Time.toDataString(this.time);
     }
 
+    /**
+     * Equals method to help with checking duplicates.
+     *
+     * @param obj obj compared with
+     * @return if the object is equals or not.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -79,6 +85,12 @@ public class Deadline extends Task {
         return false;
     }
 
+    /**
+     * Equals method to check if the text is equal.
+     *
+     * @param obj Object to compare with.
+     * @return if the text equals or not.
+     */
     @Override
     public boolean equalsText(Object obj) {
         if (obj == this) {

@@ -121,6 +121,11 @@ public class Task {
         }
     }
 
+    /**
+     * Equals method to help to check duplicates
+     * @param obj obj compared with
+     * @return if its is equal or not.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -144,6 +149,12 @@ public class Task {
         return false;
     }
 
+    /**
+     * Check if the text is equal.
+     *
+     * @param obj Object to compare with.
+     * @return if the text is equal or not.
+     */
     public boolean equalsText(Object obj) {
         return this.equals(obj);
     }
