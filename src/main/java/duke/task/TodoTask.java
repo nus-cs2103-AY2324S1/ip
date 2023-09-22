@@ -20,7 +20,8 @@ public class TodoTask extends Task {
      * @param toDate      The ending date of the date range.
      * @param isDone      The completion status of the task (true if done, false otherwise).
      */
-    public TodoTask(String description, LocalDate fromDate, LocalDate toDate, boolean isDone, TaskPriority taskPriority) {
+    public TodoTask(String description, LocalDate fromDate, LocalDate toDate, boolean isDone,
+                    TaskPriority taskPriority) {
         super(description, isDone, fromDate, taskPriority);
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -68,7 +69,7 @@ public class TodoTask extends Task {
      * @return The to-do task name together with the from and to dates.
      */
     private String getDescriptionDetails() {
-        return this.description + " (from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) +
-                " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return this.description + " (from: " + this.fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+                + " to: " + this.toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

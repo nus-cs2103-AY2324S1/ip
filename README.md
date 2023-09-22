@@ -15,7 +15,7 @@ features.
     - [Listing Tasks](#listing-tasks)
     - [Marking a Task as Done](#marking-a-task-as-done)
     - [Marking a Task as Not Done](#marking-a-task-as-not-done)
-  
+
 ## Features
 
 ### Task Management
@@ -35,10 +35,6 @@ levels: High, Medium, and Low.
 ### Task Search
 
 Easily find tasks by searching for keywords or dates. Axela will display tasks matching your search criteria.
-
-### Error Handling
-
-Axela is designed to handle errors gracefully. It provides clear feedback for incorrect commands and formats.
 
 ## Usage
 
@@ -147,22 +143,6 @@ Example:
 ```
 unmark 1
 ```
-
-### Error Handling
-
-Axela will guide you if you make errors in commands or formats. For example, if you enter an invalid date format:
-
-```
-event Party /at 2022-35-10
-```
-
-Axela will respond:
-
-```
-Please enter the date in the correct format: YYYY-MM-DD.
-```
-
----
 
 This user guide provides a brief overview of Axela's key features and how to use them effectively. Feel free to explore
 and make the most of your AI assistant!
