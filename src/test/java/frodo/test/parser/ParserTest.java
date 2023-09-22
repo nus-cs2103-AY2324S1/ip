@@ -45,9 +45,9 @@ public class ParserTest {
     public void testParseTaskFromFile_validTaskFormat() throws DukeException {
         String validTodo = "T | 0 | read book";
         String validDeadline = "D | 0 | submit homework | 2023-09-23 12:00";
+        String validEvent = "E | 0 | team meeting | 2023-09-23 12:00 | 2023-09-24 14:00";
 
         Task parsedDeadline = parser.parseTaskFromFile(validDeadline);
-
         assertTrue(parsedDeadline instanceof Deadlines);
         assertEquals("submit homework", parsedDeadline.getDescription());
         assertTrue(!parsedDeadline.isCompleted());
@@ -56,6 +56,12 @@ public class ParserTest {
         assertTrue(parsedTodo instanceof ToDos);
         assertEquals("read book", parsedTodo.getDescription());
         assertTrue(!parsedTodo.isCompleted());
+
+        Task parsedEvent = parser.parseTaskFromFile(validEvent);
+        assertTrue(parsedEvent instanceof Events);
+        assertEquals("team meeting", parsedEvent.getDescription());
+        assertTrue(!parsedEvent.isCompleted());
+
     }
 
     @Test
@@ -63,6 +69,4 @@ public class ParserTest {
         String invalidTask = "X | 1 | invalid task";
         assertThrows(DukeException.class, () -> parser.parseTaskFromFile(invalidTask));
     }
-
-
 }

@@ -55,7 +55,6 @@ Okay another task added:
 [D][] finish hw (by Sep 05 2023 10:00 am)
 Now you have 1 task(s) in the list
 ```
-Description of the outcome.
 A deadline task is added to the task list.
 
 
@@ -74,8 +73,6 @@ Okay another task added:
 [E][] finish hw (from Sep 05 2023 10:00 am to Oct 05 2023 10:00 am)
 Now you have 1 task(s) in the list
 ```
-
-Description of the outcome.
 An event task is added to the task list.
 
 
@@ -157,10 +154,10 @@ All tasks in the current list are archived in a new file. The task list in the c
 Exits the program. All changes made to task list will be saved to file.
 
 Example of usage:
-`archive`
+`bye`
 
 Expected outcome:
 ```
-Frodo heard: archive
+Frodo heard: bye
 Goodbye. See you again
 ```

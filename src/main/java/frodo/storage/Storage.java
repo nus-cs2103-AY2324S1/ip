@@ -148,7 +148,7 @@ public class Storage {
      */
     public String generateTaskDatesForFile(Task task) {
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        String res ="";
+        String res = "";
         if (task instanceof Deadlines) {
             res += " | " + (((Deadlines) task).getDate().format(outputFormatter));
         } else if (task instanceof Events) {
