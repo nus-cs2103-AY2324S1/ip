@@ -1,5 +1,4 @@
-import Eggbot.Eggbot;
-import Eggbot.Main;
+import eggbot.Main;
 import javafx.application.Application;
 
 /**
