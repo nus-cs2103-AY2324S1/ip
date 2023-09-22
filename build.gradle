@@ -60,6 +60,11 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
+compileJava {
+    sourceCompatibility = '11' // Replace with your desired Java version
+    targetCompatibility = '11' // Replace with your desired Java version
+}
+
 run{
     standardInput = System.in
 }
