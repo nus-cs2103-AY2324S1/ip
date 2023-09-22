@@ -1,9 +1,18 @@
 package duke;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+
+
 import java.util.Scanner;
+
 
 
 public class Ui {
     private Scanner scanner;
+
+    private VBox dialogContainer;
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     //takes in user input
     public Ui() {
         scanner = new Scanner(System.in);
@@ -16,19 +25,20 @@ public class Ui {
 
     // default welcome message
     public void showWelcomeMessage() {
-        String name = "Johnnythesnake";
-        System.out.println("Hello, I'm " + name);
-        System.out.println("What can I do for you? Aside from completing your CS2103 project for you");
+        String welcomeMessage = "Hello! I'm JohnnytheSnake, your personal chatbot. How can I assist you today?";
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(welcomeMessage, dukeImage)
+        );
     }
 
     //Exit message when user enters bye
-    public void showExitMessage() {
-        System.out.println("Goodbye! Have a great day!");
+    public String showExitMessage() {
+        return "Goodbye! Have a great day!";
     }
 
     // shows the user the active tasks when they ask for it
-    public void showTaskList(TaskList tasks) {
-        tasks.listOfTasks();
+    public String showTaskList(TaskList tasks) {
+        return tasks.listOfTasks();
     }
 
     // mark task as done
@@ -51,14 +61,17 @@ public class Ui {
     }
 
     // shows the user an error message depending on what he did wrong
-    public void showError(String errorMessage) {
-
-        System.out.println("Error: " + errorMessage);
+    public String showError(String errorMessage) {
+        return "Error: " + errorMessage;
     }
 
     // if issues arise from loading tasks, this message is shown
     public void showLoadingError() {
         System.out.println("Error loading tasks from storage.");
+    }
+
+    public void addToDialog(String message) {
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(message, dukeImage));
     }
 
     public void closeScanner() {

@@ -10,11 +10,13 @@ public class TaskList {
     }
 
     //add task method allows a task to be added into the list
-    public void addTask(Task task) {
+    public String addTask(Task task) {
+        String result = "";
         tasks.add(task);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        result = result + "Got it. I've added this task:\n";
+        result = result + " " + task + "\n";
+        result = result + "Now you have " + tasks.size() + " tasks in the list.";
+        return result;
     }
 
     //add task from storage allows the tasks to be added into the task list when the bot is started
@@ -29,11 +31,12 @@ public class TaskList {
     }
 
     // allows tasks to be deleted from the list if user inputs require it to do so
-    public void deleteTask(int taskNumber) {
+    public String deleteTask(int taskNumber) {
         Task task = tasks.get(taskNumber);
         tasks.remove(taskNumber);
-        System.out.println("Noted. I've removed this task: \n" + "  " + task);
-        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        String result = "";
+        result = result +" "+ "Noted. I've removed this task: \n" + "  " + task + "\n" + "Now you have " + tasks.size() + " tasks in the list.";
+        return result;
     }
 
     // set the task at index
@@ -56,32 +59,34 @@ public class TaskList {
     }
 
     // mark the task at a specified index as done
-    public void markTaskAsDone(int taskNumber) {
+    public String markTaskAsDone(int taskNumber) {
         Task task = tasks.get(taskNumber);
         task.setMarked(true);
         tasks.set(taskNumber, task);
-        System.out.println("Nice! I've marked this task as done:\n" + "  " + tasks.get(taskNumber));
+        return "Nice! I've marked this task as done:\n" + "  " + tasks.get(taskNumber);
     }
 
     // unmarks the task at a specified index
 
-    public void unmarkTask(int taskNumber) {
+    public String unmarkTask(int taskNumber) {
         Task task = tasks.get(taskNumber);
         task.setMarked(false);
         tasks.set(taskNumber, task);
-        System.out.println("OK, I've marked this task as not done yet:\n" + "  " + tasks.get(taskNumber));
+        return "OK, I've marked this task as not done yet:\n" + "  " + tasks.get(taskNumber);
     }
 
     // prints out each task in the line
-    public void listOfTasks() {
-        System.out.println("Here are the tasks in your list: ");
+    public String listOfTasks() {
+        StringBuilder result = new StringBuilder("Here are the tasks in your list: \n");
         if (!tasks.isEmpty()) {
             for (int i = 1; i <= tasks.size(); i++) {
-                System.out.println(i + "." + tasks.get(i - 1));
+                result.append(i).append(".").append(tasks.get(i - 1)).append("\n");
             }
         }
+        return result.toString();
     }
-    public void findTasksContainingKeyword(String keyword) {
+    public String findTasksContainingKeyword(String keyword) {
+        StringBuilder result = new StringBuilder();
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getName().contains(keyword)) {
@@ -90,8 +95,9 @@ public class TaskList {
         }
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            System.out.println((i + 1) + "." + matchingTasks.get(i));
+            result.append(i + 1).append(".").append(matchingTasks.get(i)).append("\n");
         }
+        return result.toString();
     }
     public String toString() {
         return tasks.toString();
