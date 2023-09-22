@@ -5,11 +5,6 @@ import chatterbot.parser.Parser;
 import chatterbot.storage.Storage;
 import chatterbot.ui.Ui;
 
-//import java.io.File;
-//import java.nio.file.Files;
-//import java.util.ArrayList;
-//import java.util.Scanner;
-
 /**
  * Represents the chatbot that is able to maintain a list of tasks.
  */
@@ -30,33 +25,10 @@ public class ChatterBot {
     }
 
     /**
-     * This is the main method which executes the ChatterBot program.
-     * @param args Unused.
+     * This method passes in the input, for it to be evaluated.
+     * @param input This is the input by the user.
+     * @return String This is what will be returned to the user.
      */
-
-//    public static void main(String[] args) {
-//
-//        Ui ui = new Ui(list);
-//        Storage storage = new Storage(file, list);
-//        TaskList taskList = new TaskList(list);
-//
-//        ui.showWelcomeMessage();
-//
-//        File f = new File(file);
-//        File folder = f.getParentFile();
-//        if (!folder.exists()) {
-//            System.out.println("Error! No data folder found");
-//        }
-//
-//        taskList.initiateTaskList(storage);
-//
-//        while (true) {
-//            Scanner scanner = new Scanner(System.in);
-//            String userMessage = scanner.nextLine();
-//            Parser.evaluateCommand(userMessage, ui, list, storage, file, taskList);
-//        }
-//    }
-
     public String getResponse(String input) {
         return Parser.evaluateCommand(input, ui, storage, taskList);
     }

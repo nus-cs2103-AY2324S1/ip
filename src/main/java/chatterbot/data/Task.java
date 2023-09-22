@@ -55,6 +55,11 @@ public class Task {
         }
     }
 
+    /**
+     * Returns whether the query is contained within the description.
+     * @param query This is the keyword to find tasks.
+     * @return boolean This is to show whether the query is in the description.
+     */
     public boolean contains(String query) {
         return description.contains(query);
     }
