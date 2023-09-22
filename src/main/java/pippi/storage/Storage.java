@@ -20,7 +20,7 @@ import pippi.task.ToDo;
  * @author Nathan
  */
 public class Storage {
-    private static final String FILE_PATH = "./data/Pippi.txt";
+    private static final String FILE_PATH = "Pippi.txt";
 
     /**
      * Returns an array list of tasks stored in the Pippi.txt file
@@ -30,7 +30,7 @@ public class Storage {
     public static ArrayList<Task> readTask() {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
-            File file = new File(FILE_PATH);
+            File file = new File("Pippi.txt");
             if (!file.exists()) {
                 file.createNewFile(); // Create a new file if it doesn't exist
             }
@@ -77,7 +77,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("No file found exception");
+            System.out.println("No file found exceptionn");
         }
         return tasks;
     }
