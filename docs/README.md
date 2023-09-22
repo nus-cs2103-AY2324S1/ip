@@ -148,9 +148,9 @@ Examples:
 
 **Expected outcome:**
 ```
-Noted. I've removed this task:
-[T][] Read
-Now you have 1 task in the list.
+Here are the matching tasks in your list:
+    1. [T][] Read book
+    2. [D][] Return book (by: 2023-12-12 15:30)
 ```
 
 <br />
