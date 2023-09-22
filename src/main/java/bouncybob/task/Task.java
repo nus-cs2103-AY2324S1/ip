@@ -62,7 +62,11 @@ public class Task {
      * @return The description, which is the same as the name for a base task.
      */
     public String getDescription() {
-        return getName() + " Note: " + getNote();
+        StringBuilder description = new StringBuilder(getName());
+        if (note != null && !note.trim().isEmpty()) {
+            description.append(" | Note: ").append(note);
+        }
+        return description.toString();
     }
 
     /**
