@@ -11,7 +11,7 @@ of a Graphical User Interface.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use    
    `java -jar duke.jar`     
    command to run the application.    
-   A GUI similar to below should appear in a few seconds.    
+   A GUI similar to the one below should appear in a few seconds.    
    ![alt text](Home.png)
 
 ## Features
