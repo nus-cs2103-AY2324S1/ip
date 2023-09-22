@@ -91,6 +91,15 @@ public class TaskList {
     }
 
     /**
+     * Checks if the user list is empty.
+     *
+     * @return true if the user list is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return userList.isEmpty();
+    }
+
+    /**
      * Returns the task at the specified index in the task list.
      *
      * @param index The index of the task to retrieve.

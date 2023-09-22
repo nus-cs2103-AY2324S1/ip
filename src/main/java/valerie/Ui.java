@@ -90,6 +90,11 @@ public class Ui {
      */
     public static ArrayList<String> showList(TaskList taskList) {
         ArrayList<String> listMessage = new ArrayList<>();
+        if (taskList.isEmpty()) {
+            listMessage.add("Your list is empty! Please add a task to your list!");
+            return listMessage;
+        }
+
         listMessage.add("Sure! Here are the tasks in your list");
         for (int i = 0; i < taskList.getSize(); i++) {
             String str = String.format("%d. %s", i + 1, taskList.getTask(i));

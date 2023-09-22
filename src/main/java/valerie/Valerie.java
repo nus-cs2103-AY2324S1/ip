@@ -1,5 +1,7 @@
 package valerie;
 
+import javafx.application.Platform;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -47,6 +49,7 @@ public class Valerie {
         if (input.equals("bye")) {
             // Exit the loop if the user types "bye"
             this.storage.saveTasks(this.taskList);
+            Platform.exit();
             return Ui.showExit();
         }
 
