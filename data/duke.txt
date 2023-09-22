@@ -1,0 +1,6 @@
+T|0|eat cheese
+T|0|fun stuff
+T|0|read book
+D|0|read Xunzi|2023-09-18T14:00
+D|1|return book|2023-12-30T17:00
+E|0|dance class|2023-09-02T14:00|2023-09-02T17:00
