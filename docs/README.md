@@ -29,7 +29,7 @@ Add a deadline to the list of tasks.
 * `DATE` must be in **yyyy-mm-dd** format
 
 **Examples:**
-* `deadline submit assignment /by 2023-09-23 2359`
+* `deadline submit assignment /by 2023-09-23 `
 
 
 
@@ -78,8 +78,8 @@ Marks a task in the list as complete.
 Marks a task in the list as incomplete.
 
 **Format:** `unmark TASK_INDEX`
-* Marks the task at the specified `TASK_INDEX`. The `TASK_INDEX`  corresponds to the index number shown in the displayed list.
-* `TASK_INDEX` **must be a positive integer** 1, 2, 3...
+* Marks the task at the specified `TASK_INDEX`. The `TASK_INDEX` is the index number shown in the displayed list after entering the `list` command.
+>* `TASK_INDEX` **must be a positive integer** 1, 2, 3...
 
 **Examples:**
 * `unmark 1`
