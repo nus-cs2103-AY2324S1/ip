@@ -13,6 +13,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+//@@author sunzihan23-reused
+//Code largely reused with some modifications from
+//https://se-education.org/guides/tutorials/javaFx.html
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -58,8 +62,9 @@ public class MainWindow extends AnchorPane {
 
         userInput.clear();
 
-        // @@author phiphi-tan-reused
-        // with slight modifications
+        //@@author sunzihan23-reused
+        //Reused from https://github.com/phiphi-tan/ip/blob/master/src/main/java/phi/ui/MainWindow.java
+        //with minor modifications
         if (input.equals("bye")) {
             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3));
             pauseTransition.setOnFinished(event -> {
@@ -67,5 +72,7 @@ public class MainWindow extends AnchorPane {
             });
             pauseTransition.play();
         }
+        //@@author
     }
 }
+//@@author
