@@ -79,7 +79,7 @@ public class ListItem implements Reminders {
     public String toString() {
         if (done) {
             // if done use tickbox
-            return "[✅] " + this.text;
+            return "[M] " + this.text;
         } else {
             return "[ ] " + this.text;
         }

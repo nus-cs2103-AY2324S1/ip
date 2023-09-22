@@ -98,14 +98,14 @@ public class Parser {
             }
         } catch (MissingFormatArgumentException e) {
             System.out.println(
-                    "You're missing some arguments 😭😭 I'm smart but I can't read minds!"
+                    "You're missing some arguments I'm smart but I can't read minds!"
             );
         } catch (NoSuchMethodException e) {
             System.out.println(
-                    "Oh nos what is this foreign language, I haven't learnt that yet 🧑‍🎓"
+                    "Oh nos what is this foreign language, I haven't learnt that yet "
             );
         } catch (Exception e) {
-            System.out.println("I DONT KNOW WHATS HAPPENING!!! SAVE ME 🆘");
+            System.out.println("I DONT KNOW WHATS HAPPENING!!! SAVE ME ");
             System.out.println("But seriously, its this ");
             System.out.print("error = " + e);
         }
@@ -161,19 +161,19 @@ public class Parser {
             }
         } catch (MissingFormatArgumentException e) {
             System.out.println(
-                    "You're missing some arguments 😭😭 I'm smart but I can't read minds!"
+                    "You're missing some arguments I'm smart but I can't read minds!"
             );
-            return "You're missing some arguments 😭😭 I'm smart but I can't read minds!";
+            return "You're missing some arguments I'm smart but I can't read minds!";
         } catch (NoSuchMethodException e) {
             System.out.println(
-                    "Oh nos what is this foreign language, I haven't learnt that yet 🧑‍🎓"
+                    "Oh nos what is this foreign language, I haven't learnt that yet "
             );
-            return "Oh nos what is this foreign language, I haven't learnt that yet 🧑‍🎓";
+            return "Oh nos what is this foreign language, I haven't learnt that yet ";
         } catch (Exception e) {
-            System.out.println("I DONT KNOW WHATS HAPPENING!!! SAVE ME 🆘");
+            System.out.println("I DONT KNOW WHATS HAPPENING!!! SAVE ME ");
             System.out.println("But seriously, its this ");
             System.out.print("error = " + e);
-            return "I DONT KNOW WHATS HAPPENING!!! SAVE ME 🆘"
+            return "I DONT KNOW WHATS HAPPENING!!! SAVE ME "
                     + "But seriously, its this "
                     + "error = " + e;
         }
