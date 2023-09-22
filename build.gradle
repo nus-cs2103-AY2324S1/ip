@@ -46,7 +46,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "AdamFinal"
+    archiveBaseName = "AdamV0.2Final"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

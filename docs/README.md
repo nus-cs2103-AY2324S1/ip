@@ -1,12 +1,34 @@
 # Adam User Guide
 
-## Features 
+## Features
+
+### Add Tasks
+There are three types of tasks:
+- Todo
+- Deadline
+- Event
+
+### Find Tasks
+You can find tasks based ontheir description
+
+### Complete Tasks
+You can complete and uncomplete tasks when you want to
+
+### Tag Tasks
+You can tag tasks
+
+### List Tasks
+You can list all the tasks you have
+
+
+## Usage
 
 ### Notes about the command format
 
 - Words in `UPPER_CASE` are the parameters that is inputted in by the user
 <br/> e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo Homework`.
 - The specific word `NUM` is used to indicate the integer parameter that is inputted by the user
+</br> `Take Note` that the `NUM` integer should always start at 1 instead of 0 and should never exceed the amount of task.
 <br/> e.g in `mark NUM`, `NUM` is a parameter which can be used as `mark 1`.
 - The specific `YYYY-MM-DD` format is used to indicate the date parameter that is inputted by the user.
 <br/> e.g in `deadline TEST /by YYYY-MM-DD`, `YYYY-MM-DD` is a parameter which can be used as `deadline test /by 2023-12-30`.
@@ -50,7 +72,8 @@ Unmarks a task as incompleted when the unmark command is followed by the index o
 
 ### Tag a task: `tag`
 Tag a task that does not have a tag yet or chang ean existing tag to the one according ot  the user input
-<br/> Format: `tag NUM TEXT` 
+<br/> Format: `tag NUM TEXT`
+<br/> Examples:
 - `tag 1 Homework` Tag the first task as Homework
 - `tag 2 Exercise` Tag the second task as Exercise
 
@@ -60,7 +83,7 @@ Deletes a task according to the index inputted by the user
 <br/> Examples:
 - `delete 1` Deletes the first task in the task list
 - `delete 3` Deletes the third task in the task list
-- 
+
 ### Finding a Task by the description:`find`
 Shows a list of all the tasks that contains the string that is inputted by the user
 <br/>Format: `find TEST`
