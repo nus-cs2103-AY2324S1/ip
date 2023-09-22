@@ -126,7 +126,7 @@ public class Ui {
     public String helpPrint() {
         String todo = "* T / Todo <TASK_NAME> - To add a new Todo Task";
         String deadline = "* D / Deadline <TASK_NAME> " +
-                "/by <YYYY-MM-DD - To add a Deadline Task";
+                "/by <YYYY-MM-DD> - To add a Deadline Task";
         String event = "* E / Event <TASK_NAME> " +
                 "/from <YYYY-MM-DD> " +
                 "/to <YYYY-MM-DD> - To add a Event Task";
