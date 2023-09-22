@@ -37,7 +37,7 @@ public class Parser {
         String command = input.split(" ")[0].toUpperCase();
         try {
             if (command.equals("BYE")) {
-                return ui.bye(storage, tasks);
+                return parseBye(input, storage, ui, tasks);
             } else if (command.equals("LIST")) {
                 return ui.listing(tasks);
             } else if (command.equals("TODO")) {
@@ -170,5 +170,12 @@ public class Parser {
         } else {
             throw new DukeException("You must specified the index of the task to delete.");
         }
+    }
+
+    private static String parseBye(String input, Storage storage, Ui ui, TaskList tasks) throws DukeException {
+        if (input.length() > 3) {
+            throw new DukeException("I don't understand this command. Please use 'bye' only");
+        }
+        return ui.bye(storage, tasks);
     }
 }
