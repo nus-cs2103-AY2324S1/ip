@@ -93,7 +93,7 @@ Example:
 Finds all tasks which task description contains the keyword.
 
 Format: `find KEYWORD`
-- The `KEYWORD` is case-sensitive, e.g. `homework` will not match `Homework`
+- The `KEYWORD` is case-insensitive, e.g. `homework` will match `Homework`
 - Tasks which task description contains part of the `KEYWORD` will be listed e.g. `work` will return `homework`.
 - Only the task description is searched.
 
@@ -103,7 +103,7 @@ Assuming the task list contains
 
 Examples:
 - `find work` returns `todo homework` and `todo work`
-- `find Homework` does not find any matching tasks
+- `find Homework` returns `todo homework`
 
 ### Adding a tag to a task: `tag`
 

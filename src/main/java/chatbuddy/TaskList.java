@@ -81,6 +81,22 @@ public class TaskList {
     }
 
     /**
+     * Returns the task with the given task number.
+     *
+     * @param taskNum The task number of the task to get.
+     * @return The task object with the given task number.
+     * @throws ChatBuddyException If the task number is invalid.
+     */
+    private Task getTask(int taskNum) throws ChatBuddyException {
+        // check for valid task number
+        checkValidTaskNumber(taskNum);
+        assert(taskNum > 0 && taskNum <= tasks.size());
+
+        int taskIndex = taskNum - 1;
+        return tasks.get(taskIndex);
+    }
+
+    /**
      * Marks the task with the given task number as done.
      *
      * @param taskNum The task number of the task to mark as done.
@@ -88,14 +104,7 @@ public class TaskList {
      * @throws ChatBuddyException If the task number is invalid.
      */
     public Task markTaskAsDone(int taskNum) throws ChatBuddyException {
-        // check for valid task number
-        checkValidTaskNumber(taskNum);
-
-        assert(taskNum > 0 && taskNum <= tasks.size());
-
-        // mark task as done
-        int taskIndex = taskNum - 1;
-        Task task = tasks.get(taskIndex);
+        Task task = getTask(taskNum);
         task.markAsDone();
         return task;
     }
@@ -108,14 +117,7 @@ public class TaskList {
      * @throws ChatBuddyException If the task number is invalid.
      */
     public Task markTaskAsNotDone(int taskNum) throws ChatBuddyException {
-        // check for valid task number
-        checkValidTaskNumber(taskNum);
-
-        assert(taskNum > 0 && taskNum <= tasks.size());
-
-        // mark task as done
-        int taskIndex = taskNum - 1;
-        Task task = tasks.get(taskIndex);
+        Task task = getTask(taskNum);
         task.markAsNotDone();
         return task;
     }
@@ -129,11 +131,7 @@ public class TaskList {
      * @throws ChatBuddyException If the task number is invalid.
      */
     public Task updateTaskTag(int taskNum, String tag) throws ChatBuddyException {
-        checkValidTaskNumber(taskNum);
-        assert(taskNum > 0 && taskNum <= tasks.size());
-
-        int taskIndex = taskNum - 1;
-        Task task = tasks.get(taskIndex);
+        Task task = getTask(taskNum);
         task.updateTag(tag);
         return task;
     }

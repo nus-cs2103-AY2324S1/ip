@@ -85,7 +85,7 @@ public class Task {
      * @return True if the description contains the keyword, false otherwise.
      */
     public boolean containKeyword(String keyword) {
-        return description.contains(keyword);
+        return description.toLowerCase().contains(keyword.toLowerCase());
     }
 
     /**
