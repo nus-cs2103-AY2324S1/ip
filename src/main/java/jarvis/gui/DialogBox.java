@@ -93,6 +93,10 @@ public class DialogBox extends HBox {
         return wrapText(new Text(string));
     }
 
+    /**
+     * Section on text wrapping inspired by @tjingsheng
+     * https://github.com/tjingsheng/
+     */
     private Text wrapText(Text text) {
         String originalText = text.getText();
         String[] lines = originalText.split("\n");
