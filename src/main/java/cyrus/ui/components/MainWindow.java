@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
                 DialogBox.getDialog(
-                        "Welcome to Cyrus!\nYou can use list, todo, deadline, event to get started!",
+                        "Welcome to Cyrus!\nYou can use list, todo, deadline, or event to get started!",
                         BOT_TITLE,
                         botImage,
                         BOT_HELP_TEXT_COLOR
@@ -112,7 +112,7 @@ public class MainWindow extends AnchorPane {
     private void handleConversation(String userText, String botResponse, boolean isError, ParseInfo parseInfo) {
         putConversation(userText, botResponse, isError);
 
-        if (parseInfo.getCommandType().equals(CommandType.VIEW_STATISTICS)) {
+        if (parseInfo.getCommandType().equals(CommandType.VIEW_STATISTICS) && cyrus.getTaskList().size() > 0) {
             // Open the statistics dashboard
             openStatisticsDashboard();
         }
