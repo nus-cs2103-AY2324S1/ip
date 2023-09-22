@@ -26,6 +26,7 @@ Tasks in the file will be automatically loaded when the program is restarted.
 > **Note about the command format:**
 > - Words in `UPPER_CASE` are parameters to be supplied by the user.
 >   - eg. in `add todo TODO_DESCRIPTION`, `TODO_DESCRIPTION` is a parameter which can be used as `add todo read`.
+> - Commands are case-sensitive. All commands should be typed in lower-case.
 
 ### `add todo` - Adds a todo
 
