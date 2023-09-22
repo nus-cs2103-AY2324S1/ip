@@ -2,7 +2,6 @@ package crusader.command;
 
 import crusader.Storage;
 import crusader.TaskList;
-import crusader.Ui;
 import crusader.exception.CrusaderException;
 
 /**
@@ -22,7 +21,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(Ui ui, TaskList taskList, Storage storage9) throws CrusaderException {
+    public String execute(TaskList taskList, Storage storage9) throws CrusaderException {
         return String.format(
                 "Here are the matching tasks in the list:\n%s",
                 taskList.filter(query).toString());
