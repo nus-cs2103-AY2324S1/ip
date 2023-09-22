@@ -7,7 +7,6 @@
     -fx-background-color: #6da5bf;
     -fx-font-size: 15px;
     -fx-padding: 5px;
-    -fx-border-radius: 10px;
     -fx-font-family: "Gill Sans";
 }
 
@@ -22,7 +21,7 @@
     -fx-text-fill: black;
     -fx-font-family: "Gill Sans";
     -fx-font-size: 15px;
-    -fx-background-radius: 10px;
+    -fx-background-radius: 15px;
 }
 
 .profile-image {
