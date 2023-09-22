@@ -34,13 +34,11 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Add Deadline Command\n";
         Deadline newTask = new Deadline(taskDescription, byDateTime);
         assert !newTask.isDone() : "Newly added Deadline should not be done.";
         taskList.addTask(newTask);
         int nTasks = taskList.getSize();
-        output = output + ui.showAddedTask(newTask, nTasks) + "\n";
+        String output = ui.showAddedTask(newTask, nTasks) + "\n";
         storage.saveToDisk(taskList, noteList);
         return output;
     }

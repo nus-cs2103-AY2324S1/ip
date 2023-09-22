@@ -38,16 +38,14 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Add Event Command\n";
         if (fromDateTime.isAfter(toDateTime)) {
-            throw new EventException("Event Start Time is after Event End Time");
+            throw new EventException("bro. your event end before it starts?? do better.");
         }
         Event newTask = new Event(taskDescription, fromDateTime, toDateTime);
         assert !newTask.isDone() : "Newly added Event should not be done.";
         taskList.addTask(newTask);
         int nTasks = taskList.getSize();
-        output = output + ui.showAddedTask(newTask, nTasks) + "\n";
+        String output = ui.showAddedTask(newTask, nTasks) + "\n";
         storage.saveToDisk(taskList, noteList);
         return output;
     }

@@ -26,11 +26,9 @@ public class DeleteNoteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
-        String output = "";
-        output = "Executing Delete Note Command\n";
         Note deletedNote = noteList.deleteNote(noteIndex);
         int nNotes = noteList.getSize();
-        output = output + ui.showDeletedNote(deletedNote, nNotes) + "\n";
+        String output = ui.showDeletedNote(deletedNote, nNotes) + "\n";
         storage.saveToDisk(taskList, noteList);
         return output;
     }
