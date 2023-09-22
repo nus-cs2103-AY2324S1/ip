@@ -75,7 +75,8 @@ public abstract class Task {
      * @return A formatted string containing task type, status, and description.
      */
     public String toFileString() {
-        return String.format("%s | %d | %s | %s", this.getTaskType(), this.isDone ? 1 : 0, this.priority.toCode(), this.description);
+        return String.format("%s | %d | %s | %s", this.getTaskType(), this.isDone ? 1 : 0,
+                this.priority.toCode(), this.description);
     }
 
     /**

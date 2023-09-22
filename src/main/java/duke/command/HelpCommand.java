@@ -29,7 +29,7 @@ public class HelpCommand extends Command {
         message.append("- `delete <index>`: Delete a task\n");
         message.append("- `find <keyword>`: Find tasks by keyword\n");
         message.append("- `help`: Display this help message\n");
-        message.append("- `todo <description> /priority <TaskPriority> /from <fromDate> /to <toDate>`: Add a Todo task\n");
+        message.append("- `todo <description> /priority <TaskPriority> /from <fromDate> /to <toDate>`:Add Todo task\n");
         message.append("- `deadline <description> <TaskPriority> /by <byDate>`: Add a Deadline task\n");
         message.append("- `event <description> <TaskPriority> /at <atDate>`: Add an Event task\n");
         return message.toString();

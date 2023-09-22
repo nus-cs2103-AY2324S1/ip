@@ -1,10 +1,10 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.command.Command;
 import duke.command.DukeException;
 import duke.task.TaskList;
-
-import java.util.Scanner;
 
 /**
  * The Duke class represents a chatbot application that manages tasks.

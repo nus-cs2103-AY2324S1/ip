@@ -30,6 +30,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
+    /**
+     * Initializes the main window of the Duke chat application.
+     * This method is automatically called after loading the FXML file and initializing the UI components.
+     * It sets up the initial state of the GUI, binds scrolling to the chat container, sets user input styles,
+     * and displays a welcome message from Duke.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -45,7 +51,7 @@ public class MainWindow extends AnchorPane {
         // Display a hello message when the GUI starts
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog("Hello! I'm Axela. What can I do for you?\n\nIf unsure of what to do just "
-                                + "type in 'help' to see all the command possible",  dukeImage,
+                                + "type in 'help' to see all the command possible", dukeImage,
                             "-fx-background-color: #3498db; -fx-text-fill: black;")
         );
     }

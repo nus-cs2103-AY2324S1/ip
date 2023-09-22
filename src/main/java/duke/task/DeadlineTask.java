@@ -26,7 +26,8 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Returns a string representation of the DeadlineTask, including task type, completion status, and description details.
+     * Returns a string representation of the DeadlineTask, including task type, completion status,
+     * * and description details.
      *
      * @return A string representation of the DeadlineTask.
      */
@@ -36,8 +37,8 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Converts the DeadlineTask to a string format suitable for saving to a file, including task type, completion status,
-     * description, and deadline date.
+     * Converts the DeadlineTask to a string format suitable for saving to a file, including task type,
+     * completion status, description, and deadline date.
      *
      * @return A string formatted for file storage.
      */
