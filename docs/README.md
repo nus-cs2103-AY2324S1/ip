@@ -23,7 +23,7 @@ the starting time and the ending time.
 
 ### Feature - Add ToDo Task
 
-Adds a todo task to the task list.
+Adds a todo task to the task list. 
 
 Format: todo YOUR_TASK
 
