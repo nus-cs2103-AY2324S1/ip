@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Parser {
 
@@ -118,29 +120,33 @@ public class Parser {
         }
     }
 
-    public static String handleEvent(String description,TaskList tasks) {
-        if (description.isEmpty()) {
-            return "OOPS!!! The description of an event cannot be empty.";
-        } else {
-            // Find the indices of the time separators
-            int fromIndex = description.indexOf("/from");
-            int toIndex = description.indexOf("/to");
+    public static String handleEvent(String input, TaskList tasks) {
+        String[] parts = input.split("/from|/to");
 
-            if (fromIndex != -1 && toIndex != -1) {
-                // Extract the task description, startTime, and endTime
-                String descriptionString = description.substring(0, fromIndex).trim();
-                String startTime = description.substring(fromIndex + 5, toIndex).trim();
-                String endTime = description.substring(toIndex + 3).trim();
+        if (parts.length != 3) {
+            return "Invalid input format for event command.";
+        }
 
-                // Create a new Event object
-                Event eventTask = new Event(descriptionString, false, startTime, endTime);
-                return tasks.addTask(eventTask);
+        String description = parts[0].trim();
+        String startTimeStr = parts[1].trim();
+        String endTimeStr = parts[2].trim();
 
-            } else {
-                return "Invalid input format for event command.";
-            }
+        if (description.isEmpty() || startTimeStr.isEmpty() || endTimeStr.isEmpty()) {
+            return "OOPS!!! Please provide a valid description, start time, and end time for the event.";
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
+            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, formatter);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, formatter);
+
+            Event eventTask = new Event(description, false, startTime, endTime);
+            return tasks.addTask(eventTask);
+        } catch (Exception e) {
+            return "OOPS!!! Invalid date/time format for start or end time.";
         }
     }
+
 
     public static String handleDeadline(String description, TaskList tasks) {
         if (description.isEmpty()) {

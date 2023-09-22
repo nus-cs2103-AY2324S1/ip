@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 // reads the task in from the stored txt file and returns it as a TaskList
 public class TaskReader {
@@ -45,10 +46,17 @@ public class TaskReader {
             // Parse Event task
             String description = line.substring(6, line.indexOf("(from:")).trim();
             boolean isMarked = line.charAt(4) == 'X';
-            String startTime = extractStartTime(line);
-            String endTime = extractEndTime(line);
+
+            String startTimeStr = extractStartTime(line);
+            String endTimeStr = extractEndTime(line);
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyy HH:mm");
+            LocalDateTime startTime = LocalDateTime.parse(startTimeStr, formatter);
+            LocalDateTime endTime = LocalDateTime.parse(endTimeStr, formatter);
+
             return new Event(description, isMarked, startTime, endTime);
         }
+
 
         return null; // Return null for unsupported task formats
     }

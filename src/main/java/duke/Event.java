@@ -1,40 +1,40 @@
 package duke;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private String startTime;
-    private String endTime;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
-    //Event objects inherit from tasks and has additional attributes start and end time
-
-    public Event(String name, boolean isMarked, String startTime, String endTime) {
+    public Event(String name, boolean isMarked, LocalDateTime startTime, LocalDateTime endTime) {
         super(name, isMarked);
         this.startTime = startTime;
         this.endTime = endTime;
     }
 
-    //getter of start time of event
-    public String getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
-    // setter of start time for event
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalDateTime startTime) {
         this.startTime = startTime;
     }
 
-    // getter of end time for event
-    public String getEndTime() {
+    public LocalDateTime getEndTime() {
         return endTime;
     }
 
-    // setter of end time for event
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
     @Override
     public String toString() {
         String status = isMarked ? "[X]" : "[ ]";
-        return "[E]" + status + " " + name + " (from: " + startTime + " to: " + endTime + ")";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        String startTimeStr = startTime.format(formatter);
+        String endTimeStr = endTime.format(formatter);
+        return "[E]" + status + " " + name + " (from: " + startTimeStr + " to: " + endTimeStr + ")";
     }
 }
+
