@@ -11,7 +11,7 @@ DuckBot is designed to help you keep track of your tasks, events,and deadlines e
 
 This user guide will walk you through all the amazing features DuckBot offers 
 
-and provide you with clear instructions on how to use them effectively.</font>
+and provide you with clear instructions on how to use them effectively.
 
 
 ## <font style = "Ariel" color="darkgrey"> Features </font> 
@@ -24,17 +24,23 @@ and provide you with clear instructions on how to use them effectively.</font>
 Three types of tasks are handles by DuckBot : 
 
 
-1) <font color = "darkcyan">**Deadline**</font> - These tasks have specific due dates or deadlines. DuckBot helps you keep track of them.
+1) **<font color = "darkcyan">Deadline</font>** - These tasks have specific due dates or deadlines. DuckBot helps you keep track of them.
+
+example- Returning a book on 23rd September 2023 by 12:15.
 
 
 
-2) <font color = "darkcyan">**ToDo**</font>  - These tasks don't have specific due dates or deadlines.
+2) **<font color = "darkcyan">ToDo</font>**  - These tasks don't have specific due dates or deadlines.
+
+example- Todo laundry
+    
 
 
 
-3) <font color = "darkcyan">**Events**</font>  - These are the events that happen on a prticular date-time and have an end date-time also. eg - 
+3) **<font color = "darkcyan">Events</font>**  - These are the events that happen on a prticular date-time and have an end date-time also.
 
-Attending a meeting.
+example- Go on a holiday from 25th September 2023 1200 to 28th September 2023 1200
+
 
 
 
@@ -275,7 +281,7 @@ Exits the application and the tasks are stored in the file.
 Exits the application with a message.
 
 ``` 
-Bye. Hope to see you agaon soon!
+Bye. Hope to see you again soon!
 
 ```
 
