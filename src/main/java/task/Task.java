@@ -13,7 +13,6 @@ import dukeuielements.Ui;
 public class Task {
     private String description;
     private boolean isTrueStatus;
-    private String indent = "    ";
 
     /**
      * Instantiates a new Task.

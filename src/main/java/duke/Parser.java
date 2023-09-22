@@ -4,7 +4,8 @@ package duke;
  * This class deals with making sense of the user input and carrying out tasks accordingly.
  */
 public class Parser {
-    private enum TaskKeyVal {todo, deadline, event, delete, mark, unmark, save, list, find }
+    private enum TaskKeyVal { todo, deadline, event, delete, mark, unmark, save, list, find }
+    private enum SingleOperandTasks { save, list }
 
     /**
      * Returns a boolean based on the user input choice.
@@ -34,46 +35,47 @@ public class Parser {
 
     private static String getString(String[] userInputList, String userTaskChoiceKey, TaskKeyVal taskKeyVal)
             throws DukeException {
-        switch (taskKeyVal) {
-        case save:
-            return TaskList.saveData();
-        case list:
-            return TaskList.userListChoice();
-        case mark:
-        case unmark:
-            String userMarkerChoice = userInputList[1];
-            return TaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
-        case todo:
-            return TaskList.addToDo(userInputList[1]);
-        case deadline:
-            String[] deadlineList = userInputList[1].split("/", 2);
-            return TaskList.addDeadline(deadlineList[0], deadlineList[1]);
-        case event:
-            String[] eventList = userInputList[1].split("/", 3);
-            return TaskList.addEvent(eventList[0], eventList[1], eventList[2]);
-        case delete:
-            Integer delUserChoice = Integer.parseInt(userInputList[1]);
-            return TaskList.deleteTask(delUserChoice);
-        case find:
-            String findThis = userInputList[1];
-            return TaskList.findTask(findThis);
+        if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
+            throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
+        } else {
+            switch (taskKeyVal) {
+            case save:
+                return TaskList.saveData();
+            case list:
+                return TaskList.userListChoice();
+            case mark:
+            case unmark:
+                String userMarkerChoice = userInputList[1];
+                return TaskList.userMarkUnmark(userMarkerChoice, userTaskChoiceKey);
+            case todo:
+                return TaskList.addToDo(userInputList[1]);
+            case deadline:
+                String[] deadlineList = userInputList[1].split("/", 2);
+                return TaskList.addDeadline(deadlineList[0], deadlineList[1]);
+            case event:
+                String[] eventList = userInputList[1].split("/", 3);
+                return TaskList.addEvent(eventList[0], eventList[1], eventList[2]);
+            case delete:
+                Integer delUserChoice = Integer.parseInt(userInputList[1]);
+                return TaskList.deleteTask(delUserChoice);
+            case find:
+                String findThis = userInputList[1];
+                return TaskList.findTask(findThis);
 
-        default:
-            if (userInputList.length == 1 && enumCheck(userTaskChoiceKey)) {
-                throw new DukeException(" ☹ OOPS!!! The description of a task cannot be empty.");
-            } else { //in case wrong input like Delete abc entered
+            default:
                 throw new DukeException("OOPS!!! Sorry, but i do not know what that means :-(");
             }
         }
     }
 
+
     private static boolean enumCheck(String input) {
-        for (TaskKeyVal taskKey : TaskKeyVal.values()) {
+        for (SingleOperandTasks taskKey : SingleOperandTasks.values()) {
             if (taskKey.name().equalsIgnoreCase(input)) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
 }

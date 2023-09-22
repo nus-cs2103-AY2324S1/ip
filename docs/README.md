@@ -1,4 +1,5 @@
 # User Guide
+Tom is a lightweight application to schedule and manage tasks. It is very fast and efficient. Can be distributed as a tiny .jar file!
 
 ## Features
 
@@ -14,12 +15,7 @@ A todo is a task that has a description, but no deadlines
 
 **Expected Output:**
 
-```
-Added 1 new task
-    [T][] finish homework
-Now you have 1 tasks in your task scheduler
-```
-
+![todo.png](images/todo.png)
 >#### deadline
 
 A deadline is a task that has a description and a deadline.
@@ -32,11 +28,7 @@ A deadline is a task that has a description and a deadline.
 
 **Expected Output:**
 
-```
-Added 1 new task
-    [D][] finish project (by: Dec 12,2023 01:12)
- Now you have 2 tasks in your task scheduler
-```
+![deadline.png](images/deadline.png)
 
 >#### event
 
@@ -50,11 +42,7 @@ An event is a task that has a description, from date and to date.
 
 **Expected Output:**
 
-```
-Added 1 new task
-    [E][] travel (from: Dec 12,2023 00:00 to: Dec 31,2023 00:00)
- Now you have 3 tasks in your task scheduler
-```
+![event.png](images/event.png)
 
 ### Feature - Find tasks
 >#### find
@@ -69,11 +57,7 @@ find function can index any task that may or may not contain the full keyword. I
 
 **Expected Output:**
 
-```
-Tasks that may match your search result...
-Entries on memory...
-1.[E] [] travel (from: Dec 12,2023 00:00 to: Dec 31,2023 00:00)
-```
+![find.png](images/find.png)
 ### Feature - list tasks
 >#### list
 
@@ -87,12 +71,7 @@ list function prints out all the tasks on memory.
 
 **Expected Output:**
 
-```.
-Entries on memory...
-1.[T][] finish homework
-2.[D][] finish project (by: Dec 12,2023 01:12)
-3.[E] [] travel (from: Dec 12,2023 00:00 to: Dec 31,2023 00:00)
-```
+![list.png](images/list.png)
 ### Feature - Delete tasks
 >#### delete
 
@@ -106,11 +85,7 @@ delete function can delete any task based on the item number.
 
 **Expected Output:**
 
-```
-This task was removed...
-[T][] finish homework
- Now you have 2 tasks in your task scheduler
-```
+![delete.png](images/delete.png)
 
 ### Feature - mark tasks
 >#### mark
@@ -126,10 +101,7 @@ Tasks that are already marked, cannot be marked again.
 
 **Expected Output:**
 
-```
-Nice! Task complete successfully!
-[D][X] finish project (by: Dec 12,2023 01:12)
-```
+![mark.png](images/mark.png)
 
 ### Feature - unmark tasks
 >#### unmark
@@ -145,10 +117,7 @@ Tasks that are already unmarked, cannot be unmarked again.
 
 **Expected Output:**
 
-```
-Sure! Task status unchecked!
-[D][] finish project (by: Dec 12,2023 01:12)
-```
+![unmark.png](images/unmark.png)
 
 ### Feature - save tasks
 >#### save
@@ -163,6 +132,4 @@ save function can save all the actions committed since application opening.
 
 **Expected Output:**
 
-```
-Tasks have been saved to disk!
-```
+![save.png](images/save.png)
