@@ -165,7 +165,6 @@ public class TaskList {
      * @return an ArrayList of tasks.
      */
     public ArrayList<Task> findKeyword(String keyword) {
-        //Filter out the tasks without the keyword using Stream
         List<Task> results = tasks
                 .stream()
                 .filter((task) -> task.getDescription().toLowerCase().contains(keyword))

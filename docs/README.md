@@ -20,7 +20,7 @@ You can check that your computer is on the right version by opening your command
 If your computer is not running the right java version or does not have java installed, do head over to this 
 [website](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) and install.
 
-After that, download and install the file **Veda.jar** from here.
+After that, download and install the file **Veda.jar** from [here](https://github.com/Sebtey/ip/releases/tag/A-Release).
 
 ### Using Veda for the first time
 There are 2 main ways of using Veda: double-clicking the .jar file icon or opening it using CLI

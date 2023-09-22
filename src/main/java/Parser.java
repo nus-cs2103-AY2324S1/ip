@@ -41,11 +41,9 @@ public class Parser {
             return new ToDo(descriptions[2], descriptions[1].matches("1"));
 
         case 'D':
-            //Events.Deadline
             return new Deadline(descriptions[2], descriptions[3], descriptions[1].matches("1"));
 
         case 'E':
-            //Events.Event
             return new Event(descriptions[2], descriptions[3], descriptions[1].matches("1"));
 
         default:
@@ -120,7 +118,7 @@ public class Parser {
             throw new NoDescriptionException("There is no given task index.");
         }
 
-        final int offset = -1; //Display list is 1 more greater than index
+        final int offset = -1; // Index in list is 1 more greater than index
         int targetIndex = Integer.parseInt(splitArgs[1]) + offset;
 
         if (targetIndex < 0) {
@@ -135,9 +133,9 @@ public class Parser {
      *
      * @param args is a lowercase String containing the user input.
      * @return a Task from the given args.
-     * @throws NoDescriptionException
+     * @throws NoDescriptionException when args contain insufficient details to create the task.
      */
-    public static Task getTask(String args) throws IncorrectInputException {
+    public static Task getTask(String args) throws NoDescriptionException {
         final String type = decomposeIntoWords(args)[0];
         Task newTask;
 
@@ -222,6 +220,12 @@ public class Parser {
         return new Event(description, from, to);
     }
 
+    /**
+     * Get the keyword from the arg.
+     *
+     * @param arg is the user input that contains the command "find"
+     * @return a String that is the keyword based on the user input.
+     */
     public static String getKeyword(String arg) {
         assert arg.contains("find ") : "arg does not contain \"find \"!";
         //Parse keyword

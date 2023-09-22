@@ -53,7 +53,7 @@ public class Veda {
      *
      * @param method is an integer indicating what actions to perform.
      * @param input is the user input
-     * @return
+     * @return a string message that will be displayed by Veda in the GUI.
      */
     private String output(int method, String input) {
         final String errorInputResponse = ui.getUnrecognisedInputMessage();

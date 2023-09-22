@@ -110,14 +110,14 @@ public class ParserTest {
 
     @Test
     public void getTask_eventTaskArgument_eventTask() {
-        final String arg = "event test mission /from 08/08/2023 0800 /to 0900";
+        final String arg = "event test mission /from 08/08/2023 0800 /to 08/08/2023 0900";
         final Task actualTask = Parser.getTask(arg);
 
         //We test if they are equal if they return the same storage form
         assertEquals(new Event(
                 "test mission",
                 "08/08/2023 0800",
-                "0900")
+                "08/08/2023 0900")
                 .convertToStorageForm(), actualTask.convertToStorageForm());
     }
 }
