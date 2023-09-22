@@ -42,7 +42,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * A mutator method for the duke field
+     * Sets the duke field
      *
      * @param d The Duke application object
      */
@@ -67,7 +67,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
+     * Generates a response to user input.
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {

@@ -19,35 +19,35 @@ public abstract class Task {
     }
 
     /**
-     * A method that marks the task as undone
+     * Marks the task as undone
      */
     public void markAsUndone() {
         this.isDone = false;
     }
 
     /**
-     * A method that marks the task as done
+     * Marks the task as done
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * An accessor method to retrieve the status of the task.
+     * Retrieves the status of the task.
      */
     public String getStatusIcon() {
         return (isDone ? "X" : " "); // mark done task with X
     }
 
     /**
-     * An accessor method to retrieve the status of the task to load into file.
+     * Retrieves the status of the task to load into file.
      */
     public String getFileStatusIcon() {
         return (isDone ? "1" : "0"); // mark done task with X
     }
 
     /**
-     * An accessor method to retrieve the description of the task.
+     * Retrieves the description of the task.
      *
      */
     public String getDescription() {
@@ -75,7 +75,7 @@ public abstract class Task {
     }
 
     /**
-     * Check if the input task is equals to the current Task instance.
+     * Checks if the input task is equals to the current Task instance.
      *
      * @param newTask The task to be compared to
      * @return True if the both task are the same

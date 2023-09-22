@@ -1,6 +1,5 @@
 package duke;
 
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -81,42 +80,62 @@ public class TaskList {
      */
     public Task createNewTask(String userInput) throws DukeException {
         Task newTask;
-        String[] inputArray = userInput.split(" ", 2);
+        String[] inputArray = userInput.trim().split(" ", 2);
         if (inputArray.length != 2 || inputArray[1].isEmpty()) {
             throw new EmptyTaskException(inputArray[0]);
         } else {
             if (inputArray[0].equals("todo")) {
                 newTask = new ToDo(inputArray[1]);
             } else if (inputArray[0].equals("deadline")) {
-                String[] a = inputArray[1].split(" /by ");
-                if (a.length != 2 || a[1].isEmpty()) {
+                String[] details = inputArray[1].split(" /by ");
+                if (details.length != 2 || details[1].isEmpty()) {
                     throw new EmptyDateException(inputArray[0]);
                 }
-                newTask = new Deadline(a[0], getDate(a[1]));
+                newTask = new Deadline(details[0], getDate(details[1]));
             } else {
                 assert inputArray[0].equals("event") : "The userInput should start with event";
-                // check if contains both the order is correct
-                if (userInput.contains("/to") && userInput.indexOf("/from") > userInput.indexOf("/to")) {
-                    throw new DukeException("OOPS!! Please follow the format:\nevent DESCRIPTION /from FROM /to TO");
-                }
-
-                String[] a = inputArray[1].split(" /from ");
-                if (a.length != 2 || a[1].isEmpty()) {
-                    throw new EmptyDateException(inputArray[0]);
-                }
-                String[] fromto = a[1].split(" /to ");
-                if (fromto.length != 2 || fromto[1].isEmpty()) {
-                    throw new NoEndDateException();
-                }
-                newTask = new Event(a[0], getDate(fromto[0]), getDate(fromto[1]));
+                newTask = createEvent(inputArray);
             }
         }
-
         return newTask;
     }
 
     /**
-     * Change the input date and time to the correct format.
+     * Checks if the user's event input is correctly formatted.
+     *
+     * @param eventInput the user's input.
+     * @return True if user's event input is correctly formatted.
+     */
+    public boolean checkEventFormat(String eventInput) {
+        boolean containsBoth = eventInput.contains("/to") && eventInput.contains("/from");
+        boolean isOrderWrong = eventInput.indexOf("/from") > eventInput.indexOf("/to");
+        return containsBoth && isOrderWrong;
+    }
+
+    /**
+     * Creates an Event Task if the user's input event details is correct.
+     *
+     * @param eventDetails the user's input event details.
+     * @return the corresponding Event Task.
+     * @throws DukeException if the event details are wrongly formatted.
+     */
+    public Task createEvent(String[] eventDetails) throws DukeException {
+        if (checkEventFormat(eventDetails[1])) {
+            throw new DukeException("OOPS!! Please follow the format:\nevent DESCRIPTION /from FROM /to TO");
+        }
+        String[] details = eventDetails[1].split(" /from ");
+        if (details.length != 2 || details[1].isEmpty()) {
+            throw new EmptyDateException(eventDetails[0]);
+        }
+        String[] fromto = details[1].trim().split(" /to ");
+        if (fromto.length != 2 || fromto[1].isEmpty()) {
+            throw new NoEndDateException();
+        }
+        return new Event(details[0], getDate(fromto[0]), getDate(fromto[1]));
+    }
+
+    /**
+     * Changes the input date and time to the correct format.
      *
      * @param inputDate The user's input date and time.
      * @return The correct date and time format.

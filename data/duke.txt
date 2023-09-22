@@ -1,5 +1,6 @@
-T | 1 | return book
 E | 0 | project meeting | Oct 15 2019 2:00pm | Oct 15 2019 4:00pm
-D | 0 | CS2103T project | Oct 15 2019 6:00pm
-E | 0 | football match | May 15 2019 6:00pm | Oct 15 2019 7:30pm
-D | 0 | finish work | Oct 15 2020 11:59pm
+D | 1 | CS2103T project | Oct 15 2019 6:00pm
+T | 1 | read book
+D | 0 | Finish project | Dec 31 2023 6:00pm
+T | 0 | return book
+T | 0 | orbital

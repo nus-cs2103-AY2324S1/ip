@@ -65,14 +65,17 @@ public class Storage {
                 taskList.add(loadData(item));
             }
         } catch (FileNotFoundException e) {
-            File newFile = new File(filepath + "/../");
-            newFile.mkdir();
+            File parent = new File(file.getParent());
+            if (!parent.isDirectory()) {
+                parent.mkdirs();
+            }
             file.createNewFile();
         }
 
 
         return taskList;
     }
+
 
     /**
      * Creates a duke.Task from the string representation from the file.
