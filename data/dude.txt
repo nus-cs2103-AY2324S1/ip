@@ -1,11 +1,8 @@
-D | 0 |  ip | 2023-09-25T23:59
-D | 0 |  ps3 | 2023-09-20T23:59
-D | 0 |  hw | 2023-02-28T23:59
-D | 0 |  ippppp | 2023-09-25T00:00
-E | 0 |  ifg | 2023-08-08T00:00 | 2023-09-09T00:00
-T | 0 |  work
-D | 0 |  ippp | 2023-09-25T00:00
-E | 0 |  thing | 2023-08-08T00:00 | 2023-09-09T00:00
-D | 0 |  asdkasda | 2023-08-08T00:00
-N | ip deadline postponed by 3 days
-N | rmb to submit ip!!!
+T | 0 |  watch lecture 5
+T | 0 |  watch lecture 6
+D | 0 |  ip | 2023-09-22T23:59
+D | 0 |  ps3 | 2023-09-23T23:59
+E | 0 |  ifg closing | 2023-09-22T19:00 | 2023-09-22T22:00
+T | 0 |  revise for midterms
+N | ip deadline extended
+N | submit contest after finishing ps3

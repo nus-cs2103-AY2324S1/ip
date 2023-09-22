@@ -69,7 +69,9 @@ public class Parser {
             } else if (fullCommand.matches("(.+)/n(.+)")) {
                 c = new DeleteNoteCommand(index);
             } else {
-                throw new ParserException("Invalid command format: " + fullCommand);
+                throw new ParserException("invalid command format. try: \n"
+                        + "delete /t <task index> OR \n"
+                        + "delete /n <note index> OR \n");
             }
 
         } else if (commandType.equals("todo")) {
