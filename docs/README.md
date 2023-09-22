@@ -1,21 +1,31 @@
 # User Guide
 
 ## Features 
+### Add Tasks
+1. Todo: Simple tasks with no specific date attached.
+2. Deadline: Tasks that need to be completed by a certain date.
+3. Event: Tasks that occur between two dates.
+### List Tasks
+See all your current tasks in one overview.
 
-### Add tasks
+### Mark Tasks as Done
+Indicate which tasks you have completed.
 
-Add a task from the following categories: todo, deadline, event.
+### Unmark Tasks
+Reverse a task's status if marked incorrectly.
 
-### Mark tasks as done
+### Delete Tasks
+Remove tasks you no longer need.
 
-Mark a task as completed with a cross on the list, but not remove it from the task list.
+### Search for Tasks
+Find tasks by keyword or date.
 
-## See current tasks
-List all tasks in the current task list with completed status.
+### Archive Tasks
+Move tasks to an archive to declutter your main list.
 
-### `todo xxx` - Add a todo task
+### `todo [description]` - Add a todo task
 
-Add a todo task with the description "xxx".
+Add a todo task with a description.
 
 Example of usage: 
 
@@ -30,7 +40,7 @@ Now you have 1 task(s) in the list
 ```
 A todo task is added to the task list.
 
-### `deadline xxx /by yyyy-MM-dd HH:mm` - Add a deadline task
+### `deadline [description] /by [yyyy-MM-dd HH:mm]` - Add a deadline task
 
 Add a deadline task with the description "xxx" and a deadline specified by
 yyyy-MM-dd HH:mm.
@@ -50,7 +60,7 @@ A deadline task is added to the task list.
 
 
 
-### `event xxx /from yyyy-MM-dd HH:mm /by yyyy-MM-dd HH:mm` - Add an event task
+### `event xxx /from [yyyy-MM-dd HH:mm] /by [yyyy-MM-dd HH:mm]` - Add an event task
 
 Add an event task with the description "xxx", start time,
 and end time specified by yyyy-MM-dd HH:mm.
@@ -70,7 +80,7 @@ Description of the outcome.
 An event task is added to the task list.
 
 
-### `mark n` - Add a todo task
+### `mark n` - Mark a task as done
 
 Mark the nth task (as shown in the list index) as done.
 
@@ -86,9 +96,9 @@ Wow! Good job clearing this task [T][X] run 2 miles
 The task corresponding to the index is marked as done, with a cross [X] to show completion status.
 
 
-### `unmark n` - Add a todo task
+### `unmark n` - Unmark a task
 
-Unmark the nth task (as shown in the list index) as done.
+Unmark the nth task (as shown in the list index).
 
 Example of usage:
 
@@ -100,3 +110,46 @@ Frodo heard: unmark 1
 Okay. I see you haven't done this task yet [T][] run 2 miles
 ```
 The task corresponding to the index is unmarked, with an empty [] to show completion status.
+
+### delete [task number] - Deletes a task from the task list
+Deletes a task based on its index number in the task list.
+
+Example of usage:
+`delete 1`
+
+Expected outcome:
+```
+Frodo heard: delete 2
+Woohoo. I've removed this task:
+[D][] Buy a new book (by Oct 01 2023 6:00 pm)
+Now you have 2 task(s) in the list
+```
+The task corresponding to the index is deleted from the task list.
+
+### find [keyword] - Find a task with the keyword
+Find tasks that contain the specified keyword in their descriptions.
+
+Example of usage:
+`find book`
+
+Expected outcome:
+```
+Frodo heard: find book
+Here are the tasks in your list:
+1.[T][] Read a book
+2.[D][] Buy a new book (by Oct 01 2023 6:00 pm)
+```
+The tasks with the keyword are listed.
+
+### archive - Archives all tasks.
+Archives all tasks from the current task list to a separate file and clears the main task list.
+
+Example of usage:
+`archive`
+
+Expected outcome:
+```
+Frodo heard: archive
+Successfully archived tasks in a new file
+```
+All tasks in the current list are archived in a new file. The task list in the current file is now empty.

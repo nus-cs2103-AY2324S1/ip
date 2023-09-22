@@ -57,7 +57,6 @@ public class TaskManager {
      * Marks a task as completed based on the given user command.
      *
      * @param userCommand Command to specify which task to mark as completed.
-     * @return Result of the mark operation.
      */
     public String handleMark(String userCommand) {
         String[] parts = userCommand.split(" ");
