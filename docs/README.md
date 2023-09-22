@@ -54,9 +54,10 @@ Exits the chatbot and closes the user interface.
 
 Lists out all of the tasks in your task list.
 
-Syntax: `list`
+**Syntax:** `list`
 
-Expected outcome:
+**Expected outcome:**
+
 A list containing all recorded tasks will be shown.
 
 ```
@@ -71,11 +72,11 @@ A list containing all recorded tasks will be shown.
 
 Adds ToDo task to task list. (ToDo tasks are tasks that have no specific deadline, or time range.)
 
-Syntax: `todo <Name of task>`
+**Syntax:** `todo <Name of task>`
 
-Example of usage: `todo homework`
+**Example of usage:** `todo homework`
 
-Expected outcome:
+**Expected outcome:**
 
 Todo task will be added to task list.
 
@@ -91,11 +92,12 @@ Now you have 3 tasks in the list.
 
 Adds Deadline task to task list. (Deadline tasks are tasks need to be completed by a specific end date.)
 
-Syntax: `deadline <Name of task> /by <Due date and time>`
+**Syntax:** `deadline <Name of task> /by <Due date and time>`
 
-Example of usage: `deadline submit homework /by 20 Sep 2023 2359`
+**Example of usage:** `deadline submit homework /by 20 Sep 2023 2359`
 
-Expected outcome:
+**Expected outcome:**
+
 Deadline task will be added to task list.
 
 ```
@@ -110,11 +112,13 @@ Now you have 4 tasks in the list.
 
 Adds Event task to task list. (Event tasks are tasks have a specified start and end date.)
 
-Syntax: `event <name of task> /from <Date and time of event start> /to <Date and time of event end>`
+**Syntax:** `event <name of task> /from <Date and time of event start> /to <Date and time of event end>`
 
-Example of usage: `event dinner appointment /from 20 Sep 2023 1800 /to 20 Sep 2023 1900`
+**Example of usage:** `event dinner appointment /from 20 Sep 2023 1800 /to 20 Sep 2023 1900`
 
-Expected outcome: Event task will be added to task list.
+**Expected outcome:** 
+
+Event task will be added to task list.
 ```
 ------------------------------------------------------------
 Got it. I've added this task: 
@@ -127,11 +131,13 @@ Now you have 5 tasks in the list.
 
 Marks a task as done.
 
-Syntax: `mark <The task number in the list>`
+**Syntax:** `mark <The task number in the list>`
 
-Example of usage: `mark 3`
+**Example of usage:** `mark 3`
 
-Expected outcome: Task will be marked as done.
+**Expected outcome:** 
+
+Task will be marked as done.
 ```
 ------------------------------------------------------------
 Nice! I've marked this task as done: 
@@ -142,11 +148,13 @@ Nice! I've marked this task as done:
 ### `delete` - Delete Task from task list
 Removes task from task list.
 
-Syntax: `delete <The task number in the list>`
+**Syntax:** `delete <The task number in the list>`
 
-Example of usage: `delete 1`
+**Example of usage:** `delete 1`
 
-Expected outcome: Task will be removed from task list
+**Expected outcome:** 
+
+Task will be removed from task list
 ```
 ------------------------------------------------------------
 Noted. I've removed this task: 
@@ -158,11 +166,13 @@ Now you have 4 tasks in the list.
 ### `find` - Find all tasks with a given keyword
 Finds tasks relating to a particular keyword
 
-Syntax: `find <Keyword to search for>`
+**Syntax:** `find <Keyword to search for>`
 
-Example of usage: `find appointment`
+**Example of usage:** `find appointment`
 
-Expected outcome: A list of tasks containing the keyword will be displayed
+**Expected outcome:** 
+
+A list of tasks containing the keyword will be displayed
 ```
 Here are the matching tasks in your list:
 ------------------------------------------------------------
@@ -175,11 +185,13 @@ Here are the matching tasks in your list:
 ### `view schedule` - Lists all tasks in a given time interval
 Finds tasks that either occur or have a deadline during a given time period.
 
-Syntax: `view schedule /from <Start of time frame> /to <End of time frame>`
+**Syntax:** `view schedule /from <Start of time frame> /to <End of time frame>`
 
-Example of usage: `view schedule /from 20 Sep 2023 0000 /to 20 Sep 2023 2359`
+**Example of usage:** `view schedule /from 20 Sep 2023 0000 /to 20 Sep 2023 2359`
 
-Expected outcome: A list of event and deadline tasks that occur during the specified time frame will be shown
+**Expected outcome:** 
+
+A list of event and deadline tasks that occur during the specified time frame will be shown
 ```
 Here are the matching tasks in your list:
 ------------------------------------------------------------
@@ -192,9 +204,11 @@ Here are the matching tasks in your list:
 
 Exits the chatbot and closes the user interface.
 
-Syntax: `bye`
+**Syntax:** `bye`
 
-Expected outcome: A goodbye message is shown, and the user interface will then close by itself
+**Expected outcome:** 
+
+A goodbye message is shown, and the user interface will then close by itself
 ```
 ------------------------------------------------------------
 Bye. Hope to see you again soon!
