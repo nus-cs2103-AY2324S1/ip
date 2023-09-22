@@ -1,7 +1,7 @@
 package commands;
 
-import ui.UI;
 import data.Actions;
+import ui.UI;
 
 public class UnknownCommand extends Command {
     @Override

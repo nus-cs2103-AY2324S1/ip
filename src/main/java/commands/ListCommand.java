@@ -1,8 +1,8 @@
 package commands;
 
-import ui.UI;
 import data.Actions;
 import duke.DukeException;
+import ui.UI;
 
 public class ListCommand extends Command {
     @Override

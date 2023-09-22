@@ -1,10 +1,10 @@
 package commands;
 
-import ui.UI;
 import data.Actions;
-import tasks.Event;
-import parser.Parser;
 import duke.DukeException;
+import parser.Parser;
+import tasks.Event;
+import ui.UI;
 
 public class EventCommand extends Command {
     private final String input;
@@ -18,8 +18,8 @@ public class EventCommand extends Command {
     @Override
     public void executeCommand(UI ui, Actions actionList) throws DukeException {
         if (!input.contains("/from") || !input.contains("/to")) {
-            throw new DukeException("tasks.Event format incorrect. " +
-                    "\nFormat: event task /from d/M/yyyy HHmm /to d/M/yyyy HHmm");
+            throw new DukeException("tasks.Event format incorrect. "
+                    + "\nFormat: event task /from d/M/yyyy HHmm /to d/M/yyyy HHmm");
         }
         String[] commandParts = parser.splitByKeyword(input, "/from");
         String[] eventParts = parser.splitByKeyword(commandParts[1], "/to");

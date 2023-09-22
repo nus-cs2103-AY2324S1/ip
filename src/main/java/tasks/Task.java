@@ -50,7 +50,8 @@ public class Task {
             return String.format("D | %s | %s | %s", isDone ? "1" : "0", getDescription(), deadline.getBy());
         } else if (this instanceof Event) {
             Event event = (Event) this;
-            return String.format("E | %s | %s | %s - %s", isDone ? "1" : "0", getDescription(), event.getFrom(), event.getTo());
+            return String.format("E | %s | %s | %s - %s", isDone ? "1" : "0",
+                    getDescription(), event.getFrom(), event.getTo());
         }
         return "";
     }

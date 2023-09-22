@@ -1,7 +1,7 @@
 package commands;
 
-import ui.UI;
 import data.Actions;
+import ui.UI;
 
 public class ByeCommand extends Command {
     @Override
@@ -10,7 +10,7 @@ public class ByeCommand extends Command {
     }
 
     @Override
-    public boolean exit() {
+    public boolean isExit() {
         return true;
     }
 }

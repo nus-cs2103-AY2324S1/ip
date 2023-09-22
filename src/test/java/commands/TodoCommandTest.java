@@ -1,13 +1,12 @@
 package commands;
 
-import duke.DukeException;
-import data.Actions;
-import org.junit.jupiter.api.Test;
-import tasks.Todo;
-import ui.UI;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import data.Actions;
+import duke.DukeException;
+import ui.UI;
 
 public class TodoCommandTest {
     @Test

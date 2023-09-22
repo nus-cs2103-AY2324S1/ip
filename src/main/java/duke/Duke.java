@@ -1,13 +1,13 @@
 package duke;
 
+import java.util.ArrayList;
+
 import commands.Command;
 import data.Actions;
 import data.Save;
+import parser.Parser;
 import tasks.Task;
 import ui.UI;
-import parser.Parser;
-
-import java.util.ArrayList;
 
 public class Duke {
     private final UI ui = new UI();
@@ -20,11 +20,11 @@ public class Duke {
         actionList.add(loadedTasks);
     }
 
-    public void initiateChatbot() throws DukeException{
+    public void initiateChatbot() throws DukeException {
         ui.openingMessage();
         String input = ui.readInput();
         Command command = parser.issueCommand(input);
-        while (!command.exit()) {
+        while (!command.isExit()) {
             try {
                 command.executeCommand(ui, actionList);
             } catch (DukeException ohno) {
@@ -36,9 +36,9 @@ public class Duke {
         savior.saveTasks(actionList.list());
     }
     public static void main(String[] args) {
-        Duke Whelmed = new Duke();
+        Duke duke = new Duke();
         try {
-            Whelmed.initiateChatbot();
+            duke.initiateChatbot();
         } catch (DukeException duked) {
             System.out.println("An error occurred: " + duked.getMessage());
         }

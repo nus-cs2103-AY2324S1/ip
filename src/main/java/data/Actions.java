@@ -1,14 +1,14 @@
 package data;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import duke.DukeException;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
-import duke.DukeException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalDateTime;
-import java.util.stream.Collectors;
 
 public class Actions {
     private final ArrayList<Task> actions = new ArrayList<>();
@@ -40,7 +40,8 @@ public class Actions {
     public Task getAction(int idx) throws DukeException {
         if (idx < actions.size() && idx > -1) {
             return actions.get(idx);
-        } throw new DukeException(" tasks.Task number invalid; please re-examine input.");
+        }
+        throw new DukeException(" tasks.Task number invalid; please re-examine input.");
     }
 
     public Task mark(int idx) throws DukeException {
@@ -55,7 +56,7 @@ public class Actions {
         return toUnmark;
     }
 
-    public int size(){
+    public int size() {
         return actions.size();
     }
 
@@ -66,9 +67,10 @@ public class Actions {
 
     public List<Task> tasksOnDate(LocalDateTime date) {
         return actions.stream()
-                .filter(task -> task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date.toLocalDate()) ||
-                        task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date.toLocalDate()) ||
-                                ((Event) task).getTo().toLocalDate().equals(date.toLocalDate())))
+                .filter(task -> task instanceof Deadline
+                        && ((Deadline) task).getBy().toLocalDate().equals(date.toLocalDate())
+                        || task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date.toLocalDate())
+                        || ((Event) task).getTo().toLocalDate().equals(date.toLocalDate())))
                 .collect(Collectors.toList());
     }
 }

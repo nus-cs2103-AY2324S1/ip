@@ -1,9 +1,9 @@
 package commands;
 
-import ui.UI;
 import data.Actions;
-import tasks.Todo;
 import duke.DukeException;
+import tasks.Todo;
+import ui.UI;
 
 public class TodoCommand extends Command {
     private final String description;
@@ -15,8 +15,8 @@ public class TodoCommand extends Command {
     @Override
     public void executeCommand(UI ui, Actions actionList) throws DukeException {
         if (description.isEmpty()) {
-            throw new DukeException(" Provide the description. " +
-                    "Format: todo task");
+            throw new DukeException(" Provide the description. "
+                    + "Format: todo task");
         }
         Todo task = new Todo(description);
         actionList.add(task);

@@ -1,9 +1,9 @@
 package commands;
 
-import ui.UI;
 import data.Actions;
-import tasks.Task;
 import duke.DukeException;
+import tasks.Task;
+import ui.UI;
 
 public class MarkCommand extends Command {
     private int taskNumber;
