@@ -33,10 +33,12 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(Tasklist tasks, Storage storage) {
+
         assert command != null : "Should have an input!";
+
         String[] commandList = command.split("deadline ");
 
-        if (commandList.length == 1) {
+        if (commandList.length <= 1) {
             return ("Invalid! The description of a deadline cannot be empty.");
         } else {
             String[] deadlineHelper = commandList[1].split(" /by ");

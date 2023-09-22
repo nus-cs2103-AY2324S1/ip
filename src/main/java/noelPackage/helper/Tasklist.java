@@ -286,6 +286,9 @@ public class Tasklist {
      * @param index The index of the task to mark as done.
      */
     public String markAsDone(int index) {
+        if (index > taskList.size()) {
+            return "Out of bounds!";
+        }
         return taskList.get(index).markAsDone();
     }
 

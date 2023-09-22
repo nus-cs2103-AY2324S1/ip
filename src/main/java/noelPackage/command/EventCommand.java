@@ -39,7 +39,7 @@ public class EventCommand extends Command {
         assert command != null : "Should have an input!";
         String[] commandInputs = this.command.split("event ");
 
-        if (commandInputs.length == 1) {
+        if (commandInputs.length <= 1) {
             System.out.println("OOPS!!! The description of a event cannot be empty.");
         } else {
             String[] eventsHelper = commandInputs[1].split(" /from ");
