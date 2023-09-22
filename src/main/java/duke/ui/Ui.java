@@ -50,11 +50,11 @@ public class Ui {
      * @return Task added statement.
      */
     public String printAddTask(Task newTask, int numberOfTask) {
-        printFinal("     Got it. I've added this duke.task:\n"
+        printFinal("     Got it. I've added this task:\n"
                 + "      " + newTask + "\n"
                 + "     Now you have " + numberOfTask + " tasks in the list." + "\n");
 
-        return "     Got it. I've added this duke.task:\n"
+        return "     Got it. I've added this task:\n"
                 + "      " + newTask + "\n"
                 + "     Now you have " + numberOfTask + " tasks in the list." + "\n";
     }
@@ -67,11 +67,11 @@ public class Ui {
      * @return delete message.
      */
     public String printDeleteTask(Task deletedTask, int numberOfTask) {
-        printFinal("     Noted. I've removed this duke.task:" + "\n"
+        printFinal("     Noted. I've removed this task:" + "\n"
                 + "       " + deletedTask + "\n"
                 + "     Now you have " + numberOfTask + " tasks in the list." + "\n");
 
-        return "     Noted. I've removed this duke.task:" + "\n"
+        return "     Noted. I've removed this task:" + "\n"
                 + "       " + deletedTask + "\n"
                 + "     Now you have " + numberOfTask + " tasks in the list." + "\n";
     }
@@ -103,10 +103,10 @@ public class Ui {
      * @return Marked task message.
      */
     public String printMark(Task task) {
-        printFinal("     Nice! I've marked this duke.task as done:" + "\n"
+        printFinal("     Nice! I've marked this task as done:" + "\n"
                 + "       " + task + "\n");
 
-        return "     Nice! I've marked this duke.task as done:" + "\n"
+        return "     Nice! I've marked this task as done:" + "\n"
                 + "       " + task + "\n";
     }
 
@@ -117,10 +117,10 @@ public class Ui {
      * @return unmarked task message.
      */
     public String printUnmark(Task task) {
-        printFinal("     OK, I've marked this duke.task as not done yet:" + "\n"
+        printFinal("     OK, I've marked this task as not done yet:" + "\n"
                 + "       " + task + "\n");
 
-        return "     OK, I've marked this duke.task as not done yet:" + "\n"
+        return "     OK, I've marked this task as not done yet:" + "\n"
                 + "       " + task + "\n";
     }
 

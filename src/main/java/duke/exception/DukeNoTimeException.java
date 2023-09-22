@@ -13,6 +13,6 @@ public class DukeNoTimeException extends DukeException {
      * @param e The Exception message
      */
     public DukeNoTimeException(String e) {
-        super("     ☹ OOPS!!! Please enter the correct duke.time format.\n");
+        super("     ☹ OOPS!!! Please enter the correct time format.\n");
     }
 }

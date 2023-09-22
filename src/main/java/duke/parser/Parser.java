@@ -39,7 +39,10 @@ public class Parser {
 
             switch (commandWord) {
             case BYE:
-                return new ByeCommand();
+                if (splitTask.length == 1) {
+                    return new ByeCommand();
+                }
+                throw new DukeNotTaskException("");
             case DELETE:
                 if (splitTask.length == 2) {
                     return new DeleteCommand(splitTask);

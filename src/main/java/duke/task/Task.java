@@ -5,6 +5,8 @@ import duke.exception.DukeIndexOutOfBoundException;
 import duke.exception.DukeNoTimeException;
 import duke.exception.DukeNotTaskException;
 
+import java.time.format.DateTimeParseException;
+
 /**
  * A Class that handle task
  *
@@ -64,6 +66,8 @@ public class Task {
                 return new Event(splitDesc[0], splitDesc2[0], splitDesc2[1]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeNoTimeException(type);
+        } catch (DateTimeParseException e) {
             throw new DukeNoTimeException(type);
         }
     }
