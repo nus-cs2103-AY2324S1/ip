@@ -26,13 +26,11 @@ public class Parser {
 
 
     /**
-     * Deals with user inputs beginning with mark, unmark, delete, list and find.
-     * It also deals with what happens when the user types in an unrecognised
-     * command.
-     *
+     * Deals with user inputs like mark, unmark, delete, massDelete, list, find, help and bye.
+     * It also deals with what happens when the user types in an unrecognised command.
      * @param input what the user is typing in.
-     * @throws DukeException
-     * @throws NumberFormatException
+     * @throws DukeException duke exception thrown
+     * @throws NumberFormatException number format exception in case it's not an integer
      */
 
     public static Command userCommand(String input) throws DukeException,
@@ -63,7 +61,6 @@ public class Parser {
      * Deals with user commands to add a task to the tasklist.
      * If the command is not one that adds a task, it will call the userCommand
      * method.
-     *
      * @param input what the user is typing in.
      */
     public static Command addToList(String input) throws DukeException {

@@ -16,7 +16,15 @@ public class MarkCommand extends Command {
     public MarkCommand(String input) {
         this.input = input;
     }
-
+    /**
+     * Executes the command.
+     * @param ui the ui class used.
+     * @param storage the storage that is used.
+     * @param tasks the tasklist that is used.
+     * @return String representation of the execution.
+     * @throws IOException IOException
+     * @throws DukeException DukeException
+     */
     @Override
     public String execute(Ui ui, Storage storage, TaskList tasks) throws DukeException, IOException {
         int taskIndex = Integer.parseInt(input.substring(5));

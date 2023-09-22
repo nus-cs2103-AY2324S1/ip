@@ -22,7 +22,6 @@ public class Storage {
 
     /**
      * Constructor for storage.
-     *
      * @param filepath the filepath of the file that will be used for storage.
      */
 
@@ -34,8 +33,7 @@ public class Storage {
 
     /**
      * Creates the file and loads tasks from the file to the taskList.
-     *
-     * @throws IOException
+     * @throws IOException IO exception thrown.
      */
 
     public TaskList saveTasks() throws IOException {
@@ -83,9 +81,8 @@ public class Storage {
 
     /**
      * Writes the data from the tasklist into the file.
-     *
      * @param tasks TaskList being used to store the data.
-     * @throws IOException
+     * @throws IOException IO exception thrown.
      */
 
     public void writeTasksToFile(TaskList tasks) throws IOException {

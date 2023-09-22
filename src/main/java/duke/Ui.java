@@ -15,6 +15,7 @@ public class Ui {
 
     /**
      * Prints the welcome message.
+     * @return String representation of the message.
      */
     public static String printWelcomeMessage() {
         StringBuilder message = new StringBuilder();
@@ -25,6 +26,7 @@ public class Ui {
 
     /**
      * Prints the goodbye message.
+     * @return String representation of the message.
      */
     public String printGoodByeMessage() {
         append("Bye! Hope to see you again soon!\n");
@@ -35,6 +37,7 @@ public class Ui {
      * Prints the task as being marked as done.
      * @param index the index of the task that is to be marked.
      * @param tasks the TaskList being used.
+     * @return String representation of the message.
      */
     public String printMarkTasksAsDone(int index, TaskList tasks) {
         append("Great! I've marked this task as done:\n");
@@ -46,6 +49,7 @@ public class Ui {
      * Prints the task as being marked as not done yet.
      * @param index the index of the task is to be marked as not done.
      * @param tasks the TaskList being used.
+     * @return String representation of the message.
      */
 
     public String printMarkTasksAsNotDone(int index, TaskList tasks) {
@@ -80,6 +84,7 @@ public class Ui {
     /**
      * Prints the TaskList.
      * @param tasks the TaskList being used.
+     * @return String representation of the message.
      * @throws DukeException throws a duke exception.
      */
     public String printListMessage(TaskList tasks) throws DukeException {
@@ -87,6 +92,11 @@ public class Ui {
         return message.toString();
     }
 
+    /**
+     * Shows the error.
+     * @param e the DukeException being thrown.
+     * @return String representation of the message.
+     */
     public String showError(DukeException e) {
         return e.getMessage();
     }
@@ -94,6 +104,7 @@ public class Ui {
      * Prints that a task has been deleted.
      * @param tasks the TaskList being used.
      * @param element the Task that is to be deleted.
+     * @return String representation of the message.
      * @throws DukeException throws a duke exception.
      */
     public String printDeleteTasks(TaskList tasks, Task element) throws DukeException {
@@ -101,6 +112,11 @@ public class Ui {
         append("Now you have " + tasks.getSize() + " tasks in the list.\n");
         return message.toString();
     }
+
+    /**
+     * Prints that the tasks have been deleted.
+     * @return String representation of the message.
+     */
     public String printDeleteManyTasks() {
         append("Okie I've removed these tasks!");
         return message.toString();
@@ -110,6 +126,7 @@ public class Ui {
      * Prints that a task has been added.
      * @param tasks the TaskList being used.
      * @param task the task that is to be added.
+     * @return String representation of the message.
      */
 
     public String printAddTaskToList(TaskList tasks, Task task) {
@@ -178,11 +195,11 @@ public class Ui {
                 + "(ps remember to add when it starts and ends by adding a /from and /to)\n");
         append("4. list: Type this to view your tasks!\n");
         append("5. delete: Type this to delete a task. Add the task number as well!\n");
-        append("6. mark: Type this to mark a task on the list. Add the task number as welL!\n");
-        append("6. unmark: Type this to unmark a task on the list. Add the task number as welL!\n");
-        append("7. find: Type this to find a task with the keywork you are searching for\n");
-        append("8. massDelete: Type this to mass delete 2 or more tasks at once! eg: massDelete 1 2\n");
-        append("9. bye: Type this and I will say goodbye :(\n");
+        append("6. mark: Type this to mark a task on the list. Add the task number as well!\n");
+        append("7. unmark: Type this to unmark a task on the list. Add the task number as well!\n");
+        append("8. find: Type this to find a task with the keyword you are searching for\n");
+        append("9. massDelete: Type this to mass delete 2 or more tasks at once! eg: massDelete 1 2\n");
+        append("10. bye: Type this and I will say goodbye :(\n");
         return message.toString();
     }
 

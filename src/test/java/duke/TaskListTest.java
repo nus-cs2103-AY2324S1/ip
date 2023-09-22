@@ -8,11 +8,19 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 
-
-
+/**
+ * Class that tests the TaskList class.
+ */
 public class TaskListTest {
 
-
+    @Test
+    public void testMarkAsDone() {
+        TaskList tasks = new TaskList();
+        ToDo sampleToDo = new ToDo("do econs");
+        tasks.addTask(sampleToDo);
+        tasks.markTaskAsDone(0);
+        assertEquals("X", tasks.getTask(0).getStatusIcon());
+    }
     @Test
     public void testMarkAsNotDone() {
         TaskList tasks = new TaskList();

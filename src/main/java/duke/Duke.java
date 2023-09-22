@@ -30,10 +30,10 @@ public class Duke {
     }
 
     //  @@author inezkok - reused.
-    //  modified the author's getResponse method and made use of their output methods.
+    //  modified the author's getResponse method and made use of their output methods
     //  (ie. resetting and appending strings to the output in the ui class) to display buddy's response on the gui.
     //  I viewed this person's method when referring to the gui forum thread for help when my gui would not
-    //  show the duke's response though the functionalities worked.
+    //  show the duke's response although the functionalities worked.
     /**
      * Returns the Duke response to a given input.
      * @param input The user input that is passed in.
