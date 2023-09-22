@@ -40,11 +40,11 @@ Got it. I've added this task:
 
 ### `Deadline` - Adds a basic description of your task and deadline.
 
-Records the description of your task. The date format should be in YYYY-MM-DD 24-hr Time.
+Records the description of your task. The date format should be in YYYY-MM-DD.
 
 Example of usage: 
 
-`deadline return book/by 2020-12-08 1800`
+`deadline return book/by 2020-12-08`
 
 Expected outcome: The bot should return the following description.
 
@@ -52,7 +52,7 @@ Description of the outcome.
 
 ```
 Got it. I've added this task:
-[D][ ] return book (by 08 Dec 2020 1800) 
+[D][ ] return book (by 08 Dec 2020) 
 ```
 
 ### `Event` - Adds a basic description of your event and time.
@@ -223,4 +223,4 @@ Description of the outcome.
 Bye. Hope to see you again soon!
 ```
 
-### `MEDIC!` - Calls out for medical attention??
+### `MEDIC!` - Some special text from the bot!
