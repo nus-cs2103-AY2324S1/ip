@@ -87,10 +87,10 @@ public class UserInterface {
      * @param s The string to be displayed to the user.
      */
     public static void display(String s) {
-        System.out.println(wrapper(s));
+        System.out.println(displayWrapper(s));
     }
 
-    private static String wrapper(String line) {
+    private static String displayWrapper(String line) {
         String frame = "=====================";
         return String.format("%s\n%s", line, frame);
     }

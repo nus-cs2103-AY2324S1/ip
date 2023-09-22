@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TodoTest {
 
     @Test
-    public void cannotCreateEmptyTodo() {
+    public void create_emptyTodo_throwsException() {
         assertThrows(DukeException.class, () -> {
             ToDo todo = ToDo.create("");
         });

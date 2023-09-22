@@ -26,7 +26,7 @@ public class StoreList {
      * @param description The description of the task to be added.
      * @return A string representing the result of adding the task to the list or an error if unsuccessful.
      */
-    String add(Commands type, String description) {
+    public String add(Commands type, String description) {
         try {
 
             Task task = Task.create(type, description);
@@ -73,7 +73,7 @@ public class StoreList {
      * @param position The position of the task in the list as a string.
      * @return A string representing the result of marking the task as done.
      */
-    String markDone(String position) {
+    public String markDone(String position) {
         try {
             int index = Integer.parseInt(position) - 1;
             Task task = list.get(index);
@@ -94,7 +94,7 @@ public class StoreList {
      * @param position The position of the task in the list as a string.
      * @return A string representing the result of marking the task as not done.
      */
-    String markUndone(String position) {
+    public String markUndone(String position) {
         try {
             int index = Integer.parseInt(position) - 1;
             Task task = list.get(index);
@@ -115,7 +115,7 @@ public class StoreList {
      * @param position The position of the task in the list as a string.
      * @return A string representing the result of removing the task from the list.
      */
-    String delete(String position) {
+    public String delete(String position) {
         try {
             int index = Integer.parseInt(position) - 1;
             Task task = list.remove(index);
