@@ -1,9 +1,9 @@
 package dude.command;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import dude.Storage;
+import dude.exception.EventException;
 import dude.note.NoteList;
 import dude.task.Event;
 import dude.task.TaskList;
@@ -39,17 +39,16 @@ public class AddEventCommand extends Command {
     @Override
     public String execute(TaskList taskList, NoteList noteList, Ui ui, Storage storage) {
         String output = "";
-        try {
-            output = "Executing Add Event Command\n";
-            Event newTask = new Event(taskDescription, fromDateTime, toDateTime);
-            assert !newTask.isDone() : "Newly added Event should not be done.";
-            taskList.addTask(newTask);
-            int nTasks = taskList.getSize();
-            output = output + ui.showAddedTask(newTask, nTasks) + "\n";
-            storage.saveTasksToDisk(taskList, noteList);
-        } catch (IOException e) {
-            System.out.println("Error in Add Event Command");
+        output = "Executing Add Event Command\n";
+        if (fromDateTime.isAfter(toDateTime)) {
+            throw new EventException("Event Start Time is after Event End Time");
         }
+        Event newTask = new Event(taskDescription, fromDateTime, toDateTime);
+        assert !newTask.isDone() : "Newly added Event should not be done.";
+        taskList.addTask(newTask);
+        int nTasks = taskList.getSize();
+        output = output + ui.showAddedTask(newTask, nTasks) + "\n";
+        storage.saveToDisk(taskList, noteList);
         return output;
     }
 }

@@ -1,8 +1,7 @@
 package dude;
 
-import java.io.FileNotFoundException;
-
 import dude.command.Command;
+import dude.exception.DudeException;
 import dude.note.NoteList;
 import dude.task.TaskList;
 import dude.ui.Ui;
@@ -31,14 +30,8 @@ public class Dude {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
 
-        try {
-            taskList = storage.loadTasksFromDisk();
-            noteList = storage.loadNotesFromDisk();
-        } catch (FileNotFoundException e) { // DudeException
-            ui.showLoadingError();
-            taskList = new TaskList();
-            noteList = new NoteList();
-        }
+        taskList = storage.loadFromDisk();
+        noteList = storage.loadNotesFromDisk();
     }
 
     /**
@@ -46,9 +39,13 @@ public class Dude {
      * Replace with completed method.
      */
     public String getResponse(String input) {
-        System.out.println(input);
-        Command c = Parser.parse(input);
-        String output = c.execute(taskList, noteList, ui, storage);
+        String output;
+        try {
+            Command c = Parser.parse(input);
+            output = c.execute(taskList, noteList, ui, storage);
+        } catch (DudeException e) {
+            output = e.getMessage();
+        }
         assert !output.trim().isEmpty() : "Dude output should not be empty";
         return output;
     }
