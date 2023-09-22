@@ -47,33 +47,20 @@ Encountered some issues with installing Java or running the JAR file? Here are s
 
 **Q: Which version of `Java` do I need to install? There's so many versions called `Java 11`!**
 
-<details>
-
-<summary>Answer</summary>
-
-Any version of Java 11 will do! Ensure that the JDK you install comes bundled with the JavaFX 
+**A:** Any version of Java 11 will do! Ensure that the JDK you install comes bundled with the JavaFX 
 library! If you are using the Zulu JDK above, ensure that you install the ones that are tagged with 
 "JDK FX" on the downloads page!
 
-</details>
-
-<br> 
 
 **Q: I have downloaded the JAR file, but I can't seem to execute the file!**
 
-<details>
-
-<summary>Answer</summary>
-
-Do check that the correct Java version is being referenced when you execute the command 
+**A:** Do check that the correct Java version is being referenced when you execute the command 
 "java -jar juke.jar", if you are unsure, run the command "java --version" to view the current 
 version of Java that is used to execute the JAR file!
 
 To change the default version of Java on your PC, check out <a href="https://www.baeldung.com/java-home-on-windows-7-8-10-mac-os-x-linux">this guide</a>  
 to find out more on how you can set your PC's "JAVA_HOME" variable to allow the command to properly 
 reference the Java 11 version you installed!
-
-</details>  
 
 ## GUI
 
