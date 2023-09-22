@@ -57,4 +57,60 @@ public class Event extends Task {
         return this.TYPE + " / " + super.toDataString() + " / "
                 + Time.toDataString(this.from) + " / " + Time.toDataString(this.to);
     }
+
+    /**
+     * Equals method to help checking duplicates.
+     *
+     * @param obj obj compared with.
+     * @return if the object is equal or not.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+
+            boolean equalDescription = this.description == event.description;
+            boolean equalFrom = this.from == event.from;
+            boolean equalTo = this.to == event.to;
+            if (equalDescription && equalFrom && equalTo) {
+                return true;
+            }
+
+            if (this.description == null || event.description == null) {
+                return false;
+            }
+
+            boolean strictEqualDescription = this.description.equals(event.description);
+            boolean strictEqualFrom = this.from.equals(event.from);
+            boolean strictEqualTo = this.to.equals(event.to);
+            return strictEqualDescription && strictEqualFrom && strictEqualTo;
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if the text is equal.
+     *
+     * @param obj Object to compare with.
+     * @return if the text is equal or not.
+     */
+    @Override
+    public boolean equalsText(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj instanceof Event) {
+            Event event = (Event) obj;
+
+            return super.equals(event);
+        }
+
+        return false;
+    }
 }

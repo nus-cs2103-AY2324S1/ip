@@ -1,5 +1,7 @@
 package duke.command;
 
+import duke.Duplicate.Duplicate;
+import duke.exception.DukeDuplicatesException;
 import duke.storage.Storage;
 import duke.task.Task;
 import duke.task.TaskList;
@@ -23,7 +25,7 @@ public class TaskCommand extends Command {
     }
 
     /**
-     * Method to execute the delet mechanism.
+     * Method to execute the task mechanism.
      *
      * @param taskList The used TaskList
      * @param ui The ui object
@@ -32,14 +34,17 @@ public class TaskCommand extends Command {
      * @throws Exception If createTaskType and writeFile throw Exception
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage, Duplicate duplicate) throws Exception {
         Task newTask = Task.createTaskType(splitTask);
-        taskList.add(newTask);
 
-        int i = taskList.indexOf(newTask);
+        if (duplicate.isDuplicates(newTask, taskList)) {
+            throw new DukeDuplicatesException(""); //change to there is duplicate;
+        }
+
+        taskList.add(newTask);
 
         storage.writeFile(taskList);
 
-        return ui.printAddTask(newTask, i + 1);
+        return ui.printAddTask(newTask, taskList.size());
     }
 }

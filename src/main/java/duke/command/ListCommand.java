@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duplicate.Duplicate;
 import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.Ui;
@@ -19,7 +20,7 @@ public class ListCommand extends Command {
      * @return Message response from running the command.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Ui ui, Storage storage, Duplicate duplicate) {
 
         return ui.printTaskList(taskList);
     }

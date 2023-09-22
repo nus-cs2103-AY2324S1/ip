@@ -1,5 +1,6 @@
 package duke.command;
 
+import duke.Duplicate.Duplicate;
 import duke.exception.DukeInvalidMarkException;
 import duke.storage.Storage;
 import duke.task.TaskList;
@@ -32,7 +33,7 @@ public class UnmarkCommand extends Command {
      * @throws Exception If there is an incorrect marking index
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList taskList, Ui ui, Storage storage, Duplicate duplicate) throws Exception {
         int index;
         String result;
 

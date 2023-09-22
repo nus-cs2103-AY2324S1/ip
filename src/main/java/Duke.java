@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import duke.Duplicate.Duplicate;
 import duke.command.ByeCommand;
 import duke.command.Command;
 import duke.parser.Parser;
@@ -17,6 +18,7 @@ public class Duke {
     private TaskList taskList;
     private Storage storage;
     private Ui ui;
+    private Duplicate duplicate;
     private String response;
 
 
@@ -26,6 +28,7 @@ public class Duke {
     public Duke() {
         storage = new Storage();
         this.ui = new Ui();
+        duplicate = new Duplicate();
 
         try {
             storage.checkFile();
@@ -45,7 +48,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            response = c.execute(taskList, ui, storage);
+            response = c.execute(taskList, ui, storage, duplicate);
         } catch (Exception e) {
             ui.printError(e.getMessage());
             return e.getMessage();
@@ -70,7 +73,7 @@ public class Duke {
 
             try {
                 Command c = Parser.parse(s);
-                response = c.execute(taskList, ui, storage);
+                response = c.execute(taskList, ui, storage, duplicate);
                 if (c instanceof ByeCommand) {
                     break;
                 }

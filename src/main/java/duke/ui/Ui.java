@@ -1,5 +1,6 @@
 package duke.ui;
 
+import duke.Duplicate.Duplicate;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -130,6 +131,28 @@ public class Ui {
      */
     public void printError(String e) {
         printFinal("       " + e + "\n");
+    }
+
+    /**
+     * Print message after changing duplicate mode.
+     *
+     * @return the message after changing duplicates mode.
+     */
+    public String printUpdateDuplicatesMode() {
+        printFinal("     OK, update duplicates mode.\n");
+
+        return "     OK, update duplicates mode.\n";
+    }
+
+    /**
+     * Print the current DuplicatesMode
+     * @param duplicate the duplicate object
+     * @return the current duplicates mode.
+     */
+    public String printDuplicatesMode(Duplicate duplicate) {
+        printFinal("     The Duplicate Mode is " + duplicate.getMode());
+
+        return "     The Duplicate Mode is " + duplicate.getMode();
     }
 
 }

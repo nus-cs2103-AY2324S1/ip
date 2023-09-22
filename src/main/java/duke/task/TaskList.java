@@ -1,5 +1,6 @@
 package duke.task;
 
+
 import java.util.ArrayList;
 
 /**
@@ -8,13 +9,20 @@ import java.util.ArrayList;
  * @author marioalvaro
  */
 public class TaskList {
+    enum DuplicatesMode {
+        ON,
+        OFF,
+        TEXT,
+    }
     private ArrayList<Task> taskList;
+    private DuplicatesMode duplicatesMode;
 
     /**
      * Constructor if the taskList has not been created
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
+        duplicatesMode = DuplicatesMode.ON;
     }
 
     /**
@@ -24,6 +32,7 @@ public class TaskList {
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
+        duplicatesMode = DuplicatesMode.ON;
     }
 
     /**

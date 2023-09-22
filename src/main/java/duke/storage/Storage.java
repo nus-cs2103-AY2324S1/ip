@@ -71,7 +71,7 @@ public class Storage {
         if (marker.equals("1")) {
             task.mark();
         }
-        assert marker.equals("0")  || marker.equals("1")
+        assert marker.equals("0") || marker.equals("1")
                 : "Wrong marking format in storage";
     }
 
