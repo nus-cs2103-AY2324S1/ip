@@ -130,7 +130,7 @@ Marks a task as done. Tasks that have been marked will be denoted with an "X".
 <br>
 
 ### Unmark a task: `unmark` / `um`
-Marks a task as done. Tasks that have been marked will be denoted with an "X".
+Unmarks a task. Marked tasks will have the `X` dropped.
 
 **Format:** `unmark <INDEX>` `um <INDEX>`
 
@@ -152,7 +152,7 @@ Deletes a task. Tasks that have been deleted will no longer be in the task list.
 <br>
 
 ### Finding tasks: `find` / `f`
-Finds a task with the given keyword.
+Finds a task with the given `keyword`.
 
 **Format:** `find <KEYWORD>` `f <KEYWORD>`
 - Keywords can have one or more words.
