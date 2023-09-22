@@ -1,7 +1,17 @@
 package nobita.parser;
 
-import nobita.command.*;
+import nobita.command.AddCommand;
+import nobita.command.Command;
+import nobita.command.DeleteCommand;
+import nobita.command.ExitCommand;
+import nobita.command.FindCommand;
+import nobita.command.ListCommand;
+import nobita.command.MarkCommand;
+import nobita.command.UnmarkCommand;
+import nobita.command.UpdateCommand;
 import nobita.exception.NobitaException;
+
+import java.time.LocalDate;
 
 /**
  * Class that encapsulates Parser.
@@ -46,6 +56,11 @@ public class Parser {
                 throw new NobitaException("The /by date of a deadline cannot be empty.\n"
                         + "Please specify a /by date.");
             }
+            try {
+                LocalDate.parse(deadlineFields[1]);
+            } catch (Exception e) {
+                throw new NobitaException("Date format should be in yyyy-mm-dd");
+            }
             return new AddCommand(deadlineFields[0], deadlineFields[1]);
         case "event":
             if (commands.length < 2) {
@@ -61,6 +76,12 @@ public class Parser {
             if (fromAndTo.length < 2) {
                 throw new NobitaException("The /to date of a event cannot be empty.\n"
                         + "Please specify a /to date.");
+            }
+            try {
+                LocalDate.parse(fromAndTo[0]);
+                LocalDate.parse(fromAndTo[1]);
+            } catch (Exception e) {
+                throw new NobitaException("Date format should be in yyyy-mm-dd");
             }
             return new AddCommand(eventFields[0], fromAndTo[0], fromAndTo[1]);
         case "delete":
@@ -84,7 +105,7 @@ public class Parser {
      */
     private static int checkNumber(String toTest) throws NobitaException {
         try {
-            return  Integer.parseInt(toTest) - 1;
+            return Integer.parseInt(toTest) - 1;
         } catch (NumberFormatException e) {
             throw new NobitaException("Only numbers are allow");
         }
