@@ -24,7 +24,7 @@ Todoify is easy to use for users with experience of the CLI. It:
         - *Note:* The version number may not be the same. Change the version number if it's not the version you downloaded.
 
     - **Navigate to the folder containing the JAR file** in your file manager, then **double-click to open** it.
-        - *Note:* Some systems might prevent you from launching Todoify like this directly as it is not code-signed - see the notice at the [Launch Modes > Graphical User Interface](#graphical-user-interface-gui) section for information.
+        - *Note:* Some systems might not correctly allow you from launching Todoify like this, hence you might need to use the terminal method above instead - see the notice at the [Launch Modes > Graphical User Interface](#graphical-user-interface-gui) section for information.
 
 5. You will see [a GUI like above](#todoify-user-guide). See alternative [launch modes](#launch-modes-and-usage) if you prefer to use the TUI.
 
@@ -82,7 +82,7 @@ To interact with Todoify, click the text box at the bottom, type your message, a
 
 !> As Todoify is not [code-signed](https://en.wikipedia.org/wiki/Code_signing), some platforms have security measures in place that prevent you from opening them via a simple double-click. You may thus need to temporarily bypass these protections to launch Todoify. ([Windows](https://support.microsoft.com/en-us/windows/add-an-exclusion-to-windows-security-811816c0-4dfd-af4a-47e4-c301afe13b26), [macOS](https://support.apple.com/en-gb/guide/mac-help/mh40616/mac))
 
-!> Some Java versions may not open correctly via double-click. In which case, please try opening via the terminal instead.
+!> Some Java versions may not open correctly via double-click, and some might also claim the JAR file is damaged. In which case, please try opening via the terminal method above instead.
 
 ?> *Note:* For terminal invocations, you might need to replace `todoify-1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
