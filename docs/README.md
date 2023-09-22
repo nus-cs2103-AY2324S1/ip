@@ -9,7 +9,7 @@ Please Proceed to the following to know the specific command to make the most ou
 - Parameters' places are not interexchangeable.
   e.g. `event DESCRIPTION /from START_TIME /to ENDTIME`, the application cannot auto-correct the misplaced time parameter.
 - Parameters like `START_TIME` and `END_TIME` accept a date in this format `dd/mm/yyyy`. A time can follow the date specified.
-- Time inputs should be either `24hr` or `12hr`. The output will be presented as `12hr` time. e.g. 2359 will be 11:59 pm.
+- Time inputs should be either `24hr`(should be in the format of 4 consecutive numbers) or `12hr`. The output will be presented as `12hr` time. e.g. 2359 will be 11:59 pm.
 
 ### Add a todo task -`todo`
 
