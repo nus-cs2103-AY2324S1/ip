@@ -2,7 +2,7 @@
 
 ## Features 
 
-### Add Tasks
+### 1. Add Tasks
 
 Add any of the following Tasks to start taking control of your day!
 
@@ -10,21 +10,33 @@ Add any of the following Tasks to start taking control of your day!
 - Deadline
 - Event
 
-### View Tasks
+### 2. View Tasks
 
-View all the tasks that you have added using Bart. You can view complete and incomplete Tasks, and your tasks are sorted!
+View all the tasks that you have added:
+- in chronological order
+- in alphabetical order
 
-### Delete Tasks
+You can view complete and incomplete Tasks!
 
-Delete Tasks that have become dead and/or obsolete to declutter! 🔥
+### 3. Delete Tasks
 
-### Mark Tasks
+Delete Tasks that have become dead and/or obsolete to declutter using the `delete` command! 🔥
 
-Mark Tasks as completed or incomplete to keep track of what tasks are pending completion 😄
+### 4. Mark Tasks
 
-### Find Tasks
+Mark Tasks as:
+- completed
+- incomplete
+
+Keep track of what tasks are pending completion 😄
+
+### 5. Find Tasks
 
 Too many Tasks to do? Easily find the task that you're looking for 😲
+
+### 5. End Chat
+
+ Done Talking to Bart? Simply Enter a command and bid farewell!
 
 ## Usage
 
@@ -153,7 +165,7 @@ Great job! You've completed the following task:
 
 ### `unmark` - mark a task as incomplete
 
-simply type `unmark` and the number of the task (if you're unsure what the number of the task you want to delete is, use the list keyword and find the index of the task).
+simply type `unmark` and the number of the task (if you're unsure what the number of the task you want to unmark is, use the list keyword and find the index of the task).
 
 Example of usage: 
 
@@ -168,6 +180,24 @@ Bart will send a message confirming the marking of the task as incomplete.
 You've marked the following task as incomplete:
 [D][] CS2103 (by: Sep 22 2023)
 ```
+
+### `find` - find a specific task that you are looking for
+
+simply type `find` and the task before clicking enter.
+
+Example of usage:
+
+`find run`
+
+Expected outcome:
+
+Bart will display a list of all the relevant matches, indexed in chronological order.
+
+
+```
+1. [T][] run
+```
+
 ### `bye` - end the interaction with Bart
 
 simply type `bye` and click enter.
