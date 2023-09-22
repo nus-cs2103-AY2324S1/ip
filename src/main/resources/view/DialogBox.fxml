@@ -17,7 +17,7 @@
         </Region>
         <ImageView fx:id="displayPicture" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
             <clip>
-                <Circle radius="35.0" centerX="35.0" centerY="35.0" />
+                <Circle radius="55.0" centerX="35.0" centerY="35.0" />
             </clip>
         </ImageView>
     </children>

@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
     private Stage stage;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/pooh.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/piglet.png"));
 
     /**
      * Initializes the main window.
@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! I'm Botty!\nWhat can I do for you?", dukeImage)
+                DialogBox.getDukeDialog("Oink! I'm Botty!\nWhat can I do for you?", dukeImage)
         );
     }
 

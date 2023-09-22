@@ -7,7 +7,7 @@ public class Ui {
 
     // Print the farewell message
     public String printFarewell() {
-        return "Bye. Hope to see you again soon!";
+        return "Oink. Hope to see you again soon!";
     }
 
     /**
@@ -15,7 +15,7 @@ public class Ui {
      */
     public String printAllCommands() {
         StringBuilder commands = new StringBuilder();
-        commands.append("OOPS!!! Invalid command. Try the following commands instead:\n");
+        commands.append("OINK! Invalid command. Try the following commands instead:\n");
         commands.append("> todo <task>\n");
         commands.append("> deadline <task> /by yyyy-mm-dd hh:mm\n");
         commands.append("> event <task> /from yyyy-mm-dd hh:mm /to yyyy-mm-dd hh:mm\n");

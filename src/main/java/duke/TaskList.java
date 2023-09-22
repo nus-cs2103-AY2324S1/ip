@@ -59,7 +59,7 @@ public class TaskList {
      */
     public String printAddTaskSuccessMessage() {
         StringBuilder message = new StringBuilder();
-        message.append("Got it. I've added this task:\n");
+        message.append("Oink. I've added this task:\n");
         message.append(" ");
         message.append(this.tasks.get(this.tasks.size() - 1).toString());
         message.append("\n");
@@ -76,7 +76,7 @@ public class TaskList {
      */
     public String printRemoveTaskSuccessMessage(Task task) {
         StringBuilder message = new StringBuilder();
-        message.append("Noted. I've removed this task:\n");
+        message.append("Oink. I've removed this task:\n");
         message.append(" ");
         message.append(task.toString());
         message.append("\n");
@@ -100,7 +100,7 @@ public class TaskList {
                 this.tasks.add(new Event(task[0], LocalDateTime.parse(task[1], this.inputFormatter),
                         LocalDateTime.parse(task[2], this.inputFormatter)));
             } catch (DateTimeParseException exception) {
-                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
+                return "Oink! Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
             }
             return printAddTaskSuccessMessage();
         case "todo":
@@ -110,7 +110,7 @@ public class TaskList {
             try {
                 this.tasks.add(new Deadline(task[0], LocalDateTime.parse(task[1], this.inputFormatter)));
             } catch (DateTimeParseException exception) {
-                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
+                return "Oink! Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
             }
             return printAddTaskSuccessMessage();
         default:
@@ -157,7 +157,7 @@ public class TaskList {
                 throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
             }
             StringBuilder markedMessage = new StringBuilder();
-            markedMessage.append("Nice! I've marked this task as done:\n");
+            markedMessage.append("Oink! I've marked this task as done:\n");
             Task markTask = this.tasks.get(taskNumber - 1);
             markTask.markAsDone();
             markedMessage.append(markTask.toString());
@@ -170,7 +170,7 @@ public class TaskList {
                 throw new DukeException(ExceptionTypes.INVALIDTASKNUMBER);
             }
             StringBuilder unmarkedMessage = new StringBuilder();
-            unmarkedMessage.append("OK, I've marked this task as not done yet:\n");
+            unmarkedMessage.append("Oink, I've marked this task as not done yet:\n");
             Task unmarkTask = this.tasks.get(taskNumber - 1);
             unmarkTask.markAsNotDone();
             unmarkedMessage.append(unmarkTask.toString());
@@ -226,19 +226,19 @@ public class TaskList {
                 oldTask.updateTask(task[0], LocalDateTime.parse(task[1], this.inputFormatter),
                         LocalDateTime.parse(task[2], this.inputFormatter));
             } catch (DateTimeParseException exception) {
-                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
+                return "OINK! Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
             }
-            return "Task updated successfully";
+            return "Oink! Task updated successfully";
         case "todo":
             oldTask.updateTask(task[0]);
-            return "Task updated successfully";
+            return "Oink! Task updated successfully";
         case "deadline":
             try {
                 oldTask.updateTask(task[0], LocalDateTime.parse(task[1], this.inputFormatter));
             } catch (DateTimeParseException exception) {
-                return "Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
+                return "OINK! Invalid start and end date/time. The format should be yyyy-mm-dd hh:mm";
             }
-            return "Task updated successfully";
+            return "Oink! Task updated successfully";
         default:
             throw new DukeException(ExceptionTypes.INVALIDCOMMAND);
         }
