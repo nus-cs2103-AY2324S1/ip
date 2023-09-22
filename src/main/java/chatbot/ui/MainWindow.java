@@ -1,6 +1,10 @@
 package chatbot.ui;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import chatbot.Chatbot;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -39,6 +43,20 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
+     * Exits the chatbot.
+     */
+    public void exit() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.exit();
+                System.exit(0);
+            }
+        }, 1500);
+    }
+    
+    /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -51,5 +69,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getChatbotDialog(response, chatbotImage)
         );
         userInput.clear();
+        
+        if (input.equals("bye")) {
+            this.exit();
+        }
     }
 }
