@@ -16,14 +16,25 @@ public class Duke {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>(100);
         loadTasksFromFile(tasks);
-        String logo = "██╗░░░██╗██████╗░██████╗░░█████╗░██╗\n"
-                    + "██║░░░██║██╔══██╗██╔══██╗██╔══██╗██║\n"
-                    + "██║░░░██║██████╔╝██████╦╝██║░░██║██║\n"
-                    + "██║░░░██║██╔══██╗██╔══██╗██║░░██║██║\n"
-                    + "╚██████╔╝██║░░██║██████╦╝╚█████╔╝██║\n"
-                    + "░╚═════╝░╚═╝░░╚═╝╚═════╝░░╚════╝░╚═╝\n";
-        System.out.println("Hello from\n" + logo);
-        System.out.println("What can I do for you?");
+        String logo = "UUUUUUUU     UUUUUUUURRRRRRRRRRRRRRRRR   BBBBBBBBBBBBBBBBB        OOOOOOOOO     IIIIIIIIII\n"
+                +"U::::::U     U::::::UR::::::::::::::::R  B::::::::::::::::B     OO:::::::::OO   I::::::::I\n"
+                +"U::::::U     U::::::UR::::::RRRRRR:::::R B::::::BBBBBB:::::B  OO:::::::::::::OO I::::::::I\n"
+                +"UU:::::U     U:::::UURR:::::R     R:::::RBB:::::B     B:::::BO:::::::OOO:::::::OII::::::II\n"
+                +" U:::::U     U:::::U   R::::R     R:::::R  B::::B     B:::::BO::::::O   O::::::O  I::::I  \n"
+                +" U:::::D     D:::::U   R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O  I::::I  \n"
+                +" U:::::D     D:::::U   R::::RRRRRR:::::R   B::::BBBBBB:::::B O:::::O     O:::::O  I::::I  \n"
+                +" U:::::D     D:::::U   R:::::::::::::RR    B:::::::::::::BB  O:::::O     O:::::O  I::::I  \n"
+                +" U:::::D     D:::::U   R::::RRRRRR:::::R   B::::BBBBBB:::::B O:::::O     O:::::O  I::::I  \n"
+                +" U:::::D     D:::::U   R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O  I::::I  \n"
+                +" U:::::D     D:::::U   R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O  I::::I  \n"
+                +" U::::::U   U::::::U   R::::R     R:::::R  B::::B     B:::::BO::::::O   O::::::O  I::::I  \n"
+                +" U:::::::UUU:::::::U RR:::::R     R:::::RBB:::::BBBBBB::::::BO:::::::OOO:::::::OII::::::II\n"
+                +"  UU:::::::::::::UU  R::::::R     R:::::RB:::::::::::::::::B  OO:::::::::::::OO I::::::::I\n"
+                +"    UU:::::::::UU    R::::::R     R:::::RB::::::::::::::::B     OO:::::::::OO   I::::::::I\n"
+                +"      UUUUUUUUU      RRRRRRRR     RRRRRRRBBBBBBBBBBBBBBBBB        OOOOOOOOO     IIIIIIIIII\n";
+
+        System.out.println("Wazzup! It's\n" + logo);
+        System.out.println("What can I do for you mah man?");
         System.out.println("____________________________________________________________");
 
         while (true) {
@@ -90,6 +101,9 @@ public class Duke {
                     } else {
                         System.out.println("Invalid task index.");
                     }
+                } else if (command.startsWith("find")) {
+                    String keyword = command.substring(5).trim();
+                    findTasks(tasks, keyword);
                 } else {
                     throw new DukeException("I'm sorry, but I don't know what that means :-(");
                 }
@@ -180,6 +194,21 @@ public class Duke {
         return task;
     }
 
+    private static void findTasks(ArrayList<Task> tasks, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        int count = 0;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getDescription().contains(keyword)) {
+                System.out.println((count + 1) + ". " + task);
+                count++;
+            }
+        }
+        if (count == 0) {
+            System.out.println("No matching tasks found.");
+        }
+    }
+
     /**
      * Save tasks to a file.
      *
@@ -198,6 +227,8 @@ public class Duke {
         }
     }
 }
+
+
 
 /**
  * Represents a task that can be added to the task list.
@@ -221,6 +252,14 @@ class Task {
     }
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // Return a tick or cross symbol cuz im lazy like that, or its easier. idk
+    }
+    /**
+     * Get the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
     }
     public boolean isDone() {
         return isDone;
