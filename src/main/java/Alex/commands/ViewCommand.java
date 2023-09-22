@@ -55,6 +55,7 @@ public class ViewCommand extends Command {
                 if (command.length() == 4 || !command.substring(4, 5).equals(" ")) {
                     throw new AlexException("");
                 }
+                assert command.substring(4, 5).equals(" ") : "There should be space after find keyword";
                 String toMatch = command.substring(5).stripTrailing();
                 output = TaskList.getTaskForMatchWord(toMatch);
                 return output;

@@ -27,25 +27,6 @@ public class UserInputStorage {
     public static final DateTimeFormatter TIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     /**
-     * This static method prints out all the user data stored in the file data/Alex.txt
-     */
-    public static void printFileContent() {
-        try {
-            File userDataFile = new File("data/Alex.txt");
-            if (!userDataFile.getParentFile().exists()) {
-                userDataFile.getParentFile().mkdir();
-            }
-            Scanner userDataScanner = new Scanner(userDataFile);
-            while (userDataScanner.hasNextLine()) {
-                String userData = userDataScanner.nextLine();
-                System.out.println(userData);
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    /**
      * A static method that is used to store all the task(s) in TaskList to the file Alex.txt
      * after every termination of the Alex bot execution.
      */
@@ -53,6 +34,7 @@ public class UserInputStorage {
         try {
             FileWriter fw = new FileWriter("data/Alex.txt");
             int numberOfElements = TaskList.getNumberOfElements();
+            assert numberOfElements >= 0 : "TaskList.getNumberOfElements should return non-negative integer";
             for (int i = 1; i <= numberOfElements; i++) {
                 Task task = TaskList.getTaskByIndex(i);
                 String taskInfo = "";
@@ -100,6 +82,7 @@ public class UserInputStorage {
                 int dataLength = userData.length();
                 Task taskToBeStored = new Task("temp");
                 int isDoneSymbol = Integer.parseInt(userData.substring(dataLength - 1, dataLength));
+                assert (isDoneSymbol == 1 || isDoneSymbol == 0) : "isDoneSymbol in file should be either 1 or 0";
                 boolean isDone = isDoneSymbol == 1 ? true : false;
                 if (!userData.substring(1, 2).equals(" ") || (isDoneSymbol != 1 && isDoneSymbol != 0)) {
                     throw new AlexException("");
@@ -200,7 +183,7 @@ public class UserInputStorage {
             } catch (IOException e2) {
                 System.err.println("The file Alex.txt does not exits and there is an error creating the file: "
                         + e2.getMessage());
-                // System.exit(0);
+                System.exit(0);
             }
         } catch (AlexException | NumberFormatException | IndexOutOfBoundsException e) {
             String message = "OOPS!!! The program terminates because the data format at line "

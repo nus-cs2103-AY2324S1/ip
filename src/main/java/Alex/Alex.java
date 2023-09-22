@@ -24,9 +24,9 @@ public class Alex {
 
         while (true) {
             try {
-                String command = Ui.readUserInput();
-                Command c = Parser.parse(command);
-                String output = c.execute();
+                String userInput = Ui.readUserInput();
+                Command command = Parser.parse(userInput);
+                String output = command.execute();
                 System.out.println(output);
             } catch (Exception e) {
                 System.out.println(e.getMessage());

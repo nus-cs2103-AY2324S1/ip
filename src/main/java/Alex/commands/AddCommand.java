@@ -4,9 +4,9 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Alex.AlexException;
 import Alex.tasks.*;
 import Alex.ui.Ui;
-import Alex.AlexException;
 
 
 
@@ -45,6 +45,7 @@ public class AddCommand extends Command {
                             + "   " + "todo (description)";
                     throw new AlexException(message);
                 }
+                assert command.substring(4, 5).equals(" ") : "There should be space after todo";
                 Task todo = new ToDos(command.substring(5));
                 output = TaskList.store(todo);
                 return output;
@@ -74,6 +75,7 @@ public class AddCommand extends Command {
                 String by = command.substring(endIndex);
                 Task deadline = new Deadline(description, by);
                 output = TaskList.store(deadline);
+
                 return output;
             } catch (AlexException e) {
                 output = e.getMessage();
