@@ -1,7 +1,83 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    ------------------------------------------
+    Hello! I'm Meowies
+    What can I do for you?
+    ------------------------------------------
+    ------------------------------------------
+    added: [T][ ] meow
+    ------------------------------------------
+    ------------------------------------------
+    added: [D][ ] meowing the meowies until meow meow (by: 2 Past Meow)
+    ------------------------------------------
+    ------------------------------------------
+    added: [E][ ] celebrating meowcracy (from: Meownday to: Meownesday)
+    ------------------------------------------
+1. [T][ ] meow
+2. [D][ ] meowing the meowies until meow meow (by: 2 Past Meow)
+3. [E][ ] celebrating meowcracy (from: Meownday to: Meownesday)
 
+    ------------------------------------------
+    Nice! I've meowrked this task as done:
+    [D][X] meowing the meowies until meow meow (by: 2 Past Meow)
+    ------------------------------------------
+    ------------------------------------------
+    Nice! I've meowrked this task as done:
+    [T][X] meow
+    ------------------------------------------
+1. [T][X] meow
+2. [D][X] meowing the meowies until meow meow (by: 2 Past Meow)
+3. [E][ ] celebrating meowcracy (from: Meownday to: Meownesday)
+
+    ------------------------------------------
+    Oh meow! I've marked this task as undone :( :
+    [D][ ] meowing the meowies until meow meow (by: 2 Past Meow)
+    ------------------------------------------
+1. [T][X] meow
+2. [D][ ] meowing the meowies until meow meow (by: 2 Past Meow)
+3. [E][ ] celebrating meowcracy (from: Meownday to: Meownesday)
+
+    ------------------------------------------
+    Whopsie daisies! I don't understand that command!
+    ------------------------------------------
+    ------------------------------------------
+    Whopsie daisies! I don't understand that format!
+    ------------------------------------------
+    ------------------------------------------
+    Whopsie daisies! I don't understand that format!
+    ------------------------------------------
+    ------------------------------------------
+    Whopsie daisies! I don't understand that format!
+    ------------------------------------------
+    ------------------------------------------
+    Whopsie daisies! I don't understand that format!
+    ------------------------------------------
+    ------------------------------------------
+    Whopsie daisies! I don't understand that format!
+    ------------------------------------------
+    ------------------------------------------
+    added: [E][ ] meowies (from: 2 Past Meow to: 2 Past Meow)
+    ------------------------------------------
+1. [T][X] meow
+2. [D][ ] meowing the meowies until meow meow (by: 2 Past Meow)
+3. [E][ ] celebrating meowcracy (from: Meownday to: Meownesday)
+4. [E][ ] meowies (from: 2 Past Meow to: 2 Past Meow)
+
+    ------------------------------------------
+    Noted. I've removed this task:
+    [T][X] meow
+    Now you have 3 tasks in the list.
+    ------------------------------------------
+    ------------------------------------------
+    Noted. I've removed this task:
+    [E][ ] celebrating meowcracy (from: Meownday to: Meownesday)
+    Now you have 2 tasks in the list.
+    ------------------------------------------
+    ------------------------------------------
+    added: [T][ ] hello meowies
+    ------------------------------------------
+1. [D][ ] meowing the meowies until meow meow (by: 2 Past Meow)
+2. [E][ ] meowies (from: 2 Past Meow to: 2 Past Meow)
+3. [T][ ] hello meowies
+
+    ------------------------------------------
+    Bye. Hope to see you again soon!
+    ------------------------------------------
