@@ -104,9 +104,9 @@ public class Parser {
         // since command is valid, check if formatting of the command is correct
         boolean markMatch = inputCommand.matches("mark \\d+");
         boolean uncheckMatch = inputCommand.matches("unmark \\d+");
-        boolean todoMatch = inputCommand.matches("todo .+");
-        boolean deadlineMatch = inputCommand.matches("deadline .+ /.+");
-        boolean eventMatch = inputCommand.matches("event .+ /.+ /.+");
+        boolean todoMatch = inputCommand.matches("todo .+ (low|medium|high)");
+        boolean deadlineMatch = inputCommand.matches("deadline .+ /.+ (low|medium|high)");
+        boolean eventMatch = inputCommand.matches("event .+ /.+ /.+ (low|medium|high)");
 
         if (validInputCommand.equals("mark") && !markMatch) { // if mark command but wrong format
             try {

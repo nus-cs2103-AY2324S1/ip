@@ -82,6 +82,6 @@ public class Task {
         } else {
             priority = "[H]";
         }
-        return marking + " " +  priority + " " + this.description;
+        return marking + priority + " " + this.description;
     }
 }

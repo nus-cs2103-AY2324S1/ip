@@ -31,6 +31,7 @@ public class TaskList {
                 "\\[D\\]\\[(X|\\s)\\]\\[(L|M|H)\\] (.+) \\(by: (.+)\\)"); // [D][-][L/M/H] xxxx (by: xxxxxx)
         Pattern eventPattern = Pattern.compile(
                 "\\[E\\]\\[(X|\\s)\\]\\[(L|M|H)\\] (.+) \\(from: (.+) to: (.+)\\)"); // [E][-][L/M/H] xxxx (from: xxxxxx to: xxxxxx)
+        // [E][ ][H] project meeting (from: Monday 2pm to: 4pm)
 
         taskList = new ArrayList<>();
         for (int i = 0; i < stringTasks.length; i++) {
@@ -54,7 +55,8 @@ public class TaskList {
                 if (deadlineMatcher.group(1).equals("X")) {
                     newTask.setDone(true);
                 }
-            } else {
+            } else  {
+                eventMatcher.matches();
                 String description = eventMatcher.group(3);
                 String from = eventMatcher.group(4);
                 String to = eventMatcher.group(5);

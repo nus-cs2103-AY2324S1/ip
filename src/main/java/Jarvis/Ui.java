@@ -54,15 +54,15 @@ public class Ui {
         } else if (command.equals("todo")) {
             return e.getMessage() + "\n" +
                     "    The following is the correct format:" + "\n"
-                    + "        todo <description>";
+                    + "        todo <description> <priority: low/medium/high>";
         } else if (command.equals("deadline")) {
             return e.getMessage() + "\n" +
                     "    The following is the correct format:" + "\n"
-                    + "        deadline <description> /by <date or time>";
+                    + "        deadline <description> /by <date or time> <priority: low/medium/high>";
         } else {
             return e.getMessage() + "\n" +
                     "    The following is the correct format:" + "\n"
-                    + "        event <description> /from <date or time> /to <date or time>";
+                    + "        event <description> /from <date or time> /to <date or time> <priority: low/medium/high>";
         }
     }
 
