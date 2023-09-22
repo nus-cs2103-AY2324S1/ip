@@ -93,9 +93,7 @@ public class Main extends Application {
 
     }
 
-
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      *
      * @param text String containing text to add
