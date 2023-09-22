@@ -115,6 +115,13 @@ public class TaskManager {
         return response;
     }
 
+    /**
+     * Retrieves the description of a task using the task's index in the list and updates the UI.
+     *
+     * @param index The index of the task whose description is to be retrieved.
+     * @return A string representing the task description.
+     * @throws InvalidArgumentException If the index is out of range.
+     */
     public String getDescription(int index) throws InvalidArgumentException {
         assert index >= 1;
         if (index > numOfTasks) {
@@ -126,6 +133,13 @@ public class TaskManager {
         return ui.getDescription(note);
     }
 
+    /**
+     * Adds a note to a task by its index in the list and updates the UI.
+     *
+     * @param index The index of the task to which the note is to be added.
+     * @param note  The note to be added to the task.
+     * @return A string representation of the UI's response after adding the note.
+     */
     protected String addNote(int index, String note) {
         index -= 1;
         Task task = list.get(index);
@@ -142,6 +156,12 @@ public class TaskManager {
         return list;
     }
 
+    /**
+     * Filters the task list and returns a list of tasks containing the specified keyword.
+     *
+     * @param keyword The keyword used to filter the tasks.
+     * @return An ArrayList of tasks containing the specified keyword.
+     */
     protected ArrayList<Task> filterList(String keyword) {
         ArrayList<Task> filteredList = new ArrayList<>();
 

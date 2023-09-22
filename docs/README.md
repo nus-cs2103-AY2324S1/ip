@@ -1,12 +1,12 @@
 # Cristiano Ronaldo Task Manager 🤖
 
-Penaldo is a graphical user interface (GUI) desktop app that helps you track your upcoming tasks. To start using Cristiano, you can:
+Penaldo is a graphical user interface (GUI) desktop app that helps you track your upcoming tasks. To start using Penaldo, you can:
 
 - Download the `.jar` file under `Releases`,
 - Navigate to the directory in terminal,
-- run `java -jar penaldo.jar`, angd voila!
+- run `java -jar penaldo.jar`.
 
-## Features 👾
+## Features 
 
 Penaldo is packed with various features, such as:
 
@@ -17,7 +17,7 @@ Penaldo is packed with various features, such as:
 * Marking tasks as done
 * Searching tasks with keywords
 
-## User Guide 🕹
+## User Guide 
 
 ### - `list`
 
@@ -46,7 +46,7 @@ Create a todo.
 ```
 > todo CS2103T assignment
 Got it. I've added the task:
-    [T][ ] CS2101 slides
+    [T][ ] CS2103T assignment
 You now have 1 task in your list, just like how I have 5 Ballon d'Ors.
 ```
 
@@ -73,7 +73,7 @@ Create a deadline.
 
 #### Usage
 
-`deadline <deadline name> /by <time>`
+`deadline <deadline name> /due <time>`
 
 `<time>` should be in the form of `DD/MM/YYYY HH:MM`.
 
@@ -115,7 +115,8 @@ Now you have 2 tasks in your list.
 
 ### - `find`
 
-Search a task based on the keyword provided.
+Search a task based on the keyword provided. 
+This only searches based on the task's name and not the note attached to the task.
 
 #### Usage
 
@@ -125,6 +126,32 @@ Search a task based on the keyword provided.
 > find assignment
 Here are the matching tasks in your list
     1. [T][ ] CS2103T assignment
+```
+
+### - `note`
+
+Add a note to a task.
+
+#### Usage
+
+`note <index> <note>`
+
+```
+> note 1 This is the OOP assignment you needed to finish last week. Let's do this asap.
+Added your descriptive note for task 1: CS2103T assignment
+```
+
+### - `describe`
+
+Shows the user the note he added for that task.
+
+#### Usage
+
+`describe 1`
+
+```
+> describe 1
+This is the OOP assignment you needed to finish last week. Let's do this asap.
 ```
 
 ### - `bye`

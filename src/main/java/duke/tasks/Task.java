@@ -24,7 +24,7 @@ public class Task {
      * Constructs a Task with the given task name and completion status.
      *
      * @param taskName The name of the task.
-     * @param done The completion status of the task.
+     * @param isDone The completion status of the task.
      */
     public Task(String taskName, boolean isDone) {
         this.taskName = taskName;

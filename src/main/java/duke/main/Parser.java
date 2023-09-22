@@ -38,6 +38,14 @@ public class Parser {
         return taskName;
     }
 
+
+    /**
+     * Parses the keyword for a find operation from the user input.
+     *
+     * @param input The user input string.
+     * @return The keyword  for the find operation.
+     * @throws InvalidArgumentException If the input if there's no keyword or multiple keywords.
+     */
     protected String parseFind(String input) throws InvalidArgumentException {
         int indexOfSpace = input.indexOf(" ");
         if (indexOfSpace == -1 || indexOfSpace == input.length() - 1) {
@@ -71,6 +79,13 @@ public class Parser {
         return new String[]{taskName, dueDate};
     }
 
+    /**
+     * Parses the index of the task and the note the user wants to add to it.
+     *
+     * @param input The user input string.
+     * @return An array containing the index and note.
+     * @throws InvalidArgumentException If the input format is incorrect.
+     */
     protected String[] parseNote(String input) throws InvalidArgumentException {
         String suffix = input.substring(input.indexOf(" ") + 1);
         String parts[] = suffix.split(" ", 2);

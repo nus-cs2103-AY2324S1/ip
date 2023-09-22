@@ -14,17 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-
-import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
-
-
-
 
 
     public class Duke{
@@ -122,8 +112,6 @@ import javafx.scene.image.Image;
             updateStorage();
             return response;
         }
-
-
 
         /**
          * returns the first word of the input string. Helps to determine which function to call.
