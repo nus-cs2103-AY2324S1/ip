@@ -28,6 +28,7 @@ Koko is a chatbot for managing tasks. It has a cute GUI which conveniently allow
 3. Copy the file to the folder you want to use as the home folder for your Koko
 
 > Note that the file will create a `data` folder in the same directory it is in, which will store the Task List
+
 4. Double-click the file to start the app. The GUI should appear in a few seconds
 5. Type the command in the command box and press Enter to execute it
 
