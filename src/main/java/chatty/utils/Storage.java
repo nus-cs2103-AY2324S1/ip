@@ -92,10 +92,10 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("=");
                 if (parts.length == 2) {
-                    String command = parts[1].trim();
+                    String command = parts[0].trim();
                     if (command.equalsIgnoreCase(command)) {
                         // Update the line with the new alias
-                        line = newAlias + "=" + command;
+                        line = command + "=" + newAlias;
                     }
                 }
                 fileContent.append(line).append("\n");
