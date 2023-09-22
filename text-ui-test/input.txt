@@ -1,6 +1,6 @@
 todo meal prep
 deadline cook chicken /by 6pm
-event dinner /from 6.30pm /to 7.30pm
+event dinner /from 2023-01-01 /to 2023-02-02
 list
 mark 1
 mark 2
@@ -10,13 +10,13 @@ todo
 deadline
 event
 deadline bake rice /by
-deadline /by 2pm
+deadline /by 2023-02-02
 event /from
 event /to
 event /from /to
 event class /from /to
-event class /from 12pm /to
-event class /from /to 12pm
+event class /from 2023-10-12 /to
+event class /from /to 2023-02-02
 remove 10
 delete 10
 delete 2
