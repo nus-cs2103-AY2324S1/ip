@@ -1,3 +1,5 @@
+package echobot.main;
+
 import javafx.application.Application;
 
 /**

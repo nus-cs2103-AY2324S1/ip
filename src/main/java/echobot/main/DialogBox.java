@@ -1,3 +1,5 @@
+package echobot.main;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -16,7 +18,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * Creates a new DialogBox instance with the given label and image view.
+     * Creates a new echobot.main.DialogBox instance with the given label and image view.
      *
      * @param l  The label containing text to be displayed in the dialog box.
      * @param iv The image view containing an image to be displayed in the dialog box.

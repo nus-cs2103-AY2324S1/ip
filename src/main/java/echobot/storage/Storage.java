@@ -88,6 +88,10 @@ public class Storage {
                 writer.println(task.toFileString());
             }
         } catch (FileNotFoundException e) {
+            if (dialogContainer == null) {
+                dialogContainer = new VBox();
+            }
+
             dialogContainer.getChildren().add(new Label("Error saving tasks: " + e.getMessage()));
         }
     }

@@ -6,7 +6,7 @@ package echobot.ui;
 public class Ui {
 
     /**
-     * Displays the EchoBot logo.
+     * Displays the echobot.main.EchoBot logo.
      */
     public String showLogo() {
         return " ,d88b.d88b,\n"
@@ -22,7 +22,7 @@ public class Ui {
      * @return A welcome message string.
      */
     public String showWelcomeMessage() {
-        String responseText = "Hello! I'm EchoBot\n";
+        String responseText = "Hello! I'm echobot.main.EchoBot\n";
         responseText += "What can I do for you?\n";
         responseText += showLogo();
 

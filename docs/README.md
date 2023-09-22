@@ -1,5 +1,5 @@
 
-# EchoBot's User Guide
+# echobot.main.EchoBot's User Guide
 
 ## Features 
 
@@ -21,7 +21,7 @@
 
 ### `todo` - Adding todo task
 
-EchoBot will add your todo task into the task list.
+echobot.main.EchoBot will add your todo task into the task list.
 
 Format: `todo DESCRIPTION`
 
@@ -31,7 +31,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Got it. I've added this task:
@@ -41,7 +41,7 @@ Now you have 1 tasks.
 
 ### `deadline` - Adding deadline task
 
-EchoBot will add your deadline task with due date into the task list.
+echobot.main.EchoBot will add your deadline task with due date into the task list.
 
 Format: `deadline DESCRIPTION /by DUE_DATE`
 - The DESCRIPTION and DUE_DATE can't be empty.
@@ -53,7 +53,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Got it. I've added this task:
@@ -62,7 +62,7 @@ Now you have 2 tasks.
 ```
 ### `event` - Adding event task
 
-EchoBot will add your event task with start date-time and end date-time into the task list.
+echobot.main.EchoBot will add your event task with start date-time and end date-time into the task list.
 
 Format: `event DESCRIPTION /from START_DATETIME /to END_DATETIME`
 - The DESCRIPTION, START_DATETIME, and END_DATETIME can't be empty.
@@ -74,7 +74,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Got it. I've added this task:
@@ -83,7 +83,7 @@ Now you have 3 tasks.
 ```
 ### `delete` - Deleting task
 
-EchoBot will delete the specified task.
+echobot.main.EchoBot will delete the specified task.
 
 Format: `delete INDEX`
 - Deletes the task at the specified INDEX.
@@ -96,7 +96,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Noted. I've removed this task:
@@ -105,7 +105,7 @@ Now you have 2 tasks in the list.
 ```
 ### `mark` - Marking task
 
-EchoBot will mark the specified task.
+echobot.main.EchoBot will mark the specified task.
 
 Format: `mark INDEX`
 - Marks the task at the specified INDEX.
@@ -118,7 +118,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Nice! I've marked this task as done:
@@ -126,7 +126,7 @@ Nice! I've marked this task as done:
 ```
 ### `unmark` - Unmarking task
 
-EchoBot will unmark the specified task.
+echobot.main.EchoBot will unmark the specified task.
 
 Format: `unmark INDEX`
 - Unmarks the task at the specified INDEX.
@@ -139,7 +139,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 OK, I've marked this task as not done yet:
@@ -147,7 +147,7 @@ OK, I've marked this task as not done yet:
 ```
 ### `find` - Listing task by keyword
 
-EchoBot will display the matching task from your task list.
+echobot.main.EchoBot will display the matching task from your task list.
 
 Format: `find KEYWORD`
 - The search is case-insensitive. e.g. meeting will match Meeting
@@ -159,7 +159,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Here are the matching tasks in your list:
@@ -167,7 +167,7 @@ Here are the matching tasks in your list:
 ```
 ### `list task` - Listing all tasks
 
-EchoBot will display all of your tasks.
+echobot.main.EchoBot will display all of your tasks.
 
 Example of usage:
 
@@ -175,7 +175,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Here are the tasks in your list:
@@ -183,7 +183,7 @@ Here are the tasks in your list:
     2. [E] [] Meeting (from: Oct 10 2023 11:00 AM to: Oct 10 2023 13:00 PM)
 ```
 ### `note` - Adding note
-EchoBot will add your note with title and content into the note list.
+echobot.main.EchoBot will add your note with title and content into the note list.
 
 Format: `note TITLE::CONTENT`
 
@@ -193,7 +193,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Note added: Dinner Menu
@@ -201,7 +201,7 @@ Now you have 1 notes.
 ```
 ### `remove` - Deleting note
 
-EchoBot will delete the specified note.
+echobot.main.EchoBot will delete the specified note.
 
 Format: `remove INDEX`
 - Deletes the note at the specified INDEX.
@@ -214,7 +214,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Noted. I've removed this note:
@@ -224,7 +224,7 @@ Now you have 0 notes in the list.
 ```
 ### `list note` - Listing all notes
 
-EchoBot will display all of your notes.
+echobot.main.EchoBot will display all of your notes.
 
 Example of usage:
 
@@ -232,16 +232,16 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Here are your saved notes:
     1. Title: Dinner Menu
        Content: Grilled Fish + Mashed Potato + Veggies
 ```
-### `bye` - Ending the interaction with EchoBot
+### `bye` - Ending the interaction with echobot.main.EchoBot
 
-EchoBot will display farewell message and close the application.
+echobot.main.EchoBot will display farewell message and close the application.
 
 Example of usage:
 
@@ -249,7 +249,7 @@ Example of usage:
 
 Expected outcome:
 
-EchoBot will response as below,
+echobot.main.EchoBot will response as below,
 
 ```
 Bye. Hope to see you again soon!

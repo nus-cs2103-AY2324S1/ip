@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import echobot.storage.Storage;
@@ -16,8 +17,22 @@ import echobot.task.Deadline;
 import echobot.task.Event;
 import echobot.task.Task;
 import echobot.task.Todo;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 
 public class MarkCommandTest {
+    @BeforeAll
+    public static void setUp() {
+        // Initialize JavaFX
+        Platform.startup(() -> new Application() {
+            @Override
+            public void start(Stage primaryStage) {
+
+            }
+        });
+    }
+
     @Test
     public void testMarkCommand() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -34,7 +49,8 @@ public class MarkCommandTest {
         tasks.add(task3);
 
         MarkCommand markCommand = new MarkCommand(2);
-        String response = markCommand.doCommand(tasks, new Storage("./data/dummy.txt", null), null);
+        String response = markCommand.doCommand(tasks,
+                new Storage("data/test.txt", null), null);
 
         assertTrue(task2.isTaskDone());
 
@@ -65,7 +81,7 @@ public class MarkCommandTest {
 
         MarkCommand markCommand = new MarkCommand(1);
         String response = markCommand.doCommand(tasks,
-                new Storage("./data/dummy.txt", null), null);
+                new Storage("data/test.txt", null), null);
 
         assertFalse(task3.isTaskDone());
 
