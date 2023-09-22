@@ -42,11 +42,11 @@ test {
 }
 
 application {
-    mainClass.set("adam.Main")
+    mainClass.set("adam.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "AdamV0.3"
+    archiveBaseName = "AdamV0.5"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
