@@ -48,6 +48,13 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = buddy.getResponse(input);
+
+        if (response.trim().isBlank()) {
+            dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
+            userInput.clear();
+            return;
+        }
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBuddyDialog(response, buddyImage)
