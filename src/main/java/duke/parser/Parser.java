@@ -23,8 +23,7 @@ public class Parser {
      */
     public static Command parse(String input) {
         String[] splittedCommand = input.split(" ");
-        if (input.equals("list")) {
-
+        if (splittedCommand[0].equalsIgnoreCase("list")) {
             return new ListCommand();
         } else if (splittedCommand[0].equalsIgnoreCase("mark") && splittedCommand.length == 2
                 && isInteger((splittedCommand[1]))) {
@@ -35,7 +34,7 @@ public class Parser {
         } else if (splittedCommand[0].equalsIgnoreCase("delete") && splittedCommand.length == 2
                 && isInteger((splittedCommand[1]))) {
             return new DeleteCommand(Integer.parseInt(splittedCommand[1]) - 1);
-        } else if (input.equalsIgnoreCase("bye")) {
+        } else if (splittedCommand[0].equalsIgnoreCase("bye")) {
             return new ExitCommand();
         } else if (splittedCommand[0].equalsIgnoreCase("find")) {
             return new FindCommand(input.substring(5));

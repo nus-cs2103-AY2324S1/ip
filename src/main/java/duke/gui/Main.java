@@ -1,6 +1,6 @@
 package duke.gui;
 
-import duke.Duke;
+import duke.main.Duke;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -36,7 +36,7 @@ public class Main extends Application {
     }
 
     private void createScrollPane() {
-        scrollPane.setPrefSize(435, 535);
+        scrollPane.setPrefSize(435, 565);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
@@ -85,7 +85,6 @@ public class Main extends Application {
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
         scene = new Scene(mainLayout);
         mainLayout.setPrefSize(450.0, 600.0);
-
     }
     @Override
     public void start(Stage stage) {

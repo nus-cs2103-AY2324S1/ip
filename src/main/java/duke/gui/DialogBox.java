@@ -9,11 +9,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class DialogBox extends HBox {
-
+    private static final String USERCOLOR = "aqua";
+    private static final String BOTCOLOR = "grey";
     private Label text;
     private ImageView displayPicture;
 
-    public DialogBox(Label l, ImageView iv) {
+    public DialogBox(Label l, ImageView iv, String color) {
         text = l;
         displayPicture = iv;
         text.setWrapText(true);
@@ -21,6 +22,7 @@ public class DialogBox extends HBox {
         displayPicture.setFitHeight(70.0);
         this.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(text, displayPicture);
+        this.setStyle("-fx-background-color: " + color + ";");
     }
 
     /**
@@ -34,11 +36,11 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+        return new DialogBox(l, iv, USERCOLOR);
     }
 
     public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
+        var db = new DialogBox(l, iv, BOTCOLOR);
         db.flip();
         return db;
     }

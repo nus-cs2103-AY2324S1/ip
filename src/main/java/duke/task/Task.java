@@ -52,7 +52,7 @@ public abstract class Task {
      * @return a boolean representing whether the description contain the keyword.
      */
     public boolean contains(String keyword) {
-        return description.contains(keyword);
+        return description.toLowerCase().contains(keyword.toLowerCase());
     }
     /**
      * Returns a String representing the Task that will be stored.

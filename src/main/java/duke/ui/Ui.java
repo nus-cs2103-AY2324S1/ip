@@ -25,7 +25,7 @@ public class Ui {
      */
     public String showWelcome() {
 
-        String introduction = " Hello! I'm FootyCouch\n"
+        String introduction = " Hello! I'm Duke\n"
                 + " What can I do for you?\n";
         showLine();
         System.out.println(introduction);
