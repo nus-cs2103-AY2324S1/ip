@@ -2,6 +2,8 @@ package chad.task;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.Comparator;
 import java.time.LocalDateTime;
 
 /**
@@ -137,6 +139,30 @@ public class TaskList {
             sb.append((i + 1) + "." + matchingTasks.get(i).toString()).append("\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * Sorts the tasks in the list by their deadlines.
+     * Tasks without a deadline (ToDo tasks) are moved to the end of the list.
+     */
+    public TaskList sortTasksByDeadline() {
+        ArrayList<Task> sortedTasks = new ArrayList<>(tasks);
+        Collections.sort(sortedTasks, new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                if (o1 instanceof Deadline && o2 instanceof Deadline) {
+                    Deadline d1 = (Deadline) o1;
+                    Deadline d2 = (Deadline) o2;
+                    return d1.getDueDate().compareTo(d2.getDueDate());
+                } else if (o1 instanceof Deadline) {
+                    return -1;
+                } else if (o2 instanceof Deadline) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        return new TaskList(sortedTasks);
     }
 
 }

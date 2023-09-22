@@ -78,6 +78,8 @@ public class ChatEngine {
             return handleDelete(parsedInput);
         case FIND:
             return handleFind(parsedInput);
+        case SORT:
+            return handleSort();
         case BYE:
             return EXIT_COMMAND;
         default:
@@ -183,6 +185,13 @@ public class ChatEngine {
     String handleFind(String[] parsedInput) {
         String keyword = parsedInput[1];
         return taskList.findTasks(keyword);
+    }
+
+    /**
+     * Sorts all the tasks by deadline.
+     */
+    String handleSort() {
+        return taskList.sortTasksByDeadline().displayTasks();
     }
 
     /**

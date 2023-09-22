@@ -9,7 +9,7 @@ public class Parser {
      * Enumeration of possible command types.
      */
     public enum CommandType {
-        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, FIND, UNKNOWN
+        BYE, MARK, UNMARK, LIST, TODO, DEADLINE, EVENT, DELETE, FIND, SORT, UNKNOWN
     }
 
     /**
@@ -70,6 +70,7 @@ public class Parser {
             break;
         case LIST:
         case BYE:
+        case SORT:
             break;
         case FIND:
             if (parts.length < 2) {
