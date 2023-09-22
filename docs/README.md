@@ -18,7 +18,8 @@ Duke is a chat bot designed to assist you with your daily tasks and also trivia.
     * [Unmarking a Task](#unmarking-a-task)
     * [Searching for Tasks](#searching-for-tasks)
     * [Trivia Features](#trivia-features)
-3. [Error Handling](#error-handling)
+3. [Command Summary](#duke-command-summary)
+4. [Error Handling](#error-handling)
 
 ---
 
@@ -123,6 +124,31 @@ Examples:
 `addtrivia What is the capital of Singapore? /answer Singapore`
 `testtrivia 1 Singapore`
 
+
+---
+
+## Duke Command Summary
+
+### Tasks
+
+| Feature                    | Command                                               | Example                                                 |
+|----------------------------|-------------------------------------------------------|---------------------------------------------------------|
+| **Adding a Todo Task**     | `todo [description]`                                  | `todo read book`                                        |
+| **Adding a Deadline Task** | `deadline [description] /by [date in yyyy-MM-dd]`      | `deadline return book /by 2020-02-20`                   |
+| **Adding an Event Task**   | `event [description] /from [start date in yyyy-MM-dd] /to [end date in yyyy-MM-dd]` | `event project meeting /from 2020-02-20 /to 2020-02-21` |
+| **Deleting a Task**        | `delete [task index]`                                 | `delete 1`                                              |
+| **Listing All Tasks**      | `list`                                                | `list`                                                  |
+| **Marking a Task as Done** | `done [task index]`                                   | `done 1`                                                |
+| **Unmarking a Task**       | `undone [task index]`                                 | `undone 1`                                              |
+| **Searching for Tasks**    | `find [keyword]`                                      | `find book`                                             |
+
+### Trivia
+
+| Feature                 | Command                                               | Example                                                         |
+|-------------------------|-------------------------------------------------------|-----------------------------------------------------------------|
+| **Adding a Trivia**     | `addtrivia [question] /answer [answer]`               | `addtrivia What is the capital of Singapore? /answer Singapore` |
+| **Listing all Trivia**  | `listtrivia`                                          | `listtrivia`                                                    |
+| **Testing a Trivia**    | `testtrivia [trivia index] [your answer]`             | `testtrivia 1 Singapore`                                        |
 
 ---
 
