@@ -1,0 +1,13 @@
+todo send flowers to mom
+deadline cs2103t assignment /due Tuesday
+event watch oppenheimer /from 7pm /to 10pm
+list
+mark hello world
+mark 1
+mark 2
+unmark 2
+yo yo yo
+delete 2
+delete 100
+list
+bye
