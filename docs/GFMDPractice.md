@@ -32,7 +32,7 @@ This project is a Java application that aims to provide a user-friendly task man
 6. **Enjoy**: Duke is very fun.
 
    ```shell
-   java -jar woof.jar
+   java -jar woofwoof.jar
 
 ## Installation Option 2
 
