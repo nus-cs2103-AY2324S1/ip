@@ -42,7 +42,7 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
         Event sampleEvent = new Event("read book", "2020-03-19 1800", "2020-03-20 1800");
         tasks.addTask(sampleEvent);
-        assertEquals("[E][ ] read book (from: Mar 19 2020 6PM to: Mar 20 2020 6PM)", tasks.getTask(0).toString());
+        assertEquals("[E][ ] read book (from: Mar 19 2020 06:00 PM to: Mar 20 2020 06:00 PM)", tasks.getTask(0).toString());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class TaskListTest {
         TaskList tasks = new TaskList();
         Deadline sampleDeadline = new Deadline("homework", "2020-03-19 1800");
         tasks.addTask(sampleDeadline);
-        assertEquals("[D][ ] homework (by: Mar 19 2020 6PM)", tasks.getTask(0).toString());
+        assertEquals("[D][ ] homework (by: Mar 19 2020 06:00 PM)", tasks.getTask(0).toString());
     }
 
     @Test
