@@ -36,7 +36,6 @@ public class MainWindow extends AnchorPane {
     /**
      * Initializes the MainWindow and binds the scrollPane to the height of the dialog container.
      */
-    @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
@@ -54,7 +53,6 @@ public class MainWindow extends AnchorPane {
     /**
      * Starts the conversation by printing an intro message from Jarvis.
      */
-    @FXML
     private void startIntro() {
         setIntroGif();
         String intro = ui.printIntro();
@@ -78,4 +76,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getJarvisDialog(response, jarvisImage));
         userInput.clear();
     }
+
 }

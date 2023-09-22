@@ -18,6 +18,7 @@ public class SortDeadlineCommand implements Command {
     public String execute(TaskList taskList, Ui ui, Storage storage)
             throws InvalidIndexException, InvalidTaskFormatException {
         ArrayList<Task> sortedDeadlines = taskList.sortTaskByDueDate();
+        storage.saveTasks(sortedDeadlines);
         return ui.printFilteredTasks("Deadline by due date", sortedDeadlines);
     }
 }

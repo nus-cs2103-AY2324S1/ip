@@ -46,7 +46,6 @@ public class Storage {
                 writer.newLine();
             }
             writer.close();
-            // assert new File(FILE_PATH).length() > 0 : "Data was not written to output file";
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
