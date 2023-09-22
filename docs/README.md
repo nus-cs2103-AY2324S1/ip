@@ -29,8 +29,7 @@ Kevin is a desktop application to manage your daily task, optimized for use thro
 3. Copy the file to the folder you want to use as the home folder for your Kevin chatbot.
 4. Open a command terminal, `cd` into the folder you put the jar file in, 
 and use the `java -jar kevin.jar` command to run the application.
-5. A GUI similar to the below should appear in a few seconds. 
-![](/Users/aliciamichellewang/Documents/Y3S1/CS2103T/ip/src/main/resources/images/startPage.png)
+5. A GUI similar to the below should appear in a few seconds.</br> <img src="../src/main/resources/images/startPage.png" width="200"/>
 6. Type the command in the command box and press Send to execute it. Refer to the [Features](#features-) section to see the details 
 of the command.
 
