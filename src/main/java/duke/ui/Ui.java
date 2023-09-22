@@ -27,7 +27,7 @@ public class Ui {
      * @return String of hello printed to the user.
      */
     public String showHelloMessage() {
-        String helloMessage = "Hello! I'm Thinh's chatbot\n    What can I do for you?";
+        String helloMessage = "Hello! I'm Thinh's chatbot\nWhat can I do for you?";
         return helloMessage;
     }
 
@@ -109,7 +109,7 @@ public class Ui {
         StringBuilder matchingTaskMessage = new StringBuilder("Here are the matching tasks in your list:\n");
         int index = 0;
         for (Task task: tasks) {
-            matchingTaskMessage.append((++index)).append(".").append(task.toString());
+            matchingTaskMessage.append((++index)).append(".").append(task.toString()).append('\n');
         }
         return matchingTaskMessage.toString();
     }
