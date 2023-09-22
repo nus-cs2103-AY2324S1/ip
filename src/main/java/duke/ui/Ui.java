@@ -22,6 +22,7 @@ public class Ui {
         for (int i = 1; i < tasks.getSize() + 1; i++) {
             output = output.concat(System.lineSeparator() + i + ". " + tasks.getTask(i).toString());
         }
+        return output;
     }
 
     /**
@@ -53,35 +54,44 @@ public class Ui {
     }
 
     /**
-     * Response when task has been deleted from tasklist.
-     * @param task Task to be deleted.
+     * Response when tasks has been deleted from tasklist.
+     * @param deletedList Tasks to be deleted.
      * @param tasks Tasklist to delete from.
      * @return Response to user as String.
      */
-    public String deleteTaskResponse(Task task, TaskList tasks) {
-        assert task != null : "task cannot be null";
-        return "Noted. I've removed this task:\n" + task
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+    public String deleteTaskResponse(TaskList deletedList, TaskList tasks) throws ChatException {
+        String output = "Noted. I've removed the following task(s):";
+        for (int i = deletedList.getSize(); i > 0; i--) {
+            output = output.concat(System.lineSeparator() + deletedList.getTask(i).toString());
+        }
+        output = output.concat(System.lineSeparator() + "Now you have " + tasks.getSize() + " tasks in the list.");
+        return output;
     }
 
     /**
-     * Response when task has been marked done.
-     * @param task Task to be marked.
+     * Response when tasks has been marked done.
+     * @param markList Tasks to be marked.
      * @return Response when task has been marked done.
      */
-    public String markDoneResponse(Task task) {
-        assert task != null : "task cannot be null";
-        return "Nice! I've marked this task as done:\n" + task;
+    public String markDoneResponse(TaskList markList) throws ChatException {
+        String output = "Nice! I've marked the following task(s) as done:";
+        for (int i = 1; i <= markList.getSize(); i++) {
+            output = output.concat(System.lineSeparator() + markList.getTask(i).toString());
+        }
+        return output;
     }
 
     /**
-     * Response when task has been marked undone.
-     * @param task Task to be marked.
+     * Response when tasks has been marked undone.
+     * @param unmarkList Tasks to be marked.
      * @return Response when task has been marked undone.
      */
-    public String markUndoneResponse(Task task) {
-        assert task != null : "task cannot be null";
-        return "OK, I've marked this task as not done yet:\n" + task;
+    public String markUndoneResponse(TaskList unmarkList) throws ChatException {
+        String output = "OK, I've marked the following task(s) as not done yet:";
+        for (int i = 1; i <= unmarkList.getSize(); i++) {
+            output = output.concat(System.lineSeparator() + unmarkList.getTask(i).toString());
+        }
+        return output;
     }
 
     /**
@@ -115,12 +125,12 @@ public class Ui {
                 + "3. event + description of task + /from time + /to time\n"
                 + "     eg. event charity run /from 4pm /to 6pm\n"
                 + "4. list\n"
-                + "5. mark + task number\n"
-                + "     eg. mark 3\n"
-                + "6. unmark + task number\n"
-                + "     eg. unmark 2"
-                + "7. delete + task number\n"
-                + "     eg. delete 1"
+                + "5. mark + task number(s) to be separated by commas and arranged in ascending order\n"
+                + "     eg. mark 3, 4, 7\n"
+                + "6. unmark + task number(s) to be separated by commas and arranged in ascending order\n"
+                + "     eg. unmark 2, 5\n"
+                + "7. delete + task number(s) to be separated by commas and arranged in ascending order\n"
+                + "     eg. delete 1, 4, 8\n"
                 + "8. bye";
     }
 }

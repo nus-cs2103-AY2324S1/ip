@@ -17,8 +17,10 @@ public class TaskList {
     public Task getTask(int taskNumber) throws ChatException {
         if (taskList.size() == 0) {
             throw new ChatException("OOPS!!! The list is empty.");
-        } else if (taskNumber <= 0 || taskNumber > taskList.size()) {
-            throw new ChatException("OOPS!!! Invalid task number inputted.");
+        } else if (taskNumber <= 0) {
+            throw new ChatException("OOPS!!! Task number needs to be positive.");
+        } else if (taskNumber > taskList.size()) {
+            throw new ChatException("OOPS!!! Task number out of bounds of index.");
         } else {
             return taskList.get(taskNumber - 1);
         }
@@ -35,22 +37,34 @@ public class TaskList {
 
     /**
      * Removes task from tasklist.
-     * @param taskNumber Index of task in task list.
+     * @param taskNumbers Indexes of task in task list.
      * @throws ChatException If index is out of bounds of length of task list.
      */
-    public void deleteTask(int taskNumber) throws ChatException {
-        taskList.remove(taskNumber - 1);
+    public TaskList deleteTask(String[] taskNumbers) throws ChatException {
+        TaskList deletedList = new TaskList();
+        for (int i = taskNumbers.length - 1; i > -1; i--) {
+            int taskNumber = Integer.parseInt(taskNumbers[i]);
+            deletedList.addTask(taskList.get(taskNumber - 1));
+            taskList.remove(taskNumber - 1);
+        }
+        return deletedList;
     }
 
     /**
      * Marks task in tasklist as done.
-     * @param taskNumber Index of task in task list.
+     * @param taskNumbers Indexes of tasks in task list.
      * @throws ChatException If index is out of bounds of length of task list.
      */
-    public void markDone(int taskNumber) throws ChatException {
+    public TaskList markDone(String[] taskNumbers) throws ChatException {
         try {
-            Task task = taskList.get(taskNumber - 1);
-            task.setDone(true);
+            TaskList markList = new TaskList();
+            for (int i = 0; i < taskNumbers.length; i++) {
+                int taskNumber = Integer.parseInt(taskNumbers[i]);
+                markList.addTask(taskList.get(taskNumber - 1));
+                Task task = taskList.get(taskNumber - 1);
+                task.setDone(true);
+            }
+            return markList;
         } catch (IndexOutOfBoundsException e) {
             throw new ChatException("OOPS!!! Please specify the correct task number.");
         }
@@ -61,10 +75,16 @@ public class TaskList {
      * @param taskNumber Index of task in task list.
      * @throws ChatException If index is out of bounds of length of task list.
      */
-    public void markUndone(int taskNumber) throws ChatException {
+    public TaskList markUndone(String[] taskNumbers) throws ChatException {
         try {
-            Task task = taskList.get(taskNumber - 1);
-            task.setDone(false);
+            TaskList unmarkList = new TaskList();
+            for (int i = 0; i < taskNumbers.length; i++) {
+                int taskNumber = Integer.parseInt(taskNumbers[i]);
+                unmarkList.addTask(taskList.get(taskNumber - 1));
+                Task task = taskList.get(taskNumber - 1);
+                task.setDone(false);
+            }
+            return unmarkList;
         } catch (IndexOutOfBoundsException e) {
             throw new ChatException("OOPS!!! Please specify the correct task number.");
         }

@@ -9,13 +9,13 @@ import duke.ui.Ui;
  * Prompts program to mark a task as not done.
  */
 public class UnmarkCommand extends Command {
-    private int taskNumber;
+    private String[] taskNumbers;
     /**
      * Constructor for the class UnmarkCommand.
-     * @param taskNumber Index of the task to be marked as not done.
+     * @param taskNumbers Indexes of the tasks to be marked as not done.
      */
-    public UnmarkCommand(int taskNumber) {
-        this.taskNumber = taskNumber;
+    public UnmarkCommand(String[] taskNumbers) {
+        this.taskNumbers = taskNumbers;
     }
     /**
      * Marks the specified task as not done in tasks,
@@ -26,9 +26,9 @@ public class UnmarkCommand extends Command {
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         try {
-            tasks.markUndone(taskNumber);
+            TaskList unmarkList = tasks.markUndone(taskNumbers);
             storage.saveList(tasks);
-            return ui.markUndoneResponse(tasks.getTask(taskNumber));
+            return ui.markUndoneResponse(unmarkList);
         } catch (ChatException e) {
             return ui.showLoadingError(e);
         }

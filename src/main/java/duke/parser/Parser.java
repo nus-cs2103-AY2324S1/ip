@@ -53,16 +53,16 @@ public class Parser {
                     throw new ChatException("OOPS!!! Please specify the duration.");
                 }
             case "mark":
-                int taskNumberMark = Integer.parseInt(userCommand[1]);
-                return new MarkCommand(taskNumberMark);
+                String[] markTaskNumbers = userCommand[1].split(", ");
+                return new MarkCommand(markTaskNumbers);
                 //Fallthrough
             case "unmark":
-                int taskNumberUnmark = Integer.parseInt(userCommand[1]);
-                return new UnmarkCommand(taskNumberUnmark);
+                String[] unmarkTaskNumbers = userCommand[1].split(", ");
+                return new UnmarkCommand(unmarkTaskNumbers);
                 //Fallthrough
             case "delete":
-                int taskNumberDelete = Integer.parseInt(userCommand[1]);
-                return new DeleteCommand(taskNumberDelete);
+                String[] deleteTaskNumbers = userCommand[1].split(", ");
+                return new DeleteCommand(deleteTaskNumbers);
                 //Fallthrough
             case"find":
                 String[] parseKeyword = userCommand[1].split(" ");
