@@ -1,4 +1,4 @@
-package duke;
+package leon;
 
 /**
  * The {@code Task} class. Contains all methods that are common to any generic task.
@@ -21,7 +21,7 @@ public class Task {
     /**
      * Loads a {@code Task} object that was previously stored in the hard disk.
      * The {@code isCompleted} parameter corresponds to the completion status in the last
-     * instance of {@code Duke}.
+     * instance of {@code Leon}.
      *
      * @param details     Details of the {@code Task}.
      * @param isCompleted Completion status of the {@code Task}.

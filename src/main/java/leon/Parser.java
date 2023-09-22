@@ -1,11 +1,11 @@
-package duke;
+package leon;
 
-import static duke.Parser.Command.DEADLINE;
-import static duke.Parser.Operation.CONFIRM;
-import static duke.Parser.Operation.DATE;
-import static duke.Parser.Operation.DETAILS;
-import static duke.Parser.Operation.KEYWORD;
-import static duke.Parser.Operation.TIME;
+import static leon.Parser.Command.DEADLINE;
+import static leon.Parser.Operation.CONFIRM;
+import static leon.Parser.Operation.DATE;
+import static leon.Parser.Operation.DETAILS;
+import static leon.Parser.Operation.KEYWORD;
+import static leon.Parser.Operation.TIME;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ import java.util.LinkedList;
 public class Parser {
 
     private final Ui ui;
-    private final Duke duke;
+    private final Leon leon;
     private final TaskList tasks;
     private final Storage storage;
     private String storedDetails;
@@ -49,15 +49,15 @@ public class Parser {
 
     /**
      * Constructs a new {@code Parser} object.
-     * Can only be instantiated with a {@code Duke} object.
+     * Can only be instantiated with a {@code Leon} object.
      *
-     * @param duke  {@code Duke} object that called the constructor.
-     * @param tasks {@code TaskList} object instantiated by the same {@code Duke} object.
-     * @param ui    {@code Ui} object instantiated by the same {@code Duke} object.
+     * @param leon  {@code Leon} object that called the constructor.
+     * @param tasks {@code TaskList} object instantiated by the same {@code Leon} object.
+     * @param ui    {@code Ui} object instantiated by the same {@code Leon} object.
      */
-    Parser(Duke duke, duke.TaskList tasks, duke.Ui ui,
-           duke.Storage storage) { // Can only be instantiated with a Duke object
-        this.duke = duke;
+    Parser(Leon leon, TaskList tasks, Ui ui,
+           Storage storage) { // Can only be instantiated with a Leon object
+        this.leon = leon;
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
@@ -111,23 +111,33 @@ public class Parser {
             return ui.getInvalidInputMessage(message);
         }
         switch (commandInExecution) {
-        case TASK, TODO -> operations.add(DETAILS);
-        case DEADLINE -> {
+        case TASK:
+        case TODO:
+            operations.add(DETAILS);
+            break;
+        case DEADLINE:
             operations.addLast(DETAILS);
             operations.addLast(DATE);
             operations.addLast(TIME);
-        }
-        case EVENT -> {
+            break;
+        case EVENT:
             operations.addLast(DETAILS);
             for (int i = 0; i < 2; i++) {
                 operations.addLast(DATE);
                 operations.addLast(TIME);
             }
-        }
-        case MARK, UNMARK, DELETE -> operations.addLast(CONFIRM);
-        case FIND, SEARCH -> operations.addLast(KEYWORD);
-        default -> {
-        }
+            break;
+        case MARK:
+        case UNMARK:
+        case DELETE:
+            operations.addLast(CONFIRM);
+            break;
+        case FIND:
+        case SEARCH:
+            operations.addLast(KEYWORD);
+            break;
+        default:
+            break;
         }
         return null;
     }
@@ -137,38 +147,32 @@ public class Parser {
      *
      * @param command   Current command in execution.
      * @param operation Current operation in execution.
-     * @return Output of Duke as a String.
+     * @return Output of Leon as a String.
      */
     public String executeOperation(Command command, Operation operation) {
         switch (operation) {
-        case DETAILS -> {
+        case DETAILS:
             return ui.getDetailsPrompt(command);
-        }
-        case DATE -> {
+        case DATE:
             String dateType = getDateTimeType(command);
             return ui.getDateInputMessage(command, dateType);
-        }
-        case TIME -> {
+        case TIME:
             String timeType = getDateTimeType(command);
             return ui.getTimeInputMessage(command, timeType);
-        }
-        case CONFIRM -> {
+        case CONFIRM:
             if (tasks.isEmpty()) {
                 resetCommandInExecution();
                 return ui.getTasksEmptyMessage(command);
             }
             return ui.getConfirmationMessage(command, tasks);
-        }
-        case KEYWORD -> {
+        case KEYWORD:
             if (tasks.isEmpty()) {
                 resetCommandInExecution();
                 return ui.getTasksEmptyMessage(command);
             }
             return ui.getKeywordMessage();
-        }
-        default -> {
+        default:
             return null;
-        }
         }
     }
 
@@ -179,33 +183,35 @@ public class Parser {
      * @param command   Current command in execution.
      * @param operation Current operation in execution.
      * @param input     The user input.
-     * @return Error message as a String, to be output by Duke; {@code null} if no errors are detected.
+     * @return Error message as a String, to be output by Leon; {@code null} if no errors are detected.
      */
     public String checkOperation(Command command, Operation operation, String input) {
         if (input.isBlank()) {
             return ui.getEmptyInputMessage(command);
         }
         switch (operation) {
-        case DETAILS -> storedDetails = input;
-        case DATE -> {
+        case DETAILS:
+            storedDetails = input;
+            break;
+        case DATE:
             if (!isValidDateInput(input)) {
                 return ui.getInvalidFormatMessage(operation);
             }
-        }
-        case TIME -> {
+            break;
+        case TIME:
             if (!isValidTimeInput(input)) {
                 return ui.getInvalidFormatMessage(operation);
             }
-        }
-        case CONFIRM -> {
+            break;
+        case CONFIRM:
             if (!isValidNumberInput(input)) {
                 return ui.getRequestFailedMessage("input");
             } else if (!isValidTaskNumber(Integer.parseInt(input))) {
                 return ui.getRequestFailedMessage("task number");
             }
-        }
-        default -> {
-        }
+            break;
+        default:
+            break;
         }
         return null;
     }
@@ -266,17 +272,17 @@ public class Parser {
     }
 
     /**
-     * Executes {@code Command}s in the {@code Duke} class.
+     * Executes {@code Command}s in the {@code Leon} class.
      *
      * @param command {@code Command} to be executed.
      * @return The appropriate {@code executeCommand} function.
      */
     public String taskExecutionHelper(Command command, String message) {
         if (storedDetails == null) {
-            return duke.executeCommand(commandInExecution, message);
+            return leon.executeCommand(commandInExecution, message);
         }
         if (localDates.isEmpty() || localTimes.isEmpty()) {
-            return duke.executeCommand(command, storedDetails);
+            return leon.executeCommand(command, storedDetails);
         }
         int size = Math.min(localDates.size(), localTimes.size());
         ArrayList<LocalDateTime> localDateTimes = new ArrayList<>();
@@ -284,9 +290,9 @@ public class Parser {
             localDateTimes.add(LocalDateTime.of(localDates.get(i), localTimes.get(i)));
         }
         if (size == 1) {
-            return duke.executeCommand(command, storedDetails, localDateTimes.get(0));
+            return leon.executeCommand(command, storedDetails, localDateTimes.get(0));
         } else {
-            return duke.executeCommand(command, storedDetails, localDateTimes.get(0),
+            return leon.executeCommand(command, storedDetails, localDateTimes.get(0),
                 localDateTimes.get(1));
         }
     }

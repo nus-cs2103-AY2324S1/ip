@@ -1,4 +1,4 @@
-package duke;
+package leon;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Storage {
     private final TaskList tasks;
 
-    public Storage(duke.TaskList tasks) {
+    public Storage(leon.TaskList tasks) {
         this.tasks = tasks;
     }
 
@@ -59,7 +59,7 @@ public class Storage {
      */
     public void readArguments(String[] args) {
         int numOfArgs = args.length;
-        duke.TaskList.TaskType type;
+        leon.TaskList.TaskType type;
         try {
             type = TaskList.TaskType.valueOf(args[0].toUpperCase());
         } catch (IllegalArgumentException e) {
@@ -90,24 +90,24 @@ public class Storage {
     public void addTaskToList(TaskList.TaskType taskType, String details, boolean isCompleted,
                               LocalDateTime... localDateTimes) {
         switch (taskType) {
-        case TASK -> {
+        case TASK:
             Task t = new Task(details, isCompleted);
             tasks.add(t);
-        }
-        case TODO -> {
+            break;
+        case TODO:
             ToDo todo = new ToDo(details, isCompleted);
             tasks.add(todo);
-        }
-        case DEADLINE -> {
+            break;
+        case DEADLINE:
             Deadline d = new Deadline(details, isCompleted, localDateTimes[0]);
             tasks.add(d);
-        }
-        case EVENT -> {
+            break;
+        case EVENT:
             Event e = new Event(details, isCompleted, localDateTimes[0], localDateTimes[1]);
             tasks.add(e);
-        }
-        default -> {
-        }
+            break;
+        default:
+            break;
         }
     }
 
@@ -118,7 +118,7 @@ public class Storage {
      * @param tasks    {@code TaskList} containing the current tasks.
      * @throws IOException When the {@code FileWriter} is unable to write to the file.
      */
-    public void saveTasksToDisk(String filePath, duke.TaskList tasks) throws IOException {
+    public void saveTasksToDisk(String filePath, leon.TaskList tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         BufferedWriter bw = new BufferedWriter(fw);
         try {

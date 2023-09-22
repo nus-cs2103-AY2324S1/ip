@@ -1,4 +1,4 @@
-package duke;
+package leon;
 
 /**
  * The {@code ToDo} class.
@@ -18,7 +18,7 @@ public class ToDo extends Task {
     /**
      * Loads a {@code ToDo} object that was previously stored in the hard disk.
      * The {@code isCompleted} parameter corresponds to the completion status in the last
-     * instance of {@code Duke}.
+     * instance of {@code Leon}.
      *
      * @param details     Details of the {@code ToDo}.
      * @param isCompleted Completion status of the {@code ToDo}.

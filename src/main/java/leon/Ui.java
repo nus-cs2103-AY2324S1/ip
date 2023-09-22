@@ -1,4 +1,4 @@
-package duke;
+package leon;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class Ui {
     }
 
     /**
-     * Prints the available commands for the user, when {@code Duke} is started or
+     * Prints the available commands for the user, when {@code Leon} is started or
      * when the user inputs {@code commands}.
      */
     public String getCommands() {
@@ -35,7 +35,7 @@ public class Ui {
     }
 
     /**
-     * Prints the statements when {@code Duke} is first instantiated.
+     * Prints the statements when {@code Leon} is first instantiated.
      */
     public static String getSelfIntroduction() {
         String intro1 = String.format("I'm %s. Nice to meet you." + "\n", name);

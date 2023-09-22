@@ -1,4 +1,4 @@
-package duke;
+package leon;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,18 +13,18 @@ public class DeadlineTest {
     @Test
     public void deadline_toString_success() {
         Deadline d = new Deadline("test",
-                LocalDateTime.of(LocalDate.of(2023, Month.JANUARY, 1),
-                        LocalTime.of(23, 59)));
+            LocalDateTime.of(LocalDate.of(2023, Month.JANUARY, 1),
+                LocalTime.of(23, 59)));
         assertEquals("[D][ ] test (by: Sun, 01 Jan 2023 23:59)",
-                d.toString());
+            d.toString());
     }
 
     @Test
     public void deadlineCompleted_toString_success() {
         Deadline d = new Deadline("test", true,
-                LocalDateTime.of(LocalDate.of(2023, Month.JANUARY, 1),
-                        LocalTime.of(23, 59)));
+            LocalDateTime.of(LocalDate.of(2023, Month.JANUARY, 1),
+                LocalTime.of(23, 59)));
         assertEquals("[D][X] test (by: Sun, 01 Jan 2023 23:59)",
-                d.toString());
+            d.toString());
     }
 }

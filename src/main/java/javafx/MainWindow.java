@@ -3,8 +3,6 @@ package javafx;
 import java.io.IOException;
 import java.util.Objects;
 
-import duke.Duke;
-import duke.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import leon.Leon;
+import leon.Ui;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    private Duke duke;
+    private Leon leon;
 
     private final Image userImage = new Image(
         Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
@@ -43,8 +43,8 @@ public class MainWindow extends AnchorPane {
             Ui.getSelfIntroduction(), dukeImage));
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setLeon(Leon l) {
+        leon = l;
     }
 
     /**
@@ -57,7 +57,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("bye")) {
             Platform.exit();
         }
-        String response = duke.getResponse(input);
+        String response = leon.getResponse(input);
         dialogContainer.getChildren().addAll(
             DialogBox.getUserDialog(input, userImage),
             DialogBox.getDukeDialog(response, dukeImage)

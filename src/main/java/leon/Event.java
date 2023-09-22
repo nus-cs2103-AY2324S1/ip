@@ -1,4 +1,4 @@
-package duke;
+package leon;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,7 @@ public class Event extends Task {
     /**
      * Loads a {@code Event} object that was previously stored in the hard disk.
      * The {@code isCompleted} parameter corresponds to the completion status in the last
-     * instance of {@code Duke}.
+     * instance of {@code Leon}.
      *
      * @param details     Details of the {@code Event}.
      * @param isCompleted Completion status of the {@code Event}.
