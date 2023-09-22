@@ -46,5 +46,7 @@ public class CloudApp extends Application {
         }
 
         stage.show();
+
+        CloudApp.CONTROLLER.sayBot("o/");
     }
 }

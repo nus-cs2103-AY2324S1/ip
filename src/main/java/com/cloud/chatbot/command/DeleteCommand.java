@@ -23,7 +23,9 @@ public class DeleteCommand extends Command {
         }
 
         Item item = CloudApp.ITEM_MANAGER.remove(number);
-        CloudApp.CONTROLLER.sayBot("Yeeted:");
-        CloudApp.CONTROLLER.sayBot(item.toString(number));
+        CloudApp.CONTROLLER.sayBot(
+            "Yeeted:",
+            item.toString(number)
+        );
     }
 }

@@ -55,9 +55,10 @@ public class StageController extends Stage {
     /**
      * Sends a message as the user.
      *
-     * @param text The message text.
+     * @param lines Variable lines of text.
      */
-    public void sayUser(String text) {
+    public void sayUser(String ...lines) {
+        String text = String.join("\n", lines);
         messagesHolder.getChildren().add(
             new MessageRow(text, true)
         );
@@ -66,9 +67,10 @@ public class StageController extends Stage {
     /**
      * Sends a message as the bot.
      *
-     * @param text The message text.
+     * @param lines Variable lines of text.
      */
-    public void sayBot(String text) {
+    public void sayBot(String ...lines) {
+        String text = String.join("\n", lines);
         messagesHolder.getChildren().add(
             new MessageRow(text, false)
         );
