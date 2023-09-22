@@ -59,8 +59,8 @@ public class Max {
             return ui.showError(e.getMessage());
         } catch (DateTimeParseException e) {
             return ui.showError("Please use yyyy-mm-dd format!");
-        } catch (IndexOutOfBoundsException e) {
-            return ui.showError("Please use proper formats!");
+        } catch (NumberFormatException e) {
+            return ui.showError("Please type an integer!");
         }
     }
 

@@ -1,5 +1,6 @@
 package max.commands;
 
+import max.exception.InvalidArgumentException;
 import max.exception.MaxException;
 import max.storage.Storage;
 import max.tasks.Task;
@@ -30,10 +31,14 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
-        Task unmark = tasks.getList().get(taskNumber - 1);
-        tasks.unmark(taskNumber);
-        storage.writeToFile(tasks);
-        return ui.showUnmark(unmark);
+        try {
+            Task unmark = tasks.getList().get(taskNumber - 1);
+            tasks.unmark(taskNumber);
+            storage.writeToFile(tasks);
+            return ui.showUnmark(unmark);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException("Please ensure the number is within the index range of your list!");
+        }
     }
     /**
      * Checks if command is an exit command.

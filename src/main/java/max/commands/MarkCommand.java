@@ -1,5 +1,6 @@
 package max.commands;
 
+import max.exception.InvalidArgumentException;
 import max.exception.MaxException;
 import max.storage.Storage;
 import max.tasks.Task;
@@ -29,10 +30,14 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws MaxException {
-        Task mark = tasks.getList().get(taskNumber - 1);
-        tasks.mark(taskNumber);
-        storage.writeToFile(tasks);
-        return ui.showMark(mark);
+        try {
+            Task mark = tasks.getList().get(taskNumber - 1);
+            tasks.mark(taskNumber);
+            storage.writeToFile(tasks);
+            return ui.showMark(mark);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidArgumentException("Please ensure the number is within the index range of your list!");
+        }
     }
     /**
      * Checks if command is an exit command.
