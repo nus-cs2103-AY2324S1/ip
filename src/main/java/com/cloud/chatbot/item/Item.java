@@ -52,7 +52,7 @@ public abstract class Item {
      * Returns a string denoting whether the Item has been completed.
      */
     public String getCompletionString() {
-        return this.isComplete ? "X" : " ";
+        return this.isComplete ? "✅" : " ";
     }
 
     public void setComplete(boolean _isComplete) {
