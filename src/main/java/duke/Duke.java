@@ -57,9 +57,8 @@ public class Duke {
                 throw new DukeException("Invalid task, uncaught by duke.Parser.");
             }
         } catch (DukeException e) {
-            System.out.println(e.getMessage());
+            return e.getMessage();
         }
-        return null;
     }
     public String showWelcomeMessage() {
         return Ui.showWelcomeMessage();

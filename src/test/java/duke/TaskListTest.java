@@ -12,7 +12,7 @@ public class TaskListTest {
             TaskList test = new TaskList(new ArrayList<>());
             test.deleteTask(1);
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The delete command needs to be followed "
+            assertEquals("OOPS!!! The delete command needs to be followed "
                     + "by an existing task number.", e.getMessage());
         }
     }
@@ -23,7 +23,7 @@ public class TaskListTest {
             TaskList test = new TaskList(new ArrayList<>());
             test.markTask(1);
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The mark command needs to be followed by an existing task number.", e.getMessage());
+            assertEquals("OOPS!!! The mark command needs to be followed by an existing task number.", e.getMessage());
         }
     }
 }

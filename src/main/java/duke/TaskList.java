@@ -29,7 +29,7 @@ public class TaskList {
             assert !tasks.contains(toRemove) : "DeleteTask did not delete task.";
             return toRemove;
         } else {
-            throw new DukeException("☹ OOPS!!! The delete command needs to be followed by an existing task number.");
+            throw new DukeException("OOPS!!! The delete command needs to be followed by an existing task number.");
         }
     }
 
@@ -45,7 +45,7 @@ public class TaskList {
             assert tasks.get(taskNumber).isDone : "markTask did not complete task.";
             return tasks.get(taskNumber);
         } else {
-            throw new DukeException("☹ OOPS!!! The mark command needs to be followed by an existing task number.");
+            throw new DukeException("OOPS!!! The mark command needs to be followed by an existing task number.");
         }
     }
 

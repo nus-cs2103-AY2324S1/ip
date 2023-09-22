@@ -71,7 +71,7 @@ public class Parser {
             if (!title.isEmpty()) {
                 return new Deadline(title, parseTime(deadline));
             } else {
-                throw new DukeException("☹ OOPS!!! The title cannot be empty.");
+                throw new DukeException("OOPS!!! The title cannot be empty.");
             }
         } else if (response.startsWith("event")) {
             String[] receivedInfo = parseInfo(array, EVENT_CHAR);
@@ -81,7 +81,7 @@ public class Parser {
             if (!title.isEmpty()) {
                 return new Event(title, parseTime(from), parseTime(to));
             } else {
-                throw new DukeException("☹ OOPS!!! The title cannot be empty.");
+                throw new DukeException("OOPS!!! The title cannot be empty.");
             }
         }
         return null;

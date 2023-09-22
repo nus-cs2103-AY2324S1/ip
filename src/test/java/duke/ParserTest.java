@@ -30,7 +30,7 @@ public class ParserTest {
             assert test != null;
             assertEquals("[E][ ] 1 /from 2 (from:  to: )", test.toString());
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The title, from and to sections cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The title, from and to sections cannot be empty.", e.getMessage());
         }
     }
 
