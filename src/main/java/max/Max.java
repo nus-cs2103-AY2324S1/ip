@@ -17,6 +17,7 @@ public class Max {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isExit = false;
 
     /**
      * Initialises Storage, TaskList and Ui.
@@ -35,31 +36,13 @@ public class Max {
         }
     }
 
+    /**
+     * Public constructor for Max.
+     * Initialises Storage, TaskList and Ui into specified file location.
+     *
+     */
     public Max() {
         this("./data/max.txt");
-    }
-
-    /**
-     * Reads user commands and executes until exited.
-     */
-    public void run() {
-        ui.showGreeting();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                Parser parser = new Parser();
-                String fullCommand = ui.readCommand(); // return the first word of input
-                Command c = parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (MaxException e) {
-                ui.showError(e.getMessage());
-            } catch (DateTimeParseException e) {
-                ui.showError("Please use yyyy-mm-dd format!");
-            } finally {
-                ui.showLine();
-            }
-        }
     }
 
     /**
@@ -70,6 +53,7 @@ public class Max {
         try {
             Parser parser = new Parser();
             Command c = parser.parse(input);
+            isExit = c.isExit();
             return c.execute(tasks, ui, storage);
         } catch (MaxException e) {
             return ui.showError(e.getMessage());
@@ -80,4 +64,12 @@ public class Max {
         }
     }
 
+    /**
+     * Checks if the exit command was called.
+     *
+     * @return True if last command is exit command, false otherwise.
+     */
+    public boolean willExit() {
+        return isExit;
+    }
 }
