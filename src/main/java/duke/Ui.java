@@ -1,8 +1,8 @@
 package duke;
 
-import java.util.ArrayList;
-
 import duke.task.Task;
+
+import java.util.ArrayList;
 
 /**
  * The Ui class provides user interface functionality for interacting with the Duke application.

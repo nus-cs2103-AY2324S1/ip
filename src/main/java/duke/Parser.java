@@ -1,25 +1,10 @@
 package duke;
 
+import duke.command.*;
+import duke.task.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-
-import duke.command.AddCommand;
-import duke.command.ByeCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.DukeException;
-import duke.command.FindCommand;
-import duke.command.HelpCommand;
-import duke.command.HiCommand;
-import duke.command.ListCommand;
-import duke.command.MarkDoneCommand;
-import duke.command.MarkNotDoneCommand;
-import duke.task.DeadlineTask;
-import duke.task.EventTask;
-import duke.task.Task;
-import duke.task.TaskPriority;
-import duke.task.TaskType;
-import duke.task.TodoTask;
 
 /**
  * The Parser class is responsible for parsing user input and converting it into
@@ -39,44 +24,45 @@ public class Parser {
         String commandType = parts[0].toLowerCase();
 
         switch (commandType) {
-        case "bye":
-            return new ByeCommand();
-        case "list":
-            return new ListCommand();
-        case "hi":
-            return new HiCommand();
-        case "mark":
-            if (parts.length > 1) {
-                return new MarkDoneCommand(input.toLowerCase());
-            } else {
-                throw new DukeException("Please provide a task number to mark as done.");
-            }
-        case "unmark":
-            if (parts.length > 1) {
-                return new MarkNotDoneCommand(input.toLowerCase());
-            } else {
-                throw new DukeException("Please provide a task number to mark as not done.");
-            }
-        case "delete":
-            if (parts.length > 1) {
-                return new DeleteCommand(input.toLowerCase());
-            } else {
-                throw new DukeException("Please provide a task number to delete.");
-            }
-        case "find":
-            if (parts.length > 1) {
-                return new FindCommand(input.toLowerCase());
-            } else {
-                throw new DukeException("Please provide a description to find.");
-            }
-        case "help":
-            return new HelpCommand();
-        case "todo":
-        case "deadline":
-        case "event":
-            return new AddCommand(input.toLowerCase());
-        default:
-            throw new DukeException("Unrecognized command: " + input);
+            case "bye":
+                return new ByeCommand();
+            case "list":
+                return new ListCommand();
+            case "hi":
+                return new HiCommand();
+            case "mark":
+                if (parts.length > 1) {
+                    return new MarkDoneCommand(input.toLowerCase());
+                } else {
+                    throw new DukeException("Please provide a task number to mark as done.");
+                }
+            case "unmark":
+                if (parts.length > 1) {
+                    return new MarkNotDoneCommand(input.toLowerCase());
+                } else {
+                    throw new DukeException("Please provide a task number to mark as not done.");
+                }
+            case "delete":
+                if (parts.length > 1) {
+                    return new DeleteCommand(input.toLowerCase());
+                } else {
+                    throw new DukeException("Please provide a task number to delete.");
+                }
+            case "find":
+                if (parts.length > 1) {
+                    return new FindCommand(input.toLowerCase());
+                } else {
+                    throw new DukeException("Please provide a description to find.");
+                }
+            case "help":
+                return new HelpCommand();
+            case "todo":
+            case "deadline":
+            case "event":
+                // Handle adding tasks
+                return new AddCommand(input.toLowerCase());
+            default:
+                throw new DukeException("Unrecognized command: " + input);
         }
     }
 
@@ -138,29 +124,29 @@ public class Parser {
             TaskType taskType = TaskType.valueOf(parts[0].toUpperCase());
 
             switch (taskType) {
-            case TODO:
-                if (parts.length == 1 || parts[1].trim().isEmpty()) {
-                    throw new DukeException("OOPS!!! TODO tasks must have a description.");
-                }
-                description = parts[1].trim();
-                task = parseTodoTask(description, priority);
-                break;
-            case DEADLINE:
-                if (parts.length == 1 || parts[1].trim().isEmpty()) {
-                    throw new DukeException("OOPS!!! DEADLINE tasks must have a description.");
-                }
-                description = parts[1].trim();
-                task = parseDeadlineTask(description, priority);
-                break;
-            case EVENT:
-                if (parts.length == 1 || parts[1].trim().isEmpty()) {
-                    throw new DukeException("OOPS!!! EVENT tasks must have a description.");
-                }
-                description = parts[1].trim();
-                task = parseEventTask(description, priority);
-                break;
-            default:
-                throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+                case TODO:
+                    if (parts.length == 1 || parts[1].trim().isEmpty()) {
+                        throw new DukeException("OOPS!!! TODO tasks must have a description.");
+                    }
+                    description = parts[1].trim();
+                    task = parseTodoTask(description, priority);
+                    break;
+                case DEADLINE:
+                    if (parts.length == 1 || parts[1].trim().isEmpty()) {
+                        throw new DukeException("OOPS!!! DEADLINE tasks must have a description.");
+                    }
+                    description = parts[1].trim();
+                    task = parseDeadlineTask(description, priority);
+                    break;
+                case EVENT:
+                    if (parts.length == 1 || parts[1].trim().isEmpty()) {
+                        throw new DukeException("OOPS!!! EVENT tasks must have a description.");
+                    }
+                    description = parts[1].trim();
+                    task = parseEventTask(description, priority);
+                    break;
+                default:
+                    throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } catch (IllegalArgumentException e) {
             throw new DukeException("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -295,42 +281,42 @@ public class Parser {
 
 
         switch (taskType) {
-        case "T":
-            // Check if the description contains date information
-            String[] todoParts = description.split(" \\(from: | to: ", 3);
+            case "T":
+                // Check if the description contains date information
+                String[] todoParts = description.split(" \\(from: | to: ", 3);
 
-            if (todoParts.length == 3) {
-                LocalDate fromDate = LocalDate.parse(todoParts[1]);
-                LocalDate toDate = LocalDate.parse(todoParts[2].substring(0, todoParts[2].length() - 1));
-                return new TodoTask(todoParts[0], fromDate, toDate, isDone, priority);
-            } else {
-                throw new DukeException("Invalid todo task format in the file.");
-            }
+                if (todoParts.length == 3) {
+                    LocalDate fromDate = LocalDate.parse(todoParts[1]);
+                    LocalDate toDate = LocalDate.parse(todoParts[2].substring(0, todoParts[2].length() - 1));
+                    return new TodoTask(todoParts[0], fromDate, toDate, isDone, priority);
+                } else {
+                    throw new DukeException("Invalid todo task format in the file.");
+                }
 
-        case "D":
-            // Check if the description contains date information
-            String[] deadlineParts = description.split(" \\(by: ", 2);
+            case "D":
+                // Check if the description contains date information
+                String[] deadlineParts = description.split(" \\(by: ", 2);
 
-            if (deadlineParts.length == 2) {
-                LocalDate byDate = LocalDate.parse(deadlineParts[1].substring(0, deadlineParts[1].length() - 1));
-                return new DeadlineTask(deadlineParts[0], byDate, isDone, priority);
-            } else {
-                throw new DukeException("Invalid deadline task format in the file.");
-            }
+                if (deadlineParts.length == 2) {
+                    LocalDate byDate = LocalDate.parse(deadlineParts[1].substring(0, deadlineParts[1].length() - 1));
+                    return new DeadlineTask(deadlineParts[0], byDate, isDone, priority);
+                } else {
+                    throw new DukeException("Invalid deadline task format in the file.");
+                }
 
-        case "E":
-            // Check if the description contains date information
-            String[] eventParts = description.split(" \\(at: ", 2);
+            case "E":
+                // Check if the description contains date information
+                String[] eventParts = description.split(" \\(at: ", 2);
 
-            if (eventParts.length == 2) {
-                LocalDate atDate = LocalDate.parse(eventParts[1].substring(0, eventParts[1].length() - 1));
-                return new EventTask(eventParts[0], atDate, isDone, priority);
-            } else {
-                throw new DukeException("Invalid event task format in the file.");
-            }
+                if (eventParts.length == 2) {
+                    LocalDate atDate = LocalDate.parse(eventParts[1].substring(0, eventParts[1].length() - 1));
+                    return new EventTask(eventParts[0], atDate, isDone, priority);
+                } else {
+                    throw new DukeException("Invalid event task format in the file.");
+                }
 
-        default:
-            throw new DukeException("Unknown task type in file.");
+            default:
+                throw new DukeException("Unknown task type in file.");
         }
     }
 }

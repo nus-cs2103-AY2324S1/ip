@@ -1,12 +1,12 @@
 package duke.command;
 
-import java.util.ArrayList;
-
 import duke.Parser;
 import duke.Storage;
 import duke.Ui;
 import duke.task.Task;
 import duke.task.TaskList;
+
+import java.util.ArrayList;
 
 /**
  * The FindCommand class represents a command to search for tasks containing a specific keyword.

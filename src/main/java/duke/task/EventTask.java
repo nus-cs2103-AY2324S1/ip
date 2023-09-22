@@ -25,8 +25,7 @@ public class EventTask extends Task {
     }
 
     /**
-     * Returns a string representation of the EventTask, including task type, completion status,
-     * and description details.
+     * Returns a string representation of the EventTask, including task type, completion status, and description details.
      *
      * @return A string representation of the EventTask.
      */

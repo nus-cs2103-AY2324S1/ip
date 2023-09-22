@@ -17,17 +17,17 @@ public enum TaskPriority {
      */
     public static TaskPriority parse(String input) {
         switch (input.toUpperCase()) {
-        case "H":
-        case "HIGH":
-            return HIGH;
-        case "M":
-        case "MEDIUM":
-            return MEDIUM;
-        case "L":
-        case "LOW":
-            return LOW;
-        default:
-            throw new IllegalArgumentException("Invalid priority input: " + input);
+            case "H":
+            case "HIGH":
+                return HIGH;
+            case "M":
+            case "MEDIUM":
+                return MEDIUM;
+            case "L":
+            case "LOW":
+                return LOW;
+            default:
+                throw new IllegalArgumentException("Invalid priority input: " + input);
         }
     }
 
@@ -39,14 +39,14 @@ public enum TaskPriority {
      */
     public String toCode() {
         switch (this) {
-        case HIGH:
-            return "H";
-        case MEDIUM:
-            return "M";
-        case LOW:
-            return "L";
-        default:
-            throw new IllegalArgumentException("Invalid TaskPriority: " + this.name());
+            case HIGH:
+                return "H";
+            case MEDIUM:
+                return "M";
+            case LOW:
+                return "L";
+            default:
+                throw new IllegalArgumentException("Invalid TaskPriority: " + this.name());
         }
     }
 

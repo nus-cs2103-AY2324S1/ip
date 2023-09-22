@@ -1,9 +1,9 @@
 package duke.task;
 
+import duke.command.DukeException;
+
 import java.util.ArrayList;
 import java.util.Collections;
-
-import duke.command.DukeException;
 
 /**
  * The TaskList class represents a list of tasks in the Duke application.

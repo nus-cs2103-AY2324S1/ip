@@ -1,26 +1,13 @@
 # Axela User Guide
 
-Welcome to Axela, your personal AI assistant! This guide will help you get started and make the most of Axela's
+Welcome to Axela, your personal AI assistant! This guide will help you get started and make the most of Axela's 
 features.
-
-## Table of Contents
-1. [Features](#features)
-2. [Usage](#usage)
-    - [Adding a Task](#adding-a-task)
-    - [Exiting the Application](#exiting-the-application)
-    - [Deleting a Task](#deleting-a-task)
-    - [Searching for Tasks](#searching-for-tasks)
-    - [Finding the Features](#finding-the-features)
-    - [Greeting Alexa](#greeting-alexa)
-    - [Listing Tasks](#listing-tasks)
-    - [Marking a Task as Done](#marking-a-task-as-done)
-    - [Marking a Task as Not Done](#marking-a-task-as-not-done)
 
 ## Features
 
 ### Task Management
 
-Axela can help you manage your tasks efficiently. You can add, delete, mark as done, mark as not done, and list
+Axela can help you manage your tasks efficiently. You can add, delete, mark as done, mark as not done, and list 
 tasks. There are three types of tasks:
 
 1. **Todo** - Simple tasks with specific dates indicating from when to when do we carry out the task.
@@ -29,12 +16,16 @@ tasks. There are three types of tasks:
 
 ### Priority Tracking
 
-You can set priorities for your tasks, allowing you to focus on what's most important. Axela supports three priority
+You can set priorities for your tasks, allowing you to focus on what's most important. Axela supports three priority 
 levels: High, Medium, and Low.
 
 ### Task Search
 
 Easily find tasks by searching for keywords or dates. Axela will display tasks matching your search criteria.
+
+### Error Handling
+
+Axela is designed to handle errors gracefully. It provides clear feedback for incorrect commands and formats.
 
 ## Usage
 
@@ -144,5 +135,21 @@ Example:
 unmark 1
 ```
 
-This user guide provides a brief overview of Axela's key features and how to use them effectively. Feel free to explore
+### Error Handling
+
+Axela will guide you if you make errors in commands or formats. For example, if you enter an invalid date format:
+
+```
+event Party /at 2022-35-10
+```
+
+Axela will respond:
+
+```
+Please enter the date in the correct format: YYYY-MM-DD.
+```
+
+---
+
+This user guide provides a brief overview of Axela's key features and how to use them effectively. Feel free to explore 
 and make the most of your AI assistant!
