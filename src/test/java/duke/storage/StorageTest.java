@@ -3,8 +3,6 @@ package duke.storage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import duke.command.Command;
-import duke.command.EventCommand;
 import duke.exception.KoraException;
 
 public class StorageTest {

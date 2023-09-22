@@ -30,7 +30,7 @@ public class DeadlineCommandTest {
                 Assertions.assertThrows(KoraException.class, () -> {
                     Command command = new DeadlineCommand(new String[]{"test"});
                 });
-        String expected = "AiGu! Deadline needs to have a due date!";
+        String expected = "AiGu! Deadline needs to have description and due date!";
         String actual = exception.getMessage();
         Assertions.assertTrue(actual.contains(expected));
     }

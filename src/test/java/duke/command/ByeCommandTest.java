@@ -3,9 +3,6 @@ package duke.command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import duke.exception.KoraException;
 import duke.list.TaskList;
 import duke.storage.Storage;

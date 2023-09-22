@@ -31,7 +31,7 @@ public class EventCommandTest {
                 Assertions.assertThrows(KoraException.class, () -> {
                     Command command = new EventCommand(new String[]{"test", "2023-08-05 00:01"});
                 });
-        String expected = "AiGu! Event needs to have a start date and end date!";
+        String expected = "AiGu! Event needs to have description, start date and end date!";
         String actual = exception.getMessage();
         Assertions.assertTrue(actual.contains(expected));
     }
