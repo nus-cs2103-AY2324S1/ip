@@ -11,6 +11,13 @@ public class Deadline extends Item {
         this.by = by;
     }
 
+    /**
+     * Snoozes this item by 1 day.
+     */
+    public void snooze() {
+        this.by.plusDays(1);
+    }
+
     @Override
     public String toString() {
         String rtnVal = "";

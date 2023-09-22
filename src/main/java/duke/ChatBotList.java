@@ -107,6 +107,26 @@ public class ChatBotList {
         rtnVal = rtnVal.substring(1);
         return rtnVal;
     }
+
+    /**
+     * Snoozes the item in the list.
+     * 
+     * @param query Query string
+     * @return The toString()s of all matching Items
+     */
+    public String snoozeItem(int index) throws ChatBotListException {
+        if (index <= 0 || index >= this.list.size() + 1) {
+            throw new NotInChatBotListException();
+        }
+        Item itemToSnooze = this.list.get(index - 1);
+        if (!(itemToSnooze instanceof Deadline)) {
+            throw new ChatBotListException("You cannot snooze an item that is not a Deadline!");
+        }
+        Deadline deadlineItem = (Deadline) itemToSnooze;
+        deadlineItem.snooze();
+        return itemToSnooze.toString();
+    }
+
     @Override
     public String toString() {
         String rtnVal = "";

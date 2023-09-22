@@ -39,6 +39,8 @@ public class Parser {
                 //fall through
                 case "unmark":
                 //fall through
+                case "snooze":
+                //fall through
                 case "delete":
                     return handleSingleQuery(splitInput);
                 case "event":
