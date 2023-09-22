@@ -1,4 +1,4 @@
-package Tasks;
+package task;
 
 /**
  * Represents a task that the user has to do.

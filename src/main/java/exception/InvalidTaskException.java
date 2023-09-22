@@ -1,4 +1,4 @@
-package Exceptions;
+package exception;
 
 public class InvalidTaskException extends DukeException {
     public InvalidTaskException() {

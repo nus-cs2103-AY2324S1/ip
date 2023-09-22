@@ -1,11 +1,11 @@
-package Chewy;
+package chewy;
 
-import Exceptions.*;
-import Exceptions.InvalidCommandException; // warning is shown in javadocs if not imported
-import Exceptions.InvalidTaskException; // warning is shown in javadocs if not imported
-import Exceptions.NoDescriptionException; // warning is shown in javadocs if not imported
-import Tasks.*;
-import static Chewy.TaskList.validTasks;
+import exception.*;
+import exception.InvalidCommandException; // warning is shown in javadocs if not imported
+import exception.InvalidTaskException; // warning is shown in javadocs if not imported
+import exception.NoDescriptionException; // warning is shown in javadocs if not imported
+import task.*;
+import static chewy.TaskList.validTasks;
 
 /**
  * Parser that helps with parsing user inputs as Strings to various

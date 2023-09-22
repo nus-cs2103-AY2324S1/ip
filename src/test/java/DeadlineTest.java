@@ -1,9 +1,10 @@
-import Exceptions.DukeException;
-import Tasks.Deadline;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import org.junit.jupiter.api.Test;
+
+import exception.DukeException;
+import task.Deadline;
 
 public class DeadlineTest {
     @Test
@@ -17,14 +18,14 @@ public class DeadlineTest {
     }
 
     @Test
-    public void createDeadline_invalidDeadline_exceptionThrown(){
+    public void createDeadline_invalidDeadline_exceptionThrown() {
         try {
             Deadline deadline = new Deadline("xxx /by yyy");
             assertEquals("[D][ ] xxx (by: yyy)", deadline.toString());
             fail();
         } catch (DukeException e) {
-            assertEquals("Invalid Date format. Here are some example dates:\n" +
-                    "6/3/2023, 16/12/2024", e.getMessage());
+            assertEquals("Invalid Date format. Here are some example dates:\n"
+                    + "6/3/2023, 16/12/2024", e.getMessage());
         }
     }
 }

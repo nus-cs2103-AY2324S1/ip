@@ -1,8 +1,8 @@
-package Chewy;
+package chewy;
 
 import java.io.IOException;
 
-import Gui.MainWindow;
+import gui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -1,8 +1,6 @@
-package Chewy;
+package chewy;
 
-import Exceptions.DukeException;
-
-import java.util.List;
+import exception.DukeException;
 
 public class Chewy {
     private final Ui ui;

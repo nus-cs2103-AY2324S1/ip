@@ -1,6 +1,6 @@
-package Chewy;
+package chewy;
 
-import Exceptions.DukeException;
+import exception.DukeException;
 
 /**
  * Represents the User Interface of the Chewy App.

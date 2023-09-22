@@ -1,4 +1,4 @@
-package Exceptions;
+package exception;
 
 public class InvalidDateFormatException extends DukeException {
     public InvalidDateFormatException() {

@@ -1,8 +1,8 @@
-package Chewy;
+package chewy;
 
-import Exceptions.DukeException;
-import Exceptions.NoTaskFoundException;
-import Tasks.Task;
+import exception.DukeException;
+import exception.NoTaskFoundException;
+import task.Task;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;

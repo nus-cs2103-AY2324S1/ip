@@ -1,8 +1,9 @@
-import Exceptions.DukeException;
-import Tasks.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import exception.DukeException;
+import task.Todo;
 
 public class TodoTest {
     @Test

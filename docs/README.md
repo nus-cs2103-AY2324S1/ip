@@ -1,12 +1,12 @@
 # User Guide
-**Chewy** is a personalised chatbot  for managing your tasks, optimized for use via 
+**chewy** is a personalised chatbot  for managing your tasks, optimized for use via 
 a **Command Line Interface (CLI)** while still having the benefits of a **Graphical User Interface (GUI)**. 
-Chewy takes on the personality of the lovely Chewbacca from Star Wars.
+chewy takes on the personality of the lovely Chewbacca from Star Wars.
 ## Features 
 
 ### Todo
 
-Chewy can add a todo task to your task list.
+chewy can add a todo task to your task list.
 Format: `todo <description>`
 * `<description>` can be any string
 
@@ -20,7 +20,7 @@ Got it. I've added this task:
 
 ### Deadline
 
-Chewy can add a deadline task to your task list.\
+chewy can add a deadline task to your task list.\
 Format: `deadline <description> /by <time>`
 * `<time>` must be in the format `dd/MM/yyyy`
 * `<description>` can be any string
@@ -35,7 +35,7 @@ Got it. I've added this task:
 
 ### Event
 
-Chewy can add an event task to your task list.\
+chewy can add an event task to your task list.\
 Format: `event <description> /from <time> /to <time>`
 * `<time>` must be in the format `dd/MM/yyyy HH:mm a`
 * `<description>` can be any string
@@ -50,7 +50,7 @@ Got it. I've added this task:
 
 ### DoAfter
 
-Chewy can add a doafter task to your task list.\
+chewy can add a doafter task to your task list.\
 Format: `doafter <description> /after <time>`
 * `<time>` must be in the format `dd/MM/yyyy HHmm`
 *  `<description>` can be any string
@@ -65,12 +65,12 @@ Got it. I've added this task:
 
 ### Mark as done
 
-Chewy can mark a task as done.\
+chewy can mark a task as done.\
 Format: `mark <task_id>`
 * `<task_id>` must be a valid index of a task in the task list
 
 Example: `mark 1`\
-Special Note: For `doafter` tasks, Chewy will mark the task as 
+Special Note: For `doafter` tasks, chewy will mark the task as 
 done only if the current time is after the time specified in the `/after` field.
 
 Expected Output:
@@ -81,7 +81,7 @@ Nice! I've marked this task as done:
 
 ### Unmark as done
 
-Chewy can unmark a task as done.\
+chewy can unmark a task as done.\
 Format: `unmark <task_id>`
 * `<task_id>` must be a valid index of a task in the task list
 
@@ -95,7 +95,7 @@ Noted. I've marked this task as undone:
 
 ### Delete
 
-Chewy can delete a task from the task list.\
+chewy can delete a task from the task list.\
 Format: `delete <task_id>`
 * `<task_id>` must be a valid index of a task in the task list
 
@@ -109,7 +109,7 @@ Noted. I've removed this task:
 
 ### Find
 
-Chewy can find tasks in the task list that match a keyword.\
+chewy can find tasks in the task list that match a keyword.\
 Format: `find <keyword>`
 * `<keyword>` can be any string
 
