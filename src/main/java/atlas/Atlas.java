@@ -30,14 +30,11 @@ public class Atlas {
      * Returns Atlas's responses based on user input
      * @param input Command entered by user
      * @return Atlas's responses as a string
+     * @throws AtlasException Thrown if exception encountered while executing a command
      */
-    public String getResponse(String input) {
-        try {
-            Command c = parser.parse(input);
-            return c.execute(taskList, storage);
-        } catch (AtlasException e) {
-            return e.getMessage();
-        }
+    public String getResponse(String input) throws AtlasException {
+        Command c = parser.parse(input);
+        return c.execute(taskList, storage);
     }
 
     public String getWelcome() {
