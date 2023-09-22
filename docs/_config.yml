@@ -1,0 +1,5 @@
+# Build settings
+remote_theme: xenosf/jekyll-theme-purpletermx
+markdown: GFM
+plugins:
+  - jekyll-remote-theme
