@@ -9,11 +9,11 @@
          prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <HBox alignment="CENTER">
-            <Label fx:id="dialog" text="Label" wrapText="true" styleClass="text-bubble"/>
+        <HBox>
+            <Label fx:id="dialog" text="Label" wrapText="true" styleClass="chat-box"/>
         </HBox>
         <ImageView fx:id="displayPicture" fitHeight="100.0" fitWidth="100.0"
-                   pickOnBounds="true" preserveRatio="true" />
+                   pickOnBounds="true" preserveRatio="true" styleClass="profile-image"/>
     </children>
     <padding>
         <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
