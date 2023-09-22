@@ -142,11 +142,9 @@ public class ParserGUI {
             default:
                 throw new DukeException("Unrecognized command: " + command, "unrecognized_command");
             }
-        }
-        catch (DukeException e){
+        } catch (DukeException e) {
             return UiGUI.showExError(e.getMessage());
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             // Handle number format exceptions and return an error message to the GUI.
             return UiGUI.showExError("Invalid input format: Please enter a valid number.");
         }

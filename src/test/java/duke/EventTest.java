@@ -1,13 +1,13 @@
-package duke;  //same package as the class being tested
-
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+package duke; //same package as the class being tested
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+
+/**
+ * Class for testing the Event Class
+ */
 public class EventTest {
     @Test
     public void outputTest() {

@@ -1,6 +1,6 @@
 package duke;
 
-import java.util.ArrayList; // import the ArrayList class
+import java.util.ArrayList;
 
 public class TaskList {
     private final ArrayList<Task> myList;

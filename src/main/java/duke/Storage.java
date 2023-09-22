@@ -1,14 +1,9 @@
 package duke;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 
 /**
  * The Storage class handles the saving and loading of task data to and from a file.

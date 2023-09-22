@@ -48,6 +48,7 @@ public class Deadline extends Task {
         this.modeOfTime = 1;
         this.date = by;
     }
+
     /**
      * Constructs a Deadline object with a description and a LocalDateTime deadline.
      *
@@ -126,13 +127,12 @@ public class Deadline extends Task {
      *
      * @return The date of the deadline.
      */
-    public LocalDate getDate(){
-        if (this.modeOfTime == 1){
+    public LocalDate getDate() {
+        if (this.modeOfTime == 1) {
             return date;
         } else if (this.modeOfTime == 2) {
             return dateTime.toLocalDate();
-        }
-        else{
+        } else {
             return date;
         }
     }

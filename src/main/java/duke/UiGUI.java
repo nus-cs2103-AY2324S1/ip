@@ -39,8 +39,7 @@ public class UiGUI {
      * @param taskType string, the type of task
      */
     public String showError(String taskType) {
-        return this.printLines() + "☹ OOPS!!! The description of a " + taskType
-                + " cannot be empty." + this.printLines();
+        return this.printLines() + "☹ OOPS!!! The description of a " + taskType + " cannot be empty." + this.printLines();
     }
 
     /**
@@ -65,17 +64,7 @@ public class UiGUI {
      * Sends the user a welcome message
      */
     public String hello() {
-        String logo =
-                "___________  __________  __________  ||   \n"
-                        + "|         | |         | |         |  ||      \n"
-                        + "-----------  ---------- ----------   ||  \n"
-                        + "    ||         ||          ||        ||       \n"
-                        + "    ||         ||          ||        ||           \n"
-                        + "    ||         ||          ||        ||           \n"
-                        + "    ||         ||          ||        ||       \n"
-                        + "    ||      __________  __________   ||      \n"
-                        + "    ||      |         | |         |  ______ \n"
-                        + "    ||      ----------  ----------   ______    \n";
+        String logo = "___________  __________  __________  ||   \n" + "|         | |         | |         |  ||      \n" + "-----------  ---------- ----------   ||  \n" + "    ||         ||          ||        ||       \n" + "    ||         ||          ||        ||           \n" + "    ||         ||          ||        ||           \n" + "    ||         ||          ||        ||       \n" + "    ||      __________  __________   ||      \n" + "    ||      |         | |         |  ______ \n" + "    ||      ----------  ----------   ______    \n";
         return this.printLines() + ("Hello! I'm \n" + logo) + "What can I do for you?" + this.printLines();
     }
 
@@ -109,8 +98,7 @@ public class UiGUI {
      * @param item the item marked as done
      */
     public String taskDone(Task item) {
-        return this.printLines() + "Nice! I've marked this task as done:"
-                + item.toString() + this.printLines();
+        return this.printLines() + "Nice! I've marked this task as done:" + item.toString() + this.printLines();
     }
 
     /**
@@ -119,8 +107,7 @@ public class UiGUI {
      * @param item the item that has been unmarked
      */
     public String taskUndone(Task item) {
-        return this.printLines() + ("OK, I've marked this task as not done yet:")
-                + (item.toString()) + this.printLines();
+        return this.printLines() + ("OK, I've marked this task as not done yet:") + (item.toString()) + this.printLines();
     }
 
     /**
@@ -130,8 +117,7 @@ public class UiGUI {
      * @param tasks the TaskList containing the tasks
      */
     public String taskAdd(Task item, TaskList tasks) {
-        return this.printLines() + ("Got it. I've added this task:") + (item.toString())
-                + ("Now you have " + tasks.getList().size() + " tasks in the list.") + this.printLines();
+        return this.printLines() + ("Got it. I've added this task:") + (item.toString()) + ("Now you have " + tasks.getList().size() + " tasks in the list.") + this.printLines();
     }
 
     /**
@@ -141,23 +127,20 @@ public class UiGUI {
      * @param tasks the TaskList
      */
     public String taskDelete(Task item, TaskList tasks) {
-        return this.printLines() + ("Noted. I've removed this task:") + "\n"
-                + (item.toString()) + ("Now you have "
-                + tasks.getList().size() + " tasks in the list.") + this.printLines();
+        return this.printLines() + ("Noted. I've removed this task:") + "\n" + (item.toString()) + ("Now you have " + tasks.getList().size() + " tasks in the list.") + this.printLines();
     }
 
     /**
      * Prints that an unrecognised command was found
      */
     public String unrecognisedCommand() {
-        return ("____________________________________________________________")
-                + " ☹ OOPS!!! I'm sorry, but I don't know what that means :-("
-                + ("____________________________________________________________");
+        return ("____________________________________________________________") + " ☹ OOPS!!! I'm sorry, but I don't know what that means :-(" + ("____________________________________________________________");
     }
 
 
     /**
      * Prints the tasks that match the query string
+     *
      * @param tasks The TaskList
      * @param query the String the user wishes to query with
      */
@@ -177,10 +160,11 @@ public class UiGUI {
 
     /**
      * Reminds the user of the deeadlines coming up
-     * @param tasks The TaskList
+     *
+     * @param tasks        The TaskList
      * @param numberOfDays the number of days until the deadline is due
      */
-    public String remind (TaskList tasks, int numberOfDays){
+    public String remind(TaskList tasks, int numberOfDays) {
         // Get the current date
         LocalDate currentDate = LocalDate.now();
 
@@ -189,9 +173,7 @@ public class UiGUI {
 
         // Create a StringBuilder to store the reminders
         String reminders = "";
-        reminders += ("Here are the deadlines in the next ")
-                +(numberOfDays)
-                +(" days:\n");
+        reminders += ("Here are the deadlines in the next ") + (numberOfDays) + (" days:\n");
 
         int i = 1;
         for (Task task : tasks.getList()) {
@@ -200,7 +182,7 @@ public class UiGUI {
                 if (!deadline.isDone()) {
                     LocalDate taskDate = deadline.getDate();
                     if (taskDate != null && taskDate.isBefore(thresholdDate)) {
-                        reminders+= (i) + (". ") + (task) + ("\n");
+                        reminders += (i) + (". ") + (task) + ("\n");
                         i++;
                     }
                 }

@@ -1,23 +1,20 @@
 package duke;
 
-import java.util.Scanner;
-import java.util.ArrayList; // import the ArrayList class
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 
 /**
@@ -27,22 +24,20 @@ import javafx.scene.image.ImageView;
  */
 public class Duke extends Application {
 
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    String saveFileDir = "./data/duke.txt";
+    UiGUI UiGUI = new UiGUI();
+    Storage storage = new Storage(saveFileDir);
+    TaskList tasks = new TaskList(storage.loadSaveFile());
+    ParserGUI parserGUI = new ParserGUI(tasks, UiGUI, storage);
+    ArrayList<Task> myList = new ArrayList<Task>(); // Create an ArrayList object
+    Scanner myScanner = new Scanner(System.in);
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
-    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
-
-    String saveFileDir = "./data/duke.txt";
-    UiGUI UiGUI = new UiGUI();
-    Storage storage = new Storage(saveFileDir);
-    ArrayList<Task> myList = new ArrayList<Task>(); // Create an ArrayList object
-    TaskList tasks = new TaskList(storage.loadSaveFile());
-    Scanner myScanner = new Scanner(System.in);
-    ParserGUI parserGUI = new ParserGUI(tasks, UiGUI, storage);
-
 
     @Override
     public void start(Stage stage) {
@@ -126,7 +121,6 @@ public class Duke extends Application {
         dukeText = new Label(UiGUI.remind(tasks, 3));
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
     }
-
 
 
     /**

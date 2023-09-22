@@ -1,9 +1,12 @@
-package duke;  //same package as the class being tested
-
-import org.junit.jupiter.api.Test;
+package duke; //same package as the class being tested
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * Class for testing the Task Class
+ */
 public class TaskTest {
     @Test
     public void outputTest() {

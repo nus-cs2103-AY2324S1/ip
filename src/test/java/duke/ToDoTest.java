@@ -1,9 +1,12 @@
-package duke;  //same package as the class being tested
-
-import org.junit.jupiter.api.Test;
+package duke; //same package as the class being tested
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
+/**
+ * Class for testing the ToDo Class
+ */
 public class ToDoTest {
     @Test
     public void outputTest() {
