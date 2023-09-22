@@ -7,7 +7,7 @@ public class Ui {
     /**
      * The application's logo.
      */
-    private static String logo = "Ms Frizzle";
+    private static String logo = "Geck";
 
     /**
      * Displays a welcome message to the user.
@@ -17,7 +17,7 @@ public class Ui {
     public static String showWelcomeMessage() {
         showLine();
         return "Hello Class! " + logo
-                + " here!\nWhat adventure shall we go on today?";
+                + ", Ms Frizzle's pet here!\nWhat adventure shall we go on today?";
     }
     /**
      * Displays a line separator.
