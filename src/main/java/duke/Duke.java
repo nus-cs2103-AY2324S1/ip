@@ -157,6 +157,9 @@ public class Duke {
         if (command == Command.BYE) {
             storage.writeTasks(tasks);
             response = executeSingleCommand(command);
+            if (inputs.length > 1) {
+                response = Ui.getResponse("Please enter 'bye' without any arguments to exit");
+            }
             return response;
         } else if (command == Command.HELP) {
             response = executeSingleCommand(command);
