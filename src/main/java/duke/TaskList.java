@@ -20,7 +20,6 @@ public class TaskList {
      * from saved data.
      *
      * @param ss ArrayList of strings loaded from external data storage
-     * @param dtf Datetime formatter used to recognize dates in saved data
      * @throws DukeException when the string format cannot be recognized and converted to TaskType
      */
 

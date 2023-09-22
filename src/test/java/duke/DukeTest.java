@@ -2,7 +2,11 @@ package duke;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
+
+
 
 public class DukeTest {
 
@@ -17,11 +21,10 @@ public class DukeTest {
             Deadline deadline = new Deadline("help", true,
                     "/by 8/8/2020 1630");
             String formattedDeadline = deadline.getFormattedDatetime(dtf.getOutFormatter());
-            assert(formattedDeadline.equals("[D][X]  help (by: 2020-08-08 16:30)"));
+            assert(formattedDeadline.equals("(by: 2020-08-08 16:30)"));
         } catch (DukeException e) {
             System.out.println("Error occurred while converting item to string.");
         }
-
     }
     @Test
     public void testTaskListSize() {
@@ -32,11 +35,29 @@ public class DukeTest {
             tl.addItem(deadline);
             tl.addItem(deadline);
             tl.addItem(deadline);
-            int size = tl.getSize();
-            assertEquals(size, 3);
+            assertEquals(tl.getSize(), 3);
+            tl.removeItem(0);
+            assertEquals(tl.getSize(), 2);
+            tl.addItem(null);
+            assertEquals(tl.getSize(), 3);
+
         } catch (DukeException e) {
             System.out.println("Error occurred while adding items to Tasklist.");
         }
+    }
+
+    @Test
+    public void testParseDatetime() {
+
+        LocalDateTime dt1 = DtFormat.parseDateString("18/8/2020 1630");
+        LocalDateTime dt2 = DtFormat.parseDateString("2020-8-18 16:30");
+        assertEquals(dt1, dt2);
+
+        LocalDateTime dt3 = DtFormat.parseDateString("18/8/2020");
+        LocalDateTime dt4 = DtFormat.parseDateString("2020-8-18 00:00");
+        LocalDateTime dt5 = DtFormat.parseDateString("2020-8-18");
+        assertEquals(dt3, dt4);
+        assertEquals(dt4, dt5);
     }
 
     @Test
