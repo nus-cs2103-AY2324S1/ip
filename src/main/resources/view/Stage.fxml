@@ -13,7 +13,7 @@
         <Scene fx:id="scene">
             <AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="400.0">
             <children>
-               <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                   <content>
                      <VBox fx:id="messagesHolder" />
                   </content></ScrollPane>
