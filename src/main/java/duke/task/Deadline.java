@@ -10,7 +10,7 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructor for a duke.task.Deadline instance.
+     * Constructs a duke.task.Deadline instance.
      *
      * @param description The description of the underlying task.
      * @param by          The date by which the task is due.
@@ -33,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Get a formatted string of the duke.task.Deadline task to add to the save file.
+     * Returns a formatted string of the duke.task.Deadline task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */
@@ -46,7 +46,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Clone this duke.task.Deadline instance.
+     * Clones this duke.task.Deadline instance.
      *
      * @return The cloned instance.
      */

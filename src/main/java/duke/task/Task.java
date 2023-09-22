@@ -8,7 +8,7 @@ public abstract class Task implements Cloneable {
     protected boolean isDone;
 
     /**
-     * Constructor for a duke.task.Task instance.
+     * Constructs a duke.task.Task instance.
      *
      * @param description The description of the task.
      */
@@ -28,14 +28,14 @@ public abstract class Task implements Cloneable {
     }
 
     /**
-     * Mark the task as done.
+     * Marks the task as done.
      */
     public void markAsDone() {
         this.isDone = true;
     }
 
     /**
-     * Mark the task as undone.
+     * Marks the task as undone.
      */
     public void markAsUndone() {
         this.isDone = false;
@@ -52,14 +52,14 @@ public abstract class Task implements Cloneable {
     }
 
     /**
-     * Get a formatted string of the duke.task.Task to add to the save file.
+     * Returns a formatted string of the duke.task.Task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */
     public abstract String getSaveString();
 
     /**
-     * Clone this duke.task.Task instance.
+     * Clones this duke.task.Task instance.
      *
      * @return The cloned instance.
      */

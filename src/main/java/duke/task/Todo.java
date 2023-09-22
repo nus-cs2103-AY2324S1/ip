@@ -6,7 +6,7 @@ package duke.task;
 public class Todo extends Task {
 
     /**
-     * Constructor for a duke.task.Todo instance.
+     * Constructs a duke.task.Todo instance.
      *
      * @param description The description of the underlying task.
      */
@@ -25,7 +25,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Get a formatted string of the duke.task.Todo task to add to the save file.
+     * Returns a formatted string of the duke.task.Todo task to add to the save file.
      *
      * @return A formatted string with the relevant information for the save file.
      */
@@ -37,7 +37,7 @@ public class Todo extends Task {
     }
 
     /**
-     * Clone this duke.task.Todo instance.
+     * Clones this duke.task.Todo instance.
      *
      * @return The cloned instance.
      */
