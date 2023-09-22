@@ -33,8 +33,7 @@ public class Duke {
             startupFileLoadMessage = ui.showLoadedTasks(taskList);
 
         } catch (FileNotFoundException fileNotFoundException) {
-            startupFileLoadMessage = ui.generateErrorMessage(
-                    "Previous data file not found, starting from fresh task list.");
+            startupFileLoadMessage = "     Previous data file not found, starting from fresh task list.";
             taskList = new TaskList();
         } catch (DukeException dukeException) {
             startupFileLoadMessage = ui.generateErrorMessage(dukeException.getMessage());
