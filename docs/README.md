@@ -16,15 +16,13 @@ Like the 1337coder you are. :)
 
 Command: `list`
 
-Example of usage: 
-`list`
-
 Expected outcome:
 Lists all tasks currently tracked, or infoms you if you have no currently tracked tasks.
 
 ### `mark` - mark a task as done
 
 Command: `mark <index>`
+
 where `<index>` is the corresponding number of the task when displayed with `list`.
 
 Example of usage: 
@@ -36,6 +34,7 @@ Marks the fifth task in your list as done, or informs you that the index is out 
 ### `unmark` - mark a task as not done
 
 Command: `unmark <index>`
+
 where `<index>` is the corresponding number of the task when displayed with `list`.
 
 Example of usage: 
@@ -47,6 +46,7 @@ Marks the fifth task in your list as not done, or informs you that the index is 
 ### `delete` - stop tracking a task
 
 Command: `delete <index>`
+
 where `<index>` is the corresponding number of the task when displayed with `list`.
 
 Example of usage: 
@@ -69,6 +69,7 @@ Starts tracking a task called "tP brainstorming".
 ### `deadline` - create a task with a deadline
 
 Command: `deadline <description> /by <date>`
+
 where `<description>` is any text without `/` (character reserved for commands),
 and `<date>` is a date in `YYYY-MM-DD` format.
 
@@ -81,6 +82,7 @@ Starts tracking a task called "iP is due" that has a due date that is 22nd Septe
 ### `event` - create a task with start and end dates
 
 Command: `event <description> /from <date> /to <date>`
+
 where `<description>` is any text without `/` (character reserved for commands),
 and `<date>` is a date in `YYYY-MM-DD` format.
 
@@ -93,6 +95,7 @@ Starts tracking an event called "iP-related panic" that started on 15th Septembe
 ### `edit` - change the details of a task
 
 Command: `edit <index> /<parameter> <value>`
+
 where `<index>` is the corresponding number of the task when displayed with `list`,
 `<parameter>` is a word describing the specific information to change (see elaboration and examples below),
 and `value` is any text without `/` (character reserved for commands), or a date in `YYYY-MM-DD` format (depending on the `<info>`).
@@ -109,6 +112,7 @@ If the second task in the list is a `deadline` with a due date of 22nd September
 ### `find` - find tasks with matching descriptions
 
 Command: `find <description>`
+
 where `<description>` is any text without `/` (character reserved for commands).
 Matches partial descriptions as well.
 
