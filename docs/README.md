@@ -1,5 +1,11 @@
 # Chat Bot User Guide
 
+## Installation
+1. Download ChatBot.jar file to a you desired directory.
+2. Run ChatBot.jar
+
+Note that on first use, a data folder will be created, that contains saved data. **Do not modify the list.txt inside.**
+
 ## Features 
 
 1. Add 3 different type of tasks: Todo, Deadline, Event.
@@ -10,7 +16,7 @@
 
 # Chat Bot
 
-Chat Bot is a chat bot that allows you to add, manange and view tasks to be done in an interactive manner
+Chat Bot is a chat bot that allows you to add, manage and view tasks to be done in an interactive manner
 
 ## Basics
 
