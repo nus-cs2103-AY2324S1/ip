@@ -53,7 +53,7 @@ public class Dukduk {
                 case "unmark":
                     return handleUnmark(input, firstInput);
                 case "delete":
-                    return handleDelete(input);
+                    return handleDelete(input, firstInput);
                 case "find":
                     return handleFind(input, firstInput);
                 default:
@@ -159,10 +159,15 @@ public class Dukduk {
      * Handles the "delete" command for deleting a task.
      *
      * @param input The input command for deleting a task.
+     * @param firstInput The first word of the input command ("delete").
      * @return The response message after deleting the task.
      * @throws DukdukException If an error occurs during task deletion.
      */
-    public String handleDelete(String input) throws DukdukException {
+    public String handleDelete(String input, String firstInput) throws DukdukException {
+        if (input.length() <= firstInput.length()) {
+            throw new DukdukException("QUACKKK!!! Please provide additional information for the '" +
+                    firstInput + "' command.");
+        }
         String[] parts = input.split(" ");
         int deleteTaskIndex = Integer.parseInt(parts[1]) - 1;
         if (parts.length != 2) {
