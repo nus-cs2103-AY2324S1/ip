@@ -1,4 +1,6 @@
-package Alex;
+package Alex.commands;
+
+import Alex.ui.Ui;
 
 /**
  * A class that represents the command for exiting the execution of Alex bot.

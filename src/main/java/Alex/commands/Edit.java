@@ -1,4 +1,4 @@
-package Alex;
+package Alex.commands;
 
 public enum Edit {
     MARK,

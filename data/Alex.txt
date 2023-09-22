@@ -1,4 +1,4 @@
 T return book 0
 T read book 1
-E meeting /from 2023-09-25 2000 /to 2023-09-25 2200 0
+E meeting /from 2023-09-25 2000 /to 2023-09-25 2200 1
 D assigment /by 2023-09-29 2359 0

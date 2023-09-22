@@ -1,4 +1,8 @@
-package Alex;
+package Alex.commands;
+
+import Alex.AlexException;
+import Alex.ui.Ui;
+import Alex.tasks.TaskList;
 
 import java.time.format.DateTimeParseException;
 

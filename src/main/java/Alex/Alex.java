@@ -1,5 +1,9 @@
 package Alex;
 
+import Alex.commands.Command;
+import Alex.commands.Parser;
+import Alex.ui.Ui;
+
 /**
  * This class represents the bot that manage our task.
  */

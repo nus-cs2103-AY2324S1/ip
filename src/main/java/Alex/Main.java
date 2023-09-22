@@ -2,6 +2,7 @@ package Alex;
 
 import java.io.IOException;
 
+import Alex.ui.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

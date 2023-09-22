@@ -1,4 +1,4 @@
-package Alex;
+package Alex.commands;
 
 /**
  * An abstract class represents general command which is going to be extended from a more concrete command class.

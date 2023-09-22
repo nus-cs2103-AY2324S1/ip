@@ -1,4 +1,6 @@
-package Alex;
+package Alex.commands;
+
+import Alex.ui.Ui;
 
 /**
  * A class that extends from Command class. The instance of this class represents a command that is not predefined

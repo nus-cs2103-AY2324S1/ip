@@ -1,4 +1,4 @@
-package Alex;
+package Alex.commands;
 
 /**
  * A class that represents "user command parser" to parse the user input command string.

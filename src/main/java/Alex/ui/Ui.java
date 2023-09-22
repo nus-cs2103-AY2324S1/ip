@@ -1,6 +1,9 @@
-package Alex;
+package Alex.ui;
 
 import java.util.Scanner;
+
+import Alex.storage.UserInputStorage;
+
 
 /**
  * A class that is used to deal with user interface related stuff. Its behaviours include printing greeting message,

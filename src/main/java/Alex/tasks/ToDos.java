@@ -1,5 +1,7 @@
-package Alex;
+package Alex.tasks;
 
+
+import Alex.AlexException;
 
 /**
  * A class that can be instantiated to represent a task that has no deadline or there is no need to specify time.

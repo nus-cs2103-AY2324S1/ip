@@ -1,5 +1,10 @@
-package Alex;
+package Alex.commands;
 
+
+import Alex.AlexException;
+import Alex.ui.Ui;
+import Alex.tasks.Task;
+import Alex.tasks.TaskList;
 
 /**
  * A class that extends from Command class. It represents a command that is trying to mark a task bo be done, unmark

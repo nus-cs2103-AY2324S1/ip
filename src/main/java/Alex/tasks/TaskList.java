@@ -1,4 +1,4 @@
-package Alex;
+package Alex.tasks;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -6,6 +6,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import Alex.AlexException;
+
 
 /**
  * A class represents a "temporary storage" for the task(s) key in by the user every time the user run the chat bot

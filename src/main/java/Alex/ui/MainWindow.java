@@ -1,5 +1,6 @@
-package Alex;
+package Alex.ui;
 
+import Alex.Alex;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

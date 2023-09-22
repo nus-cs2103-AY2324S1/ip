@@ -1,5 +1,8 @@
 package Alex;
 
+import Alex.commands.Command;
+import Alex.commands.Parser;
+import Alex.commands.UnknownCommand;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

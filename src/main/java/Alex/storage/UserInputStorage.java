@@ -1,4 +1,4 @@
-package Alex;
+package Alex.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +9,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import Alex.AlexException;
+import Alex.tasks.*;
+
 
 /**
  * A class that is used to deal with user data storage. For example, storing all the task(s) in TaskList into
