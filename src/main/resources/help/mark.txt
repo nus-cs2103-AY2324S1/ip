@@ -1,6 +1,6 @@
 THE "mark" COMMAND:
 
-Marks the task at the index specified as complete if incomplete or let the user know that it is already marked already if task is complete.
+Marks the task at the index specified as complete, or let the user know that it is already marked complete.
 
 HOW TO USE:
 "mark <index>" - task at index becomes/stays complete. 
@@ -8,4 +8,4 @@ HOW TO USE:
 
 EXAMPLE USE:
 "mark 1" (assuming task at position 1 on list is currently incomplete, it will be marked as complete)
-"mark 2: (assuming task at position 2 on list is currently complete, it will remain complete)
+"mark 2" (assuming task at position 2 on list is currently complete, it will remain complete)

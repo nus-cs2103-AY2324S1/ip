@@ -1,9 +1,9 @@
 THE "clear" COMMAND:
 
-Deletes all task in the list
+Deletes all task in the list.
 
 HOW TO USE:
-"clear" - deletes all task in list
+"clear" - deletes all task in list.
 
 EXAMPLE USE:
 see above

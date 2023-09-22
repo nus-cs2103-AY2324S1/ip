@@ -6,11 +6,11 @@ start and end datetime.
 HOW TO USE:
 "event <description> /from <datetime> /to <datetime>" - creates a deadline task with description specified by a from datetime and a to datetime
 
-<datetime> - can either be date only, time only or both. (e.g. "1 Jan, 8am" - is allowed together or in its elements: "1 Jan", "8am"). to time must be after from time.
+<datetime> - can either be date only, time only or both. (e.g. "1 Jan, 8am" - is allowed together or in its elements: "1 Jan", "8am"). "/to" date and time must be after "/from" date and time. Some combinations of "/from" and "/to" date times are not accepted, check user guide for more info.
 
-for accepted date time formats, type "help datetime" to see all accepted datetime formats
+For accepted date time formats, type "help datetime" to see all accepted date time formats
 
 EXAMPLE USE:
 "event playtime /from 01/01/2023, 1200 /to 6:00pm" (creates an event task for playtime on Jan 1 2023 from 12:00 PM - 6:00 PM)
-"event staycation /from 1 Jan, 1200 /to Jan 3, 12:00 (creates an event for staycation from Jan 1 12:00 PM to Jan 3 2023 12:00 Pm)
-"event walk oreo /from 17:00 /to 1800" (creates an event task to walk oreo today from 5-6pm for date of which task is added)
+"event staycation /from 1 Jan, 1200 /to Jan 3, 12:00 (creates an event for staycation from Jan 1 12:00 PM to Jan 3 2023 12:00 PM for next occurence of the of date range)
+"event walk oreo /from 17:00 /to 1800" (creates an event task to walk oreo for the next occurence of 5:00 PM to 6:00 PM)

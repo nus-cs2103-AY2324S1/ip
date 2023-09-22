@@ -1,7 +1,7 @@
 Hey seems like you need some help!
 
 I am Oreo, your trusty canine friend :D
-I can help you keep track of your task!
+I can help you keep track of your tasks!
 
 Here are some things you can do:
 
@@ -10,15 +10,15 @@ help <command> - learn more about a <command> ✦
 todo - creates a todo task
 deadline - creates a deadline task
 event - creates an event task
-list - lists all task you have created
+list - list all task you have created
 mark - marks task as done
 unmark - unmarks task as incomplete
 delete/clear - deletes a task
 edit/modify/update - modifies a task
-find - search for a task
+find - searches for a task
 save - saves the current tasks to file
-bye - exit the application
+bye - exits the application
 
-try "help datetime" for accepted datetime formats.
+Try "help datetime" for accepted datetime formats.
 
 Try creating a task now! Type "todo play with oreo" or try "help <command>" to learn more about a specific command (e.g. "help todo").

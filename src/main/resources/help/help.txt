@@ -1,11 +1,11 @@
 THE "help" COMMAND:
 
-Provides a simple guide to user on how to use the application.
+Provide a simple guide for users.
 
 HOW TO USE:
-"help" - provides a list of all the commands and a brief description of what they do
+"help" - provide a list of all the commands and a brief description of what they do.
 
-"help <command>" - provides detailed description of the <command> specified, use this to learn more about the command and the proper syntax to use it
+"help <command>" - provide detailed description of the <command> specified, use this to learn more about the command and the proper syntax to use it.
 
 EXAMPLE USE:
 "help" (shows list of all commands)
