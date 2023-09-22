@@ -109,6 +109,16 @@ public class Ui {
     }
 
     /**
+     * Prints a statement to show the note that has been successfully deleted.
+     */
+    public String showDeletedNote(Note note, int nNotes) {
+        String confirmation = "Noted. I've removed this task:\n"
+                + note.toString() + "\n"
+                + String.format("Now you have %d tasks in the list.\n", nNotes);
+        return confirmation;
+    }
+
+    /**
      * Prints a statement to show the task that has been successfully added.
      */
     public String showAddedTask(Task task, int nTasks) {

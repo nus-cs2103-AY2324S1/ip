@@ -3,18 +3,7 @@ package dude;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import dude.command.AddDeadlineCommand;
-import dude.command.AddEventCommand;
-import dude.command.AddNoteCommand;
-import dude.command.AddToDoCommand;
-import dude.command.Command;
-import dude.command.DeleteCommand;
-import dude.command.ExitCommand;
-import dude.command.FindCommand;
-import dude.command.ListCommand;
-import dude.command.MarkCommand;
-import dude.command.UnknownCommand;
-import dude.command.UnmarkCommand;
+import dude.command.*;
 
 /**
  * Represents a parser that parses user input and deals with making sense of the user command.
@@ -45,8 +34,16 @@ public class Parser {
             int taskIndex = Integer.parseInt(commandDetails[1]) - 1;
             c = new UnmarkCommand(taskIndex);
         } else if (commandType.equals("delete")) {
-            int taskIndex = Integer.parseInt(commandDetails[1]) - 1;
-            c = new DeleteCommand(taskIndex);
+            String[] details = commandDetails[1].split(" ");
+            String itemType = details[0];
+            int index = Integer.parseInt(details[1]) - 1;
+            if (itemType.equals("/t")) {
+                c = new DeleteTaskCommand(index);
+            } else if (itemType.equals("/n")) {
+                c = new DeleteNoteCommand(index);
+            } else {
+                c = new UnknownCommand(fullCommand);
+            }
         } else if (commandType.equals("todo")) {
             String taskDescription = commandDetails[1].trim();
             c = new AddToDoCommand(taskDescription);

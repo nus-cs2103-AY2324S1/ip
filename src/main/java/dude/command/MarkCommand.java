@@ -32,7 +32,7 @@ public class MarkCommand extends Command {
             output = "Executing Mark Command\n";
             Task markedTask = taskList.markTask(taskIndex);
             output = output + ui.showMarkedTask(markedTask) + "\n";
-            storage.saveTasksToDisk(taskList, noteList);
+            storage.saveToDisk(taskList, noteList);
         } catch (IOException e) {
             output = "Error in Mark Command\n";
         }

@@ -41,7 +41,7 @@ public class Storage {
      *
      * @param taskList List of tasks to be saved.
      */
-    public void saveTasksToDisk(TaskList taskList, NoteList noteList) throws IOException {
+    public void saveToDisk(TaskList taskList, NoteList noteList) throws IOException {
         File file = new File(this.filepath);
 
         if (!file.exists()) {
@@ -108,7 +108,7 @@ public class Storage {
      * @return List of tasks from the file.
      * @throws FileNotFoundException If no file is not found in the filepath.
      */
-    public TaskList loadTasksFromDisk() throws FileNotFoundException {
+    public TaskList loadFromDisk() throws FileNotFoundException {
         TaskList taskList = new TaskList();
         File file = new File(this.filepath);
 
@@ -152,20 +152,20 @@ public class Storage {
         Task task = null;
 
         if (taskType.equals("T")) {
-            String taskDesription = taskDetails[2].trim();
-            task = new ToDo(taskDesription);
+            String taskDescription = taskDetails[2].trim();
+            task = new ToDo(taskDescription);
         } else if (taskType.equals("D")) {
-            String taskDesription = taskDetails[2].trim();
+            String taskDescription = taskDetails[2].trim();
             String byInput = taskDetails[3];
             LocalDateTime by = LocalDateTime.parse(byInput);
-            task = new Deadline(taskDesription, by);
+            task = new Deadline(taskDescription, by);
         } else if (taskType.equals("E")) {
-            String taskDesription = taskDetails[2].trim();
+            String taskDescription = taskDetails[2].trim();
             String fromInput = taskDetails[3];
             String toInput = taskDetails[4];
             LocalDateTime from = LocalDateTime.parse(fromInput);
             LocalDateTime to = LocalDateTime.parse(toInput);
-            task = new Event(taskDesription, from, to);
+            task = new Event(taskDescription, from, to);
         }
         if (task != null) {
             task.setDone(taskIsDone.equals("1"));

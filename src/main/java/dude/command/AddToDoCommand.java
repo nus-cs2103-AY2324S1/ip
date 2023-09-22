@@ -35,7 +35,7 @@ public class AddToDoCommand extends Command {
             taskList.addTask(newTask);
             int nTasks = taskList.getSize();
             output = output + ui.showAddedTask(newTask, nTasks) + "\n";
-            storage.saveTasksToDisk(taskList, noteList);
+            storage.saveToDisk(taskList, noteList);
         } catch (IOException e) {
             System.out.println("Error in Add ToDo Command");
         }

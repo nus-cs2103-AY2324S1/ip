@@ -32,7 +32,7 @@ public class Dude {
         this.storage = new Storage(filePath);
 
         try {
-            taskList = storage.loadTasksFromDisk();
+            taskList = storage.loadFromDisk();
             noteList = storage.loadNotesFromDisk();
         } catch (FileNotFoundException e) { // DudeException
             ui.showLoadingError();

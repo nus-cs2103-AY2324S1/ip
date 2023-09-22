@@ -39,7 +39,7 @@ public class AddNoteCommand extends Command {
             noteList.addNote(newNote);
             int nTasks = noteList.getSize();
             output = output + ui.showAddedNote(newNote, nTasks) + "\n";
-            storage.saveTasksToDisk(taskList, noteList);
+            storage.saveToDisk(taskList, noteList);
             // storage.saveNotesToDisk(noteList);
         } catch (IOException e) {
             System.out.println("Error in Add ToDo Command");

@@ -31,7 +31,7 @@ public class UnmarkCommand extends Command {
             output = "Executing Unmark Command\n";
             Task unmarkedTask = taskList.unmarkTask(taskIndex);
             output = output + ui.showUnmarkedTask(unmarkedTask) + "\n";
-            storage.saveTasksToDisk(taskList, noteList);
+            storage.saveToDisk(taskList, noteList);
         } catch (IOException e) {
             output = "Error in Unmark Command";
         }
