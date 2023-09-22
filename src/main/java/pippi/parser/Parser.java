@@ -27,9 +27,6 @@ public class Parser {
         String[] input = userInput.split(" ", 2);
         String command = input[0];
         switch (command) {
-        case "bye":
-            output = Ui.wrapText("Bye. Hope to see you again soon!");
-            break;
         case "todo":
             if ((input.length < 2) || input[1].trim().isEmpty()) {
                 output = Ui.wrapText("Moonblast!!! The description of a todo cannot be empty.");
