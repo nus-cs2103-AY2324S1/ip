@@ -1,7 +1,66 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+────────────────────────────────────
+Hello >u<! I'm OwO_bot
 
+  OOOO                         OOOO
+ O    O     w           w     O    O
+ O    O      w   w w   w      O    O
+ O    O       w w   w w       O    O
+  OOOO         w     w         OOOO
+
+How can I help ♥w♥ ?
+────────────────────────────────────
+────────────────────────────────────
+
+added new task:
+[T] [ ] eat dinner
+you now have 1 tasks in your list.
+
+────────────────────────────────────
+────────────────────────────────────
+
+added new task:
+[D] [ ] read book  (by Sunday)
+you now have 2 tasks in your list.
+
+────────────────────────────────────
+────────────────────────────────────
+
+added new task:
+[E] [ ] meeting  (from 2pm  to 4pm)
+you now have 3 tasks in your list.
+
+────────────────────────────────────
+────────────────────────────────────
+
+1
+Yay! You have completed this task:
+[T] [X] eat dinner
+
+────────────────────────────────────
+────────────────────────────────────
+
+2
+Yay! You have completed this task:
+[D] [X] read book  (by Sunday)
+
+────────────────────────────────────
+────────────────────────────────────
+
+Ok... Guess you're not actually done with this:
+[T] [ ] eat dinner
+
+────────────────────────────────────
+────────────────────────────────────
+
+Here are the tasks in your list:
+
+1. [T] [ ] eat dinner
+
+2. [D] [X] read book  (by Sunday)
+
+3. [E] [ ] meeting  (from 2pm  to 4pm)
+
+────────────────────────────────────
+────────────────────────────────────
+Bye! Hope to see you again soon!
+────────────────────────────────────
