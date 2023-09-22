@@ -33,16 +33,16 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline with tag loaded from Storage.
-     * 
+     *
      * @param description Description of task.
-     * @param by Deadline for Deadline as LocalDate.
-     * @param tag Tag of the task.
+     * @param by          Deadline for Deadline as LocalDate.
+     * @param tag         Tag of the task.
      */
     public Deadline(String description, LocalDate by, String tag) {
         super(description, tag);
         this.by = by;
     }
-    
+
     /**
      * toString method for Deadline.
      *

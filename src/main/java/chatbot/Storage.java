@@ -1,7 +1,6 @@
 package chatbot;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -50,7 +49,7 @@ public class Storage {
         int from = task.indexOf("(from: ");
         int to = task.indexOf("to: ");
         String description = task.substring(7, from - 1);
-        
+
         LocalDate start = LocalDate.parse(task.substring(from + 7, to - 1),
                 DateTimeFormatter.ofPattern("MMM d yyyy"));
         LocalDate end = LocalDate.parse(task.substring(to + 4, task.length() - 1),

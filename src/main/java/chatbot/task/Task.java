@@ -26,12 +26,12 @@ public class Task {
         this.isDone = false;
         this.tag = new Tag();
     }
-    
+
     /**
      * Constructor for a task.
-     * 
+     *
      * @param description The task description.
-     * @param tag The tag of the task.
+     * @param tag         The tag of the task.
      */
     public Task(String description, String tag) {
         this.description = description;
