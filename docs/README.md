@@ -8,37 +8,37 @@ Hello! I am Bartholomew Hamish Montgomery, but you can call me Bart 😄
 
 Add any of the following Tasks to start taking control of your day!
 
-- Todo
-- Deadline
-- Event
+- [Todo](#todo---add-a-todo-task)
+- [Deadline](#deadline---add-a-task-with-a-deadline)
+- [Event](#event---add-an-upcoming-event)
 
 ### 2. View Tasks
 
 View all the tasks that you have added:
-- in chronological order
-- in alphabetical order
+- [in chronological order](#list---view-all-the-tasks-in-the-list)
+- [in alphabetical order](#sort---view-all-the-tasks-in-the-list-sorted-by-alphabetical-order)
 
 You can view complete and incomplete Tasks!
 
 ### 3. Delete Tasks
 
-Delete Tasks that have become dead and/or obsolete to declutter using the `delete` command! 🔥
+[Delete](#delete---remove-a-task-from-the-list) Tasks that have become dead and/or obsolete to declutter using the `delete` command! 🔥
 
 ### 4. Mark Tasks
 
 Mark Tasks as:
-- completed ✅
-- incomplete ❌
+- [completed](#mark---mark-a-task-as-complete) ✅
+- [incomplete](#unmark---mark-a-task-as-incomplete) ❌
 
 Keep track of what tasks are pending completion 😄
 
 ### 5. Find Tasks
 
-Too many Tasks to do? Easily find the task that you're looking for 😲
+Too many Tasks to do? Easily [find](#find---find-a-specific-task-that-you-are-looking-for) the task that you're looking for 😲
 
 ### 5. End Chat
 
- Done Talking to Bart? Simply Enter a command and bid farewell!
+ Done Talking to Bart? Simply Enter a [command](#bye---end-the-interaction-with-bart) and bid farewell!
 
 ## Usage
 
