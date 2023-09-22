@@ -89,7 +89,7 @@ public class ChatBotList {
     }
 
     /**
-     * Find the item in the list.
+     * Finds the item in the list.
      * 
      * @param query Query string
      * @return The toString()s of all matching Items
