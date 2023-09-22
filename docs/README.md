@@ -3,7 +3,7 @@
 ## Quick start
 
 1. Ensure that you have Java 11 or above installed in your Computer.
-2. Download the latest `duke.jar` from here.
+2. Download the latest `duke.jar` from [here](https://github.com/zhyuhan/ip/releases).
 3. Copy the file to the folder you want to use as the home folder for your Duke.
 4. Open a command terminal, `cd` into the folder you put the `.jar` file in, and run `java -jar duke.jar`
 5. Type a command in the chat box and press Enter to execute it.
