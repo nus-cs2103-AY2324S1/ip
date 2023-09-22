@@ -1,34 +1,96 @@
 # Oscar
 
-> "I understand that, without my agreement, Alpine F1 have put out a press release late this afternoon that I am driving for them next year. This is wrong and I have not signed a contract with Alpine for 2023. I will not be driving for Alpine next year." - Oscar Piastri ([source](https://twitter.com/OscarPiastri/status/1554527452231262210))
+Oscar is a chatbot named after F1 driver Oscar Piastri. 
+Oscar is a desktop app for managing your notes and tasks via entering commands (case-insensitive).
+This user guide will teach about Oscar's features and how to use Oscar.
 
-Oscar is a chatbot named after F1 driver Oscar Piastri. Oscar is, 
+## Features 
 
-- text-based 📄 
-- user friendly 😃 
-- SUPER DUPER FAST to use 🚀 
+### 📅 Add a Deadline
 
-To use Oscar, all you need to do is ,
-1. download the "oscar-1.0.0.jar" jar file from [here](https://github.com/Cikguseven/ip/releases/tag/Week-3).
-2. save it to any folder.
-3. navigate to that folder.
-4. open the terminal in that folder.
-5. run the command `java -jar oscar-1.0.0.jar`.
-6. enjoy!
+Add a Deadline task to the item list by using the following command:
+```
+deadline [task] /by yyyy-MM-dd HHmm
+```
 
-And it is 100% **FREE**!
+### 📆 Add an Event
 
-### Features:
+Add an Event task to the item list by using the following command:
+```
+event [task] /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm
+```
 
-- [X] Managing tasks
-- [X] Managing deadlines
-- [X] Managing events
-- [X] Adding notes
-- [ ] Reminders (coming soon)
+### ✅ Add a Todo
 
-If you Java programmer, you can use it to practice Java too. Here's the `main` method:
-```java
-public static void main(String[] args) {
-    new Oscar(FILE_PATH).run();
-}
-``` 
+Add a Todo task to the item list by using the following command:
+```
+todo [task]
+```
+
+### 📄 Add a Note
+
+Add a note to the item list by using the following command:
+```
+note [description]
+```
+
+### 🗑️ Delete an item
+
+Delete an item from the item list by using the following command:
+```
+delete [item number]
+```
+
+### 📋️ List all items
+
+List all items stored by Oscar by using the following command:
+```
+list
+```
+
+### 🔍 Find items
+
+Find items containing a keyword by using the following command:
+```
+find [keyword]
+```
+
+### ✔ Mark a task as done
+
+Mark a task (Deadline/Event/Todo) as done by using the following command:
+```
+mark [item number]
+```
+
+### ❌ Mark a task as not done
+
+Mark a task (Deadline/Event/Todo) as not done by using the following command:
+```
+unmark [item number]
+```
+
+### 👋 Exit programme
+
+Exit the programme after a short delay by using the following command:
+```
+bye
+```
+
+## Usage
+
+Type in any of the above commands into the chatbox and hit Enter or click the 'Send' button.
+
+Example of usage: 
+
+`deadline Submit project /by 2023-09-11 2359`
+
+Expected outcome:
+
+Oscar adds your deadline task to the list of items. Oscar then returns the following confirmation message.
+
+```
+Oscar has added:
+[D][] Submit project (by: Sep 11 2023 11:59PM)
+
+You now have X items in the list.
+```
