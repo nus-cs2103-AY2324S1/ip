@@ -146,11 +146,15 @@ public class TaskList {
      * @throws EmptyTaskException If the user input is missing task details.
      */
     public static String makeToDo(String userInput) throws EmptyTaskException {
-        if (userInput.trim().equals("todo")) {
+        if (userInput.equals("todo")) {
             throw new EmptyTaskException("todo");
         }
-
-        String taskName = userInput.substring("todo".length()).trim();
+        String[] todoAndDescription = userInput.split(" ", 2);
+        todoAndDescription = trimStringElements(todoAndDescription);
+        if (todoAndDescription.length == 1) {
+            throw new EmptyTaskException("todo");
+        }
+        String taskName = todoAndDescription[1];
         ToDo newToDo = new ToDo(taskName);
         taskArray.add(newToDo);
 
