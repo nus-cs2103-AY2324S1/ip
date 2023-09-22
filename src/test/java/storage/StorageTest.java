@@ -1,10 +1,11 @@
 package storage;
 //CHECKSTYLE.OFF: CustomImportOrder
+import duke.storage.Storage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDo;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
 
 import java.io.IOException;
 import java.nio.file.Files;

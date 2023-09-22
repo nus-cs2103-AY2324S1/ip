@@ -1,9 +1,10 @@
 package parser;
 
-import commands.Command;
+import duke.commands.Command;
 //CHECKSTYLE.OFF: CustomImportOrder
-import commands.IncorrectCommand;
-import commands.ListoutCommand;
+import duke.commands.IncorrectCommand;
+import duke.commands.ListoutCommand;
+import duke.parser.Parser;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 //CHECKSTYLE.ON: CustomImportOrder

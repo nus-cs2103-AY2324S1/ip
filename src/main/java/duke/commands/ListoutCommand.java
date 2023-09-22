@@ -1,8 +1,8 @@
-package commands;
+package duke.commands;
 
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 /**
  * The `ListoutCommand` class represents a command to list out and display tasks from the task list.
  * When executed, it instructs the user interface to display the list of tasks.

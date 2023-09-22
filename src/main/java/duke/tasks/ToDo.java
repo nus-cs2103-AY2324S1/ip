@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * The `ToDo` class represents a basic to-do task without a specific deadline or event time.

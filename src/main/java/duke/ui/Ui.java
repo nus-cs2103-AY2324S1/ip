@@ -1,8 +1,8 @@
-package ui;
+package duke.ui;
 
-import storage.Storage;
-import tasks.Task;
-import tasks.TaskList;
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 //CHECKSTYLE.OFF: CustomImportOrder
 import java.io.InputStream;

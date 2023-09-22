@@ -1,8 +1,8 @@
-package commands;
+package duke.commands;
 
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 /**
  * The {@code UndoCommand} class represents a command to undo the most recent action in the task management application.

@@ -1,4 +1,4 @@
-package exceptions;
+package duke.exceptions;
 /**
  * The `JamesBondException` class represents a custom exception used in the Duke application.
  * It is a subclass of the `Exception` class and is used to handle application-specific exceptions.

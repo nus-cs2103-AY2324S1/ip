@@ -1,11 +1,11 @@
 package duke;
 
-import commands.Command;
-import exceptions.JamesBondException;
-import parser.Parser;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
+import duke.commands.Command;
+import duke.exceptions.JamesBondException;
+import duke.parser.Parser;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 
 /**

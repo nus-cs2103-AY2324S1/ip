@@ -1,11 +1,11 @@
-package parser;
+package duke.parser;
 
-import commands.*;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
-//CHECKSTYLE.OFF: CustomImportOrder
+import duke.commands.*;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

@@ -1,9 +1,2 @@
 T | 0 | die and eat
-T | 0 | die
-T | 0 | live
-T | 0 | lie
-D | 0 | pig | 2019-12-12T23:59
-E | 0 | duck | 2020-12-12T20:00to2023-12-12T23:59
-T | 0 | die
-T | 0 | die
-D | 0 | do | 2019-12-12T23:59
+

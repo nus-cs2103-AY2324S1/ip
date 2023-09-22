@@ -1,9 +1,9 @@
-package commands;
+package duke.commands;
 
-import storage.Storage;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 /**
  * Represents a command to search for tasks containing a specified keyword.

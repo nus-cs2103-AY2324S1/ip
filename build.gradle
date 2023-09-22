@@ -1,13 +1,8 @@
 plugins {
     id 'java'
     id 'application'
-    id 'checkstyle'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'org.openjfx.javafxplugin' version '0.0.13'
-}
-
-checkstyle {
-    toolVersion = '10.2'
 }
 
 repositories {
@@ -47,13 +42,13 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.Launcher")
 //    mainClass.set("seedu.duke.Main")
 //    mainClassName = 'seedu.duke.Main'
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = 'duke'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     archiveFileName = 'duke.jar'

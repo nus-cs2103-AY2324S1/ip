@@ -1,9 +1,9 @@
-package storage;
+package duke.storage;
 
-import exceptions.JamesBondException;
-import parser.Parser;
-import tasks.Task;
-import tasks.TaskList;
+import duke.exceptions.JamesBondException;
+import duke.parser.Parser;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
 
 //CHECKSTYLE.OFF: CustomImportOrder
 import java.io.BufferedWriter;

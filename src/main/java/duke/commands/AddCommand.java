@@ -1,12 +1,12 @@
-package commands;
+package duke.commands;
 
-import storage.Storage;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.TaskList;
-import tasks.ToDo;
-import ui.Ui;
+import duke.storage.Storage;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.tasks.ToDo;
+import duke.ui.Ui;
 
 //CHECKSTYLE.OFF: CustomImportOrder
 import java.time.LocalDateTime;

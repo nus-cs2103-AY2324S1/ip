@@ -1,9 +1,9 @@
-package commands;
+package duke.commands;
 
-import storage.Storage;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 
 /**
  * The DeleteCommand class represents a command to delete a specific task from the task list.

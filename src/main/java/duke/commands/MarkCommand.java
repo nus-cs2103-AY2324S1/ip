@@ -1,9 +1,9 @@
-package commands;
+package duke.commands;
 
-import storage.Storage;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
+import duke.storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
 /**
  * The `MarkCommand` class represents a command to mark a specific task as done in the task list.
  * When executed, it marks the specified task as done and displays a message to the user.
