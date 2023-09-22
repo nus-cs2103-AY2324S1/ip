@@ -21,21 +21,7 @@ public class Ui {
         System.out.println("-------------------------------");
     }
 
-    /**
-     * Closes the scanner used for user input.
-     */
-    public void exit() {
-        this.scanner.close();
-    }
 
-    /**
-     * Reads and returns user input as a string.
-     *
-     * @return The user's input as a string.
-     */
-    public String getUserInput() {
-        return this.scanner.nextLine();
-    }
 
     /**
      * Displays a welcome message when the application starts.
@@ -50,54 +36,31 @@ public class Ui {
     /**
      * Displays a goodbye message when the user exits the application.
      */
-    public void byeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        showLine();
+    public String showByeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Displays a message when a file is successfully created.
-     */
-    public void createFileMessage() {
-        System.out.println("File created: Gideon");
-    }
-
-    /**
-     * Displays a message when a saved file is opened.
-     */
-    public void openFileMessage() {
-        System.out.println("Opening saved file.");
-    }
-
-    /**
-     * Displays a message when there are no tasks in the task list.
-     */
-    public void emptyTaskListMessage() {
-        System.out.println("There are no tasks.");
-    }
 
     /**
      * Displays a list of tasks.
      *
      * @param taskList The list of tasks to display.
      */
-    public void showTasks(TaskList taskList) {
-        showLine();
-        System.out.println("Here are the tasks in your list:");
-        System.out.println(taskList.toString());
-        showLine();
+    public String showTasks(TaskList taskList) {
+        if (taskList.isEmpty()) {
+            return "There are no tasks.";
+        }
+        return "Here are the tasks in your list:" + "\n" + taskList.toString();
     }
 
     /**
      * Displays a message when a task is marked as done.
      *
      * @param task The task that was marked as done.
+     * @return A message to the user that the task is done.
      */
-    public void markedMessage(Task task) {
-        showLine();
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task.toString());
-        showLine();
+    public String markedMessage(Task task) {
+        return "Nice! I've marked this task as done:" + "\n" + task.toString();
     }
 
     /**
@@ -105,11 +68,8 @@ public class Ui {
      *
      * @param task The task that was marked as not done.
      */
-    public void unmarkedMessage(Task task) {
-        showLine();
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(task.toString());
-        showLine();
+    public String unmarkedMessage(Task task) {
+        return "OK, I've marked this task as not done yet:" + "\n" + task.toString();
     }
 
     /**
@@ -118,12 +78,9 @@ public class Ui {
      * @param task       The task that was added.
      * @param numOfTasks The number of tasks in the list after adding.
      */
-    public void addTaskMessage(Task task, int numOfTasks) {
-        showLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-        showLine();
+    public String addTaskMessage(Task task, int numOfTasks) {
+        return "Got it. I've added this task:" + "\n" + task.toString() + "\n"
+                + "Now you have " + numOfTasks + " tasks in the list.";
     }
 
     /**
@@ -132,36 +89,26 @@ public class Ui {
      * @param task       The task that was deleted.
      * @param numOfTasks The number of tasks in the list after deletion.
      */
-    public void deleteTaskMessage(Task task, int numOfTasks) {
-        showLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
-        System.out.println("Now you have " + numOfTasks + " tasks in the list.");
-        showLine();
+    public String deleteTaskMessage(Task task, int numOfTasks) {
+        return "Noted. I've removed this task:" + "\n" + task.toString() + "\n"
+                + "Now you have " + numOfTasks + " tasks in the list.";
     }
 
     /**
      * Displays a message for an invalid user input or command.
      */
-    public void invalidTaskMessage() {
-        showLine();
-        System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        showLine();
+    public String invalidTaskMessage() {
+        return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
     }
 
     /**
      * Displays a message when the user searches for a task.
      */
-    public void findTaskMessage(TaskList taskList, String keyword) {
-        if (!taskList.isEmpty()) {
-            showLine();
-            System.out.println("Here are the matching tasks in your list:");
-            System.out.println(taskList.toString());
-            showLine();
-        } else {
-            showLine();
-            System.out.println("There are no tasks that contain the keyword: " + keyword);
-            showLine();
+    public String findTaskMessage(TaskList taskList, String keyword) {
+        if (taskList.isEmpty()) {
+            return "There are no tasks that contain the keyword: " + keyword;
         }
+
+        return "Here are the matching tasks in your list:" + "\n" + taskList.toString();
     }
 }
