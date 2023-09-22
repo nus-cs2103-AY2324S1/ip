@@ -7,6 +7,11 @@ import java.io.*;
 
 public class Duke {
     private static final String FILE_PATH = "src/main/java/tasks.txt";
+    /**
+     * Main method to start the Duke application.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> tasks = new ArrayList<>(100);
@@ -103,6 +108,11 @@ public class Duke {
     private static String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
+    /**
+     * Loads tasks from a file into the task list.
+     *
+     * @param tasks The ArrayList to store the loaded tasks.
+     */
     private static void loadTasksFromFile(ArrayList<Task> tasks) {
         try {
             File file = new File(FILE_PATH);
@@ -123,6 +133,12 @@ public class Duke {
         }
     }
 
+    /**
+     * Creates a Task object from a line of text in the specified format.
+     *
+     * @param line The line of text containing task details.
+     * @return A Task object representing the task described in the line, or null if parsing fails.
+     */
     private static Task createTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
@@ -164,7 +180,11 @@ public class Duke {
         return task;
     }
 
-
+    /**
+     * Save tasks to a file.
+     *
+     * @param tasks The ArrayList of tasks to save.
+     */
     private static void saveTasksToFile(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
@@ -179,6 +199,9 @@ public class Duke {
     }
 }
 
+/**
+ * Represents a task that can be added to the task list.
+ */
 class Task {
     protected String description;
     protected boolean isDone;
@@ -214,6 +237,9 @@ class Task {
     }
 }
 
+/**
+ * Represents a Todo task.
+ */
 class Todo extends Task {
     public Todo(String description) {
         super(description,null);
@@ -229,6 +255,9 @@ class Todo extends Task {
     }
 }
 
+/**
+ * Represents a Deadline task.
+ */
 class Deadline extends Task {
     protected String by;
 
@@ -245,7 +274,9 @@ class Deadline extends Task {
     }
 }
 
-
+/**
+ * Represents an Event task.
+ */
 class Event extends Task {
     protected String from;
     protected String to;
@@ -265,6 +296,9 @@ class Event extends Task {
     }
 }
 
+/**
+ * Custom exception class for Duke-specific exceptions.
+ */
 class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
