@@ -1,2 +1,4 @@
 E | 0 | 2 | meeting | 2019-08-19 2000 | 2019-08-19 2200 | 2
 T | 0 | 4 | read book
+T | 0 | 0 | readline
+T | 0 | 0 | als

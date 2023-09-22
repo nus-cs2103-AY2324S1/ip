@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Avalon avalon;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Artoria.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Arthur.jpg"));
 
     @FXML
     public void initialize() {
@@ -51,15 +51,15 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAvalonDialog(response, dukeImage)
         );
 
-        if (response.equals("    Farewell. We will meet again!\n")) {
-            PauseTransition wait = new PauseTransition(Duration.seconds(2));
+        if (response.equals("Farewell. We will meet again!\n")) {
+            PauseTransition wait = new PauseTransition(Duration.seconds(1));
             wait.setOnFinished((e) -> {
                 Stage stage = (Stage) sendButton.getScene().getWindow();
                 stage.close();
             });
             wait.play();
-
-            userInput.clear();
         }
+
+        userInput.clear();
     }
 }
