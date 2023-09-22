@@ -1,0 +1,8 @@
+todo borrow book
+deadline return book /by Monday
+event daily scrum /from Mon 8am /to 9am
+list
+mark 1
+bye
+
+
