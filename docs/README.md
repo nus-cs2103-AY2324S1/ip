@@ -118,22 +118,3 @@ Format: `bye`
 ### Saving the data
 
 The data will be automatically saved and updated when you do each operation.
-
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
