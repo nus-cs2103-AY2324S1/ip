@@ -49,8 +49,13 @@ public class FindCommand extends Command {
                 results.add(task);
             }
         }
-        // Display the search results using the provided Ui
-        return ui.showSearchResults(results);
+        if (results.isEmpty()) {
+            return ui.showErrorMessage("Cannot find any matches with your keyword.");
+        }
+        else {
+            // Display the search results using the provided Ui
+            return ui.showSearchResults(results);
+        }
     }
 }
 

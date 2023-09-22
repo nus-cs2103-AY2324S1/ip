@@ -69,6 +69,15 @@ public class TaskList {
     }
 
     /**
+     * Finds out if toDos is empty
+     *
+     * @return true if empty
+     */
+    public boolean isEmpty() {
+        return toDos.isEmpty();
+    }
+
+    /**
      * Finds the index of a task with the specified description in the task list.
      *
      * @param task The description of the task to be found.

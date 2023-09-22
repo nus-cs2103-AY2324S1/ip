@@ -169,8 +169,10 @@ public class Parser {
         if (split.length == 1) {
             return new IncorrectCommand("You didn't tell me ur task and the deadline it's due by. BUCK UP!");
         }
-
         String[] deadline = split[1].split(" /by ", 2);
+        if (deadline.length < 2) {
+            return new IncorrectCommand("Please use '/by' to specify the deadline.");
+        }
         if (deadline[1].isBlank() || deadline[0].isBlank()) {
             return new IncorrectCommand("Please enter a valid deadline.");
         }
@@ -190,7 +192,8 @@ public class Parser {
      */
     public static Command checkEvent(String[] split) {
         if (split.length == 1 || !split[1].contains(" /from ")) {
-            return new IncorrectCommand("You didn't tell me ur task and the time period it's due by. BUCK UP!");
+            return new IncorrectCommand("You didn't tell me ur task and the time period it's due by. " +
+                    "BUCK UP! type in the format /from [yyyy-mm-dd 24:00] /to [yyyy-mm-dd 24:00]");
         }
         try {
             String[] task = split[1].split(" /from ", 2);
