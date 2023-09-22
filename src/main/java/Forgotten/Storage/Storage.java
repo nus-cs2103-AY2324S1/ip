@@ -90,6 +90,7 @@ public class Storage {
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
         }
+        assert !file.exists(): "File does not exist";
     }
 
     public void rewriteFile(ArrayList<Task> tasks) {

@@ -57,6 +57,7 @@ public class Parser {
                     response += "OOPS!!! You have entered a wrong date format.\nPlease follow this format:\nyyyy-mm-dd";
                 }
         }
+        assert !response.equals(""): "The bot response should not be empty";
         return response;
     }
 }
