@@ -69,7 +69,7 @@ public class Duke extends Application {
     public void formatWindow(Stage stage) {
         //Step 2. Formatting the window to look as expected
         stage.setTitle("Duke");
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 

@@ -83,7 +83,7 @@ public class Deadlines extends Task {
         String isCompleted = this.isCompleted() ? "[X] " : "[ ] ";
         String taskType = "[" + this.getType() + "]";
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, hh:mm a");
-        String byMessage = "by: " + getDate().format(outputFormatter);
-        return taskType + isCompleted + this.getDescription() + "(" + byMessage + ")";
+        String byMessage = "by " + getDate().format(outputFormatter);
+        return taskType + isCompleted + this.getDescription() + " (" + byMessage + ")";
     }
 }
