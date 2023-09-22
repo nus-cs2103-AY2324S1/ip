@@ -146,10 +146,10 @@ public class TaskList {
             return "No matching tasks found.";
         }
 
-        String s = "Here are the matching tasks in your list:";
+        String s = "Here are the matching tasks in your list: \n";
         for (int i = 0; i < foundTasks.size(); i++) {
             Task task = foundTasks.get(i);
-            s = s + (i + 1) + ". " + task.getDescription();
+            s = s + (i + 1) + ". " + task.getDescription() + "\n";
         }
         return s;
     }
