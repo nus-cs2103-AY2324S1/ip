@@ -1,4 +1,4 @@
-# Dukey o(^▽^)o
+# Dukey
 _Dukey can help you manage your tasks!_
 
 ##  Features
