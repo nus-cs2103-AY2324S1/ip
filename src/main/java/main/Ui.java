@@ -94,6 +94,7 @@ public class Ui extends Application {
 
         this.portraitUser = new Image(this.getClass().getResourceAsStream("/images/Portrait_User.png"));
         this.portraitBot = new Image(this.getClass().getResourceAsStream("/images/Portrait_Bot.png"));
+        Main.getInstance().loadTaskListFromFile();
         Main.getInstance().getParser().executeCommand("intro");
     }
 
@@ -154,6 +155,19 @@ public class Ui extends Application {
         this.dialogContainer.getChildren().add(messageBubble);
     }
 
+    public void showErrorMessageBox(String message) {
+        ButtonType exitBtn = new ButtonType("Exit Program");
+        ButtonType proceedBtn = new ButtonType("Proceed");
+        Alert errorMessageBox = new Alert(Alert.AlertType.ERROR,"", exitBtn, proceedBtn);
+        errorMessageBox.setHeaderText("Error: " + message);
+        errorMessageBox.showAndWait().ifPresent(
+                result->{
+                    if(result == exitBtn) {
+                        Main.getInstance().exit();
+                    }
+                }
+        );
+    }
 
     /**
      * Returns the Ui singleton instance

@@ -31,7 +31,6 @@ public class Main {
      */
     public Main() {
         this.parser = new Parser();
-        this.taskList = Storage.createTaskListFromFile();
         this.parser.registerCommand("intro", new CommandIntroHandler());
         this.parser.registerCommand("list", new CommandListHandler());
         this.parser.registerCommand("add", new CommandAddTaskHandler());
@@ -64,6 +63,15 @@ public class Main {
 
     private static void initialize() {
         INSTANCE = new Main();
+    }
+
+    /**
+     * Load task list from file.
+     * This should be called after the Ui instance with all Ui components has been initialized
+     * in order to use the Ui for reporting errors when reading file.
+     */
+    public void loadTaskListFromFile() {
+        this.taskList = Storage.createTaskListFromFile();
     }
 
     /**

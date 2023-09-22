@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.EOFException;
+import java.util.function.Predicate;
 
 public class Storage {
     private static final String PATH = "data.bin";
@@ -65,7 +66,9 @@ public class Storage {
             return tl;
         }
         catch (Exception e){
-            System.out.println("Warning: Unable to read tasks from file. " + e.getMessage());
+            Ui.getInstance().sayError("Error: Unable to read tasks from file. " + e.getMessage());
+            Ui.getInstance().showErrorMessageBox(
+                    "Unable to read tasks from file.\nClick 'Proceed' to continue with an empty task list.");
             return new TaskList();
         }
     }
