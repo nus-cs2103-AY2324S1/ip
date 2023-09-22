@@ -40,6 +40,9 @@ public class MarkCommand extends Command {
 
         Task taskToMark = tasks.get(taskIndexToMark - 1);
         taskToMark.mark();
+
+        assert taskToMark.isDone() : "Task should be marked as done after executing the MarkCommand";
+
         storage.saveTasks(tasks);
         return ui.displayMarkedTask(taskToMark);
 
