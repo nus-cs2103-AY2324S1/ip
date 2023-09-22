@@ -69,13 +69,13 @@ public class Parser {
             String to = command.split("\\s*/to\\s*")[1].trim();
             return new EventCommand(description, from, to);
         } else if (command.split(" ")[0].equals("deadline")) {
-            String description = command.split("/by")[0].trim();
+            String description = command.split("deadline")[1].split("/by")[0].trim();
             String date = command.split("by")[1].trim();
             return new DeadlineCommand(description, date);
         } else if (command.equals("list")) {
             return new ListCommand();
         } else if (command.split(" ")[0].equals("delete")) {
-            int index = Integer.parseInt(command.split(" ")[1]) - 1;
+            int index = Integer.parseInt(command.split(" ")[1]);
             return new DeleteCommand(index);
         } else if (command.split(" ")[0].equals("mark")) {
             return new MarkCommand(Integer.parseInt(command.split(" ")[1].trim()));

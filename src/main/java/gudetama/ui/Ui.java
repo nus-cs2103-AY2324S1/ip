@@ -116,8 +116,8 @@ public class Ui {
      */
     public String showRemovedTask(TaskList taskList, int num) {
         int total = taskList.len() - 1;
-        String output = "Noted. I've removed this task:"
-                + taskList.retrieveList().get(num).toString()
+        String output = "Noted. I've removed this task:\n"
+                + taskList.retrieveList().get(num - 1).toString()
                 + "\n Now you have " + total + " tasks in the list";
 
         return output;

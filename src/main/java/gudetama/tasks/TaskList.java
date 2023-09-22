@@ -32,14 +32,19 @@ public class TaskList {
      * @param num Index of the particular task in the task list
      */
     public String removeTask(int num) {
+        int index = num - 1;
+
         if (num < 0) {
             return "The value cannot be negative. Please try again.";
-        } else if (num >= inputs.size()) {
+        } else if (num == 0){
+            return "The value should be an integer greater than 0. Please try again.";
+        } else if (num > inputs.size()) {
             return "The input value is wrong. Please try again.";
         } else {
-            inputs.remove(num);
-            return "The task has been deleted. \n"
-                    + inputs.get(num).toString();
+            String deleted = inputs.get(index).toString();
+            inputs.remove(index);
+            return "The task has been deleted.\n"
+                    + deleted;
         }
     }
 
@@ -57,7 +62,7 @@ public class TaskList {
             return "The input value is wrong. Please try again.";
         } else {
             inputs.get(index).markAsDone();
-            String output = "Nice! I've marked this task as done:"
+            String output = "Nice! I've marked this task as done:\n"
                     + "  " + inputs.get(index);
 
             return output;
@@ -78,7 +83,7 @@ public class TaskList {
             return "The input value is wrong. Please try again.";
         } else {
             inputs.get(index).markAsUndone();
-            String output = "OK, I've marked this task as not done yet:"
+            String output = "OK, I've marked this task as not done yet:\n"
                     + "  " + inputs.get(index);
 
             return output;

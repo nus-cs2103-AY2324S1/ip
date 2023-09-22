@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
      * @param num Index of the task to be deleted in the task list
      */
     public DeleteCommand(int num) {
-        assert num >= 0 : "Task index should not be negative.";
+        assert num > 0 : "Task index should be greater than 0.";
         this.num = num;
     }
 
@@ -39,7 +39,8 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasksList, Ui ui, Storage storage) {
-        ui.showRemovedTask(tasksList, num);
-        return tasksList.removeTask(num);
+        String result = ui.showRemovedTask(tasksList, num);
+        tasksList.removeTask(num);
+        return result;
     }
 }
