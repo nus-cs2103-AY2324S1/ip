@@ -260,7 +260,7 @@ public abstract class Command {
         LocalDate startDate = parseDateTimeIn(startDateStr);
         LocalDate endDate = parseDateTimeIn(endDateStr);
 
-        if (!startDate.isBefore(endDate)) {
+        if (endDate.isBefore(startDate)) {
             throw new WoofInvalidCommandException(
                 ExceptionMessage.START_DATE_AFTER_END_DATE.toFormattedValue(startDateStr, endDateStr)
             );
