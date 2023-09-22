@@ -13,4 +13,14 @@ public final class StorageException extends EkudException {
     public StorageException(String message) {
         super(message);
     }
+
+    /**
+     * Creates a new storage exception.
+     * 
+     * @param message The message to display to the user.
+     * @param cause   The throwable that caused this error.
+     */
+    public StorageException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

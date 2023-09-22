@@ -9,4 +9,14 @@ public class EkudException extends RuntimeException {
     public EkudException(String message) {
         super(message);
     }
+
+    /**
+     * Creates a new storage exception.
+     * 
+     * @param message The message to display to the user.
+     * @param cause   The throwable that caused this error.
+     */
+    public EkudException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

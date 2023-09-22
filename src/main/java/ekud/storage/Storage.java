@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import ekud.command.ByeCommand;
@@ -36,9 +38,9 @@ public final class Storage {
             dataFile.createNewFile();
             out = new PrintStream(new FileOutputStream(dataFile, true));
         } catch (IOException error) {
-            throw new StorageException("Failed to create save file.");
+            throw new StorageException("Failed to create save file.", error);
         } catch (SecurityException error) {
-            throw new StorageException("Failed to create save file.");
+            throw new StorageException("Failed to create save file.", error);
         }
     }
 
