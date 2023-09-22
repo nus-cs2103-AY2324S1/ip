@@ -4,19 +4,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="125.0" prefWidth="376.0" style="-fx-border-style: solid centered; -fx-border-radius: 2; -fx-border-color: black; -fx-background-color: E0E0E0; -fx-border-width: 2; -fx-border-insets: 2;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" alignment="CENTER" text="Label" textOverrun="CLIP" wrapText="true">
+        <Label fx:id="dialog" alignment="CENTER" style="-fx-border-style: solid centered; -fx-border-width: 1; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: green;" text="Dialog" textOverrun="CLIP" wrapText="true">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
             <HBox.margin>
                 <Insets />
-            </HBox.margin></Label>
+            </HBox.margin>
+         <font>
+            <Font name="Century Gothic" size="12.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding></Label>
         <ImageView fx:id="displayPicture" fitHeight="90.0" fitWidth="94.0" pickOnBounds="true" preserveRatio="true" />
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
     </padding>
 </fx:root>
