@@ -99,7 +99,6 @@ public class Ui {
      * @param type The type of input error.
      */
     public static String inputErrorMessage(String type) {
-        String errorMessage = new String();
         switch (type) {
         case "todo":
             return "Whoops, wrong format! Type todo <task>\n";
@@ -109,11 +108,14 @@ public class Ui {
             return "Whoops, wrong format! "
                     + "Type event <task> /from YYYY-MM-DD /to YYYY-MM-DD\n";
         case "mark":
-            return"Ehh? What do you want to mark? Type mark <index>\n";
+            return "Ehh? What do you want to mark? Type mark <index>!"
+                    + "Make sure the index is valid!\n";
         case "unmark":
-            return "Ehh? What do you want to unmark? Type unmark <index>\n";
+            return "Ehh? What do you want to unmark? Type unmark <index>!"
+                    + "Make sure the index is valid!\n";
         case "delete":
-            return "Ehh? What do you want to delete? Type remove <index>\n";
+            return "Ehh? What do you want to remove? Type delete <index>!"
+                    + "Make sure the index is valid!\n";
         case "addtrivia":
             return "Ehhhh? Type addtrivia <question> /answer <answer>";
         case "edittrivia":
@@ -123,19 +125,20 @@ public class Ui {
         }
     }
 
-    public static String triviaAdd(String message, String answer) {
+    public static String addTrivia(String message, String answer) {
         return "Woooaahhh... I didn't know that!\n"
                 + message + "?\n"
                 + answer + "!";
+
     }
 
-    public static String triviaEdit(String message, String answer) {
+    public static String editTrivia(String message, String answer) {
         return "Ohhhh...\n"
                 + message + "?\n"
                 + "It's actually " + answer + "!";
     }
 
-    public static String triviaDelete(String message) {
+    public static String deleteTrivia(String message) {
         return message + "?\n"
                + "... Guess we don't need to know now, huh";
     }

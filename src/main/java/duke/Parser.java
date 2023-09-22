@@ -5,15 +5,17 @@ package duke;
  */
 public class Parser {
 
-    //The DukeList to store all tasks given to the Duke bot.
+    //The TaskList to store all tasks given to the Duke bot.
     private TaskList tasks;
 
+    //The TriviaList used to store all trivia given to the Duke bot.
     private TriviaList trivia;
 
 
     /**
      * Instantiates a new Parser class
-     * @param list the DukeList that contains all tasks at hand.
+     * @param list the TaskList that contains all tasks stored.
+     * @param trivia the TriviaList that contains all trivia stored.
      */
     public Parser(TaskList list, TriviaList trivia) {
         this.tasks = list;
@@ -73,7 +75,7 @@ public class Parser {
                 String deadlineTime = deadline[1];
 
                 return new DeadlineAdder(deadlineName, deadlineTime, tasks);
-            } catch (NullPointerException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 return new TaskError("deadline");
             }
         case "event":
@@ -87,7 +89,7 @@ public class Parser {
                 String eventEnd = times[1];
 
                 return new EventAdder(eventName, eventStart, eventEnd, tasks);
-            } catch (NullPointerException e) {
+            } catch (ArrayIndexOutOfBoundsException e) {
                 return new TaskError("event");
             }
         default :
@@ -119,7 +121,7 @@ public class Parser {
             return new TaskUnmarker(number, tasks);
         case "delete":
             if (index.isEmpty()) {
-                return new TaskError("unmark");
+                return new TaskError("delete");
             }
             return new TaskMarker(Integer.parseInt(index), tasks);
 
@@ -128,6 +130,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles all trivia commands
+     * @param type The type of trivia commands
+     * @param triviafacts The contents of the given trivia commands
+     * @return The trivia Command to be executed
+     */
     private Command handleTrivia(String type, String triviafacts) {
         switch (type) {
         case "addtrivia":
@@ -137,8 +145,8 @@ public class Parser {
                 String answer = facts[1];
 
                 return new TriviaAdd(question, answer, trivia);
-            } catch (NullPointerException e) {
-                return new TaskError("trivia");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return new TaskError("addtrivia");
             }
         case "edittrivia":
             try {
@@ -146,16 +154,16 @@ public class Parser {
                 String newQuestion = newFacts[0];
                 String newAnswer = newFacts[1];
 
-                return new TriviaAdd(newQuestion, newAnswer, trivia);
-            } catch (NullPointerException e) {
-                return new TaskError("trivia");
+                return new TriviaEdit(newQuestion, newAnswer, trivia);
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return new TaskError("edittrivia");
             }
         case "removetrivia":
             return new TriviaDelete(triviafacts, trivia);
         case "ask":
             return new Ask(triviafacts, trivia);
         default:
-            return new TaskError("trivia");
+            return new TaskError("");
         }
     }
 }

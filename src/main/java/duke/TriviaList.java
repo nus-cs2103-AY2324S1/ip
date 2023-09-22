@@ -36,8 +36,9 @@ public class TriviaList {
      * @param question Trivia Question
      * @param answer Trivia answer
      */
-    public void addTrivia(String question, String answer) {
+    public String addTrivia(String question, String answer) {
         trivia.put(question, answer);
+        return Ui.addTrivia(question, answer);
     }
 
     /**
@@ -61,9 +62,9 @@ public class TriviaList {
     public String removeTrivia(String question) {
         if (trivia.containsKey(question)) {
             trivia.remove(question);
-            return question;
+            return Ui.deleteTrivia(question);
         } else {
-            return "I don't know what you're talking about...";
+            return "I don't know what you're talking about to begin with...";
         }
     }
 
@@ -77,10 +78,9 @@ public class TriviaList {
         if (trivia.containsKey(question)) {
             trivia.remove(question);
             trivia.put(question, newAnswer);
-            return question;
+            return Ui.editTrivia(question, newAnswer);
         } else {
-            addTrivia(question, newAnswer);
-            return question;
+            return addTrivia(question, newAnswer);
         }
     }
 

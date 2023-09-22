@@ -25,7 +25,6 @@ public class TriviaDelete extends Command {
      * @return The confirmation of the deletion of trivia questions.
      */
     public String execute() {
-        trivia.removeTrivia(question);
-        return Ui.triviaDelete(question);
+       return trivia.removeTrivia(question);
     }
 }

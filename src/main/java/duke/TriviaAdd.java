@@ -30,8 +30,7 @@ public class TriviaAdd extends Command {
      * @return Confirmation of the trivia question's addition
      */
     public String execute() {
-        trivia.addTrivia(question, answer);
-        return Ui.triviaAdd(question, answer);
+        return trivia.addTrivia(question, answer);
     }
 
 }

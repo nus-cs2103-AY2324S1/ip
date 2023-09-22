@@ -26,7 +26,8 @@ public class Ask extends Command{
      * @return the answer to the trivia question
      */
     public String execute() {
-        return trivia.getTrivia(question);
+        String answer = trivia.getTrivia(question);
+        return answer.isEmpty() ? "I don't know..." : answer;
     }
 
 }

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 /**
- * DukeList stores tasks given by users to the main Dukebot.
+ * Stores all tasks given to the Duke bot
  */
 public class TaskList {
     //The ArrayList used to store all tasks accordingly.
@@ -65,8 +65,12 @@ public class TaskList {
      * @param i takes in the index of the task to be set as done.
      */
     public String mark(int i) {
+        assert i <= tasks.size() && i >= 0 : "Ehh? Make sure the index is valid";
 
-        assert i <= tasks.size() : "Ehh? Make sure the index is valid";
+        if (i <= 0 || i > tasks.size()) {
+            return Ui.inputErrorMessage("mark");
+        }
+
         Task task = tasks.get(i - 1);
         task.done();
 
@@ -78,7 +82,11 @@ public class TaskList {
      * @param i takes in the index of the task to be set as undone.
      */
     public String unmark(int i) {
-        assert i <= tasks.size() : "Ehh? Make sure the index is valid";
+        assert i <= tasks.size() && i >= 0 : "Ehh? Make sure the index is valid";
+
+        if (i <= 0 || i > tasks.size()) {
+            return Ui.inputErrorMessage("unmark");
+        }
 
         Task task = tasks.get(i - 1);
         task.undo();
@@ -91,7 +99,11 @@ public class TaskList {
      * @param i takes in the index of the task to be removed.
      */
     public String delete(int i) {
-        assert i <= tasks.size() : "Ehh? Make sure the index is valid";
+        assert tasks.size() < 0 : "Bruh, why are you deleting a task from an empty list???";
+
+        if (i <= 0 || i > tasks.size()) {
+            return Ui.inputErrorMessage("delete");
+        }
 
         Task task = tasks.remove(i - 1);
         int index = tasks.size();
