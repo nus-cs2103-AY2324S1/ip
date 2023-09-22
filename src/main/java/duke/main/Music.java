@@ -1,6 +1,7 @@
 package duke.main;
 
 import java.io.File;
+import java.util.Objects;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -8,7 +9,8 @@ import javafx.util.Duration;
 
 /** Setup Music to play */
 public class Music {
-    private static final Media media = new Media(new File("src/main/resources/audio/test2.mp3").toURI().toString());
+    private static final Media media = new Media(Objects.requireNonNull(Music.class.getClassLoader()
+            .getResource("audio/test2.mp3")).toString());
     private static final MediaPlayer mediaPlayer = new MediaPlayer(media);
 
     /**

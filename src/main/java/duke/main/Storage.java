@@ -51,6 +51,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new InvalidFileException("File not found, will generate file on the next save...");
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             throw new InvalidFileException("Uh oh, file is corrupted, can't be loaded, "
                     + "will generate a new file on the next save...");
         }
