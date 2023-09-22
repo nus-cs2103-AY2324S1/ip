@@ -1,7 +1,7 @@
 # Sisyphus User Guide
 
 Sisyphus is a desktop app for managing tasks optimised for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI).
->One must imagine Sisyphus happy - Albert Camus
+>One must imagine Sisyphus happy. - Albert Camus
 
 ## Features 
 
@@ -36,7 +36,8 @@ Adds an event in the task list.
 Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 * `START_DATE` & `END_DATE` must be in the form of YYYY-MM-DD to be parsed correctly. e.g. 2023-09-22
 
-  Examples:
+
+Examples:
 * `event recess week /from Week 6 Friday /to Week 7 Monday`
 * `event Chinese New Year /from 10th February 2024 /to 11th February 2024` 
 
