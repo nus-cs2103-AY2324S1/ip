@@ -42,6 +42,10 @@ public class Parser {
                         + "Please specify a description.");
             }
             String[] deadlineFields = commands[1].split(" /by ");
+            if (deadlineFields.length < 2) {
+                throw new NobitaException("The /by date of a deadline cannot be empty.\n"
+                        + "Please specify a /by date.");
+            }
             return new AddCommand(deadlineFields[0], deadlineFields[1]);
         case "event":
             if (commands.length < 2) {
@@ -49,7 +53,15 @@ public class Parser {
                         + "Please specify a description.");
             }
             String[] eventFields = commands[1].split(" /from ");
+            if (eventFields.length < 2) {
+                throw new NobitaException("The /from date of a event cannot be empty.\n"
+                        + "Please specify a /from date.");
+            }
             String[] fromAndTo = eventFields[1].split(" /to ");
+            if (fromAndTo.length < 2) {
+                throw new NobitaException("The /to date of a event cannot be empty.\n"
+                        + "Please specify a /to date.");
+            }
             return new AddCommand(eventFields[0], fromAndTo[0], fromAndTo[1]);
         case "delete":
             return new DeleteCommand(Integer.parseInt(commands[1]) - 1);
