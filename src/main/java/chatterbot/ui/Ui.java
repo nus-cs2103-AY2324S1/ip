@@ -154,6 +154,7 @@ public class Ui {
                     .append("\nNow you have ")
                     .append(taskList.getSize() - 1)
                     .append(" tasks in the list.");
+            System.out.println("showDeleted ran");
         } else {
             message.append("Invalid task index. No task removed.");
         }

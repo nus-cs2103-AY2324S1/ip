@@ -1,6 +1,6 @@
 package chatterbot.data;
-
 import chatterbot.storage.Storage;
+import chatterbot.ui.Ui;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class TaskList {
 
     private static ArrayList<Task> list;
+    private String response;
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;
@@ -153,4 +154,70 @@ public class TaskList {
         return false;
     }
 
+    /**
+     * This method initialises a deadline task to be added to the list of tasks and the chatterbot.txt file.
+     * @param userMessage This is the user input.
+     * @param taskList This is the list of tasks.
+     * @param storage This is where the file is accessed.
+     * @param ui This provides responses to the users.
+     * @return String This response is returned to the user.
+     */
+    public String initialiseDeadlineTask(String userMessage, TaskList taskList, Storage storage, Ui ui) {
+        int slashDeadline = userMessage.indexOf("/");
+        String deadlineDescription = userMessage.substring(9, slashDeadline).trim();
+        String deadlineBy = userMessage.substring(slashDeadline + 3).trim();
+        Deadline d = new Deadline(deadlineDescription, deadlineBy);
+        assert d != null : "Deadline to add cannot be null.";
+        if (!taskList.isDuplicate(deadlineDescription)) {
+            taskList.addTask(d, storage);
+            response = ui.showAddedDeadline(d);
+        } else {
+            response = "Duplicate task entered! Task not added to list.";
+        }
+        return response;
+    }
+
+    /**
+     * This method initialises a todo task to be added to the list of tasks and the chatterbot.txt file.
+     * @param userMessage This is the user input.
+     * @param taskList This is the list of tasks.
+     * @param storage This is where the file is accessed.
+     * @param ui This provides responses to the users.
+     * @return String This response is returned to the user.
+     */
+    public String initialiseTodoTask(String userMessage, TaskList taskList, Storage storage, Ui ui) {
+        Todo td = new Todo(userMessage.substring(5));
+        assert td != null : "Todo to add cannot be null.";
+        if (!taskList.isDuplicate(userMessage.substring(5))) {
+            taskList.addTask(td, storage);
+            response = ui.showAddedTodo(td);
+        } else {
+            response = "Duplicate task entered! Task not added to list.";
+        }
+        return response;
+    }
+
+    /**
+     * This method initialises an event task to be added to the list of tasks and the chatterbot.txt file.
+     * @param userMessage This is the user input.
+     * @param taskList This is the list of tasks.
+     * @param storage This is where the file is accessed.
+     * @param ui This provides responses to the users.
+     * @return String This response is returned to the user.
+     */
+    public String initialiseEventTask(String userMessage, TaskList taskList, Storage storage, Ui ui) {
+        String[] eventSplit = userMessage.split("/");
+        String eventDescription = eventSplit[0].substring(6);
+        String eventTo = eventSplit[1].substring(5);
+        String eventFrom = eventSplit[2].substring(3);
+        Event e = new Event(eventDescription, eventTo, eventFrom);
+        assert e != null : "Event to add cannot be null.";
+        if (!taskList.isDuplicate(eventDescription)) {
+            taskList.addTask(e, storage);
+            response = ui.showAddedEvent(e);
+        } else {
+            response = "Duplicate task entered! Task not added to list.";
+        }
+        return response;
+    }
 }
