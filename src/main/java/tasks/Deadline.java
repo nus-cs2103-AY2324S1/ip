@@ -6,9 +6,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Deadline extends Task {
-    String[] split1;
-    String[] split2;
-    String dueDate;
+    private String[] split1;
+    private String[] split2;
+    private String dueDate;
 
     /**
      * Constructs a new Deadline task with the user command and 'mark' status
@@ -53,11 +53,11 @@ public class Deadline extends Task {
      * @return a string that contains the message printed when a task is added to TaskList
      */
     public String addTask(int listSize) {
-        return "____________________________________________________________\n" +
-                "Got it. I've added this task:\n" +
-                toString() + "\n" +
-                String.format("Now you have %d tasks in the list,\n", listSize) +
-                "____________________________________________________________";
+        return "____________________________________________________________\n"
+                + "Got it. I've added this task:\n"
+                + toString() + "\n"
+                + String.format("Now you have %d tasks in the list,\n", listSize)
+                + "____________________________________________________________";
     }
 
     /**

@@ -10,7 +10,7 @@ import tasks.Task;
  * can be executed in the application.
  */
 public class Command {
-    boolean hasExit;
+    private boolean hasExit;
 
     public Command() {
         this.hasExit = false;
@@ -36,5 +36,9 @@ public class Command {
      */
     public boolean hasExit() {
         return this.hasExit;
+    }
+
+    public void setHasExit(boolean bool) {
+        this.hasExit = bool;
     }
 }

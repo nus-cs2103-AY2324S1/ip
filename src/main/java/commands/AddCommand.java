@@ -10,7 +10,6 @@ import tasks.ToDo;
 
 import java.util.Arrays;
 
-
 /**
  * Command to add a task
  */

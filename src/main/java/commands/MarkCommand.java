@@ -33,8 +33,8 @@ public class MarkCommand extends Command {
         Task job = tasks.get(index);
         job = job.mark();
         tasks.set(index, job);
-        return ui.showLine() + "\n" +
-                "OK, I've marked this task as done:\n" + job.toString() + "\n"
+        return ui.showLine() + "\n"
+                + "OK, I've marked this task as done:\n" + job.toString() + "\n"
                 + ui.showLine();
     }
 }

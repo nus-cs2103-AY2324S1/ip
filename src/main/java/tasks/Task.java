@@ -35,14 +35,13 @@ public class Task {
     }
 
     /**
-
      * @param listSize size of the TaskList
      * @return a String representation of the message displayed when adding a task to TaskList
      */
     public String addTask(int listSize) {
-        return "____________________________________________________________\n" +
-                "added: " + this.content + "\n" +
-                "____________________________________________________________";
+        return "____________________________________________________________\n"
+                + "added: " + this.content + "\n"
+                + "____________________________________________________________";
     }
 
     /**
@@ -61,6 +60,7 @@ public class Task {
 
     /**
      * To String method
+     *
      * @return a string describing the status of the task
      */
     public String toString() {

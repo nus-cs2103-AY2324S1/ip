@@ -8,8 +8,8 @@ import java.util.NoSuchElementException;
  * It provides methods for input and output.
  */
 public class Ui {
-    String[] currentLine;
-    String input;
+    private String[] currentLine;
+    private String input;
 
     /**
      * Constructs an Ui instance with a reference to the String input
@@ -28,10 +28,10 @@ public class Ui {
      * Displays a welcome message
      */
     public static String showWelcome() {
-        return "____________________________________________________________\n" +
-                " Hello! I'm Husky\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________";
+        return "____________________________________________________________\n"
+                + " Hello! I'm Husky\n"
+                + " What can I do for you?\n"
+                + "____________________________________________________________";
     }
 
     /**
@@ -44,8 +44,7 @@ public class Ui {
             this.currentLine = input.split(" ");
             this.input = input;
             return input;
-        } catch (
-                NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             throw new DukeException("");
         }
 
