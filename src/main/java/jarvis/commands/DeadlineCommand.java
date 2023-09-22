@@ -24,6 +24,7 @@ public class DeadlineCommand implements Command {
     public DeadlineCommand(String userInput) {
         this.userInput = userInput;
     }
+
     /**
      * Executes the deadline command by adding a new "Deadline" task to the task
      * list.
@@ -58,6 +59,7 @@ public class DeadlineCommand implements Command {
         String taskTitle = userInput.substring(COMMAND_LENGTH, indexOfBy).trim();
         String dueDate = userInput.substring(indexOfBy + 2).trim();
         LocalDateTime formattedDueDate = Parser.parseStringToDateTime(dueDate);
+        System.out.println(formattedDueDate);
         Deadline deadline = new Deadline(taskTitle, formattedDueDate, false);
         taskList.addTask(deadline);
         storage.saveTasks(taskList.getTaskList());

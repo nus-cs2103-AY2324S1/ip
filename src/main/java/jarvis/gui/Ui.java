@@ -73,4 +73,17 @@ public class Ui {
     public String printError(String error) {
         return error + "\n";
     }
+
+    /**
+     * Generates a formatted string to display a list of filtered tasks.
+     *
+     * @param title A tag representing the filter featured.
+     * @param tasks An ArrayList of Task objects representing the filtered tasks.
+     * @return A formatted string displaying the filtered tasks with the specified title.
+     */
+    public String printFilteredTasks(String title, ArrayList<Task> tasks) {
+        String filterTasks = printTasks(tasks);
+        return "Filtered List: " + title
+                + "\n\n" + filterTasks;
+    }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Task {
     private String title;
     private boolean isCompleted;
-    private LocalDateTime dueDate;
+    private LocalDateTime dueDateTime;
 
     /**
      * Initializes a new instance of the Task.
@@ -68,17 +68,17 @@ public class Task {
      *
      * @return The due date of the task.
      */
-    public LocalDateTime getDueDate() {
-        return (dueDate != null) ? dueDate : null;
+    public LocalDateTime getDueDateTime() {
+        return dueDateTime;
     }
 
     /**
      * Sets the due date of the task.
      *
-     * @param dueDate The due date to set for the task.
+     * @param dueDateTime The due date to set for the task.
      */
-    public void setDueDate(LocalDateTime dueDate) {
-        this.dueDate = dueDate;
+    public void setDueDate(LocalDateTime dueDateTime) {
+        this.dueDateTime = dueDateTime;
     }
 
     /**

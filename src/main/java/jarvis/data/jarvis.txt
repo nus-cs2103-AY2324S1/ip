@@ -1,3 +1,7 @@
 T | 0 | Huawei Meeting
 D | 0 | Complete ip | Sep 20 2023 1100
 D | 0 | tp submission | Sep 19 2023 1200
+D | 0 | startIT email | Sep 22 2023 0900
+D | 0 | CS2101 Tut | Sep 22 2023 1200
+D | 0 | Sat Meeting | Sep 23 2023 1300
+D | 0 | Test | Nov 12 2022 1200
