@@ -24,6 +24,6 @@ public class EmptyTaskException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "☹ OOPS!!! The description of a(n) " + this.msg + " cannot be empty.";
+        return "OOPS!!! The description of a(n) " + this.msg + " cannot be empty.";
     }
 }

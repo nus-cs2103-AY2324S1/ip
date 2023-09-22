@@ -146,9 +146,10 @@ public class TaskList {
      * @throws EmptyTaskException If the user input is missing task details.
      */
     public static String makeToDo(String userInput) throws EmptyTaskException {
-        if (userInput.equals("todo")) {
+        if (userInput.trim().equals("todo")) {
             throw new EmptyTaskException("todo");
         }
+
         String taskName = userInput.substring("todo".length()).trim();
         ToDo newToDo = new ToDo(taskName);
         taskArray.add(newToDo);
@@ -179,17 +180,16 @@ public class TaskList {
         if (hasEmptyDate) {
             throw new EmptyDateException("deadline");
         }
-
         String taskName = descriptionAndBy[0];
+        if (taskName.isEmpty()) {
+            throw new EmptyTaskException("deadline");
+        }
         LocalDateTime by = Storage.parseDateFromString(descriptionAndBy[1]);
-
         if (by.isBefore(LocalDateTime.now())) {
             throw new NonLinearDateTimeException("Invalid deadline. Deadline should not be over already.");
         }
-      
         Task newDeadline = new Deadline(taskName, by);
         taskArray.add(newDeadline);
-
         printMakeTask(newDeadline);
         return makeTaskString(newDeadline);
     }
@@ -238,8 +238,13 @@ public class TaskList {
         String description = userInput.substring("event".length()).trim();
         String[] descriptionAndFromTo = trimStringElements(description.split("/from"));
         String taskName = descriptionAndFromTo[0];
-
+        if (taskName.isEmpty()) {
+            throw new EmptyTaskException("event");
+        }
         String[] fromAndTo = trimStringElements(descriptionAndFromTo[1].split("/to"));
+        if (fromAndTo.length != 2) {
+            throw new EmptyDateException("event");
+        }
         String start = fromAndTo[0];
         String end = fromAndTo[1];
         checkIfEmptyDateField(start, end);
@@ -247,15 +252,20 @@ public class TaskList {
         String[] eventParts = {taskName, start, end};
         LocalDateTime startDateTime = Storage.parseDateFromString(eventParts[1]);
         LocalDateTime endDateTime = Storage.parseDateFromString(eventParts[2]);
-        if (endDateTime.isBefore(LocalDateTime.now())) {
-            throw new NonLinearDateTimeException("Invalid deadline. Deadline should not be over already.");
-        } else if (endDateTime.isBefore(startDateTime)) {
-            throw new NonLinearDateTimeException("Start of event must be before end!");
-        }
+        checkIfValidEventTimes(startDateTime, endDateTime);
+
         Event newEvent = new Event(taskName, startDateTime, endDateTime);
         taskArray.add(newEvent);
         printMakeTask(newEvent);
         return makeTaskString(newEvent);
+    }
+
+    private static void checkIfValidEventTimes(LocalDateTime startDateTime, LocalDateTime endDateTime) throws NonLinearDateTimeException {
+        if (endDateTime.isBefore(LocalDateTime.now())) {
+            throw new NonLinearDateTimeException("Invalid start time. Start time should not be over already.");
+        } else if (endDateTime.isBefore(startDateTime)) {
+            throw new NonLinearDateTimeException("Start of event must be before end!");
+        }
     }
 
     private static void checkIfEmptyDateField(String start, String end) throws EmptyDateException {

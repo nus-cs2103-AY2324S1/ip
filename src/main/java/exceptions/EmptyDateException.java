@@ -24,6 +24,6 @@ public class EmptyDateException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "☹ OOPS!!! The date of a(n) " + this.msg + " cannot be empty.";
+        return "OOPS!!! The date of a(n) " + this.msg + " cannot be empty.";
     }
 }
