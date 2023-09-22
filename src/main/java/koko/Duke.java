@@ -120,7 +120,7 @@ public class Duke {
     }
 
     private String handleByeCommand() {
-        return "";
+        return null;
     }
 
     private String handleListCommand() {
