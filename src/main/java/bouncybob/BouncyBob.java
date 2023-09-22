@@ -26,6 +26,7 @@ import bouncybob.task.ToDo;
 import bouncybob.util.Parser;
 import bouncybob.util.TaskFileHandler;
 import bouncybob.util.TaskList;
+import bouncybob.util.TaskManager;
 import bouncybob.util.Ui;
 
 /**
@@ -34,6 +35,7 @@ import bouncybob.util.Ui;
 public class BouncyBob extends Application {
 
     private TaskList taskList = new TaskList();
+    private TaskManager taskManager;
 
     /**
      * Starts the BouncyBob application.
@@ -44,6 +46,7 @@ public class BouncyBob extends Application {
     public void start(Stage stage) {
         Label titleLabel = new Label("BouncyBob's List");
         ListView<Task> taskListView = initializeTaskListView();
+        taskManager = new TaskManager(taskListView);
 
         HBox inputBox = createTaskInputBox(taskListView);
 
@@ -85,50 +88,60 @@ public class BouncyBob extends Application {
         taskInputField.setPromptText("Enter a task...");
 
         Button addButton = new Button("Add");
-        addButton.setOnAction(e -> {
-            String userInput = taskInputField.getText().trim();
-            if (userInput.isEmpty()) {
-                return;
-            }
-            String[] parts = userInput.split(" ");
-            System.out.println(parts);
-            if (Parser.getAction(parts[0]) == Action.NOTE) {
-                System.out.println("Note detected");
-                String index = parts[1];
-                String note = Parser.getNoteFromCommand(parts);
-                ObservableList<Task> tasksFromListView = taskListView.getItems();
-                tasksFromListView.get(Integer.parseInt(index)).setNote(note);
-                TaskFileHandler.saveTasksToDisk(tasksFromListView);
-                taskListView.refresh();
-                return;
-            } else {
-                userInput = taskTypeComboBox.getValue().toString().toLowerCase() + " " + userInput;
-                parts = userInput.split(" ");
-                try {
-                    Task newTask = createTask(parts);
-                    taskListView.getItems().add(newTask);
-                    ObservableList<Task> tasksFromListView = taskListView.getItems();
-                    TaskFileHandler.saveTasksToDisk(tasksFromListView);
-                } catch (IllegalArgumentException ex) {
-                    showErrorDialog("Error", "Invalid Input", ex.getMessage());
-                }
-            }
-            taskInputField.clear();
-        });
+        addButton.setOnAction(e -> handleAddAction(taskTypeComboBox, taskInputField, taskListView));
 
         Button deleteButton = new Button("Delete");
-        deleteButton.setOnAction(e -> {
-            Task selectedItem = taskListView.getSelectionModel().getSelectedItem();
-            if (selectedItem != null) {
-                taskListView.getItems().remove(selectedItem);
-            }
-            ObservableList<Task> tasksFromListView = taskListView.getItems();
-            TaskFileHandler.saveTasksToDisk(tasksFromListView);
-        });
+        deleteButton.setOnAction(e -> handleDeleteAction(taskListView));
 
         return new HBox(10, taskTypeComboBox, taskInputField, addButton, deleteButton);
     }
 
+    /**
+     * Handles the add action.
+     *
+     * @param taskTypeComboBox The combo box for the task type.
+     * @param taskInputField   The text field for the task input.
+     * @param taskListView     The task list view.
+     */
+    private void handleAddAction(ComboBox<TaskType> taskTypeComboBox, TextField taskInputField, ListView<Task> taskListView) {
+        String userInput = taskInputField.getText().trim();
+        if (userInput.isEmpty()) {
+            return;
+        }
+        String[] parts = userInput.split(" ");
+        System.out.println(parts);
+        if (Parser.getAction(parts[0]) == Action.NOTE) {
+            String index = parts[1];
+            String note = Parser.getNoteFromCommand(parts);
+            taskManager.setNoteForTask(index, note);
+            return;
+        } else {
+            userInput = taskTypeComboBox.getValue().toString().toLowerCase() + " " + userInput;
+            parts = userInput.split(" ");
+            try {
+                Task newTask = createTask(parts);
+                taskManager.addTask(newTask);
+                taskManager.saveTasks();
+            } catch (IllegalArgumentException ex) {
+                showErrorDialog("Error", "Invalid Input", ex.getMessage());
+            }
+        }
+        taskInputField.clear();
+    }
+
+    /**
+     * Handles the delete action.
+     *
+     * @param taskListView The task list view.
+     */
+    private void handleDeleteAction(ListView<Task> taskListView) {
+        Task selectedItem = taskListView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            taskListView.getItems().remove(selectedItem);
+        }
+        ObservableList<Task> tasksFromListView = taskListView.getItems();
+        TaskFileHandler.saveTasksToDisk(tasksFromListView);
+    }
     /**
      * Shows an error dialog.
      *
