@@ -66,6 +66,7 @@ public class Command {
         if (arg.isEmpty()) {
             throw new InvalidArgumentException(argName, Type.STRING);
         }
+        assert arg != "";
         return arg;
     }
 
@@ -83,6 +84,7 @@ public class Command {
             if (arg.isEmpty()) {
                 throw new InvalidArgumentException(argName, Type.INTEGER);
             }
+            assert arg != "";
             return Integer.parseInt(arg);
         } catch (NumberFormatException e) {
             throw new InvalidArgumentException(argName, Type.INTEGER);
