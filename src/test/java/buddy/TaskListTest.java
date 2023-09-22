@@ -41,11 +41,7 @@ public class TaskListTest {
                 LocalDate.parse("2023-12-14"), false);
         tasks.addTask(event);
 
-        try {
-            tasks.markAsDone(1);
-        } catch (BuddyException e) {
-            throw new RuntimeException(e);
-        }
+        tasks.markAsDone(1);
         assertTrue(tasks.getTask(1).isDone, "Test marking tasks as done.");
 
         try {

@@ -58,14 +58,6 @@ public class Buddy {
         }
     }
 
-    /**
-     * Checks if the application should exit.
-     * @return boolean value indicating if the application should exit
-     */
-    public boolean checkIfIsExit() {
-        return this.isExit;
-    }
-
     public String getGreeting() {
         return this.ui.printGreeting();
     }
@@ -75,6 +67,9 @@ public class Buddy {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
+        if (isExit) {
+            return "";
+        }
         String response;
         try {
             Command c = Parser.parse(input, tasks);

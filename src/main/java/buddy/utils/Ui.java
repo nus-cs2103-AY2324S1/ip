@@ -52,7 +52,7 @@ public class Ui {
         if (list.isEmpty()) {
             return "Sorry, no results found.";
         } else {
-            String header = "Here are the matching tasks in your list:\n";
+            String header = "Here are the tasks in your list:\n";
             String listInString = "";
             for (int i = 0; i < list.size(); i++) {
                 int taskIndex = i + 1;
