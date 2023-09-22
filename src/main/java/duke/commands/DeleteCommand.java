@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.Storage;
 import duke.Ui;
+import duke.exception.UnknownCommandException;
 import duke.task.TaskList;
 
 /**
@@ -23,7 +24,7 @@ public class DeleteCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws UnknownCommandException {
         String output = "";
         output += ui.deleteTask(tasks, taskNumber);
         return output;

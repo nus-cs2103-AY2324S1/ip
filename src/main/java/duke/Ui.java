@@ -1,5 +1,6 @@
 package duke;
 
+import duke.exception.UnknownCommandException;
 import duke.task.Task;
 import duke.task.TaskList;
 
@@ -71,14 +72,15 @@ public class Ui {
     /**
      * Describes what the bot say when task is deleted successfully
      * 
-     * @param list       Take in the taskList to delete the task from it
+     * @param tasks       Take in the taskList to delete the task from it
      * @param taskNumber Take in the task to be deleted from the taskList
      */
-    public String deleteTask(TaskList tasks, int taskNumber) {
-        assert taskNumber > 0 : "taskNumber should be more than 0";
+    public String deleteTask(TaskList tasks, int taskNumber) throws UnknownCommandException {
         String deletingTask = "Pika Pika!! I've removed this task:";
         int tasksInArray = tasks.size();
-        assert taskNumber <= tasksInArray : "PIKA PIKA !!! task should be in the list";
+        if (taskNumber > tasksInArray || taskNumber < 0) {
+            throw new UnknownCommandException("task should be in the list");
+        }
         Task removedTask = tasks.deleteTask(taskNumber);
         tasksInArray -= 1;
         String numberOfTask = "Now you have " + tasksInArray + " tasks in the list. Pika Pika!!";
@@ -92,7 +94,7 @@ public class Ui {
      * Describes what the bot say when you successfully adds in a task
      * 
      * @param task Take in the task to be added
-     * @param list Takes in the TaskList that the task is added to
+     * @param tasks Takes in the TaskList that the task is added to
      */
     public String addTask(Task task, TaskList tasks) {
         assert task != null : "task should not be null";

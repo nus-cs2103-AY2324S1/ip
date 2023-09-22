@@ -20,7 +20,7 @@ public class DukeException extends Throwable {
     /**
      * Represents a message given by the bot when encountering them
      * 
-     * @return a string containing the messgae
+     * @return a string containing the message given by the bot
      */
     @Override
     public String getMessage() {

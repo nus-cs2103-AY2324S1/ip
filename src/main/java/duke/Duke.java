@@ -53,7 +53,6 @@ public class Duke {
         Scanner sc = new Scanner(System.in);
         boolean isExit = false;
 
-        // looping in the program
         while (!isExit) {
             String string = sc.nextLine();
             assert string != null : "string should not be null";
@@ -80,7 +79,7 @@ public class Duke {
      * Gets the response based on the input given by the user
      * 
      * @param input
-     * @return
+     * @return output of the chatbot
      */
     public String getResponse(String input) {
         String output = "";

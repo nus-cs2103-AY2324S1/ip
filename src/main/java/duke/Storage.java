@@ -37,7 +37,7 @@ public class Storage {
     /**
      * Describes the process of saving the taskList into a file
      * 
-     * @param taskList Takes in the original taskList
+     * @param tasks Takes in the original taskList
      * @throws IOException if there is no file for the contents in the taskList
      *                     to be recorded
      */

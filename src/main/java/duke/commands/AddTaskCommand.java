@@ -14,7 +14,7 @@ public class AddTaskCommand extends Command {
     private String command;
 
     /**
-     * Represent a constructor of the AddTaskCommand object
+     * Represents a constructor of the AddTaskCommand object
      */
     public AddTaskCommand(String command) {
         super();

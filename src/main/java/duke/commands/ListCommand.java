@@ -24,7 +24,7 @@ public class ListCommand extends Command {
      * {@inheritDoc}
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws UnknownCommandException{
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws UnknownCommandException {
         String[] split = input.split(" ");
         if (split.length > 1) {
             throw new UnknownCommandException("I am sorry, I do not get what you mean.");

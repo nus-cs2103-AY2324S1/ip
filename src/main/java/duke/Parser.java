@@ -70,6 +70,12 @@ public class Parser {
         return commandGiven;
     }
 
+    /**
+     * Checks for exceptions for the index
+     * @param splittedCommand
+     * @return
+     * @throws UnknownCommandException
+     */
     private static int checkExceptionForIndex(String[] splittedCommand) throws UnknownCommandException {
         int taskNumber = 0;
         if (splittedCommand.length > 2) {
