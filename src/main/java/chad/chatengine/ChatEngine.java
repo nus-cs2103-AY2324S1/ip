@@ -53,29 +53,6 @@ public class ChatEngine {
     }
 
     /**
-     * Starts the chat interaction.
-     */
-    public void start() {
-        ioHandler.greet();
-        while (true) {
-            String input = ioHandler.readInput();
-            try {
-                String[] parsedInput = Parser.parseInput(input);
-                String response = commandHandler(parsedInput);
-
-                if(EXIT_COMMAND.equals(response)) {
-                    break;
-                }
-
-                ioHandler.writeOutput(response);
-            } catch (ChadException e) {
-                ioHandler.writeOutput("Error: " + e.getMessage());
-            }
-        }
-        ioHandler.sayGoodbye();
-    }
-
-    /**
      * Handles various commands parsed from the input.
      * 
      * @param parsedInput the parsed input array.
@@ -115,9 +92,9 @@ public class ChatEngine {
      */
     String handleMark(String[] parsedInput) {
         int index = Integer.parseInt(parsedInput[1]) - 1;
-        String response = taskList.markTaskAsDone(index);
+        String responseToUser = taskList.markTaskAsDone(index);
         saveTasks();
-        return response;
+        return responseToUser;
     }
 
     /**
@@ -127,9 +104,9 @@ public class ChatEngine {
      */
     String handleUnmark(String[] parsedInput){
         int index = Integer.parseInt(parsedInput[1]) - 1;
-        String response = taskList.markTaskAsNotDone(index);
+        String responseToUser = taskList.markTaskAsNotDone(index);
         saveTasks();
-        return response;
+        return responseToUser;
     }
 
     /**
@@ -146,9 +123,9 @@ public class ChatEngine {
      */
     String handleTodo(String[] parts) {
         taskList.addTodo(parts[1]);
-        String response = "Added new ToDo: " + parts[1];
+        String responseToUser = "Added new ToDo: " + parts[1];
         saveTasks();
-        return response;
+        return responseToUser;
     }
 
     /**
@@ -162,9 +139,9 @@ public class ChatEngine {
         try {
             LocalDateTime dueDate = LocalDateTime.parse(deadlineParts[1], DateTimeFormatter.ofPattern(DATE_FORMAT));
             taskList.addDeadline(deadlineParts[0], dueDate);
-            String response = "Added new Deadline: " + deadlineParts[0] + " by " + dueDate;
+            String responseToUser = "Added new Deadline: " + deadlineParts[0] + " by " + dueDate;
             saveTasks();
-            return response;
+            return responseToUser;
         } catch (DateTimeParseException e) {
             throw new ChadException.InvalidFormatException("Invalid date format. Please use " + DATE_FORMAT);
         }
@@ -182,9 +159,9 @@ public class ChatEngine {
             LocalDateTime start = LocalDateTime.parse(eventParts[1], DateTimeFormatter.ofPattern(DATE_FORMAT));
             LocalDateTime end = LocalDateTime.parse(eventParts[2], DateTimeFormatter.ofPattern(DATE_FORMAT));
             taskList.addEvent(eventParts[0], start, end);
-            String response = "Added new Event: " + eventParts[0] + " from " + start + " to " + end;
+            String responseToUser = "Added new Event: " + eventParts[0] + " from " + start + " to " + end;
             saveTasks();
-            return response;
+            return responseToUser;
         } catch (DateTimeParseException e) {
             throw new ChadException.InvalidFormatException("Invalid date format. Please use " + DATE_FORMAT);
         }
@@ -198,9 +175,9 @@ public class ChatEngine {
      */
     String handleDelete(String[] parts) {
         int index = Integer.parseInt(parts[1]) - 1;
-        String response = taskList.deleteTask(index);
+        String responseToUser = taskList.deleteTask(index);
         saveTasks();
-        return response;
+        return responseToUser;
     }
 
     String handleFind(String[] parsedInput) {
