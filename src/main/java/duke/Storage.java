@@ -33,7 +33,7 @@ public class Storage {
         SaveData save = new SaveData(list.getList().toArray(new Task[0]));
         String json = gson.toJson(save);
 
-        String path = System.getProperty("user.home") + "\\" + fileName;
+        String path = System.getProperty("user.home") + File.separator + fileName;
 
         assert save != null : "The save data should exists";
         try {
@@ -53,7 +53,7 @@ public class Storage {
      * @param list TaskList to load our save.
      */
     public void load(TaskList list) {
-        String path = System.getProperty("user.home") + "\\" + fileName;
+        String path = System.getProperty("user.home") + File.separator + fileName;
 
         try {
             JsonReader reader = new JsonReader(new FileReader(path));
