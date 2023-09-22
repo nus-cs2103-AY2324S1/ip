@@ -170,6 +170,13 @@ public class TaskList {
 
     }
 
+    /**
+     * Parses a string to extract an integer index to unmark the task at that index number.
+     * @param str The input string from which to extract the integer index.
+     * @return The integer index parsed from the input string.
+     * @throws NumberFormatException If the substring after first 7 characters cannot be parsed as an integer.
+     */
+
     private int getIndexOfUnmark(String str) {
         return Integer.parseInt(str.substring(7));
     }

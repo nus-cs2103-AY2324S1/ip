@@ -10,22 +10,17 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import duck.Storage;
 import duck.exceptions.DuckException;
 import duck.exceptions.SemanticException;
 import duck.exceptions.SyntaxException;
-import duck.ui.Ui;
+
 
 public class TaskListTest {
-
-
-    private Ui ui = new Ui();
-    private Storage storage = new Storage("duckbot-test.txt");
     private TaskList taskList = new TaskList();
 
 
     @Test
-    public void testSetToDo_whenGivendescription_todoTaskDescription() throws DuckException {
+    public void testSetToDo_whenGivenDescription_todoTaskDescription() throws DuckException {
         String input = "Do ip";
         TaskList test = new TaskList();
         ToDo todo = test.setToDo(input);

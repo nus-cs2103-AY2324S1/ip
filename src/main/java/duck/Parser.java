@@ -60,7 +60,6 @@ public class Parser {
      */
     private String handleCommand(String str, String command, TaskList taskList, Ui ui, Storage storage)
             throws DuckException {
-        String result;
         switch (command) {
         case "deadline":
             return parseDeadlineCommand(str, taskList, ui, storage);
