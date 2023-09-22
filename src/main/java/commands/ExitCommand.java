@@ -23,9 +23,9 @@ public class ExitCommand extends Command {
      * @param status always false - intended for use by AddCommand
      */
     public String execute(TaskList tasks, Ui ui, boolean... status) {
-        super.hasExit = true;
-        return ui.showLine() + "\n" +
-                " Bye. Hope to see you again soon!\n"
+        super.setHasExit(true);
+        return ui.showLine() + "\n"
+                + " Bye. Hope to see you again soon!\n"
                 + ui.showLine();
 
     }

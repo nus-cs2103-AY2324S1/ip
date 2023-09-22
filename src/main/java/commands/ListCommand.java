@@ -25,8 +25,8 @@ public class ListCommand extends Command {
      */
     public String execute(TaskList<Task> tasks, Ui ui, boolean... status) {
         StringBuilder sb = new StringBuilder();
-        sb.append(ui.showLine() + "\n" +
-                "Here are the tasks in your list:\n");
+        sb.append(ui.showLine() + "\n"
+                + "Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
             Task job = tasks.get(i);
             sb.append(String.format("%d. %s", i + 1, job.toString()) + "\n");

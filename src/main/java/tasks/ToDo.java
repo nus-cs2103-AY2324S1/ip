@@ -37,11 +37,11 @@ public class ToDo extends Task {
      * @return a String message displayed when adding a toDo task to a TaskList
      */
     public String addTask(int listSize) {
-        return "____________________________________________________________\n" +
-                "Got it. I've added this task:\n" +
-                toString() + "\n" +
-                String.format("Now you have %d tasks in the list,\n", listSize) +
-                "____________________________________________________________";
+        return "____________________________________________________________\n"
+                + "Got it. I've added this task:\n"
+                + toString() + "\n"
+                + String.format("Now you have %d tasks in the list,\n", listSize)
+                + "____________________________________________________________";
     }
 
     /**

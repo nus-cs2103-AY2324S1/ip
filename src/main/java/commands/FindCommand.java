@@ -23,6 +23,5 @@ public class FindCommand extends Command {
         }
         sb.append(ui.showLine());
         return sb.toString();
-
     }
 }

@@ -14,7 +14,7 @@ import java.util.Scanner;
  * The storage task encapsulates loading and saving of stored TaskList
  */
 public class Storage {
-    String filePath;
+    private String filePath;
 
     /**
      * Constructs a Storage object with the specified filePath
