@@ -17,7 +17,7 @@ manage your task list much faster than traditional GUI apps.
 
 
 ## Usage 
-> [!NOTE] Notes about the command format
+> **Notes about the command format:**
 > - Words in `UPPER_CASE` are parameters to be supplied by the user.
 > e.g. in `todo NAME`, `NAME` is a parameter which can be used as 
 > `todo iP Submission`
