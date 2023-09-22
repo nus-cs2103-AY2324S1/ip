@@ -9,11 +9,9 @@ import java.util.List;
  */
 public class Storage {
     private final String saveLocation;
-    private final Ui ui;
 
-    public Storage(String saveLocation, Ui ui) {
+    public Storage(String saveLocation) {
         this.saveLocation = saveLocation;
-        this.ui = ui;
     }
 
     /**

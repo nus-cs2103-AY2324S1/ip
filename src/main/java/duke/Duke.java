@@ -12,9 +12,16 @@ public class Duke extends Application {
     private Parser parser;
 
 
+    /**
+     * Constructs a new Duke instance with the specified save location.
+     *
+     * @param saveLocation The file path where Duke will save its task data.
+     * @throws DukeNoExistingTasksException If there are no existing tasks in the save file.
+     * @throws DukeLoadTasksException      If an error occurs while loading tasks from the save file.
+     */
     public Duke(String saveLocation) {
         ui = new Ui();
-        storage = new Storage(saveLocation, ui);
+        storage = new Storage(saveLocation);
         try {
             tasks = new TaskList(storage.loadSavedTasks());
             parser = new Parser(ui, tasks, storage);
@@ -27,6 +34,7 @@ public class Duke extends Application {
             parser = new Parser(ui, tasks, storage);
         }
     }
+
     public static void main(String[] args) {
         new Duke("data/duke.txt");
     }
