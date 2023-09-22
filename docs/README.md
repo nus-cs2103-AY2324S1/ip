@@ -11,6 +11,7 @@
       - Mark
       - Unmark
       - Delete
+      - List
       - Find
     - File Related Command
       - Load
@@ -22,8 +23,7 @@
     - General Command
       - Help
       - Bye
-3. FAQ
-4. Command Summary
+3. Command Summary
 ## Getting Started
 1. Download Kora from [this page](https://github.com/dlathyun/ip)
 2. Start using!
@@ -84,7 +84,7 @@ Format: `list`
 
 Example: `list`
 
-![delete](../src/main/resources/images/list.png)
+![list](../src/main/resources/images/list.png)
 #### Finding task: `find`
 Finds tasks by keyword.
 
@@ -152,7 +152,26 @@ Format: `bye`
 Example: `bye`
 
 ![bye](../src/main/resources/images/bye.png)
-## FAQ
+
 ## Command Summary
+
+| Command    |                                      Format                                       |
+|------------|:---------------------------------------------------------------------------------:|
+| `todo`     |                               `todo [description]`                                |
+| `deadline` |             `deadline [description] /by [due date YYYY-MM-DD HH:mm]`              |
+| `event`    | `event [description] /from [start YYYY-MM-DD HH:mm] /to [start YYYY-MM-DD HH:mm]` |
+| `mark`     |                                `mark [task index]`                                |
+| `unmark`   |                               `unmark [task index]`                               |
+| `delete`   |                               `delete [task index]`                               |
+| `list`     |                                      `list`                                       |
+| `find`     |                                 `find [keyword]`                                  |
+| `load`     |                                `load [file name]`                                 |
+| `change`   |                               `change [file name]`                                |
+| `display`  |                                     `display`                                     |
+| `set`      |                        `set [command type] [command name]`                        |
+| `unset`    |                       `unset [command type] [command name]`                       |
+| `help`     |                                      `help`                                       |
+| `bye`      |                                      `bye`                                        |
+
 
 ![Have fun using Kora!](https://img.freepik.com/premium-vector/tiger-character-hanbok_279539-11.jpg)

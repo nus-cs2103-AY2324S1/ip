@@ -20,20 +20,20 @@ public class CommandList {
         commandNameList = new HashMap<>();
         commandTypeList = new HashMap<>();
         addCommandName("todo", "todo");
-        addCommandName("event", "event");
         addCommandName("deadline", "deadline");
-        addCommandName("delete", "delete");
-        addCommandName("bye", "bye");
-        addCommandName("find", "find");
-        addCommandName("list", "list");
+        addCommandName("event", "event");
         addCommandName("mark", "mark");
         addCommandName("unmark", "unmark");
-        addCommandName("set", "set");
-        addCommandName("unset", "unset");
+        addCommandName("delete", "delete");
+        addCommandName("list", "list");
+        addCommandName("find", "find");
         addCommandName("load", "load");
         addCommandName("change", "change");
-        addCommandName("help", "help");
         addCommandName("display", "display");
+        addCommandName("set", "set");
+        addCommandName("unset", "unset");
+        addCommandName("help", "help");
+        addCommandName("bye", "bye");
     }
 
     /**
