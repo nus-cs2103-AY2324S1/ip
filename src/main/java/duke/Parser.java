@@ -44,7 +44,7 @@ public class Parser {
         if (splitInput.length < 2 || splitInput[1].equals("")) {
             throw new InvalidIndexException();
         }
-        int index = Integer.parseInt(splitInput[1]);
+        int index = Integer.parseInt(splitInput[1].replace(" ", ""));
         if (index > 0 && index <= taskSize) {
             return index;
         } else {
