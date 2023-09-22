@@ -10,12 +10,13 @@ import java.time.format.DateTimeFormatter;
  * which represent the time the event starts and ends respectively.
  * <p>
  */
-public class Event extends Task{
+public class Event extends Task {
     LocalDateTime startTime;
     LocalDateTime endTime;
 
     /**
-     *  Constructs a new Event object, with a default false value for isCompleted as all tasks inputted into the task list are incomplete.
+     *  Constructs a new Event object, with a default false value for isCompleted
+     *  as all tasks inputted into the task list are incomplete.
      *  Takes in a String which is the name of the task.
      *  Takes in String startTime and String endTime in the format "dd/MM/yyyy HH:mm"
      *  which is then parsed into a formatter and stored as LocalDateTime objects.

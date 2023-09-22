@@ -9,7 +9,8 @@ package Frenchie;
 public class ToDo extends Task {
 
     /**
-     *  Constructs a new ToDo object, with a default false value for isCompleted as tasks inputted into the task list are incomplete.
+     *  Constructs a new ToDo object, with a default false value for isCompleted
+     *  as tasks inputted into the task list are incomplete.
      *  Takes in a String which is the name of the task.
      */
     ToDo(String name) {

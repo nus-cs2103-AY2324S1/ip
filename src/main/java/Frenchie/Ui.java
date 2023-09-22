@@ -18,26 +18,6 @@ public class Ui {
     }
 
     /**
-     * Displays the Welcome message whenever the Frenchie chatbot is started.
-     */
-    public void welcomeMessage() {
-        String skeleton = "____________________________________________________________\n"
-                + " Hello! I'm Frenchie.\n"
-                + " What can I do for you?\n"
-                + "____________________________________________________________";
-        System.out.println(skeleton);
-    }
-
-    /**
-     * This method retrieves the UserInput before parsing it into the Parser object
-     * for the Parser to make sense of the command.
-     * @return user input as a String.
-     */
-    public String retrieveUserInput() {
-        return scanner.nextLine().trim();
-    }
-
-    /**
      * This method prints out all the tasks stored in a TaskList.
      * @param tasks TaskList object that contains all the Tasks in an arraylist.
      */
@@ -80,11 +60,9 @@ public class Ui {
      * @param taskList the TaskList that the Task should be removed from.
      */
     public String deleteTask(Task target_task, TaskList taskList) {
-        return "____________________________________________________________\n"
-                + "Noted. I've removed this task: \n"
+        return "Noted. I've removed this task: \n"
                 + target_task.toString() + "\n"
-                + "Now you have " + taskList.size() + " tasks in the list.\n"
-                + "____________________________________________________________";
+                + "Now you have " + taskList.size() + " tasks in the list.\n";
     }
 
     /**
