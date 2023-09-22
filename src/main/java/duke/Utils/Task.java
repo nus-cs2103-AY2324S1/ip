@@ -121,6 +121,13 @@ public abstract class Task {
     protected abstract String toCsv();
 
     /**
+     * Gets the deadline of a Task, if any
+     *
+     * @return A LocalDateTime object representation of the task's urgency.
+     */
+    protected abstract LocalDateTime getDeadline();
+
+    /**
      * Converts a LocalDateTime object to a formatted string.
      *
      * @param datetime The LocalDateTime object to be converted.

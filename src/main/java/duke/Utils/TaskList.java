@@ -1,6 +1,7 @@
 package duke.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * The TaskList class represents a list of tasks in the Duke application
@@ -21,7 +22,8 @@ public class TaskList {
         EVENT("event"),
         DELETE("delete"),
         FIND("find"),
-        NOTFOUND("");
+        UPCOMING("upcoming"),
+        NOTFOUND(""),;
 
         private final String name;
 
@@ -105,6 +107,8 @@ public class TaskList {
             return this.list();
         case FIND:
             return this.find(Command.assertString(input, command));
+        case UPCOMING:
+            return this.listSortedTasks();
         default:
             throw new CommandNotFoundException();
         }
@@ -217,6 +221,22 @@ public class TaskList {
         }
         if (count == 0) {
             throw new TaskNotFoundException();
+        }
+        return Response.generate(output);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected Response listSortedTasks() {
+        ArrayList<Task> taskList = (ArrayList<Task>) this.tasks.clone();
+        taskList.sort((Task l, Task r)-> l.getDeadline().isAfter(r.getDeadline()) ? 1 : -1);
+        ArrayList<String> output = new ArrayList<>();
+        output.add("Here are your upcoming tasks, sorted in descending urgency:");
+        int count = 0;
+        for (Task task : taskList) {
+            output.add(String.format("%d.%s",
+                ++count,
+                task.toString()
+            ));
         }
         return Response.generate(output);
     }

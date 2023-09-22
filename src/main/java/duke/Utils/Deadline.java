@@ -64,6 +64,16 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns the start of the deadline
+     *
+     * @return A LocalDateTime representation of the start of deadline
+     */
+    @Override
+    public LocalDateTime getDeadline() {
+        return this.start;
+    }
+
+    /**
      * Returns a string representation of the Deadline object, including its type and deadline information.
      *
      * @return A string representation of the Deadline object.
