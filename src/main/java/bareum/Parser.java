@@ -168,7 +168,7 @@ public class Parser {
      */
     public static Command parseTagCommand(String[] commandInputs) throws BareumException {
         if (commandInputs.length == 1) {
-            throw new BareumException("Oops! Please give the index of the task you would like to tag.\n"
+            throw new BareumException("Oops! The details of your tag are missing :(\n"
                     + "\nCorrect format: tag <index> /tag <keyword>");
         }
 
@@ -182,14 +182,14 @@ public class Parser {
                     + "\nCorrect format: tag <index> /tag <keyword>");
         }
 
-        String[] indexTag = allDetails.split(" /tag ");
+        String[] indexTag = allDetails.split(" /tag");
         int inputIndex;
         try {
             inputIndex = Integer.parseInt(indexTag[0]);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             throw new BareumException("Oops! Please give an integer as the index of the task"
-                    + "you would like to tag.\n\nCorrect format: tag <index> /tag <keyword>");
+                    + " you would like to tag.\n\nCorrect format: tag <index> /tag <keyword>");
         }
         int index = inputIndex - 1;
 
@@ -198,7 +198,7 @@ public class Parser {
                     + "\nCorrect format: tag <index> /tag <keyword>");
         }
 
-        String tag = indexTag[1];
+        String tag = indexTag[1].substring(1);
         return new TagCommand(index, tag);
     }
 
