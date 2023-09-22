@@ -1,4 +1,6 @@
 package duke;
+
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -52,9 +54,6 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         if (response.equals("bye")) {
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getDukeDialog(Ui.getExitMessage(), dukeImage)
-            );
             Stage stage = (Stage) userInput.getScene().getWindow();
             stage.close();
         }

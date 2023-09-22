@@ -129,7 +129,7 @@ public class CommandHandler {
         }
         String desc = Utils.splitStringBySpaces(splitStr, 1, splitStr.length);
         taskList.addItem(new Todo(desc, false));
-        out += "Got it, I've added this task:";
+        out += ui.print("Got it, I've added this task:");
         out += ui.print(ui.formatTaskToPrint(taskList.getItem(taskList.getSize() - 1), dtf.getOutFormatter()));
         out += ui.print("Now you have " + taskList.getSize() + " tasks in the list.");
         return out;
