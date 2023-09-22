@@ -100,7 +100,7 @@ public class Storage {
         Path path = Paths.get("./data");
         if (Files.notExists(path)) {
             //if the directory not exist, create one instantly
-            //duke.txt will be created automatically by default
+            //duke.txt will be created automatically dateString default
             try {
                 Files.createDirectories(path);
             } catch (Exception e) {

@@ -26,14 +26,14 @@ public class TaskList {
      * get the task according to index
      */
     public Task getTask(int index) {
-       return this.tasklist.get(index);
+        return this.tasklist.get(index);
     }
 
     /**
      * add new task
      * @param newtask a new Task
      */
-    public void addTask (Task newtask) {
+    public void addTask(Task newtask) {
         this.tasklist.add(newtask);
     }
 
@@ -64,7 +64,7 @@ public class TaskList {
     /**
      * getSize of the task list
      * @return the getSize
-     ]*/
+     */
     public int getSize() {
         return this.tasklist.size();
     }

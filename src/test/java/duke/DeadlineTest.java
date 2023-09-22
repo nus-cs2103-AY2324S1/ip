@@ -7,7 +7,7 @@ public class DeadlineTest {
     public void deadlineToStringTest() {
         Deadline d = new Deadline("a deadline here", "2022-02-10");
         String result = d.toString();
-        String expected = "[D][ ] a deadline here (by: Feb 10 2022)";
+        String expected = "[D][ ] a deadline here (dateString: Feb 10 2022)";
         assertEquals(expected, result);
     }
 

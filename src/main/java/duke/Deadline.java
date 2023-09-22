@@ -8,21 +8,21 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
 
-    protected String by;
+    protected String dateString;
     protected String transformedDate;
 
     /**
      * Constructor for deadline class
      * @param description the name of the deadline
-     * @param by the date or date and time of the deadline
+     * @param dateString the date or date and time of the deadline
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String dateString) {
         super(description);
         //assume user always input date first, only consider with or without time
-        this.by = by;
-        String[] parsed_by = by.split("\\s+");
-        String byDate = LocalDate.parse(parsed_by[0]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        this.transformedDate = parsed_by.length > 1 ? byDate + " " + parsed_by[1] : byDate;
+        this.dateString = dateString;
+        String[] parsed_by = dateString.split("\\s+");
+        String deadlineDateFormat = LocalDate.parse(parsed_by[0]).format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.transformedDate = parsed_by.length > 1 ? deadlineDateFormat + " " + parsed_by[1] : deadlineDateFormat;
     }
 
     /**
@@ -32,7 +32,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String first = "[D]" + "[" + this.getStatusIcon() + "] " + this.description + " ";
-        String second = "(by: " + this.transformedDate + ")";
+        String second = "(dateString: " + this.transformedDate + ")";
         return first + second;
     }
 
@@ -43,6 +43,6 @@ public class Deadline extends Task {
     @Override
     public String stringInFile() {
         int status = super.isDone ? 1 : 0;
-        return "D | " + status + " | " + this.description + " | " + this.by;
+        return "D | " + status + " | " + this.description + " | " + this.dateString;
     }
 }

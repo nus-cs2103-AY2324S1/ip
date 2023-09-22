@@ -9,7 +9,7 @@ public class ParserTest {
     @Test
     public void deadlineCommandTest () {
         Parser parser = new Parser();
-        String command = "ddl a deadline here /by 2022-02-01";
+        String command = "ddl a deadline here /dateString 2022-02-01";
         String result = parser.parseCommand(command);
         assertEquals("deadline", result);
     }
@@ -30,7 +30,7 @@ public class ParserTest {
     @Test
     public void deadlineDescriptionTest () {
         Parser parser = new Parser();
-        String command = "ddl a deadline here /by 2022-02-01";
+        String command = "ddl a deadline here /dateString 2022-02-01";
         parser.parseCommand(command);
         Task result = parser.parseToTask();
         String description = result.description;

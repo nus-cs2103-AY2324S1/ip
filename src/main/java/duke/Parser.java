@@ -134,7 +134,7 @@ public class Parser {
     }
 
     /**
-     * Parse the index that used by "mark", "unmark" or delete
+     * Parse the index that used dateString "mark", "unmark" or delete
      * run after parseCommand
      * @return the index, in 0-indexed form
      */
@@ -217,7 +217,7 @@ public class Parser {
         String description = "";
         int length = parsedStr.length;
         for (int i = 1; i < length; i++) {
-            if (parsedStr[i].equals("/by")) {
+            if (parsedStr[i].equals("/dateString")) {
                 reached = true;
                 continue;
             }
