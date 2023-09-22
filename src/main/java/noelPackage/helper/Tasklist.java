@@ -63,6 +63,50 @@ public class Tasklist {
         return taskList.size() == 0;
     }
 
+    public void EventHelper(String[] values) {
+        if (values.length == 4) {
+
+            // (from: 02 02 2023 06:00 to: 03 02 2023 06:00)
+            String[] dates = values[3].split("to:");
+            String[] startDateArray = dates[0].split("\\(from: ")[1].split(" ");
+            String startDate = startDateArray[0] + " " + startDateArray[1];
+            String[] endDateArray = dates[1].split("\\)")[0].split(" ");
+            String endDate = endDateArray[1] + " " + endDateArray[2];
+
+            if (dates.length == 2) {
+                addEvent(values[2], startDate, endDate);
+                checkStatus(values);
+            } else {
+                System.out.println("Invalid line! Skipping line...");
+            }
+        } else {
+            System.out.println("Invalid line! Skipping line...");
+        }
+    }
+
+    public void toDoHelper(String[] values) {
+        if (values.length == 3) {
+            addToDo(values[2]);
+            checkStatus(values);
+        } else {
+            System.out.println("Invalid line! Skipping line...");
+        }
+    }
+
+    public void deadlineHelper(String[] values) {
+        if (values.length == 4) {
+            addDeadline(values[2], values[3]);
+            checkStatus(values);
+        } else {
+            System.out.println("Invalid line! Skipping line...");
+        }
+    }
+
+    public void checkStatus(String[] values){
+        if (Objects.equals(values[1], "1")) {
+            this.taskList.get(this.taskList.size() - 1).markAsDone();
+        }
+    }
     /**
      * Updates the task list based on a serialized string representation.
      * @param content The serialized string.
@@ -76,47 +120,13 @@ public class Tasklist {
             if (values.length != 1) {
 
                 if (Objects.equals(values[0], "E")) {
-                    if (values.length == 4) {
-
-                        // (from: 02 02 2023 06:00 to: 03 02 2023 06:00)
-                        String[] dates = values[3].split("to:");
-                        String[] startDateArray = dates[0].split("\\(from: ")[1].split(" ");
-                        String startDate = startDateArray[0] + " " + startDateArray[1];
-                        String[] endDateArray = dates[1].split("\\)")[0].split(" ");
-                        String endDate = endDateArray[1] + " " + endDateArray[2];
-
-                        if (dates.length == 2) {
-                            addEvent(values[2], startDate, endDate);
-                        } else {
-                            System.out.println("Invalid line! Skipping line...");
-                            continue;
-                        }
-                    } else {
-                        System.out.println("Invalid line! Skipping line...");
-                        continue;
-                    }
-
+                    EventHelper(values);
                 } else if (Objects.equals(values[0], "T")) {
-                    if (values.length == 3) {
-                        addToDo(values[2]);
-                    } else {
-                        System.out.println("Invalid line! Skipping line...");
-                        continue;
-                    }
+                    toDoHelper(values);
                 } else if (Objects.equals(values[0], "D")) {
-                    if (values.length == 4) {
-                        addDeadline(values[2], values[3]);
-                    } else {
-                        System.out.println("Invalid line! Skipping line...");
-                        continue;
-                    }
+                    deadlineHelper(values);
                 } else {
                     System.out.println("Invalid task! Skipping line...");
-                    continue;
-                }
-
-                if (Objects.equals(values[1], "1")) {
-                    this.taskList.get(this.taskList.size() - 1).markAsDone();
                 }
             } else {
                 System.out.println("No value in file");
