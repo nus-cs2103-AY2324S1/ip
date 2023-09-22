@@ -51,7 +51,7 @@ public class DeadlineStrategy extends BaseStrategy {
                 } catch (DateTimeParseException e) {
                     throw new KevinException(new StringBuilder()
                             .append("Ensure that the date is one of the following formats: ")
-                            .append("\"d/MM/yyyy HHmm\" or \"dd/MM/yyyy HHmm\"").toString());
+                            .append("\"d/MM/yyyy HHmm\" or \"dd/MM/yyyy HHmm\".").toString());
                 }
             }
 
@@ -67,7 +67,7 @@ public class DeadlineStrategy extends BaseStrategy {
             try {
                 deadlineDate = LocalDateTime.parse(deadline);
             } catch (DateTimeParseException err) {
-                throw new KevinException("Ensure that the deadline is a valid date");
+                throw new KevinException("Ensure that the deadline is a valid date.");
             }
 
             taskList.addDeadline(isDone, name, deadlineDate);

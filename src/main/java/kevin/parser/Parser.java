@@ -40,7 +40,7 @@ public class Parser {
             }
         } else if (command == Command.MARK || command == Command.UNMARK || command == Command.DELETE) {
             if (querySplit.length != 2) {
-                throw new KevinException(command.name() + " command needs to take one input");
+                throw new KevinException(command.name() + " command needs to take one input.");
             }
             String[] argumentSplit = querySplit[1].split(" ");
             if (argumentSplit.length > 1) {
