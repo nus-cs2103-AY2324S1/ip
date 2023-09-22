@@ -171,7 +171,7 @@ public class TaskList {
     }
 
     /**
-     * Helper function to save the current list of tasks to the storage.
+     * Saves the current list of tasks to the storage.
      */
     private void saveTasks() {
         storage.save(tasks);
