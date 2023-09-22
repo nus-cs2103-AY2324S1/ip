@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e6531804-db31-45be-b234-ce60c0053b04" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/Duke.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/Duke.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/exceptions/DukeException.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/exceptions/DukeException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/fileHandler/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/filehandler/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/parsers/InputParser.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/tasks/Deadline.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/tasks/Deadline.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/tasks/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/tasks/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/tasks/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/tasks/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/Duke/ui/Ui.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/ui/Ui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/java/duke/parsers/InputParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/main/java/duke/parsers/InputParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/java/Duke/DukeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/test/java/duke/DukeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../text-ui-test/EXPECTED.TXT" beforeDir="false" afterPath="$PROJECT_DIR$/../text-ui-test/EXPECTED.TXT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../text-ui-test/runtest.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../text-ui-test/runtest.bat" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2UlVGABFPlpk3bW5yYTq1z7LqAC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/mikhil/ip/src"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e6531804-db31-45be-b234-ce60c0053b04" name="Changes" comment="" />
+      <created>1693514055810</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1693514055810</updated>
+    </task>
+    <servers />
+  </component>
+</project>
