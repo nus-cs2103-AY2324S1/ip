@@ -185,7 +185,7 @@ event [task name] /from [(DD(- OR /)MM(- OR /)YYYY HH(: or -)MM) OR (DD(- OR /)M
 #### Examples
 
 * `event task /from 01/01/2023 23:59 /to 01/01/2024 23:59`
-* `deadline other valid task /from 01/01/2023 /to 01/01/2024 23:59`
+* `event other valid task /from 01/01/2023 /to 01/01/2024 23:59`
 
 #### Expected Outcome
 
