@@ -13,4 +13,5 @@ public enum Command {
     DEADLINE,
     DELETE,
     FIND,
+    HELP,
 }
