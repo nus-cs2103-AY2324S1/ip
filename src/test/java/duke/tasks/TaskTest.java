@@ -1,4 +1,4 @@
-package duke.tasks;  //same package as the class being tested
+package duke.tasks;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,5 @@
-import duke.Parser;
-import duke.Storage;
+package duke;
+
 import duke.tasks.TaskList;
 import duke.tasks.Task;
 import duke.tasks.Todo;
@@ -8,29 +8,6 @@ import duke.tasks.Deadline;
 import duke.trivia.Trivia;
 import duke.trivia.TriviaList;
 
-import javafx.animation.PauseTransition;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.scene.control.ScrollPane;
-import javafx.util.Duration;
-
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
@@ -38,30 +15,29 @@ import java.util.ArrayList;
 
 /**
  * Represents the Duke chat bot.
- * A <code>Duke</code> object corresponds to a chat bot that can process user input and respond accordingly.
  */
-public class Duke extends Application {
+public class Duke {
     private static final String DATA_PATH = "./data";
     private static final String DUKE_FILE_PATH = DATA_PATH + "/duke.txt";
     private static final String TRIVIA_FILE_PATH = DATA_PATH + "/trivia.txt";
     private final Storage storage = new Storage(DUKE_FILE_PATH, TRIVIA_FILE_PATH);
     private final TaskList tasks;
     private final TriviaList triviaList;
-    private Stage primaryStage;
 
     /**
-     * Constructs a <code>Duke</code> object.
-     *
-     * @throws IOException If there is an error loading the tasks from the file.
+     * Creates a Duke chat bot.
      */
-    public Duke() throws IOException {
+    public Duke() {
         ArrayList<Task> loadedTasks;
         ArrayList<Trivia> loadedTrivia;
         try {
             loadedTasks = storage.loadTasks();
             loadedTrivia = storage.loadTrivia();
         } catch (IOException e) {
-            throw new IOException("Error loading tasks from storage.", e);
+            Ui ui = new Ui();
+            ui.showError(e.getMessage());
+            loadedTasks = new ArrayList<>();
+            loadedTrivia = new ArrayList<>();
         }
 
         this.tasks = new TaskList(loadedTasks);
@@ -430,155 +406,5 @@ public class Duke extends Application {
         }
 
         return response.toString();
-    }
-
-    /**
-     * Starts the chat bot.
-     *
-     * @param stage The stage to start the chat bot on.
-     */
-    @Override
-    public void start(Stage stage) {
-        this.primaryStage = stage;
-
-        // Step 1. Setting up required components
-        ScrollPane scrollPane = new ScrollPane();
-        VBox dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
-
-        TextField userInput = new TextField();
-        Button sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-        Scene scene = new Scene(mainLayout);
-
-        // Step 2. Formatting the window to look as expected
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        userInput.setPrefWidth(325.0);
-        sendButton.setPrefWidth(55.0);
-
-        // This ensures the ScrollPane is stretched to fit its parent, but leaves space for the input and send button
-        // below.
-        AnchorPane.setTopAnchor(scrollPane, 0.0);
-        AnchorPane.setRightAnchor(scrollPane, 0.0);
-        AnchorPane.setLeftAnchor(scrollPane, 0.0);
-        AnchorPane.setBottomAnchor(scrollPane, 40.0); // Assuming the height for userInput and sendButton combined
-        // is around 40 pixels
-
-        // This keeps the userInput and sendButton anchored to the bottom of the window.
-        AnchorPane.setBottomAnchor(sendButton, 10.0);
-        AnchorPane.setRightAnchor(sendButton, 10.0);
-        AnchorPane.setLeftAnchor(userInput, 10.0);
-        AnchorPane.setBottomAnchor(userInput, 10.0);
-
-
-        // Step 3. Add functionality to handle user input
-        sendButton.setOnMouseClicked((event) -> handleUserInput(userInput, dialogContainer));
-        userInput.setOnAction((event) -> handleUserInput(userInput, dialogContainer));
-
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    /**
-     * Handles the user input.
-     *
-     * @param userInput The user input.
-     * @param dialogContainer The dialog container.
-     */
-    private void handleUserInput(TextField userInput, VBox dialogContainer) {
-        Label userText = new Label(userInput.getText());
-        String response = processInput(userInput.getText());
-
-        if ("SHUTDOWN".equals(response)) {
-            Label byeMessage = new Label("Bye. Hope to see you again soon!");
-            dialogContainer.getChildren().add(DialogBox.getDukeDialog(byeMessage));
-
-            // Introduce a delay of 2 seconds (or any duration you prefer)
-            PauseTransition delay = new PauseTransition(Duration.seconds(2));
-            delay.setOnFinished(event -> primaryStage.close());
-            delay.play();
-            return;
-        }
-
-        Label dukeText = new Label(response);
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(userText), DialogBox.getDukeDialog(dukeText));
-        userInput.clear();
-    }
-
-    /**
-     * Represents a dialog box.
-     * A <code>DialogBox</code> object corresponds to a dialog box that contains a label.
-     */
-    public static class DialogBox extends HBox {
-
-        // Set a consistent minimum width for the text boxes
-        private static final double MIN_WIDTH = 250.0;
-
-        private DialogBox(Label l, Pos alignment) {
-            l.setWrapText(true);
-
-            // Set the text alignment within the HBox
-            l.setAlignment(alignment);
-
-            // Set a consistent minimum width for the text
-            l.setMinWidth(MIN_WIDTH);
-
-            // Make the label stretch to the maximum width available
-            l.setMaxWidth(Double.MAX_VALUE);
-
-            // Make the HBox (DialogBox) stretch its children to maximum width
-            HBox.setHgrow(l, Priority.ALWAYS);
-
-            this.getChildren().addAll(l);
-
-            // Setting padding and a border for the text for better visualization
-            l.setPadding(new Insets(10));
-            l.setBorder(new Border(new BorderStroke(Color.GRAY,
-                    BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        }
-
-
-        /**
-         * Returns a dialog box containing the user's text.
-         *
-         * @param l The user's text.
-         * @return A dialog box containing the user's text.
-         */
-        public static DialogBox getUserDialog(Label l) {
-            // Set alignment of the user's text to the right
-            return new DialogBox(l, Pos.CENTER_RIGHT);
-        }
-
-        /**
-         * Returns a dialog box containing Duke's text.
-         *
-         * @param l Duke's text.
-         * @return A dialog box containing Duke's text.
-         */
-        public static DialogBox getDukeDialog(Label l) {
-            // Set alignment of Duke's text to the left
-            return new DialogBox(l, Pos.CENTER_LEFT);
-        }
-    }
-
-    /**
-     * Starts the chat bot.
-     *
-     * @param args The command line arguments.
-     */
-    public static void main(String[] args) {
-        launch(args);
     }
 }
