@@ -42,6 +42,7 @@ public class Storage {
     public ArrayList<Task> loadTasksFromFile() {
         try {
             File dataFile = Paths.get(Duke.PATH).toAbsolutePath().toFile();
+            dataFile.getParentFile().mkdirs();
             ArrayList<Task> taskList = new ArrayList<>();
             if (!dataFile.exists()) {
                 dataFile.createNewFile();

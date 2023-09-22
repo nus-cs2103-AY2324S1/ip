@@ -272,14 +272,17 @@ Bye. Hope to see you again soon!
 ## Command Summary
 
 - `todo DESCRIPTION`
-- `deadline /by DUE DATE`
-- `event /from START DATE /to END DATE`
+- `deadline DESCRIPTION /by DUE DATE`
+- `event DESCRIPTION /from START DATE /to END DATE`
 - `list`
 - `mark TASK INDEX`
 - `unmark TASK INDEX`
 - `delete TASK INDEX`
 - `find KEYWORD`
+- `stats`
 - `completed`
 - `uncompleted`
-- `stats`
+- `todos`
+- `deadlines`
+- `events`
 - `bye`
