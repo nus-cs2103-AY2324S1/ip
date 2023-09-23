@@ -8,7 +8,7 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * Launch the application.
+     * Launches the application.
      *
      * @param args Command line arguments.
      */

@@ -23,13 +23,13 @@ import tasket.task.Task;
 /**
  * The class for storage.
  */
-public class Storage {
+public class Storage implements StorageInterface {
 
     private final String filePath;
     private final File dataFile;
 
     /**
-     * The constructor for storage.
+     * Constructs a storage.
      *
      * @param filePath The file path for saving the tasks.
      */
@@ -40,12 +40,13 @@ public class Storage {
     }
 
     /**
-     * Loads the task file and convert it to task list.
+     * {@inheritDoc}
      * If the file is corrupted, remove the corrupted tasks.
      *
      * @return A list of saved tasks.
      * @throws TasketException If the file cannot be found.
      */
+    @Override
     public ArrayList<Task> load() throws TasketException {
         ArrayList<Task> taskList = new ArrayList<>();
         boolean isFileCorrupted = false;
@@ -83,12 +84,13 @@ public class Storage {
     }
 
     /**
-     * Append a new task to the task list.
+     * {@inheritDoc}
      * This is done when adding a new task.
      *
      * @param taskSave The task to be saved in save format.
      * @throws TasketException If IO error occurs.
      */
+    @Override
     public void append(String taskSave) throws TasketException {
         assert !taskSave.isEmpty();
 
@@ -111,12 +113,13 @@ public class Storage {
     }
 
     /**
-     * Rewrites the save file.
+     * {@inheritDoc}
      * This is done whenever there is mark, unmark and delete operations.
      *
      * @param taskList The task list to get the tasks from.
      * @throws TasketException If IO error occurs.
      */
+    @Override
     public void rewriteSaveFile(TaskList taskList) throws TasketException {
         assert taskList != null;
 
@@ -147,7 +150,7 @@ public class Storage {
     }
 
     /**
-     * Create a save file if it does not exist.
+     * Creates a save file if it does not exist.
      * The parent folders are also created in this process.
      *
      * @throws TasketException If IO error occurs.

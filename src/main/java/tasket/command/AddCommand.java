@@ -1,11 +1,9 @@
 package tasket.command;
 
 import static tasket.commons.Messages.MESSAGE_EMPTY_DEADLINE;
-import static tasket.commons.Messages.MESSAGE_EMPTY_DEADLINE_DESC;
+import static tasket.commons.Messages.MESSAGE_EMPTY_DESC;
 import static tasket.commons.Messages.MESSAGE_EMPTY_END;
-import static tasket.commons.Messages.MESSAGE_EMPTY_EVENT_DESC;
 import static tasket.commons.Messages.MESSAGE_EMPTY_START;
-import static tasket.commons.Messages.MESSAGE_EMPTY_TODO_DESC;
 import static tasket.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.time.LocalDate;
@@ -15,7 +13,7 @@ import java.util.Arrays;
 
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
-import tasket.storage.Storage;
+import tasket.storage.StorageInterface;
 import tasket.task.Deadline;
 import tasket.task.Event;
 import tasket.task.Task;
@@ -30,7 +28,7 @@ public class AddCommand extends Command {
     private final String header;
 
     /**
-     * The constructor for add command.
+     * Constructs an add command.
      *
      * @param header The command itself.
      * @param command The arguments of the command.
@@ -50,7 +48,7 @@ public class AddCommand extends Command {
      * @throws TasketException If error occurred while creating task.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, StorageInterface storage) throws TasketException {
         Task task = null;
         switch (this.header) {
         case "todo":
@@ -88,7 +86,7 @@ public class AddCommand extends Command {
         boolean hasTag = taskElements.length == 2;
 
         if (prompt.isEmpty() || taskElements[0].isEmpty()) {
-            throw new TasketException(MESSAGE_EMPTY_TODO_DESC);
+            throw new TasketException(String.format(MESSAGE_EMPTY_DESC, "todo"));
         }
 
         if (hasTag) {
@@ -113,7 +111,7 @@ public class AddCommand extends Command {
         boolean hasTag = taskElements.length == 2;
 
         if (prompt.isEmpty() || taskElements[0].isEmpty()) {
-            throw new TasketException(MESSAGE_EMPTY_DEADLINE_DESC);
+            throw new TasketException(String.format(MESSAGE_EMPTY_DESC, "deadline"));
         }
 
         String[] arguments = taskElements[0].replaceAll("/by", "|").split(" \\| ");
@@ -131,7 +129,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Creates an event instance
+     * Creates an event task.
      *
      * @param prompt The arguments of the task.
      * @return An event task instance.
@@ -143,7 +141,7 @@ public class AddCommand extends Command {
         boolean hasTag = taskElements.length == 2;
 
         if (prompt.isEmpty() || taskElements[0].isEmpty()) {
-            throw new TasketException(MESSAGE_EMPTY_EVENT_DESC);
+            throw new TasketException(String.format(MESSAGE_EMPTY_DESC, "event"));
         }
 
         String[] arguments = taskElements[0].replaceAll("/from", "|")
@@ -168,7 +166,7 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Convert the deadline and event dates.
+     * Converts the deadline and event dates.
      * If the format fits, convert it, if not, return the original text.
      *
      * @param deadline The argument to be converted.
@@ -183,6 +181,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Removes whitespaces on both sides of tags.
+     *
+     * @param prompt The prompt of tags.
+     * @return An array of tags.
+     */
     private String[] trimTags(String prompt) {
         return Arrays.stream(prompt.split("#"))
                 .map(String::trim)

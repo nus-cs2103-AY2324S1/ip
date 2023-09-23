@@ -5,7 +5,7 @@ import static tasket.commons.Messages.MESSAGE_NOT_NUMBER;
 
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
-import tasket.storage.Storage;
+import tasket.storage.StorageInterface;
 import tasket.ui.Ui;
 
 /**
@@ -14,7 +14,7 @@ import tasket.ui.Ui;
 public class MarkCommand extends Command {
 
     /**
-     * The constructor for mark command.
+     * Constructs a mark command.
      *
      * @param index The index for the task to be deleted.
      */
@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
      * @throws TasketException If the index is not a number, less than 0 or exceed the task list size.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, StorageInterface storage) throws TasketException {
         if (commandDescription.isEmpty()) {
             throw new TasketException(MESSAGE_EMPTY_INDEX);
         }

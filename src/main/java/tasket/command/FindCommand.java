@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
-import tasket.storage.Storage;
+import tasket.storage.StorageInterface;
 import tasket.ui.Ui;
 
 /**
@@ -13,7 +13,8 @@ import tasket.ui.Ui;
 public class FindCommand extends Command {
 
     /**
-     * The constructor for find command.
+     * Constructs a find command.
+     *
      * @param description The keyword to find the matching tasks.
      */
     public FindCommand(String description) {
@@ -21,7 +22,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Find the tasks that match the keyword.
+     * Finds the tasks that match the keyword.
      * After finding, show the results.
      *
      * @param taskList The task list instance of duke.
@@ -31,7 +32,7 @@ public class FindCommand extends Command {
      * @throws TasketException Does not throw the exception.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, StorageInterface storage) throws TasketException {
         ArrayList<String> matchingTasks = new ArrayList<>();
 
         for (int i = 0; i < taskList.size(); i++) {

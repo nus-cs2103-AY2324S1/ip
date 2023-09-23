@@ -17,9 +17,9 @@ public class Main extends Application {
     private final Duke duke = new Duke();
 
     /**
-     * Start the application.
+     * Starts the application.
      *
-     * @param stage the primary stage for this application, onto which
+     * @param stage The primary stage for this application, onto which
      *              the application scene can be set.
      */
     @Override

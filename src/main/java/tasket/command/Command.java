@@ -2,7 +2,7 @@ package tasket.command;
 
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
-import tasket.storage.Storage;
+import tasket.storage.StorageInterface;
 import tasket.ui.Ui;
 
 /**
@@ -12,7 +12,8 @@ public abstract class Command {
     protected String commandDescription;
 
     /**
-     * The constructor of command class.
+     * Constructs a command.
+     *
      * @param description The arguments of the command, or the full command, or nothing.
      */
     public Command(String description) {
@@ -28,7 +29,7 @@ public abstract class Command {
      * @return Respective response of each command.
      * @throws TasketException If error occured while running the command.
      */
-    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException;
+    public abstract String execute(TaskList taskList, Ui ui, StorageInterface storage) throws TasketException;
 
     /**
      * To identify if it's a exit command.

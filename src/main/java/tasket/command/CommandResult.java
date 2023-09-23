@@ -1,14 +1,14 @@
 package tasket.command;
 
 /**
- * The class for command result
+ * The class for command result.
  */
 public class CommandResult {
     private final String response;
     private final boolean isExit;
 
     /**
-     * The constructor for command result.
+     * Constructs a command result.
      *
      * @param response The response produced by the command.
      * @param isExit Is the command a bye command.
@@ -20,6 +20,7 @@ public class CommandResult {
 
     /**
      * Get response message.
+     *
      * @return The response message.
      */
     public String getResponse() {
@@ -28,6 +29,7 @@ public class CommandResult {
 
     /**
      * Check if the command is bye command.
+     *
      * @return False for all commands except bye command.
      */
     public boolean isExit() {

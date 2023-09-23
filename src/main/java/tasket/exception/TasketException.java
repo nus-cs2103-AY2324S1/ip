@@ -6,7 +6,7 @@ package tasket.exception;
 public class TasketException extends Exception {
 
     /**
-     * The constructor for Tasket Exception.
+     * Constructs a Tasket Exception.
      *
      * @param message The error message to be shown.
      */

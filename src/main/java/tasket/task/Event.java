@@ -8,7 +8,7 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * The constructor of event.
+     * Constructs an event.
      *
      * @param description The description of event.
      * @param from The start time of event.
@@ -21,7 +21,7 @@ public class Event extends Task {
     }
 
     /**
-     * The constructor of event.
+     * Constructs an event.
      * This version includes tags.
      *
      * @param description The description of event.
@@ -36,7 +36,7 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDocs
+     * {@inheritDoc}
      *
      * @return The string format of the task.
      */
@@ -48,7 +48,7 @@ public class Event extends Task {
     }
 
     /**
-     * @inheritDocs
+     * {@inheritDoc}
      *
      * @return The save format of the task.
      */

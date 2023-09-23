@@ -16,9 +16,7 @@ public class Messages {
     public static final String MESSAGE_ERROR = "OOPS!!! ";
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "I'm sorry, but I don't know what it means :(";
-    public static final String MESSAGE_EMPTY_TODO_DESC = "The description of todo cannot be empty";
-    public static final String MESSAGE_EMPTY_DEADLINE_DESC = "The description of deadline cannot be empty";
-    public static final String MESSAGE_EMPTY_EVENT_DESC = "The description of event cannot be empty";
+    public static final String MESSAGE_EMPTY_DESC = "The description of %s cannot be empty";
     public static final String MESSAGE_EMPTY_DEADLINE = "The deadline cannot be empty";
     public static final String MESSAGE_EMPTY_START = "The start time cannot be empty";
     public static final String MESSAGE_EMPTY_END = "The end time cannot be empty";

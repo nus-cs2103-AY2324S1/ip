@@ -1,66 +1,120 @@
 package tasket.command;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static tasket.commons.Messages.MESSAGE_EMPTY_DEADLINE;
+import static tasket.commons.Messages.MESSAGE_EMPTY_DESC;
+import static tasket.commons.Messages.MESSAGE_EMPTY_END;
+import static tasket.commons.Messages.MESSAGE_EMPTY_START;
+import static tasket.commons.Messages.MESSAGE_EXCEEDS_LIST;
+import static tasket.commons.Messages.MESSAGE_LESS_THAN_ONE;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import tasket.data.TaskList;
-import tasket.storage.Storage;
+import tasket.storage.StorageStub;
 import tasket.ui.Ui;
 
 public class CommandTest {
 
     private static Ui ui;
-    private static Storage storage;
+    private static StorageStub storageStub;
     private static TaskList taskList;
 
-    @BeforeAll
-    public static void setup() {
-        try {
-            Files.createFile(Path.of("./src/test/java/taskTest.txt"));
-
-            ui = new Ui();
-            storage = new Storage("./src/test/java/taskTest.txt");
-            taskList = new TaskList();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    @BeforeEach
+    public void setup() {
+        ui = new Ui();
+        storageStub = new StorageStub();
+        taskList = new TaskList(storageStub.load());
     }
 
-    @AfterAll
-    public static void cleanup() {
+    @Test
+    public void addCommand_addTodoWithoutDescription_exceptionThrown() {
         try {
-            Files.deleteIfExists(Path.of("./src/test/java/taskTest.txt"));
-        } catch (IOException e) {
-            e.printStackTrace();
+            Command command = new AddCommand("todo", "");
+            command.execute(taskList, ui, storageStub);
+            fail();
+        } catch (Exception e) {
+            assertEquals(String.format(MESSAGE_EMPTY_DESC, "todo"), e.getMessage());
         }
     }
 
     @Test
-    public void taskList_inputLessThanOne_exceptionThrown() {
+    public void addCommand_addDeadlineWithoutDescription_exceptionThrown() {
+        try {
+            Command command = new AddCommand("deadline", "");
+            command.execute(taskList, ui, storageStub);
+            fail();
+        } catch (Exception e) {
+            assertEquals(String.format(MESSAGE_EMPTY_DESC, "deadline"), e.getMessage());
+        }
+    }
+
+    @Test
+    public void addCommand_addDeadlineWithoutDeadline_exceptionThrown() {
+        try {
+            Command command = new AddCommand("deadline", "return book");
+            command.execute(taskList, ui, storageStub);
+            fail();
+        } catch (Exception e) {
+            assertEquals(MESSAGE_EMPTY_DEADLINE, e.getMessage());
+        }
+    }
+
+    @Test
+    public void addCommand_addEventWithoutDescription_exceptionThrown() {
+        try {
+            Command command = new AddCommand("event", "");
+            command.execute(taskList, ui, storageStub);
+            fail();
+        } catch (Exception e) {
+            assertEquals(String.format(MESSAGE_EMPTY_DESC, "event"), e.getMessage());
+        }
+    }
+
+    @Test
+    public void addCommand_addEventWithoutStartDate_exceptionThrown() {
+        try {
+            Command command = new AddCommand("event", "project meeting");
+            command.execute(taskList, ui, storageStub);
+            fail();
+        } catch (Exception e) {
+            assertEquals(MESSAGE_EMPTY_START, e.getMessage());
+        }
+    }
+
+    @Test
+    public void addCommand_addEventWithoutEndDate_exceptionThrown() {
+        try {
+            Command command = new AddCommand("event", "project meeting /from Sun 8pm");
+            command.execute(taskList, ui, storageStub);
+            fail();
+        } catch (Exception e) {
+            assertEquals(MESSAGE_EMPTY_END, e.getMessage());
+        }
+    }
+
+    @Test
+    public void markCommand_inputLessThanOne_exceptionThrown() {
         try {
             Command command = new MarkCommand("0");
-            command.execute(taskList, ui, storage);
-            Assertions.fail();
+            command.execute(taskList, ui, storageStub);
+            fail();
         } catch (Exception e) {
-            Assertions.assertEquals("The task index cannot be less than 1", e.getMessage());
+            assertEquals(MESSAGE_LESS_THAN_ONE, e.getMessage());
         }
 
     }
 
     @Test
-    public void taskList_inputLargerThanSize_exceptionThrown() {
+    public void markCommand_inputLargerThanSize_exceptionThrown() {
         try {
-            Command command = new MarkCommand("3");
-            command.execute(taskList, ui, storage);
-            Assertions.fail();
+            Command command = new MarkCommand("4");
+            command.execute(taskList, ui, storageStub);
+            fail();
         } catch (Exception e) {
-            Assertions.assertEquals("The task index cannot exceed the list", e.getMessage());
+            assertEquals(MESSAGE_EXCEEDS_LIST, e.getMessage());
         }
     }
 }

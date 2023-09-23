@@ -9,7 +9,7 @@ public abstract class Task {
     protected String[] tags;
 
     /**
-     * The constructor for task.
+     * Constructs for task.
      *
      * @param description The description of the task.
      */
@@ -20,7 +20,7 @@ public abstract class Task {
     }
 
     /**
-     * The constructor for task.
+     * Constructs for task.
      * This version includes tags.
      *
      * @param description The description of the task.
@@ -42,7 +42,7 @@ public abstract class Task {
     }
 
     /**
-     * Return the task status in save format.
+     * Returns the task status in save format.
      *
      * @return 1 if it's done, otherwise 0.
      */
@@ -51,14 +51,14 @@ public abstract class Task {
     }
 
     /**
-     * Mark the task to done.
+     * Marks the task to done.
      */
     public void markAsDone() {
         isDone = true;
     }
 
     /**
-     * Mark the task to undone
+     * Marks the task to undone.
      */
     public void markAsUndone() {
         isDone = false;
@@ -84,8 +84,9 @@ public abstract class Task {
     }
 
     /**
-     * Return the tags for this task.
+     * Returns the tags for this task.
      * This is suitable for both GUI and save file.
+     *
      * @return The tags.
      */
     protected String getTags() {

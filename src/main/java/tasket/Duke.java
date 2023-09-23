@@ -9,7 +9,7 @@ import tasket.storage.Storage;
 import tasket.ui.Ui;
 
 /**
- * The class for Tasket.
+ * The class for chatbot.
  */
 public class Duke {
     private final Ui ui;
@@ -17,7 +17,7 @@ public class Duke {
     private TaskList taskList;
 
     /**
-     * The constructor of Duke.
+     * Constructs a chatbot.
      * This is used by javafx.
      */
     public Duke() {
@@ -32,7 +32,7 @@ public class Duke {
     }
 
     /**
-     * Greet the user in GUI.
+     * Greets the user in GUI.
      *
      * @return Greet message.
      */
@@ -41,7 +41,7 @@ public class Duke {
     }
 
     /**
-     * Exit the application.
+     * Exits the application.
      * To be used by gui.
      */
     public void exit() {
