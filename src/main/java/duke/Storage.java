@@ -79,11 +79,22 @@ public class Storage {
     public void loadTasks() throws DukeException {
         File file = new File(this.filePath);
         File rootDirectory = file.getParent() == null ? new File("parent") : new File(file.getParent());
+
+        if (!rootDirectory.exists()) {
+            if (!rootDirectory.mkdirs()) {
+                throw new DukeException("Unable to create the directory: " + rootDirectory.getAbsolutePath());
+            }
+        }
+
         try {
-            rootDirectory.mkdir();
-            file.createNewFile();
+            if (!file.exists()) {
+                if (!file.createNewFile()) {
+                    throw new DukeException("Unable to create the file: " + file.getAbsolutePath());
+                }
+            }
         } catch (IOException e) {
-            throw new DukeException("Unable to create a database");
+            throw new DukeException("Error while creating the file: " + e.getMessage());
         }
     }
+
 }
