@@ -149,7 +149,8 @@ public class TaskList {
             throw new DukeException("OOPS!! Please follow the format:\nevent DESCRIPTION /from FROM /to TO");
         }
         String[] details = eventDetails.trim().split("/from ");
-        if (details[0].equals("/from") || details[0].isEmpty()) {
+        String description = details[0].trim();
+        if (description.equals("/from") || description.isEmpty()) {
             throw new EmptyTaskException("event");
         }
         if (details.length != 2 || details[1].isEmpty()) {
@@ -162,7 +163,7 @@ public class TaskList {
         if (fromto.length != 2 || fromto[1].isEmpty()) {
             throw new NoEndDateException();
         }
-        return new Event(details[0], getDate(fromto[0].trim()), getDate(fromto[1].trim()));
+        return new Event(description, getDate(fromto[0].trim()), getDate(fromto[1].trim()));
     }
 
     /**
