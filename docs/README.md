@@ -123,12 +123,12 @@ Saved items (if found) will be loaded up upon loading the program
 ## Feature Summary  
 | Action | Format |
 | --- | --- |
-| Viewing task list: `list` | `list` |
-| Viewing in-app user guide: `help` | `help` |
-| Adding a To-do task: `todo` | `todo TASK_NAME` |
-| Adding a Deadline task: `deadline` | `deadline TASK_NAME /by [deadline]` |
-| Adding an Event task: `event` | `event TASK_NAME /from [start-date] /to [end-date]` |
-| Mark / unmark tasks as complete: `mark` / `unmark` | `mark X` / `unmark X` |
-| Delete tasks: `delete` | `delete X` |
-| Search for tasks using keyword: `find` | `find KEYWORD` |
-| Exit the program: `bye` | `bye` | 
+| Viewing task list: <code>list</code> | <code>list</code> |
+| Viewing in-app user guide: <code>help</code> | <code>help</code> |
+| Adding a To-do task: <code>todo</code> | <code>todo TASK_NAME</code> |
+| Adding a Deadline task: <code>deadline</code> | <code>deadline TASK_NAME /by [deadline]</code> |
+| Adding an Event task: <code>event</code> | <code>event TASK_NAME /from [start-date] /to [end-date]</code> |
+| Mark / unmark tasks as complete: <code>mark</code> / <code>unmark</code> | <code>mark X</code> / <code>unmark X</code> |
+| Delete tasks: <code>delete</code> | <code>delete X</code> |
+| Search for tasks using keyword: <code>find</code> | <code>find KEYWORD</code> |
+| Exit the program: <code>bye</code> | <code>bye</code> | 
