@@ -1,0 +1,4 @@
+E | 0 | 2 | meeting | 2019-08-19 2000 | 2019-08-19 2200 | 2
+T | 1 | 4 | read book
+D | 0 | 0 | CS2103 Assigment | 2023-09-22 2000 | 0
+T | 0 | 0 | read another book
