@@ -1,4 +1,6 @@
-# User Guide
+# Duke Chat Bot
+
+## User Guide
 Welcome to Duke Chat Bot. It can help you better manage your tasks!!!
 Please Proceed to the following to know the specific command to make the most out of the application.
 
