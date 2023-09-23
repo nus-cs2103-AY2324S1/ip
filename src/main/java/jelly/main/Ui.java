@@ -72,7 +72,7 @@ public class Ui {
      */
     public String showTaskDeleted(Task deletedTask, int noOfTasks) {
         return ("Okay, I've removed this task: \n" + deletedTask + "\n"
-                + "Now you have " + noOfTasks + " in the list.");
+                + "Now you have " + noOfTasks + " tasks in the list.");
     }
 
     /**
