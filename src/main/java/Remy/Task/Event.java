@@ -11,9 +11,10 @@ public class Event extends Task {
     /**
      * Returns an instance of Event with the given description, startTime and endTime.
      * startTime and endTime need not adhere to any time format.
+     *
      * @param description The description of the Event.
-     * @param startTime The start time of the Event.
-     * @param endTime The end time of the Event.
+     * @param startTime   The start time of the Event.
+     * @param endTime     The end time of the Event.
      */
     public Event(String description, String startTime, String endTime) {
         super(description);

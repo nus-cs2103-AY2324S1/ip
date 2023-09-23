@@ -4,14 +4,6 @@ package remy.task;
  * A Todo Task that contains a description.
  */
 public class Todo extends Task {
-    /**
-     * Constructs a new Todo with the given description.
-     *
-     * @param description The name of the Todo.
-     */
-    public Todo(String description) {
-        super(description);
-    }
 
     /**
      * Constructs a new Todo with the given description and priority.

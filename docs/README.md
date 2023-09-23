@@ -7,16 +7,16 @@ the [AB3 User Guide](https://se-education.org/addressbook-level3/UserGuide.html#
 
 * [Quick Start](#quick-start)
 * [Features](#features)
-  * [Adding a todo](#adding-a-todo--todo)
-  * [Adding a deadline](#adding-a-deadline--deadline)
-  * [Adding an event](#adding-an-event--event)
-  * [Marking a task as complete](#marking-a-task-as-completed--mark)
-  * [Marking a task as incomplete](#marking-a-task-as-incomplete--unmark)
-  * [Listing all tasks](#listing-all-tasks--list)
-  * [Searching for a task](#locating-tasks-by-description--find)
-  * [Deleting a task](#deleting-a-task--delete)
-  * [Exiting the program](#exiting-the-program--exit)
-  * [Saving the data](#saving-the-data)
+    * [Adding a todo](#adding-a-todo--todo)
+    * [Adding a deadline](#adding-a-deadline--deadline)
+    * [Adding an event](#adding-an-event--event)
+    * [Marking a task as complete](#marking-a-task-as-completed--mark)
+    * [Marking a task as incomplete](#marking-a-task-as-incomplete--unmark)
+    * [Listing all tasks](#listing-all-tasks--list)
+    * [Searching for a task](#searching-for-a-task-using-description--find)
+    * [Deleting a task](#deleting-a-task--delete)
+    * [Exiting the program](#exiting-the-program--exit)
+    * [Saving the data](#saving-the-data)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -40,7 +40,7 @@ the [AB3 User Guide](https://se-education.org/addressbook-level3/UserGuide.html#
 > - Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
     e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be specified (`todo read book`).
 > - Items in square brackets are optional.<br>
-    e.g `todo DESCRIPTION [/p PRIORITY]` can be used as `todo read book` or as `todo read book /p high`.
+    e.g. `todo DESCRIPTION [/p PRIORITY]` can be used as `todo read book` or as `todo read book /p high`.
 > - Parameters must be typed in the prescribed order.<br>
 
 ### Adding a todo: `todo`
@@ -125,6 +125,7 @@ Find tasks whose descriptions contain any of the given keywords.
 Format: `find KEYWORDS`
 
 Example:
+
 * `find read`
 * `find return book`
 
