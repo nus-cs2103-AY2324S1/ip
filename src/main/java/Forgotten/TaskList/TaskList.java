@@ -189,7 +189,7 @@ public class TaskList {
         String[] splitMessage = userInput.split(" ");
 
         int taskNumber = Integer.parseInt(splitMessage[0]);
-        Priority priority = Priority.valueOf(splitMessage[1]);
+        Priority priority = Priority.valueOf(splitMessage[1].toUpperCase());
 
         Task currentTask = tasks.get(taskNumber - 1);
         currentTask.setPriority(priority);
