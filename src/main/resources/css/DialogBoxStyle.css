@@ -1,0 +1,11 @@
+#dialog {
+    -fx-text-fill: black;
+    -fx-wrap-text: true;
+    -fx-text-alignment: left;
+    -fx-font-size: 12px;
+    -fx-padding: 10px;
+    -fx-font-weight: bold;
+    -fx-font-family: "San Francisco", sans-serif;
+    -fx-background-color: white; 
+    -fx-background-radius: 10px;
+}

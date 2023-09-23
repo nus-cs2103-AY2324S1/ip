@@ -1,24 +1,74 @@
-# Duke project template
+# Corgi - The Most Intelligent Chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Corgi is a simple yet powerful task management chatbot designed to help you keep track of your tasks, deadlines, and events. Whether you're a busy professional, a student, or just someone looking to stay organized, Corgi has got you covered.
 
-## Setting up in Intellij
+## Getting Started
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+To get started with Corgi, follow these simple steps:
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. **Download the JAR File**
+   - Visit the "Releases" section of this [GitHub repository](https://github.com/NereusWB922/ip/releases).
+   - Download the latest `corgi.jar` file to your computer.
+
+2. **Installation**
+   - Ensure that you have Java 11 (or above) installed on your system. You can download Java 11 from [Oracle's official website](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html) or use an OpenJDK distribution.
+
+3. **Run Corgi**
+   - Navigate to the directory where you downloaded `corgi.jar`.
+   - Run the following command to launch Corgi:
+     ```
+     java -jar corgi.jar
+     ```
+
+4. **Usage**
+   - Start entering commands to add, manage, and track your tasks and events.
+   - Refer to the the next section for a list of available commands and their formats.
+
+## Features
+
+Corgi supports a variety of commands to manage your tasks effectively:
+
+1. **TODO**
+   - Command: `todo /desc [task]`
+   - Description: Add a new todo to your list.
+
+2. **DEADLINE**
+   - Command: `deadline /desc [task] /by [yyyy-mm-dd]`
+   - Description: Add a task with a specific deadline.
+
+3. **EVENT**
+   - Command: `event /desc [task] /from [yyyy-mm-dd] /to [yyyy-mm-dd]`
+   - Description: Add an event with a start and end date.
+
+4. **MARK**
+   - Command: `mark /target [task no.]`
+   - Description: Mark a task as completed.
+
+5. **UNMARK**
+   - Command: `unmark /target [task no.]`
+   - Description: Unmark a completed task.
+
+6. **DELETE**
+   - Command: `delete /target [task no.]`
+   - Description: Delete a task or event.
+
+7. **DATE**
+   - Command: `date /target [yyyy-mm-dd]`
+   - Description: Filter tasks and events by a specific date.
+
+8. **FIND**
+   - Command: `find /target [keyword]`
+   - Description: Search for tasks or events containing a keyword.
+
+9. **LIST**
+    - Command: `list`
+    - Description: View your list of tasks and events.
+
+10. **UNDO**
+    - Command: `undo`
+    - Description: Undo the previous action.
+
+11. **BYE**
+    - Command: `bye`
+    - Description: Exit the Corgi app.
+

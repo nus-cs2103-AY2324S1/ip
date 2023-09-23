@@ -1,7 +1,13 @@
+# Class files
+*.class
+
 # IDEA files
 /.idea/
 /out/
 /*.iml
+
+# vscode files
+/.vscode/
 
 # Gradle build files
 /.gradle/
