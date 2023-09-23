@@ -2,11 +2,27 @@
 
 ## Features
 
+### List tasks (`list`)
+
+### Add todo (`todo`)
+
+### Add deadline (`deadline`)
+
+### Add event (`event`)
+
+### Mark a task as done (`mark`)
+
+### Mark a task as not done (`unmark`)
+
+### Find a task (`find`)
+
+### Delete a task (`delete`)
+
+## Usage
+
 ### `list` - Displays all tasks
 
-Describe the action and its outcome.
-
-Example of usage: 
+Example of usage:
 
 `list`
 
@@ -20,7 +36,11 @@ Here are the tasks in your list:
 2.[D][ ] Assignment 2 (by: 9 Sep 2023 2359)
 ```
 
-### `todo <name>` - Add a todo task to the list
+### `todo` - Add a todo task to the list
+
+Format:
+
+`todo <name>` or `t <name>`
 
 Example of usage:
 
@@ -34,11 +54,15 @@ Noted. I've added this task:
 Now you have 4 tasks in the list.
 ```
 
-### `deadline <name> /by [D/M/YYYY] HHMM` - Add a deadline to the list
+### `deadline` - Add a deadline to the list
+
+Format:
+
+`deadline <name> /by [D/M/YYYY] HHMM` or `d <name> /by [D/M/YYYY] HHMM`
 
 Example of usage:
 
-`deadline Assignment 1 /by 22/9/2023 2359`
+`deadline Assignment 1 /by 22/9/2023 2359` or `d Assignment 1 /by 22/9/2023 2359`
 
 Expected outcome:
 
@@ -48,7 +72,11 @@ Noted. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-### `event <name> /from [D/M/YYYY] HHMM /to [D/M/YYYY] HHMM` - Add an event to the list
+### `event` - Add an event to the list
+
+Format:
+
+`event <name> /from [D/M/YYYY] HHMM /to [D/M/YYYY] HHMM` or `e <name> /from [D/M/YYYY] HHMM /to [D/M/YYYY] HHMM`
 
 Example of usage:
 
@@ -64,7 +92,11 @@ Noted. I've added this task:
 Now you have 3 tasks in the list.
 ```
 
-### `mark <task number>` - Marks a task as done with an "X"
+### `mark` - Marks a task as done
+
+Format:
+
+`mark <task number>` or `m <task number>`
 
 Example of usage:
 
@@ -84,7 +116,11 @@ Nice! I've marked this task as done:
 [D][X] Assignment 2 (by: 9 Sep 2023 2359)
 ```
 
-### `unmark <task number>` - Marks a task as not done yet (remove the X)
+### `unmark` - Marks a task as not done yet
+
+Format:
+
+`unmark <task number>` or `um <task number>`
 
 Example of usage:
 
@@ -104,7 +140,11 @@ OK, I've marked this task as not done yet:
 [T][ ] Buy groceries
 ```
 
-### `find <keyword>` - Find tasks with matching keyword
+### `find` - Find tasks with matching keyword
+
+Format:
+
+`find <keyword>` or `f <keyword>`
 
 Example of usage:
 
@@ -124,7 +164,12 @@ Here are the matching tasks in your list:
 1.[T][X] Buy groceries
 ```
 
-### `delete <task number>` - Remove the task from the list
+### `delete` - Remove a task from the list
+
+Format:
+
+`delete <task number>` or `d <task number>`
+
 Example of usage:
 
 Given the list
