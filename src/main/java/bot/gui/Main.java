@@ -3,6 +3,7 @@ package bot.gui;
 import java.io.IOException;
 
 import bot.bot.Bot;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Bot using FXML.
+ * A GUI for Duke using FXML.
  */
 public class Main extends Application {
 

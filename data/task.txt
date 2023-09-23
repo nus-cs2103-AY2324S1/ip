@@ -1,7 +1,0 @@
-[E]  &##& false &##& fish &##& 2019-12-05T18:00 &##& 2019-12-06T18:00
-[T]  &##& true &##& yummy
-[E]  &##& false &##& homework &##& 2023-09-10T18:00 &##& 2023-09-20T18:00
-[T]  &##& false &##& kkkkk kkkk
-[T]  &##& false &##& homework
-[T]  &##& true &##& wdwdwdw
-[T]  &##& false &##& go home later
