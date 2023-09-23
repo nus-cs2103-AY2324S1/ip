@@ -27,7 +27,7 @@ public class UserInterface {
      * @return the string
      */
     public String showError(String errorMessage) {
-        return "Error: " + errorMessage + "\n";
+        return "Error: " + errorMessage;
     }
 
     /**
@@ -40,7 +40,7 @@ public class UserInterface {
         StringBuilder result = new StringBuilder();
         result.append("Here are your tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            result.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+            result.append((i + 1)).append(". ").append(taskList.get(i).getStatusIcon()).append("\n");
         }
         result.append("\n");
         return result.toString();
@@ -55,9 +55,13 @@ public class UserInterface {
      */
     public String showFindTasks(ArrayList<Task> taskList) {
         StringBuilder result = new StringBuilder();
+        if (taskList.size() == 0) {
+            result.append("No matching tasks found.\n");
+            return result.toString();
+        }
         result.append("Here are the matching tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
-            result.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
+            result.append((i + 1)).append(". ").append(taskList.get(i).getStatusIcon()).append("\n");
         }
         result.append("\n");
         return result.toString();
@@ -109,7 +113,7 @@ public class UserInterface {
     public String showTaskDeletedMessage(ArrayList<Task> taskList) {
         StringBuilder result = new StringBuilder();
         result.append("Noted! I've removed the task from your list.\n");
-        result.append("Now you have ").append(taskList.size()).append("tasks in your list\n").append("\n");
+        result.append("Now you have ").append(taskList.size()).append(" tasks in your list\n").append("\n");
         return result.toString();
     }
 
@@ -122,7 +126,8 @@ public class UserInterface {
     public String showTaskMarkedMessage(ArrayList<Task> taskList, int index) {
         StringBuilder result = new StringBuilder();
         result.append("Nice! I've marked this task as done.\n");
-        result.append(taskList.get(index));
+        result.append(taskList.get(index).getStatusIcon()).append("\n");
+        result.append("\n");
         return result.toString();
     }
 
@@ -135,7 +140,8 @@ public class UserInterface {
     public String showTaskUnmarkedMessage(ArrayList<Task> taskList, int index) {
         StringBuilder result = new StringBuilder();
         result.append(" OK, I've umarked this task.\n");
-        result.append(taskList.get(index));
+        result.append(taskList.get(index).getStatusIcon()).append("\n");
+        result.append("\n");
         return result.toString();
     }
 

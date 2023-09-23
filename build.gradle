@@ -16,7 +16,6 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-
     String javaFxVersion = '17.0.7'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
@@ -31,6 +30,16 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'duke.Launcher'
+        )
+    }
 }
 
 test {
@@ -56,10 +65,13 @@ shadowJar {
     archiveBaseName = "Duke.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'Duke.jar'
 }
 
 run{
+    enableAssertions = true
     standardInput = System.in
 }
 
+mainClassName = 'duke.Launcher'
 

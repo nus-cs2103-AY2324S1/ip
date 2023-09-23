@@ -1,6 +1,7 @@
 package duke;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,14 +14,14 @@ import task.Task;
  */
 public class Storage {
 
-    private String filepath;
+    private final File filepath;
 
     /**
      * Constructor for the Storage class which takes in filepath of the input/output file.
      *
      * @param filepath the filepath
      */
-    public Storage(String filepath) {
+    public Storage(File filepath) {
         this.filepath = filepath;
     }
 
@@ -50,7 +51,7 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         try {
-            ArrayList<Task> taskList = new ArrayList<Task>();
+            ArrayList<Task> taskList = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
 

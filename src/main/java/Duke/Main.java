@@ -13,7 +13,15 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Duke duke;
+
+    {
+        try {
+            duke = new Duke();
+        } catch (DukeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void start(Stage stage) {

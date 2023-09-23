@@ -1,7 +1,7 @@
 package task;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * The type Task.
@@ -33,7 +33,7 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "[X] " + description
-                       : "[ ] " + description );
+                       : "[ ] " + description);
     }
 
     /**
@@ -50,6 +50,16 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Print date time format string.
+     *
+     * @param dateTime the date time
+     * @return the string
+     */
+    public String printDateTimeFormat(LocalDateTime dateTime) {
+        DateTimeFormatter result = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+        return dateTime.format(result);
+    }
     /**
      * Parse from string task.
      *
@@ -70,17 +80,14 @@ public class Task {
             }
             return task;
         } else if (type.equals("D")) {
-            LocalDateTime by = LocalDateTime.parse(parts[3]);
-            Task task = new Deadline(description, by);
+            Task task = new Deadline(description, parts[3]);
             assert task != null : "Creating a Deadline instance failed.";
             if (isDone == 1) {
                 task.markAsDone();
             }
             return task;
         } else if (type.equals("E")) {
-            LocalDateTime from = LocalDateTime.parse(parts[3]);
-            LocalTime to = LocalTime.parse(parts[4]);
-            Task task = new Event(description, from, to);
+            Task task = new Event(description, parts[3], parts[4]);
             assert task != null : "Creating an Event instance failed.";
             if (isDone == 1) {
                 task.markAsDone();
@@ -90,10 +97,4 @@ public class Task {
             throw new IllegalArgumentException("Invalid task type: " + type);
         }
     }
-
-    @Override
-    public String toString() {
-        return String.format("Task | %d | %s", isDone ? 1 : 0, description);
-    }
-
 }

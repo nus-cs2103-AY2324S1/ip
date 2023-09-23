@@ -1,7 +1,5 @@
 package duke;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 
 import task.Deadline;
@@ -14,7 +12,7 @@ import task.Todo;
  */
 public class TaskManager {
 
-    private ArrayList<Task> tasks;
+    private final ArrayList<Task> tasks;
 
     /**
      * Constructor for TaskManager.
@@ -76,7 +74,7 @@ public class TaskManager {
      * @param description the description
      * @param by          the by
      */
-    public void deadline(String description, LocalDateTime by) {
+    public void deadline(String description, String by) throws DukeException {
         tasks.add(new Deadline(description, by));
     }
 
@@ -84,10 +82,10 @@ public class TaskManager {
      * event method will create a new Event task.
      *
      * @param description the description
-     * @param from        the from
-     * @param to          the to
+     * @param from        the from date and time
+     * @param to          the to time
      */
-    public void event(String description, LocalDateTime from, LocalTime to) {
+    public void event(String description, String from, String to) {
         tasks.add(new Event(description, from, to));
     }
 
@@ -98,7 +96,7 @@ public class TaskManager {
      * @return the array list
      */
     public ArrayList<Task> find(String description) {
-        ArrayList<Task> tasksFound = new ArrayList<Task>();
+        ArrayList<Task> tasksFound = new ArrayList<>();
 
         for (Task task: tasks) {
             if (task.getStatusIcon().contains(description)) {
@@ -122,16 +120,11 @@ public class TaskManager {
             break;
         case "deadline":
             String[] fullDesc = taskType[1].split(" /by ");
-            String desc = fullDesc[0];
-            LocalDateTime by = LocalDateTime.parse(fullDesc[1]);
-            tasks.set(index, new Deadline(desc, by));
+            tasks.set(index, new Deadline(fullDesc[0], fullDesc[1]));
             break;
         case "event":
             String[] fullDes = taskType[1].split(" /from | /to ");
-            String eventDesc = fullDes[0];
-            LocalDateTime from = LocalDateTime.parse(fullDes[1]);
-            LocalTime to = LocalTime.parse(fullDes[2]);
-            tasks.set(index, new Event(eventDesc, from, to));
+            tasks.set(index, new Event(fullDes[0], fullDes[1], fullDes[2]));
             break;
         default:
             break;

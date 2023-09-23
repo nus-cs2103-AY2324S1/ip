@@ -1,4 +1,6 @@
-D | 0 | finish article | 2023-09-04T16:00
-E | 1 | project meeting | 2023-09-04T16:00 | 18:00
+T | 1 | finish article
+D | 0 | submit ip | 22-09-2023 23:59
 T | 1 | write reflection
-T | 1 | read book
+E | 0 | attend meeting | 24-09-2023 10:00 | 12:00
+D | 0 | finish project | 23-09-2023 10:00
+E | 1 | marriage | 22-09-2023 10:00 | 12:00

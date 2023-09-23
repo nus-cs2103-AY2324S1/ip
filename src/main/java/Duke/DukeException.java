@@ -7,13 +7,6 @@ public class DukeException extends Exception {
 
     /**
      * Instantiates a new Duke exception.
-     */
-    public DukeException() {
-        super();
-    }
-
-    /**
-     * Instantiates a new Duke exception.
      *
      * @param message the message
      */

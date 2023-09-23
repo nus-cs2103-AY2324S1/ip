@@ -1,7 +1,6 @@
 package duke;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 
 import command.UserInterface;
 
@@ -10,7 +9,7 @@ import command.UserInterface;
  */
 public class Parser {
 
-    private Storage storage;
+    private final Storage storage;
     private TaskManager taskManager;
     private UserInterface userInterface;
 
@@ -33,7 +32,7 @@ public class Parser {
      * @param command the command
      * @return the string
      */
-    public String parseCommand(String command) {
+    public String parseCommand(String command) throws DukeException {
         String[] parts = command.split(" ", 2);
         String action = parts[0];
         StringBuilder result = new StringBuilder();
@@ -53,11 +52,10 @@ public class Parser {
         case "mark":
             result.append(this.mark(parts));
             break;
-        case "umark":
+        case "unmark":
             result.append(this.unmark(parts));
             break;
         case "list":
-            assert parts.length > 2 : "There is only list command, there is such command as list _";
             result.append(userInterface.showTaskList(taskManager.displayList()));
             break;
         case "find":
@@ -67,7 +65,6 @@ public class Parser {
             result.append(this.update(parts));
             break;
         case "bye":
-            assert parts.length > 2 : "You do not have to add anything more to 'bye' command";
             storage.save(taskManager.displayList());
             result.append(userInterface.showGoodbyeMessage());
             break;
@@ -90,6 +87,7 @@ public class Parser {
         }
         taskManager.todo(parts[1]);
         return userInterface.showTaskAddedMessage(taskManager.displayList());
+
     }
 
     /**
@@ -102,11 +100,14 @@ public class Parser {
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
         }
-        String[] fullDesc = parts[1].split(" /by ");
-        String description = fullDesc[0];
-        LocalDateTime by = LocalDateTime.parse(fullDesc[1]);
-        taskManager.deadline(description, by);
-        return userInterface.showTaskAddedMessage(taskManager.displayList());
+        try {
+            String[] fullDesc = parts[1].split(" /by ");
+            taskManager.deadline(fullDesc[0], fullDesc[1]);
+            return userInterface.showTaskAddedMessage(taskManager.displayList());
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Wrong format for deadline task.\n"
+                    + "Correct format: deadline taskDescription /by dd-MM-yyyy HH:mm");
+        }
     }
 
     /**
@@ -120,12 +121,16 @@ public class Parser {
         if (parts.length < 2) {
             throw new DukeException("OOPS!!! The description of a event cannot be empty.");
         }
-        String[] fullDesc = parts[1].split(" /from | /to ");
-        String description = fullDesc[0];
-        LocalDateTime from = LocalDateTime.parse(fullDesc[1]);
-        LocalTime to = LocalTime.parse(fullDesc[2]);
-        taskManager.event(description, from, to);
-        return userInterface.showTaskAddedMessage(taskManager.displayList());
+
+        try {
+            String[] fullDesc = parts[1].split(" /from | /to ");
+            String description = fullDesc[0];
+            taskManager.event(description, fullDesc[1], fullDesc[2]);
+            return userInterface.showTaskAddedMessage(taskManager.displayList());
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("Wrong format for event task.\n"
+                    + "Correct format: event taskDescription /from dd-MM-yyyy HH:mm /to HH:mm");
+        }
     }
 
     /**
@@ -134,19 +139,19 @@ public class Parser {
      * @param parts the parts
      * @return the string
      */
-    public String delete(String[] parts) {
+    public String delete(String[] parts) throws DukeException {
         if (parts.length < 2) {
-            return userInterface.showError("OOPS!!! Please specify the task number to delete.");
+            throw new DukeException("OOPS!!! Please specify the task number to delete.");
         }
         try {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex < 0 || taskIndex >= taskManager.displayList().size()) {
-                return userInterface.showError("OOPS!!! Invalid task number.");
+                throw new DukeException("OOPS!!! Invalid task number.");
             }
             taskManager.delete(taskIndex);
             return userInterface.showTaskDeletedMessage(taskManager.displayList());
         } catch (NumberFormatException e) {
-            return userInterface.showError("OOPS!!! Please provide a valid task number.");
+            throw new DukeException("OOPS!!! Please provide a valid task number.");
         }
     }
 
@@ -156,14 +161,14 @@ public class Parser {
      * @param parts the parts
      * @return the string
      */
-    public String mark(String[] parts) {
+    public String mark(String[] parts) throws DukeException {
         if (parts.length < 2) {
-            return userInterface.showError("OOPS!!! Please specify the task number to mark.");
+            throw new DukeException("OOPS!!! Please specify the task number to mark.");
         }
         try {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex < 0 || taskIndex >= taskManager.displayList().size()) {
-                return userInterface.showError("OOPS!!! Invalid task number.");
+                throw new DukeException("OOPS!!! Invalid task number.");
             }
             taskManager.mark(taskIndex);
             return userInterface.showTaskMarkedMessage(taskManager.displayList(), taskIndex);
@@ -178,19 +183,19 @@ public class Parser {
      * @param parts the parts
      * @return the string
      */
-    public String unmark(String[] parts) {
+    public String unmark(String[] parts) throws DukeException {
         if (parts.length < 2) {
-            return userInterface.showError("OOPS!!! Please specify the task number to unmark.");
+            throw new DukeException("OOPS!!! Please specify the task number to unmark.");
         }
         try {
             int taskIndex = Integer.parseInt(parts[1]) - 1;
             if (taskIndex < 0 || taskIndex >= taskManager.displayList().size()) {
-                return userInterface.showError("OOPS!!! Invalid task number.");
+                throw new DukeException("OOPS!!! Invalid task number.");
             }
             taskManager.unmark(taskIndex);
             return userInterface.showTaskUnmarkedMessage(taskManager.displayList(), taskIndex);
         } catch (NumberFormatException e) {
-            return userInterface.showError("OOPS!!! Please provide a valid task number.");
+            throw new DukeException("OOPS!!! Please provide a valid task number.");
         }
     }
 
@@ -200,17 +205,22 @@ public class Parser {
      * @param parts the parts
      * @return the string
      */
-    public String update(String[] parts) {
+    public String update(String[] parts) throws DukeException {
         if (parts.length < 2) {
-            return userInterface.showError("OOPS!!! Please specify the task number to update.");
+            throw new DukeException("OOPS!!! Please specify the task number and new task to update.");
+        }
+
+        if (taskManager.displayList().size() == 0) {
+            throw new DukeException("OOPS!!! Your task list is empty.");
         }
         try {
             String[] newTask = parts[1].split(" /to ");
             int taskIndex = Integer.parseInt(newTask[0]) - 1;
             taskManager.update(taskIndex, newTask[1]);
             return userInterface.showTaskUpdatedMessage(taskManager.displayList(), taskIndex);
-        } catch (NumberFormatException e) {
-            return userInterface.showError("OOPS!!! Please provide a valid task number.");
+        } catch (NumberFormatException | DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("OOPS!!! Wrong format found.\n"
+            + "Correct format: update taskNumber /to taskType taskDescription");
         }
     }
 }
