@@ -73,7 +73,7 @@ public class Parser {
         if (input.split(" ").length < 2) {
             throw new DukeInvalidTaskIndexException("☹ OOPS!!! You must include a task index.");
         }
-        assert input.split(" ").length == 2 : "You have entered an invalid task index.";
+        assert input.split(" ").length >= 2 : "You have entered an invalid task index.";
 
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
@@ -169,5 +169,21 @@ public class Parser {
         String description = input.split("/from")[0].trim().split(" ")[1];
 
         return new Event(description, from, to);
+    }
+
+    /**
+     * Parses a description from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The new description for the task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     */
+    public static String parseEdit(String input) throws DukeInvalidDescriptionException {
+        if (input.split("/to").length < 2) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of your edit can't be empty.");
+        }
+        assert input.split("/to").length == 2 : "You need to include a description";
+
+        return input.split("/to")[1].trim();
     }
 }
