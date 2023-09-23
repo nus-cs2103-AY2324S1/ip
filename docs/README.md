@@ -123,7 +123,11 @@ Saved items (if found) will be loaded up upon loading the program
 ## Feature Summary  
 | Action | Format |
 | --- | --- |
-| Viewing task list: <code>list</code> | <code>list</code> |
+
+
+| Viewing task list: {::nomarkdown}<code>list</code>{:/} | {::nomarkdown}<code>list</code>{:/} |
+|---|---|
+
 | Viewing in-app user guide: <code>help</code> | <code>help</code> |
 | Adding a To-do task: <code>todo</code> | <code>todo TASK_NAME</code> |
 | Adding a Deadline task: <code>deadline</code> | <code>deadline TASK_NAME /by [deadline]</code> |
