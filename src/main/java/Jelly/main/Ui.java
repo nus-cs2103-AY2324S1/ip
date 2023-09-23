@@ -1,9 +1,9 @@
-package Jelly.main;
+package jelly.main;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Jelly.task.Task;
+import jelly.task.Task;
 
 /**
  * Responsible for the interface of the Jelly Chat Bot.

@@ -1,4 +1,4 @@
-package Jelly.exceptions;
+package jelly.exceptions;
 
 /**
  * This class handles the case where the task description is empty.

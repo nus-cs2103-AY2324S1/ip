@@ -1,13 +1,13 @@
-package Jelly;
+package jelly;
 
 import java.util.Scanner;
 
-import Jelly.commands.Command;
-import Jelly.exceptions.JellyException;
-import Jelly.main.Parser;
-import Jelly.main.Storage;
-import Jelly.main.TaskList;
-import Jelly.main.Ui;
+import jelly.commands.Command;
+import jelly.exceptions.JellyException;
+import jelly.main.Parser;
+import jelly.main.Storage;
+import jelly.main.TaskList;
+import jelly.main.Ui;
 
 /**
  * The main class which is responsible in running the Jelly chatbot.

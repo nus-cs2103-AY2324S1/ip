@@ -1,10 +1,9 @@
-package Jelly.commands;
+package jelly.commands;
 
-import Jelly.main.Storage;
-import Jelly.main.TaskList;
-import Jelly.main.Ui;
-
-import Jelly.task.Todo;
+import jelly.main.Storage;
+import jelly.main.TaskList;
+import jelly.main.Ui;
+import jelly.task.Todo;
 
 public class ToDoCommand extends Command {
     private String description;

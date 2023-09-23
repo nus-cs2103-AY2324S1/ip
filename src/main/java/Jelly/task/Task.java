@@ -1,4 +1,4 @@
-package Jelly.task;
+package jelly.task;
 
 /**
  * Corresponds to a task.
@@ -14,6 +14,7 @@ public class Task {
      * @param description The description of the task, etc. "Do math homework".
      */
     public Task(String description) {
+        assert description != null : "Task description should not be null.";
         this.description = description;
         this.isDone = false;
     }

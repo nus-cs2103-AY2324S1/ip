@@ -1,4 +1,4 @@
-package Jelly.task;
+package jelly.task;
 
 /**
  * Corresponds to a task without any time specified.

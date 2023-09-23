@@ -1,4 +1,4 @@
-package Jelly.exceptions;
+package jelly.exceptions;
 
 /**
  * This is the main class that handles exceptions in the Jelly chatbot.

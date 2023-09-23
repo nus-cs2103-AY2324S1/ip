@@ -1,4 +1,4 @@
-package Jelly.main;
+package jelly.main;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Jelly.exceptions.JellyException;
-import Jelly.task.Deadline;
-import Jelly.task.Event;
-import Jelly.task.Task;
-import Jelly.task.Todo;
+import jelly.exceptions.JellyException;
+import jelly.task.Deadline;
+import jelly.task.Event;
+import jelly.task.Task;
+import jelly.task.Todo;
 
 /**
  * Stores and loads tasked based on the specified file path.

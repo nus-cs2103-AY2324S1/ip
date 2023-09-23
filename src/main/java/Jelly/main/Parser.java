@@ -1,18 +1,18 @@
-package Jelly.main;
+package jelly.main;
 
-import Jelly.commands.ByeCommand;
-import Jelly.commands.Command;
-import Jelly.commands.DeadlineCommand;
-import Jelly.commands.DeleteCommand;
-import Jelly.commands.EventCommand;
-import Jelly.commands.FindCommand;
-import Jelly.commands.ListCommand;
-import Jelly.commands.MarkCommand;
-import Jelly.commands.ToDoCommand;
-import Jelly.commands.UnmarkCommand;
-import Jelly.exceptions.JellyBlankMessageException;
-import Jelly.exceptions.JellyException;
-import Jelly.exceptions.JellyUnknownCommandException;
+import jelly.commands.ByeCommand;
+import jelly.commands.Command;
+import jelly.commands.DeadlineCommand;
+import jelly.commands.DeleteCommand;
+import jelly.commands.EventCommand;
+import jelly.commands.FindCommand;
+import jelly.commands.ListCommand;
+import jelly.commands.MarkCommand;
+import jelly.commands.ToDoCommand;
+import jelly.commands.UnmarkCommand;
+import jelly.exceptions.JellyBlankMessageException;
+import jelly.exceptions.JellyException;
+import jelly.exceptions.JellyUnknownCommandException;
 
 /**
  * Responsible for parsing commands from the user, creates a Command object.
@@ -27,9 +27,9 @@ public class Parser {
      * @throws JellyException If the input is invalid.
      */
     public static Command parse(String command) throws JellyException {
+        assert command != null : "Command cannot be empty";
         try {
             String[] stringArray = command.split(" ");
-
             if (stringArray[0].equals("list")) {
                 return new ListCommand();
             } else if (stringArray[0].equals("bye")) {
@@ -95,7 +95,7 @@ public class Parser {
                 String eventString = "";
                 String fromWhen = "";
                 String toWhen = "";
-
+                //checking if the string contains /from and /to
                 for (int i = 1; i < stringArray.length; i++) {
                     if (stringArray[i] != null) {
                         if (stringArray[i].equals("/from")) {

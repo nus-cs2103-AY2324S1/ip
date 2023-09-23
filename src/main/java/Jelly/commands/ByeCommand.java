@@ -1,8 +1,8 @@
-package Jelly.commands;
+package jelly.commands;
 
-import Jelly.main.Storage;
-import Jelly.main.TaskList;
-import Jelly.main.Ui;
+import jelly.main.Storage;
+import jelly.main.TaskList;
+import jelly.main.Ui;
 
 public class ByeCommand extends Command {
 

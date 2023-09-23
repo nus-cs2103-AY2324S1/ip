@@ -1,8 +1,8 @@
-package Jelly.commands;
+package jelly.commands;
 
-import Jelly.main.Storage;
-import Jelly.main.TaskList;
-import Jelly.main.Ui;
+import jelly.main.Storage;
+import jelly.main.TaskList;
+import jelly.main.Ui;
 
 public class UnmarkCommand extends Command {
 
@@ -14,6 +14,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {
+        assert index > 0 : "Index should be positive.";
         if (index <= 0 || index > 100) {
             return ("Invalid input");
         } else if (taskList.get(index - 1) != null) {
@@ -21,6 +22,7 @@ public class UnmarkCommand extends Command {
                 return ("Yo,you can't unmark something you haven't done yet o.o");
             } else {
                 taskList.get(index - 1).markAsUndone();
+                storage.saveAndExit(taskList);
                 return ("Bad job! I've marked this task as not done :(");
             }
         } else {

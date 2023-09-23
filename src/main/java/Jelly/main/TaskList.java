@@ -1,8 +1,8 @@
-package Jelly.main;
+package jelly.main;
 
 import java.util.ArrayList;
 
-import Jelly.task.Task;
+import jelly.task.Task;
 
 /**
  * Contains all the commands regarding the list of tasks.

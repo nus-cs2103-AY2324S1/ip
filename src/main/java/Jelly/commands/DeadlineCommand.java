@@ -1,9 +1,9 @@
-package Jelly.commands;
+package jelly.commands;
 
-import Jelly.main.Storage;
-import Jelly.main.TaskList;
-import Jelly.main.Ui;
-import Jelly.task.Deadline;
+import jelly.main.Storage;
+import jelly.main.TaskList;
+import jelly.main.Ui;
+import jelly.task.Deadline;
 
 public class DeadlineCommand extends Command {
     private String description;

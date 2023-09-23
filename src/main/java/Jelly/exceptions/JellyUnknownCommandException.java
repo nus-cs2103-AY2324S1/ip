@@ -1,4 +1,4 @@
-package Jelly.exceptions;
+package jelly.exceptions;
 
 /**
  * Handles the case where the user inputs a command that is unsupported by Jelly chatbot.

@@ -1,4 +1,4 @@
-package Jelly.task;
+package jelly.task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

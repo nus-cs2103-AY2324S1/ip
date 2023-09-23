@@ -1,6 +1,6 @@
-package Jelly;
+package jelly;
 
-import Jelly.main.Ui;
+import jelly.main.Ui;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
