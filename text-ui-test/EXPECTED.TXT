@@ -1,7 +1,83 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Chatty
+What can I do for you?
+? OOPS!!! The description of a todo cannot be empty.
+Got it. I've added this task:
+ [T][ ] borrow book
+Now you have 5 tasks in the list.
+? OOPS!!! The date of a deadline cannot be empty.
+Got it. I've added this task:
+ [D][ ] return book (by: Sunday)
+Now you have 6 tasks in the list.
+Got it. I've added this task:
+ [D][ ] return book (by: Feb 12 2019 6pm)
+Now you have 7 tasks in the list.
+? OOPS!!! The date of a event cannot be empty.
+? OOPS!!! Please provide a end date for your event.
+Got it. I've added this task:
+ [E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 8 tasks in the list.
+Got it. I've added this task:
+ [E][ ] project meeting (from: Oct 15 2019 2pm to: 4pm)
+Now you have 9 tasks in the list.
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by: Sunday)
+7.[D][ ] return book (by: Feb 12 2019 6pm)
+8.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+9.[E][ ] project meeting (from: Oct 15 2019 2pm to: 4pm)
+Nice! I've marked this task as done:
+ [D][X] return book (by: June 6th)
+Nice! I've marked this task as done:
+ [T][X] join sports club
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][X] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by: Sunday)
+7.[D][ ] return book (by: Feb 12 2019 6pm)
+8.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+9.[E][ ] project meeting (from: Oct 15 2019 2pm to: 4pm)
+Nice! I've marked this task as done:
+ [T][X] read book
+OK, I've marked this task as not done yet:
+ [D][ ] return book (by: June 6th)
+OK, I've marked this task as not done yet:
+ [T][ ] join sports club
+Here are the tasks in your list:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[T][ ] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by: Sunday)
+7.[D][ ] return book (by: Feb 12 2019 6pm)
+8.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+9.[E][ ] project meeting (from: Oct 15 2019 2pm to: 4pm)
+Noted. I've removed this task:
+ [D][ ] return book (by: June 6th)
+Now you have 8 tasks in the list.
+Noted. I've removed this task:
+ [T][ ] join sports club
+Now you have 7 tasks in the list.
+? OOPS!!! I'm sorry, please provide a keyword to search.
+? OOPS!!! I'm sorry, please provide a keyword to search.
+Here are the matching tasks in your list:
+Here are the matching tasks in your list:
+1.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+2.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+3.[E][ ] project meeting (from: Oct 15 2019 2pm to: 4pm)
+Here are the tasks in your list:
+1.[T][X] read book
+2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+3.[T][ ] borrow book
+4.[D][ ] return book (by: Sunday)
+5.[D][ ] return book (by: Feb 12 2019 6pm)
+6.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+7.[E][ ] project meeting (from: Oct 15 2019 2pm to: 4pm)
+Bye. Hope to see you again soon!
