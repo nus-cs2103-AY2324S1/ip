@@ -189,7 +189,7 @@ public class TaskList {
         String output = "";
         try {
             String parts[] = input.split("/by ");
-            if (input.replace("deadline ", "").isEmpty()) {
+            if (parts.length == 1) {
                 throw new NoDescException("pau doesn't know what to do with an empty description");
             }
             if (!input.contains("/by")) {
@@ -219,24 +219,29 @@ public class TaskList {
      */
     public String addEvent(String input) {
         String output = "";
-        try {
-            String parts[] = input.split("/from");
-            if (parts.length == 1) {
-                throw new NoDescException("what event is this?");
-            }
+        String parts[] = input.split("/from");
 
-            String time[] = parts[1].split("/to");
-
-            Event item = new Event(parts[0].replace("event ", ""), time[0], time[1]);
-            this.taskList.add(item);
-            if (input.contains("event")) {
-                output = "event added: " + "\n" + item.toString() + "\n\n";
-                output += taskListSizeString();
-            }
-            return output;
-        } catch (NoDescException e) {
-            return e.getMessage();
+        String eventDetails = parts[0].replace("event ", "");
+        if (eventDetails.isBlank()) {
+            return "can you add an event description?";
         }
+
+        if (parts.length < 2) {
+            return "can you add a starting time/date?";
+        }
+
+        String time[] = parts[1].split("/to");
+        if (time.length < 2 || time[1].isBlank() || time[0].isBlank()) {
+            return "can you specify the timings?";
+        }
+
+        Event item = new Event(parts[0].replace("event ", ""), time[0], time[1]);
+        this.taskList.add(item);
+
+        output = "event added: " + "\n" + item.toString() + "\n\n";
+        output += taskListSizeString();
+
+        return output;
     }
 
     /**
