@@ -3,7 +3,7 @@ package tasket.command;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static tasket.commons.Messages.MESSAGE_EMPTY_DEADLINE;
-import static tasket.commons.Messages.MESSAGE_EMPTY_DESC;
+import static tasket.commons.Messages.MESSAGE_EMPTY_DESCRIPTION;
 import static tasket.commons.Messages.MESSAGE_EMPTY_END;
 import static tasket.commons.Messages.MESSAGE_EMPTY_START;
 import static tasket.commons.Messages.MESSAGE_EXCEEDS_LIST;
@@ -36,7 +36,7 @@ public class CommandTest {
             command.execute(taskList, ui, storageStub);
             fail();
         } catch (Exception e) {
-            assertEquals(String.format(MESSAGE_EMPTY_DESC, "todo"), e.getMessage());
+            assertEquals(String.format(MESSAGE_EMPTY_DESCRIPTION, "todo"), e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class CommandTest {
             command.execute(taskList, ui, storageStub);
             fail();
         } catch (Exception e) {
-            assertEquals(String.format(MESSAGE_EMPTY_DESC, "deadline"), e.getMessage());
+            assertEquals(String.format(MESSAGE_EMPTY_DESCRIPTION, "deadline"), e.getMessage());
         }
     }
 
@@ -69,7 +69,7 @@ public class CommandTest {
             command.execute(taskList, ui, storageStub);
             fail();
         } catch (Exception e) {
-            assertEquals(String.format(MESSAGE_EMPTY_DESC, "event"), e.getMessage());
+            assertEquals(String.format(MESSAGE_EMPTY_DESCRIPTION, "event"), e.getMessage());
         }
     }
 

@@ -1,5 +1,7 @@
 package tasket.command;
 
+import static tasket.commons.Messages.MESSAGE_EMPTY_DESCRIPTION;
+
 import java.util.ArrayList;
 
 import tasket.data.TaskList;
@@ -34,6 +36,10 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, StorageInterface storage) throws TasketException {
         ArrayList<String> matchingTasks = new ArrayList<>();
+
+        if (commandDescription.isEmpty()) {
+            throw new TasketException(String.format(MESSAGE_EMPTY_DESCRIPTION, "find"));
+        }
 
         for (int i = 0; i < taskList.size(); i++) {
             String taskString = taskList.getTaskString(i);

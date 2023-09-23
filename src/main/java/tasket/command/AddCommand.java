@@ -1,7 +1,7 @@
 package tasket.command;
 
 import static tasket.commons.Messages.MESSAGE_EMPTY_DEADLINE;
-import static tasket.commons.Messages.MESSAGE_EMPTY_DESC;
+import static tasket.commons.Messages.MESSAGE_EMPTY_DESCRIPTION;
 import static tasket.commons.Messages.MESSAGE_EMPTY_END;
 import static tasket.commons.Messages.MESSAGE_EMPTY_START;
 import static tasket.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -86,7 +86,7 @@ public class AddCommand extends Command {
         boolean hasTag = taskElements.length == 2;
 
         if (prompt.isEmpty() || taskElements[0].isEmpty()) {
-            throw new TasketException(String.format(MESSAGE_EMPTY_DESC, "todo"));
+            throw new TasketException(String.format(MESSAGE_EMPTY_DESCRIPTION, "todo"));
         }
 
         if (hasTag) {
@@ -111,7 +111,7 @@ public class AddCommand extends Command {
         boolean hasTag = taskElements.length == 2;
 
         if (prompt.isEmpty() || taskElements[0].isEmpty()) {
-            throw new TasketException(String.format(MESSAGE_EMPTY_DESC, "deadline"));
+            throw new TasketException(String.format(MESSAGE_EMPTY_DESCRIPTION, "deadline"));
         }
 
         String[] arguments = taskElements[0].replaceAll("/by", "|").split(" \\| ");
@@ -141,7 +141,7 @@ public class AddCommand extends Command {
         boolean hasTag = taskElements.length == 2;
 
         if (prompt.isEmpty() || taskElements[0].isEmpty()) {
-            throw new TasketException(String.format(MESSAGE_EMPTY_DESC, "event"));
+            throw new TasketException(String.format(MESSAGE_EMPTY_DESCRIPTION, "event"));
         }
 
         String[] arguments = taskElements[0].replaceAll("/from", "|")
