@@ -1,7 +1,50 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+ Hellooooooooooo! I'm Lati!
+ What can I do for you? :3
+____________________________________________________________
+Added! You want to: steal the declaration of independence
+Now you have 1 task!
+____________________________________________________________
+1. [T][ ] steal the declaration of independence
 
+____________________________________________________________
+Added! You want to: fix the ceiling
+Now you have 2 tasks!
+____________________________________________________________
+1. [T][ ] steal the declaration of independence
+
+2. [D][ ] fix the ceiling (by: Sunday 12 pm)
+
+____________________________________________________________
+Added! You want to: rocket jumping competition
+Now you have 3 tasks!
+____________________________________________________________
+1. [T][ ] steal the declaration of independence
+
+2. [D][ ] fix the ceiling (by: Sunday 12 pm)
+
+3. [E][ ] rocket jumping competition (From: Tuesday 9 am to: Tuesday 3 pm)
+
+____________________________________________________________
+NICEEEEE. Good job on completing the task!
+[E][X] rocket jumping competition (From: Tuesday 9 am to: Tuesday 3 pm)
+____________________________________________________________
+1. [T][ ] steal the declaration of independence
+
+2. [D][ ] fix the ceiling (by: Sunday 12 pm)
+
+3. [E][X] rocket jumping competition (From: Tuesday 9 am to: Tuesday 3 pm)
+
+____________________________________________________________
+Ohhh... uhm, okay, task undone!
+[E][ ] rocket jumping competition (From: Tuesday 9 am to: Tuesday 3 pm)
+____________________________________________________________
+Guess you don't want to do that anymore: [E][ ] rocket jumping competition (From: Tuesday 9 am to: Tuesday 3 pm)
+Now you have 2 tasks!
+____________________________________________________________
+Ehh? What do you want to mark? Type mark <index>
+Ehh? What do you want to mark? Type unmark <index>
+Whoops, wrong command! Type event <task> /from <date> /to <date>
+Whoops, wrong command! Type todo <task>
+ Byeeeeee. Hope to see you again soon~~
+____________________________________________________________
