@@ -8,7 +8,7 @@ import duke.exception.*;
 public class Parser {
 
     private enum Commands {
-        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye
+        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye, edit
     }
 
     private TaskList taskList;
@@ -57,6 +57,8 @@ public class Parser {
             return new DeleteCommand(parseTaskIndex(command));
         } else if (cmd.equals(Commands.find)) {
             return new FindCommand(parseKeyword(command));
+        } else if (cmd.equals(Commands.edit)) {
+            return new EditCommand(parseTaskIndex(command), parseEdit(command));
         } else {
             return new InvalidCommand();
         }

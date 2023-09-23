@@ -33,10 +33,9 @@ public class EditCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage, Ui ui) {
-        Task oldTask = taskList.getTask(index);
-        oldTask.editDescription(newDescription);
+        Task taskToBeEdited = taskList.getTask(index);
+        taskToBeEdited.editDescription(newDescription);
         storage.saveTasks(taskList);
-        Task newTask = taskList.getTask(index);
-        return ui.editTaskMessage(oldTask, newTask);
+        return ui.editTaskMessage(taskToBeEdited);
     }
 }
