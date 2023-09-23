@@ -53,33 +53,37 @@ public class TaskList {
     /**
      * Adds a new Deadline task to ArrayList.
      *
-     * @param userDescription Description attached to Deadline.
-     * @param deadlineBy Deadline given in yyyy-mm-dd HH:mm format.
+     * @param userInputList list that contains the user input.
      */
-    public String addDeadline(String userDescription, String deadlineBy) {
+    public String addDeadline(String[] userInputList) {
         try {
+            String[] deadlineList = userInputList[1].split("/", 2);
+            String userDescription = deadlineList[0];
+            String deadlineBy = deadlineList[1];
             Deadline deadline = new Deadline(userDescription, deadlineBy);
             storeTask.add(deadline);
             return Ui.printNumberOfEntries(deadline, this);
-        } catch (DateTimeParseException e) {
-            return Ui.invalidDateTimeEntry();
+        } catch (DateTimeParseException | IndexOutOfBoundsException e) {
+            return Ui.invalidDeadlineFormat();
         }
     }
 
     /**
      * Adds a new Deadline task to ArrayList.
      *
-     * @param userDescription Description attached to Event.
-     * @param from From Date & Time given in yyyy-mm-dd HH:mm format.
-     * @param to To Date & Time given in yyyy-mm-dd HH:mm format.
+     * @param userInputList list that contains the user input.
      */
-    public String addEvent(String userDescription, String from, String to) {
+    public String addEvent(String[] userInputList) {
         try {
+            String[] eventList = userInputList[1].split("/", 3);
+            String userDescription = eventList[0];
+            String from = eventList[1];
+            String to = eventList[2];
             Event event = new Event(userDescription, from, to);
             storeTask.add(event);
             return Ui.printNumberOfEntries(event, this);
-        } catch (DateTimeParseException e) {
-            return Ui.invalidDateTimeEntry();
+        } catch (DateTimeParseException | IndexOutOfBoundsException e) {
+            return Ui.invalidEventFormat();
         }
     }
 

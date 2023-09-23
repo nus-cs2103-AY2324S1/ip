@@ -46,6 +46,24 @@ public class Ui {
     public static String invalidDateTimeEntry() {
         return "Invalid date/time entry. Please give in yyyy-mm-dd hh:mm format...";
     }
+    /**
+     * Invalid deadline format string.
+     *
+     * @return Message indicating wrong format.
+     */
+    public static String invalidDeadlineFormat() {
+        return "Invalid format for deadline. Please give in deadline description/yyyy-mm-dd hh:mm format...";
+    }
+
+    /**
+     * Invalid event format string.
+     *
+     * @return Message indicating wrong format.
+     */
+    public static String invalidEventFormat() {
+        return "Invalid format for deadline. "
+                + "Please give in event description1/yyyy-mm-dd hh:mm/yyyy-mm-dd hh:mm format...";
+    }
 
     /**
      * Empty list string.

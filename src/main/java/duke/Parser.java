@@ -55,11 +55,11 @@ public class Parser {
             case todo:
                 return this.parseTaskList.addToDo(userInputList[1]);
             case deadline:
-                String[] deadlineList = userInputList[1].split("/", 2);
-                return this.parseTaskList.addDeadline(deadlineList[0], deadlineList[1]);
+                //String[] deadlineList = userInputList[1].split("/", 2);
+                return this.parseTaskList.addDeadline(userInputList);
             case event:
-                String[] eventList = userInputList[1].split("/", 3);
-                return this.parseTaskList.addEvent(eventList[0], eventList[1], eventList[2]);
+                //String[] eventList = userInputList[1].split("/", 3);
+                return this.parseTaskList.addEvent(userInputList);
             case delete:
                 Integer delUserChoice = Integer.parseInt(userInputList[1]);
                 return parseTaskList.deleteTask(delUserChoice);
