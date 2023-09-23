@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
+
 import task.Task;
 
 /**
@@ -20,7 +20,7 @@ public class Storage {
      *
      * @param filepath the filepath
      */
-    public Storage(String filepath){
+    public Storage(String filepath) {
         this.filepath = filepath;
     }
 

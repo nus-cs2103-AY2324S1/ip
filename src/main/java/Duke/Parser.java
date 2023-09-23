@@ -63,6 +63,9 @@ public class Parser {
         case "find":
             result.append(userInterface.showFindTasks(taskManager.find(parts[1])));
             break;
+        case "update":
+            result.append(this.update(parts));
+            break;
         case "bye":
             assert parts.length > 2 : "You do not have to add anything more to 'bye' command";
             storage.save(taskManager.displayList());
@@ -81,9 +84,9 @@ public class Parser {
      * @param parts the parts
      * @return the string
      */
-    public String todo(String[] parts) {
+    public String todo(String[] parts) throws DukeException {
         if (parts.length < 2) {
-            return userInterface.showError("OOPS!!! The description of a todo cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         }
         taskManager.todo(parts[1]);
         return userInterface.showTaskAddedMessage(taskManager.displayList());
@@ -95,9 +98,9 @@ public class Parser {
      * @param parts the parts
      * @return the string
      */
-    public String deadline(String[] parts) {
+    public String deadline(String[] parts) throws DukeException {
         if (parts.length < 2) {
-            return userInterface.showError("OOPS!!! The description of a deadline cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a deadline cannot be empty.");
         }
         String[] fullDesc = parts[1].split(" /by ");
         String description = fullDesc[0];
@@ -112,10 +115,10 @@ public class Parser {
      * @param parts the parts
      * @return the string
      */
-    public String event(String[] parts) {
+    public String event(String[] parts) throws DukeException {
 
         if (parts.length < 2) {
-            return userInterface.showError("OOPS!!! The description of a event cannot be empty.");
+            throw new DukeException("OOPS!!! The description of a event cannot be empty.");
         }
         String[] fullDesc = parts[1].split(" /from | /to ");
         String description = fullDesc[0];
@@ -163,7 +166,7 @@ public class Parser {
                 return userInterface.showError("OOPS!!! Invalid task number.");
             }
             taskManager.mark(taskIndex);
-            return userInterface.showTaskMarkedMessage(taskManager.displayList());
+            return userInterface.showTaskMarkedMessage(taskManager.displayList(), taskIndex);
         } catch (NumberFormatException e) {
             return userInterface.showError("OOPS!!! Please provide a valid task number.");
         }
@@ -185,7 +188,27 @@ public class Parser {
                 return userInterface.showError("OOPS!!! Invalid task number.");
             }
             taskManager.unmark(taskIndex);
-            return userInterface.showTaskUnmarkedMessage(taskManager.displayList());
+            return userInterface.showTaskUnmarkedMessage(taskManager.displayList(), taskIndex);
+        } catch (NumberFormatException e) {
+            return userInterface.showError("OOPS!!! Please provide a valid task number.");
+        }
+    }
+
+    /**
+     * Update tasks.
+     *
+     * @param parts the parts
+     * @return the string
+     */
+    public String update(String[] parts) {
+        if (parts.length < 2) {
+            return userInterface.showError("OOPS!!! Please specify the task number to update.");
+        }
+        try {
+            String[] newTask = parts[1].split(" /to ");
+            int taskIndex = Integer.parseInt(newTask[0]) - 1;
+            taskManager.update(taskIndex, newTask[1]);
+            return userInterface.showTaskUpdatedMessage(taskManager.displayList(), taskIndex);
         } catch (NumberFormatException e) {
             return userInterface.showError("OOPS!!! Please provide a valid task number.");
         }

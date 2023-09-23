@@ -31,7 +31,7 @@ public class Event extends Task{
 
     @Override
     public String getStatusIcon() {
-        return "[E]" + super.getStatusIcon() + "(from: " + from + " to: " + to + ")" ;
+        return "[E]" + super.getStatusIcon() + "(from: " + from + " to: " + to + ")";
     }
 
     @Override

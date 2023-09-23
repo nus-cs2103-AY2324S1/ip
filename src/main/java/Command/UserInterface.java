@@ -16,29 +16,8 @@ public class UserInterface {
      */
     public String showWelcomeMessage() {
         StringBuilder result = new StringBuilder();
-        result.append(this.showCommandLine());
-        result.append("Hello! I am Nila\n" + "What can I do for you?\n");
-        result.append(this.showCommandLine());
+        result.append("Hello! I am Nila\n" + "What can I do for you?\n").append("\n");
         return result.toString();
-    }
-
-    /**
-     * Show command line.
-     *
-     * @return the string
-     */
-    public String showCommandLine() {
-        return "- - - - - - - - - - - - - - - - - - - - - - - - -\n";
-    }
-
-    /**
-     * Show message.
-     *
-     * @param message the message
-     * @return the string
-     */
-    public String showMessage(String message) {
-        return message;
     }
 
     /**
@@ -48,7 +27,7 @@ public class UserInterface {
      * @return the string
      */
     public String showError(String errorMessage) {
-        return "Error: " + errorMessage;
+        return "Error: " + errorMessage + "\n";
     }
 
     /**
@@ -59,12 +38,11 @@ public class UserInterface {
      */
     public String showTaskList(ArrayList<Task> taskList) {
         StringBuilder result = new StringBuilder();
-        result.append(this.showCommandLine());
         result.append("Here are your tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
             result.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
-        result.append(this.showCommandLine());
+        result.append("\n");
         return result.toString();
     }
 
@@ -77,13 +55,25 @@ public class UserInterface {
      */
     public String showFindTasks(ArrayList<Task> taskList) {
         StringBuilder result = new StringBuilder();
-        result.append(this.showCommandLine());
         result.append("Here are the matching tasks:\n");
         for (int i = 0; i < taskList.size(); i++) {
             result.append((i + 1)).append(". ").append(taskList.get(i)).append("\n");
         }
-        result.append(this.showCommandLine());
+        result.append("\n");
         return result.toString();
+    }
+
+    /**
+     * Show task updated message string.
+     *
+     * @param taskList the task list
+     * @return the string
+     */
+    public String showTaskUpdatedMessage(ArrayList<Task> taskList, int index) {
+        StringBuilder taskUpdatedMessage = new StringBuilder();
+        taskUpdatedMessage.append("Got it! I've updated the task to your list.\n");
+        taskUpdatedMessage.append(taskList.get(index)).append("\n");
+        return taskUpdatedMessage.toString();
     }
 
     /**
@@ -94,10 +84,8 @@ public class UserInterface {
      */
     public String showTaskAddedMessage(ArrayList<Task> taskList) {
         StringBuilder taskAddedMessage = new StringBuilder();
-        taskAddedMessage.append(this.showCommandLine());
         taskAddedMessage.append("Got it! I've added the task to your list.\n");
         taskAddedMessage.append(this.showCurrentStatus(taskList));
-        taskAddedMessage.append(this.showCommandLine());
         return taskAddedMessage.toString();
     }
 
@@ -120,9 +108,8 @@ public class UserInterface {
      */
     public String showTaskDeletedMessage(ArrayList<Task> taskList) {
         StringBuilder result = new StringBuilder();
-        result.append(this.showCommandLine());
         result.append("Noted! I've removed the task from your list.\n");
-        result.append(this.showCommandLine());
+        result.append("Now you have ").append(taskList.size()).append("tasks in your list\n").append("\n");
         return result.toString();
     }
 
@@ -132,12 +119,10 @@ public class UserInterface {
      * @param taskList the task list
      * @return the string
      */
-    public String showTaskMarkedMessage(ArrayList<Task> taskList) {
+    public String showTaskMarkedMessage(ArrayList<Task> taskList, int index) {
         StringBuilder result = new StringBuilder();
-        result.append(this.showCommandLine());
         result.append("Nice! I've marked this task as done.\n");
-        result.append(this.showCurrentStatus(taskList));
-        result.append(this.showCommandLine());
+        result.append(taskList.get(index));
         return result.toString();
     }
 
@@ -147,12 +132,10 @@ public class UserInterface {
      * @param taskList the task list
      * @return the string
      */
-    public String showTaskUnmarkedMessage(ArrayList<Task> taskList) {
+    public String showTaskUnmarkedMessage(ArrayList<Task> taskList, int index) {
         StringBuilder result = new StringBuilder();
-        result.append(this.showCommandLine());
-        result.append(" OK, I've marked this task as not done yet.\n");
-        result.append(this.showCurrentStatus(taskList));
-        result.append(this.showCommandLine());
+        result.append(" OK, I've umarked this task.\n");
+        result.append(taskList.get(index));
         return result.toString();
     }
 
@@ -165,14 +148,6 @@ public class UserInterface {
         return "Sorry, I don't understand that command.\n";
     }
 
-    /**
-     * Show loading error.
-     *
-     * @return the string
-     */
-    public String showLoadingError() {
-        return "Error loading tasks. Starting with an empty list.\n";
-    }
 
     /**
      * Show goodbye message.
@@ -181,9 +156,7 @@ public class UserInterface {
      */
     public String showGoodbyeMessage() {
         StringBuilder result = new StringBuilder();
-        result.append(this.showCommandLine());
-        result.append("Bye. Hope to see you again soon!\n");
-        result.append(this.showCommandLine());
+        result.append("Bye. Hope to see you again soon!\n").append("\n");
         return result.toString();
     }
 }

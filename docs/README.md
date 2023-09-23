@@ -2,9 +2,10 @@
 
 ## Features 
 
-### Feature-ABC
+### Feature-Add tasks
 
-Description of the feature.
+#### todo
+todo is a task that has only description of the task and allows you to add new task to the task list.
 
 ### Feature-XYZ
 
@@ -27,3 +28,5 @@ Description of the outcome.
 ```
 expected output
 ```
+
+
