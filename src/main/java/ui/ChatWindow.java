@@ -9,6 +9,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import duke.Duke;
@@ -21,6 +22,8 @@ import java.util.concurrent.TimeUnit;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class ChatWindow extends BorderPane {
+    @FXML
+    private HBox bottomBar;
     @FXML
     private BorderPane dialogWrapper;
     @FXML

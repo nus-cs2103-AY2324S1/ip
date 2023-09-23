@@ -3,7 +3,7 @@ package commands;
 import java.time.LocalDateTime;
 
 import data.TaskList;
-import data.exception.DukeException;
+import data.exception.InvalidParamException;
 import data.exception.StorageException;
 import data.tasks.Event;
 import data.tasks.Task;
@@ -35,7 +35,8 @@ public class EventCommand extends Command {
 
     @Override
     public UiMessage execute(
-            TaskList tasks, Storage storage) throws StorageException {
+            TaskList tasks, Storage storage)
+        throws StorageException, InvalidParamException {
         Task event = new Event(description, from, to);
         tasks.add(event);
         storage.update(tasks);

@@ -14,6 +14,15 @@
     -fx-background-color: "#D3C6AA";
 }
 
+#userInput {
+    -fx-control-inner-background: "#D3C6AA";
+    -fx-background-radius: 8;
+}
+
+#sendButton {
+    -fx-background-radius: 8;
+}
+
 #dialog {
     -fx-background-color: "#384B55";
     -fx-background-radius: 8;
@@ -21,10 +30,6 @@
 
 .errorDialog {
     -fx-background-color: red;
-}
-
-#userInput {
-    -fx-control-inner-background: "#D3C6AA";
 }
 
 .scroll-bar:vertical .thumb {
