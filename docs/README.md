@@ -18,7 +18,7 @@
 ## Quick Start
 1. Ensure you have Java `11` or above installed on your computer.
 
-2. Download the latest `bryanBot.jar` from [here]().
+2. Download the latest `bryanBot.jar` from [here](https://github.com/McNaBry/ip/releases/tag/A-Release).
 
 3. Copy the `.jar` file to an empty folder where you are able to read and write to existing files.
 
