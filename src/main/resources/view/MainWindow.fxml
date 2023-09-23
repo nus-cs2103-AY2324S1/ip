@@ -14,7 +14,7 @@
 
               <TextField fx:id="userInput" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" style="-fx-background-color: #d8c3ab;" AnchorPane.bottomAnchor="1.0">
          <font>
-            <Font name="Arial" size="12.0" />
+            <Font name="HGSoeiKakupoptai" size="12.0" />
          </font>
       </TextField>
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" textFill="#53301b">
