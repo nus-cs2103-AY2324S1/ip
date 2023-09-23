@@ -4,6 +4,7 @@ import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 import oreo.datetime.TimeParser;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -224,12 +225,14 @@ public abstract class Task implements Comparable<Task> {
             String[] parts = description.split("/", 2);
             String[] dateTime = TimeParser.parseInputOut(parts[1]);
             return new Deadline(parts[0], dateTime[0], dateTime[1], mark);
-        default:
+        case (3):
             String[] message = description.split("/", 3);
             String[] fromDateTime = TimeParser.parseInputOut(message[1]);
             String[] toDateTime = TimeParser.parseInputOut(message[2]);
             return new Event(message[0], fromDateTime[0], fromDateTime[1],
                     toDateTime[0], toDateTime[1], mark);
+        default:
+            throw new InputMismatchException();
         }
     }
 

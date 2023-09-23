@@ -12,9 +12,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="500.0" style="-fx-background-color: #737C88;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oreo.ui.MainWindow">
     <children>
-        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" pannable="true" prefHeight="700.0" prefWidth="500.0" style="-fx-background-radius: 0.5em;" styleClass="dmSans" vvalue="1.0">
+        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" pannable="true" prefHeight="700.0" prefWidth="500.0" style="-fx-background-radius: 0.5em;" styleClass="dmSans" vvalue="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <VBox fx:id="dialogContainer" maxHeight="1.7976931348623157E308" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #28313D; -fx-border-color: #28313D;">
+                <VBox fx:id="dialogContainer" maxHeight="1.7976931348623157E308" prefHeight="700.0" prefWidth="400.0" style="-fx-background-color: #232E38; -fx-border-color: #28313D;">
                <padding>
                   <Insets bottom="35.0" left="10.0" />
                </padding></VBox>
@@ -35,12 +35,12 @@
             <Font name="DMSans-Medium" size="11.0" />
          </font>
       </TextField>
-      <ImageView fx:id="editButton" fitHeight="150.0" fitWidth="24.0" layoutX="455.0" layoutY="663.0" onMousePressed="#handleEditInput" pickOnBounds="true" preserveRatio="true" visible="false">
+      <ImageView fx:id="editButton" fitHeight="150.0" fitWidth="24.0" layoutX="455.0" layoutY="663.0" onMousePressed="#handleEditInput" pickOnBounds="true" preserveRatio="true" visible="false" AnchorPane.bottomAnchor="13.0">
          <image>
             <Image url="@../images/editbutton.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="sendButton" accessibleRole="BUTTON" depthTest="ENABLE" fitHeight="86.0" fitWidth="25.0" layoutX="456.0" layoutY="663.0" onMousePressed="#handleUserInput" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="sendButton" accessibleRole="BUTTON" depthTest="ENABLE" fitHeight="86.0" fitWidth="25.0" layoutX="456.0" layoutY="663.0" onMousePressed="#handleUserInput" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="13.0">
          <image>
             <Image url="@../images/sendbutton.png" />
          </image>
