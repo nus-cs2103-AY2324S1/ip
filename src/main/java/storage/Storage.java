@@ -6,10 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import common.DateParser;
 import data.TaskList;
+import data.exception.InvalidParamException;
 import data.exception.StorageException;
 import data.tasks.Deadline;
 import data.tasks.Event;
@@ -59,7 +61,12 @@ public class Storage {
                 if (parse.length < 3) {
                     continue;
                 }
-                Task task = this.createTask(parse);
+                Task task = null;
+                try {
+                    task = this.createTask(parse);
+                } catch (InvalidParamException e) {
+                    continue;
+                }
                 if (task != null) {
                     tasks.add(task);
                 }
@@ -85,8 +92,10 @@ public class Storage {
      *
      * @param parse The line containing the task data.
      * @return A {@link Task} instance.
+     * @throws InvalidParamException Thrown when parameters parsed
+     *                               from file are invalid.
      */
-    private Task createTask(String[] parse) {
+    private Task createTask(String[] parse) throws InvalidParamException {
         String taskType = parse[0];
         boolean isDone = parse[1].equals("1");
 
@@ -98,31 +107,55 @@ public class Storage {
             newTask = new Todo(parse[2]);
             break;
         case "D":
-            if (parse.length >= 4) {
-                newTask = new Deadline(
-                    parse[2],
-                    DateParser.parseDateString(parse[3])
-                );
-            }
+            newTask = parseDeadline(parse);
             break;
         case "E":
-            if (parse.length >= 5) {
-                newTask = new Event(
-                    parse[2],
-                    DateParser.parseDateString(parse[3]),
-                    DateParser.parseDateString(parse[4])
-                );
-            }
+            newTask = parseEvent(parse);
             break;
         default:
             return null;
         }
 
-        if (isDone) {
-            assert newTask != null;
+        if (isDone && newTask != null) {
             newTask.mark();
         }
+
         return newTask;
+    }
+
+    private Deadline parseDeadline(String[] parse) {
+        if (parse.length < 4) {
+            return null;
+        }
+        LocalDateTime by = DateParser.parseDateString(parse[3]);
+        if (by == null) {
+            by = LocalDateTime.now();
+        }
+        return new Deadline(
+            parse[2],
+            by
+        );
+    }
+
+    private Event parseEvent(String[] parse) throws InvalidParamException {
+        if (parse.length < 5) {
+            return null;
+        }
+
+        LocalDateTime from = DateParser.parseDateString(parse[3]);
+        LocalDateTime to = DateParser.parseDateString(parse[4]);
+        if (from == null) {
+            from = LocalDateTime.now();
+        }
+        if (to == null) {
+            to = LocalDateTime.now();
+        }
+
+        return new Event(
+            parse[2],
+            from,
+            to
+        );
     }
 
     /**
@@ -136,11 +169,23 @@ public class Storage {
      */
     public void update(TaskList tasks) throws StorageException {
         try {
-            FileWriter fw = new FileWriter(filePath);
+            File f = new File(filePath);
+            if (!f.canWrite()) {
+                throw new StorageException(
+                    "It seems I do not have permission to write your"
+                        + "tasks to a local file. "
+                        + "Perhaps you could run my program somewhere else?"
+                );
+            }
+            FileWriter fw = new FileWriter(f);
             fw.write(tasks.toString());
             fw.close();
         } catch (IOException e) {
-            throw new StorageException("Sorry error with saving tasks!");
+            throw new StorageException(
+                "I couldn't save your tasks to a local file :( "
+                    + "It would be best if you restart my program"
+                    + "and try again."
+            );
         }
     }
 }
