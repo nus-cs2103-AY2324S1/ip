@@ -81,11 +81,11 @@ Now you have 5 tasks in the list.
 
 ### `list` - Lists all tasks in your list
 Displays all your task in your list.  
-Can be used to show the task index required for deletion/marking  
+Can be used to show the task index required for deleting or marking a task  
 Example of usage:  
-```list```
+```list```  
 Expected outcome:
-List of all tasks in the list at the moment:  
+List of all tasks you have at the moment
 ```
 Here are the tasks in your list:
 1.[T][] Wipe the bookshelf
@@ -108,7 +108,7 @@ Now you have 4 tasks in the list.
 ### `mark` - Marks a task as complete in the list
 Marks a task in your task list as complete. Use ```list``` to obtain the index of the task  
 Example of usage:  
-```mark 3```
+```mark 3```  
 Expected outcome:  
 The third task in the list is marked
 ```
@@ -117,11 +117,12 @@ nice! I've marked this task as done:
 ```
 
 ### `unmark` - Marks a task as incomplete in the list
-Marks a task in your task list as incomplete. Use ```list``` to obtain the index of the task  
+Marks a task in your task list as incomplete.    
+Use ```list``` to obtain the index of the task  
 Example of usage:  
-```unmark 3```
+```unmark 3```  
 Expected outcome:  
-The third task in the list is unmarked
+The third task in the list become unmarked
 ```
 OK, I've marked this task as not done yet:
 [E][] project meeting (from: 12/2/2023 1500 to: 14/3/2023)
