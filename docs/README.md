@@ -169,3 +169,7 @@ Expected outcome:
 ```
 [Deleted] [T][ ] Prepare breakfast
 ```
+
+## Acknowledgements
+
+- Used some gradle fixes from [@woojiahao](https://github.com/woojiahao) written [here](https://github.com/nus-cs2103-AY2324S1/forum/issues/173)

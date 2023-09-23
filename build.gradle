@@ -13,6 +13,18 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // @@author lordidiot-reused
+    // Taken from https://github.com/nus-cs2103-AY2324S1/forum/issues/173
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
+    // @@author
 }
 
 test {
