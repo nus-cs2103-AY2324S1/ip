@@ -12,7 +12,7 @@ This is a Chatterbot to help you manage your tasks. Given below are instructions
 - search for task(s) based on a specific keyword
 
 ### Here are the steps to using it:
-1. Download ChatterBot [here](https://github.com/hyc17003/ip)
+1. Download ChatterBot [here]([https://github.com/hyc17003/ip](https://github.com/hyc17003/ip/releases/tag/JAR-Release))
 2. Double-click it
 3. Add your tasks
 4. Watch as task-managing becomes ~~easier~~ ***so much*** easier!!! 😉
