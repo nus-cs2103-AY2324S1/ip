@@ -17,10 +17,10 @@ public class TaskList {
      * @throws MossException If there's an issue with processing commands or managing tasks.
      */
     public static String command(String message, ArrayList<Task> things, Storage storage) throws MossException {
+        UI ui = new UI();
         String output = "";
         things = (ArrayList<Task>) storage.loadTasks();
         if (message.equals("bye")){
-            UI ui = new UI();
             return ui.bye();
         }
         if (message.equals("list")) {
@@ -37,21 +37,36 @@ public class TaskList {
         } else if (message.startsWith("mark")) {
             // Mark a task as done
             String indexSubstring = message.substring(5);
-            int index = Integer.parseInt(indexSubstring) - 1;
+            int index;
+            try {
+                index = Integer.parseInt(indexSubstring) - 1;
+            } catch (NumberFormatException e) {
+                return ui.showError(new MossException("Please follow the format: mark [task number]"));
+            }
             output = things.get(index).markDone();
             storage.saveTasks(things);
             return output;
         } else if (message.startsWith("unmark")) {
             // Mark a task as undone
             String indexSubstring = message.substring(7);
-            int index = Integer.parseInt(indexSubstring) - 1;
+            int index;
+            try {
+                index = Integer.parseInt(indexSubstring) - 1;
+            } catch (NumberFormatException e) {
+                return ui.showError(new MossException("Please follow the format: unmark [task number]"));
+            }
             output += things.get(index).markUndone();
             storage.saveTasks(things);
             return output;
         } else if (message.startsWith("delete")) {
             // Delete a task
             String indexSubstring = message.substring(7);
-            int index = Integer.parseInt(indexSubstring) - 1;
+            int index;
+            try {
+                index = Integer.parseInt(indexSubstring) - 1;
+            } catch (NumberFormatException e) {
+                return ui.showError(new MossException("Please follow the format: delete [task number]"));
+            }
             Task temp = things.remove(index);
             output += "___________________________________________________________\n"
                     + "Noted. I've removed this task:\n"
@@ -81,7 +96,7 @@ public class TaskList {
             if (message.startsWith("todo")) {
                 // check if the command is valid otherwise throw errors
                 if (message.length() <= 5) {
-                    throw new MossException("OOPS!!! The description of a todo cannot be empty.");
+                    return ui.showError(new MossException("OOPS!!! The description of a todo cannot be empty."));
                 }
                 ToDo task = new ToDo(message.substring(5));
                 things.add(task);
@@ -100,66 +115,76 @@ public class TaskList {
             else if (message.startsWith("deadline")) {
                 // Find the position of "/by" in the input
                 if (message.length() <= 9) {
-                    throw new MossException("OOPS!!! The description of a todo cannot be empty.");
+                    return ui.showError(new MossException("OOPS!!! The description of a deadline cannot be empty."));
                 }
-                int byIndex = message.indexOf("/by");
+                try {
+                    int byIndex = message.indexOf("/by");
 
-                // Extract the substring after "/by"
-                String deadlineInfo = message.substring(byIndex + 4).trim();
+                    // Extract the substring after "/by"
+                    String deadlineInfo = message.substring(byIndex + 4).trim();
 
-                // Split the deadlineInfo by space to get individual parts
-                String[] parts = deadlineInfo.split(" ");
+                    // Split the deadlineInfo by space to get individual parts
+                    String[] parts = deadlineInfo.split(" ");
 
-                // The day is the last part of the parts array
-                String day = parts[parts.length - 1];
-                LocalDate date = LocalDate.parse(day);
-                // Extract the substring before "/by"
-                String taskDescription = message.substring(9, byIndex).trim();
+                    // The day is the last part of the parts array
+                    String day = parts[parts.length - 1];
+                    LocalDate date = LocalDate.parse(day);
+                    // Extract the substring before "/by"
+                    String taskDescription = message.substring(9, byIndex).trim();
 
-                Deadline task = new Deadline(taskDescription, date);
-                things.add(task);
-                storage.saveTasks(things);
+                    Deadline task = new Deadline(taskDescription, date);
+                    things.add(task);
+                    storage.saveTasks(things);
 
-                // Provide feedback about the added task
-                output += "____________________________________________________________\n"
-                        + "Got it. I've added this task: \n"
-                        + things.get(things.size() - 1).toString() + "\n"
-                        + "Now you have " + things.size() + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
+                    // Provide feedback about the added task
+                    output += "____________________________________________________________\n"
+                            + "Got it. I've added this task: \n"
+                            + things.get(things.size() - 1).toString() + "\n"
+                            + "Now you have " + things.size() + " tasks in the list.\n"
+                            + "____________________________________________________________\n";
 
-                return output;
+                    return output;
+                } catch (Exception e) {
+                    return ui.showError(new MossException("Please follow the format: deadline [description] /by [date]"));
+                }
+
             }
             // Add an event task
             else if (message.startsWith("event")) {
                 if (message.length() <= 6) {
-                    throw new MossException("OOPS!!! The description of a todo cannot be empty.");
+                    return ui.showError(new MossException("OOPS!!! The description of a event cannot be empty."));
                 }
-                int byIndex = message.indexOf("/from");
+                try {
+                    int byIndex = message.indexOf("/from");
 
-                int fromIndex = message.indexOf("/from");
-                int toIndex = message.indexOf("/to");
+                    int fromIndex = message.indexOf("/from");
+                    int toIndex = message.indexOf("/to");
 
-                // Extract the substring between "/from" and "/to" and behind "to"
-                String from = message.substring(fromIndex + 5, toIndex).trim();
-                LocalDate fromDate = LocalDate.parse(from);
+                    // Extract the substring between "/from" and "/to" and behind "to"
+                    String from = message.substring(fromIndex + 5, toIndex).trim();
+                    LocalDate fromDate = LocalDate.parse(from);
 
-                String to = message.substring(toIndex + 3).trim();
-                LocalDate toDate = LocalDate.parse(to);
+                    String to = message.substring(toIndex + 3).trim();
+                    LocalDate toDate = LocalDate.parse(to);
 
-                String taskDescription = message.substring(6, byIndex).trim();
+                    String taskDescription = message.substring(6, byIndex).trim();
 
-                Event task = new Event(taskDescription, fromDate, toDate);
-                things.add(task);
-                storage.saveTasks(things);
+                    Event task = new Event(taskDescription, fromDate, toDate);
+                    things.add(task);
+                    storage.saveTasks(things);
 
-                // Provide feedback about the added task
-                output += "____________________________________________________________\n"
-                        + "Got it. I've added this task: \n"
-                        + things.get(things.size() - 1).toString() + "\n"
-                        + "Now you have " + things.size() + " tasks in the list.\n"
-                        + "____________________________________________________________\n";
+                    // Provide feedback about the added task
+                    output += "____________________________________________________________\n"
+                            + "Got it. I've added this task: \n"
+                            + things.get(things.size() - 1).toString() + "\n"
+                            + "Now you have " + things.size() + " tasks in the list.\n"
+                            + "____________________________________________________________\n";
 
-                return output;
+                    return output;
+                } catch (Exception e) {
+                    return ui.showError(new MossException("Please follow the format: event [description] /from [start date] /to [end date]"));
+                }
+
             }
             else if (message.startsWith("find")) {
                 String taskDescription = message.substring(5);

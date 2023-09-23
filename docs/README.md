@@ -154,14 +154,14 @@ Moss is a simple chatbot helps you to record messages into a list.
    Expected outcome:
 
    Here are the available commands:
-   1. todo <description>: Adds a new todo task.
-   2. deadline <description> /by <date>: Adds a new deadline task.
-   3. event <description> /from <start date> /to <end date>: Adds a new event task.
+   1. todo [description]: Adds a new todo task.
+   2. deadline [description] /by <date>: Adds a new deadline task.
+   3. event [description] /from <start date> /to <end date>: Adds a new event task.
    4. list: Lists all tasks.
-   5. mark <task number>: Marks a task as done.
-   6. unmark <task number>: Marks a task as undone.
-   7. delete <task number>: Deletes a task.
-   8. find <keyword>: Finds tasks containing the specified keyword in their description.
+   5. mark [task number]: Marks a task as done.
+   6. unmark [task number]: Marks a task as undone.
+   7. delete [task number]: Deletes a task.
+   8. find [keyword]: Finds tasks containing the specified keyword in their description.
    9. bye: Exits the application.
       Use the commands without '<>' and replace <description>, <date>, <start date>, <end date>, and <task number> accordingly.
       Example usage: todo Buy groceries

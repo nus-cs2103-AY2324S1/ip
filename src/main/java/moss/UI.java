@@ -26,6 +26,8 @@ public class UI {
         return bye;
     }
 
-
+    public String showError(MossException e) {
+        return e.toString();
+    }
 }
 

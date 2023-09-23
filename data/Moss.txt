@@ -1,4 +1,3 @@
 T | X | sports
 D |   | exam | 2023-10-15
 T | X | coffee
-T |   | homework
