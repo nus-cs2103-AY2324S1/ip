@@ -197,10 +197,11 @@ public class TaskList {
      * @param keyword The keyword given by user.
      */
     public String find(String keyword) {
+        assert keyword != null;
         ArrayList<Task> matchList = new ArrayList<>();
         for (int i = 0; i < taskCount; i++) {
             Task curr = list.get(i);
-            if (curr.getDescription().toLowerCase().contains(keyword)) {
+            if (curr.getDescription().toLowerCase().contains(keyword.strip())) {
                 matchList.add(curr);
             }
         }
