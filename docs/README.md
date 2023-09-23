@@ -1,6 +1,6 @@
 # User Guide
 
-`Bryan` is **desktop app for managing your tasks, optimised for use via a Command Line Interface** (CLI). Complimented with a simple GUI inspired by the [Everforest](https://github.com/sainnhe/everforest) theme, `Bryan` is an efficient todo list for those who can type fast.
+`Bryan` is a **desktop app for managing your tasks, optimised for use via a Command Line Interface** (CLI). Complimented with a simple GUI inspired by the [Everforest](https://github.com/sainnhe/everforest) theme, `Bryan` is an efficient todo list for those who can type fast.
 
 - [Quick Start](#quick-start)
 - [Features](#features)
@@ -156,18 +156,20 @@ The valid date formats are:
 `MMM` refers to the month in shortform <br>
 `d` refers to the day in 1 or 2 digits
 
-You can also include a timing (24h format):
+You can also include a timing after the date (24h format):
 - `800` or `0800` for 8am
 - `1800` for 6pm
+
+E.g. `1 Feb 2023 0800`
 
 ## Command Summary
 
 | Action              | Format |
 | ------------------- | ------------- |
 | [List](#listing-your-tasks---list) | `list`  |
-| [Todo](#creating-a-todo-task---todo) | `todo DESCRIPTION`  |
-| [Deadline](#creating-a-deadline-task---deadline) | `deadline DESCRIPTION /by END_DATE`  |
-| [Event](#creating-an-event-task---event) | `event DESCRIPTION /from START_DATE /to END_DATE`  |
+| [Create Todo](#creating-a-todo-task---todo) | `todo DESCRIPTION`  |
+| [Create Deadline](#creating-a-deadline-task---deadline) | `deadline DESCRIPTION /by END_DATE`  |
+| [Create Event](#creating-an-event-task---event) | `event DESCRIPTION /from START_DATE /to END_DATE`  |
 | [Mark/Unmark](#markingunmarking-a-task---markunmark) | `mark INDEX` / `unmark INDEX`  |
 | [Delete](#deleting-a-task---delete) | `delete INDEX`  |
 | [Find](#finding-a-task---find) | `find KEYWORD`  |
