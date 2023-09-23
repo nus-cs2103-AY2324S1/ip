@@ -140,14 +140,21 @@ public class DialogBox extends HBox {
         messageBox.setArcHeight(ARC_VALUE);
     }
 
+    /**
+     * Creates a Text node containing the provided string and applies text wrapping.
+     * Section on text wrapping inspired by @tjingsheng
+     * https://github.com/tjingsheng/
+     *
+     * @param string The string to be converted to a Text node.
+     * @return A Text node with text wrapping applied.
+     */
     private Text createText(String string) {
         assert string != null : "String to be converted cannot be null";
         return wrapText(new Text(string));
     }
 
     /**
-     * Section on text wrapping inspired by @tjingsheng
-     * https://github.com/tjingsheng/
+     * Applies text wrapping to the given Text node.
      */
     private Text wrapText(Text text) {
         String originalText = text.getText();
@@ -162,6 +169,9 @@ public class DialogBox extends HBox {
         return new Text(wrappedText.toString());
     }
 
+    /**
+     * Wraps a single line of text with a specified maximum line length.
+     */
     private static void wrapLine(String line, StringBuilder wrappedText) {
         String[] words = line.split("\\s+");
         StringBuilder currentLine = new StringBuilder();
@@ -183,6 +193,9 @@ public class DialogBox extends HBox {
         }
     }
 
+    /**
+     * Wraps a long word that exceeds the specified maximum line length.
+     */
     private static void wrapLongWord(String word, StringBuilder wrappedText) {
         int startIndex = 0;
         while (startIndex < word.length()) {

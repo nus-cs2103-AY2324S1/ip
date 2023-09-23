@@ -36,6 +36,7 @@
     <ScrollPane fx:id="scrollPane"
                 hvalue="1.0"
                 hbarPolicy="NEVER"
+                vbarPolicy="NEVER"
                 prefHeight="630.0"
                 prefWidth="500.0"
                 vvalue="1.0">
@@ -43,7 +44,7 @@
               prefHeight="552.0"
               prefWidth="500.0"
               alignment="TOP_CENTER"
-              style="-fx-padding: 10 0 10 0"
+              style="-fx-padding: 10 5 10 5"
         >
             <ImageView fx:id="introImage"
                        preserveRatio="true"
