@@ -1,3 +1,2 @@
-[T][X] buy book [P: LOW]
-[D][ ] return (by: 2021-02-22) [P: LOW]
-[E][ ] Watch Game  (from: 2021-02-22 to: 2021-02-23) [P: LOW]
+[E][X] Watch Game  (from: 2021-02-22 to: 2021-02-23) [P: LOW]
+[T][ ] return book [P: LOW]

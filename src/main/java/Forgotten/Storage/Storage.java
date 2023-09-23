@@ -81,7 +81,7 @@ public class Storage {
             String description = split1[0].substring(7);
             String start = split2[0];
             String end = split3[0];
-            Priority priority = Priority.valueOf(split2[1].substring(0, split2[1].length() - 1));
+            Priority priority = Priority.valueOf(split3[1].substring(0, split3[1].length() - 1));
 
             taskList.add(new Event(description, LocalDate.parse(start), LocalDate.parse(end), isDone, priority));
         }
