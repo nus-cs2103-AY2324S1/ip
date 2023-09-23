@@ -63,7 +63,7 @@ shadowJar {
     archiveFileName = 'duke.jar'
 }
 
-run{
+run {
     enableAssertions = true
     standardInput = System.in
 }
