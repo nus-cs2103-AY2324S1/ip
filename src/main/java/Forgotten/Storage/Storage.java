@@ -32,16 +32,19 @@ public class Storage {
      * @return An array list of task objects.
      * @throws FileNotFoundException If file is not found.
      */
-    public ArrayList<Task> loadTask() throws FileNotFoundException {
+    public ArrayList<Task> loadTask() {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(filePath);
-        Scanner scanner = new Scanner(file);
-
-        while (scanner.hasNext()) {
-            String nextLine = scanner.nextLine();
-            readString(nextLine, taskList);
+        try {
+            Scanner scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                String nextLine = scanner.nextLine();
+                readString(nextLine, taskList);
+            }
+            scanner.close();
+        } catch (FileNotFoundException fileNotFoundException) {
+            createNewFile();
         }
-        scanner.close();
         return taskList;
     }
 

@@ -21,16 +21,7 @@ public class Forgotten {
     public Forgotten() {
         ui = new Ui();
         storage = new Storage();
-        try {
-            this.taskList = new TaskList(storage.loadTask(), this.storage);
-        } catch (FileNotFoundException fileException) {
-            storage.createNewFile();
-            try {
-                this.taskList = new TaskList(storage.loadTask(), this.storage);
-            } catch (FileNotFoundException ignored) {
-                storage.createNewFile();
-            }
-        }
+        this.taskList = new TaskList(storage.loadTask(), this.storage);
     }
 
     public String generateResponse(String userCommand) {

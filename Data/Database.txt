@@ -1,1 +1,4 @@
-[T][ ] wash dishes [P: LOW]
+[T][ ] read book [P: LOW]
+[D][ ] return book (by: 2021-02-22) [P: LOW]
+[E][ ] Exam Period (from: 2023-09-23 to: 2023-09-27) [P: LOW]
+[T][ ] exercise [P: LOW]
