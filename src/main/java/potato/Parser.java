@@ -18,6 +18,9 @@ public class Parser {
         } else if (input.startsWith("find ")) {
             return new FindCommand(input);
 
+        } else if (input.startsWith("priority ")) {
+            return new SetPriorityCommand(input);
+
         } else if (input.equals("list")) {
             return new ListCommand();
 
