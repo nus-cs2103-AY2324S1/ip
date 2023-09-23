@@ -94,7 +94,7 @@ public class ParserTest {
             Command resCommand = new ByeCommand(resString);
             assertEquals(resCommand, Parser.parse("byebye"));
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! This command is invalid.", e.getMessage());
+            assertEquals("OOPS!!! This command is invalid.", e.getMessage());
         }
     }
 
@@ -105,7 +105,7 @@ public class ParserTest {
             Command resCommand = new ListCommand(resString);
             assertEquals(resCommand, Parser.parse("listall"));
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! This command is invalid.", e.getMessage());
+            assertEquals("OOPS!!! This command is invalid.", e.getMessage());
         }
     }
 
@@ -116,7 +116,7 @@ public class ParserTest {
             Command resCommand = new MarkCommand(resString);
             assertEquals(resCommand, Parser.parse("mark"));
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The task number to mark cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The task number to mark cannot be empty.", e.getMessage());
         }
     }
 
@@ -127,7 +127,7 @@ public class ParserTest {
             Command resCommand = new UnmarkCommand(resString);
             assertEquals(resCommand, Parser.parse("unmark"));
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The task number to unmark cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The task number to unmark cannot be empty.", e.getMessage());
         }
     }
 
@@ -138,7 +138,7 @@ public class ParserTest {
             Command resCommand = new DeleteCommand(resString);
             assertEquals(resCommand, Parser.parse("delete"));
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The task number to delete cannot be empty.", e.getMessage());
+            assertEquals("OOPS!!! The task number to delete cannot be empty.", e.getMessage());
         }
     }
 
@@ -150,7 +150,7 @@ public class ParserTest {
             assertEquals(command, Parser.parse("todoj"));
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! This command is invalid.", e.getMessage());
+            assertEquals("OOPS!!! This command is invalid.", e.getMessage());
         }
     }
 
@@ -162,7 +162,7 @@ public class ParserTest {
             assertEquals(command, Parser.parse("deadline"));
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The format of the deadline command is invalid.\n"
+            assertEquals("OOPS!!! The format of the deadline command is invalid.\n"
                     + "Here is an example of a valid format:"
                     + " deadline coding /by 2023-09-04", e.getMessage());
         }
@@ -176,7 +176,7 @@ public class ParserTest {
             assertEquals(command, Parser.parse("event /to 2023-10-10 /from 2023-01-01"));
             fail(); // the test should not reach this line
         } catch (Exception e) {
-            assertEquals("☹ OOPS!!! The format of the event command is invalid.\n"
+            assertEquals("OOPS!!! The format of the event command is invalid.\n"
                     + "Here is an example of a valid format:"
                     + " event coding /from 2023-01-01 /to 2023-12-31", e.getMessage());
         }
