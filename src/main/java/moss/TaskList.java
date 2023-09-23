@@ -47,7 +47,7 @@ public class TaskList {
         } else if (message.startsWith("find")) {
             return findTasks(message, things);
         } else {
-            throw new MossException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return ui.showError(new MossException("OOPS!!! I'm sorry, but I don't know what that means :-("));
         }
     }
 
