@@ -53,15 +53,15 @@ public class Event extends Task {
         assert startOfDay.isBefore(endOfDay) : "startOfDay should be before endOfDay";
         // Event can either start or end on the date itself, or both
         // Or it can surround the date
-        boolean eventStartFallsWithinQueriedDay =
+        boolean isEventStartWithinQueriedDay =
                 this.start.isAfterOrOn(startOfDay) && this.start.isBeforeOrOn(endOfDay);
-        boolean eventEndFallsWithinQueriedDay = this.end.isAfterOrOn(startOfDay)
+        boolean isEventEndWithinQueriedDay = this.end.isAfterOrOn(startOfDay)
                 && this.end.isBeforeOrOn(endOfDay);
-        boolean eventPeriodContainsQueriedDay = this.start.isBeforeOrOn(startOfDay)
+        boolean isEventPeriodContainingQueriedDay = this.start.isBeforeOrOn(startOfDay)
                 && this.end.isAfterOrOn(endOfDay);
-        return eventStartFallsWithinQueriedDay
-                || eventEndFallsWithinQueriedDay
-                || eventPeriodContainsQueriedDay;
+        return isEventStartWithinQueriedDay
+                || isEventEndWithinQueriedDay
+                || isEventPeriodContainingQueriedDay;
     }
 
     @Override

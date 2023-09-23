@@ -42,8 +42,7 @@ import dot.errors.DotException;
  */
 public interface Undoable {
     /**
-     * The undo method for the corresponding Command subclass.
-     * Command::undo to be called to undo the specific action.
+     * Undoes the most recent undoable command if it exists.
      *
      * @param handleDotOutput This is the consumer used to display any output
      *                        due the execution of the command to the GUI.

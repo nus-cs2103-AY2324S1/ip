@@ -48,7 +48,7 @@ public class TodoCommand extends Command implements Undoable {
     }
 
     /**
-     * Undo the creation of Todo.
+     * Undoes the creation of Todo.
      *
      * @param handleDotOutput This is the consumer used to display any output
      *                        due the execution of the command to the GUI.

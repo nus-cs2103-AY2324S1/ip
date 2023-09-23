@@ -53,7 +53,7 @@ public class DeadlineCommand extends Command implements Undoable {
     }
 
     /**
-     * Undo the creation of Deadline.
+     * Undoes the creation of Deadline.
      *
      * @param handleDotOutput This is the consumer used to display any output
      *                        due the execution of the command to the GUI.

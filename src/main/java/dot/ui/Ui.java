@@ -51,7 +51,7 @@ public class Ui {
     }
 
     /**
-     * This method displays a message after a mark or unmark command
+     * Displays a message after a mark or unmark command
      * is successfully executed.
      *
      * @param isMarking If true, the mark command is the one being run,

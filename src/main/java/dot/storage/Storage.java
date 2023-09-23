@@ -20,7 +20,6 @@ import dot.tasks.Todo;
  */
 public class Storage {
 
-    // TODO: Handle the situation of the data file being corrupted
     private final String storageLocation;
 
     /**
@@ -86,7 +85,7 @@ public class Storage {
     }
 
     /**
-     * Helper method for getTasks. Parses currLine to appropriate variables
+     * Parses currLine to appropriate variables
      * and creates the appropriate Tasks to add into taskList,
      *
      * @param currLine This is a line representing a task from the text file.

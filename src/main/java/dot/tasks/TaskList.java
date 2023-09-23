@@ -169,7 +169,7 @@ public class TaskList {
     }
 
     /**
-     * This method displays all the tasks falling on the given LocalDateTime.
+     * Displays all the tasks falling on the given LocalDateTime.
      *
      * @param dateTime The queried date-time.
      * @return An ArrayList of lines for the caller to display using Ui package.
@@ -216,7 +216,7 @@ public class TaskList {
     }
 
     /**
-     * This method invokes the saveTasks method of the storage object,
+     * Invokes the saveTasks method of the storage object,
      * which saves all task to the data file.
      *
      * @throws DotException On detected error.

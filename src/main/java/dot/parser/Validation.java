@@ -121,8 +121,8 @@ public class Validation {
     }
 
     /**
-     * Helper function for getArgsIfValidDeadlineFormat, which checks that input is in
-     * format: deadline .* /by.*, before returning its split version.
+     * Checks that input is in the following format:
+     * deadline .* /by.*, before returning its split version.
      *
      * @param input The input from the user.
      * @return The input, if validated, split by ' /by'.
