@@ -17,15 +17,13 @@ import java.util.Scanner;
  * A class which deals with loading tasks from the file and saving tasks in the file.
  */
 public class Storage {
-    private String filePath;
+    private static final String directoryPath = "./Data";
+    private static final String filePath = "./Data/Database.txt";
 
     /**
      * Default constructor method.
-     *
-     * @param filePath The file where tasks are going to be written on.
      */
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
     }
 
     /**
@@ -100,7 +98,11 @@ public class Storage {
     }
 
     public void createNewFile() {
-        System.out.println("We have detected that you're missing the database file");
+        File directory = new File(directoryPath);
+
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
         File file = new File(filePath);
         try {
             if (file.createNewFile()) {

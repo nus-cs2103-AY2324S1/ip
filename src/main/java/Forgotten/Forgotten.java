@@ -1,5 +1,5 @@
 package Forgotten;
-// C-Priority, B-Reminders,
+
 import Forgotten.Parser.Parser;
 import Forgotten.Ui.Ui;
 import Forgotten.Storage.Storage;
@@ -17,16 +17,19 @@ public class Forgotten {
 
     /**
      * Default constructor for this chabot.
-     *
-     * @param filePath This is the file path to which the tasks will be stored at.
      */
-    public Forgotten(String filePath) {
+    public Forgotten() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage();
         try {
             this.taskList = new TaskList(storage.loadTask(), this.storage);
         } catch (FileNotFoundException fileException) {
             storage.createNewFile();
+            try {
+                this.taskList = new TaskList(storage.loadTask(), this.storage);
+            } catch (FileNotFoundException ignored) {
+                storage.createNewFile();
+            }
         }
     }
 

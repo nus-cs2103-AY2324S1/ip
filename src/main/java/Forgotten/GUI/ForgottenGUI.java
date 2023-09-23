@@ -7,7 +7,7 @@ public class ForgottenGUI {
     Forgotten forgotten;
 
     public ForgottenGUI() {
-        this.forgotten = new Forgotten("src/main/java/Database.txt");
+        this.forgotten = new Forgotten();
     }
 
     /**
