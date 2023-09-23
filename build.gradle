@@ -9,22 +9,36 @@ repositories {
     mavenCentral()
 }
 
+checkstyle {
+    toolVersion = '10.2'
+}
+
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
     String javaFxVersion = '17.0.7'
 
-    // Add your JavaFX dependencies here
-    implementation "org.openjfx:javafx-base:$javaFxVersion"
-    implementation "org.openjfx:javafx-controls:$javaFxVersion"
-    implementation "org.openjfx:javafx-fxml:$javaFxVersion"
-    implementation "org.openjfx:javafx-graphics:$javaFxVersion"
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
 }
 
 test {
     useJUnitPlatform()
+
     testLogging {
         events "passed", "skipped", "failed"
+
         showExceptions true
         exceptionFormat "full"
         showCauses true
@@ -34,54 +48,15 @@ test {
 }
 
 application {
-    mainClassName = 'duke.ui.Launcher'
-}
-
-checkstyle {
-    toolVersion = '10.2'
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/java'
-        }
-        resources {
-            srcDir 'src/main/resources'
-        }
-    }
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
-    configurations = [project.configurations.runtimeClasspath]
-    manifest {
-        attributes 'Main-Class': 'duke.ui.Launcher'
-    }
-    archiveBaseName.set('DaDaYuan')
-    archiveClassifier.set('')
-    include 'duke/**'
-    include 'view/**'
-    include 'images/**'
-    mergeServiceFiles()
+    archiveBaseName = "DaDaYuan"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
 }
 
-// Add dist tasks
-task distZip(type: Zip) {
-    from 'src/main/resources'
-    into 'resources'
+run{
+    standardInput = System.in
 }
-
-task distTar(type: Tar) {
-    from 'src/main/resources'
-    into 'resources'
-}
-
-// Make shadowJar task depend on dist tasks
-shadowJar.dependsOn 'distZip', 'distTar'
-
-// Include the JavaFX dependencies
-task copyDependencies(type: Copy) {
-    from configurations.runtimeClasspath
-    into 'build/libs/lib'
-}
-build.finalizedBy(copyDependencies)
