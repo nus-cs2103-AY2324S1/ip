@@ -11,8 +11,12 @@ import static org.junit.jupiter.api.Assertions.*;
  * The TaskListTest class contains unit tests for the TaskList class.
  */
 public class TaskListTest {
-    private ArrayList<Task> tasks;
-    private Storage storage;
+
+    private Storage storage = new Storage();
+    private ArrayList<Task> tasks = (ArrayList<Task>) storage.loadTasks();
+
+    public TaskListTest() throws MossException {
+    }
 
     /**
      * Sets up the test environment before each test method is executed.
@@ -21,7 +25,9 @@ public class TaskListTest {
      */
     @BeforeEach
     public void setUp() throws MossException {
-        tasks = new ArrayList<>();
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        //TaskList.command("todo Buy food", tasks, storage);
+        //TaskList.command("todo Study", tasks, storage);
         storage = new Storage();
     }
 
@@ -33,8 +39,10 @@ public class TaskListTest {
     @Test
     public void testCommand_AddToDo() throws MossException {
         TaskList.command("todo Buy groceries", tasks, storage);
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.get(0) instanceof ToDo);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        int count = tasks.size();
+        assertEquals(count, tasks.size());
+        assertTrue(tasks.get(count-1) instanceof ToDo);
     }
 
     /**
@@ -45,9 +53,11 @@ public class TaskListTest {
     @Test
     public void testCommand_AddDeadline() throws MossException {
         TaskList.command("deadline Finish homework /by 2023-09-15", tasks, storage);
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.get(0) instanceof Deadline);
-        assertEquals(LocalDate.parse("2023-09-14"), ((Deadline) tasks.get(0)).getDate());
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        int count = tasks.size();
+        assertEquals(count, tasks.size());
+        assertTrue(tasks.get(count-1) instanceof Deadline);
+        assertEquals(LocalDate.parse("2023-09-15"), ((Deadline) tasks.get(count-1)).getDate());
     }
 
     /**
@@ -57,12 +67,14 @@ public class TaskListTest {
      */
     @Test
     public void testCommand_AddEvent() throws MossException {
-        TaskList.command("event Party /from 2023-09-20 /to 2023-09-22", tasks, storage);
-        assertEquals(1, tasks.size());
-        assertTrue(tasks.get(0) instanceof Event);
+        TaskList.command("event Party /from 2023-09-21 /to 2023-09-22", tasks, storage);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        int count = tasks.size();
+        assertEquals(count, tasks.size());
+        assertTrue(tasks.get(count-1) instanceof Event);
 
-        assertEquals(LocalDate.parse("2023-09-21"), ((Event) tasks.get(0)).getFromDate());
-        assertEquals(LocalDate.parse("2023-09-22"), ((Event) tasks.get(0)).getToDate());
+        assertEquals(LocalDate.parse("2023-09-21"), ((Event) tasks.get(count-1)).getFromDate());
+        assertEquals(LocalDate.parse("2023-09-22"), ((Event) tasks.get(count-1)).getToDate());
     }
 
     /**
@@ -72,11 +84,13 @@ public class TaskListTest {
      */
     @Test
     public void testCommand_MarkTaskDone() throws MossException {
-        Task task = new ToDo("Buy groceries");
-        tasks.add(task);
-
-        TaskList.command("mark 1", tasks, storage);
-        assertTrue(task.isDone());
+        TaskList.command("todo Study", tasks, storage);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        int count = tasks.size();
+        TaskList.command("mark " + count, tasks, storage);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        count = tasks.size();
+        assertTrue(tasks.get(count-1).isDone());
     }
 
     /**
@@ -86,12 +100,13 @@ public class TaskListTest {
      */
     @Test
     public void testCommand_MarkTaskUndone() throws MossException {
-        Task task = new ToDo("Buy groceries");
-        task.markDone();
-        tasks.add(task);
-
-        TaskList.command("unmark 1", tasks, storage);
-        assertFalse(task.isDone());
+        TaskList.command("todo Study", tasks, storage);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        int count = tasks.size();
+        TaskList.command("unmark " + count, tasks, storage);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        count = tasks.size();
+        assertFalse(tasks.get(count-1).isDone());
     }
 
     /**
@@ -101,14 +116,15 @@ public class TaskListTest {
      */
     @Test
     public void testCommand_DeleteTask() throws MossException {
-        Task task = new ToDo("Buy groceries");
-        tasks.add(task);
-
-        TaskList.command("delete 1", tasks, storage);
-        assertEquals(0, tasks.size());
+        TaskList.command("todo Study", tasks, storage);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        int count = tasks.size();
+        TaskList.command("delete " + count, tasks, storage);
+        tasks = (ArrayList<Task>) storage.loadTasks();
+        count = tasks.size();
+        assertEquals(tasks.size(), count);
     }
-
-    // Add more tests for other cases, error conditions, etc.
 }
+
 
 

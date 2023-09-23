@@ -1,3 +1,7 @@
-T | X | sports
-D | X | exam | 2023-10-15
-T | X | coffee
+T | X | Study
+E |   | Party | 2023-09-21 | 2023-09-22
+T |   | Study
+D |   | Finish homework | 2023-09-15
+T |   | Buy groceries
+T |   | coffee
+D |   | coffee | 2001-10-02
