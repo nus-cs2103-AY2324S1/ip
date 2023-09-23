@@ -7,9 +7,6 @@ import java.util.ArrayList;
  */
 public class Parser {
 
-    public Parser() {
-    }
-
     /**
      * Executes the parsed user command by delegating to the TaskList class.
      *
