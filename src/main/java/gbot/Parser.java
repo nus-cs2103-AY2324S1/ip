@@ -2,6 +2,7 @@ package gbot;
 
 import exceptions.*;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import tasks.Deadline;
 import tasks.Event;
@@ -14,8 +15,12 @@ import tasks.Todo;
  * @author Gallen Ong
  */
 public class Parser {
-    private static final String INVALIDTASK = "Although you might not be wrong, I simply do not understand...\n" +
+    private static final String INVALID_TASK = "Although you might not be wrong, I simply do not understand...\n" +
                                               "Kindly enter a valid task number.";
+    private static final String INVALID_INDEX = "I apologise, that task does not exist.";
+    private static final String INVALID_FORMAT = "I must apologise for correcting you.\n" +
+                                                 "Kindly enter a valid date in the YYYY-MM-DD format.";
+
     /**
      * Returns corresponding methods after parsing user inputs.
      *
@@ -82,12 +87,14 @@ public class Parser {
     private static String parseMark(String message, TaskList tasks) {
         String[] words = message.split(" ");
         if (words.length != 2) {
-            return INVALIDTASK;
+            return INVALID_TASK;
         }
         try {
             return tasks.markTask(Integer.parseInt(words[1]));
         } catch (NumberFormatException e) {
-            throw new GBotException(INVALIDTASK);
+            throw new GBotException(INVALID_TASK);
+        } catch (TaskException e) {
+            throw new GBotException(INVALID_INDEX);
         }
     }
 
@@ -100,12 +107,14 @@ public class Parser {
     private static String parseUnmark(String message, TaskList tasks) {
         String[] words = message.split(" ");
         if (words.length != 2) {
-            return INVALIDTASK;
+            return INVALID_TASK;
         }
         try {
             return tasks.unmarkTask(Integer.parseInt(words[1]));
         } catch (NumberFormatException e) {
-            throw new GBotException(INVALIDTASK);
+            throw new GBotException(INVALID_TASK);
+        } catch (TaskException e) {
+            throw new GBotException(INVALID_INDEX);
         }
     }
 
@@ -120,7 +129,7 @@ public class Parser {
         if (desc.isBlank()) {
             return "I apologise. Kindly input a task description.";
         }
-        return tasks.addTodo(desc);
+        return tasks.addTodo(desc.strip());
     }
 
     /**
@@ -130,13 +139,19 @@ public class Parser {
      * @param tasks The TaskList object that stores tasks.
      */
     private static String parseDeadline(String message, TaskList tasks) {
-        String[] taskDesc = message.split(" /by ");
+        String details = message.substring(8);
+        String[] taskDesc = details.split(" /by ");
         if (taskDesc.length != 2) {
             return "I apologise for correcting you. Kindly follow the following:\n" +
                    "deadline (task) /by (deadline in YYYY-MM-DD)\n" +
                    "eg. deadline return book /by 2023-09-21";
         }
-        return tasks.addDeadline(taskDesc[0].substring(8), taskDesc[1]);
+
+        try {
+            return tasks.addDeadline(taskDesc[0].strip(), taskDesc[1].strip());
+        } catch (DateTimeParseException e) {
+            throw new GBotException(INVALID_FORMAT);
+        }
     }
 
     /**
@@ -146,29 +161,36 @@ public class Parser {
      * @param tasks The TaskList object that stores tasks.
      */
     private static String parseEvent(String message, TaskList tasks) {
-        String[] inputSplitByFrom = message.split(" /from ");
-        String[] inputSplitByTo = message.split(" /to ");
+        String details = message.substring(5);
+        String[] inputSplitByFrom = details.split(" /from");
+        String[] inputSplitByTo = details.split(" /to");
         if (inputSplitByFrom.length != 2 || inputSplitByTo.length != 2) {
             return "I apologise for correcting you. Kindly follow the following:\n" +
                     "event (task) /from (start in YYYY-MM-DD) /to (end in YYYY-MM-DD)\n" +
                     "eg. event attend meeting /from 2023-09-21 /to 2023-09-22";
         }
 
-        String[] inputAfterFrom = inputSplitByFrom[1].split(" /to ");
+        String[] inputAfterFrom = inputSplitByFrom[1].split(" /to");
         String desc;
         String fromDate;
         String toDate;
 
         if (inputAfterFrom.length == 2) {
+            System.out.println(inputAfterFrom.length);
             desc = inputSplitByFrom[0];
             fromDate = inputAfterFrom[0];
             toDate = inputAfterFrom[1];
         } else {
             desc = inputSplitByTo[0];
-            fromDate = inputSplitByTo[1].split(" /from ")[1];
-            toDate = inputSplitByTo[1].split(" /from ")[0];
+            fromDate = inputSplitByTo[1].split(" /from")[1];
+            toDate = inputSplitByTo[1].split(" /from")[0];
         }
-        return tasks.addEvent(desc, fromDate, toDate);
+
+        try {
+            return tasks.addEvent(desc.strip(), fromDate.strip(), toDate.strip());
+        } catch (DateTimeParseException e) {
+            throw new GBotException(INVALID_FORMAT);
+        }
     }
 
     /**
@@ -180,12 +202,14 @@ public class Parser {
     private static String parseDelete(String message, TaskList tasks) {
         String[] words = message.split(" ");
         if (words.length != 2) {
-            return INVALIDTASK;
+            return INVALID_TASK;
         }
         try {
             return tasks.deleteTask(Integer.parseInt(words[1]));
         } catch (NumberFormatException e) {
-            throw new GBotException(INVALIDTASK);
+            throw new GBotException(INVALID_TASK);
+        } catch (TaskException e) {
+            throw new GBotException(INVALID_INDEX);
         }
     }
 

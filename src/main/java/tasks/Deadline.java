@@ -15,11 +15,11 @@ public class Deadline extends Task {
      * Initialises a Deadline task with a description and deadline.
      *
      * @param description The task description.
-     * @param by The task deadline.
+     * @param deadline The task deadline.
      */
-    public Deadline(String description, String by) {
+    public Deadline(String description, String deadline) {
         super(description.strip());
-        this.deadline = LocalDate.parse(by.strip());
+        this.deadline = LocalDate.parse(deadline);
     }
 
     /**

@@ -1,6 +1,8 @@
 package gbot;
 
 import exceptions.TaskException;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import tasks.Deadline;
@@ -131,7 +133,7 @@ public class TaskList {
             return "It appears you may be missing some details, do kindly enter.";
         }
 
-        Deadline newDeadline = new Deadline(desc, deadline);
+        Deadline newDeadline = new Deadline(desc, deadline.strip());
         list.add(newDeadline);
         storage.writeToFile(newDeadline.toStringForFile());
         taskCount++;

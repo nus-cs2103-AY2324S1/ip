@@ -1,6 +1,7 @@
 package gbot;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -19,6 +20,8 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
+    @FXML
+    private Button sendButton;
 
     private GBot gbot;
 
@@ -35,6 +38,17 @@ public class MainWindow extends AnchorPane {
 
     public void setGBot(GBot g) {
         gbot = g;
+    }
+
+    /**
+     * Creates a dialog box, containing message from Zean and appending it to the dialog container.
+     *
+     * @param msg The message to be displayed.
+     */
+    public void showMessage(String msg) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(msg, gbotImage)
+        );
     }
 
     /**

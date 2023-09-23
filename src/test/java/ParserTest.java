@@ -56,16 +56,31 @@ public class ParserTest {
         }
     }
     @Test
-    public void parseTodo_emptyField_todoExceptionThrown() {
+    public void parseTodo_emptyField_GBotExceptionThrown() {
         assertEquals("I apologise. Kindly input a task description.",
                 Parser.parse("todo ", new TaskList()));
     }
     @Test
-    public void parseDeadline_emptyField_deadlineExceptionThrown() {
+    public void parseDeadline_emptyField_GBotExceptionThrown() {
         assertEquals("I apologise for correcting you. Kindly follow the following:\n" +
                 "deadline (task) /by (deadline in YYYY-MM-DD)\n" +
                 "eg. deadline return book /by 2023-09-21",
                 Parser.parse("deadline ", new TaskList()));
+    }
+    @Test
+    public void parseDeadline_invalidFormat_GBotExceptionThrown() {
+        try {
+            assertEquals("", Parser.parse("deadline return /by tomorrow", new TaskList()));
+            fail();
+        } catch (GBotException e) {
+            assertEquals("I must apologise for correcting you.\n" +
+                    "Kindly enter a valid date in the YYYY-MM-DD format.", e.getMessage());
+        }
+    }
+    @Test
+    public void parseDeadline_missingDetails_errorMessageShown() {
+        assertEquals("It appears you may be missing some details, do kindly enter.",
+                Parser.parse("deadline /by tomorrow", new TaskList()));
     }
     @Test
     public void parseEvent_emptyField_eventExceptionThrown() {
@@ -75,6 +90,21 @@ public class ParserTest {
                 Parser.parse("event ", new TaskList()));
     }
     @Test
+    public void parseEvent_invalidFormat_GBotExceptionThrown() {
+        try {
+            assertEquals("", Parser.parse("event meeting /from now /to later", new TaskList()));
+            fail();
+        } catch (GBotException e) {
+            assertEquals("I must apologise for correcting you.\n" +
+                    "Kindly enter a valid date in the YYYY-MM-DD format.", e.getMessage());
+        }
+    }
+    @Test
+    public void parseEvent_missingDetails_errorMessageShown() {
+        assertEquals("It appears you may be missing some details, do kindly enter.",
+                Parser.parse("event /from 2023-09-21 /to ", new TaskList()));
+    }
+    @Test
     public void parseDelete_emptyField_errorMessageShown() {
         assertEquals("Although you might not be wrong, I simply do not understand...\n" +
                 "Kindly enter a valid task number.", Parser.parse("delete ", new TaskList()));
@@ -82,7 +112,7 @@ public class ParserTest {
     @Test
     public void parseDelete_invalidTask_errorMessageShown() {
         try {
-            assertEquals("", Parser.parse("delete invalid ", new TaskList()));
+            assertEquals("", Parser.parse("delete invalid", new TaskList()));
             fail();
         } catch (GBotException e) {
             assertEquals("Although you might not be wrong, I simply do not understand...\n" +
