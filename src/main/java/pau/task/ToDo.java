@@ -8,7 +8,7 @@ public class ToDo extends Task {
     /**
      * Constructs a ToDo task with a description of the task.
      *
-     * @param description
+     * @param description The task the user has todo.
      */
     public ToDo(String description) {
         super(description);

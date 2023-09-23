@@ -53,9 +53,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("bye")) {
             response = pau.sayGoodbye();
             PauseTransition delay = new PauseTransition(Duration.seconds(3));
-            delay.setOnFinished(e -> {
-                Platform.exit();
-            });
+            delay.setOnFinished(e -> Platform.exit());
             delay.play();
         } else {
             response = pau.getResponse(input);

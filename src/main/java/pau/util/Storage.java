@@ -41,7 +41,6 @@ public class Storage {
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
-
                 toLoad.createNewFile();
             }
 
