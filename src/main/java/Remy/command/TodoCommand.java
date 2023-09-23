@@ -18,7 +18,7 @@ public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
 
     /* Define the regular expression pattern */
-    public static final Pattern PATTERN = Pattern.compile("todo\\s+(\\S+)(?:\\s+/p\\s+(\\S+))?");
+    public static final Pattern PATTERN = Pattern.compile("todo\\s+(.*?)(?:\\s+/p\\s+(\\S+))?");
     private String taskName;
     private String priority;
 
