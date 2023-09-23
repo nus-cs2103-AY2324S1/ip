@@ -15,25 +15,6 @@ public class Ui {
     }
 
     /**
-     * Displays a line separator to separate messages.
-     */
-    public static void showLine() {
-        System.out.println("-------------------------------");
-    }
-
-
-
-    /**
-     * Displays a welcome message when the application starts.
-     */
-    public void welcomeMessage() {
-        showLine();
-        System.out.println("Hello! I'm Gideon");
-        System.out.println("What can I do for you?");
-        showLine();
-    }
-
-    /**
      * Displays a goodbye message when the user exits the application.
      */
     public String showByeMessage() {
