@@ -35,7 +35,7 @@ optimised for use via chatbot-like interface
    - If this is your first time running the program, the app will come preloaded with sample data
    - If not, the app will load previously the previously saved tasklist from the same directory  
 
-####Sample View  
+### Sample View  
    
 ![Screenshot of the app at startup](./images/startup.png)  
 
@@ -120,15 +120,15 @@ Saved items (if found) will be loaded up upon loading the program
 > PHI will discard all data and start with an empty data file at the next run.
 > Hence, it is recommended to take a backup of the file before editing it.
 
-##Feature Summary  
-|Action|Format|
-|---|---|
-|[Viewing task list: `list`](#viewing-task-list-list)|`list`|
-|[Viewing in-app user guide: `help`](#viewing-in-app-user-guide-help)|`help`|
-|[Adding a To-do task: `todo`](#adding-a-to-do-task-todo)|`todo TASK_NAME`|
-|[Adding a Deadline task: `deadline`](#adding-a-deadline-task-deadline)|`deadline TASK_NAME /by [deadline]`|
-|[Adding an Event task: `event`](#adding-an-event-task-event)|`event TASK_NAME /from [start-date] /to [end-date]`|
-|[Mark / unmark tasks as complete: `mark` / `unmark`](#mark--unmark-tasks-as-complete-mark--unmark)|`mark X` / `unmark X`|
-|[Delete tasks: `delete`](#delete-tasks-delete)|`delete X`|
-|[Search for tasks using keyword: `find`](#search-for-tasks-using-keyword-find)|`find KEYWORD`|
-|[Exit the program: `bye`](#exit-the-program-bye)|`bye`| 
+## Feature Summary  
+| Action | Format |
+| --- | --- |
+| [Viewing task list: `list`](#viewing-task-list-list) | `list` |
+| [Viewing in-app user guide: `help`](#viewing-in-app-user-guide-help) | `help` |
+| [Adding a To-do task: `todo`](#adding-a-to-do-task-todo) | `todo TASK_NAME` |
+| [Adding a Deadline task: `deadline`](#adding-a-deadline-task-deadline) | `deadline TASK_NAME /by [deadline]` |
+| [Adding an Event task: `event`](#adding-an-event-task-event) | `event TASK_NAME /from [start-date] /to [end-date]` |
+| [Mark / unmark tasks as complete: `mark` / `unmark`](#mark--unmark-tasks-as-complete-mark--unmark) | `mark X` / `unmark X` |
+| [Delete tasks: `delete`](#delete-tasks-delete) | `delete X` |
+| [Search for tasks using keyword: `find`](#search-for-tasks-using-keyword-find) | `find KEYWORD` |
+| [Exit the program: `bye`](#exit-the-program-bye) | `bye` | 
