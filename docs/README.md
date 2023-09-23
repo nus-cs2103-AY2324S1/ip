@@ -163,7 +163,7 @@ OK, I've unmarked this task as not done yet:
 [D][] Return book (by: Dec 22 2022 05:30pm)
 ```
 
-![unmark image](un********mark.png)
+![unmark image](unmark.png)
 
 <br />
 
