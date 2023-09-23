@@ -59,8 +59,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "duke"
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'cleo.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

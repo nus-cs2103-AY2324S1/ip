@@ -39,8 +39,8 @@ public class Main extends Application {
             );
 
             stage.setMinHeight(230);
-            stage.maxWidthProperty().bind(stage.widthProperty());
-            stage.minWidthProperty().bind(stage.widthProperty());
+            stage.setMinWidth(417);
+            stage.setMaxWidth(417);
 
             fxmlLoader.<MainWindow>getController().setCleo(cleo);
             stage.show();
