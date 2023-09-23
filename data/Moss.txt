@@ -1,5 +1,4 @@
-T |   | sports
-D |   | eaxm | 2019-10-15
-T |   | coffee
-T |   | coffee
-T |   | coffee
+T | X | sports
+D |   | exam | 2023-10-15
+T | X | coffee
+T |   | homework

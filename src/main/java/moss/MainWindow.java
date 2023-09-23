@@ -33,9 +33,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.greeting(), dukeImage)
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(ui.greeting(), dukeImage)
         );
-        userInput.setPromptText("Type your message here...");
     }
 
     public void setMoss(Moss d) {
