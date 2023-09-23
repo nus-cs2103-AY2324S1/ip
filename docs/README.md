@@ -1,4 +1,4 @@
-# User Guide :dragon_face:
+# User Guide
    ```java
    /* Welcome to
     ___ _  _ ___
@@ -33,8 +33,8 @@ optimised for use via chatbot-like interface
 3. Copy the file to the folder you want to use as the *home folder* for your tasklist
 4. Double-click on the .jar file to run it. A GUI similar to the below should appear in a few seconds.
    - If this is your first time running the program, the app will come preloaded with sample data
-   - If not, the app will load previously the previously saved tasklist from the same directory  
-   ####Sample View
+   - If not, the app will load previously the previously saved tasklist from the same directory
+####Sample View  
    ![Screenshot of the app at startup](./images/startup.png)
 5. Type the command in the command box and press Enter to execute it.  
     e.g. typing `list` and pressing Enter will display the list of all tasks  
@@ -117,9 +117,9 @@ Saved items (if found) will be loaded up upon loading the program
 > PHI will discard all data and start with an empty data file at the next run.
 > Hence, it is recommended to take a backup of the file before editing it.
 
-##Feature Summary
-Action|Format
----|---
+##Feature Summary  
+|Action|Format|
+|---|---|
 [Viewing task list: `list`](#viewing-task-list-list)|`list`
 [Viewing in-app user guide: `help`](#viewing-in-app-user-guide-help)|`help`
 [Adding a To-do task: `todo`](#adding-a-to-do-task-todo)|`todo TASK_NAME`
