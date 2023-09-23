@@ -1,10 +1,10 @@
 package tasks;
 
-import duke.DukeException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import duke.DukeException;
 
 /**
  * Represents a task with a description and a completion status.
@@ -30,8 +30,7 @@ public class Task {
      * @param dateTimeString The date and time string to be parsed.
      * @return The LocalDateTime object representing the date and time.
      */
-    public LocalDateTime stringToDate(String dateTimeString) throws DukeException{
-
+    public LocalDateTime stringToDate(String dateTimeString) throws DukeException {
         DateTimeFormatter formatter;
         dateTimeString = dateTimeString.trim();
         try {

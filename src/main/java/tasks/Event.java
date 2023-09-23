@@ -2,6 +2,8 @@ package tasks;
 
 import java.time.LocalDateTime;
 
+import duke.DukeException;
+
 /**
  * Represents an event task, which extends the Task class.
  * An Event task is characterized by a description and a specified duration,
@@ -18,7 +20,7 @@ public class Event extends Task {
      * @param from The starting date/time of the event given in string format.
      * @param to The ending date/time of the event given in string format.
      */
-    public Event(String description, String from, String to) {
+    public Event(String description, String from, String to) throws DukeException {
         super(description);
         this.from = stringToDate(from);
         this.to = stringToDate(to);

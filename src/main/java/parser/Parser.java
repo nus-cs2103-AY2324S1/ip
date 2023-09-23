@@ -25,7 +25,7 @@ public class Parser {
      * Converts the user input into a corresponding Command object based on the given input string.
      *
      * @param input The input string.
-     * @return The corresponding Command object based on the interpreted input.
+     * @return The Command object based on the interpreted input.
      * @throws DukeException If the input command format is incorrect or unrecognized.
      */
     public Command issueCommand(String input) throws DukeException {
@@ -44,8 +44,8 @@ public class Parser {
             try {
                 markTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
             } catch (NumberFormatException invalidInt) {
-                throw new DukeException(" Hmmm, your input format for marking tasks is incorrect;"
-                        + " Format: mark [int values > 0]");
+                throw new DukeException(" Hmmm, your input format for marking tasks is incorrect;\n"
+                        + " Format: mark [int task number > 0]");
             }
             return new MarkCommand(markTaskNumber);
         case "unmark":
@@ -54,10 +54,10 @@ public class Parser {
             }
             int unmarkTaskNumber;
             try {
-                unmarkTaskNumber= Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
+                unmarkTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
             } catch (NumberFormatException invalidInt) {
-                throw new DukeException(" Hmmm, your input format for unmarking tasks is incorrect;"
-                        + " Format: unmark [int values > 0]");
+                throw new DukeException(" Hmmm, your input format for unmarking tasks is incorrect;\n"
+                        + " Format: unmark [int task number > 0]");
             }
             return new UnmarkCommand(unmarkTaskNumber);
         case "todo":
@@ -69,20 +69,20 @@ public class Parser {
         case "delete":
             if (inputParts.length < 2) {
                 throw new DukeException(" Please provide a task number. "
-                        + "Format: delete task_number");
+                        + "Format: delete [int task number > 0]");
             }
             int deleteTaskNumber;
             try {
                 deleteTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
             } catch (NumberFormatException invalidInt) {
                 throw new DukeException(" Hmmm, your input format for deleting tasks is incorrect;"
-                        + " Format: delete [int values > 0]");
+                        + " Format: delete [int task number > 0]");
             }
             return new DeleteCommand(deleteTaskNumber);
         case "schedule":
             if (inputParts.length < 2 || !inputParts[1].contains("/on")) {
-                throw new DukeException(" Please provide the date in the format:\n"
-                        + "schedule /on dd/MM/yyyy");
+                throw new DukeException(" Provide the date in the format:\n"
+                        + " schedule /on dd/MM/yyyy");
             }
             String dateInput = splitByKeyword(inputParts[1], "/on")[1].trim() + " 0000";
             return new ScheduleCommand(dateInput);

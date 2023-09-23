@@ -75,7 +75,7 @@ public class Actions {
         if (idx < actions.size() && idx > -1) {
             return actions.get(idx);
         }
-        throw new DukeException(" tasks.Task number invalid; please re-examine input.");
+        throw new DukeException(" Task number invalid; please re-examine input.");
     }
 
     /**

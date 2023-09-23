@@ -37,19 +37,23 @@ public class Duke {
      */
     public void initiateChatbot() throws DukeException {
         ui.openingMessage();
-        String input = ui.readInput();
-        Command command = parser.issueCommand(input);
-        while (!command.isExit()) {
+        boolean isRunning = true; // to control the while loop
+        while (isRunning) {
             try {
-                command.executeCommand(ui, actionList);
+                String input = ui.readInput();
+                Command command = parser.issueCommand(input);
+                if (command.isExit()) {
+                    isRunning = false;
+                } else {
+                    command.executeCommand(ui, actionList);
+                }
             } catch (DukeException ohno) {
                 ui.lineSandwich(ohno.getMessage());
             }
-            input = ui.readInput();
-            command = parser.issueCommand(input);
         }
         savior.saveTasks(actionList.list());
     }
+
 
     /**
      * The entry point for the chatbot.

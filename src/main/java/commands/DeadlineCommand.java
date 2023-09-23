@@ -34,7 +34,7 @@ public class DeadlineCommand extends Command {
     @Override
     public void executeCommand(UI ui, Actions actionList) throws DukeException {
         if (!input.contains("/by")) {
-            throw new DukeException(" tasks.Event format incorrect. "
+            throw new DukeException(" Deadline format incorrect. "
                     + "\n Format: deadline task /by d/M/yyyy HHmm");
         }
         String[] deadlineParts = parser.splitByKeyword(input, "/by");

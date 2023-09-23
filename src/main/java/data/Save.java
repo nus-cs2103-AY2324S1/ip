@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import duke.Duke;
 import duke.DukeException;
 import tasks.Deadline;
 import tasks.Event;
