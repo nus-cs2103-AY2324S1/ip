@@ -1,13 +1,8 @@
-# Zenith User Guide
+# Zenith UG
 
 ## Features
 
 ### Adding tasks
-
-Users can add tasks of 3 kinds,<br>
-a TODO task that contains a description,<br>
-a DEADLINE task that contains a description and a deadline,<br>
-an EVENT task that contains a description, an event start date and an event end date.
 
 
 ### Removing tasks
@@ -32,7 +27,7 @@ Tasks that were previously saved will be loaded up automatically after launching
 
 ## Usage
 
-### `list` - List out all your tasks.
+### 📋 List Tasks
 
 Zenith will list out all your tasks that is being tracked automatically.
 
@@ -49,9 +44,9 @@ Here are the tasks in your list:
 3.[E][X] Submit papers (from: April 10 2022 to: April 11 2022)
 ```
 
-### `mark` - Mark your task as done.
+### ✅ Mark Task as Done
 
-Zenith will mark your task specified by its index(1-indexed) as done.<br>
+Zenith markd your task specified by its index(1-indexed) as done.<br>
 
 Format: `mark <index of task to be marked>`
 
@@ -64,7 +59,7 @@ Nice! I've marked this task as done:
     [T][X] Study
 ```
 
-### `unmark` - Mark your task as done.
+### ❌ Mark Task as Undone
 
 Zenith will mark your task specified by its index(1-indexed) as done.<br>
 
@@ -79,7 +74,7 @@ OK, I've marked this task as not done yet:
     [E][ ] Learn Chinese (from: April 4 2023 to: April 5 2023)
 ```
 
-### `todo` - Add a TODO task.
+### ✅ Add a To-Do
 
 Zenith will add a TODO task with the given description.<br>
 
@@ -95,7 +90,7 @@ Got it. I've added this task:
 Now you have 7 tasks in the list.
 ```
 
-### `deadline` - Add a DEADLINE task.
+### 📅 Add a Deadline
 
 Zenith will add a DEADLINE task with the given description and deadline.<br>
 
@@ -111,7 +106,7 @@ Got it. I've added this task:
 Now you have 5 tasks in the list.
 ```
 
-### `event` - Add an EVENT task.
+### 📆 Add an Event
 
 Zenith will add an EVENT task with the given description, event start date and event end date.<br>
 
@@ -127,7 +122,7 @@ Got it. I've added this task:
 Now you have 6 tasks in the list.
 ```
 
-### `delete` - Delete a task.
+### 🗑️ Delete a Task
 
 Zenith will delete the task specified by its index(1-indexed).<br>
 
@@ -143,7 +138,7 @@ Noted! I've removed this task:
 Now you have 20 tasks in the list.
 ```
 
-### `find` - Find a task.
+### 🔍 Find Tasks
 
 Zenith will find a task using the given description and wil return the list of tasks that has matched or partially matched the description.<br>
 
