@@ -1,5 +1,4 @@
 package duke;
-import java.io.FileNotFoundException;
 
 /**
  * The Duke class represents a task management application that allows users to interact with tasks.

@@ -26,22 +26,6 @@ public class Storage {
     }
 
     /**
-     * Creates the storage file and its parent directory.
-     *
-     * @throws DukeException If there is an error while creating the file.
-     */
-    public void createFile() throws DukeException {
-        File file = new File(this.filePath);
-        File rootDirectory = file.getParent() == null ? new File("parent") : new File(file.getParent());
-        try {
-            rootDirectory.mkdir();
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new DukeException("Unable to create a database");
-        }
-    }
-
-    /**
      * Prints the contents of the task list.
      */
     public String printFileContents() {
