@@ -26,6 +26,11 @@ public class Event extends Task {
     }
 
     /**
+     * Empty constructor.
+     */
+    public Event() {}
+
+    /**
      * String representation of an event task.
      *
      * @return Event task details.
@@ -33,5 +38,20 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "E | " + super.toString() + " | " + start.toString() + " - " + end.toString();
+    }
+
+    /**
+     * Processes command and returns parameter inputs for constructors.
+     *
+     * @param input Input command.
+     * @return String array of parameter inputs.
+     */
+    @Override
+    public String[] processInput(String input) {
+        String taskDescription = input.split("event ")[1].split(" /from")[0];
+        String start = input.split("/from ")[1].split(" /to")[0];
+        String end = input.split("/to ")[1];
+
+        return new String[] {taskDescription, start, end};
     }
 }

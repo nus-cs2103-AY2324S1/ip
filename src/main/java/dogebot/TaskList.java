@@ -67,15 +67,16 @@ public class TaskList {
         }
 
         StringBuilder result = new StringBuilder();
+
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
 
         // assertion: check if index <= tasklist size
         assert index < tasks.size() : "Index to mark is too big";
 
         tasks.get(index).markTask(true);
+
         result.append("Good job on completing a task ! You deserve a cookie C:\n");
         result.append("\t" + tasks.get(index).toString());
-
         return result.toString();
     }
 
@@ -92,15 +93,16 @@ public class TaskList {
         }
 
         StringBuilder result = new StringBuilder();
+
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
 
         // assertion: check if index <= tasklist size
         assert index < tasks.size() : "Index to unmark is too big";
 
         tasks.get(index).markTask(false);
+
         result.append("Oh nyo, did someone make a mistake ?\n");
         result.append("\t" + tasks.get(index).toString());
-
         return result.toString();
     }
 
@@ -126,14 +128,15 @@ public class TaskList {
             throw new DogeBotException("Oops ! The description of a todo cannot be empty :(");
         }
 
-        String taskDescription = split[1];
         StringBuilder result = new StringBuilder();
-        result.append("Mama mia ! I've just added this task:\n");
+
+        String taskDescription = split[1];
         Task temp = new ToDos(taskDescription, false);
         tasks.add(temp);
+
+        result.append("Mama mia ! I've just added this task:\n");
         result.append("\t" + temp.toString() + "\n");
         result.append(updateTasksCounter());
-
         return result.toString();
     }
 
@@ -151,16 +154,18 @@ public class TaskList {
         }
 
         StringBuilder result = new StringBuilder();
-        result.append("Mama mia ! I've just added this task:\n");
+        Task temp = new Deadline();
 
-        String taskDescription = input.split("deadline ")[1].split(" /by")[0];
-        String taskDeadline = input.split("/by ")[1];
+        String[] processedInput = temp.processInput(input);
+        String taskDescription = processedInput[0];
+        String taskDeadline = processedInput[1];
 
-        Task temp = new Deadline(taskDescription, taskDeadline, false);
+        temp = new Deadline(taskDescription, taskDeadline, false);
         tasks.add(temp);
+
+        result.append("Mama mia ! I've just added this task:\n");
         result.append("\t" + temp.toString() + "\n");
         result.append(updateTasksCounter());
-
         return result.toString();
     }
 
@@ -178,17 +183,19 @@ public class TaskList {
         }
 
         StringBuilder result = new StringBuilder();
+        Task temp = new Event();
 
-        String taskDescription = input.split("event ")[1].split(" /from")[0];
-        String start = input.split("/from ")[1].split(" /to")[0];
-        String end = input.split("/to ")[1];
+        String[] processedInput = temp.processInput(input);
+        String taskDescription = processedInput[0];
+        String start = processedInput[1];
+        String end = processedInput[2];
+
+        temp = new Event(taskDescription, start, end, false);
+        tasks.add(temp);
 
         result.append("Mama mia ! I've just added this task:\n");
-        Task temp = new Event(taskDescription, start, end, false);
-        tasks.add(temp);
         result.append("\t" + temp.toString() + "\n");
         result.append(updateTasksCounter());
-
         return result.toString();
     }
 
@@ -211,11 +218,11 @@ public class TaskList {
         assert index < tasks.size() : "Task index to delete is too big";
 
         Task curr = tasks.get(index);
+        tasks.remove(index);
+
         result.append("Got it~ This task has been removed:\n");
         result.append("\t" + curr.toString() + "\n");
-        tasks.remove(index);
         result.append(updateTasksCounter());
-
         return result.toString();
     }
 
