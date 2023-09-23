@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("Frenchie.Frenchie")
+    mainClass.set("Frenchie.Launcher")
 }
 
 shadowJar {
