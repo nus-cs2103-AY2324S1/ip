@@ -1,4 +1,0 @@
-D | 0 | Test | Nov 12 2022 1200
-D | 0 | UG Evaluation | Nov 30 2023 1230
-T | 0 | Huawei Meeting
-E | 0 | Attend conference | Oct 15 2023 1400 | Oct 16 2023 1600

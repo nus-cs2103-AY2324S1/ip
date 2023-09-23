@@ -12,6 +12,17 @@ public class Ui {
      * Default date and time format used n Jarvis app.
      */
     private static final String DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
+    private static final String HELP_MENU = "Here are the list of quick commands to get started with:\n"
+            + "1. Add Todo Task: [todo TASK_DESCRIPTION]\n"
+            + "2. Add Deadline Task: [deadline TASK_DESCRIPTION by DUE_DATE]\n"
+            + "3. Add Event Task: [event TASK_DESCRIPTION from START_DATE_TIME to END_DATE_TIME]\n"
+            + "4. List Tasks: [list]\n"
+            + "5. Delete Task: [delete INDEX]\n"
+            + "6. Mark Task as completed/incomplete: [mark/unmark INDEX]\n"
+            + "7. Find Tasks: [find KEYWORD]\n"
+            + "8. Sort Deadline Tasks: [sort deadline]\n"
+            + "9. Help Menu: [help]\n"
+            + "10. Exit App: [bye]\n";
 
     public static String getDefaultDateTimeFormat() {
         return DATE_TIME_FORMAT;
@@ -22,7 +33,7 @@ public class Ui {
      */
     public String printIntro() {
         return "Hi Master! I'm your personal assistant: JARVIS! \n"
-                + "    How can I serve you today? \n";
+                + "    How can I serve you today? \n\n" + HELP_MENU;
     }
 
     /**
@@ -85,5 +96,9 @@ public class Ui {
         String filterTasks = printTasks(tasks);
         return "Filtered List: " + title
                 + "\n\n" + filterTasks;
+    }
+
+    public String printHelpMessage() {
+        return HELP_MENU;
     }
 }

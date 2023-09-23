@@ -11,6 +11,7 @@ import jarvis.commands.DeadlineCommand;
 import jarvis.commands.DeleteCommand;
 import jarvis.commands.EventCommand;
 import jarvis.commands.FindCommand;
+import jarvis.commands.HelpCommand;
 import jarvis.commands.ListCommand;
 import jarvis.commands.MarkCommand;
 import jarvis.commands.SortDeadlineCommand;
@@ -49,6 +50,8 @@ public class Parser {
             return new ByeCommand();
         } else if (userInput.equalsIgnoreCase("list")) {
             return new ListCommand();
+        } else if (userInput.equalsIgnoreCase("help")) {
+            return new HelpCommand();
         } else if (userInput.equalsIgnoreCase("sort deadline")) {
             return new SortDeadlineCommand();
         } else if (splitUserInput[0].startsWith("mark")) {
