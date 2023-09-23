@@ -2,12 +2,12 @@ package dude.command;
 
 import java.time.LocalDateTime;
 
-import dude.Storage;
 import dude.exception.EventException;
 import dude.note.NoteList;
 import dude.task.Event;
 import dude.task.TaskList;
 import dude.ui.Ui;
+import dude.util.Storage;
 
 /**
  * Represents a command that adds an Event task.

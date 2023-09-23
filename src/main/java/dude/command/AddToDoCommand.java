@@ -1,10 +1,10 @@
 package dude.command;
 
-import dude.Storage;
 import dude.note.NoteList;
 import dude.task.TaskList;
 import dude.task.ToDo;
 import dude.ui.Ui;
+import dude.util.Storage;
 
 /**
  * Represents a command that adds a ToDo task.

@@ -1,10 +1,10 @@
 package dude.command;
 
-import dude.Storage;
 import dude.note.NoteList;
 import dude.task.Task;
 import dude.task.TaskList;
 import dude.ui.Ui;
+import dude.util.Storage;
 
 /**
  * Represents a command that deletes task.

@@ -5,6 +5,8 @@ import dude.exception.DudeException;
 import dude.note.NoteList;
 import dude.task.TaskList;
 import dude.ui.Ui;
+import dude.util.Parser;
+import dude.util.Storage;
 
 /**
  * Dude is a programme that allows users to manage their tasks.
