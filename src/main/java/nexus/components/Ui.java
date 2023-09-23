@@ -105,13 +105,4 @@ public class Ui {
     public String showWelcome() {
         return "Hello! I'm NEXUS!\nWhat can I do for you?";
     }
-
-    /**
-     * Show goodbye message.
-     *
-     * @return String.
-     */
-    public String showBye() {
-        return "Bye. Hope to see you again soon!";
-    }
 }
