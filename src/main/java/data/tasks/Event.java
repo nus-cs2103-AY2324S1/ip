@@ -1,9 +1,10 @@
 package data.tasks;
 
-import java.time.LocalDateTime;
-
 import common.DateParser;
+
 import data.exception.InvalidParamException;
+
+import java.time.LocalDateTime;
 
 public class Event extends Task {
     private final LocalDateTime from;
@@ -15,7 +16,10 @@ public class Event extends Task {
         super(detail, from);
         if (from.isAfter(to)) {
             throw new InvalidParamException(new String[]{
-                "Starting date cannot be after the end date!"
+                "Starting date "
+                + DateParser.toDisplayString(from)
+                + " cannot be after the end date "
+                + DateParser.toDisplayString(to)
             });
         }
         this.from = from;
