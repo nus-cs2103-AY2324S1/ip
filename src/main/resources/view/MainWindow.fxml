@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" style="-fx-background-image: url('./images/wallpaper.jpg');" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainWindow">
     <children>
-        <TextField fx:id="userInput" layoutY="558.4" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" promptText="Enter text here!" style="-fx-background-color: rgba(130,152,208,0.55); -fx-border-color: rgba(41,42,49,0.35); -fx-padding: 5px;" AnchorPane.bottomAnchor="0.0" />
+        <TextField fx:id="userInput" layoutY="558.4" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" promptText="Enter text here!" style="-fx-background-color: rgba(130,152,208,0.55); -fx-border-color: rgba(207,214,238,0.35); -fx-padding: 5px;" AnchorPane.bottomAnchor="0.0" />
         <Button fx:id="sendButton" layoutX="324.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" style="-fx-background-color: #4c74af; -fx-text-fill: #FFFFFF; -fx-font-size: 14px;" text="Send" />
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" vvalue="1.0">
             <content>

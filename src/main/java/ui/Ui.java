@@ -23,12 +23,12 @@ public class Ui {
      *
      * @return The welcome message and logo.
      */
-    public String showWelcome() {
+    public static String showWelcome() {
         String name = "misty";
-        String logo = "|\\---/|\n" +
+        String logo = "|\\-----/|\n" +
                 "| o_o |\n" +
                 " \\___/";
-        return "Hello from " + name + "\n" + logo +
+        return "Hello from " + name + "!\n" + logo +
                 "\nWhat can misty help you with?";
     }
 

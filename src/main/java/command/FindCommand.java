@@ -48,9 +48,9 @@ public class FindCommand extends Command {
             return ui.showNotFound();
         }
 
-        StringBuilder response = new StringBuilder(ui.showTaskListHeader());
+        StringBuilder response = new StringBuilder(ui.showTaskListHeader() + " with " + keyword + "\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            response.append(ui.showTask(i + 1, matchingTasks.get(i))); // Index starts from 1 for user-friendly display
+            response.append(ui.showTask(i, matchingTasks.get(i)));
             if (i < matchingTasks.size() - 1) {
                 response.append("\n");
             }

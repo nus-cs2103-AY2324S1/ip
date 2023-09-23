@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import ui.Ui;
 
 import java.io.IOException;
 
@@ -29,8 +30,13 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
+
+            // Assuming MainWindow controller has a method to display a message
+            String welcomeMessage = Ui.showWelcome();
+            fxmlLoader.<MainWindow>getController().displayMessage(welcomeMessage);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }
