@@ -5,7 +5,7 @@ This is a simple chatbot to help you keep track of your tasks to do, deadlines a
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your computer.
-2. Download `chatterbot.jar` from here.
+2. Download `chatterbot.jar` [here](https://github.com/hyc17003/ip/releases/tag/JAR-Release).
 3. Open a command terminal, `cd` into the folder the jar file is located in, and use the `java -jar chatterbot.jar` command to run the application.
 4. Type the command into the command box and press Enter to execute it.
 
