@@ -4,40 +4,38 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <fx:root alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: grey; -fx-border-color: black;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <ScrollPane hbarPolicy="NEVER" style="-fx-background-color: grey;">
-         <content>
-            <VBox>
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minViewportHeight="85.0" style="-fx-background-color: grey;">
+        <content>
+          <AnchorPane minHeight="87.0" style="-fx-background-color: grey;">
                <children>
-                    <Label fx:id="dialog" alignment="TOP_LEFT" text="Label" wrapText="true">
+                  <VBox layoutX="2.0" layoutY="2.0" style="-fx-border-color: black; -fx-background-color: black;">
+                     <children>
+                          <Label fx:id="dialog" alignment="TOP_LEFT" text="Label" textFill="WHITE" wrapText="true" />
+                     </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
-                  </Label>
+                  </VBox>
                </children>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </VBox>
-         </content>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <HBox.margin>
-            <Insets />
-         </HBox.margin>
+            </AnchorPane>
+        </content>
+         <padding>
+            <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+         </padding>
       </ScrollPane>
-        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: 100;" HBox.hgrow="NEVER">
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" style="-fx-opacity: 100;" HBox.hgrow="NEVER">
          <HBox.margin>
-            <Insets right="5.0" />
+            <Insets left="5.0" right="5.0" />
          </HBox.margin></ImageView>
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
    <opaqueInsets>
       <Insets />
