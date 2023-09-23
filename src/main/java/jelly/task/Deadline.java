@@ -53,7 +53,7 @@ public class Deadline extends Task {
      * Parses the date inputted that corresponds to the formats accepted.
      *
      * @param date The due date of the task.
-     * @return The parsed date, or null if the date is in a format that isn't accepted.
+     * @return The parsed date, or null if the date is in a format that is not accepted.
      */
     protected LocalDate parseDate(String date) {
 
