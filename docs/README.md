@@ -83,7 +83,9 @@ Now you have 5 tasks in the list.
 Displays all your task in your list.  
 Can be used to show the task index required for deleting or marking a task  
 Example of usage:  
-```list```  
+```
+list
+``` 
 Expected outcome:  
 List of all tasks you have at the moment  
 ```
