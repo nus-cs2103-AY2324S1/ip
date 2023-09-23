@@ -2,7 +2,7 @@ package tasket.command;
 
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
-import tasket.storage.Storage;
+import tasket.storage.StorageInterface;
 import tasket.ui.Ui;
 
 /**
@@ -11,14 +11,14 @@ import tasket.ui.Ui;
 public class ByeCommand extends Command {
 
     /**
-     * The constructor for bye command.
+     * Constructs a bye command.
      */
     public ByeCommand() {
         super("");
     }
 
     /**
-     * Show goodbye message.
+     * Shows goodbye message.
      *
      * @param taskList The task list instance of duke.
      * @param ui The ui instance of duke.
@@ -27,7 +27,7 @@ public class ByeCommand extends Command {
      * @throws TasketException Does not throw the exception.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, StorageInterface storage) throws TasketException {
         return ui.showGoodBye();
     }
 

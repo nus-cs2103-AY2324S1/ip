@@ -2,7 +2,7 @@ package tasket.command;
 
 import tasket.data.TaskList;
 import tasket.exception.TasketException;
-import tasket.storage.Storage;
+import tasket.storage.StorageInterface;
 import tasket.ui.Ui;
 
 /**
@@ -11,14 +11,14 @@ import tasket.ui.Ui;
 public class ListCommand extends Command {
 
     /**
-     * The constructor for list command.
+     * Constructs a list command.
      */
     public ListCommand() {
         super("");
     }
 
     /**
-     * Show all available tasks.
+     * Shows all available tasks.
      * Collects the tasks in string format, then show it in ui.
      *
      * @param taskList The task list instance of duke.
@@ -28,7 +28,7 @@ public class ListCommand extends Command {
      * @throws TasketException Does not throw the exception.
      */
     @Override
-    public String execute(TaskList taskList, Ui ui, Storage storage) throws TasketException {
+    public String execute(TaskList taskList, Ui ui, StorageInterface storage) throws TasketException {
         String[] taskStrings = new String[taskList.size()];
 
         for (int i = 0; i < taskStrings.length; i++) {

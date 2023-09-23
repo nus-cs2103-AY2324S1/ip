@@ -16,7 +16,7 @@ public class TaskList {
     private ArrayList<Task> tasks;
 
     /**
-     * The constructor for task list.
+     * Constructs a task list.
      * This is called when there are tasks saved before.
      *
      * @param tasks A task list with saved tasks.
@@ -27,7 +27,7 @@ public class TaskList {
     }
 
     /**
-     * The constructor for task list.
+     * Constructs a task list.
      * This is called when there are no saved tasks.
      */
     public TaskList() {

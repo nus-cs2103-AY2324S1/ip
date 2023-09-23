@@ -20,50 +20,46 @@ public class Ui {
     private final Scanner sc;
 
     /**
-     * The constructor of ui.
+     * Constructs a ui.
      */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
     /**
-     * Read the user input and return it.
-     * Preprocess the input by removing additional spaces.
+     * Shows welcome message.
      *
-     * @return The user input.
-     */
-    public String readCommand() {
-        return this.sc.nextLine().trim();
-    }
-
-    /**
-     * Show welcome message.
+     * @return Welcome message.
      */
     public String showWelcome() {
         return MESSAGE_WELCOME;
     }
 
     /**
-     * Show goodbye message.
+     * Shows goodbye message.
+     *
+     * @return Goodbye message.
      */
     public String showGoodBye() {
         return MESSAGE_GOODBYE;
     }
 
     /**
-     * Show added task message.
+     * Shows added task message.
      *
      * @param task The added task in string format.
      * @param len The number of tasks after insertion.
+     * @return The added task and the current number of tasks.
      */
     public String showAddedTask(String task, int len) {
         return MESSAGE_ADDED + "\n" + task + "\n" + String.format(MESSAGE_TASK_LENGTH, len);
     }
 
     /**
-     * Show all the tasks.
+     * Shows all the tasks.
      *
      * @param tasks The tasks to be shown in string format.
+     * @return The tasks.
      */
     public String showTaskList(String[] tasks) {
         assert tasks != null;
@@ -78,37 +74,41 @@ public class Ui {
     }
 
     /**
-     * Show marked task message.
+     * Shows marked task message.
      *
      * @param task The task to be marked in string format.
+     * @return The marked task.
      */
     public String showMarkedTask(String task) {
         return MESSAGE_MARKED_TASK + "\n" + task;
     }
 
     /**
-     * Show unmarked task message.
+     * Shows unmarked task message.
      *
      * @param task The task to be unmarked in string format.
+     * @return The unmarked task.
      */
     public String showUnmarkedTask(String task) {
         return MESSAGE_UNMARKED_TASK + "\n" + task;
     }
 
     /**
-     * Show deleted task message.
+     * Shows deleted task message.
      *
      * @param task The task to be deleted.
      * @param len The number of tasks after deletion.
+     * @return The deleted task and remaining number of tasks.
      */
     public String showDeletedTask(String task, int len) {
         return MESSAGE_DELETED_TASK + "\n" + task + "\n" + String.format(MESSAGE_TASK_LENGTH, len);
     }
 
     /**
-     * Show task that match the keyword.
+     * Shows task that match the keyword.
      *
      * @param tasks The matching tasks in string format.
+     * @return Matching tasks.
      */
     public String showMatchingTasks(String[] tasks) {
         assert tasks != null;
@@ -123,9 +123,10 @@ public class Ui {
     }
 
     /**
-     * Show error message.
+     * Shows error message.
      *
      * @param errorMessage The error message to be shown.
+     * @return The error message.
      */
     public String showError(String errorMessage) {
         return MESSAGE_ERROR + errorMessage;

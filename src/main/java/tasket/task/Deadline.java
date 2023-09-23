@@ -7,7 +7,7 @@ public class Deadline extends Task {
     protected String by;
 
     /**
-     * The constructor of deadline
+     * Constructs a deadline.
      *
      * @param description The description of the task.
      * @param by The deadline of the task.
@@ -18,7 +18,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * The constructor for deadline.
+     * Constructs a deadline.
      * This version includes tags.
      *
      * @param description The description of the task.
@@ -31,7 +31,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * @inheritDocs
+     * {@inheritDoc}
      *
      * @return The string format of the task.
      */
@@ -41,7 +41,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * @inheritDocs
+     * {@inheritDoc}
      *
      * @return The save format of the task.
      */

@@ -6,7 +6,7 @@ package tasket.task;
 public class ToDo extends Task {
 
     /**
-     * The constructor of todo.
+     * Constructs a todo.
      *
      * @param description The description of the task.
      */
@@ -15,8 +15,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * The constructor of todo.
-     * This version of constructor includes tags.
+     * Constructs of todo.
+     * This version includes tags.
      *
      * @param description The description of the task.
      * @param tags The tags of the task.
@@ -26,7 +26,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * @inheritDocs
+     * {@inheritDoc}
      *
      * @return The string format of the task.
      */
@@ -36,7 +36,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * @inheritDocs
+     * {@inheritDoc}
      *
      * @return The save format of the task.
      */

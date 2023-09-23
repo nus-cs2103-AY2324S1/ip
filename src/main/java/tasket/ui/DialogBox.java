@@ -26,7 +26,7 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
 
     /**
-     * The constructor of dialog box.
+     * Constructs a dialog box.
      *
      * @param text The text to display.
      * @param img The image to display.
@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Get user dialog box.
+     * Gets user dialog box.
      *
      * @param text The text input from user.
      * @param img The image representation of user.
@@ -69,7 +69,7 @@ public class DialogBox extends HBox {
     }
 
     /**
-     * Get chatbot dialog box.
+     * Gets chatbot dialog box.
      * Chatbot dialog box is flipped to differentiate between user dialog.
      *
      * @param text The response text from chatbot.

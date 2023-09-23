@@ -36,7 +36,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Initiate the duke instance.
+     * Initiates the duke instance.
      *
      * @param d The duke object.
      */
@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Send greeting to user
+     * Sends greeting to user
      */
     public void sendGreeting() {
         dialogContainer.getChildren().add(
@@ -56,6 +56,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
+     * If the user demands to exit, pause input, then close the application.
      */
     @FXML
     private void handleUserInput() {
