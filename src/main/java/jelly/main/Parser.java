@@ -27,6 +27,7 @@ public class Parser {
      * @throws JellyException If the input is invalid.
      */
     public static Command parse(String command) throws JellyException {
+        assert command != null : "Command cannot be empty";
         try {
             String[] stringArray = command.split(" ");
             if (stringArray[0].equals("bye")) {
@@ -95,7 +96,7 @@ public class Parser {
                 String eventString = "";
                 String fromWhen = "";
                 String toWhen = "";
-
+                //checking if the string contains /from and /to
                 for (int i = 1; i < stringArray.length; i++) {
                     if (stringArray[i] != null) {
                         if (stringArray[i].equals("/from")) {
