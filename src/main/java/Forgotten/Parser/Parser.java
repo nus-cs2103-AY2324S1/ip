@@ -21,7 +21,7 @@ public class Parser {
      */
     public static String parse(String userCommand, TaskList taskList, Ui ui) {
         String response = "";
-        String[] splitMessage = userCommand.split(" ");
+        String[] splitMessage = userCommand.split(" ", 2);
         String instruction = splitMessage[0];
 
         switch (instruction) {
@@ -47,6 +47,9 @@ public class Parser {
                 break;
             case "find":
                 response = taskList.findTask(splitMessage[1]);
+                break;
+            case "prioritize":
+                response = taskList.prioritizeTask(splitMessage[1]);
                 break;
             default:
                 // Add new tasks to the task list

@@ -1,5 +1,7 @@
 package Forgotten.Task;
 
+import Forgotten.Priority;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -21,11 +23,13 @@ public class Event extends Task {
      * @param endTime The ending time of this event.
      * @param isDone Status of this task, either done or not done.
      */
-    public Event(String description, LocalDate startTime, LocalDate endTime, boolean isDone) {
+    public Event(String description, LocalDate startTime,
+                 LocalDate endTime, boolean isDone, Priority priority) {
         super(description);
         this.startTime = startTime;
         this.endTime = endTime;
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     /**
@@ -42,10 +46,11 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " +
-                this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) +
-                " to: " +
-                this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[E]" + super.toString() + " (from: "
+                + this.startTime.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: "
+                + this.endTime.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")"
+                + " [P: " + this.priority + "]";
     }
 
     /**
@@ -56,6 +61,8 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return "[E]" + super.toString() + " (from: " + this.startTime + " to: " + this.endTime + ")";
+        return "[E]" + super.toString()
+                + " (from: " + this.startTime + " to: " + this.endTime + ")"
+                + " [P: " + this.priority + "]";
     }
 }

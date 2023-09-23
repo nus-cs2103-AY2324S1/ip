@@ -1,15 +1,19 @@
 package Forgotten.Task;
 
+import Forgotten.Priority;
+
 /**
  * Encapsulates the tasks.
  */
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Priority priority;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
+        this.priority = Priority.LOW;
     }
 
     /**
@@ -33,6 +37,10 @@ public class Task {
      */
     public void setNotDone() {
         isDone = false;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     public String getDescription() {

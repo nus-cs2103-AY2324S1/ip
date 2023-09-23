@@ -1,5 +1,6 @@
 package Forgotten.TaskList;
 
+import Forgotten.Priority;
 import Forgotten.Storage.Storage;
 import Forgotten.Task.Deadline;
 import Forgotten.Task.Event;
@@ -28,6 +29,8 @@ public class TaskList {
 
     /**
      * Lists out all the tasks in the task list.
+     *
+     * @return The reply message for the bot
      */
     public String listAllTasks() {
         int count = 1;
@@ -45,8 +48,10 @@ public class TaskList {
 
     /**
      * This method deletes a task specified by the parameter.
+     *
      * @param taskNumber Index of the task to be deleted.
      * @throws TaskListEmptyException If there is no task in the task list.
+     * @return The reply message for the bot.
      */
     public String deleteTask(String taskNumber) throws TaskListEmptyException {
         String string = "";
@@ -71,7 +76,9 @@ public class TaskList {
 
     /**
      * This method marks a specific task to be done.
+     *
      * @param taskNumber Index of the task to be marked.
+     * @return The reply message for the bot.
      */
     public String markTaskDone(String taskNumber) {
         String string = "";
@@ -84,7 +91,9 @@ public class TaskList {
 
     /**
      * This method marks a specific task to be not done.
+     *
      * @param taskNumber Index o f the task to be marked.
+     * @return The reply message for the bot.
      */
     public String unmarkTaskDone(String taskNumber) {
         String string = "";
@@ -99,9 +108,11 @@ public class TaskList {
 
     /**
      * This method adds a new task into the task list.
+     *
      * @param userInput Task description.
      * @throws DescriptionIncompleteException If the description does not follow the command.
      * @throws IllegalCommandException If an undefined command is entered.
+     * @return The reply message for the bot.
      */
     public String addNewTask(String userInput) throws DescriptionIncompleteException, IllegalCommandException {
         String string = "";
@@ -146,6 +157,12 @@ public class TaskList {
         return string;
     }
 
+    /**
+     * This method finds all tasks with descriptions that match the keyword.
+     *
+     * @param keyword The task you want to find.
+     * @return The reply message for the bot.
+     */
     public String findTask(String keyword) {
         StringBuilder stringBuilder = new StringBuilder();
         int count = 1;
@@ -159,5 +176,27 @@ public class TaskList {
             }
         }
         return stringBuilder.toString();
+    }
+
+    /**
+     * This method prioritizes the task to the given priority.
+     *
+     * @param userInput This includes the task number and the priority.
+     * @return The reply message for the bot.
+     */
+    public String prioritizeTask(String userInput) {
+        String string = "";
+        String[] splitMessage = userInput.split(" ");
+
+        int taskNumber = Integer.parseInt(splitMessage[0]);
+        Priority priority = Priority.valueOf(splitMessage[1]);
+
+        Task currentTask = tasks.get(taskNumber - 1);
+        currentTask.setPriority(priority);
+
+        string += "Got it. I've prioritized the given task:\n"
+                + currentTask;
+
+        return string;
     }
 }

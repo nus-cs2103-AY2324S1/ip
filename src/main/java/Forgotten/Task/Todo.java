@@ -1,5 +1,7 @@
 package Forgotten.Task;
 
+import Forgotten.Priority;
+
 public class Todo extends Task {
 
     private Todo(String description) {
@@ -12,9 +14,10 @@ public class Todo extends Task {
      * @param description Description of this todo task.
      * @param isDone Status of this task, either done or not done.
      */
-    public Todo(String description, boolean isDone) {
+    public Todo(String description, boolean isDone, Priority priority) {
         super(description);
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     /**
@@ -29,7 +32,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + " [P: " + this.priority + "]";
     }
 
     /**
@@ -40,6 +43,6 @@ public class Todo extends Task {
      */
     @Override
     public String toFileString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + " [P: " + this.priority + "]";
     }
 }

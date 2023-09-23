@@ -1,5 +1,6 @@
 package Kevin;
 
+import Forgotten.Priority;
 import Forgotten.Task.Todo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ public class TodoTest {
 
     @Test
     public void testStringConversion() {
-        Assertions.assertEquals("[T][ ] return book",
-                new Todo("return book", false).toString());
+        Assertions.assertEquals("[T][ ] return book [P: HIGH]",
+                new Todo("return book", false, Priority.HIGH).toString());
     }
 }

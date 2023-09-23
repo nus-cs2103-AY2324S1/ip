@@ -1,5 +1,7 @@
 package Forgotten.Task;
 
+import Forgotten.Priority;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -20,10 +22,11 @@ public class Deadline extends Task {
      * @param day The date this task is due.
      * @param isDone Status of this task, either done or not done.
      */
-    public Deadline(String description, LocalDate day, boolean isDone) {
+    public Deadline(String description, LocalDate day, boolean isDone, Priority priority) {
         super(description);
         this.day = day;
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     /**
@@ -40,8 +43,9 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " +
-                this.day.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        return "[D]" + super.toString() + " (by: "
+                + this.day.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")"
+                + " [P: " + this.priority + "]";
     }
 
     /**
@@ -52,6 +56,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "[D]" + super.toString() + " (by: " + this.day + ")";
+        return "[D]" + super.toString() + " (by: " + this.day + ")"
+                + " [P: " + this.priority + "]";
     }
 }

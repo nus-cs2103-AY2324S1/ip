@@ -1,5 +1,6 @@
 package Forgotten.Storage;
 
+import Forgotten.Priority;
 import Forgotten.Task.Deadline;
 import Forgotten.Task.Event;
 import Forgotten.Task.Task;
@@ -52,26 +53,37 @@ public class Storage {
         boolean isDone = string1.charAt(4) == 'X';
 
         if (taskType == 'T') {
-            String description = string.substring(7);
+            String[] split = string.split(" \\[P: ");
 
-            taskList.add(new Todo(description, isDone));
-        } else if (taskType == 'D') {
-            String[] split = string.split(" \\(by: ");
             String description = split[0].substring(7);
+            Priority priority = Priority.valueOf(split[1].substring(0, split[1].length() - 1));
 
-            LocalDate day = LocalDate.parse(split[1].substring(0, split[1].length() - 1));
+            taskList.add(new Todo(description, isDone, priority));
+        } else if (taskType == 'D') {
+            // To separate the description from the date and the priority
+            String[] split1 = string.split(" \\(by: ");
+            // To get the priority
+            String[] split2 = split1[1].split("\\) \\[P: ");
 
-            taskList.add(new Deadline(description, day, isDone));
+            LocalDate day = LocalDate.parse(split2[0]);
+            String description = split1[0].substring(7);
+            Priority priority = Priority.valueOf(split2[1].substring(0, split2[1].length() - 1));
+
+            taskList.add(new Deadline(description, day, isDone, priority));
         } else {
+            // To separate the description from the dates and the priority
             String[] split1 = string.split(" \\(from: ");
+            // To get the starting date
             String[] split2 = split1[1].split(" to: ");
+            // To get the end date
+            String[] split3 = split2[1].split("\\) \\[P: ");
 
             String description = split1[0].substring(7);
-
             String start = split2[0];
-            String end = split2[1].substring(0, split2[1].length() - 1);
+            String end = split3[0];
+            Priority priority = Priority.valueOf(split2[1].substring(0, split2[1].length() - 1));
 
-            taskList.add(new Event(description, LocalDate.parse(start), LocalDate.parse(end), isDone));
+            taskList.add(new Event(description, LocalDate.parse(start), LocalDate.parse(end), isDone, priority));
         }
     }
 
