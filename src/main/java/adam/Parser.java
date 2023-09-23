@@ -1,10 +1,10 @@
 package adam;
 
-import adam.command.Command;
 import adam.command.AddCommand;
+import adam.command.Command;
+import adam.command.EditCommand;
 import adam.command.FindCommand;
 import adam.command.SingleCommand;
-import adam.command.EditCommand;
 import adam.exception.AdamException;
 
 /**
@@ -28,7 +28,7 @@ public class Parser {
      * @return Command object.
      */
     public static Command parse(String input) {
-        Command command ;
+        Command command;
         String[] tokens = input.split(" ");
         switch (tokens[0]) {
         case "bye":
@@ -50,7 +50,7 @@ public class Parser {
             command = new FindCommand(tokens, getParams(tokens, input), tokens[0]);
             break;
         default:
-                throw new AdamException();
+            throw new AdamException();
         }
         return command;
     }

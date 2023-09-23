@@ -2,6 +2,11 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
 
 repositories {
@@ -46,7 +51,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "AdamV0.5"
+    archiveBaseName = "AdamV0.6"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

@@ -54,7 +54,7 @@ public class AddCommand implements Command {
         } catch (DateTimeParseException e) {
             throw new DateException();
         }
-        return  tasks.addDeadline(by[0], by[1]);
+        return tasks.addDeadline(by[0], by[1]);
     }
 
     /**
@@ -102,7 +102,7 @@ public class AddCommand implements Command {
      * @param ui Ui that is used to print messages.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui){
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         int length = tasks.getSize();
         String respond = "Something went wrong";
         if (tokens.length == 1) {

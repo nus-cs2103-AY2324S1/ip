@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
      */
     public void greet() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getAdamDialog(adam.getGreeting(),adamImage)
+                DialogBox.getAdamDialog(adam.getGreeting(), adamImage)
         );
     }
 
@@ -57,10 +57,10 @@ public class MainWindow extends AnchorPane {
         String response = adam.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getAdamDialog(response,adamImage)
+                DialogBox.getAdamDialog(response, adamImage)
         );
         userInput.clear();
-        if(!adam.running()){
+        if (!adam.running()) {
             System.exit(0);
         }
     }

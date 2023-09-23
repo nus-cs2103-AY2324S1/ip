@@ -1,9 +1,10 @@
 package adam.command;
 
 import adam.Storage;
-import adam.Ui;
 import adam.TaskList;
+import adam.Ui;
 import adam.exception.OneWordException;
+
 /**
  * This class is used to call either the list or bye methods
  */
@@ -30,7 +31,7 @@ public class SingleCommand implements Command {
      * @param ui Ui that is used to print messages.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage, Ui ui){
+    public String execute(TaskList tasks, Storage storage, Ui ui) {
         String respond = "Something went wrong";
         if (tokens.length > 1) {
             throw new OneWordException();

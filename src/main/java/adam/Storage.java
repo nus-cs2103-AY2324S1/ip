@@ -1,6 +1,11 @@
 package adam;
 
-import java.io.*;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import adam.exception.NoFileException;
@@ -13,7 +18,6 @@ public class Storage {
 
     private String home = System.getProperty("user.home");
     private java.nio.file.Path path = java.nio.file.Paths.get(home, "Digimon.txt");
-    boolean directoryExists = java.nio.file.Files.exists(path);
 
     /**
      * Returns an Arraylist of tasks object that is used to save tasks.

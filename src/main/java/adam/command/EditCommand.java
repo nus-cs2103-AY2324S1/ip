@@ -19,7 +19,7 @@ public class EditCommand implements Command {
      * @param text The specific command from the parser.
      */
     public EditCommand(String[] tokens, String text) {
-        this.tokens =  tokens;
+        this.tokens = tokens;
         this.text = text;
     }
 

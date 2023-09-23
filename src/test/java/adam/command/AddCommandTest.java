@@ -1,20 +1,22 @@
 package adam.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import adam.Storage;
 import adam.TaskList;
 import adam.Ui;
 import adam.exception.AdamException;
 import adam.tasks.Task;
-import org.junit.jupiter.api.Test;
-import static  org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.ArrayList;
 
 public class AddCommandTest {
-    Ui ui = new Ui();
-    Storage storage = new Storage();
-    TaskList task = new TaskList(new ArrayList<Task>());
+    private Ui ui = new Ui();
+    private Storage storage = new Storage();
+    private TaskList task = new TaskList(new ArrayList<Task>());
     @Test
     public void executeDeadline_noDescription_exceptionThrown() {
         String li = "deadline";
@@ -22,7 +24,7 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());
@@ -36,10 +38,10 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add one /by command to indicate by when deadline is", e.getInfo());
+            assertEquals("OOPS!!! You need to add one /by command to indicate by when deadline is", e.getInfo());
         }
     }
     @Test
@@ -49,10 +51,10 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add a description to these tasks", e.getInfo());
+            assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());
         }
     }
     @Test
@@ -62,10 +64,10 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! you need the date to be in a yyyy-mm-dd format", e.getInfo());
+            assertEquals("OOPS!!! you need the date to be in a yyyy-mm-dd format", e.getInfo());
         }
     }
 
@@ -76,10 +78,10 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! you need the date to be in a yyyy-mm-dd format", e.getInfo());
+            assertEquals("OOPS!!! you need the date to be in a yyyy-mm-dd format", e.getInfo());
         }
     }
 
@@ -90,10 +92,10 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add a description to these tasks", e.getInfo());
+            assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());
         }
     }
 
@@ -104,10 +106,10 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
-            assertEquals( "OOPS!!! You need to add one /from and one /to command", e.getInfo());
+            assertEquals("OOPS!!! You need to add one /from and one /to command", e.getInfo());
         }
     }
 
@@ -118,7 +120,7 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());
@@ -132,7 +134,7 @@ public class AddCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new AddCommand(tokens,item,tokens[0]).execute(task,storage,ui);
+            new AddCommand(tokens, item, tokens[0]).execute(task, storage, ui);
             fail();
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to add a description to these tasks", e.getInfo());

@@ -8,7 +8,7 @@ import adam.exception.FindException;
 /**
  * This class is used to call the find method if the user input is correct.
  */
-public class FindCommand implements Command{
+public class FindCommand implements Command {
     private String[] tokens;
     private String item;
     private String input;
@@ -20,7 +20,7 @@ public class FindCommand implements Command{
      * @param item String after the command.
      * @param input String of the command.
      */
-    public  FindCommand(String[]tokens, String item, String input) {
+    public FindCommand(String[]tokens, String item, String input) {
         this.tokens = tokens;
         this.item = item;
         this.input = input;

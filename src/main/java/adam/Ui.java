@@ -23,7 +23,7 @@ public class Ui {
      * Returns a String of a welcome message at the start of the program.
      */
     public String welcome() {
-         return "What's up I am Adam\n" + "so like what do you want?";
+        return "What's up I am Adam\n" + "so like what do you want?";
     }
 
     /**
@@ -42,19 +42,19 @@ public class Ui {
      * @param size Size of the list.
      */
     public String delete(Task curr, int size) {
-        return "I have removed the Task, so just make up your mind next time:\n" + curr.toString() +
-                "\n" + getAmount(size);
+        return "I have removed the Task, so just make up your mind next time:\n" + curr.toString()
+                + "\n" + getAmount(size);
     }
 
     /**
-     *Returns a message whenever you add a todo Task to your list as a String.
+     * Returns a message whenever you add a todo Task to your list as a String.
      *
      * @param curr Current Task.
      * @param size Size of the list.
      */
     public String addTodo(Task curr, int size) {
-       return "I added this todo to the list of endless work you have:\n" + curr.toString() +
-               "\n" + getAmount(size);
+        return "I added this todo to the list of endless work you have:\n" + curr.toString()
+               + "\n" + getAmount(size);
     }
 
     /**
@@ -64,8 +64,8 @@ public class Ui {
      * @param size Size of the list.
      */
     public String addEvent(Task curr, int size) {
-        return "I added this event to your list, congrats on having a life outside of work:" + curr.toString() +
-                "\n" + getAmount(size);
+        return "I added this event to your list, congrats on having a life outside of work:" + curr.toString()
+                + "\n" + getAmount(size);
     }
 
     /**
@@ -75,8 +75,8 @@ public class Ui {
      * @param size Size of the list.
      */
     public String addDeadline(Task curr, int size) {
-        return "I have added this deadline to the list, good " +
-                "luck on remembering it one day before deadline:\n" + curr.toString() + "\n" + getAmount(size);
+        return "I have added this deadline to the list, good "
+                + "luck on remembering it one day before deadline:\n" + curr.toString() + "\n" + getAmount(size);
     }
 
     /**
@@ -97,8 +97,8 @@ public class Ui {
      * Returns a String message to indicate that you have completed a Task.
      */
     public String mark() {
-        return "Congrats on getting one step closer to achieving true happines," +
-                " I have marked this task as complete";
+        return "Congrats on getting one step closer to achieving true happines,"
+                + " I have marked this task as complete";
     }
 
     /**
@@ -137,6 +137,6 @@ public class Ui {
      * @param item String of the tag.
      */
     public String tag(String item) {
-    return "I have tagged this task as " + item;
+        return "I have tagged this task as " + item;
     }
 }

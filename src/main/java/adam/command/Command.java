@@ -1,8 +1,9 @@
 package adam.command;
 
+
 import adam.Storage;
-import adam.Ui;
 import adam.TaskList;
+import adam.Ui;
 
 /**
  * This interface is used to give a building block for all class that implements the Command interface.

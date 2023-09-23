@@ -32,7 +32,7 @@ public class TaskList {
      *
      * @return String message saying whixh item was deleted.
      */
-    public String deleteTask( String[] tokens) {
+    public String deleteTask(String[] tokens) {
         if (tokens.length != 2) {
             throw new NumberException();
         }
@@ -91,10 +91,10 @@ public class TaskList {
      * Lists all the existing tasks inside the task list as a String.
      */
     public String list() {
-        String sentence =  ui.list() + "\n";
+        String sentence = ui.list() + "\n";
         int count = 1;
         for (Task item: tasks) {
-            String task = count + ". " + item.toString()+" | ";
+            String task = count + ". " + item.toString() + " | ";
             sentence = sentence + task;
             count++;
         }
@@ -173,7 +173,7 @@ public class TaskList {
      *
      * @param storage Storage Object.
      */
-    public void save (Storage storage) {
+    public void save(Storage storage) {
         storage.write(tasks);
     }
 
@@ -196,9 +196,9 @@ public class TaskList {
         ArrayList<Task> matches = new ArrayList<>();
         int count = 1;
         for (Task task : tasks) {
-           if (task.search(item)) {
-               matches.add(task);
-           }
+            if (task.search(item)) {
+                matches.add(task);
+            }
         }
         if (matches.size() == 0) {
             return ui.apologize();
@@ -220,7 +220,7 @@ public class TaskList {
      * @return String message saying which item was tagged what it was tagged with.
      */
     public String tagTask(String[] tokens) {
-        if(tokens.length < 3) {
+        if (tokens.length < 3) {
             throw new NoTagException();
         }
         if (!tokens[1].matches("[0-9]+")) {
@@ -234,7 +234,7 @@ public class TaskList {
             throw new OutOfBoundException();
         }
         String description = "";
-        for(int i = 2 ; i < tokens.length; i++) {
+        for (int i = 2; i < tokens.length; i++) {
             description = tokens[i] + " ";
         }
         Task curr = tasks.get(number - 1);

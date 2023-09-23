@@ -36,7 +36,7 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        if(item.equals("")) {
+        if (item.equals("")) {
             return "[" + getStatusIcon() + "] " + this.description;
         }
         return "[" + getStatusIcon() + "] " + this.description + getTag();
@@ -62,7 +62,7 @@ public class Task implements Serializable {
     /**
      * Unmarks the task as incomplete.
      */
-    public void unmarkAsDone(){
+    public void unmarkAsDone() {
         this.isDone = false;
         System.out.println(this.toString());
     }

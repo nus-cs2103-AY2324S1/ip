@@ -2,13 +2,10 @@ package adam;
 
 import java.util.ArrayList;
 
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-
 import adam.command.Command;
 import adam.exception.AdamException;
-import adam.tasks.Task;
-
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
 /**
  * This is the main java class that contains instructions to create the chatbot Tasks.Task manager Adam.Adam.
  */
@@ -29,7 +26,7 @@ public class Adam {
         try {
             list = new TaskList(storage.read());
         } catch (AdamException e) {
-            list = new TaskList(new ArrayList<Task>());
+            list = new TaskList(new ArrayList<>());
         }
     }
 

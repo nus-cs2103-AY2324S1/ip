@@ -1,19 +1,21 @@
 package adam.command;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Test;
+
 import adam.Storage;
 import adam.TaskList;
 import adam.Ui;
 import adam.exception.AdamException;
 import adam.tasks.Task;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EditCommandTest {
-    Ui ui = new Ui();
-    Storage storage = new Storage();
-    TaskList task = new TaskList(new ArrayList<Task>());
+    private Ui ui = new Ui();
+    private Storage storage = new Storage();
+    private TaskList task = new TaskList(new ArrayList<Task>());
 
     @Test
     public void executeMark_noDescription_exceptionThrown() {
@@ -22,7 +24,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -35,7 +37,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
         }
@@ -48,7 +50,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
         }
@@ -61,7 +63,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! The number you put in is more than the current item in your list", e.getInfo());
         }
@@ -74,7 +76,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -87,7 +89,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -100,7 +102,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -112,7 +114,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -124,7 +126,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -137,7 +139,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -149,7 +151,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
@@ -161,7 +163,7 @@ public class EditCommandTest {
         int length = tokens[0].length();
         String item = li.substring(length, li.length());
         try {
-            new EditCommand(tokens,item).execute(task,storage,ui);
+            new EditCommand(tokens, item).execute(task, storage, ui);
         } catch (AdamException e) {
             assertEquals("OOPS!!! You need to follow this command by a number", e.getInfo());
         }
