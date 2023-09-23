@@ -3,10 +3,12 @@ package potato.task;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String priority;
 
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone, String priority) {
         this.description = description;
         this.isDone = isDone;
+        this.priority = priority;
     }
 
     public static Task parse(String input) {
@@ -37,7 +39,7 @@ public class Task {
         switch (parts[0]) {
         case "T":
             System.out.println("its todo");
-            return Todo.todoParse(parts[2], parts[1]);
+            return Todo.todoSavedParse(parts);
         case "D":
             // empty deadline
             // no by
@@ -63,12 +65,15 @@ public class Task {
     public String getDescription() {
         return description;
     }
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
 
     public String toSave() {
         return "";
     }
 
     public String toString() {
-        return "[" + getStatus() + "] " + description;
+        return "[" + getStatus() + "]" + "[" + priority.toUpperCase() + "] " + description;
     }
 }

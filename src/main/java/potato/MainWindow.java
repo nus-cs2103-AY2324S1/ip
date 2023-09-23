@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
             String response = potato.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, potatoImage)
+                    DialogBox.getPotatoDialog(response, potatoImage)
             );
             userInput.clear();
         }

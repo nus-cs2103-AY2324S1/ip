@@ -13,7 +13,7 @@ public class TaskListTest {
     @Test
     public void testTaskListFind() {
         try {
-            Task homework = new Todo("do homework", false);
+            Task homework = new Todo("do homework", false, "NIL");
             ArrayList<Task> tasks = new ArrayList<>();
             tasks.add(homework);
             TaskList t = new TaskList(tasks);

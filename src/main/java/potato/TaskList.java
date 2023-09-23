@@ -95,4 +95,16 @@ public class TaskList {
         }
         return s;
     }
+
+    public String setPriority(String input, Storage storage) throws IOException {
+        int indexSet = input.indexOf("#");
+        int index = Integer.parseInt(input.substring(9, indexSet - 1)) - 1;
+        String priority = input.substring(indexSet + 1);
+        tasks.get(index).setPriority(priority);
+        String s = "Okay, you have set the priority of this task\n"
+                + tasks.get(index).toString() + "\n"
+                + "to " + priority;
+        storage.saveTask(tasks);
+        return s;
+    }
 }
