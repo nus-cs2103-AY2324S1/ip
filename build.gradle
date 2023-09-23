@@ -43,14 +43,14 @@ test {
 }
 
 application {
-    mainClass.set("Jelly.Launcher")
+    mainClass.set("jelly.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Jelly"
+    archiveBaseName = "jelly"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName ="Jelly.jar"
+    archiveFileName ="jelly.jar"
 }
 
 run{

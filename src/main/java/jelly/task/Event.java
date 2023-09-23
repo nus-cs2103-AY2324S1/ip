@@ -80,7 +80,7 @@ public class Event extends Task {
             try {
                 return LocalDate.parse(date, formats.get(i));
             } catch (DateTimeParseException e) {
-                System.out.println(e.getMessage());
+                continue;
             }
         }
         return null;
@@ -104,7 +104,7 @@ public class Event extends Task {
             try {
                 return LocalDateTime.parse(dateTime, formats.get(i));
             } catch (DateTimeParseException e) {
-                System.out.println(e.getMessage());
+                continue;
             }
         }
         return null;
