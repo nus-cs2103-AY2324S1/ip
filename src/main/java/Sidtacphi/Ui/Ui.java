@@ -1,4 +1,4 @@
-package Sidtacphi.Ui;
+package sidtacphi.ui;
 
 /**
  * Ui is the class that interacts with the user.

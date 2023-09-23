@@ -1,4 +1,4 @@
-package Sidtacphi.Task;
+package sidtacphi.task;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 public class Todo extends Task {
     /**
      * Constructor for the Todo class.
-     * 
+     *
      * @param name
      */
     public Todo(String name) {
@@ -21,12 +21,12 @@ public class Todo extends Task {
 
     /**
      * Shows whether the task is completed and the name of the task.
-     * 
+     *
      * @return Type of task, completion state of task and the name of task.
      */
     @Override
     public String toString() {
-        return "[T] " + super.toString();     
+        return "[T] " + super.toString();
     }
 
     /**
@@ -48,7 +48,7 @@ public class Todo extends Task {
     public boolean equals(Object obj) {
         if (!(obj instanceof Todo)) {
             return false;
-        } 
+        }
         Todo task = (Todo) obj;
         return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted();
     }

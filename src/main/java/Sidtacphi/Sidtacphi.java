@@ -1,9 +1,9 @@
-package Sidtacphi;
+package sidtacphi;
 
-import Sidtacphi.Parser.Parser;
-import Sidtacphi.Storage.Storage;
-import Sidtacphi.Task.TaskList;
-import Sidtacphi.Ui.Ui;
+import sidtacphi.parser.Parser;
+import sidtacphi.storage.Storage;
+import sidtacphi.task.TaskList;
+import sidtacphi.ui.Ui;
 
 
 /**
@@ -11,10 +11,10 @@ import Sidtacphi.Ui.Ui;
  */
 public class Sidtacphi {
     private static TaskList taskList = new TaskList();
-    
+
     /**
      * Main method for the Sidtacphi class.
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {

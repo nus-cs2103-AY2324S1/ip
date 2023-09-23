@@ -1,4 +1,4 @@
-package Sidtacphi.Task;
+package sidtacphi.task;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,7 +15,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline object.
-     * 
+     *
      * @param name
      */
     public Deadline(String name, LocalDate deadline) {
@@ -25,7 +25,7 @@ public class Deadline extends Task {
 
     /**
      * Gets the deadline of the object.
-     * 
+     *
      * @return Deadline of Deadline object
      */
     public LocalDate getDeadline() {
@@ -34,12 +34,12 @@ public class Deadline extends Task {
 
     /**
      * Shows whether the task is completed and the name of the task.
-     * 
+     *
      * @return Type of task, completion state of task and the name of task.
      */
     @Override
     public String toString() {
-        return "[D] " + super.toString() + " (by: " + deadline + ")";     
+        return "[D] " + super.toString() + " (by: " + deadline + ")";
     }
 
     /**
@@ -62,9 +62,9 @@ public class Deadline extends Task {
     public boolean equals(Object obj) {
         if (!(obj instanceof Deadline)) {
             return false;
-        } 
+        }
         Deadline task = (Deadline) obj;
-        return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted() 
+        return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted()
                 && Objects.equals(deadline, task.getDeadline());
     }
 }

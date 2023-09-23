@@ -32,3 +32,6 @@ bin/
 # Text-ui-test
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Debug files
+launch.json

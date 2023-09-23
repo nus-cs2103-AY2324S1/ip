@@ -1,4 +1,4 @@
-package Sidtacphi.Exception;
+package sidtacphi.exception;
 
 /**
  * SidInvalidIndexException exception which is an extension of SidException.
@@ -6,8 +6,8 @@ package Sidtacphi.Exception;
 public class SidInvalidIndexException extends SidException {
 
     /**
-     * Constructs a SidInvalidFormatException exception
-     * 
+     * Constructs a SidInvalidFormatException exception.
+     *
      * @param errorMessage
      */
     public SidInvalidIndexException(String errorString) {

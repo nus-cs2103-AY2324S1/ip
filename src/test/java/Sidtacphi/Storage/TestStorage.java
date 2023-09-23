@@ -1,7 +1,8 @@
-package Sidtacphi.Storage;
+package sidtacphi.storage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
-import java.lang.StringBuilder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,17 +10,22 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
-import Sidtacphi.Task.TaskType;
-import Sidtacphi.Exception.SidException;
-import Sidtacphi.Task.TaskList;
+import sidtacphi.exception.SidException;
+import sidtacphi.task.TaskList;
+import sidtacphi.task.TaskType;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+/**
+ * TestStorage holds JUnit tests for the Storage class.
+ */
 public class TestStorage {
+
+    /**
+     * Tests Storage.saveAsJson.
+     */
     @Test
     public void testSaveAsJson() {
         Path path = Path.of("./src/test/java/Sidtacphi/Storage/tasks-temp.json");
-        
+
         String savedJsonString = "";
         StringBuilder contentBuilder = new StringBuilder();
         try {
@@ -34,7 +40,8 @@ public class TestStorage {
 
             Files.deleteIfExists(path);
 
-            assertEquals("[{\"type\":\"deadline\",\"name\":\"return book\",\"isCompleted\":false,\"deadline\":\"2023-06-01\"}]",
+            assertEquals("[{\"type\":\"deadline\",\"name\":\"return book\",\"isCompleted\""
+                    + ":false,\"deadline\":\"2023-06-01\"}]",
                 savedJsonString);
         } catch (IOException ioException) {
             System.out.println(ioException);
@@ -47,15 +54,18 @@ public class TestStorage {
         }
     }
 
+    /**
+     * Tests Storage.readJson.
+     */
     @Test
     public void testReadJson() {
         Path path = Path.of("./src/test/java/Sidtacphi/Storage/tasks-temp.json");
-        
+
         try {
             TaskList taskList1 = new TaskList();
             taskList1.addTask(TaskType.DEADLINE, "deadline return book /by 2023-06-01");
             Storage.saveAsJson(taskList1, "./src/test/java/Sidtacphi/Storage/tasks-temp.json");
-            
+
             TaskList taskList2 = Storage.readJson("./src/test/java/Sidtacphi/Storage/tasks-temp.json");
 
             Files.deleteIfExists(path);

@@ -1,12 +1,12 @@
-package Sidtacphi.Task;
+package sidtacphi.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-import Sidtacphi.Exception.SidException;
-import Sidtacphi.Exception.SidInvalidFormatException;
-import Sidtacphi.Exception.SidInvalidIndexException;
+import sidtacphi.exception.SidException;
+import sidtacphi.exception.SidInvalidFormatException;
+import sidtacphi.exception.SidInvalidIndexException;
 
 /**
  * TaskList is the main class for the task list stored by the Sidtacphi bot.
@@ -21,22 +21,22 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Parses a string into an integer and returns a default value on failure.
-     * 
+     *
      * @param text String value to be parsed to integer
      * @param defaultVal default value to be returned if text cannot be parsed
      * @return an integer value represented by the string
      */
     private static int tryParseInt(String text, int defaultVal) {
         try {
-          return Integer.parseInt(text);
+            return Integer.parseInt(text);
         } catch (NumberFormatException e) {
-          return defaultVal;
+            return defaultVal;
         }
     }
 
     /**
      * Adds the input to the task_list kept track of by the bot.
-     * 
+     *
      * @param taskType type of task to add
      * @param input input to add to the task_list kept by the bot
      */
@@ -54,15 +54,15 @@ public class TaskList extends ArrayList<Task> {
             break;
         case EVENT:
             if (input.length() < 6) {
-                throw new SidInvalidFormatException("Please input a name for your Event" 
+                throw new SidInvalidFormatException("Please input a name for your Event"
                         + "task, along with a start and end date.");
             } else if (input.charAt(5) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             }
 
             inputArgs = input.substring(6).split("\\s*/from\\s*");
-            if (inputArgs.length != 2) { 
-                throw new SidInvalidFormatException("Please put in the starting and ending date " 
+            if (inputArgs.length != 2) {
+                throw new SidInvalidFormatException("Please put in the starting and ending date "
                         + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
             }
 
@@ -78,19 +78,20 @@ public class TaskList extends ArrayList<Task> {
                 }
 
                 if (end.isBefore(start)) {
-                    throw new SidInvalidFormatException("Please make sure your starting date is before your ending date.");
+                    throw new SidInvalidFormatException(
+                        "Please make sure your starting date is before your ending date.");
                 }
 
                 this.add(new Event(inputArgs[0], start, end));
             } else {
-                throw new SidInvalidFormatException("Please put in the starting and ending date " 
+                throw new SidInvalidFormatException("Please put in the starting and ending date "
                         + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
             }
 
             break;
         case DEADLINE:
             if (input.length() < 9) {
-                throw new SidInvalidFormatException("Please input a name for your Event" 
+                throw new SidInvalidFormatException("Please input a name for your Event"
                         + "task, along with a start and end date.");
             } else if (input.charAt(8) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
@@ -106,16 +107,20 @@ public class TaskList extends ArrayList<Task> {
                 }
                 this.add(new Deadline(inputArgs[0], deadline));
             } else if (inputArgs.length == 1) {
-                throw new SidInvalidFormatException("Please write in the deadline" 
+                throw new SidInvalidFormatException("Please write in the deadline"
                         + "using \"/by <date>\" for Deadline tasks.");
             } else {
                 throw new SidInvalidFormatException("Please do not write in more than 1 deadline.");
             }
             break;
+        default:
+            // The code should never reach here.
+            throw new SidException(
+                "Something went wrong when creating a task and an invalid task type has been specified.");
         }
-        
+
         System.out.println("\nSidtacphi: I have added \"" + this.get(this.size() - 1) + "\".");
-        
+
         if (this.size() == 1) {
             System.out.println("Sidtacphi: You now have 1 task in your list.");
         } else {
@@ -125,9 +130,9 @@ public class TaskList extends ArrayList<Task> {
 
     /**
      * Marks/Unmarks the task given.
-     * 
-     * @param isToMark to mark the task as done when true, and to unmark when false
-     * @param input 
+     *
+     * @param isToMarkAsCompleted to mark the task as done when true, and to unmark when false
+     * @param input
      */
     public void markTaskAs(boolean isToMarkAsCompleted, String input) throws SidException {
         if (!isToMarkAsCompleted) {
@@ -135,13 +140,13 @@ public class TaskList extends ArrayList<Task> {
                 throw new SidInvalidFormatException("Please input the task ID number to unmark.");
             } else if (input.charAt(6) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
-            } 
+            }
 
             int taskId = tryParseInt(input.substring(7), -1);
             if (taskId > this.size() || taskId < 1) {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
-            
+
             Task task = this.get(taskId - 1);
             if (!task.isCompleted()) {
                 throw new SidInvalidIndexException("\"" + task + "\" is already unmarked!");
@@ -154,13 +159,13 @@ public class TaskList extends ArrayList<Task> {
                 throw new SidInvalidFormatException("Please input the task ID number to mark.");
             } else if (input.charAt(4) != ' ') {
                 throw new SidException("\"" + input + "\" is not a valid command.");
-            } 
+            }
 
             int taskId = tryParseInt(input.substring(5), -1);
             if (taskId > this.size() || taskId < 1) {
                 throw new SidInvalidIndexException("Invalid task ID.");
             }
-            
+
             Task task = this.get(taskId - 1);
             if (task.isCompleted()) {
                 throw new SidInvalidIndexException("\"" + task + "\" is already marked!");
@@ -181,14 +186,14 @@ public class TaskList extends ArrayList<Task> {
         }
 
         System.out.println("\nSidtacphi: These are the tasks in your list.");
-        for (int i = 0; i < this.size() ; i++) {
+        for (int i = 0; i < this.size(); i++) {
             System.out.println("" + (i + 1) + ". " + this.get(i));
         }
     }
 
     /**
      * Finds tasks that have input in their names.
-     * 
+     *
      * @param input
      */
     public void deleteTask(String input) throws SidException {
@@ -196,7 +201,7 @@ public class TaskList extends ArrayList<Task> {
             throw new SidInvalidFormatException("Please input the task ID number to delete.");
         } else if (input.charAt(6) != ' ') {
             throw new SidException("\"" + input + "\" is not a valid command.");
-        } 
+        }
 
         int taskId = tryParseInt(input.substring(7), -1);
         if (taskId > this.size() || taskId < 1) {
@@ -217,12 +222,12 @@ public class TaskList extends ArrayList<Task> {
             throw new SidInvalidFormatException("Please input the task ID number to delete.");
         } else if (input.charAt(4) != ' ') {
             throw new SidException("\"" + input + "\" is not a valid command.");
-        } 
+        }
 
         String name = input.substring(5);
         System.out.println("\nSidtacphi: These are the tasks in your list.");
         for (int i = 0; i < this.size(); i++) {
-            if (this.get(i).getName().contains(name)) {        
+            if (this.get(i).getName().contains(name)) {
                 System.out.println("" + (i + 1) + ". " + this.get(i));
             }
 
