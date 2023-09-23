@@ -7,17 +7,18 @@ import java.io.FileNotFoundException;
  */
 public class Duke {
     private TaskList tasks;
+    private static final String FILE_PATH = "./src/main/data/tasklist.txt";
 
     /**
      * Constructs a Duke instance with the specified file path to load task data from.
      */
     public Duke() {
-        String filePath = "./src/main/data/tasklist.txt";
-        Storage storage = new Storage(filePath);
+        Storage storage = new Storage(FILE_PATH);
+        this.tasks = new TaskList(storage);
         try {
-            this.tasks = new TaskList(storage.loadTasks());
-        } catch (FileNotFoundException e) {
-            tasks = new TaskList();
+            storage.loadTasks();
+        } catch (DukeException e) {
+            System.out.println("ERROR: " + e.getMessage());
         }
     }
     /**

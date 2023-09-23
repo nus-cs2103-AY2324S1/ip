@@ -1,14 +1,11 @@
 package duke;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
+
 
 /**
  * The TaskList class manages a list of tasks and provides methods to interact with and manipulate the tasks.
@@ -18,15 +15,15 @@ public class TaskList {
     private static int taskCount = 0;
     private static ArrayList<Task> tasks = new ArrayList<>();
     private final Ui ui = new Ui();
+    private Storage storage;
 
     /**
      * Constructs a TaskList instance with the specified file containing task data.
      *
-     * @param file The file containing task data.
-     * @throws FileNotFoundException If the specified file is not found.
+     * @param storage The file containing task data.
      */
-    public TaskList(File file) throws FileNotFoundException {
-        taskList = file;
+    public TaskList(Storage storage) {
+        this.storage = storage;
     }
 
     /**
@@ -42,33 +39,8 @@ public class TaskList {
     /**
      * Prints the contents of the task list.
      */
-    public String printFileContents() {
-        try {
-            Scanner s = new Scanner(taskList);
-            StringBuilder stringBuilder = new StringBuilder();
-
-            while (s.hasNext()) {
-                stringBuilder.append(s.nextLine()).append(System.lineSeparator());
-            }
-
-            return stringBuilder.toString();
-        } catch (FileNotFoundException e) {
-            return "Error: There are no items in the list!";
-        }
-    }
-
-
-    /**
-     * Writes the task list contents to the file.
-     */
-    public void writeToFile() {
-        try {
-            FileWriter fw = new FileWriter(taskList.getPath());
-            fw.write(displayList());
-            fw.close();
-        } catch (IOException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
-        }
+    public String handleList() {
+        return storage.printFileContents();
     }
 
     /**
@@ -76,7 +48,7 @@ public class TaskList {
      *
      * @return The formatted string representation of the task list.
      */
-    public static String displayList() {
+    public String displayList() {
         StringBuilder res;
         try {
             if (taskCount == 0) {
@@ -127,7 +99,7 @@ public class TaskList {
                 if (taskCount > 0) {
                     taskCount--;
                 }
-                writeToFile();
+                storage.writeToFile(this);
                 return res;
             }
         } catch (DukeException exception) {
@@ -150,7 +122,7 @@ public class TaskList {
             } else {
                 tasks.get(taskIndex).mark();
                 assert tasks.get(taskIndex).isMarked() : "Unable to mark Task!";
-                writeToFile();
+                storage.writeToFile(this);
                 return ui.getMarkedMessage(tasks, taskIndex);
             }
         } catch (DukeException exception) {
@@ -172,7 +144,7 @@ public class TaskList {
                 throw new DukeException("Error: Task is already marked as incomplete!");
             } else {
                 tasks.get(taskIndex).unMark();
-                writeToFile();
+                storage.writeToFile(this);
                 assert !tasks.get(taskIndex).isMarked() : "Unable to unmark Task!";
                 return ui.getUnmarkedMessage(tasks, taskIndex);
             }
@@ -195,7 +167,7 @@ public class TaskList {
         if (taskCount < tasks.size()) {
             taskCount++;
         }
-        writeToFile();
+        storage.writeToFile(this);
         return ui.getAddTaskMessage(task, numTasks);
     }
 

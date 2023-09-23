@@ -1,8 +1,10 @@
 package duke;
 
-import javafx.application.Platform;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javafx.application.Platform;
+
 
 /**
  * The Parser class is responsible for parsing user input and determining the corresponding actions to take.
@@ -138,7 +140,7 @@ public class Parser {
                 goodbye();
                 return ui.goodbye();
             } else if (this.isList()) {
-                return tasks.printFileContents();
+                return tasks.handleList();
             } else if (this.isSort()) {
                 return tasks.returnSortedList();
             } else if (this.isMark()) {
