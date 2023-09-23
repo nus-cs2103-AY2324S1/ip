@@ -1,29 +1,50 @@
-# User Guide
+# Bob User Guide
 
 ## Features 
 
-### Feature-ABC
+### Add task
 
-Description of the feature.
+Tasks of 3 types:
+- Todo (T)
+- Deadline (D)
+- Event (E)
+can be added to your tasklist, and classified by priority
 
-### Feature-XYZ
+### View tasks
 
-Description of the feature.
+You can display all your tasks, or select based on priority.
+
+### Mark done/ undone
+
+Once a task is complete, you can mark it as done.
+Conversely, you can also mark a previous completed task as undone.
+
+### Find
+
+You can find specific tasks based on keyword.
+
+### Delete task
+
+Tasks can be deleted.
+
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo` - Add task
 
-Describe the action and its outcome.
+Adds task of type Todo into tasklist.
+#### Arguments:
+- priority - `p/high`, `p/mid`, `p/low`
+- task name
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo p/mid read book`
 
 Expected outcome:
 
-Description of the outcome.
-
 ```
-expected output
+You have added a new task: 
+    [T][ ][mid] read book
+Now, you have 1 task!
 ```
