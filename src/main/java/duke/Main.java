@@ -28,7 +28,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             scene.getStylesheets().add(
                     Objects.requireNonNull(getClass()
-                            .getResource("/css/chatWindow.css"))
+                            .getResource("/css/application.css"))
                             .toExternalForm()
             );
             stage.setScene(scene);
