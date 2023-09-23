@@ -40,7 +40,7 @@ public class Parser {
      *
      * @param input The input of the user.
      * @return A command to be executed which is based on the user input.
-     * @throws DukeException If the first word of the input is not a valid command.
+     * @throws DukeException If the input is not a valid command.
      */
     public static Command parse(String input, boolean isUpdate) throws DukeException {
         CommandType commandType;

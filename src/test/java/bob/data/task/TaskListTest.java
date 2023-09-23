@@ -28,8 +28,8 @@ public class TaskListTest {
         TaskList testList = new TaskList();
         try {
             testList.addTaskWithCommand(Parser.CommandType.TODO, "todo test");
-            DukeException thrown = assertThrows(DukeException.class,
-                    () -> testList.setTaskComplete("mark 2"),
+            DukeException thrown = assertThrows(DukeException.class, ()
+                            -> testList.setTaskComplete("mark 2"),
                     "Expected setTaskComplete to throw but it did not.");
             assertTrue(thrown.getMessage().contains("Task number out of range!"));
         } catch (DukeException e) {
@@ -55,8 +55,8 @@ public class TaskListTest {
         TaskList testList = new TaskList();
         try {
             testList.addTaskWithCommand(Parser.CommandType.TODO, "todo test");
-            DukeException thrown = assertThrows(DukeException.class,
-                    () -> testList.setTaskComplete("unmark 2"),
+            DukeException thrown = assertThrows(DukeException.class, ()
+                            -> testList.setTaskComplete("unmark 2"),
                     "Expected setTaskIncomplete to throw but it did not.");
             assertTrue(thrown.getMessage().contains("Task number out of range!"));
         } catch (DukeException e) {
@@ -82,8 +82,8 @@ public class TaskListTest {
         TaskList testList = new TaskList();
         try {
             testList.addTaskWithCommand(Parser.CommandType.TODO, "todo test");
-            DukeException thrown = assertThrows(DukeException.class,
-                    () -> testList.deleteTask("delete 2"),
+            DukeException thrown = assertThrows(DukeException.class, ()
+                            -> testList.deleteTask("delete 2"),
                     "Expected deleteTask to throw but it did not.");
             assertTrue(thrown.getMessage().contains("Task number out of range!"));
         } catch (DukeException e) {
@@ -110,8 +110,8 @@ public class TaskListTest {
         TaskList testList = new TaskList();
         try {
             testList.addTaskWithCommand(Parser.CommandType.TODO, "todo test");
-            DukeException thrown = assertThrows(DukeException.class,
-                    () -> testList.deleteTaskAtIndex(2),
+            DukeException thrown = assertThrows(DukeException.class, ()
+                            -> testList.deleteTaskAtIndex(2),
                     "Expected deleteTaskAtIndex to throw but it did not.");
             assertTrue(thrown.getMessage().contains("Task number out of range!"));
         } catch (DukeException e) {
@@ -126,7 +126,8 @@ public class TaskListTest {
         try {
             testList.addTaskWithCommand(Parser.CommandType.TODO, "todo test");
             testList.addTaskWithCommand(Parser.CommandType.DEADLINE, "deadline test /by 12/12/2024 1200");
-            testList.addTaskWithCommand(Parser.CommandType.EVENT, "event test /from 12/12/2024 1200 /to 13/12/2024 1200");
+            testList.addTaskWithCommand(Parser.CommandType.EVENT,
+                    "event test /from 12/12/2024 1200 /to 13/12/2024 1200");
             assertEquals("1.[T][ ] test\n"
                     + "2.[D][ ] test (by: 12 Dec 2024 12:00 PM)\n"
                     + "3.[E][ ] test (from: 12 Dec 2024 12:00 PM to: 13 Dec 2024 12:00 PM)",
@@ -167,7 +168,8 @@ public class TaskListTest {
         try {
             testList.addTaskWithCommand(Parser.CommandType.TODO, "todo test");
             testList.addTaskWithCommand(Parser.CommandType.DEADLINE, "deadline test /by 12/12/2024 1200");
-            testList.addTaskWithCommand(Parser.CommandType.EVENT, "event test /from 12/12/2024 1200 /to 13/12/2024 1200");
+            testList.addTaskWithCommand(Parser.CommandType.EVENT,
+                    "event test /from 12/12/2024 1200 /to 13/12/2024 1200");
             testList.swap(0, 2);
             assertEquals("1.[E][ ] test (from: 12 Dec 2024 12:00 PM to: 13 Dec 2024 12:00 PM)\n"
                             + "2.[D][ ] test (by: 12 Dec 2024 12:00 PM)\n"

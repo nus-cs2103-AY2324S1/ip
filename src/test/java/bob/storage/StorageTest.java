@@ -33,17 +33,6 @@ public class StorageTest {
             e.printStackTrace();
         }
     }
-//
-//    @Test
-//    public void storage_fileDoesntExist_newFileCreated() {
-//        File taskFile = new File("./new.txt");
-//        try {
-//            assertTrue(taskFile.createNewFile());
-//        } catch (IOException e) {
-//            System.out.println("Unable to create file.");
-//            e.printStackTrace();
-//        }
-//    }
 
     @Test
     public void readFromFile_goodFile_storedTasksAddedToList() {
