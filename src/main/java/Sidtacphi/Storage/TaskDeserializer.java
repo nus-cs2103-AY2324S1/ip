@@ -1,4 +1,4 @@
-package Sidtacphi.Storage;
+package sidtacphi.storage;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -9,11 +9,14 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-import Sidtacphi.Task.Deadline;
-import Sidtacphi.Task.Event;
-import Sidtacphi.Task.Task;
-import Sidtacphi.Task.Todo;
+import sidtacphi.task.Deadline;
+import sidtacphi.task.Event;
+import sidtacphi.task.Task;
+import sidtacphi.task.Todo;
 
+/**
+ * TaskDeserializer is the class that deserializes a Task object.
+ */
 public class TaskDeserializer extends StdDeserializer<Task> {
     /**
      * Constructs TaskDeserializer object.
@@ -31,14 +34,14 @@ public class TaskDeserializer extends StdDeserializer<Task> {
 
     /**
      * Deserializes a Task object.
-     * 
+     *
      * @return Task object after deserialising
      */
     @Override
     public Task deserialize(JsonParser parser, DeserializationContext deserializer) throws IOException {
         ObjectCodec codec = parser.getCodec();
         JsonNode node = codec.readTree(parser);
-        
+
         JsonNode taskTypeNode = node.get("type");
         String taskType = taskTypeNode.asText();
 
@@ -73,7 +76,6 @@ public class TaskDeserializer extends StdDeserializer<Task> {
         if (isCompleted) {
             task.mark();
         }
-        
 
         return task;
     }

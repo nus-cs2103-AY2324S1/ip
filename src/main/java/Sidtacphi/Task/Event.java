@@ -1,4 +1,4 @@
-package Sidtacphi.Task;
+package sidtacphi.task;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ public class Event extends Task {
 
     /**
      * Constructor for the Event class.
-     * 
+     *
      * @param name
      */
     public Event(String name, LocalDate start, LocalDate end) {
@@ -27,7 +27,7 @@ public class Event extends Task {
 
     /**
      * Gets the starting date of the object.
-     * 
+     *
      * @return Start date of Event object
      */
     public LocalDate getStart() {
@@ -36,7 +36,7 @@ public class Event extends Task {
 
     /**
      * Gets the ending date of the object.
-     * 
+     *
      * @return End date of Event object
      */
     public LocalDate getEnd() {
@@ -45,12 +45,12 @@ public class Event extends Task {
 
     /**
      * Shows whether the task is completed and the name of the task.
-     * 
+     *
      * @return Type of task, completion state of task and the name of task.
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + start + ", to: " + end + ")";     
+        return "[E] " + super.toString() + " (from: " + start + ", to: " + end + ")";
     }
 
     /**
@@ -74,9 +74,9 @@ public class Event extends Task {
     public boolean equals(Object obj) {
         if (!(obj instanceof Event)) {
             return false;
-        } 
+        }
         Event task = (Event) obj;
-        return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted() 
+        return Objects.equals(task.getName(), super.getName()) && task.isCompleted() == super.isCompleted()
                 && Objects.equals(task.getStart(), start) && Objects.equals(task.getEnd(), end);
     }
 }

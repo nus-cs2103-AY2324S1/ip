@@ -1,4 +1,4 @@
-package Sidtacphi.Task;
+package sidtacphi.task;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class Task {
 
     /**
      * Constructor for the Task class.
-     * 
+     *
      * @param name Name of the class
      */
     public Task(String name) {
@@ -24,7 +24,7 @@ public class Task {
 
     /**
      * Shows whether the task is completed and the name of the task.
-     * 
+     *
      * @return Completion state of task and the name of task.
      */
     @Override
@@ -32,13 +32,13 @@ public class Task {
         if (isCompleted) {
             return "[X] " + name;
         } else {
-            return "[ ] " + name;     
+            return "[ ] " + name;
         }
     }
 
     /**
      * Gets the name of the task.
-     * 
+     *
      * @return Name of the task
      */
     public String getName() {

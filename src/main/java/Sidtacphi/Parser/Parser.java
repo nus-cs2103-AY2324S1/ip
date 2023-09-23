@@ -1,12 +1,11 @@
-package Sidtacphi.Parser;
+package sidtacphi.parser;
 
 import java.util.Objects;
 import java.util.Scanner;
 
-import Sidtacphi.Task.TaskList;
-import Sidtacphi.Task.TaskType;
-
-import Sidtacphi.Exception.SidException;
+import sidtacphi.exception.SidException;
+import sidtacphi.task.TaskList;
+import sidtacphi.task.TaskType;
 
 /**
  * Parser is the class that deals with interpreting user commands.
@@ -22,7 +21,7 @@ public class Parser {
         Scanner scan = new Scanner(System.in);
         System.out.print("\nYou: ");
         String input = "";
-        while (true) { 
+        while (true) {
             try {
                 input = scan.nextLine().trim();
                 if (Objects.equals(input, "bye")) {
@@ -41,16 +40,16 @@ public class Parser {
                     taskList.addTask(TaskType.DEADLINE, input);
                 } else if (input.startsWith("delete")) {
                     taskList.deleteTask(input);
-                }  else if (input.startsWith("find")) {
+                } else if (input.startsWith("find")) {
                     taskList.findTask(input);
                 } else {
                     throw new SidException("\"" + input + "\" is not a valid command.");
                 }
                 System.out.print("\nYou: ");
             } catch (SidException e) {
-                    System.out.print("\n");
-                    System.out.println(e.getMessage());
-                    System.out.print("\nYou: ");
+                System.out.print("\n");
+                System.out.println(e.getMessage());
+                System.out.print("\nYou: ");
             }
         }
         scan.close();

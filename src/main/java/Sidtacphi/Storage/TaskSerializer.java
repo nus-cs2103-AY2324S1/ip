@@ -1,4 +1,4 @@
-package Sidtacphi.Storage;
+package sidtacphi.storage;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
-import Sidtacphi.Task.Task;
+import sidtacphi.task.Task;
 
 /**
  * TaskSerializer is the class that serializes a Task object.
@@ -31,7 +31,7 @@ public class TaskSerializer extends StdSerializer<Task> {
      */
     @Override
     public void serialize(
-      Task task, JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
+        Task task, JsonGenerator jsonGenerator, SerializerProvider serializer) throws IOException {
         task.serialize(jsonGenerator, serializer);
     }
 }
