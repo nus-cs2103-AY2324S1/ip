@@ -36,13 +36,14 @@ public class Ui {
     public TaskList loadTasks(String filePath) {
         TaskList tasks = new TaskList();
         File file = new File(filePath);
-
         if (!file.exists()) {
             System.out.println("Data file does not exist.");
             return tasks;
         }
+
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
+
             while ((line = reader.readLine()) != null) {
                 String[] taskData = line.split(" \\| ");
                 if (taskData.length < 2) {
@@ -50,29 +51,34 @@ public class Ui {
                     return tasks;
                 }
 
-                Storage.TaskType taskType = Storage.TaskType.valueOf(taskData[0]);
-                String taskDescription = taskData[1];
-                String taskTime1 = (taskData.length > 2) ? taskData[2] : "";
-                String taskTime2 = (taskData.length > 3) ? taskData[3] : "";
-                switch (taskType) {
-                case TODO:
-                    tasks.addTask(new Todo(taskDescription));
-                    break;
-                case DEADLINE:
-                    tasks.addTask(new Deadline(taskDescription, taskTime1));
-                    break;
-                case EVENT:
-                    tasks.addTask(new Event(taskDescription, taskTime1, taskTime2));
-                    break;
-                default:
-                    System.out.println("Invalid task type: " + taskType);
-                    break;
-                }
+                storeTasksToTaskList(taskData, tasks);
+
             }
         } catch (IOException e) {
             System.out.println("Error loading tasks.");
         }
         return tasks;
+    }
+
+    public void storeTasksToTaskList(String[] taskData, TaskList tasks) {
+        Storage.TaskType taskType = Storage.TaskType.valueOf(taskData[0]);
+        String taskDescription = taskData[1];
+        String taskTime1 = (taskData.length > 2) ? taskData[2] : "";
+        String taskTime2 = (taskData.length > 3) ? taskData[3] : "";
+        switch (taskType) {
+        case TODO:
+            tasks.addTask(new Todo(taskDescription));
+            break;
+        case DEADLINE:
+            tasks.addTask(new Deadline(taskDescription, taskTime1));
+            break;
+        case EVENT:
+            tasks.addTask(new Event(taskDescription, taskTime1, taskTime2));
+            break;
+        default:
+            System.out.println("Invalid task type: " + taskType);
+            break;
+        }
     }
 
     /**
