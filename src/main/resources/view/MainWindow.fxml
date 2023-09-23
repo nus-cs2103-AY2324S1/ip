@@ -24,7 +24,7 @@
          </effect></Button>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" style="-fx-background-color: white;" vvalue="1.0">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" style="-fx-back; -fx-background-color: white;"/>
+                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" style="-fx-background: white;"/>
             </content>
         </ScrollPane>
     </children>
