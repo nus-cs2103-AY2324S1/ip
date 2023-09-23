@@ -1,7 +1,6 @@
 import duke.Main;
-import duke.TaskList;
-import javafx.application.Application;
 
+import javafx.application.Application;
 import java.io.File;
 import java.io.IOException;
 
