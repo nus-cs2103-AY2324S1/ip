@@ -4,8 +4,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +22,27 @@ public class TaskListTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private TaskList taskList;
     private Ui ui;
+    @BeforeAll
+    public static void setupBeforeAll() {
+        deleteFileIfExists("sample.txt");
+        deleteFileIfExists("sample1.txt");
+        deleteFileIfExists("add_deadline.txt");
+        deleteFileIfExists("remove_deadline.txt");
+        deleteFileIfExists("add_event.txt");
+        deleteFileIfExists("remove_event.txt");
+        deleteFileIfExists("multiple_tasks.txt");
+    }
 
+    private static void deleteFileIfExists(String filename) { // This method is now static
+        Path path = Paths.get("data", filename);
+        try {
+            if (Files.exists(path)) {
+                Files.delete(path);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @BeforeEach
     public void setUpStreams() {
         System.setOut(new PrintStream(outContent));
