@@ -8,7 +8,7 @@ import duke.exception.*;
 public class Parser {
 
     private enum Commands {
-        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye
+        invalid, todo, deadline, event, mark, unmark, list, delete, find, bye, edit
     }
 
     private TaskList taskList;
@@ -57,6 +57,8 @@ public class Parser {
             return new DeleteCommand(parseTaskIndex(command));
         } else if (cmd.equals(Commands.find)) {
             return new FindCommand(parseKeyword(command));
+        } else if (cmd.equals(Commands.edit)) {
+            return new EditCommand(parseTaskIndex(command), parseEdit(command));
         } else {
             return new InvalidCommand();
         }
@@ -73,7 +75,7 @@ public class Parser {
         if (input.split(" ").length < 2) {
             throw new DukeInvalidTaskIndexException("☹ OOPS!!! You must include a task index.");
         }
-        assert input.split(" ").length == 2 : "You have entered an invalid task index.";
+        assert input.split(" ").length >= 2 : "You have entered an invalid task index.";
 
         return Integer.parseInt(input.split(" ")[1]) - 1;
     }
@@ -169,5 +171,21 @@ public class Parser {
         String description = input.split("/from")[0].trim().split(" ")[1];
 
         return new Event(description, from, to);
+    }
+
+    /**
+     * Parses a description from the user's input command.
+     *
+     * @param input The user's input command.
+     * @return The new description for the task.
+     * @throws DukeInvalidDescriptionException If the description is missing or empty.
+     */
+    public static String parseEdit(String input) throws DukeInvalidDescriptionException {
+        if (input.split("/to").length < 2) {
+            throw new DukeInvalidDescriptionException("☹ OOPS!!! The description of your edit can't be empty.");
+        }
+        assert input.split("/to").length == 2 : "You need to include a description";
+
+        return input.split("/to")[1].trim();
     }
 }
