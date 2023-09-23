@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.io.*;
 
 public class Duke {
-    private static final String FILE_PATH = "src/main/java/tasks.txt";
+    //private static final String FILE_PATH = "src/main/java/tasks.txt";
+    private static final String FILE_PATH = "../";
+    private static String response= "";
     /**
      * Main method to start the Duke application.
      *
      * @param args Command-line arguments.
      */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> tasks = new ArrayList<>(100);
-        loadTasksFromFile(tasks);
+        //Scanner scanner = new Scanner(System.in);
         String logo = "UUUUUUUU     UUUUUUUURRRRRRRRRRRRRRRRR   BBBBBBBBBBBBBBBBB        OOOOOOOOO     IIIIIIIIII\n"
                 +"U::::::U     U::::::UR::::::::::::::::R  B::::::::::::::::B     OO:::::::::OO   I::::::::I\n"
                 +"U::::::U     U::::::UR::::::RRRRRR:::::R B::::::BBBBBB:::::B  OO:::::::::::::OO I::::::::I\n"
@@ -37,88 +37,92 @@ public class Duke {
         System.out.println("What can I do for you mah man?");
         System.out.println("____________________________________________________________");
 
-        while (true) {
-            String command = scanner.nextLine();
-            System.out.println("____________________________________________________________");
-            try{
-                if (command.equalsIgnoreCase("bye")) {
-                    System.out.println("Bye. Hope to see you again soon!");
-                    break;
-                } else if (command.equalsIgnoreCase("list")) {
-                    System.out.println("Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
-                        System.out.println((i + 1) + ". " + tasks.get(i));
-                    }
-                } else if (command.startsWith("todo")) {
-                    String description = command.substring(5).trim();
-                    if (description.isEmpty()) {
-                        throw new DukeException("The description of a todo cannot be empty.");
-                    }
-                    tasks.add(new Todo(description));
-                    System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                } else if (command.startsWith("deadline")) {
-                    // Parse the date and time in the format d/M/yyyy HHmm
-                    String[] parts = command.split(" /by ");
-                    if (parts.length < 2) {
-                        throw new DukeException("Deadline command must include a date.");
-                    }
-                    String description = parts[0].substring(9).trim();
-                    LocalDateTime dateTime = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-
-                    tasks.add(new Deadline(description, dateTime));
-                    System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                } else if (command.startsWith("event")) {
-                    String description = command.substring(6, command.indexOf("/from")).trim();
-                    String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to")).trim();
-                    String to = command.substring(command.indexOf("/to") + 4).trim();
-                    tasks.add(new Event(description, from, to));
-                    System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                } else if (command.startsWith("mark")) {
-                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    if (index >= 0 && index < tasks.size()) {
-                        tasks.get(index).markDone();
-                        System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index));
-                    } else {
-                        System.out.println("Invalid task index.");
-                    }
-                } else if (command.startsWith("unmark")) {
-                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    if (index >= 0 && index < tasks.size()) {
-                        tasks.get(index).markNotDone();
-                        System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
-                    } else {
-                        System.out.println("Invalid task index.");
-                    }
-                }  else if (command.startsWith("delete")) {
-                    int index = Integer.parseInt(command.split(" ")[1]) - 1;
-                    if (index >= 0 && index < tasks.size()) {
-                        Task removedTask = tasks.remove(index);
-                        System.out.println("Noted. I've removed this task:\n  " + removedTask);
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    } else {
-                        System.out.println("Invalid task index.");
-                    }
-                } else if (command.startsWith("find")) {
-                    String keyword = command.substring(5).trim();
-                    findTasks(tasks, keyword);
-                } else {
-                    throw new DukeException("I'm sorry, but I don't know what that means :-(");
-                }
-                saveTasksToFile(tasks);
-            }
-            catch (DukeException e) {
-                System.out.println("☹ OOPS!!! " + e.getMessage());
-            }
-
-            System.out.println("____________________________________________________________");
-        }
-
-
-        scanner.close();
     }
+
+
+    /**
+     * Process user input and generate a response.
+     *
+     * @param command The user's input command.
+     * @return A response generated by URBOI.
+     */
+    public String getResponse(String command) {
+        ArrayList<Task> tasks = new ArrayList<>(100);
+        loadTasksFromFile(tasks);
+        try{
+            if (command.equalsIgnoreCase("bye")) {
+                System.out.println("Bye. Hope to see you again soon!");
+
+            } else if (command.equalsIgnoreCase("list")) {
+                System.out.println("Here are the tasks in your list:");
+                for (int i = 0; i < tasks.size(); i++) {
+                    System.out.println((i + 1) + ". " + tasks.get(i));
+                }
+            } else if (command.startsWith("todo")) {
+                String description = command.substring(5).trim();
+                if (description.isEmpty()) {
+                    throw new DukeException("The description of a todo cannot be empty.");
+                }
+                tasks.add(new Todo(description));
+                System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (command.startsWith("deadline")) {
+                // Parse the date and time in the format d/M/yyyy HHmm
+                String[] parts = command.split(" /by ");
+                if (parts.length < 2) {
+                    throw new DukeException("Deadline command must include a date.");
+                }
+                String description = parts[0].substring(9).trim();
+                LocalDateTime dateTime = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
+
+                tasks.add(new Deadline(description, dateTime));
+                System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (command.startsWith("event")) {
+                String description = command.substring(6, command.indexOf("/from")).trim();
+                String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to")).trim();
+                String to = command.substring(command.indexOf("/to") + 4).trim();
+                tasks.add(new Event(description, from, to));
+                System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (command.startsWith("mark")) {
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                if (index >= 0 && index < tasks.size()) {
+                    tasks.get(index).markDone();
+                    System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index));
+                } else {
+                    System.out.println("Invalid task index.");
+                }
+            } else if (command.startsWith("unmark")) {
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                if (index >= 0 && index < tasks.size()) {
+                    tasks.get(index).markNotDone();
+                    System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
+                } else {
+                    System.out.println("Invalid task index.");
+                }
+            }  else if (command.startsWith("delete")) {
+                int index = Integer.parseInt(command.split(" ")[1]) - 1;
+                if (index >= 0 && index < tasks.size()) {
+                    Task removedTask = tasks.remove(index);
+                    System.out.println("Noted. I've removed this task:\n  " + removedTask);
+                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                } else {
+                    System.out.println("Invalid task index.");
+                }
+            } else if (command.startsWith("find")) {
+                String keyword = command.substring(5).trim();
+                findTasks(tasks, keyword);
+            } else {
+                throw new DukeException("I'm sorry, but I don't know what that means :-(");
+            }
+            saveTasksToFile(tasks);
+        } catch (DukeException e) {
+            System.out.println("☹ OOPS!!! " + e.getMessage());
+        }
+        return "";
+    }
+
     private static String formatDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
