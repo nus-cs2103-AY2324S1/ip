@@ -1,6 +1,4 @@
 package duke;
-
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
@@ -9,7 +7,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.text.SimpleDateFormat;
+
 
 /**
  * Represents a list of tasks.
@@ -35,58 +33,67 @@ public class TaskList {
         return input.trim();
     }
 
+    private void stringDeadline(String[] arr) {
+        String firstBy = arr[1].substring(arr[1].indexOf("/by") + 4);
+        String secondBy = firstBy.substring(0, firstBy.indexOf("|"));
+        String done = firstBy.substring(firstBy.indexOf("|") + 1);
+        String byDate = secondBy.substring(0, secondBy.indexOf("/"));
+        String firstByMonth = secondBy.substring(secondBy.indexOf("/") + 1);
+        String byMonth = firstByMonth.substring(0, firstByMonth.indexOf("/"));
+        String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
+        byYear = byYear.substring(0, byYear.indexOf(" "));
+        LocalDate by = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
+        Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), by);
+        if (done.equals("1")) {
+            deadline.finish();
+            list.add(deadline);
+        } else {
+            list.add(deadline);
+        }
+    }
+    private void stringEvent(String[] arr) {
+        String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6); //
+        String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));
+        String firstTo = arr[1].substring(arr[1].indexOf("/to")+ 4);
+        String secondTo = firstTo.substring(0, firstTo.indexOf("|"));
+        String content = arr[1].substring(0, arr[1].indexOf("/from "));
+        String done = firstTo.substring(firstTo.indexOf("|") + 1);
+        String fromDate = secondFrom.substring(0, secondFrom.indexOf("/"));
+        String firstFromMonth = secondFrom.substring(secondFrom.indexOf("/") + 1);
+        String fromMonth = firstFromMonth.substring(0, firstFromMonth.indexOf("/"));
+        String fromYear = firstFromMonth.substring(firstFromMonth.indexOf("/") + 1);
+
+        String toDate = secondTo.substring(0, secondTo.indexOf("/"));
+        String firstToMonth = secondTo.substring(secondTo.indexOf("/") + 1);
+        String toMonth = firstToMonth.substring(0, firstToMonth.indexOf("/"));
+        String toYear = firstToMonth.substring(firstToMonth.indexOf("/") + 1);
+        toYear = toYear.substring(0, toYear.indexOf(" "));
+        LocalDate to = LocalDate.of(Integer.parseInt(trimString(toYear)), Integer.parseInt(toMonth), Integer.parseInt(toDate));
+        LocalDate from = LocalDate.of(Integer.parseInt(trimString(fromYear)), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
+
+        Event event = new Event(content, from, to);
+        if (done.equals("1")) {
+            event.finish();
+        }
+        list.add(event);
+
+
+    }
+
     /**
      * Converts a string representation of a task into a Task object and adds it to the list.
      *
      * @param str The string representation of the task.
      */
-    private static void StringToArray(String str) {
+    private void StringToArray(String str) {
         // might need to add corrupted file exception
         String arr[] = str.split(" ", 2);
         if (arr[0].equals("event")) {
-            String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6); //
-            String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));
-            String firstTo = arr[1].substring(arr[1].indexOf("/to")+ 4);
-            String secondTo = firstTo.substring(0, firstTo.indexOf("|"));
-            String content = arr[1].substring(0, arr[1].indexOf("/from "));
-            String done = firstTo.substring(firstTo.indexOf("|") + 1);
-            String fromDate = secondFrom.substring(0, secondFrom.indexOf("/"));
-            String firstFromMonth = secondFrom.substring(secondFrom.indexOf("/") + 1);
-            String fromMonth = firstFromMonth.substring(0, firstFromMonth.indexOf("/"));
-            String fromYear = firstFromMonth.substring(firstFromMonth.indexOf("/") + 1);
-
-            String toDate = secondTo.substring(0, secondTo.indexOf("/"));
-            String firstToMonth = secondTo.substring(secondTo.indexOf("/") + 1);
-            String toMonth = firstToMonth.substring(0, firstToMonth.indexOf("/"));
-            String toYear = firstToMonth.substring(firstToMonth.indexOf("/") + 1);
-            toYear = toYear.substring(0, toYear.indexOf(" "));
-            LocalDate to = LocalDate.of(Integer.parseInt(trimString(toYear)), Integer.parseInt(toMonth), Integer.parseInt(toDate));
-            LocalDate from = LocalDate.of(Integer.parseInt(trimString(fromYear)), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
-
-            Event event = new Event(content, from, to);
-            if (done.equals("1")) {
-                event.finish();
-            }
-            list.add(event);
+            this.stringEvent(arr);
 
         }
         else if (arr[0].equals("deadline")) {
-            String firstBy = arr[1].substring(arr[1].indexOf("/by") + 4);
-            String secondBy = firstBy.substring(0, firstBy.indexOf("|"));
-            String done = firstBy.substring(firstBy.indexOf("|") + 1);
-            String byDate = secondBy.substring(0, secondBy.indexOf("/"));
-            String firstByMonth = secondBy.substring(secondBy.indexOf("/") + 1);
-            String byMonth = firstByMonth.substring(0, firstByMonth.indexOf("/"));
-            String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
-            byYear = byYear.substring(0, byYear.indexOf(" "));
-            LocalDate by = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
-            Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), by);
-            if (done.equals("1")) {
-                deadline.finish();
-                list.add(deadline);
-            } else {
-                list.add(deadline);
-            }
+            stringDeadline(arr);
         }
         else if (arr[0].equals("todo")){
             try {
@@ -99,15 +106,172 @@ public class TaskList {
                     list.add(todo);
                 } else {
                     list.add(todo);
-
                 }
-
             } catch (ArrayIndexOutOfBoundsException e){
                 Ui specify = new Ui();
                 specify.specify();
-
             }
         }
+    }
+
+    public String stringBye(Ui ui) {
+        Ui bye = new Ui();
+        bye.bye();
+        assert bye.toString() != null : "ui.toString() cannot be null";
+        return bye.toString();
+    }
+
+    public String stringList(Ui ui, String onetwo) {
+        ui.currentlist((list.size()), onetwo);
+        assert ui.toString() != null : "ui.toString() cannot be null";
+        return List() + ui.toString();
+    }
+
+    public String stringDelete(Parser parser, Ui ui, String onetwo){
+        try {
+            String[] arr = parser.getArr();
+            list.get(Integer.parseInt(arr[1]) - 1).getDescription();
+            ui.remove(list.get(Integer.parseInt(arr[1]) - 1).toString());
+            list.remove(Integer.parseInt(arr[1]) - 1);
+            ui.currentlist((list.size()), onetwo);
+            refreshData();
+            assert ui.toString() != null : "ui.toString() cannot be null";
+            return ui.toString();
+        }
+        catch(NumberFormatException e) {
+            return ui.toString();
+
+        }
+        catch(IndexOutOfBoundsException e) {
+            return ui.toString();
+
+        }
+    }
+
+    public String stringMark(Parser parser, String onetwo, Ui ui) {
+        try {
+            String[] arr = parser.getArr();
+            arr = parser.getArr();
+            ui.mark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
+            list.get(Integer.parseInt(arr[1]) - 1).getDescription();
+            list.get(Integer.parseInt(arr[1]) - 1).finish();
+            refreshData();
+            assert ui.toString() != null : "ui.toString() cannot be null";
+            return ui.toString();
+
+
+        }
+        catch(NumberFormatException e) {
+            return ui.toString();
+
+        }
+        catch(IndexOutOfBoundsException e) {
+            return ui.toString();
+
+        }
+    }
+
+    public String stringFind(Parser parser,  Ui ui) {
+        String subString = parser.getArr()[1];
+        List<Task> matchingList = new ArrayList<>();
+        for (Task task: list) {
+            if (task.getDescription().contains(subString)) {
+                matchingList.add(task);
+            }
+        }
+        ui.matchingList(matchingList);
+        assert ui.toString() != null : "ui.toString() cannot be null";
+        return ui.toString();
+    }
+
+    public String stringUnmark(Parser parser, String onetwo, Ui ui) {
+        try {
+            String[] arr = parser.getArr();
+            list.get(Integer.parseInt(arr[1]) - 1).getDescription();
+            ui.unmark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
+            list.get(Integer.parseInt(arr[1]) - 1).unfinish();
+            refreshData();
+            assert ui.toString() != null : "ui.toString() cannot be null";
+            return ui.toString();
+        }
+        catch(NumberFormatException e) {
+            ui.numExc();
+            return ui.toString();
+        }
+        catch(IndexOutOfBoundsException e) {
+            ui.indexOut();
+            return ui.toString();
+        }
+    }
+
+    public String stringEvent(Parser parser, String onetwo, Ui ui, String zenithData) throws Exception{
+        String[] arr = parser.getArr();
+        String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6);
+        String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));
+        String to = arr[1].substring(arr[1].indexOf("/to")+ 4);
+        String content = arr[1].substring(0, arr[1].indexOf("/from "));
+        String toDate = to.substring(0, to.indexOf("/"));
+        String firstToMonth = to.substring(to.indexOf("/") + 1);
+        String toMonth = firstToMonth.substring(0, firstToMonth.indexOf("/"));
+        String toYear = firstToMonth.substring(firstToMonth.indexOf("/") + 1);
+        LocalDate secondTo = LocalDate.of(Integer.parseInt(toYear), Integer.parseInt(toMonth), Integer.parseInt(toDate));
+        String fromDate = secondFrom.substring(0, secondFrom.indexOf("/"));
+        String firstFromMonth = secondFrom.substring(secondFrom.indexOf("/") + 1);
+        String fromMonth = firstFromMonth.substring(0, firstFromMonth.indexOf("/"));
+        String fromYear = firstFromMonth.substring(firstFromMonth.indexOf("/") + 1);
+        fromYear = fromYear.substring(0, fromYear.indexOf(" "));
+        LocalDate from = LocalDate.of(Integer.parseInt(fromYear), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
+        Event event = new Event(content, from, secondTo);
+        list.add(event);
+        ui.add(event, list.size(), onetwo);
+        appendToFile(zenithData, parser.getStr());
+        refreshData();
+        assert ui.toString() != null : "ui.toString() cannot be null";
+        return ui.toString();
+    }
+    public String stringDeadline(Parser parser,Ui ui, String onetwo) {
+        String[] arr = parser.getArr();
+        String by = arr[1].substring(arr[1].indexOf("/by") + 4);
+        String byDate = by.substring(0, by.indexOf("/"));
+        String firstByMonth = by.substring(by.indexOf("/") + 1);
+        String byMonth = firstByMonth.substring(0, firstByMonth.indexOf("/"));
+        String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
+        LocalDate secondBy = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
+        Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), secondBy);
+        list.add(deadline);
+        ui.add(deadline, list.size(), onetwo);
+        refreshData();
+        assert ui.toString() != null : "ui.toString() cannot be null";
+        return ui.toString();
+    }
+
+    public String stringToDo(Parser parser,Ui ui, String onetwo, String zenithData) throws Exception{
+        try {
+            String[] arr = parser.getArr();
+            Todo todo = new Todo(arr[1]);
+            list.add(todo);
+            ui.add(todo, list.size(), onetwo);
+            appendToFile(zenithData, parser.getStr());
+            refreshData();
+            assert ui.toString() != null : "ui.toString() cannot be null";
+            return ui.toString();
+
+        } catch (ArrayIndexOutOfBoundsException e){
+            ui.specify();
+            return ui.toString();
+        }
+    }
+
+    public String stringEmpty(Parser parser, Ui ui) {
+        try {
+            String[] arr = parser.getArr();
+            System.out.println(arr[1]);
+        } catch(ArrayIndexOutOfBoundsException e) {
+            ui.blank();
+            assert ui.toString() != null : "ui.toString() cannot be null";
+            return ui.toString();
+        }
+        return "";
     }
 
     /**
@@ -115,7 +279,6 @@ public class TaskList {
      *
      * @throws Exception If an error occurs during execution.
      */
-
     public String Answer(String input) throws Exception{
         String zenithData = "src/main/java/data/zenith.txt";
         Parser parser = new Parser(list, input);
@@ -123,177 +286,44 @@ public class TaskList {
         String onetwo = list.size() > 1? " tasks": " task";
         Ui ui = new Ui();
 
-
         if (parser.getStr().equals("bye")) {
-            Ui bye = new Ui();
-            bye.bye();
-            assert ui.toString() != null : "ui.toString() cannot be null";
-            return ui.toString();
-
+            return stringBye(ui);
         } else if (parser.getStr().equals("list")) {
-
-            ui.currentlist((list.size()), onetwo);
-            assert ui.toString() != null : "ui.toString() cannot be null";
-            return List() + ui.toString();
+            return stringList(ui, onetwo);
         } else if (parser.getArr()[0].equals("delete")) {
-            try {
-                arr = parser.getArr();
-                list.get(Integer.parseInt(arr[1]) - 1).getDescription();
-                ui.remove(list.get(Integer.parseInt(arr[1]) - 1).toString());
-                list.remove(Integer.parseInt(arr[1]) - 1);
-                ui.currentlist((list.size()), onetwo);
-                refreshData();
-                assert ui.toString() != null : "ui.toString() cannot be null";
-                return ui.toString();
-            }
-            catch(NumberFormatException e) {
-                return ui.toString();
-
-            }
-            catch(IndexOutOfBoundsException e) {
-                return ui.toString();
-
-            }
+            return stringDelete(parser,  ui, onetwo);
         }
         else if (parser.getArr()[0].equals("mark")) {
-            try {
-                arr = parser.getArr();
-                ui.mark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
-                list.get(Integer.parseInt(arr[1]) - 1).getDescription();
-                list.get(Integer.parseInt(arr[1]) - 1).finish();
-                refreshData();
-                assert ui.toString() != null : "ui.toString() cannot be null";
-                return ui.toString();
-
-
-            }
-            catch(NumberFormatException e) {
-                return ui.toString();
-
-            }
-            catch(IndexOutOfBoundsException e) {
-                return ui.toString();
-
-            }
+            return stringMark(parser, onetwo, ui);
 
         } else if (parser.getArr()[0].equals("unmark")) {
-            try {
-                arr = parser.getArr();
-                list.get(Integer.parseInt(arr[1]) - 1).getDescription();
-                ui.unmark(list.size(), onetwo, list.get(Integer.parseInt(arr[1]) - 1).getDescription());
-                list.get(Integer.parseInt(arr[1]) - 1).unfinish();
-                refreshData();
-                assert ui.toString() != null : "ui.toString() cannot be null";
-                return ui.toString();
-            }
-            catch(NumberFormatException e) {
-                ui.numExc();
-                return ui.toString();
-            }
-            catch(IndexOutOfBoundsException e) {
-                ui.indexOut();
-                return ui.toString();
-            }
+            return stringUnmark(parser, onetwo, ui);
         }
-
         else if (parser.getArr()[0].equals("find")) {
-            String subString = parser.getArr()[1];
-            List<Task> matchingList = new ArrayList<>();
-            for (Task task: list) {
-                if (task.getDescription().contains(subString)) {
-                    matchingList.add(task);
-                }
-            }
-            ui.matchingList(matchingList);
-            assert ui.toString() != null : "ui.toString() cannot be null";
-            return ui.toString();
-
+            return stringFind(parser, ui);
         }
-        else if (parser.getArr()[0].equals("event")) {
-            arr = parser.getArr();
-            String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6);
-            String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));
-            String to = arr[1].substring(arr[1].indexOf("/to")+ 4);
-            String content = arr[1].substring(0, arr[1].indexOf("/from "));
-            String toDate = to.substring(0, to.indexOf("/"));
-            String firstToMonth = to.substring(to.indexOf("/") + 1);
-            String toMonth = firstToMonth.substring(0, firstToMonth.indexOf("/"));
-            String toYear = firstToMonth.substring(firstToMonth.indexOf("/") + 1);
-            LocalDate secondTo = LocalDate.of(Integer.parseInt(toYear), Integer.parseInt(toMonth), Integer.parseInt(toDate));
-            String fromDate = secondFrom.substring(0, secondFrom.indexOf("/"));
-            String firstFromMonth = secondFrom.substring(secondFrom.indexOf("/") + 1);
-            String fromMonth = firstFromMonth.substring(0, firstFromMonth.indexOf("/"));
-            String fromYear = firstFromMonth.substring(firstFromMonth.indexOf("/") + 1);
-            fromYear = fromYear.substring(0, fromYear.indexOf(" "));
-            LocalDate from = LocalDate.of(Integer.parseInt(fromYear), Integer.parseInt(fromMonth), Integer.parseInt(fromDate));
-            Event event = new Event(content, from, secondTo);
-            ui.add(event, list.size(), onetwo);
-            list.add(event);
-            appendToFile(zenithData, parser.getStr());
-            refreshData();
-            assert ui.toString() != null : "ui.toString() cannot be null";
-            return ui.toString();
-
-
-        } else if (parser.getArr()[0].equals("deadline")) {
-            arr = parser.getArr();
-            String by = arr[1].substring(arr[1].indexOf("/by") + 4);
-            String byDate = by.substring(0, by.indexOf("/"));
-            String firstByMonth = by.substring(by.indexOf("/") + 1);
-            String byMonth = firstByMonth.substring(0, firstByMonth.indexOf("/"));
-            String byYear = firstByMonth.substring(firstByMonth.indexOf("/") + 1);
-            LocalDate secondBy = LocalDate.of(Integer.parseInt(byYear), Integer.parseInt(byMonth), Integer.parseInt(byDate));
-            Deadline deadline = new Deadline(arr[1].substring(0, arr[1].indexOf("/by ")), secondBy);
-            ui.add(deadline, list.size(), onetwo);
-            list.add(deadline);
-            refreshData();
-            assert ui.toString() != null : "ui.toString() cannot be null";
-            return ui.toString();
-
+        else if (parser.getArr()[0].equals("event"))
+        {
+            return stringEvent(parser, onetwo, ui, zenithData);
+        } else if (parser.getArr()[0].equals("deadline"))
+        {
+            return stringDeadline(parser, ui, onetwo);
         }
         else if (parser.getArr()[0].equals("todo")){
-            try {
-                arr = parser.getArr();
-                Todo todo = new Todo(arr[1]);
-                list.add(todo);
-                ui.add(todo, list.size(), onetwo);
-                appendToFile(zenithData, parser.getStr());
-                refreshData();
-                assert ui.toString() != null : "ui.toString() cannot be null";
-                return ui.toString();
-
-            } catch (ArrayIndexOutOfBoundsException e){
-                ui.specify();
-                return ui.toString();
-            }
+           return stringToDo(parser, ui, onetwo, zenithData);
         }
         else if(parser.getArr()[0].isEmpty()) {
-            try {
-                arr = parser.getArr();
-                System.out.println(arr[1]);
-            } catch(ArrayIndexOutOfBoundsException e) {
-                ui.blank();
-
-                assert ui.toString() != null : "ui.toString() cannot be null";
-
-                return ui.toString();
-            }
+           return stringEmpty(parser, ui);
         } else {
             try {
                 throw new DukeException("");
             }
             catch (DukeException e) {
                 ui.format();
-
                 assert ui.toString() != null : "ui.toString() cannot be null";
-
                 return ui.toString();
             }
         }
-        return ui.toString();
-
-
-
     }
 
     /**
@@ -331,8 +361,6 @@ public class TaskList {
         if (parts.length != 3) {
             return "Invalid date format";
         }
-
-
         // Reorders the parts to form the desired output format
         String day = parts[2];
         String month = parts[1];
@@ -348,7 +376,6 @@ public class TaskList {
      */
     private static void refreshData() {
         String zenithData = "src/main/java/data/zenith.txt";
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             FileChannel fileChannel = FileChannel.open(Paths.get(zenithData),
                     StandardOpenOption.WRITE);
@@ -383,7 +410,6 @@ public class TaskList {
                     e.printStackTrace();
                 }
             }
-
             if (task instanceof Deadline) {
                 by = "/by " + convertDateFormat(((Deadline) task).getBy().toString());
                 type = "deadline ";
@@ -404,7 +430,6 @@ public class TaskList {
                 catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }
     }

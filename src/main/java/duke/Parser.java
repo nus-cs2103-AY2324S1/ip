@@ -25,8 +25,6 @@ public class Parser {
     }
 
 
-
-
     /**
      * Gets the user input string.
      *
