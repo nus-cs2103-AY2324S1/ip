@@ -4,6 +4,8 @@ import functional.TaskList;
 import functional.Ui;
 import tasks.Task;
 
+import java.util.Collections;
+
 /**
  * A command to list the tasks.
  */
@@ -25,6 +27,7 @@ public class ListCommand extends Command {
      */
     public String execute(TaskList<Task> tasks, Ui ui, boolean... status) {
         StringBuilder sb = new StringBuilder();
+        Collections.sort(tasks);
         sb.append(ui.showLine() + "\n"
                 + "Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {

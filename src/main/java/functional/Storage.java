@@ -46,7 +46,6 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new DukeException("");
         }
-        // System.out.println("Opening Saved File");
         return tl;
     }
 
@@ -60,7 +59,6 @@ public class Storage {
         if (!f.exists()) {
             f.getParentFile().mkdirs();
         }
-        // System.out.println("Saving file");
         try {
             FileWriter fw = new FileWriter(filePath);
             for (Task task : tl) {
@@ -70,7 +68,6 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
-        // System.out.println("File successfully Saved");
     }
 
 }

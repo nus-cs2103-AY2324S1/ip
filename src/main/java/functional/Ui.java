@@ -1,7 +1,7 @@
 package functional;
 
 import java.util.NoSuchElementException;
-
+import java.util.Scanner;
 
 /**
  * The Ui class handles user interaction and displays messages to the user.
@@ -47,7 +47,18 @@ public class Ui {
         } catch (NoSuchElementException e) {
             throw new DukeException("");
         }
+    }
 
+    public String readCommand() throws DukeException {
+        Scanner io = new Scanner(System.in);
+        try {
+            String s = io.nextLine();
+            this.currentLine = s.split(" ");
+            this.input = s;
+            return s;
+        } catch (NoSuchElementException e) {
+            throw new DukeException("No Such Element Error");
+        }
     }
 
     /**
