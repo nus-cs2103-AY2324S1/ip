@@ -55,6 +55,7 @@ shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'duke.jar'
 }
 
 run{
@@ -65,5 +66,5 @@ run{
 
 
 application {
-    mainClass.set("seedu.Duke")
+    mainClassName = 'seedu.duke.Main'
 }
