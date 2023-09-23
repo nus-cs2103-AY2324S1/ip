@@ -7,6 +7,7 @@ public class NoSuchTaskException extends Exception {
     /**
      * Constructs a NoSuchTaskException with an error message.
      */
-    public NoSuchTaskException() {
+    public NoSuchTaskException(String msg) {
+        super(msg);
     }
 }

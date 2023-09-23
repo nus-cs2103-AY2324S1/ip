@@ -7,6 +7,7 @@ public class NoDescException extends Exception {
     /**
      * Constructs a NoDescException with an error message.
      */
-    public NoDescException() {
+    public NoDescException(String msg) {
+        super(msg);
     }
 }

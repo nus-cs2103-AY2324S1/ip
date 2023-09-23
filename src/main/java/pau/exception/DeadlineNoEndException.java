@@ -7,6 +7,7 @@ public class DeadlineNoEndException extends Exception {
     /**
      * Constructs a DeadlineNoEndException with an error message.
      */
-    public DeadlineNoEndException() {
+    public DeadlineNoEndException(String msg) {
+        super(msg);
     }
 }

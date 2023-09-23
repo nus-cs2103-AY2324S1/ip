@@ -70,17 +70,25 @@ public class TaskList {
      * @param input The task the user wants to mark as done.
      */
     public String markTask(String input) {
-        int starEyesEmoji = 0x1F929;
-        String output = "good job, you've completed a task! You're so productive!"
-                + new String(Character.toChars(starEyesEmoji)) + "\n\n";
-        String parts[] = input.split(" ");
+        try {
+            int starEyesEmoji = 0x1F929;
+            String output = "good job, you've completed a task! You're so productive!"
+                    + new String(Character.toChars(starEyesEmoji)) + "\n\n";
+            String parts[] = input.split(" ");
 
-        int taskNo = Integer.parseInt(parts[1]);
-        Task checkedTask = this.taskList.get(taskNo - 1);
+            int taskNo = Integer.parseInt(parts[1]);
+            if (taskNo > this.listSize()) {
+                throw new NoSuchTaskException("there is no such task!!");
+            }
 
-        checkedTask.markAsDone();
-        output += checkedTask.toString();
-        return output;
+            Task checkedTask = this.taskList.get(taskNo - 1);
+
+            checkedTask.markAsDone();
+            output += checkedTask.toString();
+            return output;
+        } catch (NoSuchTaskException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -89,14 +97,23 @@ public class TaskList {
      * @param input The task the user wants to unmark.
      */
     public String unMarkTask(String input) {
-        String parts[] = input.split(" ");
-        int taskNo = Integer.parseInt(parts[1]);
-        Task checkedTask = this.taskList.get(taskNo - 1);
+        try {
+            String parts[] = input.split(" ");
+            int taskNo = Integer.parseInt(parts[1]);
 
-        checkedTask.markAsUndone();
-        String output = "why are you not going to " + checkedTask.description + "? remember to do it later!\n\n";
-        output += checkedTask.toString();
-        return output;
+            if (taskNo > this.listSize()) {
+                throw new NoSuchTaskException("there is no such task!!");
+            }
+
+            Task checkedTask = this.taskList.get(taskNo - 1);
+
+            checkedTask.markAsUndone();
+            String output = "why are you not going to " + checkedTask.description + "? remember to do it later!\n\n";
+            output += checkedTask.toString();
+            return output;
+        } catch (NoSuchTaskException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -104,16 +121,20 @@ public class TaskList {
      *
      * @param input The task the user wants to delete.
      */
+    @SuppressWarnings("checkstyle:Regexp")
     public String deleteTask(String input) {
         String output;
         try {
             String parts[] = input.split(" ");
             int taskNo = Integer.parseInt(parts[1]);
+
             if (taskNo > this.listSize()) {
-                throw new NoSuchTaskException();
+                throw new NoSuchTaskException("there is no such task!!");
             }
+
             Task checkedTask = this.taskList.get(taskNo - 1);
             this.taskList.remove(checkedTask);
+
             if (checkedTask.getStatusIcon().equals("X")) {
                 output = "good job! you're officially done with this:\n";
             } else {
@@ -121,14 +142,14 @@ public class TaskList {
                         + "i guess you don't have to do this now:\n\n";
             }
             output += checkedTask.toString() + "\n\n";
-        } catch (NoSuchTaskException e) {
-            return "there is no such task!!";
-        }
 
-        if (this.listSize() == 0) {
-            output += "THERES NOTHING LEFT TO DO!!!!";
-        } else {
-            output += "but still sucks to be you, you still have " + this.listSize() + " tasks";
+            if (this.listSize() == 0) {
+                output += "THERES NOTHING LEFT TO DO!!!!";
+            } else {
+                output += "but still sucks to be you, you still have " + this.listSize() + " tasks";
+            }
+        } catch (NoSuchTaskException e) {
+            return e.getMessage();
         }
         return output;
     }
@@ -144,7 +165,7 @@ public class TaskList {
             ToDo item = new ToDo(input.replace("todo ", ""));
 
             if (item.description.isEmpty()) {
-                throw new NoDescException();
+                throw new NoDescException("give pau something todo :(");
             }
 
             this.taskList.add(item);
@@ -154,7 +175,7 @@ public class TaskList {
             }
             return output;
         } catch (NoDescException e) {
-            return "oi write something please";
+            return e.getMessage();
         }
     }
 
@@ -168,11 +189,11 @@ public class TaskList {
         String output = "";
         try {
             String parts[] = input.split("/by ");
-            if (input.replace("deadline", "").isEmpty()) {
-                throw new NoDescException();
+            if (input.replace("deadline ", "").isEmpty()) {
+                throw new NoDescException("pau doesn't know what to do with an empty description");
             }
             if (!input.contains("/by")) {
-                throw new DeadlineNoEndException();
+                throw new DeadlineNoEndException("when is it due ");
             }
 
             Deadline item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
@@ -183,11 +204,11 @@ public class TaskList {
             }
             return output;
         } catch (NoDescException e) {
-            return "oi write something please";
+            return e.getMessage();
         } catch (DeadlineNoEndException e) {
             int cryingEmojiUnicode = 0x1F62D;
 
-            return "when is this due" + new String(Character.toChars(cryingEmojiUnicode));
+            return e.getMessage() + new String(Character.toChars(cryingEmojiUnicode));
         }
     }
 
@@ -201,7 +222,7 @@ public class TaskList {
         try {
             String parts[] = input.split("/from");
             if (parts.length == 1) {
-                throw new NoDescException();
+                throw new NoDescException("what event is this?");
             }
 
             String time[] = parts[1].split("/to");

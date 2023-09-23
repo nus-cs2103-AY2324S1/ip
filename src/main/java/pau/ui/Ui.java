@@ -28,7 +28,7 @@ public class Ui {
      * The goodbye message by the chatbot.
      */
     public String exit() {
-        return "byebyeee come play with me next time";
+        return "byebyeee come play with me next time\n";
     }
 
 }

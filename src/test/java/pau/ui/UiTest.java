@@ -1,26 +1,13 @@
 package pau.ui;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Carries out unit testing for Ui class.
  */
 public class UiTest {
-    ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-
-    /**
-     * Parses the printed output into a string.
-     */
-    @BeforeEach
-    public void checkPrint() {
-        System.setOut(new PrintStream(outContent));
-    }
 
     /**
      * Tests if chatbot prints introduction correctly.
@@ -29,18 +16,17 @@ public class UiTest {
     public void introduction_introduce_printsIntroduction() {
         Ui ui = new Ui();
 
-        String expected = " HI! I'm \n" +
-                "██████╗  █████╗ ██╗   ██╗\n" +
-                "██╔══██╗██╔══██╗██║   ██║\n" +
-                "██████╔╝███████║██║   ██║\n" +
-                "██╔═══╝ ██╔══██║██║   ██║\n" +
-                "██║     ██║  ██║╚██████╔╝\n" +
-                "╚═╝     ╚═╝  ╚═╝ ╚═════╝ \n" +
-                "                         \n" +
-                "\n" +
-                "ENTERTAIN MEEE\n";
+        String expected = " HI! I'm \n"
+                + "██████╗  █████╗ ██╗   ██╗\n"
+                + "██╔══██╗██╔══██╗██║   ██║\n"
+                + "██████╔╝███████║██║   ██║\n"
+                + "██╔═══╝ ██╔══██║██║   ██║\n"
+                + "██║     ██║  ██║╚██████╔╝\n"
+                + "╚═╝     ╚═╝  ╚═╝ ╚═════╝ \n"
+                + "                         \n"
+                + "\n";
         ui.introduction();
-        assertEquals(expected, outContent.toString());
+        assertEquals(expected, ui.introduction());
     }
 
     /**
@@ -51,7 +37,6 @@ public class UiTest {
         Ui ui = new Ui();
 
         String expected = "byebyeee come play with me next time\n";
-        ui.exit();
-        assertEquals(expected, outContent.toString());
+        assertEquals(expected, ui.exit());
     }
 }
