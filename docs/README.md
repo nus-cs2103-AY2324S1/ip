@@ -9,17 +9,20 @@ Use can view the user guide [here](https://yeobohshin.github.io/ip/).
 2. Download the **latest** _Aikent.jar_ release **v.02** from the Github repository.
 3. Open your terminal and navigate to the directory where the jar file is stored.
 4. Type in this command into the terminal to run the chat bot.
-   
-       java -jar Aikent.jar
+
+
+      java -jar Aikent.jar
 
 ## Commands 
 Aikent bot will response to certain commands
+
 ### Add ToDo Task
 ToDo Task are task with no specifications.
     
     todo [DESCRIPTION]
 
 Example: todo laundry
+
 ### Add Deadline Task
 Deadline Task are task with deadlines.
 
@@ -33,6 +36,7 @@ Event Task are task that has a start and end date.
     event [DESCRIPTION] /from [STARTDATE] /to [ENDDATE]
 
 Example: event Homework Assignment /from 2023-09-21 /to 2023-09-28
+
 ### Mark task
 Marks the task as completed.
 
@@ -41,6 +45,7 @@ Marks the task as completed.
 -Marks the task at the specified **[INDEX]** as completed.
 
 -**[INDEX]** must be a positive integer such as 1, 2, 3...
+
 ### Unmark task
 Marks the task as not completed.
 
@@ -49,6 +54,7 @@ Marks the task as not completed.
 -Marks the task at the specified **[INDEX]** as not completed.
 
 -**[INDEX]** must be a positive integer such as 1, 2, 3...
+
 ### Delete task
 Deletes a task from the task list.
 
@@ -57,12 +63,14 @@ Deletes a task from the task list.
 -Removes the task at the specified **[INDEX]**.
 
 -**[INDEX]** must be a positive integer such as 1, 2, 3...
+
 ### Find Tasks
 Search up task that matches the user input.
 
     find [DESCRIPTION]
 
 -**[DESCRIPTION]** is what you want your task to contain.
+
 ### Update Task
 Update description of a task.
 
@@ -85,6 +93,7 @@ Update end date of event task.
 -**[INDEX]** must be a positive integer such as 1, 2, 3...
 
 -Only **ONE** attribute can be edited per command.
+
 ### Prints list
 Prints all the tasks in the list currently.
     
