@@ -2,16 +2,16 @@
 
 PAU is a chatbot that helps users keeps track of their tasks, deadlines and events. 
 ---
-##Qiuck Start
+## Qiuck Start
 
 1. Ensure you have Java 11 or above installed
 2. Get your latest PAU here
 3. Open PAU in a Command Line Interface by running `java -jar pau.jar`
 
 ---
-##Features
+## Features
 
-#Viewing help: `help`
+# Viewing help: `help`
 A lits of commands to use PAU will be shown.
 
 Format: `help`
@@ -30,7 +30,7 @@ Expected Outcome:
 10. To exit the chat: bye
 ```
 
-#Add ToDo: `todo`
+# Add ToDo: `todo`
 Adds a ToDo to the list of tasks.
 
 Format: `todo [todo name]`
@@ -43,7 +43,7 @@ todo added:
 there are still 1 task(s) to complete
 ```
 
-#Add Deadline: `deadline`
+# Add Deadline: `deadline`
 Adds a Deadline to the list of tasks.
 
 Format: `deadline [deadline name] /by [deadline]`
@@ -70,7 +70,7 @@ there are still 3 task(s) to complete
 ```
 
 
-#Add Event: `event`
+# Add Event: `event`
 Adds an Event to the list of tasks.
 
 Format: `event [event name] /from [start time] /by [end time]`
@@ -83,7 +83,7 @@ event added:
 there are still 4 task(s) to complete
 ```
 
-#Check Tasks: `list`
+# Check Tasks: `list`
 Lists out all the tasks in the task list.
 
 Format: `list`
@@ -98,7 +98,7 @@ sian you still have to complete these:
 4. [E][ ] jennie's birthday party (from: Saturday 2pm to: 10pm)
 ```
 
-#Mark Task: `mark`
+# Mark Task: `mark`
 Marks a task as complete.
 
 Format: `mark [task number]`
@@ -110,7 +110,7 @@ good job, you've completed a task! You're so productive!🤩
 [T][X] make the bed
 ```
 
-#Unmark Task: `unmark`
+# Unmark Task: `unmark`
 Marks a task as incomplete.
 
 Format: `unmark [task number]`
@@ -122,7 +122,7 @@ why are you not going to make the bed? remember to do it later!
 [T][ ] make the bed
 ```
 
-#Delete Task: `delete`
+# Delete Task: `delete`
 Deletes a task.
 
 Format: `delete [task number]`
@@ -135,7 +135,7 @@ not you running away from your responsibilities, i guess you don't have to do th
 
 but still sucks to be you, you still have 3 tasks
 ```
-#Find Task: `find`
+# Find Task: `find`
 Finds a task.
 
 Format: `find [task details]`
@@ -147,7 +147,7 @@ Pau found these:
 1. [E][ ] jennie's birthday party (from: Saturday 2pm to: 10pm)
 ```
 
-#Clear Task: `clear`
+# Clear Task: `clear`
 Clears all tasks in the list.
 
 Format: `clear`
@@ -160,7 +160,7 @@ you have somehow cleared all your tasks at once
 [!WARNING]
 This is IRREVERSIBLE! Do not use this command unless you are VERY sure you want to clear all tasks.
 
-#Exit: `bye`
+# Exit: `bye`
 Exits the chatbot.
 
 Format: `bye`
