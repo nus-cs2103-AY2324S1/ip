@@ -15,7 +15,7 @@
     <fx:define>
         <Image fx:id="sendImage" url="@../images/send.png"/>
     </fx:define>
-    <VBox fx:id="vbox" prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <VBox prefHeight="600.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="1000.0" prefWidth="400.0"
                     vvalue="1.0">
             <VBox fx:id="dialogContainer" prefHeight="0.0" prefWidth="375.0"/>
