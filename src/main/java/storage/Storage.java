@@ -170,9 +170,9 @@ public class Storage {
     public void update(TaskList tasks) throws StorageException {
         try {
             File f = new File(filePath);
-            if (!f.canWrite()) {
+            if (f.exists() && !f.canWrite()) {
                 throw new StorageException(
-                    "It seems I do not have permission to write your"
+                    "It seems I do not have permission to write your "
                         + "tasks to a local file. "
                         + "Perhaps you could run my program somewhere else?"
                 );
