@@ -113,4 +113,13 @@ public class Ui {
 
         return "Here are the matching tasks in your list:" + "\n" + taskList.toString();
     }
+
+    /**
+     * Displays a message to show the before and after a task is edited.
+     *
+     * @param newTask The tasks in the list after editing.
+     */
+    public String editTaskMessage(Task newTask) {
+        return "Your task has been updated to: " + "\n" + newTask.toString();
+    }
 }

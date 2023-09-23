@@ -60,4 +60,13 @@ public class Task {
     public String getDescription() {
         return " |" + this.getStatusIcon() + "| " + this.description;
     }
+
+    /**
+     * Sets the description of a Task to the input description.
+     *
+     * @param newDescription The new description to be set to.
+     */
+    public void editDescription(String newDescription) {
+        this.description = newDescription;
+    }
 }
