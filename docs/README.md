@@ -5,7 +5,17 @@ PAU is a chatbot that helps users keeps track of their tasks, deadlines and even
 
 1. [Quick Start](#qiuck-start)
 2. [Features](#features)
-   - [Help](#help)
+   - [Help](#viewing-help-help)
+   - [Add ToDo](#add-todo-todo)
+   - [Add Deadline](#add-deadline-deadline)
+   - [Add Event](#add-event-event)
+   - [Check Tasks](#check-tasks-list)
+   - [Mark Task](#mark-task-mark)
+   - [Unmark Task](#unmark-task-unmark)
+   - [Delete Task](#delete-task-delete)
+   - [Find Task](#find-task-find)
+   - [Clear Tasks](#clear-tasks-clear)
+   - [Exit](#exit-bye)
 
 ---
 ## Quick Start
@@ -192,7 +202,7 @@ Pau found these:
 1. [E][ ] jennie's birthday party (from: Saturday 2pm to: 10pm)
 ```
 
-### Clear Task: `clear`
+### Clear Tasks: `clear`
 
 Clears all tasks in the list.
 
@@ -207,7 +217,8 @@ you have somehow cleared all your tasks at once
 ```
 
 > !!WARNING
-> This is IRREVERSIBLE! Do not use this command unless you are VERY sure you want to clear all tasks.
+> 
+> This is IRREVERSIBLE!
 
 ### Exit: `bye`
 
