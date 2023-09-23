@@ -1,136 +1,179 @@
 # User Guide
 
-## How to download
+## Description
+Moss is a simple chatbot helps you to record messages into a list.
 
-Search Heran9 in github.
-Download the jar file from the release in IP.
-Move the jar file to your desktop, double click to begin.
+## How to Begin
+
+1. Search Heran9 in github.
+2. Download the jar file from the release in IP.
+3. Move the jar file to your desktop, double click to begin.
 
 ## Features
 
-todo <description> - Add a Todo Task
-Adds a new todo task with the provided description.
+1. **todo [description]** - Add a Todo Task
 
-Example of usage:
+   Adds a new todo task with the provided description.
+   
+   Example of usage:
+   
+   todo Buy groceries
+   
+   Expected outcome:
 
-todo Buy groceries
+   Got it. I've added this task:
 
-Expected outcome:
-Got it. I've added this task:
-[T][ ] Buy groceries
-Now you have 1 task in the list.
+   [T][ ] Buy groceries
 
-deadline <description> /by <date> - Add a Deadline Task
-Adds a new deadline task with the provided description and deadline date in the format YYYY-MM-DD.
+   Now you have 1 task in the list.
 
-Example of usage:
 
-deadline Submit report /by 2023-09-30
+2. **deadline [description] /by [date]** - Add a Deadline Task
 
-Expected outcome:
-Got it. I've added this task:
-[D][ ] Submit report (by: Sep 30 2023)
-Now you have 1 task in the list.
+   Adds a new deadline task with the provided description and deadline date in the format YYYY-MM-DD.
+   
+   Example of usage:
+   
+   deadline Submit report /by 2023-09-30
+   
+   Expected outcome:
 
-event <description> /from <start date> /to <end date> - Add an Event Task
-Adds a new event task with the provided description, start date, and end date in the format YYYY-MM-DD.
+   Got it. I've added this task:
 
-Example of usage:
+   [D][ ] Submit report (by: Sep 30 2023)
 
-event Team meeting /from 2023-10-01 /to 2023-10-03
+   Now you have 1 task in the list.
 
-Expected outcome:
-Got it. I've added this task:
-[E][ ] Team meeting (from: Oct 01 2023 to Oct 03 2023)
-Now you have 1 task in the list.
 
-list - List All Tasks
-Lists all tasks currently stored.
+3. **event [description] /from [start date] /to [end date]** - Add an Event Task
 
-Example of usage:
+   Adds a new event task with the provided description, start date, and end date in the format YYYY-MM-DD.
+   
+   Example of usage:
+   
+   event Team meeting /from 2023-10-01 /to 2023-10-03
+   
+   Expected outcome:
 
-list
+   Got it. I've added this task:
 
-Expected outcome:
-Here are the tasks in your list:
+   [E][ ] Team meeting (from: Oct 01 2023 to Oct 03 2023)
 
-[T][ ] Buy groceries
-[D][ ] Submit report (by: Sep 30 2023)
-[E][ ] Team meeting (from: Oct 01 2023 to Oct 03 2023)
-...
+   Now you have 1 task in the list.
 
-mark <task number> - Mark a Task as Done
-Marks the task at the specified number as done.
 
-Example of usage:
+4. **list** - List All Tasks
 
-mark 1
+   Lists all tasks currently stored.
 
-Expected outcome:
-Nice! I've marked this task as done:
-[T][X] Buy groceries
+   Example of usage:
+   
+   list
+   
+   Expected outcome:
 
-unmark <task number> - Mark a Task as Undone
-Marks the task at the specified number as undone.
+   Here are the tasks in your list:
 
-Example of usage:
+   [T][ ] Buy groceries
 
-unmark 1
+   [D][ ] Submit report (by: Sep 30 2023)
 
-Expected outcome:
-Noted. I've marked this task as undone:
-[T][ ] Buy groceries
+   [E][ ] Team meeting (from: Oct 01 2023 to Oct 03 2023)
+   ...
 
-delete <task number> - Delete a Task
-Deletes the task at the specified number.
 
-Example of usage:
+5. **mark [task number]** - Mark a Task as Done
 
-delete 1
+   Marks the task at the specified number as done.
 
-Expected outcome:
-Noted. I've removed this task:
-[T][ ] Buy groceries
-Now you have 0 tasks in the list.
+   Example of usage:
+   
+   mark 1
+   
+   Expected outcome:
 
-find <keyword> - Find Tasks by Keyword
-Finds tasks containing the specified keyword in their description.
+   Nice! I've marked this task as done:
 
-Example of usage:
+   [T][X] Buy groceries
+  
+ 
+6. **unmark [task number]** - Mark a Task as Undone
 
-find meeting
+   Marks the task at the specified number as undone.
 
-Expected outcome:
-Here are the matching tasks in your list:
-1. [E][✘] Team meeting (from: Oct 01 2023 to Oct 03 2023)
+   Example of usage:
+   
+   unmark 1
+   
+   Expected outcome:
 
-help - Display Help Information
-Displays information about available commands and their usage.
+   Noted. I've marked this task as undone:
 
-Example of usage:
+   [T][ ] Buy groceries
 
-help
 
-Expected outcome:
-Here are the available commands:
-1. todo <description>: Adds a new todo task.
-2. deadline <description> /by <date>: Adds a new deadline task.
-3. event <description> /from <start date> /to <end date>: Adds a new event task.
-4. list: Lists all tasks.
-5. mark <task number>: Marks a task as done.
-6. unmark <task number>: Marks a task as undone.
-7. delete <task number>: Deletes a task.
-8. find <keyword>: Finds tasks containing the specified keyword in their description.
-9. bye: Exits the application.
-   Use the commands without '<>' and replace <description>, <date>, <start date>, <end date>, and <task number> accordingly.
-   Example usage: todo Buy groceries
+7. **delete [task number]** - Delete a Task
+   
+   Deletes the task at the specified number.
+   
+   Example of usage:
+   
+   delete 1
+   
+   Expected outcome:
 
-bye - Exit the Application
-Exits the application.
+   Noted. I've removed this task:
 
-Example of usage:
+   [T][ ] Buy groceries
 
-bye
+   Now you have 0 tasks in the list.
 
-Expected outcome:
-Goodbye! See you next time!
+
+8. **find [keyword]** - Find Tasks by Keyword
+   Finds tasks containing the specified keyword in their description.
+   
+   Example of usage:
+   
+   find meeting
+   
+   Expected outcome:
+
+   Here are the matching tasks in your list:
+
+   [E][X] Team meeting (from: Oct 01 2023 to Oct 03 2023)
+
+
+9. **help** - Display Help Information
+
+   Displays information about available commands and their usage.
+   
+   Example of usage:
+   
+   help
+   
+   Expected outcome:
+
+   Here are the available commands:
+   1. todo <description>: Adds a new todo task.
+   2. deadline <description> /by <date>: Adds a new deadline task.
+   3. event <description> /from <start date> /to <end date>: Adds a new event task.
+   4. list: Lists all tasks.
+   5. mark <task number>: Marks a task as done.
+   6. unmark <task number>: Marks a task as undone.
+   7. delete <task number>: Deletes a task.
+   8. find <keyword>: Finds tasks containing the specified keyword in their description.
+   9. bye: Exits the application.
+      Use the commands without '<>' and replace <description>, <date>, <start date>, <end date>, and <task number> accordingly.
+      Example usage: todo Buy groceries
+
+
+10. **bye** - Exit the Application
+    Exits the application.
+
+    Example of usage:
+
+    bye
+
+    Expected outcome:
+
+    Bye! Hope to see you again soon!
