@@ -21,6 +21,12 @@ public class Task {
     }
 
     /**
+     * Empty constructor.
+     */
+    public Task() {
+    }
+
+    /**
      * String representation of a task.
      *
      * @return Details of a task.
@@ -46,5 +52,15 @@ public class Task {
      */
     public boolean hasWord(String s) {
         return (description.contains(s)) ? true : false;
+    }
+
+    /**
+     * Processes command and returns parameter inputs for constructors.
+     *
+     * @param input Input command.
+     * @return String array of parameter inputs.
+     */
+    public String[] processInput(String input) {
+        return new String[0];
     }
 }

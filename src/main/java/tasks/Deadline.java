@@ -23,6 +23,12 @@ public class Deadline extends Task {
     }
 
     /**
+     * Empty constructor.
+     */
+    public Deadline() {
+    }
+
+    /**
      * String representation of a deadline task.
      *
      * @return Deadline task details.
@@ -30,5 +36,19 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "D | " + super.toString() + " | " + by.toString();
+    }
+
+    /**
+     * Processes command and returns parameter inputs for constructors.
+     *
+     * @param input Input command.
+     * @return String array of parameter inputs.
+     */
+    @Override
+    public String[] processInput(String input) {
+        String taskDescription = input.split("deadline ")[1].split(" /by")[0];
+        String taskDeadline = input.split("/by ")[1];
+
+        return new String[] {taskDescription, taskDeadline};
     }
 }
