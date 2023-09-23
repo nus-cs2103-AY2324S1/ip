@@ -28,7 +28,7 @@ Moss is a simple chatbot helps you to record messages into a list.
    Now you have 1 task in the list.
 
 
-2. **deadline [description] /by [date]** - Add a Deadline Task
+2. **deadline [description] /by [YYYY-MM-DD]** - Add a Deadline Task
 
    Adds a new deadline task with the provided description and deadline date in the format YYYY-MM-DD.
    
@@ -45,7 +45,7 @@ Moss is a simple chatbot helps you to record messages into a list.
    Now you have 1 task in the list.
 
 
-3. **event [description] /from [start date] /to [end date]** - Add an Event Task
+3. **event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]** - Add an Event Task
 
    Adds a new event task with the provided description, start date, and end date in the format YYYY-MM-DD.
    

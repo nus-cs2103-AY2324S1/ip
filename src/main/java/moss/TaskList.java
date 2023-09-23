@@ -91,122 +91,119 @@ public class TaskList {
                     + "Example usage: todo Buy groceries";
             return output;
         }
-        else {
-            // Process other commands using the command method
-            if (message.startsWith("todo")) {
-                // check if the command is valid otherwise throw errors
-                if (message.length() <= 5) {
-                    return ui.showError(new MossException("OOPS!!! The description of a todo cannot be empty."));
-                }
-                ToDo task = new ToDo(message.substring(5));
+        else if (message.startsWith("todo")) {
+            // check if the command is valid otherwise throw errors
+            if (message.length() <= 5) {
+                return ui.showError(new MossException("OOPS!!! The description of a todo cannot be empty."));
+            }
+            ToDo task = new ToDo(message.substring(5));
+            things.add(task);
+            storage.saveTasks(things);
+
+            // Provide feedback about the added task
+            output += "________________________________________________________\n"
+                    + "Got it. I've added this task: \n"
+                    + things.get(things.size() - 1).toString() + "\n"
+                    + "Now you have " + things.size() + " tasks in the list.\n"
+                    +"________________________________________________________\n";
+
+            return output;
+        }
+        // Add a deadline task
+        else if (message.startsWith("deadline")) {
+            // Find the position of "/by" in the input
+            if (message.length() <= 9) {
+                return ui.showError(new MossException("OOPS!!! The description of a deadline cannot be empty."));
+            }
+            try {
+                int byIndex = message.indexOf("/by");
+
+                // Extract the substring after "/by"
+                String deadlineInfo = message.substring(byIndex + 4).trim();
+
+                // Split the deadlineInfo by space to get individual parts
+                String[] parts = deadlineInfo.split(" ");
+
+                // The day is the last part of the parts array
+                String day = parts[parts.length - 1];
+                LocalDate date = LocalDate.parse(day);
+                // Extract the substring before "/by"
+                String taskDescription = message.substring(9, byIndex).trim();
+
+                Deadline task = new Deadline(taskDescription, date);
                 things.add(task);
                 storage.saveTasks(things);
 
                 // Provide feedback about the added task
-                output += "________________________________________________________\n"
+                output += "____________________________________________________________\n"
                         + "Got it. I've added this task: \n"
                         + things.get(things.size() - 1).toString() + "\n"
                         + "Now you have " + things.size() + " tasks in the list.\n"
-                        +"________________________________________________________\n";
+                        + "____________________________________________________________\n";
 
                 return output;
+            } catch (Exception e) {
+                return ui.showError(new MossException("Please follow the format: deadline [description] /by [YYYY-MM-DD]"));
             }
-            // Add a deadline task
-            else if (message.startsWith("deadline")) {
-                // Find the position of "/by" in the input
-                if (message.length() <= 9) {
-                    return ui.showError(new MossException("OOPS!!! The description of a deadline cannot be empty."));
-                }
-                try {
-                    int byIndex = message.indexOf("/by");
 
-                    // Extract the substring after "/by"
-                    String deadlineInfo = message.substring(byIndex + 4).trim();
-
-                    // Split the deadlineInfo by space to get individual parts
-                    String[] parts = deadlineInfo.split(" ");
-
-                    // The day is the last part of the parts array
-                    String day = parts[parts.length - 1];
-                    LocalDate date = LocalDate.parse(day);
-                    // Extract the substring before "/by"
-                    String taskDescription = message.substring(9, byIndex).trim();
-
-                    Deadline task = new Deadline(taskDescription, date);
-                    things.add(task);
-                    storage.saveTasks(things);
-
-                    // Provide feedback about the added task
-                    output += "____________________________________________________________\n"
-                            + "Got it. I've added this task: \n"
-                            + things.get(things.size() - 1).toString() + "\n"
-                            + "Now you have " + things.size() + " tasks in the list.\n"
-                            + "____________________________________________________________\n";
-
-                    return output;
-                } catch (Exception e) {
-                    return ui.showError(new MossException("Please follow the format: deadline [description] /by [date]"));
-                }
-
+        }
+        // Add an event task
+        else if (message.startsWith("event")) {
+            if (message.length() <= 6) {
+                return ui.showError(new MossException("OOPS!!! The description of a event cannot be empty."));
             }
-            // Add an event task
-            else if (message.startsWith("event")) {
-                if (message.length() <= 6) {
-                    return ui.showError(new MossException("OOPS!!! The description of a event cannot be empty."));
-                }
-                try {
-                    int byIndex = message.indexOf("/from");
+            try {
+                int byIndex = message.indexOf("/from");
 
-                    int fromIndex = message.indexOf("/from");
-                    int toIndex = message.indexOf("/to");
+                int fromIndex = message.indexOf("/from");
+                int toIndex = message.indexOf("/to");
 
-                    // Extract the substring between "/from" and "/to" and behind "to"
-                    String from = message.substring(fromIndex + 5, toIndex).trim();
-                    LocalDate fromDate = LocalDate.parse(from);
+                // Extract the substring between "/from" and "/to" and behind "to"
+                String from = message.substring(fromIndex + 5, toIndex).trim();
+                LocalDate fromDate = LocalDate.parse(from);
 
-                    String to = message.substring(toIndex + 3).trim();
-                    LocalDate toDate = LocalDate.parse(to);
+                String to = message.substring(toIndex + 3).trim();
+                LocalDate toDate = LocalDate.parse(to);
 
-                    String taskDescription = message.substring(6, byIndex).trim();
+                String taskDescription = message.substring(6, byIndex).trim();
 
-                    Event task = new Event(taskDescription, fromDate, toDate);
-                    things.add(task);
-                    storage.saveTasks(things);
+                Event task = new Event(taskDescription, fromDate, toDate);
+                things.add(task);
+                storage.saveTasks(things);
 
-                    // Provide feedback about the added task
-                    output += "____________________________________________________________\n"
-                            + "Got it. I've added this task: \n"
-                            + things.get(things.size() - 1).toString() + "\n"
-                            + "Now you have " + things.size() + " tasks in the list.\n"
-                            + "____________________________________________________________\n";
+                // Provide feedback about the added task
+                output += "____________________________________________________________\n"
+                        + "Got it. I've added this task: \n"
+                        + things.get(things.size() - 1).toString() + "\n"
+                        + "Now you have " + things.size() + " tasks in the list.\n"
+                        + "____________________________________________________________\n";
 
-                    return output;
-                } catch (Exception e) {
-                    return ui.showError(new MossException("Please follow the format: event [description] /from [start date] /to [end date]"));
-                }
-
-            }
-            else if (message.startsWith("find")) {
-                String taskDescription = message.substring(5);
-                int count = 0;
-                output += "________________________________________________________\n"
-                        + "Here are the matching tasks in your list: \n";
-                for (Task thing : things) {
-                    if (thing.getDescription().contains(taskDescription)) {
-                        count++;
-                        output += count + ". " + thing.toString("") + "\n";
-                    }
-                }
-                if (count == 0) {
-                    output += "There is no matching task.\n";
-                }
                 return output;
+            } catch (Exception e) {
+                return ui.showError(new MossException("Please follow the format: event [description] /from [YYYY-MM-DD] /to [YYYY-MM-DD]"));
             }
-            // check if the command is valid otherwise throw errors
-            else {
-                // Invalid command
-                throw new MossException("OOPS!!! I'm sorry, but I don't know what that means :-(");
+
+        }
+        else if (message.startsWith("find")) {
+            String taskDescription = message.substring(5);
+            int count = 0;
+            output += "________________________________________________________\n"
+                    + "Here are the matching tasks in your list: \n";
+            for (Task thing : things) {
+                if (thing.getDescription().contains(taskDescription)) {
+                    count++;
+                    output += count + ". " + thing.toString("") + "\n";
+                }
             }
+            if (count == 0) {
+                output += "There is no matching task.\n";
+            }
+            return output;
+        }
+        // check if the command is valid otherwise throw errors
+        else {
+            // Invalid command
+            throw new MossException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 }

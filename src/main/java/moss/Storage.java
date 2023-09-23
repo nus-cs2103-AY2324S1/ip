@@ -45,50 +45,48 @@ public class Storage {
         List<Task> tasks = new ArrayList<>();
         try {
             File file = new File(FILE_PATH);
-            if (file.exists()) {
-                BufferedReader reader = new BufferedReader(new FileReader(file));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] tokens = line.split(" \\| ");
-                    assert tokens.length >= 3 : "Invalid file format: Not enough tokens";
-                    String type = tokens[0];
-                    boolean marked = Objects.equals(tokens[1], "X");
-                    String description = tokens[2];
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] tokens = line.split(" \\| ");
+                assert tokens.length >= 3 : "Invalid file format: Not enough tokens";
+                String type = tokens[0];
+                boolean marked = Objects.equals(tokens[1], "X");
+                String description = tokens[2];
 
-                    // Add assertions to validate task type and tokens based on type
-                    assert type.equals("T") || type.equals("D") || type.equals("E") : "Invalid task type";
+                // Add assertions to validate task type and tokens based on type
+                assert type.equals("T") || type.equals("D") || type.equals("E") : "Invalid task type";
 
-                    Task task;
-                    switch (type) {
-                    case "T":
-                        assert tokens.length == 3 : "Invalid ToDo task format111";
-                        task = new ToDo(description);
-                        break;
-                    case "D":
-                        assert tokens.length == 4 : "Invalid Deadline task format";
-                        String by = tokens[3];
-                        LocalDate date = LocalDate.parse(by);
-                        task = new Deadline(description, date);
-                        break;
-                    case "E":
-                        assert tokens.length == 5 : "Invalid Event task format";
-                        String from = tokens[3];
-                        LocalDate fromDate = LocalDate.parse(from);
-                        String to = tokens[4];
-                        LocalDate toDate = LocalDate.parse(to);
-                        task = new Event(description, fromDate, toDate);
-                        break;
-                    default:
-                        throw new MossException("Invalid task type");
-                    }
-
-                    if (marked) {
-                        task.markDone();
-                    }
-                    tasks.add(task);
+                Task task;
+                switch (type) {
+                case "T":
+                    assert tokens.length == 3 : "Invalid ToDo task format111";
+                    task = new ToDo(description);
+                    break;
+                case "D":
+                    assert tokens.length == 4 : "Invalid Deadline task format";
+                    String by = tokens[3];
+                    LocalDate date = LocalDate.parse(by);
+                    task = new Deadline(description, date);
+                    break;
+                case "E":
+                    assert tokens.length == 5 : "Invalid Event task format";
+                    String from = tokens[3];
+                    LocalDate fromDate = LocalDate.parse(from);
+                    String to = tokens[4];
+                    LocalDate toDate = LocalDate.parse(to);
+                    task = new Event(description, fromDate, toDate);
+                    break;
+                default:
+                    throw new MossException("Invalid task type");
                 }
-                reader.close();
+
+                if (marked) {
+                    task.markDone();
+                }
+                tasks.add(task);
             }
+            reader.close();
         } catch (IOException e) {
             throw new MossException("Error loading tasks from file");
         }
