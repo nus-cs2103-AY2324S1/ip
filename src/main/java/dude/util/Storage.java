@@ -45,6 +45,12 @@ public class Storage {
     public void saveToDisk(TaskList taskList, NoteList noteList) throws StorageException {
         File file = new File(this.filepath);
         try {
+            File parentDirectory = file.getParentFile();
+
+            if (!parentDirectory.exists()) {
+                parentDirectory.mkdirs();
+            }
+
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -105,6 +111,12 @@ public class Storage {
         File file = new File(this.filepath);
 
         try {
+            File parentDirectory = file.getParentFile();
+
+            if (!parentDirectory.exists()) {
+                parentDirectory.mkdirs();
+            }
+
             if (!file.exists()) {
                 file.createNewFile();
             }
