@@ -18,6 +18,7 @@ public class Cleo {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    private boolean isExit = false;
 
     /**
      * Initializes Duke class. Initializes filepath to load and save data,
@@ -41,10 +42,8 @@ public class Cleo {
      */
     public void run() {
         ui.showWelcome();
-        boolean isExit = false;
         while (!isExit) {
             try {
-                //ui.showCommands();
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
@@ -65,6 +64,7 @@ public class Cleo {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            isExit = c.isExit();
             c.execute(tasks, ui, storage);
             messageType = NORMAL_MESSAGE_TYPE;
             return c.getOutput();
@@ -79,5 +79,9 @@ public class Cleo {
 
     public int getMessageType() {
         return messageType;
+    }
+
+    public boolean isExit() {
+        return isExit;
     }
 }

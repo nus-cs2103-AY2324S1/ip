@@ -24,11 +24,11 @@
     -fx-background-color:transparent;
 }
 
-#dialogContainer {
+.button {
     -fx-background-color:transparent;
 }
 
-#sendButton {
+#dialogContainer {
     -fx-background-color:transparent;
 }
 

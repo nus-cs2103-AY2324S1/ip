@@ -53,15 +53,20 @@ public class Ui {
      * Prints out list of commands.
      */
     public String showCommands() {
-        return "Commands: \n"
-                + "list: Lists existing tasks\n"
-                + "find {string}: Lists tasks that contains string\n"
-                + "mark {index}: Marks task as completed at index\n"
-                + "unmark {index}: Unmarks task as incomplete at index\n"
-                + "todo {task}: Adds a ToDo task \n" + "deadline {task} /by {date}: Adds a Deadline task\n"
-                + "event {task} /from {date} /to {date}: Adds an Event task\n"
-                + "tags {index}: Lists out tags of task\n"
-                + "tag {index} {tag}: Adds a tag to task at index";
+        return "[LIST TASKS] \n"
+                + "list: Lists tasks and shows {INDEX} of each task\n"
+                + "find {STRING}: Lists tasks that contains string\n\n"
+                + "[ADDING TASKS]\n"
+                + "todo {TASK}\n"
+                + "deadline {TASK} /by {DATE}\n"
+                + "event {TASK} /from {DATE} /to {DATE}\n\n"
+                + "{DATE} format: yyyy-mm-dd\n\n"
+                + "[MARKING TASKS]\n"
+                + "mark {INDEX}: Marks task as [X]\n"
+                + "unmark {INDEX}: Unmarks task as [  ]\n\n"
+                + "[TAGS]\n"
+                + "tags {TASK}: Lists out tags of task\n"
+                + "tag {INDEX} {TAG}: Adds a tag to task at index";
     }
 
     /**

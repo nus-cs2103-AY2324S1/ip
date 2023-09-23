@@ -42,7 +42,6 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void handleUserInput() {
-
         plonkSound.play();
         String input = userInput.getText();
         String response = cleo.getResponse(input);
@@ -64,7 +63,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, cleoImage, isError)
         );
-
         userInput.clear();
+        if (cleo.isExit()) {
+            System.exit(0);
+        }
     }
 }
