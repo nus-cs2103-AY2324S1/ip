@@ -1,9 +1,13 @@
 package tasks;
 
+import java.time.LocalDate;
+
 /**
  * The tasks of type "To-Do."
  */
-public class ToDo extends Task {
+public class ToDo extends Task implements Comparable<Task> {
+    private static final LocalDate localDate = LocalDate.now();
+
     public ToDo(String content) {
         super(content, false);
     }
@@ -42,6 +46,10 @@ public class ToDo extends Task {
                 + toString() + "\n"
                 + String.format("Now you have %d tasks in the list,\n", listSize)
                 + "____________________________________________________________";
+    }
+
+    public LocalDate getDateTime() {
+        return localDate;
     }
 
     /**

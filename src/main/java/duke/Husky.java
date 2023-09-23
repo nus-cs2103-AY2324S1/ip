@@ -38,6 +38,35 @@ public class Husky {
     }
 
     /**
+     * Runs the Duke application.
+     * It displays a welcome message and processes user commands
+     * until the 'bye' command is received to terminate the program.
+     */
+    public void run() {
+        System.out.println(ui.showWelcome());
+        boolean hasExit = false;
+        while (!hasExit) {
+            try {
+                String fullCommand = ui.readCommand();
+                ui.showLine();
+                Command c = functional.Parser.parse(fullCommand);
+                String k = c.execute(tasks, ui, false, false);
+                System.out.println(k);
+                hasExit = c.hasExit();
+            } catch (functional.DukeException e) {
+                ui.showError(e.getMessage());
+            } finally {
+                ui.showLine();
+            }
+        }
+        storage.save(tasks);
+    }
+
+    public static void main(String[] args) {
+        new Husky("./data/tasks.txt").run();
+    }
+
+    /**
      * feeds the i/o to the GUI
      *
      * @param input the user input

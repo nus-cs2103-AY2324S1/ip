@@ -1,5 +1,6 @@
 package taskmanager;
 
+import functional.DukeException;
 import org.junit.jupiter.api.Test;
 import tasks.Deadline;
 
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class DeadlineTest {
 
     @Test
-    void testEvents()  {
+    void testEvents() throws DukeException {
         Deadline newdeadline = new Deadline("TestEvent /by 23/08/2023 1800", false);
         Deadline newdeadline1 = new Deadline("TestEvent /by 23/08/2023 1801", false);
         Deadline newdeadline2 = new Deadline("TestEvent /by 23/09/2023 1800", false);

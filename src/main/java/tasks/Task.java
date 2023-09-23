@@ -1,36 +1,46 @@
 package tasks;
 
-public class Task {
+import functional.DukeException;
+
+import java.time.LocalDate;
+
+public class Task implements Comparable<Task> {
     private String content;
-    private boolean marked;
+    private boolean isMarked;
+    private LocalDate localDate;
+    private Integer timeCompare;
 
     /**
-     * Constructs a task with an initial status of not marked
+     * Constructs a task with an initial status of not isMarked
      */
     public Task(String content) {
         this.content = content;
-        this.marked = false;
+        this.isMarked = false;
+        this.localDate = LocalDate.now();
+        this.timeCompare = 0;
     }
 
     /**
-     * Constructs a task with an initial status that is marked
+     * Constructs a task with an initial status that is isMarked
      */
     public Task(String content, boolean status) {
         this.content = content;
-        this.marked = status;
+        this.isMarked = status;
+        this.localDate = LocalDate.now();
+        this.timeCompare = 0;
     }
 
     /**
-     * @return the task as marked
+     * @return the task as isMarked
      */
-    public Task mark() {
+    public Task mark() throws DukeException {
         return new Task(content, true);
     }
 
     /**
-     * @return the task as unmarked
+     * @return the task as unisMarked
      */
-    public Task unmark() {
+    public Task unmark() throws DukeException {
         return new Task(content);
     }
 
@@ -52,10 +62,27 @@ public class Task {
     }
 
     /**
-     * @return the boolean value of whether the task is marked
+     * @return the boolean value of whether the task is isMarked
      */
     public boolean isMarked() {
-        return this.marked;
+        return this.isMarked;
+    }
+
+    public LocalDate getDateTime() {
+        return localDate;
+    }
+
+    public Integer getTimeCompare() {
+        return timeCompare;
+    }
+
+    @Override
+    public int compareTo(Task other) {
+        if (!getDateTime().equals(other.getDateTime())) {
+            return getDateTime().compareTo(other.getDateTime());
+        } else {
+            return this.getTimeCompare().compareTo(other.getTimeCompare());
+        }
     }
 
     /**
@@ -64,7 +91,7 @@ public class Task {
      * @return a string describing the status of the task
      */
     public String toString() {
-        if (!this.marked) {
+        if (!this.isMarked) {
             return String.format("[ ] %s", content);
         } else {
             return String.format("[X] %s", content);

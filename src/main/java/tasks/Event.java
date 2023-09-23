@@ -1,15 +1,18 @@
 package tasks;
 
+import functional.DukeException;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Event extends Task {
+public class Event extends Task implements Comparable<Task> {
     private String[] splitSlash;
-    private String[] startTime;
+    private String[] startDate;
     private String[] endTime;
-    private String startDate;
+    private String startTime;
+    private LocalDate localDate;
 
     /**
      * Constructs a new Event task with the specified user input.
@@ -17,40 +20,36 @@ public class Event extends Task {
      * @param content The user input to create an event
      * @param status  marked or unmarked
      */
-    public Event(String content, boolean status) {
+    public Event(String content, boolean status) throws DukeException {
         super(content, status);
         splitSlash = content.split("/", 2);
-        startTime = splitSlash[1].split(" ", 3);
-        String[] split2 = startTime[2].split("/", 2);
+        startDate = splitSlash[1].split(" ", 3);
+        String[] split2 = startDate[2].split("/", 2);
+        startTime = split2[0];
         endTime = split2[1].split(" ", 2);
         try {
-            this.startDate = LocalDate.parse(startTime[1].replace("/", "-"))
-                    .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + split2[0];
+            this.localDate = LocalDate.parse(startDate[1].replace("/", "-"));
         } catch (DateTimeParseException e) {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-                this.startDate = LocalDate.parse(startTime[1], formatter)
-                        .format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + split2[0];
-
+                this.localDate = LocalDate.parse(startDate[1], formatter);
             } catch (DateTimeException ex) {
-                this.startDate = startTime[1] + " " + split2[0];
+                this.startTime = startDate[1] + " " + split2[0];
             }
         }
-
-
     }
 
     /**
      * @return the event as marked [X]
      */
-    public Event mark() {
+    public Event mark() throws DukeException {
         return new Event(super.getContent(), true);
     }
 
     /**
      * @return the event as unmarked [ ]
      */
-    public Event unmark() {
+    public Event unmark() throws DukeException {
         return new Event(super.getContent(), false);
     }
 
@@ -66,15 +65,24 @@ public class Event extends Task {
                 + "____________________________________________________________";
     }
 
+    public LocalDate getDateTime() {
+        return localDate;
+    }
+
+    public Integer getTimeCompare() {
+        return Integer.parseInt(startTime.substring(0, startTime.length() - 1));
+    }
+
     /**
      * @return a String message describing the event
      */
     public String toString() {
         String[] result = splitSlash[0].split(" ", 2);
+        String startDateString = localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + startTime;
         if (!super.isMarked()) {
-            return String.format("[E][ ] %s(%s: %s%s: %s)", result[1], startTime[0], startDate, endTime[0], endTime[1]);
+            return String.format("[E][ ] %s(%s: %s%s: %s)", result[1], startDate[0], startDateString, endTime[0], endTime[1]);
         } else {
-            return String.format("[E][X] %s(%s: %s%s: %s)", result[1], startTime[0], startDate, endTime[0], endTime[1]);
+            return String.format("[E][X] %s(%s: %s%s: %s)", result[1], startDate[0], startDateString, endTime[0], endTime[1]);
         }
     }
 }
