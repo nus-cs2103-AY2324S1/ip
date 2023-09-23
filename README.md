@@ -19,7 +19,7 @@ Look at all the things it can do:
 - [x] Managing tasks with deadlines
 - [x] Managing events
 - [x] Search feature for keywords
-- [x] Verbally abuse you if you fail to give proper inputs
+- [x] Mock you if you fail to give proper inputs
 - [ ] Reminders (that's a lie, I'm not doing that)
 ----
 Since you're still here, here's a chunk of code for you to test out your coding abilities:

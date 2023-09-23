@@ -1,11 +1,9 @@
-package phi;
+package phi.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import phi.task.ToDo;
-import phi.util.PhiException;
-import phi.util.TaskList;
 
 public class TaskListTest {
     @Test

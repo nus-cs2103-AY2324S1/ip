@@ -48,7 +48,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         if (input.equals("bye")) {
-            PauseTransition pause = new PauseTransition(Duration.seconds(1)); // 1 second delay
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
             pause.setOnFinished(event -> {
                 // Close the JavaFX application after the delay
                 Platform.exit();

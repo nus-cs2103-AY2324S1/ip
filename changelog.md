@@ -78,7 +78,7 @@ This is a project log for my individual project
 ### JAR File
 - **phi.jar v1.0.0** released
   - PHI packaged into an executable JAR file (built using Gradle) for easier distribution
-  - 
+
 ### JavaDoc
 - JavaDoc header comments added to all classes and all non-trivial methods
 
@@ -88,7 +88,9 @@ This is a project log for my individual project
 ### Checkstyle
 - CheckStyle now incorporated to detect coding style violations. Configured to be used with Gradle
 
-
+### Help
+- PHI now provides an in-app help command
+- PHI also pre-loads the app with sample data during the first run of the application
 
 
 

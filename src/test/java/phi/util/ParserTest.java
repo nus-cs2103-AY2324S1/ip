@@ -1,10 +1,8 @@
-package phi;
+package phi.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-import phi.util.Parser;
-import phi.util.TaskList;
 
 public class ParserTest {
     @Test
