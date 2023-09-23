@@ -35,18 +35,18 @@ public class Deadline extends Task {
     public String toString() {
         if (deadlineDate != null) {
             String outputDate = deadlineDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            return "[D]" + super.toString() + "(by: " + outputDate + ")";
+            return "[D]" + super.toString() + "(by: " + outputDate + ")" + " " + getPriority();
         } else if (deadLineDateAndTime != null) {
             String outputDateTime = deadLineDateAndTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
-            return "[D]" + super.toString() + "(by: " + outputDateTime + ")";
+            return "[D]" + super.toString() + "(by: " + outputDateTime + ")" + " " + getPriority();
         } else {
-            return "[D]" + super.toString() + "(by: " + by + ")";
+            return "[D]" + super.toString() + "(by: " + by + ")" + " " + getPriority();
         }
     }
     @Override
     public String writeToFile() {
         String printedStuff = "D | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | ";
-        return printedStuff + this.by;
+        return printedStuff + this.by + " | " + getPriority();
     }
 
     /**

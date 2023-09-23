@@ -20,11 +20,11 @@ public class Todo extends Task {
      * @return A string with label [T] for to do, and the toString of Task.
      */
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + getPriority();
     }
 
     @Override
     public String writeToFile() {
-        return "T | " + (getIsDone() ? "1" : "0") + " | " + getDescription();
+        return "T | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + getPriority();
     }
 }

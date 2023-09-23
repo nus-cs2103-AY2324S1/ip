@@ -54,12 +54,13 @@ public class Event extends Task {
         } else if (toDateTime != null) {
             toWhen = toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         }
-        return "[E]" + super.toString() + "(from: " + fromWhen + " to: " + toWhen + ")";
+        return "[E]" + super.toString() + "(from: " + fromWhen + " to: " + toWhen + ")" + " " + getPriority();
     }
 
     @Override
     public String writeToFile() {
-        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | " + from + " to " + to;
+        return "E | " + (getIsDone() ? "1" : "0") + " | " + getDescription() + " | "
+                + from + " to " + to + " | " + getPriority();
     }
 
     /**

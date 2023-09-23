@@ -1,4 +1,2 @@
-D | 0 | do this  | sunday 2pm
-T | 0 | this thing 
-T | 1 | three things 
-
+E | 0 | do that  | 12/12/2020 1200 to 13/12/2020 1900 | (HIGH)
+D | 1 | do this  | 29/09/2019 1800 | (HIGH)

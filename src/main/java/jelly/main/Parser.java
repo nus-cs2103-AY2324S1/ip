@@ -8,6 +8,7 @@ import jelly.commands.EventCommand;
 import jelly.commands.FindCommand;
 import jelly.commands.ListCommand;
 import jelly.commands.MarkCommand;
+import jelly.commands.PriorityCommand;
 import jelly.commands.ToDoCommand;
 import jelly.commands.UnmarkCommand;
 import jelly.exceptions.JellyBlankMessageException;
@@ -50,6 +51,11 @@ public class Parser {
                     throw new JellyBlankMessageException("find");
                 }
                 return new FindCommand(stringArray[1]);
+            } else if (stringArray[0].equals("priority")) {
+                if (stringArray.length == 1) {
+                    throw new JellyBlankMessageException("priority");
+                }
+                return new PriorityCommand(Integer.parseInt(stringArray[1]), Integer.parseInt(stringArray[2]));
             } else if (stringArray[0].equals("todo")) {
                 String toDoString = "";
                 if (stringArray.length == 1) {

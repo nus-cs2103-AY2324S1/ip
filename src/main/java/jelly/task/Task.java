@@ -7,6 +7,7 @@ public class Task {
 
     protected boolean isDone;
     protected String description;
+    protected int priority = 1;
 
     /**
      * Constructor for a task, with description and completion status.
@@ -57,6 +58,22 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Changes the priority of a task.
+     * @param priority The priority of the task; 1 is high, 2 is medium, 3 is low.
+     */
+    public void changePriority(int priority) {
+        this.priority = priority;
+    }
+    public String getPriority() {
+        if (priority == 1) {
+            return "(HIGH)";
+        } else if (priority == 2) {
+            return "(MEDIUM)";
+        } else {
+            return "(LOW)";
+        }
+    }
     @Override
     public String toString() {
         return "[" + getTaskStatus() + "] " + description;

@@ -49,14 +49,34 @@ public class Storage {
                 String str = sc.nextLine();
                 String[] taskDetails = str.split(" \\| ");
                 Task task = new Task("");
-
                 if (taskDetails[0].equals("T")) {
                     task = new Todo(taskDetails[2]);
+                    if (taskDetails[3].equals("(HIGH)")) {
+                        task.changePriority(1);
+                    } else if (taskDetails[3].equals("(MEDIUM)")) {
+                        task.changePriority(2);
+                    } else {
+                        task.changePriority(3);
+                    }
                 } else if (taskDetails[0].equals("D")) {
                     task = new Deadline(taskDetails[2], taskDetails[3]);
+                    if (taskDetails[4].equals("(HIGH)")) {
+                        task.changePriority(1);
+                    } else if (taskDetails[4].equals("(MEDIUM)")) {
+                        task.changePriority(2);
+                    } else {
+                        task.changePriority(3);
+                    }
                 } else if (taskDetails[0].equals("E")) {
                     String[] eventDetails = taskDetails[3].split(" to ");
                     task = new Event(taskDetails[2], eventDetails[0], eventDetails[1]);
+                    if (taskDetails[4].equals("(HIGH)")) {
+                        task.changePriority(1);
+                    } else if (taskDetails[4].equals("(MEDIUM)")) {
+                        task.changePriority(2);
+                    } else {
+                        task.changePriority(3);
+                    }
                 } else {
                     System.out.println("Unknown task in file");
                 }
