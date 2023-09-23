@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.TextAlignment;
 
 /**
  * An example of a custom control using FXML.
@@ -33,12 +32,12 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            dialog.setTextAlignment(TextAlignment.RIGHT);
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         dialog.setText(text);
+        dialog.setAlignment(Pos.TOP_RIGHT);
         displayPicture.setImage(img);
     }
 
@@ -50,7 +49,7 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
-        dialog.setTextAlignment(TextAlignment.LEFT);
+        dialog.setAlignment(Pos.TOP_LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {

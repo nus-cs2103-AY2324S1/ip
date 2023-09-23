@@ -72,7 +72,7 @@ public class TaskList {
     public String markTask(String input) {
         int starEyesEmoji = 0x1F929;
         String output = "good job, you've completed a task! You're so productive!"
-                + new String(Character.toChars(starEyesEmoji)) + "\n";
+                + new String(Character.toChars(starEyesEmoji)) + "\n\n";
         String parts[] = input.split(" ");
 
         int taskNo = Integer.parseInt(parts[1]);
@@ -94,7 +94,7 @@ public class TaskList {
         Task checkedTask = this.taskList.get(taskNo - 1);
 
         checkedTask.markAsUndone();
-        String output = "why are you not going to " + checkedTask.description + "? remember to do it later!\n";
+        String output = "why are you not going to " + checkedTask.description + "? remember to do it later!\n\n";
         output += checkedTask.toString();
         return output;
     }
@@ -289,7 +289,8 @@ public class TaskList {
                 + "6. To delete a task: delete [task number]\n"
                 + "7. To find a task: find [task details]\n"
                 + "8. To list all the tasks: list\n"
-                + "9. To clear all your tasks: clear\n";
+                + "9. To clear all your tasks: clear\n"
+                + "10. To exit the chat: bye\n";
         return output;
     }
 
