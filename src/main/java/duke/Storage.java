@@ -26,7 +26,7 @@ public class Storage {
     }
 
     /**
-     * Prints the contents of the task list.
+     * Prints the contents of the File tasks.
      */
     public String printFileContents() {
         try {
@@ -48,7 +48,9 @@ public class Storage {
     }
 
     /**
-     * Writes the task list contents to the file.
+     * Writes the contents of a TaskList to a file.
+     *
+     * @param taskList The TaskList containing tasks to be written to the file.
      */
     public void writeToFile(TaskList taskList) {
         try {
@@ -61,8 +63,9 @@ public class Storage {
     }
 
     /**
-     * Loads task data from the file.
+     * Loads tasks from a file, creating the file and directory if they do not exist.
      *
+     * @throws DukeException If there is an error creating the file or directory, or an I/O error occurs.
      */
     public void loadTasks() throws DukeException {
         File file = new File(this.filePath);
@@ -84,5 +87,4 @@ public class Storage {
             throw new DukeException("Error while creating the file: " + e.getMessage());
         }
     }
-
 }

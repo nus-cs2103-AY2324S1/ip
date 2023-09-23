@@ -1,6 +1,5 @@
 package duke;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -11,42 +10,31 @@ import java.util.Collections;
  * The TaskList class manages a list of tasks and provides methods to interact with and manipulate the tasks.
  */
 public class TaskList {
-    private static File taskList;
     private static int taskCount = 0;
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
     private final Ui ui = new Ui();
-    private Storage storage;
+    private final Storage storage;
 
     /**
-     * Constructs a TaskList instance with the specified file containing task data.
+     * Constructs a TaskList instance with the specified Storage object.
      *
-     * @param storage The file containing task data.
+     * @param storage The Storage object used to manage task data.
      */
     public TaskList(Storage storage) {
         this.storage = storage;
     }
 
     /**
-     * Constructs a TaskList instance with a default file path for task data.
-     */
-    public TaskList() {
-        taskList = new File("./src/main/data/tasklist.txt");
-    }
-    public ArrayList<Task> getTasks() {
-        return tasks;
-    }
-
-    /**
-     * Prints the contents of the task list.
+     * Prints the contents of the file storing the tasks.
      */
     public String handleList() {
         return storage.printFileContents();
     }
 
     /**
-     * Displays the task list as a formatted string.
+     * Displays the list of tasks as a formatted string.
      *
-     * @return The formatted string representation of the task list.
+     * @return A string containing the list of tasks, or an error message if the list is empty.
      */
     public String displayList() {
         StringBuilder res;
@@ -67,10 +55,10 @@ public class TaskList {
     }
 
     /**
-     * Displays the task list as a formatted string.
+     * Generates a formatted string representation of a list of tasks.
      *
-     * @param tasks the task list to be displayed
-     * @return The formatted string representation of the task list.
+     * @param tasks The list of tasks to display.
+     * @return A string containing the formatted list of tasks.
      */
     public static String displayList(ArrayList<Task> tasks) {
         String res = "";
@@ -248,8 +236,5 @@ public class TaskList {
     public String returnSortedList() {
         Collections.sort(tasks);
         return ui.getSortedMessage() + displayList();
-    }
-    public File getFile() {
-        return taskList;
     }
 }
