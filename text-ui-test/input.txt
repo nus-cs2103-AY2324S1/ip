@@ -1,0 +1,32 @@
+todo read book
+list
+deadline return book /by Sunday
+event project meeting /from 2010-12-03T10:15:30 /to 2011-12-03T09:15:15
+list
+test
+test2
+deadline fix dates /by 2007-12-03T10:15:30
+event bad event /to 4pm from 2pm
+event weirdly timed event /from apples /to oranges
+event redundant arguments /from apples /to oranges /bad test
+mark 1
+list
+mark 2
+list
+unmark 2
+list
+mark 500
+list
+find book
+find apples
+find event
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 1
+delete 500
+list
+bye
