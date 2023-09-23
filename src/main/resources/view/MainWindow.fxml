@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?> <!-- Add import for HBox -->
+<?import javafx.scene.layout.VBox?>
+
+<?import java.net.URL?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MainWindow">
+    <stylesheets>
+        <URL value="@main-interface.css" />
+    </stylesheets>
+    <children>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="520.0" prefWidth="400.0" vvalue="1.0" AnchorPane.bottomAnchor="80.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefWidth="388.0"> <!-- Removed prefHeight -->
+                </VBox>
+            </content>
+        </ScrollPane>
+        <HBox layoutX="10.0" layoutY="520.0" spacing="5.0"> <!-- Add HBox to contain TextField and Button -->
+            <children>
+                <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0"
+                           style="-fx-padding: 5px; -fx-font-size: 14px;" /> <!-- Added wrapText and adjusted styling -->
+                <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="76.0" text="Send" />
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
