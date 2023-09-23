@@ -9,23 +9,20 @@ import jelly.task.Task;
  * Responsible for the interface of the Jelly Chat Bot.
  */
 public class Ui {
-    private Scanner sc;
-
+    private final Scanner sc;
     /**
      * Constructor for Ui, takes in user input from the keyboard.
      */
     public Ui() {
         sc = new Scanner(System.in);
     }
-
     /**
      * Prints out a welcome message when the Chat Bot is booted up.
      */
-    public String startUpMessage() {
+    public String showWelcomeMessage() {
         return ("Hello! I'm Jelly\n"
                 + "What can I do for you?");
     }
-
     /**
      * Reads the command inputted by the user.
      *
@@ -36,12 +33,12 @@ public class Ui {
     }
 
     /**
-     * If there is an error, diplay it to the user.
+     * If there is an error, display it to the user.
      *
      * @param message The error message.
      */
     public String displayErrorMessage(String message) {
-        return (message);
+        return (message + "\n");
     }
 
     /**
@@ -56,14 +53,13 @@ public class Ui {
         }
         return listOfTasks;
     }
-
     /**
      * Displays a completion message after successfully adding a task to the list.
      *
      * @param addedTask The task that was added.
      * @param noOfTasks The total number of tasks in the list after adding.
      */
-    public String addedTaskMessage(Task addedTask, int noOfTasks) {
+    public String showTaskAdded(Task addedTask, int noOfTasks) {
         return ("Ok! I've added this task: \n" + addedTask.toString() + "\n"
                 + "Now you have " + noOfTasks + " tasks in the list.");
     }
@@ -74,7 +70,7 @@ public class Ui {
      * @param deletedTask The task that was deleted.
      * @param noOfTasks The total number of tasks in the list after deletion.
      */
-    public String deleteMessage(Task deletedTask, int noOfTasks) {
+    public String showTaskDeleted(Task deletedTask, int noOfTasks) {
         return ("Okay, I've removed this task: \n" + deletedTask + "\n"
                 + "Now you have " + noOfTasks + " in the list.");
     }
@@ -82,7 +78,7 @@ public class Ui {
     /**
      * Displays a final message to the user before the Chat Bot shuts down.
      */
-    public String byeMessage() {
+    public String showByeMessage() {
         return ("Bye mate! Have a nice day :]");
     }
 }

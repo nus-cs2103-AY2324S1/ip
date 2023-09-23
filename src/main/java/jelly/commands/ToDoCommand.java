@@ -5,6 +5,9 @@ import jelly.main.TaskList;
 import jelly.main.Ui;
 import jelly.task.Todo;
 
+/**
+ * Responsible for logic regarding todo tasks.
+ */
 public class ToDoCommand extends Command {
     private String description;
 
@@ -17,6 +20,6 @@ public class ToDoCommand extends Command {
         Todo todoTask = new Todo(description);
         taskList.add(todoTask);
         storage.saveAndExit(taskList);
-        return ui.addedTaskMessage(todoTask, taskList.size());
+        return ui.showTaskAdded(todoTask, taskList.size());
     }
 }

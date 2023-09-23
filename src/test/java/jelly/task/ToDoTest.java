@@ -1,4 +1,4 @@
-package Jelly.task;
+package jelly.task;
 
 import org.junit.jupiter.api.Test;
 

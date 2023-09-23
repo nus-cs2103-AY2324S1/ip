@@ -30,10 +30,11 @@ public class Parser {
         assert command != null : "Command cannot be empty";
         try {
             String[] stringArray = command.split(" ");
+            if (stringArray[0].equals("bye")) {
+                return new ByeCommand();
+            }
             if (stringArray[0].equals("list")) {
                 return new ListCommand();
-            } else if (stringArray[0].equals("bye")) {
-                return new ByeCommand();
             } else if (stringArray[0].startsWith("mark")) {
                 if (stringArray.length == 1) {
                     throw new JellyBlankMessageException("mark");

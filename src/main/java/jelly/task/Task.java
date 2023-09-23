@@ -25,7 +25,6 @@ public class Task {
      */
     public String getTaskStatus() {
         return (isDone ? "X" : " ");
-        // if task is done, mark it with an X
     }
 
     /**

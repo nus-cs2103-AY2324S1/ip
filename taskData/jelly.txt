@@ -1,2 +1,4 @@
-T | 1 | this thing
-D | 0 | do this thing  | 19/10/2020 1900
+D | 0 | do this  | sunday 2pm
+T | 0 | this thing 
+T | 1 | three things 
+

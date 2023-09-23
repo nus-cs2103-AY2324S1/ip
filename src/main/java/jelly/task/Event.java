@@ -25,8 +25,8 @@ public class Event extends Task {
      * Constructor for an event task.
      *
      * @param description The description of the task.
-     * @param from The date/date and time which the task begins.
-     * @param to The date/date and time which the task ends.
+     * @param from        The date/date and time which the task begins.
+     * @param to          The date/date and time which the task ends.
      */
     public Event(String description, String from, String to) {
         super(description);
@@ -49,7 +49,6 @@ public class Event extends Task {
         } else if (fromDateTime != null) {
             fromWhen = fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
         }
-
         if (toDate != null) {
             toWhen = toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
         } else if (toDateTime != null) {
@@ -88,6 +87,7 @@ public class Event extends Task {
 
     /**
      * Parses the date and time given for the task.
+     *
      * @param dateTime The start date and time of the task.
      * @return The parsed date and time, or null if incorrect format.
      */

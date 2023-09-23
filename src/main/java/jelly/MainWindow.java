@@ -34,7 +34,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         Ui helloUi = new Ui();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getJellyDialog(helloUi.startUpMessage(), jellyImage));
+        dialogContainer.getChildren().addAll(DialogBox.getJellyDialog(helloUi.showWelcomeMessage(), jellyImage));
     }
 
     public void setJelly(Jelly j) {

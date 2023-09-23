@@ -1,8 +1,8 @@
-package Jelly.main;
+package jelly.main;
 
 
-import Jelly.task.Task;
-import Jelly.task.Todo;
+import jelly.task.Task;
+import jelly.task.Todo;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

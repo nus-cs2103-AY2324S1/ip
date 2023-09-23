@@ -16,7 +16,6 @@ import jelly.task.Todo;
  * Stores and loads tasked based on the specified file path.
  */
 public class Storage {
-    private static final String FILE_PATH = "./taskData/jelly.txt";
 
     private String filePath;
 
@@ -44,8 +43,6 @@ public class Storage {
                 data.getParentFile().mkdirs();
                 return storage;
             }
-
-            int index = storage.size();
             Scanner sc = new Scanner(data);
 
             while (sc.hasNextLine()) {
@@ -63,14 +60,12 @@ public class Storage {
                 } else {
                     System.out.println("Unknown task in file");
                 }
-
                 if (taskDetails[1].equals("1")) {
                     task.markAsDone();
                 } else {
                     task.markAsUndone();
                 }
                 storage.add(task);
-                index++;
             }
             return storage;
         } catch (IOException e) {
@@ -86,7 +81,6 @@ public class Storage {
     public void saveAndExit(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-
             for (int i = 0; i < taskList.size(); i++) {
                 fileWriter.write(taskList.get(i).writeToFile() + "\n");
             }

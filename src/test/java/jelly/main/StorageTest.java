@@ -1,9 +1,9 @@
-package Jelly.main;
+package jelly.main;
 
-import Jelly.exceptions.JellyException;
-import Jelly.task.Deadline;
-import Jelly.task.Task;
-import Jelly.task.Todo;
+import jelly.exceptions.JellyException;
+import jelly.task.Deadline;
+import jelly.task.Task;
+import jelly.task.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
