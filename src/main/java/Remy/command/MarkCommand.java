@@ -13,6 +13,9 @@ import remy.task.TaskList;
  */
 public class MarkCommand extends Command {
     public static final String COMMAND_WORD = "mark";
+
+    /* Define and compile the regex pattern */
+    public static final Pattern PATTERN = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
     private int index;
 
     /**
@@ -25,16 +28,17 @@ public class MarkCommand extends Command {
     // Source: https://github.com/se-edu/addressbook-level2
     public MarkCommand(String input) throws ChatbotException {
 
-        // Define and compile the regex pattern
-        Pattern pattern = Pattern.compile("^mark\\s+(\\d+)$", Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(input);
+        Matcher matcher = PATTERN.matcher(input);
 
+        // Wrong input
         if (!matcher.matches()) {
-            throw new ChatbotException("missing info lah.");
+            throw new ChatbotException("missing info lah. You must give a number.");
         }
 
+        // Obtain index
         int index = Integer.parseInt(matcher.group(1)) - 1;
 
+        // Check index is valid
         if (index < 0) {
             throw new ChatbotException("invalid index bro");
         }

@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(String input) throws ChatbotException {
         if (input.length() < 8) {
-            throw new ChatbotException("missing info lah.");
+            throw new ChatbotException("missing info lah. Use delete X, where X is a number >0.");
         }
         int index = Integer.parseInt(input.substring(7)) - 1;
 

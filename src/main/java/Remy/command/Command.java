@@ -7,13 +7,14 @@ import remy.task.TaskList;
 
 
 /**
- * A representation of a Command that parses user input and follows-up with the relevant action.
+ * Represents a Command that parses user input and follows-up with the relevant action.
  */
 public abstract class Command {
 
     /**
-     * Whether the Task should trigger the end of the current Chatbot session.
+     * Determines whether the Task should trigger the end of the current Chatbot session.
      * False by default, and overriden by the ExitCommand.
+     *
      * @return boolean indicating Exit status.
      */
     public boolean isExit() {
@@ -22,10 +23,10 @@ public abstract class Command {
 
     /**
      * Performs the action associated with the Task on the given TaskList.
-     * @param tasks The TaskList to be acted on.
-     * @param ui Handles User interaction.
+     *
+     * @param tasks   The TaskList to be acted on.
+     * @param ui      Handles User interaction.
      * @param storage Handles saving the updated TaskList.
-     * @throws ChatbotException
      */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws ChatbotException;
 }

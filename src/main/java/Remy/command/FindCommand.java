@@ -14,12 +14,13 @@ import remy.task.TaskList;
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
-    // Regex pattern for "find {keyword}" format
+    /* Regex pattern for "find {keyword}" format */
     private static final Pattern FIND_PATTERN = Pattern.compile("^find\\s+(\\S+)$", Pattern.CASE_INSENSITIVE);
     private String searchString;
 
     /**
      * Constructs a new FindCommand if input is of the correct format.
+     *
      * @param input Command typed by the user.
      * @throws ChatbotException if input is in the wrong format or is missing information.
      */
@@ -28,7 +29,7 @@ public class FindCommand extends Command {
         if (matcher.matches()) {
             this.searchString = matcher.group(1).toLowerCase();
         } else {
-            throw new ChatbotException("format wrong bro");
+            throw new ChatbotException("format wrong bro. You need to type something after the keyword.");
         }
     }
 

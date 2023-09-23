@@ -16,6 +16,9 @@ import remy.task.Todo;
  */
 public class TodoCommand extends Command {
     public static final String COMMAND_WORD = "todo";
+
+    /* Define the regular expression pattern */
+    public static final Pattern PATTERN = Pattern.compile("todo\\s+(\\S+)(?:\\s+/p\\s+(\\S+))?");
     private String taskName;
     private String priority;
 
@@ -29,20 +32,15 @@ public class TodoCommand extends Command {
         if (input.length() < 6) {
             throw new ChatbotException("missing info lah.");
         }
-        // Define the regular expression pattern
-        String pattern = "todo\\s+([^/]+)\\s+/p\\s+(\\S+)";
-
-        // Create a Pattern object
-        Pattern regex = Pattern.compile(pattern);
 
         // Create a Matcher object
-        Matcher matcher = regex.matcher(input);
+        Matcher matcher = PATTERN.matcher(input);
 
         if (!matcher.matches()) {
-            throw new ChatbotException("wrong format lah");
+            throw new ChatbotException("wrong format lah. Use todo TASKNAME {/p high/medium/low}.");
         }
 
-        // Extract the task name and priority
+        // Extract the task name
         this.taskName = matcher.group(1);
 
         // Check priority and assign if correct

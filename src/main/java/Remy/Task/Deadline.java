@@ -14,7 +14,7 @@ public class Deadline extends Task {
      * Constructs new Deadline object with a description and a due date.
      * Due date is stored in dd MMM yyyy format (e.g. 15 Oct 2023).
      * @param description Name of Deadline.
-     * @param by Due date of Deadline. Should be in yyyy-MM-dd format.
+     * @param by Due date of Deadline. Should be in yyyy-mm-dd format.
      * @throws DateTimeParseException if given due date is in incorrect format.
      */
     public Deadline(String description, String by) throws DateTimeParseException {
@@ -41,7 +41,6 @@ public class Deadline extends Task {
 
     /**
      * Returns String representation of Deadline.
-     * @return String representation of Deadline.
      */
     @Override
     public String toString() {

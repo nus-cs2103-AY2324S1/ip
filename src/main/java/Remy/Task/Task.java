@@ -34,14 +34,15 @@ public class Task implements Serializable {
     }
 
     /**
-     * Displays status icon [ ] or [X] depending on Task isDone value.
-     *
-     * @return String [ ] or [X]
+     * Returns String [ ] if task is not done, and [X] if it is done.
      */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]");
     }
 
+    /**
+     * Returns the description (usually name) of a task.
+     */
     public String getDescription() {
         return this.description;
     }
@@ -61,20 +62,17 @@ public class Task implements Serializable {
     }
 
     /**
-     * String representation of Task, including Status icon and Task name.
-     *
-     * @return String representation of Task, including Status icon and Task name.
+     * Returns String representation of Task, including Status icon and Task name.
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + this.description + " " + this.getPriorityString();
+        return getStatusIcon() + " " + this.description + this.getPriorityString();
     }
 
     /**
      * Returns a String representation of the Task's priority.
-     * @return
      */
     public String getPriorityString() {
-        return this.priority == null ? "" : "(priority: " + this.priority + ")";
+        return this.priority == null ? "" : " (priority: " + this.priority + ")";
     }
 }

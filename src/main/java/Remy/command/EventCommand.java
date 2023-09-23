@@ -1,6 +1,7 @@
 package remy.command;
 
 import remy.ChatbotException;
+import remy.Parser;
 import remy.Storage;
 import remy.Ui;
 import remy.task.Event;
@@ -17,29 +18,45 @@ public class EventCommand extends Command {
 
     /**
      * Creates new Event command that parses user input and check that the format is correct.
+     *
      * @param input The String submitted by the user to the Chatbot.
      * @throws ChatbotException if input is missing information, or in the wrong format.
      */
     public EventCommand(String input) throws ChatbotException {
-        if (input.length() < 7) {
+        // Check input has minimum number of characters required
+        if (input.length() < 39) {
             throw new ChatbotException("missing info lah.");
         }
+
+        // split input into eventName, startDate, endDate
         String[] parts = input.substring(6).split(" /from | /to ");
-        if (parts.length == 3) {
-            this.eventName = parts[0];
+
+        // Check input has all required information
+        if (parts.length != 3) {
+            throw new ChatbotException("missing info lah. Use event EVENTNAME /from yyyy-mm-dd /to yyyy-mm-dd.");
+        }
+
+        // Store event name
+        this.eventName = parts[0];
+
+        // Check validity of start date and store
+        if (Parser.checkValidDate(parts[1])) {
             this.startDate = parts[1];
+        }
+
+        // Check validity of end date and store
+        if (Parser.checkValidDate(parts[2])) {
             this.endDate = parts[2];
-        } else {
-            throw new ChatbotException("missing info lah.");
         }
     }
 
 
     /**
      * Creates new Event and adds it to the TaskList.
+     *
      * @param taskList The TaskList to be acted on.
-     * @param ui Handles User interaction.
-     * @param storage Handles saving the updated TaskList.
+     * @param ui       Handles User interaction.
+     * @param storage  Handles saving the updated TaskList.
      * @throws ChatbotException if error while saving.
      */
     @Override
