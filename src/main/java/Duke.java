@@ -49,14 +49,15 @@ public class Duke {
     public String getResponse(String command) {
         ArrayList<Task> tasks = new ArrayList<>(100);
         loadTasksFromFile(tasks);
+        StringBuilder response = new StringBuilder();
         try{
             if (command.equalsIgnoreCase("bye")) {
-                System.out.println("Bye. Hope to see you again soon!");
+                response.append("Bye. Hope to see you again soon!");
 
             } else if (command.equalsIgnoreCase("list")) {
-                System.out.println("Here are the tasks in your list:");
+                response.append("Here are the tasks in your list:");
                 for (int i = 0; i < tasks.size(); i++) {
-                    System.out.println((i + 1) + ". " + tasks.get(i));
+                    response.append((i + 1) + ". " + tasks.get(i));
                 }
             } else if (command.startsWith("todo")) {
                 String description = command.substring(5).trim();
@@ -64,8 +65,8 @@ public class Duke {
                     throw new DukeException("The description of a todo cannot be empty.");
                 }
                 tasks.add(new Todo(description));
-                System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                response.append("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                response.append("Now you have " + tasks.size() + " tasks in the list.");
             } else if (command.startsWith("deadline")) {
                 // Parse the date and time in the format d/M/yyyy HHmm
                 String[] parts = command.split(" /by ");
@@ -76,39 +77,39 @@ public class Duke {
                 LocalDateTime dateTime = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
 
                 tasks.add(new Deadline(description, dateTime));
-                System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                response.append("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                response.append("Now you have " + tasks.size() + " tasks in the list.");
             } else if (command.startsWith("event")) {
                 String description = command.substring(6, command.indexOf("/from")).trim();
                 String from = command.substring(command.indexOf("/from") + 6, command.indexOf("/to")).trim();
                 String to = command.substring(command.indexOf("/to") + 4).trim();
                 tasks.add(new Event(description, from, to));
-                System.out.println("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
-                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                response.append("Got it. I've added this task:\n  " + tasks.get(tasks.size() - 1));
+                response.append("Now you have " + tasks.size() + " tasks in the list.");
             } else if (command.startsWith("mark")) {
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     tasks.get(index).markDone();
-                    System.out.println("Nice! I've marked this task as done:\n  " + tasks.get(index));
+                    response.append("Nice! I've marked this task as done:\n  " + tasks.get(index));
                 } else {
-                    System.out.println("Invalid task index.");
+                    response.append("Invalid task index.");
                 }
             } else if (command.startsWith("unmark")) {
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     tasks.get(index).markNotDone();
-                    System.out.println("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
+                    response.append("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
                 } else {
-                    System.out.println("Invalid task index.");
+                    response.append("Invalid task index.");
                 }
             }  else if (command.startsWith("delete")) {
                 int index = Integer.parseInt(command.split(" ")[1]) - 1;
                 if (index >= 0 && index < tasks.size()) {
                     Task removedTask = tasks.remove(index);
-                    System.out.println("Noted. I've removed this task:\n  " + removedTask);
-                    System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+                    response.append("Noted. I've removed this task:\n  " + removedTask);
+                    response.append("Now you have " + tasks.size() + " tasks in the list.");
                 } else {
-                    System.out.println("Invalid task index.");
+                    response.append("Invalid task index.");
                 }
             } else if (command.startsWith("find")) {
                 String keyword = command.substring(5).trim();
@@ -118,9 +119,9 @@ public class Duke {
             }
             saveTasksToFile(tasks);
         } catch (DukeException e) {
-            System.out.println("☹ OOPS!!! " + e.getMessage());
+            response.append("☹ OOPS!!! " + e.getMessage());
         }
-        return "";
+        return response.toString();
     }
 
     private static String formatDate(LocalDate date) {
