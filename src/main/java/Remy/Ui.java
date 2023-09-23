@@ -24,8 +24,6 @@ public class Ui {
 
     /**
      * Returns Remy's welcome message which is shown when the application starts.
-     *
-     * @return
      */
     public static String getWelcomeMessage() {
         return WELCOME_MESSAGE;
@@ -33,30 +31,27 @@ public class Ui {
 
     /**
      * Returns Remy's exit message which is shown when user types Exit Command.
-     *
-     * @return
      */
     public static String getExitMessage() {
         return EXIT_MESSAGE;
     }
 
     public static String formatError(String errorMessage) {
-        return "❗❗❗" + errorMessage + "❗❗❗";
+        return "Error: " + errorMessage;
     }
 
     /**
      * Prints out the "Successfully added task" message with the following details:
      * 1. String representation of Task added
      * 2. Total tasks in the taskList.
+     *
      * @param task Task that has been added.
-     * @param num Number of tasks in the TaskList (after adding).
-     * @return
+     * @param num  Number of tasks in the TaskList (after adding).
      */
     public static String getAddedTaskMessage(Task task, int num) {
         String taskWord = num == 1 ? "task" : "tasks";
-        String content = "Added, now scram.\n" + task.toString() + "\n"
+        return "Added, now scram.\n" + task.toString() + "\n"
                 + "Now you have " + num + " " + taskWord + " in the list.";
-        return content;
     }
 
 }

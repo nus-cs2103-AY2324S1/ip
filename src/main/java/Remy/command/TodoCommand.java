@@ -56,7 +56,7 @@ public class TodoCommand extends Command {
      * @param taskList The TaskList to be acted on.
      * @param ui       Handles User interaction.
      * @param storage  Handles saving the updated TaskList.
-     * @throws ChatbotException
+     * @throws ChatbotException if there is missing information or wrong syntax.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws ChatbotException {
