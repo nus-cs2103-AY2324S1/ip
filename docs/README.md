@@ -123,12 +123,12 @@ Saved items (if found) will be loaded up upon loading the program
 ## Feature Summary  
 | Action | Format |
 | --- | --- |
-| [Viewing task list: `list`](#viewing-task-list-list) | `list` |
-| [Viewing in-app user guide: `help`](#viewing-in-app-user-guide-help) | `help` |
-| [Adding a To-do task: `todo`](#adding-a-to-do-task-todo) | `todo TASK_NAME` |
-| [Adding a Deadline task: `deadline`](#adding-a-deadline-task-deadline) | `deadline TASK_NAME /by [deadline]` |
-| [Adding an Event task: `event`](#adding-an-event-task-event) | `event TASK_NAME /from [start-date] /to [end-date]` |
-| [Mark / unmark tasks as complete: `mark` / `unmark`](#mark--unmark-tasks-as-complete-mark--unmark) | `mark X` / `unmark X` |
-| [Delete tasks: `delete`](#delete-tasks-delete) | `delete X` |
-| [Search for tasks using keyword: `find`](#search-for-tasks-using-keyword-find) | `find KEYWORD` |
-| [Exit the program: `bye`](#exit-the-program-bye) | `bye` | 
+| Viewing task list: `list` | `list` |
+| Viewing in-app user guide: `help` | `help` |
+| Adding a To-do task: `todo` | `todo TASK_NAME` |
+| Adding a Deadline task: `deadline` | `deadline TASK_NAME /by [deadline]` |
+| Adding an Event task: `event` | `event TASK_NAME /from [start-date] /to [end-date]` |
+| Mark / unmark tasks as complete: `mark` / `unmark` | `mark X` / `unmark X` |
+| Delete tasks: `delete` | `delete X` |
+| Search for tasks using keyword: `find` | `find KEYWORD` |
+| Exit the program: `bye` | `bye` | 
