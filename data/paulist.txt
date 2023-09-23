@@ -1,2 +1,1 @@
-T | 0 | dance
-E | 0 | night cycling  |  fri 9pm  |  sat 3am
+E | 1 | night cycling  |  fri 9pm  |  sat 3am

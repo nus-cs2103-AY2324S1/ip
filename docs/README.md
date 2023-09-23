@@ -1,29 +1,27 @@
-# User Guide
+### PAU CHATBOT
 
-## Features 
+Looking for a chatbot that is
 
-### Feature-ABC
+- [x] your personal assistant,
+- [x] your virtual sidekick,
+- [x] and your ultimate taskmaster?
 
-Description of the feature.
+Meet PAU, your **adorable** digital companion in the world of productivity🤩! Pau is not just any chatbot; Pau
 
-### Feature-XYZ
+- keeps track of your tasks _effortlessly_
+- helps you stay on top of your deadlines
+- and is your trusted calendar
 
-Description of the feature.
+> "Procrastination is the thief of time" -Edward Young
 
-## Usage
+Here's how you can get a PAU:
+1. Download PAU [here](https://github.com/czhiruo/ip)
+2. Give PAU some tasks
+3. PAU is ready to help you😍
 
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
+Here's a look into Pau's `main` method:
+```java
+    public static void main(String[] args) {
+        new Pau("./data/paulist.txt").run();
+    }
 ```
