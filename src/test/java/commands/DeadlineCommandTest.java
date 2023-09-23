@@ -12,7 +12,7 @@ import ui.UI;
 public class DeadlineCommandTest {
 
     @Test
-    public void testExecuteCommand_missingKeyword_throwsDukeException() {
+    public void missingKeyword() {
         Parser parse = new Parser();
         UI ui = new UI();
         Actions actions = new Actions();
@@ -21,7 +21,7 @@ public class DeadlineCommandTest {
     }
 
     @Test
-    public void testExecuteCommand_validInput_taskAdded() {
+    public void taskAdded() {
         Parser parse = new Parser();
         UI ui = new UI();
         Actions actions = new Actions();

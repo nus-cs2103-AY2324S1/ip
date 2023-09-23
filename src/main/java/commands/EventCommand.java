@@ -6,15 +6,32 @@ import parser.Parser;
 import tasks.Event;
 import ui.UI;
 
+/**
+ * Represents the "event" command to add an event task.
+ *
+ */
 public class EventCommand extends Command {
     private final String input;
     private final Parser parser;
 
+    /**
+     * Initializes an EventCommand with the given input string and parser.
+     *
+     * @param input The input string provided by the user.
+     * @param parser The parser used to parse the input.
+     */
     public EventCommand(String input, Parser parser) {
         this.input = input;
         this.parser = parser;
     }
 
+    /**
+     * Executes the EventCommand by adding an event task to the task list.
+     *
+     * @param ui The UI instance.
+     * @param actionList The list of tasks.
+     * @throws DukeException To handle incorrect input format.
+     */
     @Override
     public void executeCommand(UI ui, Actions actionList) throws DukeException {
         if (!input.contains("/from") || !input.contains("/to")) {
