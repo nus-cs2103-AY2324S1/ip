@@ -11,6 +11,7 @@ Use can view the user guide [here](https://yeobohshin.github.io/ip/).
 4. Type in this command into the terminal to run the chat bot.
    
        java -jar Aikent.jar
+
 ## Commands 
 Aikent bot will response to certain commands
 ### Add ToDo Task
