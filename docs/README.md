@@ -38,8 +38,8 @@ Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 
 
 Examples:
-* `event recess week /from Week 6 Friday /to Week 7 Monday`
-* `event Chinese New Year /from 10th February 2024 /to 11th February 2024` 
+* `event recess week /from 2023-09-22 /to 2023-10-01`
+* `event Chinese New Year /from 2023-02-10 /to 2023-02-11`
 
 ### Listing all tasks - `list`
 
