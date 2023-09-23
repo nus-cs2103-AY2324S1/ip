@@ -40,9 +40,11 @@ public class AddCommand extends Command {
                     break;
             }
 
-            System.out.println("Got it. I've added this task:");
-            System.out.println(newTask);
-            Ui.printLine();
+            if (newTask != null) {
+                System.out.println("Got it. I've added this task:");
+                System.out.println(newTask);
+                Ui.printLine();
+            }
         } catch (StringIndexOutOfBoundsException e) {
             System.out.println("Invalid command. Type \"help\" to see the " +
                             "list of available commands.");
