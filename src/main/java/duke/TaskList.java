@@ -7,19 +7,10 @@ public class TaskList {
     private final List<Task> tasks;
 
     /**
-     * Constructs a empty TaskList.
+     * Constructs an empty TaskList.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
-    }
-
-    /**
-     * Constructs a TaskList with the list of tasks.
-     *
-     * @param tasks  The list of the tasks.
-     */
-    public TaskList (List<Task> tasks) {
-        this.tasks = new ArrayList<>(tasks);
     }
 
     /**
@@ -95,5 +86,15 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Loads tasks from a specified file path.
+     *
+     * @param filePath The path to the file from which tasks will be loaded.
+     */
+    public void loadTasksFromFile(String filePath) {
+        Ui ui = new Ui();
+        ui.loadTasks(filePath);
     }
 }

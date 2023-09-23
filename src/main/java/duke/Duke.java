@@ -14,19 +14,16 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Duke extends Application {
-    private static final int MAX_TASKS = 100;
     private static final String DATA_FILE_PATH = "./docs/duke.txt";
 
-    private static TaskList tasks = new TaskList();
-    private static Ui ui = new Ui();
-    private static Storage storage = new Storage(DATA_FILE_PATH);
+    final private static TaskList tasks = new TaskList();
+    final private static Ui ui = new Ui();
+    final private static Storage storage = new Storage(DATA_FILE_PATH);
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
-    private Image biubiu = new Image(this.getClass().getResourceAsStream("/images/BiuBiu.jpg"));
+    final private Image user = new Image(this.getClass().getResourceAsStream("/images/User.jpg"));
+    final private Image biubiu = new Image(this.getClass().getResourceAsStream("/images/BiuBiu.jpg"));
 
     /**
      * The main entry point of the Duke program.
@@ -34,21 +31,11 @@ public class Duke extends Application {
      * @param args  Command-line arguments (not used).
      */
     public static void main (String[] args) {
-        ui.showWelcome();
-
-        try {
-            tasks = ui.loadTasks("./docs/duke.txt");
-        } catch (Exception e) {
-            ui.showLoadingError();
-        }
-
         boolean isExit = false;
 
         while(!isExit) {
             String userCommand = ui.readCommand();
-            isExit = ui.handleCommand(userCommand, tasks, storage) == ui.showExit()
-                    ? true
-                    : false;
+            isExit = ui.handleCommand(userCommand, tasks, storage).equals(ui.showExit());
         }
     }
 
@@ -60,12 +47,12 @@ public class Duke extends Application {
         scrollPane.setContent(dialogContainer);
 
         userInput = new TextField();
-        sendButton = new Button("Send");
+        Button sendButton = new Button("Send");
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
-        scene = new Scene(mainLayout);
+        Scene scene = new Scene(mainLayout);
 
         stage.setScene(scene);
         stage.show();
@@ -131,5 +118,14 @@ public class Duke extends Application {
      */
     public String getResponse (String input) {
         return ui.handleCommand(input, tasks, storage);
+    }
+
+    /**
+     * Retrieves the current TaskList instance.
+     *
+     * @return The TaskList instance containing tasks.
+     */
+    public TaskList getTaskList() {
+        return tasks;
     }
 }

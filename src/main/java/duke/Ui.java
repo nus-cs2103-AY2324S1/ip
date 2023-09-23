@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Ui {
-    private Scanner scanner;
-    private boolean hasDisplayedWelcome = false;
+    final private Scanner scanner;
+
+    final private Duke duke = new Duke();
 
     /**
      * Constructs a Ui object.
@@ -34,7 +35,7 @@ public class Ui {
      * @return  A TaskList containing the loaded tasks.
      */
     public TaskList loadTasks(String filePath) {
-        TaskList tasks = new TaskList();
+        TaskList tasks = duke.getTaskList();
         File file = new File(filePath);
         if (!file.exists()) {
             System.out.println("Data file does not exist.");
@@ -55,7 +56,7 @@ public class Ui {
 
             }
         } catch (IOException e) {
-            System.out.println("Error loading tasks.");
+            System.out.println("Error loading tasks from the file.");
         }
         return tasks;
     }
@@ -90,7 +91,7 @@ public class Ui {
      * @return      True if the program should exit.
      */
     public String handleCommand(String userCommand, TaskList tasks, Storage storage) {
-        String output = "";
+        String output;
         try {
             String[] parts = userCommand.split(" ", 2);
             String commandType = parts[0].toLowerCase();
@@ -289,7 +290,7 @@ public class Ui {
         }
         String[] updateParts = parts[1].split(" /");
         String updateType = updateParts[1].toLowerCase();
-        String output = "";
+        String output;
 
         switch(updateType) {
         case "descr":
@@ -348,7 +349,7 @@ public class Ui {
     }
 
     /**
-     * Updates the start time of a Event.
+     * Updates the start time of an Event.
      *
      * @param updateParts  An array containing the update command.
      * @param tasks   A TaskList containing tasks.
@@ -366,7 +367,7 @@ public class Ui {
     }
 
     /**
-     * Updates the end time of a Event.
+     * Updates the end time of an Event.
      *
      * @param updateParts  An array containing the update command.
      * @param tasks   A TaskList containing tasks.
@@ -381,13 +382,6 @@ public class Ui {
 
         task.updateEndTime(endTime);
         return "nice! task " + (index + 1) + " has new end time now!";
-    }
-
-    /**
-     * Displays a welcome message.
-     */
-    public String showWelcome() {
-        return "Hi, I'm BiuBiu.\nWhat can I do for you?";
     }
 
     /**
@@ -458,13 +452,6 @@ public class Ui {
         String output =  "Noted, I've marked this task as not done yet:";
         output += "\n  " + task;
         return output;
-    }
-
-    /**
-     * Displays an loading error message.
-     */
-    public String showLoadingError() {
-        return "Error loading tasks from file.";
     }
 
     /**

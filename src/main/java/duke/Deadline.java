@@ -17,7 +17,7 @@ public class Deadline extends Task {
      * Constructs a Deadline task.
      *
      * @param description   The description of the task.
-     * @param deadlineString  The deadline date string in "yyyy-MM-dd format.
+     * @param deadlineString  The deadline date string in "yyyy-MM-dd" format.
      */
     public Deadline(String description, String deadlineString) {
         super(description);

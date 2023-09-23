@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    private String filePath;
+    final private String filePath;
 
     /**
      * Constructs a Storage object.
