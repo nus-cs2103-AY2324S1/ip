@@ -76,7 +76,7 @@ public class Ui {
         this.output += "Here are the matching tasks in your list: \n " +
                 "________________________________________\n";
         for (Task thing: list) {
-            this.output = this.output + index + ". " + thing + "\n";
+            this.output = this.output + index + ". " + thing + "\n";http://{your username}.github.io/{repo name}/
             index++;
         }
         this.output = this.output + "________________________________________\n";

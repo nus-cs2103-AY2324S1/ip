@@ -47,7 +47,7 @@ public class Duke extends Application{
 
     public Duke() throws Exception {
         try {
-            String filePath = "/Users/william/Desktop/ip/src/main/java/data/zenith.txt";
+            String filePath = "./data/zenith.txt";
             loadFile = new LoadFile(filePath);
             TaskList lst = new TaskList();
             loadFile.load();
@@ -100,7 +100,7 @@ public class Duke extends Application{
     public void start(Stage stage) throws Exception{
         try {
             initialization(stage);
-            String filePath = "/Users/william/Desktop/ip/src/main/java/data/zenith.txt";
+            String filePath = "./data/zenith.txt";
             loadFile = new LoadFile(filePath); //soutd to string
             TaskList lst = new TaskList();
             loadFile.load();

@@ -33,6 +33,11 @@ public class TaskList {
         return input.trim();
     }
 
+    /**
+     * Converts a string representation of an event into an Event object and adds it to the list.
+     *
+     * @param arr The array containing the parts of the event string.
+     */
     private void stringDeadline(String[] arr) {
         String firstBy = arr[1].substring(arr[1].indexOf("/by") + 4);
         String secondBy = firstBy.substring(0, firstBy.indexOf("|"));
@@ -51,6 +56,12 @@ public class TaskList {
             list.add(deadline);
         }
     }
+
+    /**
+     * Converts a string representation of an event into an Event object and adds it to the list.
+     *
+     * @param arr The array containing the parts of the event string.
+     */
     private void stringEvent(String[] arr) {
         String firstFrom = arr[1].substring(arr[1].indexOf("/from") + 6); //
         String secondFrom = firstFrom.substring(0, firstFrom.indexOf("/to"));
@@ -114,6 +125,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the "bye" command and displays a goodbye message.
+     *
+     * @param ui The UI object for displaying messages.
+     * @return A string representation of the goodbye message.
+     */
     public String stringBye(Ui ui) {
         Ui bye = new Ui();
         bye.bye();
@@ -121,12 +138,27 @@ public class TaskList {
         return bye.toString();
     }
 
+    /**
+     * Handles the "list" command and displays the list of tasks.
+     *
+     * @param ui The UI object for displaying messages.
+     * @param onetwo A string indicating whether there is one or more than one task.
+     * @return A string representation of the task list.
+     */
     public String stringList(Ui ui, String onetwo) {
         ui.currentlist((list.size()), onetwo);
         assert ui.toString() != null : "ui.toString() cannot be null";
         return List() + ui.toString();
     }
 
+    /**
+     * Handles the "delete" command and deletes a task from the list.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param ui The UI object for displaying messages.
+     * @param onetwo A string indicating whether there is one or more than one task.
+     * @return A string representation of the updated task list.
+     */
     public String stringDelete(Parser parser, Ui ui, String onetwo){
         try {
             String[] arr = parser.getArr();
@@ -148,6 +180,14 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the "mark" command and marks a task as done.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param onetwo A string indicating whether there is one or more than one task.
+     * @param ui The UI object for displaying messages.
+     * @return A string representation of the updated task list.
+     */
     public String stringMark(Parser parser, String onetwo, Ui ui) {
         try {
             String[] arr = parser.getArr();
@@ -171,6 +211,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the "find" command and searches for tasks containing a specific substring.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param ui The UI object for displaying messages.
+     * @return A string representation of the matching tasks.
+     */
     public String stringFind(Parser parser,  Ui ui) {
         String subString = parser.getArr()[1];
         List<Task> matchingList = new ArrayList<>();
@@ -184,6 +231,14 @@ public class TaskList {
         return ui.toString();
     }
 
+    /**
+     * Handles the "unmark" command and unmarks a previously marked task.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param onetwo A string indicating whether there is one or more than one task.
+     * @param ui The UI object for displaying messages.
+     * @return A string representation of the updated task list.
+     */
     public String stringUnmark(Parser parser, String onetwo, Ui ui) {
         try {
             String[] arr = parser.getArr();
@@ -203,6 +258,17 @@ public class TaskList {
             return ui.toString();
         }
     }
+
+    /**
+     * Handles the "event" command and adds an event task to the list.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param onetwo A string indicating whether there is one or more than one task.
+     * @param ui The UI object for displaying messages.
+     * @param zenithData The path to the data file.
+     * @return A string representation of the updated task list.
+     * @throws Exception If an error occurs during execution.
+     */
 
     public String stringEvent(Parser parser, String onetwo, Ui ui, String zenithData) throws Exception{
         String[] arr = parser.getArr();
@@ -229,6 +295,15 @@ public class TaskList {
         assert ui.toString() != null : "ui.toString() cannot be null";
         return ui.toString();
     }
+
+    /**
+     * Handles the "deadline" command and adds a deadline task to the list.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param ui The UI object for displaying messages.
+     * @param onetwo A string indicating whether there is one or more than one task.
+     * @return A string representation of the updated task list.
+     */
     public String stringDeadline(Parser parser,Ui ui, String onetwo) {
         String[] arr = parser.getArr();
         String by = arr[1].substring(arr[1].indexOf("/by") + 4);
@@ -245,6 +320,16 @@ public class TaskList {
         return ui.toString();
     }
 
+    /**
+     * Handles the "todo" command and adds a todo task to the list.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param ui The UI object for displaying messages.
+     * @param onetwo A string indicating whether there is one or more than one task.
+     * @param zenithData The path to the data file.
+     * @return A string representation of the updated task list.
+     * @throws Exception If an error occurs during execution.
+     */
     public String stringToDo(Parser parser,Ui ui, String onetwo, String zenithData) throws Exception{
         try {
             String[] arr = parser.getArr();
@@ -262,6 +347,13 @@ public class TaskList {
         }
     }
 
+    /**
+     * Handles the case where the user input is empty and returns a message.
+     *
+     * @param parser The parser object for parsing user input.
+     * @param ui The UI object for displaying messages.
+     * @return A string representation of a message indicating empty input.
+     */
     public String stringEmpty(Parser parser, Ui ui) {
         try {
             String[] arr = parser.getArr();
