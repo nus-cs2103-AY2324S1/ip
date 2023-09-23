@@ -1,23 +1,23 @@
 package jelly.main;
 
-import jelly.exceptions.JellyException;
-import jelly.task.Deadline;
-import jelly.task.Task;
-import jelly.task.Todo;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import org.junit.jupiter.api.Test;
+
+import jelly.exceptions.JellyException;
+import jelly.task.Deadline;
+import jelly.task.Task;
+import jelly.task.Todo;
+
 
 public class StorageTest {
     @Test
     public void startUpTest() throws IOException, JellyException {
-        File tempTasks = File.createTempFile("tempTasks",".txt");
+        File tempTasks = File.createTempFile("tempTasks", ".txt");
 
         String filePath = tempTasks.getAbsolutePath();
         Storage storage = new Storage(filePath);

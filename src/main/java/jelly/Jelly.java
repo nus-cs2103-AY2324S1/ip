@@ -1,7 +1,5 @@
 package jelly;
 
-import java.util.Scanner;
-
 import jelly.commands.Command;
 import jelly.exceptions.JellyException;
 import jelly.main.Parser;
