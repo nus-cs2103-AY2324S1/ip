@@ -32,8 +32,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns the string representation of this Deadline task, which includes the task type,
-     * status icon, task description, and the deadline date/time.
+     * Returns the string representation of this Deadline task, which includes the task type identifier "[D]",
+     * marking status, task description, and the deadline date/time.
      *
      * @return The string representation of this Deadline task.
      */

@@ -1,15 +1,15 @@
 package tasks;
 
 /**
- * Represents a Todo task, which is a subclass of Task.
- * A Todo task is characterized by its description and does not have a specific date/time associated with it.
+ * Represents a Todo task, which extends the Task class.
+ * A Todo task is characterized by its description.
  */
 public class Todo extends Task {
 
     /**
      * Constructs a Todo object with a given description.
      *
-     * @param description The description or title of the todo task.
+     * @param description The description.
      */
     public Todo(String description) {
         super(description);

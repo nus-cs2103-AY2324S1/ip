@@ -11,7 +11,7 @@ import ui.UI;
 
 /**
  * Represents the main chatbot. Manages the user interface, task list, command parsing,
- * and saving/loading tasks to/from a file.
+ * and saving/loading tasks to/from duke.txt.
  */
 public class Duke {
     private final UI ui = new UI();
@@ -21,7 +21,7 @@ public class Duke {
 
     /**
      * Constructs a Duke chatbot instance.
-     * On instantiation, is tasks exist in the duke.txt file, they are loaded.
+     * On instantiation loads tasks from duke.txt (if it exists).
      */
     public Duke() {
         ArrayList<Task> loadedTasks = savior.loadTasks();
@@ -57,7 +57,6 @@ public class Duke {
 
     /**
      * The entry point for the chatbot.
-     *
      */
     public static void main(String[] args) {
         Duke duke = new Duke();

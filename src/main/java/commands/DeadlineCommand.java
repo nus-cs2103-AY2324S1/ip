@@ -7,7 +7,7 @@ import tasks.Deadline;
 import ui.UI;
 
 /**
- * Represents the "deadline" command to add a deadline task.
+ * Represents the command to add a deadline task.
  */
 public class DeadlineCommand extends Command {
     private final String input;
@@ -16,7 +16,7 @@ public class DeadlineCommand extends Command {
     /**
      * Initializes a DeadlineCommand with the given input string and parser.
      *
-     * @param input The input string provided by the user.
+     * @param input The input string.
      * @param parser The parser used to parse the input.
      */
     public DeadlineCommand(String input, Parser parser) {
@@ -41,7 +41,7 @@ public class DeadlineCommand extends Command {
         String description = deadlineParts[0].trim();
         Deadline deadline = new Deadline(description, deadlineParts[1].trim());
         actionList.add(deadline);
-        ui.lineSandwich("Got it. I've added this task:\n "
-                + deadline + "\nNow you have " + actionList.size() + " tasks in the list.");
+        ui.lineSandwich(" Got it. I've added this task:\n  "
+                + deadline + "\n Now you have " + actionList.size() + " tasks in the list.");
     }
 }

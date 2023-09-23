@@ -38,7 +38,7 @@ public class ScheduleCommand extends Command {
         LocalDateTime dateToShow = dateUtility.stringToDate(dateInput);
         List<Task> tasksOnDate = actionList.tasksOnDate(dateToShow);
         if (tasksOnDate.isEmpty()) {
-            ui.lineSandwich(" No tasks found on " + dateUtility.dateToString(dateToShow) + ".");
+            ui.lineSandwich(" No tasks found on " + dateUtility.dateToString(dateToShow) + ":(");
         } else {
             StringBuilder tasksMessage = new StringBuilder();
             for (int i = 0; i < tasksOnDate.size(); i++) {

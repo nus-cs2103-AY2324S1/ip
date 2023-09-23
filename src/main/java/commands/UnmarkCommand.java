@@ -35,7 +35,7 @@ public class UnmarkCommand extends Command {
         if (resultingTask != null) {
             ui.lineSandwich(" Well, you changed your mind :(. Just this once:\n " + resultingTask);
         } else {
-            ui.lineSandwich(" Task number does not exist, review input.");
+            ui.lineSandwich(" Unmarking failed; specified task does not exist.");
         }
     }
 }

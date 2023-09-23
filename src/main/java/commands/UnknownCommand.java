@@ -23,8 +23,8 @@ public class UnknownCommand extends Command {
      * that the entered command is unsupported.
      *
      * @param ui The UI instance through which the error message is displayed.
-     * @param actionList The list of tasks. This parameter is not used in this context
-     *                   but is included to maintain a consistent method signature with other commands.
+     * @param actionList The list of tasks. Not used in this context,
+     *                   included to maintain a consistent method signature.
      */
     @Override
     public void executeCommand(UI ui, Actions actionList) {

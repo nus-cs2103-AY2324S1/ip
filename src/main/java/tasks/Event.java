@@ -45,8 +45,8 @@ public class Event extends Task {
     }
 
     /**
-     * Returns the string representation of this Event task, which includes the task type,
-     * status icon, task description, and the duration of the event.
+     * Returns the string representation of this Event task, which includes the task type identifier "[E]",
+     * marking status icon, task description, and the duration of the event.
      *
      * @return The string representation of this Event task.
      */

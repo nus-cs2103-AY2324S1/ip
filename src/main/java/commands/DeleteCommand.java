@@ -6,14 +6,13 @@ import tasks.Task;
 import ui.UI;
 
 /**
- * Represents the "delete" command which deletes the specified task.
- *
+ * Represents the command which deletes the specified task.
  */
 public class DeleteCommand extends Command {
     private int deleteTaskNumber;
 
     /**
-     * Initializes a DeleteCommand with the task number of the task to be deleted.
+     * Initializes a DeleteCommand with the task number of the task.
      *
      * @param deleteTaskNumber The task number of the task to be deleted.
      */
@@ -22,7 +21,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the DeleteCommand by deleting the specified task from the task list.
+     * Executes the DeleteCommand by deleting the specified task from the action list.
      * If successful, it will confirm the deletion to the user through the UI.
      * Otherwise, it will throw an exception.
      *
@@ -37,7 +36,7 @@ public class DeleteCommand extends Command {
             ui.lineSandwich(" Noted. I've removed this task:\n  " + deletedTask + "\n Now you have "
                     + actionList.size() + " tasks in the list.");
         } else {
-            throw new DukeException(" tasks.Task does not exist, please review input");
+            throw new DukeException(" Deletion failed; specified task does not exist.");
         }
     }
 }

@@ -68,14 +68,14 @@ public class Parser {
             return new EventCommand(inputParts.length > 1 ? inputParts[1] : "", this);
         case "delete":
             if (inputParts.length < 2) {
-                throw new DukeException(" Please provide a task number. "
+                throw new DukeException(" Provide a task number. "
                         + "Format: delete [int task number > 0]");
             }
             int deleteTaskNumber;
             try {
                 deleteTaskNumber = Integer.parseInt(splitInput(inputParts[1])[0]) - 1;
             } catch (NumberFormatException invalidInt) {
-                throw new DukeException(" Hmmm, your input format for deleting tasks is incorrect;"
+                throw new DukeException(" Hmmm, your input format for deleting tasks is incorrect;\n"
                         + " Format: delete [int task number > 0]");
             }
             return new DeleteCommand(deleteTaskNumber);

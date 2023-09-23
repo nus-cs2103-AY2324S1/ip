@@ -4,12 +4,12 @@ import data.Actions;
 import ui.UI;
 
 /**
- * Represents the "bye" command to terminate the chatbot
+ * Represents the command to terminate the chatbot
  */
 public class ByeCommand extends Command {
 
     /**
-     * Executes the ByeCommand by sending a farewell message to the user.
+     * Executes the ByeCommand by outputting a exit message.
      *
      * @param ui The UI instance.
      * @param actionList The list of tasks.

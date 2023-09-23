@@ -8,7 +8,7 @@ import duke.DukeException;
 
 /**
  * Represents a task with a description and a completion status.
- * This is the base class for the tasks such as Todo, Deadline, and Event.
+ * This is the base class for the tasks.
  */
 public class Task {
     protected String description;
@@ -90,7 +90,7 @@ public class Task {
 
     /**
      * Returns a formatted string representing the task.
-     * The format depends on the specific type of task (Todo, Deadline, or Event).
+     * The format depends on the specific type of task.
      *
      * @return The formatted string representation of the task.
      */

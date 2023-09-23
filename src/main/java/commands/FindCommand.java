@@ -6,8 +6,7 @@ import tasks.Task;
 import ui.UI;
 
 /**
- * Represents the "find" command to search for all tasks matching the keyword.
- *
+ * Represents the command to search for all tasks matching the keyword.
  */
 public class FindCommand extends Command {
     private final String keyword;
@@ -23,8 +22,7 @@ public class FindCommand extends Command {
 
     /**
      * Executes the FindCommand by searching through the task list for tasks
-     * that match the given keyword. Matches are accumulated and then displayed
-     * to the user.
+     * that match the given keyword. Matches are accumulated and then displayed.
      *
      * @param ui The UI instance.
      * @param actionList The list of tasks to search through.

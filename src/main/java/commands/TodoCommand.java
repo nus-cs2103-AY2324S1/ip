@@ -33,7 +33,7 @@ public class TodoCommand extends Command {
     public void executeCommand(UI ui, Actions actionList) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException(" Provide the description. "
-                    + "Format: todo task");
+                    + "\n Format: todo task");
         }
         Todo task = new Todo(description);
         actionList.add(task);

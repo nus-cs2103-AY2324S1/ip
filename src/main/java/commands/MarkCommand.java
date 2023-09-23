@@ -35,7 +35,7 @@ public class MarkCommand extends Command {
         if (resultingTask != null) {
             ui.lineSandwich(" Fine. Marked this task as done, better not change your mind:\n " + resultingTask);
         } else {
-            ui.lineSandwich(" Task number does not exist, review input.");
+            ui.lineSandwich(" Marking failed; specified task does not exist.");
         }
     }
 }
