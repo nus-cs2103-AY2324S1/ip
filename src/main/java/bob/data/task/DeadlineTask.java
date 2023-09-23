@@ -19,15 +19,10 @@ public class DeadlineTask extends Task {
      * @param description The description of the task.
      * @param deadlineDate The datetime of the deadline of the task.
      */
-    public DeadlineTask(String description, String deadlineDate) {
+    public DeadlineTask(String description, String deadlineDate) throws DateTimeParseException {
         super(description);
-        try {
-            this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            this.deadlineDate = LocalDateTime.parse(deadlineDate, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("There was an error parsing the date given.");
-            e.printStackTrace();
-        }
+        this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        this.deadlineDate = LocalDateTime.parse(deadlineDate, formatter);
     }
 
     /**

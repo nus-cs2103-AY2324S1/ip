@@ -3,6 +3,7 @@ package bob.data.task;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 
 import bob.data.exception.DukeException;
@@ -75,7 +76,7 @@ public class TaskList {
      * @return A string describing the task that was added.
      * @throws DukeException If the EventTask is instantiated with invalid dates.
      */
-    public String addTaskWithCommand(Parser.CommandType command, String input) throws DukeException {
+    public String addTaskWithCommand(Parser.CommandType command, String input) throws DukeException, DateTimeException {
         assert command != null : "command should not be null";
         assert input != null : "input should not be null";
         Task taskToAdd;
