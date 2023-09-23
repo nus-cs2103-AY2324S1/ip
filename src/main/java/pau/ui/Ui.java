@@ -21,7 +21,7 @@ public class Ui {
      * The introduction the chatbot prints everytime it is run.
      */
     public String introduction() {
-        return " HI! I'm " + botName + "\n" + "ENTERTAIN MEEE \n";
+        return " HI! I'm " + botName + "\n";
     }
 
     /**

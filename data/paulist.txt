@@ -1,1 +1,4 @@
-E | 1 | night cycling  |  fri 9pm  |  sat 3am
+T | 0 | sleep
+T | 0 | buy toto
+T | 0 | sleep
+T | 0 | sleep

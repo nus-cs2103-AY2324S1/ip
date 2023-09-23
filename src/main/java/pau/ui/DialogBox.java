@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.TextAlignment;
 
 /**
  * An example of a custom control using FXML.
@@ -25,12 +26,14 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+            dialog.setTextAlignment(TextAlignment.RIGHT);
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -47,14 +50,20 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.setTextAlignment(TextAlignment.LEFT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.dialog.setStyle("-fx-background-color: #e1e1fe; -fx-background-radius: 20; "
+                + "-fx-padding: 10; -fx-font-family: Monospaced");
+        return db;
     }
 
     public static DialogBox getPauDialog(String text, Image img) {
         var db = new DialogBox(text, img);
+        db.dialog.setStyle("-fx-background-color: #ffe5ec; -fx-background-radius: 20; "
+                + "-fx-padding: 10; -fx-font-family: Monospaced");
         db.flip();
         return db;
     }

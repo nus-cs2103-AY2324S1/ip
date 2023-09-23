@@ -43,6 +43,10 @@ public class TaskList {
         return taskList.get(index);
     }
 
+    public String taskListSizeString() {
+        return "there are still " + listSize() + " task(s) to complete";
+    }
+
     /**
      * Prints out a list of the tasks the user has.
      */
@@ -51,7 +55,7 @@ public class TaskList {
             int starEyesEmoji = 0x1F929;
             return "yay you don't have anything to do" + new String(Character.toChars(starEyesEmoji));
         } else {
-            String output = "sian you still have to complete these:\n";
+            String output = "sian you still have to complete these:\n\n";
             for (int i = 0; i < this.listSize(); i++) {
                 Task curr = this.taskList.get(i);
                 output += (i + 1) + ". " + curr.toString() + "\n";
@@ -114,9 +118,9 @@ public class TaskList {
                 output = "good job! you're officially done with this:\n";
             } else {
                 output = "not you running away from your responsibilities, "
-                        + "i guess you don't have to do this now:\n";
+                        + "i guess you don't have to do this now:\n\n";
             }
-            output += checkedTask.toString() + "\n";
+            output += checkedTask.toString() + "\n\n";
         } catch (NoSuchTaskException e) {
             return "there is no such task!!";
         }
@@ -145,8 +149,8 @@ public class TaskList {
 
             this.taskList.add(item);
             if (input.contains("todo")) {
-                output = "todo added: " + item.toString() + "\n";
-                output += "You have this many stuff to complete: " + this.listSize();
+                output = "todo added: " + "\n" + item.toString() + "\n\n";
+                output += taskListSizeString();
             }
             return output;
         } catch (NoDescException e) {
@@ -174,8 +178,8 @@ public class TaskList {
             Deadline item = new Deadline(parts[0].replace("deadline ", ""), parts[1]);
             this.taskList.add(item);
             if (input.contains("deadline")) {
-                output = "deadline added: " + item.toString() + "\n";
-                output += "You have this many stuff to complete: " + this.listSize();
+                output = "deadline added: " + "\n" + item.toString() + "\n\n";
+                output += taskListSizeString();
             }
             return output;
         } catch (NoDescException e) {
@@ -205,8 +209,8 @@ public class TaskList {
             Event item = new Event(parts[0].replace("event ", ""), time[0], time[1]);
             this.taskList.add(item);
             if (input.contains("event")) {
-                output = "event added: " + item.toString() + "\n";
-                output += "You have this many stuff to complete: " + this.listSize() + "\n";
+                output = "event added: " + "\n" + item.toString() + "\n\n";
+                output += taskListSizeString();
             }
             return output;
         } catch (NoDescException e) {
@@ -222,7 +226,7 @@ public class TaskList {
     public String findTask(String input) {
         String parts[] = input.split("find ");
         String keyword = parts[1];
-        String output = "Pau found these: \n";
+        String output = "Pau found these: \n\n";
 
         int count = 0;
         for (int i = 0; i < listSize(); i++) {
@@ -284,7 +288,25 @@ public class TaskList {
                 + "5. To unmark a task: unmark [task number]\n"
                 + "6. To delete a task: delete [task number]\n"
                 + "7. To find a task: find [task details]\n"
-                + "8. To list all the tasks: list\n";
+                + "8. To list all the tasks: list\n"
+                + "9. To clear all your tasks: clear\n";
         return output;
+    }
+
+    /**
+     * Clears all the tasks in the task list.
+     *
+     * @return Message that states if clearing of tasks is successful.
+     */
+    public String clear() {
+        String output;
+        taskList = new ArrayList<>();
+        if (taskList.size() == 0) {
+            output = "you have somehow cleared all your tasks at once";
+            return output;
+        } else {
+            output = "hmm, i couldn't clear all your tasks at once";
+            return output;
+        }
     }
 }
