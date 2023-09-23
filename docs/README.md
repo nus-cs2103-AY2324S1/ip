@@ -1,8 +1,8 @@
 # Ally's User Guide
-What is Ally? Ally is an amazing application that is optimised for use via a Command Line Interface (CLI) while still having a Graphical User Interface(GUI), so it would bore you out! As a fast typist with 200 wpm, Ally can manage you tasks faster than your normal GUI apps.
+What is Ally? Ally is an amazing application that is optimised for use via a Command Line Interface (CLI) while still having a Graphical User Interface(GUI), so it would not bore you out! As a fast typist with 200 wpm, Ally can manage you tasks faster than your normal GUI apps.
 ## Features 
 
-### Adding a Todo: todo
+### Adding a Todo: `todo`
 
 Add a todo task to your list of tasks.
 
@@ -12,7 +12,7 @@ Add a todo task to your list of tasks.
 - todo do CS2103T iP
 - todo CS2100 Tutorial
 
-### Adding a deadline: deadline
+### Adding a deadline: `deadline`
 
 Add a deadline to your list of tasks.
 
@@ -22,7 +22,7 @@ Add a deadline to your list of tasks.
 - deadline submit CS2103T iP /by 2023-09-22 2359
 - deadline do tutorial /by 2023-02-03 1800
   
-### Adding an event: event
+### Adding an event: `event`
 
 Add an event to your list of tasks.
 
@@ -32,13 +32,13 @@ Add an event to your list of tasks.
 - event taylor swift concert /from Sunday 2pm /to Monday 3pm
 - event study date /from Monday 1pm /to 7pm
 
-### Listing all tasks: list
+### Listing all tasks: `list`
 
 Shows a list of all the tasks added.
 
 **Format**: list
 
-### Finding a task: find
+### Finding a task: `find`
 
 Find tasks that contains the keyword in the description.
 
@@ -48,7 +48,7 @@ Find tasks that contains the keyword in the description.
 - find book
 - find concert
 
-### Deleting a task: delete
+### Deleting a task: `delete`
 
 Deletes a task from the list.
 
@@ -58,7 +58,7 @@ Deletes a task from the list.
 - delete 1
 - delete 2
 
-### Marking a task as done: mark
+### Marking a task as done: `mark`
 
 Marks a task from the list as done.
 
@@ -68,7 +68,7 @@ Marks a task from the list as done.
 - mark 1
 - mark 2
 
-### Marking a task as undone: unmark
+### Marking a task as undone: `unmark`
 
 Marks a task from the list as undone.
 
@@ -76,7 +76,7 @@ Marks a task from the list as undone.
 - unmark 1
 - unmark 2
 
-### Sorting the deadlines in the list: sort
+### Sorting the deadlines in the list: `sort`
 
 Sort the deadlines in the list chronologically.
 
@@ -85,7 +85,7 @@ Sort the deadlines in the list chronologically.
 **Examples**:
 - sort
 
-### Closing the application: bye
+### Closing the application: `bye`
 
 Displays a goodbye message for a few seconds before closing the application.
 
