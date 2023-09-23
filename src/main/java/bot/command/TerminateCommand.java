@@ -1,9 +1,9 @@
 package bot.command;
 
 public class TerminateCommand extends Command {
-    private static final String MESSAGE = "____________________________________________________________\n" +
+    private static final String MESSAGE = Command.SPACER + "\n" +
             " Bye. Hope to see you again soon!\n" +
-            "____________________________________________________________";
+            Command.SPACER;
 
     /**
      * Execute a series of instructions specific to terminating the Bot chatbot

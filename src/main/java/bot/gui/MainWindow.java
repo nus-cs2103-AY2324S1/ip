@@ -1,10 +1,15 @@
 package bot.gui;
 
 import bot.bot.Bot;
+import bot.command.Command;
+import bot.command.TerminateCommand;
+
 import bot.exception.DateTimeParseBotException;
 import bot.exception.FileErrorBotException;
 import bot.exception.IllegalExpressionBotException;
 import bot.exception.IncompleteBotException;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -55,9 +60,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        Command command = null;
         String response;
         try {
-            response = bot.getResponse(input);
+            command = bot.getCommand(input);
+            response = command.execute();
         } catch (DateTimeParseBotException |
         IllegalExpressionBotException | IOException | IncompleteBotException |
                 FileErrorBotException e) {
@@ -68,6 +75,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, botImage)
         );
+        if (command instanceof TerminateCommand) {
+            Platform.exit();
+        }
         userInput.clear();
     }
 }

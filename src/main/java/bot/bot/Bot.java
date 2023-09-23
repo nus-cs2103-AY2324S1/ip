@@ -32,10 +32,10 @@ public class Bot {
 
     }
 
-    public String getResponse(String string) throws DateTimeParseBotException,
+    public Command getCommand(String string) throws DateTimeParseBotException,
             IllegalExpressionBotException, IncompleteBotException, FileErrorBotException, IOException {
         Command command = controlFlow.execute(string);
-        return command.execute();
+        return command;
     }
 
     public String getGreeting() {
