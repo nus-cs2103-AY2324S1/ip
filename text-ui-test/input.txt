@@ -1,0 +1,34 @@
+todo read book
+deadline return book /by June 6th
+event project meeting /from Aug 6th 2pm /to 4pm
+todo join sports club
+todo borrow book
+%%%%%
+aldkgfkjhwabfrk
+todooo
+de3dline
+3v3nt
+todo
+deadline
+event
+mark 1
+mark 4
+list
+mark 2
+list
+unmark 2
+list
+unmark 3
+list
+
+deadline task without by
+event task without argument
+event task /from with one argument
+event task /to with one argument
+event task /by with wrong argument /to to
+event task /from without from and to but uses /by
+delete 1
+list
+mark 10
+mark 1 2
+bye
