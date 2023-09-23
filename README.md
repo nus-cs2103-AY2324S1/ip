@@ -1,24 +1,61 @@
-# Duke project template
+# Bocchi 🎸
+## Features 
+- Adding a task - todo / deadline / event
+- Deleting a task - delete
+- Viewing tasks - list
+- Marking a task - mark
+- Unmarking a task - unmark
+- Exit the program - bye
+  
+### Adding a task
+1. Add a task with no stipulated duration.
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+    > Format: todo {task name}
+    
+    `todo Sleep`
 
-## Setting up in Intellij
+2. Add a task with a deadline.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+    > Format: deadline {task name} /by {deadline}
+    
+    `deadline English homework /by 2023-11-22 23:59:59`
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+3. Add a task with a duration.
+
+    > Format: event {task name} /from {start} /to {end}
+
+    `event Badminton /from 2023-11-23 10:00:00 /to 2023-11-23 12:00:00`
+
+### Deleting a task
+Delete a task at a specified index.
+
+> Format: delete {index}`
+
+`delete 1`
+
+### Viewing your task list
+View your current tasks.
+
+> Format: list
+
+`list`
+
+### Marking a task
+Mark a task at a specified index as done.
+
+> Format: mark {index}
+
+`mark 1`
+
+### Unmarking a task
+Mark a task at a specified index as not done.
+
+> Format: unmark {index}
+
+`unmark 1`
+
+### Exit the program
+
+> Format: bye
+
+`bye`
