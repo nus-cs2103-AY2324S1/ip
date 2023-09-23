@@ -49,6 +49,10 @@ public class Storage {
             Scanner s = new Scanner(tasks);
             StringBuilder stringBuilder = new StringBuilder();
 
+            if (!s.hasNext()) {
+                return "Error: There are no items in the list!";
+            }
+
             while (s.hasNext()) {
                 stringBuilder.append(s.nextLine()).append(System.lineSeparator());
             }
