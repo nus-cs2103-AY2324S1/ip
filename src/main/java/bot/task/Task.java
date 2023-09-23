@@ -34,6 +34,7 @@ public abstract class Task {
      */
     public void setComplete() {
         this.isDone = true;
+        assert isDone : "isDone is not set correctly";
     }
 
     /**
@@ -41,6 +42,7 @@ public abstract class Task {
      */
     public void setIncomplete() {
         this.isDone = false;
+        assert !isDone : "isDone is not set correctly";
     }
 
     /**
@@ -73,10 +75,10 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        if (this.isDone) {
-            return Task.COMPLETE + this.name;
+        if (isDone) {
+            return Task.COMPLETE + name;
         } else {
-            return Task.INCOMPLETE + this.name;
+            return Task.INCOMPLETE + name;
         }
     }
 }

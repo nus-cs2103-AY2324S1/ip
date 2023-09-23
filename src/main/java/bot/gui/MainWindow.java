@@ -75,6 +75,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, botImage)
         );
+        assert response != null : "response should not be null";
         if (command instanceof TerminateCommand) {
             Platform.exit();
         }
