@@ -46,10 +46,10 @@ public class EditCommand extends Command {
         Task currTask = tasks.getList().get(taskIndex - 1);
 
         switch (operation) {
-            case "mark":
+            case "MARK":
                 currTask.setCompleted();
                 return ui.showMarkedTask(taskIndex, currTask);
-            case "unmark":
+            case "UNMARK":
                 currTask.setNotCompleted();
                 return ui.showUnmarkedTask(taskIndex, currTask);
             default:

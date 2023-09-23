@@ -2,7 +2,6 @@ package ui;
 
 import task.Task;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,30 +23,13 @@ public class Ui {
      *
      * @return The welcome message and logo.
      */
-    public static String showWelcome() {
+    public String showWelcome() {
         String name = "misty";
-        String logo = "|\\-----/|\n" +
+        String logo = "|\\---/|\n" +
                 "| o_o |\n" +
                 " \\___/";
-        return "Hello from " + name + "!\n" + logo +
+        return "Hello from " + name + "\n" + logo +
                 "\nWhat can misty help you with?";
-    }
-
-    /**
-     * Provides a message displaying the tasks scheduled for a specific date.
-     *
-     * @param schedule The list of tasks scheduled for the specific date.
-     * @return The message displaying the scheduled tasks.
-     */
-    public String showSchedule(List<Task> schedule) {
-        if (schedule.isEmpty()) {
-            return "You have no tasks scheduled for this date :)";
-        }
-        StringBuilder sb = new StringBuilder("Here are your tasks for this date:\n");
-        for (int i = 0; i < schedule.size(); i++) {
-            sb.append((i + 1)).append(") ").append(schedule.get(i)).append("\n");
-        }
-        return sb.toString().trim(); // Remove the trailing newline character
     }
 
     /**
@@ -76,7 +58,6 @@ public class Ui {
                 "unmark [task number] - Marks a task as incomplete\n" +
                 "delete [task number] - Deletes a task\n" +
                 "find - Find a task by searching for a keyword\n" +
-                "schedule [YYYY-MM-DD HH:mm] - View the schedule for a specific date.\n" +
                 "help - Shows command guide\n" +
                 "bye - Exits Duke";
     }
