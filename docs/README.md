@@ -1,5 +1,5 @@
 # User Guide
-   ```java
+   ```
    /* Welcome to
     ___ _  _ ___
    | _ \ || |_ _|
@@ -33,9 +33,12 @@ optimised for use via chatbot-like interface
 3. Copy the file to the folder you want to use as the *home folder* for your tasklist
 4. Double-click on the .jar file to run it. A GUI similar to the below should appear in a few seconds.
    - If this is your first time running the program, the app will come preloaded with sample data
-   - If not, the app will load previously the previously saved tasklist from the same directory
+   - If not, the app will load previously the previously saved tasklist from the same directory  
+
 ####Sample View  
-   ![Screenshot of the app at startup](./images/startup.png)
+   
+![Screenshot of the app at startup](./images/startup.png)  
+
 5. Type the command in the command box and press Enter to execute it.  
     e.g. typing `list` and pressing Enter will display the list of all tasks  
     Some example commands you can try:
@@ -120,12 +123,12 @@ Saved items (if found) will be loaded up upon loading the program
 ##Feature Summary  
 |Action|Format|
 |---|---|
-[Viewing task list: `list`](#viewing-task-list-list)|`list`
-[Viewing in-app user guide: `help`](#viewing-in-app-user-guide-help)|`help`
-[Adding a To-do task: `todo`](#adding-a-to-do-task-todo)|`todo TASK_NAME`
-[Adding a Deadline task: `deadline`](#adding-a-deadline-task-deadline)|`deadline TASK_NAME /by [deadline]`
-[Adding an Event task: `event`](#adding-an-event-task-event)|`event TASK_NAME /from [start-date] /to [end-date]`
-[Mark / unmark tasks as complete: `mark` / `unmark`](#mark--unmark-tasks-as-complete-mark--unmark)|`mark X` / `unmark X`
-[Delete tasks: `delete`](#delete-tasks-delete)|`delete X`
-[Search for tasks using keyword: `find`](#search-for-tasks-using-keyword-find)|`find KEYWORD`
-[Exit the program: `bye`](#exit-the-program-bye)|`bye` 
+|[Viewing task list: `list`](#viewing-task-list-list)|`list`|
+|[Viewing in-app user guide: `help`](#viewing-in-app-user-guide-help)|`help`|
+|[Adding a To-do task: `todo`](#adding-a-to-do-task-todo)|`todo TASK_NAME`|
+|[Adding a Deadline task: `deadline`](#adding-a-deadline-task-deadline)|`deadline TASK_NAME /by [deadline]`|
+|[Adding an Event task: `event`](#adding-an-event-task-event)|`event TASK_NAME /from [start-date] /to [end-date]`|
+|[Mark / unmark tasks as complete: `mark` / `unmark`](#mark--unmark-tasks-as-complete-mark--unmark)|`mark X` / `unmark X`|
+|[Delete tasks: `delete`](#delete-tasks-delete)|`delete X`|
+|[Search for tasks using keyword: `find`](#search-for-tasks-using-keyword-find)|`find KEYWORD`|
+|[Exit the program: `bye`](#exit-the-program-bye)|`bye`| 
