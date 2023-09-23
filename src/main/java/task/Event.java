@@ -102,4 +102,13 @@ public class Event extends Task {
     public String toFileString() {
         return TaskType.EVENT + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription() + " | " + getFrom().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")) + " | " + getTo().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
+
+    @Override
+    public LocalDateTime getDate() {
+        return from;
+    }
+
+    public LocalDateTime getToDate() {
+        return to;
+    }
 }

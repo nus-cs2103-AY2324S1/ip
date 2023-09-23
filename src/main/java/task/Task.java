@@ -63,6 +63,10 @@ public abstract class Task implements Completable, Describable {
         return task;
     }
 
+    public LocalDateTime getDate() {
+        return null; // Default implementation returns null
+    }
+
     private static Task createTaskBasedOnType(TaskType taskType, String[] parts, String taskName) {
         switch (taskType) {
             case TODO:

@@ -3,6 +3,8 @@ package parser;
 import command.*;
 import exception.DukeException;
 
+import java.time.LocalDate;
+
 /**
  * Parses user commands to create corresponding command.Command objects.
  */
@@ -65,6 +67,10 @@ public class Parser {
             return new FindCommand(fullCommand);
         } else if (fullCommand.toLowerCase().startsWith("help")) {
             return new HelpCommand();
+        } else if (fullCommand.toLowerCase().startsWith("schedule")) {
+            String dateStr = fullCommand.substring("schedule".length()).trim();
+            LocalDate date = LocalDate.parse(dateStr);
+            return new ViewScheduleCommand(date);
         } else {
             throw new DukeException("Please specify a valid command. For more info, use: help");
         }
