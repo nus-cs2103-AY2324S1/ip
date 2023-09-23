@@ -12,9 +12,10 @@ public class ListCommand extends Command {
 
     /**
      * Prints String representation of the current TaskList.
+     *
      * @param taskList The TaskList to be acted on.
-     * @param ui Handles User interaction.
-     * @param storage Handles saving the updated TaskList.
+     * @param ui       Handles User interaction.
+     * @param storage  Handles saving the updated TaskList.
      */
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) {

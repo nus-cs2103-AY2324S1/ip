@@ -13,7 +13,7 @@ import remy.task.TaskList;
 
 
 /**
- * A Command that creates and adds a Deadline to the TaskList upon executing.
+ * Creates and adds a Deadline to the TaskList upon execution.
  */
 public class DeadlineCommand extends Command {
     public static final String COMMAND_WORD = "deadline";
@@ -22,7 +22,8 @@ public class DeadlineCommand extends Command {
     private String priority;
 
     /**
-     * Creates new DeadLine command that parses user input and check that the format is correct.
+     * Checks that the format of the input is correct
+     * Creates new DeadLine command by parsing user input.
      *
      * @param input The String submitted by the user to the Chatbot.
      * @throws ChatbotException if input is missing information, or in the wrong format.
@@ -31,24 +32,25 @@ public class DeadlineCommand extends Command {
     // Source: https://github.com/se-edu/addressbook-level2
     public DeadlineCommand(String input) throws ChatbotException {
 
-        // Define the regex pattern for the "Deadline" command
-        String commandPattern = "^deadline\\s+(.+?)\\s+/by\\s+(\\d{4}-\\d{2}-\\d{2})\\s+/p\\s*(\\w+)?$";
-
-        // Compile the regex pattern
-        Pattern pattern = Pattern.compile(commandPattern, Pattern.CASE_INSENSITIVE);
-
-        // Create a Matcher to check if the input matches the pattern
+        // Checks if user input matches the deadline format
+        String regex = "^deadline\\s+(.+?)\\s+/by\\s+(\\S+)(?:\\s+/p\\s+(\\S+))?$";
+        Pattern pattern = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
 
+        // Throws exception if it does not match
         if (!matcher.matches()) {
-            throw new ChatbotException("missing info or wrong format");
+            throw new ChatbotException("missing info or wrong format lah. "
+                    + "Use deadline NAME /by STARTDATE {opt: /p high/medium/low}");
         }
 
         this.taskName = matcher.group(1);
-        this.dueDate = matcher.group(2);
 
-        // Check priority and assign if correct
-        // Throws exception if incorrect
+        // Checks date and assign if correct. Otherwise, throws exception.
+        if (Parser.checkValidDate(matcher.group(2))) {
+            this.dueDate = matcher.group(2);
+        }
+
+        // Checks priority and assign if correct. Otherwise, throws exception.
         if (Parser.checkValidPriority(matcher.group(3))) {
             this.priority = matcher.group(3);
         }
@@ -71,7 +73,7 @@ public class DeadlineCommand extends Command {
             storage.save(taskList);
             return Ui.getAddedTaskMessage(temp, taskList.size());
         } catch (DateTimeParseException e) {
-            throw new ChatbotException("You don't know how to write the time isit?: " + e.getMessage());
+            throw new ChatbotException("You don't know how to write a date isit?: " + e.getMessage());
         }
     }
 }

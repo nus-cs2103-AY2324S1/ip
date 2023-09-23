@@ -1,5 +1,8 @@
 package remy;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import remy.command.Command;
 import remy.command.DeadlineCommand;
 import remy.command.DeleteCommand;
@@ -53,11 +56,14 @@ public class Parser {
     /**
      * Returns true if a priority String matches either "high", "medium" or "low".
      *
-     * @param input
-     * @return
+     * @param input User input that might be a priority.
      */
     public static boolean checkValidPriority(String input) throws ChatbotException {
-        String formattedInput = input.toLowerCase();
+        if (input == null) {
+            return false;
+        }
+
+        String formattedInput = input.trim().toLowerCase();
         if (formattedInput.equals("high")
                 || formattedInput.equals("medium")
                 || formattedInput.equals("low")) {
@@ -66,5 +72,34 @@ public class Parser {
             throw new ChatbotException("Your inputted priority is: " + input + "\n"
                     + "Priority can only be 'high', 'medium', or 'low'.");
         }
+    }
+
+    /**
+     * Checks if a provided input is a date with yyyy-mm-dd format.
+     *
+     * @param input User input that might be a date.
+     */
+    public static boolean checkValidDate(String input) throws ChatbotException {
+        if (input == null) {
+            return false;
+        }
+
+        String formattedInput = input.trim();
+
+        // Define the regular expression pattern
+        String regex = "\\d{4}-\\d{2}-\\d{2}";
+
+        // Define the regex for the date format yyyy-mm-dd
+        Pattern pattern = Pattern.compile(regex);
+
+
+        // Create a Matcher to check if the input matches the pattern
+        Matcher matcher = pattern.matcher(formattedInput);
+
+        if (!matcher.matches()) {
+            throw new ChatbotException("Wrong date format lah. Use yyyy-mm-dd.");
+        }
+
+        return true;
     }
 }
