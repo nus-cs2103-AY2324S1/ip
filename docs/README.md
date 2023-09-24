@@ -160,6 +160,7 @@ There's no need to save manually.
 Whenever an error occurs, such as missing task description, Tasket will display the error message instead of result.
 
 ## Command summary
+
 | Command  | Format                                            | Example                                                                                                                                 |
 |----------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
 | todo     | `todo DESCRIPTION`                                | `todo read book`<br>`todo bake cake #dessert`                                                                                           |
@@ -171,4 +172,3 @@ Whenever an error occurs, such as missing task description, Tasket will display 
 | unmark   | `unmark INDEX`                                    | `unmark 2`                                                                                                                              |
 | find     | `find KEYWORD`                                    | `find book`                                                                                                                             |
 | bye      | `bye`                                             | `bye`                                                                                                                                   |
-  
