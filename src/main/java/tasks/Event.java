@@ -10,6 +10,7 @@ import dogebot.DateTimeHandler;
 public class Event extends Task {
     private DateTimeHandler start;
     private DateTimeHandler end;
+    private DateTimeHandler reminder;
 
     /**
      * Initializes an event task.
@@ -19,8 +20,8 @@ public class Event extends Task {
      * @param end End date and time.
      * @param isDone If the task has already been completed.
      */
-    public Event(String description, String start, String end, boolean isDone) {
-        super(description, isDone);
+    public Event(String description, String start, String end, boolean isDone, String reminder) {
+        super(description, isDone, reminder);
         this.start = new DateTimeHandler(start);
         this.end = new DateTimeHandler(end);
     }
@@ -37,7 +38,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "E | " + super.toString() + " | " + start.toString() + " - " + end.toString();
+        String reminderString = (super.reminder == null) ? "" : " | Reminder: " + super.reminder.toString();
+        return "E | " + super.toString() + " | " + start.toString() + " - " + end.toString() + reminderString;
     }
 
     /**
@@ -52,6 +54,12 @@ public class Event extends Task {
         String start = input.split("/from ")[1].split(" /to")[0];
         String end = input.split("/to ")[1];
 
-        return new String[] {taskDescription, start, end};
+        String reminderDate = null;
+        if (input.contains("r/")) {
+            String daysEarly = input.split("r/")[1];
+            reminderDate = processReminderDate(daysEarly, start);
+        }
+
+        return new String[] {taskDescription, start, end, reminderDate};
     }
 }

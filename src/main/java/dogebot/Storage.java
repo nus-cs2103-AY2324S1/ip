@@ -41,23 +41,26 @@ public class Storage {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
                 String s = reader.nextLine();
-                String[] sArray = s.split("\\|");
-                String description = sArray[2].trim();
-                boolean isDone = (sArray[1].trim().equals("1")) ? true : false;
+                String[] sArray = s.split(" \\| ");
+
+                boolean isDone = (sArray[1].equals("1")) ? true : false;
+                String description = sArray[2];
 
                 switch (sArray[0]) {
-                case "T ":
+                case "T":
                     tasks.add(new ToDos(description, isDone));
                     break;
-                case "D ":
-                    String by = sArray[3].trim();
-                    tasks.add(new Deadline(description, by, isDone));
+                case "D":
+                    String by = sArray[3];
+                    String reminder = (s.contains(" | Reminder: ")) ? s.split(" \\| Reminder: ")[1] : "";
+                    tasks.add(new Deadline(description, by, isDone, reminder));
                     break;
-                case "E ":
-                    String[] duration = sArray[3].split("-");
-                    String start = duration[0].trim();
-                    String end = duration[1].trim();
-                    tasks.add(new Event(description, start, end, isDone));
+                case "E":
+                    String[] duration = sArray[3].split(" - ");
+                    String start = duration[0];
+                    String end = duration[1];
+                    String eventReminder = (s.contains(" | Reminder: ")) ? s.split(" \\| Reminder: ")[1] : "";
+                    tasks.add(new Event(description, start, end, isDone, eventReminder));
                     break;
                 default:
                     break;

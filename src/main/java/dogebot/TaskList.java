@@ -159,8 +159,9 @@ public class TaskList {
         String[] processedInput = temp.processInput(input);
         String taskDescription = processedInput[0];
         String taskDeadline = processedInput[1];
+        String reminder = processedInput[2];
 
-        temp = new Deadline(taskDescription, taskDeadline, false);
+        temp = new Deadline(taskDescription, taskDeadline, false, reminder);
         tasks.add(temp);
 
         result.append("Mama mia ! I've just added this task:\n");
@@ -189,8 +190,9 @@ public class TaskList {
         String taskDescription = processedInput[0];
         String start = processedInput[1];
         String end = processedInput[2];
+        String reminder = processedInput[3];
 
-        temp = new Event(taskDescription, start, end, false);
+        temp = new Event(taskDescription, start, end, false, reminder);
         tasks.add(temp);
 
         result.append("Mama mia ! I've just added this task:\n");
@@ -257,6 +259,32 @@ public class TaskList {
             result.append(i++ + ". " + task.toString() + "\n");
         }
 
+        return result.toString();
+    }
+
+    /**
+     * Retrieves tasks with upcoming reminders.
+     *
+     * @return The list of tasks with upcoming reminders.
+     */
+    public static String reminder() {
+        ArrayList<Task> reminderList = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.hasUpcomingReminder()) {
+                reminderList.add(task);
+            }
+        }
+
+        if (reminderList.size() == 0) {
+            return "No upcoming reminders were found, you're set !";
+        }
+
+        StringBuilder result = new StringBuilder();
+        result.append("Here~ You have " + reminderList.size() + " upcoming reminders:\n");
+        int i = 1;
+        for (Task task : reminderList) {
+            result.append(i++ + ". " + task.toString() + "\n");
+        }
         return result.toString();
     }
 }
