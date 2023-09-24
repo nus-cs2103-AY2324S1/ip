@@ -41,7 +41,7 @@ public class TaskListTest {
         });
         assertEquals("As you wish. This task has been removed:\n[ ] fakeTask"
                         + "\nYou now have 0 tasks in your list.\nCongratulations!",
-                taskList.delete(0));
+                taskList.delete(1));
     }
 
 }

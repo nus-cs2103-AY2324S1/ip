@@ -34,7 +34,7 @@ public class ParserTest {
     @Test
     public void parse_listMultipleWords_reject() {
         try {
-            assertEquals(CommandParser.parse("list list").getClass(), MessageCommand.class);
+            assertEquals(CommandParser.parse("list list").getClass(), ListCommand.class);
             fail();
         } catch (ParsingException ignored) {
             // success case, ignore exception
