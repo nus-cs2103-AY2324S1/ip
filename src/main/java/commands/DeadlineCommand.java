@@ -24,6 +24,16 @@ public class DeadlineCommand extends Command {
         this.parser = parser;
     }
 
+    private Deadline parseDeadline(String input) throws DukeException {
+        if (!input.contains("/by")) {
+            throw new DukeException(" Deadline format incorrect. "
+                    + "\n Format: deadline task /by d/M/yyyy HHmm");
+        }
+        String[] deadlineParts = parser.splitByKeyword(input, "/by");
+        String description = deadlineParts[0].trim();
+        return new Deadline(description, deadlineParts[1].trim());
+    }
+
     /**
      * Executes the DeadlineCommand by adding a deadline task to the task list.
      *
@@ -33,13 +43,7 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String executeCommand(UI ui, Actions actionList) throws DukeException {
-        if (!input.contains("/by")) {
-            throw new DukeException(" Deadline format incorrect. "
-                    + "\n Format: deadline task /by d/M/yyyy HHmm");
-        }
-        String[] deadlineParts = parser.splitByKeyword(input, "/by");
-        String description = deadlineParts[0].trim();
-        Deadline deadline = new Deadline(description, deadlineParts[1].trim());
+        Deadline deadline = parseDeadline(input);
         actionList.add(deadline);
         return " Got it. I've added this task:\n  "
                 + deadline + "\n Now you have " + actionList.size() + " tasks in the list.";

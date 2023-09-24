@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -45,6 +44,7 @@ public class Duke extends Application {
      */
     public Duke() {
         ArrayList<Task> loadedTasks = savior.loadTasks();
+        assert loadedTasks != null;
         actionList.add(loadedTasks);
     }
 
@@ -92,20 +92,9 @@ public class Duke extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
-    /**
-     * Creates a label with the specified text and adds it to the dialog container.
-     *
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-        return textToAdd;
-    }
-
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null;
         String response = getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, user),

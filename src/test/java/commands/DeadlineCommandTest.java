@@ -16,7 +16,8 @@ public class DeadlineCommandTest {
         Parser parse = new Parser();
         UI ui = new UI();
         Actions actions = new Actions();
-        DeadlineCommand deadline = new DeadlineCommand("deadline task", parse);
+        String testInput = "deadline iP /by 22/09/23";
+        DeadlineCommand deadline = new DeadlineCommand(testInput, parse);
         assertThrows(DukeException.class, () -> deadline.executeCommand(ui, actions));
     }
 
@@ -26,8 +27,8 @@ public class DeadlineCommandTest {
         UI ui = new UI();
         Actions actions = new Actions();
         String description = "Deadline Test Task";
-        String time = "22/09/2023 2359";
-        DeadlineCommand deadline = new DeadlineCommand(description + " /by " + time, parse);
+        String dateTime = "22/09/2023 2359";
+        DeadlineCommand deadline = new DeadlineCommand(description + " /by " + dateTime, parse);
         try {
             deadline.executeCommand(ui, actions);
         } catch (DukeException thrown) {

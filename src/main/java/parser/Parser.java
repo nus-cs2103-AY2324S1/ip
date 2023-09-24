@@ -29,7 +29,9 @@ public class Parser {
      * @throws DukeException If the input command format is incorrect or unrecognized.
      */
     public Command issueCommand(String input) throws DukeException {
+        assert input != null;
         String[] inputParts = splitInput(input);
+        assert inputParts.length > 0;
         String command = inputParts[0].toLowerCase();
         switch (command) {
         case "bye":
@@ -61,11 +63,23 @@ public class Parser {
             }
             return new UnmarkCommand(unmarkTaskNumber);
         case "todo":
-            return new TodoCommand(inputParts.length > 1 ? inputParts[1] : "");
+            if (inputParts.length > 1) {
+                return new TodoCommand(inputParts[1]);
+            } else {
+                return new TodoCommand("");
+            }
         case "deadline":
-            return new DeadlineCommand(inputParts.length > 1 ? inputParts[1] : "", this);
+            if (inputParts.length > 1) {
+                return new DeadlineCommand(inputParts[1], this);
+            } else {
+                return new DeadlineCommand("", this);
+            }
         case "event":
-            return new EventCommand(inputParts.length > 1 ? inputParts[1] : "", this);
+            if (inputParts.length > 1) {
+                return new EventCommand(inputParts[1], this);
+            } else {
+                return new EventCommand("", this);
+            }
         case "delete":
             if (inputParts.length < 2) {
                 throw new DukeException(" Provide a task number. "

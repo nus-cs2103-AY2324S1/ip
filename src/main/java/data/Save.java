@@ -26,6 +26,7 @@ public class Save {
      * @param tasks List of tasks to be saved.
      */
     public void saveTasks(ArrayList<Task> tasks) throws DukeException {
+        assert tasks != null;
         try {
             File directory = new File(DIRECTORY_PATH);
             if (!directory.exists()) {
@@ -80,6 +81,7 @@ public class Save {
      * @return The parsed Task object or null if the line format is unrecognized.
      */
     private static Task parseLineToTask(String line) throws DukeException {
+        assert line != null;
         String[] parts = line.split(" \\| ");
         switch (parts[0]) {
         case "T":

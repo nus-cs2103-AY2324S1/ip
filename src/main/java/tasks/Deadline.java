@@ -31,6 +31,11 @@ public class Deadline extends Task {
         return by;
     }
 
+    @Override
+    public boolean isOnDate(LocalDateTime date) {
+        return this.by.toLocalDate().compareTo(date.toLocalDate()) == 0;
+    }
+
     /**
      * Returns the string representation of this Deadline task, which includes the task type identifier "[D]",
      * marking status, task description, and the deadline date/time.
