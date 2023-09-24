@@ -39,6 +39,7 @@ Example of usage:
 `deadline return book /by 01/09/2023 1800`
 
 Expected outcome:
+
 Jarvis will add a new Deadline task with description 'return book' 
 and a do-by date time of '01/09/2023 1800' to the task list
 
@@ -53,6 +54,7 @@ Example of usage:
 'event project meeting /from 02/09/2022 1200 /to 02/09/2022 1600'
 
 Expected outcome:
+
 Jarvis will add a new Event task with description 'project meeting' 
 and a start date time of '02/09/2022 1200' 
 and a end date time of '02/09/2022 1600' to the task list
@@ -62,6 +64,7 @@ and a end date time of '02/09/2022 1600' to the task list
 Format: `list`
 
 Expected outcome:
+
 Jarvis will list all the tasks you have added
 
 ## Mark a task as done
@@ -73,6 +76,7 @@ Example of usage:
 `mark 1`
 
 Expected outcome:
+
 Task 1 will be marked as done.
 
 ## Mark a task as not done
@@ -84,6 +88,7 @@ Example of usage:
 `unmark 2'
 
 Expected outcome:
+
 Task 2 will be marked as not done.
 
 ## Delete a task from your list
@@ -95,6 +100,7 @@ Example of usage:
 `delete 3`
 
 Expected outcome:
+
 Task 3 will be removed from the list
 
 ## Find all tasks matching a keyword
@@ -106,6 +112,7 @@ Example of usage:
 `find book`
 
 Expected outcome:
+
 Jarvis will display all tasks that contains 'book' in their description
 
 ## Find the closest 'Deadline' task that is not done yet
@@ -117,6 +124,7 @@ Example of usage:
 `reminder`
 
 Expected outcome:
+
 Displays a reminder of the closest 'Deadline' task that is not done yet
 
 ## Say goodbye to Jarvis
@@ -124,4 +132,5 @@ Displays a reminder of the closest 'Deadline' task that is not done yet
 Format: `bye`
 
 Expected outcome:
+
 Jarvis will bid you farewell and not accept any user input thereafter.
