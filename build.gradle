@@ -48,7 +48,7 @@ application {
 }
 
 shadowJar {
-    mainClassName = 'rocket.Rocket'
+    mainClassName = 'rocket.Launcher'
     archiveBaseName = "rocket"
     archiveClassifier = null
     dependsOn("distZip", "distTar")

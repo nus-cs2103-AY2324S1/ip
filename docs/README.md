@@ -8,6 +8,7 @@ Add todos using `todo TASK` \
 Add deadlines using `deadline TASK \by DEADLINE` \
 Add events using `event TASK \from START_DATE \to END_DATE`
 
+! Note: For dates, use this format "dd-MM-yyyy HH:mm". For example, `16-05-2021 09:24`
 
 ### List all tasks
 
