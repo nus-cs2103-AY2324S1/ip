@@ -47,7 +47,7 @@ DaDaYuan is your intelligent chatbot assistant designed to help you manage tasks
 | Add Task     | `add <task>`       | `add buy groceries` |
 | Delete Task  | `delete <task_id>` | `delete 1`          |
 | Mark as Done | `mark <task_id>`   | `mark 1`            |
-| UnMark       | `unamrk <task_id>` | `unmark 1`          |
+| UnMark       | `unmark <task_id>` | `unmark 1`          |
 | Find Tasks   | `find <keyword>`   | `find groceries`    |
 | Help         | `help [DATETIME]`  | `help DATETIME`     |
 
