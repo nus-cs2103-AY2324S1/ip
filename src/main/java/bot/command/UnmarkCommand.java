@@ -1,11 +1,11 @@
 package bot.command;
 
 import bot.exception.FileErrorBotException;
+import bot.exception.IncompleteBotException;
+
 import bot.task.TaskList;
 import bot.task.Task;
 import bot.storage.Storage;
-
-import java.io.IOException;
 
 public class UnmarkCommand extends Command {
     private final Task task;
@@ -16,20 +16,25 @@ public class UnmarkCommand extends Command {
      *
      * @param taskList the list of tasks
      * @param idx Index of Task to be marked
+     * @throws IncompleteBotException if idx is an empty string
      */
-    public UnmarkCommand(TaskList taskList, String idx) {
+    public UnmarkCommand(TaskList taskList, String idx) throws IncompleteBotException {
+        if (idx.isBlank()) {
+            throw new IncompleteBotException("OOPS!!! The task number to mark cannot be empty.");
+        }
         this.task = taskList.get(Integer.parseInt(idx) - 1);
         this.taskList = taskList;
     }
 
     /**
      * Execute a series of instructions specific to unmarking a task from TaskList object
+     * and returns the execution output
      *
+     * @return String of the outcome of the command execution
      * @throws FileErrorBotException if the file or directory is missing or corrupted
-     * @throws IOException if an I/O error occurred
      */
     @Override
-    public String execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException {
         this.task.setIncomplete();
         Storage.save(this.taskList);
         return this.toString();

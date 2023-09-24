@@ -17,6 +17,9 @@ public class FindCommand extends Command {
 
     /**
      * Executes a series of instruction specific to print out tasks containing the pattern/keyword
+     * and returns the execution output
+     *
+     * @return String of the outcome of the command execution
      */
     @Override
     public String execute() {

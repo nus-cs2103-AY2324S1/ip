@@ -9,8 +9,6 @@ import bot.exception.IncompleteBotException;
 import bot.storage.Storage;
 import bot.task.TaskList;
 
-import java.io.IOException;
-
 public class Bot {
 
     private TaskList taskList;
@@ -21,23 +19,39 @@ public class Bot {
             "What can I do for you?\n" +
             "________________________________________";
 
-
+    /**
+     * Creates an instance of a Bot object
+     */
     public Bot() {
         try {
             taskList = Storage.read();
             controlFlow = new ControlFlow(taskList);
-        } catch (DateTimeParseBotException | IOException | FileErrorBotException e) {
+        } catch (DateTimeParseBotException | FileErrorBotException e) {
             System.out.println(e);
         }
 
     }
 
+    /**
+     * Returns the Command object corresponding to the user input from the GUI
+     *
+     * @param string the user input
+     * @return Command object based on user input
+     * @throws DateTimeParseBotException if Datetime from user input is in wrong format
+     * @throws IllegalExpressionBotException if the input is not correct
+     * @throws IncompleteBotException if the input for the corresponding task is incomplete
+     * @throws FileErrorBotException if the file could not be accessed
+     */
     public Command getCommand(String string) throws DateTimeParseBotException,
-            IllegalExpressionBotException, IncompleteBotException, FileErrorBotException, IOException {
-        Command command = controlFlow.execute(string);
-        return command;
+            IllegalExpressionBotException, IncompleteBotException, FileErrorBotException {
+        return controlFlow.execute(string);
     }
 
+    /**
+     * Returns the user greeting to be displayed when app launch
+     *
+     * @return String of the user greeting
+     */
     public String getGreeting() {
         return Bot.GREETINGS;
     }

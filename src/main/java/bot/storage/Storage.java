@@ -28,14 +28,17 @@ public class Storage {
      *
      * @param taskList a list of tasks in their most updated state
      * @throws FileErrorBotException if the file or directory is missing or corrupted
-     * @throws IOException if an I/O error occurred
      */
-    public static void save(TaskList taskList) throws FileErrorBotException, IOException {
+    public static void save(TaskList taskList) throws FileErrorBotException {
         File file = new File(Storage.ABSOLUTE_FILE_PATH +
                 File.separator + Storage.FILE_NAME);
-        file.getParentFile().mkdirs();
-        if (!file.exists()) {
-            file.createNewFile();
+        try {
+            file.getParentFile().mkdirs();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new FileErrorBotException("task.txt cannot be created");
         }
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
             Iterator<Task> iterator = taskList.iterator();
@@ -56,15 +59,18 @@ public class Storage {
      * @return a list of tasks saved in the data/task.txt file
      * @throws FileErrorBotException if file or directory is corrupted and unreadable
      * @throws DateTimeParseBotException if DataTime is formatted incorrectly in the data/task.txt
-     * @throws IOException if an I/O error occurred
      */
     public static TaskList read() throws FileErrorBotException,
-            DateTimeParseBotException, IOException {
+            DateTimeParseBotException {
         File file = new File(Storage.ABSOLUTE_FILE_PATH +
                 File.separator + Storage.FILE_NAME);
-        file.getParentFile().mkdirs();
-        if (!file.exists()) {
-            file.createNewFile();
+        try {
+            file.getParentFile().mkdirs();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            throw new FileErrorBotException("task.txt cannot be created");
         }
         TaskList taskList = new TaskList();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {

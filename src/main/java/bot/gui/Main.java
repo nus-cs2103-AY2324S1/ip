@@ -11,12 +11,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Bot using FXML.
  */
 public class Main extends Application {
 
     private Bot bot = new Bot();
 
+    /**
+     * The main entry point of the JavaFX application.
+     *
+     * @param stage The primary stage to display the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

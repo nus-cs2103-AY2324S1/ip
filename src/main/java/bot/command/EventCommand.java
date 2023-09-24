@@ -2,11 +2,13 @@ package bot.command;
 
 import bot.exception.DateTimeParseBotException;
 import bot.exception.FileErrorBotException;
+import bot.exception.IncompleteBotException;
+
+import bot.parsers.InputParser;
 import bot.task.TaskList;
 import bot.task.Event;
 import bot.storage.Storage;
 
-import java.io.IOException;
 
 public class EventCommand extends Command {
 
@@ -17,25 +19,37 @@ public class EventCommand extends Command {
      * Creates an instance of EventCommand object
      *
      * @param taskList the list of tasks
-     * @param taskDetail task description
-     * @param timeFrom start time of task formatted 'd/MM/yyyy HH:mm'
-     * @param timeTo end time of task formatted 'd/MM/yyyy HH:mm'
+     * @param remainderInfo the uncleaned information pertaining to instancing an Event object
      * @throws DateTimeParseBotException if timeFrom and timeTo argument is not formatted correctly
+     * @throws IncompleteBotException if remainder information does not contain datetime
      */
-    public EventCommand(TaskList taskList, String taskDetail, String timeFrom,
-                        String timeTo) throws DateTimeParseBotException {
+    public EventCommand(TaskList taskList, String remainderInfo)
+            throws DateTimeParseBotException, IncompleteBotException {
+        if (remainderInfo.isBlank()) {
+            throw new IncompleteBotException("OOPS!!! The description of an event cannot be empty.");
+        }
+        String[] parsedAtFrom = InputParser.getSplitAtFrom(remainderInfo);
+        if (parsedAtFrom.length == 1) {
+            throw new IncompleteBotException("OOPS!!! The starting timing of an event cannot be empty.");
+        }
+        String taskDetail = parsedAtFrom[0];
+        String[] parsedAtTo = InputParser.getSplitAtTo(parsedAtFrom[1]);
+        if (parsedAtTo.length == 1) {
+            throw new IncompleteBotException("OOPS!!! The ending timing of an event cannot be empty.");
+        }
         this.taskList = taskList;
-        this.event = new Event(taskDetail, timeFrom, timeTo);
+        this.event = new Event(taskDetail, parsedAtTo[0], parsedAtTo[1]);
     }
 
     /**
      * Execute a series of instructions specific to creating adding an Event object
+     * and returns the execution output
      *
+     * @return String of the outcome of the command execution
      * @throws FileErrorBotException if the file or directory is missing or corrupted
-     * @throws IOException if an I/O error occurred
      */
     @Override
-    public String execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException {
         this.taskList.add(this.event);
         Storage.save(this.taskList);
         return this.toString();

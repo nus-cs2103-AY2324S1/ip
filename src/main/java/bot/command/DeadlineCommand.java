@@ -2,11 +2,12 @@ package bot.command;
 
 import bot.exception.DateTimeParseBotException;
 import bot.exception.FileErrorBotException;
+import bot.exception.IncompleteBotException;
+
+import bot.parsers.InputParser;
 import bot.task.TaskList;
 import bot.task.Deadline;
 import bot.storage.Storage;
-
-import java.io.IOException;
 
 public class DeadlineCommand extends Command {
 
@@ -17,23 +18,33 @@ public class DeadlineCommand extends Command {
      * Creates an instance of DeadlineCommand object
      *
      * @param taskList the list of tasks
-     * @param taskDetail task description
-     * @param dueDate deadline of task formatted 'd/MM/yyyy HH:mm'
+     * @param remainderInfo the uncleaned information pertaining to instancing a Deadline object
      * @throws DateTimeParseBotException if dueDate argument is not formatted correctly
+     * @throws IncompleteBotException if remainder information does not contain a datetime
      */
-    public DeadlineCommand(TaskList taskList, String taskDetail,
-                           String dueDate) throws DateTimeParseBotException {
+    public DeadlineCommand(TaskList taskList, String remainderInfo)
+            throws DateTimeParseBotException, IncompleteBotException {
+        if (remainderInfo.isBlank()) {
+            throw new IncompleteBotException("OOPS!!! The description of a deadline cannot be empty.");
+        }
+        String[] parsedAtBy = InputParser.getSplitAtBy(remainderInfo);
+        if (parsedAtBy.length == 1) {
+            throw new IncompleteBotException("OOPS!!! The timing of a deadline cannot be empty.");
+        }
         this.taskList = taskList;
-        this.deadline = new Deadline(taskDetail, dueDate);
+        this.deadline = new Deadline(InputParser.getLeftOfSplit(parsedAtBy),
+                InputParser.getRightOfSplit(parsedAtBy));
+
     }
 
     /**
-     * Execute a series of instructions specific to creating adding a Deadline object
+     * Execute a series of instructions specific to creating a Deadline object and returns
+     * the execution output
      *
+     * @return String of the outcome of the command execution
      * @throws FileErrorBotException if the file or directory is missing or corrupted
-     * @throws IOException if an I/O error occurred
      */
-    public String execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException {
         this.taskList.add(this.deadline);
         Storage.save(this.taskList);
         return this.toString();
