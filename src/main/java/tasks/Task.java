@@ -1,8 +1,12 @@
+package tasks;
+
+import helper.Ui;
+
 public class Task {
     String task;
     boolean isDone;
 
-    public Task(String task) throws DukeException {
+    public Task(String task){
         this.task = task;
         this.isDone = false;
     }
@@ -23,21 +27,22 @@ public class Task {
     public void markItem(Boolean isDone) {
         this.isDone = isDone;
         if (this.isDone) {
-            System.out.println("Nice! I've marked this task as done:");
-            System.out.println(this.getStatus());
-            System.out.println("Here's a lollipop.");
+            String[] messageList = {("Nice! I've marked this task as done:")
+            , (this.getStatus())
+            , ("Here's a lollipop.")};
+            Ui.print(messageList);
         } else {
-            System.out.println("OK, I've marked this task as not done yet:");
-            System.out.println(this.getStatus());
-            System.out.println("Undone complete.");
+            String[] messageList = {("OK, I've marked this task as not done yet:")
+            , (this.getStatus()), ("Undone complete.")};
+            Ui.print(messageList);
         }
     }
 
-    public String toFileString() {
+    public String toFile() {
         return task;
     }
 
-    public static Task convertStringToTask(String text) throws DukeException{
+    public static Task convertStringToTask(String text) {
         String[] tasks = text.split("\\|");
         String type = tasks[0].trim();
         boolean isCompleted = tasks[1].trim().equals("1");

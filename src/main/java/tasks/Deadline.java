@@ -1,13 +1,15 @@
+package tasks;
+
 public class Deadline extends Task {
     private String deadline;
 
-    public Deadline(String task, String deadline) throws DukeException{
+    public Deadline(String task, String deadline) {
         super(task);
         this.deadline = deadline;
     }
 
     @Override
-    public String getStatus(){
+    public String getStatus() {
         String time = "(by: " + deadline + ")";
         return "[Deadline]" + super.getStatus() + " " + time;
     }
@@ -18,7 +20,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toFileString() {
+    public String toFile() {
         return super.isDone ? ("D | 1 | " + super.task + " | " + this.deadline)
         : ("D | 0 | " + super.task + " | " + this.deadline);
     }
