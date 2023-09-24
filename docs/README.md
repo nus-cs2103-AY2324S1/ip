@@ -13,7 +13,7 @@ while adhering to the benefits of GUI (Graphical User Interface).
 
 ## Features 
 
-> [!NOTE]
+> **NOTE**
 > - Words in uppercase are supplied by user<br>e.g. `todo DESCRIPTION`, DESCRIPTION is a parameter which can be used as `todo read book`.
 > - Items in square brackets are optional<br>e.g. `todo DESCRIPTION [#TAGS]...` can be used as `todo read book #study` or `todo read book`.
 > - Items with `...` in them can be used multiple times<br>e.g. `[#TAG]` can be used as ``, `#happy`, `#happy #sad`, etc.
