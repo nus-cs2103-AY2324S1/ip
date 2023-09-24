@@ -36,11 +36,11 @@ public class Parser {
             return new ListCommand();
         } else if (Parser.isMark(fullCommand)) {
             assert fullCommand.startsWith("mark") : "Should start with mark";
-            int taskIndex = Integer.parseInt(fullCommand.substring(5)) - 1;
+            int taskIndex = Integer.parseInt(fullCommand.substring(5).trim()) - 1;
             return new MarkCommand(taskIndex);
         } else if (Parser.isUnmark(fullCommand)) {
             assert fullCommand.startsWith("unmark") : "Should start with unmark";
-            int taskIndex = Integer.parseInt(fullCommand.substring(7)) - 1;
+            int taskIndex = Integer.parseInt(fullCommand.substring(7).trim()) - 1;
             return new UnmarkCommand(taskIndex);
         } else if (Parser.isToDo(fullCommand)) {
             assert fullCommand.startsWith("todo") : "Should start with todo";

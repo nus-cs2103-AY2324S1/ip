@@ -26,7 +26,7 @@ public class TaskList {
      * @param input user input specifying the index of the task to be removed.
      */
     public void deleteTask(String input) {
-        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+        int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
         taskList.remove(taskIndex);
     }
 
