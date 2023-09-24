@@ -14,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import java.io.File;
+import java.io.IOException;
 
 import static duke.Parser.inputType;
 
@@ -22,8 +24,8 @@ import static duke.Parser.inputType;
  * helps a person to keep track of various things
  */
 public class Duke extends Application {
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    public Image user = new Image(this.getClass().getResourceAsStream("/Images/DaUser.png"));
+    public Image duke = new Image(this.getClass().getResourceAsStream("/Images/DaDuke.png"));
     public Storage storage;
     public TaskList taskList;
     public Ui ui;
@@ -37,6 +39,21 @@ public class Duke extends Application {
      * This constructor sets up the initial state of Duke.
      */
     public Duke() {
+        File dataDirectory = new File("./data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        // Check if the duke.txt file exists, and if not, create it
+        File dukeFile = new File("./data/duke.txt");
+        if (!dukeFile.exists()) {
+            try {
+                dukeFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         ui = new Ui();
         storage = new Storage("./data/duke.txt");
         String[] actions = storage.loadActions();

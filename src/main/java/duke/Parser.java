@@ -42,7 +42,7 @@ public class Parser {
             }
             TaskList.counter = TaskList.counter - 1;
             response = "Noted. I've removed this task:\n" + action2+ "\n Now you have" + TaskList.counter + " tasks in the list. ";
-            Storage.save("data/duke.txt", TaskList.actions, TaskList.type, TaskList.isDone, TaskList.dueString, TaskList.startTime, TaskList.endTime, TaskList.counter);
+            Storage.save("./data/duke.txt", TaskList.actions, TaskList.type, TaskList.isDone, TaskList.dueString, TaskList.startTime, TaskList.endTime, TaskList.counter);
             Parser.result = false;
            return response;
         } else if (input.startsWith("list")) {
@@ -52,7 +52,7 @@ public class Parser {
         }else if (input.startsWith("todo")) {
             assert input.length() > 4 : "Description of a todo cannot be empty.";
             if (input.length() <= 4) {
-                response = "☹ OOPS!!! The description of a todo cannot be empty.";
+                response = "OOPS!!! The description of a todo cannot be empty.";
             } else {
                 String action = input.substring(5).trim();
                 return TaskList.todo(action);
@@ -85,7 +85,7 @@ public class Parser {
                 Parser.result = false;
                 return response;
             } else {
-                System.out.println("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                System.out.println(" OOPS!!! I'm sorry, but I don't know what that means :-(");
             }
         } else if (input.startsWith("find")) {
                 return find(input, taskList);

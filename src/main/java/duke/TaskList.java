@@ -45,7 +45,7 @@ public class TaskList {
         String response = "";
         response = "Got it. I've added this task:\n" + helper(action, "T", false) + "\nNow you have " + counter + " tasks in the list.";
         assert counter >= 0 : "Counter should not be negative after adding a task";
-        Storage.save("data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
+        Storage.save("./data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
 
         return response;
     }
@@ -93,7 +93,7 @@ public class TaskList {
         response = "Got it. I've added this task: \n" + helper(action, "D", false) + " (by" + " " + byString + ")" + "\n Now you have " + counter + " tasks in the list.";
         assert counter >= 0 : "Counter should not be negative after adding a task";
 
-        Storage.save("data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
+        Storage.save("./data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
         return response;
     }
 
@@ -130,7 +130,7 @@ public class TaskList {
         assert counter >= 0 : "Counter should not be negative after adding a task";
 
         response = "Got it. I've added this task:\n" + helper(action, "E", false) + " (from: " + from + " to: " + to + ")" + "\nNow you have " + counter + " tasks in the list.";
-        Storage.save("data/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
+        Storage.save("./src/main/resources/Images/duke.txt", actions, type, isDone, dueString, startTime, endTime, counter);
         return response;
     }
 
