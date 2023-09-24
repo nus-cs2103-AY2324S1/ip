@@ -33,6 +33,8 @@ OpenJDK distribution.
 Gideon has a pleasant GUI that is interactive and gives you feedback with each command.
 It is almost like you are having a normal conversation!
 
+![Screenshot of the UI of Gideon](Ui.png)
+
 #### Add tasks
 Gideon allows you to add tasks so that you can keep track of them. Tasks come in three 
 different forms:
