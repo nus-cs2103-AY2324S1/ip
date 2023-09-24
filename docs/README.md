@@ -1,4 +1,4 @@
-# User Guide
+# EchoBot User Guide
 ![Ui.png](Ui.png)
 
 EchoBot is a desktop task manager.
