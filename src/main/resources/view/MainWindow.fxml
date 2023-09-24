@@ -16,7 +16,7 @@
      this won't be effect if user resizes the stage. Note scrollPane sets dimensions too.-->
 <fx:root xmlns:fx="http://javafx.com/fxml/1" prefHeight="600" prefWidth="400"
          maxHeight="-Infinity" maxWidth="-Infinity" type="javafx.scene.layout.AnchorPane"
-         xmlns="http://javafx.com/javafx/19.0.4">
+         xmlns="http://javafx.com/javafx/17">
     <!--fx:controller="dot.controllers.MainWindow">-->
     <children>
         <!-- Left and right anchors to expand HBox which encapsulates TextField and Button. -->
