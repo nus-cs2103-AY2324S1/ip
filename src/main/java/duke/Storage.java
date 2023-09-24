@@ -14,30 +14,33 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public void appendTasksToFile(ArrayList<Task> taskList)
+    public void appendTasksToFile(TaskList taskList)
             throws IOException {
         FileWriter fw = new FileWriter(filePath);
-        for (Task task: taskList) {
+        for (int i = 0; i < taskList.listSize(); i++) {
+            Task task = taskList.getTask(i);
             fw.write(task.toFileString() + System.lineSeparator());
         }
         fw.close();
     }
 
-    public void loadPreviousTasks(ArrayList<Task> taskList)
+    public ArrayList<Task> loadPreviousTasks()
             throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
+        ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {
             String line = s.nextLine();
             try {
                 Task task = parseTaskFromLine(line);
-                taskList.add(task);
+                tasks.add(task);
             } catch (DukeException e) {
                 System.err.println("Error parsing task from file: " + e.getMessage());
             }
 
         }
         s.close();
+        return tasks;
     }
 
     public Task parseTaskFromLine(String line) throws DukeException {
