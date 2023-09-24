@@ -14,6 +14,12 @@ import javafx.stage.Stage;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.io.File;
+import java.io.FileOutputStream;
+import org.apache.commons.io.FileUtils;
+
+
+
 
 
 
@@ -49,18 +55,22 @@ public class Duke extends Application{
     }
 
     public Duke() throws Exception {
+
         try {
-            final Path DUKE_FILE_PATH = Paths.get("./data/zenith.txt");
-            System.out.println(DUKE_FILE_PATH);
-            String filePath = DUKE_FILE_PATH.toString();
+            File f = new File("./data/zenith.txt");
+            String filePath = "./data/zenith.txt";
+            if (!f.exists()) {
+                FileOutputStream s = FileUtils.openOutputStream(new File("./data/zenith.txt"));
+            }
             loadFile = new LoadFile(filePath);
             TaskList lst = new TaskList();
             loadFile.load();
         } catch (Exception e) {
             System.out.println(e);
         }
-
     }
+
+
 
     public void initialization(Stage stage) {
         scrollPane = new ScrollPane();
