@@ -12,6 +12,8 @@ If you have used Eggbot before, you can jump staright to Eggbot's [Features and 
 
 <img src="Ui.png" width="25%" display='block' margin-left="auto" margin-right="auto"/>
 
+**Figure 1**: How Eggbot's GUI appears on the Windows operating system.
+
 ## Getting Started
 
 [//]: # ( <h1 style="color:purple;">Hello World</h1>)
