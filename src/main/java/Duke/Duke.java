@@ -44,10 +44,10 @@ public class Duke {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    public String getResponse(String input) throws DukeException {
+    public String getResponse(String input) {
         assert input != null && !input.isEmpty() : "User input should not be null or empty";
         try {
-            String response = parser.parseCommand(input);
+            String response = parser.parseCommand(input.toLowerCase());
             return response;
         } catch (DukeException e) {
             return userInterface.showError(e.getMessage());

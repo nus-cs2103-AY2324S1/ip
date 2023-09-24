@@ -57,6 +57,7 @@ public class UserInterface {
         StringBuilder result = new StringBuilder();
         if (taskList.size() == 0) {
             result.append("No matching tasks found.\n");
+            result.append("\n");
             return result.toString();
         }
         result.append("Here are the matching tasks:\n");
@@ -75,8 +76,9 @@ public class UserInterface {
      */
     public String showTaskUpdatedMessage(ArrayList<Task> taskList, int index) {
         StringBuilder taskUpdatedMessage = new StringBuilder();
-        taskUpdatedMessage.append("Got it! I've updated the task to your list.\n");
-        taskUpdatedMessage.append(taskList.get(index)).append("\n");
+        taskUpdatedMessage.append("Got it! I've updated the task " + index + " to\n");
+        taskUpdatedMessage.append(taskList.get(index).getStatusIcon()).append("\n");
+        taskUpdatedMessage.append("\n");
         return taskUpdatedMessage.toString();
     }
 
@@ -90,6 +92,7 @@ public class UserInterface {
         StringBuilder taskAddedMessage = new StringBuilder();
         taskAddedMessage.append("Got it! I've added the task to your list.\n");
         taskAddedMessage.append(this.showCurrentStatus(taskList));
+        taskAddedMessage.append("\n");
         return taskAddedMessage.toString();
     }
 
@@ -113,7 +116,7 @@ public class UserInterface {
     public String showTaskDeletedMessage(ArrayList<Task> taskList) {
         StringBuilder result = new StringBuilder();
         result.append("Noted! I've removed the task from your list.\n");
-        result.append("Now you have ").append(taskList.size()).append(" tasks in your list\n").append("\n");
+        result.append("\nNow you have ").append(taskList.size()).append(" tasks in your list\n").append("\n");
         return result.toString();
     }
 
@@ -151,7 +154,12 @@ public class UserInterface {
      * @return the string
      */
     public String showUnknownCommandMessage() {
-        return "Sorry, I don't understand that command.\n";
+        return "Sorry, I don't understand that command.\n"
+                + "You can try the following commands: \n"
+                + "'todo', 'deadline', 'event' for adding tasks\n"
+                + "'mark', 'unmark', 'delete', 'update' to make changes to task list\n"
+                + "'list' to display the task list\n"
+                + "'bye' to close the task manager.\n";
     }
 
 
