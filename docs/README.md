@@ -1,26 +1,26 @@
 # User Guide
-![Screenshot of the Ui](/Ui.png)
+![Screenshot of the Ui](/src/main/java/duke/uiux/images/Ui.png)
 
 ## Features 
 
 ### List your tasks!
 
-![Screenshot of a sample list](/list.png)
+![Screenshot of a sample list](/src/main/java/duke/uiux/images/list.png)
 Log your tasks to complete!
 
 ### Events, Todos, Deadlines
 
-![Screenshot of adding a sample task](/adding_deadline.png)
+![Screenshot of adding a sample task](/src/main/java/duke/uiux/images/adding_deadline.png)
 You can categorise your tasks as an event, deadline or just a to-do in general!
 
 ### Mark tasks as comeplete
 
-![Screenshot of marking a task](/mark.png)
+![Screenshot of marking a task](/src/main/java/duke/uiux/images/mark.png)
 You can mark tasks as completed! Well done!
 
 ### Delete tasks
 
-![Screenshot of deleting a task](/delete.png)
+![Screenshot of deleting a task](/src/main/java/duke/uiux/images/delete.png)
 Tasks can be deleted as well. Please do not skive - Spooderman will not be proud.
 
 ### Snooze deadlines
