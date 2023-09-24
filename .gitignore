@@ -15,3 +15,11 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Compiled class file
+*.class
+
+# Data files
+/data/duke.txt
+
+
