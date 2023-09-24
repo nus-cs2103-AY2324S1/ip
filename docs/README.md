@@ -245,7 +245,3 @@ To exit the bot, you can type `exit`
 **Expected outcome:**
 
 Eggbot saves all your added tasks and the GUI closes.
-
-## Easter Eggs
-
-Crack the egg like how you crack down on your tasks...
