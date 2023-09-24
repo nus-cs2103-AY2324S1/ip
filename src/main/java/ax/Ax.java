@@ -114,7 +114,6 @@ public class Ax extends Application {
 
     private AnchorPane setUpAnchorPane(Stage stage) {
         //Step 1. Setting up required components
-        Ui.greet();
         Storage.readSave();
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();

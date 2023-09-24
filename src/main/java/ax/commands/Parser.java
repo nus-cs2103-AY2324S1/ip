@@ -38,7 +38,6 @@ public class Parser {
     @SuppressWarnings("unused")
     public static String getInputString(String input) {
         try {
-            Ui.hoLine();
             String[] inputs = input.split(" ", 2);
             String[] dates = input.split("/(by|from|to) ");
             return handleArguments(input, inputs, dates);
