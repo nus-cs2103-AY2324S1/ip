@@ -7,17 +7,14 @@ import java.time.format.DateTimeFormatter;
  * Deadline class is used for tasks that have stipulated time to finish.
  */
 public class Deadline extends Task {
-    /**
-     * The By.
-     */
     private String by;
     private LocalDateTime deadlineInDateTime;
 
     /**
      * Instantiates a new Deadline.
      *
-     * @param description the description
-     * @param by          the by
+     * @param description the description of the task
+     * @param by          the deadline of the task
      */
     public Deadline(String description, String by) {
         super(description);

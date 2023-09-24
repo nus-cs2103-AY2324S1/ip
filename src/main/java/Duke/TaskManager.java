@@ -15,7 +15,7 @@ public class TaskManager {
     private final ArrayList<Task> tasks;
 
     /**
-     * Constructor for TaskManager.
+     * Instantiates a constructor for TaskManager.
      *
      * @param taskList the tasks
      */
@@ -24,7 +24,7 @@ public class TaskManager {
     }
 
     /**
-     * Display list array list.
+     * Displays list array list.
      *
      * @return the array list
      */
@@ -33,7 +33,7 @@ public class TaskManager {
     }
 
     /**
-     * mark method will mark the task mentioned as done.
+     * Marks the task mentioned as done.
      *
      * @param index the index
      */
@@ -42,7 +42,7 @@ public class TaskManager {
     }
 
     /**
-     * unmark method will unmark the task mentioned.
+     * Unmarks the task mentioned.
      *
      * @param index the index
      */
@@ -51,7 +51,7 @@ public class TaskManager {
     }
 
     /**
-     * delete method will delete the mentioned task from the tasks.
+     * Deletes the mentioned task from the tasks.
      *
      * @param index the index
      */
@@ -69,7 +69,7 @@ public class TaskManager {
     }
 
     /**
-     * deadline method will create a new Deadline task.
+     * Adds a new Deadline task.
      *
      * @param description the description
      * @param by          the by
@@ -79,7 +79,7 @@ public class TaskManager {
     }
 
     /**
-     * event method will create a new Event task.
+     * Adds a new Event task.
      *
      * @param description the description
      * @param from        the from date and time
@@ -90,7 +90,7 @@ public class TaskManager {
     }
 
     /**
-     * find method will find the matching tasks.
+     * Finds the matching tasks.
      *
      * @param description the description
      * @return the array list
@@ -107,7 +107,7 @@ public class TaskManager {
     }
 
     /**
-     * Update.
+     * Updates the task list.
      *
      * @param index       the index
      * @param description the description

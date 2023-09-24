@@ -8,23 +8,17 @@ import java.time.format.DateTimeFormatter;
  * Event class is used for tasks that are held specific date and time.
  */
 public class Event extends Task {
-    /**
-     * The From.
-     */
     private String from;
     private String to;
     private LocalDateTime fromDateTime;
-    /**
-     * The To.
-     */
     private LocalTime toTime;
 
     /**
      * Instantiates a new Event.
      *
-     * @param description the description
-     * @param from        the from
-     * @param to          the to
+     * @param description the description of an event
+     * @param from        the starting time of an event
+     * @param to          the ending time of an event
      */
     public Event(String description, String from, String to) {
         super(description);

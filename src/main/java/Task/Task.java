@@ -7,13 +7,7 @@ import java.time.format.DateTimeFormatter;
  * The type Task.
  */
 public class Task {
-    /**
-     * The Description.
-     */
     protected String description;
-    /**
-     * The Is done.
-     */
     protected boolean isDone;
 
     /**
@@ -44,7 +38,7 @@ public class Task {
     }
 
     /**
-     * Unmark.
+     * Unmarks the task.
      */
     public void unmark() {
         this.isDone = false;
@@ -61,7 +55,7 @@ public class Task {
         return dateTime.format(result);
     }
     /**
-     * Parse from string task.
+     * Parses from input string to create tasks.
      *
      * @param input the input
      * @return the task

@@ -17,7 +17,7 @@ public class Storage {
     private final File filepath;
 
     /**
-     * Constructor for the Storage class which takes in filepath of the input/output file.
+     * Instantiates a constructor for the Storage class which takes in filepath of the input/output file.
      *
      * @param filepath the filepath
      */
@@ -26,7 +26,7 @@ public class Storage {
     }
 
     /**
-     * save method will save changes to the file when the chatbot ends the conversation.
+     * Saves changes to the file when the chatbot ends the conversation.
      *
      * @param tasklist the tasklist
      */
@@ -44,7 +44,7 @@ public class Storage {
     }
 
     /**
-     * load method will load all the tasks from the input file and generates the list of tasks and
+     * Loads all the tasks from the input file and generates the list of tasks and
      * then chatbot will edit the taskList according to user commands.
      *
      * @return the array list

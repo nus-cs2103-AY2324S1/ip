@@ -27,9 +27,9 @@ public class Parser {
     }
 
     /**
-     * Parse command string.
+     * Parses the given input.
      *
-     * @param command the command
+     * @param command the given input
      * @return the string
      */
     public String parseCommand(String command) throws DukeException {
@@ -76,9 +76,9 @@ public class Parser {
     }
 
     /**
-     * Todo string.
+     * Adds Todo task.
      *
-     * @param parts the parts
+     * @param parts the parts of description
      * @return the string
      */
     public String todo(String[] parts) throws DukeException {
@@ -91,9 +91,9 @@ public class Parser {
     }
 
     /**
-     * Deadline string.
+     * Creates deadline task.
      *
-     * @param parts the parts
+     * @param parts the parts of description
      * @return the string
      */
     public String deadline(String[] parts) throws DukeException {
@@ -111,9 +111,9 @@ public class Parser {
     }
 
     /**
-     * Event string.
+     * Adds event task.
      *
-     * @param parts the parts
+     * @param parts the parts of description
      * @return the string
      */
     public String event(String[] parts) throws DukeException {
@@ -134,9 +134,9 @@ public class Parser {
     }
 
     /**
-     * Delete string.
+     * Deletes task.
      *
-     * @param parts the parts
+     * @param parts the parts of description
      * @return the string
      */
     public String delete(String[] parts) throws DukeException {
@@ -156,9 +156,9 @@ public class Parser {
     }
 
     /**
-     * Mark string.
+     * Marks task.
      *
-     * @param parts the parts
+     * @param parts the parts of description
      * @return the string
      */
     public String mark(String[] parts) throws DukeException {
@@ -178,9 +178,9 @@ public class Parser {
     }
 
     /**
-     * Unmark string.
+     * Unmarks task.
      *
-     * @param parts the parts
+     * @param parts the parts of description
      * @return the string
      */
     public String unmark(String[] parts) throws DukeException {
@@ -200,9 +200,9 @@ public class Parser {
     }
 
     /**
-     * Update tasks.
+     * Updates tasks.
      *
-     * @param parts the parts
+     * @param parts the parts of description
      * @return the string
      */
     public String update(String[] parts) throws DukeException {

@@ -31,6 +31,7 @@ deadline is a task that has a description of the task and deadline in date time 
 **Usage** - `deadline [task description] /by [dateTime]`
 
 **For example:**
+
 `deadline submit ip /by 24-09-2023 23:59`
 
 **Expected Output:**

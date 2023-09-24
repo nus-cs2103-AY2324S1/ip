@@ -10,7 +10,7 @@ import task.Task;
 public class UserInterface {
 
     /**
-     * Show welcome message.
+     * Shows welcome message.
      *
      * @return the string
      */
@@ -21,7 +21,7 @@ public class UserInterface {
     }
 
     /**
-     * Show error.
+     * Shows error.
      *
      * @param errorMessage the error message
      * @return the string
@@ -31,7 +31,7 @@ public class UserInterface {
     }
 
     /**
-     * Show task list.
+     * Shows task list.
      *
      * @param taskList the task list
      * @return the string
@@ -48,7 +48,7 @@ public class UserInterface {
 
 
     /**
-     * To show matching results.
+     * Shows matching results.
      *
      * @param taskList the task list
      * @return the string
@@ -69,7 +69,7 @@ public class UserInterface {
     }
 
     /**
-     * Show task updated message string.
+     * Shows task updated message string.
      *
      * @param taskList the task list
      * @return the string
@@ -83,7 +83,7 @@ public class UserInterface {
     }
 
     /**
-     * Show task added message string.
+     * Shows task added message string.
      *
      * @param taskList the task list
      * @return the string
@@ -97,7 +97,7 @@ public class UserInterface {
     }
 
     /**
-     * Show current status.
+     * Shows current status.
      *
      * @param taskList the task list
      * @return the string
@@ -108,7 +108,7 @@ public class UserInterface {
     }
 
     /**
-     * Show task deleted message.
+     * Shows task deleted message.
      *
      * @param taskList the task list
      * @return the string
@@ -121,7 +121,7 @@ public class UserInterface {
     }
 
     /**
-     * Show task marked message.
+     * Shows task marked message.
      *
      * @param taskList the task list
      * @return the string
@@ -135,7 +135,7 @@ public class UserInterface {
     }
 
     /**
-     * Show task unmarked message.
+     * Shows task unmarked message.
      *
      * @param taskList the task list
      * @return the string
@@ -149,7 +149,7 @@ public class UserInterface {
     }
 
     /**
-     * Show unknown command message.
+     * Shows unknown command message.
      *
      * @return the string
      */
@@ -164,7 +164,7 @@ public class UserInterface {
 
 
     /**
-     * Show goodbye message.
+     * Shows goodbye message.
      *
      * @return the string
      */

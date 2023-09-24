@@ -17,7 +17,7 @@ public class Duke {
     private Parser parser;
 
     /**
-     * Constructor which instantiates a new Duke.
+     * Instantiates a default constructor.
      *
      */
     public Duke() throws DukeException {
@@ -41,6 +41,7 @@ public class Duke {
     }
 
     /**
+     * Returns response to  the given input.
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
