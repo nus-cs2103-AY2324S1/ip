@@ -30,9 +30,9 @@ public class TimeParser {
      */
     private static String parseDateOut(String input) throws IllegalDateTimeException {
         String[] formatsWithYear = {"d-M-yyyy", "d-M-yy", "d/M/yyyy", "d/M/yy",
-                "MMM d yyyy", "MMM d yy", "d MMM yyyy", "d MMM yy"
+                "MMM d yyyy", "MMM d yy", "d MMM yyyy", "d MMM yy", "yyyy-M-d", "yy-M-d"
         };
-        String[] formatsWithoutYear = {"dd/MM", "dd/M", "dd-M", "dd-MM", "MMM d", "d MMM"};
+        String[] formatsWithoutYear = {"d/M", "d-M", "MMM d", "d MMM"};
 
         if (input.contains(" ")) {
             input = formatDateWithWords(input);
