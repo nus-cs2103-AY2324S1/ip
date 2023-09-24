@@ -9,7 +9,7 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
   prefHeight="155.0" prefWidth="402.0" type="javafx.scene.layout.HBox"
-  xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <Text fx:id="dialog" text="text" />
     <ImageView fx:id="displayPicture" fitHeight="114.0" fitWidth="112.0" pickOnBounds="true"
