@@ -49,7 +49,7 @@ Format: `event DESCRIPTION /from STARTDATE STARTTIME /to ENDDATE ENDTIME`
 + `ENDDATE` is the ending date of the event. It is in the format `dd/MM/yyyy`.
 + `ENDTIME` is the ending time of the event. It is in the format `dd/MM/yyyy`.
 
-### Listing all tasks: list
+### Listing all tasks: `list`
 
 Shows a list of all tasks stored by Bob.
 
