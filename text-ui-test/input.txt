@@ -1,0 +1,17 @@
+todo read book
+deadline complete this level /by 2021-12-06 1800
+event project meeting /from 2021-12-06 1800 /to 2021-12-12 1300
+todo sleep
+list
+mark 3
+mark 1
+list
+unmark 3
+unmark 7
+todo
+deadline
+blah
+delete 3
+delete 6
+list
+bye

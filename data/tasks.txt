@@ -1,0 +1,7 @@
+T | 1 | read book
+T | 1 | submit this on friday!
+D | 0 | this | 2023-08-31 2359
+D | 1 | this | 2023-11-19 2359
+T | 0 | clean room
+D | 1 | clean room | 2023-11-11 2359
+E | 0 | submission | 2023-08-11 2359 to 2023-11-09 2359
