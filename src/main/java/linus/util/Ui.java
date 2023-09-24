@@ -43,6 +43,7 @@ public class Ui {
             + "mark <index>\n"
             + "unmark <index>\n"
             + "find <keyword>\n"
+            + "stats /duration <number of days> /task <taskType> /done \n"
             + "list\n"
             + "help\n"
             + "bye\n";

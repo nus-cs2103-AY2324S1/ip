@@ -37,7 +37,7 @@ public class Linus {
 
 
     private static final String INVALID_COMMAND_MESSAGE =
-            "☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n"
+            "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
                     + "Please start your inputs with a valid command.";
     private Storage storage = null;
     private TaskList tasks = null;

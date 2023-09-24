@@ -3,6 +3,7 @@ package linus.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -46,9 +47,14 @@ public class Storage {
     public List<Task> load() throws LinusException {
         try {
             Path path = Paths.get(filePath);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+            }
+
             String json = Files.readString(path);
 
-            // Deserialize the Json String into an ArrayList of Tasks
+//             Deserialize the Json String into an ArrayList of Tasks
             TaskDeserializer deserializer = new TaskDeserializer("type");
             deserializer.registerTaskType("linus.task.ToDo", ToDo.class);
             deserializer.registerTaskType("linus.task.Deadline", Deadline.class);
@@ -64,6 +70,8 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
+            System.out.println("load");
+            e.printStackTrace();
             throw new LinusException("The file system experienced an unexpected error.");
         }
     }
@@ -84,6 +92,7 @@ public class Storage {
             fileWriter.write(json);
             fileWriter.close();
         } catch (IOException e) {
+            System.out.println("store");
             throw new LinusException("The file system experienced an unexpected error.");
         }
     }
