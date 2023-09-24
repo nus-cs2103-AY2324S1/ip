@@ -27,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     private ForgottenGUI forgottenGUI;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
-    private Image fogottenImage = new Image(this.getClass().getResourceAsStream("/images/Forgotten.jpeg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
+    private Image fogottenImage = new Image(this.getClass().getResourceAsStream("/images/Forgotten.png"));
 
     @FXML
     private void initialize() {
