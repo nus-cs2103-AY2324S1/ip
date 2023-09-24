@@ -22,7 +22,7 @@ public class TodoHandlerTest {
 
         String expectedOutput = "Got it, I've added this task: \n" +
                 "[T][ ] Buy groceries\n" +
-                "You now have 1 tasks in the list.";
+                "You now have 1 task(s) in the list.";
 
         assertEquals(expectedOutput, todoHandler.parseCommandContent(commandContent));
     }

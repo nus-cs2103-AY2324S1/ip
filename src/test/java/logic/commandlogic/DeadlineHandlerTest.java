@@ -22,7 +22,7 @@ public class DeadlineHandlerTest {
         String input = "Finish homework /30-09-2023 1800";
         String expectedOutput = "Got it, I've added this task: \n" +
                 "[D][ ] Finish homework (by: 30 Sep 2023 6:00 PM)\n" +
-                "You now have 1 tasks in the list";
+                "You now have 1 task(s) in the list";
 
         String actualOutput = deadlineHandler.parseCommandContent(input);
 
