@@ -1,6 +1,6 @@
-package tasks;
+package duke.tasks;
 
-import helper.Ui;
+import duke.helper.Ui;
 
 public class Task {
     String task;

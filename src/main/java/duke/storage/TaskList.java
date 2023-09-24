@@ -1,9 +1,9 @@
-package storage;
+package duke.storage;
 
 import java.util.ArrayList;
 
-import tasks.Task;
-import helper.Ui;
+import duke.helper.Ui;
+import duke.tasks.Task;
 
 public class TaskList {
     private static ArrayList<Task> taskList;

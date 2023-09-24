@@ -1,4 +1,4 @@
-package helper;
+package duke.helper;
 
 public class Ui {
     private static final String PARTITION = "------------------------------------------------------------";

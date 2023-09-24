@@ -1,4 +1,4 @@
-package storage;
+package duke.storage;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,9 +10,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import helper.DukeException;
-import helper.Ui;
-import tasks.Task;
+import duke.helper.DukeException;
+import duke.helper.Ui;
+import duke.tasks.Task;
 
 public class Storage {
     private static String path;
