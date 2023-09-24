@@ -7,7 +7,7 @@ public abstract class Task {
     private static final String INCOMPLETE = "[ ] ";
     protected static final String UNIQUE_FILE_SEPARATOR = " &##& ";
     private final String name;
-    private boolean isDone;
+    protected boolean isDone;
 
 
     /**
@@ -71,12 +71,12 @@ public abstract class Task {
     }
 
     /**
-     * Checks if the task associated with this deadline is overdue.
+     * Checks if the task associated needs to be done within dateline
      *
      * @param dateTime The current date and time to compare against.
-     * @return {@code true} if the task is overdue, {@code false} otherwise.
+     * @return {@code true} if task can be done within dateTime, {@code false} otherwise.
      */
-    abstract boolean isOverdue(LocalDateTime dateTime);
+    abstract boolean canDoWithin(LocalDateTime dateTime);
 
     /**
      * Converts the Task object into a String representation

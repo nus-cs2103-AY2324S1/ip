@@ -11,7 +11,7 @@ public class DatetimeParser {
     /**
      * Returns a LocalDateTime object of based on the String argument read from data/task.txt
      *
-     * @param str Formatted in 'd/MM/yyyy HH:mm'
+     * @param time Formatted in 'd/MM/yyyy HH:mm'
      * @return LocalDateTime object
      * @throws DateTimeParseBotException if the String Argument was not formatted correctly
      */
@@ -39,7 +39,7 @@ public class DatetimeParser {
     /**
      * Returns a LocalDateTime object of based on the String argument from user input
      *
-     * @param str String argument from user input formatted as 'd/MM/yyyy HH:mm'
+     * @param time String argument from user input formatted as 'd/MM/yyyy HH:mm'
      * @return LocalDateTime object
      * @throws DateTimeParseBotException if the String Argument was not formatted correctly
      */

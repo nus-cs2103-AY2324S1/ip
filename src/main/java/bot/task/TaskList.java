@@ -89,7 +89,8 @@ public class TaskList {
     }
 
     /**
-     * Returns a TaskList object containing all the tasks yet to be overdue
+     * Returns a TaskList object containing all the tasks that needs to be done
+     * within datetime
      *
      * @return List of tasks
      */
@@ -99,7 +100,7 @@ public class TaskList {
         Task task;
         while (iterator.hasNext()) {
             task = iterator.next();
-            if (!task.isOverdue(dateTime)) {
+            if (task.canDoWithin(dateTime)) {
                 taskList.add(task);
             }
         }

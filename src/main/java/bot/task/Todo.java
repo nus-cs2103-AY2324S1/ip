@@ -29,14 +29,14 @@ public class Todo extends Task {
     }
 
     /**
-     * Returns false as todo tasks have no deadline
+     * Returns true if todo task needs to be done within dateTime or false if otherwise
      *
      * @param dateTime The current date and time to compare against.
-     * @return false
+     * @return {@code true} if task can be done within dateTime, {@code false} otherwise.
      */
     @Override
-    public boolean isOverdue(LocalDateTime dateTime) {
-        return false;
+    public boolean canDoWithin(LocalDateTime dateTime) {
+        return !super.isDone;
     }
 
     /**

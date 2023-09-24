@@ -74,7 +74,7 @@ public class ControlFlow {
         case ControlFlow.FIND:
             return new FindCommand(this.taskList, remainder);
         case ControlFlow.WITHIN:
-            return new WithinTimelineCommand(this.taskList, remainder);
+            return new DoWithinCommand(this.taskList, remainder);
         default:
             throw new IllegalExpressionBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

@@ -53,14 +53,14 @@ public class Event extends Task {
     }
 
     /**
-     * Returns true if event is overdue or false if otherwise
+     * Returns true if event task needs to be done within dateTime or false if otherwise
      *
      * @param dateTime The current date and time to compare against.
-     * @return {@code true} if the event is overdue, {@code false} otherwise.
+     * @return {@code true} if task can be done within dateTime, {@code false} otherwise.
      */
     @Override
-    public boolean isOverdue(LocalDateTime dateTime) {
-        return endTime.isBefore(dateTime);
+    public boolean canDoWithin(LocalDateTime dateTime) {
+        return (!super.isDone & endTime.isAfter(dateTime));
     }
 
     /**
