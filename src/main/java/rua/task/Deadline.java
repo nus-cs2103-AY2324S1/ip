@@ -1,6 +1,7 @@
 package rua.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -8,15 +9,17 @@ import java.util.ArrayList;
  * Represents a Deadline Task.
  */
 public class Deadline extends Task {
-    private final LocalDate due;
+    private final LocalDateTime due;
+
+    public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MM dd yyyy HH:mm");
 
     /**
      * Constructs a Deadline object (assuming unmarked).
      *
      * @param description A String to describe the task.
-     * @param due A LocalDate to represent the due date of the deadline.
+     * @param due A LocalDateTime to represent the due date of the deadline.
      */
-    public Deadline(String description, LocalDate due) {
+    public Deadline(String description, LocalDateTime due) {
         super(description);
         this.due = due;
     }
@@ -25,10 +28,10 @@ public class Deadline extends Task {
      * Constructs a Deadline object.
      *
      * @param description A String to describe the task.
-     * @param due A LocalDate to represent the due date of the deadline.
+     * @param due A LocalDateTime to represent the due date of the deadline.
      * @param isMarked A boolean to indicate whether it is marked.
      */
-    public Deadline(String description, LocalDate due, Boolean isMarked) {
+    public Deadline(String description, LocalDateTime due, Boolean isMarked) {
         super(description, isMarked);
         this.due = due;
     }
@@ -37,11 +40,11 @@ public class Deadline extends Task {
      * Constructs a Deadline task object.
      *
      * @param description A String to describe the task.
-     * @param due A LocalDate to represent the due date of the deadline.
+     * @param due A LocalDateTime to represent the due date of the deadline.
      * @param isMarked A boolean to indicate whether it is marked.
      * @param tags An arraylist of tags.
      */
-    public Deadline(String description, LocalDate due, Boolean isMarked, ArrayList<String> tags) {
+    public Deadline(String description, LocalDateTime due, Boolean isMarked, ArrayList<String> tags) {
         super(description, isMarked, tags);
         this.due = due;
     }
@@ -65,7 +68,7 @@ public class Deadline extends Task {
      */
     @Override
     public Boolean isHappeningOnThatDate(LocalDate date) {
-        return date.isEqual(due);
+        return date.isEqual(due.toLocalDate());
     }
 
     /**
@@ -74,7 +77,7 @@ public class Deadline extends Task {
      * @return The due date of this event.
      */
     public String getDue() {
-        return due.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+        return due.format(OUTPUT_FORMATTER);
     }
 
     /**
@@ -107,7 +110,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        final String dueDateString = due.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+        final String dueDateString = getDue();
         return "[D]" + super.toString() + " (by: "
                 + dueDateString + ")";
     }

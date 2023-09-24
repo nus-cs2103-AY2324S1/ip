@@ -4,10 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +44,7 @@ public class Storage {
         String[] features = Arrays.stream(str.split(" \\|",
                 Integer.MAX_VALUE)).map(String::trim).toArray(String[]::new);
         Task output;
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MM dd yyyy HH:mm");
         final boolean isMarked = features[1].equals("1");
         final String taskDescription = features[2];
         final String tagsString = features[3];
@@ -57,12 +54,12 @@ public class Storage {
             output = new Todo(taskDescription, isMarked, tags);
             break;
         case "D":
-            final LocalDate dueDate = LocalDate.parse(features[4], dateFormat);
+            final LocalDateTime dueDate = LocalDateTime.parse(features[4], dateFormat);
             output = new Deadline(taskDescription, dueDate, isMarked, tags);
             break;
         case "E":
-            final LocalDate startingDate = LocalDate.parse(features[4], dateFormat);
-            final LocalDate endingDate = LocalDate.parse(features[5], dateFormat);
+            final LocalDateTime startingDate = LocalDateTime.parse(features[4], dateFormat);
+            final LocalDateTime endingDate = LocalDateTime.parse(features[5], dateFormat);
             output = new Event(taskDescription, startingDate,
                     endingDate, isMarked, tags);
             break;
@@ -126,11 +123,8 @@ public class Storage {
      */
     public void save(TaskList tasks) throws InvalidTypeException, IOException {
         try {
-            //Path path = Paths.get(filePath);
-            //Path directoryPath = path.getParent();
-            //Files.createDirectories(directoryPath);
             File directory = new File(filePath);
-            if (! directory.exists()){
+            if (!directory.exists()) {
                 directory.mkdir();
             }
             String fileName = filePath + "tasks.txt";

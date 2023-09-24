@@ -1,6 +1,7 @@
 package rua.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -8,17 +9,19 @@ import java.util.ArrayList;
  * Represents a Event Task.
  */
 public class Event extends Task {
-    private final LocalDate from;
-    private final LocalDate to;
+    private final LocalDateTime from;
+    private final LocalDateTime to;
+
+    public static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("MM dd yyyy HH:mm");
 
     /**
      * Constructs an Event object (assuming unmarked).
      *
      * @param description A String to describe the task.
-     * @param from A LocalDate to represent the event starting time.
-     * @param to A LocalDate to represent the event ending time.
+     * @param from A LocalDateTime to represent the event starting time.
+     * @param to A LocalDateTime to represent the event ending time.
      */
-    public Event(String description, LocalDate from, LocalDate to) {
+    public Event(String description, LocalDateTime from, LocalDateTime to) {
         super(description);
         assert from.isBefore(to) || from.isEqual(to)
                 : "The first date should not be later than the second date";
@@ -30,11 +33,11 @@ public class Event extends Task {
      * Constructs an Event object.
      *
      * @param description A String to describe the task.
-     * @param from A LocalDate to represent the event starting time.
-     * @param to A LocalDate to represent the event ending time.
+     * @param from A LocalDateTime to represent the event starting time.
+     * @param to A LocalDateTime to represent the event ending time.
      * @param isMarked A boolean to indicate whether it is marked.
      */
-    public Event(String description, LocalDate from, LocalDate to, Boolean isMarked) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, Boolean isMarked) {
         super(description, isMarked);
         this.from = from;
         this.to = to;
@@ -44,12 +47,12 @@ public class Event extends Task {
      * Constructs an Event task object.
      *
      * @param description A String to describe the task.
-     * @param from A LocalDate to represent the event starting time.
-     * @param to A LocalDate to represent the event ending time.
+     * @param from A LocalDateTime to represent the event starting time.
+     * @param to A LocalDateTime to represent the event ending time.
      * @param isMarked A boolean to indicate whether it is marked.
      * @param tags An arraylist of tags.
      */
-    public Event(String description, LocalDate from, LocalDate to, Boolean isMarked, ArrayList<String> tags) {
+    public Event(String description, LocalDateTime from, LocalDateTime to, Boolean isMarked, ArrayList<String> tags) {
         super(description, isMarked, tags);
         this.from = from;
         this.to = to;
@@ -72,7 +75,7 @@ public class Event extends Task {
      * @return The starting time of this event.
      */
     public String getFrom() {
-        return this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+        return this.from.format(OUTPUT_FORMATTER);
     }
 
     /**
@@ -81,7 +84,7 @@ public class Event extends Task {
      * @return The ending time of this event.
      */
     public String getTo() {
-        return this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+        return this.to.format(OUTPUT_FORMATTER);
     }
 
     /**
@@ -92,8 +95,10 @@ public class Event extends Task {
      */
     @Override
     public Boolean isHappeningOnThatDate(LocalDate date) {
-        return (date.isEqual(from) || date.isAfter(from))
-                && (date.isEqual(to) || date.isBefore(to));
+        LocalDate fromDate = from.toLocalDate();
+        LocalDate toDate = to.toLocalDate();
+        return (date.isEqual(fromDate) || date.isAfter(fromDate))
+                && (date.isEqual(toDate) || date.isBefore(toDate));
     }
 
     /**
@@ -127,8 +132,8 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        final String fromDateString = this.from.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
-        final String toDateString = this.to.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+        final String fromDateString = this.getFrom();
+        final String toDateString = this.getTo();
         return "[E]" + super.toString() + " (from: "
                 + fromDateString
                 + " to: " + toDateString

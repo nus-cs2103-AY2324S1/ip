@@ -71,6 +71,16 @@ public class Ui {
         showError(loadingErrorMessage);
     }
 
+    /**
+     * Shows parsing error.
+     */
+    public void showParsingError() {
+        final String loadingErrorMessage = "The input time format is wrong.\n"
+                + "Please enter in the format of YYYY-MM-dd HH:mm for creating tasks"
+                + " and YYYY-MM-dd for date search";
+        showError(loadingErrorMessage);
+    }
+
     public String readCommand() {
         return in.nextLine();
     }

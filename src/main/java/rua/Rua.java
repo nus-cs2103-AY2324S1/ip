@@ -1,11 +1,14 @@
 package rua;
 
+import java.time.format.DateTimeParseException;
+
 import rua.command.Command;
 import rua.common.Parser;
 import rua.common.Storage;
 import rua.common.StringLogger;
 import rua.common.Ui;
 import rua.task.TaskList;
+
 
 /**
  * A chatbot that helps manage tasks.
@@ -92,6 +95,8 @@ public class Rua {
         try {
             Command c = Parser.parse(input);
             tasks = c.execute(tasks, ui, storage);
+        } catch (DateTimeParseException e) {
+            ui.showParsingError();
         } catch (Exception e) {
             ui.showError(e.toString());
         }

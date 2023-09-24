@@ -45,16 +45,16 @@ Adds a Deadline task to the task list. <br>
 
 Format: `deadline DESCRIPTION /by DATE [TAG]…` <br>
 + A Deadline task is the type of task which has a strict due date.
-+ `DATE` needs to follow the format `yyyy-mm-dd` exactly and must be valid, otherwise you will get an error message of
++ `DATE` needs to follow the format `yyyy-mm-dd HH:mm` exactly and must be valid, otherwise you will get an error message of
 DateTimeParseException and the Deadline task will not be successfully added.
 + The newly added Deadline task is not marked by default. If you want to mark it, please use 
 [`mark`](#marking-a-task-mark) command separately.
 
 Example of usage:
-+ `deadline assignment /by 2023-10-01`: This will add assignment
-as a Deadline task due on 1st October 2023 to the task list. <br>
-+ `todo coding assignment /by 2023-10-01 #CS2103T`: This will add
-coding assignment as a Deadline task due on 1st October 2023 
++ `deadline assignment /by 2023-10-01 08:00`: This will add assignment
+as a Deadline task due at 8:00 on 1st October 2023 to the task list. <br>
++ `todo coding assignment /by 2023-10-01 08:00 #CS2103T`: This will add
+coding assignment as a Deadline task due at 8:00 on 1st October 2023 
 with tag #CS2103T to the task list.
 
 ### Adding an Event task: `event`
@@ -63,14 +63,14 @@ Adds an Event task to the task list. <br>
 
 Format: `event DESCRIPTION /from STARTDATE /to ENDDATE [TAG]…` <br>
 + A Deadline task is the type of task which has a strict start date and end date.
-+ `STARTDATE` and `ENDDATE` need to follow the format `yyyy-mm-dd` exactly and must be valid, otherwise you will get
++ `STARTDATE` and `ENDDATE` need to follow the format `yyyy-mm-dd HH:mm` exactly and must be valid, otherwise you will get
 an error message of DateTimeParseException and the Event task will not be successfully added.
 + The newly added Event task is not marked by default. If you want to mark it, please use [`mark`](#marking-a-task-mark)
 command separately.
 
 Example of usage:
-+ `event workshop /from 2023-10-01 /to 2023-10-07 #compulsory`: This will add workshop from 1st October 2023 to 7th
-October 2023
++ `event workshop /from 2023-10-01 09:00 /to 2023-10-07 16:00 #compulsory`: This will add workshop from 
+09:00 on 1st October 2023 to 16:00 on 7th October 2023
 with tag #compulsory as an Event task to the task list. <br>
 
 ### Deleting a task: `delete`

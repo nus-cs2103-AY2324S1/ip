@@ -1,6 +1,8 @@
 package rua.common;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,6 +27,9 @@ import rua.task.Todo;
  * Deals with making sense of the user command.
  */
 public class Parser {
+    public static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter SEARCH_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     /**
      * Translates the input message into a Command object.
      *
@@ -78,7 +83,7 @@ public class Parser {
             break;
         case "date":
             checkEmptyDescription(inputs, "Date Search");
-            output = new DateSearchCommand(LocalDate.parse(inputs[1]));
+            output = new DateSearchCommand(LocalDate.parse(inputs[1], SEARCH_FORMATTER));
             break;
         case "find":
             checkEmptyDescription(inputs, "Search Task");
@@ -116,7 +121,7 @@ public class Parser {
         checkEmptyDescription(infos, "Deadline");
 
         String[] tagInfos = infos[1].split(" #");
-        final LocalDate dueDate = LocalDate.parse(tagInfos[0]);
+        final LocalDateTime dueDate = LocalDateTime.parse(tagInfos[0], INPUT_FORMATTER);
         final String deadlineDescription = infos[0];
         Deadline newDeadline;
         if (tagInfos.length == 1) {
@@ -136,8 +141,8 @@ public class Parser {
         checkEmptyDescription(durations, "Event");
 
         String[] tagInfos = durations[1].split(" #");
-        final LocalDate fromDate = LocalDate.parse(durations[0]);
-        final LocalDate toDate = LocalDate.parse(tagInfos[0]);
+        final LocalDateTime fromDate = LocalDateTime.parse(durations[0], INPUT_FORMATTER);
+        final LocalDateTime toDate = LocalDateTime.parse(tagInfos[0], INPUT_FORMATTER);
         final String eventDescription = infosEvent[0];
         Event newEvent;
         if (tagInfos.length == 1) {

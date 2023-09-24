@@ -17,6 +17,16 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testImplementation 'junit:junit:4.13.1'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
 }
 
 test {
@@ -40,8 +50,8 @@ checkstyle {
 }
 
 javafx {
-    version = '17.0.2'
-    modules = ['javafx.controls', 'javafx.fxml']
+    version = '17.0.7'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 //compile group: 'com.joestelmach', name: 'natty', version: '0.6'
 
