@@ -458,30 +458,50 @@ Oreo will set the date of the task to the next occurrence of the input time. We 
 Oreo is a chatbot that keeps track of future tasks for you. Hence, an input without a date would assume that you are
 adding the task for the future.
 
-**For example:**
+<dl>
+  <dt>For example:</dt>
+  <dd>Assume the date and time now is 1st January 2023, 12pm.
 
-      Assume the date and time now is 1st January 2023, 12pm.
-  
-        `deadline give oreo breakfast /by 9am`: deadline will be set for 2nd January 2023, 9am.
-  
-        `deadline give oreo dinner /by 6pm`: deadline will be set for 1st January 2023, 6pm.
+`deadline give oreo breakfast /by 9am`: deadline will be set for 2nd January 2023, 9am.
+
+`deadline give oreo dinner /by 6pm`: deadline will be set for 1st January 2023, 6pm.
+
+</dl>
 
 > [!NOTE]
 > There is a **special** case for **event** tasks!
 
-    **Case 1:** from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)
-  
-        `event playtime /from 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
-  
-        `event bathe /from 9am /to 9:30am`: event will be set for 2nd January 2023, 11-3pm
-  
-    **Case 2:** from `date` `time` to `time` (Reference `/from` date)
-  
-        `event playtime /from 1 Jan, 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
+<dl>
+  <dt>Case 1: </dt>
+  <dd>
 
-    **Case 3:** from `time` to `date` `time` (Reference `/from` time)
-  
-        `event oreo's special days /from 9am /to 31 Dec, 11:59pm`: event will be set for 2nd Jan 2023, 9am to 31st Dec 11:59pm
+from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)
+
+Assume the date and time now is 1st January 2023, 12pm.
+
+`deadline give oreo breakfast /by 9am`: deadline will be set for 2nd January 2023, 9am.
+
+`deadline give oreo dinner /by 6pm`: deadline will be set for 1st January 2023, 6pm.
+
+  </dd>
+  <dt>Case 2: </dt>
+  <dd>
+
+from `date` `time` to `time` (Reference `/from` date)
+
+`event playtime /from 1 Jan, 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
+
+  </dd>
+  <dt>Case 3: </dt>
+  <dd>
+
+from `time` to `date` `time` (Reference `/from` time)
+
+`event oreo's special days /from 9am /to 31 Dec, 11:59pm`: event will be set for 2nd Jan 2023, 9am to 31st Dec 11:59pm
+
+  </dd>
+
+</dl>
 
 For more information about event date time formats, see [Using Date and Time in Events](#using-date-and-time-in-events).
 
@@ -493,16 +513,19 @@ saved.
 This is where things get tricky! Similar to time-only inputs, Oreo will set the year of the date to the next occurrence
 of the date or next occurrence of the date specified in `/to` for events.
 
-**For example:**
+<dl>
+  <dt>For example:</dt>
+  <dd>Assume the date is 1st January 2023.
 
-    Assume the date is 1st January 2023.
+`deadline new years' eve /by 31 Dec`: deadline will be set for 31st December 2024.
   
-    `deadline new years' eve /by 31 Dec`: deadline will be set for 31st December 2024.
+`event christmas /from 25 Dec /to 5 Jan`: the event will be set for 25th December 2022 to 5th January 2023.
   
-    `event christmas /from 25 Dec /to 5 Jan`: the event will be set for 25th December 2022 to 5th January 2023.
-  
-    `event playtime /from 9am /to 1st Jan, 5pm`: INVALID! As 9am will be read independently and be assumed to be on
+`event playtime /from 9am /to 1st Jan, 5pm`: INVALID! As 9am will be read independently and be assumed to be on
     2nd January.
+  </dd>
+
+</dl>
 
 ##### Using Date and Time in Events
 You should have realised that date time for events can be quite tricky due to the permutations of date time that are
