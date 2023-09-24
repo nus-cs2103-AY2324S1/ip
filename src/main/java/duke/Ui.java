@@ -29,7 +29,7 @@ public class Ui {
      */
     public String showTasks(TaskList taskList) {
         if (taskList.isEmpty()) {
-            return "There are no tasks.";
+            return "There are no tasks." + "\n" + "Looks like you have a lot of time on your hands!";
         }
         return "Here are the tasks in your list:" + "\n" + taskList.toString();
     }
