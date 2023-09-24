@@ -1,2 +1,2 @@
-E | 0 | homework | 19th July 2023  1700 | 19th July 2023 1900
-T | 1 | sujith
+T | 0 | Homework
+E | 0 | Suji's Birthday Dinner | 8th June 2023 1800 | 8th June 2023 2200

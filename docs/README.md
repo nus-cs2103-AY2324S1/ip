@@ -249,6 +249,6 @@ Expected outcome:
 Changes description of Task 1 to 'birthday party'.
 
 ```
-Updated the description of Task 1 from "Welcome Tea" to "homework"
+Updated the description of Task 1 from "Welcome Tea" to "birthday party"
 Now you have 2 tasks in the list. 
 ```
