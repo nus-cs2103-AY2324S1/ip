@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,15 +29,18 @@ public class DialogBox extends HBox {
     private Label userName;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private VBox bubble;
 
-
+    private static String USER_BUBBLE_COLOR = " #ff6c55";
+    private static String EGGBOT_BUBBLE_COLOR = " #173e5b";
 
     private static Image userImage = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("images/profile.png")));
     private static Image eggImage = new Image(Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream("images/egg.png")));
 
-    private DialogBox(String text, String user, Image img) {
+    private DialogBox(String text, String user, Image img, String color) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/dialogbox/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -47,6 +51,7 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         userName.setText(user);
         displayPicture.setImage(img);
+        bubble.setStyle("-fx-background-color: " + color + "; -fx-background-radius: 25 25 25 25; -fx-background-radius: 25 25 25 25;");
     }
 
     /**
@@ -60,12 +65,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text) {
-        return new DialogBox(text, "You:", userImage);
+        DialogBox userDb = new DialogBox(text, "You:", userImage, USER_BUBBLE_COLOR);
+        userDb.flip();
+        return userDb;
     }
 
     public static DialogBox getEggbotDialog(String text) {
-        var db = new DialogBox(text, "Eggbot:", eggImage);
-        db.flip();
+        var db = new DialogBox(text, "Eggbot:", eggImage, EGGBOT_BUBBLE_COLOR);
         return db;
     }
 }

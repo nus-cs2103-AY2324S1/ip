@@ -1,3 +1,0 @@
-Todo,Fill in the midterm course review,false
-Deadline,Finish ip,false,22-09-2023 2359
-Event,Award Ceremony,false,26-09-2023 1600,26-09-2023 2100
