@@ -35,8 +35,12 @@ public class Storage {
         ArrayList<String> resultStringArray = new ArrayList<>();
         try {
             File textFile = new File(this.filePath);
-            if (textFile.createNewFile()) {
-                System.out.println("File created: " + textFile.getName());
+            File parentDirectory = textFile.getParentFile();
+            if (!parentDirectory.exists()) {
+                parentDirectory.mkdir();
+            }
+            if (!textFile.exists()) {
+                textFile.createNewFile();
             }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath));
             String taskString;

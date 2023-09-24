@@ -18,7 +18,7 @@ import java.io.IOException;
  * A GUI for the Richie application
  */
 public class Main extends Application {
-    private Richie richie = new Richie("src/data.txt");
+    private Richie richie = new Richie("data/data.txt");
     private VBox dialogContainer;
     private ScrollPane scrollPane;
 
