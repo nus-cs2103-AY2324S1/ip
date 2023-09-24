@@ -20,7 +20,7 @@ public class Storage {
     //private methods below
 
 
-    private void BackgroundSetUp() {
+    private void backgroundSetUp() {
 
         File dir = new File(this.dirName);
         if (!(dir.exists())) {
@@ -49,7 +49,7 @@ public class Storage {
 
 
 
-    private List<String> ReadLine(String line) {
+    private List<String> readLine(String line) {
         List<String> formattedLine = new ArrayList<>();
         Scanner lineScanner = new Scanner(line);
         while (lineScanner.hasNext()) {
@@ -75,14 +75,14 @@ public class Storage {
         this.dirName = dirName;
         this.filePath = this.dirName + "/" + this.fileName;
 
-        BackgroundSetUp();
+        backgroundSetUp();
 
     }
 
 
 
 
-    public Task[] LoadList() {
+    public Task[] loadList() {
         Task[] userList = new Task[100];
         int positionPointer = 0;
 
@@ -98,7 +98,7 @@ public class Storage {
 
                 String line = fileScanner.nextLine();
 
-                List<String> formattedLine = ReadLine(line);
+                List<String> formattedLine = readLine(line);
 
 
 
@@ -124,28 +124,28 @@ public class Storage {
                 boolean isDone = attributes.get(1).equals("1");
 
                 switch (attributes.get(0)) {
-                    case "T": {
-                        Task task = new Task(attributes.get(2), 1, "Null", "Null", isDone);
-                        userList[positionPointer] = task;
+                case "T": {
+                    Task task = new Task(attributes.get(2), 1, "Null", "Null", isDone);
+                    userList[positionPointer] = task;
 
-                        break;
-                    }
-                    case "D": {
-                        Task task = new Task(attributes.get(2), 2, "Null", attributes.get(3), isDone);
-                        userList[positionPointer] = task;
+                    break;
+                }
+                case "D": {
+                    Task task = new Task(attributes.get(2), 2, "Null", attributes.get(3), isDone);
+                    userList[positionPointer] = task;
 
-                        break;
-                    }
-                    case "E": {
-                        Task task = new Task(attributes.get(2), 3, attributes.get(3), attributes.get(4), isDone);
-                        userList[positionPointer] = task;
+                    break;
+                }
+                case "E": {
+                    Task task = new Task(attributes.get(2), 3, attributes.get(3), attributes.get(4), isDone);
+                    userList[positionPointer] = task;
 
-                        break;
+                    break;
 
 
-                    }
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + attributes.get(0));
+                }
+                default:
+                    throw new IllegalStateException("Unexpected value: " + attributes.get(0));
                 }
 
                 positionPointer++;
@@ -165,11 +165,11 @@ public class Storage {
     }
 
 
-    public void SaveList(Task[] userList, int numberOfElements) {
+    public void saveList(Task[] userList, int numberOfElements) {
 
         try (FileWriter writer = new FileWriter(filePath)) {
             for (int i = 0; i < numberOfElements; i++) {
-                writer.write(userList[i].ForRecordingInTextFile());
+                writer.write(userList[i].getStringForRecordingInTextFile());
                 writer.write("\n");
             }
 

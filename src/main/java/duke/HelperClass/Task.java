@@ -85,7 +85,7 @@ public class Task {
      * return the string representing how the Task object should be stored
      * @return string representation of the Task object
      */
-    public String ForRecordingInTextFile() {
+    public String getStringForRecordingInTextFile() {
         // Record format: "typeOfTask | Status | Name | StartTime(optional) | EndTime(optional)"
         // example: "D | 0 | return book | June 6th"
         // "0" for not done and "1" for done
