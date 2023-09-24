@@ -12,6 +12,7 @@ all your tasks so that you will never forget them again!
   - [Marking Task as complete](#marking-task-as-complete)
   - [Marking Task as incomplete](#marking-task-as-incomplete)
   - [Searching for Tasks](#searching-for-tasks)
+  - [Finding Tasks to be done within period](#finding-tasks-to-be-done-within-period)
 
 ## Quick start
 
@@ -128,4 +129,16 @@ Find tasks by keywords or dates with:
 Example:
 ```
 find home
+```
+
+### Finding Tasks to be done within period
+
+Find tasks that have yet to be marked as complete and are within the time period.
+This can be done with:
+
+- `within [d/MM/YYYY HH:MM]`
+
+Example:
+```
+within 22/09/2023 18:00
 ```
