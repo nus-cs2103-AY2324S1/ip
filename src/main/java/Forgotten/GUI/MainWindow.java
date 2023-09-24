@@ -1,11 +1,19 @@
 package Forgotten.GUI;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
+import static java.lang.Thread.sleep;
+
 /**
  * Controller for Forgotten.GUI.MainWindow. Provides the layout for the other controls.
  */
@@ -45,5 +53,17 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getForgottenDialog(response, fogottenImage)
         );
         userInput.clear();
+        if (response.equals(forgottenGUI.printByeMessage())) {
+            exitApplication();;
+        }
+    }
+
+    private void exitApplication() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+            Stage stage = (Stage) dialogContainer.getScene().getWindow();
+            stage.close();
+            Platform.exit();
+        }));
+        timeline.play();
     }
 }
