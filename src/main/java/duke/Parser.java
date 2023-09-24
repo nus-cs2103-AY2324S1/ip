@@ -6,8 +6,6 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.task.ToDoTask;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * The Parser class is responsible for parsing user input and executing
  * the corresponding commands on the task list.
@@ -60,7 +58,7 @@ public class Parser {
                 return ui.showInvalidCommand();
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-                throw new DukeException("The description of a deadline/event cannot be empty.");
+            throw new DukeException("The description of a deadline/event cannot be empty.");
         }
     }
 
@@ -77,7 +75,7 @@ public class Parser {
     public static Task parseLoad(String taskType, String taskDetails, boolean isDone) throws DukeException {
         assert taskType != null : "Task type cannot be null.";
         if (taskType.equalsIgnoreCase("[T")) {
-            return new ToDoTask(clearWhitespace(taskDetails), isDone);
+            return new ToDoTask(trimDescription(taskDetails), isDone);
         } else if (taskType.equals("[D")) {
             return Parser.parseDeadline(taskDetails, isDone);
         } else if (taskType.equals("[E")) {

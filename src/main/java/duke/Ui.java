@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.Scanner;
+
 import duke.task.Task;
 
 /**
@@ -22,8 +23,8 @@ public class Ui {
      * @return A welcome message as a string.
      */
     public String showWelcomeMessage() {
-        return "Hi! This is your AI assistant Sharky!\n Remember to type 'save' to save" +
-                " your list fo future reference! What can I do for you today?";
+        return "Hi! This is your AI assistant Sharky!\n Remember to type 'save' to save"
+                + " your list fo future reference! What can I do for you today?";
     }
 
     /**
@@ -34,8 +35,8 @@ public class Ui {
      * @return A message indicating the task addition.
      */
     public String showTaskAddedMessage(Task task, int totalTasks) {
-        String response = "Got it! I've added this task: \n" + task +
-                "\n" + "Now you have " + totalTasks + " task(s) in the list.";
+        String response = "Got it! I've added this task: \n" + task
+                + "\n" + "Now you have " + totalTasks + " task(s) in the list.";
         return response;
     }
 
@@ -47,8 +48,8 @@ public class Ui {
      * @return A message indicating the task removal.
      */
     public String showTaskRemoveMessage(Task task, int totalTasks) {
-        String response = "Yes Sir. I've removed the following task:" + "\n" + task +
-                "\n" + "Now you have " + totalTasks + " task(s) in the list.";
+        String response = "Yes Sir. I've removed the following task:" + "\n" + task
+                + "\n" + "Now you have " + totalTasks + " task(s) in the list.";
         return response;
     }
 

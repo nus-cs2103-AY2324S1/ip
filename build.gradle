@@ -2,27 +2,41 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'checkstyle'
     id 'org.openjfx.javafxplugin' version '0.0.13'
-}
-
-javafx {
-    version = "17.0.7"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    id 'checkstyle'
 }
 
 checkstyle {
     toolVersion = '10.2'
 }
 
-
 repositories {
     mavenCentral()
+}
+
+javafx {
+    version = "17"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    String javaFxVersion = '17.0.7'
+
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+
 }
 
 test {
@@ -43,10 +57,8 @@ application {
     mainClass.set("duke.gui.Launcher")
 }
 
-mainClassName = "duke.gui.Launcher"
-
 shadowJar {
-    archiveBaseName = "Launcher"
+    archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
@@ -54,10 +66,3 @@ shadowJar {
 run{
     standardInput = System.in
 }
-
-task deleteTextFile(type: Delete) {
-    delete './data/duke.txt'
-    delete './data/test-duke.txt'
-}
-
-clean.dependsOn deleteTextFile

@@ -21,13 +21,6 @@ public abstract class Task {
     protected boolean isDone;
 
     /**
-     * Converts the task to a string for saving to the data file.
-     *
-     * @return A string representation of the task for saving.
-     */
-    public abstract String toSave();
-
-    /**
      * Constructs a `Task` object with a description and completion status.
      *
      * @param description The description of the task.
@@ -37,6 +30,15 @@ public abstract class Task {
         this.description = description;
         this.isDone = isDone;
     }
+
+    /**
+     * Converts the task to a string for saving to the data file.
+     *
+     * @return A string representation of the task for saving.
+     */
+    public abstract String toSave();
+
+
 
     /**
      * Gets the completion status of the task.
