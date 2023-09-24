@@ -53,6 +53,17 @@ public class Event extends Task {
     }
 
     /**
+     * Returns true if event is overdue or false if otherwise
+     *
+     * @param dateTime The current date and time to compare against.
+     * @return {@code true} if the event is overdue, {@code false} otherwise.
+     */
+    @Override
+    public boolean isOverdue(LocalDateTime dateTime) {
+        return endTime.isBefore(dateTime);
+    }
+
+    /**
      * Returns a string representation of Event object
      *
      * @return a string representation of Event object

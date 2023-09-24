@@ -46,6 +46,17 @@ public class Deadline extends Task {
     }
 
     /**
+     * Returns true if deadline is over or false if otherwise
+     *
+     * @param dateTime The current date and time to compare against.
+     * @return {@code true} if the deadline is over, {@code false} otherwise.
+     */
+    @Override
+    public boolean isOverdue(LocalDateTime dateTime) {
+        return time.isBefore(dateTime);
+    }
+
+    /**
      * Returns a string representation of Deadline object
      *
      * @return a string representation of Deadline object

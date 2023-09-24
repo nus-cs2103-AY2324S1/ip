@@ -15,11 +15,11 @@ public class DatetimeParser {
      * @return LocalDateTime object
      * @throws DateTimeParseBotException if the String Argument was not formatted correctly
      */
-    public static LocalDateTime parseTimeInput(String str) throws
+    public static LocalDateTime parseTimeInput(String time) throws
             DateTimeParseBotException {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy HH:mm");
-            return LocalDateTime.parse(str, formatter);
+            return LocalDateTime.parse(time, formatter);
         } catch (DateTimeParseException e) {
             throw new DateTimeParseBotException("Please write your dateTime as d/MM/yyyy HH:mm");
         }
@@ -43,10 +43,10 @@ public class DatetimeParser {
      * @return LocalDateTime object
      * @throws DateTimeParseBotException if the String Argument was not formatted correctly
      */
-    public static LocalDateTime convertToLocalDateTime(String str) throws
+    public static LocalDateTime convertToLocalDateTime(String time) throws
             DateTimeParseBotException {
         try {
-            return LocalDateTime.parse(str);
+            return LocalDateTime.parse(time);
         } catch (DateTimeParseException e) {
             throw new DateTimeParseBotException("The dateTime format is corrupted " +
                     "in the ./data/bot.task.txt.");

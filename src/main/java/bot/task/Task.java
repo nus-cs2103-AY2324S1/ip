@@ -1,5 +1,7 @@
 package bot.task;
 
+import java.time.LocalDateTime;
+
 public abstract class Task {
     private static final String COMPLETE = "[X] ";
     private static final String INCOMPLETE = "[ ] ";
@@ -67,6 +69,14 @@ public abstract class Task {
             return "false" + Task.UNIQUE_FILE_SEPARATOR + this.name;
         }
     }
+
+    /**
+     * Checks if the task associated with this deadline is overdue.
+     *
+     * @param dateTime The current date and time to compare against.
+     * @return {@code true} if the task is overdue, {@code false} otherwise.
+     */
+    abstract boolean isOverdue(LocalDateTime dateTime);
 
     /**
      * Converts the Task object into a String representation

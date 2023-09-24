@@ -1,5 +1,6 @@
 package bot.task;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -85,6 +86,24 @@ public class TaskList {
      */
     public Iterator<Task> iterator() {
         return this.lst.iterator();
+    }
+
+    /**
+     * Returns a TaskList object containing all the tasks yet to be overdue
+     *
+     * @return List of tasks
+     */
+    public TaskList findTasksWithinDateTime(LocalDateTime dateTime) {
+        TaskList taskList = new TaskList();
+        Iterator<Task> iterator = this.iterator();
+        Task task;
+        while (iterator.hasNext()) {
+            task = iterator.next();
+            if (!task.isOverdue(dateTime)) {
+                taskList.add(task);
+            }
+        }
+        return taskList;
     }
 
     /**

@@ -1,5 +1,7 @@
 package bot.task;
 
+import java.time.LocalDateTime;
+
 public class Todo extends Task {
     private static final String TASK_HEADER = "[T] ";
     public Todo(String name) {
@@ -24,6 +26,17 @@ public class Todo extends Task {
     @Override
     public String fileWriteFormatted() {
         return Todo.TASK_HEADER + Task.UNIQUE_FILE_SEPARATOR + super.fileWriteFormatted();
+    }
+
+    /**
+     * Returns false as todo tasks have no deadline
+     *
+     * @param dateTime The current date and time to compare against.
+     * @return false
+     */
+    @Override
+    public boolean isOverdue(LocalDateTime dateTime) {
+        return false;
     }
 
     /**

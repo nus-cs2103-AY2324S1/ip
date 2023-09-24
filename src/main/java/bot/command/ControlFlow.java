@@ -20,6 +20,7 @@ public class ControlFlow {
     private static final String TERMINATE = "bye";
     private static final String DELETE = "delete";
     private static final String FIND = "find";
+    private static final String WITHIN = "within";
 
     private final TaskList taskList;
 
@@ -72,6 +73,8 @@ public class ControlFlow {
             return new DeleteCommand(this.taskList, remainder);
         case ControlFlow.FIND:
             return new FindCommand(this.taskList, remainder);
+        case ControlFlow.WITHIN:
+            return new WithinTimelineCommand(this.taskList, remainder);
         default:
             throw new IllegalExpressionBotException("OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
