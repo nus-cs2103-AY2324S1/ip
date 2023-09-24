@@ -36,24 +36,6 @@ public class Ax extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image ax = new Image(this.getClass().getResourceAsStream("/images/DaAx.png"));
 
-    /**
-     * the main command for Ax chatbot
-     *
-     * @param args does nothing?
-     */
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        Ui.greet();
-        Storage.readSave();
-        while (true) {
-            boolean done = Parser.getInput(scanner);
-            if (done) {
-                break;
-            }
-        }
-        Ui.bye();
-    }
 
     /**
      * start gui
@@ -65,56 +47,14 @@ public class Ax extends Application {
      */
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
-        Ui.greet();
-        Storage.readSave();
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
+        AnchorPane mainLayout = setUpAnchorPane(stage);
 
-        userInput = new TextField();
-        sendButton = new Button("Send");
+        setUpWindow(stage, mainLayout);
 
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        setUpHandleUserInput();
+    }
 
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-        //Step 2. Formatting the window to look as expected
-        stage.setTitle("Ax");
-        stage.setResizable(true);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-        scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
-        scrollPane.prefHeightProperty().bind(mainLayout.heightProperty());
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setStyle("-fx-background: rgb(255,214,127);\n -fx-background-color: rgb(255,214,127)");
-        // You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        NumberBinding userInputWidth = subtract(subtract(mainLayout.widthProperty(), sendButton.widthProperty()), 9);
-        userInput.prefWidthProperty().bind(userInputWidth);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 3.0);
-        AnchorPane.setRightAnchor(sendButton, 3.0);
-
-        AnchorPane.setLeftAnchor(userInput, 3.0);
-        AnchorPane.setBottomAnchor(userInput, 3.0);
-
+    private void setUpHandleUserInput() {
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
@@ -138,6 +78,60 @@ public class Ax extends Application {
         });
 
         // more code to be added here later
+    }
+
+    private void setUpWindow(Stage stage, AnchorPane mainLayout) {
+        //Step 2. Formatting the window to look as expected
+        stage.setTitle("Ax");
+        stage.setResizable(true);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+        scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
+        scrollPane.prefHeightProperty().bind(mainLayout.heightProperty());
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-background: rgb(255,214,127);\n -fx-background-color: rgb(255,214,127)");
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        NumberBinding userInputWidth = subtract(subtract(mainLayout.widthProperty(), sendButton.widthProperty()), 9);
+        userInput.prefWidthProperty().bind(userInputWidth);
+
+        sendButton.setPrefWidth(55.0);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 3.0);
+        AnchorPane.setRightAnchor(sendButton, 3.0);
+
+        AnchorPane.setLeftAnchor(userInput, 3.0);
+        AnchorPane.setBottomAnchor(userInput, 3.0);
+    }
+
+    private AnchorPane setUpAnchorPane(Stage stage) {
+        //Step 1. Setting up required components
+        Ui.greet();
+        Storage.readSave();
+        //The container for the content of the chat to scroll.
+        scrollPane = new ScrollPane();
+        dialogContainer = new VBox();
+        scrollPane.setContent(dialogContainer);
+
+        userInput = new TextField();
+        sendButton = new Button("Send");
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+
+        scene = new Scene(mainLayout);
+
+        stage.setScene(scene);
+        stage.show();
+        return mainLayout;
     }
 
     /**

@@ -45,7 +45,7 @@
     ```
     Example: list
     Output:
-    1. [T] [✅] help bob
+    1. [T] [M] help bob
     2. [D] [ ] photog  (by: 2023-09-01)
     3. [E] [ ] studyyyyyy  (from: 2023-10-01 to: 2023-11-01)
     ```
@@ -57,7 +57,7 @@
     ```
     Example: find help
     Output:
-    1. [T] [✅] help bob
+    1. [T] [M] help bob
     ```
    
 6. ### mark
@@ -66,7 +66,7 @@
    ```
     Example: mark 1
     Output:
-    1. [T] [✅] help bob
+    1. [T] [M] help bob
     ```
    
 7. ### unmark

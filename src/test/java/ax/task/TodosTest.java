@@ -15,7 +15,7 @@ class TodosTest {
     void testSetDone() {
         Todos temp = new Todos("hi");
         temp.setDone(true);
-        assertEquals(temp.toString(), "[T] [✅] hi");
+        assertEquals(temp.toString(), "[T] [M] hi");
         temp.setDone(false);
         assertEquals(temp.toString(), "[T] [ ] hi");
     }

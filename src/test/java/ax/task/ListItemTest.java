@@ -58,6 +58,6 @@ class ListItemTest {
         ListItem temp = new ListItem("yo");
         assertEquals(temp.toString(), "[ ] yo");
         temp.setDone(true);
-        assertEquals(temp.toString(), "[✅] yo");
+        assertEquals(temp.toString(), "[M] yo");
     }
 }

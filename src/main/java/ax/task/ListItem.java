@@ -9,7 +9,7 @@ public class ListItem implements Reminders {
 
     @SuppressWarnings("FieldMayBeFinal")
     private String text;
-    private boolean done;
+    private boolean isDone;
 
     /**
      * Creates a new ax.task.ListItem with the given text.
@@ -19,8 +19,8 @@ public class ListItem implements Reminders {
      */
     public ListItem(String text) {
         this.text = text;
-        this.done = false; // defaults to not done yet
-        assert this.text.length() > 0 : this.done == false;
+        this.isDone = false; // defaults to not done yet
+        assert this.text.length() > 0 : this.isDone == false;
     }
 
     /**
@@ -38,7 +38,7 @@ public class ListItem implements Reminders {
      * @return true if the item is done, false otherwise
      */
     public boolean getDone() {
-        return done;
+        return isDone;
     }
 
     /**
@@ -47,7 +47,7 @@ public class ListItem implements Reminders {
      * If the item was previously not done, it is marked as done.
      */
     public void toggleDone() {
-        this.done = !this.done;
+        this.isDone = !this.isDone;
     }
 
     /**
@@ -56,7 +56,7 @@ public class ListItem implements Reminders {
      * @param done true if the item is done, false otherwise
      */
     public void setDone(boolean done) {
-        this.done = done;
+        this.isDone = done;
     }
 
     /**
@@ -77,9 +77,9 @@ public class ListItem implements Reminders {
      */
     @Override
     public String toString() {
-        if (done) {
+        if (isDone) {
             // if done use tickbox
-            return "[✅] " + this.text;
+            return "[M] " + this.text;
         } else {
             return "[ ] " + this.text;
         }
