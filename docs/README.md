@@ -12,7 +12,7 @@ a CLI (Command Line Interface.)
    command to run the application.    
    A GUI similar to the one below should appear in a few seconds.    
    ![alt text](Ui.png)
-5. 
+
 ## Features 
 
 > Important Notes
