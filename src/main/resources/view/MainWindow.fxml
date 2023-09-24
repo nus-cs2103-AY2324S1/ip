@@ -18,7 +18,14 @@
         <TextField fx:id="userInput" alignment="CENTER"
                    layoutY="558.0" onAction="#handleUserInput"
                    prefHeight="41.0" prefWidth="324.0"
-                   promptText="Type command here" style="-fx-border-radius: 20;                        -fx-background-radius: 20;                        -fx-background-insets: 5;                        -fx-border-insets: 5;                        -fx-border-width: 1;                        -fx-border-color: rgb(0, 0, 0);" AnchorPane.bottomAnchor="1.0">
+                   promptText="Type command here" 
+                   style="-fx-border-radius: 20;
+                            -fx-background-radius: 20;
+                            -fx-background-insets: 5;
+                            -fx-border-insets: 5;
+                            -fx-border-width: 1;
+                            -fx-border-color: rgb(0, 0, 0);" 
+                   AnchorPane.bottomAnchor="1.0">
          <font>
             <Font name="Segoe UI Bold Italic" size="13.0" />
          </font>
