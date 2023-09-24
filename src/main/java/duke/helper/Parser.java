@@ -49,7 +49,7 @@ public class Parser {
                 return;
             case "DEADLINE":
                 parseDeadline(content);   
-                return;             
+                return;
             default:
                 throw new DukeException("Sorry, I don't recognize this command. Please try again.");
         }  
@@ -239,5 +239,10 @@ public class Parser {
                 }
             }
         }
+    }
+
+    public static String parseTest(String input) throws DukeException {
+        String testCommand = input.split("\\s")[0].toUpperCase();
+        return testCommand;
     }
 }
