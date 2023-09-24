@@ -23,6 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("EchoBot");
             stage.setResizable(false);
             fxmlLoader.<MainWindow>getController().setEchoBot(echobot);
             fxmlLoader.<MainWindow>getController().greetUser();
