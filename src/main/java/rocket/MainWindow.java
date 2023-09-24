@@ -29,6 +29,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image rocketImage = new Image(this.getClass().getResourceAsStream("/images/DaRocket.png"));
 
+    /**
+     * Open the window and welcome the user
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

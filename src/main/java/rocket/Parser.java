@@ -87,6 +87,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses a deadline string
+     * @param input the deadline string
+     * @param dateTimeFormatter the date time formatter - ugly or pretty
+     * @return a new DeadlineInfo object representing the deadline information
+     * @throws RocketIllegalArgumentException if there are invalid arguments
+     */
     public static DeadlineInfo parseDeadlineStr(String input, DateTimeFormatter dateTimeFormatter) throws RocketIllegalArgumentException{
         int byIndex = input.indexOf("by");
         if (byIndex == -1) {
@@ -134,6 +141,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses an event string
+     * @param input the event string
+     * @param dateTimeFormatter the date time formatter - ugly or pretty
+     * @return a new EventInfo object representing the event information
+     * @throws RocketIllegalArgumentException if there are invalid arguments
+     */
     public static EventInfo parseEventStr(String input, DateTimeFormatter dateTimeFormatter) throws RocketIllegalArgumentException {
         int fromIndex = input.indexOf("from") ;
         String description = input.substring(0, fromIndex - 2);

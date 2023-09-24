@@ -56,10 +56,22 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Get a dialog box that contains what the user says
+     * @param text the text of the dialog box
+     * @param img the profile image of the user
+     * @return a DialogBox that contains what the user says
+     */
     public static DialogBox getUserDialog(String text, Image img) {
         return new DialogBox(text, img);
     }
 
+    /**
+     *  Get A DialogBox that is supposed to contain what the bot will respond with
+     * @param text the text of the dialog box
+     * @param img the profile image of the user bot
+     * @return a DialogBox that contains what the bot says
+     */
     public static DialogBox getRocketDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();

@@ -8,6 +8,12 @@ public class FindCommand extends Command {
         this.stringToFind  = stringToFind;
     }
 
+    /**
+     * Find the tasks that the user is searching for and print them
+     * @param tasks Modifies or uses the tasklist if needed.
+     * @param ui Displays to the UI if needed.
+     * @param storage Stores and retrieves data from the storage.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         TaskList matchingTasks = getMatchingTasks(tasks, stringToFind);
