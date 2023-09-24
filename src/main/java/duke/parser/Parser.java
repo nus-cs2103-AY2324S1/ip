@@ -41,7 +41,11 @@ public class Parser {
         } else if (listRegex.matcher(command).find()) {
             return taskList.printList();
         } else if (markRegex.matcher(command).find()) {
+
             int curr = Integer.parseInt(command.substring(5)) - 1;
+
+
+            System.out.println(curr);
             return taskList.markCurrentTaskDone(curr);
         } else if (unmarkRegex.matcher(command).find()) {
             int curr = Integer.parseInt(command.substring(7)) - 1;

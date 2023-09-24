@@ -300,7 +300,63 @@ public class TaskList {
      * @return String return the task marked undone
      */
     public String markCurrentTaskUndone(int index) {
+
+
+        try {
+            if (index < 0) {
+                throw new DukeException("The index cannot be smaller than 0");
+            }
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+
+
+        try {
+            File myObj = new File("./src/main/data/tmpDuke.txt");
+            myObj.createNewFile();
+            int currLine = 0;
+            File currFile = new File("./src/main/data/duke.txt");
+            Scanner myReader = new Scanner(currFile);
+            while (myReader.hasNextLine()) {
+                if (index == currLine) {
+                    String data = myReader.nextLine();
+                    String front = data.substring(0, 4);
+                    String middle = "0";
+                    String back = data.substring(5);
+                    String output = front + middle + back;
+                    FileWriter myWriter = new FileWriter("./src/main/data/tmpDuke.txt", true);
+                    myWriter.write(output + "\n");
+                    myWriter.close();
+                    currLine++;
+                    continue;
+                }
+
+                currLine++;
+                String data = myReader.nextLine();
+                if (data.equals("")) {
+                    break;
+                }
+                FileWriter myWriter = new FileWriter("./src/main/data/tmpDuke.txt", true);
+                myWriter.write(data + "\n");
+                myWriter.close();
+            }
+            myReader.close();
+            new File("./src/main/data/tmpDuke.txt").renameTo(currFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return "An error occurred";
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return "An error occurred";
+        }
+
+
+
         return list.get(index).markUndone();
+
+
     }
 
     /**
@@ -309,6 +365,56 @@ public class TaskList {
      * @return String returns the task marked done
      */
     public String markCurrentTaskDone(int index) {
+        try {
+            if (index < 0) {
+                throw new DukeException("The index cannot be smaller than 0");
+            }
+
+        } catch (DukeException e) {
+            return e.getMessage();
+        }
+
+        try {
+            File myObj = new File("./src/main/data/tmpDuke.txt");
+            myObj.createNewFile();
+            int currLine = 0;
+            File currFile = new File("./src/main/data/duke.txt");
+            Scanner myReader = new Scanner(currFile);
+            while (myReader.hasNextLine()) {
+                if (index == currLine) {
+                    String data = myReader.nextLine();
+                    String front = data.substring(0, 4);
+                    String middle = "1";
+                    String back = data.substring(5);
+                    String output = front + middle + back;
+                    FileWriter myWriter = new FileWriter("./src/main/data/tmpDuke.txt", true);
+                    myWriter.write(output + "\n");
+                    myWriter.close();
+                    currLine++;
+                    continue;
+                }
+
+                currLine++;
+                String data = myReader.nextLine();
+                if (data.equals("")) {
+                    break;
+                }
+                FileWriter myWriter = new FileWriter("./src/main/data/tmpDuke.txt", true);
+                myWriter.write(data + "\n");
+                myWriter.close();
+            }
+            myReader.close();
+            new File("./src/main/data/tmpDuke.txt").renameTo(currFile);
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return "An error occurred";
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+            return "An error occurred";
+        }
+
         list.get(index).markDone();
         return list.get(index).markDone();
     }

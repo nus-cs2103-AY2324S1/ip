@@ -37,6 +37,8 @@ public class Storage {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
                 String type = data.substring(0, 1);
+                String isDone = data.substring(4,5);
+                System.out.println(isDone);
                 switch (type) {
                     case "T":
                         Todo.readData(list.getList(), data);

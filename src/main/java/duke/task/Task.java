@@ -1,4 +1,7 @@
 package duke.task;
+
+import duke.dukeException.DukeException;
+
 /**
  * The Task class, which contains information pertaining to
  * Tasks.

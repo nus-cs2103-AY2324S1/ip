@@ -36,6 +36,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by, LocalDate date) {
         super(description);
+
+
         this.by = by;
         this.date = date;
     }
