@@ -37,7 +37,7 @@ public class Ui extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        window.setTitle("AChatBot");
+        window.setTitle("SpooderBot");
         window.show();
     }   
 
