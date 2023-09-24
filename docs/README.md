@@ -40,6 +40,11 @@
 
 ## Features
 
+> **Note**
+> - Words in `UPPER_CASE` are parameters you supply
+> - For certain commands such as `todo`, parameters are supplied after special delimiters. E.g. `/by`, `/from`, `/to`.
+> - Extra parameters you supply to the commands will be ignored. E.g. `list 1` will ignore `1` and still execute as normal.
+
 ### Listing your tasks - `list`
 
 Lists all the tasks you have created so far (including those you have created in other sessions).
