@@ -1,24 +1,119 @@
-# Duke project template
+# User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to your task manager, Bot! He will help you to keep track of
+all your tasks so that you will never forget them again!
 
-## Setting up in Intellij
+- [Quick start](#quick-start)
+- [Features](#features)
+   - [Adding task](#adding-a-task)
+   - [Exit application](#exit-application)
+   - [Listing all tasks](#listing-all-tasks)
+   - [Deleting a Task](#deleting-a-task)
+   - [Marking Task as complete](#marking-task-as-complete)
+   - [Marking Task as incomplete](#marking-task-as-incomplete)
+   - [Searching for Tasks](#searching-for-tasks)
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Quick start
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+
+
+1. Ensure you have Java `11` or above installed on your computer.
+
+2. Download the latest `bot.jar` from [here]().
+
+3. Copy the file to the folder you want to use as the home folder for your task manager.
+
+4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar bot.jar` 
+command to run the app.
+A GUI similar to the below should appear in a few seconds.
+
+![Ui.png](docs%2FUi.png)
+
+## Features
+
+### Adding a Task
+
+There exists three different kind of tasks that can be added:
+
+1. Todo task
+2. Deadline task
+3. Event task
+
+To add a task, use one of the following commands:
+
+- `todo [task description]` 
+- `deadline [task description] /by [d/MM/YYYY HH:MM]`
+- `event [task description] /from [d/MM/YYYY HH:MM] /from [d/MM/YYYY HH:MM]`
+
+Example:
+```
+todo Homework 
+deadline Assignment /by 5/07/2020 18:30
+event Workshop /from 15/07/2020 18:30 /to 25/07/2020 18:30
+```
+
+### Exit Application
+
+To exit the application, use:
+
+- `bye`
+
+Example:
+```
+bye
+```
+
+### Listing all Tasks
+
+You can list all the tasks currently saved in the app:
+
+- `list`
+
+Example:
+```
+list
+```
+
+### Deleting a Task
+
+You can remove a task by including its index:
+
+- `delete [task index]`
+
+Example:
+```
+delete 2
+```
+
+### Marking Task as complete
+
+You can mark a task as complete with its index:
+
+-`mark [index]`
+
+Example:
+```
+mark 3
+```
+
+### Marking Task as incomplete
+
+You can mark a task as incomplete with its index:
+
+-`unmark [index]`
+
+Example:
+```
+unmark 2
+```
+
+### Searching for Tasks
+
+Find tasks by keywords or dates with:
+
+- `find [keyword]`
+
+Example:
+```
+find home
+```
