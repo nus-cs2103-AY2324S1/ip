@@ -1,4 +1,4 @@
-# User Guide
+# Bot's User Guide
 
 Welcome to your task manager, Bot! He will help you to keep track of
 all your tasks so that you will never forget them again!
@@ -27,7 +27,7 @@ all your tasks so that you will never forget them again!
    command to run the app.
    A GUI similar to the below should appear in a few seconds.
 
-![Ui.png](Ui.png)
+![Ui.png](docs/Ui.png)
 
 ## Features
 
@@ -80,6 +80,10 @@ You can remove a task by including its index:
 
 - `delete [task index]`
 
+Note: The task index is based on the index of each task
+as shown in [`list`](#listing-all-tasks). It starts from 1 and should
+be a positive integer.
+
 Example:
 ```
 delete 2
@@ -89,7 +93,11 @@ delete 2
 
 You can mark a task as complete with its index:
 
--`mark [index]`
+-`mark [task index]`
+
+Note: The task index is based on the index of each task
+as shown in [`list`](#listing-all-tasks). It starts from 1 and should
+be a positive integer.
 
 Example:
 ```
@@ -100,7 +108,11 @@ mark 3
 
 You can mark a task as incomplete with its index:
 
--`unmark [index]`
+-`unmark [task index]`
+
+Note: The task index is based on the index of each task
+as shown in [`list`](#listing-all-tasks). It starts from 1 and should
+be a positive integer.
 
 Example:
 ```

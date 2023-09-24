@@ -1,17 +1,17 @@
-# User Guide
+# Bot's User Guide
 
 Welcome to your task manager, Bot! He will help you to keep track of
 all your tasks so that you will never forget them again!
 
 - [Quick start](#quick-start)
 - [Features](#features)
-   - [Adding task](#adding-a-task)
-   - [Exit application](#exit-application)
-   - [Listing all tasks](#listing-all-tasks)
-   - [Deleting a Task](#deleting-a-task)
-   - [Marking Task as complete](#marking-task-as-complete)
-   - [Marking Task as incomplete](#marking-task-as-incomplete)
-   - [Searching for Tasks](#searching-for-tasks)
+  - [Adding task](#adding-a-task)
+  - [Exit application](#exit-application)
+  - [Listing all tasks](#listing-all-tasks)
+  - [Deleting a Task](#deleting-a-task)
+  - [Marking Task as complete](#marking-task-as-complete)
+  - [Marking Task as incomplete](#marking-task-as-incomplete)
+  - [Searching for Tasks](#searching-for-tasks)
 
 ## Quick start
 
@@ -23,9 +23,9 @@ all your tasks so that you will never forget them again!
 
 3. Copy the file to the folder you want to use as the home folder for your task manager.
 
-4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar bot.jar` 
-command to run the app.
-A GUI similar to the below should appear in a few seconds.
+4. Open a command terminal, cd into the folder you put the jar file in, and use the `java -jar bot.jar`
+   command to run the app.
+   A GUI similar to the below should appear in a few seconds.
 
 ![Ui.png](Ui.png)
 
@@ -41,7 +41,7 @@ There exists three different kind of tasks that can be added:
 
 To add a task, use one of the following commands:
 
-- `todo [task description]` 
+- `todo [task description]`
 - `deadline [task description] /by [d/MM/YYYY HH:MM]`
 - `event [task description] /from [d/MM/YYYY HH:MM] /from [d/MM/YYYY HH:MM]`
 
@@ -80,6 +80,10 @@ You can remove a task by including its index:
 
 - `delete [task index]`
 
+Note: The task index is based on the index of each task
+as shown in [`list`](#listing-all-tasks). It starts from 1 and should
+be a positive integer.
+
 Example:
 ```
 delete 2
@@ -89,7 +93,11 @@ delete 2
 
 You can mark a task as complete with its index:
 
--`mark [index]`
+-`mark [task index]`
+
+Note: The task index is based on the index of each task
+as shown in [`list`](#listing-all-tasks). It starts from 1 and should
+be a positive integer.
 
 Example:
 ```
@@ -100,7 +108,11 @@ mark 3
 
 You can mark a task as incomplete with its index:
 
--`unmark [index]`
+-`unmark [task index]`
+
+Note: The task index is based on the index of each task
+as shown in [`list`](#listing-all-tasks). It starts from 1 and should
+be a positive integer.
 
 Example:
 ```
