@@ -8,6 +8,7 @@ import ui.Ui;
 import storage.Storage;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,11 +22,19 @@ public class ViewScheduleCommand extends Command {
     /**
      * Constructs a ViewScheduleCommand for the specified date.
      *
-     * @param date The date for which the schedule should be viewed.
+     * @param dateStr The date for which the schedule should be viewed in the form of a string.
+     * @throws DukeException if the dateStr is empty or cannot be parsed.
      */
-    public ViewScheduleCommand(LocalDate date) {
+    public ViewScheduleCommand(String dateStr) throws DukeException {
         super(null);
-        this.date = date;
+        if (dateStr == null || dateStr.trim().isEmpty()) {
+            throw new DukeException("Date string cannot be empty.");
+        }
+        try {
+            this.date = LocalDate.parse(dateStr);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("Invalid date format. Please enter the date in YYYY-MM-DD format.");
+        }
     }
 
     /**
@@ -35,12 +44,12 @@ public class ViewScheduleCommand extends Command {
      * @param ui      The user interface for displaying messages.
      * @param storage The storage for saving tasks to a file (not used in this command).
      * @return A string representing the schedule for the specified date.
+     * @throws DukeException if there are no tasks on the specified date.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
-
         if (tasks.size() == 0) {
-            throw new DukeException("Please specify a date to view the schedule for.");
+            throw new DukeException("No tasks found for the specified date.");
         }
         List<Task> schedule = tasks.getList().stream()
                 .filter(task -> {

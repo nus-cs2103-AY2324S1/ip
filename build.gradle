@@ -41,10 +41,10 @@ application {
 }
 
 shadowJar {
-    archiveBaseName.set('Duke')
+    archiveBaseName.set('Misty')
     archiveClassifier.set('')
     mergeServiceFiles()
-    archiveFileName = 'Duke.jar'
+    archiveFileName = 'Misty.jar'
     dependsOn("distZip", "distTar")
 }
 
