@@ -124,6 +124,10 @@ public class Task {
     public String getTaskName() {
         return taskName;
     }
+
+    public int getTypeOfTask() {
+        return typeOfTask;
+    }
 }
 
 

@@ -134,4 +134,35 @@ public class TaskList {
 
         }
     }
+
+    public String showTaskStatics() {
+        if (userListPointer < 1) {
+            return "No items in the list yet";
+        } else {
+            int numTodo = 0;
+            int numDeadLine = 0;
+            int numEvent = 0;
+
+            for (int i = 0; i < userListPointer; i++) {
+                int type = userList[i].getTypeOfTask();
+                if (type == 1) {
+                    numTodo++;
+                }
+                if (type == 2) {
+                    numDeadLine++;
+                }
+                if (type == 3) {
+                    numEvent++;
+                }
+
+
+
+            }
+            return "You have:\n" + "~ " + numTodo + " todo.\n" + "~ " + numDeadLine + " deadline.\n"
+                    + "~ " + numEvent + " event.\n";
+
+
+
+        }
+    }
 }

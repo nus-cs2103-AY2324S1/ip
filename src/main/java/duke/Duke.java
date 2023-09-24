@@ -29,7 +29,7 @@ public class Duke {
 
 
     public Duke(String fileName, String dirName) {
-        ui = new Ui("Rio");
+        ui = new Ui("Duke");
         storage = new Storage(fileName, dirName);
         try {
             tasks = new TaskList(storage.LoadList(), storage.getListPointer());
@@ -253,6 +253,10 @@ public class Duke {
                 message = tasks.findTask(parser.getTaskName());
                 break;
 
+            case "stats":
+                message = tasks.showTaskStatics();
+                break;
+
 
             default:
                 message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
@@ -264,6 +268,20 @@ public class Duke {
         if (userListHaveChanges) {
             storage.SaveList(tasks.getUserList(), tasks.getUserListPointer());
         }
+        return message;
+    }
+
+
+    public String greet(){
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+
+        String message = "Hello from\n" + logo + "\n";
+        message = message + ui.Greet();
+
         return message;
     }
     public static void main(String[] args) {
