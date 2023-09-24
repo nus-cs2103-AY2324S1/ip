@@ -38,7 +38,7 @@ public class Ax extends Application {
 
 
     /**
-     * start gui
+     * Starts GUI
      *
      * @param stage the primary stage for this application, onto which
      *              the application scene can be set.
@@ -135,7 +135,6 @@ public class Ax extends Application {
     }
 
     /**
-     * Iteration 1:
      * Creates a label with the specified text and adds it to the dialog container.
      *
      * @param text String containing text to add
@@ -150,7 +149,6 @@ public class Ax extends Application {
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
@@ -165,8 +163,9 @@ public class Ax extends Application {
 
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns the response from Ax
+     * @param input String from user
+     * @return String from Ax
      */
     private String getResponse(String input) {
         return Parser.getInputString(input);

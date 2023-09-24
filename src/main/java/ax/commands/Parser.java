@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.MissingFormatArgumentException;
-import java.util.Scanner;
 
 import ax.display.Ui;
 import ax.task.Deadlines;
@@ -22,7 +21,7 @@ import ax.task.Todos;
 public class Parser {
 
     /**
-     * Gets input from the user and performs the corresponding action.
+     * Handles input from the user and performs the corresponding action.
      * If the input is "list", displays the current to-do list.
      * If the input is "todo", adds a todo with specified text.
      * If the input is "deadline", adds a deadline with specified text and /by for date.
@@ -39,55 +38,72 @@ public class Parser {
     @SuppressWarnings("unused")
     public static String getInputString(String input) {
         try {
-            System.out.println(input); // repeat the input
-            System.out.println();
             Ui.hoLine();
             String[] inputs = input.split(" ", 2);
             String[] dates = input.split("/(by|from|to) ");
-            if (input.equals("bye")) { // check if it is bye, then return true, so it will exit the loop
-                // delete existing file
-                return writeSaveFile();
-            } else if (input.equals("list")) {
-                // call the list function
-                return Ui.listTheListString();
-            } else if (input.startsWith("mark")) {
-                return markItem(inputs);
-            } else if (input.startsWith("unmark")) {
-                return unmarkItem(inputs);
-            } else if (input.startsWith("todo")) {
-                createTodo(inputs);
-            } else if (input.startsWith("deadline")) {
-                createDeadline(inputs, dates);
-            } else if (input.startsWith("event")) {
-                createEvent(inputs, dates);
-            } else if (input.startsWith("delete")) {
-                return deleteItem(inputs);
-            } else if (input.startsWith("find")) {
-                return Ui.listTheListString(inputs[1]);
-            } else if (input.startsWith("reminders")) {
-                return Ui.listDueItems();
-            } else {
-                throw new NoSuchMethodException("no method");
-            }
+            return handleArguments(input, inputs, dates);
         } catch (MissingFormatArgumentException e) {
-            System.out.println(
-                    "You're missing some arguments I'm smart but I can't read minds!"
-            );
-            return "You're missing some arguments I'm smart but I can't read minds!";
+            return handleMissingFormatArgumentException();
         } catch (NoSuchMethodException e) {
-            System.out.println(
-                    "Oh nos what is this foreign language, I haven't learnt that yet "
-            );
-            return "Oh nos what is this foreign language, I haven't learnt that yet ";
+            return handleNoSuchMethodException();
         } catch (Exception e) {
-            System.out.println("I DONT KNOW WHATS HAPPENING!!! SAVE ME ");
-            System.out.println("But seriously, its this ");
-            System.out.print("error = " + e);
-            return "I DONT KNOW WHATS HAPPENING!!! SAVE ME "
-                    + "But seriously, its this "
-                    + "error = " + e;
+            return handleGenericException(e);
         }
-        return "SUCCESS";
+    }
+
+    private static String handleArguments(String input, String[] inputs, String[] dates)
+            throws IOException, NoSuchMethodException {
+        if (input.equals("bye")) { // check if it is bye, then return true, so it will exit the loop
+            // delete existing file
+            return writeSaveFile();
+        } else if (input.equals("list")) {
+            // call the list function
+            return Ui.listTheListString();
+        } else if (input.startsWith("mark")) {
+            return markItem(inputs);
+        } else if (input.startsWith("unmark")) {
+            return unmarkItem(inputs);
+        } else if (input.startsWith("todo")) {
+            createTodo(inputs);
+            return "SUCCESS";
+        } else if (input.startsWith("deadline")) {
+            createDeadline(inputs, dates);
+            return "SUCCESS";
+        } else if (input.startsWith("event")) {
+            createEvent(inputs, dates);
+            return "SUCCESS";
+        } else if (input.startsWith("delete")) {
+            return deleteItem(inputs);
+        } else if (input.startsWith("find")) {
+            return Ui.listTheListString(inputs[1]);
+        } else if (input.startsWith("reminders")) {
+            return Ui.listDueItems();
+        } else {
+            throw new NoSuchMethodException("no method");
+        }
+    }
+
+    private static String handleGenericException(Exception e) {
+        System.out.println("I DONT KNOW WHATS HAPPENING!!! SAVE ME ");
+        System.out.println("But seriously, its this ");
+        System.out.print("error = " + e);
+        return "I DONT KNOW WHATS HAPPENING!!! SAVE ME "
+                + "But seriously, its this "
+                + "error = " + e;
+    }
+
+    private static String handleNoSuchMethodException() {
+        System.out.println(
+                "Oh nos what is this foreign language, I haven't learnt that yet "
+        );
+        return "Oh nos what is this foreign language, I haven't learnt that yet ";
+    }
+
+    private static String handleMissingFormatArgumentException() {
+        System.out.println(
+                "You're missing some arguments I'm smart but I can't read minds!"
+        );
+        return "You're missing some arguments I'm smart but I can't read minds!";
     }
 
     private static String deleteItem(String[] inputs) {
