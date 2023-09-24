@@ -52,9 +52,4 @@ public class Deadline extends Task {
     public String toFileString() {
         return TaskType.DEADLINE + " | " + (isCompleted() ? "1" : "0") + " | " + getDescription() + " | " + getBy().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
     }
-
-    @Override
-    public LocalDateTime getDate() {
-        return by;
-    }
 }
