@@ -1,12 +1,13 @@
+package duke;
+
+
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+
 
 public class Duke {
     private static final String FILE_PATH = "./data/duke.txt";
@@ -208,3 +209,17 @@ public class Duke {
         }
     }
 }
+// A-Gradle
+// A-JUnit
+// A-Jar
+// A-JavaDoc
+// A-CodingStandard
+// Level-9
+// Level-10
+// A-FullCommitMessage
+// A-Assertions
+// A-CodeQuality
+// A-UserGuide
+
+
+
