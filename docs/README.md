@@ -19,7 +19,7 @@ all your tasks so that you will never forget them again!
 
 1. Ensure you have Java `11` or above installed on your computer.
 
-2. Download the latest `bot.jar` from [here]().
+2. Download the latest `bot.jar` from [here](https://github.com/XihuaZ/ip/releases/tag/A-Release).
 
 3. Copy the file to the folder you want to use as the home folder for your task manager.
 
@@ -27,7 +27,7 @@ all your tasks so that you will never forget them again!
 command to run the app.
 A GUI similar to the below should appear in a few seconds.
 
-![Ui.png](docs%2FUi.png)
+![Ui.png](Ui.png)
 
 ## Features
 
