@@ -21,9 +21,13 @@ public class Parser {
         }
         assert data.length == 2 : "Mark task has more than 1 argument.";
         int index = Integer.parseInt(data[1]) - 1;
-        list.get(index).setDone();
-        storage.editTask("mark", index);
-        return ui.showMark(list.get(index));
+        try {
+            list.get(index).setDone();
+            storage.editTask("mark", index);
+            return ui.showMark(list.get(index));
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Task index does not exist");
+        }
     }
     private static String parseUnmark(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
@@ -32,11 +36,13 @@ public class Parser {
         }
         assert data.length == 2 : "Unmark task has more than 1 argument.";
         int index = Integer.parseInt(data[1]) - 1;
-        list.get(index).setUndone();
-
-        System.out.println(list.get(index));
-        storage.editTask("unmark", index);
-        return ui.printUnmark(list.get(index));
+        try {
+            list.get(index).setUndone();
+            storage.editTask("unmark", index);
+            return ui.printUnmark(list.get(index));
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Task index does not exist");
+        }
     }
     private static String parseDelete(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
@@ -45,10 +51,16 @@ public class Parser {
         }
         assert data.length == 2 : "Delete task has more than 1 argument.";
         int index = Integer.parseInt(data[1]) - 1;
-        Task deleted = list.get(index);
-        list.remove(index);
-        storage.editTask("delete", index);
-        return ui.showDelete(deleted, list);
+
+        try {
+            Task deleted = list.get(index);
+            list.remove(index);
+            storage.editTask("delete", index);
+            return ui.showDelete(deleted, list);
+        } catch (IndexOutOfBoundsException e) {
+            throw new InvalidInputException("Task index does not exist");
+        }
+
     }
     private static String parseTodo(TaskList list, String[] data, Storage storage, Ui ui)
             throws InvalidInputException {
