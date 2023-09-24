@@ -159,7 +159,7 @@ public class Duke extends Application {
 
         }
 
-        return "Duke heard: " + userInput;
+        return "Johnnythesnake heard: " + userInput;
     }
 
     public static void main(String[] args) {
