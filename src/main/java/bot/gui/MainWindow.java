@@ -19,8 +19,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -40,15 +38,24 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/Bot.png"));
 
+    /**
+     * Initializes the controller and binds the vertical scroll position of the scroll pane
+     * to the height property of the dialog container.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the bot instance and initializes the dialog with the bot's greeting message.
+     *
+     * @param bot The bot instance to be set.
+     */
     public void setBot(Bot d) {
         bot = d;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(bot.getGreeting(), botImage)
+                DialogBox.getBotDialog(bot.getGreeting(), botImage)
         );
         VBox.setVgrow(scrollPane, Priority.ALWAYS);
     }
@@ -66,14 +73,14 @@ public class MainWindow extends AnchorPane {
             command = bot.getCommand(input);
             response = command.execute();
         } catch (DateTimeParseBotException |
-        IllegalExpressionBotException | IOException | IncompleteBotException |
+        IllegalExpressionBotException | IncompleteBotException |
                 FileErrorBotException e) {
             response = e.toString();
         }
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, botImage)
+                DialogBox.getBotDialog(response, botImage)
         );
         assert response != null : "response should not be null";
         if (command instanceof TerminateCommand) {

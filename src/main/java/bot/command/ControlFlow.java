@@ -23,6 +23,11 @@ public class ControlFlow {
 
     private final TaskList taskList;
 
+    /**
+     * Creates an instance of a ControlFlow object
+     *
+     * @param taskList the list of tasks
+     */
     public ControlFlow(TaskList taskList) {
         this.taskList = taskList;
     }
@@ -48,71 +53,23 @@ public class ControlFlow {
         if (strSplit.length > 1) {
             remainder = InputParser.getRightOfSplit(strSplit);
         }
-        String[] taskSplit;
-        String taskDetail;
-        String timeline;
-        String[] timelineArr;
-        String timeFrom;
-        String timeTo;
         switch(taskName) {
         case ControlFlow.TERMINATE:
             return new TerminateCommand();
         case ControlFlow.TODO:
-            if (remainder.isBlank()) {
-                throw new IncompleteBotException("OOPS!!! The description of a todo cannot be empty.");
-            } else {
-                return new TodoCommand(this.taskList, remainder);
-            }
+            return new TodoCommand(this.taskList, remainder);
         case ControlFlow.DEADLINE:
-            if (remainder.isBlank()) {
-                throw new IncompleteBotException("OOPS!!! The description of a deadline cannot be empty.");
-            } else {
-                taskSplit = InputParser.getSplitAtBy(remainder);
-                if (taskSplit.length == 1) {
-                    throw new IncompleteBotException("OOPS!!! The timing of a deadline cannot be empty.");
-                }
-                taskDetail = InputParser.getLeftOfSplit(taskSplit);
-                timeline = InputParser.getRightOfSplit(taskSplit);
-                return new DeadlineCommand(this.taskList, taskDetail, timeline);
-            }
+            return new DeadlineCommand(this.taskList, remainder);
         case ControlFlow.EVENT:
-            if (remainder.isBlank()) {
-                throw new IncompleteBotException("OOPS!!! The description of an event cannot be empty.");
-            } else {
-                taskSplit = InputParser.getSplitAtFrom(remainder);
-                if (taskSplit.length == 1) {
-                    throw new IncompleteBotException("OOPS!!! The starting timing of an event cannot be empty.");
-                }
-                taskDetail = InputParser.getLeftOfSplit(taskSplit);
-                timeline = InputParser.getRightOfSplit(taskSplit);
-                timelineArr = InputParser.getSplitAtTo(timeline);
-                if (timelineArr.length == 1) {
-                    throw new IncompleteBotException("OOPS!!! The ending timing of an event cannot be empty.");
-                }
-                timeFrom = InputParser.getLeftOfSplit(timelineArr);
-                timeTo = InputParser.getRightOfSplit(timelineArr);
-                return new EventCommand(this.taskList, taskDetail, timeFrom, timeTo);
-            }
+            return new EventCommand(this.taskList, remainder);
         case ControlFlow.MARK:
-            if (remainder.isBlank()) {
-                throw new IncompleteBotException("OOPS!!! The task number to mark cannot be empty.");
-            } else {
-                return new MarkCommand(this.taskList, remainder);
-            }
+            return new MarkCommand(this.taskList, remainder);
         case ControlFlow.UNMARK:
-            if (remainder.isBlank()) {
-                throw new IncompleteBotException("OOPS!!! The task number to unmark cannot be empty.");
-            } else {
-                return new UnmarkCommand(this.taskList, remainder);
-            }
+            return new UnmarkCommand(this.taskList, remainder);
         case ControlFlow.LIST:
             return new ListCommand(this.taskList);
         case ControlFlow.DELETE:
-            if (remainder.isBlank()) {
-                throw new IncompleteBotException("OOPS!!! The task number to unmark cannot be empty.");
-            } else {
-                return new DeleteCommand(this.taskList, remainder);
-            }
+            return new DeleteCommand(this.taskList, remainder);
         case ControlFlow.FIND:
             return new FindCommand(this.taskList, remainder);
         default:

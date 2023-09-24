@@ -1,12 +1,11 @@
 package bot.command;
 
-import bot.exception.DateTimeParseBotException;
 import bot.exception.FileErrorBotException;
+import bot.exception.IncompleteBotException;
+
 import bot.task.TaskList;
 import bot.task.Todo;
 import bot.storage.Storage;
-
-import java.io.IOException;
 
 public class TodoCommand extends Command {
 
@@ -18,19 +17,24 @@ public class TodoCommand extends Command {
      *
      * @param taskList the list of tasks
      * @param taskDetail task description
+     * @throws IncompleteBotException if taskDetail is empty
      */
-    public TodoCommand(TaskList taskList, String taskDetail) {
+    public TodoCommand(TaskList taskList, String taskDetail) throws IncompleteBotException {
+        if (taskDetail.isBlank()) {
+            throw new IncompleteBotException("OOPS!!! The description of a todo cannot be empty.");
+        }
         this.taskList = taskList;
         this.todo = new Todo(taskDetail);
     }
 
     /**
      * Execute a series of instructions specific to creating adding a Todo object
+     * and returns the execution output
      *
+     * @return String of the outcome of the command execution
      * @throws FileErrorBotException if the file or directory is missing or corrupted
-     * @throws IOException if an I/O error occurred
      */
-    public String execute() throws FileErrorBotException, IOException {
+    public String execute() throws FileErrorBotException {
         this.taskList.add(this.todo);
         Storage.save(this.taskList);
         return this.toString();
