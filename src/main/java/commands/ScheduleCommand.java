@@ -7,6 +7,7 @@ import data.Actions;
 import duke.DukeException;
 import tasks.Task;
 import ui.UI;
+import utility.DateTimeUtility;
 
 /**
  * Represents the command to display tasks scheduled on a specific date.
@@ -34,7 +35,7 @@ public class ScheduleCommand extends Command {
      */
     @Override
     public String executeCommand(UI ui, Actions actionList) throws DukeException {
-        Task dateUtility = new Task("");
+        DateTimeUtility dateUtility = new DateTimeUtility();
         LocalDateTime dateToShow = dateUtility.stringToDate(dateInput);
         List<Task> tasksOnDate = actionList.tasksOnDate(dateToShow);
         if (tasksOnDate.isEmpty()) {

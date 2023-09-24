@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDateTime;
+
 /**
  * Represents a Todo task, which extends the Task class.
  * A Todo task is characterized by its description.
@@ -13,6 +15,11 @@ public class Todo extends Task {
      */
     public Todo(String description) {
         super(description);
+    }
+
+    @Override
+    public boolean isOnDate(LocalDateTime date) {
+        return false;
     }
 
     /**
