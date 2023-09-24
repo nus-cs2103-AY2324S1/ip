@@ -88,8 +88,11 @@ public class Cheesebot  extends Application{
       String command = parser.getCommand(input);
       switch (command) {
         case "bye":
+        storage.saveTask(taskList.getCheeseList());
         break;
         case "list":
+
+        ui.showMessage("Wow");
         ui.showMessage("Here are the tasks in your list:");
         for (int i = 0; i < taskList.getSize(); i++) {
           ui.showMessage((i + 1) + ". " + taskList.getTask(i));
@@ -233,7 +236,7 @@ public class Cheesebot  extends Application{
     // You will need to import `javafx.scene.control.Label`.
     Label textToAdd = new Label(ui.welcomeMessage());
     textToAdd.setWrapText(true);
-
+    taskList = storage.loadTask();
     return textToAdd;
   }
 
@@ -267,6 +270,7 @@ public class Cheesebot  extends Application{
       String command = parser.getCommand(input);
       switch (command) {
         case "bye":
+        storage.saveTask(taskList.getCheeseList());
         response.append("Goodbye!"); // Add a response for the "bye" command
         // Optionally, you can add more text to the response here.
         break;
