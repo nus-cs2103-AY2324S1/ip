@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.Barbie")
+    mainClass.set("barbie.Barbie")
 }
 
 shadowJar {
@@ -58,7 +58,7 @@ run{
 }
 
 ext {
-    mainClassName = 'seedu.Barbie'
+    mainClassName = 'barbie.Barbie'
 }
 
 shadowJar {

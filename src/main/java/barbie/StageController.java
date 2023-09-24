@@ -1,5 +1,10 @@
 package barbie;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Objects;
+
 import barbie.types.Task;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -13,13 +18,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
 
+
+/**
+ * Represents the Controller for the chatbot stage: controls the scenes.
+ */
 public class StageController {
     private Stage stage;
     private Scene scene;
@@ -38,11 +45,19 @@ public class StageController {
     @FXML
     private VBox scheduleContainer;
 
+    private Paint color = Color.color(1, 230.0 / 255, 1, 1.0);
+
     private Barbie barbie = new Barbie();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Mochi.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Barbie.png"));
 
+    /**
+     * Switches the scene to scene 1.
+     * Scene 1 refers to the chat page.
+     * @param event event to switch to
+     * @throws IOException exception thrown when loading FXMLLoader
+     */
     public void switchToScene1(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainWindow.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -52,6 +67,12 @@ public class StageController {
 
     }
 
+    /**
+     * Switches the scene to scene 2.
+     * Scene 2 refers to the schedule page which shows items for the day
+     * @param event event to switch to
+     * @throws IOException exception thrown when loading FXMLLoader
+     */
     public void switchToScene2(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/ScheduleWindow.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -61,6 +82,9 @@ public class StageController {
 
     }
 
+    /**
+     * Handles user input and loads the response onto the scene.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
@@ -77,6 +101,9 @@ public class StageController {
         }
     }
 
+    /**
+     * Loads items from the task list to the schedule viewer.
+     */
     @FXML
     private void loadItems() {
         ArrayList<Task> currTaskList = Storage.getLastList();
@@ -94,6 +121,10 @@ public class StageController {
 
     }
 
+    /**
+     * Sets the local barbie to a specific instance of Barbie.
+     * @param b instance of Barbie
+     */
     public void setBarbie(Barbie b) {
         barbie = b;
     }

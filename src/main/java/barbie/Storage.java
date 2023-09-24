@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,8 +34,6 @@ public class Storage {
      * @param desc the description of the Task
      */
     public static void addToList(String desc) {
-        assert Objects.equals(desc.split(" ", 2)[0], "T") : "Item added should be a T class";
-
         String line = "T" + "," + 0 + "," + desc + "\n";
         try {
             Files.write(path, line.getBytes(), StandardOpenOption.APPEND);

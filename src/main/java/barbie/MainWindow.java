@@ -1,7 +1,6 @@
 package barbie;
 
 
-import barbie.types.Task;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.ArrayList;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -28,6 +26,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button viewButton;
 
+
+
     private Barbie barbie;
 
 
@@ -41,6 +41,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
     }
 
     /**

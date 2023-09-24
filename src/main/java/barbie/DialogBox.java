@@ -15,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 /**
  * An example of a custom control using FXML.
@@ -26,13 +27,16 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private Rectangle roundedRectangle;
+
 
     /**
      * Constructs an instance of a DialogBox.
      * @param text text of the DialogBox
      * @param img profile picture of the person
      */
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isBarbie) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -41,7 +45,6 @@ public class DialogBox extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         dialog.setText(text);
         dialog.setPadding(new Insets(0, 10, 0, 10));
         Circle circle = new Circle();
@@ -70,7 +73,7 @@ public class DialogBox extends HBox {
      * @return DialogBox object for the user
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        return new DialogBox(text, img, false);
     }
 
     /**
@@ -79,8 +82,8 @@ public class DialogBox extends HBox {
      * @param img Barbie's profile picture
      * @return DialogBox object for Barbie
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getDukeDialog(String text, Image img ) {
+        var db = new DialogBox(text, img, true);
         db.flip();
         return db;
     }
