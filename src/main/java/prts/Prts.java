@@ -12,6 +12,7 @@ public class Prts {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
+    private final History history;
 
     private String fileName = "prts.PRTS.txt";
     private String[] directories = {"data"};
@@ -20,6 +21,7 @@ public class Prts {
      * Constructs a PRTS object, and initializes its fields.
      */
     public Prts() {
+        history = new History();
         ui = new Ui();
         storage = new Storage(fileName, directories);
         try {
@@ -28,6 +30,7 @@ public class Prts {
             ui.displayMessage(e.getMessage());
             tasks = new TaskList();
         }
+        history.addToHistory(tasks);
     }
 
     /**
@@ -47,19 +50,11 @@ public class Prts {
             if (c.isExit()) {
                 System.exit(0);
             }
-            return c.execute(tasks, ui, storage);
+            return c.execute(tasks, ui, storage, history);
         } catch (PrtsException e) {
             return e.getMessage();
         }
 
-    }
-
-    /**
-     * Generates a welcome message to display to the user.
-     * @return The welcome message to be displayed.
-     */
-    public String getWelcome() {
-        return ui.showWelcome();
     }
 
 }

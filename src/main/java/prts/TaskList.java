@@ -12,13 +12,21 @@ import prts.task.Task;
  */
 public class TaskList implements Serializable {
 
-    private final ArrayList<Task> tasks;
+    private ArrayList<Task> tasks = new ArrayList<>();
 
     /**
      * Constructs a new, empty TaskList.
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+    }
+
+    /**
+     * Constructor that creates a deep copy of the input parameter.
+     * @param taskList The tasklist to copy.
+     */
+    public TaskList(TaskList taskList) {
+        this.tasks.addAll(taskList.tasks);
     }
 
     /**
@@ -206,6 +214,10 @@ public class TaskList implements Serializable {
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
+    }
+
+    public void mirror(TaskList taskList) {
+        this.tasks = taskList.tasks;
     }
 
 }

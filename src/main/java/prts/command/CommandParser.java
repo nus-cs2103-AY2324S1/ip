@@ -7,7 +7,6 @@ import prts.task.Deadline;
 import prts.task.Event;
 import prts.task.Todo;
 
-
 /**
  * The parser used to convert arbitrary user input into definite commands executable by PRTS.
  * Specific keywords are required to signal to the CommandParser what command is input, and they must be
@@ -160,6 +159,23 @@ public class CommandParser {
             }
 
             return new FindCommand(detail.toLowerCase());
+
+        case "undo":
+
+            if (detail.isBlank()) {
+                return new UndoCommand(1);
+            }
+
+            if (detail.equalsIgnoreCase("all")) {
+                return new UndoCommand(null);
+            }
+
+            try {
+                int index = Integer.parseInt(detail);
+                return new UndoCommand(index);
+            } catch (NumberFormatException e) {
+                throw new ParsingException(ParsingException.ExceptionType.NOT_A_NUMBER);
+            }
 
         case "thanks":
 

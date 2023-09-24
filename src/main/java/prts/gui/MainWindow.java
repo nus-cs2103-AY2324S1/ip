@@ -28,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private final Image docImage = new Image(this.getClass().getResourceAsStream("/images/doc.jpg"));
     private final Image prtsImage = new Image(this.getClass().getResourceAsStream("/images/prts.jpg"));
 
+    /**
+     * Initializes the main window, and sets the welcome dialog of PRTS.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

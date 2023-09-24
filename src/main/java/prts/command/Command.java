@@ -1,5 +1,6 @@
 package prts.command;
 
+import prts.History;
 import prts.OutOfRangeException;
 import prts.SaveToFileException;
 import prts.Storage;
@@ -15,17 +16,19 @@ public abstract class Command {
 
     /**
      * Executes the command given by the user.
-     * @param tasks The list of tasks currently stored.
-     * @param ui The UI object stored by PRTS.
+     *
+     * @param tasks   The list of tasks currently stored.
+     * @param ui      The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @param history The history of past TaskLists stored by PRTS.
      * @return The string to be displayed to the user upon successful execution.
-     * @throws SaveToFileException If the program fails to save the state of the TaskList to the save
-     *         file after the execution of TaskList-modifying commands.
-     * @throws OutOfRangeException If the execution encounters user input that falls outside valid ranges.
-     * @throws AlreadyMarkedException If the Task being marked is already marked.
+     * @throws SaveToFileException      If the program fails to save the state of the TaskList to the save
+     *                                  file after the execution of TaskList-modifying commands.
+     * @throws OutOfRangeException      If the execution encounters user input that falls outside valid ranges.
+     * @throws AlreadyMarkedException   If the Task being marked is already marked.
      * @throws AlreadyUnmarkedException If the Task being unmarked is already unmarked.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException,
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage, History history) throws SaveToFileException,
             OutOfRangeException, AlreadyMarkedException, AlreadyUnmarkedException;
 
     /**
