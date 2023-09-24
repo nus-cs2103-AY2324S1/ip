@@ -47,7 +47,7 @@ public class DoWithinCommand extends Command {
     @Override
     public String toString() {
         return Command.SPACER + "\n" +
-                "The following tasks have yet to be overdue:\n" +
+                "The following tasks need to be completed:\n" +
                 taskList.list() + "\n" +
                 Command.SPACER;
     }
