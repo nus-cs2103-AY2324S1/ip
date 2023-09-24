@@ -1,0 +1,4 @@
+T | 0 | todo read book
+D | 0 | return book | Sep 2 2023
+E | 0 | project meeting | Jan 1 2023 14:00-17:00
+T | 1 | todo borrow book
