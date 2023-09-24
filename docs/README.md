@@ -70,7 +70,7 @@ You are all set! Start by saying `hi` to Oreo.
 
 <details>
 
-<summary style="font-size: 14pt;">If Oreo Fails to Start!</summary>
+<summary style="font-size: 14px;">If Oreo Fails to Start!</summary>
 
 > Try these:
 > 1. Make sure you are running Java 11.
@@ -460,7 +460,9 @@ adding the task for the future.
 
 <dl>
   <dt>For example:</dt>
-  <dd>Assume the date and time now is 1st January 2023, 12pm.
+  <dd>
+    
+**Assume the date and time now is 1st January 2023, 12pm.**
 
 `deadline give oreo breakfast /by 9am`: deadline will be set for 2nd January 2023, 9am.
 
@@ -471,13 +473,13 @@ adding the task for the future.
 > [!NOTE]
 > There is a **special** case for **event** tasks!
 
+**Assume the date and time now is 1st January 2023, 12pm.**
+
 <dl>
   <dt>Case 1: </dt>
   <dd>
 
-from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)
-
-Assume the date and time now is 1st January 2023, 12pm.
+**from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)**
 
 `deadline give oreo breakfast /by 9am`: deadline will be set for 2nd January 2023, 9am.
 
@@ -487,7 +489,7 @@ Assume the date and time now is 1st January 2023, 12pm.
   <dt>Case 2: </dt>
   <dd>
 
-from `date` `time` to `time` (Reference `/from` date)
+**from `date` `time` to `time` (Reference `/from` date)**
 
 `event playtime /from 1 Jan, 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
 
@@ -495,7 +497,7 @@ from `date` `time` to `time` (Reference `/from` date)
   <dt>Case 3: </dt>
   <dd>
 
-from `time` to `date` `time` (Reference `/from` time)
+**from `time` to `date` `time` (Reference `/from` time)**
 
 `event oreo's special days /from 9am /to 31 Dec, 11:59pm`: event will be set for 2nd Jan 2023, 9am to 31st Dec 11:59pm
 
@@ -513,9 +515,13 @@ saved.
 This is where things get tricky! Similar to time-only inputs, Oreo will set the year of the date to the next occurrence
 of the date or next occurrence of the date specified in `/to` for events.
 
+**Assume the date and time now is 1st January 2023, 12pm.**
+
 <dl>
   <dt>For example:</dt>
-  <dd>Assume the date is 1st January 2023.
+  <dd>
+    
+**Assume the date is 1st January 2023.**
 
 `deadline new years' eve /by 31 Dec`: deadline will be set for 31st December 2024.
   
