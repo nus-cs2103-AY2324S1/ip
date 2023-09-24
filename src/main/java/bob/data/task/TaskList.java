@@ -131,10 +131,13 @@ public class TaskList {
      *
      * @param input The input string containing the index of the task.
      */
-    public String setTaskIncomplete(String input) {
+    public String setTaskIncomplete(String input) throws DukeException {
         assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
+        if (taskNo < 1 || taskNo > this.getSize()) {
+            throw new DukeException("Task number out of range!");
+        }
         Task task = this.tasks.get(taskNo);
         task.setNotDone();
         return "OK, I've marked this task as not done yet:\n" + task;
@@ -145,6 +148,7 @@ public class TaskList {
      * @param input The input string containing the index of the task to be removed.
      */
     public String deleteTask(String input) throws DukeException {
+        int originalSize = tasks.size();
         assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]);
@@ -153,7 +157,7 @@ public class TaskList {
         }
         Task task = this.tasks.get(taskNo - 1);
         this.tasks.remove(taskNo - 1);
-        assert !tasks.contains(task) : "task should not exist in the list anymore";
+        assert tasks.size() == originalSize - 1 : "task should not exist in the list anymore";
         return "Noted. I've removed this task:\n"
                 + task + "\n"
                 + "Now you have " + this.tasks.size() + " task(s) in the list.";
@@ -177,7 +181,7 @@ public class TaskList {
     @Override
     public String toString() {
         if (this.tasks.size() == 0) {
-            return "";
+            return "No tasks in your list, add some!";
         }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {

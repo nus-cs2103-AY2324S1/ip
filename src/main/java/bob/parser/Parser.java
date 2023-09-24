@@ -19,6 +19,7 @@ import bob.data.exception.DukeException;
 public class Parser {
     private static final String INPUT_TASK_NUMBER = "Input the task number";
     private static final String INVALID_COMMAND = "Invalid command";
+    private static final String INVALID_TASK_NUMBER = "The task number was wrongly input.";
     /**
      * Commands to be run based on the user's input.
      */
@@ -45,9 +46,9 @@ public class Parser {
     public static Command parse(String input, boolean isUpdate) throws DukeException {
         CommandType commandType;
         if (isUpdate) {
-            commandType = getTaskCommandType(input);
+            commandType = Parser.getTaskCommandType(input);
         } else {
-            commandType = getCommandType(input);
+            commandType = Parser.getCommandType(input);
         }
         return validateCommand(commandType, input);
     }
@@ -112,83 +113,177 @@ public class Parser {
         int commandWordCount = input.split(" ").length;
         switch(commandType) {
         case BYE:
-            return new ByeCommand();
+            return Parser.parseByeCommand();
         case LIST:
-            return new ListCommand();
+            return Parser.parseListCommand();
         case MARK:
-            if (commandWordCount == 1) {
-                throw new DukeException(INPUT_TASK_NUMBER);
-            }
-            if (commandWordCount > 2) {
-                throw new DukeException(INVALID_COMMAND);
-            }
-            if (!Parser.isNumber(input.split(" ")[1])) {
-                throw new DukeException(INVALID_COMMAND);
-            }
-            return new MarkCommand(input);
+            return Parser.parseMarkCommand(input);
         case UNMARK:
-            if (commandWordCount == 1) {
-                throw new DukeException(INPUT_TASK_NUMBER);
-            }
-            if (commandWordCount > 2) {
-                throw new DukeException(INVALID_COMMAND);
-            }
-            if (!Parser.isNumber(input.split(" ")[1])) {
-                throw new DukeException(INVALID_COMMAND);
-            }
-            return new UnmarkCommand(input);
+            return Parser.parseUnmarkCommand(input);
         case DELETE:
-            if (commandWordCount == 1) {
-                throw new DukeException(INPUT_TASK_NUMBER);
-            }
-            if (commandWordCount > 2) {
-                throw new DukeException(INVALID_COMMAND);
-            }
-            if (!Parser.isNumber(input.split(" ")[1])) {
-                throw new DukeException(INVALID_COMMAND);
-            }
-            return new DeleteCommand(input);
+            return Parser.parseDeleteCommand(input);
         case FIND:
-            if (input.length() == 4) {
-                throw new DukeException("Input something to search for.");
-            }
-            return new FindCommand(input);
+            return Parser.parseFindCommand(input);
         case TODO:
-            if (input.length() == 4 || commandWordCount == 1) {
-                throw new DukeException("Description of a todo cannot be empty");
-            }
-            return new TodoCommand(input);
+            return Parser.parseTodoCommand(input);
         case DEADLINE:
-            if (input.length() == 8 || commandWordCount == 1) {
-                throw new DukeException("Description of a deadline cannot be empty");
-            }
-            return new DeadlineCommand(input);
+            return Parser.parseDeadlineCommand(input);
         case EVENT:
-            if (input.length() == 5 || commandWordCount == 1) {
-                throw new DukeException("Description of an event cannot be empty");
-            }
-            return new EventCommand(input);
+            return Parser.parseEventCommand(input);
         case UPDATE:
-            if (input.length() == 6 || commandWordCount == 1) {
-                throw new DukeException("Input the task you would like to update.");
-            }
-            // length = char length of "update " and task number
-            int taskNumber = Integer.parseInt(input.split(" ")[1]);
-            int updateCommandLength = 7 + input.split(" ")[1].length();
-            String newTaskDescription = input.substring(updateCommandLength + 1);
-            Command newTask = parse(newTaskDescription, true);
-            return new UpdateCommand(taskNumber, newTask);
+            return Parser.parseUpdateCommand(input);
         default:
             throw new DukeException("No such command.");
         }
     }
 
-    private static boolean isNumber(String input) {
-        try {
-            Integer.parseInt(input);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
+    private static Command parseByeCommand() {
+        return new ByeCommand();
+    }
+
+    private static Command parseListCommand() {
+        return new ListCommand();
+    }
+
+    private static Command parseMarkCommand(String input) throws DukeException {
+        String[] inputArray = input.split(" ");
+        int commandWordCount = inputArray.length;
+        if (!inputArray[0].equals("mark")) {
+            throw new DukeException(INVALID_COMMAND);
         }
+        if (commandWordCount < 2) {
+            throw new DukeException(INPUT_TASK_NUMBER);
+        }
+        if (commandWordCount > 2) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        try {
+            int taskNumber = Integer.parseInt(inputArray[1].trim());
+            return new MarkCommand(inputArray[0] + " " + taskNumber);
+        } catch (NumberFormatException e) {
+            throw new DukeException(INVALID_TASK_NUMBER);
+        }
+    }
+
+    private static Command parseUnmarkCommand(String input) throws DukeException {
+        String[] inputArray = input.split(" ");
+        int commandWordCount = inputArray.length;
+        if (!inputArray[0].equals("unmark")) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        if (commandWordCount < 2) {
+            throw new DukeException(INPUT_TASK_NUMBER);
+        }
+        if (commandWordCount > 2) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        try {
+            int taskNumber = Integer.parseInt(inputArray[1].trim());
+            return new UnmarkCommand(inputArray[0] + " " + taskNumber);
+        } catch (NumberFormatException e) {
+            throw new DukeException(INVALID_TASK_NUMBER);
+        }
+    }
+
+    private static Command parseDeleteCommand(String input) throws DukeException {
+        String[] inputArray = input.split(" ");
+        int commandWordCount = inputArray.length;
+        if (!inputArray[0].equals("delete")) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        if (commandWordCount < 2) {
+            throw new DukeException(INPUT_TASK_NUMBER);
+        }
+        if (commandWordCount > 2) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        try {
+            int taskNumber = Integer.parseInt(inputArray[1].trim());
+            return new DeleteCommand(inputArray[0] + " " + taskNumber);
+        } catch (NumberFormatException e) {
+            throw new DukeException(INVALID_TASK_NUMBER);
+        }
+    }
+
+    private static Command parseFindCommand(String input) throws DukeException {
+        String[] inputArray = input.split(" ");
+        if (!inputArray[0].equals("find")) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        int commandWordCount = inputArray.length;
+        if (commandWordCount < 2) {
+            throw new DukeException("Input something to search for.");
+        }
+        return new FindCommand(input);
+    }
+
+    private static Command parseTodoCommand(String input) throws DukeException {
+        String[] inputArray = input.split(" ");
+        if (!inputArray[0].equals("todo")) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        int commandWordCount = inputArray.length;
+        if (commandWordCount < 2) {
+            throw new DukeException("Description of a todo cannot be empty.");
+        }
+        return new TodoCommand(input);
+    }
+
+    private static Command parseDeadlineCommand(String input) throws DukeException {
+        if (!input.split(" ")[0].equals("deadline")) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        String[] inputArray = input.split("/by");
+        int commandWordCount = inputArray.length;
+        if (commandWordCount < 2) {
+            throw new DukeException("Description of a deadline cannot be empty.");
+        }
+        if (!input.contains("/by")) {
+            throw new DukeException("Deadline task should be in the format: deadline <description> /by dd/MM/yy HHmm");
+        }
+        String taskDescription = inputArray[0].trim();
+        if (taskDescription.length() == 8) {
+            throw new DukeException("Description cannot be empty");
+        }
+        String deadlineDate = inputArray[1].trim();
+        return new DeadlineCommand(taskDescription + " /by " + deadlineDate);
+    }
+
+    private static Command parseEventCommand(String input) throws DukeException {
+        if (!input.split(" ")[0].equals("event")) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        if (input.equals("event")) {
+            throw new DukeException("Description of an event cannot be empty");
+        }
+        if (!input.contains("/from") && !input.contains("/to")) {
+            throw new DukeException("Event task should be in the format:"
+                    + "event <description> /from dd/MM/yy HHmm /to dd/MM/yy HHmm");
+        }
+        String[] taskDescriptionArray = input.split("/from");
+        String[] dateArray = taskDescriptionArray[1].split("/to");
+        String taskDescription = taskDescriptionArray[0].trim();
+        if (taskDescription.length() == 5) {
+            throw new DukeException("Description cannot be empty");
+        }
+        String fromDate = dateArray[0].trim();
+        String toDate = dateArray[1].trim();
+        return new EventCommand(taskDescription + " /from " + fromDate + " /to " + toDate);
+    }
+
+    private static Command parseUpdateCommand(String input) throws DukeException {
+        if (!input.split(" ")[0].equals("update")) {
+            throw new DukeException(INVALID_COMMAND);
+        }
+        String[] inputArray = input.split(" ");
+        if (input.length() == 6 || inputArray.length == 1) {
+            throw new DukeException("Input the task you would like to update.");
+        }
+        // length = char length of "update " and task number
+        int taskNumber = Integer.parseInt(input.split(" ")[1]);
+        int updateCommandLength = 7 + input.split(" ")[1].length();
+        String newTaskDescription = input.substring(updateCommandLength + 1);
+        Command newTask = parse(newTaskDescription, true);
+        return new UpdateCommand(taskNumber, newTask);
     }
 }

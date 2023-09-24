@@ -10,6 +10,7 @@ import bob.data.exception.DukeException;
 public class ParserTest {
     private static final String INPUT_TASK_NUMBER = "Input the task number";
     private static final String INVALID_COMMAND = "Invalid command";
+    private static final String INVALID_TASK_NUMBER = "The task number was wrongly input.";
     @Test
     public void parse_invalidCommand_exceptionThrown() {
         DukeException thrown = assertThrows(
@@ -55,7 +56,7 @@ public class ParserTest {
         DukeException thrown = assertThrows(
                 DukeException.class, () -> Parser.parse("mark lol", false),
                 "Expected parse to throw but it didn't.");
-        assertTrue(thrown.getMessage().contains(INVALID_COMMAND));
+        assertTrue(thrown.getMessage().contains(INVALID_TASK_NUMBER));
     }
 
     @Test
@@ -79,7 +80,7 @@ public class ParserTest {
         DukeException thrown = assertThrows(
                 DukeException.class, () -> Parser.parse("unmark lol", false),
                 "Expected parse to throw but it didn't.");
-        assertTrue(thrown.getMessage().contains(INVALID_COMMAND));
+        assertTrue(thrown.getMessage().contains(INVALID_TASK_NUMBER));
     }
 
     @Test
@@ -103,7 +104,7 @@ public class ParserTest {
         DukeException thrown = assertThrows(
                 DukeException.class, () -> Parser.parse("delete lol", false),
                 "Expected parse to throw but it didn't.");
-        assertTrue(thrown.getMessage().contains(INVALID_COMMAND));
+        assertTrue(thrown.getMessage().contains(INVALID_TASK_NUMBER));
     }
 
     @Test
