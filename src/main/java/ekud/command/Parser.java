@@ -1,0 +1,156 @@
+package ekud.command;
+
+import java.time.format.DateTimeParseException;
+import java.util.HashMap;
+
+import ekud.error.ParseException;
+import ekud.util.DateTime;
+
+/**
+ * Parses a single line of text into a user command to ekud.
+ */
+public final class Parser {
+    /**
+     * Parses the given non-empty line of text into a user command.
+     * 
+     * @param line The non-empty line to parse.
+     * @return The command that was parsed.
+     * @throws ParseException           If the command cannot be parsed.
+     * @throws IllegalArugmentException If the line is empty.
+     */
+    public static Command parseCommand(String line) {
+        assert !line.isEmpty() : "Empty line passed";
+
+        String[] componentStrings = line.split("\\/");
+        Component[] components = new Component[componentStrings.length];
+
+        components[0] = parseComponent(componentStrings[0]);
+        String name = components[0].getName();
+        String argument = components[0].getArgument();
+
+        HashMap<String, String> flags = new HashMap<>();
+        for (int index = 1; index < componentStrings.length; index++) {
+            Component component = parseComponent(componentStrings[index]);
+            flags.put(component.getName(), component.getArgument());
+        }
+
+        switch (name) {
+            case "list": {
+                return new ListCommand();
+            }
+            case "clean": {
+                return new CleanCommand();
+            }
+            case "todo": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "The description of a todo cannot be empty.");
+                }
+                return new CreateTodoCommand(argument);
+            }
+            case "deadline": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "The description of a deadline cannot be empty.");
+                }
+                DateTime by = parseDateTimeArgument(getFlagValue(line, flags, "by"));
+                return new CreateDeadlineCommand(argument, by);
+            }
+            case "event": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "The description of an event cannot be empty.");
+                }
+                DateTime from = parseDateTimeArgument(getFlagValue(line, flags, "from"));
+                DateTime to = parseDateTimeArgument(getFlagValue(line, flags, "to"));
+                return new CreateEventCommand(argument, from, to);
+            }
+            case "mark": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A task identifier must be provided.");
+                }
+                int taskId = parseIntArgument(argument);
+                return new MarkCommand(taskId);
+            }
+            case "unmark": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A task identifier must be provided.");
+                }
+                int taskId = parseIntArgument(argument);
+                return new UnmarkCommand(taskId);
+            }
+            case "delete": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A task identifier must be provided.");
+                }
+                int taskId = parseIntArgument(argument);
+                return new DeleteCommand(taskId);
+            }
+            case "find": {
+                if (argument.isEmpty()) {
+                    throw new ParseException(line, "A search query must be provided.");
+                }
+                return new FindCommand(argument);
+            }
+            case "bye": {
+                return new ByeCommand();
+            }
+            default:
+                throw new ParseException(line, "I'm sorry, but I don't know what that means :-(");
+        }
+
+    }
+
+    private static class Component {
+        private String name;
+        private String argument;
+
+        public Component(String name, String argument) {
+            this.name = name;
+            this.argument = argument;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getArgument() {
+            return argument;
+        }
+
+    }
+
+    private static Component parseComponent(String component) {
+        assert !component.isEmpty() : "Empty string passed";
+
+        String trimmedComponent = component.trim();
+        String[] components = trimmedComponent.split("\\s+");
+
+        int nameLength = components[0].length();
+        String name = trimmedComponent.substring(0, nameLength).trim();
+        String argument = trimmedComponent.substring(nameLength).trim();
+
+        return new Component(name, argument);
+    }
+
+    private static int parseIntArgument(String argument) {
+        try {
+            return Integer.parseInt(argument);
+        } catch (NumberFormatException error) {
+            throw new ParseException(argument, "Expected an integer.");
+        }
+    }
+
+    private static DateTime parseDateTimeArgument(String argument) {
+        try {
+            return DateTime.parse(argument);
+        } catch (DateTimeParseException error) {
+            throw new ParseException(argument, "Expected a date, time or both.");
+        }
+    }
+
+    private static String getFlagValue(String line, HashMap<String, String> flags, String name) {
+        String value = flags.get(name);
+        if (value == null) {
+            throw new ParseException(line, "Missing an option: /" + name);
+        }
+        return value;
+    }
+}
