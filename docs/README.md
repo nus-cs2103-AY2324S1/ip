@@ -1,4 +1,5 @@
 ~~# DaDaYuan Chatbot User Guide
+![Ui](./Ui.png)
 
 ## Table of Contents
 
