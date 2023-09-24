@@ -16,8 +16,14 @@ import jarvis.tasks.Task;
  * Storage class is responsible for storing and loading tasks from file destination.
  */
 public class Storage {
-    private static final String FILE_DIR = "./data/";
-    private static final String FILE_PATH = "./data/jarvis.txt";
+    /**
+     * Assign user directory as the directory and file destination.
+     *
+     * Method declaration inspired by @Tan Kerway
+     * https://github.com/kiwibang/ip
+     */
+    private static final String FILE_DIR = System.getProperty("user.dir") + "/data";
+    private static final String FILE_PATH = System.getProperty("user.dir") + "/data/jarvis.txt";
 
     /**
      * Initializes a new instance of the Storage class and creates necessary directories and files.
@@ -66,7 +72,7 @@ public class Storage {
                 assert tasks.contains(task);
             }
         } catch (IOException e) {
-            System.err.println("Unable to load tasks");
+            System.err.println("Unable to load tasks" + FILE_PATH);
         } catch (InvalidTaskFormatException e) {
             System.err.println("Invalid Task Format when loading tasks");
         }

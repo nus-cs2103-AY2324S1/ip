@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 repositories {
@@ -56,9 +55,4 @@ shadowJar {
 
 run {
     standardInput = System.in
-}
-
-javafx {
-    version = '17.0.7'
-    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
