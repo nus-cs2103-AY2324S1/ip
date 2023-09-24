@@ -16,161 +16,153 @@ import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
 
-
+/**
+ * Helper class for parsing various types of commands and tasks.
+ */
 public class ParserHelper {
-    private static final Pattern emptyStringChecker = Pattern.compile("\\S.*+");
-    // Use regular expression to check if the input is a number
-    private static final Pattern numberChecker = Pattern.compile("\\d+?");
+    private static final Pattern EMPTY_STRING_CHECKER = Pattern.compile("\\S.*+");
+    private static final Pattern NUMBER_CHECKER = Pattern.compile("\\d+?");
 
-    private static String[] splitString(String information) {
-        return information.split(" ", 2);
+    /**
+     * Parses the information to create a MarkAsDoneCommand.
+     *
+     * @param info The information string.
+     * @return A MarkAsDoneCommand object.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static MarkAsDoneCommand parseMarkCommand(String info) throws UnknownCommandException {
+        return new MarkAsDoneCommand(parseNumericCommand(info));
     }
 
+    /**
+     * Parses the information to create an UnmarkCommand.
+     *
+     * @param info The information string.
+     * @return An UnmarkCommand object.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static UnmarkCommand parseUnmarkCommand(String info) throws UnknownCommandException {
+        return new UnmarkCommand(parseNumericCommand(info));
+    }
 
-    private static int getIndex(String index) {
-        try {
-            //parse the input string as an integer and subtract 1 to convert it to zero-based index
-            return Integer.parseInt(index) - 1;
-        } catch (NumberFormatException e) {
-            //if the input is not a valid integer, return -1
-            return -1;
+    /**
+     * Parses the information to create a DeleteCommand.
+     *
+     * @param info The information string.
+     * @return A DeleteCommand object.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static DeleteCommand parseDeleteCommand(String info) throws UnknownCommandException {
+        return new DeleteCommand(parseNumericCommand(info));
+    }
+
+    /**
+     * Helper method for parsing numeric commands.
+     *
+     * @param info The information string.
+     * @return An integer parsed from the string.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    private static int parseNumericCommand(String info) throws UnknownCommandException {
+        if (NUMBER_CHECKER.matcher(info).matches()) {
+            return Integer.parseInt(info) - 1;
+        }
+        throw new UnknownCommandException(ErrorMessages.INVALID_TASK_INDEX_ERROR);
+    }
+
+    /**
+     * Parses the information to create a FindCommand.
+     *
+     * @param info The information string.
+     * @return A FindCommand object.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static FindCommand parseFindCommand(String info) throws UnknownCommandException {
+        checkNotEmpty(info, ErrorMessages.EMPTY_DESCRIPTION_ERROR);
+        return new FindCommand(info.split(" "));
+    }
+
+    /**
+     * Parses the information to create a HelpCommand.
+     *
+     * @param info The information string.
+     * @return A HelpCommand object.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static HelpCommand parseHelpCommand(String info) throws UnknownCommandException {
+        return new HelpCommand(EMPTY_STRING_CHECKER.matcher(info).matches() ? info : "normal");
+    }
+
+    /**
+     * Parses the information to create an AddTaskCommand for Todo tasks.
+     *
+     * @param info The information string.
+     * @return An AddTaskCommand object for Todo tasks.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static AddTaskCommand parseTodoCommand(String info) throws UnknownCommandException {
+        checkNotEmpty(info, ErrorMessages.EMPTY_TODO_ERROR);
+        return new AddTaskCommand(new Todo(info));
+    }
+
+    /**
+     * Parses the information to create an AddTaskCommand for Deadline tasks.
+     *
+     * @param info The information string.
+     * @return An AddTaskCommand object for Deadline tasks.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static AddTaskCommand parseDeadlineCommand(String info) throws UnknownCommandException {
+        checkNotEmpty(info, ErrorMessages.EMPTY_DEADLINE_ERROR);
+        return createDeadlineTaskCommand(extractFields(info, "(?<name>.*)/by\\s*(?<date>.*)"));
+    }
+
+    /**
+     * Parses the information to create an AddTaskCommand for Event tasks.
+     *
+     * @param info The information string.
+     * @return An AddTaskCommand object for Event tasks.
+     * @throws UnknownCommandException if the command cannot be parsed.
+     */
+    public static AddTaskCommand parseEventCommand(String info) throws UnknownCommandException {
+        checkNotEmpty(info, ErrorMessages.EMPTY_EVENT_ERROR);
+        return createEventTaskCommand(extractFields(info, "(?<name>.*)/from(?<from>.*)/to(?<to>.*)"));
+    }
+
+    private static void checkNotEmpty(String info, String errorMsg) throws UnknownCommandException {
+        if (!EMPTY_STRING_CHECKER.matcher(info).matches()) {
+            throw new UnknownCommandException(errorMsg);
         }
     }
 
-
-    public static MarkAsDoneCommand parseMarkCommand(String information) throws UnknownCommandException {
-        if (numberChecker.matcher(information).matches()) {
-            // convert the input to an integer and decrement by 1
-            return new MarkAsDoneCommand(Integer.parseInt(information) - 1);
-        } else {
-            // if the input is not a number, throw an exception
-            throw new UnknownCommandException(ErrorMessages.INVALID_TASK_INDEX_ERROR);
-        }
+    private static Matcher extractFields(String info, String regex) {
+        return Pattern.compile(regex).matcher(info);
     }
 
-    public static UnmarkCommand parseUnmarkCommand(String information) throws UnknownCommandException {
-        if (numberChecker.matcher(information).matches()) {
-            // convert the input to an integer and decrement by 1
-            return new UnmarkCommand(Integer.parseInt(information) - 1);
-        } else {
-            // if the input is not a number, throw an exception
-            throw new UnknownCommandException(ErrorMessages.INVALID_TASK_INDEX_ERROR);
-        }
-    }
-
-    public static DeleteCommand parseDeleteCommand(String information) throws UnknownCommandException {
-        if (numberChecker.matcher(information).matches()) {
-            // convert the input to an integer and decrement by 1
-            return new DeleteCommand(Integer.parseInt(information) - 1);
-        } else {
-            // if the input is not a number, throw an exception
-            throw new UnknownCommandException(ErrorMessages.INVALID_TASK_INDEX_ERROR);
-        }
-    }
-
-    public static FindCommand parseFindCommand(String information) throws UnknownCommandException {
-        // check if the input is not empty
-        if (!emptyStringChecker.matcher(information).matches()) {
-            throw new UnknownCommandException(ErrorMessages.EMPTY_DESCRIPTION_ERROR);
-        } else {
-            String[] descriptions = information.split(" ");
-            // create a new FindCommand with the array of descriptions
-            return new FindCommand(descriptions);
-        }
-    }
-
-    public static HelpCommand parseHelpCommand(String information) throws UnknownCommandException {
-        if (!emptyStringChecker.matcher(information).matches()) {
-            // If the information is an empty string, return a help command with the normal mode
-            return new HelpCommand("normal");
-        } else {
-            // If the information is not an empty string, return a help command with the information as its mode
-            return new HelpCommand(information);
-        }
-    }
-
-    public static AddTaskCommand parseTodoCommand(String information) throws UnknownCommandException {
-        // check if the input is not empty
-        if (!emptyStringChecker.matcher(information).matches()) {
-            throw new UnknownCommandException(ErrorMessages.EMPTY_TODO_ERROR);
-        } else {
-            // create a new TodoTask and return an AddTaskCommand with it
-            return new AddTaskCommand(new Todo(information));
-        }
-    }
-
-    public static AddTaskCommand parseDeadlineCommand(String information) throws UnknownCommandException {
-        // Check if the input string is empty
-        if (!emptyStringChecker.matcher(information).matches()) {
-            throw new UnknownCommandException(ErrorMessages.EMPTY_DEADLINE_ERROR);
-        }
-
-        // Extract the name and deadline date from the input string
-        Matcher dateChecker = extractNameAndDate(information);
-
-        // If the input string is in the correct format
-        if (dateChecker.matches()) {
-            // Create an `AddTaskCommand` for a deadline task
-            return createDeadlineTaskCommand(dateChecker);
-        } else {
-            // If the input string is in an incorrect format, throw an exception
+    private static AddTaskCommand createDeadlineTaskCommand(Matcher matcher) throws UnknownCommandException {
+        if (!matcher.matches()) {
             throw new UnknownCommandException(ErrorMessages.INVALID_DEADLINE_FORMAT_ERROR);
         }
-    }
-
-    private static Matcher extractNameAndDate(String information) {
-        // Use regular expression to extract the name and deadline date
-        return Pattern.compile("(?<name>.*)/by\\s*(?<date>.*)").matcher(information);
-    }
-
-    private static AddTaskCommand createDeadlineTaskCommand(Matcher dateChecker) throws UnknownCommandException {
-        // Extract the name and date from the Matcher object
-        String name = dateChecker.group("name").trim();
-        String date = dateChecker.group("date").trim();
+        String name = matcher.group("name").trim();
+        String date = matcher.group("date").trim();
         try {
-            // Create a new DeadlineTask and return an AddTaskCommand with it
             return new AddTaskCommand(new Deadline(name, TimeParser.parseToLocalDateTime(date)));
         } catch (DateTimeParseException e) {
-            // If the date format is incorrect, throw an exception
             throw new UnknownCommandException(ErrorMessages.INVALID_DATETIME_ERROR);
         }
     }
 
-    public static AddTaskCommand parseEventCommand(String information) throws UnknownCommandException {
-        // Check if the input string is empty
-        if (!emptyStringChecker.matcher(information).matches()) {
-            throw new UnknownCommandException(ErrorMessages.EMPTY_EVENT_ERROR);
-        }
-
-        // Extract the task name and time interval
-        Matcher intervalChecker = extractNameAndInterval(information);
-
-        // If the task name and time interval are extracted successfully, create a new event task command
-        if (intervalChecker.matches()) {
-            return createEventTaskCommand(intervalChecker);
-        } else {
-            // Otherwise, throw an exception for invalid format
+    private static AddTaskCommand createEventTaskCommand(Matcher matcher) throws UnknownCommandException {
+        if (!matcher.matches()) {
             throw new UnknownCommandException(ErrorMessages.INVALID_EVENT_FORMAT_ERROR);
         }
-    }
-
-    private static Matcher extractNameAndInterval(String information) {
-        // Extract the task name and interval using the pattern "(?<name>.*)/from(?<from>.*)/to(?<to>.*)"
-        return Pattern.compile("(?<name>.*)/from(?<from>.*)/to(?<to>.*)").matcher(information);
-    }
-
-    private static AddTaskCommand createEventTaskCommand(Matcher intervalChecker) throws UnknownCommandException {
-        // Extract the name and interval of the task from the matcher
-        String name = intervalChecker.group("name").trim();
-        String from = intervalChecker.group("from").trim();
-        String to = intervalChecker.group("to").trim();
-
+        String name = matcher.group("name").trim();
+        String from = matcher.group("from").trim();
+        String to = matcher.group("to").trim();
         try {
-            // Create a new event task with the extracted information and return the corresponding AddTaskCommand
             return new AddTaskCommand(new Event(name,
                     TimeParser.parseToLocalDateTime(from), TimeParser.parseToLocalDateTime(to)));
         } catch (DateTimeParseException e) {
-            // If the date and time specified in the interval are invalid, throw an InvalidInputException
             throw new UnknownCommandException(ErrorMessages.INVALID_DATETIME_ERROR);
         }
     }

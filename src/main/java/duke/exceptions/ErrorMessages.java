@@ -5,7 +5,6 @@ package duke.exceptions;
  * This centralized approach ensures consistency and easy modifications of error messages.
  */
 public class ErrorMessages {
-
     public static final String EMPTY_DEADLINE_ERROR = "Oops! A deadline task description is required.";
     public static final String EMPTY_EVENT_ERROR = "Oops! An event task description is required.";
     public static final String EMPTY_TODO_ERROR = "Oops! A todo task description is required.";

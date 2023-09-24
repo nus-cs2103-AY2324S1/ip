@@ -10,67 +10,58 @@ import duke.exceptions.ErrorMessages;
 import duke.exceptions.UnknownCommandException;
 
 /**
-* A parser that parse the input String into a Duke Instruction with respective information encapsulated.
-*/
+ * Class responsible for parsing user commands.
+ */
 public class CommandParser {
     /**
-     * An Instruction enum that encapsulates all types of Instruction.
+     * Parses the given input string to produce a Command object.
+     *
+     * @param input The input string from the user.
+     * @return The Command object corresponding to the user's input.
+     * @throws Exception if the command cannot be parsed or is unknown.
      */
-    public enum Instruction {
-        BYE,
-        LIST,
-        HELP,
-        MARK,
-        UNMARK,
-        DELETE,
-        TODO,
-        DEADLINE,
-        EVENT,
-        FIND
-    }
-
-
     public static Command parse(String input) throws Exception {
         Matcher instructionExtractor = extractInstructionAndInformation(input);
+
         String instructionTag = instructionExtractor.group("instructionTag").trim();
         String information = instructionExtractor.group("information").trim();
 
-        Instruction instruction = matchInstructionTag(instructionTag);
+        Identifier instruction = getInstruction(instructionTag);
+
         return createCommand(instruction, information);
     }
 
+    /**
+     * Extracts the instruction and additional information from the input string.
+     *
+     * @param input The input string from the user.
+     * @return A Matcher object containing the extracted instruction and information.
+     * @throws UnknownCommandException if the command cannot be parsed or is unknown.
+     */
     private static Matcher extractInstructionAndInformation(String input) throws UnknownCommandException {
-        Matcher instructionExtractor = Pattern
-                .compile("(?<instructionTag>\\S++)(?<information>.*)").matcher(input.trim());
-        //@@author
+        Matcher instructionExtractor = Pattern.compile("(?<instructionTag>\\S++)(?<information>.*)")
+                .matcher(input.trim());
 
-        // Check if the input matches the regular expression
         if (!instructionExtractor.matches()) {
-            // If not, throw an exception
             throw new UnknownCommandException(ErrorMessages.EMPTY_ERROR);
         }
-        // Return the Matcher object that contains the instruction tag and information
+
         return instructionExtractor;
     }
 
-    private static Instruction matchInstructionTag(String instructionTag) throws UnknownCommandException {
+    private static Identifier getInstruction(String instructionTag) throws UnknownCommandException {
         try {
-            //convert instruction tag to uppercase to match enum
-            return Instruction.valueOf(instructionTag.toUpperCase());
+            return Identifier.valueOf(instructionTag.toUpperCase());
         } catch (IllegalArgumentException e) {
-            //thrown if instruction tag does not match any of the enum values
             throw new UnknownCommandException(ErrorMessages.UNRECOGNIZED_ERROR);
         }
     }
 
-    private static Command createCommand(Instruction instruction, String information)
-            throws UnknownCommandException {
-        switch (instruction) {
+    private static Command createCommand(Identifier identifier, String information) throws UnknownCommandException {
+        switch (identifier) {
         case BYE:
-            //create and return ExitCommand
             return new ExitCommand();
         case LIST:
-            //create and return ListCommand
             return new ListCommand();
         case HELP:
             return ParserHelper.parseHelpCommand(information);
