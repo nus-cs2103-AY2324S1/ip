@@ -47,7 +47,7 @@ public class EventHandler implements Command {
 
             return ("Got it, I've added this task: \n" +
                     tasks.get(tasks.size() - 1) + "\n" +
-                    "You now have " + tasks.size() + " tasks in the list.");
+                    "You now have " + tasks.size() + " task(s) in the list.");
 
         } catch (DukeInvalidFormatException | DukeInvalidDateTimeException | AssertionError e) {
             return ("Something went wrong! Please format the task properly and add it again. \n\n" +
