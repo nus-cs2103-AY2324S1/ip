@@ -69,7 +69,8 @@ public class Parser {
             return new HelpCommand();
         } else if (fullCommand.toLowerCase().startsWith("schedule")) {
             String dateStr = fullCommand.substring("schedule".length()).trim();
-            return new ViewScheduleCommand(dateStr);
+            LocalDate date = LocalDate.parse(dateStr);
+            return new ViewScheduleCommand(date);
         } else {
             throw new DukeException("Please specify a valid command. For more info, use: help");
         }
