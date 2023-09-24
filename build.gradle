@@ -49,7 +49,7 @@ application {
 
 shadowJar {
     archiveBaseName = "EGGBOT"
-    archiveVersion = "v0.2"
+    archiveVersion = "v0.3"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
