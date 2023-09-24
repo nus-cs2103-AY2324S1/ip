@@ -44,6 +44,10 @@ public class Task {
         isDone = false;
     }
 
+    public boolean getCompletionStatus() {
+        return isDone;
+    }
+
     /**
      * return the string representing how the Task object should be displayed
      * @return string representation of the Task object

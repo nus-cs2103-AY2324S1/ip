@@ -68,6 +68,9 @@ public class TaskList {
         } else {
 
             userList[position].markDone();
+
+            assert userList[position].getCompletionStatus(); //target task should be marked as done
+
             return "Following task is marked as done:\n" + position + ". "
                     + userList[position].display();
 
@@ -80,6 +83,9 @@ public class TaskList {
         } else {
 
             userList[position].unmarkDone();
+
+            assert !userList[position].getCompletionStatus();//target task should be marked as undone
+
             return "Following task is marked as undone:\n" + position + ". "
                     + userList[position].display();
 
@@ -158,6 +164,11 @@ public class TaskList {
 
 
             }
+
+            assert numTodo <= userListPointer;//number of todo tasks should not exceed the total number of tasks
+            assert numDeadLine <= userListPointer;//number of deadline tasks should not exceed the total number of tasks
+            assert numEvent <= userListPointer;//number of event tasks should not exceed the total number of tasks
+
             return "You have:\n" + "~ " + numTodo + " todo.\n" + "~ " + numDeadLine + " deadline.\n"
                     + "~ " + numEvent + " event.\n";
 
