@@ -13,6 +13,7 @@ import duke.exceptions.UnknownCommandException;
  * A TimeParser class that encapsulates all methods related to handling time-related strings.
  */
 public class TimeParser {
+    // Solution below adapted by https://github.com/Yufannnn/ip
     private static final String[] ACCEPTABLE_DATETIME_FORMATS = {
         "MMM dd yyyy HHmm", "MMM dd yyyy HH:mm",
         "yyyy-MM-dd'T'HH:mm", "dd/MM/yyyy HHmm",

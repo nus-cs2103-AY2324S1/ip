@@ -27,8 +27,8 @@ public class MainWindow extends AnchorPane {
 
     // Other fields
     private Duke duke;
-    private final Image userImage = loadImage("/images/User.png");
-    private final Image serverImage = loadImage("/images/Server.png");
+    private final Image userImage = loadImage("/images/user.png");
+    private final Image serverImage = loadImage("/images/server.png");
 
     /**
      * Initializes the DialogBox and displays the welcome message.
