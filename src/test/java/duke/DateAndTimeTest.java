@@ -16,7 +16,7 @@ public class DateAndTimeTest {
      */
     @Test
     public void validTest() {
-        DateAndTime test1 = new DateAndTime();
+        DateFormatter test1 = new DateFormatter();
         assertTrue(test1.isValidDate("2023-04-01", "2023-04-02"));
     }
 
@@ -25,6 +25,6 @@ public class DateAndTimeTest {
      */
     @Test
     public void dateStringTest() {
-        assertEquals("Apr 01 2023", DateAndTime.parseDay("2023-04-01", "MMM dd YYYY"));
+        assertEquals("Apr 01 2023", DateFormatter.parseDay("2023-04-01", "MMM dd YYYY"));
     }
 }

@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 /**
  * Manages the date and time based on a user input.
  */
-public class DateAndTime {
+public class DateFormatter {
 
     /**
      * Parses a given string date. For dates only.
