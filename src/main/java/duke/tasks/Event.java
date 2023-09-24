@@ -15,7 +15,7 @@ public class Event extends Task {
     private static final String PRINT_FORMAT = "[E]%s %s (from: %s to: %s)";
 
     /** Format to store an Event task in storage. */
-    private static final String STORE_FORMAT = "[E] | %s %s | %s | %s";
+    private static final String STORE_FORMAT = "[E] | %s | %s | %s | %s";
 
     /** The starting datetime of the event. */
     private final LocalDateTime start;

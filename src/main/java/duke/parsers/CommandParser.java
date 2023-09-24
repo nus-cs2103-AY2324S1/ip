@@ -9,71 +9,77 @@ import duke.commands.ListCommand;
 import duke.exceptions.ErrorMessages;
 import duke.exceptions.UnknownCommandException;
 
-// Solution below inspired by https://github.com/Yufannnn/ip
 /**
- * Represents a parser that processes command inputs.
- */
+* A parser that parse the input String into a Duke Instruction with respective information encapsulated.
+*/
 public class CommandParser {
     /**
-     * Parses the input string to return a corresponding Command.
-     *
-     * @param input The string input from the user.
-     * @return A Command corresponding to the input string.
-     * @throws Exception If there's an error in parsing the input.
+     * An Instruction enum that encapsulates all types of Instruction.
      */
+    public enum Instruction {
+        BYE,
+        LIST,
+        HELP,
+        MARK,
+        UNMARK,
+        DELETE,
+        TODO,
+        DEADLINE,
+        EVENT,
+        FIND
+    }
+
+
     public static Command parse(String input) throws Exception {
         Matcher instructionExtractor = extractInstructionAndInformation(input);
         String instructionTag = instructionExtractor.group("instructionTag").trim();
         String information = instructionExtractor.group("information").trim();
 
-        CommandType instruction = matchFlag(instructionTag);
+        Instruction instruction = matchInstructionTag(instructionTag);
         return createCommand(instruction, information);
     }
 
-    /**
-     * Extracts the instruction and its corresponding information from the input.
-     *
-     * @param input The string input from the user.
-     * @return A Matcher containing extracted instruction and information.
-     * @throws UnknownCommandException If the instruction cannot be recognized.
-     */
     private static Matcher extractInstructionAndInformation(String input) throws UnknownCommandException {
         Matcher instructionExtractor = Pattern
                 .compile("(?<instructionTag>\\S++)(?<information>.*)").matcher(input.trim());
+        //@@author
 
+        // Check if the input matches the regular expression
         if (!instructionExtractor.matches()) {
+            // If not, throw an exception
             throw new UnknownCommandException(ErrorMessages.EMPTY_ERROR);
         }
-
+        // Return the Matcher object that contains the instruction tag and information
         return instructionExtractor;
     }
 
-    /**
-     * Converts the type flag to its corresponding CommandType.
-     *
-     * @param typeFlag The type flag string.
-     * @return The corresponding CommandType.
-     * @throws UnknownCommandException If the type flag cannot be recognized.
-     */
-    private static CommandType matchFlag(String typeFlag) throws UnknownCommandException {
+    private static Instruction matchInstructionTag(String instructionTag) throws UnknownCommandException {
         try {
-            return CommandType.valueOf(typeFlag.toUpperCase());
+            //convert instruction tag to uppercase to match enum
+            return Instruction.valueOf(instructionTag.toUpperCase());
         } catch (IllegalArgumentException e) {
+            //thrown if instruction tag does not match any of the enum values
             throw new UnknownCommandException(ErrorMessages.UNRECOGNIZED_ERROR);
         }
     }
 
-    private static Command createCommand(CommandType commandType, String information)
+    private static Command createCommand(Instruction instruction, String information)
             throws UnknownCommandException {
-        switch (commandType) {
+        switch (instruction) {
         case BYE:
+            //create and return ExitCommand
             return new ExitCommand();
         case LIST:
+            //create and return ListCommand
             return new ListCommand();
+        case HELP:
+            return ParserHelper.parseHelpCommand(information);
         case MARK:
+            return ParserHelper.parseMarkCommand(information);
         case UNMARK:
+            return ParserHelper.parseUnmarkCommand(information);
         case DELETE:
-            return ParserHelper.parseCommandByType(commandType, information);
+            return ParserHelper.parseDeleteCommand(information);
         case TODO:
             return ParserHelper.parseTodoCommand(information);
         case DEADLINE:
@@ -82,8 +88,6 @@ public class CommandParser {
             return ParserHelper.parseEventCommand(information);
         case FIND:
             return ParserHelper.parseFindCommand(information);
-        case HELP:
-            return ParserHelper.parseHelpCommand(information);
         default:
             throw new UnknownCommandException(ErrorMessages.UNRECOGNIZED_ERROR);
         }
