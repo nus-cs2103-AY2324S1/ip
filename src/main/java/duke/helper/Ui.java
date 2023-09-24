@@ -1,4 +1,4 @@
-package duke.HelperClass;
+package duke.helper;
 
 public class Ui {
 

@@ -1,4 +1,4 @@
-package duke.HelperClass;
+package duke.helper;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

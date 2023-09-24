@@ -10,11 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 */
-import duke.HelperClass.Task;
-import duke.HelperClass.Storage;
-import duke.HelperClass.Ui;
-import duke.HelperClass.Parser;
-import duke.HelperClass.TaskList;
+import duke.helper.Task;
+import duke.helper.Storage;
+import duke.helper.Ui;
+import duke.helper.Parser;
+import duke.helper.TaskList;
 
 import java.util.Scanner;
 
@@ -41,23 +41,17 @@ public class Duke {
     }
 
     public void run() {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
 
-        ui.speak(ui.greet());
+        ui.speak(greet());
 
         boolean wantToExit = false;
-        boolean userListHaveChanges;
+        boolean haveChangesInUserList;
 
         Scanner getUserInput = new Scanner(System.in);
 
         while (!(wantToExit)) {
 
-            userListHaveChanges = false;
+            haveChangesInUserList = false;
 
             String userInput = getUserInput.nextLine();
             parser.processUserCommand(userInput);
@@ -83,7 +77,7 @@ public class Duke {
                 try {
                     int i = Integer.parseInt(parser.getTaskName()) - 1;
                     ui.speak(tasks.markTask(i));
-                    userListHaveChanges = true;
+                    haveChangesInUserList = true;
                 } catch (NumberFormatException e) {
                     ui.speak("need to provide an integer index of task.");
                 }
@@ -96,7 +90,7 @@ public class Duke {
                 try {
                     int i = Integer.parseInt(parser.getTaskName()) - 1;
                     ui.speak(tasks.unmarkTask(i));
-                    userListHaveChanges = true;
+                    haveChangesInUserList = true;
                 } catch (NumberFormatException e) {
                     ui.speak("need to provide an integer index of task.");
                 }
@@ -107,21 +101,21 @@ public class Duke {
                 //todo read book
                 ui.speak(tasks.addTask(new Task(parser.getTaskName(),
                         1, "Null", "Null", false)));
-                userListHaveChanges = true;
+                haveChangesInUserList = true;
                 break;
 
             case "deadline":
                 //deadline read book /by 2022-01-01
                 ui.speak(tasks.addTask(new Task(parser.getTaskName(),
                         2, "Null", parser.getFirstEnteredTime(), false)));
-                userListHaveChanges = true;
+                haveChangesInUserList = true;
                 break;
 
             case "event":
                 //event read book /from 2022-01-01 /to 2022-01-02
                 ui.speak(tasks.addTask(new Task(parser.getTaskName(),
                         3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false)));
-                userListHaveChanges = true;
+                haveChangesInUserList = true;
                 break;
 
             case "delete":
@@ -129,7 +123,7 @@ public class Duke {
                 try {
                     int i = Integer.parseInt(parser.getTaskName()) - 1;
                     ui.speak(tasks.deleteTask(i));
-                    userListHaveChanges = true;
+                    haveChangesInUserList = true;
                 } catch (NumberFormatException e) {
                     ui.speak("need to provide an integer index of task.");
                 }
@@ -148,7 +142,7 @@ public class Duke {
             }
 
 
-            if (userListHaveChanges) {
+            if (haveChangesInUserList) {
                 storage.saveList(tasks.getUserList(), tasks.getUserListPointer());
             }
 
@@ -170,7 +164,7 @@ public class Duke {
 
     public String getResponse(String input) {
 
-        boolean userListHaveChanges = false;
+        boolean haveChangesInUserList = false;
         String message = "";
         parser.processUserCommand(input);
 
@@ -196,7 +190,7 @@ public class Duke {
             try {
                 int i = Integer.parseInt(parser.getTaskName()) - 1;
                 message = tasks.markTask(i);
-                userListHaveChanges = true;
+                haveChangesInUserList = true;
             } catch (NumberFormatException e) {
                 message = "need to provide an integer index of task.";
             }
@@ -209,7 +203,7 @@ public class Duke {
             try {
                 int i = Integer.parseInt(parser.getTaskName()) - 1;
                 message = tasks.unmarkTask(i);
-                userListHaveChanges = true;
+                haveChangesInUserList = true;
             } catch (NumberFormatException e) {
                 message = "need to provide an integer index of task.";
             }
@@ -220,21 +214,21 @@ public class Duke {
             //todo read book
             message = tasks.addTask(new Task(parser.getTaskName(),
                     1, "Null", "Null", false));
-            userListHaveChanges = true;
+            haveChangesInUserList = true;
             break;
 
         case "deadline":
             //deadline read book /by 2022-01-01
             message = tasks.addTask(new Task(parser.getTaskName(),
                     2, "Null", parser.getFirstEnteredTime(), false));
-            userListHaveChanges = true;
+            haveChangesInUserList = true;
             break;
 
         case "event":
             //event read book /from 2022-01-01 /to 2022-01-02
             message = tasks.addTask(new Task(parser.getTaskName(),
                     3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false));
-            userListHaveChanges = true;
+            haveChangesInUserList = true;
             break;
 
         case "delete":
@@ -242,7 +236,7 @@ public class Duke {
             try {
                 int i = Integer.parseInt(parser.getTaskName()) - 1;
                 message = tasks.deleteTask(i);
-                userListHaveChanges = true;
+                haveChangesInUserList = true;
             } catch (NumberFormatException e) {
                 message = "need to provide an integer index of task.";
             }
@@ -265,7 +259,7 @@ public class Duke {
         }
 
 
-        if (userListHaveChanges) {
+        if (haveChangesInUserList) {
             storage.saveList(tasks.getUserList(), tasks.getUserListPointer());
         }
         return message;
