@@ -2,7 +2,13 @@
 
 ## What is Richie?
 
-Richie is a chat bot that allows you to store a list of tasks that you have to do so as to help you remember your upcoming responsibilities. Tasks are categorised into Todo tasks, Deadline tasks, and Event tasks. Todo tasks are tasks that only have a description. (For example, do homework). Deadline tasks are tasks that have a deadline (For example, do dishes by 2 feb 2023 4pm). Lastly, Event tasks are events that occur within a period of time (For example, project meeting from 2 feb 2023 4pm to 2 feb 2023 5pm). Tasks can be marked as done once done. Obsolete tasks are tasks that are added by mistake can be deleted. You can also find the task that you interested in by searching for its description. Have fun using the app! :grinning:
+Richie is a chat bot that allows you to store a list of tasks that you have to do so as to help you 
+remember your upcoming responsibilities. Tasks are categorised into Todo tasks, Deadline tasks, 
+and Event tasks. Todo tasks are tasks that only have a description. (For example, do homework). 
+Deadline tasks are tasks that have a deadline (For example, do dishes by 2 feb 2023 4pm). Lastly, 
+Event tasks are events that occur within a period of time (For example, project meeting from 2 feb 2023 4pm 
+to 2 feb 2023 5pm). Tasks can be marked as done once done. Obsolete tasks are tasks that are added by mistake can be deleted.
+You can also find the task that you interested in by searching for its description. Have fun using the app! :grinning:
 
 ## Usage
 
@@ -75,3 +81,17 @@ Format : find KEYWORD
 Examples:
 -  find homework
 -  find project
+
+
+### Terminating the programme : 'bye'
+
+> Exits the programme. Don't worry tasks in the existing task list are still stored so you can access them when you rerun the programme
+
+Format : bye
+
+Examples:
+-bye
+
+### Entering a command 
+
+> To enter a command just type any of the supported commands in the text field below and either click enter on your keyboard or click on the 'send' button
