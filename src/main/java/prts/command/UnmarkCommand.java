@@ -1,5 +1,6 @@
 package prts.command;
 
+import prts.History;
 import prts.OutOfRangeException;
 import prts.SaveToFileException;
 import prts.Storage;
@@ -25,21 +26,24 @@ public class UnmarkCommand extends Command {
 
     /**
      * Executes the marking of the Task as not yet done.
-     * @param tasks The list of tasks currently stored.
-     * @param ui The UI object stored by PRTS.
+     *
+     * @param tasks   The list of tasks currently stored.
+     * @param ui      The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @param history The history of past TaskLists stored by PRTS.
      * @return The string to be displayed to the user upon successful execution.
-     * @throws OutOfRangeException If the index provided is out of range of the TaskList.
+     * @throws OutOfRangeException      If the index provided is out of range of the TaskList.
      * @throws AlreadyUnmarkedException If the Task indicated by the provided index is already marked
-     *         as not yet complete.
-     * @throws SaveToFileException If the Storage object fails to save the state of the TaskList
-     *         after the Task is unmarked.
+     *                                  as not yet complete.
+     * @throws SaveToFileException      If the Storage object fails to save the state of the TaskList
+     *                                  after the Task is unmarked.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws AlreadyUnmarkedException,
+    public String execute(TaskList tasks, Ui ui, Storage storage, History history) throws AlreadyUnmarkedException,
             OutOfRangeException, SaveToFileException {
         String ret = tasks.unmark(index);
         storage.save(tasks);
+        history.addToHistory(tasks);
         return ret;
     }
 }

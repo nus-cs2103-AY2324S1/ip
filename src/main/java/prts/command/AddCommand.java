@@ -1,5 +1,6 @@
 package prts.command;
 
+import prts.History;
 import prts.SaveToFileException;
 import prts.Storage;
 import prts.TaskList;
@@ -28,14 +29,16 @@ public class AddCommand extends Command {
      * @param tasks   The list of tasks currently stored.
      * @param ui      The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @param history The history of past TaskLists stored by PRTS.
      * @return The string to be displayed to the user upon successful execution.
      * @throws SaveToFileException If the Storage object fails to save the state of the TaskList
      *                             after the addition of the Task.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException {
+    public String execute(TaskList tasks, Ui ui, Storage storage, History history) throws SaveToFileException {
         String string = tasks.add(taskToAdd);
         storage.save(tasks);
+        history.addToHistory(tasks);
         return string;
     }
 }

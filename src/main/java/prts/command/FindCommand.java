@@ -1,5 +1,6 @@
 package prts.command;
 
+import prts.History;
 import prts.OutOfRangeException;
 import prts.SaveToFileException;
 import prts.Storage;
@@ -25,7 +26,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException,
+    public String execute(TaskList tasks, Ui ui, Storage storage, History history) throws SaveToFileException,
             OutOfRangeException {
         return tasks.find(searchTerm);
     }

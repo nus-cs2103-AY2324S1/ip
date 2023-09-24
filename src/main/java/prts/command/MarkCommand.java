@@ -1,5 +1,6 @@
 package prts.command;
 
+import prts.History;
 import prts.OutOfRangeException;
 import prts.SaveToFileException;
 import prts.Storage;
@@ -25,21 +26,24 @@ public class MarkCommand extends Command {
 
     /**
      * Executes the marking of the Task as done.
-     * @param tasks The list of tasks currently stored.
-     * @param ui The UI object stored by PRTS.
+     *
+     * @param tasks   The list of tasks currently stored.
+     * @param ui      The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @param history The history of past TaskLists stored by PRTS.
      * @return The string to be displayed to the user upon successful execution.
-     * @throws OutOfRangeException If the index provided is out of range of the TaskList.
+     * @throws OutOfRangeException    If the index provided is out of range of the TaskList.
      * @throws AlreadyMarkedException If the Task indicated by the provided index is already marked
-     *         as complete.
-     * @throws SaveToFileException If the Storage object fails to save the state of the TaskList
-     *         after the marking of the Task.
+     *                                as complete.
+     * @throws SaveToFileException    If the Storage object fails to save the state of the TaskList
+     *                                after the marking of the Task.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws OutOfRangeException,
+    public String execute(TaskList tasks, Ui ui, Storage storage, History history) throws OutOfRangeException,
             AlreadyMarkedException, SaveToFileException {
         String ret = tasks.mark(index);
         storage.save(tasks);
+        history.addToHistory(tasks);
         return ret;
     }
 

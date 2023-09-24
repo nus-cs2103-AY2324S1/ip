@@ -1,5 +1,6 @@
 package prts.command;
 
+import prts.History;
 import prts.OutOfRangeException;
 import prts.SaveToFileException;
 import prts.Storage;
@@ -24,18 +25,22 @@ public class DeleteCommand extends Command {
 
     /**
      * Executes the deletion of the Task from the TaskList.
-     * @param tasks The list of tasks currently stored.
-     * @param ui The UI object stored by PRTS.
+     *
+     * @param tasks   The list of tasks currently stored.
+     * @param ui      The UI object stored by PRTS.
      * @param storage The Storage object stored by PRTS.
+     * @param history The history of past TaskLists stored by PRTS.
      * @return The string to be displayed to the user upon successful execution.
      * @throws SaveToFileException If the Storage object fails to save the state of the TaskList
-     *         after the deletion of the Task.
+     *                             after the deletion of the Task.
      * @throws OutOfRangeException If the index provided falls out of the range of the TaskList.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws SaveToFileException, OutOfRangeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage, History history)
+            throws SaveToFileException, OutOfRangeException {
         String ret = tasks.delete(index);
         storage.save(tasks);
+        history.addToHistory(tasks);
         return ret;
     }
 }
