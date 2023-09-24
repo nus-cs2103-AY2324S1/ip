@@ -1,5 +1,10 @@
 package duke.helper;
 
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 public class TaskList {
     private Task[] userList;
     private int userListPointer;
@@ -174,6 +179,29 @@ public class TaskList {
 
 
 
+        }
+    }
+
+
+    public void sortByStartDate() {
+        List<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < userListPointer; i++) {
+            tasks.add(userList[i]);
+        }
+        tasks.sort(Comparator.comparing(Task::getStartDate));
+        for (int i = 0; i < userListPointer; i++) {
+            userList[i] = tasks.get(i);
+        }
+    }
+
+    public void sortByEndDate() {
+        List<Task> tasks = new ArrayList<>();
+        for (int i = 0; i < userListPointer; i++) {
+            tasks.add(userList[i]);
+        }
+        tasks.sort(Comparator.comparing(Task::getEndDate));
+        for (int i = 0; i < userListPointer; i++) {
+            userList[i] = tasks.get(i);
         }
     }
 }

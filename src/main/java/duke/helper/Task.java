@@ -10,8 +10,8 @@ public class Task {
 
     private String taskName;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDate startDate = LocalDate.MAX;
+    private LocalDate endDate = LocalDate.MAX;
 
 
     public Task(String taskName, int typeOfTask, String startDate, String endDate, boolean isDone) {
@@ -41,6 +41,14 @@ public class Task {
 
     public void unmarkDone() {
         isDone = false;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
     public boolean getCompletionStatus() {

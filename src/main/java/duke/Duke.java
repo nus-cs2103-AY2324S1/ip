@@ -251,6 +251,25 @@ public class Duke {
             message = tasks.showTaskStatics();
             break;
 
+        case "sort":
+            if (!(parser.getTaskName().equals("by start date") || parser.getTaskName().equals("by end date"))) {
+                message = "Sorry, I do not know how you want to sort the tasks";
+            } else {
+                haveChangesInUserList = true;
+                if (parser.getTaskName().equals("by start date")) {
+                    tasks.sortByStartDate();
+                }
+
+                if (parser.getTaskName().equals("by end date")) {
+                    tasks.sortByEndDate();
+                }
+                message = "Your list is not sorted!\n\n";
+
+                message = message + tasks.displayList();
+            }
+
+            break;
+
 
         default:
             message = "OOPS!!! I'm sorry, but I don't know what that means :-(";
