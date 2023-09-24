@@ -52,7 +52,8 @@ public class ToDo extends Task {
      */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof ToDo toDo) {
+        if (obj instanceof ToDo) {
+            ToDo toDo = (ToDo) obj;
             return this.description.equals(toDo.description);
         }
         return false;

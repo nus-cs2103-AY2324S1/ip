@@ -7,7 +7,7 @@ import duke.task.TaskList;
 import duke.ui.Ui;
 
 /**
- *  main class that represents the Duke but BTR chatbot application.
+ *  The main class that represents the Duke but BTR chatbot application.
  */
 public class Duke {
     private Storage storage;
