@@ -43,7 +43,7 @@ Hello! I'm EGGBOT!
 
 etc...
 ```
-
+---
 ### `todo` - Add a todo task
 
 To add a todo task to your task list, you can type `todo [TASK_NAME]`
@@ -61,7 +61,7 @@ Got it, I've added this task:
 [T][ ] Fill in the midterm course review
 You now have 1 task(s) in the list.
 ```
-
+---
 ### `deadline` - Add a deadline task
 
 To add a task with a deadline to your task list, you can type `todo [TASK_NAME]/[DEADLINE]`
@@ -81,7 +81,7 @@ Got it, I've added this task:
 [D][ ] Finish ip (By: 22 Sep 2023 11:59 PM)
 You now have 2 task(s) in the list.
 ```
-
+---
 ### `event` - Add an event task
 
 To add an event task with a start and end time to your task list, you can type `todo [TASK_NAME]/[START_DATE_TIME]/[END_DATE_TIME]`
@@ -101,7 +101,7 @@ Got it, I've added this task:
 [E][ ] Award Ceremony (From: 26 Sep 2023 4:00 PM to 26 Sep 2023 9:00 PM)
 You now have 3 task(s) in the list.
 ```
-
+---
 ### `list` - View all tasks 
 
 To view all the tasks you have added so far, you can type `list`
@@ -120,7 +120,7 @@ Your tasks:
 2. [D][ ] Finish ip (By: 22 Sep 2023 11:59 PM)
 3. [E][ ] Award Ceremony (From: 26 Sep 2023 4:00 PM to 26 Sep 2023 9:00 PM)
 ```
-
+---
 ### `mark` - Mark a task as done
 
 To mark a task as done, you can type `mark [TASK_INDEX]`
@@ -146,7 +146,7 @@ Then, Eggbot marks task 2 as done, and tells you so. A cross appears in the seco
 Nice! I've marked this task as done:
 [D][X] Finish ip (By: 22 Sep 2023 11:59 PM)
 ```
-
+---
 ### `unmark` - "Unmark" a task as not done
 
 To mark a task as not done, you can type `unmark [TASK_INDEX]`
@@ -172,7 +172,7 @@ Then, Eggbot "unmarks" task 2 as not done, and tells you so. The cross disappear
 OK, I've marked this task as not done yet:
 [D][ ] Finish ip (By: 22 Sep 2023 11:59 PM)
 ```
-
+---
 ### `delete` - Delete a task
 
 To delete a task, you can type `delete [TASK_INDEX]`
@@ -198,7 +198,7 @@ Eggbot then deletes task 1.
 Noted, I've removed this task:
 [T][ ] Fill in the midterm course review
 ```
-
+---
 ### `find` - Find a task
 
 To find a task, you can type `find [A_WORD_IN_THE_TASK]`
@@ -216,7 +216,7 @@ Eggbot shows you all your tasks with the word "award" in them.
 ```
 2. [E][ ] Award Ceremony (From: 26 Sep 2023 4:00 PM to 26 Sep 2023 9:00 PM)
 ```
-
+---
 ### `bye` - Exit the bot
 
 Going so soon? :(
