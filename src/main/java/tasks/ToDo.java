@@ -1,11 +1,8 @@
-import exception.DukeException;
+package tasks;
 
 public class ToDo extends Task {
-    public ToDo(String task)throws DukeException {
+    public ToDo(String task) {
         super(task);
-        if (task.isBlank() || task.isEmpty()) {
-            throw new DukeException("The description of a To-Do task cannot be empty.");
-        }
     }
 
     @Override
@@ -14,7 +11,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toFileString() {
+    public String toFile() {
         return super.isDone ? ("T | 1 | " + super.task) : ("T | 0 | " + super.task);
     }
 }
