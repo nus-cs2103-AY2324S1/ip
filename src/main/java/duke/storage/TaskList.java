@@ -65,8 +65,23 @@ public class TaskList {
         Ui.print(messageList);
     }
 
+    public void addTest(Task input) {
+        taskList.add(input);
+        String[] messageList = {("Got it! This task has been added: ")
+                , (input.getStatus())
+                , ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
+        Ui.print(messageList);
+    }
+
     public int size() {
         return taskList.size();
+    }
+
+    public Task get(int num) {
+        if (num >= 0 && num < taskList.size()) {
+            return taskList.get(num);
+        }
+        return null;
     }
 
     private static String plural(int count, String word) {
