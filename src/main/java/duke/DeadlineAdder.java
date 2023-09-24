@@ -29,7 +29,7 @@ public class DeadlineAdder extends Command {
 
 
     /**
-     * Adds the Deadline into the DukeList
+     * Adds the Deadline into the TaskList
      * @return The confirmation of the addition of the Deadline.
      */
     @Override

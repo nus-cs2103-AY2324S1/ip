@@ -22,7 +22,6 @@ public class Deadline extends Task {
 
     /**
      * Shows the name of the Deadline task and its status.
-     *
      * @return Name of the Deadline task, due date and its current status.
      */
     @Override

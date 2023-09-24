@@ -3,7 +3,7 @@ package duke;
 /**
  * A command class that represents input errors.
  */
-public class TaskError extends Command{
+public class TaskError extends Command {
     //The error type.
     private String error;
 

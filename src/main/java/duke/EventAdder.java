@@ -33,7 +33,7 @@ public class EventAdder extends Command {
     }
 
     /**
-     * Adds the event into the DukeList
+     * Adds the event into the TaskList
      * @return The message confirming the addition of the Event.
      */
     @Override

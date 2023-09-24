@@ -3,7 +3,7 @@ package duke;
 /**
  * Answers a trivia question
  */
-public class Ask extends Command{
+public class Ask extends Command {
 
     //The trivia question
     private String question;
