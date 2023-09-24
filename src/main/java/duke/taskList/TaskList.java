@@ -347,7 +347,7 @@ public class TaskList {
             e.printStackTrace();
             return "An error occurred";
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred. ");
             e.printStackTrace();
             return "An error occurred";
         }
@@ -442,7 +442,7 @@ public class TaskList {
     }
 
     /**
-     * Finds the tasks in the command and print them out.
+     * Finds the tasks in the command and print them out,
      * @param command The command specifying the task.
      * @return String returns the list of tasks found
      */
