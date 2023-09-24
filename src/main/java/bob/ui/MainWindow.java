@@ -37,6 +37,7 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog("Hello, my name is Bob! What can I do for you?", dukeImage)
         );
+        sendButton.setDefaultButton(true);
     }
 
     public void setDuke(Duke d) {
