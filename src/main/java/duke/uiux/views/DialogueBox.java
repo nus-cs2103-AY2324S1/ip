@@ -34,7 +34,7 @@ public class DialogueBox extends HBox {
 
     private DialogueBox(String text, Image img, Color paint) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("./views/DialogueBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/uiux/views/DialogueBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();

@@ -1,5 +1,4 @@
 package duke.uiux;
-import java.util.Scanner;
 
 import duke.Duke;
 import javafx.application.Application;
@@ -27,8 +26,7 @@ public class Ui extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.duke = new Duke();
         this.window = primaryStage;
-
-        FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("./MainWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Ui.class.getResource("/MainWindow.fxml"));
         AnchorPane anchorPane = fxmlLoader.load();
         Scene mainScene = new Scene(anchorPane);
         fxmlLoader.<MainWindow>getController().setDuke(duke);
