@@ -28,7 +28,7 @@ DaDaYuan is your intelligent chatbot assistant designed to help you manage tasks
 
 ### Run the project in terminal
 
-1. Download the latest **DaDaYuan.jar** from [GitHub](#)
+1. Download the latest **DaDaYuan.jar** from [GitHub](https://github.com/mamayuan/ip/releases/tag/v1.0-DaDaYuan)
 2. Place the jar file in an empty folder.
 3. Open terminal and navigate to the folder.
 4. Run `java -jar DaDaYuan.jar`
