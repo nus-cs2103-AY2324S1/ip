@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root alignment="BOTTOM_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="100.0" minWidth="200.0" type="javafx.scene.layout.HBox" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <VBox fx:id="bubble" style="-fx-background-color: #B8D8D8; -fx-background-radius: 25 25 25 25; -fx-background-radius: 25 25 25 25;">
+         <children>
+              <Label fx:id="userName" text="Label" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Segoe UI Bold" size="15.0" />
+               </font>
+               <padding>
+                  <Insets right="30.0" top="5.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" top="10.0" />
+               </VBox.margin>
+              </Label>
+            <Text fx:id="dialog" fill="WHITE" lineSpacing="0.3" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" VBox.vgrow="NEVER">
+               <VBox.margin>
+                  <Insets bottom="15.0" left="18.0" right="20.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="Segoe UI" size="14.0" />
+               </font>
+            </Text>
+         </children>
+         <HBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </HBox.margin>
+      </VBox>
+        <ImageView fx:id="displayPicture" fitHeight="66.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER" />
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="10.0" right="10.0" top="15.0" />
+    </padding>
+</fx:root>

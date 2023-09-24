@@ -2,6 +2,8 @@ package ui.printers;
 
 import ui.javafx.MainWindow;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * The printer class is in charge of printing all the bot's replies.
  */
