@@ -25,7 +25,7 @@ public class UI {
     /**
      * Generates the welcome message displayed in the terminal.
      */
-    String printWelcomeMessage() {
+    public String printWelcomeMessage() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -39,11 +39,10 @@ public class UI {
 
         sb.append(this.printDivider());
 
-        sb.append("\nHello! I'm JARVIS");
+        sb.append("\nHello! I'm DUKE");
         sb.append("\nWhat can I do for you?");
 
         sb.append(this.printDivider());
-//        System.out.println(sb);
         return String.valueOf(sb);
     }
 
