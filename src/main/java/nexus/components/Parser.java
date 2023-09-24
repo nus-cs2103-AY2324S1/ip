@@ -26,7 +26,7 @@ public class Parser {
             storage.editTask("mark", index);
             return ui.showMark(list.get(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidInputException("Task index does not exist");
+            throw new InvalidInputException("Task does not exist");
         }
     }
     private static String parseUnmark(TaskList list, String[] data, Storage storage, Ui ui)
@@ -41,7 +41,7 @@ public class Parser {
             storage.editTask("unmark", index);
             return ui.printUnmark(list.get(index));
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidInputException("Task index does not exist");
+            throw new InvalidInputException("Task does not exist");
         }
     }
     private static String parseDelete(TaskList list, String[] data, Storage storage, Ui ui)
@@ -58,7 +58,7 @@ public class Parser {
             storage.editTask("delete", index);
             return ui.showDelete(deleted, list);
         } catch (IndexOutOfBoundsException e) {
-            throw new InvalidInputException("Task index does not exist");
+            throw new InvalidInputException("Task does not exist");
         }
 
     }
