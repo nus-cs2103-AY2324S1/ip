@@ -5,29 +5,27 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    String javaFxVersion = '17.0.7'
-    
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    //implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
+    // Used for loops to clean up the imports
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
 }
+
 
 java {
   sourceCompatibility = JavaVersion.VERSION_11
@@ -50,21 +48,28 @@ test {
 }
 
 application {
-    mainClass.set("cheese.Cheesebot")
+    //mainClassName = 'cheese.Cheesebot'
+    mainModule = 'cheese'
+    mainClassName = "cheese.Launcher"
 }
 
 shadowJar {
     archiveBaseName = "cheese"
+    archiveFileName = "cheese.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
+
+
 javafx {
     version = "17.0.8"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.base', 'javafx.graphics']
 }
 
-mainClassName = 'cheese.Cheesebot'
+mainClassName = 'cheese.Launcher'
+
+
 
 run{
     standardInput = System.in
