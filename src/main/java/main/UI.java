@@ -136,7 +136,7 @@ public class UI {
 
         sb.append("Updated the description of Task ").append(taskIndex);
         sb.append(" from \"").append(oldDescription).append("\"");
-        sb.append("to \"").append(newDescription).append("\"");
+        sb.append(" to \"").append(newDescription).append("\"");
 
         return String.valueOf(sb);
     }

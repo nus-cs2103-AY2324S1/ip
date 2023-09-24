@@ -1,10 +1,2 @@
-D | 0 | github | 183829
-T | 0 | njajkda
-T | 0 | bill
-T | 0 | bill
-T | 0 | aca
-T | 0 | aca
-T | 0 | bill
-T | 0 | event
-T | 0 | Bill
-T | 0 | bill
+E | 0 | homework | 19th July 2023  1700 | 19th July 2023 1900
+T | 1 | sujith
