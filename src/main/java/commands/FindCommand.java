@@ -29,7 +29,7 @@ public class FindCommand extends Command {
      * @throws DukeException If any issues arise during the search process.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) throws DukeException {
+    public String executeCommand(UI ui, Actions actionList) throws DukeException {
         StringBuilder matchedTasks = new StringBuilder();
         int counter = 0;
         for (int i = 0; i < actionList.size(); i++) {
@@ -40,9 +40,9 @@ public class FindCommand extends Command {
             }
         }
         if (counter == 0) {
-            ui.lineSandwich(" No Matches -> " + keyword);
+            return " No Matches -> " + keyword;
         } else {
-            ui.lineSandwich(" Check out the matches:\n" + matchedTasks);
+            return " Check out the matches:\n" + matchedTasks;
         }
     }
 }

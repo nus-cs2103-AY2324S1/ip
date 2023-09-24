@@ -30,11 +30,11 @@ public class DeleteCommand extends Command {
      * @throws DukeException If the specified task does not exist in the task list.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) throws DukeException {
+    public String executeCommand(UI ui, Actions actionList) throws DukeException {
         Task deletedTask = actionList.delete(deleteTaskNumber);
         if (deletedTask != null) {
-            ui.lineSandwich(" Noted. I've removed this task:\n  " + deletedTask + "\n Now you have "
-                    + actionList.size() + " tasks in the list.");
+            return " Noted. I've removed this task:\n  " + deletedTask + "\n Now you have "
+                    + actionList.size() + " tasks in the list.";
         } else {
             throw new DukeException(" Deletion failed; specified task does not exist.");
         }

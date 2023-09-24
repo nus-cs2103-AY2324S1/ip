@@ -30,12 +30,12 @@ public class UnmarkCommand extends Command {
      * @throws DukeException If any issues arise during the unmarking process.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) throws DukeException {
+    public String executeCommand(UI ui, Actions actionList) throws DukeException {
         Task resultingTask = actionList.unmark(taskNumber);
         if (resultingTask != null) {
-            ui.lineSandwich(" Well, you changed your mind :(. Just this once:\n " + resultingTask);
+            return " Well, you changed your mind :(. Just this once:\n " + resultingTask;
         } else {
-            ui.lineSandwich(" Unmarking failed; specified task does not exist.");
+            return " Unmarking failed; specified task does not exist.";
         }
     }
 }

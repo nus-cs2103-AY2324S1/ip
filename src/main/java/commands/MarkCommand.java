@@ -30,12 +30,12 @@ public class MarkCommand extends Command {
      * @throws DukeException If any issues arise during the marking process.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) throws DukeException {
+    public String executeCommand(UI ui, Actions actionList) throws DukeException {
         Task resultingTask = actionList.mark(taskNumber);
         if (resultingTask != null) {
-            ui.lineSandwich(" Fine. Marked this task as done, better not change your mind:\n " + resultingTask);
+            return " Fine. Marked this task as done, better not change your mind:\n " + resultingTask;
         } else {
-            ui.lineSandwich(" Marking failed; specified task does not exist.");
+            return " Marking failed; specified task does not exist.";
         }
     }
 }

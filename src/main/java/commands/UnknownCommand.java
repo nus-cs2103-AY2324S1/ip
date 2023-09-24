@@ -27,7 +27,7 @@ public class UnknownCommand extends Command {
      *                   included to maintain a consistent method signature.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) {
-        ui.lineSandwich(" Well, looks like " + input + " is unsupported.");
+    public String executeCommand(UI ui, Actions actionList) {
+        return " Well, looks like " + input + " is unsupported.";
     }
 }

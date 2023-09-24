@@ -16,7 +16,7 @@ public abstract class Command {
      * @param actionList The list of tasks.
      * @throws DukeException To handle errors during the command execution.
      */
-    public abstract void executeCommand(UI ui, Actions actionList) throws DukeException;
+    public abstract String executeCommand(UI ui, Actions actionList) throws DukeException;
 
     /**
      * Specifies if the command leads to program exit.

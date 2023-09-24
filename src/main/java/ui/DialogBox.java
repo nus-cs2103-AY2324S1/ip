@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.shape.Circle;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,6 +38,9 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        Circle clip = new Circle(50, 50, 50); // assuming a radius of 50
+        displayPicture.setClip(clip);
     }
 
     /**

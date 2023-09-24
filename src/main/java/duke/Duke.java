@@ -2,6 +2,14 @@ package duke;
 
 import java.util.ArrayList;
 
+import commands.Command;
+import data.Actions;
+import data.Save;
+import parser.Parser;
+import tasks.Task;
+import ui.DialogBox;
+import ui.UI;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,19 +23,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import commands.Command;
-import data.Actions;
-import data.Save;
-import parser.Parser;
-import tasks.Task;
-import ui.DialogBox;
-import ui.UI;
-
 /**
  * Represents the main chatbot. Manages the user interface, task list, command parsing,
  * and saving/loading tasks to/from duke.txt.
  */
-public class Duke extends Application{
+public class Duke extends Application {
     private final UI ui = new UI();
     private final Actions actionList = new Actions();
     private final Parser parser = new Parser();
@@ -58,7 +58,7 @@ public class Duke extends Application{
      */
     public void initiateChatbot() throws DukeException {
         ui.openingMessage();
-        boolean isRunning = true; // to control the while loop
+        boolean isRunning = true;
         while (isRunning) {
             try {
                 String input = ui.readInput();
@@ -110,7 +110,6 @@ public class Duke extends Application{
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -143,7 +142,6 @@ public class Duke extends Application{
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -168,11 +166,11 @@ public class Duke extends Application{
     public String getResponse(String input) {
         try {
             Command command = parser.issueCommand(input);
-            String response;
             if (command.isExit()) {
                 savior.saveTasks(actionList.list());
+                return " Finally, I can rest.";
             } else {
-                response = command.executeCommand(ui, actionList);
+                return command.executeCommand(ui, actionList);
             }
         } catch (DukeException ohno) {
             return ohno.getMessage();

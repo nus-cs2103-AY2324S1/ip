@@ -30,14 +30,14 @@ public class TodoCommand extends Command {
      * @throws DukeException To handle incorrect input format.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) throws DukeException {
+    public String executeCommand(UI ui, Actions actionList) throws DukeException {
         if (description.isEmpty()) {
             throw new DukeException(" Provide the description. "
                     + "\n Format: todo task");
         }
         Todo task = new Todo(description);
         actionList.add(task);
-        ui.lineSandwich(" Got it. I've added this task:\n  " + task + "\n Now you have "
-                + actionList.size() + " tasks in the list.");
+        return " Got it. I've added this task:\n  " + task + "\n Now you have "
+                + actionList.size() + " tasks in the list.";
     }
 }

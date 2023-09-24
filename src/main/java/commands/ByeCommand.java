@@ -15,8 +15,8 @@ public class ByeCommand extends Command {
      * @param actionList The list of tasks.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) {
-        ui.lineSandwich(" Finally, I can rest.");
+    public String executeCommand(UI ui, Actions actionList) {
+        return " Finally, I can rest.";
     }
 
     /**

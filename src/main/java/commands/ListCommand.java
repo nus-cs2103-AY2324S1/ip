@@ -17,7 +17,7 @@ public class ListCommand extends Command {
      * @throws DukeException If any issues arise during the display process.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) throws DukeException {
-        ui.lineSandwich(actionList.stringList());
+    public String executeCommand(UI ui, Actions actionList) throws DukeException {
+        return actionList.stringList();
     }
 }

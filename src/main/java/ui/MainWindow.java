@@ -1,5 +1,6 @@
 package ui;
 
+import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import duke.Duke;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -45,6 +45,9 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
+        if (" Finally, I can rest.".equals(response)) {
+            System.exit(0);
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

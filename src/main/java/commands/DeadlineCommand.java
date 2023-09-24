@@ -32,7 +32,7 @@ public class DeadlineCommand extends Command {
      * @throws DukeException To handle incorrect input format.
      */
     @Override
-    public void executeCommand(UI ui, Actions actionList) throws DukeException {
+    public String executeCommand(UI ui, Actions actionList) throws DukeException {
         if (!input.contains("/by")) {
             throw new DukeException(" Deadline format incorrect. "
                     + "\n Format: deadline task /by d/M/yyyy HHmm");
@@ -41,7 +41,7 @@ public class DeadlineCommand extends Command {
         String description = deadlineParts[0].trim();
         Deadline deadline = new Deadline(description, deadlineParts[1].trim());
         actionList.add(deadline);
-        ui.lineSandwich(" Got it. I've added this task:\n  "
-                + deadline + "\n Now you have " + actionList.size() + " tasks in the list.");
+        return " Got it. I've added this task:\n  "
+                + deadline + "\n Now you have " + actionList.size() + " tasks in the list.";
     }
 }
