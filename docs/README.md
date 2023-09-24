@@ -40,13 +40,13 @@ Expected outcome:
 ```
 Here are the tasks in your list:
 1.[T][ ] Study
-2.[D][ ] Attend classes (by: April 3 2021)
-3.[E][X] Submit papers (from: April 10 2022 to: April 11 2022)
+2.[D][ ] Attend classes (by: 3 April 2021)
+3.[E][X] Submit papers (from: 10 April 2022 to: 11 April 2022)
 ```
 
 ### ✅ Mark Task as Done
 
-Zenith markd your task specified by its index(1-indexed) as done.<br>
+Zenith markd your task specified by its index as done.<br>
 
 Format: `mark <index of task to be marked>`
 
@@ -61,7 +61,7 @@ Nice! I've marked this task as done:
 
 ### ❌ Mark Task as Undone
 
-Zenith will mark your task specified by its index(1-indexed) as done.<br>
+Zenith will mark your task specified by its index as done.<br>
 
 Format: `unmark <index of task to be unmarked>`
 
@@ -71,7 +71,7 @@ Expected outcome:
 
 ```
 OK, I've marked this task as not done yet:
-    [E][ ] Learn Chinese (from: April 4 2023 to: April 5 2023)
+    [E][ ] Learn Chinese (from: 4 April 2023 to: 6 April 2023)
 ```
 
 ### ✅ Add a To-Do
@@ -94,15 +94,15 @@ Now you have 7 tasks in the list.
 
 Zenith will add a DEADLINE task with the given description and deadline.<br>
 
-Format: `deadline <description> /by <deadline in the format yyyy/mm/dd>`
+Format: `deadline <description> /by <deadline in the format dd//mm/yyyy`
 
-Example of usage: `deadline submission /by 2023/09/03`
+Example of usage: `deadline submission /by 09/03/2003`
 
 Expected outcome:
 
 ```
 Got it. I've added this task:
-    [D][ ] submission (by: September 1 2022)
+    [D][ ] submission (by: 1 September 2022)
 Now you have 5 tasks in the list.
 ```
 
@@ -110,21 +110,21 @@ Now you have 5 tasks in the list.
 
 Zenith will add an EVENT task with the given description, event start date and event end date.<br>
 
-Format: `event <description> /from <start date in the format yyyy/mm/dd> /to <end date in the format yyyy/mm/dd>`
+Format: `event <description> /from <start date in the format dd//mm/yyyy> /to <end date in the format dd//mm/yyyy>`
 
-Example of usage: `event attend carnival /from 2023-05-06 /to 2023-05-08`
+Example of usage: `event attend carnival /from 05/06/2003 /to 06/07/2003`
 
 Expected outcome:
 
 ```
 Got it. I've added this task:
-    [E][ ] learn piano (from: May 6 2023 to: May 8 2023)
+    [E][ ] learn piano (from: 6 May 2023 to: 6 May 2023)
 Now you have 6 tasks in the list.
 ```
 
 ### 🗑️ Delete a Task
 
-Zenith will delete the task specified by its index(1-indexed).<br>
+Zenith will delete the task specified by its index.<br>
 
 Format: `delete <index of task to be deleted>`
 

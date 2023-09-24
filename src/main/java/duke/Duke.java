@@ -11,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 
 
@@ -47,7 +50,9 @@ public class Duke extends Application{
 
     public Duke() throws Exception {
         try {
-            String filePath = "./data/zenith.txt";
+            final Path DUKE_FILE_PATH = Paths.get("./data/zenith.txt");
+            System.out.println(DUKE_FILE_PATH);
+            String filePath = DUKE_FILE_PATH.toString();
             loadFile = new LoadFile(filePath);
             TaskList lst = new TaskList();
             loadFile.load();
@@ -101,7 +106,7 @@ public class Duke extends Application{
         try {
             initialization(stage);
             String filePath = "./data/zenith.txt";
-            loadFile = new LoadFile(filePath); //soutd to string
+            loadFile = new LoadFile(filePath);
             TaskList lst = new TaskList();
             loadFile.load();
 

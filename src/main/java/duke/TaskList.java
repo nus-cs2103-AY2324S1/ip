@@ -2,6 +2,7 @@ package duke;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
@@ -147,8 +148,11 @@ public class TaskList {
      */
     public String stringList(Ui ui, String onetwo) {
         ui.currentlist((list.size()), onetwo);
+
         assert ui.toString() != null : "ui.toString() cannot be null";
+        //System.out.println("start" + List() + "stop");
         return List() + ui.toString();
+
     }
 
     /**
@@ -372,7 +376,8 @@ public class TaskList {
      * @throws Exception If an error occurs during execution.
      */
     public String Answer(String input) throws Exception{
-        String zenithData = "src/main/java/data/zenith.txt";
+        Path newp = Paths.get("data/zenith.txt");
+        String zenithData = "./data/zenith.txt";
         Parser parser = new Parser(list, input);
         String arr[];
         String onetwo = list.size() > 1? " tasks": " task";
@@ -463,11 +468,11 @@ public class TaskList {
         return outputDateStr;
     }
 
-    /**
+    /**java -
      * Refreshes the data in the storage file to match the current list of tasks.
      */
     private static void refreshData() {
-        String zenithData = "src/main/java/data/zenith.txt";
+        String zenithData = "./data/zenith.txt";
         try {
             FileChannel fileChannel = FileChannel.open(Paths.get(zenithData),
                     StandardOpenOption.WRITE);

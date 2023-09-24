@@ -56,14 +56,13 @@ public class Ui {
      */
     public void list(List<Task> list) {
         int index = 1;
-        this.output += "Here are the tasks in your list: \n" + "________________________________________\n";
+        this.output += "Here are the tasks in your list: \n" + "___________________________________\n";
         for (Task thing: list) {
-            System.out.println(index +". " + thing.toString());
             this.output = this.output + index + ". " + thing + "\n";
             index++;
         }
-        this.output += this.output + "________________________________________\n";
-        System.out.println("____________________________________________________________");
+        this.output += "___________________________________\n";
+
     }
 
     /**
@@ -74,12 +73,12 @@ public class Ui {
     public void matchingList(List<Task> list) {
         int index = 1;
         this.output += "Here are the matching tasks in your list: \n " +
-                "________________________________________\n";
+                "___________________________________\n";
         for (Task thing: list) {
             this.output = this.output + index + ". " + thing + "\n";http://{your username}.github.io/{repo name}/
             index++;
         }
-        this.output = this.output + "________________________________________\n";
+        this.output = this.output + "___________________________________\n";
     }
 
     /**
@@ -141,9 +140,9 @@ public class Ui {
      * @param onetwo "task" if there is only one task, "tasks" otherwise.
      */
     public void add(Task task, int size, String onetwo) {
-        this.output = "________________________________________\n" + "Got it. I've added this task:\n"
+        this.output = "___________________________________\n" + "Got it. I've added this task:\n"
                 + task + "\n" +         "Now you have " + size + onetwo +  " in the list \n"
-                + "________________________________________\n";
+                + "___________________________________\n";
 
     }
 
@@ -151,8 +150,8 @@ public class Ui {
      * Displays a farewell message.
      */
     public void bye() {
-        this.output = "________________________________________\n" + "Bye. Hope to see you again soon! \n" +
-                "________________________________________\n";
+        this.output = "___________________________________\n" + "Bye. Hope to see you again soon! \n" +
+                "___________________________________\n";
 
     }
 
@@ -160,8 +159,8 @@ public class Ui {
      * Displays a greeting message.
      */
     public void greet() {
-        this.output = "________________________________________\n" +  "Hello, I'm Zenith \n" +
-                "What can I do for you? \n" + "________________________________________\n";
+        this.output = "___________________________________\n" +  "Hello, I'm Zenith \n" +
+                "What can I do for you? \n" + "___________________________________\n";
 
     }
 }
