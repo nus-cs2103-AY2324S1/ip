@@ -1,9 +1,9 @@
 package duchess;
 
+import java.util.regex.Matcher;
+
 import duchess.command.Command;
 import duchess.command.CommandType;
-
-import java.util.regex.Matcher;
 
 /**
  * A class used to parse user input from the command line.
@@ -219,7 +219,7 @@ public class Parser {
     public static Event parseEventCommand(String s) throws DuchessException {
         Matcher m = Utility.parseRegex(
                 s, "^event( [A-Za-z0-9_ ]+)?( /from( [A-Za-z0-9_ ]+)?)?( /to( [A-Za-z0-9_ ]+)?)?$"
-            );
+                );
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, event names cannot be empty... ;-;");
@@ -252,12 +252,12 @@ public class Parser {
      * @throws DuchessException   if any essential arguments to this command are missing.
      */
     public static int parseAddTagCommandIndex(String s) throws DuchessException {
-        // Matches a tag, followed by either "a" or "add", then an index 
-        // (any number of digits) and then any number of (hashtags (optional) 
-        // and then letters without spaces.) Each tag hence needs to have no spaces inside. 
+        // Matches a tag, followed by either "a" or "add", then an index
+        // (any number of digits) and then any number of (hashtags (optional)
+        // and then letters without spaces.) Each tag hence needs to have no spaces inside.
         Matcher m = Utility.parseRegex(
                 s, "^tag a(?:dd)? ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
-            );
+                );
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to tag... ;-;");
@@ -277,7 +277,7 @@ public class Parser {
         // See parseAddTagCommandIndex.
         Matcher m = Utility.parseRegex(
                 s, "^tag a(?:dd)? ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
-            );
+                );
 
         if (m.group(1) == null || m.group(2) == null || m.group(2).length() == 0) {
             throw new DuchessException("(´；ω；`) Sorry, tags cannot be empty... ;-;");
@@ -307,11 +307,11 @@ public class Parser {
      */
     public static int parseRemoveTagCommandIndex(String s) throws DuchessException {
         // Matches a tag, followed by some variant of "rm" or "del", then
-        // (any number of digits) and then any number of (hashtags (optional) 
+        // (any number of digits) and then any number of (hashtags (optional)
         // and then letters without spaces.)
         Matcher m = Utility.parseRegex(
                 s, "^tag (?:rm|remove|del|delete) ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
-            );
+                );
 
         if (m.group(1) == null) {
             throw new DuchessException("(´；ω；`) Sorry, I don't know which task to remove the tag from... ;-;");
@@ -331,7 +331,7 @@ public class Parser {
         // See parseRemoveTagCommandIndex.
         Matcher m = Utility.parseRegex(
                 s, "^tag (?:rm|remove|del|delete) ([0-9]+)?((?: (?:#)?(?:[A-Za-z0-9_\\-]+))*)?"
-            );
+                );
 
         if (m.group(1) == null || m.group(2) == null || m.group(2).length() == 0) {
             throw new DuchessException("(´；ω；`) Sorry, tags cannot be empty... ;-;");

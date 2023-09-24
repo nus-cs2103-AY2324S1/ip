@@ -12,20 +12,20 @@ import javafx.stage.Stage;
  * A GUI for Duke using FXML.
  */
 public class Main extends Application {
-    private DuchessGUI duchessGUI = new DuchessGUI();
-    private FXMLLoader duchessGUILoader;
+    private DuchessGui duchessGui = new DuchessGui();
+    private FXMLLoader duchessGuiLoader;
 
     @Override
     public void start(Stage stage) {
         try {
-            duchessGUILoader = new FXMLLoader(Main.class.getResource("/view/Duchess.fxml"));
-            VBox vb = duchessGUILoader.load();
+            duchessGuiLoader = new FXMLLoader(Main.class.getResource("/view/Duchess.fxml"));
+            VBox vb = duchessGuiLoader.load();
 
             Scene scene = new Scene(vb);
             stage.setScene(scene);
 
-            duchessGUILoader.<MainWindowController>getController().setDuchessGUI(duchessGUI);
-            duchessGUILoader.<MainWindowController>getController().loadTasksFromFile();
+            duchessGuiLoader.<MainWindowController>getController().setDuchessGui(duchessGui);
+            duchessGuiLoader.<MainWindowController>getController().loadTasksFromFile();
 
             stage.show();
         } catch (IOException e) {
@@ -35,7 +35,7 @@ public class Main extends Application {
 
     @Override
     public void stop() {
-        duchessGUILoader.<MainWindowController>getController().saveTasksToFile();
+        duchessGuiLoader.<MainWindowController>getController().saveTasksToFile();
     }
 }
 

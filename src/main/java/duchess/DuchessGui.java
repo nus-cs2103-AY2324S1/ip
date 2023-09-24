@@ -1,17 +1,17 @@
 package duchess;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 /**
  * The main class used to execute Duchess actions.
  */
-public class DuchessGUI {
-    
+public class DuchessGui {
+
     private Duchess duchess;
     private String responseString = "";
 
-    public DuchessGUI() {
+    /**
+     * Returns a new DuchessGUI instance.
+     */
+    public DuchessGui() {
         this.duchess = new Duchess();
         this.duchess.setCallbackHandler((s) -> {
             this.responseString = s;

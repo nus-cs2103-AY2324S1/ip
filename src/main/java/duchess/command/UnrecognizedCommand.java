@@ -1,10 +1,7 @@
 package duchess.command;
 
-import duchess.Task;
 import duchess.TaskList;
 import duchess.Ui;
-
-import java.util.ArrayList;
 
 /**
  * Class representing an Unrecognized command.

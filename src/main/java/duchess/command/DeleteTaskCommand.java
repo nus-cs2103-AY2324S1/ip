@@ -1,13 +1,10 @@
 package duchess.command;
 
 import duchess.DuchessException;
+import duchess.Parser;
 import duchess.Task;
 import duchess.TaskList;
-import duchess.TaskStatus;
 import duchess.Ui;
-import duchess.Parser;
-
-import java.util.ArrayList;
 
 /**
  * Class representing a DeleteTask command.
@@ -27,7 +24,7 @@ public class DeleteTaskCommand extends Command {
         try {
             int index = Parser.parseDeleteTaskCommand(userInput);
             index -= 1; // 1-indexing for user-facing side
-                        //
+
             if (index < 0 || index >= tasks.size()) {
                 response += Ui.duchessFormat("(´；ω；`) Sorry, no such task exists... ;-;");
                 return response;

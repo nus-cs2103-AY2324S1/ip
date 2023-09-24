@@ -2,6 +2,9 @@ package duchess;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents a ToDo, or a Task with only a name and no other attributes.
+ */
 public class ToDo extends Task {
 
     /**
@@ -41,7 +44,7 @@ public class ToDo extends Task {
     @Override
     public String toSaveString() {
         String saveString = String.format("T|%s|", super.toSaveString());
-        
+
         for (String tag : this.tags) {
             saveString += String.format("#%s|", tag);
         }
@@ -71,7 +74,7 @@ public class ToDo extends Task {
 
         for (int i = 3; i < splitString.length; i++) {
             String dataString = splitString[i];
-            
+
             if (dataString.startsWith("#")) {
                 tags.add(dataString.substring(1));
             }

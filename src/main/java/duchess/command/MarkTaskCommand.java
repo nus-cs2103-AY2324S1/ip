@@ -1,13 +1,10 @@
 package duchess.command;
 
 import duchess.DuchessException;
-import duchess.Task;
+import duchess.Parser;
 import duchess.TaskList;
 import duchess.TaskStatus;
 import duchess.Ui;
-import duchess.Parser;
-
-import java.util.ArrayList;
 
 /**
  * Class representing a MarkTask command.
@@ -26,7 +23,7 @@ public class MarkTaskCommand extends Command {
         try {
             int index = Parser.parseMarkTaskCommand(userInput);
             index -= 1; // 1-indexing for user-facing side
-                        //
+
             // Within bounds
             if (index < 0 || index >= tasks.size()) {
                 // TODO: Make this a different exception type

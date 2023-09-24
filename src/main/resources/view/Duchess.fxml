@@ -44,12 +44,12 @@
    <children>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <content>
-            <VBox fx:id="chat_vbox" prefHeight="200.0" prefWidth="100.0" />
+            <VBox fx:id="chatVbox" prefHeight="200.0" prefWidth="100.0" />
          </content>
       </ScrollPane>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <TextField fx:id="userinput_textfield" onAction="#handleUserInput" HBox.hgrow="ALWAYS">
+            <TextField fx:id="userinputTextfield" onAction="#handleUserInput" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="16.0" />
                </font>
@@ -57,7 +57,7 @@
                   <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
                </HBox.margin>
             </TextField>
-            <Button fx:id="send_button" mnemonicParsing="false" onAction="#handleUserInput" text="Send">
+            <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" text="Send">
                <HBox.margin>
                   <Insets bottom="32.0" left="32.0" right="32.0" top="32.0" />
                </HBox.margin>

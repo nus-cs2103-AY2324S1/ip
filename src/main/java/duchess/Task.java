@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public abstract class Task {
     public static final String SAVE_STRING_DELIMITER = "\\|";
 
+    protected ArrayList<String> tags;
+
     private String name;
     private TaskStatus status;
-
-    protected ArrayList<String> tags;
 
     /**
      * Returns a new Task object with the given parameters.
@@ -79,8 +79,8 @@ public abstract class Task {
     }
 
     /**
-     * Used for formatting the toString. Pre-string will be added before the mainString and the postString, when calling 
-     * toString.
+     * Used for formatting the toString. Pre-string will be added before the mainString and
+     * the postString, when calling toString.
      *
      * @return the pre-String for this Task.
      */
@@ -174,7 +174,7 @@ public abstract class Task {
     }
 
     /**
-     * Removes a tag from this Task's list of tags. If no such 
+     * Removes a tag from this Task's list of tags. If no such
      * tag is attached to this Task, does nothing.
      *
      * @param tag - tag to be removed.

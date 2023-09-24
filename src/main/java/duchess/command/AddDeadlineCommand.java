@@ -1,14 +1,10 @@
 package duchess.command;
 
-import duchess.DuchessException;
 import duchess.Deadline;
-import duchess.Task;
-import duchess.TaskList;
-import duchess.TaskStatus;
-import duchess.Ui;
+import duchess.DuchessException;
 import duchess.Parser;
-
-import java.util.ArrayList;
+import duchess.TaskList;
+import duchess.Ui;
 
 /**
  * Class representing an AddDeadline command.

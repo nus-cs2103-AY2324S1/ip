@@ -1,14 +1,10 @@
 package duchess.command;
 
 import duchess.DuchessException;
-import duchess.Task;
+import duchess.Parser;
 import duchess.TaskList;
-import duchess.TaskStatus;
 import duchess.ToDo;
 import duchess.Ui;
-import duchess.Parser;
-
-import java.util.ArrayList;
 
 /**
  * Class representing an AddToDo command.

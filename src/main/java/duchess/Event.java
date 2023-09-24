@@ -2,6 +2,9 @@ package duchess;
 
 import java.util.ArrayList;
 
+/**
+ * Represents an Event Task, which is a Task with a name, start time and end time.
+ */
 public class Event extends Task {
     private String startTime;
     private String endTime;
@@ -94,14 +97,14 @@ public class Event extends Task {
 
         for (int i = 5; i < splitString.length; i++) {
             String dataString = splitString[i];
-            
+
             if (dataString.startsWith("#")) {
                 tags.add(dataString.substring(1));
             }
         }
 
         Event event = new Event(name, startTime, endTime, taskStatus);
-        
+
         for (String tag : tags) {
             event.addTag(tag);
         }

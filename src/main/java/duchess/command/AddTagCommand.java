@@ -1,13 +1,10 @@
 package duchess.command;
 
 import duchess.DuchessException;
+import duchess.Parser;
 import duchess.Task;
 import duchess.TaskList;
-import duchess.TaskStatus;
 import duchess.Ui;
-import duchess.Parser;
-
-import java.util.ArrayList;
 
 /**
  * Class representing a AddTag command.

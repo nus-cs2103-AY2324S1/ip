@@ -1,5 +1,9 @@
 package duchess;
 
+/**
+ * A general-purpose Exception to be thrown by Duchess when an error is encountered,
+ * with a customized message.
+ */
 public class DuchessException extends Throwable {
     private String message;
 

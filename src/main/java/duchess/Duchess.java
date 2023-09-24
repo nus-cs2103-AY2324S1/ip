@@ -1,11 +1,9 @@
 package duchess;
 
-import duchess.command.Command;
-import duchess.command.CommandType;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
+
+import duchess.command.Command;
 
 /**
  * The main class used to execute Duchess actions.
@@ -14,7 +12,7 @@ public class Duchess {
     /**
      * Name for the Duchess AI.
      */
-    public final String NAME = "Duchess";
+    public static final String NAME = "Duchess";
 
     /**
      * An ArrayList to store text in.
@@ -44,6 +42,7 @@ public class Duchess {
 
     /**
      * Attempts to parse and execute the user input as a Duchess command.
+     * Afterwards, executes Duchess' set callback handler.
      *
      * @param userInput - the user's input.
      */
@@ -53,6 +52,10 @@ public class Duchess {
         this.executeCallbackHandler(output);
     }
 
+    /**
+     * Runs the CLI Duchess' main logic loop of receiving user input, and giving the appropriate
+     * response.
+     */
     public void run() {
         this.executeCallbackHandler(Ui.printGreeting());
 
@@ -83,10 +86,16 @@ public class Duchess {
         this.executeCallbackHandler(Ui.printFarewell());
     }
 
+    /**
+     * Saves Tasks from this Duchess instance into a save file.
+     */
     public void saveTasks() {
         Storage.saveTasksToFile(this.storedTasks);
     }
 
+    /**
+     * Loads Tasks from a specific save file into this Duchess instance.
+     */
     public void loadTasks() {
         // Create the save file, if it does not exist.
         Storage.createSaveFile();

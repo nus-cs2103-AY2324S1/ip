@@ -1,13 +1,12 @@
 package duchess.command;
 
+import java.util.ArrayList;
+
 import duchess.DuchessException;
+import duchess.Parser;
 import duchess.Task;
 import duchess.TaskList;
-import duchess.TaskStatus;
 import duchess.Ui;
-import duchess.Parser;
-
-import java.util.ArrayList;
 
 /**
  * Class representing a SearchTask command.

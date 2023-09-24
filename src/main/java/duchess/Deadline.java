@@ -1,7 +1,6 @@
 package duchess;
 
 import java.time.LocalDate;
-
 import java.util.ArrayList;
 
 /**
@@ -56,7 +55,7 @@ public class Deadline extends Task {
     @Override
     public String toSaveString() {
         String saveString = String.format("D|%s|by:%s|", super.toSaveString(), this.deadline);
-        
+
         for (String tag : this.tags) {
             saveString += String.format("#%s|", tag);
         }
@@ -91,7 +90,7 @@ public class Deadline extends Task {
 
         for (int i = 4; i < splitString.length; i++) {
             String dataString = splitString[i];
-            
+
             if (dataString.startsWith("#")) {
                 tags.add(dataString.substring(1));
             }
@@ -99,7 +98,7 @@ public class Deadline extends Task {
 
         try {
             Deadline deadline = new Deadline(name, deadlineString, taskStatus);
-            
+
             for (String tag : tags) {
                 deadline.addTag(tag);
             }
