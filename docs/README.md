@@ -1,4 +1,9 @@
+
+[<img src="egg.png" width="10%" display='block' margin-left="auto" margin-right="auto"/>](https://github.com/oeggy03)
+
+
 # Eggbot User Guide
+
 ## About
 
 Eggbot is a simple chatbot with an intuitive Graphical User Interface (GUI) that helps you track your tasks.
@@ -10,7 +15,7 @@ If you're new here, you can start with [Getting Started](#getting-started).
 
 If you have used Eggbot before, you can jump staright to Eggbot's [Features and Commands](#features-and-commands).
 
-<img src="Ui.png" width="40%" display='block' margin-left="auto" margin-right="auto"/>
+<img src="Ui.png" width="60%" display='block' margin-left="auto" margin-right="auto"/>
 
 **Figure 1**: How Eggbot's GUI appears on the Windows operating system.
 
@@ -18,13 +23,17 @@ If you have used Eggbot before, you can jump staright to Eggbot's [Features and 
 
 [//]: # ( <h1 style="color:purple;">Hello World</h1>)
 
-Ensure you have Java 11 installed on your Computer.
+1. Ensure you have [Java 11](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html) installed on your Computer by opening up a command terminal and typing `java -version`. The build version is contained in the (brackets).
 
-Download the latest EGGBOT-v0.3.jar from [here](https://github.com/oeggy03/ip/releases).
+2. Download the latest EGGBOT-v0.3.jar from [here](https://github.com/oeggy03/ip/releases).
 
-Copy the file to the folder you want to use as the home folder for your Eggbot.
+3. Copy the file to the folder you want to use as the home folder for your Eggbot.
 
-Open a command terminal, cd into the folder you put the jar file in, and use the java -jar EGGBOT-v0.3.jar command to run the application.
+4. Open a command terminal.
+
+5. Change the working directory to the folder you put the EGGBOT-v0.3.jar in, by typing and running `cd {directory}`
+
+6. Then, type and run the `java -jar EGGBOT-v0.3.jar` command to run the application.
 
 ## Features and Commands 
 
@@ -236,3 +245,7 @@ To exit the bot, you can type `exit`
 **Expected outcome:**
 
 Eggbot saves all your added tasks and the GUI closes.
+
+## Easter Eggs
+
+Crack the egg like how you crack down on your tasks...
