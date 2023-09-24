@@ -1,2 +1,4 @@
-D | 0 | return book | 2019-10-15
+D | 1 | return book | 2019-10-15
 T | 1 | hello
+T | 0 | hello
+D | 0 | walk | 2017-09-12

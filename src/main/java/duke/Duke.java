@@ -15,9 +15,10 @@ public class Duke {
 
 
     public static void main(String[] args) {
+        Storage storage = new Storage(FILE_PATH);
 
         try {
-            loadPreviousTasks(FILE_PATH);
+            storage.loadPreviousTasks(taskList);
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }
@@ -37,7 +38,7 @@ public class Duke {
                     // Farewell message
                     ui.displayByeMessage();
                     try {
-                        appendTasksToFile(taskList, FILE_PATH);
+                        storage.appendTasksToFile(taskList);
                     } catch (IOException e) {
                         System.out.println("Something went wrong: " + e.getMessage());
                     }
@@ -101,83 +102,6 @@ public class Duke {
 
         scanner.close();
 
-    }
-
-    public static void appendTasksToFile(ArrayList<Task> taskList, String filePath)
-            throws IOException {
-        FileWriter fw = new FileWriter(filePath);
-        for (Task task: taskList) {
-            fw.write(task.toFileString() + System.lineSeparator());
-        }
-        fw.close();
-    }
-
-    public static void loadPreviousTasks(String filePath) throws FileNotFoundException {
-        File f = new File(filePath);
-        Scanner s = new Scanner(f);
-        while (s.hasNext()) {
-            String line = s.nextLine();
-            try {
-                Task task = parseTaskFromLine(line);
-                taskList.add(task);
-            } catch (DukeException e) {
-                System.err.println("Error parsing task from file: " + e.getMessage());
-            }
-
-        }
-        s.close();
-    }
-
-    public static Task parseTaskFromLine(String line) throws DukeException {
-        String[] parts = line.split(" \\| ");
-        if (parts.length < 3) {
-            throw new DukeException("Invalid data format in the file.");
-        }
-        char taskType = parts[0].charAt(0);
-        boolean isDone = parts[1].equals("1");
-        String description = parts[2];
-
-        switch (taskType) {
-            case 'T':
-                ToDo toDoTask = new ToDo(description, taskType);
-                if (isDone) {
-                    toDoTask.markAsDone();
-                } else {
-                    toDoTask.markAsNotDone();
-                }
-                return toDoTask;
-
-            case 'D':
-                if (parts.length < 4) {
-                    throw new DukeException("Invalid data format for a deadline task");
-                }
-                String deadlineBy = parts[3];
-                Deadline deadlineTask = new Deadline(description, deadlineBy, taskType);
-                if (isDone) {
-                    deadlineTask.markAsDone();
-                } else {
-                    deadlineTask.markAsNotDone();
-                }
-                return deadlineTask;
-
-            case 'E':
-                if (parts.length < 4) {
-                    throw new DukeException("Invalid data format for an event task.");
-                }
-                String[] eventParts = parts[3].split("-");
-                String eventFrom = eventParts[0];
-                String eventTo = eventParts[1];
-                Event eventTask = new Event(description, eventFrom, eventTo, taskType);
-                if (isDone) {
-                    eventTask.markAsDone();
-                } else {
-                    eventTask.markAsNotDone();
-                }
-                return eventTask;
-
-            default:
-                throw new DukeException("Invalid task type in data file.");
-        }
     }
 }
 // A-Gradle
