@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import prts.command.CommandParser;
 import prts.command.ListCommand;
-import prts.command.MessageCommand;
 import prts.command.ParsingException;
 
 
