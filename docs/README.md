@@ -133,7 +133,8 @@ find home
 
 ### Finding Tasks to be done within period
 
-Find tasks that have yet to be marked as complete and are within the time period.
+Retrieve incomplete tasks with deadlines that fall within
+a specified time frame.
 This can be done with:
 
 - `within [d/MM/YYYY HH:MM]`
