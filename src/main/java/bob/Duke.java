@@ -32,6 +32,9 @@ public class Duke {
     public String getResponse(String input) {
         this.init();
         String response;
+        if (input.equals("canWeFixIt()")) {
+            return "true";
+        }
         try {
             Command command = Parser.parse(input, false);
             response = command.execute(list);
