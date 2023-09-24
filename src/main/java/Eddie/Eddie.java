@@ -1,6 +1,7 @@
 package Eddie;
 
 import Eddie.GUI.DialogBox;
+import Eddie.GUI.Ui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -79,6 +80,9 @@ public class Eddie extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+
+        Label welcomeMessage = new Label(Ui.welcome());
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage,new ImageView(duke)));
 
         //Step 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {

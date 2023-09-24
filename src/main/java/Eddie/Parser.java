@@ -32,7 +32,15 @@ public class Parser {
                 case "list":
                     return ListCommand.execute();
                 case "mark":
+                    if (!sc.hasNextInt()) {
+                        throw new DukeException("Task to mark must be denoted by an integer. E.g. mark 1 ");
+                    }
                     int taskNum = sc.nextInt();
+
+                    if(taskNum < 1 || taskNum > TaskList.size()) {
+                        throw new DukeException("Index must be within the range of the task list");
+                    }
+
                     Task task = TaskList.get(taskNum - 1);
 
                     task.taskIsDone();
@@ -40,7 +48,14 @@ public class Parser {
 
                     return Ui.mark(taskNum);
                 case "unmark":
+                    if (!sc.hasNextInt()) {
+                        throw new DukeException("Task to unmark must be denoted by an integer. E.g. unmark 1 ");
+                    }
                     taskNum = sc.nextInt();
+
+                    if(taskNum < 1 || taskNum > TaskList.size()) {
+                        throw new DukeException("Index must be within the range of the task list");
+                    }
                     task = TaskList.get(taskNum - 1);
 
                     task.taskNotDone();
@@ -48,7 +63,14 @@ public class Parser {
                     Storage.write();
                     return Ui.unmark(taskNum);
                 case "delete":
+                    if (!sc.hasNextInt()) {
+                        throw new DukeException("Task to delete must be denoted by an integer. E.g. delete 1 ");
+                    }
                     int index = sc.nextInt();
+                    if(index < 1 || index > TaskList.size()) {
+                        throw new DukeException("Index must be within the range of the task list");
+                    }
+
                     return DeleteCommand.execute(index - 1);
                 case "todo":
                     if (!sc.hasNext()) {
