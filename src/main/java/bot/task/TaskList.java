@@ -26,7 +26,7 @@ public class TaskList {
     /**
      * Adds a new Task object into the current TaskList.
      *
-     * @param task
+     * @param task task to be added to list
      */
     public void add(Task task) {
         this.lst.add(task);
@@ -35,8 +35,8 @@ public class TaskList {
     /**
      * Returns a Task object based on the index. idx argument is the index of the desired task.
      *
-     * @param idx
-     * @return
+     * @param idx index of task
+     * @return the task at that specific index
      */
     public Task get(int idx) {
         return this.lst.get(idx);
