@@ -27,7 +27,7 @@ public class CommandParser {
 
         // Splits the input to extract the user's primary command
         // We cannot use splitAndStrip here as a single-word command is not improper format
-        String[] processedCommand = fullCommand.strip().split(" ");
+        String[] processedCommand = fullCommand.strip().split(" ", 2);
         String command = processedCommand[0].toLowerCase().strip();
         String detail = processedCommand.length == 2 ? processedCommand[1].strip() : "";
 

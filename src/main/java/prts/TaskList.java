@@ -60,7 +60,7 @@ public class TaskList implements Serializable {
 
         int i = index - 1;
 
-        if (index < 0 || index >= tasks.size()) {
+        if (i < 0 || i >= tasks.size()) {
             throw new OutOfRangeException();
         }
 
@@ -109,11 +109,11 @@ public class TaskList implements Serializable {
         int i = index - 1;
 
         if (i < 0 || i >= tasks.size()) {
+            throw new OutOfRangeException();
+        } else {
             Task task = tasks.get(i);
             task.markDone();
             return "Mission accomplished.\n" + task.toString();
-        } else {
-            throw new OutOfRangeException();
         }
 
     }
@@ -147,11 +147,11 @@ public class TaskList implements Serializable {
         int i = index - 1;
 
         if (i < 0 || i >= tasks.size()) {
+            throw new OutOfRangeException();
+        } else {
             Task task = tasks.get(i);
             task.markUndone();
             return "Uncharacteristic of you. More work has been added to the pile.\n" + task.toString();
-        } else {
-            throw new OutOfRangeException();
         }
 
     }
@@ -161,7 +161,14 @@ public class TaskList implements Serializable {
      * @return A preset message.
      */
     public String docRest() {
-        if (tasks.isEmpty()) {
+        boolean areAllTasksDone = true;
+        for (Task task : tasks) {
+            if (!task.isDone()) {
+                areAllTasksDone = false;
+                break;
+            }
+        }
+        if (areAllTasksDone) {
             return "How'd you even sleep while standing up... well, have a good rest.";
         } else {
             return "There's still lots of work that needs to be done. "
@@ -189,6 +196,7 @@ public class TaskList implements Serializable {
         }
 
         StringBuilder output = new StringBuilder();
+        output.append("\n");
 
         for (int i = 0; i < tasks.size(); i++) {
             output.append(i + 1).append(". ").append(tasks.get(i)).append("\n");

@@ -68,4 +68,12 @@ public abstract class Task implements Serializable {
      */
     public abstract boolean contains(String searchTerm);
 
+    /**
+     * Getter for the isDone field in the Task.
+     * @return True if the Task is marked as done, false if it is not.
+     */
+    public boolean isDone() {
+        return this.isDone;
+    }
+
 }
