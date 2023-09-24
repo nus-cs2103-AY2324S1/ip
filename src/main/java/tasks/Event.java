@@ -3,6 +3,7 @@ package tasks;
 import java.time.LocalDateTime;
 
 import duke.DukeException;
+import utility.DateTimeUtility;
 
 /**
  * Represents an event task, which extends the Task class.
@@ -22,8 +23,8 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) throws DukeException {
         super(description);
-        this.from = stringToDate(from);
-        this.to = stringToDate(to);
+        this.from = DateTimeUtility.stringToDate(from);
+        this.to = DateTimeUtility.stringToDate(to);
     }
 
     /**
@@ -63,6 +64,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + dateToString(from) + " to: " + dateToString(to) + ")";
+        return "[E]" + super.toString() + " (from: " + DateTimeUtility.dateToString(from) + " to: "
+                + DateTimeUtility.dateToString(to) + ")";
     }
 }

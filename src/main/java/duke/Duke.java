@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import commands.Command;
@@ -25,7 +27,7 @@ import ui.UI;
  * Represents the main chatbot. Manages the user interface, task list, command parsing,
  * and saving/loading tasks to/from duke.txt.
  */
-public class Duke extends Application {
+public class Duke {
     private final UI ui = new UI();
     private final Actions actionList = new Actions();
     private final Parser parser = new Parser();
@@ -53,7 +55,7 @@ public class Duke extends Application {
      *
      * @param stage The primary stage of the application.
      */
-    @Override
+    /*@Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -92,6 +94,12 @@ public class Duke extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
+    private Label getDialogLabel(String text) {
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+        return textToAdd;
+    }
+
     private void handleUserInput() {
         String input = userInput.getText();
         assert input != null;
@@ -101,7 +109,7 @@ public class Duke extends Application {
                 DialogBox.getDukeDialog(response, duke)
         );
         userInput.clear();
-    }
+    }*/
 
     /**
      * Processes user input and returns a response from the chatbot.

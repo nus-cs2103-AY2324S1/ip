@@ -3,6 +3,7 @@ package tasks;
 import java.time.LocalDateTime;
 
 import duke.DukeException;
+import utility.DateTimeUtility;
 
 /**
  * Represents a deadline task, which extends the Task class.
@@ -19,7 +20,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) throws DukeException {
         super(description);
-        this.by = stringToDate(by);
+        this.by = DateTimeUtility.stringToDate(by);
     }
 
     /**
@@ -44,6 +45,6 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + dateToString(by) + ")";
+        return "[D]" + super.toString() + " (by: " + DateTimeUtility.dateToString(by) + ")";
     }
 }

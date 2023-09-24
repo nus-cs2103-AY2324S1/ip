@@ -1,11 +1,14 @@
-package tasks;
-
-import duke.DukeException;
+package utility;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import duke.DukeException;
+
+/**
+ * Utility class to better maintain the Date/Time conversions.
+ */
 public class DateTimeUtility {
     /**
      * Converts a date and time string into a LocalDateTime object.
