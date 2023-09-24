@@ -123,7 +123,7 @@ public class Parser {
             if (index.isEmpty()) {
                 return new TaskError("delete");
             }
-            return new TaskMarker(Integer.parseInt(index), tasks);
+            return new TaskDeleter(Integer.parseInt(index), tasks);
 
         default:
             return new TaskError("other");
