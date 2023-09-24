@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pogo.ui.controllers.MainWindow">
+    <children>
+      <HBox alignment="BOTTOM_CENTER" layoutY="558.0" prefHeight="100.0" prefWidth="200.0" style="-fx-pref-height: 40px; -fx-pref-width: 400px; -fx-background-color: white;">
+         <children>
+              <TextField fx:id="userInput" onAction="#handleUserInput" prefHeight="41.0" prefWidth="324.0" promptText="Write a message..." styleClass="dialog-box" stylesheets="@styles.css" />
+              <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="40.0" style="-fx-border-radius: 9999px; -fx-background-radius: 9999px; -fx-background-color: white;" textFill="WHITE" textOverrun="CLIP">
+               <graphic>
+                  <Polygon fill="#06b6d4" points="60.0, 40.0, 72.5, 49.0, 60.0, 58.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="557.0" prefWidth="400.0" style="-fx-background-color: white;" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" prefHeight="552.0" prefWidth="388.0" style="-fx-background-color: #F3F4F6;" />
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
