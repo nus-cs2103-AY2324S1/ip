@@ -1,3 +1,5 @@
+import exception.DukeException;
+
 public class Task {
     String task;
     boolean isDone;

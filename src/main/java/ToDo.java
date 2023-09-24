@@ -1,3 +1,5 @@
+import exception.DukeException;
+
 public class ToDo extends Task {
     public ToDo(String task)throws DukeException {
         super(task);

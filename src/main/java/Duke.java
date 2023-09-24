@@ -17,6 +17,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exception.DukeException;
+
 public class Duke {
     public static final String PARTITION = "------------------------------------------------------------";
     public static final String NAME = "Duke Max";
