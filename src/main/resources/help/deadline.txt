@@ -5,7 +5,10 @@ Creates a time sensitive deadline task with a specified end date time.
 HOW TO USE:
 "deadline <description> /by <datetime>" - creates a deadline task with description and "/by" a date time specified.
 
-<datetime> - can either be date only, time only or both. (e.g. "1 Jan, 8am" - is allowed together or in its elements: "1 Jan", "8am").
+General rules on date time format:
+1. Date and time input, will be saved accordingly. Past deadlines should be specified in this format, else Oreo will find next occurence of date time input.
+2. Date only, time will not be included in the saved task
+3. Time only, date will to next occurence of the task
 
 For accepted date time formats, input "help datetime".
 

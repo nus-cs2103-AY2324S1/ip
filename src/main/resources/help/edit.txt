@@ -11,6 +11,6 @@ HOW TO USE:
 *note: index refers to the position of task in list
 
 EXAMPLE USE:
-"edit 1" (task 1: TODO: play with oreo - command will enter editing mode on task 1 and display "todo play with oreo" in the textfield for user to edit)
+"edit 1" (task 1: TODO: play with oreo - command will enter editing mode on task 1 and display "todo play with oreo" in the text field for user to edit)
 
 "c" exits editing mode without editing the task.

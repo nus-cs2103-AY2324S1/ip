@@ -13,7 +13,8 @@ event - creates an event task
 list - list all task you have created
 mark - marks task as done
 unmark - unmarks task as incomplete
-delete/clear - deletes a task
+delete - deletes a task/deletes all task
+clear - deletes all task
 edit/modify/update - modifies a task
 find - searches for a task
 save - saves the current tasks to file
