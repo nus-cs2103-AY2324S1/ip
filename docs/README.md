@@ -37,18 +37,19 @@ DaDaYuan is your intelligent chatbot assistant designed to help you manage tasks
 
 1. Open IntelliJ IDEA.
 2. Click on "Open" and select the DaDaYuan project folder.
-3. Navigate to `src/main/java/Launcher.java`, right-click and run.
+3. Navigate to `src/main/java/duke/ui/Launcher.java`, right-click and run.
 
 ## Command Summary
 
-| Command       | Syntax                             | Example                      |
-| ------------- | ---------------------------------- | ---------------------------- |
-| List Tasks    | `list`                             | `list`                        |
-| Add Task      | `add <task>`                       | `add buy groceries`          |
-| Delete Task   | `delete <task_id>`                 | `delete 1`                   |
-| Mark as Done  | `done <task_id>`                   | `done 1`                     |
-| Find Tasks    | `find <keyword>`                   | `find groceries`             |
-| Help          | `help [DATETIME]`                  | `help DATE`                  |
+| Command      | Syntax             | Example             |
+|--------------|--------------------|---------------------|
+| List Tasks   | `list`             | `list`              |
+| Add Task     | `add <task>`       | `add buy groceries` |
+| Delete Task  | `delete <task_id>` | `delete 1`          |
+| Mark as Done | `mark <task_id>`   | `mark 1`            |
+| UnMark       | `unamrk <task_id>` | `unmark 1`          |
+| Find Tasks   | `find <keyword>`   | `find groceries`    |
+| Help         | `help [DATETIME]`  | `help DATETIME`     |
 
 ## Features
 
@@ -69,8 +70,12 @@ The `list` command allows you to view all tasks in the list.
 - Example: `list`
 
 ### Marking Tasks as Done
-The `done` command marks a task as completed.
-- Example: `done 1`
+The `mark` command marks a task as completed.
+- Example: `mark 1`
+
+### UnMarking Tasks
+The `unmark` command marks a task as to be completed.
+- Example: `unmark 1`
 
 ### Finding Tasks
 The `find` command searches for tasks containing a specific keyword.
@@ -78,7 +83,7 @@ The `find` command searches for tasks containing a specific keyword.
 
 ### Getting Help
 The `help` command shows a list of commands or displays valid date and time formats.
-- Example: `help DATE`
+- Example: `help DATETIME`
 
 ## Acceptable Formats for `<DateTime>`
 
