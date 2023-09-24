@@ -38,7 +38,7 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Execute a series of instructions specific to creating a Deadline object and returns
+     * Executes a series of instructions specific to creating a Deadline object and returns
      * the execution output
      *
      * @return String of the outcome of the command execution

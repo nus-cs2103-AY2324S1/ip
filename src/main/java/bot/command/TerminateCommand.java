@@ -6,7 +6,7 @@ public class TerminateCommand extends Command {
             Command.SPACER;
 
     /**
-     * Execute a series of instructions specific to terminating the Bot chatbot
+     * Executes a series of instructions specific to terminating the Bot chatbot
      * and returns the execution output
      *
      * @return String of the outcome of the command execution

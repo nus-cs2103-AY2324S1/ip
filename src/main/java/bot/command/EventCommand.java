@@ -42,7 +42,7 @@ public class EventCommand extends Command {
     }
 
     /**
-     * Execute a series of instructions specific to creating adding an Event object
+     * Executes a series of instructions specific to creating adding an Event object
      * and returns the execution output
      *
      * @return String of the outcome of the command execution

@@ -50,7 +50,7 @@ public class MainWindow extends AnchorPane {
     /**
      * Sets the bot instance and initializes the dialog with the bot's greeting message.
      *
-     * @param bot The bot instance to be set.
+     * @param d The bot instance to be set.
      */
     public void setBot(Bot d) {
         bot = d;

@@ -15,7 +15,7 @@ public class ListCommand extends Command {
     }
 
     /**
-     * Execute a series of instructions specific to listing all tasks in TaskList
+     * Executes a series of instructions specific to listing all tasks in TaskList
      * and returns the execution output
      *
      * @return String of the outcome of the command execution

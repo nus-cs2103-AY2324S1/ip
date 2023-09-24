@@ -27,7 +27,7 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Execute a series of instructions specific to unmarking a task from TaskList object
+     * Executes a series of instructions specific to unmarking a task from TaskList object
      * and returns the execution output
      *
      * @return String of the outcome of the command execution

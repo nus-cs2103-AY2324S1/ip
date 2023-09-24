@@ -18,7 +18,7 @@ public class Main extends Application {
     private Bot bot = new Bot();
 
     /**
-     * The main entry point of the JavaFX application.
+     * Starts the JavaFX application, also serves as the main entry point.
      *
      * @param stage The primary stage to display the application.
      */

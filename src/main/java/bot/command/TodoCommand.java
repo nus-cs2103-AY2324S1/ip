@@ -28,7 +28,7 @@ public class TodoCommand extends Command {
     }
 
     /**
-     * Execute a series of instructions specific to creating adding a Todo object
+     * Executes a series of instructions specific to creating adding a Todo object
      * and returns the execution output
      *
      * @return String of the outcome of the command execution

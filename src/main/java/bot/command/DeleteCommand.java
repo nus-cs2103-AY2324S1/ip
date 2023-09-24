@@ -29,7 +29,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Execute a series of instructions specific to deleting a task from TaskList object
+     * Executes a series of instructions specific to deleting a task from TaskList object
      * and returns the execution output
      *
      * @return String of the outcome of the command execution
