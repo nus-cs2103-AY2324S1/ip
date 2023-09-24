@@ -45,6 +45,17 @@ public class Event extends Task {
     }
 
     /**
+     * Compares the from and to dates of the event.
+     *
+     * @param date The input date to be compared.
+     * @return true if either the from or to dates match.
+     */
+    public boolean isOnDate(LocalDateTime date) {
+        return this.from.toLocalDate().compareTo(date.toLocalDate()) == 0
+                || this.to.toLocalDate().compareTo(date.toLocalDate()) == 0;
+    }
+
+    /**
      * Returns the string representation of this Event task, which includes the task type identifier "[E]",
      * marking status icon, task description, and the duration of the event.
      *

@@ -10,7 +10,7 @@ import duke.DukeException;
  * Represents a task with a description and a completion status.
  * This is the base class for the tasks.
  */
-public class Task {
+public abstract class Task {
     protected String description;
     protected boolean isDone;
 
@@ -23,6 +23,8 @@ public class Task {
         this.description = description;
         this.isDone = false;
     }
+
+    public abstract boolean isOnDate(LocalDateTime date);
 
     /**
      * Converts a date and time string into a LocalDateTime object.

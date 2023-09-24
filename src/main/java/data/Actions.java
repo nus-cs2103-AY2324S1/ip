@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import duke.DukeException;
-import tasks.Deadline;
-import tasks.Event;
 import tasks.Task;
 
 /**
@@ -131,10 +129,7 @@ public class Actions {
      */
     public List<Task> tasksOnDate(LocalDateTime date) {
         return actions.stream()
-                .filter(task -> task instanceof Deadline
-                        && ((Deadline) task).getBy().toLocalDate().equals(date.toLocalDate())
-                        || task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date.toLocalDate())
-                        || ((Event) task).getTo().toLocalDate().equals(date.toLocalDate())))
+                .filter(task -> task.isOnDate(date))
                 .collect(Collectors.toList());
     }
 }
