@@ -4,8 +4,8 @@ package bob.data.task;
  * Represents the base logic for task classes.
  */
 public abstract class Task {
-    private static final String INCOMPLETE = "0";
-    private static final String COMPLETED = "1";
+    static final String INCOMPLETE = "0";
+    static final String COMPLETED = "1";
     /** The description of the task. */
     private String description;
     /** The completion of the task. */
@@ -42,7 +42,6 @@ public abstract class Task {
      */
     public abstract String getType();
 
-
     /**
      * Returns the formatted(dd/MM/yyyy HHmm) deadline date as a String.
      *
@@ -61,6 +60,29 @@ public abstract class Task {
             return "[X] " + description;
         }
         return "[ ] " + description;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof Task) {
+            Task object = (Task) obj;
+
+            boolean sameDescription = this.description.equals(object.description);
+            boolean sameCompletion = this.isDone == object.isDone;
+
+            if (sameDescription && sameCompletion) {
+                return true;
+            }
+
+            if (this.description == null || object.description == null) {
+                return false;
+            }
+        }
+        return false;
     }
 
     /**

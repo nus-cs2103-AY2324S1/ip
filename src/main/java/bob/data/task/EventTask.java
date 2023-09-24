@@ -25,21 +25,16 @@ public class EventTask extends Task {
      * @param endDate The end datetime of the task.
      * @throws DukeException If the end datetime is before or the same as the start datetime.
      */
-    public EventTask(String description, String startDate, String endDate) throws DukeException {
+    public EventTask(String description, String startDate, String endDate) throws DukeException, DateTimeParseException {
         super(description);
-        try {
-            this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            LocalDateTime start = LocalDateTime.parse(startDate, formatter);
-            LocalDateTime end = LocalDateTime.parse(endDate, formatter);
-            if (end.isBefore(start)) {
-                throw new DukeException("Your start date is either the same or after your end date!");
-            }
-            this.startDate = start;
-            this.endDate = end;
-        } catch (DateTimeParseException e) {
-            System.out.println("There was an error parsing the date given.");
-            e.printStackTrace();
+        this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        LocalDateTime start = LocalDateTime.parse(startDate, formatter);
+        LocalDateTime end = LocalDateTime.parse(endDate, formatter);
+        if (end.isBefore(start)) {
+            throw new DukeException("Your start date is either the same or after your end date!");
         }
+        this.startDate = start;
+        this.endDate = end;
     }
 
     /**
@@ -72,5 +67,30 @@ public class EventTask extends Task {
         DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a");
         return "[E]" + super.toString() + " (from: " + stringFormatter.format(this.startDate)
                 + " to: " + stringFormatter.format(this.endDate) + ")";
+    }
+
+    /**
+     * Checks if this EventTask is the same as a specified object.
+     * @param obj The object to be compared with.
+     * @return true if they are both the same instance or have the same contents.
+     *         false if they have different contents.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof EventTask) {
+            EventTask object = (EventTask) obj;
+
+            boolean sameContents = this.startDate.equals(object.startDate)
+                    && this.endDate.equals(object.endDate);
+
+            if (sameContents && super.equals(object)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

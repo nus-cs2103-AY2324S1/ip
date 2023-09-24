@@ -67,8 +67,10 @@ public class Storage {
                 task = new ToDoTask(taskArray[2]);
             } else if (taskArray[0].startsWith("Deadline")) {
                 task = new DeadlineTask(taskArray[2], taskArray[3]);
-            } else {
+            } else if (taskArray[0].startsWith("Event")) {
                 task = new EventTask(taskArray[2], taskArray[3], taskArray[4]);
+            } else {
+                throw new DukeException("Corrupt file.");
             }
             if ((taskArray[1]).equals("1")) {
                 task.setDone();

@@ -3,6 +3,7 @@ package bob.data.task;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.util.ArrayList;
 
 import bob.data.exception.DukeException;
@@ -75,7 +76,7 @@ public class TaskList {
      * @return A string describing the task that was added.
      * @throws DukeException If the EventTask is instantiated with invalid dates.
      */
-    public String addTask(Parser.CommandType command, String input) throws DukeException {
+    public String addTaskWithCommand(Parser.CommandType command, String input) throws DukeException, DateTimeException {
         assert command != null : "command should not be null";
         assert input != null : "input should not be null";
         Task taskToAdd;
@@ -84,17 +85,17 @@ public class TaskList {
 
         switch (command) {
         case TODO:
-            taskDescription = input.substring(5);
-            taskToAdd = new ToDoTask(taskDescription);
+            String toDoTaskDescription = input.substring(5);
+            taskToAdd = new ToDoTask(toDoTaskDescription);
             break;
         case DEADLINE:
-            taskDescription = input.substring(9);
-            taskDescriptionArray = input.split(" /by ");
+            String deadlineTaskDescription = input.substring(9);
+            taskDescriptionArray = deadlineTaskDescription.split(" /by ");
             taskToAdd = new DeadlineTask(taskDescriptionArray[0], taskDescriptionArray[1]);
             break;
         case EVENT:
-            taskDescription = input.substring(6);
-            taskDescriptionArray = input.split(" /from ");
+            String eventTaskDescription = input.substring(6);
+            taskDescriptionArray = eventTaskDescription.split(" /from ");
             String description = taskDescriptionArray[0];
             String[] dateArray = taskDescriptionArray[1].split(" /to ");
             taskToAdd = new EventTask(description, dateArray[0], dateArray[1]);
@@ -107,16 +108,21 @@ public class TaskList {
                 + taskToAdd + "\n"
                 + "Now you have " + this.tasks.size() + " task(s) in the list.";
     }
+
     /**
      * Set the task at the index, based on the specified input string, of the ArrayList to be completed.
-     *
      * @param input The input string containing the index of the task.
+     * @return A string representing the task that was set as completed.
+     * @throws DukeException If the task number is out of range of the list.
      */
-    public String setTaskComplete(String input) {
+    public String setTaskComplete(String input) throws DukeException {
         assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
-        int taskNo = Integer.parseInt(inputSplit[1]) - 1;
-        Task task = this.tasks.get(taskNo);
+        int taskNo = Integer.parseInt(inputSplit[1]);
+        if (taskNo < 1 || taskNo > this.getSize()) {
+            throw new DukeException("Task number out of range!");
+        }
+        Task task = this.tasks.get(taskNo - 1);
         task.setDone();
         return "OK, I've marked this task as done:\n" + task;
     }
@@ -125,10 +131,13 @@ public class TaskList {
      *
      * @param input The input string containing the index of the task.
      */
-    public String setTaskIncomplete(String input) {
+    public String setTaskIncomplete(String input) throws DukeException {
         assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
         int taskNo = Integer.parseInt(inputSplit[1]) - 1;
+        if (taskNo < 1 || taskNo > this.getSize()) {
+            throw new DukeException("Task number out of range!");
+        }
         Task task = this.tasks.get(taskNo);
         task.setNotDone();
         return "OK, I've marked this task as not done yet:\n" + task;
@@ -138,19 +147,31 @@ public class TaskList {
      *
      * @param input The input string containing the index of the task to be removed.
      */
-    public String deleteTask(String input) {
+    public String deleteTask(String input) throws DukeException {
+        int originalSize = tasks.size();
         assert input != null : "input should not be null";
         String[] inputSplit = input.split(" ");
-        int taskNo = Integer.parseInt(inputSplit[1]) - 1;
-        Task task = this.tasks.get(taskNo);
-        this.tasks.remove(taskNo);
-        assert !tasks.contains(task) : "task should not exist in the list anymore";
+        int taskNo = Integer.parseInt(inputSplit[1]);
+        if (taskNo < 1 || taskNo > this.getSize()) {
+            throw new DukeException("Task number out of range!");
+        }
+        Task task = this.tasks.get(taskNo - 1);
+        this.tasks.remove(taskNo - 1);
+        assert tasks.size() == originalSize - 1 : "task should not exist in the list anymore";
         return "Noted. I've removed this task:\n"
                 + task + "\n"
                 + "Now you have " + this.tasks.size() + " task(s) in the list.";
     }
 
-    public void deleteTaskAtIndex(int index) {
+    /**
+     * Delete a task in the list given a specified index
+     * @param index The index of the task to be deleted.
+     * @throws DukeException If the task number is out of the range of the list.
+     */
+    public void deleteTaskAtIndex(int index) throws DukeException {
+        if (index < 0 || index > this.getSize()) {
+            throw new DukeException("Task number out of range!");
+        }
         tasks.remove(index);
     }
 
@@ -160,7 +181,7 @@ public class TaskList {
     @Override
     public String toString() {
         if (this.tasks.size() == 0) {
-            return "";
+            return "No tasks in your list, add some!";
         }
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
@@ -224,9 +245,49 @@ public class TaskList {
      * @param firstTaskIndex Index of the first task to be swapped.
      * @param secondTaskIndex Index of the second task to be swapped.
      */
-    public void swap(int firstTaskIndex, int secondTaskIndex) {
+    public void swap(int firstTaskIndex, int secondTaskIndex) throws DukeException {
+        if (firstTaskIndex < 0 || firstTaskIndex > this.getSize()) {
+            throw new DukeException("First task number out of range!");
+        }
+
+        if (secondTaskIndex < 0 || secondTaskIndex > this.getSize()) {
+            throw new DukeException("Second task number out of range!");
+        }
         Task temp = tasks.get(firstTaskIndex);
         tasks.set(firstTaskIndex, tasks.get(secondTaskIndex));
         tasks.set(secondTaskIndex, temp);
+    }
+
+    /**
+     * Checks if this DeadlineTask is the same as a specified object.
+     * @param obj The object to be compared with.
+     * @return true if they are both the same instance or have the same contents.
+     *         false if they have different contents.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof TaskList) {
+            TaskList object = (TaskList) obj;
+
+            if (this.getSize() != object.getSize()) {
+                return false;
+            }
+
+            boolean sameContents = true;
+
+            for (int i = 0; i < this.getSize(); i++) {
+                if (this.tasks.get(i).equals(object.tasks.get(i))) {
+                    sameContents = false;
+                    break;
+                }
+            }
+
+            return sameContents;
+        }
+        return false;
     }
 }

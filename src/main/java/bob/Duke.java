@@ -1,5 +1,7 @@
 package bob;
 
+import java.time.format.DateTimeParseException;
+
 import bob.data.command.Command;
 import bob.data.exception.DukeException;
 import bob.data.task.TaskList;
@@ -10,7 +12,6 @@ import bob.storage.Storage;
  * Represents the main chatbot logic.
  */
 public class Duke {
-    private Parser parser;
     private Storage storage;
     private TaskList list;
 
@@ -18,7 +19,6 @@ public class Duke {
      * Initialise a new Duke object with its class fields.
      */
     public void init() {
-        this.parser = new Parser();
         this.storage = new Storage();
         this.list = new TaskList(this.storage);
 
@@ -33,9 +33,11 @@ public class Duke {
         this.init();
         String response;
         try {
-            Command command = parser.parse(input, false);
+            Command command = Parser.parse(input, false);
             response = command.execute(list);
         } catch (DukeException e) {
+            return e.toString();
+        } catch (DateTimeParseException e) {
             return e.toString();
         }
         this.end();

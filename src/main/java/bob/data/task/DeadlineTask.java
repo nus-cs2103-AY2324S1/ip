@@ -19,15 +19,10 @@ public class DeadlineTask extends Task {
      * @param description The description of the task.
      * @param deadlineDate The datetime of the deadline of the task.
      */
-    public DeadlineTask(String description, String deadlineDate) {
+    public DeadlineTask(String description, String deadlineDate) throws DateTimeParseException {
         super(description);
-        try {
-            this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-            this.deadlineDate = LocalDateTime.parse(deadlineDate, formatter);
-        } catch (DateTimeParseException e) {
-            System.out.println("There was an error parsing the date given.");
-            e.printStackTrace();
-        }
+        this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        this.deadlineDate = LocalDateTime.parse(deadlineDate, formatter);
     }
 
     /**
@@ -59,5 +54,27 @@ public class DeadlineTask extends Task {
     public String toString() {
         DateTimeFormatter stringFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm a");
         return "[D]" + super.toString() + " (by: " + stringFormatter.format(this.deadlineDate) + ")";
+    }
+
+    /**
+     * Checks if this DeadlineTask is the same as a specified object.
+     * @param obj The object to be compared with.
+     * @return true if they are both the same instance or have the same contents.
+     *         false if they have different contents.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj instanceof DeadlineTask) {
+            DeadlineTask object = (DeadlineTask) obj;
+
+            if (this.deadlineDate.equals(object.deadlineDate) && super.equals(object)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
