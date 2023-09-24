@@ -1,4 +1,4 @@
-package duke.HelperClass;
+package duke.helper;
 
 public class Ui {
 
@@ -12,19 +12,19 @@ public class Ui {
      * print message in a specific format
      * @param message the original message to be printed
      */
-    public void Speak(String message) {
+    public void speak(String message) {
         System.out.println("---------------------------");
         System.out.println(message);
         System.out.println("---------------------------");
     }
 
-    public String Greet() {
+    public String greet() {
 
         return "Hello! I'm " + MyName + "\n" + "What can I do for you?";
 
     }
 
-    public String Exit() {
+    public String exit() {
 
         return " Bye. Hope to see you again soon!";
 

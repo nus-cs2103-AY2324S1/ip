@@ -1,4 +1,4 @@
-package duke.HelperClass;
+package duke.helper;
 
 public class TaskList {
     private Task[] userList;
@@ -101,8 +101,8 @@ public class TaskList {
     }
 
     /**
-     * return the String containing all the information in the list
-     * @return the String representation of the content in the list
+     * Return the String containing all the information in the list.
+     * @return String representation of the content in the list.
      */
     public String displayList() {
         if (userListPointer < 1) {

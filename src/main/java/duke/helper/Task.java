@@ -1,7 +1,6 @@
-package duke.HelperClass;
+package duke.helper;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-//import java.time.temporal.ChronoUnit;
 
 
 public class Task {
@@ -49,8 +48,8 @@ public class Task {
     }
 
     /**
-     * return the string representing how the Task object should be displayed
-     * @return string representation of the Task object
+     * Return the string representing how the Task object should be displayed.
+     * @return String representation of the Task object.
      */
     public String display() {
         String description = "[";
@@ -86,10 +85,10 @@ public class Task {
     }
 
     /**
-     * return the string representing how the Task object should be stored
-     * @return string representation of the Task object
+     * Return the string representing how the Task object should be stored.
+     * @return String representation of the Task object.
      */
-    public String ForRecordingInTextFile() {
+    public String getStringForRecordingInTextFile() {
         // Record format: "typeOfTask | Status | Name | StartTime(optional) | EndTime(optional)"
         // example: "D | 0 | return book | June 6th"
         // "0" for not done and "1" for done

@@ -1,4 +1,4 @@
-package duke.HelperClass;
+package duke.helper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -56,14 +56,14 @@ public class Parser {
         attributes.add(attributeName.toString());
 
         switch (attributes.size()) {
-            case 3:
-                secondEnteredTime = attributes.get(2);
+        case 3:
+            secondEnteredTime = attributes.get(2);
 
-            case 2:
-                firstEnteredTime = attributes.get(1);
+        case 2:
+            firstEnteredTime = attributes.get(1);
 
-            case 1:
-                taskName = attributes.get(0);
+        case 1:
+            taskName = attributes.get(0);
 
         }
 
