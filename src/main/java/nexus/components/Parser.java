@@ -2,6 +2,7 @@ package nexus.components;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import nexus.exceptions.InvalidInputException;
 import nexus.task.Deadline;
@@ -120,8 +121,11 @@ public class Parser {
             builder.append(data[index]).append(" ");
             index++;
             if (index == data.length) {
-                throw new InvalidInputException("Event must include /from [datetime]");
+                throw new InvalidInputException("Event must include /from [D/M/YYYY HHMM]");
             }
+        }
+        if (builder.length() == 0) {
+            throw new InvalidInputException("Event description cannot be empty");
         }
         String desc = builder.toString().trim();
         builder.setLength(0);
@@ -130,24 +134,29 @@ public class Parser {
             builder.append(data[index]).append(" ");
             index++;
             if (index == data.length) {
-                throw new InvalidInputException("Event must include /to [datetime]");
+                throw new InvalidInputException("Event must include /to [D/M/YYYY HHMM]");
             }
         }
         String start = builder.toString().trim();
         builder.setLength(0);
         index++;
         if (index == data.length) {
-            throw new InvalidInputException("Event must include /to [datetime]");
+            throw new InvalidInputException("Event must include /to [D/M/YYYY HHMM]");
         }
         while (index < data.length) {
             builder.append(data[index]).append(" ");
             index++;
         }
         String end = builder.toString().trim();
-        Event event = new Event(desc, Parser.parseDatetime(start), Parser.parseDatetime(end));
-        list.add(event);
-        storage.saveTask(event);
-        return ui.showAdd(event, list);
+        try {
+            Event event = new Event(desc, Parser.parseDatetime(start), Parser.parseDatetime(end));
+            list.add(event);
+            storage.saveTask(event);
+            return ui.showAdd(event, list);
+        } catch (DateTimeParseException e){
+            throw new InvalidInputException("Datetime format must be [D/M/YYYY HHMM]");
+        }
+
     }
 
     /**
