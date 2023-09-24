@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 public class MainWindow extends AnchorPane {
 
 
-    private static String greet = "Hi! I am Duke.\n How can I help you?\n";
+    private static final String GREET = "Hi! I am Duke.\n How can I help you?\n";
 
     private static String response;
 
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().add(DialogBox.getDukeDialog(greet, dukeImage));
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(GREET, dukeImage));
     }
 
     /**
@@ -73,10 +73,6 @@ public class MainWindow extends AnchorPane {
 
     public void setDuke(Duke duke) {
         this.duke = duke;
-    }
-
-    public void setGreet(String greet) {
-        MainWindow.greet = MainWindow.greet + greet;
     }
 }
 

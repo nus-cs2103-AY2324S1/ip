@@ -16,11 +16,10 @@ import javafx.stage.Stage;
 public class UiLauncher extends Application {
 
     private static Duke duke;
-    private static String greet;
 
-    public static void set(Duke duke, String greet) {
+
+    public static void setDuke(Duke duke) {
         UiLauncher.duke = duke;
-        UiLauncher.greet = greet;
     }
     @Override
     public void start(Stage stage) {
@@ -30,7 +29,6 @@ public class UiLauncher extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(duke);
-            fxmlLoader.<MainWindow>getController().setGreet(greet);
             duke.setUi(fxmlLoader.<MainWindow>getController());
             stage.setTitle("Duke");
             stage.show();

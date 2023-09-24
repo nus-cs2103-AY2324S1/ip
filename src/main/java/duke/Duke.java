@@ -40,11 +40,10 @@ public class Duke {
         try {
             this.storage = new Storage(this.filePath);
             this.taskList = new TaskList(this.storage.load());
-            UiLauncher.set(this, "");
         } catch (DukeException d) {
-            UiLauncher.set(this, d.getMessage() + "\n");
+            this.taskList = new TaskList();
         }
-
+        UiLauncher.setDuke(this);
         Application.launch(UiLauncher.class);
 
 
