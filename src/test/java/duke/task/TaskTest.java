@@ -22,7 +22,8 @@ class TaskTest {
         assertEquals("OK, I've marked this duke.task as not done yet:\n[ ] Test Task", task.markUndone());
     }
 
-    @Test public void testToString() {
+    @Test
+    public void testToString() {
         assertEquals("[ ] Test Task", task.toString());
         task.markDone();
         assertEquals("[X] Test Task", task.toString());
