@@ -1,2 +1,6 @@
-1
+5
 T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | eat
+T | 0 | sleep
