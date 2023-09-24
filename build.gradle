@@ -11,20 +11,24 @@ repositories {
 }
 
 javafx {
-    version = '17.0.2'
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = '17.0.7'
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 
-    String javaFxVersion = '17.0.7'
+    // Used for loops to clean up the imports
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
 
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
 }
 
 checkstyle {
@@ -32,13 +36,13 @@ checkstyle {
 }
 
 task cleanDataContents(type: Delete) {
-    description = 'Clean the contents of duke.txt and temp.txt'
+    description = 'Clean contents text files'
 
     doLast {
         // Define the paths to the files
-        def dukeFile = file('data/duke.txt')
-        def tempFile = file('data/temp.txt')
-        def undoFile = file('data/undo.txt')
+        def dukeFile = file('./data/duke.txt')
+        def tempFile = file('./data/temp.txt')
+        def undoFile = file('./data/undo.txt')
 
         // Create empty files to clean the contents
         dukeFile.text = ''
