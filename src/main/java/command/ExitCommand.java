@@ -1,5 +1,6 @@
 package command;
 
+import exception.DukeException;
 import storage.Storage;
 import task.TaskList;
 import ui.Ui;
@@ -25,7 +26,8 @@ public class ExitCommand extends Command {
      * @return A goodbye message string.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+        storage.save(tasks.getList());
         return ui.showGoodbye();
     }
 

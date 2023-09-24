@@ -17,7 +17,7 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
     @FXML
-    private HBox bubble; // Add this field
+    private HBox bubble;
 
     private DialogBox(String text, Image img, boolean isDuke) {
         try {

@@ -34,6 +34,12 @@ public class Storage {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             File file = new File(filePath);
+
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
+
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNext()) {
