@@ -69,6 +69,16 @@ public class DateTimeHandler {
     }
 
     /**
+     * Checks if current date has passed;
+     *
+     * @param now Current date.
+     * @return If current date has passed.
+     */
+    public boolean currentDatePassed(LocalDateTime now) {
+        return now.isAfter(date);
+    }
+
+    /**
      * Converts MMM format month to integer.
      *
      * @param s MMM format month.

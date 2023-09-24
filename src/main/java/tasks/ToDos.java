@@ -13,7 +13,7 @@ public class ToDos extends Task {
      * @param isDone If the task has already been completed.
      */
     public ToDos(String description, boolean isDone) {
-        super(description, isDone);
+        super(description, isDone, null);
     }
 
     /**

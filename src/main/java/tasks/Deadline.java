@@ -17,8 +17,8 @@ public class Deadline extends Task {
      * @param by Deadline to complete the task by.
      * @param isDone If the task has already been completed.
      */
-    public Deadline(String description, String by, boolean isDone) {
-        super(description, isDone);
+    public Deadline(String description, String by, boolean isDone, String reminder) {
+        super(description, isDone, reminder);
         this.by = new DateTimeHandler(by);
     }
 
@@ -35,7 +35,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "D | " + super.toString() + " | " + by.toString();
+        String reminderString = (super.reminder == null) ? "" : " | Reminder: " + super.reminder.toString();
+        return "D | " + super.toString() + " | " + by.toString() + reminderString;
     }
 
     /**
@@ -49,6 +50,12 @@ public class Deadline extends Task {
         String taskDescription = input.split("deadline ")[1].split(" /by")[0];
         String taskDeadline = input.split("/by ")[1];
 
-        return new String[] {taskDescription, taskDeadline};
+        String reminderDate = null;
+        if (input.contains("r/")) {
+            String daysEarly = input.split("r/")[1];
+            reminderDate = processReminderDate(daysEarly, taskDeadline);
+        }
+
+        return new String[] {taskDescription, taskDeadline, reminderDate};
     }
 }

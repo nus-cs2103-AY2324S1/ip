@@ -45,6 +45,9 @@ public class Parser {
             case "find":
                 result = TaskList.find(input);
                 break;
+            case "reminder":
+                result = TaskList.reminder();
+                break;
             default:
                 result = "Wuff, I'm not sure what that means :(";
             }
