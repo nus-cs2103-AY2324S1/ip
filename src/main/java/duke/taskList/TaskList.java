@@ -127,7 +127,7 @@ public class TaskList {
 
 
             if (splitCommand.length == 1) {
-                throw new DukeException("duke.task.Event Argument Empty");
+                throw new DukeException("☹ OOPS!!! The description of a Event cannot be empty.");
             }
 
             for (int i = 0; i < splitCommand.length; i++) {
@@ -202,7 +202,7 @@ public class TaskList {
 
         try {
             if (splitCommand.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException("☹ OOPS!!! The description of a Todo cannot be empty.");
             }
         } catch (DukeException e) {
             printHorizontalLine();
@@ -242,7 +242,7 @@ public class TaskList {
             boolean hasBy = false;
 
             if (splitCommand.length == 1) {
-                throw new DukeException("duke.task.Deadline Argument Empty");
+                throw new DukeException("☹ OOPS!!! The description of a Deadline cannot be empty.");
             }
 
             for (int i = 0; i < splitCommand.length; i++) {
@@ -453,7 +453,7 @@ public class TaskList {
 
         try {
             if (splitCommand.length == 1) {
-                throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                throw new DukeException("find task argument cannot be empty");
             }
         } catch (DukeException e) {
             printHorizontalLine();
@@ -473,6 +473,4 @@ public class TaskList {
         }
         return strToPrint;
     }
-
-
 }
