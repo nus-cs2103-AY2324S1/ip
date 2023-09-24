@@ -8,35 +8,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.Button?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0"
-            prefWidth="500.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="jarvis.gui.MainWindow">
-    <TextField fx:id="userInput"
-               layoutY="600.0"
-               onAction="#handleUserInput"
-               prefHeight="70.0"
-               prefWidth="400.0"
-               AnchorPane.bottomAnchor="1.0"/>
-    <StackPane layoutX="420.0" layoutY="635.0">
-        <Circle radius="30.0" fill="blue"/>
-        <ImageView fx:id="sendButtonArrow"
-                   fitHeight="30.0"
-                   fitWidth="30.0"
-                   preserveRatio="true"
-                   onMouseClicked="#handleUserInput">
-            <Image url="/images/sendButton.png"/>
-        </ImageView>
-        <effect>
-            <DropShadow color="#C0C0C0" spread="0.1" blurType="TWO_PASS_BOX" offsetY="3"/>
-        </effect>
-    </StackPane>
+            prefWidth="500.0" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="jarvis.controllers.MainWindow">
     <ScrollPane fx:id="scrollPane"
                 hvalue="1.0"
                 hbarPolicy="NEVER"
-                vbarPolicy="NEVER"
                 prefHeight="630.0"
                 prefWidth="500.0"
                 vvalue="1.0">
@@ -44,15 +24,15 @@
               prefHeight="552.0"
               prefWidth="500.0"
               alignment="TOP_CENTER"
-              style="-fx-padding: 10 5 10 5"
+              style="-fx-padding: 10 5 10 20;"
         >
             <ImageView fx:id="introImage"
                        preserveRatio="true"
-                       fitWidth="200">
+                       fitWidth="175">
                 <clip>
                     <Rectangle
-                            height="150"
-                            width="200"
+                            height="125"
+                            width="175"
                             arcHeight="30"
                             arcWidth="30"/>
                 </clip>
@@ -62,4 +42,25 @@
             </effect>
         </VBox>
     </ScrollPane>
+    <TextField fx:id="userInput"
+               layoutY="600.0"
+               onAction="#handleUserInput"
+               prefHeight="70.0"
+               prefWidth="500.0"
+               AnchorPane.bottomAnchor="1.0"/>
+    <Button fx:id="sendButton"
+            layoutX="420.0"
+            layoutY="635.0"
+            prefHeight="60.0"
+            prefWidth="60.0"
+            onMouseClicked="#handleUserInput">
+        <graphic>
+            <ImageView fx:id="sendButtonArrow"
+                       fitHeight="30.0"
+                       fitWidth="30.0"
+                       preserveRatio="true">
+                <Image url="/images/sendButton.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
 </AnchorPane>

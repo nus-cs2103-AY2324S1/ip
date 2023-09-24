@@ -1,7 +1,7 @@
 package jarvis.commands;
 
 import jarvis.exceptions.InvalidIndexException;
-import jarvis.gui.Ui;
+import jarvis.ui.Ui;
 import jarvis.storage.Storage;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;

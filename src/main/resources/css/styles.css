@@ -1,0 +1,37 @@
+/* Customize the Send button */
+#sendButton {
+    -fx-background-color: #0040FF;
+    -fx-transition-duration: 0.4s;
+    -fx-font-size: 14px;
+    -fx-background-radius: 50%;
+    -fx-effect: dropshadow(three-pass-box, #C0C0C0 , 10, 0, 0, 0);
+}
+
+/* Customize the user input text field */
+#userInput {
+    -fx-background-color: #E9E9E9;
+    -fx-font-size: 13px;
+    -fx-font-family: SF-UI Text Regular
+}
+
+/* Customise Vertical Scroll bar */
+/* Adapted from https://stackoverflow.com/questions/48048943/javafx-8-scroll-bar-css */
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+    -fx-color: black;
+}
+
+.scroll-bar .increment-arrow,
+ .scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+ .scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}

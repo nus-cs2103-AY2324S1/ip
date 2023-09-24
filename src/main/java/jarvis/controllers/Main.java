@@ -1,8 +1,8 @@
-package jarvis;
+package jarvis.controllers;
 
 import java.io.IOException;
 
-import jarvis.gui.MainWindow;
+import jarvis.Jarvis;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -23,6 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow> getController().setJarvis(jarvis);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

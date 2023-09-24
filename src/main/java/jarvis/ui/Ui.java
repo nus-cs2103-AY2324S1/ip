@@ -1,4 +1,4 @@
-package jarvis.gui;
+package jarvis.ui;
 
 import java.util.ArrayList;
 
@@ -12,17 +12,17 @@ public class Ui {
      * Default date and time format used n Jarvis app.
      */
     private static final String DATE_TIME_FORMAT = "MMM dd yyyy HHmm";
-    private static final String HELP_MENU = "Here are the list of quick commands to get started with:\n"
-            + "1. Add Todo Task: [todo TASK_DESCRIPTION]\n"
-            + "2. Add Deadline Task: [deadline TASK_DESCRIPTION by DUE_DATE]\n"
-            + "3. Add Event Task: [event TASK_DESCRIPTION from START_DATE_TIME to END_DATE_TIME]\n"
-            + "4. List Tasks: [list]\n"
-            + "5. Delete Task: [delete INDEX]\n"
-            + "6. Mark Task as completed/incomplete: [mark/unmark INDEX]\n"
-            + "7. Find Tasks: [find KEYWORD]\n"
-            + "8. Sort Deadline Tasks: [sort deadline]\n"
-            + "9. Help Menu: [help]\n"
-            + "10. Exit App: [bye]\n";
+    private static final String HELP_MENU = "Here is a list of quick commands to get started with:\n\n"
+            + "1. Add Todo Task: [todo TASK_DESCRIPTION]\n\n"
+            + "2. Add Deadline Task: [deadline TASK_DESCRIPTION by DUE_DATE]\n\n"
+            + "3. Add Event Task: [event TASK_DESCRIPTION from START_DATE_TIME to END_DATE_TIME]\n\n"
+            + "4. List Tasks: [list]\n\n"
+            + "5. Delete Task: [delete INDEX]\n\n"
+            + "6. Mark Task as completed/incomplete: [mark/unmark INDEX]\n\n"
+            + "7. Find Tasks: [find KEYWORD]\n\n"
+            + "8. Sort Deadline Tasks: [sort deadline]\n\n"
+            + "9. Help Menu: [help]\n\n"
+            + "10. Exit App: [bye]\n\n";
 
     public static String getDefaultDateTimeFormat() {
         return DATE_TIME_FORMAT;
@@ -32,8 +32,8 @@ public class Ui {
      * Prints the intro message when Jarvis starts.
      */
     public String printIntro() {
-        return "Hi Master! I'm your personal assistant: JARVIS! \n"
-                + "    How can I serve you today? \n\n" + HELP_MENU;
+        return "Hi Master! I'm your personal assistant: JARVIS!\n\n"
+                + HELP_MENU;
     }
 
     /**
