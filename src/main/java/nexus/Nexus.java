@@ -15,7 +15,7 @@ public class Nexus {
     /**
      * OS-Independent path.
      */
-    private static final String FILEPATH = String.join(File.separator, "src", "main", "data", "nexus.txt");
+    private static final String FILEPATH = "nexus.txt";
     private TaskList list;
     private Storage storage;
     private Ui ui;

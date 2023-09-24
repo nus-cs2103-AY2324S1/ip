@@ -41,11 +41,10 @@ public class Storage {
             } else {
                 file.createNewFile();
             }
-            return list;
         } catch (IOException e) {
             System.out.println("IOException occurred: " + e.getMessage());
-            return list;
         }
+        return list;
     }
 
     private Task loadTask(String input) {
@@ -120,7 +119,7 @@ public class Storage {
                     case "delete":
                         break;
                     default:
-                        throw new RuntimeException();
+                        throw new IOException("Error in editing file");
                     }
                 } else {
                     updatedContent.append(line).append("\n");
@@ -133,6 +132,7 @@ public class Storage {
             writer.write(updatedContent.toString());
             writer.close();
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }

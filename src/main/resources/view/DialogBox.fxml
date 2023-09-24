@@ -8,7 +8,7 @@
 
 <fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-style: solid centered; -fx-border-radius: 2; -fx-border-color: black; -fx-background-color: E0E0E0; -fx-border-width: 2; -fx-border-insets: 2;" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-style: solid centered; -fx-border-width: 1; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: green;" text="Dialog" textOverrun="CLIP" wrapText="true">
+        <Label fx:id="dialog" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-border-style: solid centered; -fx-border-width: 1; -fx-border-insets: 5; -fx-border-radius: 5; -fx-border-color: green;" text="Dialog" wrapText="true">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
