@@ -30,7 +30,7 @@ public class DeadlineTest {
     }
 
     /**
-     * Test the {@link ToDo#isDone()} method.
+     * Test the {@link Deadline#isDone()} method.
      */
     @Test
     public void unDoneTest() {
