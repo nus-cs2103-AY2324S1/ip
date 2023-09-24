@@ -25,7 +25,6 @@ public class Event extends Task {
 
     /**
      * Shows the name of the Event task and its status.
-     *
      * @return Name of the Event task and its current status.
      */
     @Override

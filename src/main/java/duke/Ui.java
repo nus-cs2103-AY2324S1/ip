@@ -66,7 +66,7 @@ public class Ui {
         String fullList = "";
         for (int i = 0; i < tasks.length; i++) {
             int curr = i + 1;
-            fullList = fullList + curr + ". " + tasks[i].toString() +"\n";
+            fullList = fullList + curr + ". " + tasks[i].toString() + "\n";
         }
 
         return fullList;
@@ -125,6 +125,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns a message upon adding trivia.
+     * @param message The trivia added
+     * @param answer The answer to the trivia
+     * @return Message confirming the addition of trivia
+     */
     public static String addTrivia(String message, String answer) {
         return "Woooaahhh... I didn't know that!\n"
                 + message + "?\n"
@@ -132,12 +138,23 @@ public class Ui {
 
     }
 
+    /**
+     * Returns a message upon editing trivia
+     * @param message The trivia edited
+     * @param answer The edited answer
+     * @return Confirmation of the edited trivia answer.
+     */
     public static String editTrivia(String message, String answer) {
         return "Ohhhh...\n"
                 + message + "?\n"
                 + "It's actually " + answer + "!";
     }
 
+    /**
+     * Returns a message upon deleting trivia
+     * @param message The trivia to be deleted
+     * @return Confirmation that the trivia message is deleted
+     */
     public static String deleteTrivia(String message) {
         return message + "?\n"
                + "... Guess we don't need to know now, huh";

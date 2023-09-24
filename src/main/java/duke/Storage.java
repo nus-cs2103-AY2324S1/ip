@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -112,7 +111,6 @@ public class Storage {
             if (inputStream != null) {
                 inputStream.close();
             }
-
             return allTasks;
         }
     }
@@ -121,6 +119,8 @@ public class Storage {
      * Loads all trivia from the trivia.s file.
      * @return The hashmap of trivia found in the data.s file.
      */
+    @SuppressWarnings("unchecked")
+    // Suppresses unchecked cast warning because we know the deserialized object is a HashMap<String, String>.
     public HashMap<String, String> loadTrivia() throws IOException, ClassNotFoundException {
         HashMap<String, String> allTasks = new HashMap<>();
         ObjectInputStream inputStream = null;
@@ -136,7 +136,6 @@ public class Storage {
             if (inputStream != null) {
                 inputStream.close();
             }
-
             return allTasks;
         }
     }

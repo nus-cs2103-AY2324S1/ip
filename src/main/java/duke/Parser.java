@@ -92,7 +92,7 @@ public class Parser {
             } catch (ArrayIndexOutOfBoundsException e) {
                 return new TaskError("event");
             }
-        default :
+        default:
             return new TaskError("other");
         }
     }

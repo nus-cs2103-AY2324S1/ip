@@ -6,12 +6,13 @@ import java.io.Serializable;
  * Tasks are the tasks sent by the user to the Duke class
  */
 public abstract class Task implements Serializable {
-    /**The name of the task.*/
+    //The name of the task.
     private String taskName;
-    /**Status on whether the task is done or not.*/
+    //Status on whether the task is done or not.
     private boolean isDone;
 
-    /**Instantiates an instance of a task.
+    /**
+     * Instantiates an instance of a task.
      * @param taskName takes in the name of the task.*/
     public Task(String taskName) {
         this.taskName = taskName;

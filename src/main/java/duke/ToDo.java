@@ -3,7 +3,7 @@ package duke;
 /**
  * ToDo tasks have no deadline.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Instantiates an instance of a ToDo task class.

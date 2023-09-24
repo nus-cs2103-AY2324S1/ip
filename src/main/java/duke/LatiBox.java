@@ -1,21 +1,22 @@
 package duke;
 
 import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 /**
- * Displays the chatbox for the Dukebot
+ * Displays the chatbox for the DukeBot (called LatiBot).
  */
-public class LatiBox extends HBox{
+public class LatiBox extends HBox {
     @FXML
     private Label dialog;
     @FXML
@@ -39,15 +40,15 @@ public class LatiBox extends HBox{
         dialog.setText(text);
         dialog.setFont(new Font("Courier New", 12));
         dialog.setTextFill(Color.GREEN);
-        super.setBackground(new Background(new BackgroundFill(Color.BLACK,null,null)));
+        super.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
         displayPicture.setImage(img);
     }
 
     /**
-     * Returns the LatiBox dialog
-     * @param text The text to be shown
-     * @param img The avatar of the bot
-     * @return A new LatiBox instance
+     * Returns the LatiBox dialog.
+     * @param text The text to be shown.
+     * @param img The avatar of the bot.
+     * @return A new LatiBox instance.
      */
     public static LatiBox getDukeDialog(String text, Image img) {
         return new LatiBox(text, img);
