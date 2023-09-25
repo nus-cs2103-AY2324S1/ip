@@ -1,7 +1,77 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    ___
+ __/_  `.  .-"""-.           |                      |             |   
+ \_,` | \-'  /   )`-')    _` |   _ \    _` |   _ \  __ \    _ \   __| 
+  "") `"`    \  ((`"`    (   |  (   |  (   |   __/  |   |  (   |  |   
+ ___Y  ,    .'7 /|      \__,_| \___/  \__, | \___| _.__/  \___/  \__| 
+(_,___/...-` (_/_/                    |___/
+Hi ! I'm DogeBot 
+How may I help you today ?
 
+Oops ! Your list is empty ! Try adding some tasks first c:
+Oops ! Try adding some tasks first c:
+Oops ! Try adding some tasks first c:
+Oops ! There's no tasks in your list to delete :O
+Mama mia ! I've just added this task:
+	[T][ ] read book
+You now have 1 task(s) in your list
+Mama mia ! I've just added this task:
+	[D][ ] return book (by: June 6th)
+You now have 2 task(s) in your list
+Mama mia ! I've just added this task:
+	[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+You now have 3 task(s) in your list
+Mama mia ! I've just added this task:
+	[T][ ] join sports club
+You now have 4 task(s) in your list
+Mama mia ! I've just added this task:
+	[T][ ] borrow book
+You now have 5 task(s) in your list
+Good job on completing a task ! You deserve a cookie C:
+	[T][X] read book
+Good job on completing a task ! You deserve a cookie C:
+	[T][X] join sports club
+Stuff to do:
+1.[T][X] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+Oh nyo, did someone make a mistake ?
+	[T][ ] read book
+Stuff to do:
+1.[T][ ] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+Mama mia ! I've just added this task:
+	[D][ ] return book (by: Sunday)
+You now have 6 task(s) in your list
+Mama mia ! I've just added this task:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+You now have 7 task(s) in your list
+Stuff to do:
+1.[T][ ] read book
+2.[D][ ] return book (by: June 6th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+4.[T][X] join sports club
+5.[T][ ] borrow book
+6.[D][ ] return book (by: Sunday)
+7.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Oops ! Integers only please :c
+Oh no :( I think that number is too big~
+Oops ! Integers only please :c
+Oh no :( I think that number is too big~
+Oops ! The description of a todo cannot be empty :(
+Oops ! The description of a todo cannot be empty :(
+Oops ! The description of a deadline cannot be empty :(
+Oops ! The description of a deadline cannot be empty :(
+Oops ! The description of an event cannot be empty :(
+Oops ! The description of an event cannot be empty :(
+Got it~ This task has been removed:
+	[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+You now have 6 task(s) in your list
+Oops ! Integers only please :c
+Oh no :( I think that number is too big~
+Wuff, I'm not sure what that means :(
+Bye~ See you again
