@@ -17,75 +17,67 @@ public class Ui {
         scanner.close();
     }
 
-    public void displayWelcomeMessage() {
-        System.out.println("Hello! I'm Sivraj");
-        System.out.println("What can I do for you?");
+    public String displayWelcomeMessage() {
+        return "Hello! I'm Sivraj\n" + "What can I do for you?";
     }
-    String dashLine = "----------------------------------------";
+    String dashLine = "----------------------------------------\n";
 
-    public void displayToDoMessage(TaskList taskList) {
-        System.out.println(dashLine);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("         " + taskList.getTask(taskList.listSize() - 1));
-        System.out.println("     Now you have " + taskList.listSize() + " tasks in the list.");
-        System.out.println(dashLine);
+    public String displayToDoMessage(TaskList taskList) {
+        return dashLine + "     Got it. I've added this task:" + "\n" +
+                "         " + taskList.getTask(taskList.listSize() - 1) + "\n" +
+                "     Now you have " + taskList.listSize() + " tasks in the list.\n" +
+                dashLine;
     }
 
-    public void displayDeadlineMessage(TaskList taskList) {
-        System.out.println(dashLine);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + taskList.getTask(taskList.listSize() - 1));
-        System.out.println("     Now you have " + taskList.listSize() + " tasks in the list.");
-        System.out.println(dashLine);
+    public String displayDeadlineMessage(TaskList taskList) {
+        return dashLine + "     Got it. I've added this task:\n" +
+                "       " + taskList.getTask(taskList.listSize() - 1) +
+                "\n" + "     Now you have " + taskList.listSize() +
+                " tasks in the list.\n" + dashLine;
     }
 
-    public void displayEventMessage(TaskList taskList) {
-        System.out.println(dashLine);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("       " + taskList.getTask(taskList.listSize() - 1));
-        System.out.println("     Now you have " + taskList.listSize() + " tasks in the list.");
-        System.out.println(dashLine);
+    public String displayEventMessage(TaskList taskList) {
+        return dashLine + "     Got it. I've added this task:\n" +
+                "       " + taskList.getTask(taskList.listSize() - 1) +
+                "\n" + "     Now you have " + taskList.listSize() +
+                " tasks in the list.\n" + dashLine;
     }
 
-    public void displayMarkMessage(TaskList taskList, int taskIndex) {
-        System.out.println(dashLine);
-        System.out.println("    Nice! I've marked this task as done:");
-        System.out.println("       " + taskList.getTask(taskIndex));
-        System.out.println(dashLine);
+    public String displayMarkMessage(TaskList taskList, int taskIndex) {
+        return dashLine + "    Nice! I've marked this task as done:\n" +
+                "       " + taskList.getTask(taskIndex) + "\n" +
+                dashLine;
     }
 
-    public void displayUnmarkMessage(TaskList taskList, int taskIndex) {
-        System.out.println(dashLine);
-        System.out.println("     OK, I've marked this task as not done yet:");
-        System.out.println("       " + taskList.getTask(taskIndex));
-        System.out.println(dashLine);
+    public String displayUnmarkMessage(TaskList taskList, int taskIndex) {
+        return dashLine + "     OK, I've marked this task as not done yet:\n" +
+                "       " + taskList.getTask(taskIndex) + "\n" +
+                dashLine;
     }
 
-    public void displayListMessage(TaskList taskList) {
-        System.out.println(dashLine);
-        System.out.println("    Here are the tasks in your list:");
+    public String displayListMessage(TaskList taskList) {
+        String s = "";
         for (int i = 0; i < taskList.listSize(); i++) {
-            System.out.println("     " + (i + 1) + "." + taskList.getTask(i));
+            s = s + "\n      " + (i + 1) + "." + taskList.getTask(i);
         }
-        System.out.println(dashLine);
+        return dashLine +
+                "    Here are the tasks in your list:" + "\n" +
+                s + dashLine;
     }
 
-    public void displayDeleteMessage(TaskList taskList, Task removedTask) {
-        System.out.println(dashLine);
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("       " + removedTask);
-        System.out.println("     Now you have " + taskList.listSize() + " tasks in the list.");
-        System.out.println(dashLine);
+    public String displayDeleteMessage(TaskList taskList, Task removedTask) {
+        return dashLine + "     Noted. I've removed this task: \n" +
+                "       " + removedTask + "\n" +
+                "     Now you have " + taskList.listSize() + " tasks in the list.\n" +
+                dashLine;
     }
 
-    public void displayErrorMessage(String message) {
-        System.out.println(dashLine);
-        System.out.println("    OOPS " + message);
-        System.out.println(dashLine);
+    public String displayErrorMessage(String message) {
+        return dashLine + "    OOPS " + message + "\n" + dashLine;
     }
 
-    public void displayByeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String displayByeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
     public void displayLoadErrorMessage(String errorMessage) {
