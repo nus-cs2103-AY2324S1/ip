@@ -8,6 +8,10 @@ public class TaskList {
         taskLists = new ArrayList<>();
     }
 
+    public TaskList(List<Task> arr) {
+        taskLists = arr;
+    }
+
     public void addTask(Task task) {
         taskLists.add(task);
     }
@@ -30,5 +34,15 @@ public class TaskList {
 
     public void remove(int index) {
         taskLists.remove(index);
+    }
+
+    public String writeTaskList() {
+        String res = "";
+        String temp;
+        for (int i = 0; i < taskLists.size(); i++) {
+            temp = taskLists.get(i).storedString();
+            res = res + temp + "\n";
+        }
+        return res;
     }
 }

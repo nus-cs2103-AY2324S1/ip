@@ -9,6 +9,7 @@ public class Ui {
     private static String undone = "It is unfinished.\n";
     private static String addTask = "Another task? Very well.\n";
     private static String removeTask = "It is gone with the wind.\n";
+    private static String failure = "A critical failure occurred. Farewell.";
 
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -20,6 +21,10 @@ public class Ui {
 
     public String startup() {
         return line + intro + line;
+    }
+
+    public String failure() {
+        return failure;
     }
 
     public String exit() {
@@ -58,6 +63,6 @@ public class Ui {
             }
             return line + res + line;
         }
-        return line + "You have no tasks for the day. Congratulations?" + line;
+        return line + "You have no tasks for the day. Congratulations?" + "\n" + line;
     }
 }

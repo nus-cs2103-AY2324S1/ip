@@ -5,14 +5,16 @@ import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
-        TaskList taskList = new TaskList();
+
         Ui ui = new Ui();
+        Storage storage = new Storage("./data/duke.txt");
+        TaskList taskList = new TaskList(storage.load());
         boolean running = true;
         System.out.println(ui.startup());
         while (running) {
             try {
                 String command = ui.getInput();
-                Handler handler = new Handler(taskList, ui);
+                Handler handler = new Handler(taskList, ui, storage);
                 if (command.equals("bye")) {
                     System.out.println(ui.exit());
                     running = false;
