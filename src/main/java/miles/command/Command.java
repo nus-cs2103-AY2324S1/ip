@@ -26,7 +26,11 @@ public class Command {
     public int getTaskNumber(String command, String input) {
         String taskNum = input.replace(command + " ", "");
         String trimmedTaskNum = taskNum.trim();
-        return Integer.valueOf(trimmedTaskNum);
+        try {
+            return Integer.valueOf(trimmedTaskNum);
+        } catch (NumberFormatException e) {
+            return Integer.MIN_VALUE;
+        }
     }
 
     /**

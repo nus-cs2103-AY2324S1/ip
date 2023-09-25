@@ -42,16 +42,24 @@ Example of usage: `event attend wedding /from 2023-09-20 1900 /to 2023-09-20 230
 delete [task number]
 ```
 
+Example of usage: `delete 5`
+
 ### Mark task as done
+When user inputs a number `n`, the `nth` task in the list will be marked with an `X`.
 ```
 mark [task number]
 ```
 
+Example of usage: `mark 5`
+
 ### Mark task as not done
+When user inputs a number `n`, the `nth` task in the list will be unmarked and if there was an `X`, the `X` will disappear.
 By default, all tasks are marked as not done yet. User can unmark task in the event that a task was accidentally marked as done. 
 ```
 unmark [task number]
 ```
+
+Example of usage: `unmark 5`
 
 ### Listing all the tasks
 ```
@@ -59,13 +67,15 @@ list
 ```
 
 ### Find task by keyword
-This will find all tasks with the particular keyword given.
+This will find all tasks with the particular keyword in their description.
 ```
 find [keyword]
 ```
 
+Example of usage: `find soju`
+
 ### Exit 
-This will close the chatbot.
+This will close the chatbot. All changes have already been saved.
 ```
 bye
 ```

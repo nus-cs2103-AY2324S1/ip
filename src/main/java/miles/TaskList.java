@@ -21,7 +21,7 @@ public class TaskList {
 
     /**
      * Constructor to create a new task list when given an existing array list.
-     * @param taskList
+     * @param taskList the existing array list
      */
     public TaskList(ArrayList<Task> taskList) {
         this.taskList = taskList;
@@ -29,7 +29,7 @@ public class TaskList {
 
     /**
      * Adds task into a task list.
-     * @param task
+     * @param task the task to be added
      */
     public void addTask(Task task) {
         this.taskList.add(task);
@@ -38,7 +38,7 @@ public class TaskList {
     /**
      * Deletes a task from a task list.
      * @param taskNum the task number to be deleted
-     * @return the deleted task
+     * @return        the deleted task
      * @throws MilesException when task number does not exist
      */
     public Task deleteTask(int taskNum) throws MilesException {
@@ -55,7 +55,7 @@ public class TaskList {
     /**
      * Gets a task from a task list when given the task number.
      * @param taskNum the task number to be retrieved
-     * @return the task
+     * @return        the task
      */
     public Task getTask(int taskNum) {
         return this.taskList.get(taskNum);

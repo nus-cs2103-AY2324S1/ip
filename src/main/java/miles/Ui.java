@@ -46,7 +46,7 @@ public class Ui {
 
     /**
      * Prints a message when user inputs a duplicate task.
-     * @param task
+     * @param task the duplicate task
      */
     public void printDuplicateTask(Task task) {
         display("Brother, you already have this task in your list. Don't give yourself extra work man.");
@@ -65,6 +65,11 @@ public class Ui {
      * @param number the task number that is invalid
      */
     public void printInvalidTaskNumber(int number) {
+        if (number == Integer.MIN_VALUE) {
+            display("Brother, you need to input a valid task number man.");
+            return;
+        }
+
         display("There is no task " + number + ", friend.");
     }
 
