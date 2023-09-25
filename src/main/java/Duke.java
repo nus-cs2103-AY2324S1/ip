@@ -1,14 +1,26 @@
 import exceptions.DukeException;
+import exceptions.DukeInvalidFileException;
 import exceptions.DukeInvalidInputException;
 
 import java.util.Scanner;
 
 public class Duke {
-    public static void main(String[] args) {
+    private Storage storage;
+    private TaskList taskList;
+    private Ui ui;
 
-        Ui ui = new Ui();
-        Storage storage = new Storage("./data/duke.txt");
-        TaskList taskList = new TaskList(storage.load());
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(filePath);
+        try {
+            taskList = new TaskList(storage.load());
+        } catch (DukeInvalidFileException e) {
+            ui.showLoadingError();
+            taskList = new TaskList();
+        }
+    }
+
+    public void run() {
         boolean running = true;
         System.out.println(ui.startup());
         while (running) {
@@ -39,5 +51,9 @@ public class Duke {
                 System.out.println(ui.errorMsg(e.getMessage()));
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new Duke("./data/duke.txt").run();
     }
 }

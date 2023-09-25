@@ -20,6 +20,12 @@ public class Parser {
             return res;
         }
         res[2] = temp2[1];
+
+        //removes leading and trailing spaces
+        for (int i = 0; i < res.length; i++) {
+            res[i] = res[i].trim();
+        }
+
         return res;
     }
 
