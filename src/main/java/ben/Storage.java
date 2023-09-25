@@ -19,15 +19,33 @@ public class Storage {
     /**
      * The file where the tasks are stored.
      */
-    private File f;
+    private File file;
+
+    private String filePath;
 
     /**
-     * Takes in a file.
+     * Represents a filePath.
      *
-     * @param f The file where the tasks are stored.
+     * @param filePath The location of the file.
      */
-    public Storage(File f) {
-        this.f = f;
+    public Storage(String filePath) {
+        this.filePath = filePath;
+        create();
+    }
+
+    /**
+     * Creates a file if it does not exist.
+     */
+    public void create() {
+        this.file = new File(this.filePath);
+
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.out.println("error creating file");
+            }
+        }
     }
 
     /**
@@ -37,7 +55,7 @@ public class Storage {
      * @throws IOException Exception.
      */
     public void saveTasks(TaskList tasks) throws IOException {
-        FileWriter writer = new FileWriter(f);
+        FileWriter writer = new FileWriter(file);
         writer.write(tasks.saveTasks());
         writer.close();
     }
@@ -68,7 +86,7 @@ public class Storage {
      * @throws FileNotFoundException Exception.
      */
     public void loadTasks(TaskList tasks) throws FileNotFoundException {
-        Scanner s = new Scanner(f);
+        Scanner s = new Scanner(file);
 
         while (s.hasNext()) {
             String line = s.nextLine();

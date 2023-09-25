@@ -1,7 +1,5 @@
 package ben;
 
-import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
@@ -18,8 +16,7 @@ public class Ben {
     public Ben() {
         ui = new Ui();
         tasks = new TaskList();
-        File file = new File("src/main/java/data/ben.txt");
-        storage = new Storage(file);
+        storage = new Storage("src/main/java/data/ben.txt");
 
         try {
             storage.loadTasks(tasks);
