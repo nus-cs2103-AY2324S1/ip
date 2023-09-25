@@ -1,6 +1,7 @@
 package sidtacphi;
 
 import sidtacphi.contact.ContactList;
+import sidtacphi.exception.SidException;
 import sidtacphi.parser.Parser;
 import sidtacphi.storage.Storage;
 import sidtacphi.task.TaskList;
@@ -24,7 +25,11 @@ public class Sidtacphi {
      * Generates a response to user input.
      */
     public String getResponse(String input) {
-        return Parser.parseInput(taskList, contactList, input);
+        try {
+            return Parser.parseInput(taskList, contactList, input);
+        } catch (SidException e) {
+            return e.getMessage();
+        }
     }
 
     /**
