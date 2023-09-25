@@ -14,12 +14,21 @@ import java.util.List;
 import java.util.Scanner;
 import java.io.FileWriter;
 
+/**
+ * The <code>Storage</code> object handles loading and saving from the computer.
+ */
+
 public class Storage {
     private File file;
     private File directory;
     private String filePath;
     private boolean hasDirectory = false;
 
+    /**
+     * The class constructor.
+     *
+     * @param filePath The file path to be written to and loaded from. May already have a file or not.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         this.file = new File(filePath);
@@ -31,6 +40,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the current content of the file.
+     * If the file does not exist, it creates one.
+     *
+     * @throws DukeInvalidFileException if the file creation fails.
+     */
     public List<Task> load() throws DukeInvalidFileException {
         List<Task> contents = new ArrayList<>();
         if (hasDirectory && !directory.exists()) {
@@ -87,14 +102,24 @@ public class Storage {
         return contents;
     }
 
-    //This method overwrites the content of the file.
+    /**
+     * Writes the specified content to file.
+     * Overwrites the current content of the file.
+     *
+     * @param content The content to be written to file.
+     */
     public void save(String content) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         fw.write(content);
         fw.close();
     }
 
-    //This method appends text to the file.
+    /**
+     * Writes the specified content to file.
+     * Appends the given content to the current content of the file.
+     *
+     * @param appendedContent The content to be written to file.
+     */
     public void saveAppend(String appendedContent) throws IOException {
         FileWriter fw = new FileWriter(filePath, true);
         fw.write(appendedContent);

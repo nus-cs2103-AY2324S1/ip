@@ -4,6 +4,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * An extension of <code>Task</code>, a <code>Event</code> object keeps track of
+ * a task that has a start and end time (both either a LocalDate or just a String)
+ */
+
 public class Event extends Task {
 
     protected String from;
@@ -11,6 +16,14 @@ public class Event extends Task {
     protected LocalDate fromDate;
     protected LocalDate toDate;
     protected boolean areBothDates = true;
+
+    /**
+     * The class constructor.
+     *
+     * @param description Description of the Event task.
+     * @param from Start of the event - either a LocalDate or String
+     * @param to End of the event - either a LocalDate or String
+     */
 
     public Event(String description, String from, String to) {
         super(description);
@@ -47,6 +60,9 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Gets the value of from, whether a <code>LocalDate</code> or <code>String</code>
+     */
     public String getFrom() {
         if (!areBothDates) {
             return this.from;
@@ -55,6 +71,9 @@ public class Event extends Task {
         return fromDate.format(formatter1);
     }
 
+    /**
+     * Gets the value of to, whether a <code>LocalDate</code> or <code>String</code>
+     */
     public String getTo() {
         if (!areBothDates) {
             return this.to;
@@ -63,11 +82,17 @@ public class Event extends Task {
         return toDate.format(formatter1);
     }
 
+    /**
+     * Returns the string form of the <code>Event</code> task, for writing to file.
+     */
     @Override
     public String storedString() {
         return "E | " + super.storedString() + " | " + getFrom() + " | " + getTo();
     }
 
+    /**
+     * Returns the string form of the <code>Event</code> task, for display to user.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + getFrom() + " to: " + getTo() + ")";

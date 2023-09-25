@@ -1,10 +1,27 @@
 package duke;
 
+/**
+ * The <code>Parser</code> class takes in strings from the commands and parses them
+ * for the <code>Handler</code> object to use.
+ */
+
 public class Parser {
+    /**
+     * Parses a <code>String</code>, splitting it by the first space encountered.
+     *
+     * @param str The String to be split.
+     * @return Two strings
+     */
     public static String[] splitSpace (String str) {
         return str.split(" ", 2);
     }
 
+    /**
+     * Parses a <code>String</code>, splitting it by the /from and /to keywords.
+     *
+     * @param str The String to be split.
+     * @return Three strings
+     */
     public static String[] splitEvent (String str) {
         String[] res = new String[3];
         String noCommand = Parser.splitSpace(str)[1];
@@ -31,6 +48,12 @@ public class Parser {
         return res;
     }
 
+    /**
+     * Parses a <code>String</code>, splitting it by the /by keyword.
+     *
+     * @param str The String to be split.
+     * @return Two strings.
+     */
     public static String[] splitDeadline (String str) {
         String noCommand = Parser.splitSpace(str)[1];
         return noCommand.split("/by ", 2);
