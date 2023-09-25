@@ -41,6 +41,7 @@ public class Bert {
      * @return A CommandResult instance containing the message about the results of the command.
      */
     public CommandResult handleInput(String fullCommand) {
+        assert fullCommand != null : "Input passed into Bert should not be null";
         try {
             Command c = new Parser().parse(fullCommand);
             return c.execute(tasks, storage);
