@@ -18,6 +18,16 @@ javafx {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // Credits to @woojiahao on Github for this solution
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
 }
 
 test {
