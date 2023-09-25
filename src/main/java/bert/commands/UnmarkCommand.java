@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) {
-        Task t = tasks.unmark(this.index);
-        return new CommandResult(String.format(MESSAGE, t));
+        Task unmarkedTask = tasks.unmark(this.index);
+        return new CommandResult(String.format(MESSAGE, unmarkedTask));
     }
 }

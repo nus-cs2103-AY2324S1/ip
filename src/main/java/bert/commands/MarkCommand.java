@@ -24,7 +24,7 @@ public class MarkCommand extends Command {
 
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) {
-        Task t = tasks.mark(this.index);
-        return new CommandResult(String.format(MESSAGE, t));
+        Task markedTask = tasks.mark(this.index);
+        return new CommandResult(String.format(MESSAGE, markedTask));
     }
 }
