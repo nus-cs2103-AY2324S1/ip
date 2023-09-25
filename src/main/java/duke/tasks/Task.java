@@ -59,7 +59,7 @@ public class Task {
         String ret = "";
         ret += "Noted. I've removed this task:\n";
         ret += "  " + this + "\n";
-        ret += "Now you have \" + size + \" tasks in the list.\n";
+        ret += "Now you have " + size + " tasks in the list.\n";
         return ret;
     }
 
