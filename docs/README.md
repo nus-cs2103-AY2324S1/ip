@@ -15,6 +15,8 @@ Example:
 
 ![](assets/images/list.png)
 
+List of tasks successfully displayed
+
 ### Adding a todo task: `todo`
 
 Adds a todo task.
@@ -151,4 +153,4 @@ Example:
 
 ![](assets/images/bye.png)
 
-Current tasks successfully saved.
+Current tasks successfully saved
