@@ -2,6 +2,8 @@
 
 ChatterBox is your friendly neighbourhood task manager! Never forget anything ever again!
 
+![chatterbox](Ui.png)
+
 ## Features 
 ChatterBox comes with a bunch of features such as:
 - Managing tasks
@@ -36,12 +38,13 @@ Once you're done with ChatterBox, simply enter:
 
 ### Considerations
 
-All commands must be in full lowercase (for now)
-If you are ever confused, 
+All commands must be in full lowercase (for now).
+
+If you are ever confused, simply type "help" and the start screen will show!
 
 ## Usage
 
-You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/) and then:
+You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3) and then:
 
 1. Navigate into the directory with
 
