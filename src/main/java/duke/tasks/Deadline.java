@@ -3,17 +3,33 @@ package duke.tasks;
 public class Deadline extends Task {
     private String deadline;
 
+    /**
+    * constructs the deadline class
+    *
+    * @param task the description of the task
+    * @param deadline the deadline of the task
+    */
     public Deadline(String task, String deadline) {
         super(task);
         this.deadline = deadline;
     }
-
+    
+    /**
+    * returns the status of the deadline task
+    *
+    * @return a formatted string of the status of the deadline
+    */
     @Override
     public String getStatus() {
         String time = "(by: " + deadline + ")";
         return "[Deadline]" + super.getStatus() + " " + time;
     }
 
+    /**
+    * returns the deadline of the deadline task
+    *
+    * @return the deadline
+    */
     @Override
     public String getTime() {
         return deadline;

@@ -6,15 +6,31 @@ public class Task {
     String task;
     boolean isDone;
 
+    /**
+    * constructs the task class
+    *
+    * @param task the description of the task
+    * @param isDone a boolean value that indicate whether the task is done or not
+    */
     public Task(String task){
         this.task = task;
         this.isDone = false;
     }
     
+    /**
+    * getter method that return the description of the task
+    *
+    * @return the description of the task
+    */
     public String getTask() {
         return this.task;
     }
 
+    /**
+    * returns the status of the task
+    *
+    * @return a formatted string of the status of the task
+    */
     public String getStatus() {
         String status = "[" + (isDone ? "Yes" : "No") + "]";
         return status + " " + this.getTask();
@@ -24,6 +40,11 @@ public class Task {
         return null;
     }
 
+    /**
+    * setter method for the task status
+    *
+    * @param isDone new status of the tasks
+    */
     public void markItem(Boolean isDone) {
         this.isDone = isDone;
         if (this.isDone) {

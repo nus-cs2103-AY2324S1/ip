@@ -18,10 +18,20 @@ public class Storage {
     private static String path;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
 
+    /**
+    * set the file path to the given path
+    *
+    * @param filePath the given file path
+    */
     public static void setPath(String filePath) {
         path = filePath;
     }
     
+    /**
+    * save the arraylist of tasks in txt format
+    *
+    * @param tasks the arraylist of tasks to be saved
+    */
     public static void save(ArrayList<Task> tasks) {
         try (PrintWriter printwriter = new PrintWriter(new FileWriter(path))) {
             for (Task task : tasks) {
@@ -32,6 +42,11 @@ public class Storage {
         }
     }
 
+    /**
+    * load tasks in txt format into an arraylist
+    *
+    * @return an arraylist translated from the txt file
+    */
     public static ArrayList<Task> load() throws DukeException{
         handleMissing(path);
 
@@ -48,6 +63,11 @@ public class Storage {
         return taskList;
     }
 
+    /**
+    * handles missing txt file by creating a new one
+    *
+    * @param testPath the file path to test if exist
+    */
     private static void handleMissing(String testPath) {
         try{
             //if directory or path doesn't exist

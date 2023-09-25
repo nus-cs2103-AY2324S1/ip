@@ -12,6 +12,11 @@ public class Duke {
 
     private TaskList taskList;
     
+    /**
+    * Constructs the Duke class.
+    *
+    * @param path the path to store the user's task list
+    */
     public Duke(String path) {
         Storage.setPath(path);
         try {
@@ -23,6 +28,12 @@ public class Duke {
             Parser.setTaskList(taskList);
         }
     }
+
+    /**
+    * Main method for the chatbot. Initiate a Duke-Max instance.
+    *
+    * @param args arguments
+    */
     public static void main(String[] args) throws DukeException{   
         new Duke("data/tasks.txt");
         Ui.greet();
