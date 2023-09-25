@@ -1,0 +1,23 @@
+#scrollPane {
+    -fx-background-color: #C5CBEC;
+    -fx-base: #C5CBEC;
+}
+
+/* Hide the arrow buttons for the vertical scroll bar */
+#scrollPane .scroll-bar:vertical .increment-button,
+#scrollPane .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+/* Adjust the width of the vertical scroll bar */
+#scrollPane .scroll-bar:vertical {
+    -fx-background-color: #C5CBEC;
+    -fx-pref-width: 20px;
+}
+
+/* Customize the thumb of the vertical scroll bar */
+#scrollPane .scroll-bar:vertical .thumb {
+    -fx-background-color: #8E9CE2;
+    -fx-border-radius: 20px;
+}

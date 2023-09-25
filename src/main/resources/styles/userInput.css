@@ -1,0 +1,23 @@
+#userInput {
+    -fx-control-inner-background: #C5CBEC;
+    -fx-max-height: 60.0;
+}
+
+/* Hide the arrow buttons for the vertical scroll bar */
+#userInput .scroll-bar:vertical .increment-button,
+#userInput .scroll-bar:vertical .decrement-button {
+    -fx-padding: 0;
+    -fx-opacity: 0;
+}
+
+/* Adjust the width of the vertical scroll bar */
+#userInput .scroll-bar:vertical {
+    -fx-background-color: #C5CBEC;
+    -fx-pref-width: 20px;
+}
+
+/* Customize the thumb of the vertical scroll bar */
+#userInput .scroll-bar:vertical .thumb {
+    -fx-background-color: #8E9CE2;
+    -fx-border-radius: 20px;
+}

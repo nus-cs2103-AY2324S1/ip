@@ -1,0 +1,5 @@
+#sendButton {
+    -fx-base: #C5CBEC;
+    -fx-pref-height: 60px;
+    -fx-pref-width: 100px;
+}
