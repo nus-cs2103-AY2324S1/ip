@@ -1,5 +1,6 @@
 package oreo.command;
 
+import oreo.exception.IllegalCommandException;
 import oreo.exception.IllegalDateTimeException;
 import oreo.task.Task;
 import oreo.task.TaskList;
@@ -48,7 +49,7 @@ public class HelpCommand extends Command {
      * @param content command user wants to get help for.
      * @return Help for specified command.
      */
-    public String getHelpMessage(String content) {
+    public String getHelpMessage(String content) throws IllegalCommandException {
         try (InputStream in = getClass().getResourceAsStream("/help/" + content + ".txt");
              BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
             StringBuilder stringBuilder = new StringBuilder();
@@ -59,8 +60,9 @@ public class HelpCommand extends Command {
             }
 
             return stringBuilder.toString();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | NullPointerException e) {
+            throw new IllegalCommandException("help you with that! That isn't a valid command. Try \"help\" to see "
+                    + "the list of available commands.");
         }
     }
 
@@ -79,7 +81,11 @@ public class HelpCommand extends Command {
             }
         }
         String content = tokeniser.next();
-        return getHelpMessage(content);
+        try {
+            return getHelpMessage(content);
+        } catch (IllegalCommandException e) {
+            return e.getMessage();
+        }
     }
 
     /**

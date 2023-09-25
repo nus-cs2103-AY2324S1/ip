@@ -11,7 +11,7 @@ import java.time.temporal.ChronoField;
 import java.util.Locale;
 
 /**
- * Implements class that handles parsing of time input
+ * Implements class that handles parsing of time input.
  *
  * @author Daniel Loh
  * @version 03/09/2023
@@ -22,11 +22,11 @@ public class TimeParser {
     public static LocalTime timeNow = LocalTime.now();
 
     /**
-     * Parses date input for display
+     * Parses date input for display.
      *
-     * @param input date input
-     * @return output date
-     * @throws IllegalDateTimeException if invalid format
+     * @param input date input.
+     * @return output date.
+     * @throws IllegalDateTimeException if invalid format.
      */
     private static String parseDateOut(String input) throws IllegalDateTimeException {
         String[] formatsWithYear = {"d-M-yyyy", "d-M-yy", "d/M/yyyy", "d/M/yy",
@@ -55,9 +55,6 @@ public class TimeParser {
                         .parseDefaulting(ChronoField.YEAR, today.getYear())
                         .toFormatter(Locale.ENGLISH);
                 LocalDate date = LocalDate.parse(input, dtf);
-                if (date.isBefore(today)) {
-                    date = date.plusYears(1);
-                }
                 return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             } catch (DateTimeException e) {
                 // try other formats
@@ -67,6 +64,14 @@ public class TimeParser {
         throw new IllegalDateTimeException("Date or date format is invalid");
     }
 
+    /**
+     * Formats date input with "MMM" format to the first letter to be upper case and
+     * the rest, smaller case. For example, sep -> Sep to enable the parse to recognise the month.
+     * This allows input to not case-sensitive.
+     *
+     * @param date date input from user.
+     * @return date in corrected format (if there contains words).
+     */
     public static String formatDateWithWords(String date) {
         StringBuilder result = new StringBuilder();
 
@@ -85,11 +90,11 @@ public class TimeParser {
     }
 
     /**
-     * Parses date for file data
+     * Parses date for file data.
      *
-     * @param input date as displayed
-     * @return output date for file data
-     * @throws IllegalDateTimeException if invalid format
+     * @param input date as displayed.
+     * @return output date for file data.
+     * @throws IllegalDateTimeException if invalid format.
      */
     public static String parseDateForFile(String input) {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");
@@ -98,22 +103,36 @@ public class TimeParser {
     }
 
     /**
-     * Parses time input for display
+     * Parses time input for display.
      *
-     * @param input time input
-     * @return output time
-     * @throws IllegalDateTimeException if invalid format
+     * @param input time input.
+     * @return output time.
+     * @throws IllegalDateTimeException if invalid format.
      */
     public static String parseTimeOut(String input) throws IllegalDateTimeException{
-        String[] formats = {
-                "HHmm", "h a", "ha", "HH:mm", "h:mm a", "h:mma", "HH.mm", "h.mm a", "h.mma"
+        String[] formatsWithoutEnglish = {
+                "HHmm", "HH:mm", "HH.mm"
+        };
+        String[] formatsWithEnglish = {
+                "h a", "ha", "h:mm a", "h:mma", "h.mm a", "h.mma"
         };
 
-        input = input.toUpperCase();
-
-        for (String format : formats) {
+        for (String format : formatsWithoutEnglish) {
             try {
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
+                LocalTime date = LocalTime.parse(input, dtf);
+                return date.format(DateTimeFormatter.ofPattern("h:mm a"));
+            } catch (DateTimeException e) {
+                // try other formats
+            }
+        }
+        for (String format : formatsWithEnglish) {
+            try {
+                DateTimeFormatter dtf = new DateTimeFormatterBuilder()
+                        .parseCaseInsensitive()
+                        .appendPattern(format)
+                        .toFormatter(Locale.ENGLISH);
+//                DateTimeFormatter dtf = DateTimeFormatter.ofPattern(format);
                 LocalTime date = LocalTime.parse(input, dtf);
                 return date.format(DateTimeFormatter.ofPattern("h:mm a"));
             } catch (DateTimeException e) {
@@ -126,11 +145,11 @@ public class TimeParser {
     }
 
     /**
-     * Parses time for file data
+     * Parses time for file data.
      *
-     * @param input time input
-     * @return output time
-     * @throws IllegalDateTimeException if invalid format
+     * @param input time input.
+     * @return output time.
+     * @throws IllegalDateTimeException if invalid format.
      */
     public static String parseTimeForFile(String input) {
         if (input == null) {
@@ -143,11 +162,11 @@ public class TimeParser {
     }
 
     /**
-     * Parses input for display
+     * Parses input for display.
      *
-     * @param input date time input by user
-     * @return date time format for display
-     * @throws IllegalDateTimeException invalid format
+     * @param input date time input by user.
+     * @return date time format for display.
+     * @throws IllegalDateTimeException invalid format.
      */
     public static String[] parseInputOut(String input) throws IllegalDateTimeException {
         String[] out = new String[2];
@@ -201,11 +220,11 @@ public class TimeParser {
     }
 
     /**
-     * Checks if to date is after from date
+     * Checks if to date is after from date.
      *
-     * @param fromDate start date
-     * @param toDate end date
-     * @throws IllegalDateTimeException if end date is before start date
+     * @param fromDate start date.
+     * @param toDate end date.
+     * @throws IllegalDateTimeException if end date is before start date.
      */
     public static void checkValidEventDate(String fromDate, String toDate) throws IllegalDateTimeException {
         LocalDate from = LocalDate.parse(fromDate,
@@ -219,11 +238,11 @@ public class TimeParser {
     }
 
     /**
-     * Checks if to time is after from time
+     * Checks if to time is after from time.
      *
-     * @param fromTime start time
-     * @param toTime end time
-     * @throws IllegalDateTimeException if end time is before start time in the same day
+     * @param fromTime start time.
+     * @param toTime end time.
+     * @throws IllegalDateTimeException if end time is before start time in the same day.
      */
     public static void checkValidEventTime(String fromTime, String toTime) throws IllegalDateTimeException {
         LocalTime from = LocalTime.parse(fromTime,
@@ -240,7 +259,13 @@ public class TimeParser {
         return today.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
-    public static String getNextDateOfTime(String timeString) throws IllegalDateTimeException {
+    /**
+     * Gets the next occurrence of the date for a specified time.
+     *
+     * @param timeString specified time to check.
+     * @return Date of next occurrence of time.
+     */
+    public static String getNextDateOfTime(String timeString) {
         LocalTime time = LocalTime.parse(timeString,
                 DateTimeFormatter.ofPattern("h:mm a"));
         if (time.isBefore(timeNow)) {
@@ -249,12 +274,59 @@ public class TimeParser {
         return getTodayString();
     }
 
-    public static String getNextDateOfTime(String startTimeString, String endtimeString,String endDateString)
-            throws IllegalDateTimeException {
+    /**
+     * Gets the next occurrence of date considering both start and end time.
+     * Used for the logic for event task.
+     *
+     * @param startTimeString From time from event.
+     * @param endtimeString To time from event.
+     * @param endDateString To date from event
+     * @return Date of next occurrence.
+     */
+    public static String getNextDateOfTime(String startTimeString, String endtimeString,String endDateString) {
         if (endDateString == null) {
             return getNextDateOfTime(endtimeString);
         } else {
             return getNextDateOfTime(startTimeString);
+        }
+    }
+
+    /**
+     * Returns the date with year set to the next occurrence w.r.t the current date
+     * Used for deadline task logic and event end time
+     *
+     * @param dateString
+     * @return
+     */
+    public static String getNextDate(String dateString) {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM d yyyy");
+        LocalDate date = LocalDate.parse(dateString, dtf);
+        if (date.isBefore(today)) {
+            return date.plusYears(1).format(dtf);
+        } else {
+            return date.format(dtf);
+        }
+    }
+
+    /**
+     * Used for when there is a startDate and endDate in an event, to consider valid durations.
+     *
+     * @param startDate start date of event
+     * @param endDate end date of event
+     * @return valid start date
+     */
+    public static String getNextValidDuration(String startDate, String endDate) {
+        if (endDate == null) {
+            return startDate;
+        }
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM d yyyy");
+        LocalDate end = LocalDate.parse(endDate, dtf);
+        LocalDate start = LocalDate.parse(startDate, dtf);
+        if (end.isBefore(today)) {
+            return start.plusYears(1).format(dtf);
+        } else {
+            return startDate;
         }
     }
 }

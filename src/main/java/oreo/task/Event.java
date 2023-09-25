@@ -24,9 +24,10 @@ public class Event extends Task {
                  String toDate, String toTime) throws IllegalDateTimeException {
         super(d);
         eventDateTimeFromToCombinationChecker(fromTime, toTime);
-        this.fromDate = (fromDate == null) ? TimeParser.getNextDateOfTime(fromTime,toTime, toDate) : fromDate;
+        this.fromDate = (fromDate == null) ? TimeParser.getNextDateOfTime(fromTime, toTime, toDate)
+                : TimeParser.getNextValidDuration(fromDate, toDate);
         this.fromTime = fromTime;
-        this.toDate = (toDate == null) ? this.fromDate : toDate;
+        this.toDate = (toDate == null) ? this.fromDate : TimeParser.getNextDate(toDate);
         this.toTime = toTime;
         TimeParser.checkValidEventDate(this.fromDate, this.toDate);
         if (this.fromDate.equals(this.toDate) && this.fromTime != null

@@ -18,7 +18,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String date, String time) throws IllegalDateTimeException {
         super(description);
-        this.date = (date == null) ? TimeParser.getNextDateOfTime(time) : date;
+        this.date = (date == null) ? TimeParser.getNextDateOfTime(time) : TimeParser.getNextDate(date);
         this.time = time;
     }
 

@@ -30,7 +30,7 @@
          <padding>
             <Insets left="10.0" right="35.0" />
          </padding></TextField>
-      <TextField fx:id="userInputEdit" cache="true" layoutX="2.0" layoutY="567.0" onAction="#handleEditInput" prefHeight="30.0" prefWidth="470.0" promptText="Type something here..." style="-fx-background-radius: 5em;" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
+      <TextField fx:id="userInputEdit" cache="true" layoutX="2.0" layoutY="567.0" onAction="#handleEditInput" prefHeight="30.0" prefWidth="470.0" promptText="Type something here..." style="-fx-background-radius: 1em;" styleClass="dmSans" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
          <font>
             <Font name="DMSans-Medium" size="11.0" />
          </font>
