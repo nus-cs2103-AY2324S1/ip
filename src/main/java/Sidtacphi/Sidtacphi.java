@@ -114,6 +114,7 @@ public class Sidtacphi extends Application {
     @Override
     public void stop() {
         Storage.saveAsJson(taskList, "./stored/tasks.json");
+        System.exit(0);
     }
 
     /**

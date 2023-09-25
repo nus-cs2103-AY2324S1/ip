@@ -1,7 +1,9 @@
 package sidtacphi.parser;
 
 import java.util.Objects;
-import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
 
 import sidtacphi.exception.SidException;
 import sidtacphi.task.TaskList;
@@ -22,6 +24,11 @@ public class Parser {
         try {
             input = input.trim();
             if (Objects.equals(input, "bye")) {
+                new Timer().schedule(new TimerTask() {
+                        public void run () { 
+                            Platform.exit();
+                        }
+                    }, 700); 
                 return Ui.goodbye();
             } else if (Objects.equals(input, "list")) {
                 return taskList.showTaskList();
