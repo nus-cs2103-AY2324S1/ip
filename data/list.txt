@@ -1,6 +1,6 @@
-D | 0 | return book | 2022-01-01
 D | 1 | eat | 2022-12-29
 T | 1 | read book
 T | 1 | quiz
-T | 0 | quiz
 T | 0 | hello
+T | 0 | read
+E | 0 | sleep | 2022-12-10 | 2022-12-11

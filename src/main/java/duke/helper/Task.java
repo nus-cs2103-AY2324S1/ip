@@ -79,12 +79,12 @@ public class Task {
         }
 
         if (this.typeOfTask == 2) {
-            description = description + " (by: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            description = description + " (by: " + endDate.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")) + ")";
         }
 
         if (this.typeOfTask == 3) {
-            description = description + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
-                    + " to: " + endDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+            description = description + " (from: " + startDate.format(DateTimeFormatter.ofPattern("MM-dd-yyyy"))
+                    + " to: " + endDate.format(DateTimeFormatter.ofPattern("MM-dd-yyyy")) + ")";
         }
 
 

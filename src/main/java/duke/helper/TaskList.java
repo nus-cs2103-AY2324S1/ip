@@ -39,7 +39,7 @@ public class TaskList {
             return ("Invalid index.");
         } else {
 
-            String message = "Noted. I've removed this task:" + userList[position].display();
+            String message = "Noted. I've removed this task:\n" + userList[position].display();
 
 
             Task[] newUserList = new Task[100];

@@ -26,7 +26,7 @@ public class Ui {
 
     public String exit() {
 
-        return " Bye. Hope to see you again soon!";
+        return "Bye. Hope to see you again soon!";
 
     }
 
