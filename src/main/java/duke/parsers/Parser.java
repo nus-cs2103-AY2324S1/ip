@@ -337,7 +337,7 @@ public class Parser {
         }
 
         LocalDate date = LocalDate.parse(datestr);
-        return ui.scheduleString() + "%n"
+        return ui.scheduleString() + "\n"
                 + ui.printListString(tasks.containsDate(date));
     }
 

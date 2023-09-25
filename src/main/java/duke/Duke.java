@@ -1,10 +1,13 @@
 package duke;
 
+import java.awt.*;
 import java.util.Scanner;
 
+import com.beust.jcommander.internal.Nullable;
 import duke.exceptions.DukeException;
 import duke.parsers.Parser;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,11 +15,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -116,6 +120,16 @@ public class Duke extends Application {
     private void handleUserInput() {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
+        userText.setBackground(
+                new Background(
+                        new BackgroundFill(Color.gray(0.9),
+                                new CornerRadii(8),
+                                new Insets(-4))));
+        dukeText.setBackground(
+                new Background(
+                        new BackgroundFill(Color.gray(0.9),
+                                new CornerRadii(8),
+                                new Insets(-4))));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new Circle(40, new ImagePattern(user))),
                 DialogBox.getDukeDialog(dukeText, new Circle(40, new ImagePattern(duke)))
