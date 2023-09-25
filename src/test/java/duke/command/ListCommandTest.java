@@ -13,23 +13,11 @@ import java.io.PrintStream;
 import java.time.LocalDate;
 
 public class ListCommandTest {
-    private final PrintStream standardOut = System.out;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-
-    @BeforeEach
-    public void setUp() {
-        System.setOut(new PrintStream(outputStreamCaptor));
-    }
-    @AfterEach
-    public void tearDown() {
-        System.setOut(standardOut);
-    }
     @Test
     public void execute_emptyList_success() {
         ListCommand listCommand = new ListCommand();
-        listCommand.execute(new TaskList(), new Ui(), new Storage("data/testDuke.txt"));
-        Assertions.assertEquals("Here are the tasks in your list:", outputStreamCaptor.toString()
-                .trim());
+        String result = listCommand.execute(new TaskList(), new Ui(), new Storage("data/testDuke.txt"));
+        Assertions.assertEquals("There are currently no tasks in your list.", result);
     }
     @Test
     public void execute_taskList_success() {
@@ -38,11 +26,11 @@ public class ListCommandTest {
         taskList.addTask(new Deadline("write 100 reviews", LocalDate.parse("2023-12-12")));
         taskList.addTask(new Event("sleep", "12am", "12pm"));
         ListCommand listCommand = new ListCommand();
-        listCommand.execute(taskList, new Ui(), new Storage("data/testDuke.txt"));
-        Assertions.assertEquals("Here are the tasks in your list:" + System.lineSeparator()
+        String result = listCommand.execute(taskList, new Ui(), new Storage("data/testDuke.txt"));
+        Assertions.assertEquals("Here are the task(s) in your list:" + System.lineSeparator()
                 + "1. [T][ ] read 25 books" + System.lineSeparator()
                 + "2. [D][ ] write 100 reviews (by: Dec 12 2023)" + System.lineSeparator()
-                + "3. [E][ ] sleep (from: 12am to: 12pm)", outputStreamCaptor.toString().trim());
+                + "3. [E][ ] sleep (from: 12am to: 12pm)", result);
     }
 }
 

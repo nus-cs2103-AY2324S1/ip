@@ -18,7 +18,7 @@ public class Ui {
         if (tasks.getSize() == 0) {
             return "There are currently no tasks in your list.";
         }
-        String output = "Here are the tasks in your list:";
+        String output = "Here are the task(s) in your list:";
         for (int i = 1; i < tasks.getSize() + 1; i++) {
             output = output.concat(System.lineSeparator() + i + ". " + tasks.getTask(i).toString());
         }
@@ -35,7 +35,7 @@ public class Ui {
         if (tasks.getSize() == 0) {
             return "There are currently no tasks in your list that matches the keyword.";
         }
-        String output = "Here are the matching tasks in your list:";
+        String output = "Here are the matching task(s) in your list:";
         for (int i = 1; i < tasks.getSize() + 1; i++) {
             output = output.concat(System.lineSeparator() + i + ". " + tasks.getTask(i).toString());
         }
@@ -50,7 +50,7 @@ public class Ui {
      */
     public String addTaskResponse(Task task, TaskList tasks) {
         return "Got it. I've added this task:\n  " + task
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+                + "\nNow you have " + tasks.getSize() + " task(s) in the list.";
     }
 
     /**
@@ -62,9 +62,9 @@ public class Ui {
     public String deleteTaskResponse(TaskList deletedList, TaskList tasks) throws ChatException {
         String output = "Noted. I've removed the following task(s):";
         for (int i = deletedList.getSize(); i > 0; i--) {
-            output = output.concat(System.lineSeparator() + deletedList.getTask(i).toString());
+            output = output.concat(System.lineSeparator() + "  " + deletedList.getTask(i).toString());
         }
-        output = output.concat(System.lineSeparator() + "Now you have " + tasks.getSize() + " tasks in the list.");
+        output = output.concat(System.lineSeparator() + "Now you have " + tasks.getSize() + " task(s) in the list.");
         return output;
     }
 
@@ -76,7 +76,7 @@ public class Ui {
     public String markDoneResponse(TaskList markList) throws ChatException {
         String output = "Nice! I've marked the following task(s) as done:";
         for (int i = 1; i <= markList.getSize(); i++) {
-            output = output.concat(System.lineSeparator() + markList.getTask(i).toString());
+            output = output.concat(System.lineSeparator() + "  " + markList.getTask(i).toString());
         }
         return output;
     }
@@ -89,7 +89,7 @@ public class Ui {
     public String markUndoneResponse(TaskList unmarkList) throws ChatException {
         String output = "OK, I've marked the following task(s) as not done yet:";
         for (int i = 1; i <= unmarkList.getSize(); i++) {
-            output = output.concat(System.lineSeparator() + unmarkList.getTask(i).toString());
+            output = output.concat(System.lineSeparator() + "  " + unmarkList.getTask(i).toString());
         }
         return output;
     }
