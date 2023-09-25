@@ -21,6 +21,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+
     private Alcazar alcazar;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
@@ -31,7 +32,8 @@ public class MainWindow extends AnchorPane {
         MainWindow.isExit = false;
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(
-                "Greetings my master! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
+          "Greetings my master! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
+
     }
 
     public void setAlcazar(Alcazar a) {
