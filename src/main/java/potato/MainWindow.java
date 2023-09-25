@@ -1,5 +1,8 @@
 package potato;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+
+import javafx.util.Duration;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -35,6 +40,9 @@ public class MainWindow extends AnchorPane {
 
     public void setPotato(Potato p) {
         potato = p;
+        dialogContainer.getChildren().add(
+                DialogBox.getPotatoDialog("Hello! Welcome!", potatoImage)
+        );
     }
 
     /**
@@ -44,14 +52,20 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws IOException {
         String input = userInput.getText();
-        if (input != null) {
-            String response = potato.getResponse(input);
-            dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getPotatoDialog(response, potatoImage)
-            );
-            userInput.clear();
+        String response = potato.getResponse(input);
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getPotatoDialog(response, potatoImage)
+        );
+        if (input.equals("bye")) {
+            Duration delay = Duration.seconds(3);
+            KeyFrame keyFrame = new KeyFrame(delay, event -> Platform.exit());
+            Timeline timeline = new Timeline(keyFrame);
+            timeline.setCycleCount(1);
+            timeline.play();
         }
+        userInput.clear();
+    }
 
 //        String response = potato.getResponse(input);
 //        dialogContainer.getChildren().addAll(
@@ -59,6 +73,5 @@ public class MainWindow extends AnchorPane {
 //                DialogBox.getDukeDialog(response, potatoImage)
 //        );
 //        userInput.clear();
-    }
 }
 
