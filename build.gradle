@@ -50,7 +50,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "Remi"
+    archiveBaseName = "ReaperRemi"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

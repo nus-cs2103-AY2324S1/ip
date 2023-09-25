@@ -64,6 +64,7 @@ public class Storage {
         } catch (FileNotFoundException e) {
             throw new DukeInvalidFileException();
         }
+        assert file.exists() : "File at " + filePath + " should exist at this point.";
         while (s.hasNext()) {
             String line = s.nextLine();
             String[] parts = line.split("\\|");
@@ -80,18 +81,24 @@ public class Storage {
             }
 
             if (parts[0].equals("T")) {
+                assert parts.length == 3 : "There should be 3 symbols: " +
+                        "class signifier, isDone, and description.";
                 ToDo todo = new ToDo(parts[2]);
                 if (isDone) {
                     todo.markDone();
                 }
                 contents.add(todo);
             } else if (parts[0].equals("D")) {
+                assert parts.length == 4 : "There should be 4 symbols: " +
+                        "class signifier, isDone, description, and deadline.";
                 Deadline deadline = new Deadline(parts[2], parts[3]);
                 if (isDone) {
                     deadline.markDone();
                 }
                 contents.add(deadline);
             } else if (parts[0].equals("E")) {
+                assert parts.length == 5 : "There should be 5 symbols: " +
+                        "class signifier, isDone, description, start, and end.";
                 Event event = new Event(parts[2], parts[3], parts[4]);
                 if (isDone) {
                     event.markDone();

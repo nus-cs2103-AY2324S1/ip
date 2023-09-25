@@ -30,11 +30,11 @@ public class Runner {
      * Runs the chatbot.
      */
     public String runCommand(String command) {
-        //System.out.println(ui.startup());
         try {
-            //String command = ui.getInput();
             Handler handler = new Handler(taskList, ui, storage);
-            if (command.equals("bye")) {
+            if (command.equals("startup")) {
+                return ui.startup();
+            } else if (command.equals("bye")) {
                 return ui.exit();
             } else if (command.equals("list")) {
                 return ui.getList(taskList);

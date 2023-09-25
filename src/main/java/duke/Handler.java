@@ -232,7 +232,7 @@ public class Handler {
             } else if (task instanceof Event) {
                 boolean start = ((Event) task).getFrom().toLowerCase().contains(keywords.toLowerCase());
                 boolean end = ((Event) task).getTo().toLowerCase().contains(keywords.toLowerCase());
-                if (start && end) {
+                if (start || end) {
                     indexList.add(i);
                 }
             } else if (task instanceof Deadline) {
