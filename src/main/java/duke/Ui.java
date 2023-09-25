@@ -239,7 +239,7 @@ public class Ui {
 
     /** Returns an error message String for File related errors. */
     public String fileErrorString() {
-        return "A file-related error occurred.";
+        return "A file-related error occurred. Please try again.";
     }
 
     /** Returns a success message String for mass removal of tasks. */
