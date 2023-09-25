@@ -1,6 +1,20 @@
 # Moira<sup>TM</sup>
 
-A feisty chat bot to help you manage your to-do list!
+A feisty chat bot to help you **manage your to-do list**! Optimized for use via a **Command Line Interface (CLI)**, simply type in a few simple commands and get Moira<sup>TM</sup> up to speed on your latest schedule so that you'll never forget a single thing again!
+
++ [Getting Started](https://github.com/wujy28/ip/edit/master/docs/README.md#getting-started)
++ [Features](https://github.com/wujy28/ip/edit/master/docs/README.md#features)
+  + [Listing All Tasks: `list`](https://github.com/wujy28/ip/edit/master/docs/README.md#listing-all-tasks-list)
+  + [Adding a ToDo Task: `todo`](https://github.com/wujy28/ip/edit/master/docs/README.md#adding-a-todo-task-todo)
+  + [Adding a Deadline Task: `deadline`](https://github.com/wujy28/ip/edit/master/docs/README.md#adding-a-deadline-task-deadline)
+  + [Adding an Event: `event`](https://github.com/wujy28/ip/edit/master/docs/README.md#adding-an-event-event)
+  + [Deleting a Task: `delete`](https://github.com/wujy28/ip/edit/master/docs/README.md#deleting-a-task-delete)
+  + [Marking a Task as Complete: `mark`](https://github.com/wujy28/ip/edit/master/docs/README.md#marking-a-task-as-complete-mark)
+  + [Marking a Task as Incomplete: `unmark`](https://github.com/wujy28/ip/edit/master/docs/README.md#marking-a-task-as-incomplete-unmark)
+  + [Finding Tasks by Keyword: `find`](https://github.com/wujy28/ip/edit/master/docs/README.md#finding-tasks-by-keyword-find)
+  + [Sorting the Task List: `sort`](https://github.com/wujy28/ip/edit/master/docs/README.md#sorting-the-task-list-sort)
+  + [Exiting the Application: `bye`](https://github.com/wujy28/ip/edit/master/docs/README.md#exiting-the-application-bye)
+ + [Command Summary]()
 
 # Getting Started
 
