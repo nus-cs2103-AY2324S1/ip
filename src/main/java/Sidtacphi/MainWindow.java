@@ -26,8 +26,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/SidUser.png"));
     private Image sidImage = new Image(this.getClass().getResourceAsStream("/images/Sid.png"));
 
+
     @FXML
     public void initialize() {
+        assert userImage != null : "User image must be present";
+        assert sidImage != null : "Sid bot's image must be present";
+        
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(
             DialogBox.getSidDialog(Ui.getHello(), sidImage));
