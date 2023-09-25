@@ -9,7 +9,7 @@ import sidtacphi.exception.SidException;
 /**
  * TestTaskList holds the JUnit tests for the TaskList class.
  */
-public class TestTaskList {
+public class TaskListTest {
 
     /**
      * Tests addTask on TaskList.

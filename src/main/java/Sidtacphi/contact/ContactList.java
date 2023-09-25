@@ -33,10 +33,10 @@ public class ContactList extends ArrayList<Contact> {
     }
 
     /**
-     * Adds the input to the task_list kept track of by the bot.
+     * Adds the input to the contactList kept track of by the bot.
      *
      * @param taskType type of task to add
-     * @param input input to add to the task_list kept by the bot
+     * @param input input to add to the contactList kept by the bot
      */
     public String addContact(String input) throws SidException {
         if (input.length() < 11) {

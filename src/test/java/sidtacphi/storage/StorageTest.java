@@ -17,7 +17,7 @@ import sidtacphi.task.TaskType;
 /**
  * TestStorage holds JUnit tests for the Storage class.
  */
-public class TestStorage {
+public class StorageTest {
 
     /**
      * Tests Storage.saveAsJson.
