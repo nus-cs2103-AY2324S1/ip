@@ -1,6 +1,7 @@
 package bert.tasks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -86,6 +87,19 @@ public class TaskList {
             }
         }
         return matchingTasks;
+    }
+
+    /**
+     * Sort tasks by description name.
+     */
+    public void sort() {
+        Comparator<Task> nameComparator = new Comparator<Task>() {
+            @Override
+            public int compare(Task o1, Task o2) {
+                return o1.description.compareTo(o2.description);
+            }
+        };
+        tasks.sort(nameComparator);
     }
 
     /**
