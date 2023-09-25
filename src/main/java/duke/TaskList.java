@@ -140,6 +140,7 @@ public class TaskList {
             if (taskList.get(i).name.contains(s)) {
                 finalOutput += Ui.staticTabPrinter(String.format("%d. %s", i + 1,
                         taskList.get(i).toString()));
+                finalOutput += "\n";
             } else {
                 continue;
             }

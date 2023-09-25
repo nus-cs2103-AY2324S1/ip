@@ -1,5 +1,9 @@
 package duke;
 
+import javafx.application.Platform;
+
+import java.io.IOException;
+
 /**
  * The Parser class creates Parser objects that is used by the Main class
  * to simplify the parsing and processing of input, including the
@@ -111,6 +115,155 @@ public class Parser {
                 String.format("(from: %s to: %s)",
                         fromTime, endTime);
         return new Event(eventName);
+    }
+
+    public static String parseText(String cmd, TaskList tl, Storage store) throws DukeException, IOException {
+
+        Parser p = new Parser(cmd);
+        String command = p.command();
+        String fullLine = p.fullLine;
+        String finalOutput = "";
+        Ui ui = new Ui();
+
+        assert (command instanceof String);
+        assert (command != null);
+
+        switch (command) {
+        case "bye":
+            finalOutput = ui.byeScreen();
+            Platform.exit();
+            break;
+
+        case "list":
+            finalOutput = ui.taskListPrinter(tl);
+            break;
+
+        case "mark":
+            if (p.commandOnly()) {
+                throw new DukeException(new Ui().indexErrorString());
+            }
+            tl.mark(p.num());
+            try {
+                store.taskListToFile(tl);
+            } catch (IOException e) {
+                throw new IOException(new Ui().fileErrorString());
+            }
+            finalOutput = ui.markPrinter(tl, p.num());
+
+            break;
+
+        case "unmark":
+            if (p.commandOnly()) {
+                throw new DukeException(new Ui().indexErrorString());
+            }
+            tl.unmark(p.num());
+            try {
+                store.taskListToFile(tl);
+            } catch (IOException e) {
+                throw new IOException(new Ui().fileErrorString());
+            }
+            finalOutput = ui.unmarkPrinter(tl, p.num());
+
+            break;
+
+        case "delete":
+            if (p.commandOnly()) {
+                throw new DukeException(new Ui().indexErrorString());
+            }
+            Task tempDelete = tl.get(p.num());
+            tl.remove(p.num());
+            try {
+                store.taskListToFile(tl);
+            } catch (IOException e) {
+                throw new IOException(new Ui().fileErrorString());
+            }
+            finalOutput = ui.removedTaskScreen(tempDelete, tl.size());
+
+            break;
+
+        case "find":
+            if (p.commandOnly()) {
+                throw new DukeException(new Ui().textErrorString());
+            }
+
+            finalOutput = ui.findListPrinter(tl, p.word());
+
+            break;
+
+        case "delete_all":
+            tl.purgeList();
+            try {
+                store.taskListToFile(tl);
+            } catch (IOException e) {
+                finalOutput = ui.unknownErrorString();
+                break;
+            }
+
+            finalOutput = ui.removedAllTaskScreen();
+            break;
+
+        default:
+
+            if (command.equals("todo")) {
+                ToDo tempTodo = null;
+                try {
+                    tempTodo = p.parseTodo();
+                } catch (DukeException e) {
+                    throw e;
+                }
+                tl.add(tempTodo);
+
+                try {
+                    store.taskListToFile(tl);
+                } catch (IOException e) {
+                    throw new IOException(new Ui().fileErrorString());
+                }
+                finalOutput = ui.addedTaskScreen(tempTodo, tl.size());
+
+            } else if (command.equals("deadline")) {
+
+                Deadline tempDeadline = null;
+                try {
+                    tempDeadline = p.parseDeadline();
+                } catch (DukeException e) {
+                    throw new DukeException(new Ui().deadlineErrorString());
+                }
+                tl.add(tempDeadline);
+
+                try {
+                    store.taskListToFile(tl);
+                } catch (IOException e) {
+                    throw new IOException(new Ui().fileErrorString());
+                }
+                finalOutput = ui.addedTaskScreen(tempDeadline, tl.getTaskList().size());
+
+            } else if (command.equals("event")) {
+
+                Event tempEvent = null;
+                try {
+                    tempEvent = p.parseEvent();
+                } catch (DukeException e) {
+                    throw new DukeException(new Ui().eventErrorString());
+                }
+                tl.add(tempEvent);
+
+                try {
+                    store.taskListToFile(tl);
+                } catch (IOException e) {
+                    throw new DukeException(new Ui().eventErrorString());
+                }
+                finalOutput = ui.addedTaskScreen(tempEvent, tl.size());
+
+            } else {
+                throw new DukeException(ui.unknownErrorString());
+            }
+
+            break;
+        }
+
+        assert (finalOutput != null);
+        return finalOutput;
+
     }
 
 }

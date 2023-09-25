@@ -161,7 +161,7 @@ public class ChatterBox extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
+        Label userText = new Label("User: " + userInput.getText() + " ");
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
@@ -171,170 +171,24 @@ public class ChatterBox extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * This method gets a response to be displayed by the GUI, in the
+     * form of a String, whether that be a standard String or an error
+     * message contained within a thrown exception.
+     *
+     * @return A String to be returned as duke's response
+     *
      */
     private String getResponse(String input) {
         String res = null;
         try {
-            res = parseText(input);
+            res = Parser.parseText(input, tl, store);
         } catch (DukeException e) {
             res = e.getMessage();
         } catch (IOException i) {
             res = new Ui().fileErrorString();
         }
         assert (res != null);
-        return "ChatterBox: " + res;
+        return " ChatterBox: " + res;
     }
-
-    public String parseText(String cmd) throws DukeException, IOException {
-
-        Parser p = new Parser(cmd);
-        String command = p.command();
-        String fullLine = p.fullLine;
-        String finalOutput = "";
-
-        assert (command instanceof String);
-        assert (command != null);
-
-        switch (command) {
-        case "bye":
-            finalOutput = ui.byeScreen();
-            Platform.exit();
-            break;
-
-        case "list":
-            finalOutput = ui.taskListPrinter(tl);
-            break;
-
-        case "mark":
-            if (p.commandOnly()) {
-                throw new DukeException(new Ui().indexErrorString());
-            }
-            tl.mark(p.num());
-            try {
-                this.store.taskListToFile(tl);
-            } catch (IOException e) {
-                throw new IOException(new Ui().fileErrorString());
-            }
-            finalOutput = ui.markPrinter(tl, p.num());
-
-            break;
-
-        case "unmark":
-            if (p.commandOnly()) {
-                throw new DukeException(new Ui().indexErrorString());
-            }
-            tl.unmark(p.num());
-            try {
-                this.store.taskListToFile(tl);
-            } catch (IOException e) {
-                throw new IOException(new Ui().fileErrorString());
-            }
-            finalOutput = ui.unmarkPrinter(tl, p.num());
-
-            break;
-
-        case "delete":
-            if (p.commandOnly()) {
-                throw new DukeException(new Ui().indexErrorString());
-            }
-            Task tempDelete = this.tl.get(p.num());
-            tl.remove(p.num());
-            try {
-                this.store.taskListToFile(tl);
-            } catch (IOException e) {
-                throw new IOException(new Ui().fileErrorString());
-            }
-            finalOutput = ui.removedTaskScreen(tempDelete, tl.size());
-
-            break;
-
-        case "find":
-            if (p.commandOnly()) {
-            throw new DukeException(new Ui().textErrorString());
-            }
-
-            finalOutput = ui.findListPrinter(tl, p.word());
-
-            break;
-
-        case "delete_all":
-            tl.purgeList();
-            try {
-                this.store.taskListToFile(tl);
-            } catch (IOException e) {
-                finalOutput = ui.unknownErrorString();
-                break;
-            }
-
-            finalOutput = ui.removedAllTaskScreen();
-            break;
-
-        default:
-
-            if (command.equals("todo")) {
-                ToDo tempTodo = null;
-                try {
-                    tempTodo = p.parseTodo();
-                } catch (DukeException e) {
-                    throw e;
-                }
-                tl.add(tempTodo);
-
-                try {
-                    this.store.taskListToFile(tl);
-                } catch (IOException e) {
-                    throw new IOException(new Ui().fileErrorString());
-                }
-                finalOutput = ui.addedTaskScreen(tempTodo, tl.size());
-
-            } else if (command.equals("deadline")) {
-
-                Deadline tempDeadline = null;
-                try {
-                    tempDeadline = p.parseDeadline();
-                } catch (DukeException e) {
-                    throw new DukeException(new Ui().deadlineErrorString());
-                }
-                tl.add(tempDeadline);
-
-                try {
-                    this.store.taskListToFile(tl);
-                } catch (IOException e) {
-                    throw new IOException(new Ui().fileErrorString());
-                }
-                finalOutput = ui.addedTaskScreen(tempDeadline, this.tl.getTaskList().size());
-
-            } else if (command.equals("event")) {
-
-                Event tempEvent = null;
-                try {
-                    tempEvent = p.parseEvent();
-                } catch (DukeException e) {
-                    throw new DukeException(new Ui().eventErrorString());
-                }
-                tl.add(tempEvent);
-
-                try {
-                    this.store.taskListToFile(tl);
-                } catch (IOException e) {
-                    throw new DukeException(new Ui().eventErrorString());
-                }
-                finalOutput = ui.addedTaskScreen(tempEvent, tl.size());
-
-            } else {
-                throw new DukeException(ui.unknownErrorString());
-            }
-
-            break;
-        }
-
-        assert (finalOutput != null);
-        return finalOutput;
-
-    }
-
-
 
 }

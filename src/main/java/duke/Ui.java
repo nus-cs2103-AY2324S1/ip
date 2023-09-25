@@ -254,12 +254,12 @@ public class Ui {
 
     /** Returns an error message String for index-related errors. */
     public String indexErrorString() {
-        return "Invalid index, try again.";
+        return "Invalid index, try again with this format: <command> <number>";
     }
 
     /** Returns an error message String for task-finding related errors. */
     public String textErrorString() {
-        return "Invalid text, try again.";
+        return "Invalid text, try again with this format <command> <text>";
     }
 
 }
