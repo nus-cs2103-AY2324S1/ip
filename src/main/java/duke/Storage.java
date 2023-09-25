@@ -75,7 +75,7 @@ public class Storage {
 
             boolean isDone = false;
 
-            if (parts[1] == "1") {
+            if (parts[1].equals("1")) {
                 isDone = true;
             }
 
