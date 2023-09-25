@@ -24,10 +24,9 @@ public class TaskList {
     /**
      * Deletes Task from the Task List.
      *
-     * @param input User input specifying the index of the task to be removed.
+     * @param taskIndex Index of task to be deleted.
      */
-    public void deleteTask(String input) {
-        int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
+    public void deleteTask(int taskIndex) {
         taskList.remove(taskIndex);
     }
 

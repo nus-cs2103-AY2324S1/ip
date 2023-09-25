@@ -1,5 +1,6 @@
 package main;
 
+import exception.DukeException;
 import task.Task;
 import task.TaskList;
 
@@ -17,7 +18,7 @@ public class UI {
     /**
      * Generates the divider displayed in the terminal.
      */
-    String printDivider() {
+    public String printDivider() {
         String line = "\n________________________________________________________";
         return line;
     }
@@ -116,15 +117,21 @@ public class UI {
     /**
      * Generates the delete message displayed in the terminal.
      *
-     * @param input User input.
+     * @param taskIndex Index of task to be deleted.
      * @param taskList Task list containing all the tasks.
      * @return Delete message in string format.
      */
-    public String showDelete(String input, TaskList taskList) {
-        int taskIndex = Integer.parseInt(input.substring(7)) - 1;
+    public String showDelete(int taskIndex, TaskList taskList) throws DukeException {
         StringBuilder sb = new StringBuilder();
         sb.append("Noted. I've removed this task:");
-        sb.append("\n").append(taskList.getTaskArrayList().get(taskIndex));
+        try {
+            sb.append("\n").append(taskList.getTaskArrayList().get(taskIndex));
+        } catch (RuntimeException e) {
+            throw new DukeException(String.format("Given index is out of range. Index range should be between" +
+                            " 1 and %d.",
+                    taskList.getSize()));
+        }
+
         return String.valueOf(sb);
     }
 

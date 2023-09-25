@@ -32,9 +32,21 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        String message = ui.showDelete(fullCommand, taskList);
-        taskList.deleteTask(fullCommand);
+
+        // In the event that the task list is empty;
+        if (taskList.getSize() == 0) {
+            StringBuilder emptyTaskMessage = new StringBuilder("No tasks in the task list to be deleted.");
+            emptyTaskMessage.append(ui.printDivider());
+            return String.valueOf(emptyTaskMessage);
+        }
+
+        int taskIndex = Integer.parseInt(this.fullCommand.substring(7).trim()) - 1;
+
+
+        String message = ui.showDelete(taskIndex, taskList);
+        taskList.deleteTask(taskIndex);
         storage.saveList(taskList);
+
         return message;
     }
 

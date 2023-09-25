@@ -31,8 +31,15 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
-        StringBuilder sb = new StringBuilder();
 
+        // Empty task list
+        if (taskList.getSize() == 0) {
+            StringBuilder emptyTaskMessage = new StringBuilder("No tasks in the task list to be marked as not done.");
+            emptyTaskMessage.append(ui.printDivider());
+            return String.valueOf(emptyTaskMessage);
+        }
+
+        StringBuilder sb = new StringBuilder();
         try {
             sb.append(taskList.unmark(this.index));
             storage.saveList(taskList);
