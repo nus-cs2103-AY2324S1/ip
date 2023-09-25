@@ -96,12 +96,17 @@ public class Storage {
             return tasks;
         }
         if (data.charAt(1) == 'T') {
-            Todo todo = new Todo(data.substring(7));
+            String[] description = data.split("#");
+            Todo todo = new Todo(description[0].substring(7));
             if (data.charAt(4) == 'X') {
                 todo.setAction("mark");
             }
+            todo.setTag(description[1]);
             tasks.add(todo);
         } else if (data.charAt(1) == 'D') {
+            //format: [D][X] assignment (by: 02 Feb 2001 7 PM) #urgent
+            String tag = data.split("#")[1];
+            data = data.split("#")[0];
             String dates = data.split(":", 2)[1];
             String desc = data.split("\\(")[0];
             Date date = fileDateParser(dates.substring(1, dates.length() - 1));
@@ -109,8 +114,11 @@ public class Storage {
             if (data.charAt(4) == 'X') {
                 deadline.setAction("mark");
             }
+            deadline.setTag(tag);
             tasks.add(deadline);
         } else if (data.charAt(1) == 'E') {
+            String tag = data.split("#")[1];
+            data = data.split("#")[0];
             String[] dates = data.split(":");
             String desc = data.split("\\(")[0];
             Date from = fileDateParser(dates[1].substring(1, dates[1].length() - 2));
@@ -119,6 +127,7 @@ public class Storage {
             if (data.charAt(4) == 'X') {
                 event.setAction("mark");
             }
+            event.setTag(tag);
             tasks.add(event);
         }
         return tasks;

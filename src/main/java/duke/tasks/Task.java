@@ -8,7 +8,7 @@ public class Task {
     protected static int size = 0;
     protected String description;
     protected boolean isDone;
-    protected String tag = "(no tag)";
+    protected String tag = "no tag";
 
     public Task(String description) {
         this.description = description;
@@ -66,6 +66,6 @@ public class Task {
     @Override
     public String toString() {
         return "[" + this.getStatusIcon() + "] "
-                + this.description + " #" + this.tag;
+                + this.description;
     }
 }
