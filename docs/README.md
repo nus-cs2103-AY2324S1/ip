@@ -4,6 +4,12 @@
 A chatbot that helps you keep track of your tasks.
 By allowing you to create different task type, you can keep track of your tasks easily.
 
+### Quick Start 
+1. Ensure you have `Java 11` installed in your Computer.
+2. Download the latest duke.jar from the releases page.
+3. Copy the file to the folder you want to use as the home folder for the chatbot Benedict.
+4. Double-click the file to start the app. The GUI should appear in a few seconds.
+
 ## Features 
 
 ### Create a To-Do task: `todo`
