@@ -182,6 +182,7 @@ Input format:
 Example of usage:
 
 `deadline recurring weekly quiz /by 22/08/2023 1500`
+
 `list`
 
 Expected output:

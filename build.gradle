@@ -54,6 +54,10 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 run{
     standardInput = System.in
 }
