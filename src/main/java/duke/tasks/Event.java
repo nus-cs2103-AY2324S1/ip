@@ -41,6 +41,6 @@ public class Event extends Task {
     @Override
     public String toFile() {
         return super.isDone ? ("E | 1 | " + super.task + " | " + this.from + "-" + this.to)
-        : ("E | 0 | " + super.task + " | " + this.from + "-" + this.to);
+                            : ("E | 0 | " + super.task + " | " + this.from + "-" + this.to);
     }
 }

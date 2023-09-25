@@ -95,17 +95,17 @@ public class TaskList {
     public void add(Task input) {
         taskList.add(input);
         Storage.save(taskList);
-        String[] messageList = {("Got it! This task has been added: ")
-        , (input.getStatus())
-        , ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
+        String[] messageList = {("Got it! This task has been added: "), 
+                                (input.getStatus()), 
+                                ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
         Ui.print(messageList);
     }
 
     public void addTest(Task input) {
         taskList.add(input);
-        String[] messageList = {("Got it! This task has been added: ")
-                , (input.getStatus())
-                , ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
+        String[] messageList = {("Got it! This task has been added: "), 
+                                (input.getStatus()), 
+                                ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
         Ui.print(messageList);
     }
 
