@@ -1,6 +1,7 @@
 # ReaperRemi: User Guide
 
 ReaperRemi is a reminder bot, built to remind you of all the urgent tasks hanging over your head.
+
 ...just kidding. It's meant to help!
 
 ![ReaperRemi UI](http://wamps-jp.github.io/ip/Ui.png)[^1]
