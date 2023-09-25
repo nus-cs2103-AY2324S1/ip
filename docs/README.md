@@ -1,29 +1,114 @@
-# User Guide
+# DogeBot :dog2: - User Guide
 
-## Features 
+## Features & Usage
 
-### Feature-ABC
+### Listing all tasks: `list`
 
-Description of the feature.
+Shows a list of all the tasks added.
 
-### Feature-XYZ
+Format: `list`
 
-Description of the feature.
+Example:
+- `list`
 
-## Usage
+### Adding a todo task: `todo`
 
-### `Keyword` - Describe action
+Adds a todo task.
 
-Describe the action and its outcome.
+Format: `todo <task description>`
 
-Example of usage: 
+Examples:
+- `todo buy milk`
+- `todo buy cereal`
 
-`keyword (optional arguments)`
+### Adding a deadline task: `deadline`
 
-Expected outcome:
+Adds a deadline task.
 
-Description of the outcome.
+> [!NOTE]
+> Parameters in square brackets are optional
 
-```
-expected output
-```
+Format: `deadline <task description> /by <deadline date and time> [r/numberOfDays]`
+- `r/` sets the reminder `numberOfDays` days in advance
+- `r/` is an optional parameter, it may be omitted if no reminders are required
+
+Examples:
+- `deadline buy cereal /by 25/9/2023 1500`
+- `deadline buy milk /by 25/9/2023 1500 r/2`
+
+### Adding an event task: `event`
+
+Adds an event task.
+
+> [!NOTE]
+> Parameters in square brackets are optional
+
+Format: `event <task description> /from <deadline date and time> /to <deadline date and time> [r/numberOfDays]`
+- `/from <deadline date and time>` sets the **start** date and time of the event
+- `/to <deadline date and time>` sets the **end** date and time of the event
+- `r/` sets the reminder `numberOfDays` days in advance of the **start** date of the event
+- `r/` is an optional parameter, it may be omitted if no reminders are required
+
+Examples:
+- `event eat cereal /from 25/9/2023 1500 /to 25/9/2023 1600`
+- `event project meeting /from 25/9/2023 2000 /to 25/9/2023 2100 r/2`
+
+### Marking a task: `mark`
+
+Marks a task as done.
+
+Format: `mark <task index>`
+- `<task index>` is an index of a task after using the `list` command
+
+Examples:
+- `mark 1`
+
+### Unmarking a task: `unmark`
+
+Unmarks a task as undone.
+
+Format: `unmark <task index>`
+- `<task index>` is an index of a task after using the `list` command
+
+Examples:
+- `unmark 1`
+
+### Deleting a task: `delete`
+
+Deletes a task.
+
+Format: `delete <task index>`
+- `<task index>` is an index of a task after using the `list` command
+
+Examples:
+- `delete 1`
+
+### Finding tasks with a keyword: `find`
+
+Finds tasks with the given keyword.
+
+Format: `find <keyword>`
+
+Examples:
+- `find milk`
+- `find cereal`
+
+### Viewing upcoming reminders: `reminder`
+
+Views tasks with upcoming reminders.
+
+Format: `reminder`
+- upcoming reminders are set reminder dates that have passed today's date
+- only `deadline` and `event` tasks are able to set reminder dates
+
+Example:
+- `reminder`
+
+### Saving task(s) data: `bye`
+
+Saves current task(s) data.
+
+Format: `bye`
+
+Example:
+- `bye`
