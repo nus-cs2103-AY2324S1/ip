@@ -5,7 +5,7 @@ package duke;
  * System.out formatting, line formatting, and other output formatting.
  */
 public class Ui {
-    private static final String TABS_SPACING = "___________________________________";
+    private static final String TABS_SPACING = "_________________________";
     private static final String WHITE_SPACING = "      ";
     /** Default constructor */
     public Ui() {}
@@ -100,7 +100,6 @@ public class Ui {
                 + this.tabPrinter("Here are the tasks in your list:")
                 + "\n"
                 + tl.taskIterator()
-                + "\n"
                 + this.linePrinter();
 
         return finalOutput;
@@ -223,10 +222,6 @@ public class Ui {
         return "The description of a todo cannot be empty!";
     }
 
-    public void todoErrorPrinter() {
-        this.slicePrinter(this.todoErrorString());
-    }
-
     /** Returns an error message String for Deadline objects */
     public String deadlineErrorString() {
         return "The due date of a deadline cannot be empty!";
@@ -247,7 +242,7 @@ public class Ui {
         return "A file-related error occurred.";
     }
 
-    /** Returns an success message String for mass removal of tasks. */
+    /** Returns a success message String for mass removal of tasks. */
     public String removedAllTaskScreen() {
         return "Successfully removed all tasks.";
     }
@@ -262,4 +257,8 @@ public class Ui {
         return "Invalid text, try again with this format <command> <text>";
     }
 
+    /** Returns an error message String when the task list is empty */
+    public String emptyListErrorString() {
+        return "Your task list is empty!";
+    }
 }

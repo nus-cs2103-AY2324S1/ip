@@ -130,11 +130,13 @@ public class Parser {
 
         switch (command) {
         case "bye":
-            finalOutput = ui.byeScreen();
-            Platform.exit();
-            break;
+            return "bye";
 
         case "list":
+            if (tl.size() == 0) {
+                finalOutput = ui.emptyListErrorString();
+                break;
+            }
             finalOutput = ui.taskListPrinter(tl);
             break;
 
@@ -239,6 +241,7 @@ public class Parser {
 
             } else if (command.equals("event")) {
 
+                /*
                 Event tempEvent = null;
                 try {
                     tempEvent = p.parseEvent();
@@ -250,9 +253,12 @@ public class Parser {
                 try {
                     store.taskListToFile(tl);
                 } catch (IOException e) {
-                    throw new DukeException(new Ui().eventErrorString());
+                    throw new IOException(new Ui().fileErrorString());
                 }
                 finalOutput = ui.addedTaskScreen(tempEvent, tl.size());
+                */
+
+                finalOutput = p.eventCommand(p, tl, store);
 
             } else {
                 throw new DukeException(ui.unknownErrorString());
@@ -264,6 +270,23 @@ public class Parser {
         assert (finalOutput != null);
         return finalOutput;
 
+    }
+
+    String eventCommand(Parser p, TaskList tl, Storage store) throws DukeException, IOException {
+        Event tempEvent = null;
+        try {
+            tempEvent = p.parseEvent();
+        } catch (DukeException e) {
+            throw new DukeException(new Ui().eventErrorString());
+        }
+        tl.add(tempEvent);
+
+        try {
+            store.taskListToFile(tl);
+        } catch (IOException e) {
+            throw new IOException(new Ui().fileErrorString());
+        }
+        return new Ui().addedTaskScreen(tempEvent, tl.size());
     }
 
 }

@@ -23,6 +23,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+
 
 /**
  * An interactive digital task manager called ChatterBox.
@@ -44,22 +48,12 @@ public class ChatterBox extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Ui ui = new Ui();
-    private TaskList tl = new TaskList();
-    private Storage store = new Storage();
+    private Ui ui;
+    private TaskList tl;
+    private Storage store;
 
     private Image user = new Image(this.getClass().getResourceAsStream(USER_IMAGE_LOCATION));
     private Image duke = new Image(this.getClass().getResourceAsStream(DUKE_IMAGE_LOCATION));
-
-    /**
-     * Constructs an empty ChatterBox object.
-     */
-    public ChatterBox() throws IOException, DukeException {
-        this(new Ui(), new TaskList(), new Storage());
-        ArrayList<Task> taskList = this.tl.getTaskList();
-        this.store.fileToTaskList(this.tl);
-
-    }
 
     /**
      * Constructs a ChatterBox object with all parameters specified.
@@ -72,6 +66,17 @@ public class ChatterBox extends Application {
         this.ui = ui;
         this.tl = tl;
         this.store = store;
+    }
+
+    /**
+     * Constructs an empty ChatterBox object with no input parameters.
+     *
+     */
+    public ChatterBox() throws IOException, DukeException {
+        this(new Ui(), new TaskList(), new Storage());
+        ArrayList<Task> taskList = this.tl.getTaskList();
+        this.store.fileToTaskList(this.tl);
+
     }
 
 
@@ -94,7 +99,7 @@ public class ChatterBox extends Application {
 
         //Step 2. Formatting the window to look as expected
         stage.setTitle("ChatterBox");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setMinHeight(MIN_HEIGHT);
         stage.setMinWidth(MIN_WIDTH);
 
@@ -142,32 +147,34 @@ public class ChatterBox extends Application {
     }
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and the other containing
+     * Duke's reply and then appends them to the dialog container. Clears the
+     * user input after processing. If a bye command is entered, exits the Application
+     * after a specified period of time.
      */
     private void handleUserInput() {
-        Label userText = new Label("User: " + userInput.getText() + " ");
-        Label dukeText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
+        Label userText = new Label("\n" + "User: " + userInput.getText() + " ");
+        String responseString = getResponse(userInput.getText());
+        Label dukeText = new Label(responseString);
+
+       if (responseString.equals("bye")) {
+           dukeText = new Label(new Ui().byeScreen());
+           Timeline timeline = new Timeline(new KeyFrame(
+                   Duration.millis(1000),
+                   ae -> {
+                       // 3. Exit the application
+                       Platform.exit();
+                   }
+           ));
+
+           timeline.play();
+       }
+
+       dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
-        userInput.clear();
+       userInput.clear();
     }
 
     /**
@@ -182,13 +189,16 @@ public class ChatterBox extends Application {
         String res = null;
         try {
             res = Parser.parseText(input, tl, store);
+            if (res.equals("bye")) {
+                return "bye";
+            }
         } catch (DukeException e) {
             res = e.getMessage();
         } catch (IOException i) {
             res = new Ui().fileErrorString();
         }
         assert (res != null);
-        return " ChatterBox: " + res;
+        return " ChatterBox: " + "\n" + res + "\n";
     }
 
 }

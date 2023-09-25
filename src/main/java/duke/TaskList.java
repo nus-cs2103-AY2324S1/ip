@@ -5,7 +5,8 @@ import java.util.ArrayList;
 /**
  * The TaskList class is a mutable delegation of an ArrayList of Task objects.
  * This class is used to encapsulate the list of Tasks and perform certain functions
- * internally.
+ * internally, providing an abstraction barrier between the user and the list of
+ * tasks.
  */
 public class TaskList {
     ArrayList<Task> taskList;
@@ -141,8 +142,6 @@ public class TaskList {
                 finalOutput += Ui.staticTabPrinter(String.format("%d. %s", i + 1,
                         taskList.get(i).toString()));
                 finalOutput += "\n";
-            } else {
-                continue;
             }
         }
         return finalOutput;
