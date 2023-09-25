@@ -3,7 +3,6 @@ package bert.commands;
 import bert.storage.Storage;
 import bert.tasks.Task;
 import bert.tasks.TaskList;
-import bert.ui.Ui;
 
 /**
  * Represents a command that marks a task on a task list as not done.
@@ -24,8 +23,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) {
         Task t = tasks.unmark(this.index);
-        ui.showResult(String.format(MESSAGE, t));
+        return new CommandResult(String.format(MESSAGE, t));
     }
 }

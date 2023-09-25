@@ -8,6 +8,6 @@ public class BertInvalidCommandException extends BertException {
      * Constructs an invalid command exception.
      */
     public BertInvalidCommandException() {
-        super("The task command is invalid");
+        super("The command is invalid");
     }
 }

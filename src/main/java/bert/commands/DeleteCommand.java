@@ -3,7 +3,6 @@ package bert.commands;
 import bert.storage.Storage;
 import bert.tasks.Task;
 import bert.tasks.TaskList;
-import bert.ui.Ui;
 
 /**
  * Represents a command that deletes a task in a task list.
@@ -25,8 +24,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) {
         Task t = tasks.delete(this.index);
-        ui.showResult(String.format(MESSAGE, t, tasks.size()));
+        return new CommandResult(String.format(MESSAGE, t, tasks.size()));
     }
 }
