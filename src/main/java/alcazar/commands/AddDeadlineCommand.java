@@ -26,7 +26,7 @@ public class AddDeadlineCommand extends Command {
      * Executes the addition of a Deadline Task to the TaskList
      * @param tasks the TaskList containing all the tasks upto present
      * @param storage The Storage which stores all the tasks upto now
-     * @return A String response to showcase that the respective deadline has been added to the TaskList
+     * @return A Response to showcase that the respective deadline has been added to the TaskList
      * @throws InvalidArgumentException If no prompt/topic is given for the deadline
      */
     @Override

@@ -13,7 +13,7 @@ public class ListCommand extends Command {
      * Executes the command of listing tasks
      * @param tasks the TaskList containing all the tasks upto present
      * @param storage The Storage which stores all the tasks upto now
-     * @return A String response listing the added tasks
+     * @return A Response listing the added tasks
      */
     @Override
     public Response execute(

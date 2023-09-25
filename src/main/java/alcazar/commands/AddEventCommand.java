@@ -26,7 +26,7 @@ public class AddEventCommand extends Command {
      * Executes the addition of a Event Task to the TaskList
      * @param tasks the TaskList containing all the tasks upto present
      * @param storage The Storage which stores all the tasks upto now
-     * @return A String response to showcase that the respective event has been added to the TaskList
+     * @return A Response to showcase that the respective event has been added to the TaskList
      * @throws InvalidArgumentException If no prompt/topic is given for the event
      */
     @Override

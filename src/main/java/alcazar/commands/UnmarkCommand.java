@@ -24,7 +24,7 @@ public class UnmarkCommand extends Command {
      * Executes the un-marking of a Task
      * @param tasks the TaskList containing all the tasks upto present
      * @param storage The Storage which stores all the tasks upto now
-     * @return A String response to showcase that the respective Task has been un-marked
+     * @return A Response to showcase that the respective Task has been un-marked
      * @throws InvalidSerialException If the serial number of the task to be un-marked is negative
      *       or out of bounds
      */

@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
         MainWindow.isExit = false;
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(
-          "Greetings my master! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
+            "Greetings my master! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
 
     }
 

@@ -13,13 +13,30 @@ public class Alcazar {
     private TaskList tasks;
 
     /**
-     * Generates response for the given user input.
+     * Constructs new Alcazar object
      */
-    public Response getResponse(String input) {
+    public Alcazar() {
         String filePath = "./src/main/java/data/tasks.txt";
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
+    }
+
+    /**
+     * Changes the data source file path to the passed location.
+     * @param filePath File path to the new data source location
+     */
+    public void reInitialiseStorage(String filePath) {
+        storage = new Storage(filePath);
+        tasks = new TaskList(storage.load());
+    }
+
+    /**
+     * Generates response for the given user input.
+     * @param input The passed user input
+     */
+    public Response getResponse(String input) {
         Response inputResponse;
+
         try {
             Command command = Parser.parse(input);
             inputResponse = command.execute(tasks, storage);
@@ -27,6 +44,11 @@ public class Alcazar {
             boolean isUserExiting = false;
             return new Response(e.getMessage(), isUserExiting);
         }
+
+        if (inputResponse.isFileChange()) {
+            this.reInitialiseStorage(inputResponse.getFilePath());
+        }
+
         return inputResponse;
     }
 }

@@ -15,7 +15,7 @@ public abstract class Command {
      * Executes the Command
      * @param tasks the TaskList containing all the tasks upto present
      * @param storage The Storage which stores all the tasks upto now
-     * @return A String response to showcase that the command has been executed
+     * @return A Response to showcase that the command has been executed
      * @throws AlcazarException If an empty command or out of bounds serial is passed
      */
     public abstract Response execute(

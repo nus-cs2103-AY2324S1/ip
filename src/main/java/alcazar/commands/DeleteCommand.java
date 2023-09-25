@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
      * Executes the deletion of a Task
      * @param tasks the TaskList containing all the tasks upto present
      * @param storage The Storage which stores all the tasks upto now
-     * @return A String response to showcase that the respective Task has been deleted
+     * @return A Response to showcase that the respective Task has been deleted
      * @throws InvalidSerialException If the serial number of the task to be deleted is negative
      *       or out of bounds
      */

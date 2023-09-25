@@ -40,6 +40,8 @@ public class Parser {
             return new AddEventCommand(prompt);
         } else if (prompt.contains("todo")) {
             return new AddToDoCommand(prompt);
+        } else if (prompt.contains("data source")) {
+            return new ChangeDataSource(prompt);
         } else {
             throw new InvalidTaskException(
                     "☹ OOPS!!! I'm sorry, but I don't know what that means :-("
