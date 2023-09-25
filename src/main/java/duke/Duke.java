@@ -1,8 +1,9 @@
-import exceptions.DukeException;
-import exceptions.DukeInvalidFileException;
-import exceptions.DukeInvalidInputException;
+package duke;
 
-import java.util.Scanner;
+import duke.exceptions.DukeException;
+import duke.exceptions.DukeInvalidFileException;
+import duke.exceptions.DukeInvalidInputException;
+import duke.tasks.TaskList;
 
 public class Duke {
     private Storage storage;
