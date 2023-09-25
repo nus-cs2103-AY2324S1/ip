@@ -1,15 +1,5 @@
 package duke;
-/*
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-*/
 import duke.helper.Task;
 import duke.helper.Storage;
 import duke.helper.Ui;
@@ -19,7 +9,7 @@ import duke.helper.TaskList;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
-import java.util.zip.DataFormatException;
+
 
 public class Duke {
 
@@ -53,6 +43,9 @@ public class Duke {
         return true;
     }
 
+    /**
+     * Handles interactions with the user in command line interface.
+     */
     public void run() {
 
         ui.speak(greet());
@@ -62,6 +55,7 @@ public class Duke {
 
         Scanner getUserInput = new Scanner(System.in);
 
+
         while (!(wantToExit)) {
 
             haveChangesInUserList = false;
@@ -69,6 +63,8 @@ public class Duke {
             String userInput = getUserInput.nextLine();
             parser.processUserCommand(userInput);
 
+            //Invoke corresponding command handling using switch. Therefore, the switch statement is long
+            //because there are a number of available user command.
             switch (parser.getCommand()) {
 
             case "bye":
@@ -207,13 +203,20 @@ public class Duke {
     }
 
 
-
+    /**
+     * Handles interactions with the user in GUI.
+     *
+     * @param input User command.
+     * @return Duke's response to the user command.
+     */
     public String getResponse(String input) {
 
         boolean haveChangesInUserList = false;
         String message = "";
         parser.processUserCommand(input);
 
+        //Invoke corresponding command handling using switch. Therefore, the switch statement is long
+        //because there are a number of available user command.
         switch (parser.getCommand()) {
 
         case "bye":
@@ -339,7 +342,11 @@ public class Duke {
         return message;
     }
 
-
+    /**
+     * Returns greeting message.
+     *
+     * @return Greeting message.
+     */
     public String greet(){
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
