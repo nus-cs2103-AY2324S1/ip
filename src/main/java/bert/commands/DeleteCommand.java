@@ -26,6 +26,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(TaskList tasks, Storage storage) {
         Task t = tasks.delete(this.index);
+        assert t != null : "Task should not be null";
         return new CommandResult(String.format(MESSAGE, t, tasks.size()));
     }
 }

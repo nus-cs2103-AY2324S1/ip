@@ -8,8 +8,6 @@ import bert.parser.Parser;
 import bert.storage.Storage;
 import bert.tasks.TaskList;
 import bert.ui.Launcher;
-import bert.ui.Main;
-import javafx.application.Application;
 
 import java.io.FileNotFoundException;
 
@@ -35,6 +33,7 @@ public class Bert {
     }
 
     public CommandResult handleInput(String fullCommand) {
+        assert fullCommand != null : "Input passed into Bert should not be null";
         try {
             Command c = new Parser().parse(fullCommand);
             return c.execute(tasks, storage);
