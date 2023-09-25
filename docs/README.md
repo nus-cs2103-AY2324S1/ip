@@ -49,12 +49,6 @@ Make sure your system is running on Java 11, as this might affect your experienc
 
 <summary>Date Time Parsing for 'am' and 'pm' for Certain Java 11</summary>
 
-###### Date Time Parsing Errors
-> We are currently working on why certain Java 11 versions cannot parse time formats with 'am' or 'pm' input, if
-> If you encounter this error, try other accepted time formats.
-> 
-> **Example:** use this `17:00` instead of `5pm`
-
 </details>
 
 ### Starting up Oreo
@@ -151,9 +145,6 @@ For more info on date time formats, see [Date Time Formats](#date-time-formats)
 | `deadline feed oreo/by6:30pm`              | <span style='color: red;'>**INVALID** input no whitespace _around_ `/by`</span>                                |
 | `deadline feed oreo /by 01/01/2023 6:30pm` | <span style='color: red;'>**INVALID** date time input, missing comma</span>                                    |
 
-See [date time parsing errors](#date-time-parsing-errors) if using the given correct examples above
-give errors.
-
 > Don't worry about making formatting errors when using Oreo. Oreo is helpful and is more than happy to provide precise
 > help when there is any improper syntax. Use in-app `help deadline` for further guidance when using the app. 
 
@@ -206,8 +197,6 @@ For more info on accepted date time formats, see [Date Time Formats](#date-time-
 | `event holiday/from5pm/to3 Jan, 12pm`                  | <span style='color: red;'>**INVALID** input no whitespace _around_ `/from` and `/to`</span>                                                                                          |
 | `event holiday /from 1 Jan /to 3 Jan, 12pm`            | <span style='color: red;'>**INVALID** input either `/from` or `/to` has time but the other does not</span>                                                                           |
 | `event holiday /from 1 Jan 12pm /to 3 Jan, 12pm`       | <span style='color: red;'>**INVALID** date time input, missing comma</span>                                                                                                          |
-
-See [date time parsing errors](#date-time-parsing-errors) if using the given correct examples above gives you errors.
 
 > Don't worry about making formatting errors when using Oreo. Oreo is helpful and is more than happy to provide precise
 > help when there is any improper syntax. Use the in-app `help event` for further guidance when using the app.
@@ -391,11 +380,7 @@ easter eggs we have planted in the app!
 ## Date Time Formats
 One of the features of Oreo is the extensive date time formats it accepts. However, due to the wide variety of date time
 formats and combinations that Oreo accepts, there are certain rules that need to be followed. This is to ensure the date
-time is recorded properly and for the users to input their desired date time easily. 
-
-> [!IMPORTANT]
-> As of now, we are still figuring out why `am`, `pm`, `AM` and `PM` time formats are not accepted on certain Java 11
-> versions. Do read [here](#date-time-parsing-errors) for more information.
+time is recorded properly and for the users to input their desired date time easily.
 
 ###### Accepted Date Formats:
 |    Format    | Examples                   | Remarks            |
@@ -479,17 +464,17 @@ adding the task for the future.
   <dt>Case 1: </dt>
   <dd>
 
-**from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)**
+**_from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)_**
 
-`deadline give oreo breakfast /by 9am`: deadline will be set for 2nd January 2023, 9am.
+`event playtime /from 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
 
-`deadline give oreo dinner /by 6pm`: deadline will be set for 1st January 2023, 6pm.
+`event bathe /from 9am /to 9:30am`: event will be set for 2nd January 2023, 11-3pm
 
   </dd>
   <dt>Case 2: </dt>
   <dd>
 
-**from `date` `time` to `time` (Reference `/from` date)**
+**_from `date` `time` to `time` (Reference `/from` date)_**
 
 `event playtime /from 1 Jan, 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
 
@@ -497,7 +482,7 @@ adding the task for the future.
   <dt>Case 3: </dt>
   <dd>
 
-**from `time` to `date` `time` (Reference `/from` time)**
+**_from `time` to `date` `time` (Reference `/from` time)_**
 
 `event oreo's special days /from 9am /to 31 Dec, 11:59pm`: event will be set for 2nd Jan 2023, 9am to 31st Dec 11:59pm
 
