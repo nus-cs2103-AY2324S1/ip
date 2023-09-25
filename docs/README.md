@@ -8,9 +8,9 @@ Samantha ChatBot is a **desktop app for tracking tasks** using a sophusticated G
 
 1. Ensure you have Java `11` or above installed in your Computer.
 
-1. Download the latest `ip.jar`.
+1. Download the latest `samantha.jar`.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar ip.jar`
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar samantha.jar`
    command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](Ui.png)
