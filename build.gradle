@@ -45,10 +45,10 @@ test {
 }
 
 application {
-    mainClass.set("duke.ChatterBox")
+    mainClass.set("duke.Launcher")
 }
 
-mainClassName = 'duke.ChatterBox'
+mainClassName = 'duke.Launcher'
 
 
 
