@@ -9,6 +9,7 @@ import bert.commands.ExitCommand;
 import bert.commands.FindCommand;
 import bert.commands.ListCommand;
 import bert.commands.MarkCommand;
+import bert.commands.SortCommand;
 import bert.commands.UnmarkCommand;
 import bert.exceptions.BertEmptyTaskException;
 import bert.exceptions.BertInvalidCommandException;
@@ -55,6 +56,8 @@ public class Parser {
             return prepareDelete(arguments);
         case FindCommand.COMMAND_WORD:
             return new FindCommand(arguments);
+        case SortCommand.COMMAND_WORD:
+            return new SortCommand();
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
         default:
