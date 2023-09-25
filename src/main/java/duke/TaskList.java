@@ -182,12 +182,16 @@ public class TaskList {
     public String saveData() {
         try {
             //closes file and truncates it
+            //@@author adhigop13-reused
+            //Reused from ChatGPT
+            //with minor modifications
             Files.write(Duke.PATH_OF_DIRECTORY, new byte[0], StandardOpenOption.TRUNCATE_EXISTING);
             for (int i = 0; i < this.getTaskSize(); i++) {
                 String taskToString = this.getStoreTask().get(i).storeToDiskFormat() + "\n";
                 Files.write(Duke.PATH_OF_DIRECTORY, taskToString.getBytes(), StandardOpenOption.APPEND);
             }
             return Ui.saveDukeMsg();
+            //@@author
         } catch (IOException e) {
             e.printStackTrace();
             return "An error occurred...";
