@@ -48,13 +48,14 @@ public class Task {
     public void markItem(Boolean isDone) {
         this.isDone = isDone;
         if (this.isDone) {
-            String[] messageList = {("Nice! I've marked this task as done:")
-            , (this.getStatus())
-            , ("Here's a lollipop.")};
+            String[] messageList = {("Nice! I've marked this task as done:"), 
+                                    (this.getStatus()), 
+                                    ("Here's a lollipop.")};
             Ui.print(messageList);
         } else {
-            String[] messageList = {("OK, I've marked this task as not done yet:")
-            , (this.getStatus()), ("Undone complete.")};
+            String[] messageList = {("OK, I've marked this task as not done yet:"), 
+                                    (this.getStatus()), 
+                                    ("Undone complete.")};
             Ui.print(messageList);
         }
     }

@@ -38,6 +38,6 @@ public class Deadline extends Task {
     @Override
     public String toFile() {
         return super.isDone ? ("D | 1 | " + super.task + " | " + this.deadline)
-        : ("D | 0 | " + super.task + " | " + this.deadline);
+                            : ("D | 0 | " + super.task + " | " + this.deadline);
     }
 }
