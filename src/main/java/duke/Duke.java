@@ -1,13 +1,17 @@
 package duke;
 
 import java.io.FileNotFoundException;
-
-
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
     private static final String FILE_PATH = "./data/duke.txt";
+
+    public Duke() {}
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
+    }
 
     public Duke(String filePath) {
         ui = new Ui();
