@@ -8,12 +8,13 @@ import java.util.*;
  */
 public class Task {
     private static final String DONE_MARKER = "[X] ";
-    private static final String UNDONE_MARKER = "[ ] ";
-    boolean done;
+    private static final String UNDONE_MARKER = "[  ] ";
+    private static final String DELIMITER = "|";
+    boolean isDone;
     String name;
 
-    Task(boolean done, String name) {
-        this.done = done;
+    Task(boolean isDone, String name) {
+        this.isDone = isDone;
         this.name = name;
     }
 
@@ -27,24 +28,28 @@ public class Task {
 
     /**
      * Returns an empty String. This method exists to facilitate
-     * polymorphic behaviour.
+     * polymorphic behaviour in inherited child classes, and also
+     * for debugging purposes, which is why it remains a non-abstract
+     * class.
+     *
+     * @return The String representation of the type of the Task
      */
     public String taskType() {
-        return " ";
+        return "";
     }
 
     /**
      * Marks the Task as done.
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Marks the Task as undone.
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**
@@ -56,7 +61,7 @@ public class Task {
     @Override
     public String toString() {
         assert (this.name != null);
-        if (done) {
+        if (isDone) {
             return DONE_MARKER + this.name;
         } else {
             return UNDONE_MARKER + this.name;
@@ -64,17 +69,17 @@ public class Task {
     }
 
     /**
-     * Returns a File-compatible String representation of the Task.
+     * Returns a Storage-compatible String representation of the Task.
      * This String contains all information about the task that can be stored
      * and later retrieved without any loss in information.
      *
-     * @return The File-compatible String representation of the Task.
+     * @return The Storage-compatible String representation of the Task.
      */
     public String fileToString() {
         String finalOut = "";
-        finalOut += this.taskType() + "|";
-        finalOut += this.done ? "1" : "0";
-        finalOut += "|";
+        finalOut += this.taskType() + DELIMITER;
+        finalOut += this.isDone ? "1" : "0";
+        finalOut += DELIMITER;
         finalOut += this.name;
 
         return finalOut;

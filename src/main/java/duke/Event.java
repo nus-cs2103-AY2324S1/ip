@@ -5,14 +5,16 @@ package duke;
  */
 public class Event extends Task {
 
+    private static final String TASK_TYPE = "E";
+
     /**
      * Creates a Event object.
      *
-     * @param done Boolean representation of completion.
+     * @param isDone Boolean representation of completion.
      * @param name Name of event task.
      */
-    Event(boolean done, String name) {
-        super(done, name);
+    Event(boolean isDone, String name) {
+        super(isDone, name);
     }
 
     /**
@@ -31,7 +33,7 @@ public class Event extends Task {
      */
     @Override
     public String taskType() {
-        return "E";
+        return TASK_TYPE;
     }
 
     /**
@@ -41,6 +43,6 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E] " + super.toString();
+        return String.format("[%s] ", TASK_TYPE) + super.toString();
     }
 }

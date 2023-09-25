@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private static final String DATE_FORMAT = "MMM d yyyy";
+    private static final String TASK_TYPE = "D";
     LocalDate deadline;
 
     /**
@@ -17,8 +18,8 @@ public class Deadline extends Task {
      * @param done Boolean representation of completion.
      * @param name Name of deadline task.
      */
-    Deadline(boolean done, String name) {
-        super(done, name);
+    Deadline(boolean isDone, String name) {
+        super(isDone, name);
         String[] dateParse = name.split("by: ");
         String dateParse2 = dateParse[1].split("\\)")[0];
         LocalDate temp = LocalDate.parse(dateParse2);
@@ -41,7 +42,7 @@ public class Deadline extends Task {
      */
     @Override
     public String taskType() {
-        return "D";
+        return TASK_TYPE;
     }
 
     /**
@@ -55,9 +56,9 @@ public class Deadline extends Task {
         String stringDate = this.deadline
                 .format(DateTimeFormatter.ofPattern(DATE_FORMAT));
 
-        String doneString = this.done ? "[X] " : "[ ] ";
+        String doneString = this.isDone ? "[X] " : "[ ] ";
 
-        String finalOutput = "[D] " + doneString
+        String finalOutput = String.format("[%s] ", TASK_TYPE) + doneString
             + parsedName + String.format(" (by: %s)", stringDate);
 
         return finalOutput;

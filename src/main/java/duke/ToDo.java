@@ -5,6 +5,8 @@ package duke;
  */
 public class ToDo extends Task {
 
+    private static final String TASK_TYPE = "T";
+
     /**
      * Creates a ToDo object.
      *
@@ -31,7 +33,7 @@ public class ToDo extends Task {
      */
     @Override
     public String taskType() {
-        return "T";
+        return TASK_TYPE;
     }
 
     /**
@@ -41,6 +43,6 @@ public class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T] " + super.toString();
+        return String.format("[%s] ", TASK_TYPE) + super.toString();
     }
 }
