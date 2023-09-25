@@ -1,6 +1,6 @@
-D | 1 | eat | 2022-12-29
-T | 1 | read book
-T | 1 | quiz
-T | 0 | hello
-T | 0 | read
-E | 0 | sleep | 2022-12-10 | 2022-12-11
+E | 0 | new movie release | 2023-09-12 | 2023-09-15
+E | 0 | car race | 2023-11-10 | 2023-11-15
+T | 0 | eat
+T | 0 | buy milk
+D | 0 | quiz | 2023-10-02
+D | 0 | supermarket discount! | 2023-10-10

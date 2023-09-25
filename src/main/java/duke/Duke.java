@@ -16,7 +16,10 @@ import duke.helper.Ui;
 import duke.helper.Parser;
 import duke.helper.TaskList;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
+import java.util.zip.DataFormatException;
 
 public class Duke {
 
@@ -38,6 +41,16 @@ public class Duke {
             tasks = new TaskList();
         }
         parser = new Parser();
+    }
+
+    private boolean isValidDateFormat(String date) {
+        try {
+            LocalDate d = LocalDate.parse(date);
+
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
     }
 
     public void run() {
@@ -106,16 +119,25 @@ public class Duke {
 
             case "deadline":
                 //deadline read book /by 2022-01-01
-                ui.speak(tasks.addTask(new Task(parser.getTaskName(),
-                        2, "Null", parser.getFirstEnteredTime(), false)));
-                haveChangesInUserList = true;
+                if (isValidDateFormat(parser.getFirstEnteredTime())) {
+                    ui.speak(tasks.addTask(new Task(parser.getTaskName(),
+                            2, "Null", parser.getFirstEnteredTime(), false)));
+                    haveChangesInUserList = true;
+                } else {
+                    ui.speak("Invalid date format. Please enter as yyyy-mm-dd.");
+                }
                 break;
 
             case "event":
                 //event read book /from 2022-01-01 /to 2022-01-02
-                ui.speak(tasks.addTask(new Task(parser.getTaskName(),
-                        3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false)));
-                haveChangesInUserList = true;
+                if (isValidDateFormat(parser.getFirstEnteredTime()) &&
+                        isValidDateFormat(parser.getSecondEnteredTime())) {
+                    ui.speak(tasks.addTask(new Task(parser.getTaskName(),
+                            3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false)));
+                    haveChangesInUserList = true;
+                } else {
+                    ui.speak("Invalid date format. Please enter as yyyy-mm-dd.");
+                }
                 break;
 
             case "delete":
@@ -132,6 +154,30 @@ public class Duke {
 
             case "find":
                 ui.speak(tasks.findTask(parser.getTaskName()));
+                break;
+
+            case "stats":
+                ui.speak(tasks.showTaskStatics());
+                break;
+
+            case "sort":
+                if (!(parser.getTaskName().equals("by start date") || parser.getTaskName().equals("by end date"))) {
+                    ui.speak("Sorry, I do not know how you want to sort the tasks");
+                } else {
+                    haveChangesInUserList = true;
+                    if (parser.getTaskName().equals("by start date")) {
+                        tasks.sortByStartDate();
+                    }
+
+                    if (parser.getTaskName().equals("by end date")) {
+                        tasks.sortByEndDate();
+                    }
+                    String message = "Your list is now sorted!\n\n";
+
+                    message = message + tasks.displayList();
+                    ui.speak(message);
+                }
+
                 break;
 
 
@@ -219,16 +265,25 @@ public class Duke {
 
         case "deadline":
             //deadline read book /by 2022-01-01
-            message = tasks.addTask(new Task(parser.getTaskName(),
-                    2, "Null", parser.getFirstEnteredTime(), false));
-            haveChangesInUserList = true;
+            if (isValidDateFormat(parser.getFirstEnteredTime())) {
+                message = tasks.addTask(new Task(parser.getTaskName(),
+                        2, "Null", parser.getFirstEnteredTime(), false));
+                haveChangesInUserList = true;
+            } else {
+                message = "Invalid date format. Please enter as yyyy-mm-dd.";
+            }
             break;
 
         case "event":
             //event read book /from 2022-01-01 /to 2022-01-02
-            message = tasks.addTask(new Task(parser.getTaskName(),
-                    3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false));
-            haveChangesInUserList = true;
+            if (isValidDateFormat(parser.getFirstEnteredTime()) &&
+                    isValidDateFormat(parser.getSecondEnteredTime())) {
+                message = tasks.addTask(new Task(parser.getTaskName(),
+                        3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false));
+                haveChangesInUserList = true;
+            } else {
+                message = "Invalid date format. Please enter as yyyy-mm-dd.";
+            }
             break;
 
         case "delete":
@@ -263,7 +318,7 @@ public class Duke {
                 if (parser.getTaskName().equals("by end date")) {
                     tasks.sortByEndDate();
                 }
-                message = "Your list is not sorted!\n\n";
+                message = "Your list is now sorted!\n\n";
 
                 message = message + tasks.displayList();
             }
