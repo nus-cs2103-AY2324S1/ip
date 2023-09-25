@@ -229,9 +229,19 @@ public class Handler {
             Task task = taskList.getTask(i);
             if (task.getDescription().toLowerCase().contains(keywords.toLowerCase())) {
                 indexList.add(i);
+            } else if (task instanceof Event) {
+                boolean start = ((Event) task).getFrom().toLowerCase().contains(keywords.toLowerCase());
+                boolean end = ((Event) task).getTo().toLowerCase().contains(keywords.toLowerCase());
+                if (start && end) {
+                    indexList.add(i);
+                }
+            } else if (task instanceof Deadline) {
+                boolean due = ((Deadline) task).getBy().toLowerCase().contains(keywords.toLowerCase());
+                if (due) {
+                    indexList.add(i);
+                }
             }
         }
-
         return ui.getMatchingList(taskList, indexList);
     }
 }

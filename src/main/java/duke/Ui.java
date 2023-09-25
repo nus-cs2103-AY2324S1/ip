@@ -152,8 +152,8 @@ public class Ui {
                 int index = indices.get(i);
                 res = prev + count + "." + list.getTask(index).toString() + "\n";
             }
-            return line + res + line;
+            return LINE + res + LINE;
         }
-        return line + "No tasks found. Apologies." + "\n" + line;
+        return LINE + "No tasks found. Apologies." + "\n" + LINE;
     }
 }
