@@ -16,5 +16,5 @@ public abstract class Command {
      * @return A message indicating the result of adding the task.
      * @throws IOException If an error occurs while saving tasks to storage.
      */
-    public abstract String execute(TaskList tasks, Storage storage) throws IOException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws IOException;
 }

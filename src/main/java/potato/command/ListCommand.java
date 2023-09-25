@@ -18,7 +18,7 @@ public class ListCommand extends Command {
      * @throws IOException If an error occurs while saving tasks to storage.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         return tasks.list();
     }
 }

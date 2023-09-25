@@ -30,7 +30,7 @@ public class Potato {
         String response = "";
         try {
             Command c = Parser.parse(input);
-            response += c.execute(tasks, storage);
+            response += c.execute(tasks, ui, storage);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

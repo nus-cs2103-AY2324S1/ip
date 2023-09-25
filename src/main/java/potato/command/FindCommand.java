@@ -19,7 +19,7 @@ public class FindCommand extends Command {
      * @throws IOException If an error occurs while saving tasks to storage.
      */
     @Override
-    public String execute(TaskList tasks, Storage storage) throws IOException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
         return tasks.find(input);
     }
 }

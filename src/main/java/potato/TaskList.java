@@ -138,7 +138,8 @@ public class TaskList {
         String s = "";
 
         if (task == null) {
-            new PotatoException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            PotatoException e = new PotatoException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return e.getMessage();
 
         } else {
             tasks.add(task);
@@ -149,6 +150,7 @@ public class TaskList {
                     + "Now you have " + size + " tasks in the list.";
         }
         return s;
+
     }
 
     /**

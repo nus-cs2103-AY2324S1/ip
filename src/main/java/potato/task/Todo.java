@@ -28,16 +28,10 @@ public class Todo extends Task {
      * @throws PotatoException If the input is empty or invalid.
      */
     public static Todo parseTodo(String input, String mark) {
-//        try {
-//            return new Todo(input, (mark.equals("1")), "NIL");
-//        } catch (PotatoException e) {
-//            System.out.println("error");
-//        }
-//        return null;
 
         if (input.length() < 1) {
-            throw new PotatoException("Bruh you wanna do air or something?\n");
-//            return null;
+            new PotatoException("Bruh you wanna do air or something?\n");
+            return null;
         } else {
             assert input.length() > 1 : "input length should be > 1";
             return new Todo(input, (mark.equals("1")), "NIL");
