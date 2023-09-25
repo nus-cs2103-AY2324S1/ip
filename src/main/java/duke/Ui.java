@@ -5,6 +5,11 @@ import duke.tasks.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * The <code>Ui</code> class stores the chatbot replies to user commands, returning the
+ * appropriate response to each one.
+ */
+
 public class Ui {
     private Scanner sc;
     private static String LINE = "______________________\n";
@@ -17,52 +22,112 @@ public class Ui {
     private static String FAILURE = "A critical failure occurred. Farewell.";
     private static String LOAD_NEW = "Here's a blank one instead.";
 
+    /**
+     * The class constructor.
+     *
+     * @param scanner The scanner that the UI uses to read commands.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
+    /**
+     * Gets the next line of commands from the user.
+     *
+     * @return Next command
+     */
     public String getInput() {
         return sc.nextLine();
     }
 
+    /**
+     * Returns the startup greeting.
+     *
+     * @return Greeting
+     */
     public String startup() {
         return LINE + INTRO + LINE;
     }
 
+    /**
+     * Returns the failure message.
+     *
+     * @return Failure
+     */
     public String failure() {
         return FAILURE + "\n";
     }
 
+    /**
+     * Returns the file loading error.
+     *
+     * @return File error
+     */
     public String showLoadingError() {
         return LOAD_NEW + "\n";
     }
 
+    /**
+     * Returns the exit statements.
+     *
+     * @return Exit
+     */
     public String exit() {
         return LINE + "Farewell.\n" + LINE;
     }
 
+    /**
+     * Acknowledges the marking of a task.
+     *
+     * @return Mark acknowledgement
+     */
     public String markText(Task task) {
         return LINE + DONE + task.toString() + "\n" + LINE;
     }
 
+    /**
+     * Acknowledges the unmarking of a task.
+     *
+     * @return Unmark acknowledgement
+     */
     public String unmarkText(Task task) {
         return LINE + UNDONE + task.toString() + "\n" + LINE;
     }
 
+    /**
+     * Acknowledges the addition of a task.
+     *
+     * @return Task acknowledgement
+     */
     public String taskText(Task task, int len) {
         return LINE + ADD_TASK + task.toString() + "\n" + "There are now "
                 + len + " task(s) in your backlog.\n" + LINE;
     }
 
+    /**
+     * Acknowledges the deletion of a task.
+     *
+     * @return Delete acknowledgement
+     */
     public String removeText(Task task, int len) {
         return LINE + REMOVE_TASK + task.toString() + "\n" + "There are now "
                 + len + " task(s) in your backlog.\n" + LINE;
     }
 
+    /**
+     * Acknowledges the marking of a task.
+     *
+     * @return Mark acknowledgement
+     */
     public String errorMsg(String err) {
         return LINE + err + "\n" + LINE;
     }
 
+    /**
+     * Prints the <code>TaskList</code>
+     *
+     * @return List of tasks
+     */
     public String getList(TaskList list) {
         if (list.getLength() != 0) {
             String res = "Here are your tasks: \n";

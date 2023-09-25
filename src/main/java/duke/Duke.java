@@ -5,11 +5,21 @@ import duke.exceptions.DukeInvalidFileException;
 import duke.exceptions.DukeInvalidInputException;
 import duke.tasks.TaskList;
 
+/**
+ * The <code>Duke</code> class encapsulates the entire chatbot.
+ * Runs the program.
+ */
+
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * The class constructor.
+     *
+     * @param filePath File to be loaded from/written to. May or may not exist initially.
+     */
     public Duke(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -21,6 +31,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Runs the chatbot.
+     */
     public void run() {
         boolean running = true;
         System.out.println(ui.startup());
@@ -54,6 +67,9 @@ public class Duke {
         }
     }
 
+    /**
+     * Calls the run() command.
+     */
     public static void main(String[] args) {
         new Duke("./data/duke.txt").run();
     }
