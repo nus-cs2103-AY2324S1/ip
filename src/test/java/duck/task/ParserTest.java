@@ -33,7 +33,7 @@ public class ParserTest {
     public void testParse_validListCallWithEmpty_emptyList() {
         Parser parser = new Parser();
         String actual = parser.parse("list", ui, taskList, storage);
-        assertEquals("There are no tasks in your lists.", actual);
+        assertEquals("There are no tasks in your list.", actual);
     }
     @Test
     public void testParse_validListCallWithPopulated_populatedList() {
