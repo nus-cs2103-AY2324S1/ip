@@ -39,6 +39,7 @@ public class Parser {
             return res;
         }
         res[2] = temp2[1];
+        assert res.length == 3 : "There should be 3 elements after splitting an Event command.";
 
         //removes leading and trailing spaces
         for (int i = 0; i < res.length; i++) {
