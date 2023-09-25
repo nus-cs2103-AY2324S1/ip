@@ -18,7 +18,7 @@ A feisty chat bot to help you **manage your to-do list**! Optimized for use via 
 
 # Getting Started
 
-1. Download the latest build here.
+1. Download the latest build [here](https://github.com/wujy28/ip/releases/tag/A-Release).
    + Under 'Assets', click on 'moira.jar' to begin your download.
 2. Locate the download and move it to a convenient location.
 3. Launch the application by clicking on the file.
