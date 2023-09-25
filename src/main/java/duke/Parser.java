@@ -27,7 +27,7 @@ public class Parser {
         String[] inputParts = input.split(" ", 2);
         String command = inputParts[0].toLowerCase();
         TaskWorker worker;
-        String output;
+        String output = "";
         switch (command) {
         case "list":
             worker = new ListWorker();
@@ -51,6 +51,7 @@ public class Parser {
             break;
         case "bye":
             System.exit(0);
+            break;
         default:
             worker = new AddWorker();
             output = worker.work(inputParts, taskList);

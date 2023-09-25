@@ -1,32 +1,33 @@
 package duke;
 
-import duplicate_detectors.DeadlineDuplicateDetector;
-import duplicate_detectors.EventDuplicateDetector;
-import duplicate_detectors.TodoDuplicateDetector;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
+import duplicatedetectors.DeadlineDuplicateDetector;
+import duplicatedetectors.EventDuplicateDetector;
+import duplicatedetectors.TodoDuplicateDetector;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 /**
  * This class tests the fucntionality of the duplicate detector classes.
  */
 public class DuplicateDetectorTests {
-    TodoDuplicateDetector todoDuplicateDetector = new TodoDuplicateDetector();
-    DeadlineDuplicateDetector deadlineDuplicateDetector = new DeadlineDuplicateDetector();
-    EventDuplicateDetector eventDuplicateDetector = new EventDuplicateDetector();
-    ArrayList<Task> taskList1 = new ArrayList<>();
-    ArrayList<Task> taskList2 = new ArrayList<>();
-    ArrayList<Task> taskList3 = new ArrayList<>();
-    Task todoTask = new Todo("test1");
-    Task deadlineTask = new Deadline("test2", "2023-09-21");
-    Task eventTask = new Event("test3", "2023-09-22", "2023-09-23");
+    private final DeadlineDuplicateDetector deadlineDuplicateDetector = new DeadlineDuplicateDetector();
+    private final EventDuplicateDetector eventDuplicateDetector = new EventDuplicateDetector();
+    private final TodoDuplicateDetector todoDuplicateDetector = new TodoDuplicateDetector();
+    private final ArrayList<Task> taskList1 = new ArrayList<>();
+    private final ArrayList<Task> taskList2 = new ArrayList<>();
+    private final ArrayList<Task> taskList3 = new ArrayList<>();
+    private final Task todoTask = new Todo("test1");
+    private final Task deadlineTask = new Deadline("test2", "2023-09-21");
+    private final Task eventTask = new Event("test3", "2023-09-22", "2023-09-23");
 
     /**
      * This method tests the duplicate detector classes to check if they

@@ -1,26 +1,27 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
-import task_creator.CreateDeadlineTask;
-import task_creator.CreateEventTask;
-import task_creator.CreateTodoTask;
+
+import taskcreator.CreateDeadlineTask;
+import taskcreator.CreateEventTask;
+import taskcreator.CreateTodoTask;
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.Todo;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 /**
  * This class tests if the task creator classes create the correct type of objects.
  */
 public class TaskCreatorTests {
-    ArrayList<Task> testTaskList = new ArrayList<>();
-    CreateDeadlineTask deadlineTaskCreator = new CreateDeadlineTask();
-    CreateTodoTask todoTaskCreator = new CreateTodoTask();
-    CreateEventTask eventTaskCreator = new CreateEventTask();
+    private final ArrayList<Task> testTaskList = new ArrayList<>();
+    private final CreateDeadlineTask deadlineTaskCreator = new CreateDeadlineTask();
+    private final CreateTodoTask todoTaskCreator = new CreateTodoTask();
+    private final CreateEventTask eventTaskCreator = new CreateEventTask();
 
     /**
      * This method tests if the objects made are subtypes of the Task class.

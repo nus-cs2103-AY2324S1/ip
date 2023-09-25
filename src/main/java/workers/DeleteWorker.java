@@ -19,7 +19,7 @@ public class DeleteWorker extends TaskWorker {
         assert inputParts != null;
         try {
             int index = Integer.parseInt(inputParts[1]) - 1;
-            if (index > taskList.size() || index < 0) {
+            if (index >= taskList.size() || index < 0) {
                 throw new IrisException("☹ OOPS!!! Unable to delete non-existent task");
             }
             Task removedTask = taskList.remove(index);

@@ -1,21 +1,21 @@
-package task_creator;
-
-import content_splitter.DeadlineContentSplitter;
-import duke.IrisException;
-import duplicate_detectors.DeadlineDuplicateDetector;
-import tasks.Deadline;
-import tasks.Task;
+package taskcreator;
 
 import java.util.ArrayList;
+
+import contentsplitter.DeadlineContentSplitter;
+import duke.IrisException;
+import duplicatedetectors.DeadlineDuplicateDetector;
+import tasks.Deadline;
+import tasks.Task;
 
 /**
  * This class handles the creation of Deadline objects.
  */
-public class CreateDeadlineTask extends CreateTask{
+public class CreateDeadlineTask extends CreateTask {
     /**
      * The method creates a Deadline object.
-     * @param content
-     * @param taskList
+     * @param content the String
+     * @param taskList the list of tasks
      * @return a new Deadline object.
      */
     @Override

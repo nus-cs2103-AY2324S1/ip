@@ -17,10 +17,10 @@ public class MarkWorker extends TaskWorker {
      */
     @Override
     public String work(String[] inputParts, ArrayList<Task> taskList, boolean markAsDone) {
-        assert  inputParts != null;
+        assert inputParts != null;
         int index = Integer.parseInt(inputParts[1]) - 1;
         try {
-            if (index > taskList.size() || index < 0) {
+            if (index >= taskList.size() || index < 0) {
                 throw new IrisException("Task does not exist. Please enter a valid index number.");
             }
             Task task = taskList.get(index);

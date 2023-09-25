@@ -1,25 +1,26 @@
 package duke;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
+
 import tasks.Task;
 import tasks.Todo;
 import workers.DeleteWorker;
 import workers.MarkWorker;
 
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * This class tests the worker classes that rely on indexes.
  */
 public class WorkersIndexOutOfBoundsTests {
-    ArrayList<Task> testTaskList = new ArrayList<>();
-    DeleteWorker deleteWorker = new DeleteWorker();
-    MarkWorker markWorker = new MarkWorker();
-    Task todoTask = new Todo("test1");
-    String[] testInputPartsZero = new String[] {"random", "0"};
-    String[] testInputPartsAboveOne = new String[] {"random", "10"};
+    private final ArrayList<Task> testTaskList = new ArrayList<>();
+    private final DeleteWorker deleteWorker = new DeleteWorker();
+    private final MarkWorker markWorker = new MarkWorker();
+    private final Task todoTask = new Todo("test1");
+    private final String[] testInputPartsZero = new String[] {"random", "0"};
+    private final String[] testInputPartsAboveOne = new String[] {"random", "10"};
 
     /**
      * This method tests if the methods return the right error messages when given an index

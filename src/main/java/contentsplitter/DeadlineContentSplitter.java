@@ -1,4 +1,4 @@
-package content_splitter;
+package contentsplitter;
 
 /**
  * Class that handles the splitting of content for a specific deadline task.

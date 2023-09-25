@@ -1,10 +1,13 @@
-package duplicate_detectors;
+package duplicatedetectors;
+
+import java.util.ArrayList;
 
 import tasks.Task;
 import tasks.Todo;
 
-import java.util.ArrayList;
-
+/**
+ * This class checks for Todo task duplicates
+ */
 public class TodoDuplicateDetector {
 
     /**

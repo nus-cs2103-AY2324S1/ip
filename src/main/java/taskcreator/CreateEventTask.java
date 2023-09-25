@@ -1,12 +1,12 @@
-package task_creator;
-
-import content_splitter.EventContentSplitter;
-import duke.IrisException;
-import duplicate_detectors.EventDuplicateDetector;
-import tasks.Event;
-import tasks.Task;
+package taskcreator;
 
 import java.util.ArrayList;
+
+import contentsplitter.EventContentSplitter;
+import duke.IrisException;
+import duplicatedetectors.EventDuplicateDetector;
+import tasks.Event;
+import tasks.Task;
 
 /**
  * This class handles the creation of Event objects.
@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class CreateEventTask extends CreateTask {
     /**
      * This method creates an Event object.
-     * @param content
-     * @param taskList
+     * @param content the String representing the content of the user input
+     * @param taskList the list of tasks
      * @return A new Event object using the inputs.
      */
     @Override

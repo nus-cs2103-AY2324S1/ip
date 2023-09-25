@@ -1,11 +1,11 @@
-package task_creator;
-
-import duke.IrisException;
-import duplicate_detectors.TodoDuplicateDetector;
-import tasks.Task;
-import tasks.Todo;
+package taskcreator;
 
 import java.util.ArrayList;
+
+import duke.IrisException;
+import duplicatedetectors.TodoDuplicateDetector;
+import tasks.Task;
+import tasks.Todo;
 
 /**
  * This class handles the creation of Todo objects.
