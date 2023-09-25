@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
 
+import sidtacphi.contact.ContactList;
 import sidtacphi.exception.SidException;
 import sidtacphi.task.TaskList;
 import sidtacphi.task.TaskType;
@@ -20,7 +21,7 @@ public class Parser {
     /**
      *  Reads inputs for the bot.
      */
-    public static String parseInput(TaskList taskList, String input) {
+    public static String parseInput(TaskList taskList, ContactList contactList, String input) {
         try {
             input = input.trim();
             if (Objects.equals(input, "bye")) {
@@ -47,6 +48,14 @@ public class Parser {
                 return taskList.deleteTask(input);
             } else if (input.startsWith("find")) {
                 return taskList.findTask(input);
+            } else if (input.startsWith("addcontact")) {
+                return contactList.addContact(input);
+            } else if (input.startsWith("deletecontact")) {
+                return contactList.deleteContact(input);
+            } else if (Objects.equals(input, "listcontacts")) {
+                return contactList.showContactList();
+            } else if (Objects.equals(input, "listcontact")) {
+                return contactList.showContactList();
             } else {
                 throw new SidException("\"" + input + "\" is not a valid command.");
             }

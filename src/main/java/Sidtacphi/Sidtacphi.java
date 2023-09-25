@@ -1,5 +1,6 @@
 package sidtacphi;
 
+import sidtacphi.contact.ContactList;
 import sidtacphi.parser.Parser;
 import sidtacphi.storage.Storage;
 import sidtacphi.task.TaskList;
@@ -9,19 +10,21 @@ import sidtacphi.task.TaskList;
  */
 public class Sidtacphi {
     private static TaskList taskList = new TaskList();
+    private static ContactList contactList = new ContactList();
 
     /**
      * Constructs the Sidtacphi object.
      */
     public Sidtacphi() {
-        taskList = Storage.readJson("./stored/tasks.json");
+        taskList = Storage.readTaskListJson("./stored/tasks.json");
+        contactList = Storage.readContactListJson("./stored/contacts.json");
     }
 
     /**
      * Generates a response to user input.
      */
     public String getResponse(String input) {
-        return Parser.parseInput(taskList, input);
+        return Parser.parseInput(taskList, contactList, input);
     }
 
     /**
@@ -29,5 +32,6 @@ public class Sidtacphi {
      */
     public void saveTaskList() {
         Storage.saveAsJson(taskList, "./stored/tasks.json");
+        Storage.saveAsJson(contactList, "./stored/contacts.json");
     }
 }
