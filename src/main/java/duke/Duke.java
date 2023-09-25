@@ -17,6 +17,7 @@ public class Duke {
             ui.displayLoadErrorMessage(e.getMessage());
             taskList = new TaskList();
         }
+        assert taskList != null : "taskList should not be null.";
     }
 
     public String getResponse(String input) {

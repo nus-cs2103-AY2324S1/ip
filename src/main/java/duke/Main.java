@@ -15,8 +15,10 @@ public class Main extends Application {
 
     private Duke duke = new Duke();
 
+
     @Override
     public void start(Stage stage) {
+        assert duke != null : "duke instance should not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
