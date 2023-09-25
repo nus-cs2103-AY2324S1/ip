@@ -1,4 +1,4 @@
-package ben;
+package ben.ui;
 
 import java.io.IOException;
 import java.util.Collections;

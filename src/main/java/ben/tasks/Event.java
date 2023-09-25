@@ -1,11 +1,13 @@
-package ben;
+package ben.tasks;
+
+import ben.tasks.Task;
 
 import java.time.LocalDateTime;
 
 /**
  * Represents an events task.
  */
-public class Event extends Task{
+public class Event extends Task {
     /**
      * The date of when the event starts.
      */

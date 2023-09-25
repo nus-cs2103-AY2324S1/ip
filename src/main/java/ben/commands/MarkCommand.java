@@ -1,20 +1,24 @@
-package ben;
+package ben.commands;
+
+import ben.tasks.Task;
+import ben.storage.TaskList;
+import ben.ui.Ui;
 
 /**
- * Represents an Unmark command
+ * Represents a mark command.
  */
-public class UnmarkCommand extends Command {
+public class MarkCommand extends Command {
     /**
-     * The task to be unmarked
+     * The task to be marked.
      */
-    private Task task;
+    Task task;
 
     /**
      * Takes in a task.
      *
      * @param task The task to be marked.
      */
-    public UnmarkCommand(Task task) {
+    public MarkCommand(Task task) {
         this.task = task;
     }
 
@@ -29,14 +33,14 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     * Executes the task.
+     * Executes the mark command.
      *
      * @param tasks The taskList
-     * @param ui    The UI handling user interaction
+     * @param ui The UI handling user interaction
      */
     @Override
     public String execute(TaskList tasks, Ui ui) {
-        task.unmark();
-        return Ui.displayMessage("Okay! This task is not completed\n" + task + "\n");
+        task.mark();
+        return Ui.displayMessage("Nice! This task is completed\n" + task + "\n");
     }
 }

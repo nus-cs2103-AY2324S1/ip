@@ -1,4 +1,8 @@
-package ben;
+package ben.storage;
+
+import ben.tasks.Deadline;
+import ben.tasks.Event;
+import ben.tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,9 +1,12 @@
-package ben;
+package ben.commands;
+
+import ben.storage.TaskList;
+import ben.ui.Ui;
 
 /**
  * Represents a bye command.
  */
-public class ByeCommand extends Command{
+public class ByeCommand extends Command {
     /**
      * Checks whether command causes the chatbot to exit.
      *

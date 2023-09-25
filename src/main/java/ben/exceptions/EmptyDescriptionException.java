@@ -1,9 +1,9 @@
-package ben;
+package ben.exceptions;
 
 /**
  * Throws error when description of a task is empty.
  */
-class EmptyDescriptionException extends Exception {
+public class EmptyDescriptionException extends Exception {
     /**
      * Takes is a message.
      *

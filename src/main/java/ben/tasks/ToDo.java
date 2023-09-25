@@ -1,4 +1,6 @@
-package ben;
+package ben.tasks;
+
+import ben.tasks.Task;
 
 /**
  * Represents a ToDo task.

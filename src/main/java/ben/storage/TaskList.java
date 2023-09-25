@@ -1,4 +1,7 @@
-package ben;
+package ben.storage;
+
+import ben.tasks.Task;
+import ben.ui.Ui;
 
 import java.util.ArrayList;
 

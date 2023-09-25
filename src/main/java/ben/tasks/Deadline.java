@@ -1,4 +1,6 @@
-package ben;
+package ben.tasks;
+
+import ben.tasks.Task;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package ben;
+package ben.exceptions;
 
 /**
  * Throws error when command is invalid.

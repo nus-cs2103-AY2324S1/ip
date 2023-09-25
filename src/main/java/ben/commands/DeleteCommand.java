@@ -1,9 +1,13 @@
-package ben;
+package ben.commands;
+
+import ben.tasks.Task;
+import ben.storage.TaskList;
+import ben.ui.Ui;
 
 /**
  * Represents a delete command.
  */
-public class DeleteCommand extends Command{
+public class DeleteCommand extends Command {
     /**
      * The task to be deleted.
      */

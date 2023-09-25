@@ -1,5 +1,8 @@
 package ben;
 
+import ben.commands.AddCommand;
+import ben.exceptions.EmptyDescriptionException;
+import ben.exceptions.InvalidCommandException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
