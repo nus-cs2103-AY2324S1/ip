@@ -33,28 +33,11 @@ public class Storage {
      * Saves a task list into the file.
      *
      * @param tasks The task list to be saved.
+     * @throws IOException If an error occurs while creating the file or saving tasks.
      */
-    public void save(TaskList tasks) {
-        try {
-            ensureTaskFileExists();
-        } catch (IOException e) {
-            System.out.println(
-                    "____________________________________________________________\n"
-                    + "OOPS!!! An error occurred while creating the task file.\n"
-                    + "____________________________________________________________\n"
-            );
-            return;
-        }
-
-        try {
-            writeToFile(filePath, tasks.toSaveFormat());
-        } catch (IOException e) {
-            System.out.println(
-                    "____________________________________________________________\n"
-                    + "OOPS!!! An error occurred while saving tasks.\n"
-                    + "____________________________________________________________\n"
-            );
-        }
+    public void save(TaskList tasks) throws IOException {
+        ensureTaskFileExists();
+        writeToFile(filePath, tasks.toSaveFormat());
     }
 
     /**

@@ -12,7 +12,7 @@ import bert.ui.Launcher;
 import java.io.FileNotFoundException;
 
 /**
- * A chatbot named Bert that interacts with the user and keeps track of a task list.
+ * A chatbot named Bert that takes in user input and keeps track of a task list and storage.
  */
 public class Bert {
     private static final String FILE_PATH = "data/tasks.txt";
@@ -20,7 +20,7 @@ public class Bert {
     private TaskList tasks;
 
     /**
-     * Constructs an instance of the chatbot and loads the file at the specified filePath
+     * Constructs an instance of the chatbot and loads the file at the specified file path
      * into the chatbot's task list.
      */
     public Bert() {
@@ -32,6 +32,14 @@ public class Bert {
         }
     }
 
+    /**
+     * Takes in an input, parses it into a command, then executes the command
+     * on the task list and storage, and returns a CommandResult instance which
+     * contains a message to the user about the results of the command.
+     *
+     * @param fullCommand An input in the form of a command word and its arguments.
+     * @return A CommandResult instance containing the message about the results of the command.
+     */
     public CommandResult handleInput(String fullCommand) {
         assert fullCommand != null : "Input passed into Bert should not be null";
         try {
@@ -42,6 +50,11 @@ public class Bert {
         }
     }
 
+    /**
+     * Launches the GUI. Upon launching, the GUI then starts the Bert chatbot.
+     *
+     * @param args Command-line arguments which are not used.
+     */
     public static void main(String[] args) {
         Launcher.main(args);
     }
