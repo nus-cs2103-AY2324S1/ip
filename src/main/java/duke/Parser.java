@@ -59,4 +59,15 @@ public class Parser {
         String noCommand = Parser.splitSpace(str)[1];
         return noCommand.split("/by ", 2);
     }
+
+    /**
+     * Parses a <code>String</code>, splitting it by the /for keyword.
+     *
+     * @param str The String to be split.
+     * @return Two strings.
+     */
+    public static String[] splitDuration (String str) {
+        String noCommand = Parser.splitSpace(str)[1];
+        return noCommand.split("/for ", 2);
+    }
 }
