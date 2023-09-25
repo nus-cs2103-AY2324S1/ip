@@ -24,7 +24,7 @@ public class Ben {
     public Ben() {
         ui = new Ui();
         tasks = new TaskList();
-        storage = new Storage("src/main/java/data/ben.txt");
+        storage = new Storage("./Data.txt");
 
         try {
             storage.loadTasks(tasks);
