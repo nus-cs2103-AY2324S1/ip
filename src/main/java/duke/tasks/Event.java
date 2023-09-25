@@ -48,6 +48,17 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Checks if the event occurs on the day given.
+     *
+     * @param date the date
+     * @return the boolean for if the date matches
+     */
+    @Override
+    public boolean checkDate(LocalDate date) {
+        return !date.isAfter(to) && !date.isBefore(from);
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");

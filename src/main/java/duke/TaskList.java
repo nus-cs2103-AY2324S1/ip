@@ -2,6 +2,7 @@ package duke;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -66,6 +67,19 @@ public class TaskList {
         assert taskList != null;
         ArrayList<Task> temp = new ArrayList<>(this.taskList);
         temp.removeIf(t -> !t.containsStr(key));
+        return temp;
+    }
+
+    /**
+     * Checks if task is in the date.
+     *
+     * @param date the date
+     * @return the array list
+     */
+    public ArrayList<Task> containsDate(LocalDate date) {
+        assert taskList != null;
+        ArrayList<Task> temp = new ArrayList<>(this.taskList);
+        temp.removeIf(t -> !t.checkDate(date));
         return temp;
     }
 }

@@ -2,6 +2,8 @@ package duke.tasks;
 
 import duke.exceptions.DukeException;
 
+import java.time.LocalDate;
+
 /**
  * The ToDo class, which is a task to be done.
  */
@@ -31,6 +33,17 @@ public class ToDo extends Task {
         } else {
             return "T : 0 : " + this.getname();
         }
+    }
+
+    /**
+     * Returns false since Todos are not time sensitive.
+     *
+     * @param date the date
+     * @return the false since date does not match
+     */
+    @Override
+    public boolean checkDate(LocalDate date) {
+        return false;
     }
 
     @Override

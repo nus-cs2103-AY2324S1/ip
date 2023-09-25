@@ -12,7 +12,7 @@ public class Ui {
     /**
      * Instantiates a new Ui.
      */
-    public Ui() {}
+    Ui() {}
 
     /**
      * Displays the welcome message.
@@ -97,6 +97,10 @@ public class Ui {
         System.out.println("Here are the matching tasks in your list:");
     }
 
+    public void scheduleMsg() {
+        System.out.println("Here is your schedule for that day:");
+    }
+
     public String introMessageString() {
         return ("Hello! I'm IPSVIJAYKUMARAAKOODAIRRUKALAM" + "%n" + "What can I do for you?");
     }
@@ -171,7 +175,17 @@ public class Ui {
         return "Bye. Hope to see you again soon!";
     }
 
+    /**
+     * Displays the find message when a find command is entered.
+     */
     public String findmsgString() {
         return "Here are the matching tasks in your list:";
+    }
+
+    /**
+     * Displays the schedule message when a find command is entered.
+     */
+    public String scheduleString() {
+        return "Here is your schedule for that day:";
     }
 }

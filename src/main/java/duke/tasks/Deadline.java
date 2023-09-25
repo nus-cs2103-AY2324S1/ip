@@ -44,6 +44,17 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * Checks if the deadline occurs on the day given.
+     *
+     * @param date the date
+     * @return the boolean for if the date matches
+     */
+    @Override
+    public boolean checkDate(LocalDate date) {
+        return date.isEqual(by);
+    }
+
     @Override
     public String toString() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("MMM d yyyy");

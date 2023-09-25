@@ -1,5 +1,7 @@
 package duke.parsers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 import duke.Storage;
@@ -179,6 +181,24 @@ public class Parser {
     }
 
     /**
+     * Executes actions for the schedule command.
+     *
+     * @param userinput the userinput
+     */
+    public void doSchedule(String userinput) throws DukeException {
+        String datestr = userinput.substring(9).trim();
+        try {
+            LocalDate date = LocalDate.parse(datestr);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("enter valid date!");
+        }
+
+        LocalDate date = LocalDate.parse(datestr);
+        ui.scheduleMsg();
+        ui.printList(tasks.containsDate(date));
+    }
+
+    /**
      * Executes actions for the list command for GUI.
      *
      * @param userinput the userinput
@@ -291,6 +311,24 @@ public class Parser {
         return ui.findmsgString() + "%n" + ui.printListString(tasks.contains(userinput.substring(5)));
     }
 
+    /**
+     * Executes actions for the schedule command for GUI.
+     *
+     * @param userinput the userinput
+     */
+    public String doScheduleStr(String userinput) throws DukeException {
+        String datestr = userinput.substring(9).trim();
+        try {
+            LocalDate date = LocalDate.parse(datestr);
+        } catch (DateTimeParseException e) {
+            throw new DukeException("enter valid date!");
+        }
+
+        LocalDate date = LocalDate.parse(datestr);
+        return ui.scheduleString() + "%n"
+                + ui.printListString(tasks.containsDate(date));
+    }
+
 
     /**
      * Makes sense of user inputs, makes changes to lists and file and outputs messages
@@ -329,6 +367,9 @@ public class Parser {
         case "find":
             doFind(userinput);
             break;
+        case "schedule":
+            doSchedule(userinput);
+            break;
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -365,6 +406,8 @@ public class Parser {
             return doDeleteStr(userinput);
         case "find":
             return doFindStr(userinput);
+        case "schedule":
+            return doScheduleStr(userinput);
         default:
             throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }

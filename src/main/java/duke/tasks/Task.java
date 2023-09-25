@@ -1,5 +1,7 @@
 package duke.tasks;
 
+import java.time.LocalDate;
+
 /**
  * The Task that encapsulates its description and its completion state.
  */
@@ -63,6 +65,14 @@ public abstract class Task {
      * @return the task String
      */
     public abstract String dataString();
+
+    /**
+     * Checks if the task occurs on the day given.
+     *
+     * @param date the date
+     * @return the boolean for if the date matches
+     */
+    public abstract boolean checkDate(LocalDate date);
 
     @Override
     public String toString() {
