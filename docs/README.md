@@ -35,7 +35,7 @@ sessions, Oreo will become an indispensable part of your life.
 
 ## Quick Start
 
-Oreo v1.0 is available for download [here](https://github.com/dloh2236/ip/releases/tag/A-Release).
+Oreo v1.0.1 is available for download [here](https://github.com/dloh2236/ip/releases/tag/A-Releasev1.0.1).
 
 ### System Pre-requisites
 Make sure your system is running on Java 11, as this might affect your experience while using the chatbot.
