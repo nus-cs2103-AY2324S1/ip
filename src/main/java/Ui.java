@@ -10,6 +10,7 @@ public class Ui {
     private static String addTask = "Another task? Very well.\n";
     private static String removeTask = "It is gone with the wind.\n";
     private static String failure = "A critical failure occurred. Farewell.";
+    private static String loadNew = "Here's a blank one instead.";
 
     public Ui() {
         this.sc = new Scanner(System.in);
@@ -24,7 +25,11 @@ public class Ui {
     }
 
     public String failure() {
-        return failure;
+        return failure + "\n";
+    }
+
+    public String showLoadingError() {
+        return loadNew + "\n";
     }
 
     public String exit() {

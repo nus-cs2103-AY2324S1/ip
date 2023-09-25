@@ -1,3 +1,5 @@
+import exceptions.DukeInvalidFileException;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,7 +25,7 @@ public class Storage {
         }
     }
 
-    public List<Task> load() {
+    public List<Task> load() throws DukeInvalidFileException {
         List<Task> contents = new ArrayList<>();
         if (hasDirectory && !directory.exists()) {
             directory.mkdirs();
@@ -32,14 +34,14 @@ public class Storage {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new DukeInvalidFileException();
             }
         }
         Scanner s = null;
         try {
             s = new Scanner(file);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new DukeInvalidFileException();
         }
         while (s.hasNext()) {
             String line = s.nextLine();
