@@ -17,16 +17,16 @@ ChatterBox comes with a bunch of features such as:
 ### Functionality
 
 ChatterBox's primary interaction method is the keyboard, so you can keep working without having to lift your palms! The currently available primary commands include:
-- todo <task>
+- todo \<task\>
 - event /from <start> /to <end>
-- deadline /by <date> (Note: date must be in this format "YYYY-MM-DD")
+- deadline /by \<date\> (Note: date must be in this format "YYYY-MM-DD")
 
 Other commands include:
 - list
-- find <keyword>
-- delete <index>
-- mark <index>
-- unmark <index>
+- find \<keyword\>
+- delete \<index\>
+- mark \<index\>
+- unmark \<index\>
 
 And when you wanna start over, there's always:
 
