@@ -52,14 +52,14 @@ public class Storage {
                     break;
                 case "D":
                     String by = sArray[3];
-                    String reminder = (s.contains(" | Reminder: ")) ? s.split(" \\| Reminder: ")[1] : "";
+                    String reminder = (s.contains(" | Reminder: ")) ? s.split(" \\| Reminder: ")[1] : null;
                     tasks.add(new Deadline(description, by, isDone, reminder));
                     break;
                 case "E":
                     String[] duration = sArray[3].split(" - ");
                     String start = duration[0];
                     String end = duration[1];
-                    String eventReminder = (s.contains(" | Reminder: ")) ? s.split(" \\| Reminder: ")[1] : "";
+                    String eventReminder = (s.contains(" | Reminder: ")) ? s.split(" \\| Reminder: ")[1] : null;
                     tasks.add(new Event(description, start, end, isDone, eventReminder));
                     break;
                 default:
