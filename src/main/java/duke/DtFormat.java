@@ -44,16 +44,6 @@ public class DtFormat {
     }
 
     /**
-     * Returns an ArrayList of DateTimeFormatters to recognize user input.
-     *
-     * @returns ArrayList of DateTimeFormatters to recognize user input
-     */
-
-    public ArrayList<DateTimeFormatter> getFormatters() {
-        return formatters;
-    }
-
-    /**
      * Returns a DateTimeFormatter to format output.
      *
      * @returns DateTimeFormatter to format output
