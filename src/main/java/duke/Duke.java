@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 /**
  * The chatbot Duke.
- * Contains a Ui, Storage, TaskList and Parser object.
+ * Contains an Ui, Storage, TaskList and Parser object.
  */
 public class Duke extends Application {
     private Ui ui;
@@ -33,14 +33,15 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
     /**
      * Instantiates a new Duke object.
      *
      * @param filePath the file path
      */
-    public Duke(String filePath) {
+    Duke(String filePath) {
         this.ui = new Ui();
         this.storage = new Storage(filePath);
         try {
@@ -52,7 +53,10 @@ public class Duke extends Application {
         this.parser = new Parser(ui, storage, tasks);
     }
 
-    public Duke() {
+    /**
+     * Instantiates a new Duke.
+     */
+    Duke() {
         this.ui = new Ui();
         this.storage = new Storage("data/duke.txt");
         try {
@@ -67,14 +71,14 @@ public class Duke extends Application {
     /**
      * Runs the chatbot until "bye" is entered.
      */
-    public void run() {
+    private void run() {
         ui.introMessage();
         Scanner scan = new Scanner(System.in);
         String userinput = scan.nextLine();
 
         while (!userinput.equalsIgnoreCase("bye")) {
             try {
-                parser.parse(userinput);
+                parser.parze(userinput);
             } catch (DukeException e) {
                 System.out.println(e);
             }
@@ -91,12 +95,18 @@ public class Duke extends Application {
      * @param splitter the regex for splitting
      * @throws DukeException cannot split exception
      */
-    public static void canSplit(String input, String splitter) throws DukeException {
+    private static void canSplit(String input, String splitter) throws DukeException {
         if (input.split(splitter).length == 1) {
             throw new DukeException("☹ OOPS!!!");
         }
     }
 
+    /**
+     * Gets dialog label.
+     *
+     * @param text the text
+     * @return the dialog label
+     */
     private Label getDialogLabel(String text) {
         // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
@@ -121,12 +131,14 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets ouput by using parser with given input.
+     *
+     * @param input input
+     * @return String output
      */
     private String getResponse(String input) {
         try {
-            return parser.parseString(input);
+            return parser.parzeString(input);
         } catch (DukeException e) {
             return e.toString();
         }

@@ -1,13 +1,13 @@
 package duke;
 
-import duke.exceptions.DukeException;
-import duke.parsers.Parser;
-import duke.tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import duke.exceptions.DukeException;
+import duke.parsers.Parser;
+import duke.tasks.Task;
 
 /**
  * The type Task list.

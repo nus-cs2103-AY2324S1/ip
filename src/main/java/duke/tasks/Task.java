@@ -7,13 +7,6 @@ public abstract class Task {
     private boolean done;
     private final String name;
 
-    /**
-     * Returns the String description of a task suitable for file storage.
-     *
-     * @return the task String
-     */
-    public abstract String dataString();
-
     private Task() {
         this.name = "";
         done = false;
@@ -63,6 +56,13 @@ public abstract class Task {
     public boolean containsStr(String str) {
         return name.toLowerCase().contains(str.toLowerCase());
     }
+
+    /**
+     * Returns the String description of a task suitable for file storage.
+     *
+     * @return the task String
+     */
+    public abstract String dataString();
 
     @Override
     public String toString() {

@@ -1,15 +1,19 @@
 package duke;
 
-import duke.tasks.Task;
-
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+
+import duke.tasks.Task;
 
 /**
  * The Storage class that encapsulates the filepath and the file.
  */
 public class Storage {
-    final private String FILEPATH;
+    private final String filePath;
     private File file;
 
     /**
@@ -18,7 +22,7 @@ public class Storage {
      * @param filepath the filepath
      */
     Storage(String filepath) {
-        this.FILEPATH = filepath;
+        this.filePath = filepath;
     }
 
     /**
@@ -27,7 +31,7 @@ public class Storage {
      * @return the file
      */
     public File load() {
-        File openfile = new File(FILEPATH);
+        File openfile = new File(filePath);
         try {
             if (openfile.createNewFile()) {
                 System.out.println("New file created" + openfile.getName());
@@ -48,7 +52,7 @@ public class Storage {
      * @param list the list
      */
     public void updateFile(ArrayList<Task> list) {
-        try(FileWriter fw = new FileWriter(file, true);
+        try (FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
         {
@@ -56,14 +60,5 @@ public class Storage {
         } catch (IOException e) {
             System.out.println("nothing");
         }
-    }
-
-    /**
-     * Returns the file.
-     *
-     * @return the file
-     */
-    public File openfile() {
-        return file;
     }
 }
