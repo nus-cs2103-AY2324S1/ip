@@ -57,11 +57,11 @@ public class Duck extends Application {
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-        AnchorPane.setLeftAnchor(userInput, 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        AnchorPane.setTopAnchor(scrollPane, 0.0);
+        AnchorPane.setBottomAnchor(sendButton, 0.0);
+        AnchorPane.setRightAnchor(sendButton, 0.0);
+        AnchorPane.setLeftAnchor(userInput, 0.0);
+        AnchorPane.setBottomAnchor(userInput, 0.0);
         setElementActions();
     }
 
@@ -74,6 +74,8 @@ public class Duck extends Application {
         dialogContainer.setSpacing(10);
         dialogContainer.setPadding(new Insets(10));
         scrollPane.setContent(dialogContainer);
+
+        dialogContainer.setFillWidth(true);
 
         userInput = new TextField();
         sendButton = new Button("Send");
@@ -90,6 +92,7 @@ public class Duck extends Application {
 
         AnchorPane mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
+        scrollPane.prefWidthProperty().bind(mainLayout.widthProperty());
         mainLayout.setPrefSize(400.0, 600.0);
         scene = new Scene(mainLayout);
     }

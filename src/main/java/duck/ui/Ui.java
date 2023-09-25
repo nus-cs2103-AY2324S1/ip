@@ -27,7 +27,7 @@ public class Ui {
         int serial = 1;
         StringBuilder result = new StringBuilder();
         if (taskList.size() == 0) {
-            return "There are no tasks in your lists.";
+            return "There are no tasks in your list.";
         }
         result.append("Here are all the tasks in your list: \n");
         while (count < taskList.size()) {
@@ -72,7 +72,7 @@ public class Ui {
     public String displaySearchResults(ArrayList<Task> list) {
         StringBuilder result = new StringBuilder();
         if (list.isEmpty()) {
-            return "I couldn't find any matching tasks in your lists.";
+            return "I couldn't find any matching tasks in your list.";
         }
         result.append("Here are the matching tasks in your list: \n");
         for (int i = 0; i < list.size(); i++) {
