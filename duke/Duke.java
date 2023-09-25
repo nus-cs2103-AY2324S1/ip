@@ -164,6 +164,8 @@ public class Duke extends Application {
                         String deleteMessage = taskList.deleteTask(deleteId);
                         ui.showMessage(deleteMessage);
                         continue;
+                    case HELP:
+                        ui.showMessage(showHelp());
                     case INVALID:
                         ui.showMessage("I'm sorry, I don't understand that command.");
                 }
@@ -205,8 +207,6 @@ public class Duke extends Application {
 
         stage.setScene(scene);
         stage.show();
-
-
 
 
         //Formatting the window to look as expected
@@ -349,6 +349,8 @@ public class Duke extends Application {
                 }
             case INVALID:
                 return "I'm sorry, I don't understand that command.";
+            case HELP:
+                return showHelp();
             default:
                 return "Unknown command.";
         }
@@ -372,8 +374,30 @@ public class Duke extends Application {
         System.exit(0);
     }
 
+    /**
+     * Displays a help message explaining the available commands and their usage.
+     */
+    public String showHelp() {
+        StringBuilder helpMessage = new StringBuilder();
+        helpMessage.append("Welcome to Duke! Here are the available commands:\n");
+        helpMessage.append("- 'bye': Exits the chatbot and saves the task list to a file.\n");
+        helpMessage.append("- 'list': Lists all tasks in the current task list.\n");
+        helpMessage.append("- 'mark <task_id>': Marks a task as done by its ID.\n");
+        helpMessage.append("- 'unmark <task_id>': Unmarks a previously marked task.\n");
+        helpMessage.append("- 'todo <description>': Adds a to-do task with a description.\n");
+        helpMessage.append("- 'event <description> /from <datetime> /to <datetime>': Adds an event task with a description, start date, and end date.\n");
+        helpMessage.append("- 'deadline <description> /by <datetime>': Adds a deadline task with a description and due date.\n");
+        helpMessage.append("- 'delete <task_id>': Deletes a task by its ID.\n");
+        helpMessage.append("- 'find <keyword>': Searches for tasks containing the specified keyword.\n");
+        helpMessage.append("To use a command, simply type it in the chat and press 'Send'.\n");
+        helpMessage.append("For example: 'todo Buy groceries' or 'mark 1'.\n");
+
+        return helpMessage.toString();
+    }
+
 
     public static void main(String[] args) {
-        launch(args);
+        Duke chatBot = new Duke();
+        chatBot.run();
     }
 }
