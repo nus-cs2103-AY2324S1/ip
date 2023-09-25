@@ -1,8 +1,9 @@
-package alcazar;
+package alcazar.ui;
 
 import java.io.IOException;
 import java.util.Collections;
 
+import alcazar.MainWindow;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

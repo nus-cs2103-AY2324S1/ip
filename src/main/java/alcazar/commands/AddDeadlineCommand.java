@@ -1,34 +1,62 @@
-package alcazar.Commands;
+package alcazar.commands;
 
-import alcazar.Exceptions.InvalidArgumentException;
+import alcazar.Response;
 import alcazar.Storage;
 import alcazar.TaskList;
-import alcazar.Tasks.Deadline;
+import alcazar.exceptions.InvalidArgumentException;
+import alcazar.tasks.Deadline;
 
+/**
+ * Encapsulates the command to add a deadline
+ */
 public class AddDeadlineCommand extends Command {
+
+    /** The prompt for the deadline to be added*/
     private String inputPrompt;
 
+    /**
+     * Constructs a AddDeadlineCommand object
+     * @param inputPrompt The prompt passed by the user for creating the deadline
+     */
     public AddDeadlineCommand(String inputPrompt) {
         this.inputPrompt = inputPrompt;
     }
 
+    /**
+     * Executes the addition of a Deadline Task to the TaskList
+     * @param tasks the TaskList containing all the tasks upto present
+     * @param storage The Storage which stores all the tasks upto now
+     * @return A String response to showcase that the respective deadline has been added to the TaskList
+     * @throws InvalidArgumentException If no prompt/topic is given for the deadline
+     */
     @Override
-    public String execute(TaskList tasks,
+    public Response execute(TaskList tasks,
                           Storage storage) throws InvalidArgumentException {
         String commandContents = this.getCommandContent();
         String[] deadlineContents = this.extractDeadlineContents(commandContents);
-        System.out.println(deadlineContents[1] + "//////////");
         tasks.add(new Deadline(deadlineContents[0], deadlineContents[1]));
         storage.writeUp(tasks);
-        return "Got it. I've added this task:\n "
-                + tasks.elementAt(tasks.size() - 1) + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list\n";
+        String result = "Got it. I've added this task:\n "
+                        + tasks.elementAt(tasks.size() - 1) + "\n"
+                        + "Now you have " + tasks.size() + " tasks in the list\n";
+        return new Response(result, this.isExit());
     }
 
+    /**
+     * Checks if this is an exit command
+     * @return boolean depending on whether this is an exit command
+     */
     @Override
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Extracts the content, the text after the command specification, of the command
+     * passed by the user
+     * @return String containing the command content
+     * @throws InvalidArgumentException If command is passed without content
+     */
     public String getCommandContent() throws InvalidArgumentException {
 
         String commandContent = "";
@@ -79,21 +107,5 @@ public class AddDeadlineCommand extends Command {
         //Returning the extracted prompt and timing as an array
         String[] deadlineContents = {deadlinePrompt, deadlineTiming};
         return deadlineContents;
-//        for (i = 0; i < text.length(); i++) {
-//            char ch = text.charAt(i);
-//            if (ch == ' ') {
-//                if (wrd.equals("/by")) {
-//                    break;
-//                }
-//                str += wrd + " ";
-//                wrd = "";
-//            } else {
-//                wrd += ch;
-//            }
-//        }
-//        String[] deadArray = new String[2];
-//        deadArray[0] = str.trim();
-//        deadArray[1] = text.substring(i + 1);
-//        return deadArray;
     }
 }

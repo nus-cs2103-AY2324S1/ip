@@ -2,15 +2,16 @@ package alcazar;
 
 import java.io.IOException;
 
-import alcazar.UI.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+
+
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Alcazar using FXML.
  */
 public class Main extends Application {
 
