@@ -1,0 +1,12 @@
+todo eat rice
+deadline finish ip /by next year
+event eat noodle /from now /to later
+ggggggg
+list
+mark 1
+list
+unmark 1
+list
+delete 1
+list
+bye
