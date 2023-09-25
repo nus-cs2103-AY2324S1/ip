@@ -1,0 +1,27 @@
+hi
+list
+todo
+todo borrow book
+deadline
+deadline return book
+deadline return book /by 01/09/2023 1800
+event
+event Project meeting
+event project meeting /from 02/09/2022 1200
+event project meeting /from 02/09/2022 1200 /to 02/09/2022 1600
+list
+mark
+mark 1
+mark 3
+list
+find book
+unmark
+unmark 1
+list
+upcoming
+delete 0
+delete 2
+delete 1
+delete 1
+list
+bye
