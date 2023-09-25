@@ -13,7 +13,7 @@ import duke.tasks.Task;
  * The type Task list.
  */
 public class TaskList {
-    private ArrayList<Task> taskList;
+    private final ArrayList<Task> taskList;
 
     /**
      * Instantiates a new Task list, given a file to read from.
@@ -23,6 +23,7 @@ public class TaskList {
      */
     TaskList(File file) throws DukeException {
         this.taskList = new ArrayList<Task>();
+        assert file.canRead();
         try {
             Scanner reader = new Scanner(file);
             while (reader.hasNextLine()) {
@@ -51,10 +52,18 @@ public class TaskList {
      * @return the array list with Tasks.
      */
     public ArrayList<Task> list() {
+        assert taskList != null;
         return taskList;
     }
 
+    /**
+     * Checks if list contains a task.
+     *
+     * @param key the key
+     * @return the array list
+     */
     public ArrayList<Task> contains(String key) {
+        assert taskList != null;
         ArrayList<Task> temp = new ArrayList<>(this.taskList);
         temp.removeIf(t -> !t.containsStr(key));
         return temp;

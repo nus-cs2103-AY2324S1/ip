@@ -51,6 +51,8 @@ public class Duke extends Application {
             tasks = new TaskList();
         }
         this.parser = new Parser(ui, storage, tasks);
+        assert this.user != null : "no user image";
+        assert this.duke != null : "no duke image";
     }
 
     /**
@@ -66,6 +68,8 @@ public class Duke extends Application {
             tasks = new TaskList();
         }
         this.parser = new Parser(ui, storage, tasks);
+        assert this.user != null : "no user image";
+        assert this.duke != null : "no duke image";
     }
 
     /**
@@ -86,19 +90,6 @@ public class Duke extends Application {
         }
 
         ui.byeMessage();
-    }
-
-    /**
-     * Checks if a user input can be split.
-     *
-     * @param input    the input
-     * @param splitter the regex for splitting
-     * @throws DukeException cannot split exception
-     */
-    private static void canSplit(String input, String splitter) throws DukeException {
-        if (input.split(splitter).length == 1) {
-            throw new DukeException("☹ OOPS!!!");
-        }
     }
 
     /**

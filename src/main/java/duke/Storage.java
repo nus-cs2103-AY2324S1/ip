@@ -52,6 +52,7 @@ public class Storage {
      * @param list the list
      */
     public void updateFile(ArrayList<Task> list) {
+        assert file.canWrite() : "File writing is supposed to return true";
         try (FileWriter fw = new FileWriter(file, true);
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw))
