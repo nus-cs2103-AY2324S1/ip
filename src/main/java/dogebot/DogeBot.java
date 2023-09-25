@@ -2,6 +2,8 @@ package dogebot;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * The DogeBot program is an application that keeps track of tasks. Different types of tasks can be added, deleted,
@@ -11,9 +13,7 @@ import java.io.IOException;
  */
 public class DogeBot {
     protected static TaskList tasks;
-    private static final String HOME = System.getProperty("user.home"); // get relative path
-    private static final java.nio.file.Path PATH = java.nio.file.Paths.get(HOME, "OneDrive", "Desktop", "iP",
-        "src", "main");
+    private static final String PATH = "DogeBotData/";
     private static File file;
     protected Ui ui;
     private Parser userInput;
@@ -25,9 +25,10 @@ public class DogeBot {
      * @param filename Name of the text file.
      */
     public DogeBot(String filename) {
-        file = new File(PATH.toString(), filename);
+        file = new File(PATH, filename);
         try {
             if (!file.exists()) {
+                Files.createDirectory(Paths.get(PATH));
                 file.createNewFile();
             }
         } catch (IOException e) {
