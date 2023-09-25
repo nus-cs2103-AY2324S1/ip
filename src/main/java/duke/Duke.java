@@ -1,9 +1,7 @@
 package duke;
 
-import java.awt.*;
 import java.util.Scanner;
 
-import com.beust.jcommander.internal.Nullable;
 import duke.exceptions.DukeException;
 import duke.parsers.Parser;
 import javafx.application.Application;
@@ -14,13 +12,15 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -122,12 +122,12 @@ public class Duke extends Application {
         Label dukeText = new Label(getResponse(userInput.getText()));
         userText.setBackground(
                 new Background(
-                        new BackgroundFill(Color.gray(0.9),
+                        new BackgroundFill(Color.gray(0.68888),
                                 new CornerRadii(8),
                                 new Insets(-4))));
         dukeText.setBackground(
                 new Background(
-                        new BackgroundFill(Color.gray(0.9),
+                        new BackgroundFill(Color.gray(0.88888),
                                 new CornerRadii(8),
                                 new Insets(-4))));
         dialogContainer.getChildren().addAll(
