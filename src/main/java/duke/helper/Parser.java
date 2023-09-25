@@ -14,11 +14,21 @@ import duke.tasks.ToDo;
 
 public class Parser {
     private static TaskList taskList;
-
+    
+    /**
+    * initializes the task list
+    *
+    * @param tasks the task list to be initialized
+    */
     public static void setTaskList(TaskList tasks) {
         taskList = tasks;
     }
 
+    /**
+    * categorises command based on user input
+    *
+    * @param input the user input
+    */
     public static void parse(String input) throws DukeException {
         String command = input.split("\\s")[0].toUpperCase();
         String content = input.replace(input.split("\\s")[0], "");
@@ -55,6 +65,11 @@ public class Parser {
         }  
     }
 
+    /**
+    * executes the bye command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseBye(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             Ui.exit();
@@ -65,6 +80,11 @@ public class Parser {
         
     }
 
+    /**
+    * executes the clear command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseClear(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             taskList.clear();
@@ -74,6 +94,11 @@ public class Parser {
         }
     }
 
+    /**
+    * executes the delete command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseDelete(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Please specify the item number you wish to delete.");
@@ -91,6 +116,11 @@ public class Parser {
         return;
     }
 
+    /**
+    * executes the mark command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseMark(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Please specify the item number you wish to mark.");
@@ -108,6 +138,11 @@ public class Parser {
         return;
     }
 
+    /**
+    * executes the unmark command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseUnmark(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Please specify the item number you wish to unmark.");
@@ -125,6 +160,11 @@ public class Parser {
         return;
     }
 
+    /**
+    * executes the print command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parsePrint(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             taskList.print();
@@ -140,6 +180,11 @@ public class Parser {
         return;
     }
 
+    /**
+    * executes the todo command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseTodo(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Sorry, the todo task must have a title.");
@@ -149,6 +194,11 @@ public class Parser {
         return;
     }
 
+    /**
+    * executes the event command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseEvent(String content) throws DukeException {
         //when user didn't provide title and start & end time
         if (content.isBlank() || content.isEmpty() 
@@ -188,6 +238,11 @@ public class Parser {
         return;
     }
 
+    /**
+    * executes the deadline command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
     private static void parseDeadline(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || !content.contains(" /by ") || content == null) {
             throw new DukeException("Sorry, the deadline task must have a title and a deadline.");
@@ -217,6 +272,11 @@ public class Parser {
         return;
     }
 
+    /**
+    * format date-time string input into another date-time format
+    *
+    * @param input the message to be translated into another date-time format
+    */
     private static String formatTime(String input) {
         try {
             // when input have a date and a time
