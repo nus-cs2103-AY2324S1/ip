@@ -9,6 +9,9 @@ import duke.tasks.ToDo;
 import duke.tasks.Event;
 import duke.tasks.Deadline;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.io.IOException;
 
 public class Handler {
@@ -160,5 +163,24 @@ public class Handler {
             System.out.println(ui.failure());
         }
         return ui.removeText(t, taskList.getLength());
+    }
+
+    public String handleFind(String command) throws DukeInvalidDescriptionException {
+        String[] parsed = Parser.splitSpace(command);
+        if (parsed.length < 2) {
+            throw new DukeInvalidDescriptionException();
+        }
+
+        List<Integer> indexList = new ArrayList<>();
+        String keywords = parsed[1];
+
+        for (int i = 0; i < taskList.getLength(); i++) {
+            Task task = taskList.getTask(i);
+            if (task.getDescription().toLowerCase().contains(keywords.toLowerCase())) {
+                indexList.add(i);
+            }
+        }
+
+        return ui.getMatchingList(taskList, indexList);
     }
 }

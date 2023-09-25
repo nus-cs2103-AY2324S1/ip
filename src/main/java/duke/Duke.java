@@ -45,6 +45,8 @@ public class Duke {
                     System.out.println(handler.handleDeadline(command));
                 } else if (command.startsWith("delete ")) {
                     System.out.println(handler.handleDelete(command));
+                } else if (command.startsWith("find ")) {
+                    System.out.println(handler.handleFind(command));
                 } else {
                     throw new DukeInvalidInputException();
                 }

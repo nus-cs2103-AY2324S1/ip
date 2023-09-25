@@ -3,6 +3,8 @@ package duke;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -74,5 +76,19 @@ public class Ui {
             return line + res + line;
         }
         return line + "You have no tasks for the day. Congratulations?" + "\n" + line;
+    }
+
+    public String getMatchingList(TaskList list, List<Integer> indices) {
+        if (indices.size() != 0) {
+            String res = "Here are the task(s) matching that description: \n";
+            for (int i = 0; i < indices.size(); i++) {
+                String prev = res;
+                int count = i + 1;
+                int index = indices.get(i);
+                res = prev + count + "." + list.getTask(index).toString() + "\n";
+            }
+            return line + res + line;
+        }
+        return line + "No tasks found. Apologies." + "\n" + line;
     }
 }
