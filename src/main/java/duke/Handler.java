@@ -50,7 +50,8 @@ public class Handler {
         return ui.markText(taskList.getTask(ind-1));
     }
 
-    public String handleUnmark(String command) throws DukeInvalidDescriptionException, DukeInvalidIndexException {
+    public String handleUnmark(String command) throws DukeInvalidDescriptionException,
+            DukeInvalidIndexException {
         String[] parsed = Parser.splitSpace(command);
         if (parsed.length < 2) {
             throw new DukeInvalidDescriptionException();
@@ -95,7 +96,8 @@ public class Handler {
         return ui.taskText(todo, taskList.getLength());
     }
 
-    public String handleEvent(String command) throws DukeInvalidDescriptionException, DukeInvalidTimeException {
+    public String handleEvent(String command) throws DukeInvalidDescriptionException,
+            DukeInvalidTimeException {
         String[] parsed = Parser.splitEvent(command);
         if (parsed.length < 1 || parsed[0].equals("")) {
             throw new DukeInvalidDescriptionException();

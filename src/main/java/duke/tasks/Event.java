@@ -15,7 +15,8 @@ public class Event extends Task {
     public Event(String description, String from, String to) {
         super(description);
 
-        //To treat the event start and end as dates, the user must input them as either of the following formats.
+        //To treat the event start and end as dates,
+        //the user must input them as either of the following formats.
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 
