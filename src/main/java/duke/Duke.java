@@ -120,7 +120,7 @@ public class Duke {
                             2, "Null", parser.getFirstEnteredTime(), false)));
                     haveChangesInUserList = true;
                 } else {
-                    ui.speak("Invalid date format. Please enter as yyyy-mm-dd.");
+                    ui.speak("Invalid date format. Please enter as /by yyyy-mm-dd.");
                 }
                 break;
 
@@ -132,7 +132,7 @@ public class Duke {
                             3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false)));
                     haveChangesInUserList = true;
                 } else {
-                    ui.speak("Invalid date format. Please enter as yyyy-mm-dd.");
+                    ui.speak("Invalid date format. Please enter as /from yyyy-mm-dd /to yyyy-mm-dd.");
                 }
                 break;
 
@@ -273,7 +273,7 @@ public class Duke {
                         2, "Null", parser.getFirstEnteredTime(), false));
                 haveChangesInUserList = true;
             } else {
-                message = "Invalid date format. Please enter as yyyy-mm-dd.";
+                message = "Invalid date format. Please enter as /by yyyy-mm-dd.";
             }
             break;
 
@@ -285,7 +285,7 @@ public class Duke {
                         3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false));
                 haveChangesInUserList = true;
             } else {
-                message = "Invalid date format. Please enter as yyyy-mm-dd.";
+                message = "Invalid date format. Please enter as /from yyyy-mm-dd /to yyyy-mm-dd.";
             }
             break;
 
