@@ -12,6 +12,8 @@ public class Deadline extends Task implements Comparable<Task> {
     private String[] split2;
     private LocalDate dueDate;
     private Integer timeCompare;
+    private String name;
+    private boolean isRecurring;
 
     /**
      * Constructs a new Deadline task with the user command and 'mark' status
@@ -24,6 +26,14 @@ public class Deadline extends Task implements Comparable<Task> {
         splitSlash = content.split("/", 2);
         split2 = splitSlash[1].split(" ", 3);
         timeCompare = Integer.parseInt(split2[2]);
+        this.isRecurring = false;
+        String[] title = splitSlash[0].split(" ", 3);
+        if (title[1].equals("recurring")) {
+            this.isRecurring = true;
+            name = title[2];
+        } else {
+            name = title[1] + " " + title[2];
+        }
         try {
             this.dueDate = LocalDate.parse(split2[1].replace("/", "-"));
         } catch (DateTimeParseException e) {
@@ -32,9 +42,14 @@ public class Deadline extends Task implements Comparable<Task> {
                 this.dueDate = LocalDate.parse(split2[1], formatter);
             } catch (DateTimeException ex) {
                 throw new DukeException("\n" + "DateTime wrong input format\n");
-                // this.dueDate = splitSlash[1];
             }
         }
+    }
+
+    public Deadline update(LocalDate newLocalDate) throws DukeException {
+        String newContent = String.format("%s/%s %s %s", splitSlash[0], split2[0],
+                newLocalDate.toString(), split2[2]);
+        return new Deadline(newContent, super.isMarked());
     }
 
     /**
@@ -71,16 +86,19 @@ public class Deadline extends Task implements Comparable<Task> {
         return timeCompare;
     }
 
+    public boolean isRecurring() {
+        return this.isRecurring;
+    }
+
     /**
      * @return The status of this task through a string
      */
     public String toString() {
-        String[] result = splitSlash[0].split(" ", 2);
         String dueDateString = dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         if (!super.isMarked()) {
-            return String.format("[D][ ] %s(by: %s %s)", result[1], dueDateString, split2[2]);
+            return String.format("[D][ ] %s(by: %s %s)", name, dueDateString, split2[2]);
         } else {
-            return String.format("[D][X] %s(by: %s %s)", result[1], dueDateString, split2[2]);
+            return String.format("[D][X] %s(by: %s %s)", name, dueDateString, split2[2]);
         }
     }
 }

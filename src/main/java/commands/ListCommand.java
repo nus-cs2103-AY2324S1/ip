@@ -1,15 +1,18 @@
 package commands;
 
+import functional.DukeException;
 import functional.TaskList;
 import functional.Ui;
 import tasks.Task;
 
+import java.time.LocalDate;
 import java.util.Collections;
 
 /**
  * A command to list the tasks.
  */
 public class ListCommand extends Command {
+    static final long daysInAWeek = 7;
 
     /**
      * Constructs a `ListCommand` object.
@@ -25,11 +28,23 @@ public class ListCommand extends Command {
      * @param ui     The user interface to display the list of tasks.
      * @param status always false - intended for use by AddCommand
      */
-    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) {
+    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) throws DukeException {
         StringBuilder sb = new StringBuilder();
-        Collections.sort(tasks);
         sb.append(ui.showLine() + "\n"
                 + "Here are the tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task job = tasks.get(i);
+            boolean expiredRecurringTask = job.isRecurring() && job.getDateTime().isBefore(LocalDate.now());
+            if (expiredRecurringTask) {
+                LocalDate localDate = job.getDateTime();
+                while (localDate.isBefore(LocalDate.now())) {
+                    localDate = localDate.plusDays(daysInAWeek);
+                }
+                job = job.update(localDate);
+                tasks.set(i, job);
+            }
+        }
+        Collections.sort(tasks);
         for (int i = 0; i < tasks.size(); i++) {
             Task job = tasks.get(i);
             sb.append(String.format("%d. %s", i + 1, job.toString()) + "\n");

@@ -9,6 +9,7 @@ public class Task implements Comparable<Task> {
     private boolean isMarked;
     private LocalDate localDate;
     private Integer timeCompare;
+    private boolean isRecurring = false;
 
     /**
      * Constructs a task with an initial status of not isMarked
@@ -28,6 +29,10 @@ public class Task implements Comparable<Task> {
         this.isMarked = status;
         this.localDate = LocalDate.now();
         this.timeCompare = 0;
+    }
+
+    public Task update(LocalDate localDate) throws DukeException {
+        return new Task(getContent(), isMarked());
     }
 
     /**
@@ -83,6 +88,10 @@ public class Task implements Comparable<Task> {
         } else {
             return this.getTimeCompare().compareTo(other.getTimeCompare());
         }
+    }
+
+    public boolean isRecurring() {
+        return this.isRecurring;
     }
 
     /**

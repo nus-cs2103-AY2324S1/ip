@@ -13,6 +13,8 @@ public class Event extends Task implements Comparable<Task> {
     private String[] endTime;
     private String startTime;
     private LocalDate localDate;
+    private String name;
+    private boolean isRecurring;
 
     /**
      * Constructs a new Event task with the specified user input.
@@ -20,13 +22,21 @@ public class Event extends Task implements Comparable<Task> {
      * @param content The user input to create an event
      * @param status  marked or unmarked
      */
-    public Event(String content, boolean status) throws DukeException {
+    public Event(String content, boolean status) {
         super(content, status);
         splitSlash = content.split("/", 2);
         startDate = splitSlash[1].split(" ", 3);
         String[] split2 = startDate[2].split("/", 2);
         startTime = split2[0];
         endTime = split2[1].split(" ", 2);
+        this.isRecurring = false;
+        String[] title = splitSlash[0].split(" ", 3);
+        if (title[1].equals("recurring")) {
+            this.isRecurring = true;
+            name = title[2];
+        } else {
+            name = title[1] + " " + title[2];
+        }
         try {
             this.localDate = LocalDate.parse(startDate[1].replace("/", "-"));
         } catch (DateTimeParseException e) {
@@ -37,6 +47,12 @@ public class Event extends Task implements Comparable<Task> {
                 this.startTime = startDate[1] + " " + split2[0];
             }
         }
+    }
+
+    public Event update(LocalDate newLocalDate) {
+        String newContent = String.format("%s/%s %s %s", splitSlash[0], startDate[0],
+                newLocalDate.toString(), startDate[2]);
+        return new Event(newContent, super.isMarked());
     }
 
     /**
@@ -73,16 +89,19 @@ public class Event extends Task implements Comparable<Task> {
         return Integer.parseInt(startTime.substring(0, startTime.length() - 1));
     }
 
+    public boolean isRecurring() {
+        return this.isRecurring;
+    }
+
     /**
      * @return a String message describing the event
      */
     public String toString() {
-        String[] result = splitSlash[0].split(" ", 2);
         String startDateString = localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + startTime;
         if (!super.isMarked()) {
-            return String.format("[E][ ] %s(%s: %s%s: %s)", result[1], startDate[0], startDateString, endTime[0], endTime[1]);
+            return String.format("[E][ ] %s(%s: %s%s: %s)", name, startDate[0], startDateString, endTime[0], endTime[1]);
         } else {
-            return String.format("[E][X] %s(%s: %s%s: %s)", result[1], startDate[0], startDateString, endTime[0], endTime[1]);
+            return String.format("[E][X] %s(%s: %s%s: %s)", name, startDate[0], startDateString, endTime[0], endTime[1]);
         }
     }
 }
