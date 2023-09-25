@@ -28,6 +28,9 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/gigachad.jpg"));
     private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Wojak_cropped.jpg"));
 
+    /**
+     * Initialise an instance of the chatbot.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -36,7 +39,7 @@ public class MainWindow extends AnchorPane {
         String greeting = "Hey it's Jyuuni, your kinda helpful assistant to keep track of tasks\n\n"
                 + "If you don't know what I can do, you can ask for [help]";
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(Main.loadOutput, dukeImage),
+                DialogBox.getDukeDialog(Main.getLoadOutput(), dukeImage),
                 DialogBox.getDukeDialog(greeting, dukeImage)
         );
 

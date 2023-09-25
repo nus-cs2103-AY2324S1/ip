@@ -14,12 +14,16 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    private static String loadOutput = "";
     private Duke duke = new Duke();
-    public static String loadOutput = "";
+
+    public static String getLoadOutput() {
+        return loadOutput;
+    }
 
     @Override
     public void start(Stage stage) {
-        // Preload chatbot with data from storage file, saves output as .
+        // Preload chatbot with data from storage file, saves output as String.
         loadOutput = duke.loadData();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
