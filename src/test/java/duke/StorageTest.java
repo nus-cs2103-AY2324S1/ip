@@ -31,7 +31,7 @@ public class StorageTest {
     @Test
     public void fileCreation_fileDoesNotExist_fileIsCreated() throws IOException {
         Storage storage = new Storage(tempFile);
-        assertTrue(storage.file.exists());
+        assertTrue(storage.getFile().exists());
     }
 
     @Test
@@ -43,8 +43,8 @@ public class StorageTest {
         storage.fileToTaskList(tl);
 
         // Check if the TaskList has been populated
-        assertTrue(!tl.taskList.isEmpty());
-        assertEquals("Sample Task", tl.taskList.get(0).name);
+        assertTrue(!tl.getTaskList().isEmpty());
+        assertEquals("Sample Task", tl.getTaskList().get(0).name);
     }
 
     @Test

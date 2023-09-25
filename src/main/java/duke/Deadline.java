@@ -10,12 +10,12 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private static final String DATE_FORMAT = "MMM d yyyy";
     private static final String TASK_TYPE = "D";
-    LocalDate deadline;
+    private LocalDate deadline;
 
     /**
      * Creates a Deadline object.
      *
-     * @param done Boolean representation of completion.
+     * @param isDone Boolean representation of completion.
      * @param name Name of deadline task.
      */
     Deadline(boolean isDone, String name) {

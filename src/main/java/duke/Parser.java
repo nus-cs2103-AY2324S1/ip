@@ -1,7 +1,5 @@
 package duke;
 
-import javafx.application.Platform;
-
 import java.io.IOException;
 
 /**
@@ -11,8 +9,8 @@ import java.io.IOException;
  */
 public class Parser {
 
-    String[] input;
-    String fullLine;
+    private String[] input;
+    private String fullLine;
 
     /**
      * Creates a Parser object by taking in a single string input and parsing information.
@@ -88,8 +86,8 @@ public class Parser {
         String longName = fullLine.split("/by ")[0];
         String date = fullLine.split("/by ")[1];
         String taskName = longName.split("deadline ")[1];
-        String deadlineName = taskName +
-                String.format("(by: %s)", date);
+        String deadlineName = taskName
+                + String.format("(by: %s)", date);
 
         return new Deadline(deadlineName);
     }
@@ -111,12 +109,22 @@ public class Parser {
         String endTime = longNameArray[2];
         endTime = endTime.split(" ")[1];
         String taskName = longName.split("event ")[1];
-        String eventName = taskName +
-                String.format("(from: %s to: %s)",
+        String eventName = taskName
+                + String.format("(from: %s to: %s)",
                         fromTime, endTime);
         return new Event(eventName);
     }
 
+    /**
+     * Parses a given text input and outputs a String.
+     *
+     * @param cmd The String command to be parsed.
+     * @param tl The TaskList object to write tasks to.
+     * @param store The Storage object to write tasks to file.
+     * @return The String output of command parsing.
+     * @throws DukeException For main program related errors.
+     * @throws IOException For File-IO related errors.
+     */
     public static String parseText(String cmd, TaskList tl, Storage store) throws DukeException, IOException {
 
         Parser p = new Parser(cmd);

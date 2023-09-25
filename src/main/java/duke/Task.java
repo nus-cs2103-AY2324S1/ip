@@ -1,6 +1,5 @@
 package duke;
 
-import java.util.*;
 
 /**
  * The Task class creates generic Task objects. It is made to be concrete
@@ -10,9 +9,14 @@ public class Task {
     private static final String DONE_MARKER = "[X] ";
     private static final String UNDONE_MARKER = "[  ] ";
     private static final String DELIMITER = "|";
-    boolean isDone;
-    String name;
+    protected boolean isDone;
+    protected String name;
 
+    /**
+     * Creates a generic Task object
+     * @param isDone Boolean representation of completion.
+     * @param name Name of task.
+     */
     Task(boolean isDone, String name) {
         this.isDone = isDone;
         this.name = name;
@@ -28,13 +32,11 @@ public class Task {
 
     /**
      * Returns an empty String. This method exists to facilitate
-     * polymorphic behaviour in inherited child classes, and also
-     * for debugging purposes, which is why it remains a non-abstract
-     * class.
+     * polymorphic behaviour in inherited child classes.
      *
      * @return The String representation of the type of the Task
      */
-    public String taskType() {
+    protected String taskType() {
         return "";
     }
 

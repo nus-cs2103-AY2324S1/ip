@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * tasks.
  */
 public class TaskList {
-    ArrayList<Task> taskList;
+    private ArrayList<Task> taskList;
 
     /**
      * Creates a TaskList object with an input list of tasks.

@@ -1,40 +1,40 @@
 package duke;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.io.IOException;
-
+import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-
-import javafx.scene.layout.Region;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
+
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 
 /**
  * An interactive digital task manager called ChatterBox.
- * This minimal chatbot can take in simple commands, remember
- * tasks even after termination, and manipulate them as per the 
- * user's requests. 
+ * This minimal ChatBot can take in simple commands, remember
+ * tasks even after termination, and manipulate them as per the
+ * user's requests.
  */
 public class ChatterBox extends Application {
+
     private static final String USER_IMAGE_LOCATION = "/DaUser.png";
     private static final String DUKE_IMAGE_LOCATION = "/DaDuke.png";
     private static final Double ANCHOR_LENGTH = 1.0;
@@ -79,7 +79,12 @@ public class ChatterBox extends Application {
 
     }
 
-
+    /**
+     * @param stage the primary stage for this application, onto which
+     *     the application scene can be set.
+     *     Applications may create other stages, if needed, but they will not be
+     *     primary stages.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();
@@ -97,7 +102,7 @@ public class ChatterBox extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
+        //Formatting the window to look as expected
         stage.setTitle("ChatterBox");
         stage.setResizable(true);
         stage.setMinHeight(MIN_HEIGHT);
@@ -112,7 +117,6 @@ public class ChatterBox extends Application {
         scrollPane.setVvalue(V_VALUE);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         userInput.setPrefWidth(325.0);
         sendButton.setPrefWidth(55.0);
@@ -125,14 +129,13 @@ public class ChatterBox extends Application {
         AnchorPane.setLeftAnchor(userInput , ANCHOR_LENGTH);
         AnchorPane.setBottomAnchor(userInput, ANCHOR_LENGTH);
 
-        // more code to be added here later
 
         Label firstText = new Label(ui.startScreen());
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(firstText, new ImageView(duke))
         );
 
-        //Part 3. Add functionality to handle user input.
+        //Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -157,24 +160,24 @@ public class ChatterBox extends Application {
         String responseString = getResponse(userInput.getText());
         Label dukeText = new Label(responseString);
 
-       if (responseString.equals("bye")) {
-           dukeText = new Label(new Ui().byeScreen());
-           Timeline timeline = new Timeline(new KeyFrame(
+        if (responseString.equals("bye")) {
+            dukeText = new Label(new Ui().byeScreen());
+            Timeline timeline = new Timeline(new KeyFrame(
                    Duration.millis(1000),
                    ae -> {
                        // 3. Exit the application
                        Platform.exit();
                    }
-           ));
+            ));
 
-           timeline.play();
-       }
+            timeline.play();
+        }
 
-       dialogContainer.getChildren().addAll(
+        dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
-       userInput.clear();
+        userInput.clear();
     }
 
     /**

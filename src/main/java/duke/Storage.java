@@ -2,8 +2,8 @@ package duke;
 
 import java.io.File;
 import java.io.FileWriter;
-
 import java.io.IOException;
+
 import java.util.Scanner;
 
 /**
@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Storage {
     private static final String DATA_LOCATION = "data.txt";
-    public File file;
+    private File file;
 
     /**
      * Creates a Storage object with a new file at "data.txt" if it does not already exist.
@@ -74,6 +74,9 @@ public class Storage {
                 tl.add(new Deadline(isDone, deadlineName));
                 break;
 
+            default:
+                break;
+
             }
 
         }
@@ -93,13 +96,18 @@ public class Storage {
             throws IOException {
 
         FileWriter fw = new FileWriter(this.file, false);
-        for (Task t : tl.taskList) {
+        for (Task t : tl.getTaskList()) {
             String fileString = t.fileToString();
             fw.write(fileString);
             fw.write("\n");
         }
         fw.close();
 
+    }
+
+
+    public File getFile() {
+        return this.file;
     }
 
 
