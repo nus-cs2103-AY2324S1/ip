@@ -2,8 +2,21 @@ package duke;
 
 import java.io.IOException;
 
+/**
+ * Class to understand the input user commands.
+ */
 public class Parser {
 
+    /**
+     * Parses through the input message to understand and execute the user command.
+     *
+     * @param input user command.
+     * @param taskList list where all tasks are stored.
+     * @param ui used to generate all the output messages.
+     * @param storage to load and save to the text files.
+     * @return Final output to be read by the getResponse in Duke class.
+     * @throws DukeException If input is invalid.
+     */
     public static String userCommand(String input, TaskList taskList,
                                       Ui ui, Storage storage) throws DukeException {
         if (input.equals("bye")) {
@@ -41,6 +54,15 @@ public class Parser {
         return ui.displayListMessage(taskList);
     }
 
+    /**
+     * Executes todo type of commands.
+     *
+     * @param input User command.
+     * @param taskList List where all tasks are stored.
+     * @param ui Used to generate all the output messages.
+     * @return Final output to be read by the getResponse in Duke class.
+     * @throws DukeException If no task is provided.
+     */
     public static String parseToDoCommand(String input, TaskList taskList,
                                  Ui ui) throws DukeException {
         if (input.length() <= 5) {
