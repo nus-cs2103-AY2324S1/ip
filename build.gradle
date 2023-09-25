@@ -49,9 +49,7 @@ test {
 
 application {
     mainClass.set("duke.Launcher")
-    mainClassName = 'duke.Launcher'
 }
-
 
 
 shadowJar {
@@ -61,6 +59,7 @@ shadowJar {
     archiveFileName = 'duke.jar'
 }
 
-run {
+
+run{
     standardInput = System.in
 }
