@@ -28,12 +28,17 @@ public class TaskList implements Serializable {
 
     /**
      * Lists all tasks in the TaskList, displaying their descriptions and statuses.
+     *
+     * @return String representing all tasks in the list
      */
-    public void listTasks() {
+    public String listTasks() {
+        String tasks = "";
         for (int i = 0; i < taskArrayList.size(); i++) {
             Task task = taskArrayList.get(i);
-            System.out.println((i + 1) + ". " + task);
+            String curr = (i + 1) + ". " + task;
+            tasks += curr + "\n";
         }
+        return tasks;
     }
 
     /**
@@ -117,13 +122,17 @@ public class TaskList implements Serializable {
      * Lists tasks in the TaskList whose description matches with keyword.
      *
      * @param key The keyword users are looking up for.
+     * @return String representing all the matching tasks in the list.
      */
-    public void findTasks(String key) {
+    public String findTasks(String key) {
+        String taskFound = "";
         for (int i = 0; i < taskArrayList.size(); i++) {
             Task task = taskArrayList.get(i);
             if(task.description.contains(key)) {
-                System.out.println((i + 1) + ". " + task);
+                String tasks =((i + 1) + ". " + task);
+                taskFound += tasks + "\n";
             }
         }
+        return taskFound;
     }
 }

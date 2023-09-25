@@ -18,18 +18,12 @@ public class Ui {
     }
 
     /**
-     * Displays a greeting message when the chatbot is initialized.
-     */
-    protected void greeting() {
-        System.out.println("Hello! I'm Lakinta.");
-        System.out.println("What can I do for you?");
-    }
-
-    /**
      * Displays a goodbye message when the chatbot is about to exit.
+     *
+     * @return String representing an exit message
      */
-    protected void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    protected String exit() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
