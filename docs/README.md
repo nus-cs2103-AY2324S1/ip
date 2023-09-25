@@ -1,5 +1,14 @@
 # Husky
 
+## About
+
+Husky is a chat-bot style task management app that works over the CLI.
+It is meant for users to keep track of their daily tasks comprehensively.
+
+## Download
+
+You can download husky [here](https://github.com/s-peiran/ip/releases/tag/A-UserGuide).
+
 ## Features
 
 1. Add tasks based on type -`ToDo`,`Deadline` or `Event`
@@ -199,7 +208,7 @@ Here are the tasks in your list:
 2. [D][ ] weekly quiz (by: Sep 26 2023 1500)
 ```
 
-### 'bye' - Exits the application
+### `bye` - Exits the application
 
 terminate the application and saves the list
 
