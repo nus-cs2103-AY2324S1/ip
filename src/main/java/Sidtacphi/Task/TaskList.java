@@ -41,77 +41,15 @@ public class TaskList extends ArrayList<Task> {
      * @param input input to add to the task_list kept by the bot
      */
     public String addTask(TaskType taskType, String input) throws SidException {
-        String[] inputArgs;
         switch (taskType) {
         case TODO:
-            if (input.length() < 5) {
-                throw new SidInvalidFormatException("Please input a name for your Todo task.");
-            } else if (input.charAt(4) == ' ') {
-                this.add(new Todo(input.substring(5)));
-            } else {
-                throw new SidException("\"" + input + "\" is not a valid command.");
-            }
+            addTodo(input);
             break;
         case EVENT:
-            if (input.length() < 6) {
-                throw new SidInvalidFormatException("Please input a name for your Event"
-                        + "task, along with a start and end date.");
-            } else if (input.charAt(5) != ' ') {
-                throw new SidException("\"" + input + "\" is not a valid command.");
-            }
-
-            inputArgs = input.substring(6).split("\\s*/from\\s*");
-            if (inputArgs.length != 2) {
-                throw new SidInvalidFormatException("Please put in the starting and ending date "
-                        + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
-            }
-
-            String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
-            if (startAndEnd.length == 2) {
-                LocalDate start;
-                LocalDate end;
-                try {
-                    start = LocalDate.parse(startAndEnd[0]);
-                    end = LocalDate.parse(startAndEnd[1]);
-                } catch (DateTimeParseException e) {
-                    throw new SidInvalidFormatException("Please put in your dates in YYYY-MM-DD format.");
-                }
-
-                if (end.isBefore(start)) {
-                    throw new SidInvalidFormatException(
-                        "Please make sure your starting date is before your ending date.");
-                }
-
-                this.add(new Event(inputArgs[0], start, end));
-            } else {
-                throw new SidInvalidFormatException("Please put in the starting and ending date "
-                        + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
-            }
-
+            addEvent(input);
             break;
         case DEADLINE:
-            if (input.length() < 9) {
-                throw new SidInvalidFormatException("Please input a name for your Event"
-                        + "task, along with a start and end date.");
-            } else if (input.charAt(8) != ' ') {
-                throw new SidException("\"" + input + "\" is not a valid command.");
-            }
 
-            inputArgs = input.substring(9).split("\\s*/by\\s*");
-            if (inputArgs.length == 2) {
-                LocalDate deadline;
-                try {
-                    deadline = LocalDate.parse(inputArgs[1]);
-                } catch (DateTimeParseException e) {
-                    throw new SidInvalidFormatException("Please put in your dates in YYYY-MM-DD format.");
-                }
-                this.add(new Deadline(inputArgs[0], deadline));
-            } else if (inputArgs.length == 1) {
-                throw new SidInvalidFormatException("Please write in the deadline"
-                        + "using \"/by <date>\" for Deadline tasks.");
-            } else {
-                throw new SidInvalidFormatException("Please do not write in more than 1 deadline.");
-            }
             break;
         default:
             // The code should never reach here.
@@ -128,6 +66,96 @@ public class TaskList extends ArrayList<Task> {
         }
 
         return result;
+    }
+
+    /**
+     * Adds a Todo task.
+     *
+     * @param input full user input
+     * @throws SidException
+     */
+    public void addTodo(String input) throws SidException {
+        if (input.length() < 5) {
+            throw new SidInvalidFormatException("Please input a name for your Todo task.");
+        } else if (input.charAt(4) == ' ') {
+            this.add(new Todo(input.substring(5)));
+        } else {
+            throw new SidException("\"" + input + "\" is not a valid command.");
+        }
+    }
+
+    /**
+     * Adds a Event task.
+     *
+     * @param input full user input
+     * @throws SidException
+     */
+    public void addEvent(String input) throws SidException {
+        if (input.length() < 6) {
+            throw new SidInvalidFormatException("Please input a name for your Event"
+                    + "task, along with a start and end date.");
+        } else if (input.charAt(5) != ' ') {
+            throw new SidException("\"" + input + "\" is not a valid command.");
+        }
+
+        String[] inputArgs = input.substring(6).split("\\s*/from\\s*");
+        if (inputArgs.length != 2) {
+            throw new SidInvalidFormatException("Please put in the starting and ending date "
+                    + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
+        }
+
+        String[] startAndEnd = inputArgs[1].split("\\s*/to\\s*");
+        if (startAndEnd.length == 2) {
+            LocalDate start;
+            LocalDate end;
+            try {
+                start = LocalDate.parse(startAndEnd[0]);
+                end = LocalDate.parse(startAndEnd[1]);
+            } catch (DateTimeParseException e) {
+                throw new SidInvalidFormatException("Please put in your dates in YYYY-MM-DD format.");
+            }
+
+            if (end.isBefore(start)) {
+                throw new SidInvalidFormatException(
+                    "Please make sure your starting date is before your ending date.");
+            }
+    
+            this.add(new Event(inputArgs[0], start, end));
+        } else {
+            throw new SidInvalidFormatException("Please put in the starting and ending date "
+                    + "using \"/from <date>\" followed by \"/to <date>\" for Event tasks.");
+        }
+    }
+
+    /**
+     * Adds a Deadline task.
+     *
+     * @param input full user input
+     * @throws SidException
+     */
+    public void addDeadLine(String input) throws SidException {
+        if (input.length() < 9) {
+            throw new SidInvalidFormatException("Please input a name for your Event"
+                    + "task, along with a start and end date.");
+        } else if (input.charAt(8) != ' ') {
+            throw new SidException("\"" + input + "\" is not a valid command.");
+        }
+
+        String[] inputArgs = input.substring(9).split("\\s*/by\\s*");
+        if (inputArgs.length == 2) {
+            LocalDate deadline;
+            try {
+                deadline = LocalDate.parse(inputArgs[1]);
+            } catch (DateTimeParseException e) {
+                throw new SidInvalidFormatException("Please put in your dates in YYYY-MM-DD format.");
+            }
+            this.add(new Deadline(inputArgs[0], deadline));
+        } else if (inputArgs.length == 1) {
+            throw new SidInvalidFormatException("Please write in the deadline"
+                    + "using \"/by <date>\" for Deadline tasks.");
+        } else {
+            throw new SidInvalidFormatException("Please do not write in more than 1 deadline.");
+        }
     }
 
     /**

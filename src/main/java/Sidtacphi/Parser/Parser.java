@@ -24,6 +24,7 @@ public class Parser {
         try {
             input = input.trim();
             if (Objects.equals(input, "bye")) {
+                //Solution below inspired by https://stackoverflow.com/a/21996863
                 new Timer().schedule(new TimerTask() {
                         public void run () { 
                             Platform.exit();
