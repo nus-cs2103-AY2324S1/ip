@@ -114,6 +114,8 @@ public class Storage {
                 Event e = Event.createFromSaveFormat(formattedTask);
                 tasks.add(e);
                 break;
+            default:
+                assert false : "Task in save file does not start with T, D or E";
             }
         }
 
