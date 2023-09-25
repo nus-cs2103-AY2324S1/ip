@@ -212,6 +212,10 @@ public class Parser {
             finalOutput = ui.removedAllTaskScreen();
             break;
 
+        case "help":
+            finalOutput = ui.startScreen();
+            break;
+
         default:
 
             if (command.equals("todo")) {
