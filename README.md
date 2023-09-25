@@ -1,24 +1,53 @@
-# Duke project template
+# Alcazar project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is Alcazar, your own personalised Chatbot ready to do your bidding.
 
-## Setting up in Intellij
+## Given functionalities
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### `todo` 
+* Add a task that needs to be done without a deadline
+* Can be used in the form `todo something todo`
+* For example `todo return a book` to add the task to your task list.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### `deadline`
+* Add a task to be completed by a given date.
+* Can be used in the form `deadline topic of deadline /by yyyy-mm-dd`
+* For example `deadline submit homework /by 2023-12-01`
+
+### `event`
+* Add a task that is going to occur in a specific duration
+* Can be used in the form `event some event /from start time /to end time`
+* For example `event go for a move /from Wed 2pm /to Wed 4pm`
+
+### `mark`
+* Mark a task as done
+* Can be used in the form `mark task number`
+* For example `mark 3` will mark the third task done
+
+### `unmark`
+* Mark a task as not done
+* Can be used in the form `unmark task number`
+* For example `unmark 3` will mark the third task not done
+
+### `delete`
+* Delete a task
+* Can be used in the form `delete task number`
+* For example `delete 3` will delete the third task
+
+### `list`
+* List all the tasks
+* Can be used by the input `list`
+  
+### `find`
+* Used to find all the tasks containing a keyword
+* Can be used by `find keyword`
+* For example `find books` will result in showing all the tasks containing the word books
+
+### `data source`
+* Change the data source of the tasks list storage file
+* Can be used by `data source new file path`
+* For example `data source ./src/main/java/data/tasks.txt` will change the data source to `./src/main/java/data/tasks.txt`
+
+### `bye`
+* Close Alcazar
+* Can be used by entering `bye`
