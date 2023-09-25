@@ -3,7 +3,6 @@ package bert.commands;
 import bert.storage.Storage;
 import bert.tasks.Task;
 import bert.tasks.TaskList;
-import bert.ui.Ui;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) {
         List<Task> matchingTasks = tasks.find(this.keyword);
 
         StringBuilder sb = new StringBuilder();
@@ -36,6 +35,6 @@ public class FindCommand extends Command {
             sb.append(System.lineSeparator());
         }
 
-        ui.showResult(String.format(MESSAGE, sb));
+        return new CommandResult(String.format(MESSAGE, sb));
     }
 }

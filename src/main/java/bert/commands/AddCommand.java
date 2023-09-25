@@ -3,7 +3,6 @@ package bert.commands;
 import bert.storage.Storage;
 import bert.tasks.Task;
 import bert.tasks.TaskList;
-import bert.ui.Ui;
 
 /**
  * Represents a command that adds a task.
@@ -23,8 +22,8 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public CommandResult execute(TaskList tasks, Storage storage) {
         tasks.add(this.toAdd);
-        ui.showResult(String.format(MESSAGE, this.toAdd, tasks.size()));
+        return new CommandResult(String.format(MESSAGE, this.toAdd, tasks.size()));
     }
 }
