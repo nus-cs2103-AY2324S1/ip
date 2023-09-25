@@ -64,6 +64,14 @@ public class Duke extends Application {
         ui = new Ui();
         storage = new Storage(filePath);
         parser = new Parser();
+
+        // Ensure the file path is not empty
+        assert filePath != null && !filePath.isEmpty() : "File path must not be empty";
+
+        // Ensure the storage, UI, and taskList are properly initialized
+        assert storage != null : "Storage must be initialized";
+        assert ui != null : "UI must be initialized";
+        assert taskList != null : "TaskList must be initialized";
         try {
             taskList = new TaskList(storage.load());
         } catch (CustomException e) {
@@ -252,6 +260,8 @@ public class Duke extends Application {
     private void handleUserInput() {
         String userInputText = userInput.getText();
 
+        // Ensure userInputText is not null
+        assert userInputText != null : "User input text must not be null";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInputText, user),
                 DialogBox.getDukeDialog(getResponse(userInputText), duke)
@@ -350,6 +360,9 @@ public class Duke extends Application {
      */
     public void exit() {
         try {
+            // Ensure storage and taskList are initialized
+            assert storage != null : "Storage must be initialized";
+            assert taskList != null : "TaskList must be initialized";
             storage.save(taskList.getTaskArrayList());
             chatBotResponse = ui.exit();
         } catch (CustomException e) {
