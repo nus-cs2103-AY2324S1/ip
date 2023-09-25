@@ -1,8 +1,4 @@
 package alcazar;
-import alcazar.Tasks.Deadline;
-import alcazar.Tasks.Event;
-import alcazar.Tasks.Task;
-import alcazar.Tasks.ToDo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,12 +7,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import alcazar.tasks.Deadline;
+import alcazar.tasks.Event;
+import alcazar.tasks.Task;
+import alcazar.tasks.ToDo;
+
+
+
 /**
- * Class for file storage related functionality
+ * Encapsulates file storage related functionality
  */
 public class Storage {
-    private final String filePath;
+    /** The path to the file where all the input tasks are stored */
+    private String filePath;
     Storage(String filePath) {
+
         this.filePath = filePath;
         try {
             printTasks();
@@ -40,12 +45,12 @@ public class Storage {
 
     /**
      * Writes the new tasks to file
-     * @param t Stores the tasks in a TaskList object
+     * @param taskList Stores the tasks in a TaskList object
      */
-    public void writeUp(TaskList t) {
+    public void writeUp(TaskList taskList) {
         try {
             FileWriter fw = new FileWriter(filePath);
-            fw.write(t.getTasks());
+            fw.write(taskList.getTasks());
             fw.close();
             this.printTasks();
         } catch (IOException e) {
@@ -119,24 +124,7 @@ public class Storage {
         }
         deadlineContent = deadlineContent.trim();
         deadlineTiming = deadlineTiming.trim().substring(0, deadlineTiming.length() - 2);
-//        String wrd = "";
-//        String str = "";
-//        int i;
-//        for (i = 0; i < deadlinePrompt.length(); i++) {
-//            char ch = deadlinePrompt.charAt(i);
-//            if (ch == ' ') {
-//                if (wrd.equals("(by:")) {
-//                    break;
-//                }
-//                str += wrd + " ";
-//                wrd = "";
-//            } else {
-//                wrd += ch;
-//            }
-//        }
-//        String[] deadArray = new String[2];
-//        deadArray[0] = str.trim();
-//        deadArray[1] = deadlinePrompt.substring(i + 1, deadlinePrompt.length() - 1);
+
         Deadline extractedDeadline = new Deadline(deadlineContent, deadlineTiming);
         if (isMarked) {
             extractedDeadline.markTask();

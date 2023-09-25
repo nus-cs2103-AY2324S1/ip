@@ -2,11 +2,11 @@ package alcazar;
 
 import java.util.ArrayList;
 
-import alcazar.Tasks.Task;
+import alcazar.tasks.Task;
 
 
 /**
- * Class for the functionality related to storing the list of tasks
+ * Encapsulates the functionality related to storing the list of tasks
  */
 public class TaskList {
     private ArrayList<Task> tasks;
@@ -61,7 +61,7 @@ public class TaskList {
     }
 
     /**
-     * The method evaluates the list of the passed tasks.
+     * Evaluates the list of the passed tasks.
      * @return String of all the passed tasks
      */
     public String getTasks() {

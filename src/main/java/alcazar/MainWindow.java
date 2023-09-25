@@ -1,5 +1,5 @@
 package alcazar;
-import alcazar.UI.DialogBox;
+import alcazar.ui.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -32,7 +32,8 @@ public class MainWindow extends AnchorPane {
         MainWindow.isExit = false;
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(
-                "Hello! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
+          "Greetings my master! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
+
     }
 
     public void setAlcazar(Alcazar a) {
@@ -50,12 +51,12 @@ public class MainWindow extends AnchorPane {
         }
 
         String input = userInput.getText();
-        String response = alcazar.getResponse(input);
+        Response response = alcazar.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, alcazarImage)
+                DialogBox.getDukeDialog(response.getResult(), alcazarImage)
         );
-        if (response.contains("Bye.")) {
+        if (response.isUserExiting()) {
             MainWindow.isExit = true;
         }
         userInput.clear();

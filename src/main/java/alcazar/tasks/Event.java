@@ -1,17 +1,17 @@
-package alcazar.Tasks;
-
-import alcazar.Tasks.Task;
+package alcazar.tasks;
 
 /**
- * Class to define an Event Task
+ * Encapsulates an Event Task
  */
 public class Event extends Task {
 
+    /** The start time of this event */
     protected String fromTiming;
+    /** The end time of this event */
     protected String toTiming;
 
     /**
-     * Constructor for an Event
+     * Constructs an Event
      * @param description The description of an event
      * @param fromTiming Start date/time of Event
      * @param toTiming End date/time of Event.
@@ -23,7 +23,7 @@ public class Event extends Task {
     }
 
     /**
-     * Used to evaluate String form of an Event
+     * Evaluates String form of an Event
      * @return String form of an Event
      */
     @Override
