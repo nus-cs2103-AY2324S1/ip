@@ -2,7 +2,6 @@ package alcazar;
 
 import java.io.IOException;
 
-import alcazar.UI.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Alcazar using FXML.
  */
 public class Main extends Application {
 
@@ -19,7 +18,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            assert fxmlLoader != null : "FXML resource not found";
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

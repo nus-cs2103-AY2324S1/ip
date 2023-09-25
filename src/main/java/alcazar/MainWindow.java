@@ -1,4 +1,5 @@
-package alcazar;
+package alcazar.UI;
+import alcazar.Alcazar;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static boolean isExit;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -19,8 +21,6 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
-
-    private static boolean isExit;
 
     private Alcazar alcazar;
 
