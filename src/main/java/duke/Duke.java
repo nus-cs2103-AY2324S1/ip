@@ -33,8 +33,8 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     /**
      * Instantiates a new Duke object.
      *
@@ -74,7 +74,7 @@ public class Duke extends Application {
 
         while (!userinput.equalsIgnoreCase("bye")) {
             try {
-                parser.parse(userinput);
+                parser.parze(userinput);
             } catch (DukeException e) {
                 System.out.println(e);
             }
@@ -126,7 +126,7 @@ public class Duke extends Application {
      */
     private String getResponse(String input) {
         try {
-            return parser.parseString(input);
+            return parser.parzeString(input);
         } catch (DukeException e) {
             return e.toString();
         }
