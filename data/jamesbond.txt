@@ -1,2 +1,1 @@
 T | 0 | die
-T | 0 | hit me
