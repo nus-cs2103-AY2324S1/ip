@@ -8,8 +8,11 @@ import java.time.LocalDate;
 public class ToDo extends Task implements Comparable<Task> {
     private static final LocalDate localDate = LocalDate.now();
 
+    private String name;
+
     public ToDo(String content) {
         super(content, false);
+        this.name = content.split(" ", 2)[1];
     }
 
     /**
@@ -20,6 +23,7 @@ public class ToDo extends Task implements Comparable<Task> {
      */
     public ToDo(String content, boolean status) {
         super(content, status);
+        this.name = content.split(" ", 2)[1];
     }
 
     /**
@@ -59,9 +63,9 @@ public class ToDo extends Task implements Comparable<Task> {
      */
     public String toString() {
         if (!super.isMarked()) {
-            return String.format("[T][ ] %s", super.getContent());
+            return String.format("[T][ ] %s", name);
         } else {
-            return String.format("[T][X] %s", super.getContent());
+            return String.format("[T][X] %s", name);
         }
     }
 }
