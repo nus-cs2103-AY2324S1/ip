@@ -33,4 +33,11 @@ public class Ui {
         System.out.println("\nSidtacphi: Goodbye non-Euclidean life form.");
         System.out.println("\n____________________________________________________________");
     }
+
+    /**
+     * Returns the goodbye message of the bot.
+     */
+    public static String goodbye() {
+        return "Sidtacphi: Goodbye non-Euclidean life form.";
+    }
 }

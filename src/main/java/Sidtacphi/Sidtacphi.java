@@ -43,37 +43,12 @@ public class Sidtacphi extends Application {
     }
 
     /**
-     * Main method for the Sidtacphi class.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        taskList = Storage.readJson("./stored/tasks.json");
-        startBot();
-        Storage.saveAsJson(taskList, "./stored/tasks.json");
-        stopBot();
-    }
-
-    /**
-     * Starts the Sidtacphi bot.
-     */
-    private static void startBot() {
-        Ui.printIntro();
-        Parser.readInputs(taskList);
-    }
-
-    /**
-     * Stops the Sidtacphi bot.
-     */
-    private static void stopBot() {
-        Ui.printGoodbye();
-    }
-
-    /**
-     * Starts the Sidtacphi bot application with javafx.
+     * Starts the Sidtacphi bot application.
      */
     @Override
     public void start(Stage stage) {
+        taskList = Storage.readJson("./stored/tasks.json");
+
         //Step 1. Setting up required components
         //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
@@ -132,28 +107,21 @@ public class Sidtacphi extends Application {
         //Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
-
-
+    
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Stops the Sidtacphi bot application.
      */
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
+    @Override
+    public void stop() {
+        Storage.saveAsJson(taskList, "./stored/tasks.json");
     }
 
     /**
-     * Iteration 2:
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
+        Label userText = new Label("You: " + userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
@@ -167,6 +135,6 @@ public class Sidtacphi extends Application {
      * Replace this stub with your completed method.
      */
     private String getResponse(String input) {
-        return "Sid heard: " + input;
+        return Parser.parseInput(taskList, input);
     }
 }
