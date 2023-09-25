@@ -5,17 +5,37 @@ import java.util.ArrayList;
 
 import potato.task.*;
 
+/**
+ * The TaskList class represents a list of tasks and provides methods
+ * for managing and manipulating those tasks.
+ */
 public class TaskList {
     private static ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with the provided list of tasks.
+     *
+     * @param tasks The list of tasks to initialize the TaskList with.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Marks a task as completed.
+     *
+     * @param input The user input specifying the task index to be marked.
+     * @param storage The storage utility for saving task changes.
+     * @return A message indicating the task has been marked as completed.
+     * @throws IOException If an error occurs while saving tasks to storage.
+     */
     public String mark(String input, Storage storage) throws IOException {
         int index = Integer.parseInt(input.substring(5)) - 1;
         tasks.get(index).setStatus(true);
@@ -26,6 +46,14 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Unmarks a completed task.
+     *
+     * @param input The user input specifying the task index to be unmarked.
+     * @param storage The storage utility for saving task changes.
+     * @return A message indicating the task has been unmarked.
+     * @throws IOException If an error occurs while saving tasks to storage.
+     */
     public String unmark(String input, Storage storage) throws IOException {
         int index = Integer.parseInt(input.substring(7)) - 1;
         tasks.get(index).setStatus(false);
@@ -36,6 +64,14 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Deletes a task from the task list.
+     *
+     * @param input The user input specifying the task index to be deleted.
+     * @param storage The storage utility for saving task changes.
+     * @return A message indicating the task has been deleted.
+     * @throws IOException If an error occurs while saving tasks to storage.
+     */
     public String delete(String input, Storage storage) throws IOException {
         int index = Integer.parseInt(input.substring(7)) - 1;
         String s = "NAUR NOT THE DITCHING?!\n" + "It's a no do for\n"
@@ -46,6 +82,11 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Retrieves a list of all tasks.
+     *
+     * @return A string containing a list of all tasks.
+     */
     public String list() {
         String s = "Ok look all you want but they literally won't do themselves?\n";
 
@@ -60,6 +101,12 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Finds tasks containing a specified keyword in their description.
+     *
+     * @param input The user input specifying the keyword to search for.
+     * @return A string containing a list of tasks matching the keyword.
+     */
     public String find(String input) {
         String keyword = input.substring(5);
         String s = "";
@@ -78,6 +125,14 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param input The user input specifying the task description to be added.
+     * @param storage The storage utility for saving task changes.
+     * @return A message indicating the task has been added to the list.
+     * @throws IOException If an error occurs while saving tasks to storage.
+     */
     public String add(String input, Storage storage) throws IOException {
         Task task = Task.parse(input);
         String s = "";
@@ -96,6 +151,14 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Sets the priority of a task.
+     *
+     * @param input The user input specifying the task index and priority to set.
+     * @param storage The storage utility for saving task changes.
+     * @return A message indicating the task's priority has been set.
+     * @throws IOException If an error occurs while saving tasks to storage.
+     */
     public String setPriority(String input, Storage storage) throws IOException {
         int indexSet = input.indexOf("#");
         int index = Integer.parseInt(input.substring(9, indexSet - 1)) - 1;

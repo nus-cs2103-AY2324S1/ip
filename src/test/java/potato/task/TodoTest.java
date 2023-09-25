@@ -9,7 +9,7 @@ public class TodoTest {
     public void toStringTest() {
         try {
             Todo t = new Todo("feed cat", false, "NIL");
-            assertEquals("[T][ ] feed cat", t.toString());
+            assertEquals("[T][ ][NIL] feed cat", t.toString());
         } catch (Exception e) {
             System.out.println("Make sure you input is correct!");
         }

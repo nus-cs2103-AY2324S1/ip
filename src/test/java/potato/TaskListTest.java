@@ -19,7 +19,7 @@ public class TaskListTest {
             TaskList t = new TaskList(tasks);
             String keyword = "find work";
             System.out.println(t.find(keyword));
-            assertEquals("1.[T][ ] do homework\n" + "Ok that's all I found...", t.find(keyword));
+            assertEquals("1.[T][ ][NIL] do homework\n" + "Ok that's all I found...", t.find(keyword));
         } catch (Exception e) {
             System.out.println("unable to find");
         }

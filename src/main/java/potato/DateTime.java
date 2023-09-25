@@ -14,8 +14,4 @@ public class DateTime {
     public String getDate() {
         return date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
-
-    public String getSavedDate() {
-        return savedDate;
-    }
 }

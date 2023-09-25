@@ -1,8 +1,7 @@
 package potato;
 
-public class PotatoException extends Throwable {
-    protected String message;
+public class PotatoException extends RuntimeException {
     public PotatoException(String message) {
-        System.out.println(message);
+        super(message);
     }
 }

@@ -10,9 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
-
 import javafx.util.Duration;
 
 /**
@@ -41,7 +38,7 @@ public class MainWindow extends AnchorPane {
     public void setPotato(Potato p) {
         potato = p;
         dialogContainer.getChildren().add(
-                DialogBox.getPotatoDialog("Hello! Welcome!", potatoImage)
+                DialogBox.getPotatoDialog("Hey GURL I'm Potato!\n" + "How can I help ya?", potatoImage)
         );
     }
 
@@ -50,7 +47,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response = potato.getResponse(input);
         dialogContainer.getChildren().addAll(
@@ -67,11 +64,5 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
-//        String response = potato.getResponse(input);
-//        dialogContainer.getChildren().addAll(
-//                DialogBox.getUserDialog(input, userImage),
-//                DialogBox.getDukeDialog(response, potatoImage)
-//        );
-//        userInput.clear();
 }
 
