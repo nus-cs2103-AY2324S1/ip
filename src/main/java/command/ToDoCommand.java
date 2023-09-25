@@ -21,6 +21,14 @@ public class ToDoCommand extends Command {
         this.description = description;
     }
 
+    /**
+     *
+     * @param taskList object containing the ArrayList of tasks
+     * @param ui user interface responsible for terminal messages
+     * @param storage object to communicate with data.txt file
+     * @return todo message to be printed in the GUI
+     * @throws DukeException
+     */
     @Override
     public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         String message = taskList.addToDo(description);

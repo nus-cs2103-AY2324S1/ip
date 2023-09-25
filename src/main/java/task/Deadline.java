@@ -15,6 +15,7 @@ public class Deadline extends Task {
 
     /**
      * Constructor for Deadline class.
+     *
      * @param description user provided description.
      * @param time user provided description.
      */
@@ -25,6 +26,7 @@ public class Deadline extends Task {
 
     /**
      * Overloaded Constructor for Deadline class.
+     *
      * @param description user provided description.
      * @param dateTime user provided end time as a LocalDateTime object.
      */
@@ -34,7 +36,8 @@ public class Deadline extends Task {
     }
 
     /**
-     * storeFormat() method.
+     * outputStoreFormat() method.
+     *
      * @return the specific format in which the task should be saved in the data file.
      */
     @Override
@@ -59,6 +62,7 @@ public class Deadline extends Task {
 
     /**
      * toString() method.
+     *
      * @return string text of the task in which the task will be displayed in the terminal.
      */
     @Override

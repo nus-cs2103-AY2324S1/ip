@@ -14,10 +14,9 @@ import task.Task;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
+
 
 /**
  * Storage class to create objects that manage saving/loading data
@@ -29,8 +28,9 @@ public class Storage {
 
     /**
      * Constructor for Storage class.
-     * @param filePath file path from which past saved date, if available, should be read from or load to.
-     * @param taskList contains the ArrayList of Task.
+     *
+     * @param filePath File path from which past saved date, if available, should be read from or load to.
+     * @param taskList Contains the ArrayList of Task.
      */
     public Storage(String filePath, TaskList taskList) {
         this.filePath = filePath;
@@ -38,9 +38,10 @@ public class Storage {
     }
 
     /**
-     * saves data in the given TaskList object to the file specified in the file path.
-     * @param taskList contains the ArrayList of Task.
-     * @throws DukeException organic exception for Duke.
+     * Saves data in the given TaskList object to the file specified in the file path.
+     *
+     * @param taskList Contains the ArrayList of Task.
+     * @throws DukeException Organic exception for Duke.
      */
     public void saveList(TaskList taskList) throws DukeException {
         this.taskList = taskList;
@@ -61,8 +62,9 @@ public class Storage {
     }
 
     /**
-     * loads data from the file specified in the file path.
-     * @throws DukeException organic exception for Duke.
+     * Loads data from the file specified in the file path.
+     *
+     * @throws DukeException Organic exception for Duke.
      * @throws IOException input/output error when there is an error reading from the data file.
      */
     void loadList() throws DukeException, IOException {

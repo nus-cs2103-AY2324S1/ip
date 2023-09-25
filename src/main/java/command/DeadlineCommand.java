@@ -28,7 +28,7 @@ public class DeadlineCommand extends Command {
      * @param taskList object containing the ArrayList of tasks
      * @param ui       user interface responsible for terminal messages
      * @param storage  object to communicate with data.txt file
-     * @return
+     * @return deadline message to be printed in the GUI
      * @throws DukeException organic exception for Duke
      */
     @Override

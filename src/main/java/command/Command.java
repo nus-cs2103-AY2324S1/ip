@@ -16,6 +16,7 @@ public abstract class Command {
      * @param taskList object containing the ArrayList of tasks
      * @param ui user interface responsible for terminal messages
      * @param storage object to communicate with data.txt file
+     * @return output message to be printed in the GUI
      * @throws DukeException
      */
     public String execute(TaskList taskList, UI ui, Storage storage) throws DukeException {

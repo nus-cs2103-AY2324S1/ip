@@ -21,8 +21,9 @@ public class Task {
     }
 
     /**
-     * setter method which updates whether a task is done.
-     * @param status boolean value which represents whether a task is done
+     * Setter method which updates whether a task is done.
+     *
+     * @param status Boolean value which represents whether a task is done
      *               true - task is done, false - task is not done
      */
     public void setTaskDone(boolean status) {
@@ -31,15 +32,17 @@ public class Task {
 
     /**
      * storeFormat() method.
-     * @return the specific format in which the task should be saved in the data file.
+     *
+     * @return The specific format in which the task should be saved in the data file.
      */
     public String outputStoreFormat() {
         return null;
     }
 
     /**
-     * getter function
-     * @return retrieves the saved description.
+     * getter function.
+     *
+     * @return Retrieves the saved description.
      */
     public String getDescription() {
         return this.description;
@@ -53,7 +56,8 @@ public class Task {
 
     /**
      * toString() method.
-     * @return string text of the task in which the task will be displayed in the terminal.
+     *
+     * @return String text of the task in which the task will be displayed in the terminal.
      */
     @Override
     public String toString() {

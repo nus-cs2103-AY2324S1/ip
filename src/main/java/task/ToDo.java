@@ -9,6 +9,7 @@ public class ToDo extends Task {
 
     /**
      * Constructor for ToDo class.
+     *
      * @param description user provided description.
      * @throws DukeException organic exception by Duke.
      */
@@ -17,7 +18,8 @@ public class ToDo extends Task {
     }
 
     /**
-     * storeFormat() method.
+     * outputStoreFormat() method.
+     *
      * @return the specific format in which the task should be saved in the data file.
      */
     @Override
@@ -36,6 +38,7 @@ public class ToDo extends Task {
 
     /**
      * toString() method.
+     *
      * @return string text of the task in which the task will be displayed in the terminal.
      */
     @Override

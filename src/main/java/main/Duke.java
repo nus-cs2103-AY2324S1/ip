@@ -63,6 +63,12 @@ public class Duke {
         }
     }
 
+    /**
+     * getResponse fetches an output from the bot.
+     *
+     * @param input Input typed in by the user.
+     * @return Output from the bot in response to the input.
+     */
     public String getResponse(String input) {
 
         StringBuilder botResponse = new StringBuilder();

@@ -16,9 +16,10 @@ public class Event extends Task {
 
     /**
      * Constructor for Event class.
-     * @param description user provided description.
-     * @param startTime user provided start time.
-     * @param endTime user provided end time.
+     *
+     * @param description User provided description.
+     * @param startTime User provided start time.
+     * @param endTime User provided end time.
      */
     public Event(String description, String startTime, String endTime) {
         super(description);
@@ -28,9 +29,10 @@ public class Event extends Task {
 
     /**
      * Overloaded Constructor for Event class.
-     * @param description user provided description.
-     * @param startDateTime user provided start time as a LocalDateTime object.
-     * @param endDateTime user provided end time as a LocalDateTime object.
+     *
+     * @param description User provided description.
+     * @param startDateTime User provided start time as a LocalDateTime object.
+     * @param endDateTime User provided end time as a LocalDateTime object.
      */
     public Event(String description, LocalDateTime startDateTime, LocalDateTime endDateTime) {
         super(description);
@@ -40,7 +42,8 @@ public class Event extends Task {
 
     /**
      * storeFormat() method.
-     * @return the specific format in which the task should be saved in the data file.
+     *
+     * @return The specific format in which the task should be saved in the data file.
      */
     @Override
     public String outputStoreFormat() {
@@ -66,7 +69,8 @@ public class Event extends Task {
 
     /**
      * toString() method.
-     * @return string text of the task in which the task will be displayed in the terminal.
+     *
+     * @return String text of the task in which the task will be displayed in the terminal.
      */
     @Override
     public String toString() {

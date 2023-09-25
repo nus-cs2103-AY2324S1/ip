@@ -48,7 +48,9 @@ public class UI {
 
     /**
      * Lists out the tasks stored in the ArrayList<Task> Object.
-     * @param taskArrayList - Contains the list of Tasks.
+     *
+     * @param taskArrayList Contains the list of Tasks.
+     * @return List all tasks in String format
      */
     public String printList(ArrayList<Task> taskArrayList) {
         StringBuilder sb = new StringBuilder();
@@ -67,6 +69,13 @@ public class UI {
         return String.valueOf(sb);
     }
 
+    /**
+     * Finds out the tasks stored in the ArrayList<Task> Object.
+     *
+     * @param taskArrayList Contains the list of Tasks.
+     * @param isMatchingList Boolean for whether it is a list of tasks queried by the user.
+     * @return List of tasks.
+     */
     public String findList(ArrayList<Task> taskArrayList, Boolean isMatchingList) {
         StringBuilder sb = new StringBuilder();
         sb.append(this.printDivider());
@@ -93,6 +102,8 @@ public class UI {
 
     /**
      * Generates the bye message displayed in the terminal.
+     *
+     * @return Bye message in string format.
      */
     public String printByeMessage() {
 
@@ -102,6 +113,13 @@ public class UI {
         return String.valueOf(sb);
     }
 
+    /**
+     * Generates the delete message displayed in the terminal.
+     *
+     * @param input User input.
+     * @param taskList Task list containing all the tasks.
+     * @return Delete message in string format.
+     */
     public String showDelete(String input, TaskList taskList) {
         int taskIndex = Integer.parseInt(input.substring(7)) - 1;
         StringBuilder sb = new StringBuilder();
@@ -110,6 +128,12 @@ public class UI {
         return String.valueOf(sb);
     }
 
+    /**
+     * Generates the add task message displayed in the terminal.
+     *
+     * @param task Task to be added.
+     * @return Add Task message in string format.
+     */
     public static String showAddTask(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append("\nGot it. I've added this task:");
@@ -117,6 +141,12 @@ public class UI {
         return String.valueOf(sb);
     }
 
+    /**
+     * Generates the mark task message displayed in the terminal.
+     *
+     * @param task Task to be marked.
+     * @return Mark task message in string format.
+     */
     public static String showMarked(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append("\nNice! I've marked this task as done:");
@@ -124,6 +154,12 @@ public class UI {
         return String.valueOf(sb);
     }
 
+    /**
+     * Generates the unmark task message displayed in the terminal.
+     *
+     * @param task Task to be unmarked.
+     * @return Unmark task message in string format.
+     */
     public static String showUnmarked(Task task) {
         StringBuilder sb = new StringBuilder();
         sb.append("\nOK, I've marked this task as not done yet:");
@@ -131,6 +167,14 @@ public class UI {
         return String.valueOf(sb);
     }
 
+    /**
+     * Generates the update task description message displayed in the terminal.
+     *
+     * @param taskIndex Index of the task in the task list to be updated.
+     * @param oldDescription Old description of the task to be updated.
+     * @param newDescription New description of the task to be updated.
+     * @return Update description message in string format.
+     */
     public static String showUpdatedDescription(int taskIndex, String oldDescription, String newDescription) {
         StringBuilder sb = new StringBuilder();
 

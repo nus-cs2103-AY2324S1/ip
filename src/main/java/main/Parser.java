@@ -21,11 +21,11 @@ import java.util.Arrays;
 public class Parser {
 
     /**
-     * parse method reads users input and directs the course of action.
+     * Parse method reads users input and directs the course of action.
      *
-     * @param fullCommand user input
-     * @return return an Object belonging to the command class for further execution.
-     * @throws DukeException organic exception to Duke - subclass of Exception class
+     * @param fullCommand User input
+     * @return Return an Object belonging to the command class for further execution.
+     * @throws DukeException Organic exception to Duke - subclass of Exception class.
      */
     static Command parse(String fullCommand) throws DukeException {
         if (Parser.isBye(fullCommand)) {
@@ -137,12 +137,12 @@ public class Parser {
         return isDeleteCommand;
     }
 
-    public static boolean isFind(String fullCommand) {
+    private static boolean isFind(String fullCommand) {
         String[] inputArray = fullCommand.split(" ");
         return inputArray[0].equals("find");
     }
 
-    public static boolean isUpdateDescription(String fullCommand) throws DukeException {
+    private static boolean isUpdateDescription(String fullCommand) throws DukeException {
         boolean isUpdateDescriptionCommand = fullCommand.startsWith("update description");
 
         if (isUpdateDescriptionCommand) {

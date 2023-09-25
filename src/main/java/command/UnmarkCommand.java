@@ -26,6 +26,7 @@ public class UnmarkCommand extends Command {
      * @param taskList object containing the ArrayList of tasks
      * @param ui user interface responsible for terminal messages
      * @param storage object to communicate with data.txt file
+     * @return unmark message to be printed in the GUI
      * @throws DukeException organic exception for Duke
      */
     @Override

@@ -23,7 +23,8 @@ public class TaskList {
 
     /**
      * Deletes Task from the Task List.
-     * @param input user input specifying the index of the task to be removed.
+     *
+     * @param input User input specifying the index of the task to be removed.
      */
     public void deleteTask(String input) {
         int taskIndex = Integer.parseInt(input.substring(7).trim()) - 1;
@@ -32,7 +33,8 @@ public class TaskList {
 
     /**
      * Adds Event to the Task List.
-     * @param input user input specifying the details of the Event to be added.
+     *
+     * @param input User input specifying the details of the Event to be added.
      */
     public String addEvent(String input) {
 
@@ -71,7 +73,8 @@ public class TaskList {
 
     /**
      * Adds Deadline to the Task List.
-     * @param input user input specifying the details of the Deadline to be added.
+     *
+     * @param input User input specifying the details of the Deadline to be added.
      */
     public String addDeadline(String input) {
         StringBuilder sb = new StringBuilder();
@@ -106,7 +109,8 @@ public class TaskList {
 
     /**
      * Adds ToDoTask to the Task List.
-     * @param input user input specifying the details of the ToDoTask to be added.
+     *
+     * @param input User input specifying the details of the ToDoTask to be added.
      */
     public String addToDo(String input) throws DukeException {
         ToDo toDo = new ToDo(input);
@@ -117,15 +121,17 @@ public class TaskList {
 
     /**
      * Generic method to add tasks to the Task List.
-     * @param task task object to be added to the tasks list.
+     *
+     * @param task Task object to be added to the tasks list.
      */
     public void addTask(Task task) {
         taskList.add(task);
     }
 
     /**
-     * marks the specific task as done.
-     * @param taskIndex index of the task to be marked as done.
+     * Marks the specific task as done.
+     *
+     * @param taskIndex Index of the task to be marked as done.
      */
     public String mark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
@@ -134,8 +140,9 @@ public class TaskList {
     }
 
     /**
-     * unmarks the specific task.
-     * @param taskIndex index of the task to be unmarked.
+     * Unmarks the specific task.
+     *
+     * @param taskIndex Index of the task to be unmarked.
      */
     public String unmark(int taskIndex) {
         Task currTask = taskList.get(taskIndex);
@@ -143,6 +150,13 @@ public class TaskList {
         return UI.showUnmarked(currTask);
     }
 
+    /**
+     * Return string output to be displayed in  GUI when Task Description is updated.
+     *
+     * @param taskIndex Index of the task to be updated.
+     * @param updatedDescription New description to be updated.
+     * @return String output to be displayed in  GUI when Task Description is updated.
+     */
     public String updateTaskDescription(int taskIndex, String updatedDescription) {
         Task currTask = this.taskList.get(taskIndex - 1);
         // update description returns old description
@@ -152,8 +166,9 @@ public class TaskList {
     }
 
     /**
-     * size() method.
-     * @return number of tasks in the task list.
+     * getSize() method.
+     *
+     * @return Number of tasks in the task list.
      */
     public int getSize() {
         return taskList.size();
@@ -161,7 +176,8 @@ public class TaskList {
 
     /**
      * Checks whether given string is made up of just numbers.
-     * @param strNum string to be tested.
+     *
+     * @param strNum String to be tested.
      * @return true - is numeric, false - not numeric.
      */
     public static boolean isNumeric(String strNum) {
@@ -181,6 +197,7 @@ public class TaskList {
      * "dd-MM-yyyy HHmm" with HHmm in the 24 hour format. Note: This method only checks for the
      * structure of the input. The validity of the Local Date Time Format is validated/tested later.
      * The method will return 1 if it is in LocalDateTimeFormat, 0 if it is a custom string format
+     *
      * @param input string to run the test on.
      * @return 1 or 0.
      */
@@ -215,6 +232,7 @@ public class TaskList {
 
     /**
      * getter method.
+     *
      * @return ArrayList of Task objects.
      */
     public ArrayList<Task> getTaskArrayList() {
