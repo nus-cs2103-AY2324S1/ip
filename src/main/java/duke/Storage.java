@@ -1,10 +1,7 @@
 package duke;
 
 import duke.exceptions.DukeInvalidFileException;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Task;
-import duke.tasks.ToDo;
+import duke.tasks.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -104,6 +101,14 @@ public class Storage {
                     event.markDone();
                 }
                 contents.add(event);
+            } else if (parts[0].equals("F")) {
+                assert parts.length == 4 : "There should be 5 symbols: " +
+                        "class signifier, isDone, description, and duration";
+                FixedDurationTask duration = new FixedDurationTask(parts[2], parts[3]);
+                if (isDone) {
+                    duration.markDone();
+                }
+                contents.add(duration);
             }
         }
         return contents;

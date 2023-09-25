@@ -52,6 +52,8 @@ public class Runner {
                 return handler.handleDelete(command);
             } else if (command.startsWith("find ")) {
                 return handler.handleFind(command);
+            } else if (command.startsWith("duration ")) {
+                return handler.handleDuration(command);
             } else {
                 throw new DukeInvalidInputException();
             }

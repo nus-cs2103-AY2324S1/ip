@@ -3,11 +3,7 @@ package duke;
 import duke.exceptions.DukeInvalidDescriptionException;
 import duke.exceptions.DukeInvalidIndexException;
 import duke.exceptions.DukeInvalidTimeException;
-import duke.tasks.Task;
-import duke.tasks.TaskList;
-import duke.tasks.ToDo;
-import duke.tasks.Event;
-import duke.tasks.Deadline;
+import duke.tasks.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -179,6 +175,31 @@ public class Handler {
             System.out.println(ui.failure());
         }
         return ui.taskText(deadline, taskList.getLength());
+    }
+
+    /**
+     * Handles a duration command, creating a corresponding <code>FixedDurationTask</code> object.
+     *
+     * @param command The command from the user
+     * @return Acknowledgement of the task creation.
+     */
+    public String handleDuration(String command) throws DukeInvalidDescriptionException, DukeInvalidTimeException {
+        String[] parsed = Parser.splitDuration(command);
+        if (parsed.length < 1 || parsed[0].equals("")) {
+            throw new DukeInvalidDescriptionException();
+        } else if (parsed.length < 2 || parsed[1].equals("")) {
+            throw new DukeInvalidTimeException();
+        }
+        FixedDurationTask duration = new FixedDurationTask(parsed[0], parsed[1]);
+        this.taskList.addTask(duration);
+        String storeDuration = duration.storedString() + "\n";
+        try {
+            storage.saveAppend(storeDuration);
+        } catch (IOException e) {
+            e.getMessage();
+            System.out.println(ui.failure());
+        }
+        return ui.taskText(duration, taskList.getLength());
     }
 
     /**
