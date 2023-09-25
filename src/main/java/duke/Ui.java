@@ -133,6 +133,7 @@ public class Ui {
     public String getList(TaskList list) {
         if (list.getLength() != 0) {
             String res = "Here are your tasks: \n";
+            assert list.getLength() > 0 : "There should be a positive number of tasks in the list at this point.";
             for (int i = 0; i < list.getLength(); i++) {
                 String prev = res;
                 int count = i + 1;
@@ -140,12 +141,14 @@ public class Ui {
             }
             return LINE + res + LINE;
         }
+        assert list.getLength() == 0 : "There should be no elements at this point.";
         return LINE + "You have no tasks for the day. Congratulations?" + "\n" + LINE;
     }
 
     public String getMatchingList(TaskList list, List<Integer> indices) {
         if (indices.size() != 0) {
             String res = "Here are the task(s) matching that description: \n";
+            assert indices.size() > 0 : "There should be a positive number of indices in the list at this point.";
             for (int i = 0; i < indices.size(); i++) {
                 String prev = res;
                 int count = i + 1;
@@ -154,6 +157,7 @@ public class Ui {
             }
             return LINE + res + LINE;
         }
+        assert indices.size() == 0 : "There should be no elements at this point.";
         return LINE + "No tasks found. Apologies." + "\n" + LINE;
     }
 }
