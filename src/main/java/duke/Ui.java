@@ -131,29 +131,29 @@ public class Ui {
      * @return List of tasks
      */
     public String getList(TaskList list) {
-        if (list.getLength() != 0) {
-            String res = "Here are your tasks: \n";
-            for (int i = 0; i < list.getLength(); i++) {
-                String prev = res;
-                int count = i + 1;
-                res = prev + count + "." + list.getTask(i).toString() + "\n";
-            }
-            return LINE + res + LINE;
+        if (list.getLength() == 0) {
+            return LINE + "You have no tasks for the day. Congratulations?" + "\n" + LINE;
         }
-        return LINE + "You have no tasks for the day. Congratulations?" + "\n" + LINE;
+        String res = "Here are your tasks: \n";
+        for (int i = 0; i < list.getLength(); i++) {
+            String prev = res;
+            int count = i + 1;
+            res = prev + count + "." + list.getTask(i).toString() + "\n";
+        }
+        return LINE + res + LINE;
     }
 
     public String getMatchingList(TaskList list, List<Integer> indices) {
-        if (indices.size() != 0) {
-            String res = "Here are the task(s) matching that description: \n";
-            for (int i = 0; i < indices.size(); i++) {
-                String prev = res;
-                int count = i + 1;
-                int index = indices.get(i);
-                res = prev + count + "." + list.getTask(index).toString() + "\n";
-            }
-            return LINE + res + LINE;
+        if (indices.size() == 0) {
+            return LINE + "No tasks found. Apologies." + "\n" + LINE;
         }
-        return LINE + "No tasks found. Apologies." + "\n" + LINE;
+        String res = "Here are the task(s) matching that description: \n";
+        for (int i = 0; i < indices.size(); i++) {
+            String prev = res;
+            int count = i + 1;
+            int index = indices.get(i);
+            res = prev + count + "." + list.getTask(index).toString() + "\n";
+        }
+        return LINE + res + LINE;
     }
 }
