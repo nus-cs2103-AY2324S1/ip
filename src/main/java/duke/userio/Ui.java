@@ -71,7 +71,7 @@ public class Ui {
      * Informs that there is missing content in the todo task that user tried to create.
      */
     public String toDoMissingContent() {
-        return ("☹ OOPS!!! The description of a todo cannot be empty.\n");
+        return ("OOPS!!! The description of a todo cannot be empty.\n");
     }
 
     /**
@@ -90,7 +90,7 @@ public class Ui {
      * Informs user that there is missing content in the Deadline task that user tried to create.
      */
     public String deadlineMissingContent() {
-        return ("☹ OOPS!!! The deadline needs to have a task description and /by .\n");
+        return ("OOPS!!! The deadline needs to have a task description and /by .\n");
     }
 
     /**
@@ -109,7 +109,7 @@ public class Ui {
      * Informs user that there is missing content in the Event task that user tried to create.
      */
     public String eventMissingContent() {
-        return ("☹ OOPS!!! The event needs to have a task description, /from and /to.\n");
+        return ("OOPS!!! The event needs to have a task description, /from and /to.\n");
     }
 
     /**
@@ -159,6 +159,6 @@ public class Ui {
      * Informs user the given input does not work.
      */
     public String invalidInputRes() {
-        return ("☹ OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+        return ("OOPS!!! I'm sorry, but I don't know what that means :-(\n");
     }
 }
