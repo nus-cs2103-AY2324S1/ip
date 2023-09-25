@@ -261,4 +261,15 @@ public class Ui {
     public String emptyListErrorString() {
         return "Your task list is empty!";
     }
+
+    /** Returns an error message String when a wrong date format is input. */
+    public String deadlineFormatErrorString() {
+        return "Deadline must be in the format YYYY-MM-DD";
+    }
+
+    /** Returns a generic error message for all non-specific errors. */
+    public String generalErrorString() {
+        return "An unknown error occurred. Please try again. " +
+                "Enter help for a list of valid commands";
+    }
 }
