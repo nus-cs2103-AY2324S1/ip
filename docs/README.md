@@ -1,10 +1,10 @@
-# User Guide
-Nila is your task manager application which keeps track of your day to day tasks. It is an easy to way to manage your tasks. It can handle three type of tasks todo, deadline and event. Also this task manager has some additional features for eg: update tasks. 
+# User Guide for NILA
+Nila is your task manager application which keeps track of your day to day tasks. It is an easy to way to manage your tasks. It can handle three type of tasks todo, deadline and event. Also this task manager has some additional features apart from othe task manager for eg: update tasks. 
 
 ## Features 
 
 ### Feature - Add ToDo tasks
-#### todo
+>#### todo
 
 todo is a task that has only description of the task and allows you to add new task to the task list.
 
@@ -24,7 +24,7 @@ Now you have 1 tasks in the list.
 ```
 
 ### Feature - Add deadline tasks
-#### deadline
+>#### deadline
 
 deadline is a task that has a description of the task and deadline in date time to finish the task. 
 
@@ -44,7 +44,7 @@ Now you have 2 tasks in the list.
 ```
 
 ### Feature - Add event tasks
-#### event
+>#### event
 event is a task that has a description of the task with two other parameters event starting from in date time and the event ending time.
 
 **Usage** - `event [task description] /from [dateTime] /to [time]`
@@ -63,7 +63,7 @@ Now you have 3 tasks in the list.
 ```
 
 ### Feature - mark tasks
-#### mark
+>#### mark
 mark method is used to mark the tasks which are completed using its index number.
 
 **Usage** - `mark [index number]`
@@ -80,7 +80,7 @@ Nice! I've marked this task as done.
 ```
 
 ### Feature - unmark tasks
-#### unmark
+>#### unmark
 unmark method is used to remove the mark from the tasks which are not completed using its index number.
 
 **Usage** - `unmark [index number]`
@@ -97,7 +97,7 @@ Ok, I've unmarked this task.
 ```
 
 ### Feature - delete tasks
-#### delete
+>#### delete
 delete method is used to remove a task from the tasks list using its index number.
 
 **Usage** - `delete [index number]`
@@ -115,7 +115,7 @@ Now you have 2 tasks in your list.
 ```
 
 ### Feature - view the task list
-#### list
+>#### list
 list feature is used to display all the tasks from your task list.
 
 **Usage** - `list`
@@ -133,7 +133,7 @@ Here are your tasks:
 ```
 
 ### Feature - find tasks
-#### find
+>#### find
 find feature is used to find any tasks that matches the given description.
 
 **Usage** - `find [task description]`
@@ -150,7 +150,7 @@ Here are the matching tasks:
 ```
 
 ### Feature - update tasks
-#### update
+>#### update
 update feature is used to edit any task in the task list using its index number, the new task type and the new description. 
 
 **Usage** - `update [index number] /to [taskType] [task description]`
@@ -167,7 +167,7 @@ Got it! I've updated the task 1 to
 ```
 
 ### Feature - save and exit the task manager
-#### bye
+>#### bye
 
 bye feature will save all the changes made to task list from the start of the application and it closes the application after 2 seconds.
 
@@ -180,12 +180,13 @@ bye feature will save all the changes made to task list from the start of the ap
 **Expected Output:**
 
 ```
-Bye.Hope to see you again
+Bye.Hope to see you again.
 ```
-> [!Note]
-> Always close your application using the `bye` command to save your changes and exit the application.
 
-> [!WARNING]
+> [!**Note**]
+> Always close your application using the `bye` command to **save** your changes and **exit** the application.
+
+> [!**WARNING**]
 > Your changes will not be saved if you close the application manually.
 
 

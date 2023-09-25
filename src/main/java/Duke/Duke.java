@@ -23,7 +23,9 @@ public class Duke {
     public Duke() throws DukeException {
         //Default constructor
         userInterface = new UserInterface();
-
+        //@@author erohsikivar-reused
+        //Reused from ChatGPT
+        //with minor modifications
         File file = new File("data/duke.txt");
         if (!file.exists()) {
             try {
@@ -34,6 +36,7 @@ public class Duke {
                 throw new DukeException("File cannot be created.");
             }
         }
+        //@@author
         storage = new Storage(file);
         assert storage.load() != null : "Loading tasks from storage failed.";
         taskManager = new TaskManager(storage.load());

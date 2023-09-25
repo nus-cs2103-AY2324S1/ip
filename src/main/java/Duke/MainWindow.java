@@ -66,6 +66,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
+        //@@author erohsikivar-reused
+        //Reused from ChatGPT
+        //with minor modifications
         if (input.toLowerCase().equals("bye")) {
             // Schedule GUI closing action after 5 seconds
             scheduleCloseAction();
@@ -80,4 +83,5 @@ public class MainWindow extends AnchorPane {
         timeline.setCycleCount(1); // Run the action once
         timeline.play();
     }
+    //@@author
 }

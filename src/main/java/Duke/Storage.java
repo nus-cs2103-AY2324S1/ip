@@ -51,6 +51,9 @@ public class Storage {
      */
     public ArrayList<Task> load() {
         try {
+            //@@author erohsikivar-reused
+            //Reused from ChatGpt
+            //with minor modifications
             ArrayList<Task> taskList = new ArrayList<>();
             BufferedReader reader = new BufferedReader(new FileReader(filepath));
             String line;
@@ -62,6 +65,7 @@ public class Storage {
             }
             reader.close();
             return taskList;
+            //@@author
         } catch (IOException e) {
             e.printStackTrace();
         }
