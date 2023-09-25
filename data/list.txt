@@ -1,6 +1,5 @@
-E | 0 | new movie release | 2023-09-12 | 2023-09-15
-E | 0 | car race | 2023-11-10 | 2023-11-15
-T | 0 | eat
-T | 0 | buy milk
+E | 1 | new movie release | 2023-09-12 | 2023-09-15
+T | 1 | eat
+T | 1 | buy milk
 D | 0 | quiz | 2023-10-02
 D | 0 | supermarket discount! | 2023-10-10

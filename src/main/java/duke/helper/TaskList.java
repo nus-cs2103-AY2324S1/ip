@@ -75,7 +75,8 @@ public class TaskList {
 
             assert userList[position].getCompletionStatus(); //target task should be marked as done
 
-            return "Following task is marked as done:\n" + position + ". "
+            int index = position + 1;
+            return "Following task is marked as done:\n" + index + ". "
                     + userList[position].display();
 
         }
@@ -90,7 +91,8 @@ public class TaskList {
 
             assert !userList[position].getCompletionStatus();//target task should be marked as undone
 
-            return "Following task is marked as undone:\n" + position + ". "
+            int index = position + 1;
+            return "Following task is marked as undone:\n" + index + ". "
                     + userList[position].display();
 
         }
