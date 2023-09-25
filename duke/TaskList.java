@@ -32,7 +32,7 @@ public class TaskList implements Serializable {
      * @return String representing all tasks in the list
      */
     public String listTasks() {
-        String tasks = "";
+        String tasks = "Here are the tasks in your list:\n";
         for (int i = 0; i < taskArrayList.size(); i++) {
             Task task = taskArrayList.get(i);
             String curr = (i + 1) + ". " + task;
@@ -125,7 +125,7 @@ public class TaskList implements Serializable {
      * @return String representing all the matching tasks in the list.
      */
     public String findTasks(String key) {
-        String taskFound = "";
+        String taskFound = "Here are the matching tasks in your list:\n";
         for (int i = 0; i < taskArrayList.size(); i++) {
             Task task = taskArrayList.get(i);
             if(task.description.contains(key)) {
