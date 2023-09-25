@@ -20,7 +20,7 @@ public class Main extends Application {
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
-            assert fxmlLoader != null : "FXML resource not found";
+            assert fxmlLoader != null : "FXML source not found";
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);

@@ -1,5 +1,5 @@
-package alcazar.UI;
-import alcazar.Alcazar;
+package alcazar;
+import alcazar.UI.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
