@@ -1,6 +1,5 @@
 package duke.parsers;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 import duke.Storage;
@@ -66,11 +65,23 @@ public class Parser {
         }
     }
 
-    public void doList(String userinput) {
+    /**
+     * Executes actions for the list command.
+     *
+     * @param userinput the userinput
+     * @throws DukeException the duke exception
+     */
+    private void doList(String userinput) {
         ui.printList(tasks.list());
     }
 
-    public void doMark(String userinput) {
+    /**
+     * Executes actions for the mark command.
+     *
+     * @param userinput the userinput
+     * @throws DukeException the duke exception
+     */
+    private void doMark(String userinput) {
         try {
             int taskno = Integer.parseInt(userinput.substring(5));
             if (taskno <= tasks.list().size()) {
@@ -85,7 +96,13 @@ public class Parser {
         }
     }
 
-    public void doTodo(String userinput) throws DukeException {
+    /**
+     * Executes actions for the todo command.
+     *
+     * @param userinput the userinput
+     * @throws DukeException the duke exception
+     */
+    private void doTodo(String userinput) throws DukeException {
         ToDo todo = new ToDo(userinput.substring(4));
         tasks.list().add(todo);
         ui.addedMessage(todo);
@@ -93,8 +110,17 @@ public class Parser {
         storage.updateFile(tasks.list());
     }
 
-    public void doDeadline(String userinput) throws DukeException {
+    /**
+     * Executes actions for the deadline command.
+     *
+     * @param userinput the userinput
+     * @throws DukeException the duke exception
+     */
+    private void doDeadline(String userinput) throws DukeException {
         String[] segments = userinput.split(" /by ");
+        if (segments.length < 2) {
+            throw new DukeException("☹ OOPS!!! Follow the format for a deadline.");
+        }
         Deadline deadline = new Deadline(segments[0].substring(8), segments[1]);
         tasks.list().add(deadline);
         ui.addedMessage(deadline);
@@ -102,7 +128,13 @@ public class Parser {
         storage.updateFile(tasks.list());
     }
 
-    public void doEvent(String userinput) throws DukeException {
+    /**
+     * Executes actions for the event command.
+     *
+     * @param userinput the userinput
+     * @throws DukeException the duke exception
+     */
+    private void doEvent(String userinput) throws DukeException {
         String[] segments1 = userinput.split(" /from ");
         String from = segments1[1].split(" /to ")[0];
         String[] segments2 = segments1[1].split(" /to ");
@@ -113,7 +145,13 @@ public class Parser {
         storage.updateFile(tasks.list());
     }
 
-    public void doDelete(String userinput) throws DukeException {
+    /**
+     * Executes actions for the delete command.
+     *
+     * @param userinput the userinput
+     * @throws DukeException the duke exception
+     */
+    private void doDelete(String userinput) throws DukeException {
         try {
             int taskno = Integer.parseInt(userinput.substring(7));
             if (taskno <= tasks.list().size()) {
@@ -129,16 +167,34 @@ public class Parser {
         }
     }
 
-    public void doFind(String userinput) throws DukeException {
+    /**
+     * Executes actions for the find command.
+     *
+     * @param userinput the userinput
+     * @throws DukeException the duke exception
+     */
+    private void doFind(String userinput) throws DukeException {
         ui.findmsg();
         ui.printList(tasks.contains(userinput.substring(5)));
     }
 
-    public String doListStr(String userinput) {
+    /**
+     * Executes actions for the list command for GUI.
+     *
+     * @param userinput the userinput
+     * @return the string
+     */
+    private String doListStr(String userinput) {
         return ui.printListString(tasks.list());
     }
 
-    public String doMarkStr(String userinput) {
+    /**
+     * Executes actions for the mark command for GUI.
+     *
+     * @param userinput the userinput
+     * @return the string
+     */
+    private String doMarkStr(String userinput) {
         try {
             int taskno = Integer.parseInt(userinput.substring(5));
             if (taskno <= tasks.list().size()) {
@@ -153,22 +209,46 @@ public class Parser {
         }
     }
 
-    public String doTodoStr(String userinput) throws DukeException {
+    /**
+     * Executes actions for the todo command for GUI.
+     *
+     * @param userinput the userinput
+     * @return the string
+     * @throws DukeException the duke exception
+     */
+    private String doTodoStr(String userinput) throws DukeException {
         ToDo todo = new ToDo(userinput.substring(4));
         tasks.list().add(todo);
         storage.updateFile(tasks.list());
         return ui.addedMessageString(todo) + "%n" + ui.listMessageString(tasks.list());
     }
 
-    public String doDeadlineStr(String userinput) throws DukeException {
+    /**
+     * Executes actions for the deadline command for GUI.
+     *
+     * @param userinput the userinput
+     * @return the string
+     * @throws DukeException the duke exception
+     */
+    private String doDeadlineStr(String userinput) throws DukeException {
         String[] segments = userinput.split(" /by ");
+        if (segments.length < 2) {
+            throw new DukeException("☹ OOPS!!! Follow the format for a deadline.");
+        }
         Deadline deadline = new Deadline(segments[0].substring(8), segments[1]);
         tasks.list().add(deadline);
         storage.updateFile(tasks.list());
         return ui.addedMessageString(deadline) + "%n" + ui.listMessageString(tasks.list());
     }
 
-    public String doEventStr(String userinput) throws DukeException {
+    /**
+     * Executes actions for the event command for GUI.
+     *
+     * @param userinput the userinput
+     * @return the string
+     * @throws DukeException the duke exception
+     */
+    private String doEventStr(String userinput) throws DukeException {
         String[] segments1 = userinput.split(" /from ");
         String from = segments1[1].split(" /to ")[0];
         String[] segments2 = segments1[1].split(" /to ");
@@ -178,7 +258,14 @@ public class Parser {
         return (ui.addedMessageString(event) + "%n" + ui.listMessageString(tasks.list()));
     }
 
-    public String doDeleteStr(String userinput) throws DukeException {
+    /**
+     * Executes actions for the delete command for GUI.
+     *
+     * @param userinput the userinput
+     * @return the string
+     * @throws DukeException the duke exception
+     */
+    private String doDeleteStr(String userinput) throws DukeException {
         try {
             int taskno = Integer.parseInt(userinput.substring(7));
             if (taskno <= tasks.list().size()) {
@@ -193,37 +280,25 @@ public class Parser {
         }
     }
 
-    public String doFindStr(String userinput) throws DukeException {
+    /**
+     * Executes actions for the find command for GUI.
+     *
+     * @param userinput the userinput
+     * @return the string
+     * @throws DukeException the duke exception
+     */
+    private String doFindStr(String userinput) throws DukeException {
         return ui.findmsgString() + "%n" + ui.printListString(tasks.contains(userinput.substring(5)));
     }
 
 
     /**
      * Makes sense of user inputs, makes changes to lists and file and outputs messages
+     * by printing lines
      *
      * @param userinput the user's input
      * @throws DukeException the duke exception when the user input is incorrect
      */
-    /*public void parse(String userinput) throws DukeException {
-        if (userinput.equalsIgnoreCase("list")) {
-            doList(userinput);
-        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("mark ")) {
-            doMark(userinput);
-        } else if (userinput.length() >= 4 && userinput.substring(0, 4).equalsIgnoreCase("todo")) {
-            doTodo(userinput);
-        } else if (userinput.length() >= 8 && userinput.substring(0, 8).equalsIgnoreCase("deadline")) {
-            doDeadline(userinput);
-        } else if (userinput.length() >= 7 && userinput.substring(0, 6).equalsIgnoreCase("event ")) {
-            doEvent(userinput);
-        } else if (userinput.length() >= 8 && userinput.substring(0, 7).equalsIgnoreCase("delete ")) {
-            doDelete(userinput);
-        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("find ")) {
-            doFind(userinput);
-        } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-    }*/
-
     public void parze(String userinput) throws DukeException {
         String key;
         if (!userinput.contains(" ")) {
@@ -260,64 +335,14 @@ public class Parser {
 
     }
 
-    /*public String parseString(String userinput) throws DukeException {
-        if (userinput.equalsIgnoreCase("list")) {
-            return ui.printListString(tasks.list());
-        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("mark ")) {
-            try {
-                int taskno = Integer.parseInt(userinput.substring(5));
-                if (taskno <= tasks.list().size()) {
-                    Task task = tasks.list().get(taskno - 1);
-                    task.setdone();
-                    return ui.markedMessageString(task);
-                } else {
-                    return ui.invalidMarkString();
-                }
-            } catch (NumberFormatException e) {
-                return ui.invalidMarkString();
-            }
-        } else if (userinput.length() >= 4 && userinput.substring(0, 4).equalsIgnoreCase("todo")) {
-
-            ToDo todo = new ToDo(userinput.substring(4));
-            tasks.list().add(todo);
-            storage.updateFile(tasks.list());
-            return ui.addedMessageString(todo) + "%n" + ui.listMessageString(tasks.list());
-
-        } else if (userinput.length() >= 8 && userinput.substring(0, 8).equalsIgnoreCase("deadline")) {
-            String[] segments = userinput.split(" /by ");
-            Deadline deadline = new Deadline(segments[0].substring(8), segments[1]);
-            tasks.list().add(deadline);
-            storage.updateFile(tasks.list());
-            return ui.addedMessageString(deadline) + "%n" + ui.listMessageString(tasks.list());
-        } else if (userinput.length() >= 7 && userinput.substring(0, 6).equalsIgnoreCase("event ")) {
-            String[] segments1 = userinput.split(" /from ");
-            String from = segments1[1].split(" /to ")[0];
-            String[] segments2 = segments1[1].split(" /to ");
-            Event event = new Event(segments1[0].substring(5), from, segments2[1]);
-            tasks.list().add(event);
-            storage.updateFile(tasks.list());
-            return (ui.addedMessageString(event) + "%n" + ui.listMessageString(tasks.list()));
-        } else if (userinput.length() >= 8 && userinput.substring(0, 7).equalsIgnoreCase("delete ")) {
-            try {
-                int taskno = Integer.parseInt(userinput.substring(7));
-                if (taskno <= tasks.list().size()) {
-                    Task task = tasks.list().get(taskno - 1);
-                    tasks.list().remove(taskno - 1);
-                    return ui.removedMessageString(task) + "%n" + ui.listMessageString(tasks.list());
-                } else {
-                    return ui.validNumberMessageString();
-                }
-            } catch (NumberFormatException e) {
-                return ui.validNumberMessageString();
-            }
-        } else if (userinput.length() >= 6 && userinput.substring(0, 5).equalsIgnoreCase("find ")) {
-            return ui.findmsgString() + "%n" + ui.printListString(tasks.contains(userinput.substring(5)));
-
-        } else {
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-        }
-    }*/
-
+    /**
+     * Makes sense of user inputs, makes changes to lists and file and outputs messages
+     * in String format
+     *
+     * @param userinput the user's input
+     * @return String output
+     * @throws DukeException the duke exception when the user input is incorrect
+     */
     public String parzeString(String userinput) throws DukeException {
         String key;
         if (!userinput.contains(" ")) {

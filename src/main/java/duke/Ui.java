@@ -1,8 +1,9 @@
 package duke;
 
+import java.util.ArrayList;
+
 import duke.tasks.Task;
 
-import java.util.ArrayList;
 
 /**
  * The Ui, aka Userinterface that handles all the outputs shows to user.
@@ -64,8 +65,8 @@ public class Ui {
      *
      * @param list the list
      */
-    public void listMessage(ArrayList<Task> list)  {
-        System.out.println("Now you have "  + list.size() + " tasks in the list.");
+    public void listMessage(ArrayList<Task> list) {
+        System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
     /**
@@ -143,8 +144,8 @@ public class Ui {
      *
      * @param list the list
      */
-    public String listMessageString(ArrayList<Task> list)  {
-        return ("Now you have "  + list.size() + " tasks in the list.");
+    public String listMessageString(ArrayList<Task> list) {
+        return ("Now you have " + list.size() + " tasks in the list.");
     }
 
     /**
