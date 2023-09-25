@@ -1,5 +1,6 @@
 package parser;
 
+import commands.ArchiveCommand;
 import commands.ByeCommand;
 import commands.Command;
 import commands.DeadlineCommand;
@@ -12,6 +13,7 @@ import commands.ScheduleCommand;
 import commands.TodoCommand;
 import commands.UnknownCommand;
 import commands.UnmarkCommand;
+import data.Save;
 import duke.DukeException;
 
 /**
@@ -20,6 +22,11 @@ import duke.DukeException;
  * appropriate command to execute.
  */
 public class Parser {
+    private final Save savior;
+
+    public Parser(Save savior) {
+        this.savior = savior;
+    }
 
     /**
      * Converts the user input into a corresponding Command object based on the given input string.
@@ -105,6 +112,8 @@ public class Parser {
                 throw new DukeException(" Keyword. I NEED A KEYWORD!!! ");
             }
             return new FindCommand(inputParts[1]);
+        case "archive":
+            return new ArchiveCommand(savior);
         default:
             return new UnknownCommand(input);
         }

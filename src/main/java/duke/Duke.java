@@ -16,8 +16,8 @@ import ui.UI;
 public class Duke {
     private final UI ui = new UI();
     private final Actions actionList = new Actions();
-    private final Parser parser = new Parser();
     private final Save savior = new Save();
+    private final Parser parser = new Parser(savior);
 
     /**
      * Constructs a Duke chatbot instance.
@@ -39,7 +39,7 @@ public class Duke {
         try {
             Command command = parser.issueCommand(input);
             if (command.isExit()) {
-                savior.saveTasks(actionList.list());
+                savior.saveToDefault(actionList.list());
                 return " Finally, I can rest.";
             } else {
                 return command.executeCommand(ui, actionList);

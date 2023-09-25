@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import data.Actions;
+import data.Save;
 import duke.DukeException;
 import parser.Parser;
 import ui.UI;
@@ -13,7 +14,8 @@ public class EventCommandTest {
 
     @Test
     public void missingKeyword() {
-        Parser parse = new Parser();
+        Save dummySave = new Save();
+        Parser parse = new Parser(dummySave);
         UI ui = new UI();
         Actions actions = new Actions();
         EventCommand event = new EventCommand("event task", parse);
@@ -22,7 +24,8 @@ public class EventCommandTest {
 
     @Test
     public void taskAdded() {
-        Parser parse = new Parser();
+        Save dummySave = new Save();
+        Parser parse = new Parser(dummySave);
         UI ui = new UI();
         Actions actions = new Actions();
         String description = "Event Test Task";

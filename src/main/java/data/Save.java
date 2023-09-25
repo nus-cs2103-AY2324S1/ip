@@ -19,20 +19,21 @@ import tasks.Todo;
 public class Save {
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = DIRECTORY_PATH + "/duke.txt";
+    private static final String ARCHIVE_FILE_PATH = DIRECTORY_PATH + "/archive.txt";
 
     /**
-     * Saves the list of tasks to a file.
+     * Saves the list of tasks to a duke.txt.
      *
      * @param tasks List of tasks to be saved.
      */
-    public void saveTasks(ArrayList<Task> tasks) throws DukeException {
+    public void saveTasks(ArrayList<Task> tasks, String destination) throws DukeException {
         assert tasks != null;
         try {
             File directory = new File(DIRECTORY_PATH);
             if (!directory.exists()) {
                 directory.mkdirs();
             }
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(destination, true))) {
                 for (Task task : tasks) {
                     writer.write(task.format());
                     writer.newLine();
@@ -74,6 +75,19 @@ public class Save {
     }
 
     /**
+     * Saves the list of tasks to a archive.txt.
+     *
+     * @param tasks List of tasks to be saved.
+     */
+    public void archiveTasks(ArrayList<Task> tasks) throws DukeException {
+        saveTasks(tasks, ARCHIVE_FILE_PATH);
+    }
+
+    public void saveToDefault(ArrayList<Task> tasks) throws DukeException {
+        saveTasks(tasks, FILE_PATH);
+    }
+
+    /**
      * Parses a single line from the file to recreate the respective Task object.
      * Recognizes the format of Todos, Deadlines, and Events.
      *
@@ -92,7 +106,7 @@ public class Save {
             return todo;
         case "D":
             if (parts.length < 4) {
-                throw new DukeException("Looks like this Deadline is corrupted: " + line);
+                throw new DukeException(" Looks like this Deadline is corrupted: " + line);
             }
             Deadline deadline = new Deadline(parts[2], parts[3]);
             if (parts[1].equals("1")) {
@@ -101,11 +115,11 @@ public class Save {
             return deadline;
         case "E":
             if (parts.length < 4) {
-                throw new DukeException("Looks like this Event is corrupted: " + line);
+                throw new DukeException(" Looks like this Event is corrupted: " + line);
             }
             String[] timeParts = parts[3].split(" - ");
             if (timeParts.length < 2) {
-                throw new DukeException("Looks like this Event's timing is corrupted: " + line);
+                throw new DukeException(" Looks like this Event's timing is corrupted: " + line);
             }
             Event event = new Event(parts[2], timeParts[0].trim(), timeParts[1].trim());
             if (parts[1].equals("1")) {
@@ -113,7 +127,7 @@ public class Save {
             }
             return event;
         default:
-            throw new DukeException("Yea mate no clue what task this is: " + line);
+            throw new DukeException(" Yea mate no clue what task this is: " + line);
         }
     }
 }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import data.Actions;
+import data.Save;
 import duke.DukeException;
 import parser.Parser;
 import ui.UI;
@@ -13,7 +14,8 @@ public class DeadlineCommandTest {
 
     @Test
     public void missingKeyword() {
-        Parser parse = new Parser();
+        Save dummySave = new Save();
+        Parser parse = new Parser(dummySave);
         UI ui = new UI();
         Actions actions = new Actions();
         String testInput = "deadline iP /by 22/09/23";
@@ -23,7 +25,8 @@ public class DeadlineCommandTest {
 
     @Test
     public void taskAdded() {
-        Parser parse = new Parser();
+        Save dummySave = new Save();
+        Parser parse = new Parser(dummySave);
         UI ui = new UI();
         Actions actions = new Actions();
         String description = "Deadline Test Task";
