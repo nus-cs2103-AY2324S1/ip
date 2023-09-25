@@ -1,4 +1,7 @@
-package alcazar;
+package alcazar.Tasks;
+
+import alcazar.Tasks.Task;
+
 public class ToDo extends Task {
 
 
@@ -7,7 +10,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * Used to evaluate String form of a ToDo task
+     * Evaluates String form of a ToDo task
      * @return String form of a ToDo Task
      */
 

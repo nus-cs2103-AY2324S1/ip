@@ -1,5 +1,9 @@
 package alcazar;
+
 import java.util.ArrayList;
+
+import alcazar.Tasks.Task;
+
 
 /**
  * Class for the functionality related to storing the list of tasks
@@ -30,8 +34,8 @@ public class TaskList {
         this.tasks.remove(index);
     }
 
-    public void add(Task t) {
-        this.tasks.add(t);
+    public void add(Task newTask) {
+        this.tasks.add(newTask);
     }
 
     /**
@@ -41,18 +45,21 @@ public class TaskList {
      */
     public String printEquals(String search) {
         String listedTasks = "";
+
         for (int i = 0; i < tasks.size(); i++) {
-            if (tasks.get(i).toString().contains(search)) {
-                listedTasks += (i + 1) + ". " + tasks.get(i).toString() + "\n";
-            }
+            String task = tasks.get(i).toString();
+            listedTasks += task.contains(search)
+                    ? (i + 1) + ". " + task + "\n"
+                    : "";
         }
+
         if (listedTasks.equals("")) {
             return "Sorry no matching tasks.";
         } else {
             return listedTasks;
         }
-
     }
+
     /**
      * The method evaluates the list of the passed tasks.
      * @return String of all the passed tasks

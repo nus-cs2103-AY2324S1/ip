@@ -1,4 +1,4 @@
-package alcazar;
+package alcazar.Tasks;
 public class Task {
     private boolean isMarked;
     private String taskPrompt;
@@ -16,7 +16,7 @@ public class Task {
     }
 
     /**
-     * Used to mark this task undone.
+     * Marks this task undone.
      */
     public void unmarkTask() {
         this.isMarked = false;

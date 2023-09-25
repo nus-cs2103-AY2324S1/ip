@@ -1,4 +1,9 @@
 package alcazar;
+import alcazar.Tasks.Deadline;
+import alcazar.Tasks.Event;
+import alcazar.Tasks.Task;
+import alcazar.Tasks.ToDo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -53,12 +58,12 @@ public class Storage {
      * @param text String to be converted to a ToDo task
      * @return The ToDo task converted from text
      */
-    public ToDo taskToDo(String text) {
-        ToDo t = new ToDo(text.substring(10).trim());
+    public ToDo writeTaskToDo(String text) {
+        ToDo taskToDo = new ToDo(text.substring(10).trim());
         if (text.charAt(7) == 'X') {
-            t.markTask();
+            taskToDo.markTask();
         }
-        return t;
+        return taskToDo;
     }
 
     /**
@@ -66,53 +71,77 @@ public class Storage {
      * @param text String to be converted to Event Task
      * @return The Event task converted from text
      */
-    public Event taskEvent(String text) {
-        boolean isMarked = text.charAt(7) == 'X';
-        String[] parts = text.split("[()]");
-        String taskDescription = parts[0].trim().substring(10);
-        String timeInfo = parts[1].trim();
+    public Event writeTaskEvent(String text) {
+
+        String[] eventPromptElements = text.split("[()]");
+        String taskDescription = eventPromptElements[0].trim().substring(10);
+
+        String timeInfo = eventPromptElements[1].trim();
         String[] timeParts = timeInfo.split("from:|to:");
         String startTime = timeParts[1].trim();
         String endTime = timeParts[2].trim();
+
         String[] extractedValues = { taskDescription, startTime, endTime };
-        Event e = new Event(extractedValues[0], extractedValues[1], extractedValues[2]);
+        Event extractedEvent = new Event(extractedValues[0], extractedValues[1], extractedValues[2]);
+
+        boolean isMarked = text.charAt(7) == 'X';
         if (isMarked) {
-            e.markTask();
+            extractedEvent.markTask();
         }
-        return e;
+
+        return extractedEvent;
     }
 
     /**
      * Converts the input text into its equivalent Deadline Task
-     * @param text The String to be converted to a Deadline Task
+     * @param deadlinePrompt The String to be converted to a Deadline Task
      * @return The Deadline Task from the converted String
      */
-    public Deadline taskDeadline(String text) {
-        boolean isMarked = text.charAt(7) == 'X';
-        text = text.substring(10);
-        String wrd = "";
-        String str = "";
-        int i;
-        for (i = 0; i < text.length(); i++) {
-            char ch = text.charAt(i);
-            if (ch == ' ') {
-                if (wrd.equals("(by:")) {
-                    break;
-                }
-                str += wrd + " ";
-                wrd = "";
-            } else {
-                wrd += ch;
+    public Deadline writeTaskDeadline(String deadlinePrompt) {
+
+        int index;
+        String deadlineContent = "";
+        String deadlineTiming = "";
+        boolean isMarked = deadlinePrompt.charAt(7) == 'X';
+        deadlinePrompt = deadlinePrompt.substring(10);
+        String[] deadlinePromptElements = deadlinePrompt.split(" ");
+
+        for (index = 0; index < deadlinePromptElements.length; index++) {
+            String word = deadlinePromptElements[index];
+            if (word.equals("(by:")) {
+                break;
             }
+            deadlineContent += word + " ";
         }
-        String[] deadArray = new String[2];
-        deadArray[0] = str.trim();
-        deadArray[1] = text.substring(i + 1, text.length() - 1);
-        Deadline d = new Deadline(deadArray[0], deadArray[1]);
+
+        for (index = index + 1; index < deadlinePromptElements.length; index++) {
+            deadlineTiming += deadlinePromptElements[index] + " ";
+        }
+        deadlineContent = deadlineContent.trim();
+        deadlineTiming = deadlineTiming.trim().substring(0, deadlineTiming.length() - 2);
+//        String wrd = "";
+//        String str = "";
+//        int i;
+//        for (i = 0; i < deadlinePrompt.length(); i++) {
+//            char ch = deadlinePrompt.charAt(i);
+//            if (ch == ' ') {
+//                if (wrd.equals("(by:")) {
+//                    break;
+//                }
+//                str += wrd + " ";
+//                wrd = "";
+//            } else {
+//                wrd += ch;
+//            }
+//        }
+//        String[] deadArray = new String[2];
+//        deadArray[0] = str.trim();
+//        deadArray[1] = deadlinePrompt.substring(i + 1, deadlinePrompt.length() - 1);
+        Deadline extractedDeadline = new Deadline(deadlineContent, deadlineTiming);
         if (isMarked) {
-            d.markTask();
+            extractedDeadline.markTask();
         }
-        return d;
+        return extractedDeadline;
     }
 
     /**
@@ -126,13 +155,13 @@ public class Storage {
             Scanner s = new Scanner(f);
             while (s.hasNext()) {
                 String prompt = s.nextLine();
-                char ch = prompt.charAt(4);
-                if (ch == 'T') {
-                    tasks.add(taskToDo(prompt));
-                } else if (ch == 'E') {
-                    tasks.add(taskEvent(prompt));
+                char taskDefinitionCharacter = prompt.charAt(4);
+                if (taskDefinitionCharacter == 'T') {
+                    tasks.add(writeTaskToDo(prompt));
+                } else if (taskDefinitionCharacter == 'E') {
+                    tasks.add(writeTaskEvent(prompt));
                 } else {
-                    tasks.add(taskDeadline(prompt));
+                    tasks.add(writeTaskDeadline(prompt));
                 }
             }
         } catch (FileNotFoundException e) {

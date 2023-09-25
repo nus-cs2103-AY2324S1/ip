@@ -2,6 +2,7 @@ package alcazar;
 
 import java.io.IOException;
 
+import alcazar.UI.MainWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
