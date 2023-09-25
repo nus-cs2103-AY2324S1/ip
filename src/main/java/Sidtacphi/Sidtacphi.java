@@ -3,8 +3,6 @@ package sidtacphi;
 import sidtacphi.parser.Parser;
 import sidtacphi.storage.Storage;
 import sidtacphi.task.TaskList;
-import sidtacphi.ui.Ui;
-
 
 /**
  * Sidtacphi is the main class for the Sidtacphi bot.
@@ -13,29 +11,23 @@ public class Sidtacphi {
     private static TaskList taskList = new TaskList();
 
     /**
-     * Main method for the Sidtacphi class.
-     *
-     * @param args
+     * Constructs the Sidtacphi object.
      */
-    public static void main(String[] args) {
+    public Sidtacphi() {
         taskList = Storage.readJson("./stored/tasks.json");
-        startBot();
+    }
+
+    /**
+     * Generates a response to user input.
+     */
+    public String getResponse(String input) {
+        return Parser.parseInput(taskList, input);
+    }
+
+    /**
+     * Saves taskList as json.
+     */
+    public void saveTaskList() {
         Storage.saveAsJson(taskList, "./stored/tasks.json");
-        stopBot();
-    }
-
-    /**
-     * Starts the Sidtacphi bot.
-     */
-    private static void startBot() {
-        Ui.printIntro();
-        Parser.readInputs(taskList);
-    }
-
-    /**
-     * Stops the Sidtacphi bot.
-     */
-    private static void stopBot() {
-        Ui.printGoodbye();
     }
 }

@@ -40,7 +40,7 @@ public class TaskList extends ArrayList<Task> {
      * @param taskType type of task to add
      * @param input input to add to the task_list kept by the bot
      */
-    public void addTask(TaskType taskType, String input) throws SidException {
+    public String addTask(TaskType taskType, String input) throws SidException {
         String[] inputArgs;
         switch (taskType) {
         case TODO:
@@ -119,13 +119,15 @@ public class TaskList extends ArrayList<Task> {
                 "Something went wrong when creating a task and an invalid task type has been specified.");
         }
 
-        System.out.println("\nSidtacphi: I have added \"" + this.get(this.size() - 1) + "\".");
+        String result = "Sidtacphi: I have added \"" + this.get(this.size() - 1) + "\".";
 
         if (this.size() == 1) {
-            System.out.println("Sidtacphi: You now have 1 task in your list.");
+            result += "\nSidtacphi: You now have 1 task in your list.";
         } else {
-            System.out.println("Sidtacphi: You now have " + this.size() + " tasks in your list.");
+            result += "\nSidtacphi: You now have " + this.size() + " tasks in your list.";
         }
+
+        return result;
     }
 
     /**
@@ -134,7 +136,7 @@ public class TaskList extends ArrayList<Task> {
      * @param isToMarkAsCompleted to mark the task as done when true, and to unmark when false
      * @param input
      */
-    public void markTaskAs(boolean isToMarkAsCompleted, String input) throws SidException {
+    public String markTaskAs(boolean isToMarkAsCompleted, String input) throws SidException {
         if (!isToMarkAsCompleted) {
             if (input.length() < 7) {
                 throw new SidInvalidFormatException("Please input the task ID number to unmark.");
@@ -152,7 +154,7 @@ public class TaskList extends ArrayList<Task> {
                 throw new SidInvalidIndexException("\"" + task + "\" is already unmarked!");
             } else {
                 task.unmark();
-                System.out.println("\nSidtacphi: Unmarked \"" + task + "\".");
+                return "Sidtacphi: Unmarked \"" + task + "\".";
             }
         } else {
             if (input.length() < 5) {
@@ -171,7 +173,7 @@ public class TaskList extends ArrayList<Task> {
                 throw new SidInvalidIndexException("\"" + task + "\" is already marked!");
             } else {
                 task.mark();
-                System.out.println("\nSidtacphi: Marked \"" + task + "\".");
+                return "Sidtacphi: Marked \"" + task + "\".";
             }
         }
     }
@@ -179,16 +181,17 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Prints the task list.
      */
-    public void showTaskList() {
+    public String showTaskList() {
         if (this.size() == 0) {
-            System.out.println("\nSidtacphi: There are no tasks in your list.");
-            return;
+            return "Sidtacphi: There are no tasks in your list.";
         }
 
-        System.out.println("\nSidtacphi: These are the tasks in your list.");
+        String result = "Sidtacphi: These are the tasks in your list.\n";
         for (int i = 0; i < this.size(); i++) {
-            System.out.println("" + (i + 1) + ". " + this.get(i));
+            result += "" + (i + 1) + ". " + this.get(i) + "\n";
         }
+
+        return result;
     }
 
     /**
@@ -196,7 +199,7 @@ public class TaskList extends ArrayList<Task> {
      *
      * @param input
      */
-    public void deleteTask(String input) throws SidException {
+    public String deleteTask(String input) throws SidException {
         if (input.length() < 7) {
             throw new SidInvalidFormatException("Please input the task ID number to delete.");
         } else if (input.charAt(6) != ' ') {
@@ -210,14 +213,14 @@ public class TaskList extends ArrayList<Task> {
 
         Task task = this.get(taskId - 1);
         this.remove(taskId - 1);
-        System.out.println("\nSidtacphi: Removed \"" + task + "\".");
-        System.out.println("Sidtacphi: You now have " + this.size() + " tasks in your list.");
+        return "Sidtacphi: Removed \"" + task + "\".\n"
+                + "Sidtacphi: You now have " + this.size() + " tasks in your list.";
     }
 
     /**
      * Checks if obj is equal to to the TaskList object.
      */
-    public void findTask(String input) throws SidException {
+    public String findTask(String input) throws SidException {
         if (input.length() < 5) {
             throw new SidInvalidFormatException("Please input the task ID number to delete.");
         } else if (input.charAt(4) != ' ') {
@@ -225,13 +228,14 @@ public class TaskList extends ArrayList<Task> {
         }
 
         String name = input.substring(5);
-        System.out.println("\nSidtacphi: These are the tasks in your list.");
+        String result = "Sidtacphi: These are the tasks in your list.\n";
         for (int i = 0; i < this.size(); i++) {
             if (this.get(i).getName().contains(name)) {
-                System.out.println("" + (i + 1) + ". " + this.get(i));
+                result += "" + (i + 1) + ". " + this.get(i) + "\n";
             }
-
         }
+
+        return result;
     }
 
     /**
