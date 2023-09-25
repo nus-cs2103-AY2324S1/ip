@@ -5,8 +5,8 @@ import duke.parser.Parser;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
-//CHECKSTYLE.OFF: CustomImportOrder
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,15 +17,29 @@ import java.util.List;
  * The `Storage` class is responsible for handling the storage of task data in a file and loading tasks from a file.
  */
 public class Storage {
-    private String file;
+    private File file;
 
     /**
      * Constructs a `Storage` object with the specified file path for task data storage.
      *
-     * @param file The file path where task data is stored.
+     * @param filePath The file path where task data is stored.
      */
-    public Storage(String file) {
-        this.file = file;
+    public Storage(String filePath) {
+        try {
+            String[] splited = filePath.split("/");
+            File dir = new File(splited[0]);
+
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            File content = new File(filePath);
+            if (!content.exists()) {
+                content.createNewFile();
+            }
+            this.file = content;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -37,7 +51,7 @@ public class Storage {
     public TaskList loadTasksFromFile() throws JamesBondException {
         TaskList tasksList = new TaskList();
         try {
-            List<String> lines = Files.readAllLines(Paths.get(file));
+            List<String> lines = Files.readAllLines(Paths.get(file.getAbsolutePath()));
             for (String line : lines) {
                 Task task = Parser.parseFomSaveFormat(line);
                 tasksList.add(task);
@@ -54,7 +68,7 @@ public class Storage {
      * @param tasks The `TaskList` containing the tasks to be saved.
      */
     public void updateFile(TaskList tasks) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file.getAbsolutePath()))) {
             for (Task task : tasks.getToDos()) {
                 writer.write(task.toSaveFormat());
                 writer.newLine();
