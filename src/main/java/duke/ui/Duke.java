@@ -115,7 +115,7 @@ public class Duke extends Application {
 
         //Retrieve existing tasks from storage, display welcome message
         try {
-            retrieveFromStorage("tasks.txt");
+            retrieveFromStorage("./samData/tasks.txt");
             Label success = new Label(Ui.greetingText());
             dialogContainer.getChildren().add(DialogBox.getDukeDialog(success, new ImageView(duke)));
         } catch (StorageException e) {

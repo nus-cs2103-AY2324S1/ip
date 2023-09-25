@@ -48,6 +48,7 @@ public class Storage {
         try {
             File taskFile = new File(FILE_PATH);
             if (! taskFile.exists()) {
+                taskFile.getParentFile().mkdirs();
                 taskFile.createNewFile();
             }
             assert taskFile.exists();
@@ -78,6 +79,8 @@ public class Storage {
         try {
             File taskFile = new File(FILE_PATH);
             if (! taskFile.exists()) {
+                taskFile.getParentFile().mkdirs();
+                taskFile.createNewFile();
                 return tasks;
             }
             Scanner reader = new Scanner(taskFile);
