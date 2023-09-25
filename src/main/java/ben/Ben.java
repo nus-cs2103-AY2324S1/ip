@@ -37,8 +37,7 @@ public class Ben {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Returns a response.
      */
     public String getResponse(String input) {
         Parser parser = new Parser(tasks);
@@ -54,7 +53,7 @@ public class Ben {
     }
 
     /**
-     * Entry point that runs chatbot.
+     * Runs chatbot.
      *
      * @param args Args.
      */

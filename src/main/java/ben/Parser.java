@@ -24,7 +24,8 @@ public class Parser {
     }
 
     /**
-     * Takes in a command and outputs a task. Throws an InvalidCommandException if command is invalid.
+     * Takes in a command and outputs a task.
+     * Throws an InvalidCommandException if command is invalid.
      *
      * @param command The command input by the user.
      * @return a Task.
@@ -51,8 +52,9 @@ public class Parser {
     }
 
     /**
-     * Takes in either a String representation of a unmark, mark or delete command and outputs the task. Returns
-     * null if it is not one of these commands. Throws an InvalidCommandException if the command is invalid.
+     * Takes in either a String representation of a unmark, mark or delete command and outputs the task.
+     * Returns null if it is not one of these commands.
+     * Throws an InvalidCommandException if the command is invalid.
      *
      * @param message The command.
      * @return The task.

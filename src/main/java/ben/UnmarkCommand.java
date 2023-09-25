@@ -10,7 +10,7 @@ public class UnmarkCommand extends Command {
     private Task task;
 
     /**
-     * Constructor taking in a task.
+     * Takes in a task.
      *
      * @param task The task to be marked.
      */

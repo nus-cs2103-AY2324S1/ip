@@ -6,7 +6,7 @@ package ben;
 public class ToDo extends Task {
 
     /**
-     * Constructor that takes in a description and whether the Todo is completed.
+     * Takes in a description and whether the Todo is completed.
      *
      * @param description Description of ToDo.
      * @param isCompleted Whether the task is completed.
@@ -16,7 +16,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * String representation of the ToDo.
+     * Represents the ToDo.
      *
      * @return String representation of ToDo.
      */
@@ -26,7 +26,7 @@ public class ToDo extends Task {
     }
 
     /**
-     * String representation of ToDo when it is saved to the file.
+     * Represents the ToDo when it is saved to the file.
      *
      * @return String representation of ToDo.
      */

@@ -17,7 +17,7 @@ public class Event extends Task{
     private LocalDateTime to;
 
     /**
-     * Constructor that takes in description of the event, whether it is completed, the from and to date of the event.
+     * Takes in description of the event, whether it is completed, the from and to date of the event.
      *
      * @param description The description of the event.
      * @param isCompleted Whether the event is completed.
@@ -31,7 +31,7 @@ public class Event extends Task{
     }
 
     /**
-     * String representation of the event.
+     * Represents the event.
      *
      * @return String representation of events.
      */
@@ -41,7 +41,7 @@ public class Event extends Task{
     }
 
     /**
-     * String representation of events when it is saved to the file.
+     * Represents events when it is saved to the file.
      *
      * @return String representation of events.
      */

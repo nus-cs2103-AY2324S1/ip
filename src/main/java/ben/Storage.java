@@ -22,7 +22,7 @@ public class Storage {
     private File f;
 
     /**
-     * Constructor that takes in a file.
+     * Takes in a file.
      *
      * @param f The file where the tasks are stored.
      */
@@ -31,7 +31,7 @@ public class Storage {
     }
 
     /**
-     * Save tasks to the file by writing the file.
+     * Saves tasks to the file by writing the file.
      *
      * @param tasks The task list.
      * @throws IOException Exception.
@@ -43,8 +43,9 @@ public class Storage {
     }
 
     /**
-     * Converts a String to a LocalDateTime object if is in the valid format. If HHmm is not included in the String,
-     * the time 2359 will be appended. Throws DateTImeParseException if the format is invalid.
+     * Converts a String to a LocalDateTime object if is in the valid format.
+     * If HHmm is not included in the String, the time 2359 will be appended.
+     * Throws DateTImeParseException if the format is invalid.
      *
      * @param dateTime String representation of a LocalDateTime.
      * @return LocalDateTime object.

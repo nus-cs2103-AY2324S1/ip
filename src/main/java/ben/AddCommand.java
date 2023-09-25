@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     private Task task;
 
     /**
-     * Constructor takes in a command
+     * Takes in a command
      *
      * @param command The input command by the user
      */
@@ -116,7 +116,8 @@ public class AddCommand extends Command {
     }
 
     /**
-     * Converts a String to a LocalDateTime object if is in the valid format. If HHmm is not included in the String,
+     * Converts a String to a LocalDateTime object if is in the valid format.
+     * If HHmm is not included in the String,
      * the time 2359 will be appended. Throws DateTImeParseException if the format is invalid.
      *
      * @param dateTime String representation of a LocalDateTime.

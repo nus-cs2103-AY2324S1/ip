@@ -44,7 +44,7 @@ public class TaskList {
     }
 
     /**
-     * String representation of the tasks in the file.
+     * Represents tasks in the file.
      *
      * @return String representation of the tasks in the file.
      */
@@ -57,7 +57,7 @@ public class TaskList {
     }
 
     /**
-     * Number of tasks in the task list.
+     * Gets number of tasks in the task list.
      *
      * @return Number of tasks in the task list.
      */

@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     private String command;
 
     /**
-     * Constructor taking in a command from the user.
+     * Takes in a command from the user.
      *
      * @param command The command from the user,
      */

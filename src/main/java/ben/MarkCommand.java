@@ -10,7 +10,7 @@ public class MarkCommand extends Command{
     Task task;
 
     /**
-     * Constructor that takes in a task.
+     * Takes in a task.
      *
      * @param task The task to be marked.
      */

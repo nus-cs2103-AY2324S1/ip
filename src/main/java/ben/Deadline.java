@@ -12,7 +12,7 @@ public class Deadline extends Task {
     private LocalDateTime by;
 
     /**
-     * Constructor that takes in a description and whether the deadline is completed and the date of the deadline.
+     * Takes in a description and whether the deadline is completed and the date of the deadline.
      * @param description Description of deadline.
      * @param isCompleted Whether the task is completed.
      * @param by The date of the deadline.
@@ -23,7 +23,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * String representation of the deadline.
+     * Represents the deadline.
      *
      * @return String representation of deadline.
      */
@@ -33,7 +33,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * String representation of deadline when it is saved to the file.
+     * Represents deadline when it is saved to the file.
      *
      * @return String representation of deadline.
      */

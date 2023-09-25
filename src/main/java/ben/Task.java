@@ -18,7 +18,7 @@ public class Task {
     private Boolean isCompleted;
 
     /**
-     * Constructor that takes in a description and a boolean indicating whether the task has been completed.
+     * Takes in a description and a boolean indicating whether the task has been completed.
      *
      * @param description Description of the task.
      * @param isCompleted Whether the task has been completed.
@@ -63,7 +63,7 @@ public class Task {
     }
 
     /**
-     * String representation of task when it is saved to the file.
+     * Represents task when it is saved to the file.
      *
      * @return String representation of task.
      */

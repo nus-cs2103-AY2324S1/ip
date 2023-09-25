@@ -1,11 +1,11 @@
 package ben;
 
 /**
- * Error thrown when command is invalid.
+ * Throws error when command is invalid.
  */
 public class InvalidCommandException extends Exception {
     /**
-     * Constructor that takes is a message.
+     * Takes is a message.
      *
      * @param message The message of the error.
      */
