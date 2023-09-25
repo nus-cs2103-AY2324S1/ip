@@ -2,16 +2,15 @@ package duke;
 
 import java.io.FileNotFoundException;
 
-
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
     private static final String FILE_PATH = "./data/duke.txt";
 
-    public Duke(String filePath) {
+    public Duke() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage(FILE_PATH);
         try {
             taskList = new TaskList(storage.loadPreviousTasks());
         } catch (FileNotFoundException e) {
@@ -20,37 +19,17 @@ public class Duke {
         }
     }
 
-    public void run() {
-        ui.displayWelcomeMessage();
-        boolean isExit = false;
-        while (!isExit) {
-            String userInput = ui.getUserInput();
-            try {
-                isExit = Parser.userCommand(userInput, taskList, ui, storage);
-            } catch (DukeException e) {
-                ui.displayErrorMessage(e.getMessage());
-            }
+    public String getResponse(String input) {
+
+        try {
+            String response = Parser.userCommand(input, taskList, ui, storage);
+            return response;
+        } catch (DukeException e) {
+            String response = ui.displayErrorMessage(e.getMessage());
+            return response;
         }
-        ui.stopUserInput();
     }
-
-    public static void main(String[] args) {
-        new Duke(FILE_PATH).run();
-    }
-
-
 }
-// A-Gradle
-// A-JUnit
-// A-Jar
-// A-JavaDoc
-// A-CodingStandard
-// Level-9
-// Level-10
-// A-FullCommitMessage
-// A-Assertions
-// A-CodeQuality
-// A-UserGuide
 
 
 
