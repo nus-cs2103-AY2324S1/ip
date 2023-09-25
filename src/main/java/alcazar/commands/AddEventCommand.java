@@ -1,40 +1,70 @@
-package alcazar.Commands;
+package alcazar.commands;
 
-import alcazar.Exceptions.InvalidArgumentException;
+import alcazar.Response;
 import alcazar.Storage;
 import alcazar.TaskList;
-import alcazar.Tasks.Event;
+import alcazar.exceptions.InvalidArgumentException;
+import alcazar.tasks.Event;
 
+/**
+ * Encapsulates the command to add an Event
+ */
 public class AddEventCommand extends Command {
+
+    /** The prompt passed by the user to add an Event*/
     private String inputPrompt;
 
+    /**
+     * Constructs an AddEventCommand object
+     * @param inputPrompt The prompt passed by the user to add an event.
+     */
     public AddEventCommand(String inputPrompt) {
         this.inputPrompt = inputPrompt;
     }
+
+    /**
+     * Executes the addition of a Event Task to the TaskList
+     * @param tasks the TaskList containing all the tasks upto present
+     * @param storage The Storage which stores all the tasks upto now
+     * @return A String response to showcase that the respective event has been added to the TaskList
+     * @throws InvalidArgumentException If no prompt/topic is given for the event
+     */
     @Override
-    public String execute(TaskList tasks,
-                          Storage storage) throws InvalidArgumentException {
+    public Response execute(
+            TaskList tasks, Storage storage) throws InvalidArgumentException {
         String commandContent = this.getCommandContent();
         String[] eventContents = this.extractEventContents(commandContent);
         tasks.add(new Event(eventContents[0], eventContents[1], eventContents[2]));
         storage.writeUp(tasks);
-        return "Got it. I've added this task:\n "
-                + tasks.elementAt(tasks.size() - 1) + "\n"
-                + "Now you have " + tasks.size() + " tasks in the list\n";
+        String result = "Got it. I've added this task:\n "
+                        + tasks.elementAt(tasks.size() - 1) + "\n"
+                        + "Now you have " + tasks.size() + " tasks in the list\n";
+        return new Response(result, this.isExit());
     }
 
+    /**
+     * Checks if this is an exit command
+     * @return boolean depending on whether this is an exit command
+     */
     @Override
     public boolean isExit() {
         return false;
     }
+
+    /**
+     * Extracts the content, the text after the command specification, of the command
+     * passed by the user
+     * @return String containing the command content
+     * @throws InvalidArgumentException If command is passed without content
+     */
     public String getCommandContent() throws InvalidArgumentException {
 
         String commandContent = "";
         String[] inputWords = inputPrompt.split(" ");
 
         if (inputWords.length == 1) {
-            throw new InvalidArgumentException(
-                    "☹ OOPS!!! The description of an Event cannot be empty."
+            throw new InvalidArgumentException("☹ OOPS!!! "
+                    + "The description of an Event cannot be empty."
             );
         }
 
@@ -45,6 +75,7 @@ public class AddEventCommand extends Command {
         commandContent = commandContent.trim();
         return commandContent;
     }
+
     /**
      * Extracts the start and end timings of a deadline
      * @param messageContent The input text

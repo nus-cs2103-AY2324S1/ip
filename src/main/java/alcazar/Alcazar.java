@@ -1,101 +1,32 @@
 package alcazar;
 
-import alcazar.Commands.Command;
-import alcazar.Exceptions.AlcazarException;
-import alcazar.Exceptions.InvalidArgumentException;
-import alcazar.Exceptions.InvalidSerialException;
-import alcazar.Exceptions.InvalidTaskException;
-import alcazar.UI.DialogBox;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
-
+import alcazar.commands.Command;
+import alcazar.exceptions.AlcazarException;
 
 /**
- * The class with the main method where all the functionality begins.
+ * Encapsulates the main method where all the functionality begins.
  */
-public class Alcazar  {
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
+public class Alcazar {
+    /** The storage for all the input tasks */
     private Storage storage;
+    /** The list of all the passed tasks */
     private TaskList tasks;
-    private Parser parser;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Generates response for the given user input.
      */
-    private void handleUserInput() {
-        String userText = userInput.getText();
-        String dukeText = getResponse(userInput.getText());
-        dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(userText, user),
-                    DialogBox.getDukeDialog(dukeText, duke)
-        );
-        userInput.clear();
-    }
-
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
-    public String getResponse(String input) {
+    public Response getResponse(String input) {
         String filePath = "./src/main/java/data/tasks.txt";
         storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
-        String parseResult = "";
+        Response inputResponse;
         try {
-            Command c = Parser.parse(input);
-            parseResult = c.execute(tasks, storage);
+            Command command = Parser.parse(input);
+            inputResponse = command.execute(tasks, storage);
         } catch (AlcazarException e) {
-            return e.getMessage();
+            boolean isUserExiting = false;
+            return new Response(e.getMessage(), isUserExiting);
         }
-        return "" + parseResult;
+        return inputResponse;
     }
-
-    /**
-     * Method to run all the functionality to drive this project.
-     */
-//    public void run() {
-//        boolean isExit = false;
-//        Parser p = new Parser();
-//        while (!isExit) {
-//            try {
-//                String fullCommand = ui.readCommand();
-//                isExit = p.isExit(fullCommand);
-//                if (isExit) {
-//                    continue;
-//                }
-//                ui.showLine(); // show the divider line ("_______")
-//                p.parse(fullCommand, tasks, ui, storage);
-//            } catch (InvalidTaskException e) {
-//                ui.showLine();
-//                System.out.println(
-//                        e.getMessage() + "\n"
-//                );
-//            } catch (InvalidArgumentException e) {
-//                ui.showLine();
-//                System.out.println(
-//                        e.getMessage() + "\n"
-//                );
-//            } catch (InvalidSerialException e) {
-//                ui.showLine();
-//                System.out.println(
-//                        e.getMessage() + "\n"
-//                );
-//            } finally {
-//                ui.showLine();
-//            }
-//        }
-//        ui.showExitMsg();
-//    }
 }
