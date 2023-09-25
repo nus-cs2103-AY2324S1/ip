@@ -10,6 +10,11 @@ public class Event extends Task {
     }
 
     @Override
+    public String storedString() {
+        return "E | " + super.storedString() + " | " + from + " | " + to;
+    }
+
+    @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
     }
