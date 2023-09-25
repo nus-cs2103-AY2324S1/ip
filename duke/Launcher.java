@@ -1,5 +1,6 @@
 package duke;
 
+import GUI.Main;
 import javafx.application.Application;
 
 /**
