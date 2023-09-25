@@ -35,10 +35,10 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Adds the input to the task_list kept track of by the bot.
+     * Adds the input to the taskList kept track of by the bot.
      *
      * @param taskType type of task to add
-     * @param input input to add to the task_list kept by the bot
+     * @param input input to add to the taskList kept by the bot
      */
     public String addTask(TaskType taskType, String input) throws SidException {
         switch (taskType) {
@@ -49,7 +49,7 @@ public class TaskList extends ArrayList<Task> {
             addEvent(input);
             break;
         case DEADLINE:
-
+            addDeadLine(input);
             break;
         default:
             // The code should never reach here.
@@ -136,7 +136,7 @@ public class TaskList extends ArrayList<Task> {
     public void addDeadLine(String input) throws SidException {
         if (input.length() < 9) {
             throw new SidInvalidFormatException("Please input a name for your Event"
-                    + "task, along with a start and end date.");
+                    + "task, along with a deadline date.");
         } else if (input.charAt(8) != ' ') {
             throw new SidException("\"" + input + "\" is not a valid command.");
         }
@@ -223,9 +223,7 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Finds tasks that have input in their names.
-     *
-     * @param input
+     * Deletes task given an ID.
      */
     public String deleteTask(String input) throws SidException {
         if (input.length() < 7) {
@@ -246,7 +244,9 @@ public class TaskList extends ArrayList<Task> {
     }
 
     /**
-     * Checks if obj is equal to to the TaskList object.
+     * Finds tasks that have input in their names.
+     *
+     * @param input
      */
     public String findTask(String input) throws SidException {
         if (input.length() < 5) {
@@ -272,21 +272,16 @@ public class TaskList extends ArrayList<Task> {
     @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof TaskList)) {
-            System.out.println("hi1");
             return false;
         }
         TaskList taskList = (TaskList) obj;
 
         if (taskList.size() != this.size()) {
-            System.out.println("hi2");
             return false;
         }
 
         for (int i = 0; i < this.size(); i++) {
-            System.out.println("hi3");
             if (!this.get(i).equals(taskList.get(i))) {
-                System.out.println("task1: " + this.get(i));
-                System.out.println("task2: " + taskList.get(i));
                 return false;
             }
         }

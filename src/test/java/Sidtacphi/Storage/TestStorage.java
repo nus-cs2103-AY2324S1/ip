@@ -66,7 +66,7 @@ public class TestStorage {
             taskList1.addTask(TaskType.DEADLINE, "deadline return book /by 2023-06-01");
             Storage.saveAsJson(taskList1, "./src/test/java/Sidtacphi/Storage/tasks-temp.json");
 
-            TaskList taskList2 = Storage.readJson("./src/test/java/Sidtacphi/Storage/tasks-temp.json");
+            TaskList taskList2 = Storage.readTaskListJson("./src/test/java/Sidtacphi/Storage/tasks-temp.json");
 
             Files.deleteIfExists(path);
 
