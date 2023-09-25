@@ -15,6 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 /**
@@ -58,7 +60,7 @@ public class Duke extends Application {
     /**
      * Instantiates a new Duke.
      */
-    Duke() {
+    public Duke() {
         this.ui = new Ui();
         this.storage = new Storage("data/duke.txt");
         try {
@@ -115,8 +117,8 @@ public class Duke extends Application {
         Label userText = new Label(userInput.getText());
         Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, new Circle(40, new ImagePattern(user))),
+                DialogBox.getDukeDialog(dukeText, new Circle(40, new ImagePattern(duke)))
         );
         userInput.clear();
     }

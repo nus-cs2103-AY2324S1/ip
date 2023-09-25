@@ -98,7 +98,7 @@ public class Ui {
     }
 
     public String introMessageString() {
-        return ("Hello! I'm IPSVIJAYKUMARAAKOODAIRRUKALAM" + "%n" + "What can I do for you?");
+        return ("Hello! I'm IPSVIJAYKUMARAAKOODAIRRUKALAM" + "\n" + "What can I do for you?");
     }
 
     /**
@@ -109,7 +109,7 @@ public class Ui {
     public String printListString(ArrayList<Task> list) {
         String out = "";
         for (int i = 0; i < list.size(); i++) {
-            out += i + 1 + "." + list.get(i) + "%n";
+            out += i + 1 + "." + list.get(i) + "\n";
         }
         return out;
     }
@@ -120,7 +120,7 @@ public class Ui {
      * @param task the task
      */
     public String markedMessageString(Task task) {
-        return ("Nice! I've marked this task as done:" + "%n" + "  " + task);
+        return ("Nice! I've marked this task as done:" + "\n" + "  " + task);
     }
 
     /**
@@ -136,7 +136,7 @@ public class Ui {
      * @param task the task
      */
     public String addedMessageString(Task task) {
-        return ("Got it. I've added this task:" + "%n" + "  " + task.toString());
+        return ("Got it. I've added this task:" + "\n" + "  " + task.toString());
     }
 
     /**
@@ -154,7 +154,7 @@ public class Ui {
      * @param task the task
      */
     public String removedMessageString(Task task) {
-        return ("Noted. I've removed this task:" + "%n" + "  " + task);
+        return ("Noted. I've removed this task:" + "\n" + "  " + task);
     }
 
     /**

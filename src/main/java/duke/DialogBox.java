@@ -2,11 +2,12 @@ package duke;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 
 /**
@@ -15,24 +16,26 @@ import javafx.scene.layout.HBox;
 public class DialogBox extends HBox {
 
     private Label text;
-    private ImageView displayPicture;
+    private Circle displayPicture;
 
     /**
      * Instantiates a new Dialog box.
      *
      * @param l  the label
-     * @param iv the imageview
+     * @param c the circle image
      */
-    DialogBox(Label l, ImageView iv) {
+    DialogBox(Label l, Circle c) {
+        super(10);
         text = l;
-        displayPicture = iv;
+        displayPicture = c;
 
         text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
+        //displayPicture.setFitWidth(80.0);
+        //displayPicture.setFitHeight(80.0);
 
         this.setAlignment(Pos.TOP_RIGHT);
-        this.getChildren().addAll(text, displayPicture);
+        this.setPadding(new Insets(10, 5, 10, 5));
+        this.getChildren().addAll(text, c);
     }
 
     /**
@@ -49,22 +52,22 @@ public class DialogBox extends HBox {
      * Gets user dialog.
      *
      * @param l  the label
-     * @param iv the image view
+     * @param c the circle
      * @return the user dialog
      */
-    public static DialogBox getUserDialog(Label l, ImageView iv) {
-        return new DialogBox(l, iv);
+    public static DialogBox getUserDialog(Label l, Circle c) {
+        return new DialogBox(l, c);
     }
 
     /**
      * Gets duke dialog.
      *
      * @param l  the label
-     * @param iv the image view
+     * @param c the circle
      * @return the duke dialog
      */
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
-        var db = new DialogBox(l, iv);
+    public static DialogBox getDukeDialog(Label l, Circle c) {
+        var db = new DialogBox(l, c);
         db.flip();
         return db;
     }
