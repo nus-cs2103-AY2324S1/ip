@@ -1,5 +1,7 @@
 # DogeBot :dog2: - User Guide
 
+(docs/Ui.png)
+
 ## Features & Usage
 
 ### Listing all tasks: `list`
@@ -21,6 +23,10 @@ Examples:
 - `todo buy milk`
 - `todo buy cereal`
 
+(docs/assets/images/todo.png)
+
+Todo task successfully created
+
 ### Adding a deadline task: `deadline`
 
 Adds a deadline task.
@@ -35,6 +41,10 @@ Format: `deadline <task description> /by <deadline date and time> [r/numberOfDay
 Examples:
 - `deadline buy cereal /by 25/9/2023 1500`
 - `deadline buy milk /by 25/9/2023 1500 r/2`
+
+(docs/assets/images/deadline.png)
+
+Deadline task successfully created
 
 ### Adding an event task: `event`
 
@@ -53,6 +63,10 @@ Examples:
 - `event eat cereal /from 25/9/2023 1500 /to 25/9/2023 1600`
 - `event project meeting /from 25/9/2023 2000 /to 25/9/2023 2100 r/2`
 
+(docs/assets/images/event.png)
+
+Event task successfully created
+
 ### Marking a task: `mark`
 
 Marks a task as done.
@@ -62,6 +76,10 @@ Format: `mark <task index>`
 
 Examples:
 - `mark 1`
+
+(docs/assets/images/mark.png)
+
+Task successfully marked
 
 ### Unmarking a task: `unmark`
 
@@ -73,6 +91,10 @@ Format: `unmark <task index>`
 Examples:
 - `unmark 1`
 
+(docs/assets/images/unmark.png)
+
+Task successfully unmarked
+
 ### Deleting a task: `delete`
 
 Deletes a task.
@@ -83,6 +105,10 @@ Format: `delete <task index>`
 Examples:
 - `delete 1`
 
+(docs/assets/images/delete.png)
+
+Task successfully deleted
+
 ### Finding tasks with a keyword: `find`
 
 Finds tasks with the given keyword.
@@ -92,6 +118,10 @@ Format: `find <keyword>`
 Examples:
 - `find milk`
 - `find cereal`
+
+(docs/assets/images/find.png)
+
+Tasks with the given keyword found
 
 ### Viewing upcoming reminders: `reminder`
 
@@ -104,6 +134,10 @@ Format: `reminder`
 Example:
 - `reminder`
 
+(docs/assets/images/reminder.png)
+
+Tasks with upcoming reminders displayed
+
 ### Saving task(s) data: `bye`
 
 Saves current task(s) data.
@@ -112,3 +146,7 @@ Format: `bye`
 
 Example:
 - `bye`
+
+(docs/assets/images/todo.png)
+
+Current tasks successfully saved.
