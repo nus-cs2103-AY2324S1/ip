@@ -29,7 +29,7 @@ public class Parser {
                             Platform.exit();
                         }
                     }, 700); 
-                return Ui.goodbye();
+                return Ui.getGoodbye();
             } else if (Objects.equals(input, "list")) {
                 return taskList.showTaskList();
             } else if (input.startsWith("mark")) {
