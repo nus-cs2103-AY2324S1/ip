@@ -40,8 +40,8 @@ public class TaskList {
     * @param num the index of the task the user want to delete
     */
     public void delete(int num) {
-        Ui.print("I've removed this task:");
-        taskList.get(num - 1).getStatus();
+        String[] messageList = {"I've removed this task:", taskList.get(num - 1).getStatus()};
+        Ui.print(messageList);
         taskList.remove(num - 1);
         Storage.save(taskList);
         Ui.print("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size());
@@ -56,6 +56,27 @@ public class TaskList {
     public void mark(int num, boolean isDone) {
         taskList.get(num - 1).markItem(isDone);
         Storage.save(taskList);
+    }
+
+    /**
+    * execute find command by printing task with corresponding keyword
+    *
+    * @param keyword the keyword to search for in the tasks
+    */
+    public void find(String keyword) {
+        int index = 1;
+        for (Task task: taskList) {
+            if(task.getTask().contains(keyword)) {
+                System.out.println(index + ". " + task.getStatus());
+                index ++;
+            }
+        }
+        index -= 1;
+        if (index == 0) {
+            Ui.print("There is no task with keyword: " + keyword);
+        } else {
+            Ui.print("Current # of " + plural(index, "task") + " with " + keyword + ": " + index);
+        }
     }
 
     /**
@@ -84,7 +105,11 @@ public class TaskList {
             }
         }
         index -= 1;
-        Ui.print("Current # of " + plural(index, "task") + ": " + index);
+        if (index == 0) {
+            Ui.print("There is no task at " + time);
+        } else {
+            Ui.print("Current # of " + plural(index, "task") + " at " + time + ": " + index);
+        }
     }
 
     /**

@@ -48,6 +48,9 @@ public class Parser {
             case "UNMARK":
                 parseUnmark(content);
                 return;
+            case "FIND":
+                parseFind(content);
+                return;
             case "PRINT":
                 parsePrint(content);
                 return;
@@ -105,9 +108,9 @@ public class Parser {
         }
         int deleteItem = -1;
         try {
-            deleteItem = Integer.valueOf(content);
+            deleteItem = Integer.valueOf(content.substring(1));
         } catch (NumberFormatException e) {
-            System.out.println("Please enter the item number you wish to delete.");
+            throw new DukeException("Please enter the item number you wish to delete.");
         }
         if (deleteItem <= 0 || deleteItem > taskList.size()) {
             throw new DukeException("Please specify the item number you wish to delete.");
@@ -129,7 +132,7 @@ public class Parser {
         try {
             markItem = Integer.valueOf(content.substring(1));
         } catch (NumberFormatException e) {
-            System.out.println("Please enter the item number you wish to mark.");
+            throw new DukeException("Please enter the item number you wish to mark.");
         }
         if (markItem <= 0 || markItem > taskList.size()) {
             throw new DukeException("Please specify the item number you wish to mark.");
@@ -151,12 +154,26 @@ public class Parser {
         try {
             unmarkItem = Integer.valueOf(content.substring(1));
         } catch (NumberFormatException e) {
-            System.out.println("Please enter the item number you wish to unmark.");
+            throw new DukeException("Please enter the item number you wish to unmark.");
         }
         if (unmarkItem <= 0 || unmarkItem > taskList.size()) {
             throw new DukeException("Please specify the item number you wish to unmark.");
         }
         taskList.mark(unmarkItem, false);
+        return;
+    }
+
+    /**
+    * executes the find command and checks for exceptions
+    *
+    * @param content the message of the command
+    */
+    private static void parseFind(String content) throws DukeException {
+        if (content.isBlank() || content.isEmpty() || content == null) {
+            throw new DukeException("Please specify the keyword you wish to find.");
+        }
+        String keyword = content.substring(1);
+        taskList.find(keyword);
         return;
     }
 
