@@ -34,6 +34,13 @@ public class Task {
     }
 
     /**
+     * Returns the string description of the <code>Task</code>
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Marks the task as finished.
      */
     public void markDone() {
