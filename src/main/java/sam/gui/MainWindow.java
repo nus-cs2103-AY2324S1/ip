@@ -30,6 +30,7 @@ public class MainWindow extends AnchorPane {
     private Sam sam;
     private final Image USER_IMAGE = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image SAM_IMAGE = new Image(this.getClass().getResourceAsStream("/images/sam.gif"));
+    private final static double width = 680.0;
 
     @FXML
     public void initialize() {
@@ -42,6 +43,8 @@ public class MainWindow extends AnchorPane {
     public void setSam(Sam d, Stage stage) {
         this.sam = d;
         this.stage = stage;
+        stage.setMinWidth(width);
+        stage.setMaxWidth(width);
     }
 
     /**
