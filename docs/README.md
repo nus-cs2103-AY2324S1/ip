@@ -49,7 +49,7 @@ Oreo v1.0.1 is available for download [here](https://github.com/dloh2236/ip/rele
 
 Make sure your system is running on Java 11, as this might affect your experience while using the chatbot.
 
-> ❗️<span style='color: pink;'>**IMPORTANT**</span>
+> ❗️**IMPORTANT**  
 > For Mac users who are unable to run the JAR file, you will have to install Azul build of Open JDK 11 version
 > choose `JDK FX` version. The download link can be found 
 > [here](https://www.azul.com/downloads/?version=java-11-lts&os=macos&architecture=arm-64-bit&package=jdk-fx).
@@ -59,7 +59,7 @@ Make sure your system is running on Java 11, as this might affect your experienc
 Simply put `oreo.jar` into your desired folder, open your terminal in that folder and enter:
 `java -jar oreo.jar` and Oreo would be up and running to assist you!
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > Oreo will create a data storage file "oreo.txt" where all your tasks will be saved in
 > the program's own format. To ensure that your task is saved properly for your next run,
 > please do not tamper or move the file from its current location.
@@ -127,7 +127,7 @@ Creates a time-sensitive deadline task with a specified end date time.
 
 `deadline <DESCRIPTION> /by <DATETIME>` - creates a deadline task with a description and "/by" a date time specified.
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > 1. If there is both date and time input, both will be saved accordingly. This is the recommended way to save past deadlines or else oreo will assume either the date or the year of the date time input. See [Date Time Assumptions](#date-time-assumptions).
 > 1. If there is a date-only input, time will not be included in the saved task.
 > 1. If there is a time-only input, the date will be set to the next occurrence of the time.
@@ -177,7 +177,7 @@ If this is too confusing, just do what makes sense!
 
 &nbsp;&nbsp;&nbsp;&nbsp; 2. `/to` must be after `/from`.
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > 1. Only date input will not include a time saved in the task.
 > 1. Only time input will set a date with reference to the `/to` time and give the next occurrence of that duration.
 > 1. For `time` to `date, time`  input, the inferred date for `/from` will be the next occurrence of that time instead of
@@ -215,7 +215,7 @@ Deletes the task at the index specified. It can also be used to delete all tasks
 
 `delete all` - deletes all tasks in the list.
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTES**  
 > `<INDEX>` refers to the position of the task in the list.
 
 ###### Example Usage:
@@ -240,7 +240,7 @@ Deletes all tasks in the list. Similar to "delete all".
 |:---------:|------------------------------------------------------------------|
 |  `clear`  | <span style ='color: green;'>Deletes all task in the list</span> |
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > `clear` ignores any other input after the command.
 
 ### Viewing Tasks (`list`, `find`)
@@ -260,7 +260,7 @@ Displays the list of tasks you currently have. This includes the type of task, w
 |:---------:|---------------------------------------------------------------------|
 |  `list`   | <span style ='color: green;'>Shows all task recorded by user</span> |
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > `list` ignores any other input after the command.
 
 #### Find Command
@@ -282,7 +282,7 @@ Finds any relevant tasks with a description that matches the keyword specified.
 
 #### Edit, Update and Modify Command (same format for all)
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > They all follow the same syntax and have the same functions, `update`, and `modify` are just aliases for `edit`.
 
 Opens editing mode for the task specified by the index. The task specified will appear in the text field for the user to modify. Modified tasks must follow the correct syntax of adding a task.
@@ -294,7 +294,7 @@ Users can type `C` or `c` to exit editing mode for the task and resume normal mo
 `edit <INDEX>` - opens editing mode on the task specified in the index and puts the task in the text field for the user to edit.
 Users can make the necessary amends and input them to modify the specified task.
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**    
 > `<INDEX>` refers to the position of the task in the list.
 
 ###### Example Usage:
@@ -308,7 +308,7 @@ Users can make the necessary amends and input them to modify the specified task.
 After entering edit mode, you can modify the task in the text field however you want. The new task will be reflected in
 the same position in the list as the old task.
 
-> ❗️<span style='color: pink;'>**IMPORTANT**</span>  
+> ❗️**IMPORTANT**  
 > After entering editing mode, you will realise a change in GUI to reflect the change in mode. As such, only adding task
 > commands and `c` will do anything. Any other command will prompt the user to edit the previously selected task. To
 > exit, type `c`.
@@ -317,7 +317,7 @@ the same position in the list as the old task.
 
 #### Mark Command and Unmark Command
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > Both commands follow the same syntax. The only difference is they do the opposite of the other.
 
 **Mark:** Marks the task at the index specified as complete, or lets the user know that it is already marked complete.
@@ -328,7 +328,7 @@ the same position in the list as the old task.
 
 `mark <INDEX>`/`unmark <INDEX>` - task at index becomes/stays complete (incomplete for unmark).
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 > <INDEX> refers to the position of the task in the list.
 
 ###### Example Usage (_shown only for mark_):
@@ -351,7 +351,7 @@ Saves all tasks as of current state to file while the app continues to run.
 
 `save` - saves the current list of tasks to file.
 
-> ❗️<span style='color: pink;'>**IMPORTANT**</span>  
+> ❗️**IMPORTANT**  
 > Task will only save upon the `bye` command or `save` command. Please save your task list regularly to avoid losing it.
 
 ###### Example Usage:
@@ -360,7 +360,7 @@ Saves all tasks as of current state to file while the app continues to run.
 |:-------:|------------------------------------------------------------------------|
 | `save`  | <span style ='color: green;'>Saves current list of task to file</span> |
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 >`save` ignores any other input after the command.
 
 ### Exiting the Application (`bye`)
@@ -373,7 +373,7 @@ Closes the application and saves all tasks the user has inputted.
 
 `bye` - closes the application and saves all tasks.
 
-> ❗️<span style='color: pink;'>**IMPORTANT**</span>  
+> ❗️**IMPORTANT**  
 > Task will only save upon the `bye` command or `save` command. Please save your task list regularly to avoid losing your
 > task list.
 
@@ -384,7 +384,7 @@ Closes the application and saves all tasks the user has inputted.
 |  `bye`  | <span style ='color: green;'>Closes application and saves all tasks user has inputted</span> |
 | `bye!`  | <span style ='color: red;'>Invalid character appended to `bye`</span>                        |
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+> 🏷 **NOTE**  
 >`bye` ignores any other input after the command. However, appending any characters to bye will be invalid and an
 > unrecognised command.
 
@@ -485,7 +485,7 @@ adding the task for the future.
 > deadline give oreo dinner /by 6pm //deadline will be set for 1st January 2023, 6pm.
 > ```
 >
->> 🏷 <span style='color: lightyellow;'>**NOTE**</span>  
+>> 🏷 **NOTE**    
 > There is a **special** case for **event** tasks!
 >
 > **Assume the date and time now is 1st January 2023, 12pm.**
@@ -569,7 +569,7 @@ event Dinner /from 1 Jan, 6pm /to 8pm
 
 This also helps reduce the redundancy of commands.
 
-> 🏷 <span style='color: lightyellow;'>**NOTE**</span>
+> 🏷 **NOTE**  
 > #### Additional Notes:
 > 
 >- Only date input will not include a time saved in the task.
