@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
@@ -11,6 +12,16 @@ shadowJar {
     archiveFileName = 'BiuBiu.jar'
 }
 
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+java {
+    // Use JDK 11
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 repositories {
     mavenCentral()
 }
@@ -52,16 +63,6 @@ test {
         showStandardStreams = false
     }
 }
-
-//application {
-//    mainClass.set("duke.Duke")
-//}
-
-//shadowJar {
-//    archiveBaseName = "duke"
-//    archiveClassifier = null
-//    dependsOn("distZip", "distTar")
-//}
 
 run{
     standardInput = System.in
