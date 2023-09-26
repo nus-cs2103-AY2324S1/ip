@@ -2,18 +2,25 @@
  * Class handling the output.
  */
 public class Ui {
-    public static void startMessage() {
-        System.out.println("Hello! I'm Chatbot!");
-        System.out.println("What can I do for you?");
+    public static String startMessage() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Hello! I'm Chatbot!");
+        stringBuilder.append("What can I do for you?");
+
+        return stringBuilder.toString();
     }
 
-    public static void endMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
-        System.exit(0);
+    public static String endMessage() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Bye. Hope to see you again soon!");
+
+        return stringBuilder.toString();
     }
 
-    public static void inputErrorMessage() {
-        System.out.println("I'm sorry, but I don't know what that means!");
+    public static String inputErrorMessage() {
+        return "I'm sorry, but I don't know what that means!";
     }
 
     /**
@@ -21,24 +28,28 @@ public class Ui {
      *
      * @param type Type of command that is not properly formatted.
      */
-    public static void formatErrorMessage(String type) {
+    public static String formatErrorMessage(String type) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         switch(type) {
             case "todo":
-                System.out.println("Please use the format \"todo <task description>\"!");
+                stringBuilder.append("Please use the format \"todo <task description>\"!");
                 break;
             case "mark":
-                System.out.println("Please use the format \"mark <task number>\"!");
+                stringBuilder.append("Please use the format \"mark <task number>\"!");
                 break;
             case "delete":
-                System.out.println("Please use the format \"delete <task number>\"!");
+                stringBuilder.append("Please use the format \"delete <task number>\"!");
                 break;
             case "deadline":
-                System.out.println("Please use the format \"deadline <task description> /by DD-MM-YYYY HH:MM\"!");
+                stringBuilder.append("Please use the format \"deadline <task description> /by DD-MM-YYYY HH:MM\"!");
                 break;
             case "event":
-                System.out.println("Please use the format \"event <task description> /from DD-MM-YYYY HH:MM " + "/to DD-MM-YYYY HH:MM\"!");
+                stringBuilder.append("Please use the format \"event <task description> /from DD-MM-YYYY HH:MM " + "/to DD-MM-YYYY HH:MM\"!");
                 break;
         }
+
+        return stringBuilder.toString();
     }
 
     /**
@@ -46,22 +57,26 @@ public class Ui {
      *
      * @param taskList The list of tasks to be displayed.
      */
-    public static void listTasks(TaskList taskList) {
-        System.out.println("Here is the list of relevant tasks:");
+    public static String listTasks(TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("Here is the list of relevant tasks:\n");
         for (int i = 0; i < taskList.getCount(); i++) {
             int listNumber = i + 1;
-            System.out.print(listNumber + ". ");
+            stringBuilder.append(listNumber + ". ");
             if (taskList.getTask(i) instanceof Todo) {
-                System.out.print("[T]");
+                stringBuilder.append("[T]");
             } else if (taskList.getTask(i) instanceof Deadline) {
-                System.out.print("[D]");
+                stringBuilder.append("[D]");
             } else if (taskList.getTask(i) instanceof Event) {
-                System.out.print("[E]");
+                stringBuilder.append("[E]");
             }
-            if (taskList.getTask(i).isDone()) System.out.print("[X] ");
-            else System.out.print("[ ] ");
-            System.out.println(taskList.getTask(i).getDescription());
+            if (taskList.getTask(i).isDone()) stringBuilder.append("[X] ");
+            else stringBuilder.append("[ ] ");
+            stringBuilder.append(taskList.getTask(i).getDescription());
         }
+
+        return stringBuilder.toString();
     }
 
     /**
@@ -70,26 +85,30 @@ public class Ui {
      * @param removeTask Index of the task to be removed from the list.
      * @param taskList The TaskList object from which the task is to be deleted.
      */
-    public static void deleteMessage(int removeTask, TaskList taskList) {
+    public static String deleteMessage(int removeTask, TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         try {
             if (removeTask < 0 || removeTask >= taskList.getCount()) {
                 throw new RuntimeException();
             }
-            System.out.println("This task will be removed!");
+            stringBuilder.append("This task will be removed!\n");
             if (taskList.getTask(removeTask) instanceof Todo) {
-                System.out.print("[T]");
+                stringBuilder.append("[T]");
             } else if (taskList.getTask(removeTask) instanceof Deadline) {
-                System.out.print("[D]");
+                stringBuilder.append("[D]");
             } else if (taskList.getTask(removeTask) instanceof Event) {
-                System.out.print("[E]");
+                stringBuilder.append("[E]");
             }
-            if (taskList.getTask(removeTask).isDone()) System.out.print("[X] ");
-            else System.out.print("[ ] ");
-            System.out.println(taskList.getTask(removeTask).getDescription());
+            if (taskList.getTask(removeTask).isDone()) stringBuilder.append("[X] ");
+            else stringBuilder.append("[ ] ");
+            stringBuilder.append(taskList.getTask(removeTask).getDescription());
             taskList.deleteTask(removeTask);
         } catch (Exception e) {
-            Ui.formatErrorMessage("delete");
+            return formatErrorMessage("delete");
         }
+
+        return stringBuilder.toString();
     }
 
     /**
@@ -98,46 +117,62 @@ public class Ui {
      * @param doneTask Index of the task to be marked as done.
      * @param taskList The TaskList object in which the task is to be marked as done.
      */
-    public static void markMessage(int doneTask, TaskList taskList) {
+    public static String markMessage(int doneTask, TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         try {
             if (doneTask < 0 || doneTask >= taskList.getCount()) {
                 throw new RuntimeException();
             }
-            System.out.println("Well done! This task has been marked as done.");
+            stringBuilder.append("Well done! This task has been marked as done.\n");
             if (taskList.getTask(doneTask) instanceof Todo) {
-                System.out.print("[T]");
+                stringBuilder.append("[T]");
             } else if (taskList.getTask(doneTask) instanceof Deadline) {
-                System.out.print("[D]");
+                stringBuilder.append("[D]");
             } else if (taskList.getTask(doneTask) instanceof Event) {
-                System.out.print("[E]");
+                stringBuilder.append("[E]");
             }
-            System.out.print("[X] ");
-            System.out.println(taskList.getTask(doneTask).getDescription());
+            stringBuilder.append("[X] ");
+            stringBuilder.append(taskList.getTask(doneTask).getDescription());
             taskList.getTask(doneTask).markAsDone();
         } catch (Exception e) {
-            Ui.formatErrorMessage("mark");
+            return formatErrorMessage("mark");
         }
+
+        return stringBuilder.toString();
     }
 
-    public static void todoMessage(Todo todo, TaskList taskList) {
+    public static String todoMessage(Todo todo, TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         taskList.addTask(todo);
-        System.out.print("Added this task: [T] ");
-        System.out.println(taskList.getTask(taskList.getCount() - 1).getDescription());
+        stringBuilder.append("Added this task: [T] ");
+        stringBuilder.append(taskList.getTask(taskList.getCount() - 1).getDescription());
+
+        return stringBuilder.toString();
     }
 
-    public static void deadlineMessage(Deadline deadline, TaskList taskList) {
+    public static String deadlineMessage(Deadline deadline, TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         taskList.addTask(deadline);
-        System.out.print("Added this task: [D] ");
-        System.out.println(taskList.getTask(taskList.getCount() - 1).getDescription());
+        stringBuilder.append("Added this task: [D] ");
+        stringBuilder.append(taskList.getTask(taskList.getCount() - 1).getDescription());
+
+        return stringBuilder.toString();
     }
 
-    public static void eventMessage(Event event, TaskList taskList) {
+    public static String eventMessage(Event event, TaskList taskList) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         taskList.addTask(event);
-        System.out.print("Added this task: [E] ");
-        System.out.println(taskList.getTask(taskList.getCount() - 1).getDescription());
+        stringBuilder.append("Added this task: [E] ");
+        stringBuilder.append(taskList.getTask(taskList.getCount() - 1).getDescription());
+
+        return stringBuilder.toString();
     }
 
-    public static void findMessage(String searchTerm, TaskList taskList) {
+    public static String findMessage(String searchTerm, TaskList taskList) {
         TaskList resultList = new TaskList();
         for (int i = 0; i < taskList.getCount(); i++) {
             String taskDescription = taskList.getTask(i).getDescription();
@@ -148,6 +183,6 @@ public class Ui {
                 }
             }
         }
-        listTasks(resultList);
+        return listTasks(resultList);
     }
 }

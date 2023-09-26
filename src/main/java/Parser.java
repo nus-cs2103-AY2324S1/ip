@@ -11,31 +11,30 @@ public class Parser {
      * @param userMessage Input of the user.
      * @param taskList TaskList with all the current tasks.
      */
-    public static void parse (String userMessage, TaskList taskList) {
+    public static String parse (String userMessage, TaskList taskList) {
         String datePattern = "dd-MM-yyyy HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
         if (userMessage.equalsIgnoreCase("bye")) {
-            Ui.endMessage();
+            return Ui.endMessage();
         }
         if (userMessage.equalsIgnoreCase("list")) {
-            Ui.listTasks(taskList);
-            return;
+            return Ui.listTasks(taskList);
         }
         try {
             if (userMessage.substring(0, 6).equalsIgnoreCase("delete")) {
                 int removeTask = Integer.parseInt(userMessage.substring(7)) - 1;
-                Ui.deleteMessage(removeTask, taskList);
+                return Ui.deleteMessage(removeTask, taskList);
             } else if (userMessage.substring(0, 4).equalsIgnoreCase("find")) {
-                Ui.findMessage(userMessage.substring(5), taskList);
+                return Ui.findMessage(userMessage.substring(5), taskList);
             }else if (userMessage.substring(0, 4).equalsIgnoreCase("mark")) {
                 int doneTask = Integer.parseInt(userMessage.substring(5)) - 1;
-                Ui.markMessage(doneTask, taskList);
+                return Ui.markMessage(doneTask, taskList);
             } else if (userMessage.substring(0, 4).equalsIgnoreCase("todo")) {
                 try {
                     Todo todo = new Todo(userMessage.substring(5));
-                    Ui.todoMessage(todo, taskList);
+                    return Ui.todoMessage(todo, taskList);
                 } catch (Exception e) {
-                    Ui.formatErrorMessage("todo");
+                    return Ui.formatErrorMessage("todo");
                 }
             } else if (userMessage.substring(0, 8).equalsIgnoreCase("deadline")) {
                 try {
@@ -43,9 +42,9 @@ public class Parser {
                     String description = userMessage.substring(9, index - 1);
                     LocalDateTime taskDeadline = LocalDateTime.parse(userMessage.substring(index + 4), formatter);
                     Deadline deadline = new Deadline(description, taskDeadline);
-                    Ui.deadlineMessage(deadline, taskList);
+                    return Ui.deadlineMessage(deadline, taskList);
                 } catch (Exception e) {
-                    Ui.formatErrorMessage("deadline");
+                    return Ui.formatErrorMessage("deadline");
                 }
             } else if (userMessage.substring(0, 5).equalsIgnoreCase("event")) {
                 try {
@@ -57,15 +56,15 @@ public class Parser {
                     LocalDateTime startTime = LocalDateTime.parse(start, formatter);
                     LocalDateTime endTime = LocalDateTime.parse(end, formatter);
                     Event event = new Event(description, startTime, endTime);
-                    Ui.eventMessage(event, taskList);
+                    return Ui.eventMessage(event, taskList);
                 } catch (Exception e) {
-                    Ui.formatErrorMessage("event");
+                    return Ui.formatErrorMessage("event");
                 }
             } else {
-                Ui.inputErrorMessage();
+                return Ui.inputErrorMessage();
             }
         } catch (Exception e) {
-            Ui.inputErrorMessage();
+            return Ui.inputErrorMessage();
         }
     }
 }
