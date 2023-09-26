@@ -85,7 +85,7 @@ public class Chatbot extends Application {
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
-        scrollPane.setPrefSize(385, 535);
+        scrollPane.setPrefSize(400, 570);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         scrollPane.setVvalue(1.0);
