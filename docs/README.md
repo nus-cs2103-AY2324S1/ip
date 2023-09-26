@@ -41,6 +41,8 @@ Oreo v1.0.1 is available for download [here](https://github.com/dloh2236/ip/rele
 
 Make sure your system is running on Java 11, as this might affect your experience while using the chatbot.
 
+
+
 > ❗️**Important**  
 > For Mac users who are unable to run the JAR file, you will have to install Azul build of Open JDK 11 version
 > choose `JDK FX` version. The download link can be found 
@@ -59,6 +61,7 @@ Simply put `oreo.jar` into your desired folder, open your terminal in that folde
 You are all set! Start by saying `hi` to Oreo.
 
 > **If Oreo Fails to Start!**
+> 
 > Try these:
 > 1. Make sure you are running Java 11.
 > 1. If you are a Mac user see [System Pre-requisites](#system-pre-requisites).
@@ -84,11 +87,11 @@ it's proper syntax.
 
 ###### Example Usage:
 
-|     Command     | What it does                                                                                          |
-|:---------------:|-------------------------------------------------------------------------------------------------------|
-|     `help`      | <span style ='color: green;'>Shows a list of all commands and brief descriptions of each command</span> |
-|  `help delete`  | <span style ='color: green;'>Shows detailed explanation fo the delete command</span>                  |
-|    `help me`    | <span style='color: red;'>**INVALID** input of unknown command</span>                                 |
+|    Command    | What it does                                                                                            |
+|:-------------:|---------------------------------------------------------------------------------------------------------|
+|    `help`     | <span style ='color: green;'>Shows a list of all commands and brief descriptions of each command</span> |
+| `help delete` | <span style ='color: green;'>Shows detailed explanation fo the delete command</span>                    |
+|   `help me`   | <span style='color: red;'>**INVALID** input of unknown command</span>                                   |
 
 ### Adding tasks (`todo`, `deadlines`, `events`)
 
@@ -152,7 +155,7 @@ Creates a time-sensitive task with both a specified start and end date time.
 
 **Event `<DATETIME>` combinations accepted:**
 
-|    `/from`     | `/to`        |
+|    `/from`     |    `/to`     |
 |:--------------:|:------------:|
 |  `date, time`  | `date, time` |
 |  `date, time`  | `time`       |
@@ -164,16 +167,17 @@ If this is too confusing, just do what makes sense!
 
 ###### General Rules:
 
-> 1. If `/from` or `/to` has a time, both **must** have a time.
-> 1. `/to` must be after `/from`.
+&nbsp;&nbsp;&nbsp;&nbsp; 1. If `/from` or `/to` has a time, both **must** have a time.
+
+&nbsp;&nbsp;&nbsp;&nbsp; 2. `/to` must be after `/from`.
 
 > **More notes on event date time formatting**
 > 1. Only date input will not include a time saved in the task.
 > 1. Only time input will set a date with reference to the `/to` time and give the next occurrence of that duration.
-> 1. For `time` to `date, time`  input, the inferred date for `/from` will be the next occurrence of that time instead of.
+> 1. For `time` to `date, time`  input, the inferred date for `/from` will be the next occurrence of that time instead of
 > referencing the `/to` time.
 
-For more info on accepted date time formats, see [Date Time Formats](#date-time-formats)
+For more info on date time formats, see [Date Time Formats](#date-time-formats).
 
 ###### Example Usage:
 
@@ -419,17 +423,17 @@ time is recorded properly and for the users to input their desired date time eas
 
 ###### Accepted Time Formats:
 
-|  Format  | Examples             | Remarks                                                |
-|:--------:|----------------------|--------------------------------------------------------|
-|  `HHmm`  | `1800`, `0600`       |                                                        |
-|  `h a`   | `6 pm`, `6 PM`       | Might not work on some systems                         |
-|   `ha`   | `6pm`, `6PM`         |                                                        |
-| `HH:mm`  | `18:00`, `06:00`     |                                                        |
-| `h:mm a` | `6:00 PM`, `6:00 am` | Not case sensitive,<br/>Might not work on some systems |
-| `h:mma`  | `6:00pm`, `6:00AM`   | Not case sensitive,<br/>Might not work on some systems |
-| `HH.mm`  | `18.00`, `06.00`     |                                                        |
-| `h.mm a` | `6.00 pm`, `6.00 AM` | Not case sensitive,<br/>Might not work on some systems |
-| `h.mma`  | `6.00PM`, `6.00am`   | Not case sensitive,<br/>Might not work on some systems |
+|  Format  | Examples             | Remarks            |
+|:--------:|----------------------|--------------------|
+|  `HHmm`  | `1800`, `0600`       |                    |
+|  `h a`   | `6 pm`, `6 PM`       |                    |
+|   `ha`   | `6pm`, `6PM`         |                    |
+| `HH:mm`  | `18:00`, `06:00`     |                    |
+| `h:mm a` | `6:00 PM`, `6:00 am` | Not case sensitive |
+| `h:mma`  | `6:00pm`, `6:00AM`   | Not case sensitive |
+| `HH.mm`  | `18.00`, `06.00`     |                    |
+| `h.mm a` | `6.00 pm`, `6.00 AM` | Not case sensitive |
+| `h.mma`  | `6.00PM`, `6.00am`   | Not case sensitive |
 
 ###### Using Date and Time Together:
 When using date and time together, you must separate the date and time with `,<space>`.
@@ -470,31 +474,31 @@ adding the task for the future.
 > 
 > **Assume the date and time now is 1st January 2023, 12pm.**
 >
-> ```java
+> ```
 > deadline give oreo breakfast /by 9am // deadline will be set for 2nd January 2023, 9am.
 > deadline give oreo dinner /by 6pm //deadline will be set for 1st January 2023, 6pm.
 > ```
-
-> **Note**
+>
+>> **Note**
 > There is a **special** case for **event** tasks!
-
+>
 > **Assume the date and time now is 1st January 2023, 12pm.**
 > ***from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)***
 > 
-> **Case 1: ***from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)*****
+> **Case 1:** ***from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)***
 > 
 > ```
 > event playtime /from 11am /to 3pm //event will be set for 1st January 2023, 11-3pm
 > event bathe /from 9am /to 9:30am //event will be set for 2nd January 2023, 11-3pm
 > ```
 > 
-> **Case 2: ***from `date` `time` to `time` (Reference `/from` date)*****
+> **Case 2:** ***from `date` `time` to `time` (Reference `/from` date)***
 > 
 > ```
 > event playtime /from 1 Jan, 11am /to 3pm // event will be set for 1st January 2023, 11-3pm
 > ```
 > 
-> **Case 3: ***from `time` to `date` `time` (Reference `/from` time)*****
+> **Case 3:** ***from `time` to `date` `time` (Reference `/from` time)***
 > 
 > ```
 > event oreo's special days /from 9am /to 31 Dec, 11:59pm // event will be set for 2nd Jan 2023, 9am to 31st Dec 11:59pm
@@ -528,8 +532,8 @@ You should have realised that date time for events can be quite tricky due to th
 possible. There are **9** to be exact. Due to this, we have to limit these permutations that make sense. Otherwise, Oreo would be confused
 as to what date and time to set. 
 
-You can read [here](#event-datetime-combinations-accepted) to see the combinations and learn more about the event task
-or you can see it below:
+You can read [here](#event-datetime-combinations-accepted) to see the combinations and learn more about the event task,
+or you can see it below with more additional information:
 
 |    `/from`     | `/to`        |
 |:--------------:|:------------:|
