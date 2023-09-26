@@ -1,3 +1,5 @@
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -6,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.Objects;
 
@@ -22,6 +26,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
+
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/crying.png"));
@@ -29,11 +34,23 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-    }
 
+        String greetingMessage =
+                "Wazzup! It's\n"
+                + "##__________##__########_______########______#######_____#####_\n"
+                + "##__________##__##________##_____##________##__##_________##____##____\n"
+                + "##__________##__##________##_____##________##__##_________##____##____\n"
+                + "##__________##__########_______########____##__________##____##____\n"
+                + "##__________##__##______##_______##________##__##_________##____##____\n"
+                + "##__________##__##________##_____##________##__##_________##____##____\n"
+                + "__#######______##__________##___########______#######_____#####_\n"
+                + "What can I do for you mah man?";
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greetingMessage, dukeImage));
+    }
     public void setDuke(Duke d) {
         duke = d;
     }
+
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
@@ -43,10 +60,20 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = duke.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        if (input.equalsIgnoreCase("bye")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getDukeDialog(response, dukeImage)
+            );
+        }
         userInput.clear();
     }
 }

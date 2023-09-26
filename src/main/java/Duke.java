@@ -7,7 +7,7 @@ import java.io.*;
 
 public class Duke {
     //private static final String FILE_PATH = "src/main/java/tasks.txt";
-    private static final String FILE_PATH = "../";
+    private static final String FILE_PATH = "tasks.txt/";
     private static String response= "";
     /**
      * Main method to start the Duke application.
