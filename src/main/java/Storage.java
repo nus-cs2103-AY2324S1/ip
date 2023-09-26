@@ -24,31 +24,16 @@ public class Storage {
             while (taskReader.hasNextLine()) {
                 String taskFromFile = taskReader.nextLine();
                 if (taskFromFile.charAt(0) == 'T') {
-                    Todo todo = new Todo(taskFromFile.substring(3));
-                    if (taskFromFile.charAt(1) == 't') {
-                        todo.markAsDone();
-                    }
-                    taskList.addTask(todo);
+                    addTodo(taskFromFile, taskList);
                 }
                 if (taskFromFile.charAt(0) == 'D') {
                     String deadlineFromFile = taskReader.nextLine();
-                    LocalDateTime taskDeadline = LocalDateTime.parse(deadlineFromFile, formatter2);
-                    Deadline deadline = new Deadline(taskFromFile.substring(3), taskDeadline);
-                    if (taskFromFile.charAt(1) == 't') {
-                        deadline.markAsDone();
-                    }
-                    taskList.addTask(deadline);
+                    addDeadline(taskFromFile, deadlineFromFile, taskList);
                 }
                 if (taskFromFile.charAt(0) == 'E') {
                     String startFromFile = taskReader.nextLine();
-                    LocalDateTime start = LocalDateTime.parse(startFromFile, formatter2);
                     String endFromFile = taskReader.nextLine();
-                    LocalDateTime end = LocalDateTime.parse(endFromFile, formatter2);
-                    Event event = new Event(taskFromFile.substring(3), start, end);
-                    if (taskFromFile.charAt(1) == 't') {
-                        event.markAsDone();
-                    }
-                    taskList.addTask(event);
+                    addEvent(taskFromFile, startFromFile, endFromFile, taskList);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -61,6 +46,37 @@ public class Storage {
         }
     }
 
+    public static void addTodo(String taskFromFile, TaskList taskList) {
+        Todo todo = new Todo(taskFromFile.substring(3));
+        if (taskFromFile.charAt(1) == 't') {
+            todo.markAsDone();
+        }
+        taskList.addTask(todo);
+    }
+
+    public static void addDeadline(String taskFromFile, String deadlineFromFile, TaskList taskList) {
+        String datePattern2 = "MMM-dd-yyyy HH:mm";
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern(datePattern2);
+        LocalDateTime taskDeadline = LocalDateTime.parse(deadlineFromFile, formatter2);
+        Deadline deadline = new Deadline(taskFromFile.substring(3), taskDeadline);
+        if (taskFromFile.charAt(1) == 't') {
+            deadline.markAsDone();
+        }
+        taskList.addTask(deadline);
+
+    }
+
+    public static void addEvent(String taskFromFile, String startFromFile, String endFromFile, TaskList taskList) {
+        String datePattern2 = "MMM-dd-yyyy HH:mm";
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern(datePattern2);
+        LocalDateTime start = LocalDateTime.parse(startFromFile, formatter2);
+        LocalDateTime end = LocalDateTime.parse(endFromFile, formatter2);
+        Event event = new Event(taskFromFile.substring(3), start, end);
+        if (taskFromFile.charAt(1) == 't') {
+            event.markAsDone();
+        }
+        taskList.addTask(event);
+    }
     /**
      * Saves the current tasks to file.
      *

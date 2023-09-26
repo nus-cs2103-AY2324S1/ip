@@ -74,6 +74,7 @@ public class Ui {
             if (taskList.getTask(i).isDone()) stringBuilder.append("[X] ");
             else stringBuilder.append("[ ] ");
             stringBuilder.append(taskList.getTask(i).getDescription());
+            stringBuilder.append("\n");
         }
 
         return stringBuilder.toString();
