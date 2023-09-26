@@ -1,0 +1,4 @@
+T |   | Buy indomie
+D | X | Project #A | 27.04.2023 1700
+E |   | Japan trip | 26.04.2023 1000 | 14.05.2023 1800
+T |   | Pack luggage
