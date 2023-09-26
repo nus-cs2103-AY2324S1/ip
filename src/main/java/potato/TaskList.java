@@ -136,12 +136,11 @@ public class TaskList {
     public String add(String input, Storage storage) throws IOException {
         try {
             Task task = Task.parse(input);
-            String s = "";
+            String s = "Let's add this to the never ending pile...\n";
             tasks.add(task);
             storage.saveTask(tasks);
             int size = tasks.size();
-            s += "Let's add this to the never ending pile...\n"
-                    + tasks.get(size - 1).toString() + "\n"
+            s += tasks.get(size - 1).toString() + "\n"
                     + "Now you have " + size + " task(s) in the list.";
             return s;
         } catch (PotatoException e) {

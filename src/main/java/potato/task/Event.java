@@ -41,8 +41,11 @@ public class Event extends Task {
         int indexFrom = input.indexOf("/from");
         int indexTo = input.indexOf("/to");
         if (input.length() < 1) {
-            new PotatoException(LINE + "Bruh you wanna do air or something?\n" + LINE);
-            return null;
+            throw new PotatoException("Bruh you wanna do air or something?");
+        } else if (indexFrom < 0) {
+            throw new PotatoException("Looks like your event don't need to start?");
+        } else if (indexTo < 0) {
+            throw new PotatoException("Looks like your event goes on forever?");
         } else {
             assert input.length() > 1 : "input length should be > 1";
             return new Event(input.substring(0, indexFrom - 1),

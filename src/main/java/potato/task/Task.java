@@ -38,18 +38,17 @@ public class Task {
                 throw new PotatoException(e.getMessage());
             }
 
-        } else if (input.startsWith("deadline ")) {
-            // empty deadline
-            // no by
-            return Deadline.parseDeadline(input.substring(9));
+        } else if (input.startsWith("deadline")) {
+            try {
+                return Deadline.parseDeadline(input.substring(9));
+            } catch (PotatoException e) {
+                throw new PotatoException(e.getMessage());
+            }
 
-        } else if (input.startsWith("event ")) {
-            // empty event
-            // no from
-            // no to
+        } else if (input.startsWith("event")) {
             return Event.parseEvent(input.substring(6));
         } else {
-            throw new PotatoException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            throw new PotatoException("Literally what are you talking about...");
         }
     }
 
