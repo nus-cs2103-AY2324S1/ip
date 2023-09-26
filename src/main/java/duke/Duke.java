@@ -1,6 +1,7 @@
 package duke;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -16,6 +17,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.io.InputStream;
 
 /**
  * Duke is a task management chatbot GUI that allows users to manage their tasks
@@ -32,7 +38,26 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        Storage storage = new Storage("src/main/java/duke/data/duke.txt");
+        // Define the file path where duke.txt should be stored
+        String filePath = "data/duke.txt";
+
+        // Check if the directory exists, and if not, create it
+        File dataDirectory = new File("data");
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdirs();
+        }
+
+        // Check if the file exists, and if not, create it
+        if (!Files.exists(Paths.get(filePath))) {
+            try {
+                Files.createFile(Paths.get(filePath));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Storage storage = new Storage(filePath);
+
         TaskList taskList = new TaskList();
 
         // Assertion: The storage and taskList objects should not be null.
@@ -56,7 +81,7 @@ public class Duke extends Application {
 
         scene = new Scene(mainLayout);
 
-        Image logoImage = new Image(getClass().getResourceAsStream("/duke/assets/images/profile.png"));
+        final Image logoImage = new Image(getClass().getResourceAsStream("/images/picture.png"));
 
         ImageView botGreetingLogoImageView = new ImageView(logoImage);
         botGreetingLogoImageView.setFitWidth(40);
@@ -74,6 +99,7 @@ public class Duke extends Application {
             if (inputText.equalsIgnoreCase("bye")) {
                 storage.saveTasks(taskList.getTasks());
                 outputText = Ui.getByeMessage();
+                Platform.exit();
             } else if (inputText.equalsIgnoreCase("list")) {
                 outputText = Ui.getList(taskList);
             } else if (inputText.startsWith("find")) {
@@ -150,7 +176,6 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-
     }
 
     public static void main(String[] args) {
