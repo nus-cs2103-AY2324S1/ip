@@ -8,7 +8,7 @@
   <p align="center">
     <b>Your trusty canine friend for all your tasks! 🐶</b>
   </p>
-
+</div>
 
 ## Table of contents
 
