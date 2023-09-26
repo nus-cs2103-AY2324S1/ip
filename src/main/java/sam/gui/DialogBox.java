@@ -12,8 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.Text;
-import javafx.scene.layout.Pane;
 
 /**
  * An example of a custom control using FXML.
@@ -40,7 +40,6 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
-        dialog.setWrappingWidth(width);
     }
 
     /**
@@ -51,10 +50,21 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+        dialog.setWrappingWidth(width);
+    }
+
+    /**
+     * Wrap the dialog box such that the text does not exceed the window width.
+     */
+    private void wrap() {
+        dialog.setWrappingWidth(width);
+        dialog.setTextAlignment(TextAlignment.RIGHT);
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.wrap();
+        return db;
     }
 
     public static DialogBox getSamDialog(String text, Image img) {
