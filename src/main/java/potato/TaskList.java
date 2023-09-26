@@ -134,22 +134,19 @@ public class TaskList {
      * @throws IOException If an error occurs while saving tasks to storage.
      */
     public String add(String input, Storage storage) throws IOException {
-        Task task = Task.parse(input);
-        String s = "";
-
-        if (task == null) {
-            PotatoException e = new PotatoException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
-            return e.getMessage();
-
-        } else {
+        try {
+            Task task = Task.parse(input);
+            String s = "";
             tasks.add(task);
             storage.saveTask(tasks);
             int size = tasks.size();
             s += "Let's add this to the never ending pile...\n"
                     + tasks.get(size - 1).toString() + "\n"
-                    + "Now you have " + size + " tasks in the list.";
+                    + "Now you have " + size + " task(s) in the list.";
+            return s;
+        } catch (PotatoException e) {
+            return e.getMessage();
         }
-        return s;
 
     }
 

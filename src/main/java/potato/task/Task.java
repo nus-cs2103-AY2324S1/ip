@@ -1,5 +1,7 @@
 package potato.task;
 
+import potato.PotatoException;
+
 /**
  * The Task class represents a general task with a description, completion status, and priority.
  * It serves as the base class for specific task types like Todo, Deadline, and Event.
@@ -30,7 +32,11 @@ public class Task {
      */
     public static Task parse(String input) {
         if (input.startsWith("todo ")) {
-            return Todo.parseTodo(input.substring(5), "0");
+            try {
+                return Todo.parseTodo(input.substring(5), "0");
+            } catch (PotatoException e) {
+                throw new PotatoException(e.getMessage());
+            }
 
         } else if (input.startsWith("deadline ")) {
             // empty deadline
@@ -43,7 +49,7 @@ public class Task {
             // no to
             return Event.parseEvent(input.substring(6));
         } else {
-            return null;
+            throw new PotatoException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
     }
 

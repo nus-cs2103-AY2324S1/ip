@@ -30,8 +30,7 @@ public class Todo extends Task {
     public static Todo parseTodo(String input, String mark) {
 
         if (input.length() < 1) {
-            new PotatoException("Bruh you wanna do air or something?\n");
-            return null;
+            throw new PotatoException("Bruh you wanna do air or something?\n");
         } else {
             assert input.length() > 1 : "input length should be > 1";
             return new Todo(input, (mark.equals("1")), "NIL");
