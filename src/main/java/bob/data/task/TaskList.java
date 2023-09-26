@@ -80,7 +80,6 @@ public class TaskList {
         assert command != null : "command should not be null";
         assert input != null : "input should not be null";
         Task taskToAdd;
-        String taskDescription;
         String[] taskDescriptionArray;
 
         switch (command) {

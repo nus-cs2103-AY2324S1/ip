@@ -105,12 +105,11 @@ public class Parser {
      * @param commandType The type of command to check the format against.
      * @param input The user input.
      * @return A Command that when executed, will act as specified by the user.
-     * @throws DukeException
+     * @throws DukeException If an unknown command is input.
      */
     private static Command validateCommand(CommandType commandType, String input) throws DukeException {
         assert input != null : "input should not be null";
         assert commandType != null : "command should not be null";
-        int commandWordCount = input.split(" ").length;
         switch(commandType) {
         case BYE:
             return Parser.parseByeCommand();

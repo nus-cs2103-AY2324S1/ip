@@ -25,7 +25,8 @@ public class EventTask extends Task {
      * @param endDate The end datetime of the task.
      * @throws DukeException If the end datetime is before or the same as the start datetime.
      */
-    public EventTask(String description, String startDate, String endDate) throws DukeException, DateTimeParseException {
+    public EventTask(String description, String startDate, String endDate)
+            throws DukeException, DateTimeParseException {
         super(description);
         this.formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         LocalDateTime start = LocalDateTime.parse(startDate, formatter);
