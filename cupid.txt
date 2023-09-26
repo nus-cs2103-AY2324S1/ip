@@ -1,0 +1,4 @@
+[D][X] cs2103 (by: Jan 30 2021 10:00)
+[T][ ] charlton sandwich
+[E][ ] charlton birthday (from: Feb 19 2021 19:00 to: Feb 20 2021 02:00)
+[T][X] eat macs
