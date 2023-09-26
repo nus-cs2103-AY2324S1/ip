@@ -8,7 +8,7 @@ plugins {
 
 javafx {
     version = "17.0.7"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics']
 }
 
 repositories {
@@ -50,11 +50,11 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.gui.Launcher")
 }
 
 shadowJar {
-    mainClassName = "duke.Main"
+    //mainClassName = "duke.Main"
     archiveBaseName = "duke"
     archiveClassifier = null
     archiveFileName = 'duke.jar'
@@ -63,6 +63,8 @@ shadowJar {
 
 run{
     standardInput = System.in
+    jvmArgs = ['--module-path', classpath.asPath,
+               '--add-modules', 'javafx.controls,javafx.fxml']
 }
 
 checkstyle {

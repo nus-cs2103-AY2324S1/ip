@@ -11,8 +11,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private File savedFile;
-    private final String filePath = "data/tasks.txt";
+    private static String DIR_PATH = "./data";
+    private static String FILE_PATH = "./data/duke.txt";
+    private static File savedFile = new File(FILE_PATH);
     private ArrayList<Task> taskList = new ArrayList<>();
     private Parser parser = new Parser();
 
@@ -37,7 +38,7 @@ public class Storage {
             }
 
             try {
-                FileWriter writer = new FileWriter(filePath);
+                FileWriter writer = new FileWriter(FILE_PATH);
                 writer.write(res);
             } catch (NullPointerException e) {
                 System.out.println(("Nothing in task list to write to tasks.txt"));
@@ -47,11 +48,29 @@ public class Storage {
         }
     }
 
+    protected void checkSavedFiled() {
+        File directory = new File(DIR_PATH);
+        if (!directory.exists()) {
+            System.out.println("Creating the directory to save your tasks");
+            directory.mkdir();
+        }
+        if (!savedFile.exists()) {
+            System.out.println("Creating the file to save your tasks");
+            try {
+                savedFile.createNewFile();
+                savedFile.setReadable(true);
+                savedFile.setWritable(true);
+            } catch (IOException e) {
+                System.out.println("Couldn't create duke.txt under the ./data directory");
+            }
+        }
+    }
+
     /**
      * Reads tasks from .txt file to ArrayList data structure.
      */
     public void read() {
-        this.savedFile = new File(filePath);
+        checkSavedFiled();
         try {
             Scanner sc = new Scanner(savedFile);
             while (sc.hasNextLine()) {
@@ -85,17 +104,10 @@ public class Storage {
                 }
                 taskList.add(newTask);
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("No such file");
-            try {
-                if (savedFile.createNewFile()) {
-                    System.out.println("File created: " + savedFile.getAbsolutePath());
-                }
-            } catch (IOException exc) {
-                System.err.println(e.getMessage());
-            }
         } catch (DukeException e) {
             System.out.println(e.getMessage());
+        } catch (FileNotFoundException exception) {
+            System.out.println("There seems to be no saved duke.txt");
         }
     }
 }
