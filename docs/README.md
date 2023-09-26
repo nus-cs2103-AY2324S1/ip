@@ -41,45 +41,29 @@ Oreo v1.0.1 is available for download [here](https://github.com/dloh2236/ip/rele
 
 Make sure your system is running on Java 11, as this might affect your experience while using the chatbot.
 
-> [!IMPORTANT]  
+> ❗️**Important**  
 > For Mac users who are unable to run the JAR file, you will have to install Azul build of Open JDK 11 version
 > choose `JDK FX` version. The download link can be found 
 > [here](https://www.azul.com/downloads/?version=java-11-lts&os=macos&architecture=arm-64-bit&package=jdk-fx).
-
-<details>
-
-<summary>Date Time Parsing for 'am' and 'pm' for Certain Java 11</summary>
-
-</details>
 
 ### Starting up Oreo
 
 Simply put `oreo.jar` into your desired folder, open your terminal in that folder and enter:
 `java -jar oreo.jar` and Oreo would be up and running to assist you!
 
-> [!NOTE]  
+> **Note** 
 > Oreo will create a data storage file "oreo.txt" where all your tasks will be saved in
 > the program's own format. To ensure that your task is saved properly for your next run,
 > please do not tamper or move the file from its current location.
 
 You are all set! Start by saying `hi` to Oreo.
 
-<details>
-
-<summary style="font-size: 14px;">If Oreo Fails to Start!</summary>
-
+> **If Oreo Fails to Start!**
 > Try these:
-> 
-> 1. Make sure you are running Java 11. <br>
-> 
-> 1. If you are a Mac user see [System Pre-requisites](#system-pre-requisites).<br>
-> 
-> 1. Delete "oreo.txt" file if it exists in the same directory. The file is unfortunately corrupted.<br>
-> 
-> 1. Move `oreo.jar` to another folder and try again.<br>
-
-
-</details>
+> 1. Make sure you are running Java 11.
+> 1. If you are a Mac user see [System Pre-requisites](#system-pre-requisites).
+> 1. Delete "oreo.txt" file if it exists in the same directory. The file is unfortunately corrupted.
+> 1. Move `oreo.jar` to another folder and try again.
 
 ## Key Features
 
@@ -134,17 +118,11 @@ Creates a time-sensitive deadline task with a specified end date time.
 
 `deadline <DESCRIPTION> /by <DATETIME>` - creates a deadline task with a description and "/by" a date time specified.
 
-<details>
+> **Notes on deadline date time formatting**
+> 1. If there is both date and time input, both will be saved accordingly. This is the recommended way to save past deadlines or else oreo will assume either the date or the year of the date time input. See [Date Time Assumptions](#date-time-assumptions).
+> 1. If there is a date-only input, time will not be included in the saved task.
+> 1. If there is a time-only input, the date will be set to the next occurrence of the time.
 
-<summary>Notes on deadline date time formatting</summary>
-
-1. If there is both date and time input, both will be saved accordingly. This is the recommended way to save past deadlines or else oreo will assume either the date or the year of the date time input. See [Date Time Assumptions](#date-time-assumptions).<br>
-
-2. If there is a date-only input, time will not be included in the saved task.<br>
-   
-3. If there is a time-only input, the date will be set to the next occurrence of the time.<br>
-
-</details>
 
 For more info on date time formats, see [Date Time Formats](#date-time-formats)
 
@@ -189,16 +167,11 @@ If this is too confusing, just do what makes sense!
 > 1. If `/from` or `/to` has a time, both **must** have a time.
 > 1. `/to` must be after `/from`.
 
-<details>
-
-<summary>More notes on event date time formatting</summary>
-
+> **More notes on event date time formatting**
 > 1. Only date input will not include a time saved in the task.
 > 1. Only time input will set a date with reference to the `/to` time and give the next occurrence of that duration.
 > 1. For `time` to `date, time`  input, the inferred date for `/from` will be the next occurrence of that time instead of.
 > referencing the `/to` time.
-
-</details>
 
 For more info on accepted date time formats, see [Date Time Formats](#date-time-formats)
 
@@ -232,7 +205,7 @@ Deletes the task at the index specified. It can also be used to delete all tasks
 
 `delete all` - deletes all tasks in the list.
 
-> [!NOTE]  
+> **Note**
 > `<INDEX>` refers to the position of the task in the list.
 
 ###### Example Usage:
@@ -257,7 +230,7 @@ Deletes all tasks in the list. Similar to "delete all".
 |:---------:|------------------------------------------------------------------|
 |  `clear`  | <span style ='color: green;'>Deletes all task in the list</span> |
 
-> [!NOTE]  
+> **Note**
 > `clear` ignores any other input after the command.
 
 ### Viewing Tasks (`list`, `find`)
@@ -299,7 +272,7 @@ Finds any relevant tasks with a description that matches the keyword specified.
 
 #### Edit, Update and Modify Command (same format for all)
 
-> [!NOTE]  
+> **Note**
 > They all follow the same syntax and have the same functions, `update`, and `modify` are just aliases for `edit`.
 
 Opens editing mode for the task specified by the index. The task specified will appear in the text field for the user to modify. Modified tasks must follow the correct syntax of adding a task.
@@ -311,7 +284,7 @@ Users can type `C` or `c` to exit editing mode for the task and resume normal mo
 `edit <INDEX>` - opens editing mode on the task specified in the index and puts the task in the text field for the user to edit.
 Users can make the necessary amends and input them to modify the specified task.
 
-> [!NOTE]  
+> **Note**
 > `<INDEX>` refers to the position of the task in the list.
 
 ###### Example Usage:
@@ -325,7 +298,7 @@ Users can make the necessary amends and input them to modify the specified task.
 After entering edit mode, you can modify the task in the text field however you want. The new task will be reflected in
 the same position in the list as the old task.
 
-> [!IMPORTANT]  
+> ❗️**Important**  
 > After entering editing mode, you will realise a change in GUI to reflect the change in mode. As such, only adding task
 > commands and `c` will do anything. Any other command will prompt the user to edit the previously selected task. To
 > exit, type `c`.
@@ -334,7 +307,7 @@ the same position in the list as the old task.
 
 #### Mark Command and Unmark Command
 
-> [!NOTE]  
+> **Note**
 > Both commands follow the same syntax. The only difference is they do the opposite of the other.
 
 **Mark:** Marks the task at the index specified as complete, or lets the user know that it is already marked complete.
@@ -345,7 +318,7 @@ the same position in the list as the old task.
 
 `mark <INDEX>`/`unmark <INDEX>` - task at index becomes/stays complete (incomplete for unmark).
 
-> [!NOTE]  
+> **Note**
 > <INDEX> refers to the position of the task in the list.
 
 ###### Example Usage (_shown only for mark_):
@@ -368,7 +341,7 @@ Saves all tasks as of current state to file while the app continues to run.
 
 `save` - saves the current list of tasks to file.
 
-> [!IMPORTANT]  
+> ❗️**Important**    
 > Task will only save upon the `bye` command or `save` command. Please save your task list regularly to avoid losing it.
 
 ###### Example Usage:
@@ -377,7 +350,7 @@ Saves all tasks as of current state to file while the app continues to run.
 |:-------:|------------------------------------------------------------------------|
 | `save`  | <span style ='color: green;'>Saves current list of task to file</span> |
 
-> [!NOTE]  
+> **Note**  
 >`save` ignores any other input after the command.
 
 ### Exiting the Application (`bye`)
@@ -390,7 +363,7 @@ Closes the application and saves all tasks the user has inputted.
 
 `bye` - closes the application and saves all tasks.
 
-> [!IMPORTANT]  
+> ❗️**Important**    
 > Task will only save upon the `bye` command or `save` command. Please save your task list regularly to avoid losing your
 > task list.
 
@@ -424,6 +397,7 @@ formats and combinations that Oreo accepts, there are certain rules that need to
 time is recorded properly and for the users to input their desired date time easily.
 
 ###### Accepted Date Formats:
+
 |    Format    | Examples                   | Remarks            |
 |:------------:|----------------------------|--------------------|
 |  `d/M/yyyy`  | `1/1/2023`, `01/12/2023`   |                    |
@@ -444,6 +418,7 @@ time is recorded properly and for the users to input their desired date time eas
 |   `d MMM`    | `1 Jan`, `jan 1`           | Not case sensitive |
 
 ###### Accepted Time Formats:
+
 |  Format  | Examples             | Remarks                                                |
 |:--------:|----------------------|--------------------------------------------------------|
 |  `HHmm`  | `1800`, `0600`       |                                                        |
@@ -459,7 +434,7 @@ time is recorded properly and for the users to input their desired date time eas
 ###### Using Date and Time Together:
 When using date and time together, you must separate the date and time with `,<space>`.
 
-:white_check_mark: **A GOOD EXAMPLE**
+✅ **A GOOD EXAMPLE**
 
 ```
 1 Jan 2023, 6pm
@@ -474,7 +449,7 @@ event playtime /from 1 jan, 1800 /to 03/1, 10pm    // is valid as well
 However, the purpose of accepting such varied date time formats is not for this use but to cater to varied
 preference of date time formats. 
 
-:x: **BAD EXAMPLES**
+❌ **BAD EXAMPLES**
 
 ```
 1 /0  1/2023, 43pm    // not valid date and time, unecessary whitespaces
@@ -488,55 +463,42 @@ Oreo allows input of date-only and time-only commands when adding deadlines and 
 ##### Time-Only Inputs
 
 Oreo will set the date of the task to the next occurrence of the input time. We have implemented it in such as way because
-Oreo is a chatbot that keeps track of future tasks for you. Hence, an input without a date would assume that you are
+Oreo is a chat bot that keeps track of future tasks for you. Hence, an input without a date would assume that you are
 adding the task for the future.
 
-<dl>
-  <dt>For example:</dt>
-  <dd>
-    
-**Assume the date and time now is 1st January 2023, 12pm.**
+> ### For example:
+> 
+> **Assume the date and time now is 1st January 2023, 12pm.**
+>
+> ```java
+> deadline give oreo breakfast /by 9am // deadline will be set for 2nd January 2023, 9am.
+> deadline give oreo dinner /by 6pm //deadline will be set for 1st January 2023, 6pm.
+> ```
 
-`deadline give oreo breakfast /by 9am`: deadline will be set for 2nd January 2023, 9am.
-
-`deadline give oreo dinner /by 6pm`: deadline will be set for 1st January 2023, 6pm.
-
-</dl>
-
-> [!NOTE]
+> **Note**
 > There is a **special** case for **event** tasks!
 
-**Assume the date and time now is 1st January 2023, 12pm.**
-
-<dl>
-  <dt>Case 1: </dt>
-  <dd>
-
-***from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)***
-
-`event playtime /from 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
-
-`event bathe /from 9am /to 9:30am`: event will be set for 2nd January 2023, 11-3pm
-
-  </dd>
-  <dt>Case 2: </dt>
-  <dd>
-
-***from `date` `time` to `time` (Reference `/from` date)***
-
-`event playtime /from 1 Jan, 11am /to 3pm`: event will be set for 1st January 2023, 11-3pm
-
-  </dd>
-  <dt>Case 3: </dt>
-  <dd>
-
-***from `time` to `date` `time` (Reference `/from` time)***
-
-`event oreo's special days /from 9am /to 31 Dec, 11:59pm`: event will be set for 2nd Jan 2023, 9am to 31st Dec 11:59pm
-
-  </dd>
-
-</dl>
+> **Assume the date and time now is 1st January 2023, 12pm.**
+> ***from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)***
+> 
+> **Case 1: ***from `time` to `time` inputs (Reference `/to` time - next occurrence of `/to` time)*****
+> 
+> ```
+> event playtime /from 11am /to 3pm //event will be set for 1st January 2023, 11-3pm
+> event bathe /from 9am /to 9:30am //event will be set for 2nd January 2023, 11-3pm
+> ```
+> 
+> **Case 2: ***from `date` `time` to `time` (Reference `/from` date)*****
+> 
+> ```
+> event playtime /from 1 Jan, 11am /to 3pm // event will be set for 1st January 2023, 11-3pm
+> ```
+> 
+> **Case 3: ***from `time` to `date` `time` (Reference `/from` time)*****
+> 
+> ```
+> event oreo's special days /from 9am /to 31 Dec, 11:59pm // event will be set for 2nd Jan 2023, 9am to 31st Dec 11:59pm
+> ```
 
 For more information about event date time formats, see [Using Date and Time in Events](#using-date-and-time-in-events).
 
@@ -550,24 +512,15 @@ saved.
 This is where things get tricky! Similar to time-only inputs, Oreo will set the year of the date to the next occurrence
 of the date or next occurrence of the date specified in `/to` for events.
 
-**Assume the date and time now is 1st January 2023, 12pm.**
-
-<dl>
-  <dt>For example:</dt>
-  <dd>
-    
-**Assume the date is 1st January 2023.**
-
-`deadline new years' eve /by 31 Dec`: deadline will be set for 31st December 2024.
-  
-`event christmas /from 25 Dec /to 5 Jan`: the event will be set for 25th December 2022 to 5th January 2023.
-  
-`event playtime /from 9am /to 1st Jan, 5pm`: INVALID! As 9am will be read independently and be assumed to be on
-    2nd January.
-
-  </dd>
-
-</dl>
+> ### For example:
+>
+> **Assume the date and time now is 1st January 2023**
+>
+> ```
+> deadline new years' eve /by 31 Dec // deadline will be set for 31st December 2024.
+> event christmas /from 25 Dec /to 5 Jan // the event will be set for 25th December 2022 to 5th January 2023.
+> event playtime /from 9am /to 1st Jan, 5pm // INVALID! As 9am will be read independently and be assumed to be on 2nd January.
+> ```
 
 ##### Using Date and Time in Events
 
@@ -606,8 +559,9 @@ event Dinner /from 1 Jan, 6pm /to 8pm
 
 This also helps reduce the redundancy of commands.
 
-> [!NOTE]  
+> **Note** 
 > #### Additional Notes:
+> 
 >- Only date input will not include a time saved in the task.
 >- Only time input will set a date with reference to the `/to` time and give the next occurrence of that duration.
 >- For `time` to `date, time`  input, the inferred date for `/from` will be the next occurrence of that time instead of 
