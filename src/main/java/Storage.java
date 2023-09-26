@@ -6,7 +6,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ * Class for saving and loading the list of tasks.
+ */
 public class Storage {
+    /**
+     * Loads the list of tasks from file.
+     *
+     * @param taskList The TaskList object to be filled with data from file.
+     */
     public static void load(TaskList taskList) {
         try {
             String datePattern2 = "MMM-dd-yyyy HH:mm";
@@ -53,6 +61,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current tasks to file.
+     *
+     * @param taskList The TaskList object with the tasks to be saved to file.
+     */
     public static void saveTasks(TaskList taskList) {
         try {
             FileWriter taskWriter = new FileWriter("./tasks.txt", false);

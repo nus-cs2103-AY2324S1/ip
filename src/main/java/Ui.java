@@ -1,3 +1,6 @@
+/**
+ * Class handling the output.
+ */
 public class Ui {
     public static void startMessage() {
         System.out.println("Hello! I'm Chatbot!");
@@ -13,6 +16,11 @@ public class Ui {
         System.out.println("I'm sorry, but I don't know what that means!");
     }
 
+    /**
+     * Displays an error message arising from mistakes in format.
+     *
+     * @param type Type of command that is not properly formatted.
+     */
     public static void formatErrorMessage(String type) {
         switch(type) {
             case "todo":
@@ -33,6 +41,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Displays the list of tasks.
+     *
+     * @param taskList The list of tasks to be displayed.
+     */
     public static void listTasks(TaskList taskList) {
         System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < taskList.getCount(); i++) {
@@ -51,6 +64,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Handles the output of a delete command.
+     *
+     * @param removeTask Index of the task to be removed from the list.
+     * @param taskList The TaskList object from which the task is to be deleted.
+     */
     public static void deleteMessage(int removeTask, TaskList taskList) {
         try {
             if (removeTask < 0 || removeTask >= taskList.getCount()) {
@@ -73,6 +92,12 @@ public class Ui {
         }
     }
 
+    /**
+     * Handles the output of a mark command.
+     *
+     * @param doneTask Index of the task to be marked as done.
+     * @param taskList The TaskList object in which the task is to be marked as done.
+     */
     public static void markMessage(int doneTask, TaskList taskList) {
         try {
             if (doneTask < 0 || doneTask >= taskList.getCount()) {

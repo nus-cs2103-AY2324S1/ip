@@ -1,7 +1,16 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class for reading user input.
+ */
 public class Parser {
+    /**
+     * Parses any user input.
+     *
+     * @param userMessage Input of the user.
+     * @param taskList TaskList with all the current tasks.
+     */
     public static void parse (String userMessage, TaskList taskList) {
         String datePattern = "dd-MM-yyyy HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
