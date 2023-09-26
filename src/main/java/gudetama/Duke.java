@@ -46,14 +46,14 @@ public class Duke extends Application {
         this.tasklist = storage.readFromFile();
     }
 
-    public Duke(){
+    public Duke() {
         this.ui = new Ui();
         this.storage = new Storage("./data/duke.txt");
         this.tasklist = storage.readFromFile();
     }
 
     @Override
-    public void start(Stage stage) throws FileNotFoundException {
+    public void start(Stage stage) {
 
         Duke duke = new Duke("./data/duke.txt");
         this.ui = duke.ui;

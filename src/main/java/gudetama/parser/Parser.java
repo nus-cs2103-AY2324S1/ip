@@ -1,6 +1,18 @@
 package gudetama.parser;
 
-import gudetama.commands.*;
+import gudetama.commands.Command;
+import gudetama.commands.DeadlineCommand;
+import gudetama.commands.DeleteCommand;
+import gudetama.commands.ErrorCommand;
+import gudetama.commands.EventCommand;
+import gudetama.commands.ExitCommand;
+import gudetama.commands.FindCommand;
+import gudetama.commands.HelpCommand;
+import gudetama.commands.InvalidCommand;
+import gudetama.commands.ListCommand;
+import gudetama.commands.MarkCommand;
+import gudetama.commands.TodoCommand;
+import gudetama.commands.UnmarkCommand;
 
 import gudetama.exceptions.DukeException;
 
@@ -40,8 +52,26 @@ public class Parser {
                     "Index starts from 0.");
         } else if (firstString.equals("unmark") && command.split(" ").length < 2) {
             throw new DukeException("Error! Please include the index of the task to be unmarked. Index starts from 0.");
+        } else if (firstString.equals("mark") && !isNumber(command.split(" ")[1])){
+            throw new DukeException("Error! Index of the task should be a number.");
+        } else if (firstString.equals("unmark") && !isNumber(command.split(" ")[1])){
+            throw new DukeException("Error! Index of the task should be a number.");
         } else {
             return true;
+        }
+    }
+
+    /**
+     * Function that checks if the input string contains a number
+     * @param string Input string to be checked
+     * @return True if the string contains a number and False if the string does not contain a number
+     */
+    public static boolean isNumber(String string) {
+        try {
+            Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 

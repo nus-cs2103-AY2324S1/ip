@@ -9,7 +9,7 @@ public class TaskList {
     /**
      * List of tasks stored in the task list
      */
-    private ArrayList<Task> inputs = new ArrayList<>();
+    private ArrayList<Task> inputs;
 
     /**
      * Constructor of TaskList

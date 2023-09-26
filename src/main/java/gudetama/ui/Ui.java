@@ -74,7 +74,8 @@ public class Ui {
      * Prints goodbye message
      */
     public String showGoodbye() {
-        return "Bye. Hope to see you again soon!";
+        String message = "Bye. Hope to see you again soon!";
+        return message;
     }
 
     /**
