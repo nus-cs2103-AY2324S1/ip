@@ -531,7 +531,7 @@ You should have realised that date time for events can be quite tricky due to th
 possible. There are **9** to be exact. Due to this, we have to limit these permutations that make sense. Otherwise, Oreo would be confused
 as to what date and time to set. 
 
-You can read [here](#event-datetime-combinations-accepted) to see the combinations and learn more about the event task,
+You can read [here](#event-tasks) to see the combinations and learn more about the event task,
 or you can see it below with more additional information:
 
 |    `/from`     | `/to`        |
