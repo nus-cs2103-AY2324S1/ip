@@ -569,5 +569,4 @@ This also helps reduce the redundancy of commands.
 >- Only time input will set a date with reference to the `/to` time and give the next occurrence of that duration.
 >- For `time` to `date, time`  input, the inferred date for `/from` will be the next occurrence of that time instead of 
 >referencing the `/to` time.
->- 
-</div>
+>-
