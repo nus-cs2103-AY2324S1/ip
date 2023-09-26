@@ -2,7 +2,6 @@
 
 This is Alcazar, your own personalised Chatbot ready to do your bidding.
 
-![](https://github.com/D-Limiter/ip/blob/master/docs/Ui.png) 
 
 ## How do I use it?
 
