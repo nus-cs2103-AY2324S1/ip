@@ -13,6 +13,7 @@ public class Ui {
     private static final String taskInforming = "As you please Sir, I've added the task:";
     private static final String deleteInforming = "Alright Sir, I've removed this task:";
     private static final String findInforming = "Here are the matching tasks in your list Sir:";
+    private static final String listEmptyInforming = "There are currently no tasks in the list Sir.";
 
     public static String printGreeting() {
         return greeting + name + "!" + "\n" + question;
@@ -81,11 +82,16 @@ public class Ui {
     }
 
     public static String getTaskList(TaskList tasks) {
-        String returnString = listInforming + "\n";
-        for (int i = 0; i < tasks.countTask(); i++) { // listing out the current task
-            int count = i + 1;
-            Task currentTask = tasks.getTask(i);
-            returnString = returnString + count + "." + currentTask.toString() + "\n";
+        String returnString;
+        if (tasks.isEmpty()) {
+            returnString = listEmptyInforming + "\n";
+        } else {
+            returnString = listInforming + "\n";
+            for (int i = 0; i < tasks.countTask(); i++) { // listing out the current task
+                int count = i + 1;
+                Task currentTask = tasks.getTask(i);
+                returnString = returnString + count + "." + currentTask.toString() + "\n";
+            }
         }
         return returnString;
     }

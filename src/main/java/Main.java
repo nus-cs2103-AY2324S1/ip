@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-    private Jarvis jarvis = new Jarvis("data.txt");
+    private Jarvis jarvis = new Jarvis("jarvis.txt");
 
     @Override
     public void start(Stage stage) {

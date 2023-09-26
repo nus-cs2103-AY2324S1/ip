@@ -21,16 +21,13 @@ public class Jarvis {
     /**
      * Constructs a new Jarvis chatbot.
      *
-     * @param fileName Name of the file to store the task data in.
+     * @param filePath Path of the file to store the task data in.
      */
-    public Jarvis(String fileName) {
-        // getting the file path to the save file
-        String home = System.getProperty("user.home");
-        Path pathToSaveFile = Paths.get(home, "Desktop", "CS2103T", "IP", "data", fileName);
+    public Jarvis(String filePath) {
 
-        assert !pathToSaveFile.toString().isEmpty() : "pathToSaveFile in Jarvis() does not contain a file path";
+        assert !filePath.isEmpty() : "filePath cannot be empty";
 
-        storage = new Storage(pathToSaveFile.toString());
+        storage = new Storage(filePath);
         tasks = new TaskList(storage.load());
         parser = new Parser();
     }

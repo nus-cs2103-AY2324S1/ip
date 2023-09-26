@@ -7,31 +7,31 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Storage {
-    private File dataFile;
+    private String filePath;
 
     public Storage(String filePath) {
-
-        assert !filePath.isEmpty() : "filepath in Storage() is an empty string";
-
-        this.dataFile = new File(filePath);
-        try {
-            this.dataFile.createNewFile();
-        } catch (IOException e) {
-            System.err.println("An error occurred: " + e.getMessage());
-        }
+        this.filePath = filePath;
     }
 
     // load data from dataFile
     public String load() {
+        File file = new File(this.filePath);
         String fullData = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader(this.dataFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) { // append each line and a \n  to the fullData variable
-                if (fullData.equals("")) {
-                    fullData = line;
-                } else {
-                    fullData = fullData + "\n" + line;
+        try {
+            if (file.exists()) {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line;
+
+                while ((line = reader.readLine()) != null) { // append each line and a \n  to the fullData variable
+                    if (fullData.equals("")) {
+                        fullData = line;
+                    } else {
+                        fullData = fullData + "\n" + line;
+                    }
                 }
+                reader.close();
+            } else {
+                boolean fileCreated = file.createNewFile();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,7 +41,7 @@ public class Storage {
 
     // delete contents in dataFile
     public void deleteContents() {
-        try (FileWriter writer = new FileWriter(this.dataFile)) {
+        try (FileWriter writer = new FileWriter(this.filePath)) {
             // Write an empty string to the file
             writer.write("");
         } catch (IOException e) {
@@ -53,7 +53,7 @@ public class Storage {
     public void save(TaskList tasks) {
         for (int i = 0; i < tasks.countTask(); i++) { // writing the string of each task to the data file
             Task currentTask = tasks.getTask(i);
-            try (FileWriter dataFileWriter = new FileWriter(this.dataFile, true)) {
+            try (FileWriter dataFileWriter = new FileWriter(this.filePath, true)) {
                 dataFileWriter.write(currentTask.toString() + "\n");
             } catch (IOException e) {
                 System.err.println("An error occurred: " + e.getMessage());
