@@ -16,6 +16,7 @@ public class Storage {
      * @param taskList The TaskList object to be filled with data from file.
      */
     public static void load(TaskList taskList) {
+        assert taskList.getCount() == 0;
         try {
             String datePattern2 = "MMM-dd-yyyy HH:mm";
             DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern(datePattern2);

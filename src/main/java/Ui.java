@@ -90,9 +90,8 @@ public class Ui {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
-            if (removeTask < 0 || removeTask >= taskList.getCount()) {
-                throw new RuntimeException();
-            }
+            assert removeTask >= 0 : "Value must be non-negative";
+            assert taskList.getCount() > removeTask : "Value must be a number in the list";
             stringBuilder.append("This task will be removed!\n");
             if (taskList.getTask(removeTask) instanceof Todo) {
                 stringBuilder.append("[T]");
@@ -122,9 +121,8 @@ public class Ui {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
-            if (doneTask < 0 || doneTask >= taskList.getCount()) {
-                throw new RuntimeException();
-            }
+            assert doneTask >= 0 : "Value must be non-negative";
+            assert taskList.getCount() > doneTask : "Value must be a number in the list";
             stringBuilder.append("Well done! This task has been marked as done.\n");
             if (taskList.getTask(doneTask) instanceof Todo) {
                 stringBuilder.append("[T]");
@@ -174,6 +172,7 @@ public class Ui {
     }
 
     public static String findMessage(String searchTerm, TaskList taskList) {
+        assert searchTerm.length() > 0;
         TaskList resultList = new TaskList();
         for (int i = 0; i < taskList.getCount(); i++) {
             String taskDescription = taskList.getTask(i).getDescription();
