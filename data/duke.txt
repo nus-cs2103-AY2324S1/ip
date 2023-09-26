@@ -1,5 +1,0 @@
-T | 0 | zoo | Tags: #fun #grr #yay 
-E | 1 | go to projecting | Tags: #notfun  | 2019-10-15T18:00 to 2020-12-02T20:00
-D | 1 | return homework | Tags: #cool  | 2023-11-15T08:00
-D | 0 | return homework | 2023-11-15T08:00
-E | 0 | go to project meeting | 2019-10-15T18:00 to 2020-12-02T20:00
