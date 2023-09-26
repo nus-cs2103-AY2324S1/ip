@@ -1,0 +1,16 @@
+THE "update" COMMAND:
+
+same as "modify" and "edit"
+
+Opens editing mode for the task specified by the index. Task specified will appear in the text field for user to modify the task. modified task must follow the correct syntax when modifying.
+
+User can type "C" or "c" to exit editing mode for the task and resume normal input.
+
+HOW TO USE:
+"update <index>" - opens editing mode on task specified in index and puts task in the text field for user to edit. User can make the necessary amends and input it to modify the specified task.
+*note: index refers to the position of task in list
+
+EXAMPLE USE:
+"update 1" (task 1: TODO: play with oreo - command will enter editing mode on task 1 and display "todo play with oreo" in the textfield for user to edit)
+
+"c" exits editing mode without editing the task.

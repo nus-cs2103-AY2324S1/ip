@@ -1,0 +1,9 @@
+THE "todo" COMMAND:
+
+Creates a non-time sensitive task.
+
+HOW TO USE:
+"todo <description>" - creates a todo task with the specified description.
+
+EXAMPLE USE:
+"todo play with oreo" (creates a todo task called "play with oreo").

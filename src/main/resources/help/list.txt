@@ -1,0 +1,9 @@
+THE "list" COMMAND:
+
+Displays the list of tasks you currently have. This includes the type of task, whether it is done and the date time (as specified).
+
+HOW TO USE:
+"list" - Shows all the task that are recorded by the user.
+
+EXAMPLE USE:
+see above

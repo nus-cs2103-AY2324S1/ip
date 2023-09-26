@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.text.Font?>
+<fx:root alignment="TOP_RIGHT" minHeight="-Infinity" prefWidth="423.0" spacing="5.0" type="HBox" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <javafx.scene.layout.HBox fx:id="speechBubble" alignment="CENTER_RIGHT" depthTest="ENABLE" maxHeight="340.0" maxWidth="1.7976931348623157E308" minHeight="-Infinity" opacity="0.8" styleClass="dmSans" style="-fx-background-radius: 1em; -fx-background-color: #6495ED;">
+          <children>
+              <Label fx:id="dialog" minHeight="20.0" text="Label" textFill="WHITE" wrapText="true">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <padding>
+                  <Insets left="5.0" right="5.0" />
+               </padding>
+            </Label>
+          </children>
+          <padding>
+              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+          </padding>
+         <HBox.margin>
+            <Insets bottom="7.0" top="7.0" />
+         </HBox.margin>
+      </javafx.scene.layout.HBox>
+        <ImageView fx:id="displayPicture" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+         <HBox.margin>
+            <Insets top="7.0" />
+         </HBox.margin></ImageView>
+   </children>
+   <padding>
+      <Insets left="5.0" right="15.0" />
+   </padding>
+</fx:root>

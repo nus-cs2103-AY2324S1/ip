@@ -1,0 +1,9 @@
+THE "save" COMMAND:
+
+Saves all task as of current state to file while app continues to run.
+
+HOW TO USE:
+"save" - saves current list of task to file.
+
+EXAMPLE USE:
+see above

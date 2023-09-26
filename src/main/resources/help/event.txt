@@ -1,0 +1,21 @@
+THE "event" COMMAND:
+
+Creates a time sensitive event with a specified
+start and end datetime.
+
+HOW TO USE:
+"event <description> /from <datetime> /to <datetime>" - creates an event task with description, "from" date time and a "to" date time specified.
+
+General rules for date time format:
+1. If "/from" or "/to" has a time, both must have a time.
+2. If "/to" must be after "/from".
+3. Only date input will not include a time saved in the task.
+4. Only time input will set a date with reference to the `/to` time and give the next occurence of that duraiton.
+5. For `time` to `date, time`  input, the inferred date for `/from` will be the next occurence of that time instead of referencing the `/to` time.
+
+For accepted date time formats, type "help datetime" to see all accepted date time formats
+
+EXAMPLE USE:
+"event playtime /from 01/01/2023, 1200 /to 6:00pm" (creates an event task for playtime on Jan 1 2023 from 12:00 PM - 6:00 PM)
+"event staycation /from 1 Jan, 1200 /to Jan 3, 12:00" (creates an event task for staycation for next occurrence of Jan 1 at 12:00 PM to Jan 3 2023 12:00 PM for next occurence of the of date range)
+"event walk oreo /from 17:00 /to 1800" (creates an event task to walk oreo for the next occurence of 5:00 PM to 6:00 PM)

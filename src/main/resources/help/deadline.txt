@@ -1,0 +1,18 @@
+THE "deadline" COMMAND:
+
+Creates a time sensitive deadline task with a specified end date time.
+
+HOW TO USE:
+"deadline <description> /by <datetime>" - creates a deadline task with description and "/by" a date time specified.
+
+General rules on date time format:
+1. Date and time input, will be saved accordingly. Past deadlines should be specified in this format, else Oreo will find next occurence of date time input.
+2. Date only, time will not be included in the saved task
+3. Time only, date will to next occurence of the task
+
+For accepted date time formats, input "help datetime".
+
+EXAMPLE USE:
+"deadline feed oreo /by 01/01/2023, 1800" (creates a deadline task to feed oreo by 1st Jan 2023 6:00 PM)
+"deadline buy oreo toy /by 1 Jan" (creates a deadline task to get oreo a toy by next occurrence of 1st Jan)
+"deadline bathe oreo /by 6:30pm" (creates a deadline task to bathe oreo by next occurence of 6:30 PM)

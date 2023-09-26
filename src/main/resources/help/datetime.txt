@@ -1,0 +1,33 @@
+Seems like you need help with some date time formats! Oreo knows the time well so don't worry!
+
+ACCEPTED DATE FORMATS:
+d/M/yyyy (e.g. 1/1/2023, 01-12-2023) *dashes are accepted too
+d/M/yy (e.g. 1/1/23, 01-12-23) *dashes are accepted too
+MMM d yyyy (e.g. Jan 1 2023) *not case sensitive
+MMM d yy (e.g. Jan 1 23) *not case sensitive
+d MMM yyyy (e.g. 1 Jan 2023) *not case sensitive
+d MMM yy (e.g. 1 Jan 24) *not case sensitive
+yyyy/M/d (e.g 2023/1/1, 2023-12-01) *dashes are accepted too
+yy/M/d (e.g. 23/1/1, 23-12-01) *dashes are accepted too
+d/M (e.g. 1/1, 1/12) *dashes are accepted too
+MMM d (e.g Jan 1, jan 1) *not case senstiive
+d MMM (e.g. 1 Jan, 1 jan) *not case sensitive
+
+*note: non-year formats have their years set to the occurrence of that date.
+
+ACCEPTED TIME FORMATS:
+HHmm (e.g. 1800)
+h a (e.g. 6 pm, 6 PM)
+ha (e.g. 6pm, 6PM)
+HH:mm (e.g. 18:00, 18.00) *periods are accepted too
+h:mm a (e.g. 6:00 pm, 6:00 PM, 6.00 PM) *periods are accepted too, not case sensitive
+h:mma (e.g. 6:00pm, 6:00PM, 6.00PM) *periods are accepted too, not case sensitive
+
+✓ A GOOD EXAMPLE (BOTH DATE AND TIME):
+"1 Jan 2023, 6pm"
+
+✗ BAD EXAMPLES:
+"1 /0 1/2023" - unnecessary blank space
+"1 Jan 2023 6pm" - missing comma
+
+For additional info, type "help datetimeMore"

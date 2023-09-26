@@ -1,0 +1,9 @@
+THE "bye" COMMAND:
+
+Closes the application and saves all tasks user has inputted.
+
+HOW TO USE:
+"bye" - closes application and saves all tasks.
+
+EXAMPLE USE:
+see above

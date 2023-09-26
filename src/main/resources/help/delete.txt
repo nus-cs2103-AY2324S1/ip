@@ -1,0 +1,11 @@
+THE "delete" COMMAND:
+
+Deletes the task at the index specified. It can also be used to delete all tasks, similar to "clear".
+
+HOW TO USE:
+"delete <index>" - deletes task at the specified index. 
+"delete all" - deletes all task that is in the list.
+*note: index refers to the position of task in list
+
+EXAMPLE USE:
+see above

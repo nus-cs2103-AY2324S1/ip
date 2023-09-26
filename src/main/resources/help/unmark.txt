@@ -1,0 +1,11 @@
+THE "unmark" COMMAND:
+
+Unmarks the task at the index specified as incomplete, or let the user know that it is still incomplete.
+
+HOW TO USE:
+"unmark <index>" - task at index becomes/stays incomplete (unchecked). 
+*note: index refers to the position of task in list
+
+EXAMPLE USE:
+"unmark 1" (assuming task at position 1 on list is currently complete, it will be marked as incomplete)
+"unmark 2" (assuming task at position 2 on list is currently incomplete, it will remain incomplete)
