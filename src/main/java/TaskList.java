@@ -34,10 +34,12 @@ public class TaskList {
         }
         tasks = newTasks;
         taskCount--;
+        assert taskCount >= 0;
     }
 
     public void markTask(int task) {
         tasks[task].markAsDone();
+        assert tasks[task].isDone();
     }
 
     public int getCount() {

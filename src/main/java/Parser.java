@@ -12,6 +12,7 @@ public class Parser {
      * @param taskList TaskList with all the current tasks.
      */
     public static String parse (String userMessage, TaskList taskList) {
+        assert userMessage.length() > 0;
         String datePattern = "dd-MM-yyyy HH:mm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(datePattern);
         if (userMessage.equalsIgnoreCase("bye")) {
