@@ -1,7 +1,10 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public  class Event extends Task {
+/**
+ * Class for Event task.
+ */
+public class Event extends Task {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
