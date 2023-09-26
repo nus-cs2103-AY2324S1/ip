@@ -34,7 +34,7 @@ public class Ui {
     }
 
     public static void listTasks(TaskList taskList) {
-        System.out.println("Here are the tasks in your list:");
+        System.out.println("Here is the list of relevant tasks:");
         for (int i = 0; i < taskList.getCount(); i++) {
             int listNumber = i + 1;
             System.out.print(listNumber + ". ");
@@ -110,5 +110,19 @@ public class Ui {
         taskList.addTask(event);
         System.out.print("Added this task: [E] ");
         System.out.println(taskList.getTask(taskList.getCount() - 1).getDescription());
+    }
+
+    public static void findMessage(String searchTerm, TaskList taskList) {
+        TaskList resultList = new TaskList();
+        for (int i = 0; i < taskList.getCount(); i++) {
+            String taskDescription = taskList.getTask(i).getDescription();
+            for (int j = 0; j <= taskDescription.length() - searchTerm.length(); j++) {
+                if (taskDescription.substring(j, j+ searchTerm.length()).equals(searchTerm)) {
+                    resultList.addTask(taskList.getTask(i));
+                    break;
+                }
+            }
+        }
+        listTasks(resultList);
     }
 }

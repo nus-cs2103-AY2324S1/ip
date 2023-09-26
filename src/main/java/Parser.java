@@ -16,7 +16,9 @@ public class Parser {
             if (userMessage.substring(0, 6).equalsIgnoreCase("delete")) {
                 int removeTask = Integer.parseInt(userMessage.substring(7)) - 1;
                 Ui.deleteMessage(removeTask, taskList);
-            } else if (userMessage.substring(0, 4).equalsIgnoreCase("mark")) {
+            } else if (userMessage.substring(0, 4).equalsIgnoreCase("find")) {
+                Ui.findMessage(userMessage.substring(5), taskList);
+            }else if (userMessage.substring(0, 4).equalsIgnoreCase("mark")) {
                 int doneTask = Integer.parseInt(userMessage.substring(5)) - 1;
                 Ui.markMessage(doneTask, taskList);
             } else if (userMessage.substring(0, 4).equalsIgnoreCase("todo")) {
