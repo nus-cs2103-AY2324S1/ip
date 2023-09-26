@@ -48,17 +48,15 @@ test {
 }
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("duke.Duke")
 }
 
-
 shadowJar {
+    archiveFileName = 'duke.jar'
     archiveBaseName = "duke"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    archiveFileName = 'duke.jar'
 }
-
 
 run{
     standardInput = System.in
