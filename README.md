@@ -1,8 +1,8 @@
 # Alcazar project template
 
 This is Alcazar, your own personalised Chatbot ready to do your bidding.
-![Screenshot of the User interface for the chatbot Alcazar]
-(https://github.com/D-Limiter/ip/blob/master/docs/Ui.png)
+
+![Screenshot of the User interface for the chatbot Alcazar](https://github.com/D-Limiter/ip/blob/master/docs/Ui.png)
 ## Given functionalities
 
 ### `todo` 
