@@ -104,6 +104,7 @@ public class Ui {
             else stringBuilder.append("[ ] ");
             stringBuilder.append(taskList.getTask(removeTask).getDescription());
             taskList.deleteTask(removeTask);
+            Storage.saveTasks(taskList);
         } catch (Exception e) {
             return formatErrorMessage("delete");
         }
@@ -134,6 +135,7 @@ public class Ui {
             stringBuilder.append("[X] ");
             stringBuilder.append(taskList.getTask(doneTask).getDescription());
             taskList.getTask(doneTask).markAsDone();
+            Storage.saveTasks(taskList);
         } catch (Exception e) {
             return formatErrorMessage("mark");
         }
@@ -147,6 +149,7 @@ public class Ui {
         taskList.addTask(todo);
         stringBuilder.append("Added this task: [T] ");
         stringBuilder.append(taskList.getTask(taskList.getCount() - 1).getDescription());
+        Storage.saveTasks(taskList);
 
         return stringBuilder.toString();
     }
@@ -157,6 +160,7 @@ public class Ui {
         taskList.addTask(deadline);
         stringBuilder.append("Added this task: [D] ");
         stringBuilder.append(taskList.getTask(taskList.getCount() - 1).getDescription());
+        Storage.saveTasks(taskList);
 
         return stringBuilder.toString();
     }
@@ -167,6 +171,7 @@ public class Ui {
         taskList.addTask(event);
         stringBuilder.append("Added this task: [E] ");
         stringBuilder.append(taskList.getTask(taskList.getCount() - 1).getDescription());
+        Storage.saveTasks(taskList);
 
         return stringBuilder.toString();
     }
