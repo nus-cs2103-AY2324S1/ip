@@ -31,8 +31,8 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
     private Storage storage;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/samantha.jpeg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/Trisha_Krishnan_at_PS1_pre_release_event_(3).jpg"));
+    private Image user = new Image(this.getClass().getResourceAsStream("/images/little-asian-boy-surprised-1432293.jpg"));
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/puppy-1371458.jpg"));
     private InputParser parser;
 
     public Duke() {
@@ -141,7 +141,7 @@ public class Duke extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label("Samantha: " + userInput.getText());
+        Label userText = new Label(userInput.getText());
         userText.setPadding(new Insets(5));
         String dukeReplyStr = getResponse(userInput.getText());
         //If user types "bye", programme will quit
