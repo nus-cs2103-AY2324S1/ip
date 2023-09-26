@@ -1,0 +1,8 @@
+D | 0 | finish project | 25-09-2023 23:59
+T | 1 | write reflection
+E | 0 | attend meeting | 24-09-2023 10:00 | 12:00
+D | 0 | finish project | 23-09-2023 10:00
+E | 0 | marriage | 22-09-2023 10:00 | 12:00
+T | 0 | finish quiz
+D | 0 | submit ip | 22-09-2023 10:00
+T | 0 | sumbit the project

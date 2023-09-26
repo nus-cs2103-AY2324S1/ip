@@ -1,0 +1,3 @@
+include 'src:untitled'
+findProject(':src:untitled')?.name = 'untitled'
+
