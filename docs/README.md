@@ -1,10 +1,3 @@
-<style>
-.content {
-  max-width: 500px;
-  margin: auto;
-}
-</style>
-
 <div class="content">
 <p align="center">
   <a href="https://github.com/dloh2236/ip">
