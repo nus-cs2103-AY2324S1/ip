@@ -30,7 +30,7 @@ public class TaskList {
      */
     public static void initiateTaskList(Storage storage) {
         try {
-            list = storage.copyFileContents("data/ChatterBot.txt");
+            list = storage.copyFileContents();
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
         }

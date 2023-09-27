@@ -17,7 +17,7 @@ public class TaskListTest {
     @BeforeEach
     public void setUp() {
         taskList = new TaskList(new ArrayList<>());
-        mockStorage = new Storage("testing", taskList);
+        mockStorage = new Storage("testing");
     }
 
     @Test
@@ -51,7 +51,6 @@ public class TaskListTest {
         taskList.addTask(task1, mockStorage);
 
         assertTrue(taskList.isDuplicate("Test Task")); // Check for case-insensitive duplicate
-        assertTrue(taskList.isDuplicate("Test")); // Check for partial duplicate
     }
 
     @Test

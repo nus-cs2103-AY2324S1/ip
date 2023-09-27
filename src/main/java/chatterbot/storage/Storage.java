@@ -1,6 +1,10 @@
 package chatterbot.storage;
 
-import chatterbot.data.*;
+import chatterbot.data.Task;
+import chatterbot.data.TaskList;
+import chatterbot.data.Deadline;
+import chatterbot.data.Event;
+import chatterbot.data.Todo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,20 +19,42 @@ import java.util.Scanner;
 public class Storage {
 
     private static String filePath;
+//
+//    private static TaskList taskList;
+//
+//    public Storage(String filePath, TaskList taskList) {
+//        this.filePath = filePath;
+//        this.taskList = taskList;
+//    }
+    public Storage() {
+        this.filePath = "Chatterbot.txt";
+        try {
+            File file = new File(this.filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-    private static TaskList taskList;
-
-    public Storage(String filePath, TaskList taskList) {
+    public Storage(String filePath) {
         this.filePath = filePath;
-        this.taskList = taskList;
+        try {
+            File file = new File(this.filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Initiates the list with entered user inputs that have been stored in the .txt file.
-     * @param filePath This is the file path to the .txt file
      * @throws FileNotFoundException If the file cannot be found.
      */
-    public static ArrayList<Task> copyFileContents(String filePath) throws FileNotFoundException {
+    public static ArrayList<Task> copyFileContents() throws FileNotFoundException {
         ArrayList<Task> taskArrayList = new ArrayList<>();
         File f = new File(filePath);
         Scanner s = new Scanner(f);
@@ -56,7 +82,6 @@ public class Storage {
             } else if (line.contains("[E]")) {
                 String[] eventSplit = line.split(" \\| ");
                 String mark = eventSplit[1];
-
                 String eventDescription = eventSplit[2];
                 String eventTo = eventSplit[3];
                 String eventFrom = eventSplit[4];

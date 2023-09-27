@@ -18,7 +18,7 @@ public class ChatterBot {
     public ChatterBot(TaskList taskList) {
         this.taskList = taskList;
         this.ui = new Ui(taskList);
-        this.storage = new Storage(file, taskList);
+        this.storage = new Storage();
 
         taskList.initiateTaskList(storage);
     }
