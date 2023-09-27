@@ -14,7 +14,7 @@ Don't worry, your personal assistant Leon is here to help! Some features include
 And the best part? When you exit the chatbot, your tasks will be saved so you can come back to it later! How cool is
 that?? 🤪
 
-## Note for Linux Users:
+## Note for Linux Users
 
 Please run the following commands in your terminal to install JDK 11 and OpenJFX respectively:
 
