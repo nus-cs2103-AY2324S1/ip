@@ -26,6 +26,16 @@ dependencies {
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // Used for loops to clean up the imports
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
 }
 
 test {
@@ -57,7 +67,8 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-run{
-    enableAssertions = true
+
+
+run {
     standardInput = System.in
 }
