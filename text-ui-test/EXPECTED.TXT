@@ -1,7 +1,49 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+_____________________________________________________
+Hello! I'm Gerald_Bot
+What can I do for you?
+_____________________________________________________
+_____________________________________________________
+Got it. I've added this task:
+	[T][ ] borrow book
+Now you have 1 tasks in the list.
+_____________________________________________________
+_____________________________________________________
+Here are the tasks in your list:
+1. [T][ ] borrow book
+_____________________________________________________
+_____________________________________________________
+Got it. I've added this task:
+	[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+_____________________________________________________
+_____________________________________________________
+Got it. I've added this task:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 3 tasks in the list.
+_____________________________________________________
+_____________________________________________________
+DukeInvalidCommandException: ? OOPS!!! The description of a todo cannot be empty.
+_____________________________________________________
+_____________________________________________________
+DukeInvalidCommandException: ? OOPS!!! I'm sorry, but I don't know what that means :-(
+_____________________________________________________
+_____________________________________________________
+DukeInvalidIndexException: ? OOPS!!! I'm sorry, but index is invalid! There are 3 tasks in the list! :-(
+_____________________________________________________
+_____________________________________________________
+DukeEmptyParametersException: ? OOPS!!! I'm sorry, but you did not input a specific date/time for the Deadline/Event task! :-(
+_____________________________________________________
+_____________________________________________________
+DukeInvalidCommandException: ? OOPS!!! The description of a delete cannot be empty.
+_____________________________________________________
+_____________________________________________________
+DukeInvalidIndexException: ? OOPS!!! I'm sorry, but index is invalid! There are 3 tasks in the list! :-(
+_____________________________________________________
+_____________________________________________________
+Noted. I've removed this task:
+	[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 2 tasks in the list.
+_____________________________________________________
+_____________________________________________________
+Bye. Hope to see you again soon!
+_____________________________________________________
