@@ -1,6 +1,12 @@
-# Sharky
+# Sharky List
 
-
+## Quick Start
+1. Ensure you have Java 11 or above installed in your Computer.
+2. Download the latest duke.jar from [here](https://github.com/Blizzeracz/ip/releases/tag/Final).
+3. Copy the file to the folder you want to use as the home folder for your ChatBot
+4. Double-click the jar file or open a command terminal, cd into the folder you put the jar file in, 
+and use the java -jar duke.jar command to run the application.
+5. Refer to the Features below for details of each command.
 
 ## Features 
 

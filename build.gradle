@@ -17,7 +17,6 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-
     // JavaFX 17.0.7 dependencies for macOS on ARM64
     implementation 'org.openjfx:javafx-base:17.0.7:mac-aarch64'
     implementation 'org.openjfx:javafx-controls:17.0.7:mac-aarch64'
