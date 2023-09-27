@@ -28,10 +28,6 @@ public class Storage {
     public Storage(String path) {
         this.path = path;
         this.file = new File(path);
-
-        if (!file.exists()) {
-            file.mkdirs();
-        }
     }
 
     /**
@@ -43,7 +39,7 @@ public class Storage {
         try {
             File f = new File("./data/duke.txt");
             if (!f.exists()) {
-                f.mkdir();
+                f.createNewFile();
             }
 
             FileWriter fw = new FileWriter(f);
@@ -55,7 +51,6 @@ public class Storage {
             System.err.println("An error occurred while saving to the file: " + e.getMessage());
         }
     }
-
 
     /**
      * Reads tasks from the storage file
