@@ -19,8 +19,8 @@ URBOI    is a simple command-line chatbot designed to help you manage your tasks
 
 ## Getting Started<a name="getting-started"></a>
 
-1. Clone or download the Duke project code from [GitHub](https://github.com/your/repository).
-2. Compile and run the `Duke.java` file to start the Duke chatbot.
+1. Clone or download the URBOI project code from [GitHub](https://github.com/TyrusLye/ip/releases/tag/A-Release).
+2. Run the `URBOI.java` file to start the Duke chatbot.
 
 ## Adding Tasks<a name="adding-tasks"></a>
 
