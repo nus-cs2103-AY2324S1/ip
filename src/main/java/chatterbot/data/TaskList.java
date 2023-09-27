@@ -164,7 +164,7 @@ public class TaskList {
      */
     public boolean isDuplicate(String description) {
         for (int i = 0; i < getSize(); i++) {
-            if (getTask(i).contains(description)) {
+            if (getTask(i).getTaskDescription().equals(description)) {
                 return true;
             }
         }

@@ -14,6 +14,14 @@ public class Task {
     }
 
     /**
+     * Returns the task description.
+     * @return String This is the task description.
+     */
+    public String getTaskDescription() {
+        return description;
+    }
+
+    /**
      * Returns the status of the task (whether it is done or undone).
      * @return String This shows the status of the task.
      */
