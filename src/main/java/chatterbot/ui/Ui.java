@@ -5,6 +5,7 @@ import chatterbot.data.Event;
 import chatterbot.data.Task;
 import chatterbot.data.TaskList;
 import chatterbot.data.Todo;
+import chatterbot.exceptions.ChatterBotException;
 
 import java.util.ArrayList;
 
@@ -41,11 +42,16 @@ public class Ui {
      * Prints the current task list for the user.
      */
     public static String showTaskList(ArrayList<Task> list) {
-        StringBuilder response = new StringBuilder("Here are the tasks in your list:");
-        for (Task t : list) {
-            response.append("\n").append((list.indexOf(t) + 1)).append(". ").append(t.toString());
+        if (list.isEmpty()) {
+            response = "There are currently no tasks in your list!";
+            return response;
+        } else {
+            StringBuilder response = new StringBuilder("Here are the tasks in your list:");
+            for (Task t : list) {
+                response.append("\n").append((list.indexOf(t) + 1)).append(". ").append(t.toString());
+            }
+            return response.toString();
         }
-        return response.toString();
     }
 
     /**
@@ -165,5 +171,14 @@ public class Ui {
      */
     public static String showUnknownCommand(String userMessage) {
         return "Unknown command: " + userMessage;
+    }
+
+    /**
+     * Prints a message to tell the user the entered input is causing an error.
+     * @param e This is the exception thrown.
+     * @return String This is the message that will be shown to the user.
+     */
+    public static String showError(ChatterBotException e) {
+        return e.getMessage();
     }
 }

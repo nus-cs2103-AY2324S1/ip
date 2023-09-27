@@ -1,11 +1,14 @@
 package chatterbot.data;
 
+import chatterbot.exceptions.InvalidDeadlineException;
 import chatterbot.storage.Storage;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TaskListTest {
@@ -19,7 +22,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void addTask_ValidTask_TaskAddedToList() {
+    public void addTask_ValidTask_TaskAddedToList() throws InvalidDeadlineException, IOException {
         // task will be added successfully
         Task task = new Todo("Test Task");
         String response = taskList.addTask(task, mockStorage);
@@ -29,7 +32,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void deleteTask_ValidIndex_TaskDeletedFromList() {
+    public void deleteTask_ValidIndex_TaskDeletedFromList() throws InvalidDeadlineException, IOException {
         // task will be deleted successfully
         Task task = new Todo("Test Task");
         taskList.addTask(task, mockStorage);
@@ -41,7 +44,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void isDuplicate_DuplicateDescription_ReturnsTrue() {
+    public void isDuplicate_DuplicateDescription_ReturnsTrue() throws InvalidDeadlineException, IOException {
         // duplicate tasks are identified and not added
         Task task1 = new Todo("Test Task");
         Task task2 = new Deadline("Test Task", "2023-12-31");
@@ -53,7 +56,7 @@ public class TaskListTest {
     }
 
     @Test
-    public void isDuplicate_NonDuplicateDescription_ReturnsFalse() {
+    public void isDuplicate_NonDuplicateDescription_ReturnsFalse() throws InvalidDeadlineException, IOException {
         // non-duplicate tasks are not wrongly identified as duplicate tasks
         Task task = new Todo("Test Task");
         taskList.addTask(task, mockStorage);

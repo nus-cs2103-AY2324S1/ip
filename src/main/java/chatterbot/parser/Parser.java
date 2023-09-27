@@ -1,11 +1,12 @@
 package chatterbot.parser;
 
+import chatterbot.data.TaskList;
+import chatterbot.exceptions.InvalidDeadlineException;
+import chatterbot.exceptions.NoTaskDescriptionException;
 import chatterbot.storage.Storage;
 import chatterbot.ui.Ui;
-import chatterbot.data.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Represents the interpretation of entered user inputs.
@@ -28,51 +29,62 @@ public class Parser {
         assert userMessage != null && !userMessage.isEmpty() : "User message cannot be null or empty.";
 
         if (userMessage.toLowerCase().equals("bye")) {
-            response = ui.showGoodbyeMessage();
+            System.exit(0);
         } else if (userMessage.toLowerCase().equals("list")) {
             response = ui.showTaskList(taskList.getList());
-        } else if (userMessage.startsWith("mark") && isInteger(userMessage.substring(5))) {
+        } else if (userMessage.startsWith("mark") && userMessage.length() > 5) {
             String toMark = userMessage.substring(5);
-            taskList.setDone(Integer.parseInt(toMark) - 1, storage);
-            response = ui.showMarked(toMark);
-        } else if (userMessage.startsWith("unmark")) {
+            try {
+                taskList.setDone(Integer.parseInt(toMark) - 1, storage);
+                response = ui.showMarked(toMark);
+            } catch (IndexOutOfBoundsException e) {
+                response = "No task to mark! Try an index within range instead.";
+            }
+        } else if (userMessage.startsWith("unmark") && userMessage.length() > 7) {
             String toUnmark = userMessage.substring(7);
-            taskList.unsetDone(Integer.parseInt(toUnmark) - 1, storage);
-            response = ui.showUnmarked(toUnmark);
-        } else if (userMessage.startsWith("find")) {
+            try {
+                taskList.unsetDone(Integer.parseInt(toUnmark) - 1, storage);
+                response = ui.showUnmarked(toUnmark);
+            } catch (IndexOutOfBoundsException e) {
+                response = "No task to unmark! Try an index within range instead.";
+            }
+        } else if (userMessage.startsWith("find") && userMessage.length() > 5) {
             String toFind = userMessage.substring(5);
             response = ui.showFoundTasks(toFind);
         } else {
             if (userMessage.startsWith("deadline")) {
                 try {
-                    if (userMessage.length() <= 9) {
-                        throw new IllegalArgumentException("No task description");
-                    }
                     response = taskList.initialiseDeadlineTask(userMessage, taskList, storage, ui);
-                } catch (IllegalArgumentException e) {
-                    response = "OOPS!!! Invalid input!";
+                } catch (NoTaskDescriptionException | InvalidDeadlineException e) {
+                    response = ui.showError(e);
                 }
             } else if (userMessage.startsWith("todo")) {
                 try {
-                    if (userMessage.length() <= 5) {
-                        throw new IllegalArgumentException("No task description");
-                    }
                     response = taskList.initialiseTodoTask(userMessage, taskList, storage, ui);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("OOPS!!! Invalid input! " + e.getMessage() + ".");
+                } catch (NoTaskDescriptionException e) {
+                    response =  ui.showError(e);
+                } catch (InvalidDeadlineException e) {
+                    response = "Error! Task not added.";
+                } catch (IOException e) {
+                    response = "File was not found! Task not added. Check for typos and try again.";
                 }
             } else if (userMessage.startsWith("event")) {
                 try {
-                    if (userMessage.length() <= 6) {
-                        throw new IllegalArgumentException("No task description");
-                    }
-                    return taskList.initialiseEventTask(userMessage, taskList, storage, ui);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("OOPS!!! Invalid input!");
+                    response = taskList.initialiseEventTask(userMessage, taskList, storage, ui);
+                } catch (NoTaskDescriptionException e) {
+                    response = ui.showError(e);
+                } catch (InvalidDeadlineException e) {
+                    response = "Error! Task not added. Check for typos and try again.";
+                } catch (IOException e) {
+                    response = "File was not found! Task not added.";
                 }
-            } else if (userMessage.startsWith("delete") && isInteger(userMessage.substring(7))) {
-                response = ui.showDeleted(userMessage);
-                taskList.deleteTask(((Integer.parseInt(userMessage.substring(7))) - 1), storage);
+            } else if (userMessage.startsWith("delete") && userMessage.length() > 7) {
+                try {
+                    response = ui.showDeleted(userMessage);
+                    taskList.deleteTask(((Integer.parseInt(userMessage.substring(7))) - 1), storage);
+                } catch (IndexOutOfBoundsException e) {
+                    response = "No task to delete! Try an index within range instead.";
+                }
             } else {
                 response = ui.showUnknownCommand(userMessage);
             }

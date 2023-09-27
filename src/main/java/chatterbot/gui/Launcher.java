@@ -1,4 +1,4 @@
-package chatterbot;
+package chatterbot.gui;
 
 import javafx.application.Application;
 

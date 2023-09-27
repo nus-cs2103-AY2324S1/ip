@@ -1,11 +1,12 @@
-package chatterbot;
+package chatterbot.gui;
 
-import chatterbot.Main;
+import chatterbot.ChatterBot;
 import chatterbot.data.Task;
 import chatterbot.data.TaskList;
 
 import java.util.ArrayList;
 
+import chatterbot.gui.DialogBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

@@ -1,8 +1,9 @@
-package chatterbot;
+package chatterbot.gui;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
+import chatterbot.ChatterBot;
 import chatterbot.data.Task;
 import chatterbot.data.TaskList;
 import javafx.application.Application;
