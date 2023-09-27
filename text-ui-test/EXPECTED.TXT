@@ -1,7 +1,107 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Hello! I'm DevyBot
+What can I do for you?
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Buy groceries
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Clean room
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [T][ ] Study for exam
+Now you have 3 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] Submit assignment (by: Sunday)
+Now you have 4 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [D][ ] Pay bills (by: 15th)
+Now you have 5 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] Birthday party (from: 3pm to: 7pm)
+Now you have 6 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Got it. I've added this task:
+  [E][ ] Team meeting (from: 10am to: 11am)
+Now you have 7 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] Buy groceries
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] Clean room
+____________________________________________________________
+____________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] Study for exam
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][X] Buy groceries
+2. [T][X] Clean room
+3. [T][X] Study for exam
+4. [D][ ] Submit assignment (by: Sunday)
+5. [D][ ] Pay bills (by: 15th)
+6. [E][ ] Birthday party (from: 3pm to: 7pm)
+7. [E][ ] Team meeting (from: 10am to: 11am)
 
+____________________________________________________________
+____________________________________________________________
+OK, I've marked this task as not done yet:
+  [T][ ] Clean room
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][X] Buy groceries
+2. [T][ ] Clean room
+3. [T][X] Study for exam
+4. [D][ ] Submit assignment (by: Sunday)
+5. [D][ ] Pay bills (by: 15th)
+6. [E][ ] Birthday party (from: 3pm to: 7pm)
+7. [E][ ] Team meeting (from: 10am to: 11am)
+
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+  [T][X] Buy groceries
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] Clean room
+2. [T][X] Study for exam
+3. [D][ ] Submit assignment (by: Sunday)
+4. [D][ ] Pay bills (by: 15th)
+5. [E][ ] Birthday party (from: 3pm to: 7pm)
+6. [E][ ] Team meeting (from: 10am to: 11am)
+
+____________________________________________________________
+____________________________________________________________
+Noted. I've removed this task:
+  [T][X] Study for exam
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] Clean room
+2. [D][ ] Submit assignment (by: Sunday)
+3. [D][ ] Pay bills (by: 15th)
+4. [E][ ] Birthday party (from: 3pm to: 7pm)
+5. [E][ ] Team meeting (from: 10am to: 11am)
+
+____________________________________________________________
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
