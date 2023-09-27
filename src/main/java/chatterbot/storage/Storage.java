@@ -19,13 +19,7 @@ import java.util.Scanner;
 public class Storage {
 
     private static String filePath;
-//
-//    private static TaskList taskList;
-//
-//    public Storage(String filePath, TaskList taskList) {
-//        this.filePath = filePath;
-//        this.taskList = taskList;
-//    }
+
     public Storage() {
         this.filePath = "Chatterbot.txt";
         try {
