@@ -1,3 +1,7 @@
 T | 0 | one
 T | 0 | two
 T | 0 | four
+D | 0 | birthday | 2001-06-12
+D | 0 |  | 12-06-2001
+D | 0 |  | 12 Jun 2001 1:45AM
+E | 0 | birthday | 12 Jun 2001 5:00PM | 12 Jun 2001 7:00PM

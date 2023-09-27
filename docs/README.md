@@ -1,9 +1,8 @@
 # User Guide for Duke
 
-### 
-Duke is a robust desktop application designed for efficiently managing to-do lists, events, deadlines, and task
-completion status. It combines the user-friendly interface of a graphical application with the flexibility of handling 
-various task types, making it a speedy solution for task management, especially for those with fast typing skills.
+### Duke is a robust desktop application designed for efficiently managing to-do lists, events, deadlines, and task
+### completion status. It combines the user-friendly interface of a graphical application with the flexibility of handling 
+### various task types, making it a speedy solution for task management, especially for those with fast typing skills.
 
 ## Features
 
