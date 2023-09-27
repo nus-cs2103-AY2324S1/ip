@@ -41,7 +41,7 @@ public class ContactDeserializer extends StdDeserializer<Contact> {
         JsonNode nameNode = node.get("name");
         String name = nameNode.asText();
 
-        JsonNode descNode = node.get("desc");
+        JsonNode descNode = node.get("description");
         String desc = descNode.asText();
 
         return new Contact(name, desc);
