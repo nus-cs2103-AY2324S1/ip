@@ -58,13 +58,6 @@ application {
     mainClass.set("alcazar.Launcher")
 }
 
-//shadowJar {
-//    archiveBaseName = "alcazar"
-//    archiveClassifier = null
-//    dependsOn("distZip", "distTar")
-//
-//    archiveFileName = 'alcazar.jar'
-//}
 shadowJar {
     archiveFileName = 'alcazar.jar'
 }
