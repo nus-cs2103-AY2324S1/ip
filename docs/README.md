@@ -1,29 +1,116 @@
-# User Guide
+# URBOI Chatbot User Guide
 
-## Features 
+## Introduction
 
-### Feature-ABC
+URBOI    is a simple command-line chatbot designed to help you manage your tasks. It allows you to add, list, mark as done, delete, and search for tasks. This user guide will provide you with step-by-step instructions on how to use URBOI effectively.
 
-Description of the feature.
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Adding Tasks](#adding-tasks)
+    - [Adding a To-Do](#adding-a-to-do)
+    - [Adding a Deadline](#adding-a-deadline)
+    - [Adding an Event](#adding-an-event)
+- [Listing Tasks](#listing-tasks)
+- [Marking Tasks as Done](#marking-tasks-as-done)
+- [Deleting Tasks](#deleting-tasks)
+- [Searching for Tasks](#searching-for-tasks)
+- [Exiting Duke](#exiting-duke)
+- [Saving Your Tasks](#saving-your-tasks)
 
-### Feature-XYZ
+## Getting Started<a name="getting-started"></a>
 
-Description of the feature.
+1. Clone or download the Duke project code from [GitHub](https://github.com/your/repository).
+2. Compile and run the `Duke.java` file to start the Duke chatbot.
 
-## Usage
+## Adding Tasks<a name="adding-tasks"></a>
 
-### `Keyword` - Describe action
+Duke allows you to add three types of tasks: To-Do, Deadline, and Event.
 
-Describe the action and its outcome.
+### Adding a To-Do<a name="adding-a-to-do"></a>
 
-Example of usage: 
+To add a To-Do task, use the following command:
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
+```plaintext
+todo [description]
 ```
-expected output
+
+Replace `[task description]` with a brief description of the to-do task you want to add.
+
+### Adding a Deadline <a name="adding-a-deadline"></a>
+
+To add a deadline task, use the following command:
+
+```plaintext
+deadline [task description] /by [date and time]
 ```
+
+Replace `[task description]` with a description of the deadline task and `[date and time]` with the date and time the task is due in the format `d/M/yyyy HHmm`.
+
+### Adding an Event <a name="adding-an-event"></a>
+
+To add an event task, use the following command:
+
+```plaintext
+event [event description] /from [start time] /to [end time]
+```
+
+Replace `[event description]` with a description of the event, `[start time]` with the event's start time, and `[end time]` with the event's end time.
+
+## 3. Listing Tasks <a name="listing-tasks"></a>
+
+To see a list of all your tasks, simply enter:
+
+```plaintext
+list
+```
+
+
+## 4. Marking Tasks <a name="marking-tasks"></a>
+
+You can mark tasks as done or undone using the following commands:
+
+- To mark a task as done, use:
+
+```plaintext
+mark [task index]
+```
+
+Replace `[task index]` with the index of the task you want to mark as done.
+
+- To mark a task as not done (undone), use:
+
+```plaintext
+unmark [task index]
+```
+
+Replace `[task index]` with the index of the task you want to mark as not done.
+
+## 5. Deleting Tasks <a name="deleting-tasks"></a>
+
+You can delete a task from your list using the following command:
+
+```plaintext
+delete [task index]
+```
+
+Replace `[task index]` with the index of the task you want to delete.
+
+## 6. Searching for Tasks <a name="searching-for-tasks"></a>
+
+To search for tasks containing a specific keyword, use the following command:
+
+```plaintext
+find [keyword]
+```
+
+Replace `[keyword]` with the keyword you want to search for. Duke will display a list of tasks matching your keyword.
+
+## 7. Exiting Duke <a name="exiting-duke"></a>
+
+To exit Duke, simply enter:
+
+```plaintext
+bye
+```
+
+Duke will bid you farewell and close.
