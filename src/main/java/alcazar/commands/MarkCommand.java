@@ -47,7 +47,7 @@ public class MarkCommand extends Command {
         storage.writeUp(tasks);
 
         String result = "Nice! I've marked this task as done:\n"
-                        + tasks.elementAt(intIndexOfElementToMark - 1) + "\n";
+                + tasks.elementAt(intIndexOfElementToMark - 1) + "\n";
         return new Response(result, this.isExit());
     }
 

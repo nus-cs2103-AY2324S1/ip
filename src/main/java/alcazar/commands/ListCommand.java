@@ -20,7 +20,7 @@ public class ListCommand extends Command {
             TaskList tasks, Storage storage) {
 
         String result = "Here are the tasks in your list:\n"
-                        + tasks.getTasks();
+                + tasks.getTasks();
         return new Response(result, this.isExit());
     }
 

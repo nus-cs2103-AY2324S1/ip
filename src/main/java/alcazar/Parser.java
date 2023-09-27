@@ -1,6 +1,16 @@
 package alcazar;
 
-import alcazar.commands.*;
+import alcazar.commands.AddDeadlineCommand;
+import alcazar.commands.AddEventCommand;
+import alcazar.commands.AddToDoCommand;
+import alcazar.commands.ChangeDataSource;
+import alcazar.commands.Command;
+import alcazar.commands.DeleteCommand;
+import alcazar.commands.ExitCommand;
+import alcazar.commands.FindCommand;
+import alcazar.commands.ListCommand;
+import alcazar.commands.MarkCommand;
+import alcazar.commands.UnmarkCommand;
 import alcazar.exceptions.AlcazarException;
 import alcazar.exceptions.InvalidArgumentException;
 import alcazar.exceptions.InvalidSerialException;

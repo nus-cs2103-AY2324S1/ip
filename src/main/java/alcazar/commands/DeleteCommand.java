@@ -50,8 +50,8 @@ public class DeleteCommand extends Command {
         storage.writeUp(tasks);
 
         String result = "Noted. I've removed this task:\n" + "  "
-                        + deletedTask + "\nNow you have " + tasks.size()
-                        + " tasks in the list\n";
+                + deletedTask + "\nNow you have " + tasks.size()
+                + " tasks in the list\n";
         return new Response(result, this.isExit());
     }
 

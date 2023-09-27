@@ -31,14 +31,14 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public Response execute(TaskList tasks,
-                          Storage storage) throws InvalidArgumentException {
+                            Storage storage) throws InvalidArgumentException {
         String commandContents = this.getCommandContent();
         String[] deadlineContents = this.extractDeadlineContents(commandContents);
         tasks.add(new Deadline(deadlineContents[0], deadlineContents[1]));
         storage.writeUp(tasks);
         String result = "Got it. I've added this task:\n "
-                        + tasks.elementAt(tasks.size() - 1) + "\n"
-                        + "Now you have " + tasks.size() + " tasks in the list\n";
+                + tasks.elementAt(tasks.size() - 1) + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list\n";
         return new Response(result, this.isExit());
     }
 

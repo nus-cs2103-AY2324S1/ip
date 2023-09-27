@@ -1,5 +1,7 @@
 package alcazar;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -23,10 +25,15 @@ public class Storage {
     Storage(String filePath) {
 
         this.filePath = filePath;
-        try {
-            printTasks();
-        } catch (FileNotFoundException e) {
-            System.out.println("Error loading file");
+        File file = new File(filePath);
+        if (!file.exists()) {
+            try {
+                file.getParentFile().mkdirs();
+                FileWriter writer = new FileWriter(file);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 
@@ -35,12 +42,13 @@ public class Storage {
      * @throws FileNotFoundException It is thrown in a situation where the file
      *      does not exist at the given filePath
      */
-    public void printTasks() throws FileNotFoundException {
+    public String printTasks() throws FileNotFoundException {
         File f = new File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()) {
             System.out.println(s.nextLine());
         }
+        return "";
     }
 
     /**

@@ -38,8 +38,8 @@ public class AddToDoCommand extends Command {
         storage.writeUp(tasks);
 
         String result = "Got it. I've added this task:\n "
-                        + tasks.elementAt(tasks.size() - 1) + "\n"
-                        + "Now you have " + tasks.size() + " tasks in the list\n";
+                + tasks.elementAt(tasks.size() - 1) + "\n"
+                + "Now you have " + tasks.size() + " tasks in the list\n";
         return new Response(result, this.isExit());
     }
 

@@ -3,9 +3,11 @@ package alcazar.commands;
 import alcazar.Response;
 import alcazar.Storage;
 import alcazar.TaskList;
-import alcazar.exceptions.AlcazarException;
 import alcazar.exceptions.InvalidArgumentException;
 
+/**
+ * Encapsulates a change of data source
+ */
 public class ChangeDataSource extends Command {
     private String inputPrompt;
 

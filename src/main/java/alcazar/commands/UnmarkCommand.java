@@ -47,7 +47,7 @@ public class UnmarkCommand extends Command {
         storage.writeUp(tasks);
 
         String result = "OK, I've marked this task as not done yet:\n"
-                        + tasks.elementAt(intIndexOfElementToUnmark - 1) + "\n";
+                + tasks.elementAt(intIndexOfElementToUnmark - 1) + "\n";
         return new Response(result, this.isExit());
     }
 

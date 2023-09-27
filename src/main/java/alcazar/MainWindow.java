@@ -24,15 +24,15 @@ public class MainWindow extends AnchorPane {
 
     private Alcazar alcazar;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/master.png"));
-    private Image alcazarImage = new Image(this.getClass().getResourceAsStream("/images/Alcazar.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/Images/master.png"));
+    private Image alcazarImage = new Image(this.getClass().getResourceAsStream("/Images/Alcazar.png"));
 
     @FXML
     public void initialize() {
         MainWindow.isExit = false;
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(
-            "Greetings my master! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
+                "Greetings my master! I'm Alcazar\n" + " What can I do for you?", alcazarImage));
 
     }
 

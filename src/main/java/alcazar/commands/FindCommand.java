@@ -34,7 +34,7 @@ public class FindCommand extends Command {
         String wordToSearch = this.getCommandContent();
 
         String result = "Here are the matching tasks in your list:\n"
-                        + tasks.printEquals(wordToSearch);
+                + tasks.printEquals(wordToSearch);
         return new Response(result, this.isExit());
     }
 
