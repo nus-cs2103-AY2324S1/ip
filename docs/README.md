@@ -14,6 +14,13 @@ Don't worry, your personal assistant Leon is here to help! Some features include
 And the best part? When you exit the chatbot, your tasks will be saved so you can come back to it later! How cool is
 that?? 🤪
 
+## Note for Linux Users:
+
+Please run the following commands in your terminal to install JDK 11 and OpenJFX respectively:
+
+`sudo apt-get install openjdk-11-jdk`
+`sudo apt install openjfx`
+
 ## Features
 
 ### Task, ToDo, Deadline, Event
@@ -337,8 +344,7 @@ A: Before you create a Task, you may wish to execute the `list` command and make
 of the same name, especially if it was saved from a previous session. In the case of Deadlines and Events, please check
 that your date and time inputs are of the form `YYYY-MM-DD` and `HH:MM` respectively.
 
-**Q: When I run the `find` command, I can't see the list of tasks with the keyword, even though I typed it correctly.
-** <br>
+**Q: When I run the `find` command, I can't see the list of tasks with the keyword, even though I typed it correctly.** <br>
 A: Currently, the keyword is case-sensitive, i.e. the keyword `finish` will correctly return a task
 named `finish assignment`, but the keyword `Finish` will return nothing. We are working on allowing non-case-sensitive
 inputs in a future update to enhance the user experience.
