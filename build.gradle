@@ -34,7 +34,7 @@ test {
 }
 
 shadowJar {
-    archiveFileName = 'Rua.jar'
+    archiveFileName = 'rua.jar'
 }
 
 application {

@@ -150,7 +150,7 @@ Format: `clearTag INDEX` <br>
 Example of usage:
 + `clearTag 2`: This will remove all tags from the 2nd task in the task list. <br>
 
-### Searching Tasks based on date
+### Searching Tasks based on date: `date`
 
 Searches the tasks which happens on the a given date. <br>
 
@@ -163,7 +163,7 @@ that day.
 Example of usage:
 + `date 2023-10-01`: This will search all tasks that happen on 1st October 2023. <br>
 
-### Searching Tasks based on keywords
+### Searching Tasks based on keywords: `find`
 
 Searches the tasks whose description contains the keywords. <br>
 
@@ -175,7 +175,7 @@ Format: `find KEYWORD` <br>
 Example of usage:
 + `find assignment`: This will search all tasks that contains 'assignment' in their descriptions. <br>
 
-### Listing all tasks
+### Listing all tasks: `list`
 
 Lists all the tasks in the task list. <br>
 
@@ -187,7 +187,7 @@ The round bracket will not appear for Todo task since it does not have any stric
 Example of usage:
 + `list`: This will list all tasks in the task list. <br>
 
-### Clearing all tasks
+### Clearing all tasks: `clear`
 
 Removes all the tasks from the task list. <br>
 
