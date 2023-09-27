@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("chatterbot.Launcher")
+    mainClass.set("chatterbot.gui.Launcher")
 }
 
 shadowJar {
