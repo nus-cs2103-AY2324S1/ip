@@ -27,7 +27,7 @@ public class DateTimeUtility {
             }
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (DateTimeParseException timeParseError) {
-            throw new DukeException(" Hmmm seems like the date/time format is incorrect; "
+            throw new DukeException("Hmmm seems like the date/time format is incorrect; "
                     + "take a look at the valid format: d/M/yyyy HHmm");
         }
     }

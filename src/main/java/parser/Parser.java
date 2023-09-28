@@ -103,7 +103,7 @@ public class Parser {
         case "schedule":
             if (inputParts.length < 2 || !inputParts[1].contains("/on")) {
                 throw new DukeException(" Provide the date in the format:\n"
-                        + " schedule /on dd/MM/yyyy");
+                        + " schedule /on dd/M/yyyy");
             }
             String dateInput = splitByKeyword(inputParts[1], "/on")[1].trim() + " 0000";
             return new ScheduleCommand(dateInput);

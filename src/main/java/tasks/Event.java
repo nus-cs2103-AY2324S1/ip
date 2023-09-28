@@ -52,8 +52,8 @@ public class Event extends Task {
      * @return true if either the from or to dates match.
      */
     public boolean isOnDate(LocalDateTime date) {
-        return this.from.toLocalDate().compareTo(date.toLocalDate()) == 0
-                || this.to.toLocalDate().compareTo(date.toLocalDate()) == 0;
+        return !date.toLocalDate().isBefore(this.from.toLocalDate())
+                && !date.toLocalDate().isAfter(this.to.toLocalDate());
     }
 
     /**

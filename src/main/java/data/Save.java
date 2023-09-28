@@ -40,7 +40,7 @@ public class Save {
                 }
             }
         } catch (IOException e) {
-            throw new DukeException("Well, the bad news is that the Tasks could not be saved: " + e.getMessage());
+            throw new DukeException("Well, the bad news is that the Tasks could not be saved:\n " + e.getMessage());
         }
     }
 
@@ -65,26 +65,47 @@ public class Save {
                         tasks.add(task);
                     }
                 } catch (DukeException ohno) {
-                    System.out.println("Ok, so I cannot parse this: " + ohno.getMessage());
+                    System.out.println("Ok, so I cannot parse this:\n " + ohno.getMessage());
                 }
             }
         } catch (IOException e) {
-            System.out.println("Hey, I cannot read this: " + e.getMessage());
+            System.out.println("Hey, I cannot read this:\n " + e.getMessage());
         }
         return tasks;
     }
 
     /**
-     * Saves the list of tasks to a archive.txt.
+     * Saves the list of tasks to ARCHIVE_FILE_PATH.
      *
      * @param tasks List of tasks to be saved.
      */
     public void archiveTasks(ArrayList<Task> tasks) throws DukeException {
         saveTasks(tasks, ARCHIVE_FILE_PATH);
+        emptyFile(FILE_PATH);
     }
 
+    /**
+     * Saves the list of tasks to FILE_PATH.
+     *
+     * @param tasks List of tasks to be saved.
+     */
     public void saveToDefault(ArrayList<Task> tasks) throws DukeException {
         saveTasks(tasks, FILE_PATH);
+    }
+
+    /**
+     * Empties the specified file.
+     *
+     * @param destination the filepath.
+     */
+    private void emptyFile(String destination) {
+        try {
+            FileWriter fw = new FileWriter(destination, false);
+            fw.write("");
+            fw.close();
+        } catch (IOException e) {
+            System.out.println(" Damn, can't empty this file:\n " + e.getMessage());
+        }
     }
 
     /**
