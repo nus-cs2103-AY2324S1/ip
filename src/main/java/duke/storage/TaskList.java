@@ -27,24 +27,27 @@ public class TaskList {
 
     /**
     * execute the clear command
+    *
+    * @return the bot response
     */
-    public void clear() {
+    public String clear() {
         taskList.clear();
         Storage.save(taskList);
-        Ui.print("Okay, I have cleared all tasks.");
+        return Ui.print("Okay, I have cleared all tasks.");
     }
 
     /**
     * execute the delete command
     *
     * @param num the index of the task the user want to delete
+    * @return the bot response
     */
-    public void delete(int num) {
-        String[] messageList = {"I've removed this task:", taskList.get(num - 1).getStatus()};
-        Ui.print(messageList);
+    public String delete(int num) {
+        String[] messageList = {"I've removed this task:", taskList.get(num - 1).getStatus(), 
+                                "Current # of " + plural(taskList.size() - 1, "task") + ": " + (taskList.size() - 1)};
         taskList.remove(num - 1);
         Storage.save(taskList);
-        Ui.print("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size());
+        return Ui.print(messageList);
     }
 
     /**
@@ -52,63 +55,75 @@ public class TaskList {
     *
     * @param num the index of the task the user want to mark
     * @param isDone a boolean value that indicated whether the task is done or not
+    * @return the bot response
     */
-    public void mark(int num, boolean isDone) {
-        taskList.get(num - 1).markItem(isDone);
+    public String mark(int num, boolean isDone) {
+        String message = taskList.get(num - 1).markItem(isDone);
         Storage.save(taskList);
+        return message;
     }
 
     /**
     * execute find command by printing task with corresponding keyword
     *
     * @param keyword the keyword to search for in the tasks
+    * @return the bot response
     */
-    public void find(String keyword) {
+    public String find(String keyword) {
         int index = 1;
+        String message = "";
         for (Task task: taskList) {
             if(task.getTask().contains(keyword)) {
-                System.out.println(index + ". " + task.getStatus());
+                message = message + (index + ". " + task.getStatus()) + "\n";
                 index ++;
             }
         }
         index -= 1;
         if (index == 0) {
-            Ui.print("There is no task with keyword: " + keyword);
+            return Ui.print("There is no task with keyword: " + keyword);
         } else {
-            Ui.print("Current # of " + plural(index, "task") + " with " + keyword + ": " + index);
+            message = message + ("Current # of " + plural(index, "task") + " with " + keyword + ": " + index);
+            return Ui.print(message);
         }
     }
 
     /**
     * execute print command by printing all tasks
+    *
+    * @return the bot response
     */
-    public void print() {
+    public String print() {
         int index = 1;
+        String message = "";
         for (Task task: taskList) {
-            System.out.println(index + ". " + task.getStatus());
+            message = message + (index + ". " + task.getStatus()) + "\n";
             index ++;
         }
-        Ui.print("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size());
+        message = message + ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size());
+        return Ui.print(message);
     }
 
     /**
     * execute the print command by printing task with given time
     *
     * @param time the time of tasks the user want to see
+    * @return the bot response
     */
-    public void print(String time) {
+    public String print(String time) {
         int index = 1;
+        String message = "";
         for (Task task: taskList) {
             if(task.getTime() != null && task.getTime().contains(time)) {
-                System.out.println(index + ". " + task.getStatus());
+                message = message + (index + ". " + task.getStatus()) + "\n";
                 index ++;
             }
         }
         index -= 1;
         if (index == 0) {
-            Ui.print("There is no task at " + time);
+            return Ui.print("There is no task at " + time);
         } else {
-            Ui.print("Current # of " + plural(index, "task") + " at " + time + ": " + index);
+            message = message + ("Current # of " + plural(index, "task") + " at " + time + ": " + index);
+            return Ui.print(message);
         }
     }
 
@@ -116,14 +131,15 @@ public class TaskList {
     * execute the add command
     *
     * @param input the task to add to the taskList
+    * @return the bot response
     */
-    public void add(Task input) {
+    public String add(Task input) {
         taskList.add(input);
         Storage.save(taskList);
         String[] messageList = {("Got it! This task has been added: "), 
                                 (input.getStatus()), 
                                 ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
-        Ui.print(messageList);
+        return Ui.print(messageList);
     }
 
     public void addTest(Task input) {

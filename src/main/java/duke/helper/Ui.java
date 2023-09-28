@@ -1,45 +1,49 @@
 package duke.helper;
 
 public class Ui {
-    private static final String PARTITION = "------------------------------------------------------------";
     private static final String NAME = "Duke Max";
 
     /**
     * construct the UI class
+    *
+    * @return the bot greeting message
     */
-    public static void greet() {
-        System.out.println(PARTITION);
+    public static String greet() {
         String[] messageList = {("Hello! I'm " + NAME + "."), ("What can I do for you?")};
-        print(messageList);
+        return print(messageList);
     }
 
     /**
     * executes the exit command and prints the exit message
+    *
+    * @return the bot response
     */
-    public static void exit() {
-        print("Bye. Hope to see you again soon!");
+    public static String exit() {
+        return print("Bye. Hope to see you again soon!");
     }
 
     /**
     * print the given message
     *
     * @param message the message to be printed
+    * @return the message input
     */
-    public static void print(String message) {
-        System.out.println(message);
-        System.out.println(PARTITION);
+    public static String print(String message) {
+        return message;
     }
 
     /**
     * print an array of list in order
     *
     * @param messageList the array of messages to be printed
+    * @return the message inputs with line breaks
     */
-    public static void print(String[] messageList) {
-        for (String message: messageList) {
-            System.out.println(message);
+    public static String print(String[] messageList) {
+        String response = messageList[0] + "\n";
+        for (int i = 1; i < messageList.length; i++) {
+            response = response + messageList[i] + "\n";
         }
-        System.out.println(PARTITION);
+        return response;
     }
 }
 
