@@ -18,7 +18,6 @@ public class Ui {
     public String displayWelcomeMessage() {
         return "Hello! I'm Sivraj\n" + "What can I do for you?";
     }
-    String dashLine = "----------------------------------------\n";
 
     /**
      * Displays the message after a todo command is executed.
@@ -94,10 +93,10 @@ public class Ui {
     public String displayListMessage(TaskList taskList) {
         String s = "";
         for (int i = 0; i < taskList.listSize(); i++) {
-            s = s + "\n      " + (i + 1) + "." + taskList.getTask(i);
+            s = s + "\n" + (i + 1) + "." + taskList.getTask(i);
         }
         return DASH_LINE +
-                "    Here are the tasks in your list:" + "\n" +
+                "Here are the tasks in your list:" + "\n" +
                 s + "\n" + DASH_LINE;
     }
 
