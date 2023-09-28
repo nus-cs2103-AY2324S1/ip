@@ -14,14 +14,30 @@ import java.util.Scanner;
  */
 public class Storage {
     private String filePath;
+    private static final String DIRECTORY_PATH = "./data";
+    private static final String FILE_PATH = "./data/duke.txt";
 
-    public Storage(String filePath) {
-        this.filePath = filePath;
+    public Storage() {
+
+        File dataDirectory = new File(DIRECTORY_PATH);
+        File dataFile = new File(FILE_PATH);
+
+        if (!dataDirectory.exists()) {
+            dataDirectory.mkdir();
+        }
+
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException e) {
+                System.out.println("Error creating a new file:" + e);
+            }
+        }
     }
 
     public void appendTasksToFile(TaskList taskList)
             throws IOException {
-        FileWriter fw = new FileWriter(filePath);
+        FileWriter fw = new FileWriter(FILE_PATH);
         for (int i = 0; i < taskList.listSize(); i++) {
             Task task = taskList.getTask(i);
             fw.write(task.toFileString() + System.lineSeparator());
@@ -31,7 +47,7 @@ public class Storage {
 
     public ArrayList<Task> loadPreviousTasks()
             throws FileNotFoundException {
-        File f = new File(filePath);
+        File f = new File(FILE_PATH);
         Scanner s = new Scanner(f);
         ArrayList<Task> tasks = new ArrayList<>();
         while (s.hasNext()) {

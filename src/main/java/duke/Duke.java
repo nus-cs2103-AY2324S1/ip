@@ -9,14 +9,14 @@ public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-    private static final String FILE_PATH = "./data/duke.txt";
+
 
     /**
      * Initialises a new Duke instance.
      */
     public Duke() {
         ui = new Ui();
-        storage = new Storage(FILE_PATH);
+        storage = new Storage();
         try {
             taskList = new TaskList(storage.loadPreviousTasks());
         } catch (FileNotFoundException e) {

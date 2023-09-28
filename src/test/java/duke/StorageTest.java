@@ -6,7 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StorageTest {
 
-    private Storage storage = new Storage("");
+    private Storage storage = new Storage();
+
 
     @Test
     public void parseTaskFromLine_validToDoData_returnsToDoTask() throws DukeException {
