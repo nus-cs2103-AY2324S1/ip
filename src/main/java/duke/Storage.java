@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from the file and saving tasks
+ * in the file.
+ */
 public class Storage {
     private String filePath;
 
@@ -55,27 +59,13 @@ public class Storage {
 
         switch (taskType) {
         case 'T':
-            ToDo toDoTask = new ToDo(description, taskType);
-            if (isDone) {
-                toDoTask.markAsDone();
-            } else {
-                toDoTask.markAsNotDone();
-            }
-            return toDoTask;
-
+            return parseToDoTask(description, taskType, isDone);
         case 'D':
             if (parts.length < 4) {
                 throw new DukeException("Invalid data format for a deadline task");
             }
             String deadlineBy = parts[3];
-            Deadline deadlineTask = new Deadline(description, deadlineBy, taskType);
-            if (isDone) {
-                deadlineTask.markAsDone();
-            } else {
-                deadlineTask.markAsNotDone();
-            }
-            return deadlineTask;
-
+            return parseDeadlineTask(description, deadlineBy, taskType, isDone);
         case 'E':
             if (parts.length < 4) {
                 throw new DukeException("Invalid data format for an event task.");
@@ -83,17 +73,42 @@ public class Storage {
             String[] eventParts = parts[3].split("-");
             String eventFrom = eventParts[0];
             String eventTo = eventParts[1];
-            Event eventTask = new Event(description, eventFrom, eventTo, taskType);
-            if (isDone) {
-                eventTask.markAsDone();
-            } else {
-                eventTask.markAsNotDone();
-            }
-            return eventTask;
-
+            return parseEventTask(description, eventFrom, eventTo, taskType, isDone);
         default:
             throw new DukeException("Invalid task type in data file.");
         }
+    }
+
+    private Task parseToDoTask(String description, char taskType, boolean isDone) {
+        ToDo toDoTask = new ToDo(description, taskType);
+        if (isDone) {
+            toDoTask.markAsDone();
+        } else {
+            toDoTask.markAsNotDone();
+        }
+        return toDoTask;
+    }
+
+    private Task parseDeadlineTask(String description, String deadlineBy,
+            char taskType, boolean isDone) {
+        Deadline deadlineTask = new Deadline(description, deadlineBy, taskType);
+        if (isDone) {
+            deadlineTask.markAsDone();
+        } else {
+            deadlineTask.markAsNotDone();
+        }
+        return deadlineTask;
+    }
+
+    private Task parseEventTask(String description, String eventFrom, String eventTo,
+            char taskType, boolean isDone) {
+        Event eventTask = new Event(description, eventFrom, eventTo, taskType);
+        if (isDone) {
+            eventTask.markAsDone();
+        } else {
+            eventTask.markAsNotDone();
+        }
+        return eventTask;
     }
 
 
