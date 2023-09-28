@@ -12,9 +12,12 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.ToDo;
 
+/**
+ * Parser class for taking in user input and analyzing it
+ */
 public class Parser {
     private static TaskList taskList;
-    
+
     /**
     * initializes the task list
     *
@@ -33,30 +36,30 @@ public class Parser {
     public static String parse(String input) throws DukeException {
         String command = input.split("\\s")[0].toUpperCase();
         String content = input.replace(input.split("\\s")[0], "");
-        switch(command){
-            case "BYE":
-                return parseBye(content);
-            case "CLEAR":
-                return parseClear(content);
-            case "DELETE":
-                return parseDelete(content);
-            case "MARK":
-                return parseMark(content);
-            case "UNMARK":
-                return parseUnmark(content);
-            case "FIND":
-                return parseFind(content);
-            case "PRINT":
-                return parsePrint(content);
-            case "TODO":
-                return parseTodo(content);  
-            case "EVENT":
-                return parseEvent(content);
-            case "DEADLINE":
-                return parseDeadline(content); 
-            default:
-                throw new DukeException("Sorry, I don't recognize this command. Please try again.");
-        }  
+        switch(command) {
+        case "BYE":
+            return parseBye(content);
+        case "CLEAR":
+            return parseClear(content);
+        case "DELETE":
+            return parseDelete(content);
+        case "MARK":
+            return parseMark(content);
+        case "UNMARK":
+            return parseUnmark(content);
+        case "FIND":
+            return parseFind(content);
+        case "PRINT":
+            return parsePrint(content);
+        case "TODO":
+            return parseTodo(content);
+        case "EVENT":
+            return parseEvent(content);
+        case "DEADLINE":
+            return parseDeadline(content);
+        default:
+            throw new DukeException("Sorry, I don't recognize this command. Please try again.");
+        }
     }
 
     /**
@@ -71,7 +74,6 @@ public class Parser {
         } else {
             throw new DukeException("The clear command will clear all stored tasks, please try again.");
         }
-        
     }
 
     /**
@@ -208,23 +210,22 @@ public class Parser {
     */
     private static String parseEvent(String content) throws DukeException {
         //when user didn't provide title and start & end time
-        if (content.isBlank() || content.isEmpty() 
-        || !content.contains(" /from ") || !content.contains(" /to ") || content == null) {
+        if (content.isBlank() || content.isEmpty()
+            || !content.contains(" /from ") || !content.contains(" /to ") || content == null) {
             throw new DukeException("Sorry, this event must have a title, start time, and end time.");
         }
         String[] event = new String[3];
         try {
             event[0] = content.substring(1, content.indexOf(" /"));
-            event[1] = content.substring(content.indexOf("/from") + 6, 
+            event[1] = content.substring(content.indexOf("/from") + 6,
             content.indexOf(" /to"));
             event[2] = content.substring(content.indexOf("/to") + 4);
-        }
-        catch (StringIndexOutOfBoundsException e) {
+        } catch (StringIndexOutOfBoundsException e) {
             return ("Sorry, this event must have a title, start time, and end time.");
         }
         //when user provide empty title
         if (event[0].isBlank() || event[0].isEmpty() || event[0] == null) {
-             throw new DukeException("Sorry, the event must have a title.");
+            throw new DukeException("Sorry, the event must have a title.");
         }
         //when user didn't provide the starting time
         if (event[1].isBlank() || event[1].isEmpty() || event[1] == null) {
@@ -257,8 +258,7 @@ public class Parser {
         String[] ddl = new String[2];
         try {
             ddl = content.split(" /by ");
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             return "Sorry, this deadline task must have a title and a deadline.";
         }
         //when user provide empty title
@@ -308,6 +308,12 @@ public class Parser {
         }
     }
 
+    /**
+    * dummy method for testing parse
+    *
+    * @param input the user input
+    * @return the detected command
+    */
     public static String parseTest(String input) throws DukeException {
         String testCommand = input.split("\\s")[0].toUpperCase();
         return testCommand;

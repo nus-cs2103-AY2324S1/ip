@@ -1,5 +1,8 @@
 package duke.helper;
 
+/**
+ * Duke Exception class
+ */
 public class DukeException extends Exception {
 
     /**
@@ -10,7 +13,7 @@ public class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
     }
-    
+
     /**
     * returns the detail message of this throwable
     *
@@ -27,8 +30,7 @@ public class DukeException extends Exception {
     * @return the message of the exception
     */
     @Override
-    public String toString()
-    {
+    public String toString() {
         return ":( Oh no! " + super.getMessage();
     }
 }

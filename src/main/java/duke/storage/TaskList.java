@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import duke.helper.Ui;
 import duke.tasks.Task;
 
+/**
+ * TskList that runs task-related commands and stores task in an arrayList.
+ */
 public class TaskList {
     private static ArrayList<Task> taskList;
 
@@ -43,8 +46,8 @@ public class TaskList {
     * @return the bot response
     */
     public String delete(int num) {
-        String[] messageList = {"I've removed this task:", taskList.get(num - 1).getStatus(), 
-                                "Current # of " + plural(taskList.size() - 1, "task") + ": " + (taskList.size() - 1)};
+        String taskNumber = "Current # of " + plural(taskList.size() - 1, "task") + ": " + (taskList.size() - 1);
+        String[] messageList = {"I've removed this task:", taskList.get(num - 1).getStatus(), taskNumber};
         taskList.remove(num - 1);
         Storage.save(taskList);
         return Ui.print(messageList);
@@ -73,9 +76,9 @@ public class TaskList {
         int index = 1;
         String message = "";
         for (Task task: taskList) {
-            if(task.getTask().contains(keyword)) {
+            if (task.getTask().contains(keyword)) {
                 message = message + (index + ". " + task.getStatus()) + "\n";
-                index ++;
+                index++;
             }
         }
         index -= 1;
@@ -97,7 +100,7 @@ public class TaskList {
         String message = "";
         for (Task task: taskList) {
             message = message + (index + ". " + task.getStatus()) + "\n";
-            index ++;
+            index++;
         }
         message = message + ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size());
         return Ui.print(message);
@@ -113,9 +116,9 @@ public class TaskList {
         int index = 1;
         String message = "";
         for (Task task: taskList) {
-            if(task.getTime() != null && task.getTime().contains(time)) {
+            if (task.getTime() != null && task.getTime().contains(time)) {
                 message = message + (index + ". " + task.getStatus()) + "\n";
-                index ++;
+                index++;
             }
         }
         index -= 1;
@@ -136,17 +139,19 @@ public class TaskList {
     public String add(Task input) {
         taskList.add(input);
         Storage.save(taskList);
-        String[] messageList = {("Got it! This task has been added: "), 
-                                (input.getStatus()), 
-                                ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
+        String taskNumber = "Current # of " + plural(taskList.size(), "task") + ": " + taskList.size();
+        String[] messageList = {("Got it! This task has been added: "), (input.getStatus()), taskNumber};
         return Ui.print(messageList);
     }
-
+    /**
+    * dummy test method for add command
+    *
+    * @param input the task to add to the taskList
+    */
     public void addTest(Task input) {
         taskList.add(input);
-        String[] messageList = {("Got it! This task has been added: "), 
-                                (input.getStatus()), 
-                                ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
+        String taskNumber = "Current # of " + plural(taskList.size(), "task") + ": " + taskList.size();
+        String[] messageList = {("Got it! This task has been added: "), (input.getStatus()), taskNumber};
         Ui.print(messageList);
     }
 
