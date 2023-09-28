@@ -1,29 +1,52 @@
-# User Guide
+# ReadMe
 
-## Features 
+## Add, Mark & Delete ToDos, Deadlines and Events 
 
-### Feature-ABC
+### ToDos
 
-Description of the feature.
+These are tasks without deadlines, that you can mark or unmark accordingly
 
-### Feature-XYZ
+### Deadlines
 
-Description of the feature.
+These are for tasks that need to be completed by a certain date
+
+### Events
+
+These are for events or projects that last over a period of time
 
 ## Usage
 
-### `Keyword` - Describe action
+### Add
 
-Describe the action and its outcome.
+Add tasks to the list
 
 Example of usage: 
 
-`keyword (optional arguments)`
+`todo <name>`
+`deadline <name> /by <Deadline>`
+`event <name> /from <start> /to <end>`
 
-Expected outcome:
+### List
 
-Description of the outcome.
+see tasks in the list
 
-```
-expected output
-```
+Example of usage: 
+
+`list`
+
+### Mark
+
+Mark a task as done
+
+Example of usage: 
+
+`mark <index of task>`
+
+### Unmark
+
+Unmark a task
+
+Example of usage: 
+
+`unmark <index of task>`
+
