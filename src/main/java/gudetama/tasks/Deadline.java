@@ -37,13 +37,38 @@ public class Deadline extends Task {
     }
 
     /**
+     * Constructor for Deadline
+     * @param description Description of the deadline to be added
+     * @param date Due date for the task
+     * @param done Boolean value that represents if the task is done
+     */
+    public Deadline(String description, String date, String done) {
+        super(description);
+        this.date = date;
+
+        if(done.equals("false")){
+            this.isDone = false;
+        } else {
+            this.isDone = true;
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                    "dd-MM-yyyy HH:mm:ss");
+            formattedDate = LocalDateTime.parse(this.date, formatter);
+        } catch (DateTimeException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    /**
      * Returns the formatted string representation of the deadline
      * @return Formatted string representation of the deadline
      */
     @Override
     public String store() {
         return String.format("D | %s | %s | %s", this.isDone, this.description,
-                formattedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+                formattedDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")));
     }
 
     /**

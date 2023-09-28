@@ -100,7 +100,7 @@ public class Parser {
             return new EventCommand(description, from, to);
         } else if (command.split(" ")[0].equals("deadline")) {
             String description = command.split("deadline")[1].split("/by")[0].trim();
-            String date = command.split("by")[1].trim();
+            String date = command.split("/by")[1].trim();
             return new DeadlineCommand(description, date);
         } else if (command.equals("list")) {
             return new ListCommand();

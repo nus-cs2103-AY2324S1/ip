@@ -3,7 +3,6 @@ package gudetama.storage;
 import java.io.*;
 import java.util.ArrayList;
 
-import gudetama.exceptions.DukeException;
 import gudetama.tasks.Task;
 import gudetama.tasks.TaskList;
 import gudetama.tasks.Todo;
@@ -70,15 +69,15 @@ public class Storage {
                 String task = line.split(" ")[0];
                 String[] description = line.split("\\|");
 
-                if (task == "T"){
-                    Todo todo = new Todo(description[1]);
+                if (task.equals("T")){
+                    Todo todo = new Todo(description[2].trim(), description[1].trim());
                     taskList.add(todo);
-                } else if (task == "D"){
-                    Deadline deadline = new Deadline(description[1], description[2]);
+                } else if (task.equals("D")){
+                    Deadline deadline = new Deadline(description[2].trim(), description[3].trim(), description[1].trim());
                     taskList.add(deadline);
-                } else if (task == "E"){
-                    String date[] = line.split("-");
-                    Event event = new Event(description[1], description[2], date[1]);
+                } else if (task.equals("E")){
+                    String date[] = description[3].trim().split("to");
+                    Event event = new Event(description[2].trim(), date[0].trim(), date[1].trim(), description[1].trim());
                     taskList.add(event);
                 }
                 line = reader.readLine();
