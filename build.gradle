@@ -49,6 +49,7 @@ test {
 
 application {
     mainClass.set("Duke")
+    mainClassName = 'duke.Main'
 }
 
 shadowJar {

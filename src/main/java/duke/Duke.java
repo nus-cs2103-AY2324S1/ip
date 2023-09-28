@@ -7,7 +7,6 @@ import duke.helper.Parser;
 import duke.helper.Ui;
 import duke.storage.Storage;
 import duke.storage.TaskList;
-import javafx.scene.web.HTMLEditorSkin.Command;
 
 public class Duke {
     public static final Scanner SCANNER = new Scanner(System.in);
