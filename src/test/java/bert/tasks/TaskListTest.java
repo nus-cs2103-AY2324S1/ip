@@ -18,9 +18,9 @@ public class TaskListTest {
                 LocalDate.of(2001, 1, 1),
                 LocalDate.of(2001, 1, 2)
         ));
-        assertEquals("[T][ ] test todo\n" +
-                "[D][ ] test deadline (by: JAN 01 2001)\n" +
-                "[E][ ] test event (from: JAN 01 2001 to: JAN 02 2001)\n",
+        assertEquals("1.[T][ ] test todo" + System.lineSeparator()
+                + "2.[D][ ] test deadline (by: Jan 01 2001)" + System.lineSeparator()
+                + "3.[E][ ] test event (from: Jan 01 2001 to: Jan 02 2001)" + System.lineSeparator(),
                 tasks.toString());
     }
 
@@ -44,10 +44,10 @@ public class TaskListTest {
         assertEquals("[T][X] test todo", todo.toString());
 
         Task deadline = tasks.mark(1);
-        assertEquals("[D][X] test deadline (by: JAN 01 2001)", deadline.toString());
+        assertEquals("[D][X] test deadline (by: Jan 01 2001)", deadline.toString());
 
         Task event = tasks.mark(2);
-        assertEquals("[E][X] test event (from: JAN 01 2001 to: JAN 02 2001)", event.toString());
+        assertEquals("[E][X] test event (from: Jan 01 2001 to: Jan 02 2001)", event.toString());
     }
 
     @Test
