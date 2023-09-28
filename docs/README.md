@@ -28,7 +28,7 @@ Welcome to Snake CYQJ, your personal task manager! This guide will help you get 
 
 1. Download Java 11 from [here](https://www.oracle.com/sg/java/technologies/javase/jdk11-archive-downloads.html).
 2. Download the latest jar file from the [Releases tab](https://github.com/freshcabbage123/ip/releases).
-3. Run with `java -jar Duke.jar` from your terminal.
+3. Run with `java -jar duke.jar` from your terminal.
 
 
 ## Features
@@ -79,7 +79,7 @@ Expected Output:
 
 ```
 Got it. I've added this task: 
-[T][ ] feed snake
+[T][] feed snake
 Now you have 1 task in the list.
 ```
 
@@ -108,7 +108,7 @@ Expected Output:
 
 ```
 Got it. I've added this task:
-[D][ ] feed snake (by: 29-10-2024 00:00)
+[D][] feed snake (by: 29-10-2024 00:00)
 Now you have 1 task in the list.
 ```
 
@@ -139,7 +139,7 @@ Expected Output:
 
 ```
 Got it. I've added this task:
-[E][ ] snake gathering (from: 02-01-2024 10:00 to: 03-01-2024 11:00)
+[E][] snake gathering (from: 02-01-2024 10:00 to: 03-01-2024 11:00)
 Now you have 1 task in the list.
 ```
 
@@ -159,7 +159,7 @@ Expected Output:
 
 ```
 Here are the tasks in your list:
-1.[T][ ] feed snake
+1.[T][] feed snake
 ```
 
 ### 3. Mark/Unmark Tasks as Done
@@ -182,7 +182,7 @@ Suppose the task list as shown by the `list` command is as follows:
 
 ```
 Here are the tasks in your list:
-1.[T][ ] feed snake
+1.[T][] feed snake
 ```
 
 Using the `mark` command:
@@ -228,7 +228,7 @@ Expected Output:
 
 ```
 OK, I've marked this task as not done yet:
-[T][ ] feed snake
+[T][] feed snake
 ```
 
 ### 4. Delete Tasks - `delete`
@@ -255,7 +255,7 @@ Suppose the task list as shown by the `list` command is as follows:
 
 ```
 Here are the tasks in your list:
-1.[T][ ] feed snake
+1.[T][] feed snake
 ```
 
 Using the `delete` command:
@@ -267,7 +267,7 @@ Expected Output:
 
 ```
 Noted. I've removed this task:
-[T][ ] feed snake
+[T][] feed snake
 Now you have 0 tasks in the list.
 ```
 
@@ -293,23 +293,25 @@ Suppose the task list as shown by the `list` command is as follows:
 
 ```
 Here are the tasks in your list:
-1.[T][ ] feed snake
+1.[T][] feed snake
 ```
 
 Using the `find` command:
 
 ```
-find book
+find snake
 ```
 
 Expected Output:
 
 ```
 Here is the 1 matching task in your list:
-1.[T][ ] feed snake
+1.[T][] feed snake
 ```
 
 ### 6. Sort Tasks
+
+This command is not permanent and only for viewing purposes. It does not affect other functions e.g. `list`
 
 #### 6.1. Sort by Chronological Order - `sort`
 
@@ -326,18 +328,18 @@ sort
 Suppose the task list as shown by the `sort` command is as follows:
 
 ```
-1.[D][ ] assignment (by: 09-03-2024 18:00)
-2.[D][ ] oa (by: 08-03-2024 17:00)
-3.[D][ ] submission (by: 01-04-2024 16:00)
+1.[D][] assignment (by: 09-03-2024 18:00)
+2.[D][] oa (by: 08-03-2024 17:00)
+3.[D][] submission (by: 01-04-2024 16:00)
 ```
 
 Expected Output:
 
 ```
 Here are the tasks in your list:
-1.[D][ ] oa (by: 08-03-2024 17:00)
-2.[D][ ] assignment (by: 09-03-2024 18:00)
-3.[D][ ] submission (by: 01-04-2024 16:00)
+1.[D][] oa (by: 08-03-2024 17:00)
+2.[D][] assignment (by: 09-03-2024 18:00)
+3.[D][] submission (by: 01-04-2024 16:00)
 ```
 #### 6.2. Sort by Task Type- `sort by type`
 
@@ -354,21 +356,21 @@ sort by type
 Suppose the task list as shown by the `list` command is as follows:
 
 ```
-1.[D][ ] assignment (by: 09-03-2024 18:00)
-2.[D][ ] oa (by: 08-03-2024 17:00)
-3.[D][ ] submission (by: 01-04-2024 16:00)
-4.[T][ ] collect laundry
-5.[E][ ] wedding dinner (from: 08-09-2024 18:00 to: 08-09-2024 20:00)
+1.[D][] assignment (by: 09-03-2024 18:00)
+2.[D][] oa (by: 08-03-2024 17:00)
+3.[D][] submission (by: 01-04-2024 16:00)
+4.[T][] collect laundry
+5.[E][] wedding dinner (from: 08-09-2024 18:00 to: 08-09-2024 20:00)
 ```
 
 Expected Output:
 
 ```
-1.[T][ ] collect laundry
-2.[D][ ] oa (by: 08-03-2024 17:00)
-3.[D][ ] assignment (by: 09-03-2024 18:00)
-4.[D][ ] submission (by: 01-04-2024 16:00)
-5.[E][ ] wedding dinner (from: 08-09-2024 18:00 to: 08-09-2024 20:00)
+1.[T][] collect laundry
+2.[D][] oa (by: 08-03-2024 17:00)
+3.[D][] assignment (by: 09-03-2024 18:00)
+4.[D][] submission (by: 01-04-2024 16:00)
+5.[E][] wedding dinner (from: 08-09-2024 18:00 to: 08-09-2024 20:00)
 ```
 
 ### 7. Exit - `bye`
