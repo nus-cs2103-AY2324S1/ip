@@ -32,7 +32,7 @@ public class Task {
     * @return a formatted string of the status of the task
     */
     public String getStatus() {
-        String status = "[" + (isDone ? "Yes" : "No") + "]";
+        String status = "[" + (isDone ? "  Complete" : "Not Complete") + "]";
         return status + " " + this.getTask();
     }
 
@@ -44,19 +44,20 @@ public class Task {
     * setter method for the task status
     *
     * @param isDone new status of the tasks
+    * @return the bot response
     */
-    public void markItem(Boolean isDone) {
+    public String markItem(Boolean isDone) {
         this.isDone = isDone;
         if (this.isDone) {
-            String[] messageList = {("Nice! I've marked this task as done:"), 
+            String[] messageList = {("Nice! I've marked this task as complete:"), 
                                     (this.getStatus()), 
                                     ("Here's a lollipop.")};
-            Ui.print(messageList);
+            return Ui.print(messageList);
         } else {
-            String[] messageList = {("OK, I've marked this task as not done yet:"), 
+            String[] messageList = {("OK, I've marked this task as incomplete yet:"), 
                                     (this.getStatus()), 
-                                    ("Undone complete.")};
-            Ui.print(messageList);
+                                    ("Keep up with the good work.")};
+            return Ui.print(messageList);
         }
     }
 
@@ -64,6 +65,12 @@ public class Task {
         return task;
     }
 
+    /**
+    * translate text input to task instance
+    *
+    * @param text record from the txt file
+    * @return a Task instance in accordance to the input text
+    */
     public static Task convertStringToTask(String text) {
         String[] tasks = text.split("\\|");
         String type = tasks[0].trim();

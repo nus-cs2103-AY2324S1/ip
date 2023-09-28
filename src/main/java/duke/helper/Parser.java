@@ -28,41 +28,32 @@ public class Parser {
     * categorises command based on user input
     *
     * @param input the user input
+    * @return the bot response
     */
-    public static void parse(String input) throws DukeException {
+    public static String parse(String input) throws DukeException {
         String command = input.split("\\s")[0].toUpperCase();
         String content = input.replace(input.split("\\s")[0], "");
         switch(command){
             case "BYE":
-                parseBye(content);
-                return;
+                return parseBye(content);
             case "CLEAR":
-                parseClear(content);
-                return;
+                return parseClear(content);
             case "DELETE":
-                parseDelete(content);
-                return;
+                return parseDelete(content);
             case "MARK":
-                parseMark(content);
-                return;
+                return parseMark(content);
             case "UNMARK":
-                parseUnmark(content);
-                return;
+                return parseUnmark(content);
             case "FIND":
-                parseFind(content);
-                return;
+                return parseFind(content);
             case "PRINT":
-                parsePrint(content);
-                return;
+                return parsePrint(content);
             case "TODO":
-                parseTodo(content);  
-                return;              
+                return parseTodo(content);  
             case "EVENT":
-                parseEvent(content);
-                return;
+                return parseEvent(content);
             case "DEADLINE":
-                parseDeadline(content);   
-                return;
+                return parseDeadline(content); 
             default:
                 throw new DukeException("Sorry, I don't recognize this command. Please try again.");
         }  
@@ -72,11 +63,11 @@ public class Parser {
     * executes the bye command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseBye(String content) throws DukeException {
+    private static String parseBye(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
-            Ui.exit();
-            return;
+            return Ui.exit();
         } else {
             throw new DukeException("The clear command will clear all stored tasks, please try again.");
         }
@@ -87,11 +78,11 @@ public class Parser {
     * executes the clear command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseClear(String content) throws DukeException {
+    private static String parseClear(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
-            taskList.clear();
-            return;
+            return taskList.clear();
         } else {
             throw new DukeException("The clear command will clear all stored tasks, please try again.");
         }
@@ -101,8 +92,9 @@ public class Parser {
     * executes the delete command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseDelete(String content) throws DukeException {
+    private static String parseDelete(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Please specify the item number you wish to delete.");
         }
@@ -115,8 +107,7 @@ public class Parser {
         if (deleteItem <= 0 || deleteItem > taskList.size()) {
             throw new DukeException("Please specify the item number you wish to delete.");
         }
-        taskList.delete(deleteItem);
-        return;
+        return taskList.delete(deleteItem);
     }
 
     /**
@@ -124,7 +115,7 @@ public class Parser {
     *
     * @param content the message of the command
     */
-    private static void parseMark(String content) throws DukeException {
+    private static String parseMark(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Please specify the item number you wish to mark.");
         }
@@ -137,16 +128,16 @@ public class Parser {
         if (markItem <= 0 || markItem > taskList.size()) {
             throw new DukeException("Please specify the item number you wish to mark.");
         }
-        taskList.mark(markItem, true);
-        return;
+        return taskList.mark(markItem, true);
     }
 
     /**
     * executes the unmark command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseUnmark(String content) throws DukeException {
+    private static String parseUnmark(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Please specify the item number you wish to unmark.");
         }
@@ -159,33 +150,32 @@ public class Parser {
         if (unmarkItem <= 0 || unmarkItem > taskList.size()) {
             throw new DukeException("Please specify the item number you wish to unmark.");
         }
-        taskList.mark(unmarkItem, false);
-        return;
+        return taskList.mark(unmarkItem, false);
     }
 
     /**
     * executes the find command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseFind(String content) throws DukeException {
+    private static String parseFind(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Please specify the keyword you wish to find.");
         }
         String keyword = content.substring(1);
-        taskList.find(keyword);
-        return;
+        return taskList.find(keyword);
     }
 
     /**
     * executes the print command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parsePrint(String content) throws DukeException {
+    private static String parsePrint(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
-            taskList.print();
-            return;
+            return taskList.print();
         }
         String time = formatTime(content.substring(1));
         if (time == null) {
@@ -193,30 +183,30 @@ public class Parser {
             String messageFormat = "Please enter in the format of yyyy-MM-dd HH:mm:ss or yyyy-MM-dd";
             throw new DukeException(messageSorry + "\n" + messageFormat);
         }
-        taskList.print(time);
-        return;
+        return taskList.print(time);
     }
 
     /**
     * executes the todo command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseTodo(String content) throws DukeException {
+    private static String parseTodo(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Sorry, the todo task must have a title.");
         }
         Task todoTask = new ToDo(content);
-        taskList.add(todoTask);
-        return;
+        return taskList.add(todoTask);
     }
 
     /**
     * executes the event command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseEvent(String content) throws DukeException {
+    private static String parseEvent(String content) throws DukeException {
         //when user didn't provide title and start & end time
         if (content.isBlank() || content.isEmpty() 
         || !content.contains(" /from ") || !content.contains(" /to ") || content == null) {
@@ -230,7 +220,7 @@ public class Parser {
             event[2] = content.substring(content.indexOf("/to") + 4);
         }
         catch (StringIndexOutOfBoundsException e) {
-            System.out.println("Sorry, this event must have a title, start time, and end time.");
+            return ("Sorry, this event must have a title, start time, and end time.");
         }
         //when user provide empty title
         if (event[0].isBlank() || event[0].isEmpty() || event[0] == null) {
@@ -251,16 +241,16 @@ public class Parser {
             throw new DukeException("Please enter the time with this format: yyyy-MM-dd HH:mm:ss");
         }
         Task eventTask = new Event(event[0], startTime, endTime);
-        taskList.add(eventTask);
-        return;
+        return taskList.add(eventTask);
     }
 
     /**
     * executes the deadline command and checks for exceptions
     *
     * @param content the message of the command
+    * @return the bot response
     */
-    private static void parseDeadline(String content) throws DukeException {
+    private static String parseDeadline(String content) throws DukeException {
         if (content.isBlank() || content.isEmpty() || !content.contains(" /by ") || content == null) {
             throw new DukeException("Sorry, the deadline task must have a title and a deadline.");
         }
@@ -269,7 +259,7 @@ public class Parser {
             ddl = content.split(" /by ");
         }
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Sorry, this deadline task must have a title and a deadline.");
+            return "Sorry, this deadline task must have a title and a deadline.";
         }
         //when user provide empty title
         if (ddl[0].isBlank() || ddl[0].isEmpty() || ddl[0] == null) {
@@ -285,14 +275,14 @@ public class Parser {
             throw new DukeException("Please enter the time with this format: yyyy-MM-dd HH:mm:ss");
         }
         Task ddlTask = new Deadline(ddl[0], ddlTime);
-        taskList.add(ddlTask);
-        return;
+        return taskList.add(ddlTask);
     }
 
     /**
     * format date-time string input into another date-time format
     *
     * @param input the message to be translated into another date-time format
+    * @return the reformatted time string
     */
     private static String formatTime(String input) {
         try {
