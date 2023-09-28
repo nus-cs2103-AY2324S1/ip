@@ -2,6 +2,7 @@ package bert.commands;
 
 /**
  * Represents the result of a command after its execution.
+ * Solution below inspired by https://github.com/se-edu/addressbook-level2.
  */
 public class CommandResult {
     private final String feedbackToUser;

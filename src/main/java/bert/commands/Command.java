@@ -5,6 +5,7 @@ import bert.tasks.TaskList;
 
 /**
  * Represent a command that can be executed to produce effects on a task list and storage.
+ * Solution below inspired by https://github.com/se-edu/addressbook-level2.
  */
 public abstract class Command {
     /**

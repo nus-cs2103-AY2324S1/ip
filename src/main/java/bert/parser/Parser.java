@@ -18,6 +18,7 @@ import java.time.LocalDate;
 
 /**
  * Represents a parser that parses user input.
+ * Solution below inspired by https://github.com/se-edu/addressbook-level2.
  */
 public class Parser {
     /**

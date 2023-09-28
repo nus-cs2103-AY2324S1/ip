@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 /**
  * A GUI for Bert using FXML.
+ * Solution below taken from https://se-education.org/guides/tutorials/javaFxPart4.html.
  */
 public class Main extends Application {
 
