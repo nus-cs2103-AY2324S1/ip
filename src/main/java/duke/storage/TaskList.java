@@ -54,7 +54,7 @@ public class TaskList {
     }
 
     /**
-    * execute the mar command
+    * execute the mark command
     *
     * @param num the index of the task the user want to mark
     * @param isDone a boolean value that indicated whether the task is done or not
@@ -137,22 +137,32 @@ public class TaskList {
     * @return the bot response
     */
     public String add(Task input) {
+        String taskDescription = input.getTask();
+        for (Task task: taskList) {
+            if (task.getTask().equals(taskDescription)) {
+                String duplicateWarning = "Oh no! This task already exists.";
+                String[] messageList = {duplicateWarning, task.getStatus(), "Please check your input again."};
+                return Ui.print(messageList);
+            }
+        }
         taskList.add(input);
         Storage.save(taskList);
         String taskNumber = "Current # of " + plural(taskList.size(), "task") + ": " + taskList.size();
         String[] messageList = {("Got it! This task has been added: "), (input.getStatus()), taskNumber};
         return Ui.print(messageList);
     }
+
     /**
     * dummy test method for add command
     *
     * @param input the task to add to the taskList
+    * @return the bot response
     */
-    public void addTest(Task input) {
+    public String addTest(Task input) {
         taskList.add(input);
         String taskNumber = "Current # of " + plural(taskList.size(), "task") + ": " + taskList.size();
         String[] messageList = {("Got it! This task has been added: "), (input.getStatus()), taskNumber};
-        Ui.print(messageList);
+        return Ui.print(messageList);
     }
 
     /**
