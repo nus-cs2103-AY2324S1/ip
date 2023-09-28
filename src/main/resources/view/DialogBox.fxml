@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <StackPane fx:id="outline" >
+            <Rectangle fx:id="rectangle" width="270" fill="lemonchiffon" styleClass="rectangle"/>
+            <StackPane>
+                <Text fx:id="dialog" text="Label" style="-fx-font-family: 'Chalkboard';"
+                      wrappingWidth="265"/>
+                <padding>
+                    <Insets top="10.0" bottom="10.0" left="20.0"/>
+                </padding>
+            </StackPane>
+            <padding>
+                <Insets left="10.0" right="10.0"/>
+            </padding>
+        </StackPane>
+        <StackPane>
+            <Circle radius="50" fill="lightblue" />
+            <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true"
+                       preserveRatio="true" />
+        </StackPane>
+    </children>
+    <padding>
+        <Insets bottom="15.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
