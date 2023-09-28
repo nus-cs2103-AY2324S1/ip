@@ -18,7 +18,7 @@ public class ToDo extends Task {
     */
     @Override
     public String getStatus() {
-        return "[To-Do]" + super.getStatus();
+        return "[T - D]" + super.getStatus();
     }
 
     @Override

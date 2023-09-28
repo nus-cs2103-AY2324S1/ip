@@ -32,7 +32,7 @@ public class Task {
     * @return a formatted string of the status of the task
     */
     public String getStatus() {
-        String status = "[" + (isDone ? "  Complete" : "Not Complete") + "]";
+        String status = "[" + (isDone ? " Completed " : "In Progress") + "]";
         return status + " " + this.getTask();
     }
 

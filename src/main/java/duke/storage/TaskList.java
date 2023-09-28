@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import duke.helper.Ui;
 import duke.tasks.Task;
 
+/**
+ * TskList that runs task-related commands and stores task in an arrayList.
+ */
 public class TaskList {
     private static ArrayList<Task> taskList;
 
@@ -43,15 +46,15 @@ public class TaskList {
     * @return the bot response
     */
     public String delete(int num) {
-        String[] messageList = {"I've removed this task:", taskList.get(num - 1).getStatus(), 
-                                "Current # of " + plural(taskList.size() - 1, "task") + ": " + (taskList.size() - 1)};
+        String taskNumber = "Current # of " + plural(taskList.size() - 1, "task") + ": " + (taskList.size() - 1);
+        String[] messageList = {"I've removed this task:", taskList.get(num - 1).getStatus(), taskNumber};
         taskList.remove(num - 1);
         Storage.save(taskList);
         return Ui.print(messageList);
     }
 
     /**
-    * execute the mar command
+    * execute the mark command
     *
     * @param num the index of the task the user want to mark
     * @param isDone a boolean value that indicated whether the task is done or not
@@ -73,9 +76,9 @@ public class TaskList {
         int index = 1;
         String message = "";
         for (Task task: taskList) {
-            if(task.getTask().contains(keyword)) {
+            if (task.getTask().contains(keyword)) {
                 message = message + (index + ". " + task.getStatus()) + "\n";
-                index ++;
+                index++;
             }
         }
         index -= 1;
@@ -93,11 +96,14 @@ public class TaskList {
     * @return the bot response
     */
     public String print() {
+        if (taskList.size() == 0) {
+            return Ui.print("There is currently no task. Keep the good work going!");
+        }
         int index = 1;
-        String message = "";
+        String message = "You have: " + "\n";
         for (Task task: taskList) {
             message = message + (index + ". " + task.getStatus()) + "\n";
-            index ++;
+            index++;
         }
         message = message + ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size());
         return Ui.print(message);
@@ -113,9 +119,9 @@ public class TaskList {
         int index = 1;
         String message = "";
         for (Task task: taskList) {
-            if(task.getTime() != null && task.getTime().contains(time)) {
+            if (task.getTime() != null && task.getTime().contains(time)) {
                 message = message + (index + ". " + task.getStatus()) + "\n";
-                index ++;
+                index++;
             }
         }
         index -= 1;
@@ -134,20 +140,32 @@ public class TaskList {
     * @return the bot response
     */
     public String add(Task input) {
+        String taskDescription = input.getTask();
+        for (Task task: taskList) {
+            if (task.getTask().equals(taskDescription)) {
+                String duplicateWarning = "Oh no! This task already exists.";
+                String[] messageList = {duplicateWarning, task.getStatus(), "Please check your input again."};
+                return Ui.print(messageList);
+            }
+        }
         taskList.add(input);
         Storage.save(taskList);
-        String[] messageList = {("Got it! This task has been added: "), 
-                                (input.getStatus()), 
-                                ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
+        String taskNumber = "Current # of " + plural(taskList.size(), "task") + ": " + taskList.size();
+        String[] messageList = {("Got it! This task has been added: "), (input.getStatus()), taskNumber};
         return Ui.print(messageList);
     }
 
-    public void addTest(Task input) {
+    /**
+    * dummy test method for add command
+    *
+    * @param input the task to add to the taskList
+    * @return the bot response
+    */
+    public String addTest(Task input) {
         taskList.add(input);
-        String[] messageList = {("Got it! This task has been added: "), 
-                                (input.getStatus()), 
-                                ("Current # of " + plural(taskList.size(), "task") + ": " + taskList.size())};
-        Ui.print(messageList);
+        String taskNumber = "Current # of " + plural(taskList.size(), "task") + ": " + taskList.size();
+        String[] messageList = {("Got it! This task has been added: "), (input.getStatus()), taskNumber};
+        return Ui.print(messageList);
     }
 
     /**

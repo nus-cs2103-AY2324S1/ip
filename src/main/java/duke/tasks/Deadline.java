@@ -22,7 +22,7 @@ public class Deadline extends Task {
     @Override
     public String getStatus() {
         String time = "(by: " + deadline + ")";
-        return "[Deadline]" + super.getStatus() + " " + time;
+        return "[DDL]" + super.getStatus() + " " + time;
     }
 
     /**

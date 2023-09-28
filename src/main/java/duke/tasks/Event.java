@@ -25,7 +25,7 @@ public class Event extends Task {
     @Override
     public String getStatus(){
         String time = "(from: " + from + " to: " + to + ")";
-        return "[Event]" + super.getStatus() + " " + time;
+        return "[EVT]" + super.getStatus() + " " + time;
     }
 
     /**
