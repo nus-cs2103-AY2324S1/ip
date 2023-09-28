@@ -30,7 +30,7 @@ public class Storage {
      */
     public void init(TaskList tasks) {
         this.tasks = tasks;
-        new File("./data").mkdir();
+        new File("./src/main/data").mkdir();
         try {
             new File(savePath).createNewFile();
         } catch (IOException e) {
@@ -47,6 +47,9 @@ public class Storage {
     public TaskList load() throws VenetoException {
         tasks = new TaskList(100);
         File f = new File(savePath);
+        if (!f.exists()) {
+            throw new VenetoStorageException("No Storage Found");
+        }
         Scanner sc = null;
         try {
             sc = new Scanner(f);
@@ -57,9 +60,11 @@ public class Storage {
             }
             return tasks;
         } catch (IOException e) {
-            throw new VenetoStorageException("No Storage Found");
+            throw new VenetoStorageException("May not happen");
         } finally {
-            sc.close();
+            if (sc != null) {
+                sc.close();
+            }
         }
     }
 
