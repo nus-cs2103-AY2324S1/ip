@@ -1,7 +1,23 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hi, I'm BiuBiu.
+What can I do for you?
+Got it. I've added this task:
+  [T][ ] Buy groceries
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+  [D][ ] Finish report (by: 2023-12-15)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+  [E][ ] Team meeting (from: 2023-12-20 14:00 to: 2023-12-20 15:30)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] Buy groceries
+2.[D][ ] Finish report (by: 2023-12-15)
+3.[E][ ] Team meeting (from: 2023-12-20 14:00 to: 2023-12-20 15:30)
+Nice! I've marked this task as done:
+  [T][X] Buy groceries
+Here are the tasks in your list:
+1.[T][X] Buy groceries
+2.[D][ ] Finish report (by: 2023-12-15)
+3.[E][ ] Team meeting (from: 2023-12-20 14:00 to: 2023-12-20 15:30)
+Bye. Have a great day!
 
