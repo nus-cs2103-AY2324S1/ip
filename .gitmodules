@@ -1,4 +1,0 @@
-[submodule "src/main/java"]
-    path = src/main/java
-    url = https://github.com/LuoZYi/ip.git
-    commit = 1da7e86d936ddfbedf55aedf8895cff92f269623
