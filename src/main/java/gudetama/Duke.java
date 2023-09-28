@@ -1,7 +1,5 @@
 package gudetama;
 
-import java.io.FileNotFoundException;
-
 import gudetama.commands.Command;
 import gudetama.exceptions.DukeException;
 import gudetama.parser.Parser;
@@ -176,9 +174,6 @@ public class Duke extends Application {
     public String getResponse(String input) throws DukeException {
         Command command = Parser.parse(input);
         String output = command.execute(tasklist, ui, storage);
-        if (command.isExit()){
-            close();
-        }
         return output;
     }
 }

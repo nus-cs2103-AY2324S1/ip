@@ -25,15 +25,6 @@ public class TodoCommand extends Command {
     }
 
     /**
-     *  Returns a boolean value to indicate whether to exit the program
-     * @return A boolean value
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Executes the command that adds the todo task
      * @param tasksList Task list which contains the tasks
      * @param ui A UI instance that displays a message to indicate to the user the todo task has been added

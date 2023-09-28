@@ -23,15 +23,6 @@ public class UnmarkCommand extends Command {
     }
 
     /**
-     *  Returns a boolean value to indicate whether to exit the program
-     * @return A boolean value
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Executes the command that unmarks the task at the specified index
      * @param tasksList Task list to be unmarked
      * @param ui A UI instance that displays a message to indicate to the user the task has been unmarked

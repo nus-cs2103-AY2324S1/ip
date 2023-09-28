@@ -8,14 +8,6 @@ import gudetama.ui.Ui;
  * Represents the command to exit the program
  */
 public class ExitCommand extends Command {
-    /**
-     * Returns a boolean value to indicate whether to exit the program
-     * @return A boolean value
-     */
-    @Override
-    public boolean isExit() {
-        return true;
-    }
 
     /**
      * Executes the command to exit the program

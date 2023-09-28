@@ -8,14 +8,6 @@ import gudetama.ui.Ui;
  * Represents a command to list the tasks in the task list
  */
 public class ListCommand extends Command {
-    /**
-     * Returns a boolean value to indicate whether to exit the program
-     * @return A boolean value
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 
     /**
      * Executes the command to list the tasks in the task list

@@ -22,15 +22,6 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Returns a boolean value to indicate whether to exit the program
-     * @return A boolean value
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
-
-    /**
      * Executes the command to exit the program
      * @param tasksList Task list which contains the tasks
      * @param ui        A UI instance that displays a message to the user
