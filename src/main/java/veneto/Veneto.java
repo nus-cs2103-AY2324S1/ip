@@ -1,25 +1,21 @@
 package veneto;
 
 import veneto.command.Command;
-import veneto.command.ExitCommand;
 import veneto.exceptions.VenetoException;
 import veneto.storage.Storage;
 import veneto.task.TaskList;
 import veneto.ui.Ui;
-
 
 public class Veneto {
     /* Fields */
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
+    private String filePath = "./src/main/data/veneto.txt";
 
     /* Constructor */
-    /**
-     * this constructor init Veneto
-     * @param filePath the path of data stored
-     */
-    public Veneto(String filePath) {
+
+    public Veneto() {
         try {
             ui = new Ui();
             storage = new Storage(filePath);
@@ -31,38 +27,21 @@ public class Veneto {
         }
     }
 
-
     /* Methods */
     /**
-     * creates Veneto and run it
-     * @param args the path of data stored
+     * operate the user input and return responses
+     * @return the responses
      */
-    public static void main(String[] args) {
-        new Veneto("data/veneto.txt").run();
-    }
-
-    /**
-     * run Veneto
-     */
-    public void run() {
-        ui.hello();
-        chat();
-    }
-
-    /**
-     * recursively chat with user
-     */
-    private void chat() {
-        Command command = null;
-        while (!(command instanceof ExitCommand)) {
-            try {
-                command = ui.getCommand();
-                command.op(tasks);
-                storage.checkChange(tasks);
-                ui.afterCommand(command, tasks);
-            } catch (VenetoException e) {
-                ui.showError(e);
-            }
+    public String getResponse(String input) {
+        String response;
+        try {
+            Command command = ui.getCommand(input);
+            command.op(tasks);
+            storage.checkChange(tasks);
+            response = ui.afterCommand(command, tasks);
+        } catch (VenetoException e) {
+            response = ui.showError(e);
         }
+        return response;
     }
 }
