@@ -107,7 +107,7 @@ public class Ui {
         }
         return dashLine +
                 "    Here are the tasks in your list:" + "\n" +
-                s + dashLine;
+                s + "\n" + dashLine;
     }
 
     /**
