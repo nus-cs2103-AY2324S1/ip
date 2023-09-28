@@ -2,7 +2,6 @@ package pippi.parser;
 
 import java.util.ArrayList;
 
-import pippi.PippiException;
 import pippi.storage.Storage;
 import pippi.task.Deadline;
 import pippi.task.Event;

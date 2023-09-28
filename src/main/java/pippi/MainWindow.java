@@ -24,6 +24,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser-removebg.png"));
     private Image pippiImage = new Image(this.getClass().getResourceAsStream("/images/DaPippi-removebg.png"));
 
+    /**
+     * Initializes the program with hello message and scrollPane
+     */
     @FXML
     public void initialize() {
         dialogContainer.getChildren().add(DialogBox.getPippiDialog(Ui.helloMessage(), pippiImage));
