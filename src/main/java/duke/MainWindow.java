@@ -19,6 +19,7 @@ public class MainWindow extends AnchorPane {
     private TextField userInput;
     @FXML
     private Button sendButton;
+    private Ui ui = new Ui();
 
     private Duke duke;
 
@@ -27,7 +28,11 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getDukeDialog(ui.displayWelcomeMessage(), dukeImage)
+        );
     }
 
     public void setDuke(Duke d) {
