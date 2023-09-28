@@ -1,5 +1,6 @@
 package potato.command;
 
+import potato.PotatoException;
 import potato.Storage;
 import potato.TaskList;
 import potato.Ui;
@@ -22,6 +23,10 @@ public class SetPriorityCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        return tasks.setPriority(input, storage);
+        try {
+            return tasks.setPriority(input, storage);
+        } catch (PotatoException e) {
+            return e.getMessage();
+        }
     }
 }

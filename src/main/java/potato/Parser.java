@@ -24,6 +24,9 @@ public class Parser {
         } else if (input.equals("list")) {
             return new ListCommand();
 
+        } else if (input.equals("clear")) {
+            return new ClearCommand();
+
         } else {
             return new AddCommand(input);
         }

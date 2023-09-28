@@ -20,6 +20,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws IOException {
-        return tasks.delete(input, storage);
+        try {
+            return tasks.delete(input, storage);
+        } catch (PotatoException e) {
+            return e.getMessage();
+        }
     }
 }

@@ -55,7 +55,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getPotatoDialog(response, potatoImage)
         );
         if (input.equals("bye")) {
-            Duration delay = Duration.seconds(3);
+            Duration delay = Duration.seconds(2);
             KeyFrame keyFrame = new KeyFrame(delay, event -> Platform.exit());
             Timeline timeline = new Timeline(keyFrame);
             timeline.setCycleCount(1);
