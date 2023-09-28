@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+* Event class with start and end time
+*/
 public class Event extends Task {
     private String from;
     private String to;
@@ -23,7 +26,7 @@ public class Event extends Task {
     * @return a formatted string of the status of the event
     */
     @Override
-    public String getStatus(){
+    public String getStatus() {
         String time = "(from: " + from + " to: " + to + ")";
         return "[Event]" + super.getStatus() + " " + time;
     }

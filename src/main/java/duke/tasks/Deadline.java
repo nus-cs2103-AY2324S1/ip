@@ -1,5 +1,8 @@
 package duke.tasks;
 
+/**
+* Deadline class with due time
+*/
 public class Deadline extends Task {
     private String deadline;
 
@@ -13,7 +16,7 @@ public class Deadline extends Task {
         super(task);
         this.deadline = deadline;
     }
-    
+
     /**
     * returns the status of the deadline task
     *
