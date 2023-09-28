@@ -1,3 +1,2 @@
-T | 0 | borrow book
-T | 0 | buy pc
-T | 0 | buy mouse
+T | 1 | walk
+
