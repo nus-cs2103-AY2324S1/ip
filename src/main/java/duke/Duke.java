@@ -27,10 +27,10 @@ public class Duke {
     }
 
     /**
-     * Returns the response of the Chatbot to the user-input.
+     * Returns the response of Sivraj to the user-input.
      *
      * @param input Input given by the user.
-     * @return String value to be displayed on the Chatbot screen.
+     * @return String value to be displayed on the chat screen.
      */
     public String getResponse(String input) {
 

@@ -4,9 +4,9 @@ package duke;
  * Class to represent a task.
  */
 public class Task {
-    protected String description;
-    protected boolean isDone;
-    protected char taskType;
+    private String description;
+    private boolean isDone;
+    private char taskType;
 
     /**
      * Initialises a task.
@@ -36,6 +36,7 @@ public class Task {
 
     /**
      * Returns the status of the task whether done or not done.
+     *
      * @return Status of the task as [X] or [].
      */
     public String getStatusIcon() {
@@ -44,12 +45,18 @@ public class Task {
 
     /**
      * Returns the string representation of the task to be stored in a file.
+     *
      * @return File string representation of task.
      */
     public String toFileString() {
         return taskType + " | " + (isDone ? "1" : "0") + " | " + description;
     }
 
+    /**
+     * Returns the string representation of the task.
+     *
+     * @return String representation.
+     */
     @Override
     public String toString() {
         return "[" + taskType + "]" + getStatusIcon() + " " + description;

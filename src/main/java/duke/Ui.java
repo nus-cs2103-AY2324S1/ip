@@ -1,28 +1,19 @@
 package duke;
 
-import java.util.Scanner;
 
 /**
  * Class to handle all the various outputs of the program
  * displayed on the GUI.
  */
 public class Ui {
-    private Scanner scanner;
+
+    private static final String DASH_LINE = "----------------------------------------\n";
 
     /**
      * Initialises the UI.
      */
-    public Ui() {
+    public Ui() {}
 
-    }
-
-    public String getUserInput() {
-        return scanner.nextLine().trim();
-    }
-
-    public void stopUserInput() {
-        scanner.close();
-    }
 
     public String displayWelcomeMessage() {
         return "Hello! I'm Sivraj\n" + "What can I do for you?";
@@ -36,10 +27,10 @@ public class Ui {
      * @return Message to be displayed.
      */
     public String displayToDoMessage(TaskList taskList) {
-        return dashLine + "     Got it. I've added this task:" + "\n" +
+        return DASH_LINE + "     Got it. I've added this task:" + "\n" +
                 "         " + taskList.getTask(taskList.listSize() - 1) + "\n" +
                 "     Now you have " + taskList.listSize() + " tasks in the list.\n" +
-                dashLine;
+                DASH_LINE;
     }
 
     /**
@@ -49,10 +40,10 @@ public class Ui {
      * @return Message to be displayed.
      */
     public String displayDeadlineMessage(TaskList taskList) {
-        return dashLine + "     Got it. I've added this task:\n" +
+        return DASH_LINE + "     Got it. I've added this task:\n" +
                 "       " + taskList.getTask(taskList.listSize() - 1) +
                 "\n" + "     Now you have " + taskList.listSize() +
-                " tasks in the list.\n" + dashLine;
+                " tasks in the list.\n" + DASH_LINE;
     }
 
     /**
@@ -62,10 +53,10 @@ public class Ui {
      * @return Message to be displayed.
      */
     public String displayEventMessage(TaskList taskList) {
-        return dashLine + "     Got it. I've added this task:\n" +
+        return DASH_LINE + "     Got it. I've added this task:\n" +
                 "       " + taskList.getTask(taskList.listSize() - 1) +
                 "\n" + "     Now you have " + taskList.listSize() +
-                " tasks in the list.\n" + dashLine;
+                " tasks in the list.\n" + DASH_LINE;
     }
 
     /**
@@ -76,9 +67,9 @@ public class Ui {
      * @return Message to be displayed.
      */
     public String displayMarkMessage(TaskList taskList, int taskIndex) {
-        return dashLine + "    Nice! I've marked this task as done:\n" +
+        return DASH_LINE + "    Nice! I've marked this task as done:\n" +
                 "       " + taskList.getTask(taskIndex) + "\n" +
-                dashLine;
+                DASH_LINE;
     }
 
     /**
@@ -89,9 +80,9 @@ public class Ui {
      * @return Message to be displayed.
      */
     public String displayUnmarkMessage(TaskList taskList, int taskIndex) {
-        return dashLine + "     OK, I've marked this task as not done yet:\n" +
+        return DASH_LINE + "     OK, I've marked this task as not done yet:\n" +
                 "       " + taskList.getTask(taskIndex) + "\n" +
-                dashLine;
+                DASH_LINE;
     }
 
     /**
@@ -105,9 +96,9 @@ public class Ui {
         for (int i = 0; i < taskList.listSize(); i++) {
             s = s + "\n      " + (i + 1) + "." + taskList.getTask(i);
         }
-        return dashLine +
+        return DASH_LINE +
                 "    Here are the tasks in your list:" + "\n" +
-                s + "\n" + dashLine;
+                s + "\n" + DASH_LINE;
     }
 
     /**
@@ -118,10 +109,10 @@ public class Ui {
      * @return Message to be displayed.
      */
     public String displayDeleteMessage(TaskList taskList, Task removedTask) {
-        return dashLine + "     Noted. I've removed this task: \n" +
+        return DASH_LINE + "     Noted. I've removed this task: \n" +
                 "       " + removedTask + "\n" +
                 "     Now you have " + taskList.listSize() + " tasks in the list.\n" +
-                dashLine;
+                DASH_LINE;
     }
 
     /**
@@ -132,7 +123,7 @@ public class Ui {
      */
     public String displayErrorMessage(String message) {
 
-        return dashLine + "    OOPS " + message + "\n" + dashLine;
+        return DASH_LINE + "    OOPS " + message + "\n" + DASH_LINE;
     }
 
     /**

@@ -5,16 +5,27 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test the parseToDoCommand method of parser class.
+ */
 public class ParserTest {
     private TaskList taskList;
     private Ui ui;
 
+    /**
+     * Initialise a dummy taskList and ui before each test.
+     */
     @BeforeEach
     public void setUp() {
         taskList = new TaskList();
         ui = new Ui();
     }
 
+    /**
+     * Tests the method with a valid input.
+     *
+     * @throws DukeException If the tested method throws DukeException.
+     */
     @Test
     public void parseToDoCommand_validInput_addsToDoTask() throws DukeException {
         String input = "todo Buy groceries";
@@ -23,6 +34,9 @@ public class ParserTest {
         assertEquals("[T][ ] Buy groceries", taskList.getTask(0).toString());
     }
 
+    /**
+     * Tests the method with an empty description.
+     */
     @Test
     public void parseToDoCommand_emptyDescription_throwsDukeException() {
         String input = "todo ";
@@ -34,6 +48,11 @@ public class ParserTest {
         }
     }
 
+    /**
+     * Tests the method with description having leading spaces.
+     *
+     * @throws DukeException If the tested method throws DukeException.
+     */
     @Test
     public void parseToDoCommand_descriptionWithLeadingSpaces_addsToDoTask() throws DukeException {
         String input = "todo    Exercise";

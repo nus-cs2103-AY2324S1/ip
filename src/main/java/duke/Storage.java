@@ -13,10 +13,12 @@ import java.util.Scanner;
  * in the file.
  */
 public class Storage {
-    private String filePath;
     private static final String DIRECTORY_PATH = "./data";
     private static final String FILE_PATH = "./data/duke.txt";
 
+    /**
+     * Creates a new data file if it does not exist.
+     */
     public Storage() {
 
         File dataDirectory = new File(DIRECTORY_PATH);
@@ -35,6 +37,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Stores all the data in the file.
+     *
+     * @param taskList List of all tasks to be saved.
+     * @throws IOException If there is an input or output exception.
+     */
     public void appendTasksToFile(TaskList taskList)
             throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH);
@@ -45,6 +53,12 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads all the previously saved tasks in an ArrayList.
+     *
+     * @return ArrayList of previous tasks.
+     * @throws FileNotFoundException If program cannot find the data file.
+     */
     public ArrayList<Task> loadPreviousTasks()
             throws FileNotFoundException {
         File f = new File(FILE_PATH);
@@ -64,6 +78,13 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Returns a Task after parsing through a string line.
+     *
+     * @param line String line which needs to interpreted as a Task.
+     * @return Task object.
+     * @throws DukeException If the format of the string line is invalid.
+     */
     public Task parseTaskFromLine(String line) throws DukeException {
         String[] parts = line.split(" \\| ");
         if (parts.length < 3) {
