@@ -60,22 +60,13 @@ public class Task {
      */
     public static Task parseSaved(String input) {
         String[] parts = input.split(" \\| ");
-        System.out.println(parts[0]);
-        System.out.println(parts[1]);
-        System.out.println(parts[2]);
 
         switch (parts[0]) {
         case "T":
-            System.out.println("its todo");
             return Todo.parseSavedTodo(parts);
         case "D":
-            // empty deadline
-            // no by
             return Deadline.parseSavedDeadline(parts);
         case "E":
-            // empty event
-            // no from
-            // no to
             return Event.parseSavedEvent(parts);
         default:
             return null;

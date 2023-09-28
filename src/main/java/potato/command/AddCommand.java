@@ -2,7 +2,9 @@ package potato.command;
 
 import java.io.IOException;
 
-import potato.*;
+import potato.Storage;
+import potato.TaskList;
+import potato.Ui;
 
 /**
  * The AddCommand class represents a command for adding a task to the task list.

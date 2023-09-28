@@ -1,13 +1,13 @@
 package potato.task;
 
-import potato.*;
+import potato.DateTime;
+import potato.PotatoException;
 
 /**
  * The Deadline class represents a task with a specified deadline.
  * It extends the Task class and adds deadline-related functionality.
  */
 public class Deadline extends Task {
-    private static final String LINE = "-----------------------------------------\n";
     protected DateTime deadline;
     protected String by;
 

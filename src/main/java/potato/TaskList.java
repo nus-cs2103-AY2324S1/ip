@@ -3,7 +3,7 @@ package potato;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import potato.task.*;
+import potato.task.Task;
 
 /**
  * The TaskList class represents a list of tasks and provides methods
@@ -198,6 +198,11 @@ public class TaskList {
         return s;
     }
 
+    /**
+     * Clears the list of all tasks.
+     *
+     * @return A message indicating the task list has been cleared.
+     */
     public String clear() {
         tasks = new ArrayList<Task>();
         return "ABRACADABRA POOF There's suddenly nothing left to do!";

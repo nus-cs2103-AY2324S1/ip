@@ -1,6 +1,6 @@
 package potato.task;
 
-import potato.*;
+import potato.PotatoException;
 
 /**
  * The Todo class represents a task without a specific deadline or event time.

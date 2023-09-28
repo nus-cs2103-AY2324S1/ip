@@ -84,6 +84,12 @@ NOTE: INDEX must be an integer greater than 0.
 
 Example: priority 1 #high marks the priority of the first task on the list as high.
 
+### Clearing tasks: clear
+
+Clears all tasks in the list.
+
+Format: clear
+
 ### Exiting: bye
 
 Exits the programme.

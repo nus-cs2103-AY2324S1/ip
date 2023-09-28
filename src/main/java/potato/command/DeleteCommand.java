@@ -2,9 +2,22 @@ package potato.command;
 
 import java.io.IOException;
 
-import potato.*;
+import potato.PotatoException;
+import potato.Storage;
+import potato.TaskList;
+import potato.Ui;
 
+/**
+ * The DeleteCommand class represents a command for deleting a task in the task list.
+ * It extends the Command class and specifies the behavior of executing a "delete" command.
+ */
 public class DeleteCommand extends Command {
+
+    /**
+     * Constructs a DeleteCommand object with the provided user input.
+     *
+     * @param input The user input specifying the index of the task to be deleted.
+     */
     public DeleteCommand(String input) {
         super.isExit = false;
         super.input = input;
@@ -15,7 +28,7 @@ public class DeleteCommand extends Command {
      *
      * @param tasks   The TaskList containing the current list of tasks.
      * @param storage The Storage utility for saving task changes.
-     * @return A message indicating the result of adding the task.
+     * @return A message indicating the result of deleting the task.
      * @throws IOException If an error occurs while saving tasks to storage.
      */
     @Override

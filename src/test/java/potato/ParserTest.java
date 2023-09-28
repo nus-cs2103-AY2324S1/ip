@@ -1,9 +1,11 @@
 package potato;
 
-import org.junit.jupiter.api.Test;
-import potato.command.*;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
+import potato.command.Command;
+import potato.command.ExitCommand;
 
 public class ParserTest {
     @Test

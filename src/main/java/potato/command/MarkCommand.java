@@ -2,9 +2,22 @@ package potato.command;
 
 import java.io.IOException;
 
-import potato.*;
+import potato.PotatoException;
+import potato.Storage;
+import potato.TaskList;
+import potato.Ui;
 
+/**
+ * The MarkCommand class represents a command for marking a task in the task list.
+ * It extends the Command class and specifies the behavior of executing a "mark" command.
+ */
 public class MarkCommand extends Command {
+
+    /**
+     * Constructs a MarkCommand object with the provided user input.
+     *
+     * @param input The user input specifying the index of the task to be marked.
+     */
     public MarkCommand(String input) {
         super.isExit = false;
         super.input = input;
@@ -15,7 +28,7 @@ public class MarkCommand extends Command {
      *
      * @param tasks   The TaskList containing the current list of tasks.
      * @param storage The Storage utility for saving task changes.
-     * @return A message indicating the result of adding the task.
+     * @return A message indicating the result of marking the task.
      * @throws IOException If an error occurs while saving tasks to storage.
      */
     @Override

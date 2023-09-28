@@ -1,7 +1,28 @@
 package potato;
 
-import potato.command.*;
+import potato.command.AddCommand;
+import potato.command.ClearCommand;
+import potato.command.Command;
+import potato.command.DeleteCommand;
+import potato.command.ExitCommand;
+import potato.command.FindCommand;
+import potato.command.ListCommand;
+import potato.command.MarkCommand;
+import potato.command.SetPriorityCommand;
+import potato.command.UnmarkCommand;
+
+/**
+ * The Parser class is responsible for parsing user input and generating corresponding Command objects.
+ * It analyzes user input and determines the appropriate action to take based on the input provided.
+ */
 public class Parser {
+
+    /**
+     * Parses the user input and returns a Command object that represents the action to be executed.
+     *
+     * @param input The user input to be parsed.
+     * @return A Command object representing the action to be performed based on the input.
+     */
     public static Command parse(String input) {
         if (input.equals("bye")) {
             return new ExitCommand();

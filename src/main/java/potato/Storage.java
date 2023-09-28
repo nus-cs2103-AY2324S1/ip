@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import potato.task.*;
+import potato.task.Task;
 
 /**
  * The Storage class represents a data storage utility for managing tasks.

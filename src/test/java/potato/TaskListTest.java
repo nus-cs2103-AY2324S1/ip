@@ -1,12 +1,13 @@
 package potato;
 
-import org.junit.jupiter.api.Test;
-import potato.task.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
+import potato.task.Task;
+import potato.task.Todo;
 
 public class TaskListTest {
 

@@ -1,13 +1,13 @@
 package potato.task;
 
-import potato.*;
+import potato.DateTime;
+import potato.PotatoException;
 
 /**
  * The Event class represents a task with a specified start and end date.
  * It extends the Task class and adds event-related functionality.
  */
 public class Event extends Task {
-    private static final String LINE = "-----------------------------------------\n";
     protected DateTime start;
     protected DateTime end;
     protected String from;
@@ -71,7 +71,8 @@ public class Event extends Task {
      */
     @Override
     public String toSave() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to + " | " + priority.toUpperCase();
+        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
+                + from + " | " + to + " | " + priority.toUpperCase();
     }
 
     /**
