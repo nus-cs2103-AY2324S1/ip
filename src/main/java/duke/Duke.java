@@ -8,12 +8,15 @@ import duke.helper.Ui;
 import duke.storage.Storage;
 import duke.storage.TaskList;
 
+/**
+ * Duke class
+ */
 public class Duke {
     public static final Scanner SCANNER = new Scanner(System.in);
     public static final String FILEPATH = "./data/tasks.txt";
 
     private TaskList taskList;
-    
+
     /**
     * Constructs the Duke class.
     *
@@ -51,12 +54,12 @@ public class Duke {
     *
     * @param args arguments
     */
-    public static void main(String[] args) throws DukeException{   
+    public static void main(String[] args) throws DukeException {
         new Duke("data/tasks.txt");
         Ui.greet();
         String input = SCANNER.nextLine();
 
-        while(!input.equals("bye")) {
+        while (!input.equals("bye")) {
             try {
                 Parser.parse(input);
             } catch (DukeException e) {

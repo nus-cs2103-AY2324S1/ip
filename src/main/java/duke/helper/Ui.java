@@ -1,5 +1,8 @@
 package duke.helper;
 
+/**
+ * Ui class
+ */
 public class Ui {
     private static final String NAME = "Duke Max";
 
