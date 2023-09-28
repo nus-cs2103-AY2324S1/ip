@@ -23,17 +23,16 @@ public class Todo extends Task {
      * Parses a user input string to create a Todo object.
      *
      * @param input The user input string representing the todo task.
-     * @param mark  The marker indicating the completion status (e.g., "1" for completed, "0" for incomplete).
      * @return A Todo object created from the input.
      * @throws PotatoException If the input is empty or invalid.
      */
-    public static Todo parseTodo(String input, String mark) {
+    public static Todo parseTodo(String input) {
 
-        if (input.length() < 1) {
+        if (input.length() < 2) {
             throw new PotatoException("Bruh you wanna do air or something?\n");
         } else {
-            assert input.length() > 1 : "input length should be > 1";
-            return new Todo(input, (mark.equals("1")), "NIL");
+            assert input.length() > 2 : "input length should be > 1";
+            return new Todo(input, false, "NIL");
         }
     }
 

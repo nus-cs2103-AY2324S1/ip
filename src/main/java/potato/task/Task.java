@@ -31,22 +31,22 @@ public class Task {
      * @return A specific task object created from the input or null if the input is not recognized.
      */
     public static Task parse(String input) {
-        if (input.startsWith("todo ")) {
+        if (input.startsWith("todo")) {
             try {
-                return Todo.parseTodo(input.substring(5), "0");
+                return Todo.parseTodo(input.substring(4));
             } catch (PotatoException e) {
                 throw new PotatoException(e.getMessage());
             }
 
         } else if (input.startsWith("deadline")) {
             try {
-                return Deadline.parseDeadline(input.substring(9));
+                return Deadline.parseDeadline(input.substring(8));
             } catch (PotatoException e) {
                 throw new PotatoException(e.getMessage());
             }
 
         } else if (input.startsWith("event")) {
-            return Event.parseEvent(input.substring(6));
+            return Event.parseEvent(input.substring(5));
         } else {
             throw new PotatoException("Literally what are you talking about...");
         }

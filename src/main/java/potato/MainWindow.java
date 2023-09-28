@@ -33,13 +33,13 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.getChildren().add(
+                DialogBox.getPotatoDialog("Hey GURL I'm Potato!\n" + "How can I help ya?", potatoImage)
+        );
     }
 
     public void setPotato(Potato p) {
         potato = p;
-        dialogContainer.getChildren().add(
-                DialogBox.getPotatoDialog("Hey GURL I'm Potato!\n" + "How can I help ya?", potatoImage)
-        );
     }
 
     /**

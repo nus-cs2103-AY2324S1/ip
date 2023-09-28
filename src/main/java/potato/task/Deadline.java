@@ -34,12 +34,12 @@ public class Deadline extends Task {
      */
     public static Deadline parseDeadline(String input) {
         int indexBy = input.indexOf("/by");
-        if (input.length() < 1) {
+        if (input.length() < 2) {
             throw new PotatoException("Bruh you wanna do air or something?");
         } else if (indexBy < 0) {
             throw new PotatoException("WHEN'S THE DUE DATE???");
         } else {
-            assert input.length() > 1 : "input length should be > 1";
+            assert input.length() > 2 : "input length should be > 1";
             return new Deadline(input.substring(0, indexBy - 1),
                     input.substring(indexBy + 4), false, "NIL");
         }

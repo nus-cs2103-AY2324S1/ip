@@ -40,14 +40,14 @@ public class Event extends Task {
     public static Event parseEvent(String input) {
         int indexFrom = input.indexOf("/from");
         int indexTo = input.indexOf("/to");
-        if (input.length() < 1) {
+        if (input.length() < 2) {
             throw new PotatoException("Bruh you wanna do air or something?");
         } else if (indexFrom < 0) {
             throw new PotatoException("Looks like your event don't need to start?");
         } else if (indexTo < 0) {
             throw new PotatoException("Looks like your event goes on forever?");
         } else {
-            assert input.length() > 1 : "input length should be > 1";
+            assert input.length() > 2 : "input length should be > 1";
             return new Event(input.substring(0, indexFrom - 1),
                     input.substring(indexFrom + 6, indexTo - 1),
                     input.substring(indexTo + 4), false, "NIL");
