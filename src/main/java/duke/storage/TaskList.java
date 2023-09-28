@@ -96,8 +96,11 @@ public class TaskList {
     * @return the bot response
     */
     public String print() {
+        if (taskList.size() == 0) {
+            return Ui.print("There is currently no task. Keep the good work going!");
+        }
         int index = 1;
-        String message = "";
+        String message = "You have: " + "\n";
         for (Task task: taskList) {
             message = message + (index + ". " + task.getStatus()) + "\n";
             index++;
