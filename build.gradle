@@ -43,14 +43,15 @@ test {
 }
 
 application {
-    mainClass.set("veneto.Veneto")
+    mainClass.set("veneto.Launcher")
+    mainClassName = 'veneto.Main'
 }
 
 shadowJar {
     archiveBaseName = "veneto"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    //archiveFileName = 'veneto-v1.0.0.jar'
+//    archiveFileName = 'veneto-v1.0.2.jar'
 }
 
 
