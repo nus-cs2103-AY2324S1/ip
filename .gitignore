@@ -4,7 +4,6 @@
 /*.iml
 
 # Gradle build files
-/.gradle/
 /build/
 src/main/resources/docs/
 
@@ -13,5 +12,8 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+*.class
+text-ui-test/input.txt
+data/tasks.ser
+.vscode/
+/text-ui-test/
