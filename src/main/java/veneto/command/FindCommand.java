@@ -30,18 +30,14 @@ public class FindCommand extends Command{
      */
     @Override
     public void op(TaskList tasks) throws VenetoException {
-        try {
-            Task currTask = null;
-            for (int i = 0; i < tasks.size(); i++) {
-                currTask = tasks.get(i);
-                if (currTask.contains(keyword)) {
-                    foundTasks.add(currTask);
-                }
+        Task currTask;
+        for (int i = 0; i < tasks.size(); i++) {
+            currTask = tasks.get(i);
+            if (currTask.contains(keyword)) {
+                foundTasks.add(currTask);
             }
-            if (foundTasks.isEmpty()) {
-                throw new NullPointerException();
-            }
-        } catch (NullPointerException e) {
+        }
+        if (foundTasks.isEmpty()) {
             throw new VenetoOperateException("Not Found");
         }
     }
