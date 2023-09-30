@@ -83,6 +83,8 @@ public class Storage {
                 case "event":
                     t = new Event(task[1], isDone, task[3], task[4]);
                     break;
+                default:
+                    assert false : "invalid task type";
             }
             tasks.add(t);
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
