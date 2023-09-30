@@ -2,10 +2,13 @@ package veneto.parser;
 
 import veneto.command.*;
 import veneto.exceptions.VenetoException;
+import veneto.exceptions.VenetoOperateException;
 import veneto.task.Deadline;
 import veneto.task.Event;
 import veneto.task.Task;
 import veneto.task.ToDo;
+
+import java.time.format.DateTimeParseException;
 
 public class Parser {
     /* Fields */
@@ -67,31 +70,44 @@ public class Parser {
      * @return the command that the user want to operate
      */
     private static Command prepareAdd(String text, int funcId) {
-        String[] texts = text.split("/");
-        for (int i = 0; i < texts.length; i++) {
-            texts[i] = texts[i].trim();
+        try {
+            String[] texts = text.split("/");
+            for (int i = 0; i < texts.length; i++) {
+                texts[i] = texts[i].trim();
+            }
+            Task newTask = null;
+            String description;
+            switch (funcId) {
+                case 1:
+                    if (texts.length != 1) {
+                        throw new VenetoOperateException("add");
+                    }
+                    description = texts[0].substring(TODO_DESCRIPTION_INDEX);
+                    newTask = new ToDo(description);
+                    break;
+                case 2:
+                    if (texts.length != 2) {
+                        throw new VenetoOperateException("add");
+                    }
+                    description = texts[0].substring(DEADLINE_DESCRIPTION_INDEX);
+                    String deadline = texts[1].substring(DEADLINE_START_INDEX);
+                    newTask = new Deadline(description, deadline);
+                    break;
+                case 3:
+                    if (texts.length != 3) {
+                        throw new VenetoOperateException("add");
+                    }
+                    description = texts[0].substring(EVENT_DESCRIPTION_INDEX);
+                    String start = texts[1].substring(EVENT_START_INDEX);
+                    String end = texts[2].substring(EVENT_END_INDEX);
+                    newTask = new Event(description, start, end);
+                    break;
+                default:
+                    assert false : "invalid funcId";
+            }
+            return new AddCommand(newTask);
+        } catch (DateTimeParseException e) {
+            throw new VenetoOperateException("add");
         }
-        Task newTask = null;
-        String description;
-        switch (funcId) {
-            case 1:
-                description = texts[0].substring(TODO_DESCRIPTION_INDEX);
-                newTask = new ToDo(description);
-                break;
-            case 2:
-                description = texts[0].substring(DEADLINE_DESCRIPTION_INDEX);
-                String deadline = texts[1].substring(DEADLINE_START_INDEX);
-                newTask = new Deadline(description, deadline);
-                break;
-            case 3:
-                description = texts[0].substring(EVENT_DESCRIPTION_INDEX);
-                String start = texts[1].substring(EVENT_START_INDEX);
-                String end = texts[2].substring(EVENT_END_INDEX);
-                newTask = new Event(description, start, end);
-                break;
-            default:
-                assert false : "invalid funcId";
-        }
-        return new AddCommand(newTask);
     }
 }
