@@ -2,6 +2,8 @@ package veneto.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
 
 public class Deadline extends Task {
     /* fields */
@@ -13,7 +15,7 @@ public class Deadline extends Task {
      * @param description the description of the task
      * @param deadline the deadline of the task
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws DateTimeParseException {
         super(description);
         this.deadline = LocalDate.parse(deadline);
     }
@@ -47,5 +49,17 @@ public class Deadline extends Task {
     @Override
     public String saveToString() {
         return "deadline," + super.saveToString() + "," + deadline;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Deadline deadline1 = (Deadline) o;
+        boolean sameDescription = super.equals(o);
+        boolean sameDeadline = deadline.equals(deadline1.deadline);
+
+        return sameDescription && sameDeadline;
     }
 }

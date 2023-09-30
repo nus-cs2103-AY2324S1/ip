@@ -2,6 +2,7 @@ package veneto.task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Event extends Task {
     /* fields */
@@ -15,7 +16,7 @@ public class Event extends Task {
      * @param start the start time of the event
      * @param end the end time of the event
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws DateTimeParseException {
         super(description);
         this.start = LocalDate.parse(start);
         this.end = LocalDate.parse(end);
@@ -53,5 +54,18 @@ public class Event extends Task {
     @Override
     public String saveToString() {
         return "event," + super.saveToString() + "," + start + "," + end;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Event event1 = (Event) o;
+        boolean sameDescription = super.equals(o);
+        boolean sameStart = start.equals(event1.start);
+        boolean sameEnd = end.equals(event1.end);
+
+        return sameDescription && sameStart && sameEnd;
     }
 }

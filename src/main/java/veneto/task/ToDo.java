@@ -37,4 +37,9 @@ public class ToDo extends Task {
     public String saveToString() {
         return "toDo," + super.saveToString();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
 }

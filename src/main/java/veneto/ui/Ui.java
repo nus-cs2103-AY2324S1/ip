@@ -67,6 +67,8 @@ public class Ui {
                 return showInvalidCommandError();
             case "Not Found":
                 return GREETS + " 好像没有这样的任务要做哦\n";
+            case "Duplicate":
+                return GREETS + " 已经记录过这个任务啦\n";
             default:
                 assert false : "Invalid type of exception";
         }
@@ -110,7 +112,7 @@ public class Ui {
      * get input from user
      * @return the command translated from user input
      */
-    public Command getCommand(String input) {
+    public Command getCommand(String input) throws VenetoException {
         return Parser.translateCommand(input);
     }
 

@@ -3,6 +3,8 @@ package veneto.task;
 import veneto.exceptions.VenetoException;
 import veneto.exceptions.VenetoOperateException;
 
+import java.util.Objects;
+
 public class Task {
     /* fields */
     protected String description;
@@ -90,5 +92,16 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "[V] " : "[ ] "); // mark done task with V
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task1 = (Task) o;
+        return description.equals(task1.description);
     }
 }
