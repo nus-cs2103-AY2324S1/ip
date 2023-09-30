@@ -42,6 +42,8 @@ public class Ui {
             return showStorageError(e);
         } else if (e.getMessage().equals("Invalid Command")) {
             return showInvalidCommandError();
+        } else {
+            assert false : "Invalid Error";
         }
         return INCORRECT_ERROR;
     }
@@ -49,6 +51,8 @@ public class Ui {
     private String showStorageError(VenetoException e) {
         if (e.getMessage().equals("Storage File Destroyed")) {
             return GREETS + " 没找到内存哦 现在重新创建一个！\n";
+        } else {
+            assert false : "Invalid type of exception";
         }
         return INCORRECT_ERROR;
     }
@@ -63,6 +67,8 @@ public class Ui {
                 return showInvalidCommandError();
             case "Not Found":
                 return GREETS + " 好像没有这样的任务要做哦\n";
+            default:
+                assert false : "Invalid type of exception";
         }
         return INCORRECT_ERROR;
     }
@@ -94,6 +100,8 @@ public class Ui {
                                 "\n 现在还剩下" + tasks.size() + "项任务\n";
             case "find":
                 return GREETS + " 相关的任务都在这里了哦：\n" + command;
+            default:
+                assert false : "Invalid type of command";
         }
         return "Parser error";
     }

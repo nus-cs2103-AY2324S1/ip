@@ -89,6 +89,8 @@ public class Parser {
                 String end = texts[2].substring(EVENT_END_INDEX);
                 newTask = new Event(description, start, end);
                 break;
+            default:
+                assert false : "invalid funcId";
         }
         return new AddCommand(newTask);
     }

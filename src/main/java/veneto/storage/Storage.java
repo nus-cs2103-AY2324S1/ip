@@ -9,18 +9,13 @@ import java.util.Scanner;
 
 public class Storage {
     /* Fields */
-    private String savePath;
     private Writer writer;
     private TaskList tasks;
 
+    private static final String STORAGE_DIR = "./src/main/data/veneto.txt";
+    private static final String STORAGE_PATH = "./src/main/data/veneto.txt";
+
     /* Constructors */
-    /**
-     * create a storage for Veneto
-     * @param savePath path where the data stored
-     */
-    public Storage(String savePath) {
-        this.savePath = savePath;
-    }
 
     /* Methods */
     /**
@@ -30,9 +25,9 @@ public class Storage {
      */
     public void init(TaskList tasks) {
         this.tasks = tasks;
-        new File("./src/main/data").mkdir();
+        new File(STORAGE_DIR).mkdir();
         try {
-            new File(savePath).createNewFile();
+            new File(STORAGE_PATH).createNewFile();
         } catch (IOException e) {
             // but may not happen
             throw new VenetoStorageException("make path fail");
@@ -46,7 +41,7 @@ public class Storage {
      */
     public TaskList load() throws VenetoException {
         tasks = new TaskList(100);
-        File f = new File(savePath);
+        File f = new File(STORAGE_PATH);
         if (!f.exists()) {
             throw new VenetoStorageException("No Storage Found");
         }
@@ -88,6 +83,8 @@ public class Storage {
                 case "event":
                     t = new Event(task[1], isDone, task[3], task[4]);
                     break;
+                default:
+                    assert false : "invalid task type";
             }
             tasks.add(t);
         } catch (IndexOutOfBoundsException | NumberFormatException | NullPointerException e) {
@@ -112,20 +109,18 @@ public class Storage {
      */
     private void save() {
         try {
-            new File(savePath).delete();
-            new File(savePath).createNewFile();
-            writer = new BufferedWriter(new FileWriter(savePath));
+            new File(STORAGE_PATH).delete();
+            new File(STORAGE_PATH).createNewFile();
+            writer = new BufferedWriter(new FileWriter(STORAGE_PATH));
             for (int i = 0; i < tasks.size(); i++) {
                 writer.write(tasks.get(i).saveToString() + "\n");
             }
         } catch (IOException e) {
-            // may not happen
             throw new VenetoException("write fails");
         } finally {
             try {
                 writer.close();
             } catch (IOException e) {
-                // may not happen
                 throw new VenetoException("close fails");
             }
         }
