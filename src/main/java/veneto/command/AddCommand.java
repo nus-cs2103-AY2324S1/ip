@@ -20,6 +20,8 @@ public class AddCommand extends Command {
     /**
      * the AddCommand operates
      * @param tasks the TaskList where the AddCommand put new task
+     * @throws VenetoOperateException when newTask is duplicate
+     *                                or when
      */
     @Override
     public void op(TaskList tasks) throws VenetoException {
