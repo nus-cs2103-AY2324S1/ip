@@ -29,7 +29,6 @@ public class Storage {
         try {
             new File(STORAGE_PATH).createNewFile();
         } catch (IOException e) {
-            // but may not happen
             throw new VenetoStorageException("make path fail");
         }
     }
@@ -43,7 +42,7 @@ public class Storage {
         tasks = new TaskList(100);
         File f = new File(STORAGE_PATH);
         if (!f.exists()) {
-            throw new VenetoStorageException("No Storage Found");
+            throw new VenetoStorageException("Storage File Destroyed");
         }
         Scanner sc = null;
         try {
