@@ -26,12 +26,12 @@ Todoify is easy to use for users with experience of the CLI. It:
     - **Navigate to the folder containing the JAR file** in your file manager, then **double-click to open** it.
         - *Note:* Some systems might not correctly allow you from launching Todoify like this, hence you might need to use the terminal method above instead - see the notice at the [Launch Modes > Graphical User Interface](#graphical-user-interface-gui) section for information.
 
-5. You will see [a GUI like above](#todoify-user-guide). See alternative [launch modes](#launch-modes-and-usage) if you prefer to use the TUI.
+5. You will see [a GUI like above](#todoify-user-guide). See alternative [launch modes](#launch-modes) if you prefer to use the TUI.
 
 6. **Talk to Todoify** to manage your tasks!
     - To learn how to communicate with Todoify, simply send a `help` message to list available commands.
 
-## Features
+## Usage
 
 ### Command-Line Interface (CLI)
 
@@ -64,7 +64,7 @@ This evaluates:
 #### Miscellaneous
 - In help sheets, when a command format description contains stuff in `<>`, it refers to an inline explanatory description that should be replaced with actual command info.
 
-### Launch Modes and Usage
+### Launch Modes
 
 By default, opening Todoify will launch it in **GUI** mode and is recommended for most users. For advanced users, it is possible to run Todoify in **TUI** mode as well. While the former requires a [desktop environment (DE)](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems with no DE - like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
 
@@ -117,7 +117,7 @@ To send a message, simply type your message and press Enter.
 
 ?> *Note:* You might need to replace `todoify-1.0.jar` with a different name (specifically, the version number part) if it's not the same as the one you downloaded.
 
-## Commands
+## Features
 
 ### Viewing Help: `help`, `tutorial`
 
