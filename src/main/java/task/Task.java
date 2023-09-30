@@ -13,13 +13,13 @@ public abstract class Task implements Completable, Describable {
     private static final String NOT_COMPLETED_MARKER = "0";
 
     protected String taskName;
-    protected boolean completed;
+    protected boolean isCompleted;
     protected TaskType taskType;
 
     public Task(String taskType, String taskName) {
         this.taskType = TaskType.valueOf(taskType.toUpperCase());
         this.taskName = taskName;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     @Override
@@ -29,17 +29,17 @@ public abstract class Task implements Completable, Describable {
 
     @Override
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
 
     @Override
     public void setCompleted() {
-        completed = true;
+        isCompleted = true;
     }
 
     @Override
     public void setNotCompleted() {
-        completed = false;
+        isCompleted = false;
     }
 
     public TaskType getTaskType() {
@@ -86,7 +86,7 @@ public abstract class Task implements Completable, Describable {
 
     @Override
     public String toString() {
-        char mark = completed ? 'X' : ' ';
+        char mark = isCompleted ? 'X' : ' ';
         return "[" + mark + "] " + taskName;
     }
 }
