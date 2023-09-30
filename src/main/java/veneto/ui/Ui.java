@@ -44,15 +44,19 @@ public class Ui {
                     return GREETS + " 输入格式不对!\n 你可以跟我说：\n" + COMMANDS + "\n";
                 case "Not Found":
                     return GREETS + " 好像没有这样的任务要做哦\n";
+                default:
+                    assert false : "Invalid type of exception";
             }
         } else if (e instanceof VenetoStorageException) {
             if (e.getMessage().equals("Storage File Destroyed")) {
                 return GREETS + " 没找到内存哦 现在重新创建一个！\n";
             } else {
-                return GREETS + " 不该发生的发生了…";
+                assert false : "Invalid type of exception";
             }
         } else if (e.getMessage().equals("Invalid Command")) {
             return GREETS + " 输入格式不对！" + " 你可以跟我说：\n" + COMMANDS + "\n";
+        } else {
+            assert false : "Invalid Error";
         }
         return GREETS + " ???\n";
     }
@@ -80,6 +84,8 @@ public class Ui {
                                 "\n 现在还剩下" + tasks.size() + "项任务\n";
             case "find":
                 return GREETS + " 相关的任务都在这里了哦：\n" + command;
+            default:
+                assert false : "Invalid type of command";
         }
         return "Parser error";
     }
