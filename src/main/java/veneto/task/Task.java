@@ -36,17 +36,25 @@ public class Task {
      */
     public void mark(int funcId) throws VenetoException {
         if (funcId == 1) {              /* to mark task */
-            if (isDone == false) {
-                isDone = true;
-            } else {                         /* if the task is already marked */
-                throw new VenetoOperateException("Marked");
-            }
+            markTask();
         } else {                        /* to unmark task */
-            if (isDone == true) {
-                isDone = false;
-            } else {                        /* if the task is already unmarked */
-                throw new VenetoOperateException("Unmarked");
-            }
+            unmarkTask();
+        }
+    }
+
+    private void unmarkTask() {
+        if (isDone == true) {
+            isDone = false;
+        } else {                        /* if the task is already unmarked */
+            throw new VenetoOperateException("Unmarked");
+        }
+    }
+
+    private void markTask() {
+        if (isDone == false) {
+            isDone = true;
+        } else {                         /* if the task is already marked */
+            throw new VenetoOperateException("Marked");
         }
     }
 

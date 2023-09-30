@@ -12,14 +12,15 @@ import java.util.Scanner;
 
 public class Ui {
     /* Fields */
+    public final static String EXIT_SUFFIX = "0";
     private final static String GREETS = "\nVeneto: \n";
     private final static String COMMANDS =
-            "  toDo [TASK]\n" +
-            "  deadline [TASK] /by [DEADLINE(YYYY-MM-DD)]\n" +
-            "  event [TASK] /from [START_TIME(YYYY-MM-DD)] /to [END_TIME(YYYY-MM-DD)]\n" +
-            "  mark [TASK_ID]" + "unmark [TASK_ID]\n" +
-            "  find [KEYWORDS]\n" +
-            "  list" + "bye";
+            "  toDo [TASK],\n" +
+            "  deadline [TASK] /by [DEADLINE(YYYY-MM-DD)],\n" +
+            "  event [TASK] /from [START_TIME(YYYY-MM-DD)] /to [END_TIME(YYYY-MM-DD)],\n" +
+            "  mark [TASK_ID], " + "unmark [TASK_ID],\n" +
+            "  find [KEYWORDS],\n" +
+            "  list, " + "bye";
     private final static String LOGO =
             " ___      ___ __________  ___    ___  __________  __________  __________\n" +
             " \\  \\    /  /|   _______||   \\  |   ||   _______||___    ___||   ____   |\n" +
@@ -27,6 +28,7 @@ public class Ui {
             "   \\  \\/  /  |   _______||          ||   _______|    |  |    |  |    |  |\n" +
             "    \\    /   |  |_______ |   |\\     ||  |_______     |  |    |  |____|  |\n" +
             "     \\__/    |__________||___|  \\___||__________|    |__|    |__________|    ...starts\n\n";
+    private final static String INCORRECT_ERROR = GREETS + " ???\n";
 
     /* Methods */
     /**
@@ -35,26 +37,38 @@ public class Ui {
      */
     public String showError(VenetoException e) {
         if (e instanceof VenetoOperateException) {
-            switch (e.getMessage()) {
-                case "Unmarked":
-                    return GREETS + " 这个没标记过哦！\n";
-                case "Marked":
-                    return GREETS + " 这个已经做完了哦！\n";
-                case "Add":
-                    return GREETS + " 输入格式不对!\n 你可以跟我说：\n" + COMMANDS + "\n";
-                case "Not Found":
-                    return GREETS + " 好像没有这样的任务要做哦\n";
-            }
+            return showOperationError(e);
         } else if (e instanceof VenetoStorageException) {
-            if (e.getMessage().equals("Storage File Destroyed")) {
-                return GREETS + " 没找到内存哦 现在重新创建一个！\n";
-            } else {
-                return GREETS + " 不该发生的发生了…";
-            }
+            return showStorageError(e);
         } else if (e.getMessage().equals("Invalid Command")) {
-            return GREETS + " 输入格式不对！" + " 你可以跟我说：\n" + COMMANDS + "\n";
+            return showInvalidCommandError();
         }
-        return GREETS + " ???\n";
+        return INCORRECT_ERROR;
+    }
+
+    private String showStorageError(VenetoException e) {
+        if (e.getMessage().equals("Storage File Destroyed")) {
+            return GREETS + " 没找到内存哦 现在重新创建一个！\n";
+        }
+        return INCORRECT_ERROR;
+    }
+
+    private String showOperationError(VenetoException e) {
+        switch (e.getMessage()) {
+            case "Unmarked":
+                return GREETS + " 这个没标记过哦！\n";
+            case "Marked":
+                return GREETS + " 这个已经做完了哦！\n";
+            case "Add":
+                return showInvalidCommandError();
+            case "Not Found":
+                return GREETS + " 好像没有这样的任务要做哦\n";
+        }
+        return INCORRECT_ERROR;
+    }
+
+    private String showInvalidCommandError() {
+        return GREETS + " 输入格式不对！" + " 你可以跟我说：\n" + COMMANDS + "\n";
     }
 
     /**
@@ -96,16 +110,15 @@ public class Ui {
      * greets when Veneto runs
      */
     public String hello() {
-        return
-                LOGO + GREETS +
-                    " Veneto为您服务哦\n" +
-                    " 有什么可以要帮忙可以跟我说！\n";
+        return LOGO + GREETS +
+                " Veneto为您服务哦\n" +
+                " 有什么可以要帮忙可以跟我说！\n";
     }
 
     /**
      * says goodbye when session ends
      */
     public String goodbye() {
-        return GREETS + " 拜拜啦 下次见\n";
+        return GREETS + " 拜拜啦 下次见\n" + EXIT_SUFFIX;
     }
 }

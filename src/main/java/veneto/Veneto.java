@@ -11,14 +11,14 @@ public class Veneto {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
-    private String filePath = "./src/main/data/veneto.txt";
+    private String storagePath = "./src/main/data/veneto.txt";
 
     /* Constructor */
 
     public Veneto() {
         try {
             ui = new Ui();
-            storage = new Storage(filePath);
+            storage = new Storage(storagePath);
             tasks = storage.load();
         } catch (VenetoException e) {
             ui.showError(e);

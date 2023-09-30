@@ -44,10 +44,18 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = veneto.getResponse(input);
+        boolean shouldExit = false;
+        if (response.endsWith(Ui.EXIT_SUFFIX)) {
+            response = response.substring(0, response.length()-1);
+            shouldExit = true;
+        }
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)
         );
+        if (shouldExit) {
+            System.exit(0);
+        }
         userInput.clear();
     }
 }
