@@ -5,3 +5,4 @@ T,0,buy milk
 T,0,get umbrella
 T,1,buy bread
 T,1,buy bread
+T,0,do, work,
