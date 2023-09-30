@@ -7,8 +7,6 @@ import veneto.task.*;
 public class AddCommand extends Command {
     /* Fields */
     public static final String type = "add";
-    private String text;
-    private int id;
     private Task newTask;
 
     /* Constructor */
@@ -26,8 +24,12 @@ public class AddCommand extends Command {
     @Override
     public void op(TaskList tasks) throws VenetoException {
         try {
-            tasks.add(newTask);
-            tasks.storageChanged = 1;
+            if (!isDuplicated(tasks)) {
+                tasks.add(newTask);
+                tasks.storageChanged = 1;
+            } else {
+                throw new VenetoOperateException("Duplicate");
+            }
         } catch (IndexOutOfBoundsException e) {
             throw new VenetoOperateException("Add");
         }
@@ -47,5 +49,16 @@ public class AddCommand extends Command {
      */
     public String getType() {
         return type;
+    }
+
+    private boolean isDuplicated(TaskList tasks) {
+        boolean hasSameTask = false;
+        for (Task currTask : tasks) {
+            if (currTask.equals(newTask)) {
+                hasSameTask = true;
+                break;
+            }
+        }
+        return hasSameTask;
     }
 }
