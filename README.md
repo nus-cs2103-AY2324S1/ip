@@ -22,7 +22,7 @@ Prerequisites: JDK 11, update IntelliJ to the most recent version.
       ![](docs/first-launch.png)
 
    - TUI
-   
+
       ```
       [Todoify]:
         Hello! I'm Todoify, your friendly task helper.
@@ -40,5 +40,6 @@ Prerequisites: JDK 11, update IntelliJ to the most recent version.
 ## Acknowledgements
 
 - [Gson](https://github.com/google/gson) - for saving and loading data
+- [JUnit](https://junit.org/) - for Unit Testing
 - [SE-EDU JavaFX Guide Part 4](https://se-education.org/guides/tutorials/javaFxPart4.html) - for minor inspirations of GUI and code
 - [docsify](https://docsify.js.org/) - for rendering the User Guide

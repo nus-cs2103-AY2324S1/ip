@@ -53,11 +53,12 @@ This evaluates:
 
 #### Detailed Command Formatting Notes
 
-- The first word is always the **command name**.
-- The second word till the last non-"`--`"-prefixed word is the **command input text**.
-- **Parameters** are identified by name and with a `--` prefix. Order of different command parameters are not important, so `--from A --to B` and `--to B --from A` mean the same thing.
-- Any text without the `--` prefix is not considered to be a parameter and is considered part of a contiguous text chunk, so no need to surround text with quotes like in standard shell commands.
+- The **command name** is always the first word, before whitespace.
+- The **command input text** is the second word till the last non-"`--`"-prefixed word.
+- The **command parameters** are identified by name and with a `--` prefix. Order of different command parameters are not important, so `--from A --to B` and `--to B --from A` mean the same thing.
 - If duplicate parameters are present, the last value is considered.
+- If parameters not applicable to a command are present, they and their values are silently ignored.
+- Since any text without the `--` prefix is not considered to be a parameter and is considered part of a contiguous text chunk, there is no need to surround whitespace-separated-text with quotes like in standard shell commands.
 - There are no methods (yet) to escape the `--` prefix. Hence, your content should not contain a word with said prefix.
 
 #### Miscellaneous
@@ -65,9 +66,11 @@ This evaluates:
 
 ### Launch Modes and Usage
 
-For very advanced users, you can launch Todoify in both **GUI** and **TUI** modes. While the former requires a [desktop environment (DE)](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems with no DE - like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
+By default, opening Todoify will launch it in **GUI** mode and is recommended for most users. For advanced users, it is possible to run Todoify in **TUI** mode as well. While the former requires a [desktop environment (DE)](https://en.wikipedia.org/wiki/Desktop_environment), the latter can operate on headless systems with no DE - like a server or a [headless Raspberry Pi](https://learn.sparkfun.com/tutorials/headless-raspberry-pi-setup/all).
 
 #### Graphical User Interface (GUI)
+
+This is the default if you launch the app normally.
 
 **To launch in GUI mode**, either:
 
