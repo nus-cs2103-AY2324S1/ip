@@ -1,6 +1,6 @@
 # User Guide
 
-Duke is a **desktop app for managing tasks, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
+SoCrates is a **desktop app for managing tasks, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 - [Quick start](#quick-start)
 - [Features](#features)
@@ -20,9 +20,9 @@ Duke is a **desktop app for managing tasks, optimized for use via a Command Line
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your computer.
-2. Download the latest `duke.jar` from [here](https://github.com/samuelim01/ip/releases).
+2. Download the latest `socrates.jar` from [here](https://github.com/samuelim01/ip/releases).
 3. Copy the file to the folder you want to use as the _home folder_ for your chatbot.
-4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar duke.jar` commmand to run the application.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar socrates.jar` commmand to run the application.
 5. Type the command in the command box and press Enter to execute it. You may refer to the [Features](#features) below for the details of each command.
 
 
