@@ -25,7 +25,7 @@ public class Ui {
     }
 
     /**
-     * Displays a welcome message
+     * Returns a welcome message
      */
     public static String showWelcome() {
         return "____________________________________________________________\n"
@@ -35,7 +35,7 @@ public class Ui {
     }
 
     /**
-     * Reads a command entered by the user.
+     * Updates the variables of Ui based on the inputs of the user
      *
      * @return The user's input command as a string.
      */
@@ -49,6 +49,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Returns the command entered by the user in string.
+     *
+     * @return The user's input command as a string.
+     */
     public String readCommand() throws DukeException {
         Scanner io = new Scanner(System.in);
         try {

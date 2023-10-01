@@ -1,18 +1,18 @@
 package commands;
 
+import java.time.LocalDate;
+import java.util.Collections;
+
 import functional.DukeException;
 import functional.TaskList;
 import functional.Ui;
 import tasks.Task;
 
-import java.time.LocalDate;
-import java.util.Collections;
-
 /**
  * A command to list the tasks.
  */
 public class ListCommand extends Command {
-    static final long daysInAWeek = 7;
+    private static final long daysInAWeek = 7;
 
     /**
      * Constructs a `ListCommand` object.

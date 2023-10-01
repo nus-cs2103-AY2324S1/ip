@@ -1,12 +1,15 @@
 package tasks;
 
-import functional.DukeException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import functional.DukeException;
+
+/**
+ * Event Task implements a task that happens over a period
+ */
 public class Event extends Task implements Comparable<Task> {
     private String[] splitSlash;
     private String[] startDate;
@@ -49,6 +52,12 @@ public class Event extends Task implements Comparable<Task> {
         }
     }
 
+    /**
+     * Returns a new Event object with the new date.
+     * This method is meant for recurring tasks.
+     *
+     * @param newLocalDate date of the event to be updated
+     */
     public Event update(LocalDate newLocalDate) {
         String newContent = String.format("%s/%s %s %s", splitSlash[0], startDate[0],
                 newLocalDate.toString(), startDate[2]);
@@ -99,9 +108,11 @@ public class Event extends Task implements Comparable<Task> {
     public String toString() {
         String startDateString = localDate.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + " " + startTime;
         if (!super.isMarked()) {
-            return String.format("[E][ ] %s(%s: %s%s: %s)", name, startDate[0], startDateString, endTime[0], endTime[1]);
+            return String.format("[E][ ] %s(%s: %s%s: %s)", name,
+                    startDate[0], startDateString, endTime[0], endTime[1]);
         } else {
-            return String.format("[E][X] %s(%s: %s%s: %s)", name, startDate[0], startDateString, endTime[0], endTime[1]);
+            return String.format("[E][X] %s(%s: %s%s: %s)", name,
+                    startDate[0], startDateString, endTime[0], endTime[1]);
         }
     }
 }

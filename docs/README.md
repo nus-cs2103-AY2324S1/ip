@@ -19,7 +19,7 @@ You can download husky [here](https://github.com/s-peiran/ip/releases/tag/A-User
 6. Automatically sorts the tasks based on chronological order
 7. Able to add a recurring task that repeats weekly on the same day
 
-![screenshot](/Ui.png)
+<img src = "Ui.png" width="400">
 
 ## Usage
 

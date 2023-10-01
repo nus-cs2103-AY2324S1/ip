@@ -30,14 +30,17 @@ public class Command {
 
 
     /**
-     * indicate to duke.Husky class whether it is time to end the program
-     *
-     * @return boolean of whether to end the program
+     * Returns the boolean exp. whether it is time to end the program
      */
     public boolean hasExit() {
         return this.hasExit;
     }
 
+    /**
+     * Sets the hasExit variable to the given boolean
+     *
+     * @param bool given boolean value
+     */
     public void setHasExit(boolean bool) {
         this.hasExit = bool;
     }

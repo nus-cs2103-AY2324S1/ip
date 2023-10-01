@@ -1,6 +1,2 @@
-true event Jamboree /from 22/09/2023 1845 /to  
-true event Dental review /from 04/12/2023 1400 /to 1430
-true event ENT consult /from 09/10/2023 0945 /to 1015
-false deadline CS2100 Assignment 1 /by 18/09/2023 1315
 false deadline GEC1044 lecture reflection /by 22/09/2023 2359
-false event GEN2004 midterms /from 21/09/2023 1600 /to 1800
+false deadline recurring weekly quiz /by 2023-09-26 1500

@@ -14,9 +14,7 @@ public class DukeException extends Exception {
     }
 
     /**
-     * toString method of DukeException thats prints the error msg
-     *
-     * @return the error message to be printed
+     * Returns the error message of the exception
      */
     public String toString() {
         return " ☹ OOPS!!! " + getMessage();

@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.Arrays;
+
 import functional.DukeException;
 import functional.TaskList;
 import functional.Ui;
@@ -7,8 +9,6 @@ import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-
-import java.util.Arrays;
 
 /**
  * Command to add a task

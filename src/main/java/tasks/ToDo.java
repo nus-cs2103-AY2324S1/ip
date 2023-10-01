@@ -10,6 +10,11 @@ public class ToDo extends Task implements Comparable<Task> {
 
     private String name;
 
+    /**
+     * Consturcts the Todo class with the class variables
+     *
+     * @param content of the Todo task
+     */
     public ToDo(String content) {
         super(content, false);
         this.name = content.split(" ", 2)[1];
