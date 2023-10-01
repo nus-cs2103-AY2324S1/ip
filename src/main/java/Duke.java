@@ -55,9 +55,9 @@ public class Duke {
                 response.append("Bye. Hope to see you again soon!");
 
             } else if (command.equalsIgnoreCase("list")) {
-                response.append("Here are the tasks in your list:");
+                response.append("Here are the tasks in your list:\n");
                 for (int i = 0; i < tasks.size(); i++) {
-                    response.append((i + 1) + ". " + tasks.get(i));
+                    response.append((i + 1) + ". " + tasks.get(i) + "\n");
                 }
             } else if (command.startsWith("todo")) {
                 String description = command.substring(5).trim();
@@ -176,7 +176,7 @@ public class Duke {
             case "D":
                 if (parts.length >= 4) {
                     String by = parts[3];
-                    task = new Deadline(description, LocalDateTime.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
+                    task = new Deadline(description, LocalDateTime.parse(by, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
                 }
                 break;
             case "E":
