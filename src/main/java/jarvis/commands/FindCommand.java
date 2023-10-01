@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import jarvis.exceptions.InvalidTaskFormatException;
-import jarvis.gui.Ui;
+import jarvis.ui.Ui;
 import jarvis.storage.Storage;
 import jarvis.tasks.Task;
 import jarvis.tasks.TaskList;

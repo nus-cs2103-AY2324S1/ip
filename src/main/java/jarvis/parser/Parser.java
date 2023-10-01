@@ -20,7 +20,7 @@ import jarvis.commands.UnmarkCommand;
 import jarvis.exceptions.InvalidCommandException;
 import jarvis.exceptions.InvalidDateTimeFormatException;
 import jarvis.exceptions.InvalidTaskFormatException;
-import jarvis.gui.Ui;
+import jarvis.ui.Ui;
 import jarvis.tasks.Deadline;
 import jarvis.tasks.Event;
 import jarvis.tasks.Task;

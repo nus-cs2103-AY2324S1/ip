@@ -1,13 +1,15 @@
-package jarvis.gui;
+package jarvis.controllers;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import jarvis.Jarvis;
+import jarvis.ui.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -18,6 +20,7 @@ import javafx.scene.layout.VBox;
  * elements and their interactions with the Jarvis chatbot.
  */
 public class MainWindow extends AnchorPane {
+
 
     @FXML
     private ScrollPane scrollPane;
@@ -42,6 +45,7 @@ public class MainWindow extends AnchorPane {
      * Initializes the MainWindow and binds the scrollPane to the height of the dialog container.
      */
     public void initialize() {
+        scrollPane.getStylesheets().add(this.getClass().getResource("/css/styles.css").toExternalForm());
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 

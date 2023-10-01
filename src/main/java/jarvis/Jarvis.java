@@ -2,7 +2,7 @@ package jarvis;
 
 import jarvis.commands.Command;
 import jarvis.exceptions.JarvisException;
-import jarvis.gui.Ui;
+import jarvis.ui.Ui;
 import jarvis.parser.Parser;
 import jarvis.storage.Storage;
 import jarvis.tasks.TaskList;

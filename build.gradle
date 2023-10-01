@@ -46,7 +46,7 @@ test {
 }
 
 application {
-    mainClass.set("jarvis.gui.Launcher")
+    mainClass.set("jarvis.controllers.Launcher")
 }
 
 shadowJar {
