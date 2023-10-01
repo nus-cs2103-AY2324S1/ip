@@ -15,7 +15,7 @@ import commands.UnmarkCommand;
 public class Parser {
 
     /**
-     * Parses the user input string and returns the corresponding command object
+     * Returns the corresponding command object by parsing the input string
      *
      * @param fullCommand input to be parsed
      * @return corresponding command type
@@ -37,7 +37,6 @@ public class Parser {
             return new FindCommand();
         default:
             return new AddCommand();
-
         }
     }
 }

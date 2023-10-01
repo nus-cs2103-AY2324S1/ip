@@ -1,12 +1,15 @@
 package tasks;
 
-import functional.DukeException;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import functional.DukeException;
+
+/**
+ * Deadline class implementing a task that has to be done by a due date
+ */
 public class Deadline extends Task implements Comparable<Task> {
     private String[] splitSlash;
     private String[] split2;
@@ -46,6 +49,14 @@ public class Deadline extends Task implements Comparable<Task> {
         }
     }
 
+    /**
+     * Returns the new deadline object with the new LocalDate variable
+     * Method intended for recurring tasks
+     *
+     * @param newLocalDate the new date for the deadline
+     * @return deadline object with its due date updated
+     * @throws DukeException when the input date is not readable by DateTime
+     */
     public Deadline update(LocalDate newLocalDate) throws DukeException {
         String newContent = String.format("%s/%s %s %s", splitSlash[0], split2[0],
                 newLocalDate.toString(), split2[2]);

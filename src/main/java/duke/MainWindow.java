@@ -30,6 +30,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/meow.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/husky.png"));
 
+    /**
+     * Sets up the initial state of the GUI
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -48,13 +51,17 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = husky.getResponse(input);
+        //@@author chiayunrong-reused
+        //Reused from https://github.com/chiayunrong/ip
+        // with minor modifications
         if (input.equals("bye")) {
             PauseTransition pause = new PauseTransition(Duration.seconds(1)); //
             pause.setOnFinished(event -> {
                 Platform.exit();
             });
-            pause.play();  // #chiayunrong to delay window closure
+            pause.play();
         }
+        // @@author
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

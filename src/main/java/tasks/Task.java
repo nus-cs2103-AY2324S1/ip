@@ -1,9 +1,12 @@
 package tasks;
 
-import functional.DukeException;
-
 import java.time.LocalDate;
 
+import functional.DukeException;
+
+/**
+ * The Task that is to be created and stored in taskList
+ */
 public class Task implements Comparable<Task> {
     private String content;
     private boolean isMarked;

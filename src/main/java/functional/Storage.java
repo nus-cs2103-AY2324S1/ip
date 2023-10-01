@@ -1,14 +1,14 @@
 package functional;
 
-import commands.Command;
-import tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
+
+import commands.Command;
+import tasks.Task;
 
 /**
  * The storage task encapsulates loading and saving of stored TaskList
@@ -26,7 +26,7 @@ public class Storage {
     }
 
     /**
-     * Load the task stored in the local drive
+     * Loads the task stored in the local drive
      *
      * @return TaskList retrieved from the drive
      * @throws functional.DukeException

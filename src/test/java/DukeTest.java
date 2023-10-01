@@ -1,5 +1,6 @@
-import functional.DukeException;
 import org.junit.jupiter.api.Test;
+
+import functional.DukeException;
 
 // package duke.Duke;
 
@@ -13,7 +14,7 @@ public class DukeTest {
 
     @Test
     public void anotherDummyTest() throws DukeException {
-        tasks.Event e = new tasks.Event("event project meeting /from Aug 6th 2pm /to 4pm", false);
+        tasks.Event e = new tasks.Event("event project meeting /from 06/08/2023 1400 /to 1600", false);
         System.out.println(e.toString());
     }
 
