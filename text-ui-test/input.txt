@@ -1,0 +1,13 @@
+todo learn coding
+event zoom lecture /from Mon 2pm /to 4pm
+list
+mark 1
+todo get haircut
+mark 2
+mark 3
+unmark 1
+list
+event zoom lecture /from Tue 4pm /to 6pm
+deadline group project /by 2023.8.29
+mark 5
+list
