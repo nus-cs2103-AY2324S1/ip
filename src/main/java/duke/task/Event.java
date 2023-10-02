@@ -52,10 +52,10 @@ public class Event extends Task {
     public boolean isEqual(Task otherTask) {
         if (otherTask instanceof Event) {
             Event otherEvent = (Event) otherTask;
-            return this.getDescription().equalsIgnoreCase(otherEvent.getDescription()) &&
-                    this.getType().equalsIgnoreCase(otherEvent.getType()) &&
-                    this.getFrom().equalsIgnoreCase(otherEvent.getFrom()) &&
-                    this.getTo().equalsIgnoreCase(otherEvent.getTo());
+            return this.getDescription().equalsIgnoreCase(otherEvent.getDescription())
+                  && this.getType().equalsIgnoreCase(otherEvent.getType())
+                  && this.getFrom().equalsIgnoreCase(otherEvent.getFrom())
+                  && this.getTo().equalsIgnoreCase(otherEvent.getTo());
         }
         return false;
     }
@@ -67,6 +67,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy"))
+            + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy")) + ")";
     }
 }

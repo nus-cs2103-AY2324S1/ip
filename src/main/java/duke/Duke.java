@@ -3,26 +3,15 @@ package duke;
 import duke.command.Command;
 import duke.gui.DialogBox;
 import duke.task.TaskList;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.Image;
-
-/**
- * CS2103T iP Week 5
- * AY23/24 Semester 1
- * A product named Duke, a Personal Assistant Chatbot that helps
- * a person to keep track of various things.
- *
- * @author bhnuka, Bhanuka Bandara Ekanayake (AXXX7875J), G01
- * @version 5.0 CS2103T AY 23/24 Sem 1
- */
+import javafx.stage.Stage;
 
 /**
  * All the sourcecode behind the chatbot, Duke

@@ -1,6 +1,13 @@
 package duke;
 
-import duke.command.*;
+import duke.command.AddCommand;
+import duke.command.Command;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.ListCommand;
+import duke.command.MarkCommand;
+import duke.command.UnmarkCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Todo;
@@ -158,12 +165,18 @@ public class Parser {
      * @return True if the date string is in the valid format, false otherwise.
      */
 
-    private static boolean isValidDateFormat(String date) {
+    public static boolean isValidDateFormat(String date) {
         String dateFormatPattern = "\\d{4}-\\d{2}-\\d{2}";
         return date.matches(dateFormatPattern);
     }
 
-    private static boolean isValidCommandType(String commandType) {
+    /**
+     * Checks if the provided command type is valid by comparing it to a list of known valid command types.
+     *
+     * @param commandType The command type to be validated.
+     * @return True if the command type is valid, false otherwise.
+     */
+    public static boolean isValidCommandType(String commandType) {
         // Define a list of valid command types
         String[] validCommandTypes = {"bye", "list", "mark", "unmark", "todo", "deadline", "event", "delete", "find"};
         for (String validType : validCommandTypes) {

@@ -26,8 +26,8 @@ public class Todo extends Task {
     public boolean isEqual(Task otherTask) {
         if (otherTask instanceof Todo) {
             Todo otherTodo = (Todo) otherTask;
-            return this.getDescription().equalsIgnoreCase(otherTodo.getDescription()) &&
-                    this.getType().equalsIgnoreCase(otherTodo.getType());
+            return this.getDescription().equalsIgnoreCase(otherTodo.getDescription())
+                && this.getType().equalsIgnoreCase(otherTodo.getType());
         }
         return false;
     }

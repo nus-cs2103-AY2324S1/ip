@@ -1,8 +1,9 @@
 package duke;
 
+import java.util.Scanner;
+
 import duke.task.Task;
 import duke.task.TaskList;
-import java.util.Scanner;
 
 /**
  * Represents the user interface for Duke, handling input and output.

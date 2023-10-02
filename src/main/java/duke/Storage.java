@@ -1,25 +1,24 @@
 package duke;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.TaskList;
 import duke.task.Todo;
-
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Scanner;
-
-import java.io.File;
 
 /**
  * Handles the loading and saving of tasks from/to a specified file.
  */
 public class Storage {
     private String filePath;
-    TaskList tasks = new TaskList();
 
+    private TaskList tasks = new TaskList();
     /**
      * Constructs a Storage object with the specified file path.
      *
@@ -88,7 +87,7 @@ public class Storage {
         fileCheck(); // Check if the file exists
         try {
             FileWriter fileWriter = new FileWriter(filePath);
-            for (int i = 0 ; i < tasks.listSize() ; i++) {
+            for (int i = 0; i < tasks.listSize(); i++) {
                 String taskType = "";
                 String dateInfo = "";
 
@@ -99,15 +98,15 @@ public class Storage {
                     dateInfo = ((Deadline) tasks.getTask(i)).getBy();
                 } else if (tasks.getTask(i) instanceof Event) {
                     taskType = "E";
-                    dateInfo = ((Event) tasks.getTask(i)).getFrom() +
-                    " - " + ((Event) tasks.getTask(i)).getTo();
+                    dateInfo = ((Event) tasks.getTask(i)).getFrom()
+                        + " - " + ((Event) tasks.getTask(i)).getTo();
                 } else {
                     throw new DukeException("Invalid tasks in list.");
                 }
 
-                fileWriter.write(taskType + " | " +
-                (tasks.getTask(i).getDone() ? "1" : "0") + " | " +
-                tasks.getTask(i).getDescription() + " | " + dateInfo + "\n");
+                fileWriter.write(taskType + " | "
+                    + (tasks.getTask(i).getDone() ? "1" : "0") + " | "
+                    + tasks.getTask(i).getDescription() + " | " + dateInfo + "\n");
             }
             fileWriter.close();
         } catch (IOException e) {
@@ -117,6 +116,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Checks if the file specified by the 'filePath' exists. If it does not exist,
+     * this method creates the necessary directories and the file.
+     *
+     * @throws DukeException If there is an error creating the file.
+     */
     public void fileCheck() throws DukeException {
         File file = new File(filePath);
         if (!file.exists()) {

@@ -40,9 +40,9 @@ public class Deadline extends Task {
     public boolean isEqual(Task otherTask) {
         if (otherTask instanceof Deadline) {
             Deadline otherDeadline = (Deadline) otherTask;
-            return this.getDescription().equalsIgnoreCase(otherDeadline.getDescription()) &&
-                    this.getType().equalsIgnoreCase(otherDeadline.getType()) &&
-                    this.getBy().equalsIgnoreCase(otherDeadline.getBy());
+            return this.getDescription().equalsIgnoreCase(otherDeadline.getDescription())
+                    && this.getType().equalsIgnoreCase(otherDeadline.getType())
+                    && this.getBy().equalsIgnoreCase(otherDeadline.getBy());
         }
         return false;
     }

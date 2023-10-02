@@ -1,13 +1,14 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 import duke.DukeException;
 
-import java.util.ArrayList;
 
 /**
  * Represents a list of tasks in Duke.
  */
-public class TaskList extends ArrayList<Task>{
+public class TaskList extends ArrayList<Task> {
     private ArrayList<Task> tasks;
 
     /**
@@ -92,8 +93,8 @@ public class TaskList extends ArrayList<Task>{
                 tasks.remove(index);
             }
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-            System.out.println("Please enter a" +
-             " valid task index to delete.");
+            System.out.println("Please enter a"
+                + " valid task index to delete.");
         }
     }
 
@@ -153,6 +154,12 @@ public class TaskList extends ArrayList<Task>{
         return matchingTasks;
     }
 
+    /**
+     * Checks if the given task is a duplicate of any task in the TaskList.
+     *
+     * @param taskToAdd The task to check for duplicates.
+     * @return True if a duplicate task is found, false otherwise.
+     */
     public boolean containsDuplicate(Task taskToAdd) {
         boolean isDuplicate = false;
         for (Task task : tasks) {

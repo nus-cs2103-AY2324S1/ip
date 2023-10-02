@@ -1,10 +1,10 @@
 package duke.command;
 
-import duke.Ui;
-import duke.task.TaskList;
-import duke.task.Task;
-import duke.Storage;
 import duke.DukeException;
+import duke.Storage;
+import duke.Ui;
+import duke.task.Task;
+import duke.task.TaskList;
 
 /**
  * Represents a command to add a task to the task list.
@@ -33,8 +33,7 @@ public class AddCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
         if (tasks.containsDuplicate(taskToAdd)) {
             return "A task with the same description already exists.";
-        }
-        else {
+        } else {
             tasks.addTask(taskToAdd);
             storage.saveTasks(tasks);
             return ui.showAdded(taskToAdd, tasks.listSize());
