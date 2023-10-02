@@ -1,32 +1,61 @@
-# ChatterBox
+# ChatterBox User Guide
 
-> “Your mind is for having ideas, not holding them.” – David Allen ([source](https://dansilvestre.com/productivity-quotes))
+ChatterBox is your friendly neighbourhood task manager! Never forget anything ever again!
 
-ChatterBox frees your mind of having to remember things you need to do. It's,
+![chatterbox](Ui.png)
 
-- text-based
-- easy to learn
-- ~FAST~ _SUPER FAST_ to use
-- All you need to do is,
+## Features 
+ChatterBox comes with a bunch of features such as:
+- Managing tasks
+    - Todos, Events, Deadlines
+- Mark and Unmark tasks
+- Delete a single task
+- Find a task
+- Save tasks locally
+- Mass delete all tasks (and start afresh!)
 
-1. download it from [here](https://github.com/nus-cs2103-AY2324S1/ip/pull/490).
-2. double-click it.
-3. add your tasks.
-4. let it manage your tasks for you 😉
-5. And it is **FREE!**
+### Functionality
 
-Features:
+ChatterBox's primary interaction method is the keyboard, so you can keep working without having to lift your palms! The currently available primary commands include:
+- todo \<task\>
+- event /from <start> /to <end>
+- deadline /by \<date\> (Note: date must be in this format "YYYY-MM-DD")
 
-- [x]  Managing tasks
-- [x]  Managing deadlines (coming soon)
-- [x]  Reminders (coming soon)
+Other commands include:
+- list
+- find \<keyword\>
+- delete \<index\>
+- mark \<index\>
+- unmark \<index\>
 
-If you Java programmer, you can use it to practice Java too. Here's the main method:
+And when you wanna start over, there's always:
 
+- delete_all
+
+Once you're done with ChatterBox, simply enter:
+
+- bye
+
+### Considerations
+
+All commands must be in full lowercase (for now).
+
+If you are ever confused, simply type "help" and the start screen will show!
+
+## Usage
+
+You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3) and then:
+
+1. Navigate into the directory with
+
+```sh
+cd <PATH>
 ```
-public class Main {
-    public static void main(String[] args) {
-        Application.launch(MainApp.class, args);
-    }
-}
+
+2. Run Chatterbox
+
+```sh
+java -jar duke.jar
 ```
+
+Note: running the program will create a "data.txt" file in the current directory, this file stores all the tasks such that they persist even after closing the app. 
