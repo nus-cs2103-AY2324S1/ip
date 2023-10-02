@@ -271,6 +271,8 @@ In the **GUI** (default), this halts further input. It does not close the app, s
 
 If you are an advanced user using the **TUI**, this exits the program. You can use your terminal scrollback if you need to refer to the transcript.
 
+?> *Tip:* If you want to close the app using the keyboard, use system shortcuts instead, such as `Alt`+`F4` on Windows, `Command`+`Q` on macOS, and so on.
+
 ## Command Summary
 
 A summary of all commands is accessible via the `help` command within Todoify. A copy is reproduced here:
