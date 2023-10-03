@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"name": "ip",
+			"path": "."
+		}
+	],
+	"settings": {
+		"java.format.settings.url": "eclipse-formatter.xml"
+	}
+}
