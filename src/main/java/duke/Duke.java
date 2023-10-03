@@ -52,7 +52,6 @@ public class Duke {
     /**
     * Greet method for Duke.
     *
-    * @param input the user input
     * @return the chatbot's response
     */
     public String greet() {
