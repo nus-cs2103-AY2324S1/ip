@@ -58,7 +58,7 @@ public class Parser {
         case "DEADLINE":
             return parseDeadline(content);
         default:
-            throw new DukeException("Sorry, I don't recognize this command. Please try again.");
+            throw new DukeException("Sorry, I don't recognize this command." + "\n" + "Please try again.");
         }
     }
 
@@ -72,7 +72,7 @@ public class Parser {
         if (content.isBlank() || content.isEmpty() || content == null) {
             return Ui.exit();
         } else {
-            throw new DukeException("The clear command will clear all stored tasks, please try again.");
+            throw new DukeException("Sorry, I don't recognize this command." + "\n" + "Please try again.");
         }
     }
 
@@ -86,7 +86,7 @@ public class Parser {
         if (content.isBlank() || content.isEmpty() || content == null) {
             return taskList.clear();
         } else {
-            throw new DukeException("The clear command will clear all stored tasks, please try again.");
+            throw new DukeException("Sorry, I don't recognize this command." + "\n" + "Please try again.");
         }
     }
 
@@ -104,10 +104,10 @@ public class Parser {
         try {
             deleteItem = Integer.valueOf(content.substring(1));
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the item number you wish to delete.");
+            throw new DukeException("Please specify the item number you wish to delete.");
         }
         if (deleteItem <= 0 || deleteItem > taskList.size()) {
-            throw new DukeException("Please specify the item number you wish to delete.");
+            throw new DukeException("Please specify a task that exist.");
         }
         return taskList.delete(deleteItem);
     }
@@ -125,10 +125,10 @@ public class Parser {
         try {
             markItem = Integer.valueOf(content.substring(1));
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the item number you wish to mark.");
+            throw new DukeException("Please specify the item number you wish to mark.");
         }
         if (markItem <= 0 || markItem > taskList.size()) {
-            throw new DukeException("Please specify the item number you wish to mark.");
+            throw new DukeException("Please specify a task that exist.");
         }
         return taskList.mark(markItem, true);
     }
@@ -147,7 +147,7 @@ public class Parser {
         try {
             unmarkItem = Integer.valueOf(content.substring(1));
         } catch (NumberFormatException e) {
-            throw new DukeException("Please enter the item number you wish to unmark.");
+            throw new DukeException("Please specify the item number you wish to unmark.");
         }
         if (unmarkItem <= 0 || unmarkItem > taskList.size()) {
             throw new DukeException("Please specify the item number you wish to unmark.");
