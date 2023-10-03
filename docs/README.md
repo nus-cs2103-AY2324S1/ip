@@ -26,6 +26,7 @@ Download and run the jar file as the following to use it!
 4. Exit Command [Link](#exit-command)
 > **Note**
 > All commands are NOT case-sensitive.
+
 ---
 ### Create-related
 ### `todo` 
