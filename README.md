@@ -10,4 +10,4 @@ A text-based task-handling system built with Java
 ```agsl
 java -jar barbie.jar
 ```
-For more information, refer to the [User Guide](https://applepiofmyeye.github.io/ip/).
+For more information, refer to the [User Guide](https://github.com/applepiofmyeye/ip/blob/master/docs/README.md).
