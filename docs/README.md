@@ -23,7 +23,7 @@ Download and run the jar file as the following to use it!
 1. Create task commands [Link](#create-related)
 2. Manage task commands [Link](#manage-related)
 3. View task commands [Link](#view-related)
-> [!NOTE]
+> **Note**
 > All commands are NOT case-sensitive.
 ---
 ### Create-related
