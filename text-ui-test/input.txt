@@ -1,0 +1,28 @@
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+deadline do homework /by no idea :-p
+list
+unknowncommand
+mark 5
+unmark 5
+delete 1
+list
+delete 5
+todo
+deadline submit report
+event team lunch /from Tue 12pm
+delete abc
+todo This is a very long description just to test Simon's ability to handle long inputs without breaking or malfunctioning in any way
+mark 2
+unmark 3
+deadline /by next Monday
+event team dinner /from Wed 8pm
+mark xyz
+unmark abc
+unmark 10
+mark 10
+deadline /by
+event /from Thu 9am /to 11am
+list
+bye

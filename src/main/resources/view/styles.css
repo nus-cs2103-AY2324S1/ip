@@ -1,0 +1,74 @@
+.root {
+    -fx-base: #202020;
+    -fx-background: #2b2b2b;
+    -fx-control-inner-background: #333;
+    -fx-accent: #0077ff;
+    -fx-focus-color: #0077ff;
+    -fx-faint-focus-color: #0077ff22;
+    -fx-font-family: 'Roboto Light';  /* Add your font here */
+}
+
+.button {
+    -fx-text-fill: #e0e0e0;
+    -fx-background-color: #333;
+    -fx-border-radius: 15px;  /* Rounded corners */
+    -fx-background-radius: 15px;  /* Rounded corners */
+}
+
+.label {
+    -fx-text-fill: #e0e0e0;
+}
+
+.text-field {
+    -fx-text-fill: #e0e0e0;
+    -fx-prompt-text-fill: #666;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 5, 0, 0, 1);  /* Shadow effect */
+    -fx-background-radius: 15px;  /* Rounded corners */
+}
+
+/* Duke DialogBox */
+.duke-dialog {
+    -fx-background-color: linear-gradient(to bottom, #404040, #505050); /* Gradient effect */
+}
+
+/* User DialogBox */
+.user-dialog {
+    -fx-background-color: linear-gradient(to bottom, #505050, #606060); /* Gradient effect */
+}
+
+/* Button */
+.button {
+    -fx-border-radius: 20px;  /* More rounded corners */
+    -fx-background-radius: 20px;  /* More rounded corners */
+}
+
+.button:hover {
+    -fx-background-color: #444;
+}
+
+.button:pressed {
+    -fx-background-color: #222;
+    -fx-translate-y: 2px; /* A subtle button press effect */
+}
+
+/* TextField */
+.text-field {
+    -fx-border-radius: 20px;
+    -fx-background-color: #333;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.5), 2, 0, 0, 1);  /* subtle shadow effect */
+}
+
+/* DialogBox */
+.dialog-box {
+    -fx-padding: 5px; /* Padding for each dialog box */
+    -fx-spacing: 5px; /* Spacing between dialog boxes */
+}
+
