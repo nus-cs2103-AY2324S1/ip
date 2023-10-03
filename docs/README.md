@@ -20,9 +20,10 @@ Download and run the jar file as the following to use it!
 ## Usage - Commands
 
 ### Quick Navigation
-1. Create task commands [Link](#create-related)
-2. Manage task commands [Link](#manage-related)
-3. View task commands [Link](#view-related)
+1. Create Task Commands [Link](#create-related)
+2. Manage Task Commands [Link](#manage-related)
+3. View Task Commands [Link](#view-related)
+4. Exit Command [Link](#exit-command)
 > **Note**
 > All commands are NOT case-sensitive.
 ---
@@ -83,15 +84,12 @@ This task marks a task as completed.
 Format: `mark TASK_INDEX`
 
 Example: `mark 1`
-
-Expected outcome:
-* Marks the task at the specified index as completed.
-* Example:
-    ```
+Expected outcome: 
+  ```
       Nice! I've marked this task as complete:
       [T-D][ Completed ] task 1
       Here's a lollipop.
-    ```
+  ```
 ---
 
 ### `unmark`
@@ -102,16 +100,16 @@ Format: `unmark TASK_INDEX`
 Example: `unmark 1`
 
 Expected outcome:
-    ```
+```
       OK, I've marked this task as incomplete yet:
       [T-D][In progress] task 1
       Keep up with the good work.
-    ```
+```
 ---
 
 ### `delete`
 This command deletes a task.
-> [!WARNING]
+> **Warning**
 > Tasks cannot be recovered after being cleared.
 
 Format: `delete TASK_INDEX`
@@ -119,16 +117,15 @@ Format: `delete TASK_INDEX`
 Example: `delete 1`
 
 Expected outcome:
-
-    ``
-      I've removes this task:
+  ```
+      I've removed this task:
       [T-D][In progress] task 1
       Current # of tasks: 2
-    ```
+  ```
 ---
 ### `clear`
-This command cleas all tasks saved.
-> [!WARNING]
+This command clears all tasks saved.
+> **Warning**
 > Tasks cannot be recovered after being cleared.
 
 Example: `clear`
@@ -136,7 +133,7 @@ Example: `clear`
 Expected outcome:
 * Example
     ```
-  Okay, I have cleared all tasks.
+    Okay, I have cleared all tasks.
     ```
 ---
 ### View-related
@@ -191,7 +188,8 @@ Expected outcome:
 ---
 
 ---
-### `bye` - 
+### Exit-Command
+### `bye` 
 This command exits the chatbot
 Example: `bye`
 
