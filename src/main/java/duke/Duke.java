@@ -35,7 +35,7 @@ public class Duke {
     }
 
     /**
-    * Constructs the Duke class.
+    * Get chatbot responce for user input.
     *
     * @param input the user input
     * @return the chatbot's response
@@ -47,6 +47,16 @@ public class Duke {
         } catch (DukeException e) {
             return e.getMessage();
         }
+    }
+
+    /**
+    * Greet method for Duke.
+    *
+    * @param input the user input
+    * @return the chatbot's response
+    */
+    public String greet() {
+        return Ui.greet();
     }
 
     /**
