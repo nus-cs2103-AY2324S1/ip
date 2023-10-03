@@ -82,7 +82,7 @@ public class DialogBox extends HBox {
      * @param img Barbie's profile picture
      * @return DialogBox object for Barbie
      */
-    public static DialogBox getDukeDialog(String text, Image img ) {
+    public static DialogBox getDukeDialog(String text, Image img) {
         var db = new DialogBox(text, img, true);
         db.flip();
         return db;
