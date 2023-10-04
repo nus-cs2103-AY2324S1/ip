@@ -52,7 +52,6 @@ public class MainWindow extends AnchorPane {
         if (response.trim().isBlank()) {
             dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
             userInput.clear();
-            return;
         }
 
         dialogContainer.getChildren().addAll(
