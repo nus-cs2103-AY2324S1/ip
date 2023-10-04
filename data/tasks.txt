@@ -1,0 +1,4 @@
+[T] [X] quiz
+[D] [ ] return book (by: Oct 12 2023)
+[E] [ ] reading week (from: Sep 25 2023 to: Sep 29 2023)
+[T] [ ] quiz 2
