@@ -131,6 +131,25 @@ public class Ui {
         return "Yay! I've updated this task to:\n" + updatedTask.toString();
     }
 
+    /**
+     * Prints the message when the user requests for help.
+     */
+    public String printHelpMessage() {
+        String header = "No worries, I'm more than happy to help!\n"
+                + "Here's the list of commands to get you started:\n";
+        String commandsList = "1. todo <description>\n"
+                + "2. deadline <description> /by <deadline date>\n"
+                + "3. event <description> /from <start date> /to <end date>\n"
+                + "4. delete <task index>\n"
+                + "5. mark <task index>\n"
+                + "6. unmark <task index>\n"
+                + "7. list\n"
+                + "8. find <keyword>\n"
+                + "9. update <task index> <field to update> <new description>\n"
+                + "10. bye";
+        return header + commandsList;
+    }
+
     public String readCommand() {
         return sc.nextLine();
     }
