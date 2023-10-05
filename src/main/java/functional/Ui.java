@@ -79,8 +79,14 @@ public class Ui {
      * @param index
      * @return the desired word in the command as a string
      */
-    public String get(int index) {
-        return currentLine[index];
+    public String get(int index) throws DukeException {
+        String output;
+        try {
+            output = currentLine[index];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new DukeException("ArrayIndexOutofBounds");
+        }
+        return output;
     }
 
     /**

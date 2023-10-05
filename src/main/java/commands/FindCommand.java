@@ -1,5 +1,6 @@
 package commands;
 
+import functional.DukeException;
 import functional.TaskList;
 import functional.Ui;
 import tasks.Task;
@@ -23,8 +24,9 @@ public class FindCommand extends Command {
      * @param ui     The user interface.
      * @param status task marked or unmarked and whether the task is being loaded from memory
      */
-    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) {
-        String keyword = ui.get(1);
+    public String execute(TaskList<Task> tasks, Ui ui, boolean... status) throws DukeException {
+        String keyword;
+        keyword = ui.get(1);
         StringBuilder sb = new StringBuilder();
         sb.append(ui.showLine() + "\n");
         sb.append("Here are the matching tasks in your list:\n");

@@ -10,6 +10,7 @@ public class TaskList<Task> extends ArrayList<Task> {
 
     /**
      * Constructs a `TaskList` with the specified list of tasks
+     *
      * @param list The List containing tasks to initialize the task list.
      */
     public TaskList(List<Task> list) {
@@ -22,6 +23,7 @@ public class TaskList<Task> extends ArrayList<Task> {
 
     /**
      * get method to obtain the Task at a specific index
+     *
      * @param index index of the element to return
      * @return the Tasks retrieved from the given index
      */

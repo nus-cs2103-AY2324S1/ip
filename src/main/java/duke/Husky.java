@@ -2,6 +2,7 @@ package duke;
 
 import commands.Command;
 import functional.DukeException;
+import functional.Parser;
 import functional.Storage;
 import functional.TaskList;
 import functional.Ui;
@@ -26,14 +27,14 @@ public class Husky {
      * @param filePath The file path to store task data.
      */
     public Husky(String filePath) {
-        ui = new functional.Ui();
-        storage = new functional.Storage(filePath);
+        ui = new Ui();
+        storage = new Storage(filePath);
         this.filePath = filePath;
         try {
-            tasks = new functional.TaskList<tasks.Task>(storage.load());
+            tasks = new TaskList<tasks.Task>(storage.load());
         } catch (DukeException e) {
             ui.showLoadingError();
-            tasks = new functional.TaskList<tasks.Task>();
+            tasks = new TaskList<tasks.Task>();
         }
     }
 
@@ -49,14 +50,14 @@ public class Husky {
             try {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
-                Command c = functional.Parser.parse(fullCommand);
+                Command c = Parser.parse(fullCommand);
                 String k = c.execute(tasks, ui, false, false);
                 System.out.println(k);
                 hasExit = c.hasExit();
-            } catch (functional.DukeException e) {
-                ui.showError(e.getMessage());
+            } catch (DukeException e) {
+                System.out.println(ui.showError(e.getMessage()));
             } finally {
-                ui.showLine();
+                System.out.println(ui.showLine());
             }
         }
         storage.save(tasks);

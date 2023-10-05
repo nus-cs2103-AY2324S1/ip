@@ -8,10 +8,10 @@ import java.time.LocalDate;
 public class ToDo extends Task implements Comparable<Task> {
     private static final LocalDate localDate = LocalDate.now();
 
-    private String name;
+    private final String name;
 
     /**
-     * Consturcts the Todo class with the class variables
+     * Constructs the Todo class with the class variables
      *
      * @param content of the Todo task
      */

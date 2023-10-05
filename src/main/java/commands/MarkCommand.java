@@ -26,11 +26,18 @@ public class MarkCommand extends Command {
      */
 
     public String execute(TaskList<Task> tasks, Ui ui, boolean... status) throws DukeException {
-        int index = Integer.parseInt(ui.get(1)) - 1;
-        if (index >= tasks.size()) {
-            throw new DukeException("index out of bounds");
+        int index;
+        try {
+            index = Integer.parseInt(ui.get(1)) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("NumberFormatException");
         }
-        Task job = tasks.get(index);
+        Task job;
+        try {
+            job = tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("IndexOutOfBoundsException");
+        }
         job = job.mark();
         tasks.set(index, job);
         return ui.showLine() + "\n"

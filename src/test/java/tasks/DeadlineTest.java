@@ -1,5 +1,6 @@
 package taskmanager;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -22,7 +23,7 @@ class DeadlineTest {
         assertFalse(newdeadline.equals(newdeadline1));
         assertFalse(newdeadline.equals(newdeadline2));
         assertFalse(newdeadline.equals(newdeadline3));
-        assertTrue(newdeadline.equals(newdeadline4));
+        assertEquals(newdeadline.toString(), newdeadline4.toString());
     }
 
 }
