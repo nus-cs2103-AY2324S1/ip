@@ -106,6 +106,11 @@ public class Storage {
     }
 
 
+    /**
+     * Returns the File object contained inside the Storage Object.
+     *
+     * @return The File Object
+     */
     public File getFile() {
         return this.file;
     }

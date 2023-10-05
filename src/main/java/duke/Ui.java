@@ -1,12 +1,14 @@
 package duke;
 
 /**
- * The UI Class deals with the App's User Interface, inclusive of but not limited to
- * System.out formatting, line formatting, and other output formatting.
+ * The UI Class deals with the App's Graphical User Interface, inclusive of but
+ * not limited to String formatting, line formatting, error string formatting, a
+ * and other output formatting.
  */
 public class Ui {
     private static final String TABS_SPACING = "_________________________";
     private static final String WHITE_SPACING = "      ";
+
     /** Default constructor */
     public Ui() {}
 
@@ -74,6 +76,8 @@ public class Ui {
                 + this.tabPrinter("event <TASK> /from <START> /to <END>")
                 + "\n"
                 + this.tabPrinter("list")
+                + "\n"
+                + this.tabPrinter("help")
                 + "\n"
                 + this.tabPrinter("mark/unmark/delete <INDEX>")
                 + "\n"

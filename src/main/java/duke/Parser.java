@@ -207,7 +207,6 @@ public class Parser {
                 break;
             }
 
-
             finalOutput = ui.removedAllTaskScreen();
             break;
 

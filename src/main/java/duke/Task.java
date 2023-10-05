@@ -22,9 +22,9 @@ public class Task {
         this.name = name;
     }
 
-    /*
-     * Create a duke.Task object with default false
-     * done status
+    /**
+     * Create a Task object with default false
+     * done status.
      */
     Task(String name) {
         this(false, name);
