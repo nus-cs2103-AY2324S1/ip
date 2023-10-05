@@ -21,7 +21,8 @@ any time you need it!
 | List tasks  | Lists all the tasks currently in the list.                                |
 |  Find task  | Finds a task from the list using matching keyword(s).                     |
 | Update task | Updates the specified field of a task.                                    |
-|  Find task  | Ends the current session with Task Buddy.                                 |
+|    Help     | Provides the list of commands to help user learn how to use Task Buddy.   |
+|     Bye     | Ends the current session with Task Buddy.                                 |
 
 
 ## Usage
@@ -182,6 +183,30 @@ Noted. I've updated this task to:
 ```
 Noted. I've updated this task to:
 [D][] return book (by: 2023-10-03)
+```
+
+### `help` - Provides the list of commands for user
+
+Format: `help`
+
+Example of usage:
+`help`
+
+Expected outcome:
+
+```
+No worries, I'm more than happy to help!
+Here's the list of commands to get you started:
+1. todo <description>
+2. deadline <description> /by <deadline date>
+3. event <description> /from <start date> /to <end date>
+4. delete <task index>
+5. mark <task index>
+6. unmark <task index>
+7. list
+8. find <keyword>
+9. update <task index> <field to update> <new description>
+10. bye
 ```
 
 

@@ -13,6 +13,7 @@ import buddy.commands.CommandType;
 import buddy.commands.DeleteCommand;
 import buddy.commands.ExitCommand;
 import buddy.commands.FindCommand;
+import buddy.commands.HelpCommand;
 import buddy.commands.ListCommand;
 import buddy.commands.MarkAsDoneCommand;
 import buddy.commands.MarkAsUndoneCommand;
@@ -38,7 +39,7 @@ public class Parser {
     private static void validateDate(String date) throws BuddyCommandException {
         assert !date.isBlank() : "date should not be blank";
         try {
-            LocalDate d = LocalDate.parse(date);
+            LocalDate.parse(date);
         } catch (DateTimeParseException e) {
             throw new BuddyCommandException("Enter the date in YYYY-MM-DD format");
         }
@@ -46,7 +47,7 @@ public class Parser {
 
     private static void validateIndex(String string) throws BuddyCommandException {
         try {
-            int taskIndex = Integer.parseInt(string);
+            Integer.parseInt(string);
         } catch (NumberFormatException e) {
             throw new BuddyCommandException("Enter the index as a positive integer");
         }
@@ -67,6 +68,8 @@ public class Parser {
             CommandType commandType = CommandType.valueOf(words[0].toUpperCase());
             if (commandType.equals(CommandType.BYE)) {
                 return new ExitCommand();
+            } else if (commandType.equals(CommandType.HELP)) {
+                return new HelpCommand();
             } else if (commandType.equals(CommandType.LIST)) {
                 return new ListCommand();
             } else if (commandType.equals(CommandType.MARK)) {
