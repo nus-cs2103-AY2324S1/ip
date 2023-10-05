@@ -1,11 +1,14 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+
 
 public class ParserTest {
 
@@ -103,13 +106,13 @@ public class ParserTest {
 
     // Helper method to provide input for testing
     private void provideInput(String input) {
-        InputStream originalInput = System.in;  // Store the original System.in
+        InputStream originalInput = System.in;
         try {
             InputStream inputStream = new ByteArrayInputStream(input.getBytes());
             System.setIn(inputStream);
             parser.setUserInput(input); // Set the user input directly
         } finally {
-            System.setIn(originalInput);  // Reset System.in to its original state
+            System.setIn(originalInput);
         }
     }
 }

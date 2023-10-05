@@ -5,8 +5,8 @@ package duke;
  * It provides methods to manage tasks, mark them as done, and perform various operations on tasks.
  */
 public class Duke {
-    private TaskList tasks;
     private static final String FILE_PATH = "./src/main/data/tasklist.txt";
+    private TaskList tasks;
 
     /**
      * Constructs a Duke instance with the specified file path to load task data from.

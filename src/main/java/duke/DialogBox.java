@@ -24,12 +24,12 @@ import javafx.scene.paint.Color;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+
+    private static final Ui ui = new Ui();
     @FXML
     private Label dialog;
     @FXML
     private ImageView displayPicture;
-    private static final Ui ui = new Ui();
-
     /**
      * Creates a DialogBox with the specified text and image.
      *

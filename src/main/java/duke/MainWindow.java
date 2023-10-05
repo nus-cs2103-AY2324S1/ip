@@ -21,8 +21,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private TextField userInput;
     private Duke duke;
-    private final Image userImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+    private final Image userImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/DaUser.png")));
+    private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/DaDuke.png")));
     /**
      * Initializes the GUI components.
      * This method is typically called when the FXML controller is initialized.

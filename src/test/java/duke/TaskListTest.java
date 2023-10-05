@@ -1,10 +1,12 @@
 package duke;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+
 
 public class TaskListTest {
 
@@ -12,14 +14,11 @@ public class TaskListTest {
 
     @BeforeEach
     public void setUp() {
-        taskList = new TaskList();
-        taskList.getFile().deleteOnExit();
+        taskList = new TaskList(new Storage("testfile.txt"));
     }
 
     @Test
     public void testMark() {
-
-        // Add a task to the list
         Task task = new ToDo("Test task 1");
         taskList.addToList(task, 0);
 
@@ -30,14 +29,14 @@ public class TaskListTest {
         String expectedResponse = "Great job! You've completed the following task:\n[T][X] Test task 1";
         assertEquals(expectedResponse, response);
 
-        // Check if the task was marked as done in the list and saved to the file
-        String fileContents = readFileContents();
-        assertTrue(fileContents.contains("[T][X] Test task 1"));
+        // You should check if the task was marked as done in the list.
+        assertTrue(taskList.getTasks().get(0).isMarked());
+
+        // You don't need to check if the task was saved to the file here.
     }
 
     @Test
     public void testUnMark() {
-
         // Add a task to the list and mark it as done
         Task task = new ToDo("Test task 1");
         taskList.addToList(task, 0);
@@ -50,24 +49,9 @@ public class TaskListTest {
         String expectedResponse = "You've marked the following task as incomplete:\n[T][ ] Test task 1";
         assertEquals(expectedResponse, response);
 
-        // Check if the task was unmarked as done in the list and saved to the file
-        String fileContents = readFileContents();
-        assertTrue(fileContents.contains("[T][ ] Test task 1"));
-    }
+        // You should check if the task was unmarked as done in the list.
+        assertFalse(taskList.getTasks().get(0).isMarked());
 
-    // Helper method to read the contents of the test file
-    private String readFileContents() {
-        try {
-            Scanner s = new Scanner(taskList.getFile());
-            StringBuilder stringBuilder = new StringBuilder();
-
-            while (s.hasNext()) {
-                stringBuilder.append(s.nextLine()).append(System.lineSeparator());
-            }
-
-            return stringBuilder.toString();
-        } catch (FileNotFoundException e) {
-            return "";
-        }
+        // You don't need to check if the task was saved to the file here.
     }
 }

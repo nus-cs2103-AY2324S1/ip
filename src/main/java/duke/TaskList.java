@@ -237,4 +237,7 @@ public class TaskList {
         Collections.sort(tasks);
         return ui.getSortedMessage() + displayList();
     }
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
 }
