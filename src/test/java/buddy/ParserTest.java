@@ -12,7 +12,7 @@ import buddy.commands.ExitCommand;
 import buddy.commands.ListCommand;
 import buddy.commands.MarkAsDoneCommand;
 import buddy.commands.MarkAsUndoneCommand;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Parser;
 
 import static org.junit.jupiter.api.Assertions.*;

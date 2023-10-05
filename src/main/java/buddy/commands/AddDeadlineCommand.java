@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 import buddy.Deadline;
 import buddy.TaskList;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
@@ -11,6 +11,9 @@ import buddy.utils.Ui;
  * The class represents the command for adding a Deadline into the task list.
  */
 public class AddDeadlineCommand extends Command {
+    public static final String MESSAGE_FORMAT =
+            "deadline <description> /by <date>\n"
+            + "Example: deadline submit proposal /by 2023-12-31";
     private String description;
     private LocalDate deadlineDate;
 
@@ -26,7 +29,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(description, deadlineDate, false);
         tasks.addTask(deadline);
         String response = ui.printAddSuccessMessage(deadline, tasks);

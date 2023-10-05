@@ -2,7 +2,8 @@ package buddy;
 
 import buddy.commands.Command;
 import buddy.commands.ExitCommand;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyCommandException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Parser;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
@@ -54,6 +55,8 @@ public class Buddy {
                 command.execute(tasks, ui, storage);
             } catch (BuddyException e) {
                 System.out.println(e.getMessage());
+            } catch (BuddyCommandException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -83,6 +86,8 @@ public class Buddy {
                 this.isExit = true;
             }
         } catch (BuddyException e) {
+            return e.getMessage();
+        } catch (BuddyCommandException e) {
             return e.getMessage();
         }
         return response;

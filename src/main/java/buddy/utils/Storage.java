@@ -14,6 +14,7 @@ import buddy.Event;
 import buddy.Task;
 import buddy.TaskList;
 import buddy.Todo;
+import buddy.exceptions.BuddyException;
 
 /**
  * The Storage class deals with loading tasks from the file and saving tasks to the file.

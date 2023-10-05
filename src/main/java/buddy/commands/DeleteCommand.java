@@ -2,7 +2,7 @@ package buddy.commands;
 
 import buddy.Task;
 import buddy.TaskList;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
@@ -10,6 +10,10 @@ import buddy.utils.Ui;
  * The class represents the command for deleting a task from the task list.
  */
 public class DeleteCommand extends Command {
+    public static final String MESSAGE_FORMAT =
+            "delete <task index>\n" + "Example: delete 2";
+    public static final String MESSAGE_INDEX_BOUND =
+            "Index from 1 to ";
     private int index;
 
     /**
@@ -22,7 +26,7 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task deletedTask = tasks.getTask(index);
         tasks.deleteTask(index);
         String response = ui.printDeleteSuccessMessage(deletedTask, tasks);

@@ -3,7 +3,7 @@ import java.time.LocalDate;
 
 import buddy.Event;
 import buddy.TaskList;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
@@ -11,6 +11,9 @@ import buddy.utils.Ui;
  * The class represents the command for adding an Event into the task list.
  */
 public class AddEventCommand extends Command {
+    public static final String MESSAGE_FORMAT =
+            "event <description> /from <start date> /to <end date>\n"
+                    + "Example: event trip to JB /from 2023-09-29 /to 2023-09-30";
     private String description;
     private LocalDate eventStart;
     private LocalDate eventEnd;
@@ -29,7 +32,7 @@ public class AddEventCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(description, eventStart, eventEnd, false);
         tasks.addTask(event);
         String response = ui.printAddSuccessMessage(event, tasks);

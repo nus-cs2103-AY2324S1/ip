@@ -15,6 +15,7 @@ public class Ui {
     private final String name = "Task Buddy";
     private Scanner sc;
 
+
     /**
      * The constructor for a Ui.
      */
@@ -26,7 +27,7 @@ public class Ui {
      * Prints the greeting message.
      */
     public String printGreeting() {
-        String greeting = String.format("Hello! I'm %s\n", name);
+        String greeting = String.format("Hello! I'm %s!\n", name);
         String inquiry = "What would you like to do?\n";
         return greeting + inquiry;
         // System.out.println("You have the following buddy.tasks:");
@@ -53,6 +54,25 @@ public class Ui {
             return "Sorry, no results found.";
         } else {
             String header = "Here are the tasks in your list:\n";
+            String listInString = "";
+            for (int i = 0; i < list.size(); i++) {
+                int taskIndex = i + 1;
+                listInString += (taskIndex + ". " + list.get(i) + "\n");
+            }
+            return header + listInString;
+        }
+    }
+
+    /**
+     * Prints the list of tasks.
+     *
+     * @param list The array list of tasks to be printed.
+     */
+    public String printFilteredList(ArrayList<Task> list) {
+        if (list.isEmpty()) {
+            return "Sorry, I couldn't find any matches :(";
+        } else {
+            String header = "Here are the matching tasks in your list:\n";
             String listInString = "";
             for (int i = 0; i < list.size(); i++) {
                 int taskIndex = i + 1;

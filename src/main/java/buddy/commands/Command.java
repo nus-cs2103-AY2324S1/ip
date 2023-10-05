@@ -1,7 +1,8 @@
 package buddy.commands;
 
 import buddy.TaskList;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyCommandException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
@@ -17,7 +18,5 @@ public abstract class Command {
      * @param storage The Storage to be worked on.
      * @throws BuddyException On input or file error.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        throw new BuddyException("OOPS!!! I'm sorry, but I don't know what that means :-(");
-    }
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyCommandException;
 }
