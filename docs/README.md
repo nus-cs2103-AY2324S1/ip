@@ -7,7 +7,7 @@ It is meant for users to keep track of their daily tasks comprehensively.
 
 ## Download
 
-You can download husky [here](https://github.com/s-peiran/ip/releases/tag/A-UserGuide).
+You can download husky [here](https://github.com/s-peiran/ip/releases/tag/A-MoreTesting).
 
 ## Features
 
