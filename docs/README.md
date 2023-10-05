@@ -14,7 +14,7 @@ You can download husky [here](https://github.com/s-peiran/ip/releases/tag/A-User
 1. [Add tasks based on type - ToDo, Deadline or Event](#Adds-tasks-that-are-not-chronologically sensitive)
 2. Automatically saves the task list
 3. [Mark / Unmark tasks based on completion](#mark---marks-the-task-as-done)
-4. [deletes a specific task](#Deletes-the-task-from-list)
+4. [deletes a specific task](#delete---deletes-the-task-from-list)
 5. [Find Tasks based on a keyword](#find---search-for-a-list-in-the-list)
 6. Automatically sorts the tasks based on chronological order
 7. [Able to add a recurring task that repeats weekly on the same day](#type-recurring---add-a-recurring-task)
