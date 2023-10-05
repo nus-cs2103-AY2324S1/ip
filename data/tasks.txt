@@ -1,5 +1,2 @@
-T | 0 | borrow 2 books
-E | 0 | holiday | 2023-12-06 | 2023-12-13
-D | 0 | return book | 2023-09-30
-D | 0 | submit proposal | 2023-10-09
-T | 0 | read
+T | 0 | read book
+D | 1 | return book | 2023-09-30
