@@ -1,6 +1,7 @@
 # Task Buddy User Guide
 
 Need help keeping track of your different tasks? Task Buddy is here to help!
+![Ui.png](Ui.png)
 
 ## Getting Started
 1. Ensure you have Java 11 or above installed in your computer.
