@@ -3,50 +3,67 @@ package duke;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 public class StorageTest {
     private static final String TEST_FILE_PATH = "./src/main/data/tasklist.txt";
+    private Storage storage;
 
     @BeforeEach
-    public void setUp() throws IOException {
-        // Delete the test file before each test to start with a clean slate
-        Files.deleteIfExists(Paths.get(TEST_FILE_PATH));
+    public void setUp() {
+        storage = new Storage(TEST_FILE_PATH);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        // Delete the test file after each test to ensure no leftover data
+        File testFile = new File(TEST_FILE_PATH);
+        if (testFile.exists()) {
+            testFile.delete();
+        }
     }
 
     @Test
-    public void testLoadTasks() throws DukeException {
-        // Create a Storage instance for testing
-        Storage storage = new Storage(TEST_FILE_PATH);
+    public void testPrintFileContents_fileNotFound() {
+        String result = storage.printFileContents();
+        assertEquals("Error: There are no items in the list!", result);
+    }
 
-        // Load tasks (this should create the test file if it doesn't exist)
+    @Test
+    public void testPrintFileContents_fileExists() throws IOException {
+        // Write sample data to file
+        FileWriter writer = new FileWriter(TEST_FILE_PATH);
+        writer.write("Test Task 1\n");
+        writer.write("Test Task 2\n");
+        writer.close();
+
+        String result = storage.printFileContents();
+        assertEquals("Test Task 1" + System.lineSeparator() + "Test Task 2" + System.lineSeparator(), result);
+    }
+    @Test
+    public void testLoadTasks_fileDoesNotExist() throws DukeException {
         storage.loadTasks();
 
-        // Check if the test file exists
-        assertTrue(Files.exists(Paths.get(TEST_FILE_PATH)));
+        File testFile = new File(TEST_FILE_PATH);
+        assertTrue(testFile.exists());
     }
 
     @Test
-    public void testPrintFileContents() throws IOException {
-        // Create a test file with some content
-        FileWriter fw = new FileWriter(TEST_FILE_PATH);
-        fw.write("Task 1\nTask 2\nTask 3\n");
-        fw.close();
+    public void testLoadTasks_directoryDoesNotExist() throws DukeException {
+        // Simulating directory not existing scenario by providing a path with a directory
+        Storage directoryTestStorage = new Storage("testDir/" + TEST_FILE_PATH);
+        directoryTestStorage.loadTasks();
 
-        // Create a Storage instance for testing
-        Storage storage = new Storage(TEST_FILE_PATH);
-
-        // Print the file contents
-        String fileContents = storage.printFileContents();
-
-        // Check if the printed contents match what's in the file
-        assertEquals("Task 1\nTask 2\nTask 3\n", fileContents);
+        File testFile = new File("testDir/" + TEST_FILE_PATH);
+        assertTrue(testFile.exists());
     }
-}
 
+    // Note: You may need to adjust the TaskList mock and its behavior based on your actual TaskList implementation.
+}
