@@ -198,7 +198,7 @@ public class Parser {
         if (content.isBlank() || content.isEmpty() || content == null) {
             throw new DukeException("Sorry, the todo task must have a title.");
         }
-        Task todoTask = new ToDo(content);
+        Task todoTask = new ToDo(content.substring(1));
         return taskList.add(todoTask);
     }
 
@@ -258,6 +258,7 @@ public class Parser {
         String[] ddl = new String[2];
         try {
             ddl = content.split(" /by ");
+            ddl[0] = ddl[0].substring(1);
         } catch (ArrayIndexOutOfBoundsException e) {
             return "Sorry, this deadline task must have a title and a deadline.";
         }
@@ -314,8 +315,117 @@ public class Parser {
     * @param input the user input
     * @return the detected command
     */
-    public static String parseTest(String input) throws DukeException {
+    public static String[] parseTest(String input) throws DukeException {
         String testCommand = input.split("\\s")[0].toUpperCase();
-        return testCommand;
+        String testContent = input.replace(input.split("\\s")[0], "");
+        String task = "";
+        String[] result = new String[2];
+        result[0] = testCommand;
+        switch(testCommand) {
+        case "TODO":
+            task = testTodo(testContent);
+            result[1] = task;
+            return result;
+        case "EVENT":
+            task = testEvent(testContent);
+            result[1] = task;
+            return result;
+        case "DEADLINE":
+            task = testDeadline(testContent);
+            result[1] = task;
+            return result;
+        default:
+            throw new DukeException("Sorry, I don't recognize this command." + "\n" + "Please try again.");
+        }
+    }
+
+    /**
+    * dummy method for testing parse todo
+    *
+    * @param content the user input
+    * @return the todo task detected
+    */
+    public static String testTodo(String content) throws DukeException {
+        if (content.isBlank() || content.isEmpty() || content == null) {
+            throw new DukeException("Sorry, the todo task must have a title.");
+        }
+        ToDo todoTask = new ToDo(content.substring(1));
+        return todoTask.getStatus();
+    }
+
+    /**
+    * dummy method for testing parse event
+    *
+    * @param content the user input
+    * @return the event task detected
+    */
+    public static String testEvent(String content) throws DukeException {
+        if (content.isBlank() || content.isEmpty()
+            || !content.contains(" /from ") || !content.contains(" /to ") || content == null) {
+            throw new DukeException("Sorry, this event must have a title, start time, and end time.");
+        }
+        String[] event = new String[3];
+        try {
+            event[0] = content.substring(1, content.indexOf(" /"));
+            event[1] = content.substring(content.indexOf("/from") + 6,
+            content.indexOf(" /to"));
+            event[2] = content.substring(content.indexOf("/to") + 4);
+        } catch (StringIndexOutOfBoundsException e) {
+            return ("Sorry, this event must have a title, start time, and end time.");
+        }
+        //when user provide empty title
+        if (event[0].isBlank() || event[0].isEmpty() || event[0] == null) {
+            throw new DukeException("Sorry, the event must have a title.");
+        }
+        //when user didn't provide the starting time
+        if (event[1].isBlank() || event[1].isEmpty() || event[1] == null) {
+            throw new DukeException("Sorry, the event must have a starting time");
+        }
+        //when user didn't provide the end time
+        if (event[2].isBlank() || event[2].isEmpty() || event[2] == null) {
+            throw new DukeException("Sorry, the event must have an end time");
+        }
+        //when user provide wrong time format
+        String startTime = formatTime(event[1]);
+        String endTime = formatTime(event[2]);
+        if (startTime == null || endTime == null) {
+            throw new DukeException("Please enter the time with this format: yyyy-MM-dd HH:mm:ss");
+        }
+        Event eventTask = new Event(event[0], startTime, endTime);
+        return eventTask.getStatus();
+    }
+
+    /**
+    * dummy method for testing parse deadline
+    *
+    * @param content the user input
+    * @return the deadline task detected
+    */
+    public static String testDeadline(String content) throws DukeException {
+        if (content.isBlank() || content.isEmpty() || !content.contains(" /by ") || content == null) {
+            throw new DukeException("Sorry, the deadline task must have a title and a deadline.");
+        }
+        String[] ddl = new String[2];
+        try {
+            ddl = content.split(" /by ");
+            ddl[0] = ddl[0].substring(1);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return "Sorry, this deadline task must have a title and a deadline.";
+        }
+        //when user provide empty title
+        if (ddl[0].isBlank() || ddl[0].isEmpty() || ddl[0] == null) {
+            throw new DukeException("Sorry, the deadline event must have a title.");
+        }
+        //when user didn't provide ddl
+        if (ddl[1].isBlank() || ddl[1].isEmpty() || ddl[1] == null) {
+            throw new DukeException("Sorry, the deadline event must have a dealine");
+        }
+        String ddlTime = formatTime(ddl[1]);
+        //when user provide wrong time format
+        if (ddlTime == null) {
+            throw new DukeException("Please enter the time with this format: yyyy-MM-dd HH:mm:ss");
+        }
+        Deadline ddlTask = new Deadline(ddl[0], ddlTime);
+        return ddlTask.getStatus();
     }
 }
