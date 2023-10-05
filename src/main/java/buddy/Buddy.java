@@ -53,8 +53,6 @@ public class Buddy {
                 input = ui.readCommand();
                 Command command = Parser.parse(input, tasks);
                 command.execute(tasks, ui, storage);
-            } catch (BuddyException e) {
-                System.out.println(e.getMessage());
             } catch (BuddyCommandException e) {
                 System.out.println(e.getMessage());
             }
@@ -85,8 +83,6 @@ public class Buddy {
             if (c instanceof ExitCommand) {
                 this.isExit = true;
             }
-        } catch (BuddyException e) {
-            return e.getMessage();
         } catch (BuddyCommandException e) {
             return e.getMessage();
         }
