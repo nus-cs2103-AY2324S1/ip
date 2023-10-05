@@ -2,8 +2,6 @@ import org.junit.jupiter.api.Test;
 
 import functional.DukeException;
 
-// package duke.Duke;
-
 public class DukeTest {
 
     @Test

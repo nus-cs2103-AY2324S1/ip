@@ -44,7 +44,7 @@ public class Storage {
                 c.execute(tl, ui, Boolean.parseBoolean(input[0]), true);
             }
         } catch (FileNotFoundException e) {
-            throw new DukeException("");
+            throw new DukeException("FileNotFoundException");
         }
         return tl;
     }

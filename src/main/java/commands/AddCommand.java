@@ -37,11 +37,12 @@ public class AddCommand extends Command {
                     + "☹ OOPS!!! The description of a todo cannot be empty.\n"
                     + ui.showLine());
         }
+        boolean notLoadingFromMem = status.length > 1 && !status[1];
         switch (ui.get(0)) {
         case "todo":
             Task job = new ToDo(ui.getInput(), status[0]);
             tasks.add(job);
-            if (!status[1]) {
+            if (notLoadingFromMem) {
                 return job.addTask(tasks.size());
             }
             break;
@@ -49,7 +50,7 @@ public class AddCommand extends Command {
             try {
                 job = new Deadline(ui.getInput(), status[0]);
                 tasks.add(job);
-                if (!status[1]) {
+                if (notLoadingFromMem) {
                     return job.addTask(tasks.size());
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
@@ -62,7 +63,7 @@ public class AddCommand extends Command {
             try {
                 job = new Event(ui.getInput(), status[0]);
                 tasks.add(job);
-                if (!status[1]) {
+                if (notLoadingFromMem) {
                     return job.addTask(tasks.size());
                 }
             } catch (ArrayIndexOutOfBoundsException e) {

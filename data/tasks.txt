@@ -1,2 +1,4 @@
-false deadline GEC1044 lecture reflection /by 22/09/2023 2359
-false deadline recurring weekly quiz /by 2023-09-26 1500
+true deadline GEC1044 lecture reflection /by 22/09/2023 2359
+false deadline recurring weekly quiz /by 2023-10-10 1500
+false event recurring CS2103 meeting /from 2023-10-10 1900 /to 2000
+false deadline SEP application /by 12/10/2023 2359

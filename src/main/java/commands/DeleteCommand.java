@@ -25,15 +25,22 @@ public class DeleteCommand extends Command {
      * @param status always false - intended for use by AddCommand
      */
     public String execute(TaskList tasks, Ui ui, boolean... status) throws DukeException {
-        int index = Integer.parseInt(ui.get(1)) - 1;
-        if (index >= tasks.size()) {
-            throw new DukeException("index out of bounds");
+        int index;
+        try {
+            index = Integer.parseInt(ui.get(1)) - 1;
+        } catch (NumberFormatException e) {
+            throw new DukeException("NumberFormatException: index not a number");
         }
-        Task job = (Task) tasks.get(index);
+        Task job;
+        try {
+            job = (Task) tasks.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new DukeException("IndexOutOfBoundsException");
+        }
         tasks.remove(index);
         return ui.showLine() + "\n"
                 + "Noted, I've removed this task:\n" + job.toString() + "\n"
-                + String.format("Now you have %d tasks in the list\n", tasks.size())
+                + String.format("Now you have %d tasks in the list.\n", tasks.size())
                 + ui.showLine();
     }
 }
