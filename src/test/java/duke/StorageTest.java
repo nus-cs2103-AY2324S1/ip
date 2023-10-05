@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class StorageTest {
-    private static final String TEST_FILE_PATH = "testfile.txt";
+    private static final String TEST_FILE_PATH = "./src/main/data/tasklist.txt";
 
     @BeforeEach
     public void setUp() throws IOException {
