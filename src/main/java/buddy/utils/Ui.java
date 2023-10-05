@@ -37,7 +37,7 @@ public class Ui {
      * Prints the farewell message.
      */
     public String printFarewell() {
-        return "Bye. Hope to see you again soon!\n";
+        return "Bye! Hope to see you again soon!\n";
     }
 
     public String printMessage(String message) {
@@ -51,7 +51,7 @@ public class Ui {
      */
     public String printList(ArrayList<Task> list) {
         if (list.isEmpty()) {
-            return "Sorry, no results found.";
+            return "Sorry, I couldn't find anything in your list :(";
         } else {
             String header = "Here are the tasks in your list:\n";
             String listInString = "";
@@ -89,7 +89,7 @@ public class Ui {
      * @param tasks The list of tasks that the task is added to.
      */
     public String printAddSuccessMessage(Task task, TaskList tasks) {
-        return "Got it. I've added this task:\n" + task.toString() + "\n"
+        return "Yay! I've added this task:\n" + task.toString() + "\n"
                 + "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
@@ -100,8 +100,26 @@ public class Ui {
      * @param tasks The list of tasks that the task is deleted from.
      */
     public String printDeleteSuccessMessage(Task deletedTask, TaskList tasks) {
-        return "Noted. I've removed this task:\n" + deletedTask.toString()
+        return "Yay! I've removed this task:\n" + deletedTask.toString()
                 + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+    }
+
+    /**
+     * Prints the message when a task is successfully marked as done.
+     *
+     * @param task The task after it is successfully marked as done.
+     */
+    public String printMarkDoneSuccessMessage(Task task) {
+        return "Yay! I've marked this task as done:\n" + task.toString();
+    }
+
+    /**
+     * Prints the message when a task is successfully marked as not done.
+     *
+     * @param task The task after it is successfully marked as not done.
+     */
+    public String printMarkUndoneSuccessMessage(Task task) {
+        return "Got it! I've marked this task as not done yet:\n" + task.toString();
     }
 
     /**
@@ -110,7 +128,7 @@ public class Ui {
      * @param updatedTask The task after it is successfully updated.
      */
     public String printUpdateSuccessMessage(Task updatedTask) {
-        return "Noted. I've updated this task to:\n" + updatedTask.toString();
+        return "Yay! I've updated this task to:\n" + updatedTask.toString();
     }
 
     public String readCommand() {

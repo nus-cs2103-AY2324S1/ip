@@ -26,8 +26,7 @@ public class MarkAsUndoneCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.markAsNotDone(index);
-        String response = ui.printMessage("OK, I've marked this task as not done yet:\n"
-                + tasks.getTask(index).toString());
+        String response = ui.printMarkUndoneSuccessMessage(tasks.getTask(index));
         storage.writeToFile(tasks.getAllTasks());
         return response;
     }

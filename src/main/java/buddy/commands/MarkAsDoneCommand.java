@@ -26,8 +26,7 @@ public class MarkAsDoneCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         tasks.markAsDone(index);
-        String response = ui.printMessage("NICE! I've marked this task as done:\n"
-                + tasks.getTask(index).toString());
+        String response = ui.printMarkDoneSuccessMessage(tasks.getTask(index));
         storage.writeToFile(tasks.getAllTasks());
         return response;
     }
