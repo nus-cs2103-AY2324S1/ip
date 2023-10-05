@@ -5,12 +5,17 @@ plugins {
     id 'checkstyle'
 }
 
+repositories {
+    mavenCentral()
+}
+
 checkstyle {
     toolVersion = '10.2'
 }
 
-repositories {
-    mavenCentral()
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
 }
 
 dependencies {
@@ -48,14 +53,13 @@ test {
 }
 
 application {
-    mainClass.set("Duke")
-    mainClassName = 'duke.Main'
+    mainClass.set("Launcher")
 }
 
 shadowJar {
+    archiveFileName = "duke.jar"
     archiveBaseName = "duke"
     archiveClassifier = null
-    archiveFileName = "duke.jar"
     dependsOn("distZip", "distTar")
 }
 

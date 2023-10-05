@@ -1,5 +1,3 @@
-package duke;
-
 import java.util.Scanner;
 
 import duke.helper.DukeException;
