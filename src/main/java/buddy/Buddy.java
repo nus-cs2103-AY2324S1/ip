@@ -62,6 +62,10 @@ public class Buddy {
         return this.ui.printGreeting();
     }
 
+    public boolean getExitStatus() {
+        return this.isExit;
+    }
+
     /**
      * Retrieves the response of the Task Buddy chatbot.
      *

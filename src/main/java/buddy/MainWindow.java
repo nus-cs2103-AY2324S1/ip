@@ -1,5 +1,6 @@
 package buddy;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -52,6 +54,7 @@ public class MainWindow extends AnchorPane {
         if (response.trim().isBlank()) {
             dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage));
             userInput.clear();
+            return;
         }
 
         dialogContainer.getChildren().addAll(
@@ -59,5 +62,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getBuddyDialog(response, buddyImage)
         );
         userInput.clear();
+
+        if (buddy.getExitStatus()) {
+            Stage currentStage = (Stage) dialogContainer.getScene().getWindow();
+            Platform.runLater(() -> {
+                currentStage.close();
+            });
+        }
     }
 }
