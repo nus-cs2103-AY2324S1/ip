@@ -131,8 +131,8 @@ public class Duke extends Application {
                                 new CornerRadii(8),
                                 new Insets(-4))));
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new Circle(40, new ImagePattern(user))),
-                DialogBox.getDukeDialog(dukeText, new Circle(40, new ImagePattern(duke)))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getDukeDialog(dukeText, duke)
         );
         userInput.clear();
     }
@@ -174,7 +174,7 @@ public class Duke extends Application {
 
         scene = new Scene(mainLayout);
 
-        stage.setTitle("Duke");
+        stage.setTitle("VijayKumar");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
