@@ -2,7 +2,8 @@ package buddy.commands;
 
 import buddy.Task;
 import buddy.TaskList;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyCommandException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
@@ -10,6 +11,9 @@ import buddy.utils.Ui;
  * Represents a command to update fields in a task.
  */
 public class UpdateDescriptionCommand extends Command {
+    public static final String MESSAGE_FORMAT =
+            "description: update <task index> /desc <description>\n"
+            + "Example: update 2 /desc family trip\n";
     private int taskIndex;
     private String fieldToUpdate;
     private String update;
@@ -26,7 +30,7 @@ public class UpdateDescriptionCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Task taskToUpdate = tasks.getTask(taskIndex);
         taskToUpdate.updateTaskDescription(update);
         storage.writeToFile(tasks.getAllTasks());

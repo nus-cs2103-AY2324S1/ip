@@ -1,7 +1,7 @@
-package buddy.utils;
+package buddy.exceptions;
 
 /**
- * The BuddyException is an exception that occurs while running the Buddy program.
+ * Represents an error that occurs while running the Buddy program.
  */
 public class BuddyException extends Exception {
 

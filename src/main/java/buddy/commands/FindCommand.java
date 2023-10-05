@@ -1,7 +1,7 @@
 package buddy.commands;
 
 import buddy.TaskList;
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
@@ -9,6 +9,9 @@ import buddy.utils.Ui;
  * The FindCommand is for "find" command.
  */
 public class FindCommand extends Command {
+    public static final String MESSAGE_FORMAT =
+            "find <keyword/phrase>\n" + "Example: find book\n" + "find 2023-09";
+
     private String keyword;
 
     /**
@@ -21,8 +24,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws BuddyException {
-        String response = ui.printList(tasks.findTask(this.keyword).getAllTasks());
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        String response = ui.printFilteredList(tasks.findTask(this.keyword).getAllTasks());
         return response;
     }
 }

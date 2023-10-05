@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import buddy.utils.BuddyException;
+import buddy.exceptions.BuddyException;
 
 public class TaskListTest {
     @Test
