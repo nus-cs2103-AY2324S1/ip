@@ -29,7 +29,7 @@ class MarkCommandTest {
     }
 
     @Test
-    public void execute_NonIntegerIndex_fail() throws DukeException {
+    public void execute_nonIntegerIndex_fail() throws DukeException {
         String input = "mark bad";
         Command command = PARSER.parse(input);
         UI.readCommand(input);
