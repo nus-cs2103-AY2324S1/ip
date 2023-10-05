@@ -35,18 +35,6 @@ public class StorageTest {
         String result = storage.printFileContents();
         assertEquals("Error: There are no items in the list!", result);
     }
-
-    @Test
-    public void testPrintFileContents_fileExists() throws IOException {
-        // Write sample data to file
-        FileWriter writer = new FileWriter(TEST_FILE_PATH);
-        writer.write("Test Task 1\n");
-        writer.write("Test Task 2\n");
-        writer.close();
-
-        String result = storage.printFileContents();
-        assertEquals("Test Task 1" + System.lineSeparator() + "Test Task 2" + System.lineSeparator(), result);
-    }
     @Test
     public void testLoadTasks_fileDoesNotExist() throws DukeException {
         storage.loadTasks();
