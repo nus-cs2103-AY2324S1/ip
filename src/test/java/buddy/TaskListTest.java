@@ -44,12 +44,7 @@ public class TaskListTest {
         tasks.markAsDone(1);
         assertTrue(tasks.getTask(1).isDone, "Test marking tasks as done.");
 
-        try {
-            tasks.deleteTask(1);
-        } catch (BuddyException e) {
-            throw new RuntimeException(e);
-        }
-
+        tasks.deleteTask(1);
         assertEquals(2, tasks.getSize(), "Test deleting of task from TaskList.");
     }
 }

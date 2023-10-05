@@ -59,9 +59,9 @@ public class Parser {
      * @param fullCommand The command given by the user.
      * @param tasks The current task list.
      * @return Command The respective command based on user input.
-     * @throws BuddyException On invalid input.
+     * @throws BuddyCommandException On invalid input.
      */
-    public static Command parse(String fullCommand, TaskList tasks) throws BuddyCommandException, BuddyException {
+    public static Command parse(String fullCommand, TaskList tasks) throws BuddyCommandException {
         assert tasks.getSize() >= 0 : "size of task list should be more than or equal to 0";
         String[] words = fullCommand.split(" ");
         try {

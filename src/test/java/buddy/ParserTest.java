@@ -1,5 +1,7 @@
 package buddy;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -12,15 +14,15 @@ import buddy.commands.ExitCommand;
 import buddy.commands.ListCommand;
 import buddy.commands.MarkAsDoneCommand;
 import buddy.commands.MarkAsUndoneCommand;
-import buddy.exceptions.BuddyException;
+import buddy.commands.UpdateDateCommand;
+import buddy.commands.UpdateDescriptionCommand;
+import buddy.exceptions.BuddyCommandException;
 import buddy.utils.Parser;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class ParserTest {
 
     @Test
-    public void parser_success() throws BuddyException {
+    public void parser_success() throws BuddyCommandException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book", false);
         tasks.addTask(todo);
@@ -39,14 +41,52 @@ public class ParserTest {
         assertTrue(Parser.parse("deadline return book /by 2023-06-06", tasks) instanceof AddDeadlineCommand);
         assertTrue(Parser.parse("event orientation week /from 2023-07-31 /to 2023-08-04", tasks)
                 instanceof AddEventCommand);
+        assertTrue(Parser.parse("update 1 /desc read finish book", tasks)
+                instanceof UpdateDescriptionCommand);
+        assertTrue(Parser.parse("update 2 /by 2023-10-10", tasks)
+                instanceof UpdateDateCommand);
+        assertTrue(Parser.parse("update 3 /from 2023-12-10", tasks)
+                instanceof UpdateDateCommand);
+        assertTrue(Parser.parse("update 3 /to 2023-12-15", tasks)
+                instanceof UpdateDateCommand);
     }
 
     @Test
     public void parser_invalidDate_exceptionThrow() {
-        BuddyException thrown = assertThrows(BuddyException.class, () -> {
+        BuddyCommandException thrown = assertThrows(BuddyCommandException.class, () -> {
             Parser.parse("deadline return book /by July 7th 2023", new TaskList());
-        }, "Invalid date format, BuddyException expected");
+        }, "Invalid date format, BuddyCommandException expected");
 
-        assertEquals("OOPS! Please enter the date in YYYY-MM-DD format.", thrown.getMessage());
+        assertEquals("Whoops! Try this instead: \n" + "Enter the date in YYYY-MM-DD format",
+                thrown.getMessage());
+    }
+
+    @Test
+    public void parser_invalidIndexType_exceptionThrow() {
+        BuddyCommandException floatThrown = assertThrows(BuddyCommandException.class, () -> {
+            Parser.parse("mark 1.1", new TaskList());
+        }, "Non-integer index, BuddyCommandException expected");
+
+        assertEquals("Whoops! Try this instead: \n" + "Enter the index as a positive integer",
+                floatThrown.getMessage());
+
+        BuddyCommandException wordThrown = assertThrows(BuddyCommandException.class, () -> {
+            Parser.parse("unmark four", new TaskList());
+        }, "Non-integer index, BuddyCommandException expected");
+
+        assertEquals("Whoops! Try this instead: \n" + "Enter the index as a positive integer",
+                wordThrown.getMessage());
+    }
+
+    @Test
+    public void parser_indexOutOfBounds_exceptionThrow() {
+        TaskList tasks = new TaskList();
+        tasks.addTask(new Todo("read book", false));
+        BuddyCommandException thrown = assertThrows(BuddyCommandException.class, () -> {
+            Parser.parse("delete 5", tasks);
+        }, "Zero index, BuddyCommandException expected");
+
+        assertEquals("Whoops! Try this instead: \n" + "Index from 1 to 1",
+                thrown.getMessage());
     }
 }
