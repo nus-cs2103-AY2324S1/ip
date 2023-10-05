@@ -2,7 +2,6 @@ package buddy.commands;
 
 import buddy.TaskList;
 import buddy.Todo;
-import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 

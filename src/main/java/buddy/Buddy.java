@@ -3,7 +3,6 @@ package buddy;
 import buddy.commands.Command;
 import buddy.commands.ExitCommand;
 import buddy.exceptions.BuddyCommandException;
-import buddy.exceptions.BuddyException;
 import buddy.utils.Parser;
 import buddy.utils.Storage;
 import buddy.utils.Ui;

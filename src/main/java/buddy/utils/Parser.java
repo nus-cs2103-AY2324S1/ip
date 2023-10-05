@@ -19,7 +19,6 @@ import buddy.commands.MarkAsUndoneCommand;
 import buddy.commands.UpdateDateCommand;
 import buddy.commands.UpdateDescriptionCommand;
 import buddy.exceptions.BuddyCommandException;
-import buddy.exceptions.BuddyException;
 
 /**
  * The Parser class deals with making sense of the user command.

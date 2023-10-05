@@ -3,8 +3,6 @@ package buddy;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import buddy.exceptions.BuddyException;
-
 /**
  * The TaskList class contains the task list and its related operations.
  * @author Lim Jin Yin
@@ -70,7 +68,7 @@ public class TaskList {
      * @param taskIndex The zero-based index of the task.
      */
     public void deleteTask(int taskIndex) {
-        if (tasks.size() == 0 ) {
+        if (tasks.size() == 0) {
             System.out.println("There are no tasks in your list to delete.");
         }
         tasks.remove(taskIndex);

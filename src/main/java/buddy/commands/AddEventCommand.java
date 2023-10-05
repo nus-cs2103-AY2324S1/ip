@@ -3,7 +3,6 @@ import java.time.LocalDate;
 
 import buddy.Event;
 import buddy.TaskList;
-import buddy.exceptions.BuddyException;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 

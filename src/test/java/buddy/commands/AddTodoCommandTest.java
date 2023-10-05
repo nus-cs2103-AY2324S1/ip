@@ -1,16 +1,13 @@
 package buddy.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import buddy.Task;
 import buddy.TaskList;
-import buddy.Todo;
 import buddy.utils.Storage;
 import buddy.utils.Ui;
 
