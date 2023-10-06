@@ -74,10 +74,10 @@ followed by the task description. This is followed by a parentheses block if the
 datetimes of the task (only applicable for event and deadlines). This is followed by square bracket block 
 indicating the task is of high priority if it has been marked as such. 
 
-### Removing tasks: `delete`
+### Removing tasks: `remove`
 Deletes a task from the task list, based on their 1-based index. 
 
-**Format:** `delete [task_no]` where `task_no` is the 1-based index of the 
+**Format:** `remove [task_no]` where `task_no` is the 1-based index of the 
 task in the list. 
 
 
