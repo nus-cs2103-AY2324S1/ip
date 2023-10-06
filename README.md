@@ -1,3 +1,25 @@
+# WallE Quick Start Guide
+
+## Step 1: Download WallE Chatbot
+
+1. Go to the [WallE Chatbot release page](https://github.com/timleow/ip/releases/tag/A-Release).
+2. Download the `walle.jar` file by clicking on it.
+
+## Step 2: Install Java 11
+
+Make sure you have Java 11 installed on your system. If not, you can download it [here](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+
+## Step 3: Run WallE Chatbot
+
+1. Open your terminal or command prompt.
+2. Navigate to the directory where you have the `walle.jar` file.
+3. Run the following command:
+
+```bash
+java -jar walle.jar
+
+
+
 # WallE User Guide
 
 ## Table of Contents
