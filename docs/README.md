@@ -105,6 +105,7 @@ Format: `help`
 
 Displays farewell message.<br>
 Format: `bye`
+To close Bot, press the x button on the application.
 
 ### 🤖 Save data
 
