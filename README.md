@@ -16,7 +16,7 @@ Make sure you have Java 11 installed on your system. If not, you can download it
 3. Run the following command:
 
 ```bash
-java -jar walle.jar
+java -jar duke.jar
 ```
 
 
