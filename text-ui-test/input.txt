@@ -1,0 +1,14 @@
+todo drink water
+todo
+deadline quiz /by 27 Aug
+event welcome tea
+list
+mark 1
+list
+delete 1
+list
+delete 3
+mark 4
+mark 1
+unmark 1
+bye
