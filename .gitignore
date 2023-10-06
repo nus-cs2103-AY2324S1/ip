@@ -15,3 +15,6 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# My todo list (list of tasks left for me to do)
+dev_todo.txt

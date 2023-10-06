@@ -1,0 +1,7 @@
+todo read book
+deadline return book /by 2023-06-06
+event project meeting (from: Monday to: Friday) /from 2023-01-01 /to 2024-01-01
+event project meeting (from: Monday to: Friday) /from 2023-01-01 /to 2024-01-01
+list
+deadline read paper (by: 2023-01-01) /by 2023-01-01
+bye
