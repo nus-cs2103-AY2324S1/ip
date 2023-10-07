@@ -1,7 +1,29 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+
+I'm Remy.Remy, and it is NOT nice to see you.
+Faster tell me what you want and go away.
+____________________________________________________________
+
+_____________
+Added, now scram.
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+_____________
+_____________
+Added, now scram.
+[D][ ] return book (by: Sunday)
+Now you have 2 tasks in the list.
+_____________
+_____________
+Added, now scram.
+[E][ ] project meeting (Mon 2pm to 4pm)
+Now you have 3 tasks in the list.
+_____________
+_____________
+ 1. [T][ ] borrow book
+ 2. [D][ ] return book (by: Sunday)
+ 3. [E][ ] project meeting (Mon 2pm to 4pm)
+_____________
+Hope to never see you again!
+____________________________________________________________
 
