@@ -223,7 +223,7 @@ public class Storage {
      */
     protected void updateData() throws IOException {
         for (int i = 0; i < listOfTasks.size(); i++) {
-            saveTask(listOfTasks.get(i), i != 0);
+            saveTask(listOfTasks.get(i), true);
         }
     }
 }
