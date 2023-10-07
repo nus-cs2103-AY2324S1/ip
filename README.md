@@ -58,4 +58,4 @@ cd <PATH>
 java -jar duke.jar
 ```
 
-Note: running the program will create a "data.txt" file in the current directory, this file stores all the tasks such that they persist even after closing the app. To ensure the integrity of your data, please do not delete this file!
+Note: running the program will create a "data.txt" file in the current directory, this file stores all the tasks such that they persist even after closing the app. To ensure the integrity of your data, please do not delete this file! If the latest release doesn't work, try release 3.1.
