@@ -17,107 +17,18 @@ All dates are in ```YYYY-MM-DD``` format.
 
 
 ## Command Summary
-<table>
-<tr>
-<th>Command</th><th>Format, Example</th>
-</tr>
-<tr>
-<td>todo</td>
-<td>
-
-```todo {description}```
-<br>
-Example: ```todo task```
-
-</td>
-</tr>
-<tr>
-<td>deadline</td>
-<td>
-
-```deadline {description} /by {due date}```
-<br>
-Example: ```deadline task /by 2023-01-01```
-
-</td>
-</tr>
-<tr>
-<td>event</td>
-<td>
-
-```event {description} /from {start date} /to {end date}```
-<br>
-Example: ```event task /from 2023-01-01 /to 2023-01-02```
-
-</td>
-</tr>
-<tr>
-<td>list</td>
-<td>
-
-```list```
-
-</td>
-</tr>
-<tr>
-<td>mark</td>
-<td>
-
-```mark {index of task}```
-<br>
-Example: ```mark 1```
-
-</td>
-</tr>
-<tr>
-<td>unmark</td>
-<td>
-
-```unmark {index of task}```
-<br>
-Example: ```unmark 1```
-
-</td>
-</tr>
-<tr>
-<td>mark</td>
-<td>
-
-```delete {index of task}```
-<br>
-Example: ```delete 1```
-
-</td>
-</tr>
-<tr>
-<td>mark</td>
-<td>
-
-```find {description}```
-<br>
-Example: ```find task```
-
-</td>
-</tr>
-<tr>
-<td>taskson</td>
-<td>
-
-```taskson {date}```
-<br>
-Example: ```taskson 2023-01-01```
-
-</td>
-</tr>
-<tr>
-<td>freedates</td>
-<td>
-
-```freedates```
-
-</td>
-</tr>
-</table>
+| Command | Format, Example |
+|---------|-----------------|
+|   todo    |```todo {description}```<br>Example: ```todo task```|
+|   deadline    |```deadline {description} /by {due date}```<br>Example: ```deadline task /by 2023-01-01```|
+|   event    |```event {description} /from {start date} /to {end date}```<br>Example: ```event task /from 2023-01-01 /to 2023-01-02```|
+|   list    |```list```|
+|   mark    |```mark {index of task}```<br>Example: ```mark 1```|
+|   unmark    |```unmarl {index of task}```<br>Example: ```unmark 1```|
+|   delete    |```delete {index of task}```<br>Example: ```delete 1```|
+|   find    |```find {description}```<br>Example: ```find task```|
+|   taskson    |```taskson {date}```<br>Example: ```taskson 2023-01-01```|
+|   freedates    |```freedates```|
 
 ## Features 
 
