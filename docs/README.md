@@ -27,6 +27,7 @@ All dates are in ```YYYY-MM-DD``` format.
 
 `todo {description}`
 
+<br>
 
 Example: `todo task`
 
@@ -38,6 +39,7 @@ Example: `todo task`
 
 `deadline {description} /by {due date}`
 
+<br>
 
 Example: `deadline task /by 2023-01-01`
 
@@ -49,6 +51,7 @@ Example: `deadline task /by 2023-01-01`
 
 `event {description} /from {start date} /to {end date}`
 
+<br>
 
 Example: `event task /from 2023-01-01 /to 2023-01-02`
 
@@ -68,6 +71,7 @@ Example: `event task /from 2023-01-01 /to 2023-01-02`
 
 `mark {index of task}`
 
+<br>
 
 Example: `mark 1`
 
@@ -79,6 +83,7 @@ Example: `mark 1`
 
 `unmark {index of task}`
 
+<br>
 
 Example: `unmark 1`
 
@@ -90,6 +95,7 @@ Example: `unmark 1`
 
 `delete {index of task}`
 
+<br>
 
 Example: `delete 1`
 
@@ -101,6 +107,7 @@ Example: `delete 1`
 
 `find {description}`
 
+<br>
 
 Example: `find task`
 
@@ -112,6 +119,7 @@ Example: `find task`
 
 `taskson {date}`
 
+<br>
 
 Example: `taskson 2023-01-01`
 
