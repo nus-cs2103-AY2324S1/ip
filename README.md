@@ -44,7 +44,7 @@ If you are ever confused, simply type "help" and the start screen will show!
 
 ## Usage
 
-You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3) and then:
+You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3.2) and then:
 
 1. Navigate into the directory with
 
