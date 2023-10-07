@@ -37,11 +37,9 @@ Example: `todo task`
 <td>deadline</td>
 <td>
 
-`deadline {description} /by {due date}`
-
+```deadline {description} /by {due date}```
 <br>
-
-Example: `deadline task /by 2023-01-01`
+Example: ```deadline task /by 2023-01-01```
 
 </td>
 </tr>
@@ -49,11 +47,9 @@ Example: `deadline task /by 2023-01-01`
 <td>event</td>
 <td>
 
-`event {description} /from {start date} /to {end date}`
-
+```event {description} /from {start date} /to {end date}```
 <br>
-
-Example: `event task /from 2023-01-01 /to 2023-01-02`
+Example: ```event task /from 2023-01-01 /to 2023-01-02```
 
 </td>
 </tr>
@@ -61,7 +57,7 @@ Example: `event task /from 2023-01-01 /to 2023-01-02`
 <td>list</td>
 <td>
 
-`list`
+```list```
 
 </td>
 </tr>
@@ -69,11 +65,9 @@ Example: `event task /from 2023-01-01 /to 2023-01-02`
 <td>mark</td>
 <td>
 
-`mark {index of task}`
-
+```mark {index of task}```
 <br>
-
-Example: `mark 1`
+Example: ```mark 1```
 
 </td>
 </tr>
@@ -81,11 +75,9 @@ Example: `mark 1`
 <td>unmark</td>
 <td>
 
-`unmark {index of task}`
-
+```unmark {index of task}```
 <br>
-
-Example: `unmark 1`
+Example: ```unmark 1```
 
 </td>
 </tr>
@@ -93,11 +85,9 @@ Example: `unmark 1`
 <td>mark</td>
 <td>
 
-`delete {index of task}`
-
+```delete {index of task}```
 <br>
-
-Example: `delete 1`
+Example: ```delete 1```
 
 </td>
 </tr>
@@ -105,11 +95,9 @@ Example: `delete 1`
 <td>mark</td>
 <td>
 
-`find {description}`
-
+```find {description}```
 <br>
-
-Example: `find task`
+Example: ```find task```
 
 </td>
 </tr>
@@ -117,11 +105,9 @@ Example: `find task`
 <td>taskson</td>
 <td>
 
-`taskson {date}`
-
+```taskson {date}```
 <br>
-
-Example: `taskson 2023-01-01`
+Example: ```taskson 2023-01-01```
 
 </td>
 </tr>
@@ -129,7 +115,7 @@ Example: `taskson 2023-01-01`
 <td>freedates</td>
 <td>
 
-`freedates`
+```freedates```
 
 </td>
 </tr>
