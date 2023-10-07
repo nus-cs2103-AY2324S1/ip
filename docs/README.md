@@ -12,6 +12,8 @@
   - [Finding tasks with a description: find](#finding-tasks-with-a-description-find)
   - [Viewing all tasks on a certain date: taskson](#viewing-all-tasks-on-a-certain-date-taskson)
   - [Finding the next available dates: freedates](#finding-the-next-available-dates-freedates)
+ 
+All dates are in ```YYYY-MM-DD``` format. 
 
 
 ## Command Summary
@@ -25,6 +27,7 @@
 
 `todo {description}`
 
+
 Example: `todo task`
 
 </td>
@@ -35,6 +38,7 @@ Example: `todo task`
 
 `deadline {description} /by {due date}`
 
+
 Example: `deadline task /by 2023-01-01`
 
 </td>
@@ -44,6 +48,7 @@ Example: `deadline task /by 2023-01-01`
 <td>
 
 `event {description} /from {start date} /to {end date}`
+
 
 Example: `event task /from 2023-01-01 /to 2023-01-02`
 
@@ -63,6 +68,7 @@ Example: `event task /from 2023-01-01 /to 2023-01-02`
 
 `mark {index of task}`
 
+
 Example: `mark 1`
 
 </td>
@@ -72,6 +78,7 @@ Example: `mark 1`
 <td>
 
 `unmark {index of task}`
+
 
 Example: `unmark 1`
 
@@ -83,6 +90,7 @@ Example: `unmark 1`
 
 `delete {index of task}`
 
+
 Example: `delete 1`
 
 </td>
@@ -93,6 +101,7 @@ Example: `delete 1`
 
 `find {description}`
 
+
 Example: `find task`
 
 </td>
@@ -102,6 +111,7 @@ Example: `find task`
 <td>
 
 `taskson {date}`
+
 
 Example: `taskson 2023-01-01`
 
@@ -125,11 +135,15 @@ Adds a todo task with just a description
 
 Format: ```todo {description}```
 
+Example: ```todo wash clothes```
+
 ### Adding a deadline task: deadline
 
 Adds a deadline task with a description and a due date
 
 Format: ```deadline {description} /by {due date}```
+
+Example: ```deadline essay /by 2023-12-30```
 
 ### Adding an event task: event
 
@@ -137,9 +151,12 @@ Adds an event task with a description, a start date and an end date
 
 Format: ```event {description} /from {start date} /to {end date}```
 
+Example: ```event orientation /from 2023-07-20 /to 2023-07-23```
+
 ### Viewing all tasks: list
 
 Shows all the tasks currently saved
+
 Format: ```list```
 
 ### Marking a task as done: mark
@@ -148,11 +165,15 @@ Marks a task as done
 
 Format: ```mark {index of task}```
 
+Example: ```mark 1```
+
 ### Marking a task as not done: unmark
 
 Marks a task as not done
 
 Format: ```unmark {index of task}```
+
+Example: ```unmark 1```
 
 ### Deleting a task: delete
 
@@ -160,17 +181,23 @@ Deletes a task from the list
 
 Format: ```delete {index of task}```
 
+Example: ```delete 1```
+
 ### Finding tasks with a description: find
 
 Finds tasks with the matching description
 
 Format: ```find {description}```
 
+Example: ```find essay```
+
 ### Viewing all tasks on a certain date: taskson
 
 Shows all tasks occurring on a certain date
 
 Format: ```taskson {date}```
+
+Example: ```taskson 2023-12-30```
 
 ### Finding the next available dates: freedates
 
