@@ -47,7 +47,7 @@ Note: The help screen will not show the `delete_all` command, and this is intent
 
 ## Usage
 
-You can download the latest release from [here]([https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3.2)) and then:
+You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3.2) and then:
 
 1. Navigate into the directory with
 
@@ -61,4 +61,4 @@ cd <PATH>
 java -jar duke.jar
 ```
 
-Note: running the program will create a "data.txt" file in the current directory, this file stores all the tasks such that they persist even after closing the app. Also, if the latest release doesn't work or happens to be causing problems, try an older, more extensively tested version [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3.1).
+Note: running the program will create a "data.txt" file in the current directory, this file stores all the tasks such that they persist even after closing the app. Also, if the latest release doesn't work or happens to be causing problems, try an older, more extensively tested version [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3.2).
