@@ -25,11 +25,9 @@ All dates are in ```YYYY-MM-DD``` format.
 <td>todo</td>
 <td>
 
-`todo {description}`
-
+```todo {description}```
 <br>
-
-Example: `todo task`
+Example: ```todo task```
 
 </td>
 </tr>
