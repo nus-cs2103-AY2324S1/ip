@@ -1,0 +1,15 @@
+deadline return book /by Monday 28 Aug @ 5pm
+list
+todo borrow LOTR book
+list
+event project meeting /from Wednesday, 23 Aug @ 8pm  /to Thursday, 24 Aug @ 4pm
+deadline register book /by Wednesday 30 Aug @ 5pm
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 1
+unmark 2
+list
+bye
