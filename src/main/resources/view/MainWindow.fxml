@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="500.0" style="-fx-background-insets: 0, 0, 0, 0;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="robert.ui.MainWindow">
+    <children>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" layoutY="69.0" prefHeight="620.0" prefWidth="500.0" style="-fx-background-insets: 0, 0, 0, 0;" vbarPolicy="NEVER" vvalue="1.0">
+            <content>
+                <VBox fx:id="dialogContainer" focusTraversable="true" prefHeight="620.0" prefWidth="500.0" style="-fx-background-color: #EEEEEE; -fx-background-insets: 0, 0, 0, 0;" />
+            </content>
+        </ScrollPane>
+      <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="500.0" style="-fx-border-color: #999999; -fx-border-width: 0 0 1 0;">
+         <children>
+            <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="30.0" right="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <VBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="410.0">
+               <children>
+                  <Label text="Robert - Your Personal Assistant">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label text="Always available">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="680.0" prefHeight="70.0" prefWidth="500.0" style="-fx-background-color: #EEEEEE; -fx-background-insets: 0, 0, 0, 0;">
+         <children>
+              <TextField fx:id="userInput" onAction="#handleUserInput" onKeyTyped="#restrictInputLength" prefHeight="42.0" prefWidth="400.0" promptText="Command" style="-fx-font-size: large; -fx-background-insets: 0, 0, 0, 0; -fx-background-radius: 20;" />
+            <Button fx:id="SendButton" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="30.0" prefWidth="60.0" style="-fx-background-color: #7393B3; -fx-background-radius: 50;" text="Send">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>

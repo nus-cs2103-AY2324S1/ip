@@ -1,0 +1,6 @@
+D | 0 | Assignment | 2023-11-25
+D | 0 | Project | 2023-11-25
+E | 0 | Exams | 2023-11-10 | 2023-12-02
+T | 0 | CS2103 Assignment
+E | 0 | CS2103 project | 2023-10-10 | 2023-11-30
+T | 0 | Cook fish

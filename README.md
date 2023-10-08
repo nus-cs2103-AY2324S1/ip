@@ -1,24 +1,22 @@
-# Duke project template
+# Robert - Your Personal Assistant
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a greenfield Java project. It's named after my best friend _Robert_.
 
-## Setting up in Intellij
+![Robert tagline](docs/RobertTagline.png)
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Robert is an application designed for efficient task, deadline, and event management.
+It also offers functionality to mark and filter activities that are tracked by the application.
+If you are a fast typer, Robert can accomplish tracking tasks faster than traditional GUI applications.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+<p align="center">
+   <img src="docs/Ui.png" width="350" alt="Screenshot of Robert">
+</p>
+
+## Functionalities
+
+View all the commands that are available in the Robert app [here](https://leezhanpeng.github.io/ip).
+
+## How to use Robert
+1. Download `robert.jar` [here](https://github.com/leezhanpeng/ip/releases/tag/v0.2).
+2. Navigate to the folder containing `robert.jar`.
+3. run the command `java -jar robert.jar`.
