@@ -24,6 +24,8 @@ cd ./build/libs
 # Compile and run the application:
 java -jar GigaChadBot.jar
 ```
+## UI
+![Snapshot of UI](img.png)
 
 ## Features
 

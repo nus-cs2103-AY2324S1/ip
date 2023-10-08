@@ -24,6 +24,10 @@ public class WrongCommandException extends Exception {
                 + "event\n"
                 + "mark\n"
                 + "unmark\n"
+                + "delete\n"
+                + "list\n"
+                + "find\n"
+                + "archive\n"
                 + "bye");
     }
 }
