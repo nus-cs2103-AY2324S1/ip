@@ -1,10 +1,22 @@
+import java.io.File;
+
 public class Duke {
+    private Storage storage;
+    private TaskList tasks;
+    private Ui ui;
+
+    public Duke(String filePath) {
+        ui = new Ui();
+        storage = new Storage(new File("data/tasks.txt"));
+        tasks = new TaskList(storage.load());
+    }
+
+    public void run() {
+        ui.showWelcomeMessage();
+        ui.run();
+    }
+
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        new Duke("data/tasks.txt").run();
     }
 }
