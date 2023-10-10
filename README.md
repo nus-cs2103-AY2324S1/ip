@@ -1,24 +1,64 @@
-# Duke project template
+# ChatterBox User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+ChatterBox is your friendly neighbourhood task manager! Never forget anything ever again!
 
-## Setting up in Intellij
+![chatterbox](Ui.png)
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Features 
+ChatterBox comes with a bunch of features such as:
+- Managing tasks
+    - Todos, Events, Deadlines
+- Mark and Unmark tasks
+- Delete a single task
+- Find a task
+- Save tasks locally
+- Mass delete all tasks (and start afresh!)
+- Get help if you're ever confused
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Functionality
+
+ChatterBox's primary interaction method is the keyboard, so you can keep working without having to lift your palms! The currently available primary commands include:
+- `todo` \<task\>
+- `event` /from <start> /to <end>
+- `deadline` /by \<date\> (Note: date must be in this format "YYYY-MM-DD")
+
+Other commands include:
+- `list`
+- `find` \<keyword\>
+- `delete` \<index\>
+- `mark` \<index\>
+- `unmark` \<index\>
+
+And when you wanna start over, there's always:
+
+- `delete_all`
+
+Once you're done with ChatterBox, simply enter:
+
+- `bye`
+
+### Considerations
+
+All commands must be in full lowercase (for now).
+
+If you are ever confused, simply type "help" and the start screen will show!
+
+Note: The help screen will not show the `delete_all` command, and this is intentional, to ensure that you aren't led to accidentally and irreversibly delete all your data! This User Guide is a better way to convey that information.
+
+## Usage
+
+You can download the latest release from [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3.2) and then:
+
+1. Navigate into the directory with
+
+```sh
+cd <PATH>
+```
+
+2. Run Chatterbox
+
+```sh
+java -jar duke.jar
+```
+
+Note: running the program will create a "data.txt" file in the current directory, this file stores all the tasks such that they persist even after closing the app. Also, if the latest release doesn't work or happens to be causing problems, try an older, more extensively tested version [here](https://github.com/sp4ce-cowboy/ip/releases/tag/A-Release-3.2).
