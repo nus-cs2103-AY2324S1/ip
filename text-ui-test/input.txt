@@ -1,0 +1,27 @@
+todo Read book
+deadline submit 2103T lab /by 30-08-2023 2356
+event 2101 team meeting /from 05-09-2023 /to Tuesday 10pm
+todo Go grocery shopping
+event Running /from 2023-Sep-10 /to 15:00 tomorrow
+deadline Finish project /by 17-09-2023 23:59
+todo Walk the dog
+list
+mark 2
+mark 1
+mark 5
+list
+unmark 1
+unmark 2
+list
+event watch netflix again /from 19-4-2023 /to Tuesday 19:00
+deadline modreg round 9 /by Wedenesday 2023-09-25
+list
+mark 7
+unmark 2
+mark 3
+list
+unmark 4
+list
+event Dinner with the family /from 17-09-2024 /to 20:00 tomorrow
+list
+bye
