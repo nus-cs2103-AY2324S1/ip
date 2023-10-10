@@ -1,0 +1,57 @@
+______________________________________________________________________________________
+I extend to you my utmost felicitations, User! I am Bartholomew Hamish Montgomery.
+What may I do for you?
+______________________________________________________________________________________
+
+File not found
+______________________________________________________________________________________
+Got it! I've added this task:
+[T][ ] go for a walk
+You now have 1 task(s) in the list
+______________________________________________________________________________________
+
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+______________________________________________________________________________________
+Error: Invalid duke.Task Index!
+______________________________________________________________________________________
+
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+______________________________________________________________________________________
+Error: duke.Task is already marked as incomplete!
+______________________________________________________________________________________
+
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+______________________________________________________________________________________
+Okay, I have marked this task as completed!
+[T][X] go for a walk
+______________________________________________________________________________________
+
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+______________________________________________________________________________________
+Error: duke.Task is already completed!
+______________________________________________________________________________________
+
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+______________________________________________________________________________________
+Got it! I've added this task:
+[D][ ] CS2103T Quiz (by: Friday)
+You now have 2 task(s) in the list
+______________________________________________________________________________________
+
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+______________________________________________________________________________________
+Got it! I've added this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+You now have 3 task(s) in the list
+______________________________________________________________________________________
+
+Something went wrong: ./src/main/data/tasklist.txt (No such file or directory)
+File not found
+______________________________________________________________________________________
+Error: Invalid Command!
+______________________________________________________________________________________
+
+______________________________________________________________________________________
+Until we meet once more in the near future, I bid you farewell.
+______________________________________________________________________________________
+
