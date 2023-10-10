@@ -1,0 +1,6 @@
+todo read book
+todo help do chores
+del 1
+del 2
+list
+bye
