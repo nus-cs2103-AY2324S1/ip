@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" prefHeight="600.0" prefWidth="400.0"  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" fx:controller="gui.HelpPopupController">
+    <children>
+        <ScrollPane hbarPolicy="NEVER" prefHeight="600.0" prefWidth="450.0" fx:id="scrollPane">
+
+            <VBox  alignment="CENTER" spacing="10">
+                <children>
+                    <Label fx:id="helpLabel" text="commands:" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                    <Separator /> <!-- Add a separator after the label -->
+
+                    <VBox fx:id="vBox" spacing="10">
+                        <!-- All commands are populated here in HelpPopupController -->
+                    </VBox>
+                    <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closePopup" text="Close" />
+                </children>
+            </VBox>
+        </ScrollPane>
+    </children>
+</AnchorPane>
