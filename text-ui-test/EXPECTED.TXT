@@ -1,7 +1,37 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+____________________________________________________________
+Hello I'm Cortana, Microsoft killed me so now I'm here
+  __ _  ___ ___  _   _  _   _
+ / _/ \| o \_ _|/ \ | \| | / \
+( (( o )   /| || o || \\ || o |
+ \__\_/|_|\\|_||_n_||_|\_||_n_|
+____________________________________________________________
+This task is added to the list
+[T][ ] quiz
+You now have 1 tasks in your list
+____________________________________________________________
+!!!: Please provide a task name
+____________________________________________________________
+This task is added to the list
+[D][ ] test (by: jun 30)
+You now have 2 tasks in your list
+____________________________________________________________
+!!!: Please provide a by date using "/by by_date"
+____________________________________________________________
+1. [T][ ] quiz
+2. [D][ ] test (by: jun 30)
+____________________________________________________________
+This task is deleted
+[D][ ] test (by: jun 30)
+You now have 1 tasks in your list
+____________________________________________________________
+This task is added to the list
+[E][ ] hello (from: jun 1 to: jun 5)
+You now have 2 tasks in your list
+____________________________________________________________
+!!!: Please provide a from date using "/from from_date"
+____________________________________________________________
+!!!: Please provide a from date using "/from from_date"
+____________________________________________________________
+1. [T][ ] quiz
+2. [E][ ] hello (from: jun 1 to: jun 5)
+____________________________________________________________
