@@ -1,29 +1,86 @@
-# User Guide
+# User Guide for Pippi
+Pippi is a chatbot desktop application for tasks management via a Command Line Interface. 
 
 ## Features 
+> **NOTE:**
+> Words in `UPPER_CASE` are the parameters to be supplied by the user.
+>
+> e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a parameter which can be used as `todo chores`
+### Viewing help : `help`
 
-### Feature-ABC
+View the list of commands available
 
-Description of the feature.
+**Format:** `help`
 
-### Feature-XYZ
+### Adding a todo task: `todo`
+Add a todo to the list of tasks.
 
-Description of the feature.
+**Format:** `todo TASK_DESCRIPTION`
 
-## Usage
+**Examples:**
+`todo drink water`
 
-### `Keyword` - Describe action
 
-Describe the action and its outcome.
+### Adding a deadline : `deadline`
 
-Example of usage: 
+Add a deadline to the list of tasks.
 
-`keyword (optional arguments)`
+**Format:** `deadline TASK_DESCRIPTION /by DATE`
+* `DATE` must be in **yyyy-mm-dd** format
 
-Expected outcome:
+**Examples:**
+* `deadline submit assignment /by 2023-09-23 `
 
-Description of the outcome.
 
-```
-expected output
-```
+
+### Adding an event : `event`
+Add an event to your list of tasks.
+**Format:** `event TASK_DESCRIPTION /from START /to END`
+
+**Example:**
+* `event Party /from 9am /to 9pm`
+
+### Listing all tasks : `list`
+Shows a list of all the current tasks.
+
+**Format:** `list`
+
+### Finding a task : `find`
+Finds a task which contains the keyword.
+
+**Format:** `find KEYWORD`
+
+**Examples:**
+* `find party`
+
+### Deleting a task : `delete`
+Deletes a task from the list.
+
+**Format:** `delete TASK_INDEX`
+* Deletes the task at the specified `TASK_INDEX`. The `TASK_INDEX` is the index number shown in the displayed list after entering the `list` command.
+> * `TASK_INDEX` **must be a positive integer** 1, 2, 3...
+> * Note that the index of the remaining tasks might change after each deletion.
+
+**Examples:**
+* `delete 2`
+
+### Marking a task as complete : `mark`
+Marks a task in the list as complete.
+
+**Format:** `mark TASK_INDEX`
+* Marks the task at the specified `TASK_INDEX`. The `TASK_INDEX` is the index number shown in the displayed list after entering the `list` command.
+> * `TASK_INDEX` **must be a positive integer** 1, 2, 3...
+
+**Examples:**
+* `mark 1`
+
+### Marking a task as incomplete : `unmark`
+Marks a task in the list as incomplete.
+
+**Format:** `unmark TASK_INDEX`
+* Marks the task at the specified `TASK_INDEX`. The `TASK_INDEX` is the index number shown in the displayed list after entering the `list` command.
+>* `TASK_INDEX` **must be a positive integer** 1, 2, 3...
+
+**Examples:**
+* `unmark 1`
+
