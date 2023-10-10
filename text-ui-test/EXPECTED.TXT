@@ -1,7 +1,91 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+   __________________________________________
+   Hi! You do not have any tasks at the moment
+   __________________________________________
+   __________________________________________
+   Hello! I'm zac
+   What can I do for you?
+   __________________________________________
+   __________________________________________
+   Got it. I've added this task:
+     [T][ ] borrow book
+   Now you have 1 tasks in the list.
+   __________________________________________
+   __________________________________________
+   Got it. I've added this task:
+     [D][ ] return book (by: Sep 10 2023 5:00PM)
+   Now you have 2 tasks in the list.
+   __________________________________________
+   __________________________________________
+   Got it. I've added this task:
+     [E][ ] project meeting (from: Mon 2pm to: 4pm)
+   Now you have 3 tasks in the list.
+   __________________________________________
+   __________________________________________
+   Here are the tasks in your list:
+   1.[T][ ] borrow book
+   2.[D][ ] return book (by: Sep 10 2023 5:00PM)
+   3.[E][ ] project meeting (from: Mon 2pm to: 4pm)
+   __________________________________________
+   __________________________________________
+   OOPS!!! The description of a todo cannot be empty.
+   __________________________________________
+   __________________________________________
+   You need to add a by timing!
+   __________________________________________
+   __________________________________________
+   You need to add a by timing!
+   __________________________________________
+   __________________________________________
+   You need to add a /from and /to for events
+   __________________________________________
+   __________________________________________
+   You need to add a /from and /to for events
+   __________________________________________
+   __________________________________________
+   You need to add a /from and /to for events
+   __________________________________________
+   __________________________________________
+   You need to add a /to for events
+   __________________________________________
+   __________________________________________
+   Nice! I've marked this task as done:
+     [X] borrow book
+   __________________________________________
+   __________________________________________
+   Nice! I've marked this task as done:
+     [X] project meeting
+   __________________________________________
+   __________________________________________
+   Got it. I've added this task:
+     [T][ ] randomthing
+   Now you have 4 tasks in the list.
+   __________________________________________
+   __________________________________________
+   Here are the tasks in your list:
+   1.[T][X] borrow book
+   2.[D][ ] return book (by: Sep 10 2023 5:00PM)
+   3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+   4.[T][ ] randomthing
+   __________________________________________
+   __________________________________________
+   You are trying to access a Task that does not exist!
+   __________________________________________
+   __________________________________________
+   Noted. I've removed this task:
+     [T][ ] randomthing
+   Now you have 3 tasks in the list.
+   __________________________________________
+   __________________________________________
+   Here are the tasks in your list:
+   1.[T][X] borrow book
+   2.[D][ ] return book (by: Sep 10 2023 5:00PM)
+   3.[E][X] project meeting (from: Mon 2pm to: 4pm)
+   __________________________________________
+   __________________________________________
+   Here are the matching tasks in your list:
+   1.[T][X] borrow book
+   2.[D][ ] return book (by: Sep 10 2023 5:00PM)
+   __________________________________________
+   __________________________________________
+   Bye. Hope to see you again soon!
+   __________________________________________

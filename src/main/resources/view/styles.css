@@ -1,0 +1,5 @@
+Label {
+    -fx-background-color: lightblue; /* Set the background color */
+    -fx-padding: 12px; /* Adjust the padding as needed */
+    -fx-background-radius: 20px;
+}
