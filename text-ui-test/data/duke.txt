@@ -1,0 +1,4 @@
+T | 1 | borrow book | null | null
+T | 0 | finish CS2103T ip ASAP BRUH | null | null
+E | 0 | ip discussion | 2023-09-05 | 2023-09-06
+D | 0 | Deadline Task 2 | 2022-01-01 | null

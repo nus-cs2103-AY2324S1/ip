@@ -1,0 +1,21 @@
+todo borrow book
+deadline URGENT TASK wrong date format! /by Saturday
+event NUSCO Welcome Tea /from 2022-08-31 /to 2022-08-31
+list
+mark 1
+mark 3
+unmark 3
+mark 2
+list
+deadline erroneous deadline by now
+event wrong event input from 6pm to 8pm
+invalid input
+todo finish CS2103T ip ASAP BRUH
+event ip discussion /from 2023-09-05 /to 2023-09-06
+deadline Deadline Task 2 /by 2022-01-01
+dElEte non-Number and case-insensitive
+delete 1234.98765
+delete 2
+find ip
+liST
+bYE

@@ -1,7 +1,134 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+System Message: Directory 'data' exists!
+System Message: File 'duke.txt' does not exist. Creating one...You can view it under 'data' directory after exiting the program this time.
 
+Starting SeeWhyAre Bot...
+    ____________________________________________________________
+    Hello! I'm SeeWhyAre Bot!
+    What can I do for you?
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] borrow book
+     Now you have 1 task(s) in the list.
+    ____________________________________________________________
+Enter your Command:
+     Yoho! The date provided is invalid. Ensure all dates are of the format YYYY-MM-DD. Thanks!
+Enter your Command:
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] NUSCO Welcome Tea (from: Aug 31 2022 to: Aug 31 2022)
+     Now you have 2 task(s) in the list.
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+    Your current task list:
+     1.[T][ ] borrow book
+     2.[E][ ] NUSCO Welcome Tea (from: Aug 31 2022 to: Aug 31 2022)
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Nice! I've marked this Task as done:
+       [X] borrow book
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Invalid Index of Task. You currently have 2 Task(s)
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+    Invalid Index of task. You currently have 2 Task(s)
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Nice! I've marked this Task as done:
+       [X] NUSCO Welcome Tea
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+    Your current task list:
+     1.[T][X] borrow book
+     2.[E][X] NUSCO Welcome Tea (from: Aug 31 2022 to: Aug 31 2022)
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Invalid Deadline Task input.
+     Please input in the following format:
+     deadline <Task Description> /by <deadline timing>
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Invalid Event Task input.
+     Please input in the following format:
+     event <Task Description> /from <start time> /to <end time>
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     OOPS!!! I'm sorry, but I don't know what that means :-(
+     Please input valid commands. Currently SeeWhyAre bot supports:
+     BYE
+     LIST
+     MARK
+     UNMARK
+     DELETE
+     FIND
+     DEADLINE
+     TODO
+     EVENT
+     UNKNOWN
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Got it. I've added this task:
+       [T][ ] finish CS2103T ip ASAP BRUH
+     Now you have 3 task(s) in the list.
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Got it. I've added this task:
+       [E][ ] ip discussion (from: Sept 5 2023 to: Sept 6 2023)
+     Now you have 4 task(s) in the list.
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Got it. I've added this Task:
+       [D][ ] Deadline Task 2 (by: Jan 1 2022)
+     Now you have 5 task(s) in the list.
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     OOPS!!! Please enter the index after 'delete' command.
+     For example: delete 5
+     This will remove Task 5 from your Task List, assuming you have at least 5 tasks.
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     OOPS!!! Please enter the index after 'delete' command.
+     For example: delete 5
+     This will remove Task 5 from your Task List, assuming you have at least 5 tasks.
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+     Noted. I've removed this Task:
+       [E][X] NUSCO Welcome Tea (from: Aug 31 2022 to: Aug 31 2022)
+     Now you have 4 task(s) in the list.
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+	 Here are your tasks that contains 'ip':
+	 [T][ ] finish CS2103T ip ASAP BRUH
+	 [E][ ] ip discussion (from: Sept 5 2023 to: Sept 6 2023)
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+    Your current task list:
+     1.[T][X] borrow book
+     2.[T][ ] finish CS2103T ip ASAP BRUH
+     3.[E][ ] ip discussion (from: Sept 5 2023 to: Sept 6 2023)
+     4.[D][ ] Deadline Task 2 (by: Jan 1 2022)
+    ____________________________________________________________
+Enter your Command:
+    ____________________________________________________________
+    You are closing the SeeWhyAre chat bot.
+    Bye bye. Please use me again soon!
+    ____________________________________________________________
