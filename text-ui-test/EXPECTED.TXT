@@ -1,7 +1,32 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Command: || [deadline]
+Input task details.
+
+Command: || [finish software engineering assignment]
+Input task deadline.
+
+Command: || [fri 2359]
+Just saying, better finish software engineering assignment now.
+Not like it's my problem if you don't.
+--------------------
+
+Command: || [event]
+Input task details.
+
+Command: || [party at Jon's]
+Input start time.
+
+Command: || [fri 8pm]
+Input end time.
+
+Command: || [sat 2am]
+Wow, you have a party at Jon's at fri 8pm?
+Uhh, n-not like I wanna join you!
+--------------------
+
+Command: || [list]
+You have 2 tasks. (0 complete, 2 incomplete)
+1. [D][ ] finish software engineering assignment (by: fri 2359)
+2. [E][ ] party at Jon's (from: fri 8pm to: sat 2am)
+Don't expect me to remember them for you!
+--------------------
 
