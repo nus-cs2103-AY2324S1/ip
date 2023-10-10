@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+repositories {
+    mavenCentral()
+
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // Used for loops to clean up the imports
+    def platforms = ["win", "linux", "mac"]
+    def javafxDependency = ["javafx-graphics", "javafx-controls", "javafx-fxml"]
+
+    for (plt in platforms) {
+        for (dep in javafxDependency) {
+            runtimeOnly "org.openjfx:$dep:$javafx.version:$plt"
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("socrates.Launcher")
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+shadowJar {
+    archiveBaseName = "socrates"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+javafx {
+    version = '17.0.2'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+run {
+    standardInput = System.in
+}
