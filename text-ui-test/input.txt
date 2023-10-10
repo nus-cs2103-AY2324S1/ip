@@ -1,0 +1,9 @@
+todo run
+todo walk
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 2
+unmark 2
+list
+bye
