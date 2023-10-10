@@ -1,29 +1,159 @@
 # User Guide
+Tom is a lightweight application to schedule and manage tasks. It is very fast and efficient. Can be distributed as a tiny .jar file!
 
-## Features 
+## Features
 
-### Feature-ABC
+### Feature - Add ToDo
+> #### todo 
+A todo is a task that has a description, but no deadlines
 
-Description of the feature.
+**Usage** - `todo {task description}`
 
-### Feature-XYZ
+**For example:**
 
-Description of the feature.
+`todo finish homework`
 
-## Usage
+**Expected Output:**
 
-### `Keyword` - Describe action
+![todo.png](images/todo.png)
 
-Describe the action and its outcome.
+<br />
 
-Example of usage: 
+### Feature - Add deadlines
+>#### deadline
 
-`keyword (optional arguments)`
+A deadline is a task that has a description and a deadline.
 
-Expected outcome:
+**Usage** - `deadline {description/deadline}`
 
-Description of the outcome.
+**For example:**
 
-```
-expected output
-```
+`deadline finish project/2023-12-12 01:12`
+
+**Expected Output:**
+
+![deadline.png](images/deadline.png)
+
+<br />
+
+
+### Feature - Add events
+>#### event
+
+An event is a task that has a description, from date and to date.
+
+**Usage** - `event {description/from/to}`
+
+**For example:**
+
+`event travel/2023-12-12 00:00/2023-12-31 00:00`
+
+**Expected Output:**
+
+![event.png](images/event.png)
+
+<br />
+
+
+### Feature - Find tasks
+>#### find
+
+find function can index any task that may or may not contain the full keyword. It is flexible with inputs.
+
+**Usage** - `find {description}`
+
+**For example:**
+
+`find travel` or `find tra` 
+
+**Expected Output:**
+
+![find.png](images/find.png)
+
+<br />
+
+
+### Feature - list tasks
+>#### list
+
+list function prints out all the tasks on memory.
+
+**Usage** - `list`
+
+**For example:**
+
+`list`
+
+**Expected Output:**
+
+![list.png](images/list.png)
+
+<br />
+
+### Feature - Delete tasks
+>#### delete
+
+delete function can delete any task based on the item number.
+
+**Usage** - `delete {item number}`
+
+**For example:**
+
+`delete 1`
+
+**Expected Output:**
+
+![delete.png](images/delete.png)
+
+<br />
+
+### Feature - mark tasks
+>#### mark
+
+mark function can mark any task (with an X) based on the item number.
+Tasks that are already marked, cannot be marked again.
+
+**Usage** - `mark {item number}`
+
+**For example:**
+
+`mark 1`
+
+**Expected Output:**
+
+![mark.png](images/mark.png)
+
+<br />
+
+### Feature - unmark tasks
+>#### unmark
+
+unmark function can mark any task (with an X) based on the item number.
+Tasks that are already unmarked, cannot be unmarked again.
+
+**Usage** - `unmark {item number}`
+
+**For example:**
+
+`unmark 1`
+
+**Expected Output:**
+
+![unmark.png](images/unmark.png)
+
+<br />
+
+### Feature - save tasks
+>#### save
+
+save function can save all the actions committed since application opening.
+
+**Usage** - `save`
+
+**For example:**
+
+`save`
+
+**Expected Output:**
+
+![save.png](images/save.png)

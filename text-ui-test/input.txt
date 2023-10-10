@@ -1,0 +1,11 @@
+task
+ToDo play football
+task
+Deadline finish hw/10pm
+task
+Event attend lecture/2pm/4pm
+list
+mark 1
+mark 2
+list
+bye
