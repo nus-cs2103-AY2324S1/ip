@@ -5,3 +5,30 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+____________________________________________________________
+ Hello! I'm JARVIS
+What can I do for you?
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] return book  (by: Tuesday)
+Now you have 1 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] return book  (by: Tuesday)
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] IEX meeting  (from: Thurs 6pm  to: 10pm)
+Now you have 2 tasks in the list.
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1.[D][ ] return book  (by: Tuesday)
+2.[E][ ] IEX meeting  (from: Thurs 6pm  to: 10pm)
+____________________________________________________________
+Nice! I've marked this task as done:
+[E][X] IEX meeting  (from: Thurs 6pm  to: 10pm)
+Got it. I've added this task:
+[D][ ] do homework  (by: no idea :-p)
+Now you have 3 tasks in the list.
+____________________________________________________________
