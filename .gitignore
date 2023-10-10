@@ -5,8 +5,12 @@
 
 # Gradle build files
 /.gradle/
-/build/
 src/main/resources/docs/
+
+# JavaFX build files
+lib\javafx-swt.jar
+lib\javafx.base.jar
+lib\javafx.controls.jar
 
 # MacOS custom attributes files created by Finder
 .DS_Store

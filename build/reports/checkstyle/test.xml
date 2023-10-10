@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.2">
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\test\java\parser\ParserTest.java">
+<error line="4" column="1" severity="error" message="Import statement for &apos;org.junit.jupiter.api.Assertions.assertEquals&apos; is in the wrong order. Should be in the &apos;STATIC&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\test\java\tasks\TaskListTest.java">
+<error line="4" column="1" severity="error" message="Import statement for &apos;org.junit.jupiter.api.Assertions.assertEquals&apos; is in the wrong order. Should be in the &apos;STATIC&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
+<error line="5" column="1" severity="error" message="Import statement for &apos;org.junit.jupiter.api.Assertions.assertTrue&apos; is in the wrong order. Should be in the &apos;STATIC&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
+</file>
+</checkstyle>

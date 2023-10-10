@@ -1,0 +1,16 @@
+-classpath 'C:\\Users\\Edric\\Desktop\\ip\\build\\classes\\java\\main;C:\\Users\\Edric\\Desktop\\ip\\build\\resources\\main'
+-d 'C:\\Users\\Edric\\Desktop\\ip\\build\\docs\\javadoc'
+-doctitle 'ip API'
+-notimestamp 
+-quiet 
+-windowtitle 'ip API'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\customexceptions\\WrongCommandException.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\main\\main.Corubi.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\parser\\Parser.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\storage\\Storage.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\tasks\\Deadlines.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\tasks\\Events.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\tasks\\Task.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\tasks\\TaskList.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\tasks\\ToDos.java'
+'C:\\Users\\Edric\\Desktop\\ip\\src\\main\\java\\ui\\Ui.java'

@@ -1,24 +1,120 @@
-# Duke project template
+# GigaChadBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+The **GigaChadBot** is a command-line utility for managing tasks. It allows you to create, organize, and manage your tasks efficiently. This README provides an overview of the application and its features.
 
-## Setting up in Intellij
+## Table of Contents
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+- [Getting Started](#getting-started)
+- [Features](#features)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Getting Started
+
+To get started with GigaChadBot, follow these steps:
+
+```
+# Clone the repository to your local machine:
+git clone https://github.com/lululwtv/ip.git
+
+# Navigate to the project directory:
+cd ./build/libs
+
+# Compile and run the application:
+java -jar GigaChadBot.jar
+```
+## UI
+![Snapshot of UI](img.png)
+
+## Features
+
+### Task Management
+
+- Create various types of tasks: Todo, Deadline, and Event.
+- Mark tasks as done when completed.
+- Archive tasks for historical reference.
+
+### Interactive Interface
+
+- The application offers an interactive command-line interface (CLI) for easy task management.
+- Use commands like `todo`, `deadline`, `event`, `list`, `mark`, `unmark`, `delete`, `find`, and `archive` to interact with your tasks.
+
+### Persistent Storage
+
+- Tasks are stored in the `OUTPUT.txt` file for data persistence.
+- Archived tasks are saved in the `ARCHIVE.txt` file for reference.
+
+## Usage
+
+### Adding Tasks
+
+- To add a Todo task, use the `todo` command followed by the task description:
+
+```
+todo Buy groceries
+```
+
+- To add a Deadline task, use the `deadline` command with the task description and the deadline date in the format `yyyy-mm-dd`:
+
+```
+deadline Finish project /by 2023-12-31
+```
+
+- To add an Event task, use the `event` command with the event description and the event dates in the format `yyyy-mm-dd`:
+
+```
+event Team meeting /from 2023-09-20 /to 2023-09-21
+```
+
+### Listing Tasks
+
+- To list all your tasks, use the `list` command:
+
+```
+list
+```
+
+### Marking Tasks
+
+- To mark a task as done, use the `mark` command followed by the task number:
+
+```
+mark 1
+```
+
+### Unmarking Tasks
+
+- To unmark a completed task, use the `unmark` command followed by the task number:
+
+```
+unmark 1
+```
+
+### Deleting Tasks
+
+- To delete a task, use the `delete` command followed by the task number:
+
+```
+delete 1
+```
+
+### Finding Tasks
+
+- To find tasks containing a specific keyword, use the `find` command followed by the keyword:
+
+```
+find important
+```
+
+### Archiving Tasks
+
+- To archive a task, use the `archive` command followed by the task number:
+
+```
+archive 1
+```
+
+## Contributing
+
+Contributions are welcome! If you have any suggestions, feature requests, or bug reports, please open an issue or create a pull request.

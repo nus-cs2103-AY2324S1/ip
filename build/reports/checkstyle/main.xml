@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="10.2">
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\customexceptions\WrongCommandException.java">
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\main\main.Corubi.java">
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\parser\Parser.java">
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\storage\Storage.java">
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\tasks\Deadlines.java">
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\tasks\Events.java">
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\tasks\Task.java">
+<error line="3" column="1" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
+<error line="5" column="26" severity="error" message="Abbreviation in name &apos;NAME&apos; must contain no more than &apos;2&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="5" column="26" severity="warning" message="Name &apos;NAME&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
+<error line="6" column="26" severity="error" message="Abbreviation in name &apos;DONE&apos; must contain no more than &apos;2&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="6" column="26" severity="warning" message="Name &apos;DONE&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
+<error line="7" column="26" severity="error" message="Abbreviation in name &apos;NOTDONE&apos; must contain no more than &apos;2&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="7" column="26" severity="warning" message="Name &apos;NOTDONE&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\tasks\TaskList.java">
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\tasks\ToDos.java">
+<error line="3" column="1" severity="error" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
+</file>
+<file name="C:\Users\Edric\Desktop\Uni Stuff\y2s1\2103\ip\src\main\java\ui\Ui.java">
+<error line="12" column="1" severity="error" message="Import statement for &apos;java.io.IOException&apos; is in the wrong order. Should be in the &apos;STANDARD_JAVA_PACKAGE&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
+<error line="13" column="1" severity="error" message="Import statement for &apos;java.util.ArrayList&apos; is in the wrong order. Should be in the &apos;STANDARD_JAVA_PACKAGE&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
+<error line="14" column="1" severity="error" message="Import statement for &apos;java.util.Collections&apos; is in the wrong order. Should be in the &apos;STANDARD_JAVA_PACKAGE&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
+<error line="15" column="1" severity="error" message="Import statement for &apos;java.util.Scanner&apos; is in the wrong order. Should be in the &apos;STANDARD_JAVA_PACKAGE&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
+<error line="22" column="26" severity="error" message="Abbreviation in name &apos;NAME&apos; must contain no more than &apos;2&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="22" column="26" severity="warning" message="Name &apos;NAME&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
+<error line="23" column="26" severity="error" message="Abbreviation in name &apos;DIVIDER&apos; must contain no more than &apos;2&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="23" column="26" severity="warning" message="Name &apos;DIVIDER&apos; must match pattern &apos;^[a-z][a-zA-Z0-9]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MemberNameCheck"/>
+</file>
+</checkstyle>
