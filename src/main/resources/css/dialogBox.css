@@ -1,0 +1,26 @@
+/* Add padding between DialogBox elements */
+.dialog-box {
+    -fx-padding: 5px;
+}
+
+/* Customize the dialog box text */
+.dialog-text {
+    -fx-font-family: "SF-UI Text Regular"; /* Change the font family */
+
+}
+
+/* Add padding between ImageView and Label */
+.dialog-label {
+    -fx-padding: 5px;
+}
+
+/* Clip the ImageView into a circle */
+.dialog-box .image-view {
+    -fx-clip-type: circle;
+    -fx-background-color: white; /* Background color for the circular ImageView */
+}
+
+/* Add background color to each DialogBox */
+.dialog-box .label {
+    -fx-background-color: #f2f2f2; /* Background color for the dialog box */
+}
