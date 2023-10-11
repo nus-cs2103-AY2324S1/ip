@@ -72,7 +72,7 @@ public abstract class Task {
     }
 
     /**
-     * Internal method for a formatted mark-complete symbol for this task.
+     * Obtains a formatted mark-complete symbol for this task.
      */
     protected String getCompletedIndicatorString() {
         return String.format("[%s]", this.isCompleted() ? "X" : " ");

@@ -258,7 +258,7 @@ public class ChatCommand {
 
 
     /**
-     * Internal method to extract individual words separated by whitespace from an instruction.
+     * Extracts individual words separated by whitespace from an instruction.
      *
      * @param instruction The original string instruction to extract words from.
      * @return The array of words.
@@ -269,7 +269,7 @@ public class ChatCommand {
     }
 
     /**
-     * Internal method to compute the first index of which is no longer the data component.
+     * Computes the first index of which is no longer the data component.
      *
      * @param words A reference to the original partitioned words.
      * @return The first index in the words array of which is no longer part of the data.
@@ -287,7 +287,7 @@ public class ChatCommand {
     }
 
     /**
-     * Internal method to extract the command name string.
+     * Extracts the command name string from a set of words.
      *
      * @param words A reference to the original partitioned words.
      * @return A string representing the command name.
@@ -300,7 +300,7 @@ public class ChatCommand {
     }
 
     /**
-     * Internal method to extract the data string from the word parts, given the index to end the search once reached.
+     * Extracts the data string from the word parts, given the index to end the search once reached.
      *
      * @param words        A reference to the original partitioned words.
      * @param dataEndIndex The index that marks the end of the data component, exclusive.
@@ -320,7 +320,7 @@ public class ChatCommand {
     }
 
     /**
-     * Internal method to extract a map of the parameters from the word parts of an instruction, given the starting
+     * Extracts a map of the parameters from the word parts of an instruction, given the starting
      * index to search from.
      *
      * @param words               A reference to the original partitioned words.
