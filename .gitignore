@@ -15,3 +15,14 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# VSC
+.vscode
+
+# Data
+data
+lib
+
+# Misc
+DESCRIPTION.md
+eclipse-formatter.xml

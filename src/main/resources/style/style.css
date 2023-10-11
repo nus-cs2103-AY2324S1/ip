@@ -1,0 +1,75 @@
+* {
+    -fx-background-color: #1a1a1a;
+}
+
+.user-input {
+    -fx-background-color: #333333;
+    -fx-focus-color: transparent;
+    -fx-text-fill: #cce6ff;
+    -fx-font-size: 18px;
+}
+
+.user-input * {
+    -fx-background-color: #333333;
+}
+
+.scroll-pane {
+    -fx-focus-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #333333;
+}
+
+.send-button {
+    -fx-background-color: #6699ff;
+    -fx-font-size: 18px;
+}
+
+.send-button:hover {
+    -fx-background-color: #637688;
+    -fx-cursor: hand;
+}
+
+.user-dialog {
+    -fx-text-fill: #cce6ff;
+    -fx-font-size: 14px;
+}
+
+.thorndike-dialog {
+    -fx-text-fill: #b18430;
+    -fx-font-size: 14px;
+}
+
+.light-mode {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .dialog-box {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .user-input {
+    -fx-background-color: #d1d1d1;
+    -fx-text-fill: #000000;
+}
+
+.light-mode .user-input * {
+    -fx-background-color: #d1d1d1;
+}
+
+.light-mode .scroll-pane {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .scroll-pane * {
+    -fx-background-color: #f3f3f3;
+}
+
+.light-mode .user-dialog {
+    -fx-text-fill: #000000;
+}
+
+.light-mode .send-button {
+    -fx-background-color: #6699ff;
+}
