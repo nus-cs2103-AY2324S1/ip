@@ -1,4 +1,5 @@
-# User Guide
+# User Guide for Lippy the Bear
+Welcome to Lippy the Bear, your personal task manager bot! Ever felt frustrated over forgetting crucial deadlines or event dates? Fret not! Lippy the Bear is here to rescue you!
 
 ## Features 
 
