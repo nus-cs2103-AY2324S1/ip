@@ -1,0 +1,8 @@
+todo hello
+event Graduation /    Monday 2pm  / Tuesday 3pm
+deadline Finish EGGBOT / tmr 3pm
+list
+mark 3
+unmark 3
+event Swim/6pm
+delete 2
