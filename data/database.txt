@@ -1,0 +1,4 @@
+event project meeting /from Mon 2pm /to 4pm,false
+event cs2103T outing /from monday 1pm /to 2pm,true
+todo feed dog,false
+todo fewfew,false
