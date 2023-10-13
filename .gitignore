@@ -15,3 +15,8 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+Pau.png
+User.png
+
+# Compiled Java Class Files
+*.class

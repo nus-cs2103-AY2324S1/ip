@@ -1,0 +1,5 @@
+todo fix puzzle
+todo eat lunch
+deadline watch lecture /by Sunday
+event bash /from Friday 6pm /to 10pm
+bye
