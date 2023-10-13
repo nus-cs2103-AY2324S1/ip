@@ -2,8 +2,11 @@
 /.idea/
 /out/
 /*.iml
+*.class
+dataTask.txt
 
 # Gradle build files
+*.jar
 /.gradle/
 /build/
 src/main/resources/docs/
@@ -15,3 +18,5 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+.vscode/
