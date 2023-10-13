@@ -1,0 +1,4 @@
+todo do homework
+event house event /from tomorrow /to friday
+deadline prepare for test /by friday night
+bye
