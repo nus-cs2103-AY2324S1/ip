@@ -104,7 +104,7 @@ Example: `priority 3 high`
 
 ### Saving tasks: `end`
 
-Ends the current session and saves the current task list onto the hard drive.
+Ends the current session and saves the current task list onto the hard drive. Note: Tasks are only saved upon this command.
 
 Format: `end`
 
