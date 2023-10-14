@@ -124,6 +124,7 @@ Format: `end`
 |`clear`| `clear`                                                                                                     |
 |`undoclear`| `undoclear`                                                                                                 |
 |`priority`| `priroity <number> <priority_level>`<br/>eg `priority 2 low`                                                |
+|`end` | `end`                                                                                                         |
 
 
 
