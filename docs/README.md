@@ -24,13 +24,13 @@ Format: `deadline DESCRIPTION /by DATE & TIME`
 
 * `DATE` must be in the format `YYYY-MM-DD`.
 * `DATE` must be a valid date.
-* `TIME` must be in the format `HH:MM`.
+* `TIME` must be in the format `HHMM`.
 * `TIME` must be a valid time.
 * `DATE` and `TIME` must be separated by a space.
 * The input can have either date (time is set to midnight), time (date is set to current date) or both.
 
 Example Input:
-* `deadline submit CS2103T iP /by 2023-09-17 23:59`
+* `deadline submit CS2103T iP /by 2023-09-17 2359`
 
 Example Output:
 * `Added to My List:`<br>
@@ -45,13 +45,13 @@ Format: `event DESCRIPTION /from DATE & TIME /to DATE & TIME`
 
 * `DATE` must be in the format `YYYY-MM-DD`.
 * `DATE` must be a valid date.
-* `TIME` must be in the format `HH:MM`.
+* `TIME` must be in the format `HHMM`.
 * `TIME` must be a valid time.
 * `DATE` and `TIME` must be separated by a space.
 * The input can have either date (time is set to midnight), time (date is set to current date) or both.
 
 Example Input:
-* `event attend CS2103T lecture /from 2023-09-17 14:00 /to 2023-09-17 16:00`
+* `event attend CS2103T lecture /from 2023-09-17 1400 /to 2023-09-17 1600`
 
 Example Output:
 * `Added to My List:`<br>
@@ -172,15 +172,15 @@ Sally data are saved in the hard disk automatically after any command that chang
 
 ## Command summary
 
-| Action         | Format, Examples                                                                                                                           |
-|----------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| **todo**       | `todo DESCRIPTION` <br> e.g., `todo read Pride & Prejudice`                                                                                |
-| **deadline**   | `deadline DESCRIPTION /by DATE & TIME` <br> e.g., `deadline submit CS2103T iP /by 2023-09-17 23:59`                                        |
-| **event**      | `event DESCRIPTION /from DATE & TIME /to DATE & TIME`<br> e.g., `event attend CS2103T lecture /from 2023-09-17 14:00 /to 2023-09-17 16:00` |
-| **mark**       | `mark INDEX`<br> e.g.,`mark 1`                                                                                                             |
-| **unmark**     | `unmark INDEX`<br> e.g., `unmark 1`                                                                                                        |
-| **list**       | `list`                                                                                                                                     |
-| **prioritise** | `prioritise INDEX PRIORITY` <br> e.g., `prioritise 1 LOW`                                                                                  |
-| **find**       | `find KEYWORD` <br> e.g., `find Pride`                                                                                                     |
-| **delete**     | `delete INDEX` <br> e.g., `delete 1`                                                                                                       |
-| **bye**        | `bye`                                                                                                                                      |
+| Action         | Format, Examples                                                                                                                         |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| **todo**       | `todo DESCRIPTION` <br> e.g., `todo read Pride & Prejudice`                                                                              |
+| **deadline**   | `deadline DESCRIPTION /by DATE & TIME` <br> e.g., `deadline submit CS2103T iP /by 2023-09-17 2359`                                       |
+| **event**      | `event DESCRIPTION /from DATE & TIME /to DATE & TIME`<br> e.g., `event attend CS2103T lecture /from 2023-09-17 1400 /to 2023-09-17 1600` |
+| **mark**       | `mark INDEX`<br> e.g.,`mark 1`                                                                                                           |
+| **unmark**     | `unmark INDEX`<br> e.g., `unmark 1`                                                                                                      |
+| **list**       | `list`                                                                                                                                   |
+| **prioritise** | `prioritise INDEX PRIORITY` <br> e.g., `prioritise 1 LOW`                                                                                |
+| **find**       | `find KEYWORD` <br> e.g., `find Pride`                                                                                                   |
+| **delete**     | `delete INDEX` <br> e.g., `delete 1`                                                                                                     |
+| **bye**        | `bye`                                                                                                                                    |
