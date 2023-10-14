@@ -102,11 +102,13 @@ Format: `priority <number> <priority_level>`
 
 Example: `priority 3 high`
 
+
 ### Saving tasks: `end`
 
 Ends the current session and saves the current task list onto the hard drive. Note: Tasks are only saved upon this command.
 
 Format: `end`
+
 
 ## Command summary
 
@@ -122,7 +124,6 @@ Format: `end`
 |`clear`| `clear`                                                                                                     |
 |`undoclear`| `undoclear`                                                                                                 |
 |`priority`| `priroity <number> <priority_level>`<br/>eg `priority 2 low`                                                |
-
 
 
 
