@@ -19,7 +19,7 @@ public class Event extends Task {
      */
     public Event(String description, String from, String to) {
         super(description);
-        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         this.from = LocalDate.parse(from, inputFormatter);
         this.to = LocalDate.parse(to, inputFormatter);
     }
