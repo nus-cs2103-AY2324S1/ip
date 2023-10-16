@@ -19,12 +19,20 @@ public class DeadLine extends Task {
      * Constructs a new `DeadLine` task with the specified description and deadline.
      *
      * @param description   The description of the `DeadLine` task.
-     * @param byDescription The deadline represented as a string.
+     * @param by The deadline represented as a string.
      */
     public DeadLine(String description, String by) {
         super(description);
         this.by = by;
         this.byDateTime = parseDateTime(by);
+    }
+
+    public String getBy() {
+        return this.by;
+    }
+    @Override
+    public String getDescription() {
+        return this.description;
     }
 
     /**
