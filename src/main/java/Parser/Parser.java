@@ -82,7 +82,7 @@ public class Parser {
      * @return A DeadLine task instance based on the task information.
      * @throws DukeException If there is an issue parsing the task information.
      */
-    private static Task createDeadLineTask(String taskInfo) throws DukeException {
+    public static Task createDeadLineTask(String taskInfo) throws DukeException {
         try {
             String[] parts = taskInfo.split(" \\(by: ");
             String description = parts[0];

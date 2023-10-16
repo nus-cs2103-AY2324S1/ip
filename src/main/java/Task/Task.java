@@ -107,7 +107,7 @@ public class Task {
      * @param format The expected date format (e.g., "yyyy-MM-dd HH:mm").
      * @return true if the date string is valid; false otherwise.
      */
-    private static boolean validateDate(String date, String format) {
+    public static boolean validateDate(String date, String format) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         try {
             formatter.parse(date);

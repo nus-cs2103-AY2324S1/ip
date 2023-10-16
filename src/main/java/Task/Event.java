@@ -32,6 +32,19 @@ public class Event extends Task {
         this.toDate = parseDateTime(to);
     }
 
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+    public String getFrom() {
+        return this.from;
+    }
+
+    public String getTo() {
+        return this.to;
+    }
+
     /**
      * Returns a string representation of the `Event` task.
      * The representation includes the task's type icon, status icon, description,
