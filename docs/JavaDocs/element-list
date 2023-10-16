@@ -1,0 +1,7 @@
+cringebot
+cringebot.datafile
+cringebot.exceptions
+cringebot.mocks
+cringebot.parser
+cringebot.tasks
+cringebot.ui

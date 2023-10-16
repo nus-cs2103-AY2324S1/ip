@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"cringebot"},{"l":"cringebot.datafile"},{"l":"cringebot.exceptions"},{"l":"cringebot.mocks"},{"l":"cringebot.parser"},{"l":"cringebot.tasks"},{"l":"cringebot.ui"}]
