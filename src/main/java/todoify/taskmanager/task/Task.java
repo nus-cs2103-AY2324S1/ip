@@ -54,7 +54,7 @@ public abstract class Task {
     }
 
     /**
-     * Whether the task is marked as completed.
+     * Returns whether the task is marked as completed.
      *
      * @return true if completed, false otherwise.
      */
