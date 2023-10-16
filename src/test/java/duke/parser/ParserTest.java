@@ -15,7 +15,6 @@ import task.Task;
 
 public class ParserTest {
 
-    private static final String DEAD_LINE_TEST = "deadline updateIP /by 31/08/2023";
     @Test
     public void testParseBye() {
         Parser parser = new Parser();
