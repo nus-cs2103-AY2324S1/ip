@@ -1,0 +1,6 @@
+T|1|read book
+D|0|return book|2023-09-06T18:30
+D|0|submit quiz|2023-09-08T23:59
+D|0|return book|2023-10-02T23:59
+E|0|project meeting|2023-09-13T18:30
+T|1|join sports club
