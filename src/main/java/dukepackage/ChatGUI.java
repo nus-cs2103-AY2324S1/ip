@@ -127,17 +127,17 @@ public class ChatGUI {
                 "   Example: \"todo Buy groceries\" (Adds a todo task with the description \"Buy groceries\")\n" +
                 "\n" +
                 "8. `deadline`: Add a deadline task.\n" +
-                "   Example: \"deadline Submit report /by 2023-09-30 18:00:00\"\n" +
+                "   Example: \"deadline Submit report /by 2023-09-30 18:00\"\n" +
                 "            (Adds a deadline task with the description \"Submit report\" and due date \"2023-09-30 18:00\")\n" +
                 "\n" +
                 "9. `event`: Add an event task.\n" +
-                "   Example: \"event Team meeting /from 2023-09-25 14:00:00 /to 2023-09-25 16:00:00\"\n" +
-                "            (Adds an event task with the description \"Team meeting,\" start time \"2023-09-25 14:00:00,\" and end time \"2023-09-25 16:00:00\")\n" +
+                "   Example: \"event Team meeting /from 2023-09-25 14:00 /to 2023-09-25 16:00\"\n" +
+                "            (Adds an event task with the description \"Team meeting,\" start time \"2023-09-25 14:00,\" and end time \"2023-09-25 16:00\")\n" +
                 "\n" +
                 "10. `help`: Display this help message.\n" +
                 "    Example: \"help\"\n" +
                 "\n" +
-                "Tip: Do note that the acceptable format for date is YYYY-MM-DD HH-MM-SS. \n" +
+                "Tip: Do note that the acceptable format for date is YYYY-MM-DD HH-MM. \n" +
                 "\nFeel free to use these commands to manage your tasks and interact with iPbot. Enjoy chatting!\n";
         return result;
     }

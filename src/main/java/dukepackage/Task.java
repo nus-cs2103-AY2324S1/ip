@@ -57,7 +57,7 @@ public class Task {
         this.isDone = false;
         // set to-do as the default type
         this.type = type;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         this.startTime = Objects.equals(start, "")
                 ? null
                 : LocalDateTime.parse(start, formatter);
