@@ -1,7 +1,120 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Hello there! I'm ekud. :)
+What can I do for you? :O
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudInvalidCommandException: Command not found :(
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Todo task shouldn't be empty :(
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Got it! I've added this task:
+[T][ ] get groceries
+Now you have 1 task(s) in the list.
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Got it! I've added this task:
+[T][ ] go for a run
+Now you have 2 task(s) in the list.
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Got it! I've added this task:
+[D][ ] finish quiz (by: Saturday)
+Now you have 3 task(s) in the list.
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Deadline formatted wrongly, ensure 'deadline <description> /by <day>' is followed
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Got it! I've added this task:
+[E][ ] meeting (from: Sat 1pm, to: Sat 2pm)
+Now you have 4 task(s) in the list.
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Event formatted wrongly, ensure 'event <description> /from <start> /to <end>' is followed
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Event formatted wrongly, ensure 'event <description> /from <start> /to <end>' is followed
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Got it! I've added this task:
+[E][ ] dinner (from: Fri 6pm, to: 8pm)
+Now you have 5 task(s) in the list.
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Here is your to-do list:
+1. [T][ ] get groceries
+2. [T][ ] go for a run
+3. [D][ ] finish quiz (by: Saturday)
+4. [E][ ] meeting (from: Sat 1pm, to: Sat 2pm)
+5. [E][ ] dinner (from: Fri 6pm, to: 8pm)
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+The following task is marked done, sheeesh:
+[T][X] get groceries
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+The following task is marked done, sheeesh:
+[E][X] dinner (from: Fri 6pm, to: 8pm)
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Here is your to-do list:
+1. [T][X] get groceries
+2. [T][ ] go for a run
+3. [D][ ] finish quiz (by: Saturday)
+4. [E][ ] meeting (from: Sat 1pm, to: Sat 2pm)
+5. [E][X] dinner (from: Fri 6pm, to: 8pm)
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+The following task is marked as not done yet:
+[T][ ] get groceries
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Here is your to-do list:
+1. [T][ ] get groceries
+2. [T][ ] go for a run
+3. [D][ ] finish quiz (by: Saturday)
+4. [E][ ] meeting (from: Sat 1pm, to: Sat 2pm)
+5. [E][X] dinner (from: Fri 6pm, to: 8pm)
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Alright, this task has been removed:
+[T][ ] get groceries
+Now you have 4 task(s) in the list.
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Task index number is out of bounds :/
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Alright, this task has been removed:
+[E][ ] meeting (from: Sat 1pm, to: Sat 2pm)
+Now you have 3 task(s) in the list.
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Here is your to-do list:
+1. [T][ ] go for a run
+2. [D][ ] finish quiz (by: Saturday)
+3. [E][X] dinner (from: Fri 6pm, to: 8pm)
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudInvalidCommandException: Command not found :(
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+exceptions.EkudIllegalArgException: Please input a valid index number :o
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
+Goodbye, have a nice day! :p
+-~-~-~-~-~-~-~-~--~-~-~-~-~-~-~-~-
