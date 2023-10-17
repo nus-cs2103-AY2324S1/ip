@@ -1,7 +1,29 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm Siyuan
+What can I do for you?
+Got it. I've added this task:
+[T][ ] borrow books
+Now you have 1 tasks in the list.
+☹ OOPS!!! The description of a todo cannot be empty.
+Got it. I've added this task:
+[D][ ] return books (by: aug)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E][ ] goto library (from: aug to: sep )
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1. [T][ ] borrow books
+2. [D][ ] return books (by: aug)
+3. [E][ ] goto library (from: aug to: sep )
+Nice! I've marked this task as done:
+[T][X] borrow books
+Here are the tasks in your list:
+1. [T][X] borrow books
+2. [D][ ] return books (by: aug)
+3. [E][ ] goto library (from: aug to: sep )
+☹ OOPS!!! Please enter a valid task number.
+☹ OOPS!!! Please enter a valid task number.
+Noted. I've removed this task:
+[T][X] borrow books
+Now you have 2 tasks in the list.
+☹ OOPS!!! Please enter a valid task number.
+Bye. Hope to see you again soon!
