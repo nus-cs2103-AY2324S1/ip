@@ -45,12 +45,9 @@ test {
     }
 }
 
-javafx {
-    version = '17'
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
+
 application {
-    mainClass.set("seedu.Duke")
+    mainClass.set("seedu.Launcher")
 }
 
 shadowJar {

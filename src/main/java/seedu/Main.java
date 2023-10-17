@@ -1,7 +1,6 @@
 package seedu;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,8 +13,8 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private seedu.Duke duke = new seedu.Duke( "src/save.txt");
-
+    private Duke duke = new Duke(System.getProperty("user.home") +  "/src/save.txt");
+    private String userHomeDirectory = System.getProperty("user.dir");
     @Override
     public void start(Stage stage) {
         try {
@@ -25,7 +24,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
 
             stage.setScene(scene);
-            fxmlLoader.<ui.MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setDuke(duke);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

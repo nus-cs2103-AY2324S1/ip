@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Command {
     private String command;
     private Ui ui;
-    private boolean exit = false;
+    private boolean isExit = false;
     private Storage storage;
     private TaskList tasks;
     private int index;
@@ -63,6 +63,6 @@ public class Command {
     }
 
     public boolean exit() {
-        return this.exit;
+        return this.isExit;
     }
 }

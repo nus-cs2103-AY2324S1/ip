@@ -11,7 +11,7 @@ public class Task {
     protected String end = "";
 
     /**
-     * The task to be loaded
+     * Loads the task class
      */
     public Task(String description, String category) throws IllegalArgumentException {
         this.isDone = false;

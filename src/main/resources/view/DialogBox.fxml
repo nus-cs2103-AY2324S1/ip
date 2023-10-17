@@ -6,9 +6,10 @@
 <?import javafx.scene.layout.HBox?>
 
 <?import javafx.scene.shape.Circle?>
-<fx:root spacing="2"  alignment="TOP_RIGHT"   prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root spacing="2"  alignment="TOP_RIGHT"  prefWidth="800.0" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Label fx:id="dialog" text="Label" wrapText="false" />
+        <Label fx:id="dialog" text="Label" wrapText="true"  prefHeight="150.0" />
         <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
             <clip>
                 <Circle fx:id="circle" radius="15" centerX="15" centerY="15" />

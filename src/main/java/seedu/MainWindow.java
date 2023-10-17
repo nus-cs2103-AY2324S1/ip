@@ -1,6 +1,5 @@
-package ui;
+package seedu;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,11 +7,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import seedu.Command;
-import seedu.Parser;
-
-import java.util.Arrays;
-
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -26,7 +20,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private seedu.Duke duke;
+    private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/user.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/ans.png"));
@@ -40,7 +34,7 @@ public class MainWindow extends AnchorPane {
      * Sets the Duke model
      * @param d Duke
      */
-    public void setDuke(seedu.Duke d) {
+    public void setDuke(Duke d) {
         duke = d;
     }
 

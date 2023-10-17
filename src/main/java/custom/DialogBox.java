@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import seedu.MainWindow;
 
 /**
  * An example of a custom control using FXML.
@@ -28,7 +29,7 @@ public class DialogBox extends HBox {
 
     private DialogBox(String text, Image img, boolean user) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(ui.MainWindow.class.getResource("/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -39,8 +40,9 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         Font customFont = Font.font("Arial", 14);
         dialog.setFont(customFont);
+        dialog.setWrapText(true); // Enable text wrapping
         if(user) {
-            this.setStyle("-fx-background-color: lightgreen;");
+            this.setStyle("-fx-background-color: white;");
         } else {
             this.setStyle("-fx-background-color: lightgrey;");
         }

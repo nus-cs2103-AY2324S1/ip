@@ -1,5 +1,6 @@
 package seedu;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,12 +9,31 @@ import java.util.List;
 
 public class Storage {
     private final Path filePath;
+    private String filename;
 
     /**
      * Stores the file of the tasks
      */
     public Storage(String filePath) {
+        this.filename = filePath;
+
+        File file = new File(filename);
+        File parentDirectory = file.getParentFile();
+
+        if (!parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
+
         this.filePath = Paths.get(filePath);
+        if(file.exists()) {
+            return;
+        }
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+        }
+
     }
 
     public TaskList load() throws Exception {
