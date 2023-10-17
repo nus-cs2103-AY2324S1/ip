@@ -20,7 +20,9 @@ bye
 
 ### `todo` - A task with only a description field and no time constraints
 
-Format: `todo [STRING]`
+Format: 
+
+`todo [STRING]`
 
 Example of usage: 
 
@@ -35,7 +37,9 @@ T | 0 | exercise
 
 ### `deadline` - A task with an end-date to meet
 
-Format: `deadline [STRING] /by [yyyy-mm-dd]`
+Format: 
+
+`deadline [STRING] /by [yyyy-mm-dd]`
 
 Example of usage:
 
@@ -50,7 +54,9 @@ D | 0 | homework | Aug 12 2023
 
 ### `event` - A task with a starting date and an ending date
 
-Format: `event [STRING] /from [yyyy-mm-dd] /to [yyyy-mm-dd]`
+Format: 
+
+`event [STRING] /from [yyyy-mm-dd] /to [yyyy-mm-dd]`
 
 Example of usage:
 
@@ -65,7 +71,9 @@ E | 0 | exam | Aug 13 2023 - Aug 13 2023
 
 ### `list` - Lists out all added tasks
 
-Format: `list`
+Format: 
+
+`list`
 
 Example of usage:
 
@@ -82,7 +90,9 @@ Here are the tasks in your list:
 
 ### `find` - Shows all the tasks with containing a specified word
 
-Format: `find [STRING]`
+Format: 
+
+`find [STRING]`
 
 Example of usage:
 
@@ -97,7 +107,9 @@ T | 0 | exercise
 
 ### `mark` - Marks specified task as done
 
-Format: `mark [int]`
+Format: 
+
+`mark [int]`
 
 Example of usage:
 
@@ -112,7 +124,9 @@ T | 1 | exercise
 
 ### `unmark` - Unmarks a specified task
 
-Format: `unmark [int]`
+Format: 
+
+`unmark [int]`
 
 Example of usage:
 
@@ -127,7 +141,9 @@ T | 0 | exercise
 
 ### `delete` - Deletes a specified task from the list
 
-Format: `delete [int]`
+Format: 
+
+`delete [int]`
 
 Example of usage:
 
@@ -142,7 +158,9 @@ T | 0 | exercise
 
 ### `bye` - Ends the chat bot and saves the data into a text file
 
-Format: `bye`
+Format: 
+
+`bye`
 
 Example of usage:
 
