@@ -18,6 +18,7 @@ public class TaskList {
     public TaskList() {
         this.taskArr = new ArrayList<>();
     }
+    public String ACKNOWLEDGE = "Got it, I've added this task:\n";
 
     /**
      * Creates a Todo task in taskArr.
@@ -27,7 +28,7 @@ public class TaskList {
         Todo curr = new Todo(desc);
         taskArr.add(curr);
 
-        return curr.toString();
+        return ACKNOWLEDGE + curr.toString();
     }
     /**
      * Creates a Deadline task in taskArr.
@@ -38,7 +39,7 @@ public class TaskList {
         Deadline curr = new Deadline(desc, date);
         taskArr.add(curr);
 
-        return curr.toString();
+        return ACKNOWLEDGE + curr.toString();
     }
     /**
      * Creates an Event task in taskArr.
@@ -49,7 +50,7 @@ public class TaskList {
         Event curr = new Event(desc, timeline);
         taskArr.add(curr);
 
-        return curr.toString();
+        return ACKNOWLEDGE + curr.toString();
     }
     /**
      * Mark a specific task in the Task ArrayList as done.
