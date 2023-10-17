@@ -2,9 +2,11 @@ package duke.tasks;
 
 import duke.exceptions.*;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -171,7 +173,7 @@ public class TaskList {
      * @param arr User input converted to String array
      * @return Task deadline set by user in Month Day Year format
      */
-    public String getDeadline(String[] arr) {
+    public String getDeadline(String[] arr) throws InvalidFormat, WrongInput {
         String input = null;
 
         for (int i = 0; i < arr.length; i++) {
@@ -179,9 +181,15 @@ public class TaskList {
                 input = arr[i + 1];
             }
         }
-
-        String result = LocalDate.parse(input)
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String result;
+        try {
+            result = LocalDate.parse(input)
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormat();
+        } catch (NullPointerException e) {
+            throw new WrongInput();
+        }
 
         return result;
     }
@@ -190,7 +198,7 @@ public class TaskList {
      * @param arr User input converted to String array
      * @return Event timeline set by user in Month Day Year format
      */
-    public String getEventTimeline(String[] arr) {
+    public String getEventTimeline(String[] arr) throws InvalidFormat {
         String fromInput = null;
         String toInput = null;
 
@@ -201,10 +209,16 @@ public class TaskList {
             }
         }
 
-        String from = LocalDate.parse(fromInput)
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
-        String to = LocalDate.parse(toInput)
-                .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        String from, to;
+        try {
+            from = LocalDate.parse(fromInput)
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            to = LocalDate.parse(toInput)
+                    .format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormat();
+        }
+
 
         return from + " - " + to;
     }
