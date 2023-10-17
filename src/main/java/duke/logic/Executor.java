@@ -1,6 +1,7 @@
 package duke.logic;
 
 import duke.exceptions.EmptyDescription;
+import duke.exceptions.InvalidFormat;
 import duke.exceptions.WrongInput;
 
 import duke.tasks.TaskList;
@@ -55,7 +56,7 @@ public class Executor {
                     throw new WrongInput();
                 }
             }
-        } catch (EmptyDescription | WrongInput e) {
+        } catch (EmptyDescription | WrongInput | InvalidFormat e) {
             return e.getMessage();
         }
     }
