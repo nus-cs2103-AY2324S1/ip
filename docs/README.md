@@ -45,7 +45,7 @@ This command allows you to add a task with a specified deadline to the storage.
 
 Example:
 
-`deadline quiz /by 2021-09-21 23:59`
+`deadline quiz /by 21-09-2021 23:59`
 
 Expected outcome:
 The task with the given deadline is added to the storage.
@@ -56,7 +56,7 @@ Utilize this command to add an event task to the storage.
 
 Example:
 
-`event party /from 2021-09-21 23:59 /to 2021-09-22 03:59`
+`event party /from 21-09-2021 23:59 /to 22-09-2021 03:59`
 
 Expected outcome:
 The event task is added to the storage.
