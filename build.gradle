@@ -1,0 +1,71 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
+    String javaFxVersion = '17.0.7'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
+    runtimeOnly group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("duke.Launcher")
+}
+
+shadowJar {
+    archiveBaseName = "duke"
+    archiveClassifier = null
+    archiveFileName = 'beary.jar'
+    dependsOn("distZip", "distTar")
+}
+
+run{
+    standardInput = System.in
+    enableAssertions = true
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+javafx {
+    version = "11.0.2"
+    modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml', 'javafx.graphics' ]
+
+}
