@@ -122,7 +122,8 @@ Deletes the specified task.
 Format: `delete INDEX`
 
 - Deletes the task at the specified index.
-- The index refers to the index number shown in the displayed tasks list.
+- The index refers to the index number shown in the full tasks list after
+  entering the `list` command.
 - The index must be a positive integer 1, 2, 3, ….
 - The minimum index is 1, and maximum index is the number of tasks.
 
@@ -148,7 +149,8 @@ Marks a specified task.
 Format: `mark INDEX`
 
 - Marks the task at the specified index.
-- The index refers to the index number shown in the displayed tasks list.
+- The index refers to the index number shown in the full tasks list after
+  entering the `list` command.
 - The index must be a positive integer 1, 2, 3, ….
 - The minimum index is 1, and maximum index is the number of tasks.
 
@@ -171,7 +173,8 @@ Unmarks a specified task.
 Format: `unmark INDEX`
 
 - Unmarks the task at the specified index.
-- The index refers to the index number shown in the displayed tasks list.
+- The index refers to the index number shown in the full tasks list after
+  entering the `list` command.
 - The index must be a positive integer 1, 2, 3, ….
 - The minimum index is 1, and maximum index is the number of tasks.
 
