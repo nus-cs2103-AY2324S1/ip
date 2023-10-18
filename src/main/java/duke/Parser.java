@@ -25,7 +25,7 @@ public class Parser {
      * @throws DukeException If an error occurs during parsing.
      */
     public static String parse(ArrayList<Task> taskList,
-                             int i, Storage storage, String userInput) throws DukeException {
+                             int i, Storage storage, String userInput) {
         assert i >= 0 : "Task index should be non-negative.";
         String finalText = "";
 

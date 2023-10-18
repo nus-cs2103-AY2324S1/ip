@@ -10,7 +10,7 @@ public class Duke {
     protected static ArrayList<Task> taskList = new TaskList();
     protected static int index = 0;
 
-    public String getResponse(String input) throws DukeException {
+    public String getResponse(String input) {
         index = taskList.size();
         return Parser.parse(taskList, index, storage, input);
     }
