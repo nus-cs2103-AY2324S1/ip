@@ -1,0 +1,4 @@
+T | 0 | Go to the gym
+E | 1 | Go to Gym | Dec 12 2023 06:00 PM - Dec 12 2023 08:00 PM
+T | 0 | Head to school
+T | 1 | Say hello to Ann
