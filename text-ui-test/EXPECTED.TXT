@@ -1,7 +1,297 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+    Hi. I'm [35mBryan[0m
+    What can I do for you?
+
+> 
+    Nothing stored.
+
+> 
+    [0;31mErm... error :([0m
+    Unable to mark task 1 :( You have 0 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+    Unable to mark task 0 :( You have 0 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+    Unable to mark task -1 :( You have 0 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+    [35mmark[0m takes in a number. Try [35mmark[0m 1.
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a description:
+    Try [35mtodo[0m read a book
+
+> 
+    Okie! I've added a new [0;32mTODO[0m:
+      [T][ ] revise basic Java concepts
+    Total no. of tasks stored: 1
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a description:
+    Try [35mdeadline[0m submit essay /by Oct 10 2023 1600
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a date:
+    <- Remember to include /by ->
+    Try [35mdeadline[0m submit essay /by Oct 10 2023 1600
+
+> 
+    [0;31mErm... error :([0m
+    Oops, looks like your date is in an invalid format...
+    Here are some valid formats:
+    [35m2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023[0m
+    You can provide a timing as well: [0;33m2023-10-20 1800[0m
+
+> 
+    [0;31mErm... error :([0m
+    Oops, looks like your date is in an invalid format...
+    Here are some valid formats:
+    [35m2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023[0m
+    You can provide a timing as well: [0;33m2023-10-20 1800[0m
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2103T lecture (by: Oct 20 2023 12:00AM)
+    Total no. of tasks stored: 2
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2101 lecture (by: Oct 20 2023 12:00AM)
+    Total no. of tasks stored: 3
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2100 lecture (by: Oct 20 2023 12:00AM)
+    Total no. of tasks stored: 4
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2105 lecture (by: Oct 20 2023 12:00AM)
+    Total no. of tasks stored: 5
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2103T lecture (by: Oct 20 2023 6:00PM)
+    Total no. of tasks stored: 6
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2101 lecture (by: Oct 20 2023 6:00PM)
+    Total no. of tasks stored: 7
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2100 lecture (by: Oct 20 2023 6:00PM)
+    Total no. of tasks stored: 8
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2105 lecture (by: Oct 20 2023 6:00PM)
+    Total no. of tasks stored: 9
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2103T lecture (by: Aug 20 2023 12:00AM)
+    Total no. of tasks stored: 10
+
+> 
+    Okie! I've added a new [0;34mDEADLINE[0m:
+      [D][ ] watch CS2103T lecture (by: Aug 20 2023 6:00PM)
+    Total no. of tasks stored: 11
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing a description:
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing [35m/from[0m
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing [35m/to[0m
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
+
+> 
+    [0;31mErm... error :([0m
+    Looks like you're missing [35m/from[0m
+    Try [35mevent[0m NUS carnival /from 21 Aug 2023 /to 22 Aug 2023
+
+> 
+    Okie! I've added a new [0;33mEVENT[0m:
+      [E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 22 2023 12:00AM)
+    Total no. of tasks stored: 12
+
+> 
+    Okie! I've added a new [0;33mEVENT[0m:
+      [E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 6:00PM)
+    Total no. of tasks stored: 13
+
+> 
+    Okie! I've added a new [0;33mEVENT[0m:
+      [E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 7:00PM)
+    Total no. of tasks stored: 14
+
+> 
+    Okie! I've added a new [0;33mEVENT[0m:
+      [E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 23 2023 6:00PM)
+    Total no. of tasks stored: 15
+
+> 
+    Okie! I've added a new [0;33mEVENT[0m:
+      [E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 20 2023 12:00AM)
+    Total no. of tasks stored: 16
+
+> 
+    [0;31mErm... error :([0m
+    Oops, looks like your date is in an invalid format...
+    Here are some valid formats:
+    [35m2023-10-20, 20-10-2023, 2023/10/20, 20/10/2023, Oct 10 2023, 10 Oct 2023[0m
+    You can provide a timing as well: [0;33m2023-10-20 1800[0m
+
+> 
+    Here are the tasks in your list:
+    1.[T][ ] revise basic Java concepts
+    2.[D][ ] watch CS2103T lecture (by: Oct 20 2023 12:00AM)
+    3.[D][ ] watch CS2101 lecture (by: Oct 20 2023 12:00AM)
+    4.[D][ ] watch CS2100 lecture (by: Oct 20 2023 12:00AM)
+    5.[D][ ] watch CS2105 lecture (by: Oct 20 2023 12:00AM)
+    6.[D][ ] watch CS2103T lecture (by: Oct 20 2023 6:00PM)
+    7.[D][ ] watch CS2101 lecture (by: Oct 20 2023 6:00PM)
+    8.[D][ ] watch CS2100 lecture (by: Oct 20 2023 6:00PM)
+    9.[D][ ] watch CS2105 lecture (by: Oct 20 2023 6:00PM)
+    10.[D][ ] watch CS2103T lecture (by: Aug 20 2023 12:00AM)
+    11.[D][ ] watch CS2103T lecture (by: Aug 20 2023 6:00PM)
+    12.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 22 2023 12:00AM)
+    13.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 6:00PM)
+    14.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 7:00PM)
+    15.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 23 2023 6:00PM)
+    16.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 20 2023 12:00AM)
+
+> 
+    [0;31mErm... error :([0m
+    Unable to mark task -1 :( You have 16 task(s) stored.
+
+> 
+    Nice, I've marked this task as done:
+      [T][X] revise basic Java concepts
+
+> 
+    Nice, I've marked this task as done:
+      [D][X] watch CS2101 lecture (by: Oct 20 2023 12:00AM)
+
+> 
+    [0;31mErm... error :([0m
+    Unable to mark task 90 :( You have 16 task(s) stored.
+
+> 
+    Here are the tasks in your list:
+    1.[T][X] revise basic Java concepts
+    2.[D][ ] watch CS2103T lecture (by: Oct 20 2023 12:00AM)
+    3.[D][X] watch CS2101 lecture (by: Oct 20 2023 12:00AM)
+    4.[D][ ] watch CS2100 lecture (by: Oct 20 2023 12:00AM)
+    5.[D][ ] watch CS2105 lecture (by: Oct 20 2023 12:00AM)
+    6.[D][ ] watch CS2103T lecture (by: Oct 20 2023 6:00PM)
+    7.[D][ ] watch CS2101 lecture (by: Oct 20 2023 6:00PM)
+    8.[D][ ] watch CS2100 lecture (by: Oct 20 2023 6:00PM)
+    9.[D][ ] watch CS2105 lecture (by: Oct 20 2023 6:00PM)
+    10.[D][ ] watch CS2103T lecture (by: Aug 20 2023 12:00AM)
+    11.[D][ ] watch CS2103T lecture (by: Aug 20 2023 6:00PM)
+    12.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 22 2023 12:00AM)
+    13.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 6:00PM)
+    14.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 7:00PM)
+    15.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 23 2023 6:00PM)
+    16.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 20 2023 12:00AM)
+
+> 
+    Okie, I've marked this task as not done yet:
+      [T][ ] revise basic Java concepts
+
+> 
+    Here are the tasks in your list:
+    1.[T][ ] revise basic Java concepts
+    2.[D][ ] watch CS2103T lecture (by: Oct 20 2023 12:00AM)
+    3.[D][X] watch CS2101 lecture (by: Oct 20 2023 12:00AM)
+    4.[D][ ] watch CS2100 lecture (by: Oct 20 2023 12:00AM)
+    5.[D][ ] watch CS2105 lecture (by: Oct 20 2023 12:00AM)
+    6.[D][ ] watch CS2103T lecture (by: Oct 20 2023 6:00PM)
+    7.[D][ ] watch CS2101 lecture (by: Oct 20 2023 6:00PM)
+    8.[D][ ] watch CS2100 lecture (by: Oct 20 2023 6:00PM)
+    9.[D][ ] watch CS2105 lecture (by: Oct 20 2023 6:00PM)
+    10.[D][ ] watch CS2103T lecture (by: Aug 20 2023 12:00AM)
+    11.[D][ ] watch CS2103T lecture (by: Aug 20 2023 6:00PM)
+    12.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 22 2023 12:00AM)
+    13.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 6:00PM)
+    14.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 7:00PM)
+    15.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 23 2023 6:00PM)
+    16.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 20 2023 12:00AM)
+
+> 
+    [0;31mErm... error :([0m
+    Unable to [35mdelete[0m task 0 :( You have 16 task(s) stored.
+
+> 
+    [0;31mErm... error :([0m
+    Unable to [35mdelete[0m task 90 :( You have 16 task(s) stored.
+
+> 
+    Okie! I've deleted task 1:
+      [T][ ] revise basic Java concepts
+    Total no. of tasks stored: 15
+
+> 
+    [0;31mErm... error :([0m
+    Unable to [35mdelete[0m task -1 :( You have 15 task(s) stored.
+
+> 
+    Here are the tasks in your list:
+    1.[D][ ] watch CS2103T lecture (by: Oct 20 2023 12:00AM)
+    2.[D][X] watch CS2101 lecture (by: Oct 20 2023 12:00AM)
+    3.[D][ ] watch CS2100 lecture (by: Oct 20 2023 12:00AM)
+    4.[D][ ] watch CS2105 lecture (by: Oct 20 2023 12:00AM)
+    5.[D][ ] watch CS2103T lecture (by: Oct 20 2023 6:00PM)
+    6.[D][ ] watch CS2101 lecture (by: Oct 20 2023 6:00PM)
+    7.[D][ ] watch CS2100 lecture (by: Oct 20 2023 6:00PM)
+    8.[D][ ] watch CS2105 lecture (by: Oct 20 2023 6:00PM)
+    9.[D][ ] watch CS2103T lecture (by: Aug 20 2023 12:00AM)
+    10.[D][ ] watch CS2103T lecture (by: Aug 20 2023 6:00PM)
+    11.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 22 2023 12:00AM)
+    12.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 6:00PM)
+    13.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 7:00PM)
+    14.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 23 2023 6:00PM)
+    15.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 20 2023 12:00AM)
+
+> 
+    Okie! I've deleted task 3:
+      [D][ ] watch CS2100 lecture (by: Oct 20 2023 12:00AM)
+    Total no. of tasks stored: 14
+
+> 
+    Here are the tasks in your list:
+    1.[D][ ] watch CS2103T lecture (by: Oct 20 2023 12:00AM)
+    2.[D][X] watch CS2101 lecture (by: Oct 20 2023 12:00AM)
+    3.[D][ ] watch CS2105 lecture (by: Oct 20 2023 12:00AM)
+    4.[D][ ] watch CS2103T lecture (by: Oct 20 2023 6:00PM)
+    5.[D][ ] watch CS2101 lecture (by: Oct 20 2023 6:00PM)
+    6.[D][ ] watch CS2100 lecture (by: Oct 20 2023 6:00PM)
+    7.[D][ ] watch CS2105 lecture (by: Oct 20 2023 6:00PM)
+    8.[D][ ] watch CS2103T lecture (by: Aug 20 2023 12:00AM)
+    9.[D][ ] watch CS2103T lecture (by: Aug 20 2023 6:00PM)
+    10.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 22 2023 12:00AM)
+    11.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 6:00PM)
+    12.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 21 2023 7:00PM)
+    13.[E][ ] NUS wellness week (from: Oct 20 2023 6:00PM to: Oct 23 2023 6:00PM)
+    14.[E][ ] NUS wellness week (from: Oct 20 2023 12:00AM to: Oct 20 2023 12:00AM)
+
+> 
+    Bye~ Come back soon :)
 
