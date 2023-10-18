@@ -58,9 +58,9 @@ public class Parser {
         case SEARCH:
             return handleSearch(taskList, instructionDetails);
         case UNKNOWN:
-            throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+            return "☹ OOPS!!! I'm sorry, but I don't know what that means :-(";
         default:
-            throw new DukeException("☹ OOPS!!! An error occurred while parsing your command.");
+            return "☹ OOPS!!! An error occurred while parsing your command.";
         }
     }
     /**
@@ -130,7 +130,12 @@ public class Parser {
      */
     private static String handleMark(ArrayList<Task> taskList, String instructionDetails) {
         String finalText = "";
-        Task curr = taskList.get(Integer.parseInt(instructionDetails) - 1);
+        int index = Integer.parseInt(instructionDetails) - 1;
+        if (index >= taskList.size()) {
+            finalText = "There are only " + taskList.size() + " tasks in your list";
+            return finalText;
+        }
+        Task curr = taskList.get(index);
         curr.mark();
         finalText = "Nice! I've marked this task as done: \n" + "[X] " + curr.getDescription();
         return finalText;
@@ -143,7 +148,12 @@ public class Parser {
      */
     private static String handleUnmark(ArrayList<Task> taskList, String instructionDetails) {
         String finalText = "";
-        Task curr = taskList.get(Integer.parseInt(instructionDetails) - 1);
+        int index = Integer.parseInt(instructionDetails) - 1;
+        if (index >= taskList.size()) {
+            finalText = "There are only " + taskList.size() + " tasks in your list";
+            return finalText;
+        }
+        Task curr = taskList.get(index);
         curr.unmark();
         finalText = "OK, I've marked this task as not done yet: \n" + "[ ] " + curr.getDescription();
         return finalText;
@@ -157,8 +167,13 @@ public class Parser {
      */
     private static String handleDelete(ArrayList<Task> taskList, String instructionDetails, int i) {
         String finalText = "";
-        Task curr = taskList.get(Integer.parseInt(instructionDetails) - 1);
-        taskList.remove(Integer.parseInt(instructionDetails) - 1);
+        int index = Integer.parseInt(instructionDetails) - 1;
+        if (index >= taskList.size()) {
+            finalText = "There are only " + taskList.size() + " tasks in your list";
+            return finalText;
+        }
+        Task curr = taskList.get(index);
+        taskList.remove(index);
         i--;
         finalText += "Noted. I've removed this task:\n";
         finalText += curr.toString();
@@ -172,11 +187,10 @@ public class Parser {
      * @param instructionDetails The details of the instruction.
      * @param i The current index of tasks in the list.
      */
-    private static String handleTodo(ArrayList<Task> taskList, String instructionDetails, int i) throws
-            DukeException {
+    private static String handleTodo(ArrayList<Task> taskList, String instructionDetails, int i) {
         String finalText = "";
         if (instructionDetails.equals("")) {
-            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+            return "☹ OOPS!!! The description of a todo cannot be empty.";
         }
         if (instructionDetails.contains("/takes")) {
             String[] todoArr = instructionDetails.split("/takes ");
@@ -197,11 +211,10 @@ public class Parser {
      * @param instructionDetails The details of the instruction.
      * @param i The current index of tasks in the list.
      */
-    private static String handleDeadline(ArrayList<Task> taskList, String instructionDetails, int i) throws
-            DukeException {
+    private static String handleDeadline(ArrayList<Task> taskList, String instructionDetails, int i) {
         String finalText = "";
         if (instructionDetails.equals("")) {
-            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+            return "☹ OOPS!!! The description of a deadline cannot be empty.";
         }
         String[] deadlineArr = instructionDetails.split("/by ");
         LocalDate by;
@@ -224,17 +237,18 @@ public class Parser {
      * @param instructionDetails The details of the instruction.
      * @param i The current index of tasks in the list.
      */
-    private static String handleEvent(ArrayList<Task> taskList, String instructionDetails, int i) throws
-            DukeException {
+    private static String handleEvent(ArrayList<Task> taskList, String instructionDetails, int i) {
         String finalText = "";
         if (instructionDetails.equals("")) {
-            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+            return "☹ OOPS!!! The description of an event cannot be empty.";
         }
         String[] eventAndTime = instructionDetails.split("/from ");
         String[] eventDuration = eventAndTime[1].split(" /to ");
         LocalDateTime from = LocalDateTime.parse(eventDuration[0], INPUT_DATE_TIME_FORMATTER);
         LocalDateTime to = LocalDateTime.parse(eventDuration[1], INPUT_DATE_TIME_FORMATTER);
-
+        if (from.isAfter(to)) {
+            return "☹ OOPS!!! The start time of an event cannot be after the end time.";
+        }
         taskList.add(new Event(eventAndTime[0], from, to));
         finalText += "Got it. I've added this task: \n";
         finalText += taskList.get(i).toString();
@@ -265,3 +279,5 @@ public class Parser {
         return finalText;
     }
 }
+
+
