@@ -1,10 +1,15 @@
-public class Duke {
-    public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+import dukepackage.ChatGUI;
+import dukepackage.Storage;
+
+/**
+ * The Duke class is the main class that runs the Duke chatbot application.
+ */
+public class Duke{
+
+    protected static Storage storage = new Storage();
+    protected static ChatGUI ui = new ChatGUI(storage);
+    protected String getResponse(String input) {
+        return ui.process(input);
     }
+
 }

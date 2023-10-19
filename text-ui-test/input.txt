@@ -1,0 +1,4 @@
+todo task1
+event task2 /from tue /to fri
+event task2 /from tue /to fri
+list
