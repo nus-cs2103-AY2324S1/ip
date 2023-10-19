@@ -1,0 +1,59 @@
+todo
+todo CS2101 Presentation
+mark 1
+unmark 1
+list
+deadline
+deadline without by
+deadline with /by but invalid date
+list
+deadline invalid date /by 2023-13-01
+deadline CS2103 Individual Project /by 2023-09-01
+list
+mark 2
+list
+event
+event without date
+event with /from but invalid date
+event with only /from 2023-01-09
+event with /from and /to
+event with /from 2023-01-09 /to invalid date
+list
+event invalid date /from 2023-09-01 /to 2023-09-31
+event September /from 2023-09-01 /to 2023-09-30
+unmark 3
+list
+mark my words
+mark this
+mark -9
+mark 0
+mark 999
+unmark 1 1
+mark 1
+unmark my words
+unmark that
+unmark -9
+unmark 0
+unmark 999
+unmark 1 1
+unmark 1
+list
+delete
+list
+delete -1
+list
+delete haha
+list
+delete 99
+list
+delete 1 1
+list
+delete 1
+list
+todo CS2103 Materials
+find
+find invalid invalid
+find nothing
+find Presentation
+find CS2103
+bye
