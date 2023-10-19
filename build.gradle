@@ -58,7 +58,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'duke8.jar'
+    archiveFileName = 'AuntieMaggie.jar'
     archiveClassifier = null
     configurations = [project.configurations.runtimeClasspath]
     mergeServiceFiles()

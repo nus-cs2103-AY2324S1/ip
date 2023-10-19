@@ -19,36 +19,58 @@ public class Parser {
             return "Hello ah how you doing?";
         }
         if (s.matches(".*\\bdelete\\b.*")) {
-            String[] parts = s.split(" ");
-            if (parts.length < 2) {
-                throw new DukeException("Boy ah need to know which one u want delete eh.");
-            }
-            int number = Integer.parseInt(parts[1]);
-            String string = taskList.deleteTask(number);
-            string += String.format("\nGot %d task in list boy", taskList.taskList.size());
-            return string;
+            return handleDelete(s, taskList);
         } else if(s.matches("^!help.*")) {
             CommandHelp H = new CommandHelp();
             return H.help(s);
         } else if (s.equals("list")) {
             return taskList.list();
         } else if (s.matches(".*\\bmark\\b.*")) {
-            String[] parts = s.split(" ");
-            int number = Integer.parseInt(parts[1]);
-            return taskList.mark(number);
+            return handleMark(s, taskList);
         } else if (s.matches(".*\\bunmark\\b.*")) {
-            String[] parts = s.split(" ");
-            int number = Integer.parseInt(parts[1]);
-            return taskList.unmark(number);
+            return handleUnmark(s, taskList);
         } else if (s.matches(".*\\bfind\\b.*")) {
-            String[] parts = s.split(" ");
-            if (parts.length < 2) {
-                throw new DukeException("Boy ah need to know which one u want find eh.");
-            }
-            String keyword = parts[1];
-            return taskList.find(keyword);
+            return handleFind(s, taskList);
         } else if (s.matches("(?i)^\\s*(todo|event|deadline)\\b.*")) {
-            String[] parts = s.split(" ", 2);
+            return handleEventCreation(s, taskList);
+        } else {
+            throw new DukeException("Boy idk what you saying eh must tell me todo or deadline or event :(");
+        }
+    }
+    private String handleDelete(String s, TaskList taskList) throws DukeException {
+        String[] parts = s.split(" ");
+        if (parts.length < 2) {
+            throw new DukeException("Boy ah need to know which one u want delete eh.");
+        }
+        int number = Integer.parseInt(parts[1]);
+        String string = taskList.deleteTask(number);
+        string += String.format("\nGot %d task in list boy", taskList.taskList.size());
+        return string;
+    }
+
+    private String handleMark(String s, TaskList taskList) throws DukeException {
+        String[] parts = s.split(" ");
+        int number = Integer.parseInt(parts[1]);
+        return taskList.mark(number);
+    }
+
+    private String handleUnmark(String s, TaskList taskList) throws DukeException {
+        String[] parts = s.split(" ");
+        int number = Integer.parseInt(parts[1]);
+        return taskList.unmark(number);
+    }
+
+    private String handleFind(String s, TaskList taskList) throws DukeException {
+        String[] parts = s.split(" ");
+        if (parts.length < 2) {
+            throw new DukeException("Boy ah need to know which one u want find eh.");
+        }
+        String keyword = parts[1];
+        return taskList.find(keyword);
+    }
+
+    private String handleEventCreation(String s, TaskList taskList) throws DukeException {
+        String[] parts = s.split(" ", 2);
             String TypeOfEvent = parts[0].toLowerCase();
             switch (TypeOfEvent) {
                 case "todo":
@@ -78,10 +100,8 @@ public class Parser {
                     String to = strarray[2].replace("to", "").trim();
                     return taskList.createEvent(strarray[0], from, to);
                 default:
+                    return "please input again ah!";
             }
-        } else {
-            throw new DukeException("Boy idk what you saying eh must tell me todo or deadline or event :(");
-        }
-        return "Boy idk what you saying eh must tell me todo or deadline or event :(";
     }
+
 }
