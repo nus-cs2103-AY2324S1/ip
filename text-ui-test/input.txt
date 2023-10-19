@@ -1,0 +1,6 @@
+todo eat
+deadline code /by today midnight
+todo sleep
+event ES2660 /from Friday 10am /to 12pm
+list
+bye
