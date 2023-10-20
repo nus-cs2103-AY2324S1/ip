@@ -1,0 +1,7 @@
+T | 1 | read book
+D | 1 | submit CS2106 lab | 10/09/2023 2359
+T | 1 | find my car key
+D | 1 | CS2103T quiz | 13/09/2023 2359
+T | 0 | upload passport photo to one drive
+D | 0 | submit CS1101S mission 2 | 23/09/2023 2359
+T | 0 | buy tomatoes
