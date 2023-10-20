@@ -20,7 +20,7 @@ public class Parser {
         }
         if (s.matches(".*\\bdelete\\b.*")) {
             return handleDelete(s, taskList);
-        } else if(s.matches("^!help.*")) {
+        } else if(s.matches("^help.*")) {
             CommandHelp H = new CommandHelp();
             return H.help(s);
         } else if (s.equals("list")) {

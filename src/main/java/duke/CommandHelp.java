@@ -6,40 +6,46 @@ public class CommandHelp {
         System.out.println(s);
         String[] parts = s.split(" ");
         String HelpMsg = "";
+        System.out.println("balls");
         if (parts.length < 2) {
-            HelpMsg += "Here is a list of the commands:\n 1.list \n 2.mark \n 3.unmark \n 4.find \n" +
-                    "5.todo\\event\\deadline\n Type these commands together like \n !help mark";
-        } else if (s.matches(".*\\bdelete\\b.*")) {
-            HelpMsg += "Can use this command to delete a task you have added by adding the task number at the end Like this:";
-            HelpMsg += "delete 1";
-        } else if (s.matches(".*\\blist\\b.*")) {
-            HelpMsg += "Use this command to list down all current tasks";
-        } else if (s.matches(".*\\bmark\\b.*")) {
-            HelpMsg += "Use to mark your tasks as done";
-        } else if (s.matches(".*\\bunmark\\b.*")) {
-            HelpMsg += "Use to unmark your tasks as done";
-        } else if (s.matches(".*\\bfind\\b.*")) {
-            HelpMsg += "Use this to find a task that you have saved. \n You can write in some keywords for example \n" +
-                    "find book would find all tasks that have the word book in it";
-        } else if (s.matches("(?i)^\\s*!help\\s+(todo|event|deadline)\\b.*")) {
-            String TypeOfEvent = parts[1].toLowerCase();
-            switch (TypeOfEvent) {
-                case "todo":
-                    HelpMsg += "Use this command to create a todo task in this format:\n" +
-                            "todo read book";
-                    return HelpMsg;
-                case "deadline":
-                    HelpMsg += "Use this command to create a Deadline task in this format:\n" +
-                            "deadline return book /by 2/12/2019 1800";
-                    return HelpMsg;
-                case "event":
-                    HelpMsg += "Use this command to create a event task in this format:\n" +
-                            "event project meeting /from Mon 2pm /to 4pm";
-                    return HelpMsg;
-                default:
-            }
+            System.out.println("here");
+            HelpMsg += getCommandList();
+        } else {
+            HelpMsg += getCommandHelp(parts[1].toLowerCase());
         }
         return HelpMsg;
+    }
+
+    private String getCommandList() {
+        return "Here is a list of the commands:\n 1.list \n 2.mark \n 3.unmark \n 4.find \n" +
+                "5.todo\\event\\deadline\n Type these commands together like \n help mark";
+    }
+
+    private String getCommandHelp(String command) {
+        switch (command) {
+            case "delete":
+                return "Can use this command to delete a task you have added by adding the task number at the end Like this: delete 1";
+            case "list":
+                return "Use this command to list down all current tasks";
+            case "mark":
+                return "Use to mark your tasks as done";
+            case "unmark":
+                return "Use to unmark your tasks as done";
+            case "find":
+                return "Use this to find a task that you have saved. \n You can write in some keywords for example \n" +
+                        "find book would find all tasks that have the word book in it";
+            case "todo":
+                return "Use this command to create a todo task in this format:\n" +
+                        "todo read book";
+            case "deadline":
+                return "Use this command to create a Deadline task in this format:\n" +
+                        "deadline return book /by 2/12/2019 1800";
+            case "event":
+                return "Use this command to create a event task in this format:\n" +
+                        "event project meeting /from Mon 2pm /to 4pm";
+            default:
+                return "Dont think you formatted correctly eh.";
+        }
     }
 }
 

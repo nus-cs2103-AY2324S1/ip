@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TaskListTest {
         private TaskList taskList;
@@ -27,6 +28,20 @@ public class TaskListTest {
         taskList.createToDo("Do junit test");
         taskList.unmark(1);
         assertEquals(taskList.taskList.get(0).isDone, false);
+    }
+
+    @Test
+    public void testUnMarkException() throws DukeException {
+        taskList.createToDo("Do junit test");
+        taskList.unmark(1);
+        assertThrows(DukeException.class, () -> taskList.unmark(2));
+    }
+
+    @Test
+    public void testMarkException() throws DukeException {
+        taskList.createToDo("Do junit test");
+        taskList.mark(1);
+        assertThrows(DukeException.class, () -> taskList.mark(2));
     }
 
     @Test
