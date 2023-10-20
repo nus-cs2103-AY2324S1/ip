@@ -1,7 +1,65 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+ Hello! I'm Blob
+ What can I do for you?
+____________________________________________________________
+
+Got it I have added this task:
+[T][ ] eat food
+Now you have 1 task(s) in the list
+____________________________________________________________
+
+Got it I have added this task:
+[E][ ] table tennis(from: 2 pm to: 4 pm)
+Now you have 2 task(s) in the list
+____________________________________________________________
+
+Got it I have added this task:
+[D][ ] submit hw(by: 29 August)
+Now you have 3 task(s) in the list
+____________________________________________________________
+
+Got it I have added this task:
+[E][ ] interfaculty games(from: 9 am to: 7 pm)
+Now you have 4 task(s) in the list
+____________________________________________________________
+
+Got it I have added this task:
+[T][ ] run 2 miles
+Now you have 5 task(s) in the list
+____________________________________________________________
+
+Nice! I've marked this task as done:
+[D][X] submit hw(by: 29 August)
+invalid mark command (task number does not exist)
+Noted. I've removed this task:
+[E][ ] table tennis(from: 2 pm to: 4 pm)
+Now you have 4 task(s) in the list
+____________________________________________________________
+
+here are the tasks in your list:
+1. [T][ ] eat food
+2. [D][X] submit hw(by: 29 August)
+3. [E][ ] interfaculty games(from: 9 am to: 7 pm)
+4. [T][ ] run 2 miles
+____________________________________________________________
+
+Nice! I've marked this task as done:
+[T][X] eat food
+Okay. I see you haven't done this task yet
+[T][ ] eat food
+unknown command
+unknown command
+____________________________________________________________
+
+here are the tasks in your list:
+1. [T][ ] eat food
+2. [D][X] submit hw(by: 29 August)
+3. [E][ ] interfaculty games(from: 9 am to: 7 pm)
+4. [T][ ] run 2 miles
+____________________________________________________________
+
+____________________________________________________________
+
+ Bye. Come talk to Blob again soon!
+____________________________________________________________
 

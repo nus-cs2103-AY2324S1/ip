@@ -1,0 +1,15 @@
+todo eat food
+event table tennis /from 2 pm /to 4 pm
+deadline submit hw /by 29 August
+event interfaculty games /from 9 am /to 7 pm
+todo run 2 miles
+mark 3
+mark 10
+delete 2
+list
+mark 1
+unmark 1
+todo
+blah
+list
+bye
