@@ -1,0 +1,24 @@
+#sendButton {
+    -fx-background-color: lightblue;
+    -fx-text-fill: darkblue;
+    -fx-font-size: 14px;
+}
+
+#dialogContainer{
+    -fx-background-color: lightblue;
+
+}
+
+.duke-dialog{
+    -fx-background-color: #66ffff;
+    -height: auto;
+}
+
+.user-dialog{
+    -fx-background-color: #00ccff;
+    -height: auto;
+}
+
+#dialog{
+    -fx-padding: 5px;
+}
