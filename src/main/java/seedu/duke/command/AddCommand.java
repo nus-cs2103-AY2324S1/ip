@@ -18,8 +18,7 @@ public class AddCommand extends EditCommand {
     private final TaskType taskType;
 
     /**
-     * The main constructor for this
-     * AddCommand class.
+     * The main constructor for this AddCommand class.
      *
      * @param input Input of user.
      * @param taskType Type of task to add to task list.
@@ -36,11 +35,8 @@ public class AddCommand extends EditCommand {
      *
      * @param taskList User's task list.
      * @param ui The ui of Duke chat bot.
-     * @param response The String representation
-     *                 of Duke chat bot's response
-     *                 after adding this task.
-     * @throws Exception If there are any user
-     *                   input errors.
+     * @param response The String representation of Duke chat bot's response after adding this task.
+     * @throws Exception If there are any user input errors.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, String[] response) throws Exception {
@@ -65,14 +61,10 @@ public class AddCommand extends EditCommand {
     }
 
     /**
-     * Generates Duke chat bot's response
-     * after adding this task.
+     * Generates Duke chat bot's response after adding this task.
      *
-     * @param response The String representation
-     *                 of Duke chat bot's response
-     *                 after adding this task.
-     * @param task The task to be added to the
-     *             user's task list.
+     * @param response The String representation of Duke chat bot's response after adding this task.
+     * @param task The task to be added to the user's task list.
      * @param taskList User's task list.
      */
     public void generateResponse(String[] response, Task task, TaskList taskList) {

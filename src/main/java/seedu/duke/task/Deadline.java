@@ -27,9 +27,7 @@ public class Deadline extends Task {
     }
 
     /**
-     * Returns a string representation of this
-     * Deadline task when it is saved in the
-     * storage.
+     * Returns a string representation of this Deadline task when it is saved in the storage.
      *
      * @return a string representation of this Deadline task for saving.
      */
@@ -40,8 +38,7 @@ public class Deadline extends Task {
     /**
      * {@inheritDoc}
      *
-     * Returns a string representation of this
-     * Deadline task when it is printed.
+     * Returns a string representation of this Deadline task when it is printed.
      *
      * @return a string representation of this Deadline task for printing.
      */

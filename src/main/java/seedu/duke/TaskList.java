@@ -44,12 +44,12 @@ public class TaskList {
      * Lists out all the tasks in task list.
      */
     public String listOutEverything() {
-        return "Here are the tasks in your list:\n"
-                + Stream
-                    .iterate(1, i -> i + 1)
-                    .limit(this.list.size())
-                    .map(i -> i + "." + this.list.get(i - 1) + "\n")
-                    .reduce("", (x, acc) -> x + acc);
+        String tasks = Stream
+                .iterate(1, i -> i + 1)
+                .limit(this.list.size())
+                .map(i -> i + "." + this.list.get(i - 1) + "\n")
+                .reduce("", (x, acc) -> x + acc);
+        return "Here are the tasks in your list:\n" + tasks;
     }
 
     /**
@@ -124,32 +124,23 @@ public class TaskList {
      *               intend to find.
      */
     public String find(String toFind) {
-        return "Here are the matching tasks in your list:\n"
-                + Stream.iterate(1, x -> x + 1)
-                    .limit(this.list.stream()
-                            .map(Task::toString)
-                            .filter(str -> str.contains(toFind))
-                            .count())
-                    .map(i -> i
-                            + "."
-                            + this.list.stream()
-                                .map(Task::toString)
-                                .filter(str -> str.contains(toFind))
-                                    .skip(i - 1)
-                                    .limit(1)
-                                    .reduce("", (s, acc) ->
-                                            s + acc + "\n"))
-                    .reduce("", (x, acc) -> x + acc);
+        String matchingTasks = Stream
+                .iterate(1, x -> x + 1)
+                .limit(this.list.stream()
+                        .map(Task::toString)
+                        .filter(str -> str.contains(toFind))
+                        .count())
+                .map(i -> i
+                        + "."
+                        + this.list.stream()
+                        .map(Task::toString)
+                        .filter(str -> str.contains(toFind))
+                        .skip(i - 1)
+                        .limit(1)
+                        .reduce("", (s, acc) ->
+                                s + acc + "\n"))
+                .reduce("", (x, acc) -> x + acc);
 
-
-//        String response = "Here are the matching tasks in your list:\n";
-//        for (int i = 0, j = 0; j < this.list.size(); j++) {
-//            String currInput = this.list.get(j).toString();
-//            if (!currInput.contains(toFind)) {
-//                continue;
-//            }
-//            response += (++i) + "." + currInput + "\n";
-//        }
-//        return response;
+        return "Here are the matching tasks in your list:\n" + matchingTasks;
     }
 }

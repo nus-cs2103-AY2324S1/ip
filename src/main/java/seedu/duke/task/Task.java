@@ -27,8 +27,7 @@ public abstract class Task {
     }
 
     /**
-     * Gets the status icon representing the state of
-     * this task.
+     * Gets the status icon representing the state of this task.
      *
      * @return 'X' if this task is completed and ' ' otherwise.
      */
@@ -67,8 +66,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns a string representation of this
-     * task when it is saved in the storage.
+     * Returns a string representation of this task when it is saved in the storage.
      *
      * @return a string representation of this task for saving.
      */
@@ -98,8 +96,7 @@ public abstract class Task {
     }
 
     /**
-     * Converts a LocalDateTime object into a time string
-     * when it is saved in the storage.
+     * Converts a LocalDateTime object into a time string when it is saved in the storage.
      *
      * @param time LocalDateTime object to be converted.
      * @return A time string for saving.
@@ -111,8 +108,7 @@ public abstract class Task {
     /**
      * {@inheritDoc}
      *
-     * Returns a string representation of this
-     * task when it is printed.
+     * Returns a string representation of this task when it is printed.
      *
      * @return a string representation of this task for printing.
      */

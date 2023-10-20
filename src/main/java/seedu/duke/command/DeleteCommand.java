@@ -15,8 +15,7 @@ public class DeleteCommand extends EditCommand {
     private final String input;
 
     /**
-     * The main constructor for this
-     * DeleteCommand class.
+     * The main constructor for this DeleteCommand class.
      *
      * @param input User's input.
      */
@@ -27,15 +26,12 @@ public class DeleteCommand extends EditCommand {
     /**
      * {@inheritDoc}
      *
-     * Executes this add command.
+     * Executes this delete command.
      *
      * @param taskList User's task list.
      * @param ui The ui of Duke chat bot.
-     * @param response The String representation
-     *                 of Duke chat bot's response
-     *                 after adding this task.
-     * @throws Exception If there are any user
-     *                   input errors.
+     * @param response The String representation of Duke chat bot's response after adding this task.
+     * @throws Exception If there are any user input errors.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, String[] response) throws Exception {
