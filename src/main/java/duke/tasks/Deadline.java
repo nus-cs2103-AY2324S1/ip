@@ -3,6 +3,8 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.parser.Parser;
+
 /**
  * Represents a deadline
  */
@@ -43,7 +45,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: "
-                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
+                + this.deadline.format(DateTimeFormatter.ofPattern(Parser.DATE_TIME_FORMAT_FILE_VER)) + ")";
     }
 
     /**
@@ -53,6 +55,6 @@ public class Deadline extends Task {
      */
     public String toFile() {
         return "D" + super.toFile() + " | "
-                + this.deadline.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+                + this.deadline.format(DateTimeFormatter.ofPattern(Parser.DATE_TIME_FORMAT_FILE_VER));
     }
 }

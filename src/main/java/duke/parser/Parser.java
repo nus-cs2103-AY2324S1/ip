@@ -18,7 +18,14 @@ import duke.commands.MarkCommand;
  * Represents a parser
  */
 public class Parser {
-    private static final String DATE_TIME_FORMAT = "dd/MM/yy HHmm";
+    /**
+     * The date time format that user has to type in in order to add a deadline or event
+     */
+    public static final String DATE_TIME_FORMAT = "dd/MM/yy HHmm";
+    /**
+     * The date time formatter for toFile storage
+     */
+    public static final String DATE_TIME_FORMAT_FILE_VER = "MMM d yyyy hh:mm a";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
     private static final String INVALID_COMMAND = "OOPS!!! I'm sorry, but I don't know what that means :-(\n"
             + "If you need help with commands, please type 'help'!";
@@ -309,5 +316,6 @@ public class Parser {
             return false;
         }
     }
+
 
 }

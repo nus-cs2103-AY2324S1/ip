@@ -3,6 +3,8 @@ package duke.tasks;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import duke.parser.Parser;
+
 /**
  * Represents an event
  */
@@ -53,8 +55,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]" + super.toString()
-                + " (from: " + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
-                + " to: " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a")) + ")";
+                + " (from: " + this.from.format(DateTimeFormatter.ofPattern(Parser.DATE_TIME_FORMAT_FILE_VER))
+                + " to: " + this.to.format(DateTimeFormatter.ofPattern(Parser.DATE_TIME_FORMAT_FILE_VER)) + ")";
     }
 
     /**
@@ -65,7 +67,7 @@ public class Event extends Task {
     @Override
     public String toFile() {
         return "E" + super.toFile() + " | "
-                + this.from.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"))
-                + " - " + this.to.format(DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a"));
+                + this.from.format(DateTimeFormatter.ofPattern(Parser.DATE_TIME_FORMAT_FILE_VER))
+                + " - " + this.to.format(DateTimeFormatter.ofPattern(Parser.DATE_TIME_FORMAT_FILE_VER));
     }
 }

@@ -9,6 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import duke.parser.Parser;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Task;
@@ -133,7 +134,7 @@ public class Storage {
 
         Task task;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy hh:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Parser.DATE_TIME_FORMAT_FILE_VER);
 
         switch (type) {
         case "T":
