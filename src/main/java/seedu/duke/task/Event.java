@@ -31,9 +31,7 @@ public class Event extends Task {
     }
 
     /**
-     * Returns a string representation of this
-     * Event task when it is saved in the
-     * storage.
+     * Returns a string representation of this Event task when it is saved in the storage.
      *
      * @return a string representation of this Event task for saving.
      */
@@ -46,8 +44,7 @@ public class Event extends Task {
     /**
      * {@inheritDoc}
      *
-     * Returns a string representation of this
-     * Event task when it is printed.
+     * Returns a string representation of this Event task when it is printed.
      *
      * @return a string representation of this Event task for printing.
      */

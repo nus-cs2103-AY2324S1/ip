@@ -1,5 +1,8 @@
 package seedu.duke;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import seedu.duke.command.AddCommand;
 import seedu.duke.command.Command;
 import seedu.duke.command.DeleteCommand;
@@ -17,8 +20,7 @@ import seedu.duke.task.Todo;
 
 /**
  * Represents a parser.
- * A parser is responsible for parsing and
- * making sense of user inputs.
+ * A parser is responsible for parsing and making sense of user inputs.
  *
  * @author KAM JIA YUE
  * @since 2023-08-29
@@ -200,27 +202,31 @@ public class Parser {
                     + "'event YOUR_EVENT /from START_TIME /to END_TIME'.");
         }
 
+        int fromIndex = input.indexOf("/from");
+        int toIndex = input.indexOf("/to");
+        String eMessage = "☹ OOPS!!! The format of an event should be "
+                + "'event YOUR_EVENT /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm'.";
+
         try {
 
-            int fromIndex = input.indexOf("/from");
-            int toIndex = input.indexOf("/to");
-
-
             String from = input.substring(fromIndex + 6, toIndex - 1);
-
-
             String to = input.substring(toIndex + 4);
+
+            LocalDateTime fromTime = parseStringToTime(from);
+            LocalDateTime toTime = parseStringToTime(to);
+
+            if (!isValidTimeFrame(fromTime, toTime)) {
+                eMessage = "☹ OOPS!!! 'from' should be before 'to'!";
+            }
 
             return new Event(input.substring(6, fromIndex - 1), from, to);
         } catch (Exception e) {
-            throw new DukeException("☹ OOPS!!! The format of an event should be "
-                    + "'event YOUR_EVENT /from DD/MM/YYYY HHmm /to DD/MM/YYYY HHmm'.");
+            throw new DukeException(eMessage);
         }
     }
 
     /**
-     * Finds the task which the user
-     * intends to find.
+     * Finds the task which the user intends to find.
      *
      * @param input Input of user.
      * @return The String representation
@@ -241,5 +247,26 @@ public class Parser {
         }
         String toFind = input.substring(5);
         return toFind;
+    }
+
+    /**
+     * Parses a time string into a LocalDateTime object.
+     *
+     * @param timeString Time string to be parsed.
+     * @return A LocalDateTime object.
+     */
+    public LocalDateTime parseStringToTime(String timeString) {
+        return LocalDateTime.parse(timeString, DateTimeFormatter.ofPattern("d/MM/yyyy HHmm"));
+    }
+
+    /**
+     * Checks if the starting time is before end time.
+     *
+     * @param from Starting time of the event.
+     * @param to End time of the event.
+     * @return true if starting time is before end time, false otherwise.
+     */
+    public boolean isValidTimeFrame(LocalDateTime from, LocalDateTime to) {
+        return from.isBefore(to);
     }
 }

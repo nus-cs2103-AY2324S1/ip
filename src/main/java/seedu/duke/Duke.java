@@ -19,7 +19,7 @@ public class Duke {
      */
     public Duke() {
         this.taskList = new TaskList();
-        this.ui = new Ui("Kam_BOT");
+        this.ui = new Ui();
         this.startUp("./data/duke.txt");
     }
 

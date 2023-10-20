@@ -14,27 +14,14 @@ import seedu.duke.task.Task;
 public class Ui {
     public static final String I4 = "    ";
     public static final String I5 = Ui.I4 + " ";
-    public static final String I7 = Ui.I5 + "  ";
-    public static final String LINE = Ui.I4 + "——————————————————————————————————————————————————————————————————";
 
-    private String name;
     private Parser parser;
 
     /**
      * The main constructor of this Ui class.
-     *
-     * @param name Name of this chatbot.
      */
-    public Ui(String name) {
-        this.name = name;
+    public Ui() {
         this.parser = new Parser();
-    }
-
-    /**
-     * Prints out a horizontal line.
-     */
-    public static void line() {
-        System.out.println(Ui.LINE);
     }
 
     /**

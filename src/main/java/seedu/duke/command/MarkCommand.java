@@ -15,8 +15,7 @@ public class MarkCommand extends EditCommand {
     private final String input;
 
     /**
-     * The main constructor for this
-     * MarkCommand class.
+     * The main constructor for this MarkCommand class.
      *
      * @param input User's input.
      */
@@ -27,15 +26,12 @@ public class MarkCommand extends EditCommand {
     /**
      * {@inheritDoc}
      *
-     * Executes this add command.
+     * Executes this mark command.
      *
      * @param taskList User's task list.
      * @param ui The ui of Duke chat bot.
-     * @param response The String representation
-     *                 of Duke chat bot's response
-     *                 after adding this task.
-     * @throws Exception If there are any user
-     *                   input errors.
+     * @param response The String representation of Duke chat bot's response after adding this task.
+     * @throws Exception If there are any user input errors.
      */
     @Override
     public void execute(TaskList taskList, Ui ui, String[] response) throws Exception {
