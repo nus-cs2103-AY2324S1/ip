@@ -44,7 +44,7 @@ public class Ui {
     }
 
     /**
-     * Display the added task
+     * Displays the added task
      *
      * @param size the size of the list
      * @param task the task added
@@ -64,7 +64,7 @@ public class Ui {
     }
 
     /**
-     * Display the marked task message
+     * Displays the marked task message
      *
      * @param task the task marked
      */
@@ -73,7 +73,7 @@ public class Ui {
     }
 
     /**
-     * Display the unmarked task message
+     * Displays the unmarked task message
      *
      * @param task the task unmarked
      */
@@ -82,7 +82,7 @@ public class Ui {
     }
 
     /**
-     * Display the deleted task message
+     * Displays the deleted task message
      *
      * @param index the index of the task
      * @param task  the task deleted
@@ -92,7 +92,7 @@ public class Ui {
     }
 
     /**
-     * Display the help message (BCDExtension)
+     * Displays the help message (BCDExtension)
      */
     public String help() {
         return "Here are the list of commands you can use:\n"
