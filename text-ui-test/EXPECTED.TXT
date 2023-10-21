@@ -5,3 +5,47 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hello! I am Dukey.
+What can I do for you?
+Sorry! Don't know what that is!
+task.Task description cannot be empty!
+task.Task description cannot be empty!
+task.Task description cannot be empty!
+Please specify the deadline!
+Please specify both the start and end time!
+Please specify both the start and end time!
+Roger! I have added the following task to the list
+[T] [ ] go gym
+You have 1 task(s) currently in the list
+Roger! I have added the following task to the list
+[D] [ ] go gym (by: 2pm)
+You have 2 task(s) currently in the list
+Roger! I have added the following task to the list
+[E] [ ] go gym (from: 2pm to: 3pm)
+You have 3 task(s) currently in the list
+1. [T] [ ] go gym
+2. [D] [ ] go gym (by: 2pm)
+3. [E] [ ] go gym (from: 2pm to: 3pm)
+You have 3 task(s) currently in the list
+Good Job! I have marked this task as done!
+[T] [X] go gym
+Good Job! I have marked this task as done!
+[D] [X] go gym (by: 2pm)
+Good Job! I have marked this task as done!
+[E] [X] go gym (from: 2pm to: 3pm)
+This task does not exist!
+This task does not exist!
+Aw man! I have marked this task as undone. We go again!
+[E] [ ] go gym (from: 2pm to: 3pm)
+Aw man! I have marked this task as undone. We go again!
+[D] [ ] go gym (by: 2pm)
+Aw man! I have marked this task as undone. We go again!
+[T] [ ] go gym
+This task does not exist!
+Okay! I have removed this task from the list
+[E] [ ] go gym (from: 2pm to: 3pm)
+You have 2 task(s) currently in the list
+1. [T] [ ] go gym
+2. [D] [ ] go gym (by: 2pm)
+You have 2 task(s) currently in the list
+Bye. Hope to see you again!

@@ -1,0 +1,23 @@
+blah
+todo
+deadline
+event
+deadline go gym
+event go gym
+event go gym /from 2pm
+todo go gym
+deadline go gym /by 2pm
+event: go gym /from 2pm /to 3pm
+list
+mark 1
+mark 2
+mark 3
+mark 4
+unmark 4
+unmark 3
+unmark 2
+unmark 1
+delete 4
+delete 3
+list
+bye
