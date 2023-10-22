@@ -1,7 +1,82 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+__________________________________________________________________
+Hello! I'm ChatGPA 5.0
+What can I do for you?
+__________________________________________________________________
+
+? OOPS!!! The description of a todo cannot be empty.
+__________________________________________________________________
+
+Got it. I've added this task:
+[T][ ] task 1
+Now you have 1 tasks in the list.
+__________________________________________________________________
+
+Got it. I've added this task:
+[D][ ] task 2 (by: Mon 4pm)
+Now you have 2 tasks in the list.
+__________________________________________________________________
+
+1. [T][ ] task 1
+2. [D][ ] task 2 (by: Mon 4pm)
+__________________________________________________________________
+
+Nice! I've marked this task as done:
+[T][X] task 1
+__________________________________________________________________
+
+Got it. I've added this task:
+[E][ ] event 1 (from: 1300 to: 2100)
+Now you have 3 tasks in the list.
+__________________________________________________________________
+
+1. [T][X] task 1
+2. [D][ ] task 2 (by: Mon 4pm)
+3. [E][ ] event 1 (from: 1300 to: 2100)
+__________________________________________________________________
+
+ ? OOPS!!! I'm sorry, but I don't know what that means :-(
+__________________________________________________________________
+Here are the list of commands:
+list: shows list of tasks
+mark {task number}: mark task as done
+unmark {task number}: unmark task as not done
+todo {task name}: create a task
+deadline {task name} /by {deadline}: create task with deadline
+event {event name} /from {start date} /to {end date}: create event
+bye: close application
+__________________________________________________________________
+
+Nice! I've marked this task as done:
+[D][X] task 2 (by: Mon 4pm)
+__________________________________________________________________
+
+1. [T][X] task 1
+2. [D][X] task 2 (by: Mon 4pm)
+3. [E][ ] event 1 (from: 1300 to: 2100)
+__________________________________________________________________
+
+OK, I've marked this task as not done yet:
+[D][ ] task 2 (by: Mon 4pm)
+__________________________________________________________________
+
+1. [T][X] task 1
+2. [D][ ] task 2 (by: Mon 4pm)
+3. [E][ ] event 1 (from: 1300 to: 2100)
+__________________________________________________________________
+
+Nice! I've marked this task as done:
+[E][X] event 1 (from: 1300 to: 2100)
+__________________________________________________________________
+
+Noted. I've removed this task:
+[D][ ] task 2 (by: Mon 4pm)
+Now you have 2 tasks in the list.
+__________________________________________________________________
+
+1. [T][X] task 1
+2. [E][X] event 1 (from: 1300 to: 2100)
+__________________________________________________________________
+
+Bye. Hope to see you again soon!
+__________________________________________________________________
 
