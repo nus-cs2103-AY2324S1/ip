@@ -1,0 +1,21 @@
+list
+todo   
+todo
+todo bake bread
+mark 1
+mark 2
+mark ssssss
+list
+deadline make kimchi
+deadline make kimchi /by Wed
+deadline    /by Tmr
+mark 2
+unmark 2
+event a /from b /to c
+event a /from   /to c
+event /from b /to c
+event a /from b to c
+event a /to b
+event a /from /to
+list
+bye
