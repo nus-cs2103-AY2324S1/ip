@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+/**
+ * Represents Storage class which handles reading from and storing tasks to txt. file
+ */
 public class Storage {
     private static String FILE_PATH;
 
@@ -94,6 +97,14 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Reads given line, creates the corresponding task object and adds it to taskList
+     *
+     * @param data  line read from saved file
+     * @param tasks current tasks list
+     * @return new tasks list
+     * @throws DukeException
+     */
     public static ArrayList<Task> taskCreator(String data, ArrayList<Task> tasks) throws DukeException {
         if (data.length() == 0) {
             return tasks;

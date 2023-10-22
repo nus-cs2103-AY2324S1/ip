@@ -4,7 +4,7 @@ import duke.exceptions.DukeException;
 import duke.exceptions.StorageException;
 import duke.filehandler.Storage;
 import duke.parsers.InputParser;
-import duke.tasks.Task;
+import duke.tasks.TaskList;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -16,15 +16,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.Region;
-
-import java.util.ArrayList;
-
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 
 public class Duke extends Application {
-    private static ArrayList<Task> tasks;
+    private static TaskList taskList;
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -39,7 +36,8 @@ public class Duke extends Application {
     }
 
     /**
-     * Gets tasks from stored text file, stores tasks in parser object
+     * Gets tasks from stored text file, stores tasks in taskList,
+     * saves taskList to inputParser object
      *
      * @param filePath
      * @throws StorageException
@@ -48,11 +46,11 @@ public class Duke extends Application {
 
         storage = new Storage(filePath);
         try {
-            tasks = storage.readTasks();
+            taskList = new TaskList(storage.readTasks());
         } catch (DukeException e) {
             throw new StorageException(e.getMessage());
         }
-        this.parser = new InputParser(tasks);
+        this.parser = new InputParser(taskList);
     }
 
     /**

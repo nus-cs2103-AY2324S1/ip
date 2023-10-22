@@ -1,6 +1,14 @@
 package duke.ui;
 
+/**
+ * Represents Ui class
+ */
 public class Ui {
+    /**
+     * Display starting text with example commands
+     *
+     * @return String greeting message
+     */
     public static String greetingText() {
         String ret = "";
         ret += "Welcome to Samantha's chatBot!\n";
@@ -11,6 +19,11 @@ public class Ui {
         return ret;
     }
 
+    /**
+     * Ending Message
+     *
+     * @return String exit message
+     */
     public static String endingText() {
         return "See you soon";
     }

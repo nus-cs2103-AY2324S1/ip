@@ -3,12 +3,22 @@ package duke.tasks;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Represents Event Class
+ */
 public class Event extends Task {
     protected Date from;
     protected Date to;
     protected String fromFormat;
     protected String toFormat;
 
+    /**
+     * Creates new Event Object
+     *
+     * @param description of event
+     * @param from        start date of event
+     * @param to          end date of event
+     */
     public Event(String description, Date from, Date to) {
         super(description);
         this.from = from;
@@ -18,6 +28,11 @@ public class Event extends Task {
         this.toFormat = outputFormat.format(to);
     }
 
+    /**
+     * Added event message
+     *
+     * @return String added message and total number of tasks
+     */
     public String addedMessage() {
         String ret = "";
         ret += "Got it. I've added this task:\n";
