@@ -1,5 +1,6 @@
 package URBOI_PACKIN;
 
+import URBOI_PACKIN.Storage.Storage;
 import URBOI_PACKIN.TaskTypes.Deadline;
 import URBOI_PACKIN.TaskTypes.Event;
 import URBOI_PACKIN.TaskTypes.Todo;
@@ -9,6 +10,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
+
+import static URBOI_PACKIN.Storage.Storage.loadTasksFromFile;
+import static URBOI_PACKIN.Storage.Storage.saveTasksToFile;
 
 public class ResponseController {
     //private static final String FILE_PATH = "src/main/java/tasks.txt";
@@ -97,77 +101,6 @@ public class ResponseController {
         return response.toString();
     }
 
-    /**
-     * Loads tasks from a file into the task list.
-     *
-     * @param tasks The ArrayList to store the loaded tasks.
-     */
-    private static void loadTasksFromFile(ArrayList<Task> tasks) {
-        try {
-            File file = new File(FILE_PATH);
-            if (file.exists()) {
-                Scanner fileScanner = new Scanner(file);
-                while (fileScanner.hasNextLine()) {
-                    String line = fileScanner.nextLine();
-                    Task task = createTaskFromLine(line);
-                    if (task != null) {
-                        tasks.add(task);
-                    }
-                }
-                fileScanner.close();
-            }
-        } catch (FileNotFoundException e) {
-            // Handle file not found exception
-            System.out.println("File not found: " + FILE_PATH);
-        }
-    }
-
-    /**
-     * Creates a URBOI_PACKIN.Task object from a line of text in the specified format.
-     *
-     * @param line The line of text containing task details.
-     * @return A URBOI_PACKIN.Task object representing the task described in the line, or null if parsing fails.
-     */
-    private static Task createTaskFromLine(String line) {
-        String[] parts = line.split(" \\| ");
-        if (parts.length < 3) {
-            return null;
-        }
-
-        String type = parts[0];
-        String status = parts[1];
-        String description = parts[2];
-
-        Task task = null;
-        switch (type) {
-            case "T":
-                task = new Todo(description);
-                break;
-            case "D":
-                if (parts.length >= 4) {
-                    String by = parts[3];
-                    task = new Deadline(description, LocalDateTime.parse(by, DateTimeFormatter.ISO_LOCAL_DATE_TIME));
-                }
-                break;
-            case "E":
-                if (parts.length >= 5) {
-                    String from = parts[3];
-                    String to = parts[4];
-                    task = new Event(description, from, to);
-                }
-                break;
-        }
-
-        if (task != null) {
-            if (status.equals("1")) {
-                task.markDone();
-            } else {
-                task.markNotDone();
-            }
-        }
-
-        return task;
-    }
 
     private static void findTasks(ArrayList<Task> tasks, String keyword) {
         System.out.println("Here are the matching tasks in your list:");
@@ -181,24 +114,6 @@ public class ResponseController {
         }
         if (count == 0) {
             System.out.println("No matching tasks found.");
-        }
-    }
-
-    /**
-     * Save tasks to a file.
-     *
-     * @param tasks The ArrayList of tasks to save.
-     */
-    private static void saveTasksToFile(ArrayList<Task> tasks) {
-        try {
-            FileWriter fileWriter = new FileWriter(FILE_PATH);
-            for (Task task : tasks) {
-                fileWriter.write(task.toFileString() + System.lineSeparator());
-            }
-            fileWriter.close();
-        } catch (IOException e) {
-            // Handle IO exception
-            System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 }
