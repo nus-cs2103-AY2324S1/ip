@@ -13,7 +13,8 @@ import javafx.scene.layout.VBox;
  */
 public class MainWindow extends AnchorPane {
 
-    private String initialDialog = "You know that I never let you down :)";
+    private String initialDialog = "You know that I never let you down :)"
+            + "\nApplication does not auto-save, you need to enter 'bye' when you want to save and exit";
     @FXML
     private ScrollPane scrollPane;
     @FXML
