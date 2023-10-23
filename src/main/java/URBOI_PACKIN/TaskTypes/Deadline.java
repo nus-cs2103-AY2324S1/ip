@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
  * Represents a Deadline task.
  */
 public class Deadline extends Task {
-    protected String by;
 
     public Deadline(String description, LocalDateTime date) {
         super(description, date);

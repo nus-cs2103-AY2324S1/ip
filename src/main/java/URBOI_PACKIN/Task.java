@@ -13,9 +13,6 @@ public class Task {
     public String toFileString() {
         return "";
     }
-    public String formatDate() {
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-    }
     public Task(String description, LocalDateTime date) {
         this.description = description;
         this.isDone = false;
