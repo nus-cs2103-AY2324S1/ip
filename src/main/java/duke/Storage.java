@@ -16,7 +16,7 @@ public class Storage {
     private static final String FILE_NOT_INITIALIZED = "File not initialized";
 
     /** Default file path. */
-    private static final String FILE_PATH = "../../duke.txt";
+    private static final String FILE_PATH = "./duke.txt";
     /** The file to parse */
     private File file;
 
