@@ -1,3 +1,7 @@
+package URBOI_PACKIN.UI;
+
+import URBOI_PACKIN.ResponseController;
+import URBOI_PACKIN.UI.DialogBox;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -7,11 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.util.Objects;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,7 +27,7 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
 
 
-    private Duke duke;
+    private ResponseController responseController;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/crying.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/screaming.png"));
@@ -47,19 +47,19 @@ public class MainWindow extends AnchorPane {
                 + "What can I do for you mah man?";
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(greetingMessage, dukeImage));
     }
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(ResponseController d) {
+        responseController = d;
     }
 
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing URBOI_PACKIN.ResponseController's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = responseController.getResponse(input);
         if (input.equalsIgnoreCase("bye")) {
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
