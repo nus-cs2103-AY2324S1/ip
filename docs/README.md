@@ -70,21 +70,3 @@ To change the description of this task to a CS2103T assignment, use the command:
 
 To change the deadline of the assignment, use the command:
 `update 5 by 2023 10 12 2359`. Note the time format is the same as when creating a task.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
-
-```
-expected output
-```
