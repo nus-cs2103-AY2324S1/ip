@@ -90,7 +90,7 @@ public class Duke {
 
         case "bye":
             //bye
-            message = ui.exit();
+            message = bye();
             break;
 
         case "list":
@@ -201,9 +201,13 @@ public class Duke {
      */
     public String todo(){
         String message;
+        if (parser.getTaskName().isEmpty()) {
+            return "Task name cannot be empty";
+        }
         message = tasks.addTask(new Task(parser.getTaskName(),
                 1, "Null", "Null", false));
         store();
+
 
         return message;
     }
@@ -216,6 +220,9 @@ public class Duke {
      */
     public String deadline(){
         String message;
+        if (parser.getTaskName().isEmpty()) {
+            return  "Task name cannot be empty";
+        }
         if (isValidDateFormat(parser.getFirstEnteredTime())) {
             message = tasks.addTask(new Task(parser.getTaskName(),
                     2, "Null", parser.getFirstEnteredTime(), false));
@@ -234,6 +241,9 @@ public class Duke {
      */
     public String event(){
         String message;
+        if (parser.getTaskName().isEmpty()) {
+            return "Task name cannot be empty";
+        }
         if (isValidDateFormat(parser.getFirstEnteredTime()) &&
                 isValidDateFormat(parser.getSecondEnteredTime())) {
             message = tasks.addTask(new Task(parser.getTaskName(),
@@ -309,6 +319,10 @@ public class Duke {
         message = message + ui.greet();
 
         return message;
+    }
+
+    public String bye() {
+        return ui.exit();
     }
     public static void main(String[] args) {
 
