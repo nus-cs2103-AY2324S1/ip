@@ -1,44 +1,18 @@
-import java.time.LocalDate;
+package URBOI_PACKIN;
+
+import URBOI_PACKIN.TaskTypes.Deadline;
+import URBOI_PACKIN.TaskTypes.Event;
+import URBOI_PACKIN.TaskTypes.Todo;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
-public class Duke {
+public class ResponseController {
     //private static final String FILE_PATH = "src/main/java/tasks.txt";
     private static final String FILE_PATH = "tasks.txt/";
-    private static String response= "";
-    /**
-     * Main method to start the Duke application.
-     *
-     * @param args Command-line arguments.
-     */
-    public static void main(String[] args) {
-        //Scanner scanner = new Scanner(System.in);
-        String logo = "UUUUUUUU     UUUUUUUURRRRRRRRRRRRRRRRR   BBBBBBBBBBBBBBBBB        OOOOOOOOO     IIIIIIIIII\n"
-                +"U::::::U     U::::::UR::::::::::::::::R  B::::::::::::::::B     OO:::::::::OO   I::::::::I\n"
-                +"U::::::U     U::::::UR::::::RRRRRR:::::R B::::::BBBBBB:::::B  OO:::::::::::::OO I::::::::I\n"
-                +"UU:::::U     U:::::UURR:::::R     R:::::RBB:::::B     B:::::BO:::::::OOO:::::::OII::::::II\n"
-                +" U:::::U     U:::::U   R::::R     R:::::R  B::::B     B:::::BO::::::O   O::::::O  I::::I  \n"
-                +" U:::::D     D:::::U   R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O  I::::I  \n"
-                +" U:::::D     D:::::U   R::::RRRRRR:::::R   B::::BBBBBB:::::B O:::::O     O:::::O  I::::I  \n"
-                +" U:::::D     D:::::U   R:::::::::::::RR    B:::::::::::::BB  O:::::O     O:::::O  I::::I  \n"
-                +" U:::::D     D:::::U   R::::RRRRRR:::::R   B::::BBBBBB:::::B O:::::O     O:::::O  I::::I  \n"
-                +" U:::::D     D:::::U   R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O  I::::I  \n"
-                +" U:::::D     D:::::U   R::::R     R:::::R  B::::B     B:::::BO:::::O     O:::::O  I::::I  \n"
-                +" U::::::U   U::::::U   R::::R     R:::::R  B::::B     B:::::BO::::::O   O::::::O  I::::I  \n"
-                +" U:::::::UUU:::::::U RR:::::R     R:::::RBB:::::BBBBBB::::::BO:::::::OOO:::::::OII::::::II\n"
-                +"  UU:::::::::::::UU  R::::::R     R:::::RB:::::::::::::::::B  OO:::::::::::::OO I::::::::I\n"
-                +"    UU:::::::::UU    R::::::R     R:::::RB::::::::::::::::B     OO:::::::::OO   I::::::::I\n"
-                +"      UUUUUUUUU      RRRRRRRR     RRRRRRRBBBBBBBBBBBBBBBBB        OOOOOOOOO     IIIIIIIIII\n";
-
-        System.out.println("Wazzup! It's\n" + logo);
-        System.out.println("What can I do for you mah man?");
-        System.out.println("____________________________________________________________");
-
-    }
-
 
     /**
      * Process user input and generate a response.
@@ -53,7 +27,6 @@ public class Duke {
         try{
             if (command.equalsIgnoreCase("bye")) {
                 response.append("Bye. Hope to see you again soon!");
-
             } else if (command.equalsIgnoreCase("list")) {
                 response.append("Here are the tasks in your list:\n");
                 for (int i = 0; i < tasks.size(); i++) {
@@ -71,7 +44,7 @@ public class Duke {
                 // Parse the date and time in the format d/M/yyyy HHmm
                 String[] parts = command.split(" /by ");
                 if (parts.length < 2) {
-                    throw new DukeException("Deadline command must include a date.");
+                    throw new DukeException("URBOI_PACKIN.TaskTypes.Deadline command must include a date.");
                 }
                 String description = parts[0].substring(9).trim();
                 LocalDateTime dateTime = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
@@ -124,9 +97,6 @@ public class Duke {
         return response.toString();
     }
 
-    private static String formatDate(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-    }
     /**
      * Loads tasks from a file into the task list.
      *
@@ -153,10 +123,10 @@ public class Duke {
     }
 
     /**
-     * Creates a Task object from a line of text in the specified format.
+     * Creates a URBOI_PACKIN.Task object from a line of text in the specified format.
      *
      * @param line The line of text containing task details.
-     * @return A Task object representing the task described in the line, or null if parsing fails.
+     * @return A URBOI_PACKIN.Task object representing the task described in the line, or null if parsing fails.
      */
     private static Task createTaskFromLine(String line) {
         String[] parts = line.split(" \\| ");
@@ -234,114 +204,8 @@ public class Duke {
 }
 
 
-
 /**
- * Represents a task that can be added to the task list.
- */
-class Task {
-    protected String description;
-    protected boolean isDone;
-
-    protected LocalDateTime date;
-
-    public String toFileString() {
-        return "";
-    }
-    public String formatDate() {
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-    }
-    public Task(String description, LocalDateTime date) {
-        this.description = description;
-        this.isDone = false;
-        this.date = date;
-    }
-    public String getStatusIcon() {
-        return (isDone ? "[X]" : "[ ]"); // Return a tick or cross symbol cuz im lazy like that, or its easier. idk
-    }
-    /**
-     * Get the description of the task.
-     *
-     * @return The description of the task.
-     */
-    public String getDescription() {
-        return description;
-    }
-    public boolean isDone() {
-        return isDone;
-    }
-    public void markDone() {
-        isDone = true;
-    }
-    public void markNotDone() {
-        isDone = false;
-    }
-    @Override
-    public String toString() {
-        return "[" + (isDone ? "X" : " ") + "] " + description;
-    }
-}
-
-/**
- * Represents a Todo task.
- */
-class Todo extends Task {
-    public Todo(String description) {
-        super(description,null);
-    }
-    @Override
-    public String toFileString() {
-        return "T | " + (isDone ? "1" : "0") + " | " + description;
-    }
-
-    @Override
-    public String toString() {
-        return "[T]" + super.toString();
-    }
-}
-
-/**
- * Represents a Deadline task.
- */
-class Deadline extends Task {
-    protected String by;
-
-    public Deadline(String description, LocalDateTime date) {
-        super(description, date);
-    }
-    @Override
-    public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + date;
-    }
-    @Override
-    public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
-    }
-}
-
-/**
- * Represents an Event task.
- */
-class Event extends Task {
-    protected String from;
-    protected String to;
-
-    public Event(String description, String from, String to) {
-        super(description,null);
-        this.from = from;
-        this.to = to;
-    }
-    @Override
-    public String toFileString() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + from + " | " + to;
-    }
-    @Override
-    public String toString() {
-        return "[E]" + super.toString() + " (from: " + from + " to: " + to + ")";
-    }
-}
-
-/**
- * Custom exception class for Duke-specific exceptions.
+ * Custom exception class for URBOI_PACKIN.ResponseController-specific exceptions.
  */
 class DukeException extends Exception {
     public DukeException(String message) {

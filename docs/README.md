@@ -8,23 +8,23 @@ URBOI    is a simple command-line chatbot designed to help you manage your tasks
 - [Getting Started](#getting-started)
 - [Adding Tasks](#adding-tasks)
     - [Adding a To-Do](#adding-a-to-do)
-    - [Adding a Deadline](#adding-a-deadline)
-    - [Adding an Event](#adding-an-event)
+    - [Adding a URBOI_PACKIN.TaskTypes.Deadline](#adding-a-deadline)
+    - [Adding an URBOI_PACKIN.TaskTypes.Event](#adding-an-event)
 - [Listing Tasks](#listing-tasks)
 - [Marking Tasks as Done](#marking-tasks-as-done)
 - [Deleting Tasks](#deleting-tasks)
 - [Searching for Tasks](#searching-for-tasks)
-- [Exiting Duke](#exiting-duke)
+- [Exiting URBOI_PACKIN.ResponseController](#exiting-duke)
 - [Saving Your Tasks](#saving-your-tasks)
 
 ## Getting Started<a name="getting-started"></a>
 
 1. Clone or download the URBOI project code from [GitHub](https://github.com/TyrusLye/ip/releases/tag/A-Release).
-2. Run the `URBOI.java` file to start the Duke chatbot.
+2. Run the `URBOI.java` file to start the URBOI_PACKIN.ResponseController chatbot.
 
 ## Adding Tasks<a name="adding-tasks"></a>
 
-Duke allows you to add three types of tasks: To-Do, Deadline, and Event.
+URBOI_PACKIN.ResponseController allows you to add three types of tasks: To-Do, URBOI_PACKIN.TaskTypes.Deadline, and URBOI_PACKIN.TaskTypes.Event.
 
 ### Adding a To-Do<a name="adding-a-to-do"></a>
 
@@ -36,7 +36,7 @@ todo [description]
 
 Replace `[task description]` with a brief description of the to-do task you want to add.
 
-### Adding a Deadline <a name="adding-a-deadline"></a>
+### Adding a URBOI_PACKIN.TaskTypes.Deadline <a name="adding-a-deadline"></a>
 
 To add a deadline task, use the following command:
 
@@ -46,7 +46,7 @@ deadline [task description] /by [date and time]
 
 Replace `[task description]` with a description of the deadline task and `[date and time]` with the date and time the task is due in the format `d/M/yyyy HHmm`.
 
-### Adding an Event <a name="adding-an-event"></a>
+### Adding an URBOI_PACKIN.TaskTypes.Event <a name="adding-an-event"></a>
 
 To add an event task, use the following command:
 
@@ -103,14 +103,14 @@ To search for tasks containing a specific keyword, use the following command:
 find [keyword]
 ```
 
-Replace `[keyword]` with the keyword you want to search for. Duke will display a list of tasks matching your keyword.
+Replace `[keyword]` with the keyword you want to search for. URBOI_PACKIN.ResponseController will display a list of tasks matching your keyword.
 
-## 7. Exiting Duke <a name="exiting-duke"></a>
+## 7. Exiting URBOI_PACKIN.ResponseController <a name="exiting-duke"></a>
 
-To exit Duke, simply enter:
+To exit URBOI_PACKIN.ResponseController, simply enter:
 
 ```plaintext
 bye
 ```
 
-Duke will bid you farewell and close.
+URBOI_PACKIN.ResponseController will bid you farewell and close.
