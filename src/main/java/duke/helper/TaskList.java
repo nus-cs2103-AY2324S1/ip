@@ -107,7 +107,7 @@ public class TaskList {
     }
 
     /**
-     * Return the String containing all the information in the list.
+     * Returns the String containing all the information in the list.
      * @return String representation of the content in the list.
      */
     public String displayList() {

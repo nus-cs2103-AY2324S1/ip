@@ -21,24 +21,57 @@ public class Parser {
      */
     public void processUserCommand(String userInput) {
 
+        List<String> tokens = tokenize(userInput);
+        command = tokens.get(0);
 
-        List<String> formattedLine = new ArrayList<>();
+        List<String> attributes = tokensToAttributes(tokens);
+
+        switch (attributes.size()) {
+        case 3:
+            secondEnteredTime = attributes.get(2);
+
+        case 2:
+            firstEnteredTime = attributes.get(1);
+
+        case 1:
+            taskName = attributes.get(0);
+
+        }
+
+    }
+
+
+    /**
+     * Converts user input into a list of tokens.
+     *
+     * @param userInput The user input to be converted into list of tokens.
+     * @return The list of tokens.
+     */
+    public List<String> tokenize(String userInput) {
+        List<String> tokens = new ArrayList<>();
         Scanner lineScanner = new Scanner(userInput);
         while (lineScanner.hasNext()) {
 
             String token = lineScanner.next();
-            formattedLine.add(token);
+            tokens.add(token);
 
         }
         lineScanner.close();
+        return tokens;
+    }
 
-        command = formattedLine.get(0);
-
+    /**
+     * Converts a list of tokens into a list of attributes.
+     *
+     * @param tokens The list of tokens to be converted into list of attributes.
+     * @return The list of attributes.
+     */
+    public List<String> tokensToAttributes(List<String> tokens) {
         List<String> attributes = new ArrayList<>();
         StringBuilder attributeName = new StringBuilder();
 
-        for (int a = 1; a < formattedLine.size(); a++) {
-            String element = formattedLine.get(a);
+        for (int a = 1; a < tokens.size(); a++) {
+            String element = tokens.get(a);
             if (element.charAt(0) == '/') {
                 attributes.add(attributeName.toString());
                 attributeName = new StringBuilder();
@@ -54,25 +87,7 @@ public class Parser {
         }
 
         attributes.add(attributeName.toString());
-
-        switch (attributes.size()) {
-        case 3:
-            secondEnteredTime = attributes.get(2);
-
-        case 2:
-            firstEnteredTime = attributes.get(1);
-
-        case 1:
-            taskName = attributes.get(0);
-
-        }
-
-
-
-
-
-
-
+        return attributes;
     }
 
 

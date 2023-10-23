@@ -56,7 +56,7 @@ public class Task {
     }
 
     /**
-     * Return the string representing how the Task object should be displayed.
+     * Returns the string representing how the Task object should be displayed.
      * @return String representation of the Task object.
      */
     public String display() {
@@ -93,7 +93,7 @@ public class Task {
     }
 
     /**
-     * Return the string representing how the Task object should be stored.
+     * Returns the string representing how the Task object should be stored.
      * @return String representation of the Task object.
      */
     public String getStringForRecordingInTextFile() {

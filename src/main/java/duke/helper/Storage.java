@@ -19,7 +19,10 @@ public class Storage {
 
     //private methods below
 
-
+    /**
+     * Sets up the background for storage.
+     *
+     */
     private void backgroundSetUp() {
 
         File dir = new File(this.dirName);
@@ -49,24 +52,6 @@ public class Storage {
 
 
 
-    private List<String> readLine(String line) {
-        List<String> formattedLine = new ArrayList<>();
-        Scanner lineScanner = new Scanner(line);
-        while (lineScanner.hasNext()) {
-
-            String token = lineScanner.next();
-            formattedLine.add(token);
-
-        }
-        lineScanner.close();
-
-        return formattedLine;
-    }
-
-
-
-
-
 
     //public methods below
 
@@ -80,8 +65,11 @@ public class Storage {
     }
 
 
-
-
+    /**
+     * Converts the content in the file into a list of tasks.
+     *
+     * @return The list of tasks.
+     */
     public Task[] loadList() {
         Task[] userList = new Task[100];
         int positionPointer = 0;
@@ -98,55 +86,10 @@ public class Storage {
 
                 String line = fileScanner.nextLine();
 
-                List<String> formattedLine = readLine(line);
+                List<String> record = readRecord(readLine(line));
 
-
-
-                List<String> attributes = new ArrayList<>();
-                StringBuilder attributeName = new StringBuilder();
-
-                for (String element : formattedLine) {
-                    if (element.equals("|")) {
-                        attributes.add(attributeName.toString());
-                        attributeName = new StringBuilder();
-                    } else {
-                        if (attributeName.length() == 0) {
-                            attributeName.append(element);
-                        } else {
-                            attributeName.append(" ").append(element);
-                        }
-
-
-                    }
-                }
-
-                attributes.add(attributeName.toString());
-                boolean isDone = attributes.get(1).equals("1");
-
-                switch (attributes.get(0)) {
-                case "T": {
-                    Task task = new Task(attributes.get(2), 1, "Null", "Null", isDone);
-                    userList[positionPointer] = task;
-
-                    break;
-                }
-                case "D": {
-                    Task task = new Task(attributes.get(2), 2, "Null", attributes.get(3), isDone);
-                    userList[positionPointer] = task;
-
-                    break;
-                }
-                case "E": {
-                    Task task = new Task(attributes.get(2), 3, attributes.get(3), attributes.get(4), isDone);
-                    userList[positionPointer] = task;
-
-                    break;
-
-
-                }
-                default:
-                    throw new IllegalStateException("Unexpected value: " + attributes.get(0));
-                }
+                Task task = recordToTask(record);
+                userList[positionPointer] = task;
 
                 positionPointer++;
 
@@ -164,7 +107,95 @@ public class Storage {
         return userList;
     }
 
+    /**
+     * Converts a line into a list of tokens.
+     *
+     * @param line The line to be converted into list of tokens.
+     * @return The list of tokens.
+     */
+    private List<String> readLine(String line) {
+        List<String> tokens = new ArrayList<>();
+        Scanner lineScanner = new Scanner(line);
+        while (lineScanner.hasNext()) {
 
+            String token = lineScanner.next();
+            tokens.add(token);
+
+        }
+        lineScanner.close();
+
+        return tokens;
+    }
+
+
+    /**
+     * Converts a list of tokens into a record.
+     *
+     * @param tokens The list of tokens to be converted into record.
+     * @return The converted record.
+     */
+    public List<String> readRecord(List<String> tokens) {
+
+        List<String> record = new ArrayList<>();
+        StringBuilder attributeName = new StringBuilder();
+
+        for (String element : tokens) {
+            if (element.equals("|")) {
+                record.add(attributeName.toString());
+                attributeName = new StringBuilder();
+            } else {
+                if (attributeName.length() == 0) {
+                    attributeName.append(element);
+                } else {
+                    attributeName.append(" ").append(element);
+                }
+
+
+            }
+        }
+
+        record.add(attributeName.toString());
+
+        return record;
+
+    }
+
+    /**
+     * Converts a record into a Task object.
+     *
+     * @param record The record to be converted into Task object.
+     * @return The converted Task object.
+     */
+    public Task recordToTask(List<String> record) throws IllegalStateException {
+        boolean isDone = record.get(1).equals("1");
+        Task task;
+
+        switch (record.get(0)) {
+        case "T":
+            task = new Task(record.get(2), 1, "Null", "Null", isDone);
+            break;
+
+        case "D":
+            task = new Task(record.get(2), 2, "Null", record.get(3), isDone);
+            break;
+
+        case "E":
+            task = new Task(record.get(2), 3, record.get(3), record.get(4), isDone);
+            break;
+
+        default:
+            throw new IllegalStateException("Unexpected value: " + record.get(0));
+        }
+
+        return task;
+    }
+
+    /**
+     * Saves the list back to file.
+     *
+     * @param userList The list of tasks to store.
+     * @param numberOfElements The number of valid tasks in the list.
+     */
     public void saveList(Task[] userList, int numberOfElements) {
 
         try (FileWriter writer = new FileWriter(filePath)) {
