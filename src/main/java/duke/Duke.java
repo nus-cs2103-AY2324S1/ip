@@ -8,7 +8,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
@@ -45,13 +44,14 @@ public class Duke extends Application {
     private Ui ui;
     private TaskList taskList;
     private Parser parser;
+    private ScrollPane scrollPane = new ScrollPane();
+    private VBox dialogContainer = new VBox();
+    private TextField userInput = new TextField();
+    private Button sendButton = new Button("Send");
+    private AnchorPane mainLayout = new AnchorPane();
+    private Scene scene = new Scene(mainLayout);
 
-    // JavaFX
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
+
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private String chatBotResponse;
@@ -62,7 +62,7 @@ public class Duke extends Application {
      * tasks from a file. If loading fails, it creates an empty task list.
      */
     public Duke() {
-        ui = new Ui();
+        ui = new Ui(scrollPane, dialogContainer, userInput, sendButton, scene, mainLayout);
         storage = new Storage(filePath);
         parser = new Parser();
 
@@ -82,109 +82,6 @@ public class Duke extends Application {
     }
 
     /**
-     * Runs the Duke chatbot.
-     */
-    public void run() {
-        try {
-            while (true) {
-                String response = ui.getUserInput();
-
-                // Use the parseCommandType method to determine the command type
-                Parser.CommandType commandType = parser.parseCommandType(response);
-
-                switch (commandType) {
-                    case BYE:
-                        ui.closeScanner();
-                        try {
-                            storage.save(taskList.getTaskArrayList());
-                        } catch (CustomException e) {
-                            System.out.println("Error saving tasks: " + e.getMessage());
-                        }
-                        return;
-                    case LIST:
-                        ui.showMessage("Here are the tasks in your list:");
-                        taskList.listTasks();
-                        continue;
-                    case MARK:
-                        try {
-                            int markId = Integer.parseInt(response.substring(5).trim());
-                            String markMessage = taskList.markTaskAsDone(markId);
-                            ui.showMessage(markMessage);
-                        } catch (NumberFormatException e) {
-                            ui.showMessage("Invalid format. Key in an integer within range");
-                        }
-                        continue;
-                    case UNMARK:
-                        try {
-                            int unmarkId = Integer.parseInt(response.substring(7).trim());
-                            String unmarkMessage = taskList.unmarkTask(unmarkId);
-                            ui.showMessage(unmarkMessage);
-                        } catch (NumberFormatException e) {
-                            ui.showMessage("Invalid format. Key in an integer within range");
-                        }
-                        continue;
-                    case FIND:
-                        ui.showMessage("Here are the matching tasks in your list:");
-                        taskList.findTasks(response.substring(5));
-                        continue;
-                    case TODO:
-                        String todoDescription = response.substring(5);
-                        Task toDo = parser.addTodoTask(todoDescription);
-                        String todoMessage = taskList.addTask(toDo);
-                        ui.showMessage(todoMessage);
-                        continue;
-                    case EVENT:
-                        String[] eventParts = response.split("/from|/to");
-                        if (eventParts.length == 3) {
-                            String eventDescription = eventParts[0].substring(6).trim();
-                            String from = eventParts[1].trim();
-                            String to = eventParts[2].trim();
-                            Task event = parser.addEventTask(eventDescription, from, to);
-                            String eventMessage = taskList.addTask(event);
-                            ui.showMessage(eventMessage);
-                        } else {
-                            ui.showMessage("Invalid event format. Use 'event <description> /from <datetime> /to <datetime>'.");
-                        }
-                        continue;
-                    case DEADLINE:
-                        String[] deadlineParts = response.split("/by", 2);
-                        if (deadlineParts.length == 2) {
-                            String deadlineDescription = deadlineParts[0].substring(9).trim();
-                            String dateTimeString = deadlineParts[1].trim();
-                            Task deadline = parser.addDeadlineTask(deadlineDescription, dateTimeString);
-                            String deadlineMessage = taskList.addTask(deadline);
-                            ui.showMessage(deadlineMessage);
-                        } else {
-                            String message = "Invalid deadline format. Use 'deadline <description> /by <datetime>'.";
-                            ui.showMessage(message);
-                        }
-                        continue;
-                    case DELETE:
-                        int deleteId = Integer.parseInt(response.substring(7));
-                        String deleteMessage = taskList.deleteTask(deleteId);
-                        ui.showMessage(deleteMessage);
-                        continue;
-                    case HELP:
-                        ui.showMessage(showHelp());
-                    case INVALID:
-                        ui.showMessage("I'm sorry, I don't understand that command.");
-                }
-                try {
-                    storage.save(taskList.getTaskArrayList());
-                } catch (CustomException e) {
-                    System.out.println("Error saving tasks: " + e.getMessage());
-                }
-            }
-        } catch (Exception e) {
-            try {
-                storage.save(taskList.getTaskArrayList());
-            } catch (CustomException customException) {
-                System.out.println("Error saving tasks: " + customException.getMessage());
-            }
-        }
-    }
-
-    /**
      * Initializes the JavaFX graphical user interface (GUI) for Duke.
      * Sets up the chat interface, input field, and send button. It also configures the appearance of
      * the GUI window and sets event handlers for user interactions.
@@ -192,51 +89,8 @@ public class Duke extends Application {
      * @param stage The JavaFX stage where the GUI is displayed.
      */
     public void start(Stage stage) {
-        //The container for the content of the chat to scroll.
-        scrollPane = new ScrollPane();
-        dialogContainer = new VBox();
-        scrollPane.setContent(dialogContainer);
 
-        userInput = new TextField();
-        sendButton = new Button("Send");
-
-        AnchorPane mainLayout = new AnchorPane();
-        mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
-
-        scene = new Scene(mainLayout);
-
-        stage.setScene(scene);
-        stage.show();
-
-
-        //Formatting the window to look as expected
-        stage.setTitle("Duke");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
-
-        mainLayout.setPrefSize(400.0, 600.0);
-
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(325.0);
-
-        sendButton.setPrefWidth(55.0);
-
-        AnchorPane.setTopAnchor(scrollPane, 1.0);
-
-        AnchorPane.setBottomAnchor(sendButton, 1.0);
-        AnchorPane.setRightAnchor(sendButton, 1.0);
-
-        AnchorPane.setLeftAnchor(userInput , 1.0);
-        AnchorPane.setBottomAnchor(userInput, 1.0);
+        ui.start(stage);
 
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
@@ -281,79 +135,8 @@ public class Duke extends Application {
      */
     public String getResponse(String input) {
         Parser.CommandType commandType = parser.parseCommandType(input);
-
-        switch (commandType) {
-            case BYE:
-                try {
-                    storage.save(taskList.getTaskArrayList());
-                    return ui.exit();
-                } catch (CustomException e) {
-                    return "Error saving tasks: " + e.getMessage();
-                }
-
-            case LIST:
-                return taskList.listTasks();
-            case MARK:
-                try {
-                    int markId = Integer.parseInt(input.substring(5).trim());
-                    String markMessage = taskList.markTaskAsDone(markId);
-                    return markMessage;
-                } catch (NumberFormatException e) {
-                    return "Invalid format. Key in an integer within range";
-                }
-            case UNMARK:
-                try {
-                    int unmarkId = Integer.parseInt(input.substring(7).trim());
-                    String unmarkMessage = taskList.unmarkTask(unmarkId);
-                    return unmarkMessage;
-                } catch (NumberFormatException e) {
-                    return "Invalid format. Key in an integer within range";
-                }
-            case FIND:
-                return taskList.findTasks(input.substring(5));
-            case TODO:
-                String todoDescription = input.substring(5);
-                Task toDo = parser.addTodoTask(todoDescription);
-                String todoMessage = taskList.addTask(toDo);
-                return todoMessage;
-            case EVENT:
-                String[] eventParts = input.split("/from|/to");
-                if (eventParts.length == 3) {
-                    String eventDescription = eventParts[0].substring(6).trim();
-                    String from = eventParts[1].trim();
-                    String to = eventParts[2].trim();
-                    Task event = parser.addEventTask(eventDescription, from, to);
-                    String eventMessage = taskList.addTask(event);
-                    return eventMessage;
-                } else {
-                    return "Invalid event format. Use 'event <description> /from <datetime> /to <datetime>'.";
-                }
-            case DEADLINE:
-                String[] deadlineParts = input.split("/by", 2);
-                if (deadlineParts.length == 2) {
-                    String deadlineDescription = deadlineParts[0].substring(9).trim();
-                    String dateTimeString = deadlineParts[1].trim();
-                    Task deadline = parser.addDeadlineTask(deadlineDescription, dateTimeString);
-                    String deadlineMessage = taskList.addTask(deadline);
-                    return deadlineMessage;
-                } else {
-                    return "Invalid deadline format. Use 'deadline <description> /by <datetime>'.";
-                }
-            case DELETE:
-                try {
-                    int deleteId = Integer.parseInt(input.substring(7));
-                    String deleteMessage = taskList.deleteTask(deleteId);
-                    return deleteMessage;
-                } catch (NumberFormatException e) {
-                    return "Invalid format. Key in an integer within range";
-                }
-            case INVALID:
-                return "I'm sorry, I don't understand that command.";
-            case HELP:
-                return showHelp();
-            default:
-                return "Unknown command.";
-        }
+        CommandManager commandManager = new CommandManager(ui, input, taskList, parser, storage);
+        return commandManager.execute(commandType);
     }
 
     /**
@@ -374,30 +157,6 @@ public class Duke extends Application {
         System.exit(0);
     }
 
-    /**
-     * Displays a help message explaining the available commands and their usage.
-     */
-    public String showHelp() {
-        StringBuilder helpMessage = new StringBuilder();
-        helpMessage.append("Welcome to Duke! Here are the available commands:\n");
-        helpMessage.append("- 'bye': Exits the chatbot and saves the task list to a file.\n");
-        helpMessage.append("- 'list': Lists all tasks in the current task list.\n");
-        helpMessage.append("- 'mark <task_id>': Marks a task as done by its ID.\n");
-        helpMessage.append("- 'unmark <task_id>': Unmarks a previously marked task.\n");
-        helpMessage.append("- 'todo <description>': Adds a to-do task with a description.\n");
-        helpMessage.append("- 'event <description> /from <datetime> /to <datetime>': Adds an event task with a description, start date, and end date.\n");
-        helpMessage.append("- 'deadline <description> /by <datetime>': Adds a deadline task with a description and due date.\n");
-        helpMessage.append("- 'delete <task_id>': Deletes a task by its ID.\n");
-        helpMessage.append("- 'find <keyword>': Searches for tasks containing the specified keyword.\n");
-        helpMessage.append("To use a command, simply type it in the chat and press 'Send'.\n");
-        helpMessage.append("For example: 'todo Buy groceries' or 'mark 1'.\n");
-
-        return helpMessage.toString();
-    }
 
 
-    public static void main(String[] args) {
-        Duke chatBot = new Duke();
-        chatBot.run();
-    }
 }
