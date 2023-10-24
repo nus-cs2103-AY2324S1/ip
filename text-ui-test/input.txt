@@ -1,0 +1,8 @@
+todo Poop
+deadline return book /by 02/12/2019
+event Supernova /from Mon 2pm /to Tue 2pm
+mark 2
+list
+delete 3
+list
+bye
