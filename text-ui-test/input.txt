@@ -1,0 +1,14 @@
+todo eat breakfast
+deadline assignment /by tonight
+todo meet with friends
+list
+event play badminton /from Sunday 4pm /to 6pm
+mark 3
+mark 1
+unmark 3
+mark 4
+todo study hard
+mark 5
+unmark 4
+mark 2
+list
