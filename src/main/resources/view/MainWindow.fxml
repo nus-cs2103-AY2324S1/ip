@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="400.0" stylesheets="@../values/styles.css" xmlns="http://javafx.com/javafx/17.0.7" xmlns:fx="http://javafx.com/fxml/1" fx:controller="duke.ui.MainWindow">
+    <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="396.0">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/DaDuke.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </ImageView>
+            <Label prefHeight="72.0" prefWidth="76.0" text="Carl Bot">
+               <font>
+                  <Font name="KoHo Regular" size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <Circle fill="#50c984" radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label prefHeight="72.0" prefWidth="76.0" text="Online">
+               <font>
+                  <Font name="KoHo Regular" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Label>
+         </children></HBox>
+        <TextField fx:id="userInput" layoutX="3.0" layoutY="558.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="347.0" promptText="Type something to send ..." AnchorPane.bottomAnchor="1.0" />
+        <ScrollPane fx:id="scrollPane" hvalue="1.0" layoutY="71.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pannable="true" prefHeight="487.0" prefWidth="400.0" vvalue="1.0">
+         <content>
+                <VBox fx:id="dialogContainer" prefHeight="483.0" prefWidth="396.0" styleClass="background-color" />
+         </content>
+        </ScrollPane>
+      <ImageView fitHeight="30.0" fitWidth="39.0" layoutX="361.0" layoutY="564.0" onMouseClicked="#handleUserInput" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/send-message.png" />
+         </image>
+      </ImageView>
+    </children>
+</AnchorPane>

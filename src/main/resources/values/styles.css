@@ -1,0 +1,15 @@
+.outgoing-bubble{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 20px;
+    -fx-text-fill: white;
+}
+
+.incoming-bubble{
+    -fx-background-color: #50C984;
+    -fx-background-radius: 20px;
+    -fx-text-fill: white;
+}
+
+.background-color{
+    -fx-background-color: #DADADA;
+}
