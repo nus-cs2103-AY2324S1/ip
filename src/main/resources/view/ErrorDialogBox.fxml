@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<fx:root maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+         prefWidth="400.0"
+         style="-fx-border-color: rgba(0,89,255,0.7);
+                -fx-border-radius: 30;
+                -fx-background-color: rgba(156,212,255,0.5);
+                -fx-background-radius: 30;
+                -fx-border-insets: 5;
+                -fx-background-insets: 5;
+                -fx-border-width: 1;"
+         type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+    <ImageView fx:id="displayPicture" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+    </ImageView>
+
+    <Label fx:id="dialog" minHeight="-Infinity"
+           style="-fx-text-fill: rgb(215,20,0);
+                    -fx-background-color: rgba(157,200,255,0.7);
+                    -fx-background-radius: 25; -fx-padding: 15;
+                    -fx-border-color: rgb(0,0,0);
+                    -fx-border-radius: 25;
+                    -fx-border-width: 0.5;"
+           text="Label" wrapText="true">
+        <font>
+            <Font name="Segoe UI Bold" size="12.0" />
+        </font>
+    </Label>
+</fx:root>
