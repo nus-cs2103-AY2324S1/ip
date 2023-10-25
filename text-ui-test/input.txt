@@ -1,0 +1,9 @@
+todo read book
+mark 1
+deadline return book /by June 6th
+event project meeting /from Mon 2pm /to 4pm
+list
+unmark 1
+list
+deadline do homework /by no idea :-p
+bye
