@@ -1,0 +1,4 @@
+T | 0 | Create User Guide |  #priority.high
+D | 1 | SEP Applications | 22/9/2023 2359
+E | 0 | JB Trip |  #fun #malaysia | 23/9/2023 0730 | 24/9/2023 2230
+T | 0 | CS2105 Assignment 1
