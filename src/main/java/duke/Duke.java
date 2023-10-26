@@ -1,13 +1,18 @@
 package duke;
 
-import duke.helper.Task;
+import duke.commands.Deadline;
+import duke.commands.Delete;
+import duke.commands.Event;
+import duke.commands.Mark;
+import duke.commands.Sort;
+import duke.commands.Todo;
+import duke.commands.Unmark;
 import duke.helper.Storage;
 import duke.helper.Ui;
 import duke.helper.Parser;
 import duke.helper.TaskList;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+
 import java.util.Scanner;
 
 
@@ -33,15 +38,7 @@ public class Duke {
         parser = new Parser();
     }
 
-    private boolean isValidDateFormat(String date) {
-        try {
-            LocalDate d = LocalDate.parse(date);
 
-        } catch (DateTimeParseException e) {
-            return false;
-        }
-        return true;
-    }
 
     /**
      * Handles interactions with the user in command line interface.
@@ -100,32 +97,38 @@ public class Duke {
 
         case "mark":
             //mark 1
-            message = mark();
+            Mark mark = new Mark(storage, parser, tasks);
+            message = mark.execute();
             break;
 
         case "unmark":
             //unmark 1
-            message = unmark();
+            Unmark unmark = new Unmark(storage, parser, tasks);
+            message = unmark.execute();
             break;
 
         case "todo":
             //todo read book
-            message = todo();
+            Todo todo = new Todo(storage, parser, tasks);
+            message = todo.execute();
             break;
 
         case "deadline":
             //deadline read book /by 2022-01-01
-            message = deadline();
+            Deadline deadline = new Deadline(storage, parser, tasks);
+            message = deadline.execute();
             break;
 
         case "event":
             //event read book /from 2022-01-01 /to 2022-01-02
-            message = event();
+            Event event = new Event(storage, parser, tasks);
+            message = event.execute();
             break;
 
         case "delete":
             //delete 1
-            message = delete();
+            Delete delete = new Delete(storage, parser, tasks);
+            message = delete.execute();
             break;
 
         case "find":
@@ -133,11 +136,12 @@ public class Duke {
             break;
 
         case "stats":
-            message = tasks.showTaskStatics();
+            message = tasks.showTaskStatistics();
             break;
 
         case "sort":
-            message = sort();
+            Sort sort = new Sort(storage, parser, tasks);
+            message = sort.execute();
             break;
 
         default:
@@ -147,160 +151,6 @@ public class Duke {
         return message;
     }
 
-    /**
-     * Stores the current tasks list to file.
-     *
-     */
-    public void store() {
-        storage.saveList(tasks.getUserList(), tasks.getUserListPointer());
-    }
-
-
-    /**
-     * Handles mark command.
-     *
-     * @return Blus's response to the user after processing the command.
-     */
-    public String mark(){
-        String message;
-        try {
-            int i = Integer.parseInt(parser.getTaskName()) - 1;
-            message = tasks.markTask(i);
-            store();
-
-        } catch (NumberFormatException e) {
-            message = "need to provide an integer index of task.";
-        }
-
-        return message;
-
-    }
-
-    /**
-     * Handles unmark command.
-     *
-     * @return Blus's response to the user after processing the command.
-     */
-    public String unmark(){
-        String message;
-        try {
-            int i = Integer.parseInt(parser.getTaskName()) - 1;
-            message = tasks.unmarkTask(i);
-            store();
-        } catch (NumberFormatException e) {
-            message = "need to provide an integer index of task.";
-        }
-
-        return message;
-    }
-
-    /**
-     * Handles todo command.
-     *
-     * @return Blus's response to the user after processing the command.
-     */
-    public String todo(){
-        String message;
-        if (parser.getTaskName().isEmpty()) {
-            return "Task name cannot be empty";
-        }
-        message = tasks.addTask(new Task(parser.getTaskName(),
-                1, "Null", "Null", false));
-        store();
-
-
-        return message;
-    }
-
-
-    /**
-     * Handles deadline command.
-     *
-     * @return Blus's response to the user after processing the command.
-     */
-    public String deadline(){
-        String message;
-        if (parser.getTaskName().isEmpty()) {
-            return  "Task name cannot be empty";
-        }
-        if (isValidDateFormat(parser.getFirstEnteredTime())) {
-            message = tasks.addTask(new Task(parser.getTaskName(),
-                    2, "Null", parser.getFirstEnteredTime(), false));
-            store();
-        } else {
-            message = "Invalid date format. Please enter as /by yyyy-mm-dd.";
-        }
-
-        return message;
-    }
-
-    /**
-     * Handles event command.
-     *
-     * @return Blus's response to the user after processing the command.
-     */
-    public String event(){
-        String message;
-        if (parser.getTaskName().isEmpty()) {
-            return "Task name cannot be empty";
-        }
-        if (isValidDateFormat(parser.getFirstEnteredTime()) &&
-                isValidDateFormat(parser.getSecondEnteredTime())) {
-            message = tasks.addTask(new Task(parser.getTaskName(),
-                    3, parser.getFirstEnteredTime(), parser.getSecondEnteredTime(), false));
-            store();
-        } else {
-            message = "Invalid date format. Please enter as /from yyyy-mm-dd /to yyyy-mm-dd.";
-        }
-
-        return message;
-    }
-
-    /**
-     * Handles delete command.
-     *
-     * @return Blus's response to the user after processing the command.
-     */
-    public String delete(){
-        String message;
-        try {
-            int i = Integer.parseInt(parser.getTaskName()) - 1;
-            message = tasks.deleteTask(i);
-            store();
-        } catch (NumberFormatException e) {
-            message = "need to provide an integer index of task.";
-        }
-
-        return message;
-    }
-
-    /**
-     * Handles sort command.
-     *
-     * @return Blus's response to the user after processing the command.
-     */
-    public String sort(){
-        String message;
-        if (!(parser.getTaskName().equals("by start date") || parser.getTaskName().equals("by end date"))) {
-            message = "Sorry, I do not know how you want to sort the tasks";
-        } else {
-
-            if (parser.getTaskName().equals("by start date")) {
-                tasks.sortByStartDate();
-            }
-
-            if (parser.getTaskName().equals("by end date")) {
-                tasks.sortByEndDate();
-            }
-
-            store();
-            message = "Your list is now sorted!\n\n";
-
-            message = message + tasks.displayList();
-        }
-
-        return message;
-    }
 
     /**
      * Returns greeting message.
@@ -321,6 +171,11 @@ public class Duke {
         return message;
     }
 
+    /**
+     * Returns message for saying goodbye.
+     *
+     * @return Goodbye message.
+     */
     public String bye() {
         return ui.exit();
     }

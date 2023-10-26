@@ -22,6 +22,12 @@ public class TaskList {
         this.userListPointer = 0;
     }
 
+    /**
+     * Adds a task into the task list.
+     *
+     * @param task The task to add.
+     * @return A message of successfully adding the task.
+     */
     public String addTask(Task task) {
         userList[userListPointer] = task;
         userListPointer++;
@@ -32,6 +38,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Deletes a task at given position.
+     *
+     * @param position The position of the task to be deleted.
+     * @return A message of the result of the process.
+     */
     public String deleteTask(int position) {
 
         if (position < 0 || position >= userListPointer) {
@@ -66,6 +78,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task at given position as done.
+     *
+     * @param position The position of the task to be marked.
+     * @return A message of the result of the process.
+     */
     public String markTask(int position) {
         if (position < 0 || position >= userListPointer) {
             return "Invalid index.";
@@ -82,6 +100,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Marks a task at given position as undone.
+     *
+     * @param position The position of the task to be marked.
+     * @return A message of the result of the process.
+     */
     public String unmarkTask(int position) {
         if (position < 0 || position >= userListPointer) {
             return "Invalid index.";
@@ -125,6 +149,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Finds all the tasks in the task list with given key word in their names.
+     *
+     * @param keyWords The key word for searching.
+     * @return A string representation of all the tasks found.
+     */
     public String findTask(String keyWords) {
         if (userListPointer < 1) {
             return "No items in the list yet";
@@ -147,7 +177,11 @@ public class TaskList {
         }
     }
 
-    public String showTaskStatics() {
+
+    /**
+     * Shows statistics about the task list.
+     */
+    public String showTaskStatistics() {
         if (userListPointer < 1) {
             return "No items in the list yet";
         } else {
@@ -183,7 +217,9 @@ public class TaskList {
         }
     }
 
-
+    /**
+     * Sorts the list based on start dates.
+     */
     public void sortByStartDate() {
         List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < userListPointer; i++) {
@@ -195,6 +231,9 @@ public class TaskList {
         }
     }
 
+    /**
+     * Sorts the list based on end dates.
+     */
     public void sortByEndDate() {
         List<Task> tasks = new ArrayList<>();
         for (int i = 0; i < userListPointer; i++) {
