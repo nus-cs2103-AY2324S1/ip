@@ -1,0 +1,10 @@
+todo go to the library
+deadline sleep and shower /by 10pm
+event visit the museum /from Wed 10am /to Wed 1pm
+deadline return book /by Sat 10pm
+mark 1
+mark 2
+list
+unmark 2
+list
+bye
