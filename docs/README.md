@@ -1,29 +1,51 @@
-# User Guide
+# User Guide for Rocket
 
 ## Features 
 
-### Feature-ABC
+### Add tasks
 
-Description of the feature.
+Add todos using `todo TASK` \
+Add deadlines using `deadline TASK \by DEADLINE` \
+Add events using `event TASK \from START_DATE \to END_DATE`
 
-### Feature-XYZ
+! Note: For dates, use this format "dd-MM-yyyy HH:mm". For example, `16-05-2021 09:24`
 
-Description of the feature.
+### List all tasks
+
+List all tasks using `list`
+
+### Mark and Unmark tasks
+
+Mark tasks using `mark TASK_NUMBER` \
+Unmark tasks using `unmark TASK_NUMBER`
+
+### Delete tasks
+
+Delete tasks using `delete TASK_NUMBER`
 
 ## Usage
 
-### `Keyword` - Describe action
+### `delete` - Delete a task
 
-Describe the action and its outcome.
+Delete a task. The task will be deleted from the list
 
-Example of usage: 
+Example of usage:
 
-`keyword (optional arguments)`
+`delete 2`
 
 Expected outcome:
 
-Description of the outcome.
+Task will no longer appear on the list
 
 ```
-expected output
+// initial list
+[T][ ] borrow book
+[T][ ] eat noodles
+[D][ ] get good (by: Dec 10 2024, 11:59 PM)
+[E][ ] building (from: Dec 07 2024, 11:59 PM to: Dec 09 2024, 11:59 PM)
+
+// list after command
+[T][ ] borrow book
+[D][ ] get good (by: Dec 10 2024, 11:59 PM)
+[E][ ] building (from: Dec 07 2024, 11:59 PM to: Dec 09 2024, 11:59 PM)
 ```
