@@ -15,3 +15,10 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+src/out/production/ip 1/Duke.class
+data/duke.txt
+META-INF/MANIFEST.MF
+src/.idea/misc.xml
+src/.idea/modules.xml
+src/.idea/vcs.xml
+data/search.txt
