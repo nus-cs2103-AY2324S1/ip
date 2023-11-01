@@ -1,0 +1,2 @@
+T | 0 | homework
+D | 0 | birthday | 2023-10-06
