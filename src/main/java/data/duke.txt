@@ -1,0 +1,5 @@
+T | 1 | brainstorm on report
+D | 1 | Finish Report | 31-12-2023 18:00
+D | 1 | assignment | 20-12-2023 18:00
+E | 0 | project meeting | 20-12-2023 18:00|20-12-2023 18:30
+T | 1 | watch lecture recording
