@@ -17,6 +17,8 @@ import duke.tasks.Task;
 /**
  * Storage class for import and export between txt file and TaskList.
  */
+// Solution below adapted by
+// https://github.com/jean-cq/ip/blob/master/src/main/java/urchatbot/storage/Storage.java
 public class Storage {
     private static String path;
     private static ArrayList<Task> taskList = new ArrayList<Task>();
@@ -50,6 +52,11 @@ public class Storage {
     *
     * @return an arraylist translated from the txt file
     */
+    // @@author infiBeyond-reused
+    // Reused from Chen Qun's iP load method with minor modifications
+    // Link to Chen Qun's implementation:
+    // https://github.com/jean-cq/ip/blob/master/src/main/java/urchatbot/storage/Storage.java
+    // load method
     public static ArrayList<Task> load() throws DukeException {
         handleMissing(path);
 
@@ -65,6 +72,7 @@ public class Storage {
         }
         return taskList;
     }
+    // @@author
 
     /**
     * handles missing txt file by creating a new one
