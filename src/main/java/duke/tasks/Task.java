@@ -13,7 +13,6 @@ public class Task {
     * constructs the task class
     *
     * @param task the description of the task
-    * @param isDone a boolean value that indicate whether the task is done or not
     */
     public Task(String task) {
         this.task = task;

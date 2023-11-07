@@ -285,6 +285,11 @@ public class Parser {
     * @param input the message to be translated into another date-time format
     * @return the reformatted time string
     */
+    // @@author infiBeyond-reused
+    // Reused from Chen Qun's iP changeTimeFormat method with minor modifications
+    // Link to Chen Qun's implementation:
+    // https://github.com/jean-cq/ip/blob/master/src/main/java/urchatbot/parser/Parser.java
+    // changeTimeFormat method
     private static String formatTime(String input) {
         try {
             // when input have a date and a time
@@ -308,6 +313,7 @@ public class Parser {
             }
         }
     }
+    // @@author
 
     /**
     * dummy method for testing parse
