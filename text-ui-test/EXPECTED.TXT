@@ -1,7 +1,62 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
 
+      ,-'"""`-.
+    ,'         `.
+   /        `    \
+  (    /          )
+  |             " |
+  (               )
+ `.\\          \ /
+   `:.     , \ ,\ _
+ WE   `:-.___,-`-.{\)
+ MUST  `.        |/ \
+ GO      `.        \ \
+ ON        `-.     _\,)
+              `.  |,-||
+                `.|| ||
+
+Hello, I'm sisyphus.Sisyphus.
+What can I do for you? Do you want to roll a boulder?
+_________________________________
+_________________________________
+The following sisyphus.task.ToDo has been added.
+[T][ ] roll boulder
+You now have 1 items in the list.
+_________________________________
+_________________________________
+The following deadline has been added.
+[D][ ] roll boulder (by: eternity)
+You now have 2 items in the list.
+_________________________________
+_________________________________
+The following event has been added.
+[E][ ] roll boulder (from: now to: forever)
+You now have 3 items in the list.
+_________________________________
+_________________________________
+1. [T][ ] roll boulder
+2. [D][ ] roll boulder (by: eternity)
+3. [E][ ] roll boulder (from: now to: forever)
+_________________________________
+_________________________________
+The following item has been marked as done.
+[D][X] roll boulder (by: eternity)
+_________________________________
+1. [T][ ] roll boulder
+2. [D][X] roll boulder (by: eternity)
+3. [E][ ] roll boulder (from: now to: forever)
+_________________________________
+_________________________________
+The following item has been unmarked and is now uncompleted.
+[D][ ] roll boulder (by: eternity)
+_________________________________
+1. [T][ ] roll boulder
+2. [D][ ] roll boulder (by: eternity)
+3. [E][ ] roll boulder (from: now to: forever)
+_________________________________
+_________________________________
+The following item has been deleted from the list.
+[D][ ] roll boulder (by: eternity)
+_________________________________
+1. [T][ ] roll boulder
+2. [E][ ] roll boulder (from: now to: forever)
+_________________________________
