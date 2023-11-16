@@ -1,0 +1,14 @@
+[D][ ] run (by: Oct 10 2100 09:00 PM)
+[T][X] runnnn
+[T][ ] run /from
+[E][ ] run (from: Oct 10 2100 09:00 PM to: Oct 10 2100 10:00 PM)
+[D][ ] jump (by: Dec 1 2100 12:00 AM)
+[T][ ] swimm
+[T][ ]    siu
+[D][ ] ju (by: Oct 10 2000 09:00 PM)
+[D][ ] ju (by: Oct 10 2000 12:00 AM)
+[D][ ] j (by: Oct 10 2000 09:00 PM)
+[D][X] j (by: Jan 1 2100 12:00 AM)
+[E][ ] ju (from: Oct 10 2100 08:00 PM to: Oct 10 2100 08:00 PM)
+[E][ ] j (from: Oct 10 2100 08:00 PM to: Oct 10 2100 12:00 AM)
+[F][X] j (for: 2 hours)

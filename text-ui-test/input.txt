@@ -1,0 +1,12 @@
+todo Read a book
+deadline Submit assignment /by 2023-09-01 10:00
+event Team meeting /from 2023-09-02 14:00 /to 2023-09-02 16:00
+list
+mark 2
+unmark 1
+delete 3
+todo Write a report
+event Conference call /from 2023-09-03 09:00 /to 2023-09-03 11:00
+fixed yoga /for 3 hours
+list
+bye
