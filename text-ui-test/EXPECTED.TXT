@@ -1,7 +1,95 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+[D]: (^O^)／ Heya~
+[D]: I am ~~Duchess~~!!
+[D]: What can I do for you!! o_O
 
+$>  
+[D]: Added successfully!! d(*⌒▽⌒*)b
+[D]: 1: [T] [ ] borrow book
+[D]: 
+[D]: Now you have 1 task(s)!! ヽ(´▽`)/
+
+$>  
+[D]: Task has been marked!! (＾▽＾)
+[D]: 1: [T] [X] borrow book
+
+$>  
+[D]: Task has been unmarked!! (＾▽＾)
+[D]: 1: [T] [ ] borrow book
+
+$>  
+[D]: Added successfully!! d(*⌒▽⌒*)b
+[D]: 2: [D] [ ] return book (by: 2023-08-27)
+[D]: 
+[D]: Now you have 2 task(s)!! ヽ(´▽`)/
+
+$>  
+[D]: Task has been marked!! (＾▽＾)
+[D]: 2: [D] [X] return book (by: 2023-08-27)
+
+$>  
+[D]: Added successfully!! d(*⌒▽⌒*)b
+[D]: 3: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+[D]: 
+[D]: Now you have 3 task(s)!! ヽ(´▽`)/
+
+$>  
+[D]: Here are the things you said!! ヽ(^o^)丿
+[D]: 1: [T] [ ] borrow book
+[D]: 2: [D] [X] return book (by: 2023-08-27)
+[D]: 3: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+$>  
+[D]: (´；ω；`) Sorry, todo names cannot be empty... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: todo [name]
+
+$>  
+[D]: (´；ω；`) Sorry, deadlines must have a deadline... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: deadline [name] /by [year-month-date]
+
+$>  
+[D]: (´；ω；`) Sorry, events must have an end time... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: event [name] /from [time] /to [time]
+
+$>  
+[D]: (´；ω；`) Sorry, no such task exists... ;-;
+
+$>  
+[D]: (´；ω；`) Sorry, no such task exists... ;-;
+
+$>  
+[D]: (´；ω；`) Sorry, I don't know which task to mark... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: mark [task number]
+
+$>  
+[D]: (´；ω；`) Sorry, I don't recognize that date... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: deadline [name] /by [year-month-date]
+
+$>  
+[D]: (´；ω；`) Sorry, events must have a start time... ;-;
+[D]: (／°▽°)／Try something like this!!
+[D]: event [name] /from [time] /to [time]
+
+$>  
+[D]: Here are the things you said!! ヽ(^o^)丿
+[D]: 1: [T] [ ] borrow book
+[D]: 2: [D] [X] return book (by: 2023-08-27)
+[D]: 3: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+$>  
+[D]: Deleted successfully!! d(*⌒▽⌒*)b
+[D]: 1: [T] [ ] borrow book
+[D]: 
+[D]: Now you have 2 task(s)!! ヽ(´▽`)/
+
+$>  
+[D]: Here are the things you said!! ヽ(^o^)丿
+[D]: 1: [D] [X] return book (by: 2023-08-27)
+[D]: 2: [E] [ ] project meeting (from: Mon 2pm to: 4pm)
+
+$>  
+[D]: Bye bye!! Hope to see you again (＾▽＾)
