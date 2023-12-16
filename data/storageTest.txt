@@ -1,0 +1,4 @@
+todo take a run0
+deadline project report /by 18/08/2001 19:001
+event project meeting /from 18/09/2001 19:00 /to 18/10/2001 19:001
+deadline exam paper /by 18/11/2001 19:000
