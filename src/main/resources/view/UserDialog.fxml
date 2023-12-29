@@ -1,0 +1,69 @@
+<!--
+@@author asdfghjkxd-reused
+Code reused from https://se-education.org/guides/tutorials/javaFxPart4.html, with some minor changes.
+-->
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Label?>
+
+<fx:root alignment="TOP_RIGHT" maxHeight="Infinity" maxWidth="450.0"
+         prefWidth="450.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17"
+         xmlns:fx="http://javafx.com/fxml/1" spacing="10.0">
+    <children>
+        <StackPane fx:id="dialogBubble">
+            <children>
+                <Region fx:id="backgroundRegion" maxWidth="350.0">
+                    <background>
+                        <Background>
+                            <fills>
+                                <BackgroundFill fill="lightgreen">
+                                    <radii>
+                                        <CornerRadii radius="20.0" />
+                                    </radii>
+                                </BackgroundFill>
+                            </fills>
+                        </Background>
+                    </background>
+                </Region>
+                <!--
+                Fix for bounded width but unbounded height label is adapted from
+                https://github.com/nus-cs2103-AY1920S2/forum/issues/58
+                -->
+                <Label fx:id="textLabel" wrapText="true" minHeight="-Infinity" maxWidth="300.0">
+                    <padding>
+                        <Insets top="15.0" right="15.0" bottom="15.0" left="15.0"/>
+                    </padding>
+                </Label>
+            </children>
+        </StackPane>
+        <ImageView fx:id="displayImage" fitHeight="60.0d" fitWidth="60.0d" preserveRatio="true">
+            <clip>
+                <Circle radius="30.0d" centerX="30.0" centerY="30.0"/>
+            </clip>
+            <image>
+                <!--
+                @@author asdfghjkxd-reused
+                Image reused from https://se-education.org/guides/tutorials/javaFxPart3.html.
+                -->
+                <Image url="@/images/DaUser.png" />
+                <!--
+                @@author
+                -->
+            </image>
+        </ImageView>
+    </children>
+    <alignment>
+        <Pos fx:constant="TOP_RIGHT"/>
+    </alignment>
+    <padding>
+        <Insets top="10.0" right="5.0" bottom="10.0" left="5.0"/>
+    </padding>
+</fx:root>
+<!--
+@@author
+-->
