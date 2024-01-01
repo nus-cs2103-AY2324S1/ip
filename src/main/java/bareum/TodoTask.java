@@ -1,0 +1,60 @@
+package bareum;
+
+/**
+ * This class implements a todo with a description.
+ */
+public class TodoTask extends Task {
+    /**
+     * Creates a new todo using the input completion status and description.
+     * @param isDone Completion status of todo.
+     * @param description Description of todo.
+     */
+    private TodoTask(boolean isDone, String description) {
+        super(isDone, description);
+    }
+
+    /**
+     * Creates a new todo using the input from the user.
+     * @param description Description of the todo
+     * @return New uncompleted todo with the corresponding description.
+     * @throws BareumException If description is empty.
+     */
+    static public TodoTask makeTodo(String description) throws BareumException {
+        if (description.length() == 0) {
+            throw new BareumException("Todo description cannot be empty.");
+        }
+
+        return new TodoTask(false, description);
+    }
+
+    /**
+     * Creates a new todo using the input from a saved todo.
+     * @param taskInputs Type, completion status, description and due date of the saved task.
+     * @return New todo with the corresponding description.
+     */
+    static public TodoTask makeTodo(String[] taskInputs) {
+        boolean isDone = taskInputs[1].equals("1");
+        String description = taskInputs[2];
+        String tag = taskInputs[3];
+
+        TodoTask newTask = new TodoTask(isDone, description);
+        newTask.tag(tag);
+
+        return newTask;
+    }
+
+    @Override
+    public String toString() {
+        return "[T]" + super.toString() + " [Tag: " + this.getTag() + "]";
+    }
+
+    /**
+     * Create a string representation of the details of the todo for saving into the hard disk.
+     * @return String representation of the details of the todo.
+     */
+    @Override
+    public String toSavedString() {
+        String done = isDone ? "1" : "0";
+        return "T|" + done + "|" + this.description + "|" + this.getTag() + "\n";
+    }
+}
