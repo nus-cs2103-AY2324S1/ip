@@ -19,4 +19,4 @@ Find the user guide for Bareum [here](https://lunaroddity.github.io/ip/)!
 
 ## Features
 - Stay on top of things by letting Bareum manage your tasks, deadlines and events!
-- Keep your tasks organised by tagging them
+- Keep your tasks organised by tagging them!
