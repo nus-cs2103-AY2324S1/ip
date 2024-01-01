@@ -1,3 +1,22 @@
+# Bareum
+![4780571b-72e3-41e1-b22d-eee21f3eb4b9](https://github.com/nus-cs2103-AY2324S1/ip/assets/101786124/1c5cfa9b-cd0a-4389-9c0f-cdb0667b2538)
+> _If you can't tell how near or far it is, why don't you start with the things that are within reach?
+-Doeun_
+
+🕙💯 Always organised and on top of things, Bareum **never** forgets a task! Using a text-based interface, it's
+- light
+- easy to learn
+- easy to use!
+
+Try out Bareum for **FREE** [here](https://github.com/lunaroddity/ip)! Just
+1. Download it
+2. Run it
+3. Add your tasks!
+
+## Features
+- [x] Stay on top of things by letting Bareum manage your tasks, deadlines and events!
+- [ ] Find a text-based interface hard-to-read? Use the Graphical User Interface (GUI) version! (coming soon)
+
 # Duke project template
 
 This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
