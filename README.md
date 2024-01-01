@@ -7,7 +7,7 @@
 - easy to learn
 - easy to use!
 
-Bareum is a greenfield Java project made for the CS2103T Software Engineering course.
+Bareum is a **greenfield Java project** made for the CS2103T Software Engineering course.
 
 Try Bareum out [here](https://github.com/lunaroddity/ip)! Just
 1. Ensure you have Java 11 or above installed on your computer
@@ -15,7 +15,7 @@ Try Bareum out [here](https://github.com/lunaroddity/ip)! Just
 3. Run it
 4. Start adding your tasks!
 
-Find the user guide for Bareum [here](https://lunaroddity.github.io/ip/)
+Find the user guide for Bareum [here](https://lunaroddity.github.io/ip/)!
 
 ## Features
 - Stay on top of things by letting Bareum manage your tasks, deadlines and events!
