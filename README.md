@@ -2,7 +2,7 @@
 
 ChatterBox is your friendly neighbourhood task manager! Never forget anything ever again!
 
-![chatterbox](Ui.png)
+![chatterbox](docs/Ui.png)
 
 ## Features 
 ChatterBox comes with a bunch of features such as:
