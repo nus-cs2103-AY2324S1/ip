@@ -1,8 +1,13 @@
-# ChatterBox User Guide
-
+# ChatterBox
 ChatterBox is your friendly neighbourhood task manager! Never forget anything ever again!
 
-![chatterbox](docs/Ui.png)
+### Overview
+ChatterBox is a desktop application for simple task management. The application is tailed for CLI-input with GUI-Output. The GUI is made with JavaFX.
+It is written in Java 11, built with Gradle, testing with JUnit, and spans about 2 KLoC. This individual project was completed as part of the course
+requirements for [CS2103 Software Engineering](https://nusmods.com/courses/CS2103/software-engineering), taken in NUS during AY23/24 Semester 1. 
+My code contributions can be found on my RepoSense dashboard [here](https://nus-cs2103-ay2324s1.github.io/ip-dashboard/?search=sp4ce&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=java~md~fxml~sh~bat~gradle&since=2023-08-18&until=2023-04-30%23%2F&tabOpen=true&tabType=authorship&tabAuthor=sp4ce-cowboy&tabRepo=sp4ce-cowboy%2Fip%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=java~md~sh~gradle&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false). 
+
+More information can be found on the product landing page [here](https://sp4ce-cowboy.github.io/ip/).
 
 ## Features 
 ChatterBox comes with a bunch of features such as:
