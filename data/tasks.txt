@@ -1,0 +1,6 @@
+T | 1 | task1
+T | 0 | task2
+D | 0 | task3 | Oct. 10 2023
+D | 0 | task 4 | Jan. 1 2023
+T | 0 | task 5
+E | 0 | task 6 | Jan. 1 2023-Jan. 2 2023
