@@ -1,29 +1,109 @@
-# User Guide
+# User Guide for ChadBot
 
-## Features 
+Track your tasks using Chadbot!  
 
-### Feature-ABC
+Chadbot is a **text-management app**.  
+With Chadbot, you can manage your tasks <ins>efficiently</ins>.
 
-Description of the feature.
+> I use this instead of my brain! - no one
 
-### Feature-XYZ
+## Key Features 
 
-Description of the feature.
+### Add a task
+
+Adds a task to your todo list
+
+### Mark tasks
+
+Marks a task with an 'X' when you have completed a task
+
+### Edit tasks
+
+Change the details of your task
+
+### Delete tasks
+
+Removes a task from your todo list
 
 ## Usage
 
-### `Keyword` - Describe action
+### `todo/deadline/event` - adds a task
 
-Describe the action and its outcome.
+Adds a task to your todo list.  
+There are three types of tasks:
+- todo only requires a name
+- deadline requires a date
+- event requires a start and end date
 
-Example of usage: 
+Format of command:  
+`todo (name of task)`  
+`deadline (name of task) /by (date)`
+`todo (name of task) /from (date) /to (date)`
 
-`keyword (optional arguments)`
+Dates are in the format of "d MMM YYYY"
 
-Expected outcome:
+Example of usage:
 
-Description of the outcome.
+`todo fold clothes`  
+`deadline pick up parcel /by 23 Oct 2023`  
+`event bali trip /from 24 Nov 2023 /to 26 Nov 2023`
 
-```
-expected output
-```
+### `mark/unmark` - marks/unmarks a task
+
+Marks a task with a 'X' or remove a 'X' beside a task
+
+Format of command:  
+`mark (task number)`  
+`unmark (task number)`
+
+Example of usage:
+
+`mark 2`  
+`unmark 1`
+
+### `edit` - edit a task
+
+Change the name or a date of a task
+
+Format of command:  
+`edit (task number) (task type) (detail to edit) (new detail)`
+
+
+Example of usage:
+
+`edit 1 T /name read book`  
+`edit 3 D /by 23 Oct 2024`  
+`edit 2 E /to 23 Oct 2023`
+
+### `delete` - delete a task
+
+Remove a task from the todo list
+
+Format of command:  
+`delete (task number)`
+
+Example of usage:
+
+`delete 1`
+
+### `find` - find a task with a keyword
+
+Shows all tasks that includes the keyword
+
+Format of command:  
+`find (keyword)`
+
+Example of usage:
+
+`find book`
+
+
+### `list` - view all tasks
+
+Shows all the task in the todo list
+
+Example of usage:
+
+`list`
+
+
