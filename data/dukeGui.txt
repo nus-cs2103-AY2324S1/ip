@@ -1,0 +1,5 @@
+T | 1 | CS2103T tutorial preparation
+E | 1 | CS2103T tutorial | 2023-09-21T14:00 | 2023-09-21T15:00
+D | 0 | IS2238 group assignment | 2023-09-24T23:59:59
+T | 1 | cs2100 homework
+D | 0 | CS2103T iP | 2023-09-22T16:00
