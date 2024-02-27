@@ -1,6 +1,7 @@
-# Duke project template
+# ip from NUS cs2103T
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a greenfield Java project. It's a desktop app for managing tasks, optimized for use via a Command Line Interface (CLI) while still bringing delights through a Graphical User Interface (GUI). 
+Please refer to the user guide [here](https://a1waysd.github.io/ip/)
 
 ## Setting up in Intellij
 
