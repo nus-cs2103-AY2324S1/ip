@@ -6,7 +6,7 @@ then
     mkdir ../bin
 fi
 
-# delete output from previous run
+# delete output from previous runx
 if [ -e "./ACTUAL.TXT" ]
 then
     rm ACTUAL.TXT
