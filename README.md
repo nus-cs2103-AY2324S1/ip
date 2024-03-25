@@ -22,7 +22,6 @@ User can find a task with certain keyword or list out all the tasks.
 
 ### Detect duplicate
 User are not allowed to add the exact same task into task list.<br />
-i.e
 
 ## Usage
 
