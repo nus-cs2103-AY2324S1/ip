@@ -1,7 +1,37 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
+Hi, I'm
+ _           _
+| |    _   _| | _____
+| |   | | | | |/ / _ \
+| |___| |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+No list, silly!
+added: [E][ ] test1 (from: start to: end)
+current task count: 1
+added: [T][ ] test 2
+current task count: 2
+added: [D][ ] test 3 (by: dead line)
+current task count: 3
+Here's the list so far.
+1. [E][ ] test1 (from: start to: end)
+2. [T][ ] test 2
+3. [D][ ] test 3 (by: dead line)
+Here's the list so far.
+1. [E][ ] test1 (from: start to: end)
+2. [T][X] test 2
+3. [D][ ] test 3 (by: dead line)
+Here's the list so far.
+1. [E][ ] test1 (from: start to: end)
+2. [T][X] test 2
+3. [D][ ] test 3 (by: dead line)
+Here's the list so far.
+1. [E][ ] test1 (from: start to: end)
+2. [T][ ] test 2
+3. [D][ ] test 3 (by: dead line)
+Here's the list so far.
+1. [E][ ] test1 (from: start to: end)
+2. [T][ ] test 2
+3. [D][ ] test 3 (by: dead line)
+Error, unknown command!?!
+Error, unknown command!?!
+Ok byeee
