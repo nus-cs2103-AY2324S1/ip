@@ -1,0 +1,31 @@
+/* Styling the dialog label */
+.dialog {
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+
+/* Styling the text field where the user inputs text */
+.userInput {
+    -fx-font-family: Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+
+/* Styling the send button */
+.sendButton {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+}
+
+/* Styling the scroll pane */
+.scrollPane {
+    -fx-background-color: #000000;
+}
+
+/* Styling the dialog container */
+.dialogContainer {
+    -fx-background-color: #ffffff;
+}
+
