@@ -1,0 +1,17 @@
+todo steal the declaration of independence
+list
+deadline fix the ceiling /by Sunday 12 pm
+list
+event rocket jumping competition /from Tuesday 9 am /to Tuesday 3 pm
+list
+mark 3
+list
+unmark 3
+remove 3
+list
+mark -2
+unmark -2
+deadline error
+event error
+todo error
+bye
