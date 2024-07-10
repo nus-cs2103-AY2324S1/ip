@@ -8,6 +8,15 @@
 /build/
 src/main/resources/docs/
 
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Cache of project
+.gradletasknamecache
+
 # MacOS custom attributes files created by Finder
 .DS_Store
 *.iml
