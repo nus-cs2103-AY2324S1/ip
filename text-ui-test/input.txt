@@ -1,0 +1,2 @@
+event exam /from today /to tomorrow
+bye
