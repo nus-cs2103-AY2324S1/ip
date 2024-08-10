@@ -1,0 +1,26 @@
+blah
+todo
+deadline invalid
+event invalid
+todo borrow book
+deadline return book by Tuesday
+event library event from Monday to Friday
+list
+event NUS event from Tuesday to Thursday
+deadline CS2103 Assignment by Friday
+todo go for a run
+list
+mark
+mark 0
+mark 1
+mark 3
+mark 4
+list
+unmark 0
+unmark 3
+unmark 1
+list
+delete 1
+delete 2
+list
+bye
