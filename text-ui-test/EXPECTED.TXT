@@ -4,4 +4,63 @@ Hello from
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
+_____________________________________
+
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 task in the list.
+
+_____________________________________
+_____________________________________
+
+Got it. I've added this task:
+  [D][ ] return book (by: August 8th)
+Now you have 2 tasks in the list.
+
+_____________________________________
+_____________________________________
+
+Got it. I've added this task:
+  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 3 tasks in the list.
+
+_____________________________________
+_____________________________________
+
+Nice! I've marked this task as done:
+
+  [D][X] return book (by: August 8th)
+_____________________________________
+_____________________________________
+
+1.[T][ ] read book
+2.[D][X] return book (by: August 8th)
+3.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+_____________________________________
+_____________________________________
+
+OOPS! :( ☹ OOPS!!! I'm sorry, but I don't know what that means :-(
+
+_____________________________________
+_____________________________________
+
+OOPS! :( ☹ OOPS!!! The description of a todo cannot be empty.
+
+_____________________________________
+_____________________________________
+
+Noted. I've removed this task:
+  [T][ ] read book
+Now you have 2 tasks in the list.
+_____________________________________
+_____________________________________
+
+1.[D][X] return book (by: August 8th)
+2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+_____________________________________
+_____________________________________
+
+Bye. Hope to see you again soon!
+
+_____________________________________
 

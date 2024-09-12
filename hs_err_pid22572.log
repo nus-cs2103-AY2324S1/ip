@@ -1,0 +1,194 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 257949696 bytes for Failed to commit area from 0x00000000e0000000 to 0x00000000ef600000 of length 257949696.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (./open/src/hotspot/os/windows/os_windows.cpp:3293), pid=22572, tid=15828
+#
+# JRE version:  (11.0.20+9) (build )
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (11.0.20+9-LTS-256, mixed mode, sharing, tiered, compressed oops, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dorg.gradle.internal.worker.tmpdir=C:\Users\Steven\Documents\ip\build\tmp\test\work -Dorg.gradle.native=false -Xmx512m -Dfile.encoding=windows-1252 -Duser.country=CN -Duser.language=zh -Duser.variant -ea worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 6'
+
+Host: AMD Ryzen 7 4800H with Radeon Graphics         , 16 cores, 15G,  Windows 10 , 64 bit Build 19041 (10.0.19041.3393)
+Time: Mon Sep 18 07:33:13 2023  Windows 10 , 64 bit Build 19041 (10.0.19041.3393) elapsed time: 0.097140 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001bb1c980800):  JavaThread "Unknown thread" [_thread_in_vm, id=15828, stack(0x00000096c0f00000,0x00000096c1000000)]
+
+Stack: [0x00000096c0f00000,0x00000096c1000000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6602ba]
+V  [jvm.dll+0x7a32af]
+V  [jvm.dll+0x7a4979]
+V  [jvm.dll+0x7a5013]
+V  [jvm.dll+0x258ef5]
+V  [jvm.dll+0x65d619]
+V  [jvm.dll+0x652375]
+V  [jvm.dll+0x31359d]
+V  [jvm.dll+0x313402]
+V  [jvm.dll+0x318036]
+V  [jvm.dll+0x360130]
+V  [jvm.dll+0x35fba2]
+V  [jvm.dll+0x2eec28]
+V  [jvm.dll+0x2efd35]
+V  [jvm.dll+0x77c327]
+V  [jvm.dll+0x77dc0f]
+V  [jvm.dll+0x36d3d9]
+V  [jvm.dll+0x760d0f]
+V  [jvm.dll+0x3df467]
+V  [jvm.dll+0x3e1511]
+C  [jli.dll+0x52e7]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17344]
+C  [ntdll.dll+0x526b1]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x000001bb1a812c40, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000001bb1c994800 GCTaskThread "GC Thread#0" [stack: 0x00000096c1000000,0x00000096c1100000] [id=7040]
+  0x000001bb1c9a8000 ConcurrentGCThread "G1 Main Marker" [stack: 0x00000096c1100000,0x00000096c1200000] [id=21324]
+  0x000001bb1c9a9800 ConcurrentGCThread "G1 Conc#0" [stack: 0x00000096c1200000,0x00000096c1300000] [id=18676]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffd52b0f6e7]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000001bb1c97b4f0] Heap_lock - owner thread: 0x000001bb1c980800
+
+Heap address: 0x00000000e0000000, size: 512 MB, Compressed Oops mode: Non-zero based: 0x00000000e0000000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff7493f0000 - 0x00007ff749400000 	C:\Program Files\Java\jdk-11\bin\java.exe
+0x00007ffd9f5b0000 - 0x00007ffd9f7a8000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffd9eb40000 - 0x00007ffd9ebfd000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffd9cf90000 - 0x00007ffd9d286000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffd9cce0000 - 0x00007ffd9cde0000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffd85400000 - 0x00007ffd8541b000 	C:\Program Files\Java\jdk-11\bin\VCRUNTIME140.dll
+0x00007ffd85420000 - 0x00007ffd85439000 	C:\Program Files\Java\jdk-11\bin\jli.dll
+0x00007ffd9d7a0000 - 0x00007ffd9d84e000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffd9e8b0000 - 0x00007ffd9e94e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffd9eaa0000 - 0x00007ffd9eb3c000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffd9d610000 - 0x00007ffd9d736000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffd9f3d0000 - 0x00007ffd9f56e000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffd9d290000 - 0x00007ffd9d2b2000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffd9dc10000 - 0x00007ffd9dc3c000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffd9d4f0000 - 0x00007ffd9d60a000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffd8e420000 - 0x00007ffd8e6ba000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e\COMCTL32.dll
+0x00007ffd9d420000 - 0x00007ffd9d4bd000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffd95110000 - 0x00007ffd9511a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffd9db60000 - 0x00007ffd9db90000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffd8d730000 - 0x00007ffd8d73c000 	C:\Program Files\Java\jdk-11\bin\vcruntime140_1.dll
+0x00007ffd6f2d0000 - 0x00007ffd6f35e000 	C:\Program Files\Java\jdk-11\bin\msvcp140.dll
+0x00007ffd52810000 - 0x00007ffd5337d000 	C:\Program Files\Java\jdk-11\bin\server\jvm.dll
+0x00007ffd9f3c0000 - 0x00007ffd9f3c8000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffd7a300000 - 0x00007ffd7a309000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffd9ec00000 - 0x00007ffd9ec6b000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffd95270000 - 0x00007ffd95297000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffd9b4b0000 - 0x00007ffd9b4c2000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffd8d610000 - 0x00007ffd8d620000 	C:\Program Files\Java\jdk-11\bin\verify.dll
+0x00007ffd9b2a0000 - 0x00007ffd9b484000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffd928c0000 - 0x00007ffd928f4000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffd9cde0000 - 0x00007ffd9ce62000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffd853d0000 - 0x00007ffd853f8000 	C:\Program Files\Java\jdk-11\bin\java.dll
+0x00007ffd866d0000 - 0x00007ffd866da000 	C:\Program Files\Java\jdk-11\bin\jimage.dll
+0x00007ffd85030000 - 0x00007ffd85047000 	C:\Program Files\Java\jdk-11\bin\zip.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Program Files\Java\jdk-11\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1110_none_60b5254171f9507e;C:\Program Files\Java\jdk-11\bin\server
+
+VM Arguments:
+jvm_args: -Dorg.gradle.internal.worker.tmpdir=C:\Users\Steven\Documents\ip\build\tmp\test\work -Dorg.gradle.native=false -Xmx512m -Dfile.encoding=windows-1252 -Duser.country=CN -Duser.language=zh -Duser.variant -ea 
+java_command: worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 6'
+java_class_path (initial): C:\\Users\\Steven\\.gradle\\caches\\7.6.2\\workerMain\\gradle-worker.jar;C:\\Users\\Steven\\Documents\\ip\\build\\classes\\java\\test;C:\\Users\\Steven\\Documents\\ip\\build\\classes\\java\\main;C:\\Users\\Steven\\Documents\\ip\\build\\resources\\main;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-fxml\\17.0.7\\dac7ac058b9c66a8a759dbf2d0ae4557749f3063\\javafx-fxml-17.0.7-win.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-fxml\\17.0.7\\a686a637faa5c7fd95be464f75124414643b6ccd\\javafx-fxml-17.0.7-mac.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-fxml\\17.0.7\\88571e5fa666c2d5bb560cc44d5b6158a7b9c8e5\\javafx-fxml-17.0.7-linux.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-controls\\17.0.7\\bf1cb6a3c81e190d56fd84aeeb0fc36d44f9be70\\javafx-controls-17.0.7-win.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-controls\\17.0.7\\9526295ad4cbee60dd2121802eb17a57d493e4d5\\javafx-controls-17.0.7-mac.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-controls\\17.0.7\\caeb9696d8901c66c9990ff337df884e1867d5b8\\javafx-controls-17.0.7-linux.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-controls\\17.0.7\\e5bc7891b9e2a389aeac4a5dcabf1130e852bf0c\\javafx-controls-17.0.7.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-graphics\\17.0.7\\43ca0f3861f1e3a2cda4a6a7b8746bbf5bcbe754\\javafx-graphics-17.0.7-win.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-graphics\\17.0.7\\d5463ebc0f524d0225a6613877c381abfcd81918\\javafx-graphics-17.0.7-mac.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\files-2.1\\org.openjfx\\javafx-graphics\\17.0.7\\c2029cf4a359ddb5fe0dec9d11407ea97940e06a\\javafx-graphics-17.0.7-linux.jar;C:\\Users\\Steven\\.gradle\\caches\\modules-2\\file
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 12                                        {product} {ergonomic}
+     uint ConcGCThreads                            = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 13                                        {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 257949696                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 536870912                                 {product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 7594288                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122031976                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122031976                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk-11
+PATH=D:\cute softwares\spring-boot-cli-2.0.1.RELEASE-bin\spring-2.0.1.RELEASE\bin;D:\cute softwares\JDK\bin;d:\cute softwares\xmapp\apache\bin\httpd.exe;c:\WINDOWS\System32\WBem;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\Steven\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\Steven\AppData\Local\Programs\Python\Python311\;D:\anaconda;D:\anaconda\Library\mingw-w64\bin;D:\anaconda\Library\usr\bin;D:\anaconda\Library\bin;D:\anaconda\Scripts;C:\Users\Steven\AppData\Local\Programs\Python\Python39\Scripts\;C:\Users\Steven\AppData\Local\Programs\Python\Python39\;C:\Users\Steven\AppData\Local\Microsoft\WindowsApps;C:\Users\Steven\AppData\Local\atom\bin;D:\ffmpeg-master-latest-win64-gpl\bin;D:\??\mingw64\bin;C:\Users\Steven\.dotnet\tools;D:\Microsoft VS Code\bin;C:\WINDOWS\System32\OpenSSH\;;C:\Windows\System32\OpenSSH;E:\Microsoft VS Code\bin;C:\Program Files\Java\jdk-11\bin;;C:\Program Files\JetBrains\IntelliJ IDEA 2023.2\bin;
+USERNAME=Steven
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=AMD64 Family 23 Model 96 Stepping 1, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10 , 64 bit Build 19041 (10.0.19041.3393)
+
+CPU:total 16 (initial active 16) (16 cores per cpu, 2 threads per core) family 23 model 96 stepping 1 microcode 0x0, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, mmxext, 3dnowpref, lzcnt, sse4a, ht, tsc, tscinvbit, tscinv, bmi1, bmi2, adx, 
+
+Memory: 4k page, system-wide physical 15741M (3237M free)
+TotalPageFile size 15741M (AvailPageFile size 251M)
+current process WorkingSet (physical memory assigned to process): 10M, peak: 10M
+current process commit charge ("private bytes"): 69M, peak: 315M
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (11.0.20+9-LTS-256) for windows-amd64 JRE (11.0.20+9-LTS-256), built on Jun 14 2023 10:34:22 by "mach5one" with MS VC++ 17.1 (VS2022)
+
+END.
