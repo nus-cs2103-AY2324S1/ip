@@ -1,0 +1,9 @@
+todo
+todo dance
+deadline
+deadline sing
+deadline sing /by
+deadline sing /by 2023-05-05 1800
+event go to school /from 2023-09-11 0800 /to 2023-09-11 1800
+list
+bye
