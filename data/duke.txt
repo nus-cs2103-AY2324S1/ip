@@ -1,0 +1,8 @@
+E | 0 | Dinner | 6pm-8pm
+T | 0 | CS2103 iP
+T | 0 | CS2103T iP
+D | 0 | CS2103T iP | Sep 22 2023
+E | 0 | dinner | 6pm-8pm
+T | 0 | CS2103T iP
+D | 0 | CS2103T iP | Sep 22 2023
+E | 0 | dinner | 6pm-8pm
