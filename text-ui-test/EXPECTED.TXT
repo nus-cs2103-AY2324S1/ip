@@ -1,7 +1,74 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+     Hello from
+       /\/\   __ ___  __
+      /    \ / _` \ \/ /
+     / /\/\ \ (_| |>  <
+     \/    \/\__,_/_/\_\
+     How may I assist you?
+____________________________________________________________
+     I gotchu. I've added this task:
+       [T][ ] meal prep
+     Now you have 1 task in the list.
+____________________________________________________________
+     I gotchu. I've added this task:
+       [D][ ] cook chicken (by: 6pm)
+     Now you have 2 tasks in the list.
+____________________________________________________________
+     I gotchu. I've added this task:
+       [E][ ] dinner (from: 6.30pm to: 7.30pm)
+     Now you have 3 tasks in the list.
+____________________________________________________________
+     Here are all your tasks:
+     1. [T][ ] meal prep
+     2. [D][ ] cook chicken (by: 6pm)
+     3. [E][ ] dinner (from: 6.30pm to: 7.30pm)
+____________________________________________________________
+     Good job on completing your task!
+       [T][X] meal prep
+____________________________________________________________
+     Good job on completing your task!
+       [D][X] cook chicken (by: 6pm)
+____________________________________________________________
+     Good job on completing your task!
+       [E][X] dinner (from: 6.30pm to: 7.30pm)
+____________________________________________________________
+     Here are all your tasks:
+     1. [T][X] meal prep
+     2. [D][X] cook chicken (by: 6pm)
+     3. [E][X] dinner (from: 6.30pm to: 7.30pm)
+____________________________________________________________
+     Watch out -- todo description cannot be empty.
+____________________________________________________________
+     Try again... deadline must include a '/by' tag!
+____________________________________________________________
+     Hey! Event must contain '/from' and '/to' tags.
+____________________________________________________________
+     Oops... Deadline item or 'by' date cannot be empty.
+____________________________________________________________
+     Oops... Deadline item or 'by' date cannot be empty.
+____________________________________________________________
+     Hey! Event must contain '/from' and '/to' tags.
+____________________________________________________________
+     Hey! Event must contain '/from' and '/to' tags.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
+     Oh no! Event item, 'from' date, or 'to' date cannot be empty.
+____________________________________________________________
+     Oh no! I cannot recognise that command.
+____________________________________________________________
+     Seems like that number is out of range. Check again!
+____________________________________________________________
+     Alright. I have removed this task:
+       [D][X] cook chicken (by: 6pm)
+     Now you have 2 tasks left.
+____________________________________________________________
+     Here are all your tasks:
+     1. [T][X] meal prep
+     2. [E][X] dinner (from: 6.30pm to: 7.30pm)
+____________________________________________________________
+     Bye! Please come again!
+____________________________________________________________
