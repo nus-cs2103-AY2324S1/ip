@@ -1,0 +1,9 @@
+todo read book
+event skateboarding /from Fri 6pm /to 8pm
+deadline CS2103 ip /by Friday
+list
+mark 2
+unmark 1
+mark 1
+list
+bye
