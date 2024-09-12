@@ -13,5 +13,10 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Generated test outputs
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/data
+
+# Generated task list data
+/data/
