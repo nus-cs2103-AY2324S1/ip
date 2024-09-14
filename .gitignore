@@ -3,10 +3,16 @@
 /out/
 /*.iml
 
+# .class files
+*.class
+
 # Gradle build files
 /.gradle/
 /build/
 src/main/resources/docs/
+
+# Saved data files
+data/
 
 # MacOS custom attributes files created by Finder
 .DS_Store

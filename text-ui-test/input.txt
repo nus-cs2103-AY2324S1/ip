@@ -1,0 +1,12 @@
+list
+todo buy water
+event drink the water /from now /to later
+deadline drink water /by tomorrow
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 2
+list
+bye
