@@ -1,0 +1,3 @@
+Comparing files ACTUAL.TXT and EXPECTED.TXT
+FC: no differences encountered
+

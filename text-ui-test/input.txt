@@ -1,0 +1,32 @@
+todo borrow book
+deadline return book /by Sunday
+event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2023-09-01
+event project meeting /from 2023-09-01 /to 2023-09-01
+list
+mark 1
+mark 3
+list
+unmark 1
+list
+abcd
+todo
+event abcd
+event abcd from
+event abcd /from
+event abcd /from /to
+event abcd /from asdf to
+event abcd /from asdf /to
+event abcd /from 2023-09-01 /to 2023-09-01
+deadline
+deadline abcd
+deadline abcd by
+deadline abcd /by
+deadline abcd /by 2023-09-01
+list
+delete
+delete abc
+delete 123
+delete 4
+list
+bye
