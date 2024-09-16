@@ -1,0 +1,12 @@
+.text-field {
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 2, 0, 0, 0);
+}
+.button {
+    -fx-background-radius: 16;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 2, 0, 0, 0);
+}
+.profile-picture {
+    -fx-background-radius: 22;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 1, 0, 0, 0);
+}

@@ -1,3 +1,6 @@
+# data files
+todoifydata/
+
 # IDEA files
 /.idea/
 /out/
@@ -7,6 +10,10 @@
 /.gradle/
 /build/
 src/main/resources/docs/
+
+# other config files
+.project
+.settings/
 
 # MacOS custom attributes files created by Finder
 .DS_Store

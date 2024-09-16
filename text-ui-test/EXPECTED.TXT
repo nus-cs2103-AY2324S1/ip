@@ -1,7 +1,242 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+[Todoify]:
+  Hello! I'm Todoify, your friendly task helper.
+
+[Todoify]:
+  You have no tasks right now! :)
+
+[Todoify]:
+  What can I do for you?
+
+[You]:
+ > 
+[Todoify]:
+  Oops! Sorry, idgi :(
+  You might wanna try the 'help' command to let me guide you about all available commands!
+
+[You]:
+ > 
+[Todoify]:
+  Oops! Sorry, idgi :(
+  You might wanna try the 'help' command to let me guide you about all available commands!
+
+[You]:
+ > 
+[Todoify]:
+  Oops! Sorry, idgi :(
+  You might wanna try the 'help' command to let me guide you about all available commands!
+
+[You]:
+ > 
+[Todoify]:
+  Got it. I've added this todo:
+    <T> [ ] read book
+  You have 1 tasks in your list now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Got it. I've added this deadline:
+    <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+  You have 2 tasks in your list now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Got it. I've added this event:
+    <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
+  You have 3 tasks in your list now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Here are your tasks, glhf! :)
+  1. <T> [ ] read book
+  2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+  3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
+
+[You]:
+ > 
+[Todoify]:
+  Got it. I've added this todo:
+    <T> [ ] join sports club
+  You have 4 tasks in your list now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Got it. I've added this todo:
+    <T> [ ] borrow book
+  You have 5 tasks in your list now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Here are your tasks, glhf! :)
+  1. <T> [ ] read book
+  2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+  3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
+  4. <T> [ ] join sports club
+  5. <T> [ ] borrow book
+
+[You]:
+ > 
+[Todoify]:
+  Got it. I've added this deadline:
+    <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+  You have 6 tasks in your list now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Oops! The date supplied is invalid! They must be correct dates and follow the ISO8601 date format (yyyy-MM-dd or yyyy-MM-ddThh:mm).
+  For example, 2023-01-31T12:34 is one such valid date.
+
+[You]:
+ > 
+[Todoify]:
+  Oops! The command 'deadline' requires parameters '--by <date>', but not all are present!
+
+[You]:
+ > 
+[Todoify]:
+  Got it. I've added this event:
+    <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
+  You have 7 tasks in your list now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Oops! The command 'event' requires parameters '--from <date> --to <date>', but not all are present!
+
+[You]:
+ > 
+[Todoify]:
+  Oops! The command 'event' requires parameters '--from <date> --to <date>', but not all are present!
+
+[You]:
+ > 
+[Todoify]:
+  Here are your tasks, glhf! :)
+  1. <T> [ ] read book
+  2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+  3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
+  4. <T> [ ] join sports club
+  5. <T> [ ] borrow book
+  6. <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+  7. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
+
+[You]:
+ > 
+[Todoify]:
+  Nice! I've marked this task as done:
+     <T> [X] borrow book
+
+[You]:
+ > 
+[Todoify]:
+  Nice! I've marked this task as done:
+     <T> [X] read book
+
+[You]:
+ > 
+[Todoify]:
+  Nice! I've marked this task as done:
+     <T> [X] join sports club
+
+[You]:
+ > 
+[Todoify]:
+  Here are your tasks, glhf! :)
+  1. <T> [X] read book
+  2. <D> [ ] return book (by: Jun 6, 2023, 12:00 AM)
+  3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
+  4. <T> [X] join sports club
+  5. <T> [X] borrow book
+  6. <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+  7. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
+
+[You]:
+ > 
+[Todoify]:
+  OK, I've marked this task as not done yet:
+     <T> [ ] join sports club
+
+[You]:
+ > 
+[Todoify]:
+  Nice! I've marked this task as done:
+     <D> [X] return book (by: Jun 6, 2023, 12:00 AM)
+
+[You]:
+ > 
+[Todoify]:
+  Nice! I've marked this task as done:
+     <D> [X] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+
+[You]:
+ > 
+[Todoify]:
+  OK, I've marked this task as not done yet:
+     <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+
+[You]:
+ > 
+[Todoify]:
+  Oops! There is no task in the list numbered 8!
+
+[You]:
+ > 
+[Todoify]:
+  Oops! There is no task in the list numbered 8!
+
+[You]:
+ > 
+[Todoify]:
+  Here are your tasks, glhf! :)
+  1. <T> [X] read book
+  2. <D> [X] return book (by: Jun 6, 2023, 12:00 AM)
+  3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
+  4. <T> [ ] join sports club
+  5. <T> [X] borrow book
+  6. <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+  7. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
+
+[You]:
+ > 
+[Todoify]:
+  Alright, I've deleted this task:
+     <D> [ ] ip week 2 (by: Aug 24, 2024, 12:00 AM)
+  You're left with 6 tasks now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Alright, I've deleted this task:
+     <T> [ ] join sports club
+  You're left with 5 tasks now! :)
+
+[You]:
+ > 
+[Todoify]:
+  Oops! There is no task in the list numbered 6!
+
+[You]:
+ > 
+[Todoify]:
+  Oops! There is no task in the list numbered 6!
+
+[You]:
+ > 
+[Todoify]:
+  Here are your tasks, glhf! :)
+  1. <T> [X] read book
+  2. <D> [X] return book (by: Jun 6, 2023, 12:00 AM)
+  3. <E> [ ] project meeting (from: Aug 6, 2023, 2:00 PM, to: Aug 6, 2023, 4:00 PM)
+  4. <T> [X] borrow book
+  5. <E> [ ] test (from: Jan 1, 2030, 12:00 AM, to: Dec 31, 2040, 12:00 AM)
+
+[You]:
+ > 
+[Todoify]:
+  Bye! Hope to see you again soon! ^-^
 

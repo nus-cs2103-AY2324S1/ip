@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# navigate to the same directory the script is in
+cd "$(dirname "$0")"
+
 # create bin directory if it doesn't exist
 if [ ! -d "../bin" ]
 then
@@ -12,22 +15,35 @@ then
     rm ACTUAL.TXT
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+# clear all existing jar files and data files
+rm -r ../build/libs/todoify*.jar 2> /dev/null
+rm -r ./todoifydata 2> /dev/null
+
+# return to upper dir for compilation
+cd ..
+
+# compile a new full jar file
+if ! ./gradlew shadowJar
 then
-    echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
-# run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+# go back into curr dir
+cd - >> /dev/null
 
-# convert to UNIX format
-cp EXPECTED.TXT EXPECTED-UNIX.TXT
-dos2unix ACTUAL.TXT EXPECTED-UNIX.TXT
+echo
+
+# run the program with en-US locale (for consistency, as the program uses locale-dependent formatting)
+# this also feed commands from input.txt file and redirect the output to the ACTUAL.TXT
+echo "Executing text UI tests..."
+java -Duser.language=en -Duser.country=US -classpath ../bin -jar ../build/libs/todoify*.jar --text-ui < input.txt > ACTUAL.TXT
+
+# delete the data output file
+rm -r ./todoifydata
 
 # compare the output to the expected output
-diff ACTUAL.TXT EXPECTED-UNIX.TXT
+diff --strip-trailing-cr ACTUAL.TXT EXPECTED.TXT
+
 if [ $? -eq 0 ]
 then
     echo "Test result: PASSED"
@@ -36,3 +52,4 @@ else
     echo "Test result: FAILED"
     exit 1
 fi
+

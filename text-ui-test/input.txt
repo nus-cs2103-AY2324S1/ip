@@ -1,0 +1,34 @@
+hello
+test
+blah
+todo read book
+deadline return book --by 2023-06-06
+event project meeting --from 2023-08-06T14:00 --to 2023-08-06T16:00
+list
+todo join sports club
+todo borrow book
+list
+deadline ip week 2 --by 2024-08-24
+deadline tp --by idk
+deadline nonsense
+event test --from 2030-01-01 --to 2040-12-31
+event wrong --from --to
+event missing
+list
+mark 5
+mark 1
+mark 4
+list
+unmark 4
+mark 2
+mark 6
+unmark 6
+mark 8
+mark 8
+list
+delete 6
+delete 4
+delete 6
+delete 6
+list
+bye
