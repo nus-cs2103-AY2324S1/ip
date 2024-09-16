@@ -1,0 +1,40 @@
+.root {
+  -fx-base: #98A5E0;
+  -fx-accent: #3F4E94;
+  -fx-font-family: "Georgia";
+  -fx-font-size: 14;
+}
+
+#scrollPane {
+  -fx-background-color: transparent;
+}
+
+#scrollPane .scroll-bar:vertical .increment-button,
+#scrollPane .scroll-bar:vertical .decrement-button {
+  -fx-padding: 0;
+  -fx-opacity: 0;
+}
+
+#scrollPane .scroll-bar:vertical {
+  -fx-background-color: transparent;
+  -fx-pref-width: 10;
+}
+
+#dialog {
+  -fx-background-color: "#8aaae3";
+  -fx-padding: 10;
+  -fx-background-radius: 10;
+  -fx-max-width: 270.0;
+  -fx-text-fill: "black";
+}
+
+#userInput {
+  -fx-background-color: #98A5E0;
+  -fx-text-fill: "black";
+}
+
+#sendButton {
+  -fx-background-color: #98A5E0;
+  -fx-cursor: HAND;
+  -fx-text-fill: "black";
+}
