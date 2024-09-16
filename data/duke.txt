@@ -1,0 +1,6 @@
+T | 0 | buy chicken rice
+T | 1 | cs2101 presentation
+E | 0 | noc meeting | September 25 2023 3pm - September 25 2023 5pm
+D | 0 | noc resume update | 24 Sep 2023 11:59pm
+T | 0 | tuna
+T | 0 | meeting
