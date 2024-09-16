@@ -1,7 +1,54 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+================================================
+|                                              |
+|                   Hey there!                 |
+|      I'm BouncyBob, your bubbly chatbot!     |
+| Wow you look very round today, like a ball!  |
+|                                              |
+================================================
+Enter something:
+================================================
+Added to database: do laundry
+Currently, you have 1 task, start bouncing!
+================================================
+Enter something:
+================================================
+Added to database: do CS2103T homework (by: Thursday 2359)
+Currently, you have 2 tasks, start bouncing!
+================================================
+Enter something:
+================================================
+Added to database: orbital splashdown (from: wednesday 1800 to: wednesday 2130)
+Currently, you have 3 tasks, start bouncing!
+================================================
+Enter something:
+================================================
+Here are your tasks!
+[T][ ] do laundry
+[D][ ] do CS2103T homework (by: Thursday 2359)
+[E][ ] orbital splashdown (from: wednesday 1800 to: wednesday 2130)
+================================================
+Enter something:
+================================================
+You've done it, very bouncy!
+[D][X] do CS2103T homework (by: Thursday 2359)
+================================================
+Enter something:
+================================================
+Here are your tasks!
+[T][ ] do laundry
+[D][X] do CS2103T homework (by: Thursday 2359)
+[E][ ] orbital splashdown (from: wednesday 1800 to: wednesday 2130)
+================================================
+Enter something:
+================================================
+Gotta pump for air! It's unmarked!
+[D][ ] do CS2103T homework (by: Thursday 2359)
+================================================
+Enter something:
+================================================
+Here are your tasks!
+[T][ ] do laundry
+[D][ ] do CS2103T homework (by: Thursday 2359)
+[E][ ] orbital splashdown (from: wednesday 1800 to: wednesday 2130)
+================================================
+Enter something:

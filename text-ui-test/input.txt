@@ -1,0 +1,8 @@
+todo do laundry
+deadline do CS2103T homework /by Thursday 2359
+event orbital splashdown /from wednesday 1800 /to wednesday 2130
+list
+mark 1
+list
+unmark 1
+list
