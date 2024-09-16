@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'checkstyle'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.10'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    String javaFxVersion = '17.0.7'
+
+    // JavaFX 17.0.7 dependencies for macOS on ARM64
+    implementation 'org.openjfx:javafx-base:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-controls:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:mac-aarch64'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:mac-aarch64'
+
+    // JavaFX 17.0.7 dependencies for Linux
+    implementation 'org.openjfx:javafx-base:17.0.7:linux'
+    implementation 'org.openjfx:javafx-controls:17.0.7:linux'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:linux'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:linux'
+
+    // JavaFX 17.0.7 dependencies for Windows
+    implementation 'org.openjfx:javafx-base:17.0.7:win'
+    implementation 'org.openjfx:javafx-controls:17.0.7:win'
+    implementation 'org.openjfx:javafx-fxml:17.0.7:win'
+    implementation 'org.openjfx:javafx-graphics:17.0.7:win'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+checkstyle {
+    toolVersion = '10.2'
+}
+
+application {
+    mainClass.set("duke.Launcher")
+}
+
+shadowJar {
+    archiveBaseName = "duke"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
+}
+
+run{
+    standardInput = System.in
+    enableAssertions = true
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
