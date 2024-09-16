@@ -5,3 +5,106 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+────────────────────────────────────────────────────────────
+Hello! I'm Orion
+What can I do for you?
+
+────────────────────────────────────────────────────────────
+Got it. I've added this task:
+  [T][ ] read book
+Now you have 1 tasks in the list.
+
+────────────────────────────────────────────────────────────
+Got it. I've added this task:
+  [D][ ] return book (by: June 6th)
+Now you have 2 tasks in the list.
+
+────────────────────────────────────────────────────────────
+Got it. I've added this task:
+  [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+Now you have 3 tasks in the list.
+
+────────────────────────────────────────────────────────────
+Got it. I've added this task:
+  [T][ ] join sports club
+Now you have 4 tasks in the list.
+
+────────────────────────────────────────────────────────────
+Nice! I've marked this task as done:
+  [T][✗] read book
+
+────────────────────────────────────────────────────────────
+OK, I've marked this task as not done yet:
+  [T][ ] read book
+
+────────────────────────────────────────────────────────────
+Nice! I've marked this task as done:
+  [D][✗] return book (by: June 6th)
+
+────────────────────────────────────────────────────────────
+Nice! I've marked this task as done:
+  [T][✗] join sports club
+
+────────────────────────────────────────────────────────────
+Noted! I've removed this task:
+  [T][ ] read book
+Now you have 3 tasks in the list.
+
+────────────────────────────────────────────────────────────
+Here are the tasks in your list:
+1.[D][✗] return book (by: June 6th)
+2.[E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+3.[T][✗] join sports club
+
+────────────────────────────────────────────────────────────
+Oops!!! The bye command should not be followed by any description
+
+────────────────────────────────────────────────────────────
+Oops!!! The list command should not be followed by any description
+
+────────────────────────────────────────────────────────────
+Oops!!! Invalid argument of a mark command
+
+────────────────────────────────────────────────────────────
+Please input a valid index for the task to marked/unmarked
+
+────────────────────────────────────────────────────────────
+Oops!!! Invalid argument of a mark command
+
+────────────────────────────────────────────────────────────
+Oops!!! The description of a todo task cannot be empty
+
+────────────────────────────────────────────────────────────
+Oops!!! You forgot to provide a deadline for the deadline task
+
+────────────────────────────────────────────────────────────
+Oops!!! You forgot to provide a deadline for the deadline task
+
+────────────────────────────────────────────────────────────
+Oops!!! You forgot to provide a deadline for the deadline task
+
+────────────────────────────────────────────────────────────
+Oops!!! The description of a deadline task cannot be empty
+
+────────────────────────────────────────────────────────────
+Oops!!! Please provide a proper period for the event task
+
+────────────────────────────────────────────────────────────
+Oops!!! Please provide a proper period for the event task
+
+────────────────────────────────────────────────────────────
+Oops!!! Please provide a proper period for the event task
+
+────────────────────────────────────────────────────────────
+Oops!!! The description of an event task cannot be empty
+
+────────────────────────────────────────────────────────────
+Oops!!! Invalid argument of a delete command
+
+────────────────────────────────────────────────────────────
+Oops!!! I'm sorry, but I don't know what that means :-(
+
+────────────────────────────────────────────────────────────
+Bye. Hope to see you again soon!
+
+────────────────────────────────────────────────────────────
