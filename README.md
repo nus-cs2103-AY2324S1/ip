@@ -1,6 +1,7 @@
 # Duke project template
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+This is a CS2103T Software Engineering project, forked from a project template "Duke", for a greenfield Java project, and subsequently renamed to "Luke".
+Luke is a CLI Chatbot that manages To-dos.
 
 ## Setting up in Intellij
 
