@@ -1,0 +1,53 @@
+list
+todo borrow book
+list
+deadline return book /by 26/8/2023 1200
+event project meeting /from 22/8/2023 2359 /to 31/12/2100 0000
+mark 2
+list
+mark 4
+list
+unmark 2
+list
+unmark 4
+list
+unmark 1
+list
+todo todo
+list
+mark 4
+unmark 4
+mark a
+unmark a
+mark 1 1
+unmark 1 1
+markk 1
+unmarkk 1
+mark
+unmark
+markk
+unmarkk
+mark   1
+unmark        1
+deadline      space    test     /by      22/8/2100 1111
+event      many      spaces      /from     22/8/2500 1111 /to   22/8/2800 2222
+todo             spaces
+list
+delete 1
+list
+delete 4
+list
+deletee 1
+delete 1 1
+todo
+deadline
+event
+mark
+unmark
+delete
+deadline test no deadline /by
+event test no from /from     /to   tomorrow
+event test no to /from today /to
+deadline test bad date /by 33/12/1000 2000
+deadline test bad time /by 31/12/1000 2401
+bye
