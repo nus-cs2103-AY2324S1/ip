@@ -1,0 +1,7 @@
+todo drink tea
+list
+deadline return book /by Sunday
+event project meeting /from Tues 2pm /to 4pm
+mark 2
+mark 3
+bye
