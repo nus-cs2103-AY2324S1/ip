@@ -1,0 +1,20 @@
+todo
+todo read book
+tada read book
+deadline return book
+deadline return book /by sunday
+deadline /by sunday
+event go library
+event go library /from 1pm /to 2pm
+event /from 1pm /to 2pm
+list
+list 1
+mark 1
+mark -1
+delete -2
+delete 2
+todo read book
+mark 2
+unmark 1
+list
+bye
