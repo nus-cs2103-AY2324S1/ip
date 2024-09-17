@@ -1,0 +1,15 @@
+todo this
+list
+deadline these /by
+deadline that /by 2359
+event those /from ??? /to !!!
+event /from 1000 /to 1001
+todo
+mark 1
+mark 2
+unmark 1
+delete 10
+delete 1
+list
+mark 100
+bye
