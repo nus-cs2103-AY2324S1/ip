@@ -1,0 +1,6 @@
+D | 1 | quiz | 2023-09-30
+E | 0 | group meeting | 2023-09-24 10:00 | 2023-09-24 12:00
+T | 0 | watch lecture
+D | 0 | project proposal | 2023-10-01
+E | 0 | seminar | 2023-10-02 14:00 | 2023-10-02 18:00
+T | 0 | group formation
