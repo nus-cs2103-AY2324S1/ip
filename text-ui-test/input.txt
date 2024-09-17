@@ -1,0 +1,8 @@
+todo start 2103T testing
+deadline 2103T tut /by next week
+event 2101 project meeting /from now /to later
+list
+mark 1
+mark 2
+list
+bye
