@@ -1,7 +1,31 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm BoxBox
+What can I do for you?
+list is empty :(
+The description of todo should not be empty
+Added to list: read
+Now you have 1 task in the list
+1 [T] [ ] read
+I've marked this task as done!
+[T] [/] read
+There is no corresponding task in the list
+It has already been done
+Please provide information for: "/by"
+The description of deadline should not be empty
+Please provide information for: "/by"
+Added to list: play
+Now you have 2 tasks in the list
+1 [T] [/] read
+2 [D] [ ] play (by: 3)
+The description of event should not be empty
+Please provide information for: "/to"
+Please provide information for: "/from"
+The description of event should not be empty
+Added to list: cook
+Now you have 3 tasks in the list
+1 [T] [/] read
+2 [D] [ ] play (by: 3)
+3 [E] [ ] cook (from: 5 to: 2)
+It was already undone
+I've marked this task as undone!
+[T] [ ] read
+Bye. Hope to see you again!
