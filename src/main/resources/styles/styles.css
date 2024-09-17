@@ -1,0 +1,15 @@
+/* styles.css */
+.message-box {
+    -fx-background-color: darkgreen;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-border-radius: 20;
+    -fx-border-width: 2;
+    -fx-border-color: #006400; /* Dark green border color */
+}
+
+.message-box .message {
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+}
