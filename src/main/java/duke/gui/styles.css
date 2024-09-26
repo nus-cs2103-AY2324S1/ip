@@ -1,0 +1,43 @@
+#mainWindow {
+    -fx-background-color: #222;
+}
+
+/* Style for all dialog boxes (user and Duke) */
+.dialog-box {
+    -fx-background-radius: 5px; /* Rounded edges for all dialog boxes */
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+/* Style for user message dialog box */
+.user-dialog-box {
+    -fx-background-color: #87CEEB; /* Lighter blue background color for user messages */
+}
+
+/* Style for Duke's message dialog box */
+.duke-dialog-box {
+    -fx-background-color: #0074D9; /* Original blue background color for Duke's messages */
+}
+
+/* Style for message text */
+.dialog-text {
+    -fx-text-fill: black; /* Change text color to black */
+    -fx-font-size: 14px;
+}
+
+/* Style for user input box */
+.text-field {
+    -fx-background-color: white; /* Change background color to white */
+    -fx-border-color: #0074D9;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-font-size: 14px;
+    -fx-text-fill: black; /* Change text color to black */
+}
+
+/* Style for send button */
+.button {
+    -fx-background-color: #0074D9;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
