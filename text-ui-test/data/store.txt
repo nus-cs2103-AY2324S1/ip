@@ -1,0 +1,34 @@
+
+[T][X] read book
+[T][X] return book
+[T][ ] buy bread
+[T][ ] borrow book
+[D][ ] return book (by: Sunday)
+[E][ ] project meeting (from: Mon 2pm to: Fri 4pm)
+[T][ ] read book
+[T][ ] return book
+[T][ ] buy bread
+[T][ ] borrow book
+[D][ ] return book (by: Sunday)
+[E][ ] project meeting (from: Mon 2pm to: Fri 4pm)
+[T][ ] read book
+[T][ ] return book
+[T][ ] buy bread
+[T][ ] read book
+[T][ ] return book
+[T][ ] buy bread
+[T][ ] borrow book
+[D][ ] return book (by: Sunday)
+[E][ ] project meeting (from: Mon 2pm to: Fri 4pm)
+[T][ ] read book
+[T][ ] return book
+[T][ ] buy bread
+[T][ ] borrow book
+[D][ ] return book (by: Sunday)
+[E][ ] project meeting (from: Mon 2pm to: Fri 4pm)
+[T][ ] read book
+[T][ ] return book
+[T][ ] buy bread
+[T][ ] borrow book
+[D][ ] return book (by: Sunday)
+[E][ ] project meeting (from: Mon 2pm to: Fri 4pm)
