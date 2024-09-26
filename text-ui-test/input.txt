@@ -1,0 +1,5 @@
+deadline CS2103T Homework /by 24 August
+todo Math
+event Birthday /from 24 June /to 24 June
+list
+bye
