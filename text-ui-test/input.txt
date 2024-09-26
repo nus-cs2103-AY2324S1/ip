@@ -1,0 +1,4 @@
+todo sleep
+deadline cs2103T ip /by thurs 2359
+event lak class /from thur 6pm /to thur 8pm
+bye
