@@ -1,7 +1,67 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+ ____                
+|  _ \  _____  _____ 
+| |/ / |  _  ||  _  |
+| |\ \ | |_| || |_| |
+|_| \_\|_____||_____|
+Hello! I am Roo!!
+What can I do for you ah?
 
+All tasks cleared
+
+"[T][ ]  borrow book" added :)
+Now got 1 task liao T_T
+
+"[T][ ]  drink water" added :)
+Now got 2 task liao T_T
+
+"[E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM" added :)
+Now got 3 task liao T_T
+
+"[D][ ]  cs2103t by: 28 Aug 2023 12:44 PM" added :)
+Now got 4 task liao T_T
+
+Although I dunwan to list... But here is your list:
+1. [T][ ]  borrow book
+2. [T][ ]  drink water
+3. [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+4. [D][ ]  cs2103t by: 28 Aug 2023 12:44 PM
+
+Yay! "[T][x]  borrow book" done liao!!
+
+Yay! "[E][x]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM" done liao!!
+
+Hmm... Why just now don't mark "[E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM" as done properly...
+
+Yay! "[T][x]  drink water" done liao!!
+
+Although I dunwan to list... But here is your list:
+1. [T][x]  borrow book
+2. [T][x]  drink water
+3. [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+4. [D][ ]  cs2103t by: 28 Aug 2023 12:44 PM
+
+"[E][ ]  123456 from: 29 Aug 2023 01:56 PM to: 30 Aug 2023 12:00 AM" added :)
+Now got 5 task liao T_T
+
+Okay!! Task "[T][x]  borrow book" removed :)
+You still have 4 tasks in the list
+
+"[D][ ]  abcde by: 29 Aug 2023 12:44 PM" added :)
+Now got 5 task liao T_T
+
+Yay! "[D][x]  abcde by: 29 Aug 2023 12:44 PM" done liao!!
+
+Your task on 2023-08-29...
+- [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+- [E][ ]  123456 from: 29 Aug 2023 01:56 PM to: 30 Aug 2023 12:00 AM
+- [D][x]  abcde by: 29 Aug 2023 12:44 PM
+
+Although I dunwan to list... But here is your list:
+1. [T][x]  drink water
+2. [E][ ]  st1131 from: 29 Aug 2023 12:34 PM to: 30 Aug 2023 12:00 PM
+3. [D][ ]  cs2103t by: 28 Aug 2023 12:44 PM
+4. [E][ ]  123456 from: 29 Aug 2023 01:56 PM to: 30 Aug 2023 12:00 AM
+5. [D][x]  abcde by: 29 Aug 2023 12:44 PM
+
+Ciao! Hope to see you soon yorr!!
