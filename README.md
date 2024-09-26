@@ -1,24 +1,52 @@
-# Duke project template
+# MattBot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+🚀 Introducing **MattBot**: Your Ultimate Task Management Assistant! 📆
 
-## Setting up in Intellij
+Are you drowning in a sea of to-dos, overwhelmed by deadlines, and struggling to keep up with your busy schedule? Say goodbye to chaos and hello to efficiency with MattBot – your new personal task management assistant!
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+🌟 Why Choose MattBot? 🌟
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+- 📌 **Seamless Task Management**: MattBot effortlessly organizes your tasks, events, and deadlines all in one place, ensuring nothing slips through the cracks.
+
+- 🗓️ **Smart Event Scheduler**: Never miss an important meeting or appointment again! MattBot helps you schedule events.
+
+- 🚀 **Effortless Deadlines**: Set deadlines with ease, and MattBot will keep you updated on your progress and notify you when time is running out.
+
+- 🔍 **Advanced Search**: Quickly find the information you need with powerful search capabilities. No more digging through endless notes or calendars!
+
+- ~~📊 Analytics & Insights: Gain valuable insights into your productivity trends with MattBot's data-driven analytics. Understand where your time goes and make improvements.~~
+
+- ~~🔒 Security First: Your data is your business, and we take security seriously. MattBot employs state-of-the-art encryption to keep your information safe and sound.~~
+
+- 📱 Cross-Platform Access: Access MattBot on your preferred device – whether it's your smartphone, tablet, or computer. Stay organized wherever you are!
+
+- ~~🤖 AI-Powered Assistance: MattBot utilizes cutting-edge artificial intelligence to adapt to your unique needs, offering smart suggestions and automating repetitive tasks.~~
+
+- ~~🎯 Goal Tracking: Set and track your goals effortlessly with MattBot's goal management feature. Achieve your dreams one step at a time!~~
+
+🎁 Special Offer: Try MattBot today and receive a 7-day free trial of our premium features!
+
+🚀 Don't let disorganization hold you back. Take control of your tasks, events, and deadlines with MattBot – your ultimate task management assistant!
+
+👉 Get started now at [www.SungMatt.com/MattBot](http://www.SungMatt.com/MattBot) and experience the future of productivity! 👈
+
+MattBot – Your Tasks, Events, and Deadlines, All in One Place! 📅✅
+
+To do:
+- [ ] Add GUI
+- [ ] Conquer the world
+
+What MattBot can't do _yet_
+
+1. Eat Lunch
+2. Eat Dinner
+
+```java
+// You can't use it elsewhere, but here's a codeblock!
+while(true) {
+    sleep(100);
+}
+```
+
+User Testimonies
+> MattBot is the best task manager made, ever!" - Abraham Lincoln
