@@ -1,7 +1,49 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+What's up I am adam.adam
+so like what do you want?
+I added this todo to the list of endless work you have:
+[T][ ]  test
+1 adam.tasks in this list, stop procrasinating them!!!
+Here are the amount of hard labor you have in your lists:
+1. [T][ ]  test
+Congrats on getting one step closer to achieving true happines, I have marked this task as complete
+[T][X]  test
+I added this event to your list, congrats on having a life outside of work:
+[E][ ]  project (from: Oct 10 2010 to: Oct 10 2011)
+2 adam.tasks in this list, stop procrasinating them!!!
+I have added this deadline to the list, good luck on remembering it one day before deadline:
+[D][ ]  homework (by: Oct 10 2020)
+3 adam.tasks in this list, stop procrasinating them!!!
+Here are the amount of hard labor you have in your lists:
+1. [T][X]  test
+2. [E][ ]  project (from: Oct 10 2010 to: Oct 10 2011)
+3. [D][ ]  homework (by: Oct 10 2020)
+turns out you still got more work to do, I have unmarked it
+[T][ ]  test
+Congrats on getting one step closer to achieving true happines, I have marked this task as complete
+[E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
+Congrats on getting one step closer to achieving true happines, I have marked this task as complete
+[D][X]  homework (by: Oct 10 2020)
+Here are the amount of hard labor you have in your lists:
+1. [T][ ]  test
+2. [E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
+3. [D][X]  homework (by: Oct 10 2020)
+I have removed the adam.tasks.Task, so just make up your mind next time:
+[D][X]  homework (by: Oct 10 2020)
+2 adam.tasks in this list, stop procrasinating them!!!
+Here are the amount of hard labor you have in your lists:
+1. [T][ ]  test
+2. [E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
+OOPS!!! I don't know what this means
+OOPS!!! Type in the first word you just entered
+OOPS!!! You need to add a description to these adam.tasks
+OOPS!!! You need to add one /by adam.command to indicate by when deadline is
+OOPS!!! You need to add one /from and one /to adam.command
+OOPS!!! You need to follow this adam.command by a number
+OOPS!!! The number you put in is more than the current item in your list
+I have removed the adam.tasks.Task, so just make up your mind next time:
+[T][ ]  test
+1 adam.tasks in this list, stop procrasinating them!!!
+I have removed the adam.tasks.Task, so just make up your mind next time:
+[E][X]  project (from: Oct 10 2010 to: Oct 10 2011)
+0 adam.tasks in this list, stop procrasinating them!!!
+Bye. Hope we don't see each other too often
