@@ -1,24 +1,121 @@
-# Duke project template
+# User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Project ~~Duke~~ Bloop
+This is a project template for a greenfield Java project.
+It's named after my favourite whale shark called Bloop 🐳😄.
+Given below are instructions on how to use it.
 
-## Setting up in Intellij
+Hello from
+```
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+██████╗░██╗░░░░░░█████╗░░█████╗░██████╗░
+██╔══██╗██║░░░░░██╔══██╗██╔══██╗██╔══██╗
+██████╦╝██║░░░░░██║░░██║██║░░██║██████╔╝
+██╔══██╗██║░░░░░██║░░██║██║░░██║██╔═══╝░
+██████╦╝███████╗╚█████╔╝╚█████╔╝██║░░░░░
+╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░░░░
+```
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Features of Bloop Bloop 🐳🐳
+- [x] Echo
+- [x] Todo
+- [x] DeadLine
+- [x] Event
+- [x] List
+- [x] Mark
+- [x] Unmark
+- [x] Stats
+- [x] Help
+- [ ] Stay tuned for more!!😄
+
+# SneakPeek
+"![alt text](Ui.png)"
+
+# Commands & Uses (At a Glance 👀)
+
+## Echo 🔊:
+> Bloop Bloop will echo back whatever you said.<br>
+> Use the command: **echo** _input_
+>
+> **Example**:
+>> You: echo I love you <br>
+>> Bloop: "Echo: I love you"
+
+
+## Todo ✏️:
+> Bloop Bloop will help you track the task you want to complete <br>
+> Use the command: **todo** _taskName_
+>
+> **Example**:
+>> You: todo laundry
+>> Bloop: Got it. I've added this task: <br>
+>>        [T][ ] laundry <br>
+>>        Now you have X tasks in the list
+
+
+## DeadLine ⏰:
+> Bloop Bloop will help you track a time-sensitive task! <br>
+> Use the command: **deadline** _taskName_ /by _date/time_ <br>
+>
+> **Example**:
+>> You: deadline homework /by 20/09/2023 1234 <br>
+>> Bloop: Got it. I've added this task: <br>
+>>        [D][ ] homework (by: 20 Sep 2023 12:34) <br>
+>>        Now you have X tasks in the list <br>
+
+
+## Event 📅:
+> Bloop Bloop will help you track an important event! <br>
+> Use the command: **event** /from _date/time_ /to _date/time_<br>
+> 
+> **Example**:
+>> You: event spa camp /from 22/09/2023 1200 /to 25/09/2023 1500<br>
+>> Bloop: Got it. I've added this task<br>
+>>        [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023 15:00)<br>
+>>        Now you have X tasks in the list
+
+
+## List 📝:
+> Bloop Bloop will list down all your tasks!!<br>
+> Use the command: **list**<br>
+> 
+> **Example**:
+>> 1. [T][ ] laundry<br>
+>> 2. [D][ ] homework (by: 20 Sep 2023 12:34)<br>
+>> 3. [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023 15:00)
+
+
+## Mark/Unmark/Stats ✔️❌:
+> Bloop Bloop will help you track your progress! <br>
+> Use the command: **mark** _taskNumber_ (to mark as done)<br>
+> Use the command: **unmark** _taskNumber_ (to mark as undone)<br>
+> Use the command: **stats** (to see your progress)<br>
+> **Example**:
+>>**mark 1**
+>>> 1. [T][X] laundry<br>
+>
+>> **mark2** <br>
+>> **mark3** 
+>>> 2. [D][X] homework (by: 20 Sep 2023 12:34)<br>
+>>> 3. [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023 15:00)
+>
+>> **unmark 1**
+>>> 1. [T][ ] laundry<br>
+>
+>> **list** <br> 
+>> 1. [T][X] laundry<br>
+>> 2. [D][X] homework (by: 20 Sep 2023 12:34)<br>
+>> 3. [E][ ] spa camp (from: 22 Sep 2023 12:00 to: 25 Sep 2023
+>
+> **Stats**
+>> Here are the task statistics: <br>
+>> Tasks completed this week: 2<br>
+>> 66.67% tasks completed this week<br>
+>> Total tasks completed: 2<br>
+>> 66.67% total tasks completed
+
+## Help 💁:
+> Can't remember all the commands? 
+> Dont worry!!! <br>
+> Use the command: **help** <br>
+> Bloop Bloop will assist you and list out all available commands!

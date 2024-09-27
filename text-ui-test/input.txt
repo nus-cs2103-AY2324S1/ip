@@ -1,0 +1,15 @@
+echo Choo Choo Train!!!
+add Fish
+todo Gamble until bankrupt
+deadline plan summer break 2.0 /by 2024
+event project meeting /from Mon 2pm /to 4pm
+list
+mark 1
+mark 2
+list
+unmark 1
+list
+delete 4
+list
+sup
+bye

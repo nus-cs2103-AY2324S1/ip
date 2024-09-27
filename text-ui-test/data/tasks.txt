@@ -1,0 +1,12 @@
+[A][ ] Fish
+[T][X] Gamble until bankrupt
+[D][ ] plan summer break 2.0 (by: 2024)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[A][ ] Fish
+[T][ ] Gamble until bankrupt
+[D][ ] plan summer break 2.0 (by: 2024)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+[A][ ] Fish
+[T][ ] Gamble until bankrupt
+[D][ ] plan summer break 2.0 (by: 2024)
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
