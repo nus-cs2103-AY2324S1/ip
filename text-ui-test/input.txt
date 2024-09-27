@@ -1,0 +1,7 @@
+deadline mop the floor /by 5pm
+event project meeting /from 6pm /to 8pm
+mark 1
+list
+mark 2
+list
+bye
