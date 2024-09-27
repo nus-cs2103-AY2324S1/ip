@@ -1,0 +1,27 @@
+hi
+todo
+todo get groceries
+todo go for a run
+deadline finish quiz /by Saturday
+deadline quiz 2 by Saturday
+event meeting /from Sat 1pm /to Sat 2pm
+event meeting from Sat 1pm to Sat 2pm
+event dinner /from Fri 6pm /to8pm
+event dinner /from Fri 6pm /to 8pm
+list
+mark 1
+mark 5
+mark 6
+mark 0
+list
+unmark 1
+unmark 6
+list
+delete 0
+delete 1
+delete 5
+delete 3
+list
+mark2
+mark w
+end
