@@ -1,0 +1,6 @@
+todo read
+event meeting /from 1pm /to 2pm
+deadline ip /by 2359
+mark 2
+delete 2
+list
