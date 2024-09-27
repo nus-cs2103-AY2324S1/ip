@@ -1,0 +1,20 @@
+todo new Task
+deadline new Deadline /by Sunday
+event new Event /from Sunday /to Monday
+mark 1
+unmark 1
+delete 1
+list
+BLAH BLAH BLAH
+event /from Sunday /to Monday
+event NEW EVENT /from /to
+deadline /by Sunday
+deadline NEW DEADLINE /by
+todo
+mark 20
+unmark 20
+delete 20
+delete
+mark
+unmark
+bye
