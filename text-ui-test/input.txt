@@ -1,0 +1,24 @@
+todo borrow book
+deadline return book /by 2023-08-30
+event project meeting /from 2023-08-30 /to 2023-08-31
+mark 2
+list
+unmark 2
+list
+delete 2
+deadline
+deadline read book
+deadline read book /
+deadline read book /to
+deadline read book /to
+event
+event read book
+event read book /
+event read book /from
+event read book /from
+event read book /from 2023-08-30
+event read book /from 2023-08-30 /
+event read book /from 2023-08-30 /to 2023-08-31
+event read book /from 2023-08-30 /to 2023-08-31
+invalid command
+bye

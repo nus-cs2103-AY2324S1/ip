@@ -1,0 +1,4 @@
+T | 0 | borrow book
+E | 0 | project meeting | 2023-08-30 | 2023-08-31
+E | 0 | read book | 2023-08-30 | 2023-08-31
+E | 0 | read book | 2023-08-30 | 2023-08-31
