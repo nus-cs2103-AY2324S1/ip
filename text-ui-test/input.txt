@@ -1,0 +1,15 @@
+todo read book
+deadline complete assignment /by tomorrow
+event go home /from friday /to sunday
+list
+mark 2
+mark 3
+list
+delete 7
+test
+unmark 2
+list
+unmark 5
+delete 2
+list
+bye
