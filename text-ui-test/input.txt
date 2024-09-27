@@ -1,0 +1,27 @@
+mark 1
+unmark this
+todo
+todo nothing
+deadline
+deadline nothing
+deadline nothing /to 1111-11-11
+deadline /by 1111-11-11
+deadline nothing /by tmr morning
+deadline nothing /by 1111-11-11
+event
+event nothing
+event nothing /from /to
+event nothing /from tmr morning /to later
+event nothing /from 1111-11-11 /to 1111-11-11
+mark 3
+list
+unmark 3
+list
+delete
+delete everything
+delete 10
+delete 2
+list
+list list
+idunno
+bye
