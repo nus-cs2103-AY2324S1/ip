@@ -1,0 +1,11 @@
+todo Read Book
+deadline Return book /by Next Wed
+todo Eat dinner
+event Important Meeting /from 2pm /to 4pm
+list
+mark 1
+mark 2
+mark 3
+unmark 3
+list
+bye
