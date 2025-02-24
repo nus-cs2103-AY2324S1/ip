@@ -1,7 +1,182 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+________________________________________________________________________________
+ ____          _
+|  _ \ _____ _| |___
+| | | | | | | | ____|
+| |_| | |_| | | |___
+|____/ \___/  \____/
+Hello! I'm Dot, let me help you finish your tasks on the dot!
+Datetime format for deadline/events: dd/MM/yyyy hhmm (e.g. 13/01/2020 1800)
+Type 'help' to access the help menu!
+What can I do(t) for you?
+________________________________________________________________________________
 
+________________________________________________________________________________
+Got it. I've added this task:
+  [T][ ] cs2103t lab
+Now you have 1 tasks in the list.
+________________________________________________________________________________
+
+________________________________________________________________________________
+..o.o..beep..Invalid use of todo, use: "todo <description>"
+Connecting the dots: No task description given
+________________________________________________________________________________
+
+________________________________________________________________________________
+Welcome to the help menu, DonT worry ^o^!
+<datetime> format for deadline/events: dd/MM/yyyy hhmm (e.g. 13/01/2020 1800)
+<date> format for whatsgoingon: dd/MM/yyyy (e.g. 13/01/2020)
+
+Commands:
+todo <description> – Add a todo task
+deadline <description> /by <deadline_description/datetime>
+event <description> /from <start_description/datetime> /to <start_description/datetime>
+list – List out all your tasks
+unmark <taskNo> – Unmark task based on no. on the list
+mark <taskNo> – Check off task based on no. on the list
+delete <taskNo> – Delete task based on no. on the list
+whatsgoingon <date> – See what deadlines/events are ongoing for given date
+find <query> - List out all tasks that fit <query>help – access this help menu
+bye – close Dot
+________________________________________________________________________________
+
+________________________________________________________________________________
+Got it. I've added this task:
+  [T][ ] find the key to your heart
+Now you have 2 tasks in the list.
+________________________________________________________________________________
+
+________________________________________________________________________________
+Got it. I've added this task:
+  [D][ ] cs2103t quiz (by: Monday 2359)
+Now you have 3 tasks in the list.
+________________________________________________________________________________
+
+________________________________________________________________________________
+Got it. I've added this task:
+  [D][ ] cs2100 quiz (by: Aug 28 2023 11PM)
+Now you have 4 tasks in the list.
+________________________________________________________________________________
+
+________________________________________________________________________________
+Got it. I've added this task:
+  [E][ ] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+Now you have 5 tasks in the list.
+________________________________________________________________________________
+
+________________________________________________________________________________
+..o.o..beep..Invalid use of event, use: "event <description> /from <start_desc> /to <end_desc>"
+Connecting the dots: Wrong format for event.
+________________________________________________________________________________
+
+________________________________________________________________________________
+Got it. I've added this task:
+  [E][ ] ta meeting (from: Aug 27 2023 9PM to: Aug 27 2023 10PM)
+Now you have 6 tasks in the list.
+________________________________________________________________________________
+
+________________________________________________________________________________
+1.[T][ ] cs2103t lab
+2.[T][ ] find the key to your heart
+3.[D][ ] cs2103t quiz (by: Monday 2359)
+4.[D][ ] cs2100 quiz (by: Aug 28 2023 11PM)
+5.[E][ ] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+6.[E][ ] ta meeting (from: Aug 27 2023 9PM to: Aug 27 2023 10PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Nice! I've marked this task as done:
+  [T][X] find the key to your heart
+________________________________________________________________________________
+
+________________________________________________________________________________
+Nice! I've marked this task as done:
+  [D][X] cs2100 quiz (by: Aug 28 2023 11PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Nice! I've marked this task as done:
+  [E][X] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Nice! I've marked this task as done:
+  [E][X] ta meeting (from: Aug 27 2023 9PM to: Aug 27 2023 10PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+1.[T][ ] cs2103t lab
+2.[T][X] find the key to your heart
+3.[D][ ] cs2103t quiz (by: Monday 2359)
+4.[D][X] cs2100 quiz (by: Aug 28 2023 11PM)
+5.[E][X] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+6.[E][X] ta meeting (from: Aug 27 2023 9PM to: Aug 27 2023 10PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+OK, I've marked this task as not done yet:
+  [E][ ] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+1.[T][ ] cs2103t lab
+2.[T][X] find the key to your heart
+3.[D][ ] cs2103t quiz (by: Monday 2359)
+4.[D][X] cs2100 quiz (by: Aug 28 2023 11PM)
+5.[E][ ] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+6.[E][X] ta meeting (from: Aug 27 2023 9PM to: Aug 27 2023 10PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+..o.o..beep..Invalid use of unmark, use: "unmark <task number>"
+Connecting the dots: No task number stated
+________________________________________________________________________________
+
+________________________________________________________________________________
+Invalid position.
+________________________________________________________________________________
+
+________________________________________________________________________________
+Finding the dots... to illuminate a constellation of tasks happening today!
+[E][ ] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Got it. I've added this task:
+  [E][ ] long (from: Jan 01 1999 12AM to: Feb 02 2222 12AM)
+Now you have 7 tasks in the list.
+________________________________________________________________________________
+
+________________________________________________________________________________
+..o.o..beep..Command not found..beep..
+Connecting the dots: Unknown command.
+________________________________________________________________________________
+
+________________________________________________________________________________
+Finding the dots... to illuminate a constellation of tasks happening today!
+[E][X] ta meeting (from: Aug 27 2023 9PM to: Aug 27 2023 10PM)
+[E][ ] long (from: Jan 01 1999 12AM to: Feb 02 2222 12AM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Task "[E][X] ta meeting (from: Aug 27 2023 9PM to: Aug 27 2023 10PM)" removed successfully!
+________________________________________________________________________________
+
+________________________________________________________________________________
+1.[T][ ] cs2103t lab
+2.[T][X] find the key to your heart
+3.[D][ ] cs2103t quiz (by: Monday 2359)
+4.[D][X] cs2100 quiz (by: Aug 28 2023 11PM)
+5.[E][ ] career fair (from: Aug 29 2023 9AM to: Aug 30 2023 6PM)
+6.[E][ ] long (from: Jan 01 1999 12AM to: Feb 02 2222 12AM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Here are the matching tasks in your list:
+1.[T][ ] cs2103t lab
+2.[D][ ] cs2103t quiz (by: Monday 2359)
+3.[D][X] cs2100 quiz (by: Aug 28 2023 11PM)
+________________________________________________________________________________
+
+________________________________________________________________________________
+Bye! DOnT forget to finish your tasks!
+________________________________________________________________________________
