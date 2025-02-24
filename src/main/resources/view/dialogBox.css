@@ -1,0 +1,25 @@
+/* styles.css */
+
+/* Style the Label with fx:id="dialog" */
+#dialog {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff; /* Text color */
+    -fx-padding: 10px; /* Padding around the Label */
+    -fx-border-radius: 5px; /* Rounded corners */
+    -fx-border-color: #ffffff; /* Border color */
+    -fx-background-insets: 0, 1;
+    -fx-border-width: 1px;
+    -fx-wrap-text: true;
+    -fx-background-radius: 5px;
+    -fx-background-color: #FF97A5; /* Set the background color */
+}
+
+#root {
+     -fx-border-radius: 5px; /* Rounded corners */
+        -fx-border-color: #ffffff;
+}
+
+
+
+
+
