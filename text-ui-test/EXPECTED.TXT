@@ -1,7 +1,72 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello from Wiz
+What can I do for you?
 
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+ I've added this duke.task:
+   [T][ ] read book
+ Now you have 1 tasks in the list.
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+ I've added this duke.task:
+   [T][ ] buy bread
+ Now you have 2 tasks in the list.
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+ I've added this duke.task:
+   [D][ ] return books (by: Sunday)
+ Now you have 3 tasks in the list.
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+ I've added this duke.task:
+   [E][ ] project meeting (from: Mon 2pm to:4pm)
+ Now you have 4 tasks in the list.
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+duke.task.Task List:
+ 1. [T][ ] read book
+ 2. [T][ ] buy bread
+ 3. [D][ ] return books (by: Sunday)
+ 4. [E][ ] project meeting (from: Mon 2pm to:4pm)
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+ Marked as done:
+   [T][X] buy bread
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+duke.task.Task List:
+ 1. [T][ ] read book
+ 2. [T][X] buy bread
+ 3. [D][ ] return books (by: Sunday)
+ 4. [E][ ] project meeting (from: Mon 2pm to:4pm)
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+ Marked as not done yet:
+   [T][ ] buy bread
+--------------------------
+--------------------------
+--------------------------
+--------------------------
+duke.task.Task List:
+ 1. [T][ ] read book
+ 2. [T][ ] buy bread
+ 3. [D][ ] return books (by: Sunday)
+ 4. [E][ ] project meeting (from: Mon 2pm to:4pm)
+--------------------------
+Bye. Hope to see you again soon!
