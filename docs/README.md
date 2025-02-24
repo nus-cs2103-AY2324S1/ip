@@ -1,29 +1,118 @@
-# User Guide
+# Bob Bot User Guide
 
-## Features 
+## Features
+1. Help
+1. Adding Task
+1. Deleting Task
+1. Marking Task
+1. Unmarking Task
+1. List out your tasks
+1. Finding tasks by word (regex)
 
-### Feature-ABC
+### Help
+Direct users to the user guide.
 
-Description of the feature.
+### Adding Tasks
+Users can add 3 types of tasks (Todo, Deadline and Event) into their task list.
 
-### Feature-XYZ
+### Deleting Tasks
+Users can delete all of their tasks
 
-Description of the feature.
+### Marking and Unmark task
+User can mark and unmark all of their tasks
 
+### Listing out of tasks
+Users can list out their tasks to visualize it.
+
+### Find tasks via word
+Users can find tasks with word
+
+---
 ## Usage
 
-### `Keyword` - Describe action
+### `help`: Direct users to the Help guide
+To use:
+`help`
+This prints the URL for the User Guide.
+---
+### `todo`:  Creating a Task
+Syntax:
+`task [item]`
 
-Describe the action and its outcome.
+To use:
+`task cook`
+This schedules a task called cook
+---
+### `deadline`: Creating a Task with Deadline
+Syntax:
+`deadline [item] /by [time]`
+Note: `time` accepts input in `YYYY-MM-DD`
 
-Example of usage: 
+To use:
+`deadline Cook /by 2000-12-12`
+This prints a task called cook, with due on 12 Dec, 2000
+---
+### `event`: Creating a Event with start and end date
+Syntax:
+`event [event name] /from [time] /to [time]`
 
-`keyword (optional arguments)`
+To use:
+`event JCF /from today /to 1 week later`
+Schedule an event called JCF, from today to 1 week later
+---
+### `list`: List out all the task
+Syntax:
+`list`
 
-Expected outcome:
+To use:
+`list`
+Prints out a list of tasks
+---
+### `find`: find the task by word
+Syntax:
+`find [item]`
 
-Description of the outcome.
+To use:
+`find cat`
+To find a task called cat
+---
+### `mark`: mark task as done
+Syntax:
+`mark [index]`
 
-```
-expected output
-```
+To use:
+`mark 1`
+Mark the task at index 1 as done (1-indexing)
+---
+### `unmark`: mark task as undone
+Syntax:
+`unmark [index]`
+
+To use:
+`unmark 1`
+Mark the task at index 1 as undone (1-indexing)
+---
+### `find`: delete the task
+Syntax:
+`delete [task]`
+
+To use:
+`find cats`
+Finding a task called cats
+---
+### `delete`: delete the task
+Syntax:
+`delete [index]`
+
+To use:
+`delete 1`
+Delete the task at index 1 (1 indexing)
+---
+### `bye`: exit the program
+Syntax:
+`bye`
+
+To use:
+`bye`
+Exits the program
+---
