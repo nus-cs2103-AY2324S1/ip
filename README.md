@@ -1,24 +1,13 @@
-# Duke project template
+# Moira<sup>TM</sup>
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+A feisty chat bot to help you **manage your to-do list**! Optimized for use via a **Command Line Interface (CLI)**, simply type in a few simple commands and get Moira<sup>TM</sup> up to speed on your latest schedule so that you'll never forget a single thing again!
 
-## Setting up in Intellij
+<img src='docs/Ui.png' width='300'>
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## User Guide
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+For instructions on using the application, please click [here](https://github.com/wujy28/ip/tree/master/docs).
+
+## Project Background
+
+MoiraBot was completed as part of the individual project (iP) for the CS2103T Software Engineering course from NUS Computer Science. It is a greenfield project based on Project Duke, an educational software project designed to teach students how to utilize Java and SE principles to build a small software incrementally. More details can be found [here](https://nus-cs2103-ay2324s1.github.io/website/admin/ip-overview.html).
