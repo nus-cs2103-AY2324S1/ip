@@ -92,4 +92,9 @@ public class Task {
     public void setNote(String s) {
         this.note = s;
     }
+
+    public String getAgentString() {
+    return this.description + " | status: " + (this.isDone ? "done" : "not_done") +
+            (!this.note.isBlank() ? " | note: " + this.note : "");
+}
 }

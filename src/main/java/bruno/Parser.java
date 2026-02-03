@@ -3,6 +3,7 @@ package bruno;
 import bruno.exceptions.BrunoException;
 import bruno.exceptions.BrunoUnknownTaskException;
 import bruno.task.TaskType;
+import bruno.ai.AgentMode;
 
 /**
  * The Parser class is responsible for parsing the user input and calling methods to perform the
@@ -55,11 +56,25 @@ public class Parser {
                 return taskList.findTasks(input);
             case NOTE:
                 return taskList.addNote(input);
+            case AGENT:
+                String naturalLanguageCommand = parseAgentCommand(input);
+                AgentMode agent = new AgentMode(this, taskList, System.getenv("OPENAI_API_KEY"));
+                return agent.executeFromNaturalLanguage(naturalLanguageCommand);
+            case HELP:
+                return taskList.getUI().displayHelp();
             default:
                 throw new BrunoUnknownTaskException();
             }
         } catch (IllegalArgumentException e) {
             throw new BrunoUnknownTaskException();
         }
+    }
+
+    private String parseAgentCommand(String input) throws BrunoException {
+        String[] parts = input.split(" ", 2);
+        if (parts.length < 2 || parts[1].isBlank()) {
+            throw new BrunoException("The AGENT command requires a natural language command.");
+        }
+        return parts[1].trim();
     }
 }

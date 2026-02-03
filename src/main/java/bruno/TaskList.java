@@ -204,6 +204,17 @@ public class TaskList {
         return taskInfo;
     }
 
+    public String displayListForAgent() {
+    if (tasks.isEmpty()) return "(no tasks)";
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < tasks.size(); i++) {
+        sb.append(i + 1).append(") ").append(tasks.get(i).getString());
+        if (i < tasks.size() - 1) sb.append("\n");
+    }
+    return sb.toString();
+}
+
+
     /**
      * Displays all the tasks the user has on a given date.
      *
@@ -302,5 +313,14 @@ public class TaskList {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns the UI instance associated with this TaskList.
+     *
+     * @return The UI instance.
+     */
+    public UI getUI() {
+        return ui;
     }
 }
