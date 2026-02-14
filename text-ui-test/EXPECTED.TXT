@@ -1,7 +1,89 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+- - - - - - - - - - - - - - - - - - - -
+                ;~~,__,
+:-….,———-‘`----/   ._.*
+ `-,,,   BRUNO   ,’
+     ;   ,~.——;  /
+     :  |     :  |
+     `_ ’     `_ ‘
+Woof Woof! I'm bruno.Bruno 🐾
+How can I help you?
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof. I have added this task:
+		[T][ ] buy eggs
+	Now you have 1 task in your list.
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof. I have added this task:
+		[T][ ] break eggs
+	Now you have 2 tasks in your list.
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof. I have added this task:
+		[T][ ] cook eggs
+	Now you have 3 tasks in your list.
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof. I have added this task:
+		[D][ ] take bread out of oven (by: 6pm)
+	Now you have 4 tasks in your list.
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof Woof! I have marked the task as done.
+	[T][X] buy eggs
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof Woof! I have marked the task as done.
+	[T][X] break eggs
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Here are the tasks in your list:
+		1. [T][X] buy eggs
+		2. [T][X] break eggs
+		3. [T][ ] cook eggs
+		4. [D][ ] take bread out of oven (by: 6pm)
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof. I have added this task:
+		[E][ ] cooking session (from: 7pm to: 9pm)
+	Now you have 5 tasks in your list.
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof Woof! I have marked the task as done.
+	[T][X] cook eggs
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Woof Woof! I have marked the task as done.
+	[E][X] cooking session (from: 7pm to: 9pm)
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Here are the tasks in your list:
+		1. [T][X] buy eggs
+		2. [T][X] break eggs
+		3. [T][X] cook eggs
+		4. [D][ ] take bread out of oven (by: 6pm)
+		5. [E][X] cooking session (from: 7pm to: 9pm)
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	OK, I have marked the task as not done yet.
+	[T][ ] buy eggs
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	OK, I have marked the task as not done yet.
+	[T][ ] break eggs
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	OK, I have marked the task as not done yet.
+	[T][ ] cook eggs
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Here are the tasks in your list:
+		1. [T][ ] buy eggs
+		2. [T][ ] break eggs
+		3. [T][ ] cook eggs
+		4. [D][ ] take bread out of oven (by: 6pm)
+		5. [E][X] cooking session (from: 7pm to: 9pm)
+- - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - -
+	Bye Bye! Hope to see you again soon! 🐶
+- - - - - - - - - - - - - - - - - - - -

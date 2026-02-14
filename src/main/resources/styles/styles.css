@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Monaco;
+}
+
+.rectangle {
+    -fx-arc-width: 20;
+    -fx-arc-height: 20;
+}
+
