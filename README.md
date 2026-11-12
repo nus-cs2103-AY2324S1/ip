@@ -13,7 +13,6 @@ from a console echo bot to a released, tested GUI app.
 [![JUnit](https://img.shields.io/badge/JUnit-5.10-25A162?logo=junit5&logoColor=white)](src/test/java/duke)
 
 ![Commits](https://img.shields.io/badge/commits-80-555?style=flat-square)
-![Increments](https://img.shields.io/badge/tagged%20increments-38-555?style=flat-square)
 ![Java](https://img.shields.io/badge/Java-1.6k%20lines-555?style=flat-square)
 
 </div>
@@ -82,7 +81,7 @@ flowchart LR
 
 ## Coding stats
 
-From git; WakaTime only caught the last week (it started in late Sep 2023).
+From git.
 
 | | |
 |---|---|
