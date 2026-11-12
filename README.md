@@ -8,8 +8,8 @@ guarded delete-all. My CS2103 individual project: one Java codebase grown increm
 from a console echo bot to a released, tested GUI app.
 
 [![Java](https://img.shields.io/badge/Java-11-ED8B00?logo=openjdk&logoColor=white)](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/Parser.java#L130-L243)
-[![JavaFX](https://img.shields.io/badge/JavaFX-GUI-007396?logo=java&logoColor=white)](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/ChatterBox.java)
-[![Gradle](https://img.shields.io/badge/Gradle-shadow%20jar-02303A?logo=gradle&logoColor=white)](build.gradle)
+[![JavaFX](https://img.shields.io/badge/JavaFX-007396?logo=java&logoColor=white)](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/ChatterBox.java)
+[![Gradle](https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=white)](build.gradle)
 [![JUnit](https://img.shields.io/badge/JUnit-5.10-25A162?logo=junit5&logoColor=white)](src/test/java/duke)
 
 ![Commits](https://img.shields.io/badge/commits-80-555?style=flat-square)
@@ -73,7 +73,7 @@ flowchart LR
 | Skill | Where it shows (click the links for the code) | Docs |
 |---|---|---|
 | **Java and OOP**<br><img alt="Java" src="https://img.shields.io/badge/Java-11-ED8B00?logo=openjdk&logoColor=white"> | Abstract `Task` with three subclasses, a parser, custom exceptions, assertions: [`Parser`](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/Parser.java#L130-L243) | [Java 11 API](https://docs.oracle.com/en/java/javase/11/docs/api/) |
-| **Desktop GUI**<br><img alt="JavaFX" src="https://img.shields.io/badge/JavaFX-GUI-007396?logo=java&logoColor=white"> | Chat-style window and dialog bubbles: [`ChatterBox`](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/ChatterBox.java), [`DialogBox`](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/DialogBox.java) | [JavaFX](https://openjfx.io/) |
+| **Desktop GUI**<br><img alt="JavaFX" src="https://img.shields.io/badge/JavaFX-007396?logo=java&logoColor=white"> | Chat-style window and dialog bubbles: [`ChatterBox`](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/ChatterBox.java), [`DialogBox`](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/DialogBox.java) | [JavaFX](https://openjfx.io/) |
 | **File persistence** | Save on every change, load at start: [`Storage`](https://github.com/sp4ce-cowboy/ip/blob/7fc98c35782676316efcce0303ce35eaec15c2d3/src/main/java/duke/Storage.java#L50-L112) | |
 | **Testing** | JUnit 5 tests for the parser, storage, UI and app ([`src/test`](src/test/java/duke)), and a text-UI regression script ([`text-ui-test`](text-ui-test)) | [JUnit 5](https://junit.org/junit5/docs/current/user-guide/) |
 | **Build and release** | Gradle with a Shadow fat jar and Checkstyle; tagged releases | [Gradle](https://docs.gradle.org/) |
