@@ -68,7 +68,7 @@ flowchart LR
 - **GUI:** `ChatterBox` builds the JavaFX window; `DialogBox` renders each exchange as a bubble
   with an avatar.
 
-## Skills shown
+## Skills covered
 
 | Skill | Where it shows (click the links for the code) | Docs |
 |---|---|---|
